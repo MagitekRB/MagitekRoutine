@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ff14bot.Objects;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Shapes;
 
@@ -337,8 +338,17 @@ namespace Magitek.Utilities
             Bunshin = 1954,
             PhantomKamaitachiReady = 2723,
             SupplicationReady = 3827,
+
+        #region Viper
+            Swiftscaled = 3669,
+            FlankstungVenom = 3645,
+            HuntersInstinct = 3668,
+            FellhuntersVenom = 3659,
+            FellskinsVenom = 3660,
+        #endregion
+
             SepulchreReady = 3828;
-        
+
         private const int
             Invincibility0 = 981,
             Invincibility1 = 969,
