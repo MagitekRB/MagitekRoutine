@@ -976,6 +976,114 @@ namespace Magitek.Utilities
         public static readonly SpellData TheEnd = DataManager.GetSpellData(24858);
         #endregion
 
+        //VPR
+        #region VPR
+
+        public static readonly SpellData SteelFangs         = DataManager.GetSpellData(34606); 
+        public static readonly SpellData DreadFangs         = DataManager.GetSpellData(34607); 
+        public static readonly SpellData SteelMaw           = DataManager.GetSpellData(34614); 
+        public static readonly SpellData DreadMaw           = DataManager.GetSpellData(34615); 
+        public static readonly SpellData Dreadwinder        = DataManager.GetSpellData(34620);  
+        public static readonly SpellData HuntersCoil        = DataManager.GetSpellData(34621);  
+        public static readonly SpellData SwiftskinsCoil     = DataManager.GetSpellData(34622);  
+        public static readonly SpellData PitofDread         = DataManager.GetSpellData(34623);  
+        public static readonly SpellData HuntersDen         = DataManager.GetSpellData(34624);  
+        public static readonly SpellData SwiftskinsDen      = DataManager.GetSpellData(34625);  
+        public static readonly SpellData Reawaken           = DataManager.GetSpellData(34626);  
+        public static readonly SpellData WrithingSnap       = DataManager.GetSpellData(34632);  
+        public static readonly SpellData UncoiledFury       = DataManager.GetSpellData(34633);  
+        public static readonly SpellData Slither            = DataManager.GetSpellData(34646);  
+        public static readonly SpellData SerpentsIre        = DataManager.GetSpellData(34647);  
+        public static readonly SpellData SerpentsTail       = DataManager.GetSpellData(35920);  
+        public static readonly SpellData Twinfang           = DataManager.GetSpellData(35921);  
+        public static readonly SpellData Twinblood          = DataManager.GetSpellData(35922);  
+        public static readonly SpellData SteelFangs2        = DataManager.GetSpellData(39157); 
+        public static readonly SpellData PiercingFangs      = DataManager.GetSpellData(39158);  
+        public static readonly SpellData HuntersSting       = DataManager.GetSpellData(39159);  
+        public static readonly SpellData SwiftskinsSting    = DataManager.GetSpellData(39160);  
+        public static readonly SpellData BarbarousBite      = DataManager.GetSpellData(39161);  
+        public static readonly SpellData RavenousBite       = DataManager.GetSpellData(39163);  
+        public static readonly SpellData HuntersSnap        = DataManager.GetSpellData(39166);  
+        public static readonly SpellData SwiftskinsCoil2    = DataManager.GetSpellData(39167);  
+        public static readonly SpellData UncoiledFury2      = DataManager.GetSpellData(39168);  
+        public static readonly SpellData FirstGeneration    = DataManager.GetSpellData(39169);  
+        public static readonly SpellData SecondGeneration   = DataManager.GetSpellData(39170);  
+        public static readonly SpellData ThirdGeneration    = DataManager.GetSpellData(39171);  
+        public static readonly SpellData FourthGeneration   = DataManager.GetSpellData(39172);  
+        public static readonly SpellData Ouroboros          = DataManager.GetSpellData(39173);  
+        public static readonly SpellData DeathRattle        = DataManager.GetSpellData(39174);  
+        public static readonly SpellData TwinfangBite       = DataManager.GetSpellData(39175);  
+        public static readonly SpellData TwinbloodBite      = DataManager.GetSpellData(39176);  
+        public static readonly SpellData UncoiledTwinfang   = DataManager.GetSpellData(39177);  
+        public static readonly SpellData FirstLegacy        = DataManager.GetSpellData(39179);  
+        public static readonly SpellData SecondLegacy       = DataManager.GetSpellData(39180);  
+        public static readonly SpellData ThirdLegacy        = DataManager.GetSpellData(39181);  
+        public static readonly SpellData FourthLegacy       = DataManager.GetSpellData(39182);  
+        public static readonly SpellData SerpentsTail2      = DataManager.GetSpellData(39183);  
+        public static readonly SpellData Slither2           = DataManager.GetSpellData(39184);  
+        public static readonly SpellData SnakeScales        = DataManager.GetSpellData(39185);  
+        public static readonly SpellData Backlash           = DataManager.GetSpellData(39186);  
+        public static readonly SpellData Backlash2          = DataManager.GetSpellData(39187);  
+        public static readonly SpellData FuriousBacklash    = DataManager.GetSpellData(39188);  
+        public static readonly SpellData RattlingCoil       = DataManager.GetSpellData(39189);  
+        public static readonly SpellData WorldSwallower     = DataManager.GetSpellData(39190);  
+
+        #endregion
+
+        //PIC
+        #region PIC
+
+        public static readonly SpellData FireinRed                  = DataManager.GetSpellData(34650); 
+        public static readonly SpellData BlizzardinCyan             = DataManager.GetSpellData(34653); 
+        public static readonly SpellData FireIIinRed                = DataManager.GetSpellData(34656); 
+        public static readonly SpellData BlizzardIIinCyan           = DataManager.GetSpellData(34659); 
+        public static readonly SpellData HolyinWhite                = DataManager.GetSpellData(34662); 
+        public static readonly SpellData CometinBlack               = DataManager.GetSpellData(34663); 
+        public static readonly SpellData MogoftheAges               = DataManager.GetSpellData(34676); 
+        public static readonly SpellData HammerStamp                = DataManager.GetSpellData(34678); 
+        public static readonly SpellData StarPrism                  = DataManager.GetSpellData(34681); 
+        public static readonly SpellData SubtractivePalette         = DataManager.GetSpellData(34683); 
+        public static readonly SpellData Smudge                     = DataManager.GetSpellData(34684); 
+        public static readonly SpellData TemperaCoat                = DataManager.GetSpellData(34685); 
+        public static readonly SpellData TemperaGrassa              = DataManager.GetSpellData(34686); 
+        public static readonly SpellData RainbowDrip                = DataManager.GetSpellData(34688); 
+        public static readonly SpellData CreatureMotif              = DataManager.GetSpellData(34689); 
+        public static readonly SpellData WeaponMotif                = DataManager.GetSpellData(34690); 
+        public static readonly SpellData LandscapeMotif             = DataManager.GetSpellData(34691); 
+        public static readonly SpellData LivingMuse                 = DataManager.GetSpellData(35347); 
+        public static readonly SpellData SteelMuse                  = DataManager.GetSpellData(35348); 
+        public static readonly SpellData ScenicMuse                 = DataManager.GetSpellData(35349); 
+        public static readonly SpellData FireinRed2                 = DataManager.GetSpellData(39191); 
+        public static readonly SpellData AeroinGreen                = DataManager.GetSpellData(39192); 
+        public static readonly SpellData WaterinBlue                = DataManager.GetSpellData(39193); 
+        public static readonly SpellData BlizzardinCyan2            = DataManager.GetSpellData(39194); 
+        public static readonly SpellData StoneinYellow              = DataManager.GetSpellData(39195); 
+        public static readonly SpellData ThunderinMagenta           = DataManager.GetSpellData(39196); 
+        public static readonly SpellData HolyinWhite2               = DataManager.GetSpellData(39198); 
+        public static readonly SpellData CometinBlack2              = DataManager.GetSpellData(39199); 
+        public static readonly SpellData PomMotif                   = DataManager.GetSpellData(39200); 
+        public static readonly SpellData WingMotif                  = DataManager.GetSpellData(39201);  
+        public static readonly SpellData ClawMotif                  = DataManager.GetSpellData(39202);  
+        public static readonly SpellData MawMotif                   = DataManager.GetSpellData(39203);  
+        public static readonly SpellData CreatureMotif2             = DataManager.GetSpellData(39204);  
+        public static readonly SpellData PomMuse                    = DataManager.GetSpellData(39205);  
+        public static readonly SpellData WingedMuse                 = DataManager.GetSpellData(39206);  
+        public static readonly SpellData ClawedMuse                 = DataManager.GetSpellData(39207);  
+        public static readonly SpellData FangedMuse                 = DataManager.GetSpellData(39208);  
+        public static readonly SpellData LivingMuse2                = DataManager.GetSpellData(39209);  
+        public static readonly SpellData Smudge2                    = DataManager.GetSpellData(39210);  
+        public static readonly SpellData TemperaCoat2               = DataManager.GetSpellData(39211);  
+        public static readonly SpellData TemperaGrassa2             = DataManager.GetSpellData(39212);  
+        public static readonly SpellData SubtractivePalette2        = DataManager.GetSpellData(39213);  
+        public static readonly SpellData ReleaseSubtractivePalette  = DataManager.GetSpellData(39214);  
+        public static readonly SpellData AdventofChocobastion       = DataManager.GetSpellData(39215); 
+        public static readonly SpellData StarPrism2                 = DataManager.GetSpellData(39216); 
+        public static readonly SpellData StarPrism3                 = DataManager.GetSpellData(39217); 
+        public static readonly SpellData MogoftheAges2              = DataManager.GetSpellData(39782); 
+        public static readonly SpellData RetributionoftheMadeen     = DataManager.GetSpellData(39783); 
+
+        #endregion
+
         //PVP
         #region PVP
         /* How to find Combo uint value ?
