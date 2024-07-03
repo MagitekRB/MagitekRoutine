@@ -214,7 +214,7 @@ public class CombatRoutineLoader : CombatRoutine
 
         try
         {
-            var version = File.ReadAllText(VersionPath);
+            var version = File.ReadAllText(VersionPath).Trim();
             return version;
         }
         catch
@@ -311,7 +311,7 @@ public class CombatRoutineLoader : CombatRoutine
         string responseMessageBytes;
         try
         {
-            responseMessageBytes = await response.Content.ReadAsStringAsync();
+            responseMessageBytes = (await response.Content.ReadAsStringAsync()).Trim();
         }
         catch (Exception e)
         {
