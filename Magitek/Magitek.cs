@@ -43,6 +43,7 @@ using Application = System.Windows.Application;
 using BaseSettings = Magitek.Models.Account.BaseSettings;
 using Debug = Magitek.ViewModels.Debug;
 using Regexp = System.Text.RegularExpressions;
+using System.IO;
 
 namespace Magitek
 {
@@ -52,10 +53,11 @@ namespace Magitek
         private DateTime _pulseLimiter, _saveFormTime;
         private ClassJobType CurrentJob { get; set; }
         private ushort CurrentZone { get; set; }
+        private static readonly string VersionPath = Path.Combine(Environment.CurrentDirectory, @"Routines\Magitek\Version.txt");
 
         public override void Initialize()
         {
-            Logger.WriteInfo("Initializing ...");
+            Logger.WriteInfo($"Initializing Version: {File.ReadAllText(VersionPath).Trim()} ...");
             ViewModels.BaseSettings.Instance.RoutineSelectedInUi = RotationManager.CurrentRotation.ToString();
             ViewModels.BaseSettings.Instance.SettingsFirstInitialization = true;
             DispelManager.Reset();
