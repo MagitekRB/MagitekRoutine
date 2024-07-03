@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using Clio.Utilities;
 using ff14bot.AClasses;
@@ -229,7 +230,27 @@ public class CombatRoutineLoader : CombatRoutine
         _latestVersion = GetLatestVersion().Result;
         var latest = _latestVersion;
 
-        if (local == latest || latest == null || local.StartsWith("pre-"))
+        if (local != null && (local.StartsWith("pre-") || local.StartsWith("test-")))
+        {
+            var result = MessageBox.Show(
+                $"You are running version {local}. Would you like to keep using this version (OK) or would you like to update to the most recent release version {latest} (Cancel)?",
+                "Version Update",
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.OK)
+            {
+                LoadProduct();
+                return;
+            }
+            if (result == MessageBoxResult.Cancel)
+            {
+                // Force update
+                local = null;
+            }
+        }
+
+        if (local == latest || latest == null)
         {
             LoadProduct();
             return;
