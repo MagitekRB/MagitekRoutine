@@ -195,6 +195,12 @@ namespace Magitek.Extensions
                     return false;
                 }
 
+                // If Facing is dis-allowed and the action would cause a new facing check then don't cast
+                if (GameSettingsManager.FaceTargetOnAction
+                    && RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing)
+                    && target != Core.Me)
+                    return false;
+
                 return true;
             }
 
