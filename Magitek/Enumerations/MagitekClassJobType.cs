@@ -56,6 +56,12 @@ namespace Magitek.Enumerations
         [Description("SAM")]
         Samurai = ClassJobType.Samurai,
 
+        [Description("PCT")]
+        Pictomancer = ClassJobType.Pictomancer,
+
+        [Description("VPR")]
+        Viper = ClassJobType.Viper,
+
         [Description("BLU")]
         BlueMage = ClassJobType.BlueMage
     }

@@ -13,6 +13,7 @@ using Magitek.Models.Machinist;
 using Magitek.Models.Monk;
 using Magitek.Models.Ninja;
 using Magitek.Models.Paladin;
+using Magitek.Models.Pictomancer;
 using Magitek.Models.Reaper;
 using Magitek.Models.RedMage;
 using Magitek.Models.Sage;
@@ -21,6 +22,7 @@ using Magitek.Models.Scholar;
 using Magitek.Models.Summoner;
 using Magitek.Models.Warrior;
 using Magitek.Models.WhiteMage;
+using Magitek.Models.Viper;
 using Magitek.Toggles;
 using Magitek.Utilities;
 using Newtonsoft.Json;
@@ -261,6 +263,14 @@ namespace Magitek.ViewModels
 
                 case "Sage":
                     JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SageSettings.Instance));
+                    break;
+
+                case "Pictomancer":
+                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(PictomancerSettings.Instance));
+                    break;
+
+                case "Viper":
+                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ViperSettings.Instance));
                     break;
 
                 case "BlueMage":

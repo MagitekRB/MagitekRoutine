@@ -206,9 +206,6 @@ namespace Magitek.Logic.Paladin
             if (!Spells.BladeOfHonor.IsKnownAndReady())
                 return false;
 
-            if (!PaladinRoutine.CanContinueComboAfter(Spells.BladeOfValor))
-                return false;
-
             return await Spells.BladeOfHonor.Cast(Core.Me.CurrentTarget);
         }
     }

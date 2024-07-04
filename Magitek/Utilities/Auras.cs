@@ -361,9 +361,14 @@ namespace Magitek.Utilities
             Aetherhues2 = 3676,
             SubtractivePalette = 3674,
             TempuraCoat = 3686,
+            TempuraGrassa = 3687,
             StarryMuse = 3685,
             SubtractiveSpectrum = 3690,
-            Hyperphantasia = 3688;
+            Hyperphantasia = 3688,
+            RainbowBright = 3679,
+            Starstruck = 3681,
+            MonochromeTones = 3691,
+            Inspiration = 3689;
 
         private const int
             Invincibility0 = 981,

@@ -18,12 +18,79 @@ namespace Magitek.Models.Pictomancer
         public static PictomancerSettings Instance { get; set; } = new PictomancerSettings();
 
         #region General-Stuff
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseTTD { get; set; }
+
+        [Setting]
+        [DefaultValue(13)]
+        public int SaveIfEnemyDyingWithin { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool SaveHammerForStarry { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool SaveCometInBlackForStarry { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool SaveMogForStarry { get; set; }
+
+        [Setting]
+        [DefaultValue(15)]
+        public int SaveForStarryMSeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSwiftcast { get; set; }
         #endregion
 
         #region Palette-Abilities
         [Setting]
         [DefaultValue(true)]
+        public bool PrePaletteOutOfCombat { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool PaletteDuringDowntime { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool PaletteDuringStarry { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SwiftcastMotifs { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMotifs { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMuses { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHammers { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMogOfTheAges { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool UseStarrySky { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseRainbowDrip { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseStarPrism { get; set; } 
 
         [Setting]
         [DefaultValue(4)]
@@ -37,7 +104,23 @@ namespace Magitek.Models.Pictomancer
         #region Single-Target-Abilities
         [Setting]
         [DefaultValue(true)]
-        public bool UseHolyinWhiteMoving { get; set; }
+        public bool UseSingleHolyinWhiteMoving { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSingleCometinBlack { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSinglePaint { get; set; }
+
+        [Setting]
+        [DefaultValue(1)]
+        public int WhitePaintSaveXCharges { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool WhitePaintUseWhenFull { get; set; }
         #endregion
 
         #region AoE-Abilities
@@ -48,12 +131,36 @@ namespace Magitek.Models.Pictomancer
         [Setting]
         [DefaultValue(3)]
         public int AoeEnemies { get; set; }
+        
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAOECometInBlack { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAOEHolyInWhite { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAOEPaint { get; set; }
         #endregion
 
         #region Utility-Abilities
         [Setting]
         [DefaultValue(true)]
-        public bool LucidDreaming { get; set; }
+        public bool UseSubtractivePalette { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicTemperaCoat { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicAddle { get; set; }
+        #endregion
+
+        #region Paint
+
         #endregion
 
         #region PVP

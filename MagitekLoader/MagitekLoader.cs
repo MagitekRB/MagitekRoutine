@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using Clio.Utilities;
 using ff14bot.AClasses;
@@ -213,7 +214,7 @@ public class CombatRoutineLoader : CombatRoutine
 
         try
         {
-            var version = File.ReadAllText(VersionPath);
+            var version = File.ReadAllText(VersionPath).Trim();
             return version;
         }
         catch
@@ -227,9 +228,9 @@ public class CombatRoutineLoader : CombatRoutine
         var stopwatch = Stopwatch.StartNew();
         var local = GetLocalVersion();
         _latestVersion = GetLatestVersion().Result;
-        var latest = _latestVersion;
+        var latest = _latestVersion;        
 
-        if (local == latest || latest == null || local.StartsWith("pre-"))
+        if (local == latest || latest == null || (local != null && (local.StartsWith("pre-") || local.StartsWith("test-"))))
         {
             LoadProduct();
             return;
@@ -290,7 +291,7 @@ public class CombatRoutineLoader : CombatRoutine
         string responseMessageBytes;
         try
         {
-            responseMessageBytes = await response.Content.ReadAsStringAsync();
+            responseMessageBytes = (await response.Content.ReadAsStringAsync()).Trim();
         }
         catch (Exception e)
         {

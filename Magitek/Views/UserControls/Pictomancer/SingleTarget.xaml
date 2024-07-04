@@ -32,8 +32,66 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Margin="5" Content=" Use Paint Rotation " IsChecked="{Binding PictomancerSettings.UseSinglePaint, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Comet In Black " IsChecked="{Binding PictomancerSettings.UseSingleCometinBlack, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Margin="5" Content=" Pre-cast palettes out of combat " IsChecked="{Binding PictomancerSettings.PrePaletteOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Cast palettes during combat with no target " IsChecked="{Binding PictomancerSettings.PaletteDuringDowntime, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Hard/Slow Cast palettes during Starry Sky buff window " IsChecked="{Binding PictomancerSettings.PaletteDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable HolyinWhite while moving " IsChecked="{Binding PictomancerSettings.UseHolyinWhiteMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Motifs " IsChecked="{Binding PictomancerSettings.UseMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Swiftcast Motifs " IsChecked="{Binding PictomancerSettings.SwiftcastMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical"> 
+                    <CheckBox Margin="5" Content=" Use Muses " IsChecked="{Binding PictomancerSettings.UseMuses, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Hammers " IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Mog / Madeen " IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Rainbow Drip " IsChecked="{Binding PictomancerSettings.UseRainbowDrip, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Star Prism " IsChecked="{Binding PictomancerSettings.UseStarPrism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Margin="10,0" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Save for Starry within " />
+                    <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding PictomancerSettings.SaveForStarryMSeconds, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds " />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Margin="5" Content=" Save Hammers for Starry " IsChecked="{Binding PictomancerSettings.SaveHammerForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Save Comet for Starry " IsChecked="{Binding PictomancerSettings.SaveComitInBlackForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Save Mog / Madeen for Starry " IsChecked="{Binding PictomancerSettings.SaveMogForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Margin="5" Content=" Use Holy In White while moving " IsChecked="{Binding PictomancerSettings.UseSingleHolyinWhiteMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Use Holy in White when paint is full " IsChecked="{Binding PictomancerSettings.WhitePaintUseWhenFull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+
+                <StackPanel Margin="10,0" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Save at least this many paint charges " />
+                    <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding PictomancerSettings.WhitePaintSaveXCharges, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
