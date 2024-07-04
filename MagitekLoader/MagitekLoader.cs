@@ -228,29 +228,9 @@ public class CombatRoutineLoader : CombatRoutine
         var stopwatch = Stopwatch.StartNew();
         var local = GetLocalVersion();
         _latestVersion = GetLatestVersion().Result;
-        var latest = _latestVersion;
+        var latest = _latestVersion;        
 
-        if (local != null && (local.StartsWith("pre-") || local.StartsWith("test-")))
-        {
-            var result = MessageBox.Show(
-                $"You are running version {local}. Would you like to keep using this version (OK) or would you like to update to the most recent release version {latest} (Cancel)?",
-                "Version Update",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.OK)
-            {
-                LoadProduct();
-                return;
-            }
-            if (result == MessageBoxResult.Cancel)
-            {
-                // Force update
-                local = null;
-            }
-        }
-
-        if (local == latest || latest == null)
+        if (local == latest || latest == null || (local != null && (local.StartsWith("pre-") || local.StartsWith("test-"))))
         {
             LoadProduct();
             return;
