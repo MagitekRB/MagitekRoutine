@@ -1,4 +1,5 @@
 ﻿using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Pictomancer;
 using Magitek.Utilities;
@@ -12,8 +13,28 @@ namespace Magitek.Logic.Pictomancer
 {
     internal static class AOE
     {
+        public static async Task<bool> CometinBlack()
+        {
+            if (!PictomancerSettings.Instance.UseAOECometInBlack)
+                return false;
+
+            if (!Spells.CometinBlack.IsKnownAndReady())
+                return false;
+
+            if (!Spells.CometinBlack.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < PictomancerSettings.Instance.AoeEnemies)
+                return false;
+
+            return await Spells.CometinBlack.Cast(Core.Me.CurrentTarget);
+        }
+
         public static async Task<bool> HolyinWhite()
         {
+            if (!PictomancerSettings.Instance.UseAOEHolyInWhite)
+                return false;
+
             if (PictomancerSettings.Instance.UseAoe == false)
                 return false;
 
@@ -26,11 +47,18 @@ namespace Magitek.Logic.Pictomancer
             if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < PictomancerSettings.Instance.AoeEnemies)
                 return false;
 
+            // save 1 paint for black paint
+            if (ActionResourceManager.Pictomancer.Paint == 1)
+                return false;
+
             return await Spells.HolyinWhite.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> Paint()
         {
+            if (!PictomancerSettings.Instance.UseAOEPaint)
+                return false;
+
             if (PictomancerSettings.Instance.UseAoe == false)
                 return false;
 

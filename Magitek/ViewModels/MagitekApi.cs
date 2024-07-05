@@ -19,7 +19,7 @@ namespace Magitek.ViewModels
         private static MagitekApi _instance;
         private readonly HttpClient _webClient = new HttpClient();
         private const string GithubAddress = "https://api.github.com";
-        private const string VersionUrl = "https://ddjx48xxp2d6i.cloudfront.net/Version.txt";
+        private const string VersionUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Version.txt";
 
         public static MagitekApi Instance => _instance ?? (_instance = new MagitekApi());
         public bool SpinnerVisible { get; set; } = false;
@@ -89,7 +89,7 @@ namespace Magitek.ViewModels
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Anything");
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var response = await httpClient.GetFromJsonAsync<List<Root>>("repos/Exmortem/Magitekroutine/pulls?state=closed&page=1&per_page=8");
+                    var response = await httpClient.GetFromJsonAsync<List<Root>>("repos/MagitekRB/MagitekRoutine/pulls?state=closed&page=1&per_page=8");
 
                     if (response == null)
                         return;

@@ -3,6 +3,7 @@ using ff14bot;
 using Magitek.Extensions;
 using Magitek.Models.Pictomancer;
 using Magitek.Utilities;
+using Magitek.Utilities.Routines;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +26,29 @@ namespace Magitek.Logic.Pictomancer
 
         public static async Task<bool> SubtractivePalette()
         {
+            if (!PictomancerSettings.Instance.UseSubtractivePalette)
+                return false;
+
+            if (Utilities.Routines.Pictomancer.HasBlackPaint())
+                return false;
+
             if (Core.Me.HasAura(Auras.SubtractivePalette))
                 return false;
 
-            if (Spells.SubtractivePalette.IsKnownAndReady())
-                return await Spells.SubtractivePalette.Cast(Core.Me);
+            if (!Spells.SubtractivePalette.IsKnownAndReady())
+                return false;
 
-            return false;
+            if (Core.Me.HasAura(Auras.MonochromeTones))
+                return false;
+
+            return await Spells.SubtractivePalette.Cast(Core.Me);
         }
 
         public static async Task<bool> FightLogic_TemperaCoat()
         {
+            if (!PictomancerSettings.Instance.FightLogicTemperaCoat)
+                return false;
+
             if (!Spells.TemperaCoat.IsKnownAndReady())
                 return false;
 
@@ -43,7 +56,37 @@ namespace Magitek.Logic.Pictomancer
                 return false;
 
             if (FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe())
-                return await FightLogic.DoAndBuffer(Spells.TemperaCoat.CastAura(Core.Me, Auras.TempuraCoat));
+            {
+                if (Spells.TemperaGrassa.IsKnownAndReady())
+                {
+                    await Spells.TemperaCoat.CastAura(Core.Me, Auras.TempuraCoat);
+                    if (await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.TempuraCoat, true)))
+                        return await FightLogic.DoAndBuffer(Spells.TemperaGrassa.CastAura(Core.Me, Auras.TempuraGrassa));
+                    else
+                        return false;
+                } else
+                {
+                    return await FightLogic.DoAndBuffer(Spells.TemperaCoat.CastAura(Core.Me, Auras.TempuraCoat));
+                }                
+            }
+            return false;
+        }
+
+        public static async Task<bool> FightLogic_Addle()
+        {
+            if (!PictomancerSettings.Instance.FightLogicAddle)
+                return false;
+
+            if (!Spells.Addle.IsKnownAndReady())
+                return false;
+
+            if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyAoeLogic())
+                return false;
+
+            if (FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe())
+            {
+                return await FightLogic.DoAndBuffer(Spells.Addle.Cast(Core.Me.CurrentTarget));
+            }
 
             return false;
         }

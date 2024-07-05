@@ -158,7 +158,10 @@ namespace Magitek.Logic.Paladin
             if (Casting.LastSpell != Spells.FightorFlight)
                 return false;
 
-            return await Spells.Requiescat.Cast(Core.Me.CurrentTarget);
+            if (Spells.Imperator.IsKnown()) 
+                return await Spells.Imperator.Cast(Core.Me.CurrentTarget);
+            else
+                return await Spells.Requiescat.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> Atonement()

@@ -35,6 +35,26 @@
             </StackPanel>
         </controls:SettingsBlock>
 
+        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Margin="5" Content=" Use Subtractive Palette " IsChecked="{Binding PictomancerSettings.UseSubtractivePalette, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" FightLogic Use Tempera Coat/Grassa " IsChecked="{Binding PictomancerSettings.FightLogicTemperaCoat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" FightLogic Use Addle " IsChecked="{Binding PictomancerSettings.FightLogicAddle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5" Content=" Use TTD Checks/Save Cooldowns When Enemy Dying Within " IsChecked="{Binding PictomancerSettings.UseTTD, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric MaxValue="100000" MinValue="1" Value="{Binding PictomancerSettings.SaveIfEnemyDyingWithin, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
     </StackPanel>
 </UserControl>
 
