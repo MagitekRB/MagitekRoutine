@@ -48,7 +48,10 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> RadiantEncore()
         {
-            if (!Core.Me.HasAura(Auras.RadiantEncore))
+            if (!Core.Me.HasAura(Auras.RadiantEncore) && !Core.Me.HasAura(Auras.BattleVoice))
+                return false;
+
+            if(Spells.Barrage.Cooldown == TimeSpan.Zero)
                 return false;
 
             return await Spells.RadiantEncore.Cast(Core.Me.CurrentTarget);

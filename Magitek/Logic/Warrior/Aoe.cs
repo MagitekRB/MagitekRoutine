@@ -106,7 +106,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UsePrimalRend)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PrimalRendReady))
+            if (!Core.Me.HasAura(Auras.PrimalRendReady) && !Core.Me.HasAura(Auras.PrimalRuinationReady))
                 return false;
 
             if (!Core.Me.HasAura(Auras.SurgingTempest))

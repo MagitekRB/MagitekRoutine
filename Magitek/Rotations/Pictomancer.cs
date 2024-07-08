@@ -102,8 +102,10 @@ namespace Magitek.Rotations
             if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
                 return false;
 
-            if (PictomancerRoutine.GlobalCooldown.CanWeave(1)) 
+            if (!PictomancerSettings.Instance.UseWeaving || 
+                PictomancerRoutine.GlobalCooldown.CanWeave(1)) 
             {
+                if (await Buff.FightLogic_TemperaGrassa()) return true;
                 if (await Buff.FightLogic_TemperaCoat()) return true;
                 if (await Buff.FightLogic_Addle()) return true;
                 if (await Healer.LucidDreaming(PictomancerSettings.Instance.UseLucidDreaming, PictomancerSettings.Instance.LucidDreamingMinimumManaPercent)) return true;
@@ -114,7 +116,8 @@ namespace Magitek.Rotations
             if (await Palette.RainbowDrip()) return true;
             if (await Palette.ScenicMuse()) return true;
 
-            if (Core.Me.HasAura(Auras.Inspiration) ||
+            if (!PictomancerSettings.Instance.UseWeaving ||
+                Core.Me.HasAura(Auras.Inspiration) ||
                 PictomancerRoutine.GlobalCooldown.CanWeave(1) ||
                 PictomancerRoutine.GlobalCooldown.CanWeave(2))
             {

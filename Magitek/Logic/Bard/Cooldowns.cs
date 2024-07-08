@@ -60,11 +60,14 @@ namespace Magitek.Logic.Bard
             if (!BardSettings.Instance.UseBattleVoice)
                 return false;
 
-            if (Spells.RagingStrikes.IsKnown() && Spells.RagingStrikes.Cooldown.TotalMilliseconds > 116000)
+            if (Spells.RagingStrikes.IsKnown() && Spells.RagingStrikes.Cooldown.TotalMilliseconds > 118000)
                 return false;
 
             if (!Core.Me.HasAura(Auras.RagingStrikes))
                 return false;
+
+            if(Spells.RadiantFinale.IsKnown())
+                await Spells.RadiantFinale.CastAura(Core.Me, Auras.RadiantFinale);
 
             return await Spells.BattleVoice.CastAura(Core.Me, Auras.BattleVoice, false, 0, false);
         }

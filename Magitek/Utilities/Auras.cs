@@ -263,6 +263,7 @@ namespace Magitek.Utilities
             OgiReady = 2959,
             ShadowBiteReady = 3002,
             PrimalRendReady = 2624,
+            PrimalRuinationReady = 3834,
             ArmysPaeon = 2218,
             MagesBallad = 2217,
             TheWanderersMinuet = 2216,

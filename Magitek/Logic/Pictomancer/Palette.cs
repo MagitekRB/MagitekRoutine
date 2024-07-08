@@ -241,6 +241,9 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseStarrySky)
                 return false;
 
+            if (MovementManager.IsMoving && !PictomancerSettings.Instance.UseStarrySkyWhileMoving)
+                return false;
+
             if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
                 return false;
 

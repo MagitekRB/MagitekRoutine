@@ -117,8 +117,8 @@ namespace Magitek.Rotations
                 if (await SingleTarget.LastPossiblePitchPerfectDuringWM()) return true;
                 if (await Songs.LetMeSingYouTheSongOfMyPeople()) return true;
                 if (await Cooldowns.RagingStrikes()) return true;
+                //if (await Cooldowns.RadiantFinale()) return true;
                 if (await Cooldowns.BattleVoice()) return true;
-                if (await Cooldowns.RadiantFinale()) return true;
                 if (await Cooldowns.Barrage()) return true;
                 if (await SingleTarget.PitchPerfect()) return true;
                 if (await Aoe.RainOfDeathDuringMagesBallard()) return true;
@@ -136,14 +136,14 @@ namespace Magitek.Rotations
             if (await DamageOverTime.StormbiteOnCurrentTarget()) return true;
             if (await DamageOverTime.CausticBiteOnCurrentTarget()) return true;
             if (await Aoe.ApexArrow()) return true;
-            if (await SingleTarget.ResonantArrow()) return true;
-            if (await SingleTarget.RadiantEncore()) return true;
             if (await Aoe.ShadowBite()) return true;
             if (await DamageOverTime.IronJawsOnOffTarget()) return true;
             if (await DamageOverTime.StormbiteOnOffTarget()) return true;
             if (await DamageOverTime.CausticBiteOnOffTarget()) return true;
             if (await Aoe.LadonsBite()) return true;
             if (await SingleTarget.StraightShot()) return true;
+            if (await SingleTarget.ResonantArrow()) return true;
+            if (await SingleTarget.RadiantEncore()) return true;
             return (await SingleTarget.HeavyShot());
 
         }
