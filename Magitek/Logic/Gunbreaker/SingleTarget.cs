@@ -232,6 +232,41 @@ namespace Magitek.Logic.Gunbreaker
             return await Spells.Hypervelocity.Cast(Core.Me.CurrentTarget);
         }
 
+        /********************************************************************************
+         *                            Fourth combo
+         *******************************************************************************/
+        public static async Task<bool> ReignOfBeasts()
+        {
+            if (!Core.Me.HasAura(Auras.ReadyToReign))
+                return false;
+
+            if (!Spells.ReignOfBeasts.IsKnownAndReady())
+                return false;
+
+            return await Spells.ReignOfBeasts.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> NobleBlood()
+        {
+            if (SecondaryComboStage != 1)
+                return false;
+
+            if (!Spells.NobleBlood.IsKnownAndReady())
+                return false;
+
+            return await Spells.NobleBlood.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> LionHeart()
+        {
+            if (SecondaryComboStage != 2)
+                return false;
+
+            if (!Spells.LionHeart.IsKnownAndReady())
+                return false;
+
+            return await Spells.LionHeart.Cast(Core.Me.CurrentTarget);
+        }
 
         /********************************************************************************
          *                                    oGCD 

@@ -388,6 +388,9 @@ namespace Magitek.Utilities
         public static readonly SpellData DoubleDown = DataManager.GetSpellData(25760);
         public static readonly SpellData Hypervelocity = DataManager.GetSpellData(25759);
         public static readonly SpellData GunmetalSoul = DataManager.GetSpellData(17105);
+        public static readonly SpellData ReignOfBeasts = DataManager.GetSpellData(36937);
+        public static readonly SpellData NobleBlood = DataManager.GetSpellData(36938);
+        public static readonly SpellData LionHeart = DataManager.GetSpellData(36939);
         #endregion
 
         // MCH

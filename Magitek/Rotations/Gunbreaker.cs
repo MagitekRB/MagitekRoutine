@@ -131,6 +131,11 @@ namespace Magitek.Rotations
                 if (await Aoe.BowShock()) return true;
             }
 
+            //Combo 4 (Dawntrail)
+            if (await SingleTarget.ReignOfBeasts()) return true;
+            if (await SingleTarget.NobleBlood()) return true;
+            if (await SingleTarget.LionHeart()) return true;
+
             //Pull or get back aggro with LightningShot
             if (await SingleTarget.LightningShotToPullOrAggro()) return true;
             if (await SingleTarget.LightningShotToDps()) return true;

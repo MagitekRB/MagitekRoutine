@@ -350,6 +350,9 @@ namespace Magitek.Utilities
             LastDanceReady = 3867,
             Damnation = 3832,
 
+            //GNB
+            ReadyToReign = 3840,
+
             //VPR
             Swiftscaled = 3669,
             HindstungVenom = 3647,
