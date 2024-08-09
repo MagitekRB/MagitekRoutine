@@ -76,7 +76,7 @@ namespace Magitek.Utilities
 
             var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
-            if (enemyLogic?.TankBusters == null)
+            if (enemyLogic?.TankBusters == null || enemy == null || encounter == null)
                 return EnemyIsCastingSharedTankBuster();
 
             var output = enemyLogic.TankBusters.Contains(enemy.CastingSpellId)

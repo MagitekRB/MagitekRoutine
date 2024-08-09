@@ -48,7 +48,14 @@ namespace Magitek.Gambits
 
         public async Task<bool> Execute()
         {
-            return await Action.Execute(Conditions);
+            try
+            {
+                return await Action.Execute(Conditions);
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }
