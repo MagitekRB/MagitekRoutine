@@ -272,14 +272,14 @@ namespace Magitek.Utilities
                 var auraTarget = AuraTarget ?? SpellTarget;
 
                 if (UseRefreshTime)
-                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true, RefreshTime) || MovementManager.IsMoving);
+                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true, RefreshTime) || MovementManager.IsMoving || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
                 else
                 {
-                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true) || MovementManager.IsMoving);
+                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true) || MovementManager.IsMoving || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
                 }
 
                 if (CastingSpell.AdjustedCastTime == TimeSpan.Zero)
-                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura));
+                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura) || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
             }
 
             #endregion
