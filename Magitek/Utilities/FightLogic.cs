@@ -58,10 +58,6 @@ namespace Magitek.Utilities
             if (enemy == null)
                 return false;
 
-            // prevent running duplicate fightlogic responses to the same spell when it's a long cast. 
-            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
-                return false;
-
             if (!await task) return false;
 
             FlHandledCastingSpellId.Add(enemy.CastingSpellId);
@@ -79,6 +75,10 @@ namespace Magitek.Utilities
             if (enemyLogic?.TankBusters == null || enemy == null || encounter == null)
                 return EnemyIsCastingSharedTankBuster();
 
+            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
+                return null;
+            FlHandledCastingSpellId.Clear();
+
             var output = enemyLogic.TankBusters.Contains(enemy.CastingSpellId)
                 ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
                 : null;
@@ -88,7 +88,9 @@ namespace Magitek.Utilities
                     $"[TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name} on {output.CurrentJob} in our party.");
 
             if (output != null)
+            {
                 FlStopwatch.Start();
+            }
 
             return output;
         }
@@ -102,6 +104,10 @@ namespace Magitek.Utilities
 
             if (enemyLogic?.SharedTankBusters == null || enemy == null || encounter == null)
                 return null;
+
+            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
+                return null;
+            FlHandledCastingSpellId.Clear();
 
             var output = enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
                 ? Group.CastableTanks.FirstOrDefault(x => x != enemy.TargetCharacter)
@@ -128,6 +134,10 @@ namespace Magitek.Utilities
             if (enemyLogic?.Aoes == null || enemy == null || encounter == null)
                 return false;
 
+            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
+                return false;
+            FlHandledCastingSpellId.Clear();
+
             var output = enemyLogic.Aoes.Contains(enemy.CastingSpellId);
 
             if (output && DebugSettings.Instance.DebugFightLogic)
@@ -148,6 +158,10 @@ namespace Magitek.Utilities
 
             if (enemyLogic.BigAoes == null)
                 return EnemyIsCastingAoe();
+
+            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
+                return false;
+            FlHandledCastingSpellId.Clear();
 
             var output = enemyLogic.BigAoes.Contains(enemy.CastingSpellId);
 
