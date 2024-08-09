@@ -183,19 +183,18 @@ namespace Magitek.Rotations
                 return await Combat();
 
             if (await CommonPvp.CommonTasks(ViperSettings.Instance)) return true;
+            if (await Pvp.SnakeScales()) return true;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (await Pvp.RattlingCoil()) return true;
+            if (await Pvp.SerpentsTail()) return true;
             if (await Pvp.WorldGeneration()) return true;
             if (await Pvp.WorldSwallower()) return true;
 
-            if (await Pvp.SnakeScales()) return true;
-
             if (!CommonPvp.GuardCheck(ViperSettings.Instance))
             {
-                if (await Pvp.SerpentsTail()) return true;
+                if (await Pvp.RattlingCoil()) return true;
                 if (await Pvp.UncoiledFury()) return true;
                 if (await Pvp.HuntersSnap()) return true;
             }

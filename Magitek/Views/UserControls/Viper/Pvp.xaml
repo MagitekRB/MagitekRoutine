@@ -68,6 +68,11 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
                 <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="Uncoiled Fury (ranged) " />
+                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ViperSettings.Pvp_UncoiledFuryHealthPercent, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="World Swallower / LB on target at " IsChecked="{Binding ViperSettings.Pvp_WorldSwallower, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ViperSettings.Pvp_WorldSwallowerHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />

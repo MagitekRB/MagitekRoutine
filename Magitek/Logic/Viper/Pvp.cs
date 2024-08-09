@@ -47,6 +47,8 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> DualFang()
         {
+            if (Core.Me.HasAura(Auras.PvpReawakened, true))
+                return false;
             if (Spells.RavenousBitePvp.CanCast() && await Spells.RavenousBitePvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
             if (Spells.SwiftskinsStingPvp.CanCast() && await Spells.SwiftskinsStingPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
@@ -85,11 +87,11 @@ namespace Magitek.Logic.Viper
             if (uncoiledFury.Cooldown.TotalMilliseconds <= 5000)
                 return false;
 
-            if (!Spells.RattlingCoilPvp.CanCast())
+            if (Core.Me.HasAura(Auras.PvpReawakened, true))
                 return false;
 
-            //if (Spells.SnakeScalesPvp.Cooldown == TimeSpan.Zero)
-            //    return false;
+            if (!Spells.RattlingCoilPvp.CanCast())
+                return false;
 
             return await Spells.RattlingCoilPvp.Cast(Core.Me);
         }
@@ -98,7 +100,13 @@ namespace Magitek.Logic.Viper
         {
             var spell = Spells.UncoiledFuryPvp;
 
+            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget.Distance() <= 5)
+                return false;
+
             if (!spell.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > ViperSettings.Instance.Pvp_UncoiledFuryHealthPercent)
                 return false;
 
             return await spell.Cast(Core.Me.CurrentTarget);
@@ -109,6 +117,9 @@ namespace Magitek.Logic.Viper
             var spell = Spells.HuntersSnapPvp.Masked();
 
             if (spell.Charges < 1)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpReawakened, true))
                 return false;
 
             if (!spell.CanCast(Core.Me.CurrentTarget))
