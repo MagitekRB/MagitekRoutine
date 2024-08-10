@@ -39,19 +39,21 @@
                 <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" (Item Potion selected should be in your hotkey bar)" />
             </Grid>
         </controls:SettingsBlock>
-        
-        <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
-            <Grid Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
 
-                <CheckBox Grid.Row="0" Content="Royal Guard (Tank Stance)" IsChecked="{Binding GunbreakerSettings.UseRoyalGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Row="1" Content="No Mercy (Personal damage buff)" IsChecked="{Binding GunbreakerSettings.UseNoMercy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Row="2" Content="Bloodfest (Add cartridge)" IsChecked="{Binding GunbreakerSettings.UseBloodfest, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            </Grid>
+        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <CheckBox Grid.Row="0" Content="Royal Guard (Tank Stance)" IsChecked="{Binding GunbreakerSettings.UseRoyalGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <CheckBox Grid.Row="1" Content="No Mercy (Personal damage buff)     " IsChecked="{Binding GunbreakerSettings.UseNoMercy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="1" Content="Only at max cartridge" IsChecked="{Binding GunbreakerSettings.UseNoMercyMaxCartridge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <CheckBox Grid.Row="2" Content="Bloodfest (Add cartridge)" IsChecked="{Binding GunbreakerSettings.UseBloodfest, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
         </controls:SettingsBlock>
+
     </StackPanel>
 </UserControl>

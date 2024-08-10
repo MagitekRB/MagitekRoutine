@@ -68,6 +68,10 @@ namespace Magitek.Models.Gunbreaker
         public bool UseNoMercy { get; set; }
         #endregion
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseNoMercyMaxCartridge { get; set; }
+
         #region AOE
         [Setting]
         [DefaultValue(true)]

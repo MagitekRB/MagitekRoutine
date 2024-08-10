@@ -116,6 +116,18 @@ namespace Magitek.Rotations
                 if (await Tank.ArmsLength(GunbreakerSettings.Instance)) return true;
             }
 
+            if (GunbreakerRoutine.GlobalCooldown.CanWeave())
+            {
+                //oGCD - Buffs
+                if (await Buff.NoMercy()) return true;
+                if (await Buff.Bloodfest()) return true;
+                //oGCD - Damage
+                if (await SingleTarget.BlastingZone()) return true;
+                //OGCD dots
+                if (await Aoe.BowShock()) return true;
+
+            }
+
             //oGCD to use with BurstStrike
             if (await Aoe.FatedBrand()) return true;
             if (await SingleTarget.Hypervelocity()) return true;
@@ -127,18 +139,6 @@ namespace Magitek.Rotations
             if (await SingleTarget.EyeGouge()) return true;
             if (await SingleTarget.AbdomenTear()) return true;
             if (await SingleTarget.JugularRip()) return true;
-
-            if (GunbreakerRoutine.GlobalCooldown.CanWeave())
-            {
-                //OGCD dots
-                if (await Aoe.BowShock()) return true;
-                //oGCD - Buffs
-                if (await Buff.NoMercy()) return true;
-                if (await Buff.Bloodfest()) return true;
-
-                //oGCD - Damage
-                if (await SingleTarget.BlastingZone()) return true;
-            }
 
             //Pull or get back aggro with LightningShot
             if (await SingleTarget.LightningShotToPullOrAggro()) return true;

@@ -121,6 +121,9 @@ namespace Magitek.Logic.Gunbreaker
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.BowShockEnemies)
                 return false;
 
+            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady())
+                return false;
+
             return await Spells.BowShock.Cast(Core.Me.CurrentTarget);
         }
 
