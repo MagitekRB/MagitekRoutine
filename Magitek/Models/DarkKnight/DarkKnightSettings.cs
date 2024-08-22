@@ -247,6 +247,10 @@ namespace Magitek.Models.DarkKnight
 
         [Setting]
         [DefaultValue(true)]
+        public bool Pvp_SaltAndDarkness { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Pvp_Eventide { get; set; }
 
         [Setting]

@@ -637,8 +637,12 @@ namespace Magitek.Models.Scholar
         public bool Pvp_SummonSeraph { get; set; }
 
         [Setting]
-        [DefaultValue(1)]
+        [DefaultValue(3)]
         public int Pvp_SummonSeraphNearbyAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Consolation { get; set; }
         #endregion
 
         public void Load(string path)

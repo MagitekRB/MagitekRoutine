@@ -2,6 +2,7 @@ using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Gambits.Conditions;
 using Magitek.Models.Dancer;
 using Magitek.Models.Scholar;
 using Magitek.Utilities;
@@ -66,6 +67,23 @@ namespace Magitek.Logic.Scholar
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 12)
+            {
+                var nearby = Combat.Enemies
+                    .Where(e => e.Distance(Core.Me) < 7
+                            && e.ValidAttackUnit()
+                            && e.InLineOfSight())
+                    .OrderBy(e => e.Distance(Core.Me));
+                var nearbyTarget = nearby.FirstOrDefault();
+
+                if (nearbyTarget != null)
+                {
+                    return await Spells.MummificationPvp.Cast(nearbyTarget);
+                }
+
+                return false;
+            }
 
             return await Spells.MummificationPvp.Cast(Core.Me.CurrentTarget);
         }
@@ -153,7 +171,7 @@ namespace Magitek.Logic.Scholar
         public static async Task<bool> DeploymentTacticsEnemyPvp()
         {
 
-            if (!Spells.DeploymentTacticsPvp.CanCast())
+            if (!Spells.DeploymentTacticsPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             if (!ScholarSettings.Instance.Pvp_DeploymentTacticsOnEnemy)
@@ -183,11 +201,24 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+                return false;
+
+            if (ScholarSettings.Instance.Pvp_DeploymentTacticsOnEnemy 
+                && Spells.BiolysisPvp.Cooldown.TotalMilliseconds >= 2500)
+                return false;
+
             return await Spells.ExpedientPvp.Cast(Core.Me);
         }
 
         public static async Task<bool> SummonSeraphPvp()
         {
+            if (!ScholarSettings.Instance.Pvp_SummonSeraph)
+                return false;
+
             if (!Spells.SummonSeraphPvp.CanCast())
                 return false;
 
@@ -200,7 +231,21 @@ namespace Magitek.Logic.Scholar
             if (Group.CastableAlliesWithin30.Count(x => x.IsValid && x.IsAlive) < ScholarSettings.Instance.Pvp_SummonSeraphNearbyAllies)
                 return false;
 
+            if (Combat.Enemies.Count(x => x.IsValid && x.IsAlive) < ScholarSettings.Instance.Pvp_SummonSeraphNearbyAllies)
+                return false;
+
             return await Spells.SummonSeraphPvp.Cast(Core.Me);
+        }
+
+        public static async Task<bool> ConsolationPvp()
+        {
+            if (!Spells.ConsolationPvp.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            return await Spells.ConsolationPvp.Cast(Core.Me);
         }
     }
 }

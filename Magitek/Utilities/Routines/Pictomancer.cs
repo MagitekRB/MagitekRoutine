@@ -5,6 +5,7 @@ using ff14bot.Objects;
 using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Pictomancer;
+using Magitek.Views.UserControls.Bugs;
 using System;
 using System.Linq;
 
@@ -14,19 +15,39 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Pictomancer, Spells.FireinRed);
 
-        public static bool StarryOffCooldownSoon()
+        public static void DetectSmudge()
+        {
+            // Places smudge in the spell cast history if detected manually
+            // this prevents incorrectly triple/quad weaving with manual smudge usages.
+            if (Core.Me.HasAura(Auras.Smudge, true))
+            {
+                if (!Casting.SpellCastHistory.Any(s => s.Spell == Spells.Smudge))
+                {
+                    Casting.SpellCastHistory.Insert(0, new SpellCastHistoryItem
+                    {
+                        Spell = Spells.Smudge,
+                        SpellTarget = Core.Me,
+                        TimeCastUtc = DateTime.UtcNow,
+                        TimeStartedUtc = DateTime.UtcNow,
+                        DelayMs = 0
+                    });
+                }
+            }
+        }
+
+        public static bool StarryOffCooldownSoon(int msLeft)
         {
             if (!Spells.StarryMuse.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.StarryMuse, true))
-                return false;
+                return true;
 
-            if (Spells.StarryMuse.Cooldown == TimeSpan.Zero && !Core.Me.HasAura(Auras.StarryMuse, true))
+            if (Spells.StarryMuse.Cooldown == TimeSpan.Zero)
                 return true;
 
             if (Spells.StarryMuse.Cooldown > TimeSpan.Zero && 
-                Spells.StarryMuse.Cooldown.TotalSeconds <= PictomancerSettings.Instance.SaveForStarryMSeconds)
+                Spells.StarryMuse.Cooldown.TotalMilliseconds <= msLeft)
                 return true;
 
             return false;
@@ -40,7 +61,7 @@ namespace Magitek.Utilities.Routines
             if (Core.Me.HasAura(Auras.StarryMuse, true))
                 return 0;
 
-            if (Spells.StarryMuse.Cooldown == TimeSpan.Zero && !Core.Me.HasAura(Auras.StarryMuse, true))
+            if (Spells.StarryMuse.Cooldown == TimeSpan.Zero)
                 return 0;
 
             if (Spells.StarryMuse.Cooldown > TimeSpan.Zero)

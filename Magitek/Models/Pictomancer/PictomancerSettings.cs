@@ -17,10 +17,10 @@ namespace Magitek.Models.Pictomancer
 
         public static PictomancerSettings Instance { get; set; } = new PictomancerSettings();
 
-        #region General-Stuff       
+        #region General-Stuff
         [Setting]
         [DefaultValue(false)]
-        public bool UseHammerDuringStarry { get; set; }
+        public bool UseHammerDuringHyperphantasia { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -35,16 +35,20 @@ namespace Magitek.Models.Pictomancer
         public bool CometInBlackOnlyDuringStarry { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool UseMogDuringStarry { get; set; }
+        [DefaultValue(true)]
+        public bool SaveCometInBlackForStarryMovement { get; set; }
 
         [Setting]
         [DefaultValue(true)]
         public bool SaveMogForStarry { get; set; }
 
         [Setting]
-        [DefaultValue(20)]
-        public int SaveForStarryMSeconds { get; set; }
+        [DefaultValue(true)]
+        public bool UseMogDuringHyperphantasia { get; set; }
+
+        [Setting]
+        [DefaultValue(24000)]
+        public int SaveForStarryMsComet { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -77,7 +81,7 @@ namespace Magitek.Models.Pictomancer
         public bool SwiftcastMotifsOnlyWhenMoving { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool SwiftcastCreatureMotifs { get; set; }
 
         [Setting]
@@ -85,7 +89,7 @@ namespace Magitek.Models.Pictomancer
         public bool SwiftcastWeaponMotifs { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool SwiftcastLandscapeMotifs { get; set; }
 
         [Setting]
@@ -119,6 +123,14 @@ namespace Magitek.Models.Pictomancer
         [Setting]
         [DefaultValue(false)]
         public bool UseStarrySkyWhileMoving { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SaveStarryForHammers { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SaveStarryForMog { get; set; }
 
         [Setting]
         [DefaultValue(true)]

@@ -121,10 +121,10 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.CrimsonStrike) 
                 return false;
 
-            if (SmnResources.ActivePet != SmnResources.ActivePetType.Ifrit)
-                return false;
+            //if (SmnResources.ActivePet != SmnResources.ActivePetType.Ifrit)
+            //    return false;
 
-            if (!Spells.CrimsonStrike.IsKnown()) return false;
+            if (!Spells.CrimsonStrike.IsKnownAndReady()) return false;
 
             if (Casting.LastSpell != Spells.CrimsonCyclone) return false;
 

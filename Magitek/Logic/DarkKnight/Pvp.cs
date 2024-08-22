@@ -177,10 +177,24 @@ namespace Magitek.Logic.DarkKnight
             if(Core.Me.CurrentHealthPercent > DarkKnightSettings.Instance.Pvp_EventideHealthPercent)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 3)
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
                 return false;
 
             return await Spells.EventidePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> SaltAndDarkness()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!DarkKnightSettings.Instance.Pvp_SaltAndDarkness)
+                return false;
+
+            if (!Spells.SaltAndDarknessPvp.CanCast())
+                return false;
+
+            return await Spells.SaltAndDarknessPvp.Cast(Core.Me);
         }
     }
 }

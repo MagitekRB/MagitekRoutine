@@ -122,7 +122,7 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(DarkKnightSettings.Instance)) return true;
             
             
-
+            if (await Pvp.SaltAndDarkness()) return true;
             if (await Pvp.EventidePvp()) return true;
             if (await Pvp.BlackestNightPvp()) return true;
             if (await Pvp.SaltedEarthPvp()) return true;

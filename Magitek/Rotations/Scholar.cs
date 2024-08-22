@@ -264,10 +264,10 @@ namespace Magitek.Rotations
 
             ScholarRoutine.RefreshVars();
 
-            if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;
-            
+            if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;           
             
 
+            if (await Pvp.ConsolationPvp()) return true;
             if (await Pvp.SummonSeraphPvp()) return true;
 
             if (await Pvp.DeploymentTacticsEnemyPvp()) return true;

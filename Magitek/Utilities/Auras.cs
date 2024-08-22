@@ -407,6 +407,7 @@ namespace Magitek.Utilities
             MonochromeTones = 3691,
             Inspiration = 3689,
             HammerTime = 3680,
+            Smudge = 3684,
 
             //RDM
             MagickedSwordplay = 3875,

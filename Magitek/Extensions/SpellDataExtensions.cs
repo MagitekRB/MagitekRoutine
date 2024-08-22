@@ -6,6 +6,7 @@ using Magitek.Models.Account;
 using Magitek.Utilities;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -332,6 +333,21 @@ namespace Magitek.Extensions
             return ActionManager.HasSpell(spell.Id);
         }
 
+        public static double CooldownToNextCharge(this SpellData spell)
+        {
+            if (spell.MaxCharges > 1)
+            {
+                if (spell.Charges == spell.MaxCharges)
+                    return 0;
+                var remainingCooldownTime = spell.Cooldown.TotalMilliseconds - (spell.AdjustedCooldown.TotalMilliseconds * (spell.MaxCharges - (uint)Math.Floor(spell.Charges) - 1));
+                if (remainingCooldownTime < 0)
+                    return 0;
+                return remainingCooldownTime;
+            }
+
+            return spell.Cooldown.TotalMilliseconds;
+        }
+
         public static bool IsReady(this SpellData spell, int remainingTimeInMs = 0)
         {
             if (spell.MaxCharges > 1)
@@ -339,7 +355,7 @@ namespace Magitek.Extensions
                 if (spell.Charges >= 1)
                     return true;
 
-                var remainingCooldownTime = spell.Cooldown.TotalMilliseconds - (spell.AdjustedCooldown.TotalMilliseconds * (spell.MaxCharges - (uint)spell.Charges - 1));
+                var remainingCooldownTime = spell.CooldownToNextCharge();
 
                 if (!BaseSettings.Instance.UseCastOrQueue)
                 {
@@ -387,6 +403,22 @@ namespace Magitek.Extensions
             var folder = (Math.Floor(icon / 1000) * 1000).ToString(CultureInfo.InvariantCulture).Trim().PadLeft(6, '0');
             var image = spell.Icon.ToString(CultureInfo.InvariantCulture).Trim().PadLeft(6, '0');
             return $@"https://secure.xivdb.com/img/game/{folder}/{image}.png";
+        }
+
+        public static bool HasCastRecently(this SpellData LastSpellExecuted)
+        {
+            return Casting.SpellCastHistory.Any(s => s.Spell == LastSpellExecuted);
+        }
+
+        public static bool CanContinueComboAfter(this SpellData LastSpellExecuted)
+        {
+            if (ActionManager.ComboTimeLeft <= 0)
+                return false;
+
+            if (ActionManager.LastSpell.Id != LastSpellExecuted.Id)
+                return false;
+
+            return true;
         }
     }
 }

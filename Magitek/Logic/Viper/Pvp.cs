@@ -19,28 +19,14 @@ namespace Magitek.Logic.Viper
                 return false;
             if (Spells.FirstGenerationPvp.CanCast() && await Spells.FirstGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-            if (Spells.SecondGenerationPvp.CanCast() && await Spells.SecondGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
+            if (Spells.FirstGenerationPvp.HasCastRecently() && Spells.SecondGenerationPvp.CanCast() && await Spells.SecondGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-            if (Spells.ThirdGenerationPvp.CanCast() && await Spells.ThirdGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
+            if (Spells.SecondGenerationPvp.HasCastRecently() && Spells.ThirdGenerationPvp.CanCast() && await Spells.ThirdGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-            if (Spells.FourthGenerationPvp.CanCast() && await Spells.FourthGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
+            if (Spells.ThirdGenerationPvp.HasCastRecently() && Spells.FourthGenerationPvp.CanCast() && await Spells.FourthGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-
-            if (!Spells.OuroborosPvp.CanCast())
-                return false;
-
-            var pvpComboCheck = DataManager.GetSpellData(ActionManager.GetPvPComboCurrentActionId(65));
-
-            if (pvpComboCheck == Spells.FirstGenerationPvp ||
-                pvpComboCheck == Spells.SecondGenerationPvp ||
-                pvpComboCheck == Spells.ThirdGenerationPvp ||
-                pvpComboCheck == Spells.FourthGenerationPvp)
-            {
-                return false;
-            }
-
-            if (await Spells.OuroborosPvp.Cast(Core.Me.CurrentTarget))
-                return true;
+            if (Spells.FourthGenerationPvp.HasCastRecently() && Spells.OuroborosPvp.CanCast())
+                return await Spells.OuroborosPvp.Cast(Core.Me.CurrentTarget);
 
             return false;
         }
