@@ -25,6 +25,7 @@ namespace Magitek.Utilities.Routines
 
         public static readonly uint[] Defensives = new uint[]
         {
+            Auras.Rampart,
             Auras.Camouflage,
             Auras.Nebula,
             Auras.Aurora,

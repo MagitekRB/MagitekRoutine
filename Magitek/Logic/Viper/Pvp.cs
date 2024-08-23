@@ -19,34 +19,22 @@ namespace Magitek.Logic.Viper
                 return false;
             if (Spells.FirstGenerationPvp.CanCast() && await Spells.FirstGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-            if (Spells.SecondGenerationPvp.CanCast() && await Spells.SecondGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
+            if (Spells.FirstGenerationPvp.HasCastRecently() && Spells.SecondGenerationPvp.CanCast() && await Spells.SecondGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-            if (Spells.ThirdGenerationPvp.CanCast() && await Spells.ThirdGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
+            if (Spells.SecondGenerationPvp.HasCastRecently() && Spells.ThirdGenerationPvp.CanCast() && await Spells.ThirdGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-            if (Spells.FourthGenerationPvp.CanCast() && await Spells.FourthGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
+            if (Spells.ThirdGenerationPvp.HasCastRecently() && Spells.FourthGenerationPvp.CanCast() && await Spells.FourthGenerationPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
-
-            if (!Spells.OuroborosPvp.CanCast())
-                return false;
-
-            var pvpComboCheck = DataManager.GetSpellData(ActionManager.GetPvPComboCurrentActionId(65));
-
-            if (pvpComboCheck == Spells.FirstGenerationPvp ||
-                pvpComboCheck == Spells.SecondGenerationPvp ||
-                pvpComboCheck == Spells.ThirdGenerationPvp ||
-                pvpComboCheck == Spells.FourthGenerationPvp)
-            {
-                return false;
-            }
-
-            if (await Spells.OuroborosPvp.Cast(Core.Me.CurrentTarget))
-                return true;
+            if (Spells.FourthGenerationPvp.HasCastRecently() && Spells.OuroborosPvp.CanCast())
+                return await Spells.OuroborosPvp.Cast(Core.Me.CurrentTarget);
 
             return false;
         }
 
         public static async Task<bool> DualFang()
         {
+            if (Core.Me.HasAura(Auras.PvpReawakened, true))
+                return false;
             if (Spells.RavenousBitePvp.CanCast() && await Spells.RavenousBitePvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
                 return true;
             if (Spells.SwiftskinsStingPvp.CanCast() && await Spells.SwiftskinsStingPvp.CastPvpCombo(Spells.DualFangPvpCombo, Core.Me.CurrentTarget))
@@ -85,11 +73,11 @@ namespace Magitek.Logic.Viper
             if (uncoiledFury.Cooldown.TotalMilliseconds <= 5000)
                 return false;
 
-            if (!Spells.RattlingCoilPvp.CanCast())
+            if (Core.Me.HasAura(Auras.PvpReawakened, true))
                 return false;
 
-            //if (Spells.SnakeScalesPvp.Cooldown == TimeSpan.Zero)
-            //    return false;
+            if (!Spells.RattlingCoilPvp.CanCast())
+                return false;
 
             return await Spells.RattlingCoilPvp.Cast(Core.Me);
         }
@@ -98,7 +86,13 @@ namespace Magitek.Logic.Viper
         {
             var spell = Spells.UncoiledFuryPvp;
 
+            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget.Distance() <= 5)
+                return false;
+
             if (!spell.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > ViperSettings.Instance.Pvp_UncoiledFuryHealthPercent)
                 return false;
 
             return await spell.Cast(Core.Me.CurrentTarget);
@@ -109,6 +103,9 @@ namespace Magitek.Logic.Viper
             var spell = Spells.HuntersSnapPvp.Masked();
 
             if (spell.Charges < 1)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpReawakened, true))
                 return false;
 
             if (!spell.CanCast(Core.Me.CurrentTarget))

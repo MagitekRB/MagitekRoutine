@@ -74,6 +74,9 @@
                     <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="4" MinValue="0" Value="{Binding ScholarSettings.Pvp_SummonSeraphNearbyAllies, Mode=TwoWay}" />
                     <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Allies around" />
                 </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Consolation" IsChecked="{Binding ScholarSettings.Pvp_Consolation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -99,7 +102,7 @@
                     <CheckBox Content="Self Heal Only" IsChecked="{Binding ScholarSettings.Pvp_HealSelfOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Aspected Benefic At " IsChecked="{Binding ScholarSettings.Pvp_Adloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Adloquium At " IsChecked="{Binding ScholarSettings.Pvp_Adloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.Pvp_AdloquiumHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
                 </StackPanel>

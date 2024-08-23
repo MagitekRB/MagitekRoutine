@@ -67,6 +67,7 @@ namespace Magitek.Rotations
             Casting.DoHealthChecks = false;
 
             if (await GambitLogic.Gambit()) return true;
+            if (await CustomOpenerLogic.Opener()) return true;
             return false;
 
         }
@@ -104,35 +105,37 @@ namespace Magitek.Rotations
             if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
                 return false;
 
-            if (await Buff.FightLogic_TemperaGrassa()) return true;
-            if (await Buff.FightLogic_TemperaCoat()) return true;
-            if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+            PictomancerRoutine.DetectSmudge();
 
-            if (PictomancerRoutine.GlobalCooldown.CanWeave()) 
+            if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {
-                if (await Healer.LucidDreaming(PictomancerSettings.Instance.UseLucidDreaming, PictomancerSettings.Instance.LucidDreamingMinimumManaPercent)) return true;   
+                if (await Buff.FightLogic_TemperaGrassa()) return true;
+                if (await Buff.FightLogic_TemperaCoat()) return true;
+                if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+                if (await Healer.LucidDreaming(PictomancerSettings.Instance.UseLucidDreaming, PictomancerSettings.Instance.LucidDreamingMinimumManaPercent)) return true;
             }
 
-            if (await Buff.SubtractivePalette()) return true;
+            if (PictomancerRoutine.GlobalCooldown.CanWeave(1) || MovementManager.IsMoving)
+            {
+                if (await Palette.MogoftheAges()) return true;
+                if (await Palette.CreatureMuse()) return true;
+                if (await Palette.StrikingMuse()) return true;
+            }
 
             // palettes
+            if (await SingleTarget.CometinBlack()) return true;
+            if (await Buff.SubtractivePalette()) return true;
+
             if (await Palette.StarPrism()) return true;
             if (await Palette.RainbowDrip()) return true;
-            if (await Palette.ScenicMuse()) return true;
+            if (await Palette.ScenicMuse()) return true;            
 
-            if (await Palette.MogoftheAges()) return true;
             if (await Palette.HammerStamp()) return true;
-
-            if (await Palette.CreatureMuse()) return true;
-            if (await Palette.StrikingMuse()) return true;
-
-            if (await SingleTarget.CometinBlack()) return true;
 
             // inspiration is on a timer, need to consume those stacks first.
             // don't waste time painting more palettes
             if (PictomancerSettings.Instance.PaletteDuringStarry 
-                || !Core.Me.HasAura(Auras.Hyperphantasia) 
-                || (PictomancerSettings.Instance.SwiftcastMotifs && Spells.Swiftcast.IsKnownAndReady()))
+                || !Core.Me.HasAura(Auras.StarryMuse, true))
             {
                 if (await Palette.LandscapeMotif()) return true;
                 if (await Palette.CreatureMotif()) return true;

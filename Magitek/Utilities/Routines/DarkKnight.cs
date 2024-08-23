@@ -20,6 +20,7 @@ namespace Magitek.Utilities.Routines
 
         public static readonly uint[] Defensives = new uint[]
         {
+            Auras.Rampart,
             Auras.LivingDead,
             Auras.ShadowWall,
             Auras.Rampart,

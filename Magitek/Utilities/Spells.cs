@@ -1477,6 +1477,7 @@ namespace Magitek.Utilities
         public static readonly SpellData SaltedEarthPvp = DataManager.GetSpellData(29094);
         public static readonly SpellData EventidePvp = DataManager.GetSpellData(29097);
         public static readonly SpellData QuietusPvp = DataManager.GetSpellData(29737);
+        public static readonly SpellData SaltAndDarknessPvp = DataManager.GetSpellData(29095);
 
         //WAR
         public static readonly uint StormPathPvpCombo = 51;

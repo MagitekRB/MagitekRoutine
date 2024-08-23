@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 
+using PictomancerRoutine = Magitek.Utilities.Routines.Pictomancer;
+
 namespace Magitek.Logic.Pictomancer
 {
     internal static class Palette
@@ -61,10 +63,7 @@ namespace Magitek.Logic.Pictomancer
             if (!Spells.Swiftcast.IsKnownAndReady())
                 return false;
 
-            if (Spells.StarryMuse.IsKnown() && Spells.Swiftcast.CanCast(Core.Me))
-                return (Core.Me.HasAura(Auras.StarryMuse) || Spells.Swiftcast.AdjustedCooldown <= Spells.StarryMuse.Cooldown);
-            else
-                return Spells.Swiftcast.CanCast(Core.Me);
+            return Spells.Swiftcast.CanCast(Core.Me);
         }
 
         public static async Task<bool> SwitfcastMotif()
@@ -77,7 +76,7 @@ namespace Magitek.Logic.Pictomancer
 
         public static bool MotifCanCast(SpellData motif, SpellData muse, bool swiftcast)
         {
-            //if ((muse.Cooldown - muse.AdjustedCooldown).TotalMilliseconds > (motif.AdjustedCastTime.TotalMilliseconds + 500))
+            //if ((muse.Cooldown - muse.AdjustedCooldown).TotalMilliseconds > (motif.AdjustedCastTime.TotalMilliseconds + Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset))
             //    return false;
             //if (muse.Charges < 1)
             //    return false;
@@ -102,14 +101,10 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseMotifs)
                 return false;
 
-            if (ActionResourceManager.Pictomancer.MadeenPortraitReady
-                || ActionResourceManager.Pictomancer.MooglePortraitReady)
+            if (ActionResourceManager.Pictomancer.CreatureMotifDrawn)
                 return false;
 
-            if (!PictomancerSettings.Instance.UseMogDuringStarry && Core.Me.HasAura(Auras.Hyperphantasia))
-                return false;
-
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
             var motif = Spells.CreatureMotif.Masked();
@@ -117,8 +112,8 @@ namespace Magitek.Logic.Pictomancer
 
             bool swiftcast = false;
 
-            if (PictomancerSettings.Instance.SwiftcastCreatureMotifs 
-                && (motif == Spells.WingMotif || motif == Spells.MawMotif))
+            if (PictomancerSettings.Instance.SwiftcastCreatureMotifs)
+                //&& (motif == Spells.WingMotif || motif == Spells.MawMotif))
                 swiftcast = true;
 
             if (PictomancerSettings.Instance.SwiftcastMotifsOnlyWhenMoving && !MovementManager.IsMoving)
@@ -147,13 +142,33 @@ namespace Magitek.Logic.Pictomancer
                 || ActionResourceManager.Pictomancer.MooglePortraitReady)
                 return false;
 
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
-                return false;
-
-            if (!PictomancerSettings.Instance.UseMogDuringStarry && Core.Me.HasAura(Auras.Hyperphantasia))
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
             var muse = Spells.LivingMuse.Masked();
+
+            if (PictomancerSettings.Instance.SaveMogForStarry
+                && Spells.StarryMuse.IsKnown()
+                && !Core.Me.HasAura(Auras.StarryMuse, true)
+                && (ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing) 
+                   || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw))
+                && muse.Charges < 3)
+            {
+                var cooldownForCharge = muse.AdjustedCooldown.TotalMilliseconds;
+                var cooldown2charge = cooldownForCharge * 2;
+                var nextChargeTime = muse.CooldownToNextCharge();
+                var currentCharges = Math.Floor(muse.Charges);
+
+                var nextMogInMs = cooldown2charge - (cooldownForCharge - nextChargeTime);
+                    
+                if (currentCharges > 0)
+                    nextMogInMs -= (cooldownForCharge * (currentCharges - 1));
+
+                Logger.WriteInfo($"Next Mog in {nextMogInMs}ms. Starry Cooldown {PictomancerRoutine.StarryCooldownRemaining()}");
+
+                if (nextMogInMs > PictomancerRoutine.StarryCooldownRemaining())
+                    return false;
+            }
 
             if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me.CurrentTarget))
                 return await muse.Cast(Core.Me.CurrentTarget);
@@ -166,14 +181,14 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseMogOfTheAges)
                 return false;
 
-            if (!PictomancerSettings.Instance.UseMogDuringStarry && Core.Me.HasAura(Auras.Hyperphantasia))
+            if (!PictomancerSettings.Instance.UseMogDuringHyperphantasia && Core.Me.HasAura(Auras.Hyperphantasia))
                 return false;
 
-            if (PictomancerSettings.Instance.SaveMogForStarry
-                && Utilities.Routines.Pictomancer.StarryOffCooldownSoon())
-                return false;
+            //if (PictomancerSettings.Instance.SaveMogForStarry
+            //    && PictomancerRoutine.StarryOffCooldownSoon())
+            //    return false;
 
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
             if (Spells.RetributionoftheMadeen.IsKnownAndReady() && Spells.RetributionoftheMadeen.CanCast())
@@ -190,10 +205,10 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseMotifs)
                 return false;
 
-            if (!PictomancerSettings.Instance.UseHammerDuringStarry && Core.Me.HasAura(Auras.Hyperphantasia))
+            if (!PictomancerSettings.Instance.UseHammerDuringHyperphantasia && Core.Me.HasAura(Auras.Hyperphantasia, true))
                 return false;
 
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
             var motif = Spells.WeaponMotif.Masked();
@@ -225,10 +240,7 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseMuses)
                 return false;
 
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
-                return false;
-
-            if (!PictomancerSettings.Instance.UseHammerDuringStarry && Core.Me.HasAura(Auras.Hyperphantasia))
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
             if (Core.Me.HasAura(Auras.HammerTime))
@@ -236,11 +248,22 @@ namespace Magitek.Logic.Pictomancer
 
             var muse = Spells.SteelMuse.Masked();
 
+            var starryCooldown = PictomancerRoutine.StarryCooldownRemaining();
+            var msToNextCharge = muse.CooldownToNextCharge();
+
             if (PictomancerSettings.Instance.SaveHammerForMovement 
                 && (!PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss || PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss && Core.Me.CurrentTarget.IsBoss())
                 && muse.MaxCharges >= 2 
                 && !MovementManager.IsMoving 
-                && muse.Charges < 1.90)
+                && muse.Charges < 1.95
+                && !(PictomancerSettings.Instance.SaveHammerForStarry && Spells.StarryMuse.IsKnown() && Core.Me.HasAura(Auras.StarryMuse, true)))
+                return false;
+
+            if (PictomancerSettings.Instance.SaveHammerForStarry
+                && Spells.StarryMuse.IsKnown()
+                && !Core.Me.HasAura(Auras.StarryMuse, true)
+                && starryCooldown < msToNextCharge
+                && muse.Charges < 2)
                 return false;
 
             if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me.CurrentTarget))
@@ -254,23 +277,25 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseHammers)
                 return false;
 
-            var hammerAura = Core.Me.CharacterAuras.Where(r => r.CasterId == Core.Player.ObjectId && r.Id == Auras.HammerTime).FirstOrDefault();
+            //var hammerAura = Core.Me.CharacterAuras.Where(r => r.CasterId == Core.Player.ObjectId && r.Id == Auras.HammerTime).FirstOrDefault();
 
-            if (hammerAura == null)
+            //if (hammerAura == null)
+            //    return false;
+            if (!Core.Me.HasAura(Auras.HammerTime, true))
                 return false;
 
-            if (!PictomancerSettings.Instance.UseHammerDuringStarry && Core.Me.HasAura(Auras.Hyperphantasia))
+            if (!PictomancerSettings.Instance.UseHammerDuringHyperphantasia && Core.Me.HasAura(Auras.Hyperphantasia, true))
                 return false;
 
-            var hammerTimeLeft = hammerAura.TimespanLeft.TotalMilliseconds;
-            var hammersLeft = hammerAura.Value;
-            var hammerCastTime = Spells.HammerStamp.AdjustedCastTime.TotalMilliseconds + Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset;
-            var totalHammerCastTime = hammerCastTime * hammersLeft;
+            //var hammerTimeLeft = hammerAura.TimespanLeft.TotalMilliseconds;
+            //var hammersLeft = hammerAura.Value;
+            //var hammerCastTime = Spells.HammerStamp.AdjustedCastTime.TotalMilliseconds + Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset;
+            //var totalHammerCastTime = hammerCastTime * hammersLeft;
 
-            if (PictomancerSettings.Instance.SaveHammerForStarry
-                && Utilities.Routines.Pictomancer.StarryOffCooldownSoon()
-                && totalHammerCastTime > Utilities.Routines.Pictomancer.StarryCooldownRemaining())
-                return false;
+            //if (PictomancerSettings.Instance.SaveHammerForStarry
+            //    && PictomancerRoutine.StarryOffCooldownSoon()
+            //    && totalHammerCastTime > PictomancerRoutine.StarryCooldownRemaining())
+            //    return false;
 
             var hammer = Spells.HammerStamp.Masked();
 
@@ -288,10 +313,10 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseStarrySky)
                 return false;
 
-            if (Core.Me.HasAura(Auras.Hyperphantasia))
+            if (Core.Me.HasAura(Auras.StarryMuse, true))
                 return false;
 
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
             var motif = Spells.LandscapeMotif.Masked();
@@ -329,8 +354,50 @@ namespace Magitek.Logic.Pictomancer
             if (MovementManager.IsMoving && !PictomancerSettings.Instance.UseStarrySkyWhileMoving)
                 return false;
 
-            if (Utilities.Routines.Pictomancer.CheckTTDIsEnemyDyingSoon())
+            if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
+
+            if (!PictomancerRoutine.GlobalCooldown.CanWeave(1))
+                return false;
+
+            if (Core.Me.ClassLevel >= Spells.StarryMuse.LevelAcquired)
+            {
+                if (PictomancerSettings.Instance.SaveStarryForHammers)
+                {
+                    // Condition to continue: Weapon motif is drawn and we have 1 or more charges of Striking Muse.
+                    bool hasHammer = (ActionResourceManager.Pictomancer.WeaponMotifDrawn
+                                     && Spells.StrikingMuse.Charges >= 1);
+
+                    // If the condition is not met, return false.
+                    if (!hasHammer)
+                    {
+                        // Condition to continue: We have 3 charges of Hammer, then it's okay to use Starry Sky and save the hammers for the window. 
+                        var hammerAura = Core.Me.CharacterAuras.Where(r => r.CasterId == Core.Player.ObjectId && r.Id == Auras.HammerTime).FirstOrDefault();
+
+                        if (hammerAura == null || hammerAura.Value < 3)
+                            return false;
+                    }
+                }
+
+                if (PictomancerSettings.Instance.SaveStarryForMog)
+                {
+                    // Condition 1: Continue if we have a Madeen portrait or Moogle portrait AND a creature motif is drawn.
+                    bool hasPortraitAndCreatureMotif =
+                        (ActionResourceManager.Pictomancer.MadeenPortraitReady || ActionResourceManager.Pictomancer.MooglePortraitReady)
+                        && ActionResourceManager.Pictomancer.CreatureMotifDrawn;
+
+                    // Condition 2: Continue if we have a Maw or Wing on the canvas.
+                    bool hasMawOrWingOnCanvas =
+                        ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw)
+                        || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing);
+
+                    // If neither Condition 1 nor Condition 2 is satisfied, return false.
+                    if (!hasPortraitAndCreatureMotif && !hasMawOrWingOnCanvas)
+                    {
+                        return false;
+                    }
+                }
+            }
 
             var muse = Spells.ScenicMuse.Masked();
 
@@ -357,6 +424,7 @@ namespace Magitek.Logic.Pictomancer
 
             return false;
         }
+
         public static async Task<bool> RainbowDrip()
         {
             if (!PictomancerSettings.Instance.UseRainbowDrip)
@@ -369,6 +437,9 @@ namespace Magitek.Logic.Pictomancer
                 return false;
 
             if (!Core.Me.HasAura(Auras.RainbowBright))
+                return false;
+
+            if (Core.Me.HasAura(Auras.HammerTime))
                 return false;
 
             return await Spells.RainbowDrip.Cast(Core.Me.CurrentTarget);

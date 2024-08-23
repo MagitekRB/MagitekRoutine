@@ -22,6 +22,11 @@ namespace Magitek.Logic.Roles
 
         public static async Task<bool> CommonTasks<T>(T settings) where T : JobSettings
         {
+            if (await Casting.TrackSpellCast())
+                return true;
+
+            await Casting.CheckForSuccessfulCast();
+
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return true;
 
@@ -48,10 +53,10 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasAnyAura(Auras.Invincibility))
                 return false;
 
-            if (Core.Me.HasTarget 
-                && Core.Me.CurrentTarget.CanAttack 
+            if (Core.Me.HasTarget
+                && Core.Me.CurrentTarget.CanAttack
                 && Core.Me.CurrentTarget.InLineOfSight()
-                && Core.Me.CurrentTarget.Distance() < 26)
+                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.Distance() < 7 : Core.Me.CurrentTarget.Distance() < 25))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpSprint))
@@ -78,6 +83,9 @@ namespace Magitek.Logic.Roles
                 return false;
 
             if (Core.Me.CurrentHealthPercent > settings.Pvp_GuardHealthPercent)
+                return false;
+
+            if (Core.Me.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }))
                 return false;
 
             if (!await Spells.Guard.CastAura(Core.Me, Auras.PvpGuard))
@@ -123,6 +131,12 @@ namespace Magitek.Logic.Roles
                 return false;
 
             if (Core.Me.CurrentHealthPercent > settings.Pvp_RecuperateHealthPercent)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpHallowedGround))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpUndeadRedemption, true) && !Core.Me.HasAura(Auras.PvpUndeadRedemption, true, 3500))
                 return false;
 
             return await Spells.Recuperate.Cast(Core.Me);

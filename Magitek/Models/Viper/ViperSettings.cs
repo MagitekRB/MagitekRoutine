@@ -98,6 +98,10 @@ namespace Magitek.Models.Viper
         public float Pvp_SnakeScalesHealthPercent { get; set; }
 
         [Setting]
+        [DefaultValue(100f)]
+        public float Pvp_UncoiledFuryHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Pvp_WorldSwallower { get; set; }
 

@@ -262,10 +262,12 @@ namespace Magitek
                 }
             }
 
-            if (Combat.OutOfCombatTime.ElapsedMilliseconds >= 10500 && CustomOpenerLogic._executedOpeners.Count > 0)
+            if (Combat.OutOfCombatTime.ElapsedMilliseconds >= 10500
+                && (CustomOpenerLogic._executedOpeners.Count > 0 || CustomOpenerLogic.InOpener)
+                && (DateTime.UtcNow - CustomOpenerLogic.LastReset).TotalMilliseconds >= 10500)
             {
                 Logger.WriteInfo(@"Resetting Openers Because We're Out Of Combat");
-                CustomOpenerLogic._executedOpeners.Clear();
+                CustomOpenerLogic.ResetOpener();
             }
 
             if (WorldManager.InPvP && !BaseSettings.Instance.ActivePvpCombatRoutine)

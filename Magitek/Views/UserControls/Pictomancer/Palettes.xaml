@@ -106,23 +106,26 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <StackPanel Margin="10,0" Orientation="Horizontal">
+                <!-- <StackPanel Margin="10,0" Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Save hammer/mog for Starry within " />
-                    <controls:Numeric MaxValue="30" MinValue="0" Value="{Binding PictomancerSettings.SaveForStarryMSeconds, Mode=TwoWay}" />
+                    <controls:Numeric MaxValue="120" MinValue="0" Value="{Binding PictomancerSettings.SaveForStarryMSeconds, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds " />
-                </StackPanel>
+                </StackPanel> -->
 
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Hammers During Hyperphantasia " IsChecked="{Binding PictomancerSettings.UseHammerDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content=" Use Hammers During Hyperphantasia " IsChecked="{Binding PictomancerSettings.UseHammerDuringHyperphantasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Margin="5" Content=" Save Hammers for Starry " IsChecked="{Binding PictomancerSettings.SaveHammerForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5" Content=" Save Comet in Black for Starry " IsChecked="{Binding PictomancerSettings.SaveCometInBlackForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Margin="5" Content=" Only use Comet with Starry " IsChecked="{Binding PictomancerSettings.CometInBlackOnlyDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                        <CheckBox Margin="5" Content=" Use extra comets only during movement " IsChecked="{Binding PictomancerSettings.SaveCometInBlackForStarryMovement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Mog / Madeen During Hyperphantasia " IsChecked="{Binding PictomancerSettings.UseMogDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content=" Use Mog / Madeen During Hyperphantasia " IsChecked="{Binding PictomancerSettings.UseMogDuringHyperphantasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Margin="5" Content=" Save Mog / Madeen for Starry " IsChecked="{Binding PictomancerSettings.SaveMogForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>

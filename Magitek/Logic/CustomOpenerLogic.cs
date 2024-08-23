@@ -25,7 +25,17 @@ namespace Magitek.Logic
         public static HashSet<OpenerGroup> _executedOpeners = new HashSet<OpenerGroup>();
         private static Gambit _executingGambit = null;
         private static Stopwatch GambitTimer { get; set; }
+        public static DateTime LastReset = DateTime.UtcNow;
 
+        internal static void ResetOpener()
+        {
+            InOpener = false;
+            _executingOpener = null;
+            _executingGambit = null;
+            _executedOpeners.Clear();
+            LastReset = DateTime.UtcNow;
+            BaseSettings.Instance.ResetOpeners = false;
+        }
         
         internal static async Task<bool> Opener()
         {
@@ -33,11 +43,7 @@ namespace Magitek.Logic
             // User sets it to true, when it iterates through we set it back to false
             if (BaseSettings.Instance.ResetOpeners)
             {
-                InOpener = false;
-                _executingOpener = null;
-                _executingGambit = null;
-                _executedOpeners.Clear();
-                BaseSettings.Instance.ResetOpeners = false;
+                ResetOpener();
                 Logger.WriteInfo(@"Opener Reset");
                 return true;
             }
