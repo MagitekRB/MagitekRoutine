@@ -23,7 +23,7 @@ namespace Magitek.Gambits.Actions
 
         public override async Task<bool> Execute(ObservableCollection<IGambitCondition> conditions)
         {
-            Logger.WriteInfo($@"Looking for Item : {ItemName}");
+            //Logger.WriteInfo($@"Looking for Item : {ItemName}");
 
             var bagSlot = InventoryManager.FilledSlots.FirstOrDefault(r => string.Equals(r.Name, ItemName, StringComparison.CurrentCultureIgnoreCase) &&
                 (AnyQuality || HighQualityOnly && r.IsHighQuality || NormalQualityOnly && !r.IsHighQuality));

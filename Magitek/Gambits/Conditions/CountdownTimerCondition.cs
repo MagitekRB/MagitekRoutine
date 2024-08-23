@@ -15,7 +15,7 @@ namespace Magitek.Gambits.Conditions
 
         public override bool Check(GameObject gameObject = null)
         {
-            Logger.WriteInfo($@"[Opener] Current Countdown = {GamelogManagerCountdown.GetCurrentCooldown()} | Step Timer Config = {CountdownTimerInSeconds}");
+            //Logger.WriteInfo($@"[Opener] Current Countdown = {GamelogManagerCountdown.GetCurrentCooldown()} | Step Timer Config = {CountdownTimerInSeconds}");
             if (GamelogManagerCountdown.GetCurrentCooldown() != CountdownTimerInSeconds)
                 return false;
 
