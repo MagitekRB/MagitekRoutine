@@ -23,27 +23,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsCasting)
-                return true;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            //Openers.OpenerCheck();
-
-            if (Core.Me.HasTarget && Core.Me.CurrentTarget.CanAttack)
-            {
-                return false;
-            }
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             if (await Buff.DancePartner()) return true;
 
             return await PhysicalDps.Peloton(DancerSettings.Instance);
@@ -51,25 +30,11 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20);
-                }
-            }
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
-            if (await GambitLogic.Gambit())
-                return true;
-
             return false;
         }
 
@@ -80,28 +45,8 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20);
-            }
-
-            if (!SpellQueueLogic.SpellQueue.Any())
-                SpellQueueLogic.InSpellQueue = false;
-
-            if (SpellQueueLogic.SpellQueue.Any())
-            {
-                if (await SpellQueueLogic.SpellQueueMethod())
-                    return true;
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (await CustomOpenerLogic.Opener()) return true;
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
@@ -167,18 +112,11 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             //Partner
             if (await Pvp.ClosedPosition()) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
             // Utilities
-            if (await CommonPvp.CommonTasks(DancerSettings.Instance)) return true;
-            
+            if (await CommonPvp.CommonTasks(DancerSettings.Instance)) return true;            
             
             if (await Pvp.CuringWaltz()) return true;
 

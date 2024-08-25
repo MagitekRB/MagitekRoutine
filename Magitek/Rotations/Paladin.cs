@@ -25,43 +25,16 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            await Casting.CheckForSuccessfulCast();
-
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             return await Buff.IronWill();
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (Core.Me.IsMounted)
-                return true;
-
-            if (await GambitLogic.Gambit())
-                return true;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Healing.Clemency();
         }
 
@@ -72,21 +45,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
-
+            
             //LimitBreak
             if (Defensive.ForceLimitBreak()) return true;
 
@@ -162,12 +123,7 @@ namespace Magitek.Rotations
         }
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(PaladinSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.PhalanxPvp()) return true;
             if (await Pvp.BladeofValorPvp()) return true;

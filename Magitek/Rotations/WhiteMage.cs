@@ -30,60 +30,22 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsCasting)
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (Core.Me.IsMounted)
-                return false;
-
             return false;
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (Globals.InParty && Utilities.Combat.Enemies.Count > WhiteMageSettings.Instance.StopDamageWhenMoreThanEnemies)
                 return false;
 
             if (!WhiteMageSettings.Instance.DoDamage)
                 return false;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (await Casting.TrackSpellCast()) 
-                return true;
-            
-            await Casting.CheckForSuccessfulCast();
-
-            Casting.DoHealthChecks = false;
-
-            if (await GambitLogic.Gambit()) 
-                return true;
-
             //LimitBreak
             if (Logic.WhiteMage.Heal.ForceLimitBreak()) return true;
 
@@ -194,8 +156,8 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                return false;
 
             if (Globals.InParty)
             {
@@ -208,16 +170,7 @@ namespace Magitek.Rotations
 
             if (!WhiteMageSettings.Instance.DoDamage)
                 return false;
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
+    
             if (await SingleTarget.Dots()) return true;
             if (await SingleTarget.DotMultipleTargets()) return true;
             if (await Buff.PresenceOfMind()) return true;
@@ -233,12 +186,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(WhiteMageSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.AfflatusPurgationPvp()) return true;
 

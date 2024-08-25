@@ -31,22 +31,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (Core.Me.IsCasting)
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            if (Globals.OnPvpMap)
-                return false;
-
-            if (CustomOpenerLogic.InOpener) return false;
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             if (await Buff.SummonPet())
                 return true;
 
@@ -55,53 +39,18 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (Globals.InParty && Utilities.Combat.Enemies.Count > ScholarSettings.Instance.StopDamageWhenMoreThanEnemies)
                 return false;
 
             if (!ScholarSettings.Instance.DoDamage)
                 return false;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             if (await Buff.SummonPet()) return true;
-
-            Casting.DoHealthChecks = false;
-
-            if (await GambitLogic.Gambit()) return true;
-
-            if (CustomOpenerLogic.InOpener) return false;
 
             //LimitBreak
             if (Logic.Scholar.Heal.ForceLimitBreak()) return true;
@@ -212,20 +161,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
-            if (await Casting.TrackSpellCast()) 
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             if (Core.Me.CurrentManaPercent <= ScholarSettings.Instance.MinimumManaPercent)
                 return false;
 
@@ -259,13 +194,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             ScholarRoutine.RefreshVars();
 
-            if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;           
-            
+            if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;      
 
             if (await Pvp.ConsolationPvp()) return true;
             if (await Pvp.SummonSeraphPvp()) return true;

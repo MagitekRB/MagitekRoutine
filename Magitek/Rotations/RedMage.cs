@@ -30,26 +30,12 @@ namespace Magitek.Rotations
         }
 
         public static async Task<bool> PreCombatBuff()
-        {
-
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-            if (WorldManager.InSanctuary)
-                return false;
-
+        { 
             return false;
         }
 
         public static async Task<bool> Pull()
         {
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             if (BotManager.Current.IsAutonomous)
             {
                 if (Core.Me.HasTarget)
@@ -67,10 +53,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Heal()
         {
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
-            if (await GambitLogic.Gambit()) return true;
             if (await Logic.RedMage.Heal.Verraise()) return true;
             return await Logic.RedMage.Heal.Vercure();
         }
@@ -82,13 +64,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-                       
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
                 return false;
 
             if (BotManager.Current.IsAutonomous)
@@ -105,9 +81,6 @@ namespace Magitek.Rotations
 
                 }
             }
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
@@ -175,12 +148,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(RedMageSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.DisplacementPvp()) return true;
             if (!CommonPvp.GuardCheck(RedMageSettings.Instance))

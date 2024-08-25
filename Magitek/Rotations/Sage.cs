@@ -21,71 +21,25 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (Core.Me.IsCasting)
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (Globals.OnPvpMap)
-                return false;
-
             if (await Buff.Kardia()) return true;
 
             return false;
         }
 
         public static async Task<bool> Pull()
-        {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
+        {            
 
             if (Globals.InParty && Utilities.Combat.Enemies.Count > SageSettings.Instance.StopDamageWhenMoreThanEnemies)
                 return false;
 
             if (!SageSettings.Instance.DoDamage)
-                return false;
-
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
+                return false;            
 
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            Casting.DoHealthChecks = false;
-
-            if (await GambitLogic.Gambit())
-                return true;
-
             //LimitBreak
             if (Logic.Sage.Heal.ForceLimitBreak()) return true;
 
@@ -178,8 +132,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                // todo, might be able to cast eukrasian dyskrasia without a target
+                return false;
 
             //Only stop doing damage when in party
             if (Globals.InParty && Utilities.Combat.Enemies.Count > SageSettings.Instance.StopDamageWhenMoreThanEnemies)
@@ -191,22 +146,6 @@ namespace Magitek.Rotations
             if (!GameSettingsManager.FaceTargetOnAction
                 && !Core.Me.CurrentTarget.InView())
                 return false;
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (Globals.OnPvpMap)
-            {
-                return false;
-            }
 
             if (SageRoutine.CanWeave())
             {
@@ -236,14 +175,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             SageRoutine.RefreshVars();
 
             if (await CommonPvp.CommonTasks(SageSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.MesotesPvp()) return true;
 

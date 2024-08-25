@@ -27,39 +27,15 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsCasting)
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-            SpellQueueLogic.SpellQueue.Clear();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             return await Pets.SummonCarbuncle();
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             return await Combat();
         }
         public static async Task<bool> Heal()
         {
-            if (Core.Me.IsMounted)
-                return true;
-
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
-            Casting.DoHealthChecks = false;
-
-            if (await GambitLogic.Gambit()) return true;
             if (await Logic.Summoner.Heal.Resurrection()) return true;
             #region Force Toggles
             if (await Logic.Summoner.Heal.ForceRaise()) return true;
@@ -69,7 +45,6 @@ namespace Magitek.Rotations
             if (await Logic.Summoner.Heal.LuxSolaris()) return true;
             if (await Logic.Summoner.Heal.RadiantAegis()) return true;
             return await Logic.Summoner.Heal.Physick();
-
         }
 
         public static Task<bool> CombatBuff()
@@ -79,25 +54,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
-
             if (Core.Me.CurrentTarget.HasAura(Auras.MagicResistance))
-                return false;
-
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
                 return false;
 
             //LimitBreak
@@ -124,13 +81,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                return false;
 
             if (await CommonPvp.CommonTasks(SummonerSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.SummonBahamutPvp()) return true;
             if (await Pvp.SummonPhoenixPvp()) return true;

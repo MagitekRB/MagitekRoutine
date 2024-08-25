@@ -22,22 +22,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            //Openers.OpenerCheck();
-
-            if (Core.Me.HasTarget && Core.Me.CurrentTarget.CanAttack)
-                return false;
-
-            if (Globals.OnPvpMap)
-                return false;
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             return await PhysicalDps.Peloton(BardSettings.Instance);
         }
 
@@ -45,25 +29,12 @@ namespace Magitek.Rotations
         {
             BardRoutine.RefreshVars();
 
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            return await GambitLogic.Gambit();
+            return false;
         }
 
         public static Task<bool> CombatBuff()
@@ -73,30 +44,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             BardRoutine.RefreshVars();
 
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (await CustomOpenerLogic.Opener()) 
-                return true;
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
@@ -153,9 +104,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(BardSettings.Instance)) return true;
 
             if (await Pvp.FinalFantasiaPvp()) return true;

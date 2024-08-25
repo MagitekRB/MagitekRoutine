@@ -25,53 +25,17 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsCasting)
-                return true;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            //Openers.OpenerCheck();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (Core.Me.HasTarget && Core.Me.CurrentTarget.CanAttack)
-                return false;
-
-
-            if (Globals.OnPvpMap)
-                return false;
-
-
             return false;
-
         }
 
         public static async Task<bool> Pull()
         {
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            return await GambitLogic.Gambit();
+            return false;
         }
 
         public static Task<bool> CombatBuff()
@@ -81,47 +45,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (Core.Me.IsCasting)
-                return true;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            ViperRoutine.RefreshVars();
-
-            if (await CustomOpenerLogic.Opener()) return true;
-
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (!SpellQueueLogic.SpellQueue.Any())
-            {
-                SpellQueueLogic.InSpellQueue = false;
-            }
-
-
-            if (SpellQueueLogic.SpellQueue.Any())
-            {
-                if (await SpellQueueLogic.SpellQueueMethod())
-                    return true;
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
-            if (await CustomOpenerLogic.Opener())
-                return true;
+            ViperRoutine.RefreshVars();
 
             if (SingleTarget.ForceLimitBreak()) return true;
 
@@ -179,9 +106,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(ViperSettings.Instance)) return true;
             if (await Pvp.SnakeScales()) return true;
 

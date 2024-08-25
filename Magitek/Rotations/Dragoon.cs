@@ -27,35 +27,16 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            await Casting.CheckForSuccessfulCast();
-            if (WorldManager.InSanctuary)
-                return false;
             return false;
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            if (await GambitLogic.Gambit())
-                return true;
-
             return false;
         }
 
@@ -66,23 +47,11 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (!Core.Me.HasTarget && !Core.Me.InCombat)
                 return false;
 
             if (!Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
 
             #region Off GCD debugging
             if (DragoonRoutine.JumpsList.Contains(Casting.LastSpell))
@@ -177,12 +146,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(DragoonSettings.Instance)) return true;
-            
-            
 
             if (!CommonPvp.GuardCheck(DragoonSettings.Instance))
             {

@@ -211,6 +211,16 @@ namespace Magitek.Extensions
             return Combat.Enemies.Where(r => r.Distance(unit) <= distance && r.HasAura(aura, true));
         }
 
+        public static bool IsMelee(this GameObject unit)
+        {
+            return unit.IsTank() || unit.IsMeleeDps();
+        }
+
+        public static bool IsRanged(this GameObject unit)
+        {
+            return unit.IsHealer() || unit.IsRangedDps();
+        }
+
         public static bool IsTank(this GameObject unit)
         {
             var gameObject = unit as Character;
@@ -277,13 +287,19 @@ namespace Magitek.Extensions
         public static bool IsRangedDpsCard(this GameObject unit)
         {
             var gameObject = unit as Character;
-            return gameObject != null && RangedDpsCard.Contains(gameObject.CurrentJob);
+            return gameObject != null && RangedDps.Contains(gameObject.CurrentJob);
         }
 
         public static bool IsMeleeDps(this GameObject unit)
         {
             var gameObject = unit as Character;
             return gameObject != null && MeleeDps.Contains(gameObject.CurrentJob);
+        }
+
+        public static bool IsRangedDps(this GameObject unit)
+        {
+            var gameObject = unit as Character;
+            return gameObject != null && RangedDps.Contains(gameObject.CurrentJob);
         }
 
         public static bool HasMyRegen(this GameObject unit)
@@ -579,7 +595,7 @@ namespace Magitek.Extensions
             ClassJobType.Viper
         };
 
-        private static readonly List<ClassJobType> RangedDpsCard = new List<ClassJobType>()
+        private static readonly List<ClassJobType> RangedDps = new List<ClassJobType>()
         {
             ClassJobType.Archer,
             ClassJobType.Bard,
