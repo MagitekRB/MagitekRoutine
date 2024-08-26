@@ -50,6 +50,11 @@ namespace Magitek.Logic.Paladin
             if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= Spells.HolyCircle.Radius + x.CombatReach) < PaladinSettings.Instance.HolyCircleEnemies)
                 return false;
 
+            if (Core.Me.HasAura(Auras.Requiescat) && !Spells.BladeOfFaith.IsKnown())
+            {
+                return await Spells.HolyCircle.Cast(Core.Me);
+            }
+
             if (!Core.Me.HasAura(Auras.DivineMight))
                 return false;
 

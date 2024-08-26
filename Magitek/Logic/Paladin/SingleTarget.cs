@@ -81,7 +81,7 @@ namespace Magitek.Logic.Paladin
 
             if (PaladinSettings.Instance.UseHolySpiritToPull && !Core.Me.InCombat)
                 return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
-
+    
             if (PaladinSettings.Instance.UseHolySpiritWhenOutOfMeleeRange)
             {
                 if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBlade.Range))
@@ -100,6 +100,11 @@ namespace Magitek.Logic.Paladin
 
             if (!PaladinSettings.Instance.UseHolySpirit)
                 return false;
+
+            if (Core.Me.HasAura(Auras.Requiescat) && !Spells.BladeOfFaith.IsKnown())
+            {
+                return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
+            }
 
             if (!Core.Me.HasAura(Auras.DivineMight))
                 return false;
