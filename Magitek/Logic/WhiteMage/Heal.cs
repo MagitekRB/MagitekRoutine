@@ -364,7 +364,7 @@ namespace Magitek.Logic.WhiteMage
                                                                        r.CurrentHealthPercent <= WhiteMageSettings.Instance.AsylumHealthPercent &&
                                                                        Group.CastableAlliesWithin30.Count(x => x.CurrentHealth > 0 && x.Distance(r) <= 15 && x.CurrentHealthPercent <= WhiteMageSettings.Instance.AsylumHealthPercent) >= AoeNeedHealing - 1);
 
-            if (WhiteMageSettings.Instance.AsylumCenterParty)
+            if (WhiteMageSettings.Instance.AsylumCenterParty && asylumTarget != null)
             {
                 var targets = Group.CastableAlliesWithin30.OrderBy(r =>
                     Group.CastableAlliesWithin30.Sum(ot => r.Distance(ot.Location))
@@ -378,6 +378,7 @@ namespace Magitek.Logic.WhiteMage
 
             return await Spells.Asylum.Cast(asylumTarget);
         }
+
 
         public static async Task<bool> LiturgyOfTheBell()
         {

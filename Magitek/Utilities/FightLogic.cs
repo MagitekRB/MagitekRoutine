@@ -460,7 +460,8 @@ namespace Magitek.Utilities
                         Id = 2143,
                         Name = "Lahabrea",
                         TankBusters = new List<uint> {
-                            4348 //Dark Orb
+                            4348, //Dark Orb
+                            31891
                         },
                         SharedTankBusters = null,
                         Aoes = null,
@@ -469,11 +470,14 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 3829,
                         Name = "Ascian Prime",
-                        TankBusters = null,
+                        TankBusters = new List<uint> { 31911 },                        
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
                             4361, //Shadowflare
-                            4362 //Annihilation
+                            4362, //Annihilation,
+                            31900,
+                            31906,
+
                         },
                         BigAoes = null
                     }
