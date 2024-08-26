@@ -7,6 +7,7 @@ using Magitek.Toggles;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using DragoonRoutine = Magitek.Utilities.Routines.Dragoon;
 
 namespace Magitek.Logic.Dragoon
 {
@@ -33,7 +34,7 @@ namespace Magitek.Logic.Dragoon
             if (Spells.TrueThrust.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
                 return false;
 
-            if (ActionManager.LastSpell == Spells.Disembowel)
+            if (ActionManager.LastSpell == DragoonRoutine.Disembowel)
             {
                 if (Core.Me.CurrentTarget.IsBehind)
                     return false;
@@ -41,7 +42,7 @@ namespace Magitek.Logic.Dragoon
                 return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
             }
 
-            if (Core.Me.HasAura(Auras.EnhancedWheelingThrust))
+            if (ActionManager.LastSpell == DragoonRoutine.ChaoticSpring)
             {
                 if (Core.Me.CurrentTarget.IsBehind)
                     return false;
@@ -49,7 +50,7 @@ namespace Magitek.Logic.Dragoon
                 return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
             }
 
-            if (Core.Me.HasAura(Auras.SharperFangandClaw))
+            if (ActionManager.LastSpell == DragoonRoutine.HeavensThrust)
             {
                 if (Core.Me.CurrentTarget.IsFlanking)
                     return false;
