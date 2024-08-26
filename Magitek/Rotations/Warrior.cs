@@ -88,6 +88,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.InnerChaos()) return true;
 
             //Spell to spam inside Inner Release
+            if (await Aoe.PrimalRuination()) return true;
             if (await Aoe.PrimalRend()) return true;
             if (await Aoe.Decimate()) return true;
             if (await SingleTarget.FellCleave()) return true;
