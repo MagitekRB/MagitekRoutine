@@ -209,6 +209,10 @@ namespace Magitek.Models.Scholar
 
         [Setting]
         [DefaultValue(true)]
+        public bool SacredSoilCenterParty { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Indomitability { get; set; }
 
         [Setting]
