@@ -93,20 +93,32 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.PlenaryIndulgence.IsKnownAndReady()
                 && Spells.PlenaryIndulgence.CanCast())
             {
+                if (!FightLogic.HodlCastTimeRemaining(1500))
+                    return false;
+
                 if (BaseSettings.Instance.DebugFightLogic)
                     Logger.WriteInfo($"[AOE Response] Cast Plenary Indulgence");
 
                 return await FightLogic.DoAndBuffer(Spells.PlenaryIndulgence.Cast(Core.Me));
             }
 
-            if (WhiteMageSettings.Instance.FightLogicMedica2
-                && Spells.Medica2.IsKnownAndReady()
-                && Spells.Medica2.CanCast())
+            if (WhiteMageSettings.Instance.FightLogicMedica2)
             {
+                var spell = Spells.Medica3.IsKnown() ? Spells.Medica3 : Spells.Medica2;
+
+                if (!spell.IsKnownAndReady() || !spell.CanCast())
+                    return false;
+
+                if (Group.CastableAlliesWithin30.Any(x => x.HasAura(Auras.Medica2, true) || x.HasAura(Auras.Medica3, true)))
+                    return false;
+
+                if (!FightLogic.HodlCastTimeRemaining(2000))
+                    return false;
+
                 if (BaseSettings.Instance.DebugFightLogic)
                     Logger.WriteInfo($"[AOE Response] Cast Medica 2");
 
-                return await FightLogic.DoAndBuffer(Spells.Medica2.Cast(Core.Me));
+                return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
 
             return false;

@@ -435,6 +435,9 @@ namespace Magitek.Logic.WhiteMage
             if (Core.Me.ClassLevel < Spells.Medica2.LevelAcquired)
                 return false;
 
+            if (Core.Me.ClassLevel >= Spells.Medica3.LevelAcquired)
+                return false;
+
             if (Casting.LastSpell == Spells.Medica2)
                 return false;
 

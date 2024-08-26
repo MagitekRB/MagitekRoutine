@@ -131,7 +131,7 @@
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <CheckBox Content="Place asylum on the party member closest to the center of the whole party." IsChecked="{Binding WhiteMageSettings.AsylumCenterParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <CheckBox  Margin="5" Content="Place asylum on the party member closest to the center of the whole party." IsChecked="{Binding WhiteMageSettings.AsylumCenterParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
         </controls:SettingsBlock>
 
 
