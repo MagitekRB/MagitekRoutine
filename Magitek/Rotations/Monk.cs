@@ -70,6 +70,7 @@ namespace Magitek.Rotations
                     if (await PhysicalDps.Bloodbath(MonkSettings.Instance)) return true;
                     if (await PhysicalDps.Feint(MonkSettings.Instance)) return true;
                     if (await Buff.UsePotion()) return true;
+                    if (await Buff.TrueNorth()) return true;
 
                     if (await Buff.EarthReply()) return true;
                     if (await Buff.Brotherhood()) return true;

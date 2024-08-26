@@ -12,6 +12,47 @@ namespace Magitek.Logic.Monk
 {
     internal static class Buff
     {
+        public static async Task<bool> TrueNorth()
+        {
+            if (MonkSettings.Instance.EnemyIsOmni || !MonkSettings.Instance.UseTrueNorth)
+                return false;
+
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= MonkSettings.Instance.AoeEnemies)
+                return false;
+
+            if (Core.Me.HasAura(Auras.TrueNorth))
+                return false;
+
+            if (Core.Me.CurrentTarget.IsBehind)
+                return false;
+
+            if (Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury == 0 && !Core.Me.HasAura(Auras.PerfectBalance))
+            {
+                 if (Core.Me.CurrentTarget.IsBehind)
+                    return false;
+
+                 return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
+            }
+
+            if (Core.Me.ClassLevel >= Spells.PouncingCoeurl.LevelAcquired && Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 0 && !Core.Me.HasAura(Auras.PerfectBalance))
+            {
+                if (Core.Me.CurrentTarget.IsFlanking)
+                    return false;
+
+                return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
+            }
+
+            if (Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 1 && !Core.Me.HasAura(Auras.PerfectBalance))
+            {
+                if (Core.Me.CurrentTarget.IsFlanking)
+                    return false;
+
+                return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
+            }
+
+            return false;
+        }
+
         public static async Task<bool> Meditate()
         {
             if (Core.Me.ClassLevel < 54)
