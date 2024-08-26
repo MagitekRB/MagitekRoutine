@@ -86,7 +86,10 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.EukrasianDyskrasia)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= Spells.Dyskrasia.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
+            if (!Spells.EukrasianDyskrasia.IsKnownAndReady())
+                return false;
+
+            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= Spells.EukrasianDyskrasia.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())
@@ -97,22 +100,20 @@ namespace Magitek.Logic.Sage
             if (targetChar != null && targetChar.CharacterAuras.Count() >= 25)
                 return false;
 
-            if (Core.Me.CurrentTarget.HasAnyAura(DotAuras, true, msLeft: SageSettings.Instance.DotRefreshMSeconds))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25 + Core.Me.CurrentTarget.CombatReach)
+            if (!Combat.Enemies.Any(x => (!x.HasAnyAura(DotAuras, true) || (x.HasAnyAura(DotAuras, true) && !x.HasAnyAura(DotAuras, true, SageSettings.Instance.DotRefreshMSeconds)))
+                                         && x.Distance(Core.Me) <= Spells.EukrasianDyskrasia.Radius + Core.Me.CombatReach))
                 return false;
 
             return await UseEukrasianDyskrasia(Core.Me.CurrentTarget);
         }
 
-            private static readonly uint[] DotAuras =
-            {
-                Auras.EukrasianDosis,
-                Auras.EukrasianDosisII,
-                Auras.EukrasianDosisIII,
-                Auras.EukrasianDyskrasia
-            };
+        private static readonly uint[] DotAuras =
+        {
+            Auras.EukrasianDosis,
+            Auras.EukrasianDosisII,
+            Auras.EukrasianDosisIII,
+            Auras.EukrasianDyskrasia
+        };
 
         private static async Task<bool> UseEukrasianDyskrasia(GameObject target)
         {

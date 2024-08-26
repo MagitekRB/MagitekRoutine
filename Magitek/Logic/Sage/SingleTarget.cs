@@ -89,7 +89,6 @@ namespace Magitek.Logic.Sage
             return await UseEukrasianDosis(Core.Me.CurrentTarget);
         }
 
-        //No longer in used
         public static async Task<bool> DotMultipleTargets()
         {
             if (!SageSettings.Instance.DoDamage)
@@ -101,7 +100,10 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.DotMultipleTargets)
                 return false;
 
-            if (SageSettings.Instance.EukrasianDyskrasia)
+            // Don't multidot if we can use the aoe version of it. 
+            // but multidot if we are out of range enough to use the aoe dot.
+            if (Spells.EukrasianDyskrasia.IsKnown()
+                && Combat.Enemies.Count(r => r.Distance(Core.Me) <= (Spells.EukrasianDyskrasia.Radius*1.5) + r.CombatReach) >= SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())
@@ -139,7 +141,8 @@ namespace Magitek.Logic.Sage
         {
             Auras.EukrasianDosis,
             Auras.EukrasianDosisII,
-            Auras.EukrasianDosisIII
+            Auras.EukrasianDosisIII,
+            Auras.EukrasianDyskrasia
         };
     }
 
