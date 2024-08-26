@@ -87,11 +87,6 @@ namespace Magitek.Utilities
                 Logger.WriteInfo(
                     $"[TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name} on {output.CurrentJob} in our party.");
 
-            if (output != null)
-            {
-                FlStopwatch.Start();
-            }
-
             return output;
         }
 
@@ -116,9 +111,6 @@ namespace Magitek.Utilities
             if (output != null && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo(
                     $"[Shared TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}. Handling for {output.CurrentJob} in our party.");
-
-            if (output != null)
-                FlStopwatch.Start();
 
             return output;
 

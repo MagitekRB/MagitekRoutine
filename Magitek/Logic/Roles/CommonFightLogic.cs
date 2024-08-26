@@ -33,11 +33,12 @@ namespace Magitek.Logic.Roles
 
                 foreach (var defensiveSpell in defensiveSpells)
                 {
-                    if (defensiveSpell.IsKnownAndReady())
+                    if (defensiveSpell.IsKnownAndReadyAndCastable(Core.Me))
                     {
                         if (BaseSettings.Instance.DebugFightLogic)
                             Logger.WriteInfo($"[TankDefensive Response] Cast {defensiveSpell.Name}");
-                        return await FightLogic.DoAndBuffer(defensiveSpell.Cast(Core.Me));
+                        if (await FightLogic.DoAndBuffer(defensiveSpell.Cast(Core.Me)))
+                            return true; // intentionally continue to next defensive in the list. 
                     }
                 }
             }
