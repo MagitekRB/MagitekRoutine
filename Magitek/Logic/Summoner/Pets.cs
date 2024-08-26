@@ -150,8 +150,8 @@ namespace Magitek.Logic.Summoner
                 if (SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Garuda) &&
                     Spells.SummonGaruda.IsKnownAndReady())
                     return Spells.SummonGaruda2.IsKnown()
-                        ? await Spells.SummonGaruda2.Cast(Core.Me.CurrentTarget)
-                        : await Spells.SummonGaruda.Cast(Core.Me.CurrentTarget);
+                        ? await Spells.SummonGaruda2.CastAura(Core.Me.CurrentTarget, Auras.GarudasFavor)
+                        : await Spells.SummonGaruda.CastAura(Core.Me.CurrentTarget, Auras.GarudasFavor);
 
                 if (ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Emerald))
                     return await Spells.SummonEmerald.Cast(Core.Me.CurrentTarget);
@@ -162,8 +162,8 @@ namespace Magitek.Logic.Summoner
                 if (SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Ifrit) &&
                     Spells.SummonIfrit.IsKnownAndReady())
                     return Spells.SummonIfrit2.IsKnown()
-                        ? await Spells.SummonIfrit2.Cast(Core.Me.CurrentTarget)
-                        : await Spells.SummonIfrit.Cast(Core.Me.CurrentTarget);
+                        ? await Spells.SummonIfrit2.CastAura(Core.Me.CurrentTarget, Auras.IfritsFavor)
+                        : await Spells.SummonIfrit.CastAura(Core.Me.CurrentTarget, Auras.IfritsFavor);
 
                 if (ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Ruby))
                     return await Spells.SummonRuby.Cast(Core.Me.CurrentTarget);
