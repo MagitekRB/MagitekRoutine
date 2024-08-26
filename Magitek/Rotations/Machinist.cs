@@ -77,8 +77,7 @@ namespace Magitek.Rotations
                     if (await Pet.RookQueen()) return true;
                 }
 
-                // Intentionally only weave 1 guass or richochet to hit 6 gcd's during wildfire. 
-                if (MachinistRoutine.GlobalCooldown.CanWeave(Core.Me.HasAura(Auras.WildfireBuff) ? 1 : 2))
+                if (MachinistRoutine.GlobalCooldown.CanWeave(1))
                 {
                     //oGCDs
                     if (await SingleTarget.GaussRound()) return true;
