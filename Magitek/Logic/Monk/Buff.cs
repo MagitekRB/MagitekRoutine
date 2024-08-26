@@ -2,6 +2,7 @@
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
+using Magitek.Models.Account;
 using Magitek.Models.Monk;
 using MonkRoutine = Magitek.Utilities.Routines.Monk;
 using Magitek.Utilities;
@@ -24,6 +25,9 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (Core.Me.CurrentTarget.IsBehind)
+                return false;
+
+            if (Spells.Bootshine.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
                 return false;
 
             if (Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury == 0 && !Core.Me.HasAura(Auras.PerfectBalance))

@@ -25,9 +25,6 @@ namespace Magitek.Logic.Dragoon
             if (Core.Me.HasAura(Auras.TrueNorth))
                 return false;
 
-            if (Casting.LastSpell != Spells.FullThrust && Casting.LastSpell != Spells.ChaosThrust && Casting.LastSpell != Spells.WheelingThrust && Casting.LastSpell != Spells.FangAndClaw)
-                return false;
-
             if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= DragoonSettings.Instance.AoeEnemies)
                 return false;
 
