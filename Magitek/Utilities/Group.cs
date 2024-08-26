@@ -15,10 +15,11 @@ namespace Magitek.Utilities
 {
     public static class Group
     {
-        private static readonly FrameCachedObject<IEnumerable<Character>> _allianceMembers = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i=> i!=null && i.IsValid).Where(r => r.Type == GameObjectType.Pc && r.IsTargetable && r.InLineOfSight()));
-        private static readonly FrameCachedObject<IEnumerable<Character>> _pets = new(() => GameObjectManager.GetObjectsByNPCIds<GameObject>(PetIds).Where(i=> i!=null && i.IsValid).Where(r => r.IsTargetable && r.InLineOfSight() && r.Distance(Core.Me) <= 30).OfType<Character>().Where(i=> i.IsValid));
-        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _allies = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i=> i!=null && i.IsValid).Where(r => r.CanAttack && r.InLineOfSight()));
-        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _battleCharacters = new(() => PartyManager.RawMembers.Select(r => r?.BattleCharacter).Where(i=> i!=null && i.IsValid).Where(i=> i.InLineOfSight()));
+        private static readonly FrameCachedObject<IEnumerable<Character>> _allianceMembers = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid).Where(r => r.Type == GameObjectType.Pc && r.IsTargetable && r.InLineOfSight()));
+        private static readonly FrameCachedObject<IEnumerable<Character>> _pets = new(() => GameObjectManager.GetObjectsByNPCIds<GameObject>(PetIds).Where(i => i != null && i.IsValid).Where(r => r.IsTargetable && r.InLineOfSight() && r.Distance(Core.Me) <= 30).OfType<Character>().Where(i => i.IsValid));
+        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _allies = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid).Where(r => r.CanAttack && r.InLineOfSight()));
+        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _battleCharacters = new(() => PartyManager.RawMembers.Select(r => r?.BattleCharacter).Where(i => i != null && i.IsValid).Where(i => i.InLineOfSight()));
+
         public static IEnumerable<Character> AllianceMembers
         {
             get
@@ -26,7 +27,7 @@ namespace Magitek.Utilities
                 return _allianceMembers.Value;
             }
         }
-        
+
         public static IEnumerable<Character> Pets
         {
             get
@@ -36,7 +37,15 @@ namespace Magitek.Utilities
         }
 
         private static readonly uint[] PetIds = { 1398, 1399, 1400, 1401, 1402, 1403, 1404, 5478 };
-        
+
+        public static IEnumerable<BattleCharacter> RawPartyMembers
+        {
+            get
+            {
+                return _battleCharacters.Value;
+            }
+        }
+
         public static void UpdateAllies(Action extensions = null)
         {
             CastableParty.Clear();

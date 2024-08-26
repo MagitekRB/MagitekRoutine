@@ -257,7 +257,7 @@ namespace Magitek
             {
                 if (BaseSettings.Instance.DebugEnemyInfo)
                 {
-                    Debug.Instance.IsBoss = XivDataHelper.BossDictionary.ContainsKey(Core.Me.CurrentTarget.NpcId) ? "True" : "False";
+                    Debug.Instance.IsBoss = Core.Me.CurrentTarget.IsBoss() ? "True" : "False";
                     Debug.Instance.TargetCombatTimeLeft = Core.Me.CurrentTarget.CombatTimeLeft();
                 }
             }
