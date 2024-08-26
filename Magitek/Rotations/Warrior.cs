@@ -22,38 +22,17 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            await Casting.CheckForSuccessfulCast();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             return await Buff.Defiance();
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CurrentTarget.CombatReach);
-            }
-
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
-            return await GambitLogic.Gambit();
+            return false;
         }
 
         public static Task<bool> CombatBuff()
@@ -63,23 +42,8 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
-                return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
 
             //LimitBreak
             if (Defensive.ForceLimitBreak()) return true;
@@ -124,6 +88,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.InnerChaos()) return true;
 
             //Spell to spam inside Inner Release
+            if (await Aoe.PrimalRuination()) return true;
             if (await Aoe.PrimalRend()) return true;
             if (await Aoe.Decimate()) return true;
             if (await SingleTarget.FellCleave()) return true;
@@ -144,12 +109,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(WarriorSettings.Instance)) return true;
-            
-            
 
             if (!CommonPvp.GuardCheck(WarriorSettings.Instance))
             {

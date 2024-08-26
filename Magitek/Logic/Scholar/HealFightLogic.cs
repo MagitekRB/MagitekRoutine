@@ -4,7 +4,6 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Account;
-using Magitek.Models.Sage;
 using Magitek.Models.Scholar;
 using Magitek.Properties;
 using Magitek.Toggles;
@@ -13,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static ff14bot.Managers.ActionResourceManager.Sage;
 using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Scholar
@@ -48,19 +46,30 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             var enemyTarget = (Character) Core.Me.CurrentTarget; 
+            var castTimeRemaining = (int)enemyTarget.SpellCastInfo.RemainingCastTime.TotalMilliseconds;
             if (enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime)
                 return false;
 
             if (ScholarSettings.Instance.FightLogicAdloDeployBigAoe && 
                 Spells.DeploymentTactics.IsKnownAndReady())
             {
-                var target = Group.CastableParty.FirstOrDefault(x => x.HasAura(Auras.Catalyze));
+                if (BaseSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AOE Response] Cast Deploy Adlo");
 
-                if (target == null) target = Group.CastableParty.FirstOrDefault(x => x.HasAura(Auras.Galvanize));
+                var target = Group.CastableParty.FirstOrDefault(x => x.HasAura(Auras.Catalyze, true, castTimeRemaining + 1000));
+
+                if (target == null) target = Group.CastableParty.FirstOrDefault(x => x.HasAura(Auras.Galvanize, true, castTimeRemaining + 1000));
 
                 if (target == null)
                 {
                     target = Core.Me;
+
+                    if (Spells.Recitation.IsKnownAndReady())
+                    {
+                        if (await Spells.Recitation.Cast(Core.Me))
+                            await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Recitation, true));
+                    }
+
                     if (!await Spells.Adloquium.Cast(target))
                         return false;
                 }
@@ -73,6 +82,9 @@ namespace Magitek.Logic.Scholar
                 !Core.Me.HasAura(Auras.EmergencyTactics) && 
                 Group.CastableParty.Count(x => x.HasAura(Auras.Galvanize)) < AoeThreshold)
             {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AOE Response] Cast Recitation Succor");
+
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return false;
 
@@ -82,13 +94,33 @@ namespace Magitek.Logic.Scholar
             if (ScholarSettings.Instance.FightLogicSoilBigAoe && 
                 Spells.SacredSoil.IsKnownAndReady() &&
                 Core.Me.HasAetherflow())
-                return await FightLogic.DoAndBuffer(Spells.SacredSoil.Cast(Core.Me));
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AOE Response] Cast Sacred Soil");
 
-            if (ScholarSettings.Instance.FightLogicSuccorAoe && 
-                Spells.Succor.IsKnownAndReady() && 
+                Character target = Core.Me;
+
+                if (ScholarSettings.Instance.SacredSoilCenterParty)
+                {
+                    var targets = Group.CastableAlliesWithin30.OrderBy(r =>
+                        Group.CastableAlliesWithin30.Sum(ot => r.Distance(ot.Location))
+                    ).ThenBy(t => Core.Me.Distance(t.Location));
+
+                    target = targets.FirstOrDefault(Core.Me);
+                }
+
+                return await FightLogic.DoAndBuffer(Spells.SacredSoil.Cast(Core.Me));
+            }
+
+            if (ScholarSettings.Instance.FightLogicSuccorAoe &&
+                Spells.Succor.IsKnownAndReady() &&
                 Group.CastableParty.Count(x => x.HasAura(Auras.Galvanize)) < AoeThreshold)
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AOE Response] Cast Succor");
+
                 return await FightLogic.DoAndBuffer(Spells.Succor.Cast(Core.Me));
-            
+            }
             return false;
         }
 

@@ -23,24 +23,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-
-            /*if (ActionResourceManager.BlackMage.AstralStacks > 0 && ActionResourceManager.BlackMage.UmbralStacks == 0)
-            {
-                if (Core.Me.CurrentManaPercent < 70 && Spells.Transpose.Cooldown == TimeSpan.Zero)
-                {
-                    return await Spells.Transpose.Cast(Core.Me);
-                }
-            }*/
-            if (WorldManager.InSanctuary)
-                return false;
-
             //Try to keep stacks outside combat
             if (await Buff.UmbralSoul()) return true;
             //if (await Buff.Transpose()) return true;
@@ -50,39 +32,11 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-
-
-            if (Core.Me.IsMounted)
-                return true;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-
-            if (await GambitLogic.Gambit()) return true;
-
-            // if (await Buff.TransposeMovement()) return true;
-
             return false;
         }
         public static Task<bool> CombatBuff()
@@ -91,25 +45,8 @@ namespace Magitek.Rotations
         }
         public static async Task<bool> Combat()
         {
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
-                return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
-
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
@@ -164,14 +101,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             BlackMageRoutine.RefreshVars();
 
             if (await CommonPvp.CommonTasks(BlackMageSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.SoulResonancePvp()) return true;
             if (await Pvp.FoulPvp()) return true;

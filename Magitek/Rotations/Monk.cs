@@ -23,13 +23,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            await Casting.CheckForSuccessfulCast();
-            if (WorldManager.InSanctuary)
-                return false;
-
             if (await Buff.Meditate()) return true;
 
             return false;
@@ -37,26 +30,11 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
-            if (await GambitLogic.Gambit()) return true;
             if (await Buff.Mantra()) return true;
 
             return false;
@@ -69,37 +47,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
             MonkRoutine.RefreshVars();
-
-            if (!SpellQueueLogic.SpellQueue.Any())
-            {
-                SpellQueueLogic.InSpellQueue = false;
-            }
-
-            if (SpellQueueLogic.SpellQueue.Any())
-            {
-                if (await SpellQueueLogic.SpellQueueMethod()) 
-                    return true;
-            }
 
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (await CustomOpenerLogic.Opener()) 
-                return true;
 
             //Limit Break
             if (SingleTarget.ForceLimitBreak())
@@ -119,6 +70,7 @@ namespace Magitek.Rotations
                     if (await PhysicalDps.Bloodbath(MonkSettings.Instance)) return true;
                     if (await PhysicalDps.Feint(MonkSettings.Instance)) return true;
                     if (await Buff.UsePotion()) return true;
+                    if (await Buff.TrueNorth()) return true;
 
                     if (await Buff.EarthReply()) return true;
                     if (await Buff.Brotherhood()) return true;
@@ -185,14 +137,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             MonkRoutine.RefreshVars();
 
             if (await CommonPvp.CommonTasks(MonkSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.MeteodrivePvp()) return true;
 

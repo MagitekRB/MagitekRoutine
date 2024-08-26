@@ -24,44 +24,16 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-            if (WorldManager.InSanctuary)
-                return false;
-
             return await PhysicalDps.Peloton(MachinistSettings.Instance);
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
         public static async Task<bool> Heal()
         {
-            if (Core.Me.IsMounted)
-                return true;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            return await GambitLogic.Gambit();
+            return false;
         }
 
         public static Task<bool> CombatBuff()
@@ -71,31 +43,8 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                {
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-                }
-            }
-
-            if (!SpellQueueLogic.SpellQueue.Any())
-                SpellQueueLogic.InSpellQueue = false;
-
-            if (SpellQueueLogic.SpellQueue.Any())
-            {
-                if (await SpellQueueLogic.SpellQueueMethod()) return true;
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
 
             if (MachinistSettings.Instance.UseFlamethrower && Core.Me.HasAura(Auras.Flamethrower))
             {
@@ -128,8 +77,7 @@ namespace Magitek.Rotations
                     if (await Pet.RookQueen()) return true;
                 }
 
-                // Intentionally only weave 1 guass or richochet to hit 6 gcd's during wildfire. 
-                if (MachinistRoutine.GlobalCooldown.CanWeave(Core.Me.HasAura(Auras.WildfireBuff) ? 1 : 2))
+                if (MachinistRoutine.GlobalCooldown.CanWeave(1))
                 {
                     //oGCDs
                     if (await SingleTarget.GaussRound()) return true;
@@ -191,9 +139,6 @@ namespace Magitek.Rotations
         }
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             // Utilities
             if (await CommonPvp.CommonTasks(MachinistSettings.Instance)) return true;
 

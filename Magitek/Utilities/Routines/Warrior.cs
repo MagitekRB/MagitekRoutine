@@ -40,11 +40,11 @@ namespace Magitek.Utilities.Routines
         public static readonly SpellData[] DefensiveSpells = new SpellData[]
         {
             Spells.Rampart,
-            Spells.Bloodwhetting,
-            Spells.RawIntuition,
+            Spells.Damnation,
             Spells.Vengeance,
             Spells.ThrillofBattle,
-            Spells.Damnation
+            Spells.Bloodwhetting,
+            Spells.RawIntuition
         };
 
         public static readonly uint[] Defensives = new uint[]

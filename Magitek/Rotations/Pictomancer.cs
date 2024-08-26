@@ -29,18 +29,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (Core.Me.IsCasting)
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-            SpellQueueLogic.SpellQueue.Clear();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (DutyManager.InInstance && !Globals.InActiveDuty)
-                return false;
-
             if (await Palette.PrePaintPalettes(true)) return true;
 
             return false;
@@ -57,19 +45,8 @@ namespace Magitek.Rotations
             return await Combat();
         }
         public static async Task<bool> Heal()
-        {
-            if (Core.Me.IsMounted)
-                return true;
-
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
-            Casting.DoHealthChecks = false;
-
-            if (await GambitLogic.Gambit()) return true;
-            if (await CustomOpenerLogic.Opener()) return true;
+        {            
             return false;
-
         }
 
         public static Task<bool> CombatBuff()
@@ -79,39 +56,25 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack()) {
                 // Paint up the palettes during "downtime".
                 if (await Palette.PrePaintPalettes(false)) return true;
                 return false;
             }
 
-            if (await CustomOpenerLogic.Opener())
-                return true;
-
             if (MagicDps.ForceLimitBreak(Spells.Skyshard, Spells.Starstorm, Spells.ChromaticFantasy, Spells.FireinRed)) return true;
 
             if (Core.Me.CurrentTarget.HasAura(Auras.MagicResistance))
                 return false;
 
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
-                return false;
-
             PictomancerRoutine.DetectSmudge();
+
+            if (await Buff.FightLogic_TemperaGrassa()) return true;
+            if (await Buff.FightLogic_TemperaCoat()) return true;
+            if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
 
             if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {
-                if (await Buff.FightLogic_TemperaGrassa()) return true;
-                if (await Buff.FightLogic_TemperaCoat()) return true;
-                if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
                 if (await Healer.LucidDreaming(PictomancerSettings.Instance.UseLucidDreaming, PictomancerSettings.Instance.LucidDreamingMinimumManaPercent)) return true;
             }
 
@@ -153,12 +116,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
             if (await CommonPvp.CommonTasks(PictomancerSettings.Instance)) return true;
 
             if (!CommonPvp.GuardCheck(PictomancerSettings.Instance))

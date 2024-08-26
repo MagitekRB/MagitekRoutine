@@ -29,20 +29,16 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
-            if (!BotManager.Current.IsAutonomous)
+            if (BotManager.Current.IsAutonomous)
             {
-                return await Combat();
+                Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 3 + Core.Me.CurrentTarget.CombatReach);
             }
-            Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 3);
 
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (await Casting.TrackSpellCast()) return true;
-            await Casting.CheckForSuccessfulCast();
-
             //Dispell Party if necessary
             if (await Dispel.Exuviation()) return true;
 
@@ -52,7 +48,7 @@ namespace Magitek.Rotations
             //Raise if necessary
             if (await Logic.BlueMage.Heal.AngelWhisper()) return true;
 
-            return await GambitLogic.Gambit();
+            return false;
         }
 
         public static Task<bool> CombatBuff()
@@ -62,35 +58,13 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (!SpellQueueLogic.SpellQueue.Any())
-            {
-                SpellQueueLogic.InSpellQueue = false;
-            }
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             // Can't attack, so just exit
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
             // Can't attack, so just exit
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
-                return false;
-
-            // Can't attack, so just exit
             if (Core.Me.HasAura(Auras.WaningNocturne, true, 1000))
                 return false;
-
-            //Opener
-            if (await CustomOpenerLogic.Opener()) return true;
-
-            if (SpellQueueLogic.SpellQueue.Any())
-            {
-                if (await SpellQueueLogic.SpellQueueMethod()) return true;
-            }
 
             //Interrupt
             if (await MagicDps.Interrupt(BlueMageSettings.Instance)) return true;

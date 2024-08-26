@@ -31,6 +31,9 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseSubtractivePalette)
                 return false;
 
+            if (!Spells.SubtractivePalette.CanCast() || !Spells.SubtractivePalette.IsKnownAndReady())
+                return false;
+
             if (Utilities.Routines.Pictomancer.HasBlackPaint())
                 return false;
 

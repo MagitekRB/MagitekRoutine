@@ -24,31 +24,17 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            await Casting.CheckForSuccessfulCast();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
             return false;
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CurrentTarget.CombatReach);
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-            if (await Casting.TrackSpellCast()) 
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            return await GambitLogic.Gambit();
+            return false;
         }
 
         public static Task<bool> CombatBuff()
@@ -58,30 +44,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            SamuraiRoutine.RefreshVars();
-
-            if (BotManager.Current.IsAutonomous)
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 2 + Core.Me.CurrentTarget.CombatReach);
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
-            if (!SpellQueueLogic.SpellQueue.Any())
-                SpellQueueLogic.InSpellQueue = false;
-
-            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
-                return false;
-
-            if (await CustomOpenerLogic.Opener())
-                return true;
-
-            if (SpellQueueLogic.SpellQueue.Any())
-                if (await SpellQueueLogic.SpellQueueMethod())
-                    return true;
+            SamuraiRoutine.RefreshVars();
 
             //LimitBreak
             if (SingleTarget.ForceLimitBreak()) return true;
@@ -185,12 +151,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if(!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(SamuraiSettings.Instance)) return true;
-            
-            
 
             if (await Pvp.ZantetsukenPvp()) return true;
             if (await Pvp.MineuchiPvp()) return true;

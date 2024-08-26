@@ -418,6 +418,10 @@ namespace Magitek.Models.WhiteMage
         public int DontDotIfMoreEnemiesThan { get; set; }
 
         [Setting]
+        [DefaultValue(5)]
+        public int DotTargetLimit { get; set; }
+
+        [Setting]
         [DefaultValue(false)]
         public bool Dotwhilemoving { get; set; }
 

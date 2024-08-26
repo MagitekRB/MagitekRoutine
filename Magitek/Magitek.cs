@@ -257,7 +257,7 @@ namespace Magitek
             {
                 if (BaseSettings.Instance.DebugEnemyInfo)
                 {
-                    Debug.Instance.IsBoss = XivDataHelper.BossDictionary.ContainsKey(Core.Me.CurrentTarget.NpcId) ? "True" : "False";
+                    Debug.Instance.IsBoss = Core.Me.CurrentTarget.IsBoss() ? "True" : "False";
                     Debug.Instance.TargetCombatTimeLeft = Core.Me.CurrentTarget.CombatTimeLeft();
                 }
             }
@@ -328,19 +328,7 @@ namespace Magitek
         }
 
         private void GamelogManagerCountdownRecevied(object sender, ChatEventArgs e)
-        {
-            Tracking.Update();
-            Utilities.Combat.AdjustCombatTime();
-            Utilities.Combat.AdjustDutyTime();
-
-            if (Utilities.Combat.OutOfCombatTime.ElapsedMilliseconds >= 10500 && CustomOpenerLogic._executedOpeners.Count > 0)
-            {
-                Logger.WriteInfo(@"Resetting Openers Because We're Out Of Combat");
-                CustomOpenerLogic._executedOpeners.Clear();
-            }
-
-            CombatMessageManager.UpdateDisplayedMessage();
-            
+        {            
             if ((int)e.ChatLogEntry.MessageType == 313 || (int)e.ChatLogEntry.MessageType == 185 || MessageType.SystemMessages.Equals(e.ChatLogEntry.MessageType))
             {
                 //Start countdown

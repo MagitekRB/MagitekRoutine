@@ -8,10 +8,20 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <StackPanel Margin="10" Background="{DynamicResource ClassSelectorBackground}">
 
         <CheckBox Content="Enable Tracking Of Enemy Casted Spells" IsChecked="{Binding Settings.EnemySpellCastHistory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
+        <StackPanel Orientation="Horizontal">
+            <Button
+                Content="Copy FightLogic Builder To Clipboard"
+                Command="{Binding CopyFightLogicBuilderCommand}"
+                Style="{DynamicResource ButtonLists}" />
+            <Button 
+                Content="Clear FightLogic Builder"
+                Command="{Binding ClearFightLogicBuilderCommand}"
+                Style="{DynamicResource ButtonLists}" />
+        </StackPanel>
 
         <ListBox Height="405"
                  Margin="0,10,0,0"
@@ -50,6 +60,18 @@
                                 CommandParameter="{Binding Value}"
                                 Content="Add Interrupt/Stun"
                                 Style="{DynamicResource ButtonLists}" />
+                        <Button Grid.Column="5"
+                            HorizontalAlignment="Left"
+                            Command="{Binding Value.AddToFightLogicBuilderTB}"
+                            CommandParameter="{Binding Value}"
+                            Content="FightLogic TankBuster"
+                            Style="{DynamicResource ButtonLists}" />
+                        <Button Grid.Column="6"
+                            HorizontalAlignment="Left"
+                            Command="{Binding Value.AddToFightLogicBuilderAOE}"
+                            CommandParameter="{Binding Value}"
+                            Content="FightLogic AOE"
+                            Style="{DynamicResource ButtonLists}" />
                     </Grid>
 
                 </DataTemplate>

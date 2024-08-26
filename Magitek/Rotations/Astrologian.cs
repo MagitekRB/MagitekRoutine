@@ -26,70 +26,22 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PreCombatBuff()
         {
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (Core.Me.IsCasting)
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            if (Globals.OnPvpMap)
-                return false;
-            
             return await Cards.Draw();
         }
 
         public static async Task<bool> Pull()
         {
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (Globals.InParty && Utilities.Combat.Enemies.Count > AstrologianSettings.Instance.StopDamageWhenMoreThanEnemies)
                 return false;
 
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
             return await Combat();
         }
 
         public static async Task<bool> Heal()
         {
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
-            if (WorldManager.InSanctuary)
-                return false;
-
-            if (Core.Me.IsMounted)
-                return false;
-
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            Casting.DoHealthChecks = false;
-
-            if (await GambitLogic.Gambit())
-                return true;
-
             //LimitBreak
             if (Heals.ForceLimitBreak()) return true;
 
@@ -165,9 +117,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> CombatBuff()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
             if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1)) 
                 
             {
@@ -209,9 +158,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
             await CombatBuff();
 
             if (Globals.InParty)
@@ -227,19 +173,6 @@ namespace Magitek.Rotations
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
-            if (await Casting.TrackSpellCast())
-                return true;
-
-            await Casting.CheckForSuccessfulCast();
-
-            Casting.DoHealthChecks = false;
-
-            if (BotManager.Current.IsAutonomous)
-            {
-                if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -253,9 +186,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
-
             if (await CommonPvp.CommonTasks(AstrologianSettings.Instance)) return true;
 
             if (await Pvp.CelestialRiverPvp()) return true;

@@ -129,6 +129,10 @@ namespace Magitek.Models.Sage
         public int DontDotIfEnemyDyingWithin { get; set; }
 
         [Setting]
+        [DefaultValue(5)]
+        public int DotTargetLimit { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool AoE { get; set; }
 

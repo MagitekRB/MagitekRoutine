@@ -17,10 +17,6 @@ namespace Magitek.Models.Dragoon
         [Setting]
         [DefaultValue(false)]
         public bool HidePositionalMessage { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool EnemyIsOmni { get; set; }
         #endregion
 
         #region Jumps

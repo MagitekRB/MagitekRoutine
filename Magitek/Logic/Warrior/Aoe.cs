@@ -106,7 +106,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UsePrimalRend)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PrimalRendReady) && !Core.Me.HasAura(Auras.PrimalRuinationReady))
+            if (!Core.Me.HasAura(Auras.PrimalRendReady))
                 return false;
 
             if (!Core.Me.HasAura(Auras.SurgingTempest))
@@ -119,6 +119,20 @@ namespace Magitek.Logic.Warrior
                 return false;
 
             return await Spells.PrimalRend.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> PrimalRuination()
+        {
+            if (!WarriorSettings.Instance.UsePrimalRend)
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PrimalRuinationReady))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.SurgingTempest))
+                return false;
+
+            return await Spells.PrimalRuination.Cast(Core.Me.CurrentTarget);
         }
     }
 }

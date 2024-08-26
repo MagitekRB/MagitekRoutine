@@ -1,9 +1,16 @@
 ﻿using ff14bot;
 using ff14bot.Enums;
+using Magitek.Logic;
 using Magitek.Models.Account;
+using Magitek.Utilities.CombatMessages;
 using PropertyChanged;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Reflection;
+using ff14bot.Managers;
+using Magitek.Extensions;
 
 namespace Magitek.Utilities.Managers
 {
@@ -39,93 +46,90 @@ namespace Magitek.Utilities.Managers
     [AddINotifyPropertyChangedInterface]
     internal class RotationComposites : Rotation
     {
+        private static readonly Dictionary<ClassJobType, string> RotationClassMap = new()
+        {
+            { ClassJobType.Gladiator, "Paladin" },
+            { ClassJobType.Paladin, "Paladin" },
+            { ClassJobType.Pugilist, "Monk" },
+            { ClassJobType.Monk, "Monk" },
+            { ClassJobType.Marauder, "Warrior" },
+            { ClassJobType.Warrior, "Warrior" },
+            { ClassJobType.Lancer, "Dragoon" },
+            { ClassJobType.Dragoon, "Dragoon" },
+            { ClassJobType.Archer, "Bard" },
+            { ClassJobType.Bard, "Bard" },
+            { ClassJobType.Conjurer, "WhiteMage" },
+            { ClassJobType.WhiteMage, "WhiteMage" },
+            { ClassJobType.Thaumaturge, "BlackMage" },
+            { ClassJobType.BlackMage, "BlackMage" },
+            { ClassJobType.Arcanist, "Summoner" },
+            { ClassJobType.Summoner, "Summoner" },
+            { ClassJobType.Scholar, "Scholar" },
+            { ClassJobType.Rogue, "Ninja" },
+            { ClassJobType.Ninja, "Ninja" },
+            { ClassJobType.Machinist, "Machinist" },
+            { ClassJobType.DarkKnight, "DarkKnight" },
+            { ClassJobType.Astrologian, "Astrologian" },
+            { ClassJobType.Samurai, "Samurai" },
+            { ClassJobType.BlueMage, "BlueMage" },
+            { ClassJobType.RedMage, "RedMage" },
+            { ClassJobType.Gunbreaker, "Gunbreaker" },
+            { ClassJobType.Dancer, "Dancer" },
+            { ClassJobType.Reaper, "Reaper" },
+            { ClassJobType.Sage, "Sage" },
+            { ClassJobType.Viper, "Viper" },
+            { ClassJobType.Pictomancer, "Pictomancer" }
+        };
+
+        // Cache the reflected methods so reflection only has to happen once.
+        private static readonly Dictionary<(ClassJobType, string), Func<Task<bool>>> MethodCache = new();
+        private async Task<bool> ExecuteRotationMethod(ClassJobType jobType, string methodName)
+        {
+            var cacheKey = (jobType, methodName);
+
+            if (!MethodCache.TryGetValue(cacheKey, out var cachedMethod))
+            {
+                if (RotationClassMap.TryGetValue(jobType, out var className))
+                {
+                    var rotationType = Type.GetType($"Magitek.Rotations.{className}");
+                    if (rotationType != null)
+                    {
+                        var method = rotationType.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public);
+                        if (method != null)
+                        {
+                            cachedMethod = (Func<Task<bool>>)Delegate.CreateDelegate(typeof(Func<Task<bool>>), method);
+                            MethodCache[cacheKey] = cachedMethod; // Cache the method
+                        }
+                    }
+                }
+            }
+
+            return cachedMethod != null ? await cachedMethod() : false;
+        }
+
+        private static Action GetGroupExtensionForJob(ClassJobType jobType)
+        {
+            return jobType switch
+            {
+                ClassJobType.WhiteMage => Routines.WhiteMage.GroupExtension,
+                ClassJobType.Scholar => Routines.Scholar.GroupExtension,
+                ClassJobType.Astrologian => Routines.Astrologian.GroupExtension,
+                ClassJobType.Sage => Routines.Sage.GroupExtension,
+                _ => null
+            };
+        }
+
         public override async Task<bool> Rest()
         {
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
+            if (BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await PvP();
+
             await Chocobo.HandleChocobo();
 
-            switch (RotationManager.CurrentRotation)
-            {
-                case ClassJobType.Gladiator:
-                case ClassJobType.Paladin:
-                    return await Rotations.Paladin.Rest();
-
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    return await Rotations.Monk.Rest();
-
-                case ClassJobType.Marauder:
-                case ClassJobType.Warrior:
-                    return await Rotations.Warrior.Rest();
-
-                case ClassJobType.Lancer:
-                case ClassJobType.Dragoon:
-                    return await Rotations.Dragoon.Rest();
-
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    return await Rotations.Bard.Rest();
-
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    return await Rotations.WhiteMage.Rest();
-
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    return await Rotations.BlackMage.Rest();
-
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    return await Rotations.Summoner.Rest();
-
-                case ClassJobType.Scholar:
-                    return await Rotations.Scholar.Rest();
-
-                case ClassJobType.Rogue:
-                case ClassJobType.Ninja:
-                    return await Rotations.Ninja.Rest();
-
-                case ClassJobType.Machinist:
-                    return await Rotations.Machinist.Rest();
-
-                case ClassJobType.DarkKnight:
-                    return await Rotations.DarkKnight.Rest();
-
-                case ClassJobType.Astrologian:
-                    return await Rotations.Astrologian.Rest();
-
-                case ClassJobType.Samurai:
-                    return await Rotations.Samurai.Rest();
-
-                case ClassJobType.BlueMage:
-                    return await Rotations.BlueMage.Rest();
-
-                case ClassJobType.RedMage:
-                    return await Rotations.RedMage.Rest();
-
-                case ClassJobType.Gunbreaker:
-                    return await Rotations.Gunbreaker.Rest();
-
-                case ClassJobType.Dancer:
-                    return await Rotations.Dancer.Rest();
-
-                case ClassJobType.Reaper:
-                    return await Rotations.Reaper.Rest();
-
-                case ClassJobType.Sage:
-                    return await Rotations.Sage.Rest();
-
-                case ClassJobType.Viper:
-                    return await Rotations.Viper.Rest();
-
-                case ClassJobType.Pictomancer:
-                    return await Rotations.Pictomancer.Rest();
-
-                default:
-                    return false;
-            }
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Rest");            
         }
 
         public override async Task<bool> PreCombatBuff()
@@ -133,97 +137,36 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            Group.UpdateAllies();
+            if (BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await PvP();
+
             await Chocobo.HandleChocobo();
 
-            switch (RotationManager.CurrentRotation)
-            {
-                case ClassJobType.Gladiator:
-                case ClassJobType.Paladin:
-                    return await Rotations.Paladin.PreCombatBuff();
+            Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
+            Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
 
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    return await Rotations.Monk.PreCombatBuff();
+            if (Core.Me.IsMounted)
+                return false;
 
-                case ClassJobType.Marauder:
-                case ClassJobType.Warrior:
-                    return await Rotations.Warrior.PreCombatBuff();
+            if (Core.Me.IsCasting)
+                return true;
 
-                case ClassJobType.Lancer:
-                case ClassJobType.Dragoon:
-                    return await Rotations.Dragoon.PreCombatBuff();
+            if (await Casting.TrackSpellCast())
+                return true;
 
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    return await Rotations.Bard.PreCombatBuff();
+            await Casting.CheckForSuccessfulCast();
+            SpellQueueLogic.SpellQueue.Clear();
 
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    Group.UpdateAllies(Routines.WhiteMage.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.WhiteMage.PreCombatBuff();
+            if (WorldManager.InSanctuary)
+                return false;
 
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    return await Rotations.BlackMage.PreCombatBuff();
+            if (Globals.OnPvpMap)
+                return false;
 
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    return await Rotations.Summoner.PreCombatBuff();
+            if (DutyManager.InInstance && !Globals.InActiveDuty)
+                return false;
 
-                case ClassJobType.Scholar:
-                    Group.UpdateAllies(Routines.Scholar.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.Scholar.PreCombatBuff();
-
-                case ClassJobType.Rogue:
-                case ClassJobType.Ninja:
-                    return await Rotations.Ninja.PreCombatBuff();
-
-                case ClassJobType.Machinist:
-                    return await Rotations.Machinist.PreCombatBuff();
-
-                case ClassJobType.DarkKnight:
-                    return await Rotations.DarkKnight.PreCombatBuff();
-
-                case ClassJobType.Astrologian:
-                    Group.UpdateAllies(Routines.Astrologian.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.Astrologian.PreCombatBuff();
-
-                case ClassJobType.Samurai:
-                    return await Rotations.Samurai.PreCombatBuff();
-
-                case ClassJobType.BlueMage:
-                    return await Rotations.BlueMage.PreCombatBuff();
-
-                case ClassJobType.RedMage:
-                    return await Rotations.RedMage.PreCombatBuff();
-
-                case ClassJobType.Gunbreaker:
-                    return await Rotations.Gunbreaker.PreCombatBuff();
-
-                case ClassJobType.Dancer:
-                    return await Rotations.Dancer.PreCombatBuff();
-
-                case ClassJobType.Reaper:
-                    return await Rotations.Reaper.PreCombatBuff();
-
-                case ClassJobType.Sage:
-                    Group.UpdateAllies(Routines.Sage.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.Sage.PreCombatBuff();
-
-                case ClassJobType.Viper:
-                    return await Rotations.Viper.PreCombatBuff();
-
-                case ClassJobType.Pictomancer:
-                    return await Rotations.Pictomancer.PreCombatBuff();
-
-                default:
-                    return false;
-            }
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "PreCombatBuff");
         }
 
         public override async Task<bool> Pull()
@@ -231,86 +174,24 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            switch (RotationManager.CurrentRotation)
+            if (BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await PvP();
+
+            if (BotManager.Current.IsAutonomous)
             {
-                case ClassJobType.Gladiator:
-                case ClassJobType.Paladin:
-                    return await Rotations.Paladin.Pull();
-
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    return await Rotations.Monk.Pull();
-
-                case ClassJobType.Marauder:
-                case ClassJobType.Warrior:
-                    return await Rotations.Warrior.Pull();
-
-                case ClassJobType.Lancer:
-                case ClassJobType.Dragoon:
-                    return await Rotations.Dragoon.Pull();
-
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    return await Rotations.Bard.Pull();
-
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    return await Rotations.WhiteMage.Pull();
-
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    return await Rotations.BlackMage.Pull();
-
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    return await Rotations.Summoner.Pull();
-
-                case ClassJobType.Scholar:
-                    return await Rotations.Scholar.Pull();
-
-                case ClassJobType.Rogue:
-                case ClassJobType.Ninja:
-                    return await Rotations.Ninja.Pull();
-
-                case ClassJobType.Machinist:
-                    return await Rotations.Machinist.Pull();
-
-                case ClassJobType.DarkKnight:
-                    return await Rotations.DarkKnight.Pull();
-
-                case ClassJobType.Astrologian:
-                    return await Rotations.Astrologian.Pull();
-
-                case ClassJobType.Samurai:
-                    return await Rotations.Samurai.Pull();
-
-                case ClassJobType.BlueMage:
-                    return await Rotations.BlueMage.Pull();
-
-                case ClassJobType.RedMage:
-                    return await Rotations.RedMage.Pull();
-
-                case ClassJobType.Gunbreaker:
-                    return await Rotations.Gunbreaker.Pull();
-
-                case ClassJobType.Dancer:
-                    return await Rotations.Dancer.Pull();
-
-                case ClassJobType.Reaper:
-                    return await Rotations.Reaper.Pull();
-
-                case ClassJobType.Sage:
-                    return await Rotations.Sage.Pull();
-
-                case ClassJobType.Viper:
-                    return await Rotations.Viper.Pull();
-
-                case ClassJobType.Pictomancer:
-                    return await Rotations.Pictomancer.Pull();
-
-                default:
-                    return false;
+                if (Core.Me.HasTarget)
+                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 0) + Core.Me.CurrentTarget.CombatReach);
             }
+
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                return false;
+
+            if (await Casting.TrackSpellCast())
+                return true;
+
+            await Casting.CheckForSuccessfulCast();
+
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Pull");
         }
 
         public override async Task<bool> Heal()
@@ -318,114 +199,30 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
+            if (BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await PvP();
+
+            if (Core.Me.IsMounted)
+                return true;
+
+            if (WorldManager.InSanctuary)
+                return false;
+
             await Chocobo.HandleChocobo();
 
-            switch (RotationManager.CurrentRotation)
-            {
-                case ClassJobType.Gladiator:
-                case ClassJobType.Paladin:
-                    Group.UpdateAllies();
-                    return await Rotations.Paladin.Heal();
+            Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
+            Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
 
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    Group.UpdateAllies();
-                    return await Rotations.Monk.Heal();
+            if (await Casting.TrackSpellCast()) return true;
+            await Casting.CheckForSuccessfulCast();
+            Casting.DoHealthChecks = false;
 
-                case ClassJobType.Marauder:
-                case ClassJobType.Warrior:
-                    Group.UpdateAllies();
-                    return await Rotations.Warrior.Heal();
+            if (await GambitLogic.Gambit()) return true;
+            // Heal is pulsed even when not in combat.
+            // which allows openers to be checked when not in combat.
+            if (await CustomOpenerLogic.Opener()) return true;
 
-                case ClassJobType.Lancer:
-                case ClassJobType.Dragoon:
-                    Group.UpdateAllies();
-                    return await Rotations.Dragoon.Heal();
-
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    Group.UpdateAllies();
-                    return await Rotations.Bard.Heal();
-
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    Group.UpdateAllies(Routines.WhiteMage.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.WhiteMage.Heal();
-
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    Group.UpdateAllies();
-                    return await Rotations.BlackMage.Heal();
-
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    Group.UpdateAllies();
-                    return await Rotations.Summoner.Heal();
-
-                case ClassJobType.Scholar:
-                    Group.UpdateAllies(Routines.Scholar.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.Scholar.Heal();
-
-                case ClassJobType.Rogue:
-                case ClassJobType.Ninja:
-                    Group.UpdateAllies();
-                    return await Rotations.Ninja.Heal();
-
-                case ClassJobType.Machinist:
-                    Group.UpdateAllies();
-                    return await Rotations.Machinist.Heal();
-
-                case ClassJobType.DarkKnight:
-                    Group.UpdateAllies();
-                    return await Rotations.DarkKnight.Heal();
-
-                case ClassJobType.Astrologian:
-                    Group.UpdateAllies(Routines.Astrologian.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.Astrologian.Heal();
-
-                case ClassJobType.Samurai:
-                    Group.UpdateAllies();
-                    return await Rotations.Samurai.Heal();
-
-                case ClassJobType.BlueMage:
-                    Group.UpdateAllies();
-                    return await Rotations.BlueMage.Heal();
-
-                case ClassJobType.RedMage:
-                    Group.UpdateAllies();
-                    return await Rotations.RedMage.Heal();
-
-                case ClassJobType.Gunbreaker:
-                    Group.UpdateAllies();
-                    return await Rotations.Gunbreaker.Heal();
-
-                case ClassJobType.Dancer:
-                    Group.UpdateAllies();
-                    return await Rotations.Dancer.Heal();
-
-                case ClassJobType.Reaper:
-                    Group.UpdateAllies();
-                    return await Rotations.Reaper.Heal();
-
-                case ClassJobType.Sage:
-                    Group.UpdateAllies(Routines.Sage.GroupExtension);
-                    Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
-                    return await Rotations.Sage.Heal();
-
-                case ClassJobType.Viper:
-                    Group.UpdateAllies();
-                    return await Rotations.Viper.Heal();
-
-                case ClassJobType.Pictomancer:
-                    Group.UpdateAllies();
-                    return await Rotations.Pictomancer.Heal();  
-
-                default:
-                    return false;
-            }
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal");
         }
 
         public override async Task<bool> CombatBuff()
@@ -433,86 +230,10 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            switch (RotationManager.CurrentRotation)
-            {
-                case ClassJobType.Gladiator:
-                case ClassJobType.Paladin:
-                    return await Rotations.Paladin.CombatBuff();
+            if (BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await PvP();
 
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    return await Rotations.Monk.CombatBuff();
-
-                case ClassJobType.Marauder:
-                case ClassJobType.Warrior:
-                    return await Rotations.Warrior.CombatBuff();
-
-                case ClassJobType.Lancer:
-                case ClassJobType.Dragoon:
-                    return await Rotations.Dragoon.CombatBuff();
-
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    return await Rotations.Bard.CombatBuff();
-
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    return await Rotations.WhiteMage.CombatBuff();
-
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    return await Rotations.BlackMage.CombatBuff();
-
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    return await Rotations.Summoner.CombatBuff();
-
-                case ClassJobType.Scholar:
-                    return await Rotations.Scholar.CombatBuff();
-
-                case ClassJobType.Rogue:
-                case ClassJobType.Ninja:
-                    return await Rotations.Ninja.CombatBuff();
-
-                case ClassJobType.Machinist:
-                    return await Rotations.Machinist.CombatBuff();
-
-                case ClassJobType.DarkKnight:
-                    return await Rotations.DarkKnight.CombatBuff();
-
-                case ClassJobType.Astrologian:
-                    return await Rotations.Astrologian.CombatBuff();
-
-                case ClassJobType.Samurai:
-                    return await Rotations.Samurai.CombatBuff();
-
-                case ClassJobType.BlueMage:
-                    return await Rotations.BlueMage.CombatBuff();
-
-                case ClassJobType.RedMage:
-                    return await Rotations.RedMage.CombatBuff();
-
-                case ClassJobType.Gunbreaker:
-                    return await Rotations.Gunbreaker.CombatBuff();
-
-                case ClassJobType.Dancer:
-                    return await Rotations.Dancer.CombatBuff();
-
-                case ClassJobType.Reaper:
-                    return await Rotations.Reaper.CombatBuff();
-
-                case ClassJobType.Sage:
-                    return await Rotations.Sage.CombatBuff();
-
-                case ClassJobType.Viper:
-                    return await Rotations.Viper.CombatBuff();
-                
-                case ClassJobType.Pictomancer:
-                    return await Rotations.Pictomancer.CombatBuff();
-
-                default:
-                    return false;
-            }
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "CombatBuff");
         }
 
         public override async Task<bool> Combat()
@@ -520,89 +241,40 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            Group.UpdateAllies();
+            if (BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await PvP();
+
+            Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
+            Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
             await Chocobo.HandleChocobo();
 
-            switch (RotationManager.CurrentRotation)
+            if (BotManager.Current.IsAutonomous)
             {
-                case ClassJobType.Gladiator:
-                case ClassJobType.Paladin:
-                    return await Rotations.Paladin.Combat();
-
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    return await Rotations.Monk.Combat();
-
-                case ClassJobType.Marauder:
-                case ClassJobType.Warrior:
-                    return await Rotations.Warrior.Combat();
-
-                case ClassJobType.Lancer:
-                case ClassJobType.Dragoon:
-                    return await Rotations.Dragoon.Combat();
-
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    return await Rotations.Bard.Combat();
-
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    return await Rotations.WhiteMage.Combat();
-
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    return await Rotations.BlackMage.Combat();
-
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    return await Rotations.Summoner.Combat();
-
-                case ClassJobType.Scholar:
-                    return await Rotations.Scholar.Combat();
-
-                case ClassJobType.Rogue:
-                case ClassJobType.Ninja:
-                    return await Rotations.Ninja.Combat();
-
-                case ClassJobType.Machinist:
-                    return await Rotations.Machinist.Combat();
-
-                case ClassJobType.DarkKnight:
-                    return await Rotations.DarkKnight.Combat();
-
-                case ClassJobType.Astrologian:
-                    return await Rotations.Astrologian.Combat();
-
-                case ClassJobType.Samurai:
-                    return await Rotations.Samurai.Combat();
-
-                case ClassJobType.BlueMage:
-                    return await Rotations.BlueMage.Combat();
-
-                case ClassJobType.RedMage:
-                    return await Rotations.RedMage.Combat();
-
-                case ClassJobType.Gunbreaker:
-                    return await Rotations.Gunbreaker.Combat();
-
-                case ClassJobType.Dancer:
-                    return await Rotations.Dancer.Combat();
-
-                case ClassJobType.Reaper:
-                    return await Rotations.Reaper.Combat();
-
-                case ClassJobType.Sage:
-                    return await Rotations.Sage.Combat();
-
-                case ClassJobType.Viper:
-                    return await Rotations.Viper.Combat();
-
-                case ClassJobType.Pictomancer:
-                    return await Rotations.Pictomancer.Combat();
-
-                default:
-                    return false;
+                if (Core.Me.HasTarget)
+                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 2) + Core.Me.CurrentTarget.CombatReach);
             }
+
+            if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
+                return false;
+
+            if (Core.Me.IsCasting)
+                return true;
+
+            if (await Casting.TrackSpellCast())
+                return true;
+            await Casting.CheckForSuccessfulCast();
+
+            if (!SpellQueueLogic.SpellQueue.Any())
+                SpellQueueLogic.InSpellQueue = false;
+
+            if (SpellQueueLogic.SpellQueue.Any())
+                if (await SpellQueueLogic.SpellQueueMethod())
+                    return true;
+
+            if (await CustomOpenerLogic.Opener())
+                return true;
+
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Combat");
         }
 
         public override async Task<bool> PvP()
@@ -610,83 +282,13 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            switch (RotationManager.CurrentRotation)
-            {
-                //case ClassJobType.Gladiator:
-                //case ClassJobType.Paladin:
-                //    return await Rotations.Paladin.PvP();    
+            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
+                return await Combat();
 
-                case ClassJobType.Pugilist:
-                case ClassJobType.Monk:
-                    return await Rotations.Monk.PvP();    
+            Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
+            Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
 
-                //case ClassJobType.Marauder:
-                //case ClassJobType.Warrior:
-                //    return await Rotations.Warrior.PvP();    
-
-                //case ClassJobType.Lancer:
-                //case ClassJobType.Dragoon:
-                //    return await Rotations.Dragoon.PvP();    
-
-                case ClassJobType.Archer:
-                case ClassJobType.Bard:
-                    return await Rotations.Bard.PvP();    
-
-                case ClassJobType.Conjurer:
-                case ClassJobType.WhiteMage:
-                    return await Rotations.WhiteMage.PvP();    
-
-                case ClassJobType.Thaumaturge:
-                case ClassJobType.BlackMage:
-                    return await Rotations.BlackMage.PvP();    
-
-                case ClassJobType.Arcanist:
-                case ClassJobType.Summoner:
-                    return await Rotations.Summoner.PvP();    
-
-                //case ClassJobType.Scholar:
-                //    return await Rotations.Scholar.PvP();    
-
-                //case ClassJobType.Rogue:
-                //case ClassJobType.Ninja:
-                //    return await Rotations.Ninja.PvP();    
-
-                case ClassJobType.Machinist:
-                    return await Rotations.Machinist.PvP();    
-
-                //case ClassJobType.DarkKnight:
-                //    return await Rotations.DarkKnight.PvP();    
-
-                case ClassJobType.Astrologian:
-                  return await Rotations.Astrologian.PvP();
-
-                //case ClassJobType.Samurai:
-                //    return await Rotations.Samurai.PvP();
-
-                //case ClassJobType.BlueMage:
-                //    return await Rotations.BlueMage.PvP(); 
-
-                case ClassJobType.RedMage:
-                    return await Rotations.RedMage.PvP();
-
-                //case ClassJobType.Gunbreaker:
-                //    return await Rotations.Gunbreaker.PvP();    
-
-                case ClassJobType.Dancer:
-                    return await Rotations.Dancer.PvP();
-
-                case ClassJobType.Sage:
-                    return await Rotations.Sage.PvP();
-
-                //case ClassJobType.Viper:
-                //    return await Rotations.Viper.PvP();
-
-                case ClassJobType.Pictomancer:
-                    return await Rotations.Pictomancer.PvP();
-
-                default:
-                    return false;
-            }
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "PvP");
         }
     }
 }
