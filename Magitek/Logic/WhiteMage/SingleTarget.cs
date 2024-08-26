@@ -103,6 +103,9 @@ namespace Magitek.Logic.WhiteMage
                 && Combat.Enemies.Count > WhiteMageSettings.Instance.DontDotIfMoreEnemiesThan)
                 return false;
 
+            if (Combat.Enemies.Count(x => x.HasAnyAura(DotAuras, true)) >= WhiteMageSettings.Instance.DotTargetLimit)
+                return false;
+
             var dotTarget = Combat.Enemies.FirstOrDefault(NeedsDot);
 
             if (dotTarget == null)

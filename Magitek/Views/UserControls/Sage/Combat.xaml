@@ -66,10 +66,17 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                
-                <CheckBox Grid.Row="0" Content="DoT Multiple Targets" IsChecked="{Binding SageSettings.DotMultipleTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <CheckBox Grid.Row="0" Content="DoT Multiple Targets Up To " IsChecked="{Binding SageSettings.DotMultipleTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <controls:Numeric MaxValue="100" MinValue="1"
+                  Value="{Binding SageSettings.DotTargetLimit, Mode=TwoWay}" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Targets" />
+                </StackPanel>
+
                 <CheckBox Grid.Row="1" Content="Dosis" IsChecked="{Binding SageSettings.Dosis , Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="2" Content="Eukrasian Dosis " IsChecked="{Binding SageSettings.EukrasianDosis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                
 
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>

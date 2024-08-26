@@ -112,6 +112,9 @@ namespace Magitek.Logic.Sage
             if (Combat.Enemies.Count < 2)
                 return false;
 
+            if (Combat.Enemies.Count(x => x.HasAnyAura(DotAuras, true)) >= SageSettings.Instance.DotTargetLimit)
+                return false;
+
             var DotTarget = Combat.Enemies.Where(NeedsDot).Where(CanDot).FirstOrDefault();
 
             if (DotTarget == null)
