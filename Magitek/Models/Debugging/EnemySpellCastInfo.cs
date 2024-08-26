@@ -1,4 +1,5 @@
-﻿using Magitek.Commands;
+﻿using ff14bot.Managers;
+using Magitek.Commands;
 using Magitek.Extensions;
 using Magitek.Models.WebResources;
 using Magitek.ViewModels;
@@ -14,17 +15,23 @@ namespace Magitek.Models.Debugging
     [AddINotifyPropertyChangedInterface]
     public class EnemySpellCastInfo
     {
-        public EnemySpellCastInfo(string name, uint id, string castedBy)
+        public EnemySpellCastInfo(string name, uint id, string castedBy, uint castedById, ushort zoneId, string zoneName)
         {
             Name = name;
             Id = id;
             CastedBy = castedBy;
+            CastedById = castedById;
+            ZoneId = zoneId;
+            ZoneName = zoneName;
             Icon = this.GetIcon();
         }
 
         public string Name { get; set; }
         public uint Id { get; set; }
         public string CastedBy { get; set; }
+        public uint CastedById { get; set; }
+        public ushort ZoneId { get; set; }        
+        public string ZoneName { get; set; }
         public double Icon { get; set; }
 
         public string IconUrl
@@ -36,6 +43,22 @@ namespace Magitek.Models.Debugging
                 return $@"https://secure.xivdb.com/img/game/{folder}/{image}.png";
             }
         }
+
+        public ICommand AddToFightLogicBuilderAOE => new DelegateCommand<EnemySpellCastInfo>(info =>
+        {
+            if (info == null)
+                return;
+
+            Debug.Instance.FightLogicBuilderAOE.Add(info);
+        });
+
+        public ICommand AddToFightLogicBuilderTB => new DelegateCommand<EnemySpellCastInfo>(info =>
+        {
+            if (info == null)
+                return;
+
+            Debug.Instance.FightLogicBuilderTB.Add(info);
+        });
 
         public ICommand AddToInterruptsAndStuns => new DelegateCommand<EnemySpellCastInfo>(info =>
         {

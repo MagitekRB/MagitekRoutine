@@ -226,7 +226,7 @@ namespace Magitek.Utilities
             if (Debug.Instance.EnemySpellCasts.ContainsKey(unit.CastingSpellId))
                 return;
 
-            var newSpellCast = new EnemySpellCastInfo(unit.SpellCastInfo.Name, unit.CastingSpellId, unit.Name);
+            var newSpellCast = new EnemySpellCastInfo(unit.SpellCastInfo.Name, unit.CastingSpellId, unit.Name, unit.NpcId, WorldManager.ZoneId, WorldManager.CurrentZoneName);
             Logger.WriteInfo($@"[Debug] Adding [{newSpellCast.Id}] {newSpellCast.Name} To Enemy Spell Casts");
             Debug.Instance.EnemySpellCasts.Add(newSpellCast.Id, newSpellCast);
         }

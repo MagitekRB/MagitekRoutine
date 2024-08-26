@@ -1,4 +1,5 @@
-﻿using Clio.Utilities.Collections;
+﻿using Buddy.Overlay.Commands;
+using Clio.Utilities.Collections;
 using ff14bot.Objects;
 using Magitek.Models;
 using Magitek.Models.Debugging;
@@ -7,6 +8,12 @@ using Magitek.Utilities;
 using Magitek.Utilities.Collections;
 using PropertyChanged;
 using System.Collections.ObjectModel;
+using System.Runtime.Caching;
+using System.Security.Policy;
+using System.Text;
+using System.Windows;
+using System.Windows.Input;
+using System.Linq;
 
 namespace Magitek.ViewModels
 {
@@ -57,5 +64,90 @@ namespace Magitek.ViewModels
         public ObservableCollection<GameObject> CastableWithin15 { get; set; } = new ObservableCollection<GameObject>();
         public ObservableCollection<GameObject> CastableWithin30 { get; set; } = new ObservableCollection<GameObject>();
         public System.Collections.Generic.List<SpellCastHistoryItem> SpellCastHistory { get; set; } = new System.Collections.Generic.List<SpellCastHistoryItem>();
+
+        public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderTB { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
+        public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderAOE { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
+
+        public ICommand CopyFightLogicBuilderCommand { get; } = new RelayCommand(CopyFightLogicBuilder);
+
+        private static void CopyFightLogicBuilder(object parameter)
+        {
+            var instance = Instance;
+            if (instance == null) return;
+
+            // Combine and group by unique enemy names
+            var combinedList = instance.FightLogicBuilderTB.Concat(instance.FightLogicBuilderAOE)
+                                .GroupBy(e => e.CastedBy);
+
+            if (combinedList == null || !combinedList.Any()) return;
+
+            // Example hardcoded beginning
+            var sb = new StringBuilder();
+            sb.AppendLine("new Encounter {");
+            sb.AppendLine($"    ZoneId = {combinedList.First().First().ZoneId},");
+            sb.AppendLine($"    Name = \"{combinedList.First().First().ZoneName}\",");
+            sb.AppendLine($"    Expansion = FfxivExpansion.Dawntrail,");
+            sb.AppendLine("    Enemies = new List<Enemy> {");            
+
+            foreach (var enemyGroup in combinedList)
+            {
+                sb.AppendLine("        new Enemy {");
+                sb.AppendLine($"            Id = {enemyGroup.First().CastedById},");
+                sb.AppendLine($"            Name = \"{enemyGroup.Key}\",");
+
+                // TankBusters
+                var tankBusters = enemyGroup.Where(e => instance.FightLogicBuilderTB.Contains(e));
+                if (tankBusters.Any())
+                {
+                    sb.AppendLine("            TankBusters = new List<uint> {");
+                    foreach (var tb in tankBusters)
+                    {
+                        sb.AppendLine($"                {tb.Id}, // {tb.Name}");
+                    }
+                    sb.AppendLine("            },");
+                }
+                else
+                {
+                    sb.AppendLine("            TankBusters = null,");
+                }
+
+                // AOEs
+                var aoes = enemyGroup.Where(e => instance.FightLogicBuilderAOE.Contains(e));
+                if (aoes.Any())
+                {
+                    sb.AppendLine("            Aoes = new List<uint> {");
+                    foreach (var aoe in aoes)
+                    {
+                        sb.AppendLine($"                {aoe.Id}, // {aoe.Name}");
+                    }
+                    sb.AppendLine("            },");
+                }
+                else
+                {
+                    sb.AppendLine("            Aoes = null,");
+                }
+
+                sb.AppendLine("            SharedTankBusters = null,");
+                sb.AppendLine("            BigAoes = null");
+                sb.AppendLine("        },");
+            }
+
+            sb.AppendLine("    }");
+            sb.AppendLine("},");
+
+            Clipboard.SetText(sb.ToString());
+        }
+
+
+        public ICommand ClearFightLogicBuilderCommand { get; } = new RelayCommand(ClearFightLogicBuilder);
+
+        private static void ClearFightLogicBuilder(object parameter)
+        {
+            var instance = Instance;
+            if (instance == null) return;
+
+            instance.FightLogicBuilderTB.Clear();
+            instance.FightLogicBuilderAOE.Clear();
+        }
     }
 }
