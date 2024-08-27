@@ -191,6 +191,11 @@ namespace Magitek.Utilities.Managers
 
             await Casting.CheckForSuccessfulCast();
 
+            if (await GambitLogic.Gambit()) 
+                return true;
+            if (await CustomOpenerLogic.Opener()) 
+                return true;
+
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Pull");
         }
 
@@ -217,10 +222,12 @@ namespace Magitek.Utilities.Managers
             await Casting.CheckForSuccessfulCast();
             Casting.DoHealthChecks = false;
 
-            if (await GambitLogic.Gambit()) return true;
+            if (await GambitLogic.Gambit()) 
+                return true;
             // Heal is pulsed even when not in combat.
             // which allows openers to be checked when not in combat.
-            if (await CustomOpenerLogic.Opener()) return true;
+            if (await CustomOpenerLogic.Opener()) 
+                return true;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal");
         }
@@ -271,6 +278,8 @@ namespace Magitek.Utilities.Managers
                 if (await SpellQueueLogic.SpellQueueMethod())
                     return true;
 
+            if (await GambitLogic.Gambit()) 
+                return true;
             if (await CustomOpenerLogic.Opener())
                 return true;
 
