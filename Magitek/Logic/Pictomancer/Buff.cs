@@ -78,5 +78,13 @@ namespace Magitek.Logic.Pictomancer
             // intentionally don't wait for the grassa aura, it either happens or it doesn't. 
             return await Spells.TemperaGrassa.Cast(Core.Me);
         }
+
+        public static async Task<bool> UsePotion()
+        {
+            if (!Core.Me.HasAura(Auras.StarryMuse, true))
+                return false;
+
+            return await MagicDps.UsePotion(PictomancerSettings.Instance);
+        }
     }
 }
