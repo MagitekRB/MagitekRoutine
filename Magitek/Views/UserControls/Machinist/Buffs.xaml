@@ -49,10 +49,18 @@
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Hypercharge          " IsChecked="{Binding MachinistSettings.UseHypercharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Content="Wildfire                     " IsChecked="{Binding MachinistSettings.UseWildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Content="Barrel Stabilizer " IsChecked="{Binding MachinistSettings.UseBarrelStabilizer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <StackPanel Orientation="Vertical">
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Hypercharge          " IsChecked="{Binding MachinistSettings.UseHypercharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Wildfire                     " IsChecked="{Binding MachinistSettings.UseWildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Barrel Stabilizer " IsChecked="{Binding MachinistSettings.UseBarrelStabilizer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Late Weave Wildfire (better alignment for 6GCD wildfire)" IsChecked="{Binding MachinistSettings.LateWeaveWildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Save for Double Hypercharged Wildfires (requires late weave wildfire)" IsChecked="{Binding MachinistSettings.DoubleHyperchargedWildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

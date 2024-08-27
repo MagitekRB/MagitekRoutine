@@ -20,6 +20,11 @@ namespace Magitek.Utilities
         public static readonly Stopwatch DutyTime = new Stopwatch();
         public static double CurrentTargetCombatTimeLeft;
 
+        public static bool IsBoss()
+        {
+            return Core.Me.CurrentTarget.IsBoss() || (Globals.InActiveDuty && Enemies.Count == 1);
+        }
+
         public static bool IsMoving(GameObject target)
         {
             //if (!Tracking.EnemyInfos.Any(r => r.Unit == target && r.IsMoving)) return false;
