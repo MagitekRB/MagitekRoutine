@@ -306,6 +306,9 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.Doton))
                 return false;
 
+            if (Combat.IsMoving(Core.Me.CurrentTarget))
+                return false;
+
             return await NinjaRoutine.PrepareNinjutsu(Spells.Doton, Core.Me);
 
         }
