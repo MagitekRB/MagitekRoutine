@@ -96,23 +96,9 @@ namespace Magitek.Utilities
             return true;
         }
 
-        public bool CanWeaveLate(int ogcdPlacement = 1)
+        public bool IsLateWeaveWindow()
         {
-            if (!CanWeave(ogcdPlacement))
-                return false;
-
-            switch (ogcdPlacement)
-            {
-                case 1:
-                    return (Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset) * 2 >
-                           _gcd.Cooldown.TotalMilliseconds;
-                case 2:
-                    return (Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset) >
-                           _gcd.Cooldown.TotalMilliseconds;
-                default:
-                    return false;
-            }
-
+            return (_gcd.Cooldown.TotalMilliseconds <= (Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100));
         }
 
         public bool IsWeaveWindow(int targetWindow = 1, bool timeBased = false)

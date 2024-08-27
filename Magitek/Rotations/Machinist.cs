@@ -67,6 +67,12 @@ namespace Magitek.Rotations
 
             if (ActionResourceManager.Machinist.OverheatRemaining != TimeSpan.Zero)
             {
+                if (MachinistRoutine.GlobalCooldown.CanWeave())
+                {
+                    if (await Cooldowns.Wildfire()) return true;
+                    if (await Cooldowns.Hypercharge()) return true; // for 10xHB
+                }
+
                 if (MachinistRoutine.GlobalCooldown.CanWeave(1))
                 {
                     //Utility
@@ -105,20 +111,23 @@ namespace Magitek.Rotations
                     if (await Cooldowns.Wildfire()) return true;
                     if (await Cooldowns.Hypercharge()) return true;
                     if (await Cooldowns.BarrelStabilizer()) return true;
+                }
 
+                if (MachinistRoutine.GlobalCooldown.CanWeave(1))
+                {
                     //oGCDs
                     if (await SingleTarget.GaussRound()) return true;
                     if (await MultiTarget.Ricochet()) return true;
                 }
             }
 
+            if (await MultiTarget.FullMetalField()) return true;
+
             //GCDs - Top Hypercharge Priority
             if (await MultiTarget.AutoCrossbow()) return true;
             if (await SingleTarget.HeatBlast()) return true;
 
             //Use On CD
-            if (await MultiTarget.FullMetalField()) return true;
-
             if (await MultiTarget.Excavator()) return true;
             if (await MultiTarget.ChainSaw()) return true;
 

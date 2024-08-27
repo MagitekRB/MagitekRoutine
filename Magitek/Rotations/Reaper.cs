@@ -80,6 +80,7 @@ namespace Magitek.Rotations
             {
                 if (ReaperRoutine.GlobalCooldown.CanWeave())
                 {
+                    if (await Utility.UsePotion()) return true;
                     if (await PhysicalDps.Interrupt(ReaperSettings.Instance)) return true;
                     if (await PhysicalDps.SecondWind(ReaperSettings.Instance)) return true;
                     if (await PhysicalDps.Bloodbath(ReaperSettings.Instance)) return true;

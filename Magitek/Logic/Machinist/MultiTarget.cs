@@ -129,6 +129,13 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseGaussRound && Spells.GaussRound.Masked().Charges > spell.Charges)
                 return false;
 
+            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
+                && Combat.IsBoss()
+                && Core.Me.HasAura(Auras.WildfireBuff, true)
+                && !Core.Me.HasAura(Auras.Overheated)
+                && ActionResourceManager.Machinist.Heat > 50)
+                return false;
+
             return await spell.Cast(Core.Me.CurrentTarget);
         }
 
@@ -140,7 +147,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.ChainSaw.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated))
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -172,7 +179,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.Excavator.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated))
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -192,7 +199,13 @@ namespace Magitek.Logic.Machinist
             if (!Spells.FullMetalField.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated))
+            if (!Core.Me.HasAura(Auras.FullMetalMachinist))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.Overheated) && MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss())
+                return false; 
+
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))

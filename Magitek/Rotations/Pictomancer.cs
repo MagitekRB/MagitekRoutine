@@ -76,6 +76,8 @@ namespace Magitek.Rotations
             if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {
                 if (await Healer.LucidDreaming(PictomancerSettings.Instance.UseLucidDreaming, PictomancerSettings.Instance.LucidDreamingMinimumManaPercent)) return true;
+
+                if (await Buff.UsePotion()) return true;
             }
 
             if (PictomancerRoutine.GlobalCooldown.CanWeave(1) || MovementManager.IsMoving)

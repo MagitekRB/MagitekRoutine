@@ -134,6 +134,14 @@ namespace Magitek.Models.Machinist
         public float DelayWildfireSeconds { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool LateWeaveWildfire { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool DoubleHyperchargedWildfire { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseReassemble { get; set; }
 
