@@ -184,9 +184,11 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseMogDuringHyperphantasia && Core.Me.HasAura(Auras.Hyperphantasia))
                 return false;
 
-            //if (PictomancerSettings.Instance.SaveMogForStarry
-            //    && PictomancerRoutine.StarryOffCooldownSoon())
-            //    return false;
+            // save mogs in sub-100 content
+            if (PictomancerSettings.Instance.SaveMogForStarry
+                && PictomancerRoutine.StarryOffCooldownSoon(20000)
+                && !Spells.StarPrism.IsKnown())
+                return false;
 
             if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
@@ -262,9 +264,11 @@ namespace Magitek.Logic.Pictomancer
             if (PictomancerSettings.Instance.SaveHammerForStarry
                 && Spells.StarryMuse.IsKnown()
                 && !Core.Me.HasAura(Auras.StarryMuse, true)
-                && starryCooldown < msToNextCharge
+                && starryCooldown <= msToNextCharge
                 && muse.Charges < 2)
                 return false;
+
+            //Logger.WriteInfo($"Starry Cooldown: {starryCooldown}ms, Next Charge: {msToNextCharge}ms, Charges: {muse.Charges}");
 
             if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me))
                 return await muse.CastAura(Core.Me, Auras.HammerTime);
@@ -375,7 +379,10 @@ namespace Magitek.Logic.Pictomancer
                         var hammerAura = Core.Me.CharacterAuras.Where(r => r.CasterId == Core.Player.ObjectId && r.Id == Auras.HammerTime).FirstOrDefault();
 
                         if (hammerAura == null || hammerAura.Value < 3)
+                        {
+                            //Logger.WriteInfo("Not enough charges of Hammer to save for Starry Sky.");
                             return false;
+                        }
                     }
                 }
 
@@ -394,6 +401,7 @@ namespace Magitek.Logic.Pictomancer
                     // If neither Condition 1 nor Condition 2 is satisfied, return false.
                     if (!hasPortraitAndCreatureMotif && !hasMawOrWingOnCanvas)
                     {
+                        //Logger.WriteInfo($"Not enough conditions met to save Starry Sky for Mog of the Ages. hasPortraitAndCreatureMotif: {hasPortraitAndCreatureMotif}, hasMawOrWingOnCanvas: {hasMawOrWingOnCanvas}");
                         return false;
                     }
                 }
@@ -419,7 +427,7 @@ namespace Magitek.Logic.Pictomancer
                         return false;
                 }
 
-                return await muse.CastAura(Core.Me, Auras.Hyperphantasia);
+                return await muse.CastAura(Core.Me, Auras.StarryMuse);
             }
 
             return false;
