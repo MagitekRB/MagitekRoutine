@@ -164,7 +164,7 @@ namespace Magitek.Logic.Pictomancer
                 if (currentCharges > 0)
                     nextMogInMs -= (cooldownForCharge * (currentCharges - 1));
 
-                Logger.WriteInfo($"Next Mog in {nextMogInMs}ms. Starry Cooldown {PictomancerRoutine.StarryCooldownRemaining()}");
+                //Logger.WriteInfo($"Next Mog in {nextMogInMs}ms. Starry Cooldown {PictomancerRoutine.StarryCooldownRemaining()}");
 
                 if (nextMogInMs > PictomancerRoutine.StarryCooldownRemaining())
                     return false;
@@ -266,7 +266,7 @@ namespace Magitek.Logic.Pictomancer
                 && muse.Charges < 2)
                 return false;
 
-            if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me.CurrentTarget))
+            if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me))
                 return await muse.CastAura(Core.Me, Auras.HammerTime);
 
             return false;
@@ -357,7 +357,7 @@ namespace Magitek.Logic.Pictomancer
             if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
 
-            if (!PictomancerRoutine.GlobalCooldown.CanWeave(1))
+            if (!PictomancerRoutine.GlobalCooldown.CanWeave())
                 return false;
 
             if (Core.Me.ClassLevel >= Spells.StarryMuse.LevelAcquired)

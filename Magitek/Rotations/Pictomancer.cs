@@ -80,11 +80,12 @@ namespace Magitek.Rotations
                 if (await Buff.UsePotion()) return true;
             }
 
-            if (PictomancerRoutine.GlobalCooldown.CanWeave(1) || MovementManager.IsMoving)
+            if (PictomancerRoutine.GlobalCooldown.CanWeave() || MovementManager.IsMoving)
             {
-                if (await Palette.MogoftheAges()) return true;
+                if (await Palette.ScenicMuse()) return true;
                 if (await Palette.CreatureMuse()) return true;
                 if (await Palette.StrikingMuse()) return true;
+                if (await Palette.MogoftheAges()) return true;
             }
 
             // palettes
@@ -92,9 +93,7 @@ namespace Magitek.Rotations
             if (await Buff.SubtractivePalette()) return true;
 
             if (await Palette.StarPrism()) return true;
-            if (await Palette.RainbowDrip()) return true;
-            if (await Palette.ScenicMuse()) return true;            
-
+            if (await Palette.RainbowDrip()) return true;    
             if (await Palette.HammerStamp()) return true;
 
             // inspiration is on a timer, need to consume those stacks first.
