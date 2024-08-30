@@ -69,9 +69,12 @@ namespace Magitek.Rotations
 
             PictomancerRoutine.DetectSmudge();
 
-            if (await Buff.FightLogic_TemperaGrassa()) return true;
-            if (await Buff.FightLogic_TemperaCoat()) return true;
-            if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+            if (!Core.Me.HasAura(Auras.StarryMuse, true))
+            {
+                if (await Buff.FightLogic_TemperaGrassa()) return true;
+                if (await Buff.FightLogic_TemperaCoat()) return true;
+                if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+            }
 
             if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {
