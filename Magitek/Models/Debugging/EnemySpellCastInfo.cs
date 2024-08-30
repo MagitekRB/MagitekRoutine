@@ -5,6 +5,8 @@ using Magitek.Models.WebResources;
 using Magitek.ViewModels;
 using PropertyChanged;
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -24,6 +26,8 @@ namespace Magitek.Models.Debugging
             ZoneId = zoneId;
             ZoneName = zoneName;
             Icon = this.GetIcon();
+            InFightLogicBuilderAOE = "[+] FightLogic AOE";
+            InFightLogicBuilderTB = "[+] FightLogic TB";
         }
 
         public string Name { get; set; }
@@ -44,12 +48,24 @@ namespace Magitek.Models.Debugging
             }
         }
 
+        public string InFightLogicBuilderAOE { get; set; }
+        public string InFightLogicBuilderTB { get; set; }
+
         public ICommand AddToFightLogicBuilderAOE => new DelegateCommand<EnemySpellCastInfo>(info =>
         {
             if (info == null)
                 return;
 
-            Debug.Instance.FightLogicBuilderAOE.Add(info);
+            if (Debug.Instance.FightLogicBuilderAOE.Any(r => r.Id == info.Id))
+            {
+                Debug.Instance.FightLogicBuilderAOE.Remove(info);
+                InFightLogicBuilderAOE = "[+] FightLogic AOE";
+            }
+            else
+            {
+                Debug.Instance.FightLogicBuilderAOE.Add(info);
+                InFightLogicBuilderAOE = "[-] FightLogic AOE";
+            }
         });
 
         public ICommand AddToFightLogicBuilderTB => new DelegateCommand<EnemySpellCastInfo>(info =>
@@ -57,7 +73,16 @@ namespace Magitek.Models.Debugging
             if (info == null)
                 return;
 
-            Debug.Instance.FightLogicBuilderTB.Add(info);
+            if (Debug.Instance.FightLogicBuilderTB.Any(r => r.Id == info.Id))
+            { 
+                Debug.Instance.FightLogicBuilderTB.Remove(info);
+                InFightLogicBuilderTB = "[+] FightLogic TB";
+            }
+            else
+            { 
+                Debug.Instance.FightLogicBuilderTB.Add(info);
+                InFightLogicBuilderTB = "[-] FightLogic TB";
+            }
         });
 
         public ICommand AddToInterruptsAndStuns => new DelegateCommand<EnemySpellCastInfo>(info =>
@@ -91,6 +116,6 @@ namespace Magitek.Models.Debugging
             {
                 InterruptsAndStuns.Instance.ActionList.Add(newXivItem);
             });
-        }); 
+        });
     }
 }

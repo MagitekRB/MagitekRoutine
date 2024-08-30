@@ -52,15 +52,15 @@ namespace Magitek.Rotations
 
             if (SingleTarget.ForceLimitBreak()) return true;
 
-            if (await CommonFightLogic.FightLogic_Debuff(ViperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-
             if (ViperRoutine.GlobalCooldown.CanWeave())
             {
+                if (await CommonFightLogic.FightLogic_Debuff(ViperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
                 if (await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.Bloodbath(ViperSettings.Instance)) return true;
 
                 if (await Utility.TrueNorth()) return true;
+                if (await Utility.UsePotion()) return true;
                 if (await SingleTarget.Slither()) return true;
 
                 if (await Cooldown.FourthLegacy()) return true;

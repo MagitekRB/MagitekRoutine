@@ -124,9 +124,6 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
             await Chocobo.HandleChocobo();
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Rest");            
@@ -136,9 +133,6 @@ namespace Magitek.Utilities.Managers
         {
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
 
             await Chocobo.HandleChocobo();
 
@@ -174,14 +168,20 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
             if (BotManager.Current.IsAutonomous)
             {
                 if (Core.Me.HasTarget)
                     Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 0) + Core.Me.CurrentTarget.CombatReach);
             }
+
+            if (WorldManager.InSanctuary)
+                return false;
+
+            if (Globals.OnPvpMap)
+                return false;
+
+            if (DutyManager.InInstance && !Globals.InActiveDuty)
+                return false;
 
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
@@ -203,9 +203,6 @@ namespace Magitek.Utilities.Managers
         {
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
 
             if (Core.Me.IsMounted)
                 return true;
@@ -237,9 +234,6 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
-
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "CombatBuff");
         }
 
@@ -247,9 +241,6 @@ namespace Magitek.Utilities.Managers
         {
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
-
-            if (BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await PvP();
 
             Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
             Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
@@ -290,9 +281,6 @@ namespace Magitek.Utilities.Managers
         {
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
-
-            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
-                return await Combat();
 
             Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
             Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();

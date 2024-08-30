@@ -69,9 +69,12 @@ namespace Magitek.Rotations
 
             PictomancerRoutine.DetectSmudge();
 
-            if (await Buff.FightLogic_TemperaGrassa()) return true;
-            if (await Buff.FightLogic_TemperaCoat()) return true;
-            if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+            if (!Core.Me.HasAura(Auras.StarryMuse, true))
+            {
+                if (await Buff.FightLogic_TemperaGrassa()) return true;
+                if (await Buff.FightLogic_TemperaCoat()) return true;
+                if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+            }
 
             if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {
@@ -80,11 +83,12 @@ namespace Magitek.Rotations
                 if (await Buff.UsePotion()) return true;
             }
 
-            if (PictomancerRoutine.GlobalCooldown.CanWeave(1) || MovementManager.IsMoving)
+            if (PictomancerRoutine.GlobalCooldown.CanWeave() || MovementManager.IsMoving)
             {
-                if (await Palette.MogoftheAges()) return true;
+                if (await Palette.ScenicMuse()) return true;
                 if (await Palette.CreatureMuse()) return true;
                 if (await Palette.StrikingMuse()) return true;
+                if (await Palette.MogoftheAges()) return true;
             }
 
             // palettes
@@ -92,9 +96,7 @@ namespace Magitek.Rotations
             if (await Buff.SubtractivePalette()) return true;
 
             if (await Palette.StarPrism()) return true;
-            if (await Palette.RainbowDrip()) return true;
-            if (await Palette.ScenicMuse()) return true;            
-
+            if (await Palette.RainbowDrip()) return true;    
             if (await Palette.HammerStamp()) return true;
 
             // inspiration is on a timer, need to consume those stacks first.
