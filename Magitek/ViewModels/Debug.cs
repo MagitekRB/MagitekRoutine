@@ -135,7 +135,12 @@ namespace Magitek.ViewModels
             sb.AppendLine("    }");
             sb.AppendLine("},");
 
-            Clipboard.SetText(sb.ToString());
+            try
+            {
+                Clipboard.SetDataObject(sb.ToString());
+            } catch {
+                Logger.Error("Failed to copy to clipboard");
+            }
         }
 
 
@@ -145,6 +150,15 @@ namespace Magitek.ViewModels
         {
             var instance = Instance;
             if (instance == null) return;
+
+            foreach (var x in instance.FightLogicBuilderTB) 
+            {
+                x.InFightLogicBuilderTB = "[+] FightLogic TB";
+            }
+            foreach (var x in instance.FightLogicBuilderAOE)
+            {
+                x.InFightLogicBuilderAOE = "[+] FightLogic AOE";
+            }
 
             instance.FightLogicBuilderTB.Clear();
             instance.FightLogicBuilderAOE.Clear();

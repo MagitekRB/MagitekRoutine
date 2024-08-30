@@ -25,7 +25,22 @@ namespace Magitek.Logic
         public static HashSet<OpenerGroup> _executedOpeners = new HashSet<OpenerGroup>();
         private static Gambit _executingGambit = null;
         private static Stopwatch GambitTimer { get; set; }
-        public static DateTime LastReset = DateTime.UtcNow;
+        public static DateTime LastOpenerStartedAt = DateTime.UtcNow;
+        public static DateTime LastOpenerResetAt = DateTime.UtcNow;
+
+        internal static bool ResetOpenerIfNeeded()
+        {
+            if (Combat.OutOfCombatTime.ElapsedMilliseconds >= 10500
+                && (_executedOpeners.Count > 0 || InOpener)
+                && (DateTime.UtcNow - LastOpenerStartedAt).TotalMilliseconds >= 10500
+                && (DateTime.UtcNow - LastOpenerResetAt).TotalMilliseconds >= 10500)
+            {
+                ResetOpener();
+                return true;
+            }
+
+            return false;
+        }
 
         internal static void ResetOpener()
         {
@@ -33,7 +48,8 @@ namespace Magitek.Logic
             _executingOpener = null;
             _executingGambit = null;
             _executedOpeners.Clear();
-            LastReset = DateTime.UtcNow;
+            LastOpenerStartedAt = DateTime.UtcNow;
+            LastOpenerResetAt = DateTime.UtcNow;
             BaseSettings.Instance.ResetOpeners = false;
         }
         
@@ -78,6 +94,7 @@ namespace Magitek.Logic
             }
 
             InOpener = true;
+            LastOpenerStartedAt = DateTime.UtcNow;
 
             // Check to see if we died in the middle of an opener
             if (Core.Me.IsDead)

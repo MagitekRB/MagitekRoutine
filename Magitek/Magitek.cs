@@ -127,7 +127,8 @@ namespace Magitek
                 CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
             }
             #endregion
-            BaseSettings.Instance.ResetOpeners = true;
+
+            CustomOpenerLogic.ResetOpener();
         }
 
         private void GameEventsOnOnMapChanged(object sender, EventArgs e)
@@ -144,7 +145,8 @@ namespace Magitek
                     TogglesManager.LoadTogglesForCurrentJob();
                 });
             }
-            BaseSettings.Instance.ResetOpeners = true;
+
+            CustomOpenerLogic.ResetOpener();
         }
 
         public void OnStart(BotBase bot)
@@ -155,7 +157,7 @@ namespace Magitek
             OpenerLogic.InOpener = false;
             OpenerLogic.OpenerQueue.Clear();
             SpellQueueLogic.SpellQueue.Clear();
-            BaseSettings.Instance.ResetOpeners = true;
+            CustomOpenerLogic.ResetOpener();
 
             // Apply the gambits we have
             GambitsViewModel.Instance.ApplyGambits();
@@ -262,12 +264,9 @@ namespace Magitek
                 }
             }
 
-            if (Combat.OutOfCombatTime.ElapsedMilliseconds >= 10500
-                && (CustomOpenerLogic._executedOpeners.Count > 0 || CustomOpenerLogic.InOpener)
-                && (DateTime.UtcNow - CustomOpenerLogic.LastReset).TotalMilliseconds >= 10500)
+            if (CustomOpenerLogic.ResetOpenerIfNeeded())
             {
-                Logger.WriteInfo(@"Resetting Openers Because We're Out Of Combat");
-                CustomOpenerLogic.ResetOpener();
+                Logger.WriteInfo(@"Reset Openers Because We're Out Of Combat");
             }
 
             if (WorldManager.InPvP && !BaseSettings.Instance.ActivePvpCombatRoutine)
@@ -396,23 +395,23 @@ namespace Magitek
                 new ActionRunCoroutine(_ => RotationManager.Rotation.Rest())));
 
         public override Composite PreCombatBuffBehavior =>
-            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
+            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
                 new ActionRunCoroutine(_ => RotationManager.Rotation.PreCombatBuff())));
 
         public override Composite PullBehavior =>
-            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
+            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
                 new ActionRunCoroutine(_ => RotationManager.Rotation.Pull())));
 
         public override Composite HealBehavior =>
-            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
+            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
                 new ActionRunCoroutine(_ => RotationManager.Rotation.Heal())));
 
         public override Composite CombatBuffBehavior =>
-            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
+            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
                 new ActionRunCoroutine(_ => RotationManager.Rotation.CombatBuff())));
 
         public override Composite CombatBehavior =>
-            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
+            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
                 new ActionRunCoroutine(_ => RotationManager.Rotation.Combat())));
 
         #endregion Behavior Composites
