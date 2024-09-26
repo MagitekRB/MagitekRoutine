@@ -345,7 +345,7 @@ namespace Magitek.Extensions
                 return remainingCooldownTime;
             }
 
-            return spell.Cooldown.TotalMilliseconds;
+            return Math.Max(spell.Cooldown.TotalMilliseconds, 0);
         }
 
         public static bool IsReady(this SpellData spell, int remainingTimeInMs = 0)

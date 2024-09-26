@@ -41,7 +41,7 @@ namespace Magitek.Utilities.Routines
                 return false;
 
             if (Core.Me.HasAura(Auras.StarryMuse, true))
-                return true;
+                return false;
 
             if (Spells.StarryMuse.Cooldown == TimeSpan.Zero)
                 return true;
