@@ -309,7 +309,8 @@ namespace Magitek.Extensions
                 Auras.Regen,
                 Auras.Regen2,
                 Auras.AspectedBenefic,
-                Auras.AspectedHelios
+                Auras.AspectedHelios,
+                Auras.HeliosConjunction,
             });
         }
 

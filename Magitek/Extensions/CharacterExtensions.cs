@@ -42,10 +42,7 @@ namespace Magitek.Extensions
 
         public static bool HasAnyDpsCardAura(this Character unit)
         {
-            return unit.HasAnyAura(new uint[] {     Auras.TheBole,
-                                                    Auras.TheEwer,
-                                                    Auras.TheSpire,
-                                                    Auras.TheArrow,
+            return unit.HasAnyAura(new uint[] {    
                                                     Auras.TheSpear,
                                                     Auras.TheBalance,
             });
@@ -69,17 +66,21 @@ namespace Magitek.Extensions
                 Auras.Regen,
                 Auras.Regen2,
                 Auras.Medica2,
+                Auras.Medica3,
                 Auras.AsylumReceiver,
                 Auras.SacredSoilReceiver,
                 Auras.WhisperingDawn,
                 Auras.AngelsWhisper,
                 Auras.AspectedBenefic,
                 Auras.AspectedHelios,
+                Auras.HeliosConjunction,
                 Auras.Kerakeia,
                 Auras.PhysisII,
+                Auras.Seraphism,
                 Auras.CrestOfTimeReturned,
                 Auras.Opposition,
-                Auras.WheelOfFortune
+                Auras.WheelOfFortune,
+                Auras.TheEwer,
         };
 
         public static uint[] HealerShields = new uint[]
@@ -93,7 +94,10 @@ namespace Magitek.Extensions
             Auras.Panhaima,
             Auras.Panhaimatinon,
             Auras.ShakeItOff,
-            Auras.BlackestNight
+            Auras.BlackestNight,
+            Auras.NeutralSectShield,
+            Auras.CelestialIntersection,
+            Auras.TheSpire,
         };
 
         public static uint[] BuffIgnore = new uint[]

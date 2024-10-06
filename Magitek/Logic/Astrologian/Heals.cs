@@ -557,7 +557,7 @@ namespace Magitek.Logic.Astrologian
                                                         r.Distance(Core.Me) <= Spells.AspectedHelios.Radius &&
                                                         r.CurrentHealthPercent <=
                                                         AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
-                                                        !r.HasAura(Auras.AspectedHelios, true));
+                                                        !r.HasAura(Auras.AspectedHelios, true) && !r.HasAura(Auras.HeliosConjunction, true));
 
             if (diurnalHeliosCount >= AoeThreshold)
             {
