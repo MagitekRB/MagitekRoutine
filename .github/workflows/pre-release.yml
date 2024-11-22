@@ -53,13 +53,13 @@ jobs:
         "
 
     - name: Upload Artifacts for Release
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Magitek.zip
         path: ./Magitek/bin/release/Magitek.zip
 
     - name: Upload Version.txt for Release
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Version.txt
         path: ./Magitek/bin/release/Version.txt

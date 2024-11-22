@@ -50,7 +50,11 @@ namespace Magitek.Rotations
             MonkRoutine.RefreshVars();
 
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            {
+                if (await Buff.Meditate())
+                    return true;
                 return false;
+            }
 
             //Limit Break
             if (SingleTarget.ForceLimitBreak())
@@ -63,42 +67,43 @@ namespace Magitek.Rotations
             if (await Buff.Meditate()) 
                 return true;
 
-                if (MonkRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.Bootshine.Cooldown.TotalMilliseconds > 750 + BaseSettings.Instance.UserLatencyOffset)
-                {
-                    if (await PhysicalDps.Interrupt(MonkSettings.Instance)) return true;
-                    if (await PhysicalDps.SecondWind(MonkSettings.Instance)) return true;
-                    if (await PhysicalDps.Bloodbath(MonkSettings.Instance)) return true;
-                    if (await PhysicalDps.Feint(MonkSettings.Instance)) return true;
-                    if (await Buff.UsePotion()) return true;
-                    if (await Buff.TrueNorth()) return true;
+            if (MonkRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.Bootshine.Cooldown.TotalMilliseconds > 750 + BaseSettings.Instance.UserLatencyOffset)
+            {
+                if (await PhysicalDps.Interrupt(MonkSettings.Instance)) return true;
+                if (await PhysicalDps.SecondWind(MonkSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(MonkSettings.Instance)) return true;
+                if (await PhysicalDps.Feint(MonkSettings.Instance)) return true;
+                if (await Buff.UsePotion()) return true;
+                if (await Buff.TrueNorth()) return true;
 
-                    if (await Buff.EarthReply()) return true;
-                    if (await Buff.Brotherhood()) return true;
-                    if (await Buff.RiddleOfWind()) return true;
-                    if (await Buff.RiddleOfFire()) return true;
+                if (await Buff.EarthReply()) return true;
+                if (await Buff.Brotherhood()) return true;
+                if (await Buff.RiddleOfWind()) return true;
+                if (await Buff.RiddleOfFire()) return true;
       
-                    if (await Aoe.Enlightenment()) return true;
-                    if (await SingleTarget.TheForbiddenChakra()) return true;
-                    if (await Buff.PerfectBalance()) return true;
-                    if (await Buff.Mantra()) return true;
-                }
+                if (await Aoe.Enlightenment()) return true;
+                if (await SingleTarget.TheForbiddenChakra()) return true;
+                if (await Buff.PerfectBalance()) return true;
+                if (await Buff.Mantra()) return true;
+            }
 
-                if (await Aoe.FireReply()) return true;
-                if (await Aoe.WindReply()) return true;
-                if (await Aoe.MasterfulBlitz()) return true;
-                if (await Aoe.PerfectBalance()) return true;
-                if (await Aoe.Rockbreaker()) return true;
-                if (await Aoe.FourPointStrike()) return true;
-                if (await Aoe.ArmOfDestroyer()) return true;
+            if (await Aoe.FireReply()) return true;
+            if (await Aoe.WindReply()) return true;
+            if (await Aoe.MasterfulBlitz()) return true;
+            if (await Aoe.PerfectBalance()) return true;
+            if (await Aoe.Rockbreaker()) return true;
+            if (await Aoe.FourPointStrike()) return true;
+            if (await Aoe.ArmOfDestroyer()) return true;
 
-                if (await SingleTarget.PerfectBalance()) return true;
-                if (await SingleTarget.DragonKick()) return true;
-                if (await SingleTarget.TwinSnakes()) return true;
-                if (await SingleTarget.Demolish()) return true;
-                if (await SingleTarget.Bootshine()) return true;
-                if (await SingleTarget.TrueStrike()) return true;
-                if (await SingleTarget.SnapPunch()) return true;
-                return await Buff.FormShiftIC();
+            if (await SingleTarget.PerfectBalance()) return true;
+            if (await SingleTarget.DragonKick()) return true;
+            if (await SingleTarget.TwinSnakes()) return true;
+            if (await SingleTarget.Demolish()) return true;
+            if (await SingleTarget.Bootshine()) return true;
+            if (await SingleTarget.TrueStrike()) return true;
+            if (await SingleTarget.SnapPunch()) return true;
+
+            return await Buff.FormShiftIC();
         }
 
         public static void RegisterCombatMessages()

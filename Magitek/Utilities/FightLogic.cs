@@ -5358,6 +5358,50 @@ namespace Magitek.Utilities
                 }
             },
 
+            new Encounter {
+                ZoneId = 986,
+                Name = "The Stigma Dreamscape",
+                Expansion = FfxivExpansion.Endwalker,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 10401,
+                        Name = "Proto-Omega",
+                        TankBusters = new List<uint> {
+                            25387, // Mustard Bomb
+                        },
+                        Aoes = new List<uint> {
+                            25386, // Electric Slide
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 10403,
+                        Name = "Arch-Lambda",
+                        TankBusters = new List<uint> {
+                            25525, // Wheel
+                        },
+                        Aoes = new List<uint> {
+                            25524, // Atomic Flame
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 10404,
+                        Name = "Stigma-4",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            25648, // Mindhack
+                            25654, // Atomic Ray
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+
             #endregion
 
             #region Endwalker: Trials
@@ -5817,7 +5861,8 @@ namespace Magitek.Utilities
                         Name = "Azeyma",
                         TankBusters = null,
                         SharedTankBusters = new List<uint> {
-                            28831 //Warden's Warmth
+                            28831, //Warden's Warmth
+                            28830
                         },
                         Aoes = new List<uint> {
                             28832 //Warden's Prominence
@@ -5830,6 +5875,7 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = new List<uint> {
                             28955, //Golden Tenet
+                            28954, //Golden Tenet
                             28957 //Stygian Tenet
                         },
                         Aoes = new List<uint> {
@@ -6371,7 +6417,9 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 12844,
                         Name = "Antivirus X",
-                        TankBusters = null,
+                        TankBusters = new List<uint> {
+                            36384, // Quarantine
+                        },
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
                             36384, // quarantine

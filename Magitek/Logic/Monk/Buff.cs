@@ -59,7 +59,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Meditate()
         {
-            if (Core.Me.ClassLevel < 54)
+            if (Core.Me.ClassLevel < 15)
                 return false;
 
             if (!MonkSettings.Instance.UseAutoMeditate)
@@ -69,10 +69,10 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (!Core.Me.InCombat && ActionResourceManager.Monk.ChakraCount < 5)
-                return await Spells.Meditation.Cast(Core.Me);
+                return await Spells.SteeledMeditation.Masked().Cast(Core.Me);
 
             if (!Core.Me.HasTarget && ActionResourceManager.Monk.ChakraCount < 5)
-                return await Spells.Meditation.Cast(Core.Me);
+                return await Spells.SteeledMeditation.Masked().Cast(Core.Me);
 
             return false;
         }
