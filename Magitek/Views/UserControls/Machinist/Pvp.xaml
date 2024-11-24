@@ -67,6 +67,9 @@
                     <CheckBox Content="Wildfire" IsChecked="{Binding MachinistSettings.Pvp_Wildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Full Metal Field" IsChecked="{Binding MachinistSettings.Pvp_FullMetalField, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Scattergun" IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">

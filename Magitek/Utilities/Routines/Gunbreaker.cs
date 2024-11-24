@@ -45,7 +45,7 @@ namespace Magitek.Utilities.Routines
         public static int MaxCartridge => Core.Me.ClassLevel < 88 ? 2 : 3;
         public static int AmountCartridgeFromBloodfest => Core.Me.ClassLevel < 88 ? 2 : 3;
         public static int RequiredCartridgeForGnashingFang => 1;
-        public static int RequiredCartridgeForDoubleDown => 2;
+        public static int RequiredCartridgeForDoubleDown => 1;
         public static int RequiredCartridgeForBurstStrike => 1;
         public static int RequiredCartridgeForFatedCircle => 1;
 

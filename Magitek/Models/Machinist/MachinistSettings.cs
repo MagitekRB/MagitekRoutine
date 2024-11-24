@@ -205,6 +205,10 @@ namespace Magitek.Models.Machinist
 
         [Setting]
         [DefaultValue(true)]
+        public bool Pvp_FullMetalField { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Pvp_UsedAnalysisOnDrill { get; set; }
 
         [Setting]

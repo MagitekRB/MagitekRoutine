@@ -1291,6 +1291,9 @@ namespace Magitek.Utilities
         public static readonly SpellData BishopAutoturretPvp = DataManager.GetSpellData(29412);
         public static readonly SpellData AnalysisPvp = DataManager.GetSpellData(29414);
         public static readonly SpellData MarksmansSpitePvp = DataManager.GetSpellData(29415);
+        public static readonly SpellData BlazingShotPvp = DataManager.GetSpellData(41468);
+        public static readonly SpellData FullMetalFieldPvp = DataManager.GetSpellData(41469);
+        public static readonly SpellData DetonatorPvp = DataManager.GetSpellData(41470);
 
         //DNC
         public static readonly uint FountainPvpCombo = 54;

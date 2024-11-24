@@ -392,7 +392,7 @@ namespace Magitek.Utilities
             ReadytoReawaken = 3671,
             HonedSteel = 3672,
             HonedReavers = 3772,
-            
+
             //PCT
             Aetherhues = 3675,
             Aetherhues2 = 3676,
@@ -422,6 +422,7 @@ namespace Magitek.Utilities
             Overheated = 2688,
             Dismantled = 860,
             Tactician = 1951,
+            WildfirePvp = 1323,
 
             //WHM
             Medica3 = 3880,
@@ -457,6 +458,9 @@ namespace Magitek.Utilities
 
             //WAR
             Wrathful = 3901,
+
+            //SMN
+            CrimsonStrikeReady = 4403,
 
             //To prevent conflict
             Placeholder = 9999;
