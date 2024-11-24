@@ -126,8 +126,9 @@ namespace Magitek.Logic.Summoner
 
             if (!Spells.CrimsonStrike.IsKnownAndReady()) return false;
 
-            if (Casting.LastSpell != Spells.CrimsonCyclone) return false;
-
+            if (!Core.Me.HasAura(Auras.CrimsonStrikeReady))
+                return false;
+            
             if (Core.Me.CurrentTarget == null)
                 return false;
 

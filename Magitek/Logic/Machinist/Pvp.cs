@@ -27,12 +27,12 @@ namespace Magitek.Logic.Machinist
             return await Spells.BlastChargePvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> HeatBlast()
+        public static async Task<bool> BlazingShot()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.HeatBlast.CanCast())
+            if (!Spells.BlazingShotPvp.CanCast())
                 return false;
 
             if (!Core.Me.HasAura(Auras.PvpOverheated))
@@ -44,7 +44,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.HeatBlastPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.BlazingShotPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> WildFire()
@@ -65,6 +65,46 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             return await Spells.WildfirePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> Detonator()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!MachinistSettings.Instance.Pvp_Wildfire)
+                return false;
+
+            if (!Spells.DetonatorPvp.CanCast())
+                return false;
+
+            if (!Core.Me.CurrentTarget.HasAura(Auras.WildfirePvp))
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) < 27)
+                return false;
+
+            return await Spells.DetonatorPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> FullMetalField()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!MachinistSettings.Instance.Pvp_FullMetalField)
+                return false;
+
+            if (!Spells.FullMetalFieldPvp.CanCast())
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.FullMetalFieldPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> Scattergun()

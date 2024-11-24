@@ -181,7 +181,7 @@ namespace Magitek.Logic.Paladin
 
             if (PaladinSettings.Instance.UseCoverHealer)
             {
-                GameObject coverTarget = Group.CastableAlliesWithin10.FirstOrDefault(r => r.IsHealer() && r.CurrentHealthPercent < PaladinSettings.Instance.UseCoverHealerHp);
+                GameObject coverTarget = Group.CastableAlliesWithin20.FirstOrDefault(r => r.IsHealer() && r.CurrentHealthPercent < PaladinSettings.Instance.UseCoverHealerHp);
 
                 if (coverTarget != null)
                 {
@@ -192,7 +192,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.UseCoverDps)
                 return false;
 
-            var coverDpsTarget = Group.CastableAlliesWithin10.FirstOrDefault(r => r.IsDps() && r.CurrentHealthPercent < PaladinSettings.Instance.UseCoverDpsHp);
+            var coverDpsTarget = Group.CastableAlliesWithin20.FirstOrDefault(r => r.IsDps() && r.CurrentHealthPercent < PaladinSettings.Instance.UseCoverDpsHp);
 
             if (coverDpsTarget == null)
                 return false;

@@ -91,7 +91,7 @@ namespace Magitek.Logic.Machinist
             if (Core.Me.HasAura(Auras.Overheated))
                 return false;
 
-            if (Core.Me.EnemiesInCone(8) < MachinistSettings.Instance.FlamethrowerEnemyCount)
+            if (Core.Me.EnemiesInCone(12) < MachinistSettings.Instance.FlamethrowerEnemyCount)
                 return false;
 
             if (Spells.FlameThrower.CanCast())

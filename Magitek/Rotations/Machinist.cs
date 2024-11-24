@@ -155,7 +155,7 @@ namespace Magitek.Rotations
             {
                 //LB
                 if (await Pvp.MarksmansSpite()) return true;
-                if (await Pvp.HeatBlast()) return true;
+                if (await Pvp.BlazingShot()) return true;
                 if (await Pvp.Scattergun()) return true;
 
                 // Buff
@@ -168,6 +168,8 @@ namespace Magitek.Rotations
                 if (await Pvp.AirAnchor()) return true;
                 if (await Pvp.BioBlaster()) return true;
                 if (await Pvp.Drill()) return true;
+
+                if (await Pvp.FullMetalField()) return true;
             }
 
             // Main
