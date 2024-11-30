@@ -637,7 +637,8 @@ namespace Magitek.Logic.Sage
                 Spells.Egeiro,
                 SageSettings.Instance.SwiftcastRes,
                 SageSettings.Instance.SlowcastRes,
-                SageSettings.Instance.ResOutOfCombat
+                SageSettings.Instance.ResOutOfCombat,
+                SageSettings.Instance.ResDelay
             );
         }
         public static async Task<bool> Pneuma()

@@ -588,6 +588,7 @@ namespace Magitek.Logic.WhiteMage
                 WhiteMageSettings.Instance.SwiftcastRes,
                 WhiteMageSettings.Instance.SlowcastRes,
                 WhiteMageSettings.Instance.ResOutOfCombat,
+                WhiteMageSettings.Instance.ResDelay,
                 ThinAir
             );
 

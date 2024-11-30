@@ -19,6 +19,11 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="Auto Raise " IsChecked="{Binding SummonerSettings.SwiftcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Resurrection Delay: " />
+                    <controls:Numeric MinValue="0" MaxValue="10" Value="{Binding SummonerSettings.ResDelay, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

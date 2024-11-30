@@ -102,6 +102,11 @@
                     <CheckBox Margin="5,3" Content="Slowcast" IsChecked="{Binding SummonerSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="Out Of Combat" IsChecked="{Binding SummonerSettings.ResOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Resurrection Delay: " />
+                    <controls:Numeric MinValue="0" MaxValue="10" Value="{Binding SummonerSettings.ResDelay, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
         

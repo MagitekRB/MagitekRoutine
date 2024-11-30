@@ -51,6 +51,7 @@ namespace Magitek.Logic.Roles
             bool SwiftcastRes,
             bool SlowcastRes,
             bool ResOutOfCombat,
+            float secondsToRes = 3,
             // isSwiftcast, continue
             Func<bool, Task<bool>> extensions = null
         )
@@ -69,7 +70,8 @@ namespace Magitek.Logic.Roles
                                                        u.Distance(Core.Me) <= 30 &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
-                                                       u.IsTargetable)
+                                                       u.IsTargetable &&
+                                                       Group.GetDeathTime(u)?.AddSeconds(secondsToRes) <= DateTime.Now)
                 .OrderByDescending(r => r.GetResurrectionWeight());
 
             var deadTarget = deadList.FirstOrDefault();

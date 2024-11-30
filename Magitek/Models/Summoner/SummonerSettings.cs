@@ -198,6 +198,10 @@ namespace Magitek.Models.Summoner
         [DefaultValue(false)]
         public bool ForceResu { get; set; }
 
+        [Setting]
+        [DefaultValue(3.0f)]
+        public float ResDelay { get; set; }
+
         #endregion
 
         #region Others

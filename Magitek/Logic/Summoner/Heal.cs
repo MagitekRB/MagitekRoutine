@@ -64,7 +64,8 @@ namespace Magitek.Logic.Summoner
                 Spells.Resurrection,
                 SummonerSettings.Instance.SwiftcastRes,
                 SummonerSettings.Instance.SlowcastRes,
-                SummonerSettings.Instance.ResOutOfCombat
+                SummonerSettings.Instance.ResOutOfCombat,
+                SummonerSettings.Instance.ResDelay
             );
         }
         public static async Task<bool> ForceRaiseLogic()

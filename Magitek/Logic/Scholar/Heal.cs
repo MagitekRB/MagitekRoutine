@@ -740,7 +740,8 @@ namespace Magitek.Logic.Scholar
                 Spells.Resurrection,
                 ScholarSettings.Instance.SwiftcastRes,
                 ScholarSettings.Instance.SlowcastRes,
-                ScholarSettings.Instance.ResOutOfCombat
+                ScholarSettings.Instance.ResOutOfCombat,
+                ScholarSettings.Instance.ResDelay
             );
         }
 

@@ -159,6 +159,10 @@ namespace Magitek.Models.RedMage
         public bool Verraise { get; set; }
 
         [Setting]
+        [DefaultValue(3.0f)]
+        public float ResDelay { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool VerraiseTank { get; set; }
 

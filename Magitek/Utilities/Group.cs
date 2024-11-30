@@ -1,4 +1,5 @@
-﻿using ff14bot;
+﻿using Clio.Utilities;
+using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Helpers;
 using ff14bot.Managers;
@@ -19,6 +20,16 @@ namespace Magitek.Utilities
         private static readonly FrameCachedObject<IEnumerable<Character>> _pets = new(() => GameObjectManager.GetObjectsByNPCIds<GameObject>(PetIds).Where(i => i != null && i.IsValid).Where(r => r.IsTargetable && r.InLineOfSight() && r.Distance(Core.Me) <= 30).OfType<Character>().Where(i => i.IsValid));
         private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _allies = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid).Where(r => r.CanAttack && r.InLineOfSight()));
         private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _battleCharacters = new(() => PartyManager.RawMembers.Select(r => r?.BattleCharacter).Where(i => i != null && i.IsValid).Where(i => i.InLineOfSight()));
+
+        private class PartyMemberState
+        {
+            public Vector3 LastPosition { get; set; }
+            public bool IsMoving { get; set; }
+            public DateTime LastPositionCheck { get; set; }
+            public DateTime? DeathTime { get; set; }
+        }
+
+        private static readonly Dictionary<uint, PartyMemberState> PartyMemberStates = new Dictionary<uint, PartyMemberState>();
 
         public static IEnumerable<Character> AllianceMembers
         {
@@ -78,6 +89,8 @@ namespace Magitek.Utilities
             {
                 if (ally == null || !ally.IsValid)
                     continue;
+
+                UpdatePartyMemberMovementState(ally);
 
                 if (BaseSettings.Instance.DebugHealingListsPrintToLog == true)
                 {
@@ -204,7 +217,10 @@ namespace Magitek.Utilities
         {
             if (ally.CurrentHealth <= 0 || ally.IsDead)
             {
-                DeadAllies.Add(ally);
+                if (PartyMemberStates.TryGetValue(ally.ObjectId, out var state) && !state.IsMoving)
+                {
+                    DeadAllies.Add(ally);
+                }
                 return;
             }
 
@@ -253,5 +269,48 @@ namespace Magitek.Utilities
         public static readonly List<Character> CastableAlliesWithin12 = new List<Character>();
         public static readonly List<Character> CastableAlliesWithin10 = new List<Character>();
         public static readonly List<Character> CastableAlliance = new List<Character>();
+
+        private static void UpdatePartyMemberMovementState(Character character)
+        {
+            if (!PartyMemberStates.TryGetValue(character.ObjectId, out var state))
+            {
+                state = new PartyMemberState
+                {
+                    LastPosition = character.Location,
+                    IsMoving = false,
+                    LastPositionCheck = DateTime.Now,
+                    DeathTime = character.CurrentHealth <= 0 ? DateTime.Now : null
+                };
+                PartyMemberStates[character.ObjectId] = state;
+                return;
+            }
+
+            var now = DateTime.Now;
+            var timeDiff = (now - state.LastPositionCheck).TotalSeconds;
+            
+            // Update death time if newly dead
+            if (character.CurrentHealth <= 0 && !state.DeathTime.HasValue)
+            {
+                state.DeathTime = now;
+            }
+            // Reset death time if alive
+            else if (character.CurrentHealth > 0)
+            {
+                state.DeathTime = null;
+            }
+
+            // Update movement state if enough time has passed (e.g., 0.1 seconds)
+            if (timeDiff >= 0.1)
+            {
+                state.IsMoving = state.LastPosition != character.Location;
+                state.LastPosition = character.Location;
+                state.LastPositionCheck = now;
+            }
+        }
+
+        public static DateTime? GetDeathTime(Character character)
+        {
+            return PartyMemberStates.TryGetValue(character.ObjectId, out var state) ? state.DeathTime : null;
+        }
     }
 }

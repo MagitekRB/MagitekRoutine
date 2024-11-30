@@ -798,7 +798,8 @@ namespace Magitek.Logic.Astrologian
                 Spells.Ascend,
                 AstrologianSettings.Instance.SwiftcastRes,
                 AstrologianSettings.Instance.SlowcastRes,
-                AstrologianSettings.Instance.ResOutOfCombat
+                AstrologianSettings.Instance.ResOutOfCombat,
+                AstrologianSettings.Instance.ResDelay
             );
         }
 

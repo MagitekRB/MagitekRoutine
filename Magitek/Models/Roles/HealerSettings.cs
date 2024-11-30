@@ -50,5 +50,9 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(true)]
         public bool ResOutOfCombat { get; set; }
+
+        [Setting]
+        [DefaultValue(3.0f)]
+        public float ResDelay { get; set; }
     }
 }

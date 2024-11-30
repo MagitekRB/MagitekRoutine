@@ -4,6 +4,7 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.RedMage;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static Magitek.Logic.RedMage.Utility;
@@ -137,6 +138,10 @@ namespace Magitek.Logic.RedMage
                     return false;
 
                 if (!unit.IsVisible || !unit.InLineOfSight() || !unit.IsTargetable)
+                    return false;
+
+                var deathTime = Group.GetDeathTime((Character)unit);
+                if (deathTime == null || deathTime.Value.AddSeconds(RedMageSettings.Instance.ResDelay) > DateTime.Now)
                     return false;
 
                 if (RedMageSettings.Instance.VerraiseTank && unit.IsTank())
