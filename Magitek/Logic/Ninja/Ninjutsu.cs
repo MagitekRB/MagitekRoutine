@@ -136,7 +136,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.Chi.Charges >= (Spells.Chi.MaxCharges - (6000 / 20000)))
                 return false;
 
-            return await Spells.TenChiJin.Cast(Core.Me);
+            return await Spells.TenChiJin.CastAura(Core.Me, Auras.TenChiJin);
         }
 
         public static async Task<bool> TenChiJin_FumaShuriken()

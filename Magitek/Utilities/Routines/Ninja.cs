@@ -88,7 +88,7 @@ namespace Magitek.Utilities.Routines
                 { Spells.Huton          , 3 }
             };
 
-            if (TenChiJin)
+            if (TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
             {
                 NinjutsuEndMudra = new Dictionary<SpellData, SpellData>
                 {
@@ -131,7 +131,7 @@ namespace Magitek.Utilities.Routines
                 }
             }
 
-            if (TenChiJin)
+            if (TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
                 return await NinjutsuEndMudra[ninjutsu].Cast(target);
 
             return await ninjutsu.Cast(target);
@@ -182,6 +182,9 @@ namespace Magitek.Utilities.Routines
             {
                 TenChiJin = false;
             }
+
+            if (Core.Me.HasAura(Auras.TenChiJin))
+                TenChiJin = true;
 
             AoeEnemies5Yards = Core.Me.EnemiesNearby(5).Count();
             AoeEnemies6Yards = Core.Me.CurrentTarget.EnemiesNearby(6).Count();
