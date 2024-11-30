@@ -422,7 +422,6 @@ namespace Magitek.Utilities
             Overheated = 2688,
             Dismantled = 860,
             Tactician = 1951,
-            WildfirePvp = 1323,
 
             //WHM
             Medica3 = 3880,
@@ -559,7 +558,10 @@ namespace Magitek.Utilities
             PvpMadeenPortrait = 4104,
             PvpSprint = 1342,
             PvpTemperaCoat = 4114,
-            PvpReawakened = 4094
+            PvpReawakened = 4094,
+            PvpWildfire = 1323,
+            PvpWildfireBuff = 2018,
+            PvpChainSaw = 3154
             ;
 
 

@@ -66,8 +66,13 @@
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Wildfire" IsChecked="{Binding MachinistSettings.Pvp_Wildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
+                <StackPanel Margin="5">
                     <CheckBox Content="Full Metal Field" IsChecked="{Binding MachinistSettings.Pvp_FullMetalField, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Save For Wildfire" 
+                            IsChecked="{Binding MachinistSettings.Pvp_SaveFullMetalForWildfire, Mode=TwoWay}" 
+                            Style="{DynamicResource CheckBoxFlat}"
+                            Margin="20,2,0,0"
+                            ToolTip="If enabled, will save Full Metal Field when Wildfire is about to come off cooldown" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Scattergun" IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

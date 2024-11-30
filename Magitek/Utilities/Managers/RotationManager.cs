@@ -282,10 +282,15 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
+            if (!BaseSettings.Instance.ActivePvpCombatRoutine)
+                return false;
+
             Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
             Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
 
-            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "PvP");
+            if (await ExecuteRotationMethod(RotationManager.CurrentRotation, "PvP")) return true;
+
+            return BaseSettings.Instance.ActivePvpCombatRoutine;
         }
     }
 }

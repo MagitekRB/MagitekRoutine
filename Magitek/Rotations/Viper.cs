@@ -120,7 +120,7 @@ namespace Magitek.Rotations
             {
                 if (await Pvp.RattlingCoil()) return true;
                 if (await Pvp.UncoiledFury()) return true;
-                if (await Pvp.HuntersSnap()) return true;
+                if (await Pvp.Bloodcoil()) return true;
             }
 
             return await Pvp.DualFang();

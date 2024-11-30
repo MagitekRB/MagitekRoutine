@@ -98,9 +98,9 @@ namespace Magitek.Logic.Viper
             return await spell.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> HuntersSnap()
+        public static async Task<bool> Bloodcoil()
         {
-            var spell = Spells.HuntersSnapPvp.Masked();
+            var spell = Spells.BloodcoilPvp.Masked();
 
             if (spell.Charges < 1)
                 return false;

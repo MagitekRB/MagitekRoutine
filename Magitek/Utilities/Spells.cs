@@ -1209,7 +1209,7 @@ namespace Magitek.Utilities
         public static readonly SpellData SwiftskinsStingPvp = DataManager.GetSpellData(39160);
         public static readonly SpellData RavenousBitePvp = DataManager.GetSpellData(39163);
         public static readonly SpellData SerpentsTailPvp = DataManager.GetSpellData(39183); 
-        public static readonly SpellData HuntersSnapPvp = DataManager.GetSpellData(39166);        
+        public static readonly SpellData BloodcoilPvp = DataManager.GetSpellData(39166);        
         public static readonly SpellData UncoiledFuryPvp = DataManager.GetSpellData(39168); 
         public static readonly SpellData SnakeScalesPvp = DataManager.GetSpellData(39185); 
         public static readonly SpellData RattlingCoilPvp = DataManager.GetSpellData(39189); 

@@ -391,7 +391,7 @@ namespace Magitek
         }
 
         public override Composite RestBehavior =>
-            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
+            new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
                 new ActionRunCoroutine(_ => RotationManager.Rotation.Rest())));
 
         public override Composite PreCombatBuffBehavior =>

@@ -39,6 +39,7 @@ namespace Magitek.Utilities
         public static readonly Stopwatch CastingTime = new Stopwatch();
         public static bool CastingGambit;
         public static List<SpellCastHistoryItem> SpellCastHistory = new List<SpellCastHistoryItem>();
+        public static Func<Task> Callback;
         #endregion
 
         public static async Task<bool> TrackSpellCast()
@@ -202,6 +203,7 @@ namespace Magitek.Utilities
                 DoHealthChecks = false;
                 CastingHeal = false;
                 CastingGambit = false;
+                Callback = null;
                 return;
             }
 
@@ -234,6 +236,7 @@ namespace Magitek.Utilities
                 CastingHeal = false;
                 CastingGambit = false;
                 LastSpellSucceeded = false;
+                Callback = null;
                 return;
             }
 
@@ -282,6 +285,10 @@ namespace Magitek.Utilities
                     await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura) || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
             }
 
+
+            if (Callback != null)
+                await Callback();
+
             #endregion
 
             #region Fill Variables
@@ -291,6 +298,7 @@ namespace Magitek.Utilities
             DoHealthChecks = false;
             CastingHeal = false;
             CastingGambit = false;
+            Callback = null;
 
             #endregion
         }

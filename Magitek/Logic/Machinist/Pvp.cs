@@ -5,11 +5,21 @@ using Magitek.Utilities;
 using Auras = Magitek.Utilities.Auras;
 using System.Linq;
 using System.Threading.Tasks;
+using ff14bot.Objects;
 
 namespace Magitek.Logic.Machinist
 {
     internal static class Pvp
     {
+        private static GameObject WildfireTarget { get; set; }
+        private static int WildfireStacks { get; set; }
+
+        private static async Task IncrementWildfireStacks(int stacks = 1)
+        {
+            if (WildfireTarget != null && Casting.SpellTarget == WildfireTarget)
+                WildfireStacks += stacks;
+        }
+
         public static async Task<bool> BlastedCharge()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -24,7 +34,7 @@ namespace Magitek.Logic.Machinist
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
                 return false;
 
-            return await Spells.BlastChargePvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.BlastChargePvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks());
         }
 
         public static async Task<bool> BlazingShot()
@@ -44,7 +54,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.BlazingShotPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.BlazingShotPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks());
         }
 
         public static async Task<bool> WildFire()
@@ -53,6 +63,9 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             if (!MachinistSettings.Instance.Pvp_Wildfire)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpWildfireBuff))
                 return false;
 
             if (!Spells.WildfirePvp.CanCast())
@@ -64,7 +77,12 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.WildfirePvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.WildfirePvp.CastAura(Core.Me.CurrentTarget, aura: Auras.PvpWildfireBuff, auraTarget: Core.Me,
+                callback: async () =>
+                {
+                    WildfireTarget = Casting.SpellTarget;
+                    WildfireStacks = 0;
+                });
         }
 
         public static async Task<bool> Detonator()
@@ -78,13 +96,46 @@ namespace Magitek.Logic.Machinist
             if (!Spells.DetonatorPvp.CanCast())
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasAura(Auras.WildfirePvp))
+            if (WildfireTarget == null || !WildfireTarget.HasAura(Auras.PvpWildfire))
+            {
+                WildfireTarget = null;
+                WildfireStacks = 0;
                 return false;
+            }
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) < 27)
+            // Check if Wildfire target has Guard or invulnerability
+            if (WildfireTarget.HasAura(Auras.PvpGuard) ||
+                WildfireTarget.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }))
+            {
                 return false;
+            }
 
-            return await Spells.DetonatorPvp.Cast(Core.Me.CurrentTarget);
+            // Estimate damage based on stacks (4000 potency per stack)
+            // Using a conservative damage conversion factor for PvP
+            const double PvpDamageConversionFactor = 0.8; 
+            var estimatedDamage = 4000 * WildfireStacks * PvpDamageConversionFactor;
+            
+            // If target is a tank, reduce expected damage
+            if (WildfireTarget.IsTank())
+            {
+                estimatedDamage *= 0.8; 
+            }
+
+            // If target has Chain Saw vulnerability, increase damage by 20%
+            if (WildfireTarget.HasAura(Auras.PvpChainSaw))
+            {
+                estimatedDamage *= 1.2;
+            }
+
+            var targetCurrentHp = WildfireTarget.CurrentHealth;
+            var wouldKill = targetCurrentHp <= estimatedDamage;
+
+            if (wouldKill || WildfireTarget.Distance(Core.Me) >= 26.75)
+            {
+                return await Spells.DetonatorPvp.Cast(Core.Me);
+            }
+
+            return false;
         }
 
         public static async Task<bool> FullMetalField()
@@ -98,13 +149,20 @@ namespace Magitek.Logic.Machinist
             if (!Spells.FullMetalFieldPvp.CanCast())
                 return false;
 
+            if (MachinistSettings.Instance.Pvp_SaveFullMetalForWildfire)
+            {
+                var wildfireReady = Spells.WildfirePvp.Cooldown.TotalSeconds;
+                if (wildfireReady > 0 && wildfireReady <= 8)
+                    return false;
+            }
+
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.FullMetalFieldPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.FullMetalFieldPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(2));
         }
 
         public static async Task<bool> Scattergun()
@@ -127,7 +185,7 @@ namespace Magitek.Logic.Machinist
             if (Combat.Enemies.Count(x => x.Distance(Core.Me) < 12) < 1)
                 return false;
 
-            return await Spells.ScattergunPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.ScattergunPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(2));
         }
 
         public static async Task<bool> Analysis()
@@ -142,6 +200,9 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpAnalysis))
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
                 return false;
 
             if (!MachinistSettings.Instance.Pvp_UsedAnalysisOnDrill && Core.Me.HasAura(Auras.PvpDrillPrimed))
@@ -173,7 +234,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.DrillPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.DrillPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(1));
         }
 
         public static async Task<bool> BioBlaster()
@@ -204,7 +265,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.BioblasterPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.BioblasterPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(1));
         }
 
         public static async Task<bool> AirAnchor()
@@ -221,7 +282,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.AirAnchorPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.AirAnchorPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(1));
         }
 
         public static async Task<bool> ChainSaw()
@@ -238,7 +299,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.ChainSawPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.ChainSawPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(1));
         }
 
         public static async Task<bool> BishopAutoturret()

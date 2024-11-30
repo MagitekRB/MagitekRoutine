@@ -155,6 +155,9 @@ namespace Magitek.Rotations
             {
                 //LB
                 if (await Pvp.MarksmansSpite()) return true;
+
+                if (await Pvp.Detonator()) return true;
+
                 if (await Pvp.BlazingShot()) return true;
                 if (await Pvp.Scattergun()) return true;
 

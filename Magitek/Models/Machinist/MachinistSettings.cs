@@ -234,6 +234,10 @@ namespace Magitek.Models.Machinist
         [Setting]
         [DefaultValue(60.0f)]
         public float Pvp_UseMarksmansSpiteHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_SaveFullMetalForWildfire { get; set; }
         #endregion
     }
 }
