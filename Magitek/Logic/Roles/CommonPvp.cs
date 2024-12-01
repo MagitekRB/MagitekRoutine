@@ -1,6 +1,7 @@
 ﻿using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
+using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Roles;
 using Magitek.Utilities;
@@ -17,7 +18,15 @@ namespace Magitek.Logic.Roles
     {
         public static bool Attackable()
         {
-            return Core.Me.CurrentTarget.ValidAttackUnit() && Core.Me.CurrentTarget.InLineOfSight();
+            return Attackable(Core.Me.CurrentTarget);
+        }
+
+        public static bool Attackable(GameObject target)
+        {
+            if (target == null)
+                return false;
+            
+            return target.ValidAttackUnit() && target.InLineOfSight();
         }
 
         public static async Task<bool> CommonTasks<T>(T settings) where T : JobSettings
@@ -96,9 +105,17 @@ namespace Magitek.Logic.Roles
 
         public static bool GuardCheck<T>(T settings, bool checkGuard = true, bool checkInvuln = true) where T : JobSettings
         {
-            return !Attackable()
-                || (checkGuard && settings.Pvp_GuardCheck && Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
-                || (checkInvuln && settings.Pvp_InvulnCheck && Core.Me.CurrentTarget.HasAnyAura(new uint[] {Auras.PvpHallowedGround, Auras.PvpUndeadRedemption}));
+            return GuardCheck(settings, Core.Me.CurrentTarget, checkGuard, checkInvuln);
+        }
+
+        public static bool GuardCheck<T>(T settings, GameObject target, bool checkGuard = true, bool checkInvuln = true) where T : JobSettings
+        {
+            if (target == null)
+                return true;
+
+            return !Attackable(target)
+                || (checkGuard && settings.Pvp_GuardCheck && target.HasAura(Auras.PvpGuard))
+                || (checkInvuln && settings.Pvp_InvulnCheck && target.HasAnyAura(new uint[] {Auras.PvpHallowedGround, Auras.PvpUndeadRedemption}));
         }
 
         public static async Task<bool> Purify<T>(T settings) where T : JobSettings

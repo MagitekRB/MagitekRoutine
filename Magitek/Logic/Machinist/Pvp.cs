@@ -6,6 +6,7 @@ using Auras = Magitek.Utilities.Auras;
 using System.Linq;
 using System.Threading.Tasks;
 using ff14bot.Objects;
+using Magitek.Logic.Roles;
 
 namespace Magitek.Logic.Machinist
 {
@@ -103,9 +104,7 @@ namespace Magitek.Logic.Machinist
                 return false;
             }
 
-            // Check if Wildfire target has Guard or invulnerability
-            if (WildfireTarget.HasAura(Auras.PvpGuard) ||
-                WildfireTarget.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }))
+            if (CommonPvp.GuardCheck(MachinistSettings.Instance, WildfireTarget))
             {
                 return false;
             }
@@ -344,7 +343,7 @@ namespace Magitek.Logic.Machinist
                                 && e.InLineOfSight()
                                 && e.CurrentHealthPercent <= MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent
                                 && !e.IsWarMachina()
-                                )
+                                && !CommonPvp.GuardCheck(MachinistSettings.Instance, e))
                         .OrderBy(e => e.Distance(Core.Me));
 
                     var nearbyTarget = nearby.FirstOrDefault();
