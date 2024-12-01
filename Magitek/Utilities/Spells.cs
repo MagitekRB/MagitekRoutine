@@ -198,6 +198,8 @@ namespace Magitek.Utilities
         public static readonly SpellData Amplifier = DataManager.GetSpellData(25796);
         public static readonly SpellData Paradox = DataManager.GetSpellData(25797);
         public static readonly SpellData Meteor = DataManager.GetSpellData(205);
+        public static readonly SpellData HighThunder = DataManager.GetSpellData(36986);
+        public static readonly SpellData HighThunderII = DataManager.GetSpellData(36987);
         #endregion
 
         // BRD

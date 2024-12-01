@@ -97,7 +97,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.LeyLines.LevelAcquired)
                 return false;
 
-            if (Spells.LeyLines.Cooldown != TimeSpan.Zero)
+            if (Spells.LeyLines.Charges < 1)
                 return false;
 
             if (!BlackMageSettings.Instance.LeyLines)
@@ -119,6 +119,15 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks != 3
                 || UmbralStacks > 0)
                 return false;
+
+            if (Core.Me.HasAura(Auras.CircleOfPower))
+                return false;
+
+            if (Core.Me.HasAura(Auras.LeyLines))
+                return false;
+
+            if (Core.Me.HasAura(Auras.Triplecast))
+                return await Spells.LeyLines.Cast(Core.Me);
 
             // Do not Ley Lines if we don't have any umbral hearts (roundabout check to see if we're at the begining of astral)
             if (Casting.LastSpell == Spells.Fire3
@@ -151,6 +160,9 @@ namespace Magitek.Logic.BlackMage
 
             // Do not Umbral Soul unless we have 1 umbral stack
             if (UmbralStacks == 0)
+                return false;
+
+            if (UmbralStacks == 3) 
                 return false;
 
             if (Core.Me.CurrentTarget != null)
@@ -231,18 +243,19 @@ namespace Magitek.Logic.BlackMage
             if (Spells.Transpose.Cooldown != TimeSpan.Zero)
                 return false;
             
-            if (Core.Me.ClassLevel < 40
-                && Core.Me.CurrentMana < 1600
-                && AstralStacks > 0)
-                return await Spells.Transpose.Cast(Core.Me);
+            //if (Core.Me.ClassLevel < 40
+            //    && Core.Me.CurrentMana < 1600
+            //    && AstralStacks > 0)
+            //    return await Spells.Transpose.Cast(Core.Me);
 
-            if (Core.Me.ClassLevel < 40
-                && Core.Me.CurrentMana == 10000
-                && UmbralStacks > 0)
-                return await Spells.Transpose.Cast(Core.Me);
+            //if (Core.Me.ClassLevel < 40
+            //    && Core.Me.CurrentMana == 10000
+            //    && UmbralStacks > 0)
+            //    return await Spells.Transpose.Cast(Core.Me);
 
             if (!Core.Me.InCombat
-                && AstralStacks > 0)
+                && AstralStacks > 0
+                && UmbralStacks == 0)
                 return await Spells.Transpose.Cast(Core.Me);
 
             return false;

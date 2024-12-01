@@ -6568,7 +6568,29 @@ namespace Magitek.Utilities
                         }
                     }
                 }
-            },  
+            },
+
+            new Encounter {
+                ZoneId = 1242,
+                Name = "Yuweyawata",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13610,
+                        Name = "Lunipyati",
+                        TankBusters = new List<uint> {
+                            40619, // Slabber
+                        },
+                        Aoes = new List<uint> {
+                            40603, // Leporine Loaf
+                            40610, // Beastly Roar
+                            40618, // Sonic Howl
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
             #endregion           
 
             #region: Dawntrail Extreme Trials

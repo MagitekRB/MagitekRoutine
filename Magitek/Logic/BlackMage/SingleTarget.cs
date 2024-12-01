@@ -84,6 +84,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Fire()
         {
+            if (Paradox)
+                return false;
+
             //Low level logic
             if (Core.Me.ClassLevel < 35)
             {
@@ -159,6 +162,9 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Fire3.LevelAcquired)
                 return false;
 
+            if (Casting.LastSpell == Spells.Blizzard3)
+                return false;
+
             //Level 35-59 logic
             if (Core.Me.ClassLevel >= 35
                 && Core.Me.ClassLevel <= 59)
@@ -211,7 +217,8 @@ namespace Magitek.Logic.BlackMage
 
             // Try to keep from double-casting thunder
             if (Casting.LastSpell == Spells.Thunder
-                || Casting.LastSpell == Spells.Thunder3)
+                || Casting.LastSpell == Spells.Thunder3
+                || Casting.LastSpell == Spells.HighThunder)
                 return false;
 
             // If we have thunder cloud, but we don't have at least 5 seconds of it left, use the proc
@@ -261,7 +268,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
             
             //Moved this up to see if it stops the doublecast
-            if (Casting.LastSpell == Spells.Thunder3)
+            if (Casting.LastSpell == Spells.Thunder3 || Casting.LastSpell == Spells.HighThunder)
                 return false;
 
             //Let's not wait for sharpcast to almost run out before trying to cast. Just use it right away in UI
@@ -272,8 +279,9 @@ namespace Magitek.Logic.BlackMage
             }
 
             // Refresh thunder if it's about to run out
-            if (!Core.Me.CurrentTarget.HasAura(Auras.Thunder3, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500)
-                && Casting.LastSpell != Spells.Thunder3)
+            if ((!Core.Me.CurrentTarget.HasAura(Auras.Thunder3, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500)
+                && !Core.Me.CurrentTarget.HasAura(Auras.HighThunder, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
+                && (Casting.LastSpell != Spells.Thunder3 || Casting.LastSpell == Spells.HighThunder))
                 return await Spells.Thunder3.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -315,6 +323,9 @@ namespace Magitek.Logic.BlackMage
             if (BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
+
+            if (Casting.LastSpell == Spells.Fire3)
+                return false;
             
             //35-59 logic
             if (Core.Me.ClassLevel >= 35
@@ -346,6 +357,9 @@ namespace Magitek.Logic.BlackMage
         }
         public static async Task<bool> Blizzard()
         {
+            if (Paradox)
+                return false;
+
             //stop being level 1, fool
             if (Core.Me.ClassLevel < 2)
                 return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
@@ -375,11 +389,8 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Paradox.LevelAcquired)
                 return false;
 
-            if (PolyglotStatus)
-                return false;
-
-            if (!Core.Me.CurrentTarget.HasAura(Auras.Thunder3, true, 4500))
-                return false;
+            //if (!Core.Me.CurrentTarget.HasAura(Auras.Thunder3, true, 4500))
+            //    return false;
 
             //if (!Spells.Paradox.IsReady())
             //    return false;
@@ -387,6 +398,9 @@ namespace Magitek.Logic.BlackMage
             //Better check would be to look for the paradox marker
             if (!Paradox)
                 return false;
+
+            if (StackTimer.TotalMilliseconds < 5000)
+                return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
 
             //Should be cast after bliz 4 to ensure we can get sharpcast off
             if (UmbralStacks > 0

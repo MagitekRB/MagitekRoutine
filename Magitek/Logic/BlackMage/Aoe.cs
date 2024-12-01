@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Gambits.Conditions;
 using Magitek.Logic.Roles;
 using Magitek.Models.BlackMage;
 using Magitek.Utilities;
@@ -208,6 +209,12 @@ namespace Magitek.Logic.BlackMage
             //    return false;
 
             //If we don't need to refresh Thunder, skip
+            if (!Core.Me.CurrentTarget.HasAura(Auras.HighThunder, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
+                return false;
+
+            if (!Core.Me.CurrentTarget.HasAura(Auras.HighThunder2, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
+                return false;
+
             if (!Core.Me.CurrentTarget.HasAura(Auras.Thunder4, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
                 return false;
 
@@ -363,7 +370,8 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (Casting.LastSpell == Spells.Thunder2
-                || Casting.LastSpell == Spells.Thunder4)
+                || Casting.LastSpell == Spells.Thunder4
+                || Casting.LastSpell == Spells.HighThunderII)
                 if (UmbralStacks > 0)
                     return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
             return false;
