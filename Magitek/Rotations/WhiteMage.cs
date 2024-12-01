@@ -196,6 +196,7 @@ namespace Magitek.Rotations
 
             if (!CommonPvp.GuardCheck(WhiteMageSettings.Instance))
             {
+                if (await Pvp.GlareIVPvp()) return true;
                 if (await Pvp.AfflatusMiseryPvp()) return true;
                 if (await Pvp.MiracleOfNaturePvp()) return true;
             }

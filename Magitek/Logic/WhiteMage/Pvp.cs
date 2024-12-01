@@ -30,6 +30,24 @@ namespace Magitek.Logic.WhiteMage
             return await Spells.GlareIIIPvp.Cast(Core.Me.CurrentTarget);
         }
 
+        public static async Task<bool> GlareIVPvp()
+        {
+
+            if (!Spells.GlareIVPvp.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpSacredSight))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.GlareIVPvp.Cast(Core.Me.CurrentTarget);
+        }
+
         public static async Task<bool> AfflatusMiseryPvp()
         {
             if (!Spells.AfflatusMiseryPvp.CanCast())

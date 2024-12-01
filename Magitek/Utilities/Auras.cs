@@ -561,7 +561,8 @@ namespace Magitek.Utilities
             PvpReawakened = 4094,
             PvpWildfire = 1323,
             PvpWildfireBuff = 2018,
-            PvpChainSaw = 3154
+            PvpChainSaw = 3154,
+            PvpSacredSight = 4326
             ;
 
 

@@ -1231,6 +1231,7 @@ namespace Magitek.Utilities
         public static readonly SpellData MiracleOfNaturePvp = DataManager.GetSpellData(29228);
         public static readonly SpellData SeraphStrikePvp = DataManager.GetSpellData(29229);
         public static readonly SpellData AfflatusPurgationPvp = DataManager.GetSpellData(29230);
+        public static readonly SpellData GlareIVPvp = DataManager.GetSpellData(41499);
 
         //SCH
         public static readonly SpellData BroilIVPvp = DataManager.GetSpellData(29231);
