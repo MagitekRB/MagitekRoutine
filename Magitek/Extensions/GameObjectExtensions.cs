@@ -396,6 +396,14 @@ namespace Magitek.Extensions
             );
         }
 
+        public static bool IsWarMachina(this GameObject unit)
+        {
+            return unit != null && (unit.Name.Contains("Raven")
+                                || unit.Name.Contains("Falcon")
+                                || unit.Name.Contains("Striking Dummy")
+                                || unit.Name.Contains("Icebound Tomelith"));
+        }
+
         public static float GetResurrectionWeight(this GameObject c)
         {
             if (c.IsHealer() || c.IsBlueMageHealer())

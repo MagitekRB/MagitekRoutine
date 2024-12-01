@@ -250,7 +250,8 @@ namespace Magitek.Logic.Machinist
                 var nearby = Combat.Enemies
                     .Where(e => e.Distance(Core.Me) < 10 
                             && e.ValidAttackUnit() 
-                            && e.InLineOfSight())
+                            && e.InLineOfSight()
+                            && !e.IsWarMachina())
                     .OrderBy(e => e.Distance(Core.Me));
                 var nearbyTarget = nearby.FirstOrDefault();
 
@@ -341,7 +342,9 @@ namespace Magitek.Logic.Machinist
                         .Where(e => e.Distance(Core.Me) <= 50
                                 && e.ValidAttackUnit()
                                 && e.InLineOfSight()
-                                && e.CurrentHealthPercent <= MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent)
+                                && e.CurrentHealthPercent <= MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent
+                                && !e.IsWarMachina()
+                                )
                         .OrderBy(e => e.Distance(Core.Me));
 
                     var nearbyTarget = nearby.FirstOrDefault();
