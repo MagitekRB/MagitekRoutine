@@ -210,6 +210,8 @@ namespace Magitek.Logic.WhiteMage
 
         public static async Task<bool> AfflatusPurgationPvp()
         {
+            if (!WhiteMageSettings.Instance.Pvp_AfflatusPurgation)
+                return false;
 
             if (!Spells.AfflatusPurgationPvp.CanCast())
                 return false;

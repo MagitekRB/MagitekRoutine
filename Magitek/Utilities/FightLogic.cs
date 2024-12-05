@@ -6111,7 +6111,7 @@ namespace Magitek.Utilities
             },
             #endregion
 
-            #region: Dawntrail Dungeons
+            #region Dawntrail: Dungeons
             new Encounter {
                 ZoneId = ZoneId.Ihuykatumu,
                 Name = "Dungeon: Ihuykatumu",
@@ -6571,10 +6571,24 @@ namespace Magitek.Utilities
             },
 
             new Encounter {
-                ZoneId = 1242,
+                ZoneId = ZoneId.YuweyawataFieldStation,
                 Name = "Yuweyawata",
                 Expansion = FfxivExpansion.Dawntrail,
                 Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13634,
+                        Name = "Overseer Kanilokka",
+                        TankBusters = new List<uint> {
+                            40658, // Dark Souls
+                        },
+                        Aoes = new List<uint> {
+                            40639, // Free Spirits
+                            40647, // Bloodburst
+                            40654, // Dark II
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
                     new Enemy {
                         Id = 13610,
                         Name = "Lunipyati",
@@ -6589,11 +6603,23 @@ namespace Magitek.Utilities
                         SharedTankBusters = null,
                         BigAoes = null
                     },
+                    new Enemy {
+                        Id = 13623,
+                        Name = "Lindblum Zaghnal",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            40632, // Sparking Fissure
+                            40636, // Lightning Storm
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
                 }
             },
+
             #endregion           
 
-            #region: Dawntrail Extreme Trials
+            #region Dawntrail: Extreme Trials
             new Encounter {
                 ZoneId = ZoneId.WorqorLarDorExtreme,
                 Name = "Trial: Valigarmanda (Extreme)",
@@ -6668,7 +6694,7 @@ namespace Magitek.Utilities
             },
             #endregion
 
-            #region Dawntrail Normal Raids
+            #region Dawntrail: Normal Raids
             new Encounter {
                 ZoneId = ZoneId.AacLightHeavyweightM1,
                 Name = "AacLightHeavyweightM1",
@@ -6772,6 +6798,95 @@ namespace Magitek.Utilities
                             // No big Aoes mentioned in the TypeScript data
                         }
                     }
+                }
+            },
+            #endregion
+
+            #region Dawntrail: Alliance Raids
+            new Encounter {
+                ZoneId = 1248,
+                Name = "Jeuno: The First Walk",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13351,
+                        Name = "Prishe of the Distant Chains",
+                        TankBusters = new List<uint> {
+                            40945, // Nullifying Dropkick
+                        },
+                        Aoes = new List<uint> {
+                            40935, // Banishga
+                            40962, // Holy
+                            40951, // Auroral Uppercut
+                            40954, // Banishga IV
+                            40952, // Auroral Uppercut
+                            40956, // Asuran Fists
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13662,
+                        Name = "Fafnir the Forgotten",
+                        TankBusters = new List<uint> {
+                            40855, // Sharp Spike
+                        },
+                        Aoes = new List<uint> {
+                            40854, // Dark Matter Blast
+                            39922, // Baleful Breath
+                            40817, // Hurricane Wing
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13643,
+                        Name = "Ark Angel MR",
+                        TankBusters = new List<uint> {
+                            41078, // Cloudsplitter
+                        },
+                        Aoes = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13653,
+                        Name = "Shadow Lord",
+                        TankBusters = new List<uint> {
+                            40807, // Unbridled Rage
+                        },
+                        Aoes = new List<uint> {
+                            40809, // Flames of Hatred
+                            40778, // Cthonic Fury
+                            41899, // Echoes of Agony
+                            40779, // Cthonic Fury
+                            40791, // Damning Strikes
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13641,
+                        Name = "Ark Angel GK",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            41086, // Dragonfall
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13644,
+                        Name = "Ark Angel EV",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            41093, // Dominion Slash
+                            41097, // Holy
+                            41095, // Arrogance Incarnate
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
                 }
             },
             #endregion
@@ -7431,6 +7546,7 @@ namespace Magitek.Utilities
                     Xelphatol62 = 572,
                     YakTel = 1189,
                     Yanxia = 614,
+                    YuweyawataFieldStation = 1242,
                     Zadnor = 975;
         }
     }
