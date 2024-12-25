@@ -26,10 +26,6 @@ namespace Magitek.Models.Ninja
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Mug { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_Bunshin { get; set; }
 
         [Setting]
