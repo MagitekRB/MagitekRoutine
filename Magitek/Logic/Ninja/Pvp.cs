@@ -61,23 +61,6 @@ namespace Magitek.Logic.Ninja
             return await Spells.AssassinatePvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> MugPvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
-                return false;
-
-            if (!Spells.MugPvp.CanCast())
-                return false;
-
-            if (!NinjaSettings.Instance.Pvp_Mug)
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
-                return false;
-
-            return await Spells.MugPvp.Cast(Core.Me.CurrentTarget);
-        }
-
         public static async Task<bool> BunshinPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
