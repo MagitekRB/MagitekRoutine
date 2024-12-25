@@ -1359,7 +1359,6 @@ namespace Magitek.Utilities
         public static readonly SpellData HyoshoRanryuPvp = DataManager.GetSpellData(29506);
         public static readonly SpellData ThreeMudraPvp = DataManager.GetSpellData(29507);
         public static readonly SpellData MeisuiPvp = DataManager.GetSpellData(29508);
-        public static readonly SpellData MugPvp = DataManager.GetSpellData(29509);
         public static readonly SpellData ForkedRaijuPvp = DataManager.GetSpellData(29510);
         public static readonly SpellData BunshinPvp = DataManager.GetSpellData(29511);
         public static readonly SpellData HutonPvp = DataManager.GetSpellData(29512);

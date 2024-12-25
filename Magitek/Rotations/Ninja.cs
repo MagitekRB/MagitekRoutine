@@ -126,7 +126,6 @@ namespace Magitek.Rotations
 
                 if (await Pvp.BunshinPvp()) return true;
                 if (await Pvp.ShukuchiPvp()) return true;
-                if (await Pvp.MugPvp()) return true;
                 if (await Pvp.FumaShurikenPvp()) return true;
 
                 if (await Pvp.HutonPvp()) return true;
