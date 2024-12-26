@@ -100,6 +100,10 @@ namespace Magitek.Models.Ninja
         [DefaultValue(false)]
         public bool Pvp_FumaShurikenOnlyWithBunshin { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_UseSeitonTenchuAnyTarget { get; set; }
+
         #endregion
     }
 }

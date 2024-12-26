@@ -5,6 +5,7 @@ using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using Magitek.Logic.Roles;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Logic.Ninja
@@ -156,13 +157,32 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_SeitonTenchu)
                 return false;
 
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent)
+            {
+                if (NinjaSettings.Instance.Pvp_UseSeitonTenchuAnyTarget)
+                {
+                    var nearby = Combat.Enemies
+                        .Where(e => e.Distance(Core.Me) <= 20
+                                && e.ValidAttackUnit()
+                                && e.InLineOfSight()
+                                && e.CurrentHealthPercent <= NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent
+                                && !e.IsWarMachina()
+                                && !CommonPvp.GuardCheck(NinjaSettings.Instance, e))
+                        .OrderBy(e => e.Distance(Core.Me));
+
+                    var nearbyTarget = nearby.FirstOrDefault();
+
+                    if (nearbyTarget != null)
+                        return await Spells.SeitonTenchuPvp.Cast(nearbyTarget);
+                }
+
+                return false;
+            }
+
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent)
                 return false;
 
             return await Spells.SeitonTenchuPvp.Cast(Core.Me.CurrentTarget);
