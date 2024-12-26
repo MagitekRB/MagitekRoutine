@@ -1366,7 +1366,9 @@ namespace Magitek.Utilities
         public static readonly SpellData DotonPvp = DataManager.GetSpellData(29514);
         public static readonly SpellData SeitonTenchuPvp = DataManager.GetSpellData(29515);
         public static readonly SpellData UnsealedSeitonTenchuPvp = DataManager.GetSpellData(29516);
-        public static readonly SpellData FleetingRaijuPvp = DataManager.GetSpellData(29517);
+        public static readonly SpellData FleetingRaijuPvp = DataManager.GetSpellData(29707);
+        public static readonly SpellData DokumoriPvp = DataManager.GetSpellData(41451);
+        public static readonly SpellData ZeshoMeppoPvp = DataManager.GetSpellData(41452);
 
         //SAM
         public static readonly uint KashaPvpCombo = 58;
