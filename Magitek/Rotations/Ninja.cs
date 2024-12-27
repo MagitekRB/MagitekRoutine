@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic;
@@ -119,13 +119,18 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(NinjaSettings.Instance)) return true;
 
-            if (!CommonPvp.GuardCheck(NinjaSettings.Instance)) { 
-                if (await Pvp.SeitonTenchuPvp()) return true;
-                if (await Pvp.AssassinatePvp()) return true;
-                if (await Pvp.FleetingRaijuPvp()) return true;
 
+
+            if (!CommonPvp.GuardCheck(NinjaSettings.Instance)) { 
                 if (await Pvp.BunshinPvp()) return true;
                 if (await Pvp.ShukuchiPvp()) return true;
+                if (await Pvp.AssassinatePvp()) return true;
+
+                if (await Pvp.SeitonTenchuPvp()) return true;
+                if (await Pvp.FleetingRaijuPvp()) return true;
+                if (await Pvp.DokumoriPvp()) return true;
+                if (await Pvp.ZeshoMeppoPvp()) return true;
+
                 if (await Pvp.FumaShurikenPvp()) return true;
 
                 if (await Pvp.HutonPvp()) return true;

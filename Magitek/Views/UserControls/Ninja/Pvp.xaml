@@ -64,19 +64,24 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
                 <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Dokumori" IsChecked="{Binding NinjaSettings.Pvp_Dokumori, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="Bunshin" IsChecked="{Binding NinjaSettings.Pvp_Bunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Shukuchi                      " IsChecked="{Binding NinjaSettings.Pvp_Shukuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="Fuma Shuriken" IsChecked="{Binding NinjaSettings.Pvp_FumaShuriken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Only with Bunshin" IsChecked="{Binding NinjaSettings.Pvp_FumaShurikenOnlyWithBunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Shukuchi" IsChecked="{Binding NinjaSettings.Pvp_Shukuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="Assassinate (When Hidden)" IsChecked="{Binding NinjaSettings.Pvp_Assassinate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Seiton Tenchu / LB on target at  " IsChecked="{Binding NinjaSettings.Pvp_SeitonTenchu, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.Pvp_SeitonTenchuHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="LB Any Enemy below the threshold not just current target" Margin="10,0" IsChecked="{Binding NinjaSettings.Pvp_UseSeitonTenchuAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -89,8 +94,15 @@
                 </StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Use Three Mudra with" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Doton                  " IsChecked="{Binding NinjaSettings.Pvp_Doton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="Forked Raiju               " IsChecked="{Binding NinjaSettings.Pvp_ForkedRaiju, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Fleeting Raiju" IsChecked="{Binding NinjaSettings.Pvp_FleetingRaiju, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Doton when there is at least  " IsChecked="{Binding NinjaSettings.Pvp_Doton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.Pvp_DotonMinEnemies, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Enemies around" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Hyosho Ranryu" IsChecked="{Binding NinjaSettings.Pvp_HyoshoRanryu, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">

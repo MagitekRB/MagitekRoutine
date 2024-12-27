@@ -1,10 +1,11 @@
-﻿using ff14bot;
+using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using Magitek.Logic.Roles;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Logic.Ninja
@@ -13,7 +14,10 @@ namespace Magitek.Logic.Ninja
     {
         public static async Task<bool> SpinningEdgePvp()
         {
-            if (Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
                 return false;
 
             if (!Spells.SpinningEdgePvp.CanCast())
@@ -24,7 +28,10 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> GustSlashPvp()
         {
-            if (Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
                 return false;
 
             if (!Spells.GustSlashPvp.CanCast())
@@ -35,7 +42,10 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> AeolianEdgePvp()
         {
-            if (Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
                 return false;
 
             if (!Spells.AeolianEdgePvp.CanCast())
@@ -47,6 +57,9 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> AssassinatePvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
                 return false;
 
             if (!Spells.AssassinatePvp.CanCast())
@@ -66,13 +79,16 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
                 return false;
 
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
+                return false;
+
             if (!Spells.BunshinPvp.CanCast())
                 return false;
 
             if (!NinjaSettings.Instance.Pvp_Bunshin)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
                 return false;
 
             return await Spells.BunshinPvp.Cast(Core.Me);
@@ -83,10 +99,19 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
                 return false;
 
-            if (!Spells.FumaShurikenPvp.CanCast() || Spells.FumaShurikenPvp.IsKnownAndReady())
+            if (!Spells.FumaShurikenPvp.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
+                return false;
+
+            if (Spells.FumaShurikenPvp.Charges < 1)
                 return false;
 
             if (!NinjaSettings.Instance.Pvp_FumaShuriken)
+                return false;
+
+            if (NinjaSettings.Instance.Pvp_FumaShurikenOnlyWithBunshin && !Core.Me.HasAura(Auras.PvpBunshin))
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
@@ -104,6 +129,9 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (!Spells.ShukuchiPvp.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
                 return false;
 
             if (!NinjaSettings.Instance.Pvp_Shukuchi)
@@ -129,13 +157,32 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_SeitonTenchu)
                 return false;
 
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent)
+            {
+                if (NinjaSettings.Instance.Pvp_UseSeitonTenchuAnyTarget)
+                {
+                    var nearby = Combat.Enemies
+                        .Where(e => e.Distance(Core.Me) <= 20
+                                && e.ValidAttackUnit()
+                                && e.InLineOfSight()
+                                && e.CurrentHealthPercent <= NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent
+                                && !e.IsWarMachina()
+                                && !CommonPvp.GuardCheck(NinjaSettings.Instance, e))
+                        .OrderBy(e => e.Distance(Core.Me));
+
+                    var nearbyTarget = nearby.FirstOrDefault();
+
+                    if (nearbyTarget != null)
+                        return await Spells.SeitonTenchuPvp.Cast(nearbyTarget);
+                }
+
+                return false;
+            }
+
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent)
                 return false;
 
             return await Spells.SeitonTenchuPvp.Cast(Core.Me.CurrentTarget);
@@ -152,6 +199,9 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (NinjaSettings.Instance.Pvp_DoNotUseThreeMudra)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
                 return false;
 
             return await Spells.ThreeMudraPvp.Cast(Core.Me);
@@ -220,7 +270,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Doton)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < NinjaSettings.Instance.Pvp_GokaMekkyakuMinEnemies)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < NinjaSettings.Instance.Pvp_DotonMinEnemies)
                 return false;
 
             return await Spells.DotonPvp.Cast(Core.Me);
@@ -240,7 +290,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Huton)
                 return false;
 
-            if(Core.Me.CurrentHealthPercent > NinjaSettings.Instance.Pvp_HutonHealthPercent)
+            if(Core.Me.CurrentHealthPercent >= NinjaSettings.Instance.Pvp_HutonHealthPercent)
                  return false;
 
             return await Spells.HutonPvp.Cast(Core.Me);
@@ -260,7 +310,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Meisui)
                 return false;
 
-            if (Core.Me.CurrentHealthPercent > NinjaSettings.Instance.Pvp_MeisuiHealthPercent)
+            if (Core.Me.CurrentHealthPercent >= NinjaSettings.Instance.Pvp_MeisuiHealthPercent)
                 return false;
 
             return await Spells.MeisuiPvp.Cast(Core.Me);
@@ -310,6 +360,46 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             return await Spells.FleetingRaijuPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> DokumoriPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
+            if (!Spells.DokumoriPvp.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpThreeMudra))
+                return false;
+
+            if (!NinjaSettings.Instance.Pvp_Dokumori)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.DokumoriPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ZeshoMeppoPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpZeshoMeppoReady))
+                return false;
+
+            if (!Spells.ZeshoMeppoPvp.CanCast())
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+                return false;
+
+            return await Spells.ZeshoMeppoPvp.Cast(Core.Me.CurrentTarget);
         }
 
         #endregion

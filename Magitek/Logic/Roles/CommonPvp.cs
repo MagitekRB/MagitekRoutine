@@ -62,6 +62,9 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasAnyAura(Auras.Invincibility))
                 return false;
 
+            if (Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
             if (Core.Me.HasTarget
                 && Core.Me.CurrentTarget.CanAttack
                 && Core.Me.CurrentTarget.InLineOfSight()
@@ -158,5 +161,6 @@ namespace Magitek.Logic.Roles
 
             return await Spells.Recuperate.Cast(Core.Me);
         }
+
     }
 }

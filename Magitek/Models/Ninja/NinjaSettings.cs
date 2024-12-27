@@ -88,6 +88,22 @@ namespace Magitek.Models.Ninja
         [DefaultValue(50.0f)]
         public float Pvp_SeitonTenchuHealthPercent { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Dokumori { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int Pvp_DotonMinEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_FumaShurikenOnlyWithBunshin { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_UseSeitonTenchuAnyTarget { get; set; }
+
         #endregion
     }
 }
