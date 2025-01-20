@@ -157,7 +157,7 @@ namespace Magitek.Utilities
             HighThunder = 3871,
             HighThunder2 = 3872,
             FireStarter = 165,
-            ThunderCloud = 164,
+            Thunderhead = 3870,
             Sharpcast = 867,
             Thunder4 = 1210,
             FeyUnion = 1222,

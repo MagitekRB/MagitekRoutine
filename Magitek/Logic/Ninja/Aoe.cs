@@ -59,8 +59,8 @@ namespace Magitek.Logic.Ninja
             if (!Spells.HellfrogMedium.IsKnown())
                 return false;
 
-            //dumping ninki before mug is missung
-            if (MagitekActionResourceManager.Ninja.NinkiGauge < 90)
+            //dumping ninki before mug is missing - Changed to ActionResourceManager from MagitekActionResourceManager
+            if (ActionResourceManager.Ninja.NinkiGauge < 90)
                 return false;
 
             if (Core.Me.HasAura(Auras.Higi))

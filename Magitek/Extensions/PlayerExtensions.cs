@@ -18,7 +18,7 @@ namespace Magitek.Extensions
 
         public static bool HasDarkArts(this LocalPlayer me)
         {
-            return MagitekActionResourceManager.DarkKnight.DarkArts;
+            return ActionResourceManager.DarkKnight.DarkArts;
         }
 
         public static bool OnPvpMap(this LocalPlayer player)

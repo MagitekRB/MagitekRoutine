@@ -1,11 +1,10 @@
 ﻿using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Utilities;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Magitek.Logic.Ninja
@@ -24,7 +23,7 @@ namespace Magitek.Logic.Ninja
             if (Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * NinjaRoutine.OpenerBurstAfterGCD - 770)
                 return false;
 
-            if (MagitekActionResourceManager.Ninja.NinkiGauge + 40 > 100)
+            if (ActionResourceManager.Ninja.NinkiGauge + 40 > 100)
                 return false;
 
             return await Spells.Mug.Cast(Core.Me.CurrentTarget);

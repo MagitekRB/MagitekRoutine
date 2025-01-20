@@ -144,6 +144,10 @@
                 <controls:Numeric Grid.Row="5" Grid.Column="7" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SgeCardWeight, Mode=TwoWay}" />
                 <TextBlock Grid.Row="5" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="AST: " />
                 <controls:Numeric Grid.Row="5" Grid.Column="10" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.AstCardWeight, Mode=TwoWay}" />
+                <TextBlock Grid.Row="6" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="PCT: " />
+                <controls:Numeric Grid.Row="6" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PctCardWeight, Mode=TwoWay}" />
+                <TextBlock Grid.Row="6" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="VPR: " />
+                <controls:Numeric Grid.Row="6" Grid.Column="4" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.VprCardWeight, Mode=TwoWay}" RenderTransformOrigin="1.621,0.265" />
             </Grid>
         </controls:SettingsBlock>
 

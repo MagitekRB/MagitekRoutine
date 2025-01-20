@@ -526,72 +526,98 @@ namespace Magitek.Models.Astrologian
         #endregion
 
         #region Card Weights
+
+        #region Tanks
         [Setting]
         [DefaultValue(1)]
-        public int MnkCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(2)]
-        public int BlmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(3)]
-        public int DrgCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(4)]
-        public int SamCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(5)]
-        public int MchCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(6)]
-        public int SmnCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(7)]
-        public int BrdCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(8)]
-        public int NinCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(9)]
-        public int RdmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(10)]
-        public int BluCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(10)]
-        public int DncCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(12)]
         public int PldCardWeight { get; set; }
         [Setting]
-        [DefaultValue(13)]
+        [DefaultValue(2)]
         public int WarCardWeight { get; set; }
         [Setting]
-        [DefaultValue(14)]
+        [DefaultValue(3)]
         public int DrkCardWeight { get; set; }
         [Setting]
-        [DefaultValue(15)]
+        [DefaultValue(4)]
         public int GnbCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(11)]
-        public int WhmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(16)]
-        public int SchCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(17)]
-        public int AstCardWeight { get; set; }
+        
+        #endregion
 
+        #region heals
         [Setting]
         [DefaultValue(5)]
-        public int RprCardWeight { get; set; }
+        public int WhmCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(6)]
+        public int SchCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(7)]
+        public int AstCardWeight { get; set; }        
+        [Setting]
+        [DefaultValue(8)]
+        public int SgeCardWeight { get; set; }
+        
+        #endregion
 
+        #region meleeDPS
+        [Setting]
+        [DefaultValue(9)]
+        public int MnkCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(10)]
+        public int DrgCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(11)]
+        public int NinCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(12)]
+        public int SamCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(13)]
+        public int RprCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(14)]
+        public int VprCardWeight { get; set; }
+         
+        #endregion
+
+        #region physicalRangeDPS
+        [Setting]
+        [DefaultValue(15)]
+        public int BrdCardWeight { get; set; }
         [Setting]
         [DefaultValue(16)]
-        public int SgeCardWeight { get; set; }
+        public int MchCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(17)]
+        public int DncCardWeight { get; set; }
+        
+
+        #endregion
+
+        #region magicalRangeDPS
+        [Setting]
+        [DefaultValue(18)]
+        public int BlmCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(19)]
+        public int SmnCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(20)]
+        public int RdmCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(21)]
+        public int PctCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(22)]
+        public int BluCardWeight { get; set; }
+
+
+        #endregion
+
         #endregion
 
         #region PVP
-
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_Draw { get; set; }

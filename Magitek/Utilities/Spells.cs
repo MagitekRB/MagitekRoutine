@@ -190,13 +190,13 @@ namespace Magitek.Utilities
         public static readonly SpellData Triplecast = DataManager.GetSpellData(7421);
         public static readonly SpellData Foul = DataManager.GetSpellData(7422);
         public static readonly SpellData Despair = DataManager.GetSpellData(16505);
+        public static readonly SpellData Paradox = DataManager.GetSpellData(25797);
         public static readonly SpellData UmbralSoul = DataManager.GetSpellData(16506);
         public static readonly SpellData Xenoglossy = DataManager.GetSpellData(16507);
         public static readonly SpellData Blizzard2 = DataManager.GetSpellData(25793);
         public static readonly SpellData HighFireII = DataManager.GetSpellData(25794);
         public static readonly SpellData HighBlizzardII = DataManager.GetSpellData(25795);
         public static readonly SpellData Amplifier = DataManager.GetSpellData(25796);
-        public static readonly SpellData Paradox = DataManager.GetSpellData(25797);
         public static readonly SpellData Meteor = DataManager.GetSpellData(205);
         public static readonly SpellData HighThunder = DataManager.GetSpellData(36986);
         public static readonly SpellData HighThunderII = DataManager.GetSpellData(36987);
