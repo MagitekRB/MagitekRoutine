@@ -1,17 +1,12 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Enums;
-using ff14bot.Managers;
 using ff14bot.Objects;
-using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Astrologian;
-using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Astrologian
 {
@@ -221,6 +216,12 @@ namespace Magitek.Logic.Astrologian
                 
                 case ClassJobType.Sage:
                     return AstrologianSettings.Instance.SgeCardWeight;
+                
+                case ClassJobType.Pictomancer:
+                    return AstrologianSettings.Instance.PctCardWeight;
+
+                case ClassJobType.Viper:
+                    return AstrologianSettings.Instance.VprCardWeight;
 
                 case ClassJobType.BlueMage:
                     return AstrologianSettings.Instance.BluCardWeight;

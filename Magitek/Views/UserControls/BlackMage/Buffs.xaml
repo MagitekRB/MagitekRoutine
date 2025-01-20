@@ -21,9 +21,6 @@
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <CheckBox Margin="5" Content="Sharpcast " IsChecked="{Binding BlackMageSettings.Sharpcast, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-        </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">

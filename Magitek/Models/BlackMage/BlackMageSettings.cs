@@ -47,10 +47,6 @@ namespace Magitek.Models.BlackMage
 
         [Setting]
         [DefaultValue(true)]
-        public bool Sharpcast { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool TripleCast { get; set; }
 
         [Setting]

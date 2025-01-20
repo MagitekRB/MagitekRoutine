@@ -54,7 +54,7 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Meisui.IsKnown())
                 return false;
 
-            if (MagitekActionResourceManager.Ninja.NinkiGauge + 50 > 100)
+            if (ActionResourceManager.Ninja.NinkiGauge + 50 > 100)
                 return false;
 
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))

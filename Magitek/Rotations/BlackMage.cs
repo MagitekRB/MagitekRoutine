@@ -1,10 +1,7 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.BlackMage;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.BlackMage;
 using Magitek.Utilities;
 using System.Linq;
@@ -25,7 +22,7 @@ namespace Magitek.Rotations
         {
             //Try to keep stacks outside combat
             if (await Buff.UmbralSoul()) return true;
-            //if (await Buff.Transpose()) return true;
+            if (await Buff.Transpose()) return true;
 
             return false;
         }
@@ -57,7 +54,6 @@ namespace Magitek.Rotations
             //DON'T CHANGE THE ORDER OF THESE
             if (await Buff.Amplifier()) return true;
             if (await Buff.Triplecast()) return true;
-            if (await Buff.Sharpcast()) return true;
             if (await Buff.ManaFont()) return true;
             if (await Buff.LeyLines()) return true;
             if (await Buff.UmbralSoul()) return true;
@@ -73,10 +69,9 @@ namespace Magitek.Rotations
 
                 //Astral
                 if (await Aoe.Fire2()) return true;
-                if (await Aoe.Fire3()) return true;
-                if (await Aoe.Fire4()) return true;
                 if (await Aoe.Flare()) return true;
-                
+                if (await Aoe.FlareStar()) return true;
+
                 //Either
                 if (await Aoe.Thunder4()) return true;
             }
@@ -92,9 +87,6 @@ namespace Magitek.Rotations
             if (await SingleTarget.Fire3()) return true;
             if (await SingleTarget.Blizzard()) return true;
             if (await SingleTarget.Blizzard3()) return true;
-
-            if (Core.Me.ClassLevel < 80)
-                return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
 
             return false;
         }

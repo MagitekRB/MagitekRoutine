@@ -50,47 +50,7 @@ namespace Magitek.Logic.BlackMage
 
             return false;
         }
-        public static async Task<bool> Sharpcast()
-        {
-            if (Core.Me.ClassLevel < Spells.Sharpcast.LevelAcquired)
-                return false;
-
-            // Don't use if time in combat less than 30 seconds
-            if (Combat.CombatTotalTimeLeft <= 30)
-                return false;
-
-            if (Spells.Sharpcast.Cooldown != TimeSpan.Zero
-                //Sharpcast now has charges after level 88
-                && Spells.Sharpcast.Charges == 0)
-                return false;
-
-            if (!BlackMageSettings.Instance.Sharpcast)
-                return false;
-
-            if (Core.Me.HasAura(Auras.Sharpcast))
-                return false;
-
-            //Check to see if we already have both buffs
-            if (Core.Me.HasAura(Auras.ThunderCloud)
-                && Core.Me.HasAura(Auras.FireStarter))
-                return false;
-
-            //Let's start planning our uses of Sharpcast better
-            if (Casting.LastSpell == Spells.Paradox
-                && UmbralStacks > 0)
-                return await Spells.Sharpcast.Cast(Core.Me);
-                        
-            if (!Paradox
-                && Casting.LastSpell == Spells.Blizzard4)
-                return await Spells.Sharpcast.Cast(Core.Me);
-
-            if (Casting.LastSpell == Spells.Blizzard2
-                || Casting.LastSpell == Spells.HighBlizzardII
-                || Casting.LastSpell == Spells.Freeze)
-                return await Spells.Sharpcast.Cast(Core.Me);
-
-            return false;
-        }
+        //Sharpcast was removed from game.
 
         public static async Task<bool> LeyLines()
         {
@@ -135,10 +95,6 @@ namespace Magitek.Logic.BlackMage
                 || Core.Me.HasAura(Auras.Triplecast)))
                 // Fire 3 is always used at the start of Astral
                 return await Spells.LeyLines.Cast(Core.Me);
-            // If we used something that opens the GCD
-            // Fire3 caused this to go off at the beginning of astral anyway
-            //if (Casting.LastSpell == Spells.Blizzard3)// Thunder3 only opens up the GCD if it is using Thundercloud || Casting.LastSpell == Spells.Thunder3 || Core.Me.HasAura(Auras.Triplecast) || Casting.LastSpell == Spells.Xenoglossy)
-            //return await Spells.LeyLines.Cast(Core.Me);
 
             //Use in AoE rotation as well
             if (Casting.LastSpell == Spells.HighFireII
@@ -169,7 +125,8 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (!Core.Me.InCombat
-                && UmbralStacks > 0)
+                && UmbralStacks > 0
+                && StackTimer.TotalMilliseconds != 15000)
                 return await Spells.UmbralSoul.Cast(Core.Me);
 
             if (Core.Me.InCombat
@@ -243,19 +200,16 @@ namespace Magitek.Logic.BlackMage
             if (Spells.Transpose.Cooldown != TimeSpan.Zero)
                 return false;
             
-            //if (Core.Me.ClassLevel < 40
-            //    && Core.Me.CurrentMana < 1600
-            //    && AstralStacks > 0)
-            //    return await Spells.Transpose.Cast(Core.Me);
-
-            //if (Core.Me.ClassLevel < 40
-            //    && Core.Me.CurrentMana == 10000
-            //    && UmbralStacks > 0)
-            //    return await Spells.Transpose.Cast(Core.Me);
-
             if (!Core.Me.InCombat
                 && AstralStacks > 0
-                && UmbralStacks == 0)
+                && StackTimer.TotalMilliseconds < 5000)
+                return await Spells.Transpose.Cast(Core.Me);
+
+            //Try to maintain AF/UI in combat if its about to drop
+            if (Core.Me.InCombat
+                && !Core.Me.HasAura(Auras.FireStarter)
+                && !Paradox
+                && StackTimer.TotalMilliseconds < 2000)
                 return await Spells.Transpose.Cast(Core.Me);
 
             return false;
