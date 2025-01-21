@@ -8,12 +8,10 @@ using Magitek.Utilities;
 using Magitek.Utilities.Collections;
 using PropertyChanged;
 using System.Collections.ObjectModel;
-using System.Runtime.Caching;
-using System.Security.Policy;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using System.Linq;
 
 namespace Magitek.ViewModels
 {
@@ -52,7 +50,7 @@ namespace Magitek.ViewModels
         public string IsBoss { get; set; }
 
         public string FightLogicData { get; set; }
-        
+
         public ObservableCollection<EnemyInfo> Enemies { get; set; } = new AsyncObservableCollection<EnemyInfo>();
         public ConcurrentObservableDictionary<uint, EnemySpellCastInfo> EnemySpellCasts { get; set; } = new ConcurrentObservableDictionary<uint, EnemySpellCastInfo>();
         public ConcurrentObservableDictionary<uint, TargetAuraInfo> EnemyAuras { get; set; } = new ConcurrentObservableDictionary<uint, TargetAuraInfo>();
@@ -87,7 +85,7 @@ namespace Magitek.ViewModels
             sb.AppendLine($"    ZoneId = {combinedList.First().First().ZoneId},");
             sb.AppendLine($"    Name = \"{combinedList.First().First().ZoneName}\",");
             sb.AppendLine($"    Expansion = FfxivExpansion.Dawntrail,");
-            sb.AppendLine("    Enemies = new List<Enemy> {");            
+            sb.AppendLine("    Enemies = new List<Enemy> {");
 
             foreach (var enemyGroup in combinedList)
             {
@@ -138,7 +136,9 @@ namespace Magitek.ViewModels
             try
             {
                 Clipboard.SetDataObject(sb.ToString());
-            } catch {
+            }
+            catch
+            {
                 Logger.Error("Failed to copy to clipboard");
             }
         }
@@ -151,7 +151,7 @@ namespace Magitek.ViewModels
             var instance = Instance;
             if (instance == null) return;
 
-            foreach (var x in instance.FightLogicBuilderTB) 
+            foreach (var x in instance.FightLogicBuilderTB)
             {
                 x.InFightLogicBuilderTB = "[+] FightLogic TB";
             }

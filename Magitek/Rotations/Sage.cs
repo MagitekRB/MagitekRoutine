@@ -1,14 +1,12 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
+using Magitek.Logic.Roles;
 using Magitek.Logic.Sage;
 using Magitek.Models.Sage;
 using Magitek.Utilities;
-using SageRoutine = Magitek.Utilities.Routines.Sage;
 using System.Threading.Tasks;
-using Magitek.Logic.Roles;
-using Magitek.Models.Account;
+using SageRoutine = Magitek.Utilities.Routines.Sage;
 
 namespace Magitek.Rotations
 {
@@ -27,13 +25,13 @@ namespace Magitek.Rotations
         }
 
         public static async Task<bool> Pull()
-        {            
+        {
 
             if (Globals.InParty && Utilities.Combat.Enemies.Count > SageSettings.Instance.StopDamageWhenMoreThanEnemies)
                 return false;
 
             if (!SageSettings.Instance.DoDamage)
-                return false;            
+                return false;
 
             return await Combat();
         }
@@ -165,7 +163,7 @@ namespace Magitek.Rotations
             if (await AoE.Toxikon()) return true;
             if (await AoE.Phlegma()) return true;
             if (await AoE.Pneuma()) return true;
-            
+
             if (await SingleTarget.DotMultipleTargets()) return true;
             if (await AoE.EukrasianDyskrasia()) return true;
             if (await AoE.Dyskrasia()) return true;

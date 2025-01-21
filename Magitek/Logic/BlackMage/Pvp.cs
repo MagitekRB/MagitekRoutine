@@ -3,10 +3,9 @@ using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.BlackMage;
 using Magitek.Utilities;
-using Auras = Magitek.Utilities.Auras;
 using System.Linq;
 using System.Threading.Tasks;
-using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.BlackMage
 {
@@ -15,7 +14,7 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Fire()
         {
 
-            if(!Spells.FirePvp.CanCast())
+            if (!Spells.FirePvp.CanCast())
                 return false;
 
             if (!BlackMageSettings.Instance.Pvp_ToggleFireOrIceCombo)
@@ -24,7 +23,7 @@ namespace Magitek.Logic.BlackMage
             if (MovementManager.IsMoving)
                 return false;
 
-            if(Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -106,7 +105,7 @@ namespace Magitek.Logic.BlackMage
             if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 30 + x.CombatReach) < 1)
                 return false;
 
-            if (Spells.ParadoxPvp.IsKnownAndReady()) 
+            if (Spells.ParadoxPvp.IsKnownAndReady())
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))

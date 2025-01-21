@@ -1,12 +1,8 @@
 using ff14bot;
 using ff14bot.Managers;
-using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
-using Magitek.Models.Sage;
-using Magitek.Models.WhiteMage;
 using Magitek.Utilities;
-using Magitek.Utilities.Managers;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -101,7 +97,7 @@ namespace Magitek.Logic.Astrologian
 
             if (AstrologianSettings.Instance.Pvp_HealSelfOnly)
             {
-                if(Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent)
+                if (Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent)
                     return false;
 
                 return await Spells.AspectedBeneficPvp.Heal(Core.Me);
@@ -205,7 +201,7 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if(Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.Pvp_MicrocosmosHealthPercent)
+            if (Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.Pvp_MicrocosmosHealthPercent)
                 return false;
 
             return await Spells.MicrocosmosPvp.Cast(Core.Me);

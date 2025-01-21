@@ -191,14 +191,15 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.HasAura(Auras.Executioner))
             {
                 return await Spells.ExecutionersGuillotine.Cast(Core.Me.CurrentTarget);
-            } else if (Core.Me.HasAura(Auras.SoulReaver))
+            }
+            else if (Core.Me.HasAura(Auras.SoulReaver))
             {
                 return await Spells.Guillotine.Cast(Core.Me.CurrentTarget);
             }
             else
             {
                 return false;
-            }            
+            }
         }
 
         public static async Task<bool> Perfectio()

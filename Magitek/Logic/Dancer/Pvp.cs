@@ -32,7 +32,7 @@ namespace Magitek.Logic.Dancer
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
-            
+
             if (!Spells.FountainPvp.CanCast())
                 return false;
 
@@ -49,7 +49,7 @@ namespace Magitek.Logic.Dancer
 
             if (!Spells.ReverseCascadePvp.CanCast())
                 return false;
-            
+
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 

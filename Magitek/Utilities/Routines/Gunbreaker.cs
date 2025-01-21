@@ -3,8 +3,6 @@ using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
-using System;
-using System.Collections.Generic;
 
 namespace Magitek.Utilities.Routines
 {
@@ -53,7 +51,7 @@ namespace Magitek.Utilities.Routines
         {
             return (Spells.GnashingFang.IsKnown() && Core.Me.HasAura(Auras.ReadytoRip))
                 || (Spells.SavageClaw.IsKnown() && Core.Me.HasAura(Auras.ReadytoTear))
-                || (Spells.WickedTalon.IsKnown() && Core.Me.HasAura(Auras.ReadytoGouge)) 
+                || (Spells.WickedTalon.IsKnown() && Core.Me.HasAura(Auras.ReadytoGouge))
                 || (Spells.BurstStrike.IsKnown() && Core.Me.HasAura(Auras.ReadytoBlast));
         }
 

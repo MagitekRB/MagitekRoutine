@@ -1,13 +1,13 @@
 using Buddy.Coroutines;
 using ff14bot;
+using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
-using ff14bot.Managers;
 using System.Linq;
 using System.Threading.Tasks;
-using AstroUtils =  Magitek.Utilities.Routines.Astrologian;
+using AstroUtils = Magitek.Utilities.Routines.Astrologian;
 using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Astrologian
@@ -36,7 +36,7 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Lightspeed)
                 return false;
 
-            if(Core.Me.HasAura(Auras.Lightspeed, true))
+            if (Core.Me.HasAura(Auras.Lightspeed, true))
                 return false;
 
             if (!Core.Me.InCombat)

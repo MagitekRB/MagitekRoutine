@@ -1,7 +1,5 @@
-﻿using ff14bot;
-using ff14bot.Objects;
+﻿using ff14bot.Objects;
 using Magitek.Utilities.GamelogManager;
-using Magitek.Utilities;
 
 namespace Magitek.Gambits.Conditions
 {

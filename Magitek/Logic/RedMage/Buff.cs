@@ -7,7 +7,6 @@ using Magitek.Utilities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using static ff14bot.Managers.ActionResourceManager.RedMage;
 using static Magitek.Logic.RedMage.Utility;
 
 
@@ -97,7 +96,7 @@ namespace Magitek.Logic.RedMage
                 return await Spells.Manafication.Cast(Core.Me.CurrentTarget);
 
             return false;
-        }        
+        }
 
         public static async Task<bool> MagickBarrier()
         {
@@ -164,7 +163,7 @@ namespace Magitek.Logic.RedMage
 
             if (InCombo())
                 return false;
-                        
+
             if (Core.Me.HasAura(Auras.Dualcast)
                  || Core.Me.HasAura(Auras.Acceleration))
                 return false;

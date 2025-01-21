@@ -118,9 +118,6 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks == 0)
                 return false;
 
-            if (UmbralStacks == 3) 
-                return false;
-
             if (Core.Me.CurrentTarget != null)
                 return false;
 
@@ -145,13 +142,13 @@ namespace Magitek.Logic.BlackMage
 
             if (Spells.ManaFont.Cooldown != TimeSpan.Zero)
                 return false;
-            
+
             //Moved this up as it should go off regardless of toggle
             //Swapped mana check to be first as this was going off before we had 0 mana
             if (Core.Me.CurrentMana == 0
                 && (Casting.LastSpell == Spells.Flare
                 || Casting.LastSpell == Spells.Foul))
-                //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs                
+            //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs                
             {
                 Logger.WriteInfo($@"[Debug] If we get to this point we should have cast flare and have 0 mana - actual last spell is {Casting.LastSpell} and we have {Core.Me.CurrentMana} mana.");
 
@@ -178,7 +175,7 @@ namespace Magitek.Logic.BlackMage
                 Logger.WriteInfo($@"[Debug] If we get to this point we should have cast xeno or despair - actual last spell is {Casting.LastSpell}.");
 
                 return await Spells.ManaFont.Cast(Core.Me);
-            }   
+            }
             if (Casting.LastSpell == Spells.Fire3
                 //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs
                 && BlackMageSettings.Instance.ConvertAfterFire3
@@ -199,7 +196,11 @@ namespace Magitek.Logic.BlackMage
 
             if (Spells.Transpose.Cooldown != TimeSpan.Zero)
                 return false;
-            
+
+            if (AstralStacks == 0
+                && UmbralStacks == 0)
+                return false;
+
             if (!Core.Me.InCombat
                 && AstralStacks > 0
                 && StackTimer.TotalMilliseconds < 5000)
@@ -251,10 +252,10 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpell != Spells.Flare)
                 return false;
 
-            var etherItem = InventoryManager.FilledSlots.FirstOrDefault(s => s.RawItemId == Ether 
-            || s.RawItemId == HiEther 
-            || s.RawItemId == XEther 
-            || s.RawItemId == MegaEther 
+            var etherItem = InventoryManager.FilledSlots.FirstOrDefault(s => s.RawItemId == Ether
+            || s.RawItemId == HiEther
+            || s.RawItemId == XEther
+            || s.RawItemId == MegaEther
             || s.RawItemId == SuperEther);
 
             while (etherItem.CanUse())

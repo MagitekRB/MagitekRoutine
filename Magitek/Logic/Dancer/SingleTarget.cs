@@ -16,15 +16,15 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.FanDance1)
                 return false;
 
-            if (ActionResourceManager.Dancer.FourFoldFeathers < 4 && !Core.Me.HasAura(Auras.Devilment) && Core.Me.ClassLevel >= 62) 
+            if (ActionResourceManager.Dancer.FourFoldFeathers < 4 && !Core.Me.HasAura(Auras.Devilment) && Core.Me.ClassLevel >= 62)
                 return false;
 
             if (DancerSettings.Instance.UseRangeAndFacingChecks)
             {
-                if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep)) 
+                if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
                     return false;
 
-                if (!GameSettingsManager.FaceTargetOnAction && !Core.Me.CurrentTarget.InView()) 
+                if (!GameSettingsManager.FaceTargetOnAction && !Core.Me.CurrentTarget.InView())
                     return false;
             }
 

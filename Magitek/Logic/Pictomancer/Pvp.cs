@@ -1,13 +1,11 @@
-﻿using ff14bot.Managers;
-using ff14bot;
-using Magitek.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Pictomancer;
+using Magitek.Utilities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Magitek.Logic.Pictomancer
 {
@@ -42,7 +40,7 @@ namespace Magitek.Logic.Pictomancer
         };
 
         public static async Task<bool> TemperaCoat()
-        {                
+        {
             if (!PictomancerSettings.Instance.Pvp_UseTemperaCoat)
                 return false;
 
@@ -209,18 +207,18 @@ namespace Magitek.Logic.Pictomancer
                 && !Core.Me.HasAura(Auras.PvpSubtractivePalette)
                 && Spells.PaintWBPvp.Masked().Charges >= 1
                 && Spells.SubtractivePalettePvp.CanCast()
-                && (!PictomancerSettings.Instance.Pvp_UsePaintWhiteOnlyToHeal || 
+                && (!PictomancerSettings.Instance.Pvp_UsePaintWhiteOnlyToHeal ||
                     (PictomancerSettings.Instance.Pvp_UsePaintWhiteOnlyToHeal && Core.Me.CurrentHealthPercent > PictomancerSettings.Instance.Pvp_UsePaintWhiteOnlyToHealHealth)))
                 return await Spells.SubtractivePalettePvp.Cast(Core.Me);
 
-            if (MovementManager.IsMoving 
-                && Core.Me.HasAura(Auras.PvpSubtractivePalette) 
-                && Spells.ReleaseSubtractivePalettePvp.CanCast() 
+            if (MovementManager.IsMoving
+                && Core.Me.HasAura(Auras.PvpSubtractivePalette)
+                && Spells.ReleaseSubtractivePalettePvp.CanCast()
                 && Spells.PaintWBPvp.Masked().Charges < 1)
                 return await Spells.ReleaseSubtractivePalettePvp.Cast(Core.Me);
 
-            if (!MovementManager.IsMoving 
-                && !Core.Me.HasAura(Auras.PvpSubtractivePalette) 
+            if (!MovementManager.IsMoving
+                && !Core.Me.HasAura(Auras.PvpSubtractivePalette)
                 && Spells.SubtractivePalettePvp.CanCast())
                 return await Spells.SubtractivePalettePvp.Cast(Core.Me);
 

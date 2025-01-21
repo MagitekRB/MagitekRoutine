@@ -2,8 +2,6 @@ using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Magitek.Utilities.Routines
 {

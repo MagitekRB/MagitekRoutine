@@ -1,7 +1,5 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.DarkKnight;
 using Magitek.Logic.Roles;
 using Magitek.Models.Account;

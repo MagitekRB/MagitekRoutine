@@ -1,12 +1,9 @@
-﻿using ff14bot.Managers;
-using Magitek.Commands;
+﻿using Magitek.Commands;
 using Magitek.Extensions;
 using Magitek.Models.WebResources;
 using Magitek.ViewModels;
 using PropertyChanged;
 using System;
-using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -34,7 +31,7 @@ namespace Magitek.Models.Debugging
         public uint Id { get; set; }
         public string CastedBy { get; set; }
         public uint CastedById { get; set; }
-        public ushort ZoneId { get; set; }        
+        public ushort ZoneId { get; set; }
         public string ZoneName { get; set; }
         public double Icon { get; set; }
 
@@ -74,12 +71,12 @@ namespace Magitek.Models.Debugging
                 return;
 
             if (Debug.Instance.FightLogicBuilderTB.Any(r => r.Id == info.Id))
-            { 
+            {
                 Debug.Instance.FightLogicBuilderTB.Remove(info);
                 InFightLogicBuilderTB = "[+] FightLogic TB";
             }
             else
-            { 
+            {
                 Debug.Instance.FightLogicBuilderTB.Add(info);
                 InFightLogicBuilderTB = "[-] FightLogic TB";
             }

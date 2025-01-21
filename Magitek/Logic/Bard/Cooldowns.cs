@@ -5,9 +5,9 @@ using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Bard;
 using Magitek.Utilities;
-using BardRoutine = Magitek.Utilities.Routines.Bard;
 using System.Linq;
 using System.Threading.Tasks;
+using BardRoutine = Magitek.Utilities.Routines.Bard;
 
 namespace Magitek.Logic.Bard
 {
@@ -66,7 +66,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.HasAura(Auras.RagingStrikes))
                 return false;
 
-            if(Spells.RadiantFinale.IsKnown())
+            if (Spells.RadiantFinale.IsKnown())
                 await Spells.RadiantFinale.CastAura(Core.Me, Auras.RadiantFinale);
 
             return await Spells.BattleVoice.CastAura(Core.Me, Auras.BattleVoice, false, 0, false);
@@ -97,7 +97,7 @@ namespace Magitek.Logic.Bard
                     return false;
             }
 
-            if (BardSettings.Instance.UseBarrageOnlyWithBuff && !BardRoutine.IsUnderBuffWindow )
+            if (BardSettings.Instance.UseBarrageOnlyWithBuff && !BardRoutine.IsUnderBuffWindow)
                 return false;
 
             return await Spells.Barrage.CastAura(Core.Me, Auras.Barrage);

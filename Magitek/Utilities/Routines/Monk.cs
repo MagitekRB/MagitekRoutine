@@ -1,6 +1,5 @@
 ﻿using ff14bot;
 using ff14bot.Enums;
-using Magitek.Converters;
 using Magitek.Extensions;
 using System.Linq;
 

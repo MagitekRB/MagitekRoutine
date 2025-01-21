@@ -37,10 +37,10 @@ namespace Magitek.Logic.RedMage
                 if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 60 || BlackMana < 60))
                     return false;
             }
-        
+
             if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 20 || BlackMana < 20))
                 return false;
-            
+
             if (ManaStacks() == 3)
                 return false;
 
@@ -59,7 +59,7 @@ namespace Magitek.Logic.RedMage
 
             if (Spells.ContreSixte.Cooldown != TimeSpan.Zero)
                 return false;
-            
+
             return await Spells.ContreSixte.Cast(Core.Me.CurrentTarget);
         }
         public static async Task<bool> Scatter()
@@ -100,7 +100,7 @@ namespace Magitek.Logic.RedMage
 
             if (InCombo())
                 return false;
-                
+
             return await Spells.GrandImpact.Cast(Core.Me.CurrentTarget);
         }
 
@@ -117,7 +117,7 @@ namespace Magitek.Logic.RedMage
 
             if (InCombo())
                 return false;
-             
+
             if (Core.Me.HasAura(Auras.Dualcast))
                 return await Spells.Impact.Cast(Core.Me.CurrentTarget);
 

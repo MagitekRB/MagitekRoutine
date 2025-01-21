@@ -94,8 +94,8 @@ namespace Magitek.Logic.WhiteMage
             if (!Spells.CureIIPvp.CanCast())
                 return false;
 
-            if(!WhiteMageSettings.Instance.Pvp_Cure)
-                return false;   
+            if (!WhiteMageSettings.Instance.Pvp_Cure)
+                return false;
 
             if (MovementManager.IsMoving)
                 return false;
@@ -105,18 +105,18 @@ namespace Magitek.Logic.WhiteMage
 
             if (WhiteMageSettings.Instance.Pvp_HealSelfOnly)
             {
-                if(Core.Me.CurrentHealthPercent>WhiteMageSettings.Instance.Pvp_CureHealthPercent)
+                if (Core.Me.CurrentHealthPercent > WhiteMageSettings.Instance.Pvp_CureHealthPercent)
                     return false;
 
                 return await Spells.CureIIPvp.Heal(Core.Me);
 
-            } 
-                if (Globals.HealTarget?.CurrentHealthPercent <= WhiteMageSettings.Instance.Pvp_CureHealthPercent)
-                {
-                    return await Spells.CureIIPvp.Heal(Globals.HealTarget);
-                }
+            }
+            if (Globals.HealTarget?.CurrentHealthPercent <= WhiteMageSettings.Instance.Pvp_CureHealthPercent)
+            {
+                return await Spells.CureIIPvp.Heal(Globals.HealTarget);
+            }
 
-                var cure2Target = Group.CastableAlliesWithin30.FirstOrDefault(r =>  r.CurrentHealth > 0 && r.CurrentHealthPercent <= WhiteMageSettings.Instance.Pvp_CureHealthPercent);
+            var cure2Target = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= WhiteMageSettings.Instance.Pvp_CureHealthPercent);
 
             if (cure2Target == null)
                 if (Core.Me.CurrentHealthPercent <= WhiteMageSettings.Instance.Pvp_CureHealthPercent)
@@ -136,7 +136,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Pvp_Cure)
                 return false;
 
-            if(!Core.Me.HasAura(Auras.PvpCureIIIReady))
+            if (!Core.Me.HasAura(Auras.PvpCureIIIReady))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))

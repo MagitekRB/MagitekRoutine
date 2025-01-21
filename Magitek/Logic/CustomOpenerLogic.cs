@@ -52,7 +52,7 @@ namespace Magitek.Logic
             LastOpenerResetAt = DateTime.UtcNow;
             BaseSettings.Instance.ResetOpeners = false;
         }
-        
+
         internal static async Task<bool> Opener()
         {
             // Reset Openers from the overlay
@@ -134,7 +134,8 @@ namespace Magitek.Logic
             #region Check Conditions Pre-Opener Countdown
             if (_executingGambit.Conditions.Any(condition => "Magitek.Gambits.Conditions.CountdownTimerCondition".Equals(condition.ToString())))
             {
-                if (!CheckConditions()) {
+                if (!CheckConditions())
+                {
                     return true;
                 }
             }

@@ -40,7 +40,8 @@ namespace Magitek.Utilities.Routines
             {
                 prepareFillerRotation = false;
                 isReadyFillerRotation = false;
-            } else
+            }
+            else
             {
                 prepareFillerRotation = prepareFiller;
                 isReadyFillerRotation = readyFiller;

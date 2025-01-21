@@ -95,7 +95,7 @@ namespace Magitek.Models.Warrior
 
         [Setting]
         [DefaultValue(50)]
-        public int VengeanceHpPercentage { get; set; }        
+        public int VengeanceHpPercentage { get; set; }
 
         [Setting]
         [DefaultValue(false)]

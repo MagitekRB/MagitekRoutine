@@ -1,12 +1,7 @@
 ﻿using Magitek.Models.Roles;
 using PropertyChanged;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magitek.Models.Pictomancer
 {
@@ -138,7 +133,7 @@ namespace Magitek.Models.Pictomancer
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseStarPrism { get; set; } 
+        public bool UseStarPrism { get; set; }
 
         [Setting]
         [DefaultValue(4)]
@@ -179,7 +174,7 @@ namespace Magitek.Models.Pictomancer
         [Setting]
         [DefaultValue(3)]
         public int AoeEnemies { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool UseAOECometInBlack { get; set; }
@@ -215,7 +210,7 @@ namespace Magitek.Models.Pictomancer
         [Setting]
         [DefaultValue(3)]
         public int Pvp_AdventofChocobastionCount { get; set; }
-        
+
         [Setting]
         [DefaultValue(10)]
         public int Pvp_AdventofChocobastionYalms { get; set; }

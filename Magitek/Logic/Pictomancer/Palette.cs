@@ -1,5 +1,4 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
@@ -70,7 +69,7 @@ namespace Magitek.Logic.Pictomancer
         {
             if (SwiftcastMotifCheck())
                 return await Roles.Healer.Swiftcast();
-            
+
             return false;
         }
 
@@ -150,7 +149,7 @@ namespace Magitek.Logic.Pictomancer
             if (PictomancerSettings.Instance.SaveMogForStarry
                 && Spells.StarryMuse.IsKnown()
                 && !Core.Me.HasAura(Auras.StarryMuse, true)
-                && (ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing) 
+                && (ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing)
                    || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw))
                 && muse.Charges < 3)
             {
@@ -160,7 +159,7 @@ namespace Magitek.Logic.Pictomancer
                 var currentCharges = Math.Floor(muse.Charges);
 
                 var nextMogInMs = cooldown2charge - (cooldownForCharge - nextChargeTime);
-                    
+
                 if (currentCharges > 0)
                     nextMogInMs -= (cooldownForCharge * (currentCharges - 1));
 
@@ -253,10 +252,10 @@ namespace Magitek.Logic.Pictomancer
             var starryCooldown = PictomancerRoutine.StarryCooldownRemaining();
             var msToNextCharge = muse.CooldownToNextCharge();
 
-            if (PictomancerSettings.Instance.SaveHammerForMovement 
+            if (PictomancerSettings.Instance.SaveHammerForMovement
                 && (!PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss || PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss && Core.Me.CurrentTarget.IsBoss())
-                && muse.MaxCharges >= 2 
-                && !MovementManager.IsMoving 
+                && muse.MaxCharges >= 2
+                && !MovementManager.IsMoving
                 && muse.Charges < 1.95
                 && !(PictomancerSettings.Instance.SaveHammerForStarry && Spells.StarryMuse.IsKnown() && Core.Me.HasAura(Auras.StarryMuse, true)))
                 return false;
@@ -409,7 +408,8 @@ namespace Magitek.Logic.Pictomancer
 
             var muse = Spells.ScenicMuse.Masked();
 
-            if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me)){
+            if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me))
+            {
                 if (Globals.InParty)
                 {
                     if (Core.Me.HasAura(Auras.StarryMuse))

@@ -36,7 +36,7 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiRoutine.isReadyFillerRotation)
                 return false;
 
-            if(!await Spells.Hagakure.Cast(Core.Me))
+            if (!await Spells.Hagakure.Cast(Core.Me))
                 return false;
 
             // If 4GCD Filler, we need to replay again the 2GCD filler, Otherwise, let's stop it
@@ -50,7 +50,7 @@ namespace Magitek.Logic.Samurai
 
         public static async Task<bool> TrueNorth()
         {
-            if (SamuraiSettings.Instance.EnemyIsOmni || !SamuraiSettings.Instance.UseTrueNorth) 
+            if (SamuraiSettings.Instance.EnemyIsOmni || !SamuraiSettings.Instance.UseTrueNorth)
                 return false;
 
             if (Casting.LastSpell == Spells.TrueNorth)

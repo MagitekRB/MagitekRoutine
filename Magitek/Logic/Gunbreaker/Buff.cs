@@ -1,4 +1,3 @@
-using Clio.Utilities.Collections;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -48,8 +47,8 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
                 return false;
 
-            if(!Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
-                 return false;
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
+                return false;
 
             //Special Condition for opener when UseNoMercyMaxCartridge 
             if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)

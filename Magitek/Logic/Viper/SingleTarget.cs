@@ -1,11 +1,7 @@
 using ff14bot;
 using ff14bot.Managers;
-using Magitek.Enumerations;
 using Magitek.Extensions;
-using Magitek.Gambits.Conditions;
 using Magitek.Logic.Roles;
-using Magitek.Models.Reaper;
-using Magitek.Models.Samurai;
 using Magitek.Models.Viper;
 using Magitek.Utilities;
 using System.Linq;
@@ -29,8 +25,8 @@ namespace Magitek.Logic.Viper
 
             if (Core.Me.ClassLevel >= Spells.ReavingFangs.LevelAcquired && Core.Me.HasAura(Auras.HonedReavers, true))
                 return await Spells.ReavingFangs.Cast(Core.Me.CurrentTarget);
-            
-                return await Spells.SteelFangs.Cast(Core.Me.CurrentTarget);
+
+            return await Spells.SteelFangs.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> HunterOrSwiftSkinSting()
@@ -57,7 +53,7 @@ namespace Magitek.Logic.Viper
             if (Core.Me.ClassLevel < Spells.HindsbaneFang.LevelAcquired || Core.Me.ClassLevel < Spells.FankstingStrike.LevelAcquired)
                 return false;
 
-            if ( Core.Me.HasAura(Auras.FlankstungVenom, true))
+            if (Core.Me.HasAura(Auras.FlankstungVenom, true))
                 return await Spells.FankstingStrike.Cast(Core.Me.CurrentTarget);
 
             if (Core.Me.HasAura(Auras.FlanksbaneVenom, true))
@@ -77,7 +73,7 @@ namespace Magitek.Logic.Viper
         {
             if (Core.Me.ClassLevel < Spells.Vicewinder.LevelAcquired)
                 return false;
-            
+
             if (!ViperSettings.Instance.UseVicewinder)
                 return false;
 
@@ -97,11 +93,11 @@ namespace Magitek.Logic.Viper
 
             if (Core.Me.ClassLevel >= Spells.HunterCoil.LevelAcquired && Spells.HunterCoil.CanCast())
                 return await Spells.HunterCoil.Cast(Core.Me.CurrentTarget);
-            
-            if(Core.Me.HasAura(Auras.SwiftskinVenom, true))
+
+            if (Core.Me.HasAura(Auras.SwiftskinVenom, true))
                 return false;
 
-            if(!Spells.SwiftskinCoil.CanCast())
+            if (!Spells.SwiftskinCoil.CanCast())
                 return false;
 
             return await Spells.SwiftskinCoil.Cast(Core.Me.CurrentTarget);
@@ -112,13 +108,13 @@ namespace Magitek.Logic.Viper
             if (Core.Me.ClassLevel < Spells.UncoiledFury.LevelAcquired)
                 return false;
 
-            if (!ViperSettings.Instance.UseUncoiledFury) 
+            if (!ViperSettings.Instance.UseUncoiledFury)
                 return false;
 
             if (!Spells.UncoiledFury.CanCast() || ActionResourceManager.Viper.RattlingCoils < 1)
                 return false;
 
-            if (Core.Me.HasAura(Auras.HunterVenom, true) || Core.Me.HasAura(Auras.SwiftskinVenom, true) )
+            if (Core.Me.HasAura(Auras.HunterVenom, true) || Core.Me.HasAura(Auras.SwiftskinVenom, true))
                 return false;
 
 

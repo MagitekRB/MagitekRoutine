@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Utilities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 
@@ -12,7 +12,7 @@ namespace Magitek.Logic.Ninja
 {
     internal static class Buff
     {
-        
+
         public static async Task<bool> Kassatsu()
         {
 

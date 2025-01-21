@@ -1,11 +1,9 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Monk;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
-using MonkRoutine = Magitek.Utilities.Routines.Monk;
 
 namespace Magitek.Logic.Monk
 {
@@ -96,7 +94,7 @@ namespace Magitek.Logic.Monk
             if (!Spells.SixSidedStarPvp.CanCast())
                 return false;
 
-            if(!MonkSettings.Instance.Pvp_SixSidedStar)
+            if (!MonkSettings.Instance.Pvp_SixSidedStar)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
@@ -139,7 +137,7 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.CurrentTarget.HasAura(Auras.PvpPressurePoint))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20) 
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())

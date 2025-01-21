@@ -5,9 +5,9 @@ using Magitek.Models.Summoner;
 using Magitek.Utilities;
 using Magitek.Utilities.Routines;
 using System.Threading.Tasks;
+using static Magitek.Utilities.Routines.Summoner;
 using ArcResources = ff14bot.Managers.ActionResourceManager.Arcanist;
 using SmnResources = ff14bot.Managers.ActionResourceManager.Summoner;
-using static Magitek.Utilities.Routines.Summoner;
 using SpellData = ff14bot.Objects.SpellData;
 
 
@@ -20,7 +20,7 @@ namespace Magitek.Logic.Summoner
         {
             if (!SummonerSettings.Instance.SummonCarbuncle)
                 return false;
-            
+
             if (!Spells.SummonCarbuncle.IsKnown())
                 return false;
 
@@ -37,13 +37,13 @@ namespace Magitek.Logic.Summoner
         {
             if (!SummonerSettings.Instance.SummonPhoenix)
                 return false;
-            
+
             if (!Spells.SummonPhoenix.IsKnownAndReady())
                 return false;
-            
+
             if (!Core.Me.InCombat)
                 return false;
-            
+
             if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
                 return false;
 
@@ -57,7 +57,7 @@ namespace Magitek.Logic.Summoner
 
             if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
                 return false;
-            
+
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL && Combat.CombatTotalTimeLeft < 15)
                 return false;
 
@@ -83,7 +83,7 @@ namespace Magitek.Logic.Summoner
 
             if (SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Phoenix))
                 return false;
-            
+
             if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
                 return false;
 
@@ -94,13 +94,13 @@ namespace Magitek.Logic.Summoner
                 || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Topaz)
                 || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Emerald))
                 return false;
-            
+
             if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
                 return false;
 
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL && Combat.CombatTotalTimeLeft < 15)
                 return false;
-            
+
             if (!SummonerSettings.Instance.SearingLight)
                 return await bahamutSpell.Cast(Core.Me.CurrentTarget);
 
@@ -120,16 +120,16 @@ namespace Magitek.Logic.Summoner
         {
             if (!Spells.SummonCarbuncle.IsKnown())
                 return false;
-            
+
             if (Core.Me.SummonedPet() == SmnPets.None)
                 return await SummonCarbuncle();
-            
+
             if (!Core.Me.InCombat)
                 return false;
-            
+
             if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
                 return false;
-            
+
             if (SummonerSettings.Instance.ThrottleEgiSummonsWithTTL && Combat.CombatTotalTimeLeft < 30)
                 return false;
 
@@ -170,6 +170,6 @@ namespace Magitek.Logic.Summoner
             }
 
             return false;
-        } 
+        }
     }
 }

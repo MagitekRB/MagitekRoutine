@@ -1,5 +1,4 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Utilities;
 using Magitek.Utilities.GamelogManager;
@@ -26,6 +25,6 @@ namespace Magitek.Logic.Ninja
             return await Spells.Hide.Cast(Core.Me);
 
         }
-        
+
     }
 }

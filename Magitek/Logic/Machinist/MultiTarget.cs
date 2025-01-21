@@ -3,7 +3,6 @@ using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Machinist;
-using Magitek.Models.QueueSpell;
 using Magitek.Utilities;
 using System;
 using System.Linq;
@@ -203,7 +202,7 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             if (!Core.Me.HasAura(Auras.Overheated) && MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss())
-                return false; 
+                return false;
 
             if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
                 return false;

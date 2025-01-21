@@ -3,7 +3,6 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Scholar;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,7 +13,7 @@ namespace Magitek.Utilities.Routines
         public static List<Character> AlliancePhysickOnly = new List<Character>();
 
         public static double SeraphTimeRemaining()
-        {            
+        {
             return ActionResourceManager.Scholar.Timer.TotalSeconds;
         }
 
@@ -88,7 +87,7 @@ namespace Magitek.Utilities.Routines
                 return;
 
             EnemiesInCone = Core.Me.EnemiesInCone(8);
-           
+
         }
     }
 }

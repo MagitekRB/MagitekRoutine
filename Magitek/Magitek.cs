@@ -7,25 +7,7 @@ using ff14bot.Managers;
 using ff14bot.NeoProfiles;
 using ff14bot.Objects;
 using Magitek.Extensions;
-using Magitek.Models.Astrologian;
-using Magitek.Models.Bard;
-using Magitek.Models.BlackMage;
-using Magitek.Models.BlueMage;
-using Magitek.Models.DarkKnight;
-using Magitek.Models.Dragoon;
-using Magitek.Models.Machinist;
-using Magitek.Models.Monk;
-using Magitek.Models.Ninja;
-using Magitek.Models.Paladin;
-using Magitek.Models.Reaper;
-using Magitek.Models.RedMage;
-using Magitek.Models.Sage;
-using Magitek.Models.Samurai;
-using Magitek.Models.Scholar;
-using Magitek.Models.Summoner;
-using Magitek.Models.Warrior;
-using Magitek.Models.WhiteMage;
-using Magitek.Models.Viper;
+using Magitek.Logic;
 using Magitek.Toggles;
 using Magitek.Utilities;
 using Magitek.Utilities.CombatMessages;
@@ -36,15 +18,13 @@ using Magitek.ViewModels;
 using Magitek.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using TreeSharp;
 using Application = System.Windows.Application;
 using BaseSettings = Magitek.Models.Account.BaseSettings;
 using Debug = Magitek.ViewModels.Debug;
 using Regexp = System.Text.RegularExpressions;
-using System.IO;
-using Magitek.Logic;
 
 namespace Magitek
 {
@@ -327,7 +307,7 @@ namespace Magitek
         }
 
         private void GamelogManagerCountdownRecevied(object sender, ChatEventArgs e)
-        {            
+        {
             if ((int)e.ChatLogEntry.MessageType == 313 || (int)e.ChatLogEntry.MessageType == 185 || MessageType.SystemMessages.Equals(e.ChatLogEntry.MessageType))
             {
                 //Start countdown

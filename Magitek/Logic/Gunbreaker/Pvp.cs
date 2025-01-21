@@ -1,5 +1,4 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Gunbreaker;
 using Magitek.Utilities;
@@ -141,7 +140,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!Spells.DoubleDownPvp.CanCast())
                 return false;
 
-            if(!GunbreakerSettings.Instance.Pvp_DoubleDown)
+            if (!GunbreakerSettings.Instance.Pvp_DoubleDown)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
@@ -216,7 +215,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.Pvp_DrawandJunction)
                 return false;
 
-            if(!Core.Me.CurrentTarget.ValidAttackUnit())
+            if (!Core.Me.CurrentTarget.ValidAttackUnit())
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)

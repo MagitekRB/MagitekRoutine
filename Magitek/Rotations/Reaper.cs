@@ -1,17 +1,14 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Reaper;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Reaper;
 using Magitek.Utilities;
 using Magitek.Utilities.CombatMessages;
-using ReaperRoutine = Magitek.Utilities.Routines.Reaper;
 using System.Threading.Tasks;
 using Enshroud = Magitek.Logic.Reaper.Enshroud;
-using Magitek.Models.Monk;
+using ReaperRoutine = Magitek.Utilities.Routines.Reaper;
 
 namespace Magitek.Rotations
 {

@@ -1,5 +1,4 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Dragoon;
@@ -39,11 +38,11 @@ namespace Magitek.Logic.Dragoon
         {
             if (!DragoonSettings.Instance.UseHighJump)
                 return false;
-            
+
 
             if (!CheckBeforeExecuteJumps())
                 return false;
-            
+
             if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
                 return false;
 

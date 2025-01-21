@@ -111,7 +111,7 @@ namespace Magitek.Models.Sage
         [Setting]
         [DefaultValue(true)]
         public bool EukrasianDyskrasia { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool DotMultipleTargets { get; set; }

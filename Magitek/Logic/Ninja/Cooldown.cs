@@ -2,10 +2,10 @@
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Utilities;
-using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Logic.Ninja
 {
@@ -80,7 +80,7 @@ namespace Magitek.Logic.Ninja
             if (Casting.SpellCastHistory.First().Spell == Spells.TrickAttack)
                 return false;
 
-            if (NinjaRoutine.AoeEnemies6Yards > 1) 
+            if (NinjaRoutine.AoeEnemies6Yards > 1)
                 return false;
 
             return await Spells.ZeshoMeppo.Cast(Core.Me.CurrentTarget);

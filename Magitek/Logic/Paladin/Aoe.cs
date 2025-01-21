@@ -1,8 +1,6 @@
 using ff14bot;
-using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
-using Magitek.Models.Gunbreaker;
 using Magitek.Models.Paladin;
 using Magitek.Utilities;
 using System.Linq;

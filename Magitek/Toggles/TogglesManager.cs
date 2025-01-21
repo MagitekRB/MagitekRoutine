@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 
 namespace Magitek.Toggles
 {

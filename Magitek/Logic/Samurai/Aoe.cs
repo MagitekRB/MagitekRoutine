@@ -4,18 +4,18 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Samurai;
 using Magitek.Utilities;
-using Auras = Magitek.Utilities.Auras;
-using SamuraiRoutine = Magitek.Utilities.Routines.Samurai;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
 using Iaijutsu = ff14bot.Managers.ActionResourceManager.Samurai.Iaijutsu;
+using SamuraiRoutine = Magitek.Utilities.Routines.Samurai;
 
 namespace Magitek.Logic.Samurai
 {
     internal static class Aoe
     {
-        
+
         public static async Task<bool> Fuko()
         {
             if (!SamuraiSettings.Instance.UseAoe)
@@ -23,7 +23,7 @@ namespace Magitek.Logic.Samurai
 
             if (Core.Me.ClassLevel < 86 && SamuraiRoutine.EnemiesInCone < SamuraiSettings.Instance.AoeEnemies) // Fuga (lvl < 86) is a cone based attack
                 return false;
-          
+
             if (Core.Me.ClassLevel >= 86 && SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
@@ -42,19 +42,19 @@ namespace Magitek.Logic.Samurai
                 return false;
 
             if (ActionResourceManager.Samurai.Sen.HasFlag(Iaijutsu.Ka))
-                return false; 
-            
+                return false;
+
             if (Core.Me.HasAura(Auras.MeikyoShisui))
             {
                 if (SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
                     return false;
-            } 
+            }
             else
             {
                 if (!SamuraiRoutine.CanContinueComboAfter(SamuraiRoutine.Fuko))
                     return false;
             }
-                
+
             if (SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
@@ -179,7 +179,7 @@ namespace Magitek.Logic.Samurai
 
             if (Core.Me.HasAura(Auras.Tendo))
                 return await Spells.TendoGoken.Cast(Core.Me.CurrentTarget);
-            else 
+            else
                 return await Spells.TenkaGoken.Cast(Core.Me.CurrentTarget);
         }
 

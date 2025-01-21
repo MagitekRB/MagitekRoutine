@@ -1,13 +1,12 @@
 using ff14bot;
-using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Bard;
 using Magitek.Utilities;
-using Auras = Magitek.Utilities.Auras;
-using BardRoutine = Magitek.Utilities.Routines.Bard;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
+using BardRoutine = Magitek.Utilities.Routines.Bard;
 
 namespace Magitek.Logic.Bard
 {
@@ -35,7 +34,7 @@ namespace Magitek.Logic.Bard
 
             if (!await BardRoutine.Stormbite.Cast(Core.Me.CurrentTarget))
                 return false;
-            
+
             Logger.WriteInfo($@"[DoT-Effect] Stormbite/Windbite on {Core.Me.CurrentTarget.Name}");
             return true;
         }
@@ -57,9 +56,9 @@ namespace Magitek.Logic.Bard
             if (Core.Me.CurrentTarget.HasAura(BardRoutine.CausticBiteAura, true))
                 return false;
 
-            if (!await BardRoutine.CausticBite.Cast(Core.Me.CurrentTarget)) 
+            if (!await BardRoutine.CausticBite.Cast(Core.Me.CurrentTarget))
                 return false;
-            
+
             Logger.WriteInfo($@"[DoT-Effect] CausticBite/VenomousBite on {Core.Me.CurrentTarget.Name}");
             return true;
         }
@@ -124,7 +123,7 @@ namespace Magitek.Logic.Bard
             if (BardRoutine.AlreadySnapped)
                 return false;
 
-            if (!await Spells.IronJaws.Cast(Core.Me.CurrentTarget)) 
+            if (!await Spells.IronJaws.Cast(Core.Me.CurrentTarget))
                 return false;
 
             Logger.WriteInfo($@"[DoT-Refresh] Snap Jaws on {Core.Me.CurrentTarget.Name} | Stormbite/Windbite TimeLeft : {stormbiteTimeleft} | Caustic/VenomousBite TimeLeft : {causticbiteTimeleft} | RS TimeLeft : {ragingStrikesAuraTimeleft}| RF TimeLeft : {radiantFinaleAuraTimeleft} | BV TimeLeft : {battleVoiceAuraTimeleft}");
@@ -142,7 +141,7 @@ namespace Magitek.Logic.Bard
 
             if (!unit.InLineOfSight())
                 return false;
-            
+
             if (unit.CombatTimeLeft() <= BardSettings.Instance.DontDotIfMultiDotTargetIsDyingWithinXSeconds && BardSettings.Instance.DontDotIfMultiDotTargetIsDyingWithinXSeconds != 0)
                 return false;
 
@@ -151,7 +150,7 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> StormbiteOnOffTarget()
         {
-            if (!BardSettings.Instance.EnableMultiDotting) 
+            if (!BardSettings.Instance.EnableMultiDotting)
                 return false;
 
             if (!BardSettings.Instance.UseStormbite || !BardSettings.Instance.MultiDotWindBite)
@@ -164,9 +163,9 @@ namespace Magitek.Logic.Bard
                 return false;
 
             BattleCharacter multiDoTTarget = Combat.Enemies.FirstOrDefault(r => IsValidTargetToApplyDoT(r, BardRoutine.StormbiteAura));
-            if (multiDoTTarget == null) 
+            if (multiDoTTarget == null)
                 return false;
-            
+
             if (!await Spells.Stormbite.Cast(multiDoTTarget)) return false;
             Logger.WriteInfo($@"[MultiDot] Stormbite/WindBite on {multiDoTTarget.Name}");
             return true;
@@ -188,9 +187,9 @@ namespace Magitek.Logic.Bard
                 return false;
 
             BattleCharacter multiDoTTarget = Combat.Enemies.FirstOrDefault(r => IsValidTargetToApplyDoT(r, BardRoutine.CausticBiteAura));
-            if (multiDoTTarget == null) 
+            if (multiDoTTarget == null)
                 return false;
-            
+
             if (!await Spells.CausticBite.Cast(multiDoTTarget)) return false;
             Logger.WriteInfo($@"[MultiDot] Caustic/Venomous Bite on {multiDoTTarget.Name}");
             return true;
@@ -198,7 +197,7 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> IronJawsOnOffTarget()
         {
-            if (!BardSettings.Instance.EnableMultiDotting) 
+            if (!BardSettings.Instance.EnableMultiDotting)
                 return false;
 
             //We wont need to IJ when we dont want double DoTs on everything

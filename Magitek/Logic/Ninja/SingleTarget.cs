@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using System.Linq;
-using System;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Utilities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Logic.Ninja
@@ -78,7 +78,7 @@ namespace Magitek.Logic.Ninja
         }
 
         #endregion
-        
+
         //Missing logic for st and mt
         public static async Task<bool> Bhavacakra()
         {
@@ -93,7 +93,7 @@ namespace Magitek.Logic.Ninja
                 return await Spells.Bhavacakra.Cast(Core.Me.CurrentTarget);
 
             //dumping Bhavacakra during Burst Window is missing
-            if (ActionResourceManager.Ninja.NinkiGauge < 90 || (Spells.Mug.Cooldown > new TimeSpan(0, 0, 7) && ActionResourceManager.Ninja.NinkiGauge + 40 < 90 ))
+            if (ActionResourceManager.Ninja.NinkiGauge < 90 || (Spells.Mug.Cooldown > new TimeSpan(0, 0, 7) && ActionResourceManager.Ninja.NinkiGauge + 40 < 90))
                 return false;
 
             if (NinjaRoutine.AoeEnemies6Yards > 2 && !Core.Me.HasMyAura(Auras.Meisui)

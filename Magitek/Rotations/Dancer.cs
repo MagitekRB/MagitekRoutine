@@ -1,15 +1,12 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Dancer;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Dancer;
 using Magitek.Utilities;
-using DancerRoutine = Magitek.Utilities.Routines.Dancer;
 using System.Linq;
 using System.Threading.Tasks;
+using DancerRoutine = Magitek.Utilities.Routines.Dancer;
 
 namespace Magitek.Rotations
 {
@@ -64,8 +61,8 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_PartyShield(DancerSettings.Instance.FightLogicShieldSamba, Spells.ShieldSamba, true, PhysicalDps.partyShieldAuras)) return true;
 
-            if ( (DancerRoutine.GlobalCooldown.CanWeave() && !Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish))
-                || (DancerRoutine.GlobalCooldown.CanWeave(1) && Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish)) )
+            if ((DancerRoutine.GlobalCooldown.CanWeave() && !Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish))
+                || (DancerRoutine.GlobalCooldown.CanWeave(1) && Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish)))
             {
                 //utility
                 if (await PhysicalDps.Interrupt(DancerSettings.Instance)) return true;
@@ -116,8 +113,8 @@ namespace Magitek.Rotations
             if (await Pvp.ClosedPosition()) return true;
 
             // Utilities
-            if (await CommonPvp.CommonTasks(DancerSettings.Instance)) return true;            
-            
+            if (await CommonPvp.CommonTasks(DancerSettings.Instance)) return true;
+
             if (await Pvp.CuringWaltz()) return true;
 
             //LB
@@ -136,7 +133,7 @@ namespace Magitek.Rotations
             if (await Pvp.FountainFall()) return true;
             if (await Pvp.ReverseCascade()) return true;
             if (await Pvp.Fountain()) return true;
-            
+
             return await Pvp.Cascade();
         }
     }

@@ -37,7 +37,8 @@ namespace Magitek.Views
             if (BaseSettings.Instance.SettingsFirstInitialization)
             {
                 Home.IsSelected = true;
-            } else
+            }
+            else
             {
                 switch (RotationManager.CurrentRotation)
                 {

@@ -1,19 +1,12 @@
 using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Ninja;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
-using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
-using System.Linq;
-using System.Threading.Tasks;
-using Magitek.Utilities.GamelogManager;
-using ff14bot.Helpers;
-using System.Windows.Forms;
 using System;
+using System.Threading.Tasks;
+using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Rotations
 {
@@ -29,7 +22,7 @@ namespace Magitek.Rotations
             Utilities.Routines.Ninja.RefreshVars();
 
             if (await Utility.PrePullHide()) return true;
-            
+
             if (await Ninjutsu.PrePullSuitonRamp()) return true;
             if (await Ninjutsu.PrePullSuitonUse()) return true;
 
@@ -54,7 +47,7 @@ namespace Magitek.Rotations
                 return false;
 
             Utilities.Routines.Ninja.RefreshVars();
-            
+
             if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
             if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
 
@@ -112,7 +105,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.SpinningEdge()) return true;
 
             return false;
-            
+
         }
 
         public static async Task<bool> PvP()
@@ -121,7 +114,8 @@ namespace Magitek.Rotations
 
 
 
-            if (!CommonPvp.GuardCheck(NinjaSettings.Instance)) { 
+            if (!CommonPvp.GuardCheck(NinjaSettings.Instance))
+            {
                 if (await Pvp.BunshinPvp()) return true;
                 if (await Pvp.ShukuchiPvp()) return true;
                 if (await Pvp.AssassinatePvp()) return true;

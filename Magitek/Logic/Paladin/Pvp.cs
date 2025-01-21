@@ -1,6 +1,5 @@
 using ff14bot;
 using Magitek.Extensions;
-using Magitek.Models.DarkKnight;
 using Magitek.Models.Paladin;
 using Magitek.Utilities;
 using System.Linq;

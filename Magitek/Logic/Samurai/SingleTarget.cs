@@ -155,8 +155,8 @@ namespace Magitek.Logic.Samurai
 
             if (SamuraiSettings.Instance.UseHissatsuGyotenOnlyWhenOutOfMeleeRange && !Core.Me.CurrentTarget.WithinSpellRange(Spells.Hakaze.Range))
             {
-                return Combat.Enemies.Count(x => x.Distance(Core.Me) <= SamuraiRoutine.Fuko.Radius + Core.Me.CombatReach) < SamuraiSettings.Instance.AoeEnemies 
-                    ? await Spells.HissatsuGyoten.Cast(Core.Me.CurrentTarget) 
+                return Combat.Enemies.Count(x => x.Distance(Core.Me) <= SamuraiRoutine.Fuko.Radius + Core.Me.CombatReach) < SamuraiSettings.Instance.AoeEnemies
+                    ? await Spells.HissatsuGyoten.Cast(Core.Me.CurrentTarget)
                     : false;
             }
 
@@ -248,8 +248,8 @@ namespace Magitek.Logic.Samurai
             if (Core.Me.HasAura(Auras.Tendo))
                 return await Spells.TendoSetsugekka.Cast(Core.Me.CurrentTarget);
             else
-                if(!await Spells.MidareSetsugekka.Cast(Core.Me.CurrentTarget))
-                    return false;
+                if (!await Spells.MidareSetsugekka.Cast(Core.Me.CurrentTarget))
+                return false;
 
             if (SamuraiRoutine.prepareFillerRotation && (Spells.TsubameGaeshi.Charges < 1 || Spells.KaeshiSetsugekka.Charges < 1))
             {

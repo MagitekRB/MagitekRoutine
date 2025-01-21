@@ -1,17 +1,16 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
+using Magitek.Models.Account;
 using Magitek.Models.Warrior;
 using Magitek.Utilities;
+using Magitek.Utilities.Managers;
 using System.Linq;
 using System.Threading.Tasks;
-using WarriorRoutine = Magitek.Utilities.Routines.Warrior;
 using Auras = Magitek.Utilities.Auras;
-using Magitek.Utilities.Managers;
-using Magitek.Models.Account;
+using WarriorRoutine = Magitek.Utilities.Routines.Warrior;
 
 namespace Magitek.Logic.Warrior
 {

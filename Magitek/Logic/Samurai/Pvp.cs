@@ -5,7 +5,6 @@ using Magitek.Models.Samurai;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
-using SamuraiRoutine = Magitek.Utilities.Routines.Samurai;
 
 namespace Magitek.Logic.Samurai
 {
@@ -85,7 +84,7 @@ namespace Magitek.Logic.Samurai
             if (!Spells.HissatsuSotenPvp.CanCast())
                 return false;
 
-            if(!SamuraiSettings.Instance.Pvp_HissatsuSoten)
+            if (!SamuraiSettings.Instance.Pvp_HissatsuSoten)
                 return false;
 
             return await Spells.HissatsuSotenPvp.Cast(Core.Me.CurrentTarget);

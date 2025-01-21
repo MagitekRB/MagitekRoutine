@@ -1,8 +1,6 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.DarkKnight;
-using Magitek.Models.Gunbreaker;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
@@ -76,7 +74,7 @@ namespace Magitek.Logic.DarkKnight
             if (!DarkKnightSettings.Instance.Pvp_Plunge)
                 return false;
 
-            if(Core.Me.HasAura(Auras.PvpNoMercy))
+            if (Core.Me.HasAura(Auras.PvpNoMercy))
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
@@ -174,7 +172,7 @@ namespace Magitek.Logic.DarkKnight
             if (!DarkKnightSettings.Instance.Pvp_Eventide)
                 return false;
 
-            if(Core.Me.CurrentHealthPercent > DarkKnightSettings.Instance.Pvp_EventideHealthPercent)
+            if (Core.Me.CurrentHealthPercent > DarkKnightSettings.Instance.Pvp_EventideHealthPercent)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)

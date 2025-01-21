@@ -3,10 +3,10 @@ using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Monk;
 using Magitek.Utilities;
-using MonkRoutine = Magitek.Utilities.Routines.Monk;
 using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Monk;
+using MonkRoutine = Magitek.Utilities.Routines.Monk;
 
 namespace Magitek.Logic.Monk
 {
@@ -23,7 +23,7 @@ namespace Magitek.Logic.Monk
 
             if (!MonkSettings.Instance.UseAoe)
                 return false;
- 
+
             if (MonkRoutine.EnemiesInCone < MonkSettings.Instance.AoeEnemies)
                 return false;
 
@@ -66,7 +66,7 @@ namespace Magitek.Logic.Monk
             {
                 if (ActionResourceManager.Monk.MasterGaugeCount == 0)
                 {
-                        return await Spells.ArmOfTheDestroyer.Cast(Core.Me.CurrentTarget);
+                    return await Spells.ArmOfTheDestroyer.Cast(Core.Me.CurrentTarget);
                 }
 
                 if (ActionResourceManager.Monk.MasterGaugeCount == 1)

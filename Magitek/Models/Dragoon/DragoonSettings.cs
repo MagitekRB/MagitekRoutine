@@ -98,7 +98,7 @@ namespace Magitek.Models.Dragoon
         [DefaultValue(true)]
         public bool UseWyrmwindThrust { get; set; }
 
-    #endregion
+        #endregion
 
         #region Defensives
 

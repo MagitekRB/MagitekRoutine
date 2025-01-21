@@ -5,10 +5,7 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Roles;
 using Magitek.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 
@@ -25,7 +22,7 @@ namespace Magitek.Logic.Roles
         {
             if (target == null)
                 return false;
-            
+
             return target.ValidAttackUnit() && target.InLineOfSight();
         }
 
@@ -118,7 +115,7 @@ namespace Magitek.Logic.Roles
 
             return !Attackable(target)
                 || (checkGuard && settings.Pvp_GuardCheck && target.HasAura(Auras.PvpGuard))
-                || (checkInvuln && settings.Pvp_InvulnCheck && target.HasAnyAura(new uint[] {Auras.PvpHallowedGround, Auras.PvpUndeadRedemption}));
+                || (checkInvuln && settings.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }));
         }
 
         public static async Task<bool> Purify<T>(T settings) where T : JobSettings

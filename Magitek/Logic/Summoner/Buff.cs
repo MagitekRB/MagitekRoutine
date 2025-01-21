@@ -3,12 +3,11 @@ using ff14bot;
 using Magitek.Extensions;
 using Magitek.Models.Summoner;
 using Magitek.Utilities;
-using System.Threading.Tasks;
-using ArcResources = ff14bot.Managers.ActionResourceManager.Arcanist;
-using SmnResources = ff14bot.Managers.ActionResourceManager.Summoner;
-using static Magitek.Utilities.Routines.Summoner;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using static Magitek.Utilities.Routines.Summoner;
+using SmnResources = ff14bot.Managers.ActionResourceManager.Summoner;
 
 namespace Magitek.Logic.Summoner
 {
@@ -24,13 +23,13 @@ namespace Magitek.Logic.Summoner
 
             if (Spells.SummonBahamut.IsKnown())
                 return false;
-            
+
             if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
                 return false;
-            
+
             if (!SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.None))
                 return false;
-            
+
             if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
                 return false;
 
@@ -67,7 +66,7 @@ namespace Magitek.Logic.Summoner
 
             return false;
         }
-        
+
         public static async Task<bool> Aethercharge()
         {
             if (await Pets.SummonPhoenix()) return true;
@@ -75,9 +74,9 @@ namespace Magitek.Logic.Summoner
 
             if (Spells.SummonBahamut.IsKnown())
                 return false;
-            
+
             if (await DreadwyrmTrance()) return true;
-            
+
             if (Spells.DreadwyrmTrance.IsKnown())
                 return false;
 
@@ -86,7 +85,7 @@ namespace Magitek.Logic.Summoner
 
             if (!Spells.Aethercharge.IsKnownAndReady())
                 return false;
-            
+
             return await Spells.Aethercharge.Cast(Core.Me);
         }
 

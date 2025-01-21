@@ -1,12 +1,12 @@
 ﻿using ff14bot;
+using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Machinist;
 using Magitek.Utilities;
-using Auras = Magitek.Utilities.Auras;
 using System.Linq;
 using System.Threading.Tasks;
-using ff14bot.Objects;
-using Magitek.Logic.Roles;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Machinist
 {
@@ -111,13 +111,13 @@ namespace Magitek.Logic.Machinist
 
             // Estimate damage based on stacks (4000 potency per stack)
             // Using a conservative damage conversion factor for PvP
-            const double PvpDamageConversionFactor = 0.8; 
+            const double PvpDamageConversionFactor = 0.8;
             var estimatedDamage = 4000 * WildfireStacks * PvpDamageConversionFactor;
-            
+
             // If target is a tank, reduce expected damage
             if (WildfireTarget.IsTank())
             {
-                estimatedDamage *= 0.8; 
+                estimatedDamage *= 0.8;
             }
 
             // If target has Chain Saw vulnerability, increase damage by 20%
@@ -247,8 +247,8 @@ namespace Magitek.Logic.Machinist
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 12)
             {
                 var nearby = Combat.Enemies
-                    .Where(e => e.Distance(Core.Me) < 10 
-                            && e.ValidAttackUnit() 
+                    .Where(e => e.Distance(Core.Me) < 10
+                            && e.ValidAttackUnit()
                             && e.InLineOfSight()
                             && !e.IsWarMachina())
                     .OrderBy(e => e.Distance(Core.Me));
@@ -316,7 +316,7 @@ namespace Magitek.Logic.Machinist
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < 5 ) < MachinistSettings.Instance.Pvp_BishopAutoturretNumberOfEnemy)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < 5) < MachinistSettings.Instance.Pvp_BishopAutoturretNumberOfEnemy)
                 return false;
 
             return await Spells.BishopAutoturretPvp.Cast(Core.Me.CurrentTarget);
@@ -333,7 +333,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.MarksmansSpitePvp.CanCast())
                 return false;
 
-            if(Core.Me.CurrentTarget.CurrentHealthPercent > MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent)
             {
                 if (MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget)
                 {
@@ -356,6 +356,6 @@ namespace Magitek.Logic.Machinist
             }
 
             return await Spells.MarksmansSpitePvp.Cast(Core.Me.CurrentTarget);
-        }        
+        }
     }
 }

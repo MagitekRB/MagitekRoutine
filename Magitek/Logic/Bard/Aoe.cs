@@ -1,13 +1,13 @@
 using ff14bot;
 using ff14bot.Managers;
-using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Bard;
 using Magitek.Utilities;
-using BardRoutine = Magitek.Utilities.Routines.Bard;
 using System.Linq;
 using System.Threading.Tasks;
+using BardRoutine = Magitek.Utilities.Routines.Bard;
+using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 
 namespace Magitek.Logic.Bard
 {
@@ -35,20 +35,20 @@ namespace Magitek.Logic.Bard
                         && (Core.Me.Auras.Any(x => x.Id == Auras.RagingStrikes && x.TimespanLeft.TotalMilliseconds < 7500)
                             || Core.Me.Auras.Any(x => x.Id == Auras.RadiantFinale && x.TimespanLeft.TotalMilliseconds < 7500)
                             || Core.Me.Auras.Any(x => x.Id == Auras.BattleVoice && x.TimespanLeft.TotalMilliseconds < 7500)))
-                            return await Spells.ApexArrow.Cast(Core.Me.CurrentTarget);
+                        return await Spells.ApexArrow.Cast(Core.Me.CurrentTarget);
                 }
 
                 //Force Apex in MB at 22sec if soulgauge >= 80
-                if (BardSong.MagesBallad.Equals(ActionResourceManager.Bard.ActiveSong) 
-                    && (ActionResourceManager.Bard.SoulVoice == 100 || ActionResourceManager.Bard.SoulVoice >= 80 && ActionResourceManager.Bard.Timer.TotalMilliseconds - Spells.HeavyShot.Cooldown.TotalMilliseconds - 21000 <= 1) )
+                if (BardSong.MagesBallad.Equals(ActionResourceManager.Bard.ActiveSong)
+                    && (ActionResourceManager.Bard.SoulVoice == 100 || ActionResourceManager.Bard.SoulVoice >= 80 && ActionResourceManager.Bard.Timer.TotalMilliseconds - Spells.HeavyShot.Cooldown.TotalMilliseconds - 21000 <= 1))
                 {
-                    if(await Spells.ApexArrow.Cast(Core.Me.CurrentTarget))
+                    if (await Spells.ApexArrow.Cast(Core.Me.CurrentTarget))
                     {
-                        Logger.WriteInfo($@"[ApexArrow] Execution with SoulVoice = {ActionResourceManager.Bard.SoulVoice} at {ActionResourceManager.Bard.Timer.TotalMilliseconds}"); 
+                        Logger.WriteInfo($@"[ApexArrow] Execution with SoulVoice = {ActionResourceManager.Bard.SoulVoice} at {ActionResourceManager.Bard.Timer.TotalMilliseconds}");
                         return true;
                     }
                 }
-                return false;                    
+                return false;
             }
 
             if (ActionResourceManager.Bard.SoulVoice < BardSettings.Instance.UseApexArrowWithAtLeastXSoulVoice)

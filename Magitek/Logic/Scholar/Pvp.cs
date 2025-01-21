@@ -1,12 +1,8 @@
 using ff14bot;
 using ff14bot.Managers;
-using ff14bot.Objects;
 using Magitek.Extensions;
-using Magitek.Gambits.Conditions;
-using Magitek.Models.Dancer;
 using Magitek.Models.Scholar;
 using Magitek.Utilities;
-using Magitek.Utilities.Managers;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -134,7 +130,7 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             if (!Core.Me.HasAura(Auras.PvpCatalyze))
-                 return false;
+                return false;
 
             if (!Core.Me.HasAura(Auras.PvpCatalyze, true, 14000))
                 return false;
@@ -207,7 +203,7 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
                 return false;
 
-            if (ScholarSettings.Instance.Pvp_DeploymentTacticsOnEnemy 
+            if (ScholarSettings.Instance.Pvp_DeploymentTacticsOnEnemy
                 && Spells.BiolysisPvp.Cooldown.TotalMilliseconds >= 2500)
                 return false;
 

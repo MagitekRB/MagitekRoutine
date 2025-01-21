@@ -10,8 +10,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Windows.Input;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace Magitek.ViewModels
 {

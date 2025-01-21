@@ -146,11 +146,11 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             if (!await UsedAdloquium())
-                 return false;
+                return false;
 
-           if (!await Spells.DeploymentTactics.Cast(Core.Me))
-                 return false;
-               
+            if (!await Spells.DeploymentTactics.Cast(Core.Me))
+                return false;
+
 
             ScholarSettings.Instance.ForceDeployAdloWithRecitation = false;
             TogglesManager.ResetToggles();
@@ -165,7 +165,7 @@ namespace Magitek.Logic.Scholar
             if (!await Spells.Recitation.Cast(Core.Me))
                 return false;
             if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
-                 return false;
+                return false;
             return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
         }
 
@@ -426,7 +426,7 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Accession)
                 return false;
 
-            if(!Core.Me.HasAura(Auras.Seraphism))
+            if (!Core.Me.HasAura(Auras.Seraphism))
                 return false;
 
             var needAccession = Group.CastableAlliesWithin15.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent) >= AoeNeedHealing;
@@ -439,7 +439,7 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             return await Spells.Accession.Heal(Core.Me);
- 
+
         }
 
         public static async Task<bool> Manifestation()

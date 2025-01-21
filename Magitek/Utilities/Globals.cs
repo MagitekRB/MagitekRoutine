@@ -12,7 +12,7 @@ namespace Magitek.Utilities
     {
         public static bool InParty => PartyManager.IsInParty;
         public static bool PartyInCombat => Core.Me.InCombat ||
-            (InParty && Group.RawPartyMembers.Any(ally => 
+            (InParty && Group.RawPartyMembers.Any(ally =>
                 ally.IsAlive && ally.InCombat
             ));
         public static bool InGcInstance => RaptureAtkUnitManager.Controls.Any(r => r.Name == "GcArmyOrder");
@@ -25,7 +25,8 @@ namespace Magitek.Utilities
         // to calculate what can be achieved under normal circumstances. 
         public static int AnimationLockMs
         {
-            get {
+            get
+            {
                 // a lower threshold should be safe to assume if the routine is going to wait for the game to release the lock
                 if (BaseSettings.Instance.DebugActionLockWait)
                     return 625;

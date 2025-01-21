@@ -1,14 +1,5 @@
 using ff14bot.Managers;
 using ff14bot.Objects;
-using System.Windows.Forms;
-using System;
-using Microsoft.CodeAnalysis.CSharp;
-using static Microsoft.CodeAnalysis.CSharp.DecisionDagBuilder;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Windows;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using System.Windows.Documents;
-using System.Reflection;
 
 namespace Magitek.Utilities
 {
@@ -1210,11 +1201,11 @@ namespace Magitek.Utilities
         public static readonly SpellData PiercingFangsPvp = DataManager.GetSpellData(39158);
         public static readonly SpellData SwiftskinsStingPvp = DataManager.GetSpellData(39160);
         public static readonly SpellData RavenousBitePvp = DataManager.GetSpellData(39163);
-        public static readonly SpellData SerpentsTailPvp = DataManager.GetSpellData(39183); 
-        public static readonly SpellData BloodcoilPvp = DataManager.GetSpellData(39166);        
-        public static readonly SpellData UncoiledFuryPvp = DataManager.GetSpellData(39168); 
-        public static readonly SpellData SnakeScalesPvp = DataManager.GetSpellData(39185); 
-        public static readonly SpellData RattlingCoilPvp = DataManager.GetSpellData(39189); 
+        public static readonly SpellData SerpentsTailPvp = DataManager.GetSpellData(39183);
+        public static readonly SpellData BloodcoilPvp = DataManager.GetSpellData(39166);
+        public static readonly SpellData UncoiledFuryPvp = DataManager.GetSpellData(39168);
+        public static readonly SpellData SnakeScalesPvp = DataManager.GetSpellData(39185);
+        public static readonly SpellData RattlingCoilPvp = DataManager.GetSpellData(39189);
         public static readonly SpellData WorldswallowerPvp = DataManager.GetSpellData(39190);
         public static readonly SpellData FirstGenerationPvp = DataManager.GetSpellData(39169);
         public static readonly SpellData SecondGenerationPvp = DataManager.GetSpellData(39170);

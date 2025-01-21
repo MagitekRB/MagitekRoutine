@@ -1,6 +1,5 @@
 using ff14bot.Enums;
 using ff14bot.Objects;
-using System.Collections.Generic;
 
 namespace Magitek.Utilities.Routines
 {

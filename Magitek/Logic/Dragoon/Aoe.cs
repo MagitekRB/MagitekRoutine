@@ -1,5 +1,4 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Dragoon;
 using Magitek.Utilities;
@@ -89,8 +88,8 @@ namespace Magitek.Logic.Dragoon
 
             return await Spells.Geirskogul.Cast(Core.Me.CurrentTarget);
         }
-        
-        
+
+
         public static async Task<bool> Nastrond()
         {
             if (!DragoonSettings.Instance.UseGeirskogul)
@@ -102,15 +101,15 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.Nastrond.IsKnownAndReady())
                 return false;
 
-            if (Spells.Geirskogul.IsKnown() && 
+            if (Spells.Geirskogul.IsKnown() &&
                     (
-                        (Core.Me.ClassLevel < 78 && Spells.Geirskogul.Cooldown.TotalMilliseconds < 10000) 
+                        (Core.Me.ClassLevel < 78 && Spells.Geirskogul.Cooldown.TotalMilliseconds < 10000)
                      || (Core.Me.ClassLevel >= 78 && Spells.Geirskogul.Cooldown.TotalMilliseconds == 0)
-                    
+
                     )
                )
                 return false;
-                        
+
             return await Spells.Nastrond.Cast(Core.Me.CurrentTarget);
         }
 

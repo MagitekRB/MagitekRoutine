@@ -1,15 +1,13 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
-using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Monk;
 using Magitek.Utilities;
-using System.Threading.Tasks;
 using System.Linq;
-using Auras = Magitek.Utilities.Auras;
+using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Monk;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Monk
 {
@@ -23,7 +21,7 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.HasAura(Auras.OpoOpoForm) && !Core.Me.HasAura(Auras.FormlessFist) && Core.Me.ClassLevel >= Spells.FormShift.LevelAcquired)
                 return false;
 
-            if(Core.Me.ClassLevel >= Spells.DragonKick.LevelAcquired && ActionResourceManager.Monk.OpoOpoFury == 0)
+            if (Core.Me.ClassLevel >= Spells.DragonKick.LevelAcquired && ActionResourceManager.Monk.OpoOpoFury == 0)
                 return false;
 
             return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
@@ -37,7 +35,7 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.HasAura(Auras.RaptorForm) && !Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
-            if(Core.Me.ClassLevel >= Spells.TwinSnakes.LevelAcquired && ActionResourceManager.Monk.RaptorFury == 0)
+            if (Core.Me.ClassLevel >= Spells.TwinSnakes.LevelAcquired && ActionResourceManager.Monk.RaptorFury == 0)
                 return false;
 
             return await Spells.TrueStrike.Cast(Core.Me.CurrentTarget);
@@ -151,7 +149,7 @@ namespace Magitek.Logic.Monk
                     else
                         return await Spells.SnapPunch.Cast(Core.Me.CurrentTarget);
                 }
-            } 
+            }
             else
             {
                 if (ActionResourceManager.Monk.MasterGaugeCount == 0)

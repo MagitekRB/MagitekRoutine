@@ -17,7 +17,8 @@ namespace Magitek.Logic.Astrologian
         {
             var drawnCards = CurrentCards;
 
-            foreach (var card in drawnCards)             {
+            foreach (var card in drawnCards)
+            {
                 if (card == AstrologianCard.None)
                     continue;
 
@@ -29,7 +30,7 @@ namespace Magitek.Logic.Astrologian
         public static async Task<bool> PlayCards()
         {
             var drawnCard = GetDrawnCard();
-            
+
             var cardDrawn = drawnCard != AstrologianCard.None;
 
             /*
@@ -53,7 +54,7 @@ namespace Magitek.Logic.Astrologian
             //    && !cardDrawn)
             //     if (await Spells.Draw.Cast(Core.Me))
             //       await Coroutine.Wait(700, () => GetDrawnCard() != AstrologianCard.None);
-                
+
             if (!cardDrawn)
                 return false;
 
@@ -66,7 +67,7 @@ namespace Magitek.Logic.Astrologian
 
             //if (await RedrawOrDrawAgain(drawnCard))
             //    return true;
-            
+
             if (Globals.InParty && Core.Me.InCombat && AstrologianSettings.Instance.Play)
             {
                 switch (drawnCard)
@@ -136,7 +137,7 @@ namespace Magitek.Logic.Astrologian
         private static GameObject MeleeDpsOrTank()
         {
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(GetWeight);
-            
+
             return ally.FirstOrDefault(Core.Me);
         }
 
@@ -210,13 +211,13 @@ namespace Magitek.Logic.Astrologian
 
                 case ClassJobType.Scholar:
                     return AstrologianSettings.Instance.SchCardWeight;
-                
+
                 case ClassJobType.Reaper:
                     return AstrologianSettings.Instance.RprCardWeight;
-                
+
                 case ClassJobType.Sage:
                     return AstrologianSettings.Instance.SgeCardWeight;
-                
+
                 case ClassJobType.Pictomancer:
                     return AstrologianSettings.Instance.PctCardWeight;
 

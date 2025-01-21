@@ -66,7 +66,7 @@ namespace Magitek.Logic.Samurai
 
                 if (Spells.KaeshiSetsugekka.IsKnown() && Casting.LastSpell != Spells.KaeshiSetsugekka && Casting.LastSpell != null)
                     return false;
-            } 
+            }
             else
             {
                 if (SamuraiSettings.Instance.UseAoe)

@@ -1,5 +1,4 @@
-﻿using Clio.Utilities;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
@@ -125,11 +124,11 @@ namespace Magitek.Utilities
                 return null;
 
             if (!smartAoeSetting)
-                return Core.Me.CurrentTarget == null ? null : (BattleCharacter) Core.Me.CurrentTarget;
+                return Core.Me.CurrentTarget == null ? null : (BattleCharacter)Core.Me.CurrentTarget;
 
             var bestTarget = Enemies.Where(x => x.WithinSpellRange(spell.Range))
                 .OrderBy(x => x.EnemiesNearby(spell.Radius).Count());
-            
+
             return bestTarget?.FirstOrDefault();
         }
     }

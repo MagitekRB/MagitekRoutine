@@ -1,5 +1,4 @@
 ﻿using ff14bot.Enums;
-using ff14bot.Helpers;
 using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;

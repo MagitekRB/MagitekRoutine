@@ -1,16 +1,13 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Roles;
 using Magitek.Logic.Samurai;
-using Magitek.Models.Account;
 using Magitek.Models.Samurai;
 using Magitek.Utilities;
 using Magitek.Utilities.CombatMessages;
-using SamuraiRoutine = Magitek.Utilities.Routines.Samurai;
-using System.Linq;
 using System.Threading.Tasks;
+using SamuraiRoutine = Magitek.Utilities.Routines.Samurai;
 
 namespace Magitek.Rotations
 {

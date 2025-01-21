@@ -1,15 +1,11 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
-using Magitek.Logic.Roles;
 using Magitek.Logic.Pictomancer;
-using Magitek.Models.Account;
+using Magitek.Logic.Roles;
 using Magitek.Models.Pictomancer;
 using Magitek.Utilities;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
-
 using PictomancerRoutine = Magitek.Utilities.Routines.Pictomancer;
 
 namespace Magitek.Rotations
@@ -45,7 +41,7 @@ namespace Magitek.Rotations
             return await Combat();
         }
         public static async Task<bool> Heal()
-        {            
+        {
             return false;
         }
 
@@ -56,7 +52,8 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack()) {
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            {
                 // Paint up the palettes during "downtime".
                 if (await Palette.PrePaintPalettes(false)) return true;
                 return false;
@@ -96,12 +93,12 @@ namespace Magitek.Rotations
             if (await Buff.SubtractivePalette()) return true;
 
             if (await Palette.StarPrism()) return true;
-            if (await Palette.RainbowDrip()) return true;    
+            if (await Palette.RainbowDrip()) return true;
             if (await Palette.HammerStamp()) return true;
 
             // inspiration is on a timer, need to consume those stacks first.
             // don't waste time painting more palettes
-            if (PictomancerSettings.Instance.PaletteDuringStarry 
+            if (PictomancerSettings.Instance.PaletteDuringStarry
                 || !Core.Me.HasAura(Auras.StarryMuse, true))
             {
                 if (await Palette.LandscapeMotif()) return true;

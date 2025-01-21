@@ -128,7 +128,7 @@ namespace Magitek.Logic.Scholar
 
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.SeraphismHealthPercent)
                 return false;
-            
+
             return await Spells.Seraphism.Cast(Core.Me);
 
             bool CanSeraphism(Character unit)
@@ -158,7 +158,7 @@ namespace Magitek.Logic.Scholar
             TogglesManager.ResetToggles();
             return true;
         }
-        
+
         public static async Task<bool> EmergencyTactics()
         {
             if (!ScholarSettings.Instance.EmergencyTactics)

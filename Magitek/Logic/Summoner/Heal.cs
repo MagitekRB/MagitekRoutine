@@ -23,10 +23,10 @@ namespace Magitek.Logic.Summoner
 
             if (Globals.InParty)
                 return false;
-            
+
             if (Core.Me.CurrentHealthPercent > SummonerSettings.Instance.PhysickHPThreshold)
                 return false;
-            
+
             return await Spells.SmnPhysick.Heal(Core.Me);
         }
 
@@ -153,7 +153,7 @@ namespace Magitek.Logic.Summoner
         {
             if (!SummonerSettings.Instance.RadiantAegis)
                 return false;
-            
+
             if (!Core.Me.InCombat)
                 return false;
 

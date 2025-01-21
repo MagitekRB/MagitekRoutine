@@ -1,11 +1,9 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Dragoon;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
-using DragoonRoutine = Magitek.Utilities.Routines.Dragoon;
 
 namespace Magitek.Logic.Dragoon
 {
@@ -69,7 +67,7 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.ChaoticSpringPvp.CanCast())
                 return false;
 
-            if(!DragoonSettings.Instance.Pvp_ChaoticSpring)
+            if (!DragoonSettings.Instance.Pvp_ChaoticSpring)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
@@ -115,7 +113,7 @@ namespace Magitek.Logic.Dragoon
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50 && Core.Me.HasAura(Auras.PvpLifeoftheDragon,true,2000))
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50 && Core.Me.HasAura(Auras.PvpLifeoftheDragon, true, 2000))
                 return false;
 
             return await Spells.NastrondPvp.Cast(Core.Me.CurrentTarget);

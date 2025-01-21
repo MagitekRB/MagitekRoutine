@@ -1,10 +1,8 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Dragoon;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Dragoon;
 using Magitek.Utilities;
 using Magitek.Utilities.CombatMessages;

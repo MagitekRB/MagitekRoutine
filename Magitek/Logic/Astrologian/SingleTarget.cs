@@ -44,7 +44,7 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DontDotIfMoreEnemies
                 && AstrologianSettings.Instance.DontDotIfMoreEnemiesThan > 0
                 && Combat.Enemies.Count > AstrologianSettings.Instance.DontDotIfMoreEnemiesThan)
-                            return false;
+                return false;
 
             return await Spells.Combust.Cast(combustTarget);
 
@@ -100,7 +100,7 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DontDotIfMoreEnemies
                 && AstrologianSettings.Instance.DontDotIfMoreEnemiesThan > 0
                 && Combat.Enemies.Count > AstrologianSettings.Instance.DontDotIfMoreEnemiesThan)
-                            return false;
+                return false;
 
             return await Spells.Combust.Cast(Core.Me.CurrentTarget);
         }

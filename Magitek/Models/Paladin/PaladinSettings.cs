@@ -1,5 +1,4 @@
-﻿using Magitek.Enumerations;
-using Magitek.Models.Roles;
+﻿using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;
@@ -40,7 +39,7 @@ namespace Magitek.Models.Paladin
         [Setting]
         [DefaultValue(true)]
         public bool UseAoe { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool UseEclipseCombo { get; set; }

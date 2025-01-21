@@ -1,17 +1,12 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
-using Magitek.Logic.Viper;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
+using Magitek.Logic.Viper;
 using Magitek.Models.Viper;
 using Magitek.Utilities;
 using Magitek.Utilities.CombatMessages;
-using ViperRoutine = Magitek.Utilities.Routines.Viper;
 using System.Threading.Tasks;
-using ff14bot.Enums;
-using System.Linq;
+using ViperRoutine = Magitek.Utilities.Routines.Viper;
 
 namespace Magitek.Rotations
 {
@@ -146,7 +141,7 @@ namespace Magitek.Rotations
                 new CombatMessageStrategy(300,
                                           "Fanksting Strike: Side of Enemy", "/Magitek;component/Resources/Images/General/ArrowSidesHighlighted.png",
                                           () => Core.Me.HasAura(Auras.FlankstungVenom) && (Casting.LastSpell == Spells.HunterSting || Casting.LastSpell == Spells.SwiftskinSting)
-            ) );
+            ));
 
             CombatMessageManager.RegisterMessageStrategy(
                new CombatMessageStrategy(300,
@@ -165,7 +160,7 @@ namespace Magitek.Rotations
                                          "Hindsbane Fang: Get behind Enemy", "/Magitek;component/Resources/Images/General/ArrowDownHighlighted.png",
                                          () => Core.Me.HasAura(Auras.HindsbaneVenom) && (Casting.LastSpell == Spells.HunterSting || Casting.LastSpell == Spells.SwiftskinSting)
            ));
-            
+
         }
     }
 }

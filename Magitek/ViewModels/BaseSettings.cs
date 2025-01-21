@@ -1,7 +1,6 @@
 ﻿using Clio.Utilities.Collections;
 using Magitek.Commands;
 using Magitek.Enumerations;
-using Magitek.Models.Account;
 using Magitek.Models.Astrologian;
 using Magitek.Models.Bard;
 using Magitek.Models.BlackMage;
@@ -14,21 +13,21 @@ using Magitek.Models.Machinist;
 using Magitek.Models.Monk;
 using Magitek.Models.Ninja;
 using Magitek.Models.Paladin;
+using Magitek.Models.Pictomancer;
 using Magitek.Models.Reaper;
 using Magitek.Models.RedMage;
 using Magitek.Models.Sage;
 using Magitek.Models.Samurai;
 using Magitek.Models.Scholar;
 using Magitek.Models.Summoner;
+using Magitek.Models.Viper;
 using Magitek.Models.Warrior;
 using Magitek.Models.WhiteMage;
-using Magitek.Models.Viper;
 using Magitek.Toggles;
 using Magitek.Utilities.Overlays;
 using Magitek.Views;
 using PropertyChanged;
 using System.Windows.Input;
-using Magitek.Models.Pictomancer;
 
 namespace Magitek.ViewModels
 {

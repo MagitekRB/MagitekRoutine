@@ -61,7 +61,7 @@ namespace Magitek.Rotations
             if (await Buff.Transpose()) return true;
 
             if (BlackMageSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
-            {                
+            {
                 //Umbral
                 if (await Aoe.Freeze()) return true;
                 if (await Aoe.Blizzard2()) return true;

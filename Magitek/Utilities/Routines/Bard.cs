@@ -1,11 +1,11 @@
 using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Managers;
-using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Bard;
 using System.Linq;
+using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 
 namespace Magitek.Utilities.Routines
 {
@@ -103,7 +103,7 @@ namespace Magitek.Utilities.Routines
 
             //From BRD
             if (Core.Me.HasAura(Auras.RagingStrikes))
-                dmgIncrease *= 1.15; 
+                dmgIncrease *= 1.15;
             if (Core.Me.HasAura(Auras.RadiantFinale))
                 dmgIncrease *= 1.06;
             if (Core.Me.HasAura(Auras.BattleVoice))
@@ -161,7 +161,7 @@ namespace Magitek.Utilities.Routines
 
             if (dmgIncrease >= (1 + (double)neededDmgIncrease / 100))
                 Logger.WriteInfo($@"[DamageIncrease] Calculated increased damage = {dmgIncrease} | Expected minimum Increased Damage = {1 + (double)neededDmgIncrease / 100}");
-            
+
             return dmgIncrease >= (1 + (double)neededDmgIncrease / 100);
         }
     }

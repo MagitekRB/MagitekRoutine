@@ -287,7 +287,7 @@ namespace Magitek.Utilities
 
             var now = DateTime.Now;
             var timeDiff = (now - state.LastPositionCheck).TotalSeconds;
-            
+
             // Update death time if newly dead
             if (character.CurrentHealth <= 0 && !state.DeathTime.HasValue)
             {

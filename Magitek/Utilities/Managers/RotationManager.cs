@@ -1,16 +1,15 @@
 ﻿using ff14bot;
 using ff14bot.Enums;
-using Magitek.Logic;
-using Magitek.Models.Account;
-using Magitek.Utilities.CombatMessages;
-using PropertyChanged;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Reflection;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic;
+using Magitek.Models.Account;
+using PropertyChanged;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Magitek.Utilities.Managers
 {
@@ -126,7 +125,7 @@ namespace Magitek.Utilities.Managers
 
             await Chocobo.HandleChocobo();
 
-            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Rest");            
+            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Rest");
         }
 
         public override async Task<bool> PreCombatBuff()
@@ -191,9 +190,9 @@ namespace Magitek.Utilities.Managers
 
             await Casting.CheckForSuccessfulCast();
 
-            if (await GambitLogic.Gambit()) 
+            if (await GambitLogic.Gambit())
                 return true;
-            if (await CustomOpenerLogic.Opener()) 
+            if (await CustomOpenerLogic.Opener())
                 return true;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Pull");
@@ -219,11 +218,11 @@ namespace Magitek.Utilities.Managers
             await Casting.CheckForSuccessfulCast();
             Casting.DoHealthChecks = false;
 
-            if (await GambitLogic.Gambit()) 
+            if (await GambitLogic.Gambit())
                 return true;
             // Heal is pulsed even when not in combat.
             // which allows openers to be checked when not in combat.
-            if (await CustomOpenerLogic.Opener()) 
+            if (await CustomOpenerLogic.Opener())
                 return true;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal");
@@ -269,7 +268,7 @@ namespace Magitek.Utilities.Managers
                 if (await SpellQueueLogic.SpellQueueMethod())
                     return true;
 
-            if (await GambitLogic.Gambit()) 
+            if (await GambitLogic.Gambit())
                 return true;
             if (await CustomOpenerLogic.Opener())
                 return true;

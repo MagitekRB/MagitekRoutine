@@ -20,9 +20,9 @@ using Magitek.Models.Sage;
 using Magitek.Models.Samurai;
 using Magitek.Models.Scholar;
 using Magitek.Models.Summoner;
+using Magitek.Models.Viper;
 using Magitek.Models.Warrior;
 using Magitek.Models.WhiteMage;
-using Magitek.Models.Viper;
 using Magitek.Toggles;
 using Magitek.Utilities;
 using Newtonsoft.Json;
@@ -97,7 +97,7 @@ namespace Magitek.ViewModels
                 Logger.Error($@"[Toggles] Failed to Remove Toggle [{settingsToggle.ToggleText}]");
         });
 
-        public ICommand MoveToggleUp=> new DelegateCommand<SettingsToggle>(settingsToggle =>
+        public ICommand MoveToggleUp => new DelegateCommand<SettingsToggle>(settingsToggle =>
         {
             if (settingsToggle == null)
                 return;

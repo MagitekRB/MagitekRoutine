@@ -84,7 +84,7 @@ namespace Magitek.Logic.Scholar
                 return !unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
             }
 
-            
+
         }
         public static bool CanBio(GameObject unit)
         {

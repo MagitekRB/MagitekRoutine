@@ -36,7 +36,7 @@ namespace Magitek.Logic.Paladin
             return true;
         }
 
-         public static async Task<bool> Rampart()
+        public static async Task<bool> Rampart()
         {
             if (!PaladinSettings.Instance.UseRampart)
                 return false;

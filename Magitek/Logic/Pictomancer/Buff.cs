@@ -1,15 +1,10 @@
 ﻿using Buddy.Coroutines;
 using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Pictomancer;
 using Magitek.Utilities;
-using Magitek.Utilities.Routines;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Magitek.Logic.Pictomancer
@@ -54,9 +49,9 @@ namespace Magitek.Logic.Pictomancer
             // intentionally don't wait for the grassa aura, it either happens as a automatic follow-on or it doesn't. 
             // tempera grassa has a 1.5 second cooldown before it can be cast, so we can't cast it immediately after coat.
             return await CommonFightLogic.FightLogic_PartyShield(
-                PictomancerSettings.Instance.FightLogicTemperaCoat, 
-                Spells.TemperaCoat, 
-                true, 
+                PictomancerSettings.Instance.FightLogicTemperaCoat,
+                Spells.TemperaCoat,
+                true,
                 new uint[] { Auras.TemperaCoat, Auras.TemperaGrassa }
                 );
         }
@@ -74,7 +69,7 @@ namespace Magitek.Logic.Pictomancer
 
             if (!Globals.InParty)
                 return false;
-               
+
             // intentionally don't wait for the grassa aura, it either happens or it doesn't. 
             return await Spells.TemperaGrassa.Cast(Core.Me);
         }
