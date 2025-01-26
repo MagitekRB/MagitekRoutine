@@ -21,10 +21,14 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // If we need to refresh stack timer, stop
-            if (StackTimer.TotalMilliseconds <= 5000)
+            if (StackTimer.TotalMilliseconds <= 5500)
                 return false;
 
             if (Casting.LastSpell == Spells.Xenoglossy)
+                return false;
+
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
                 return false;
 
             //If we don't have Xeno, Foul is single target
@@ -75,6 +79,10 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks != 3)
                 return false;
 
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
             // If our mana is lower than 2400
             if (Core.Me.CurrentMana < 2400 && Core.Me.CurrentMana != 0)
                 return await Spells.Despair.Cast(Core.Me.CurrentTarget);
@@ -87,20 +95,23 @@ namespace Magitek.Logic.BlackMage
             if (Paradox && StackTimer.TotalSeconds < 3)
                 return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
 
+            if (Paradox && MovementManager.IsMoving && StackTimer.TotalSeconds <= 5)
+                return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
+
             //Low level logic
-            if (Core.Me.ClassLevel < 35
+            if (Core.Me.ClassLevel < Spells.Fire3.LevelAcquired
                 && Core.Me.CurrentMana > 1600
                 && AstralStacks > 0)
                 return await Spells.Fire.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < 58
-                && Core.Me.ClassLevel >= 35)
+            if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired
+                && Core.Me.ClassLevel >= Spells.Fire3.LevelAcquired)
             {
                 if (Core.Me.CurrentMana > 5000
                     && Core.Me.HasAura(Auras.FireStarter))
                     return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
 
-                if (Core.Me.CurrentMana < 1600)
+                if (Core.Me.CurrentMana < 1600 && AstralStacks > 0)
                 {
                     return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
                 }
@@ -111,6 +122,10 @@ namespace Magitek.Logic.BlackMage
                 return false;
             }
 
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
             if (Core.Me.CurrentMana < 1600)
                 return false;
 
@@ -119,10 +134,10 @@ namespace Magitek.Logic.BlackMage
                 return false;
             //refresh astral fire at 5s
             if (!Paradox &&
-                StackTimer.TotalMilliseconds < 5000)
+                StackTimer.TotalMilliseconds < 5500)
                 return await Spells.Fire.Cast(Core.Me.CurrentTarget);
             //If we don't have despair, use fire 1 to dump mana
-            if (Core.Me.ClassLevel < 71 && Core.Me.CurrentMana < 2400)
+            if (Core.Me.ClassLevel < Spells.Despair.LevelAcquired && Core.Me.CurrentMana < 2400)
                 return await Spells.Fire.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -135,7 +150,11 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // If we need to refresh stack timer, stop
-            if (StackTimer.TotalMilliseconds <= 5000)
+            if (StackTimer.TotalMilliseconds <= 5500)
+                return false;
+
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
                 return false;
 
             // If we have 3 astral stacks and our mana is equal to or greater than 2400
@@ -159,9 +178,22 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpell == Spells.Blizzard3)
                 return false;
 
-            //Level 35-59 logic
-            if (Core.Me.ClassLevel >= 35
-                && Core.Me.ClassLevel <= 59)
+            //Don't waste firestarter if we are about to enter UI
+            if (Core.Me.CurrentMana < 2000
+                && Core.Me.HasAura(Auras.FireStarter))
+                return false;
+
+            //Keep from using firestarter early - wait for full mana
+            if (Core.Me.HasAura(Auras.FireStarter)
+                && Core.Me.CurrentMana != 10000)
+                return false;
+
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
+            //Level 35-57 logic - changed things so lets change the code
+            if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
             {
                 if (UmbralStacks == 3
                     && Core.Me.CurrentMana == 10000)
@@ -208,6 +240,10 @@ namespace Magitek.Logic.BlackMage
             if (Combat.CombatTotalTimeLeft <= BlackMageSettings.Instance.ThunderTimeTillDeathSeconds)
                 return false;
 
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
             // If the last spell we cast is triple cast, stop
             if (Casting.LastSpell == Spells.Triplecast)
                 return false;
@@ -250,9 +286,9 @@ namespace Magitek.Logic.BlackMage
                 return false;
             }
 
-            //Level 35-59 logic
-            if (Core.Me.ClassLevel >= 35
-                && Core.Me.ClassLevel <= 59)
+            //Level 35-57 logic
+            if (Core.Me.ClassLevel >= Spells.Fire3.LevelAcquired
+                && Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
             {
                 if (Casting.LastSpell != Spells.Thunder3
                         && Casting.LastSpell == Spells.Blizzard3
@@ -281,8 +317,12 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
                 return false;
 
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
             // If we need to refresh stack timer, stop
-            if (StackTimer.TotalMilliseconds <= 5000)
+            if (StackTimer.TotalMilliseconds <= 5500)
                 return false;
 
             // While in Umbral 
@@ -313,27 +353,31 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpell == Spells.Fire3)
                 return false;
 
-            //35-59 logic
-            if (Core.Me.ClassLevel >= 35
-               && Core.Me.ClassLevel <= 59)
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
+            //35-57 logic - idk when this changed but now bliz 4 is lvl 58 - just change it to level bliz 4 is aquired
+            //Removed initial level check as it is redundant
+            if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
             {
+                if (Core.Me.CurrentMana == 10000 && UmbralStacks > 0)
+                    return false;
+
                 if (AstralStacks > 0 && Core.Me.CurrentMana < 1600)
                     return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
+
             }
             // If we have no umbral or astral stacks, cast 
             if (AstralStacks <= 0 && UmbralStacks == 0)
                 return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
 
-            //Post 72 logic
-            if (Core.Me.ClassLevel > 71)
-            {
-                // If our mana is 0 then we have completed rotation with despair
-                if (AstralStacks > 0 && Core.Me.CurrentMana == 0)
-                    return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
-            }
+            //Post 72 logic - should no longer be needed as ice spells in AF are always free now
 
             // If our mana is below 1600 in AF then we have no more mana for fire spells
-            if (AstralStacks > 0 && Core.Me.CurrentMana < 1600)
+            if (AstralStacks > 0 && Core.Me.CurrentMana < 1600
+                && !await Despair()
+                && !await Aoe.FlareStar())
                 return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
 
             if (AstralStacks <= 1 && UmbralStacks <= 1)
@@ -351,18 +395,19 @@ namespace Magitek.Logic.BlackMage
                 return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
 
             //Low level logic
-            if (Core.Me.ClassLevel < 35)
+            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
             {
                 if (Casting.LastSpell == Spells.Transpose && AstralStacks > 0)
                     return false;
 
-                if (Core.Me.CurrentMana >= 9600 && UmbralStacks > 0)
-                    return await Spells.Transpose.Cast(Core.Me);
+                //Shouldn't need transpose check anymore 
+                //if (Core.Me.CurrentMana >= 9600 && UmbralStacks > 0)
+                //    return await Spells.Transpose.Cast(Core.Me);
 
                 if (Core.Me.CurrentMana < 1600 || (AstralStacks == 0 && UmbralStacks >= 0))
                     return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
 
-                if (Core.Me.CurrentMana < 9600 && AstralStacks == 0 && UmbralStacks > 0)
+                if (Core.Me.CurrentMana < 1000 && AstralStacks == 0 && UmbralStacks > 0)
                     return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
 
                 return false;
@@ -375,17 +420,15 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Paradox.LevelAcquired)
                 return false;
 
-            //if (!Core.Me.CurrentTarget.HasAura(Auras.Thunder3, true, 4500))
-            //    return false;
-
-            //if (!Spells.Paradox.IsReady())
-            //    return false;
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
 
             //Better check would be to look for the paradox marker
             if (!Paradox)
                 return false;
 
-            if (StackTimer.TotalMilliseconds < 5000)
+            if (StackTimer.TotalMilliseconds < 2000)
                 return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
 
             //Should be cast after bliz 4 to ensure we can get sharpcast off

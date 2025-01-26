@@ -106,6 +106,9 @@ namespace Magitek.Logic.Astrologian
             if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Oracle.Radius) < AstrologianSettings.Instance.OracleEnemies)
                 return false;
 
+            if (!Core.Me.HasAura(Auras.Divining, true))
+                return false;
+
             return await Spells.Oracle.Cast(Core.Me.CurrentTarget);
 
         }

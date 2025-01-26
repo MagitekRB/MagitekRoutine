@@ -28,17 +28,19 @@ namespace Magitek.Logic.RedMage
             if (!InAoeCombo())
             {
                 if (Core.Me.ClassLevel >= Spells.Embolden.LevelAcquired
-                    && Spells.Embolden.Cooldown.TotalSeconds <= 10)
+                    && Spells.Embolden.Cooldown.TotalSeconds <= 13)
                     return false;
 
                 if (Core.Me.EnemiesInCone(8) < RedMageSettings.Instance.AoeEnemies)
                     return false;
 
-                if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 60 || BlackMana < 60))
+                //Combo is now 50 black and white mana not 60
+                if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 50 || BlackMana < 50))
                     return false;
             }
 
-            if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 20 || BlackMana < 20))
+            //Updated to 50 white or black mana as this is now a legit combo
+            if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 50 || BlackMana < 50))
                 return false;
 
             if (ManaStacks() == 3)

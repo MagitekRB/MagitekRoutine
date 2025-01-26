@@ -129,22 +129,46 @@ namespace Magitek.Logic.Astrologian
 
         private static GameObject Tank()
         {
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank())).OrderBy(GetWeight);
+            //Get party size
+            int partySize = Group.CastableAlliesWithin30.Count();
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetWeight);
 
+            //If in light party, allow ally to have more than one card aura.
+            if (partySize <= 4)
+            {
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetWeight);
+                return extendedAlly.FirstOrDefault(Core.Me);
+            }
             return ally.FirstOrDefault(Core.Me);
         }
 
         private static GameObject MeleeDpsOrTank()
-        {
+        {            
+            //Get party size
+            int partySize = Group.CastableAlliesWithin30.Count();
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(GetWeight);
 
+            //If in light party, allow ally to have more than one card aura.
+            if (partySize <= 4)
+            {
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(GetWeight);
+                return extendedAlly.FirstOrDefault(Core.Me);
+            }
             return ally.FirstOrDefault(Core.Me);
         }
 
         private static GameObject RangedDpsOrHealer()
         {
+            //Get party size
+            int partySize = Group.CastableAlliesWithin30.Count();
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(GetWeight);
 
+            //If in light party, allow ally to have more than one card aura.
+            if (partySize <= 4)
+            {
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(GetWeight);
+                return extendedAlly.FirstOrDefault(Core.Me);
+            }
             return ally.FirstOrDefault(Core.Me);
         }
 

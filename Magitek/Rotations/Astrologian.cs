@@ -40,6 +40,9 @@ namespace Magitek.Rotations
             if (await Heals.Ascend()) return true;
             if (await Dispel.Execute()) return true;
 
+            if (await HealFightLogic.Aoe()) return true;
+            if (await HealFightLogic.Tankbuster()) return true;
+
             if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
             {
                 if (await Buff.Divination()) return true;

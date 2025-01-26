@@ -18,6 +18,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.DreadwyrmTrance)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.DreadwyrmTrance.LevelAcquired)
+                return false;
+
             if (!Spells.DreadwyrmTrance.IsKnownAndReady())
                 return false;
 
@@ -44,6 +47,9 @@ namespace Magitek.Logic.Summoner
             if (!Spells.LucidDreaming.IsKnownAndReady())
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.LucidDreaming.LevelAcquired)
+                return false;
+
             if (!SummonerSettings.Instance.LucidDreaming)
                 return false;
 
@@ -59,6 +65,12 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> Swiftcast()
         {
+            if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.Swiftcast.LevelAcquired)
+                return false;
+
             if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
             {
                 return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
@@ -69,6 +81,9 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> Aethercharge()
         {
+            if (Core.Me.ClassLevel < Spells.Aethercharge.LevelAcquired)
+                return false;
+
             if (await Pets.SummonPhoenix()) return true;
             if (await Pets.SummonBahamut()) return true;
 

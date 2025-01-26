@@ -146,6 +146,7 @@ namespace Magitek.Logic.RedMage
 
             if (Core.Me.ClassLevel >= 4 && (MovementManager.IsMoving || Core.Me.HasAura(Auras.Dualcast)))
                 return false;
+
             if (Core.Me.HasAura(Auras.Acceleration))
                 return false;
 

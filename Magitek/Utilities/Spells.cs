@@ -191,6 +191,7 @@ namespace Magitek.Utilities
         public static readonly SpellData Meteor = DataManager.GetSpellData(205);
         public static readonly SpellData HighThunder = DataManager.GetSpellData(36986);
         public static readonly SpellData HighThunderII = DataManager.GetSpellData(36987);
+        public static readonly SpellData Retrace = DataManager.GetSpellData(36988);
         #endregion
 
         // BRD

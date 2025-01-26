@@ -77,6 +77,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Fester)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.Fester.LevelAcquired)
+                return false;
+
             if (!Spells.Fester.IsKnownAndReady())
                 return false;
 
@@ -95,6 +98,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> EnergyDrain()
         {
             if (!SummonerSettings.Instance.EnergyDrain)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.EnergyDrain.LevelAcquired)
                 return false;
 
             if (!Spells.EnergyDrain.IsKnownAndReady())
@@ -120,6 +126,9 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.Enkindle.LevelAcquired)
+                return false;
+
             if (Core.Me.SummonedPet() == SmnPets.Bahamut) return await EnkindleBahamut();
             if (Core.Me.SummonedPet() == SmnPets.SolarBahamut) return await EnkindleSolarBahamut();
             if (Core.Me.SummonedPet() == SmnPets.Pheonix) return await EnkindlePhoenix();
@@ -130,6 +139,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> EnkindleBahamut()
         {
             if (!SummonerSettings.Instance.EnkindleBahamut)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.EnkindleBahamut.LevelAcquired)
                 return false;
 
             if (!Spells.EnkindleBahamut.IsKnownAndReady())
@@ -146,6 +158,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.EnkindleBahamut)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.EnkindleSolarBahamut.LevelAcquired)
+                return false;
+
             if (!Spells.EnkindleSolarBahamut.IsKnownAndReady())
                 return false;
 
@@ -158,6 +173,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> EnkindlePhoenix()
         {
             if (!SummonerSettings.Instance.EnkindlePhoenix)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.EnkindlePhoenix.LevelAcquired)
                 return false;
 
             if (!Spells.EnkindlePhoenix.IsKnownAndReady())

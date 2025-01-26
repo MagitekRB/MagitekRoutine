@@ -111,7 +111,7 @@ namespace Magitek.Models.RedMage
         public bool LucidDreaming { get; set; }
 
         [Setting]
-        [DefaultValue(60.0f)]
+        [DefaultValue(80.0f)]
         public float LucidDreamingManaPercent { get; set; }
 
         [Setting]

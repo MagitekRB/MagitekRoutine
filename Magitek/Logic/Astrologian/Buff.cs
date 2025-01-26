@@ -5,6 +5,7 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AstroUtils = Magitek.Utilities.Routines.Astrologian;
@@ -18,6 +19,15 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> Swiftcast()
         {
+            if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Lightspeed, true))
+                return false;
+
+            if (await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed))
+                return false;
+
             if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
             {
                 return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
@@ -37,6 +47,16 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (Core.Me.HasAura(Auras.Lightspeed, true))
+                return false;
+
+            if (Core.Me.HasAura(Auras.Swiftcast, true))
+                return false;
+
+            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
+                return false;
+
+            if (Spells.Lightspeed.Cooldown != TimeSpan.Zero
+                && Spells.Lightspeed.Charges == 0)
                 return false;
 
             if (!Core.Me.InCombat)

@@ -23,6 +23,9 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.AstralFlow.LevelAcquired)
+                return false;
+
             if (Core.Me.SummonedPet() == SmnPets.Bahamut) return await Deathflare();
             if (Core.Me.SummonedPet() == SmnPets.SolarBahamut) return await Sunflare();
             if (ArcResources.TranceTimer > 0 && Core.Me.SummonedPet() == SmnPets.Carbuncle) return await Deathflare();
@@ -38,6 +41,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> Deathflare()
         {
             if (!SummonerSettings.Instance.Deathflare)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.Deathflare.LevelAcquired)
                 return false;
 
             if (!Spells.Deathflare.IsKnownAndReady())
@@ -59,6 +65,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Deathflare)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.Sunflare.LevelAcquired)
+                return false;
+
             if (!Spells.Sunflare.IsKnownAndReady())
                 return false;
 
@@ -76,6 +85,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> Rekindle()
         {
             if (!SummonerSettings.Instance.Rekindle)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.Rekindle.LevelAcquired)
                 return false;
 
             if (!Spells.Rekindle.IsKnownAndReady())
@@ -96,6 +108,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> CrimsonCyclone()
         {
             if (!SummonerSettings.Instance.CrimsonCyclone)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.CrimsonCyclone.LevelAcquired)
                 return false;
 
             if (!Spells.CrimsonCyclone.IsKnownAndReady())
@@ -120,6 +135,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.CrimsonStrike)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.CrimsonStrike.LevelAcquired)
+                return false;
+
             //if (SmnResources.ActivePet != SmnResources.ActivePetType.Ifrit)
             //    return false;
 
@@ -131,7 +149,8 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.CurrentTarget == null)
                 return false;
 
-            if (!Core.Me.WithinSpellRange(Spells.CrimsonStrike.Range))
+            //Change from range check to check if castable - maybe this will work better?
+            if (!Spells.CrimsonStrike.IsKnownAndReadyAndCastableAtTarget())
                 return false;
 
             return await Spells.CrimsonStrike.Cast(Core.Me.CurrentTarget);
@@ -140,6 +159,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> MountainBuster()
         {
             if (!SummonerSettings.Instance.MountainBuster)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.MountainBuster.LevelAcquired)
                 return false;
 
             //if (!Spells.MountainBuster.IsKnownAndReady())
@@ -164,6 +186,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Slipstream)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.Slipstream.LevelAcquired)
+                return false;
+
             if (!Spells.Slipstream.IsKnownAndReady())
                 return false;
 
@@ -183,6 +208,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> EnergySiphon()
         {
             if (!SummonerSettings.Instance.EnergySiphon)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.EnergySiphon.LevelAcquired)
                 return false;
 
             if (!Spells.EnergySiphon.IsKnownAndReady())
@@ -210,6 +238,9 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> SearingFlash()
         {
+            if (Core.Me.ClassLevel < Spells.SearingFlash.LevelAcquired)
+                return false;
+
             if (!Spells.SearingFlash.IsKnownAndReady())
                 return false;
 
@@ -230,6 +261,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> Outburst()
         {
             if (!SummonerSettings.Instance.Outburst)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.Outburst.LevelAcquired)
                 return false;
 
             if (!Spells.Outburst.IsKnownAndReady())
@@ -280,6 +314,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Painflare)
                 return false;
 
+            if (Core.Me.ClassLevel < Spells.Painflare.LevelAcquired)
+                return false;
+
             if (!Spells.Painflare.IsKnownAndReady())
                 return false;
 
@@ -303,6 +340,9 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> Ruin4()
         {
             if (!SummonerSettings.Instance.Ruin4)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.Ruin4.LevelAcquired)
                 return false;
 
             if (!Spells.Ruin4.IsKnownAndReady())

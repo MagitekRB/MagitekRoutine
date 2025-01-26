@@ -616,6 +616,44 @@ namespace Magitek.Models.Astrologian
 
         #endregion
 
+        #region FightLogic
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicNeutralSect { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicEarthlyStar { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool EarthlyStarCenterParty { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicCollectiveUnconscious { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool CollectiveUnconsciousCenterParty { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicHoroscope { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicAspectedHelios { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicCelestialIntersection { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicExaltation { get; set; }
+        #endregion
+
         #region PVP
         [Setting]
         [DefaultValue(true)]

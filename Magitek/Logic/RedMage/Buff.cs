@@ -168,8 +168,10 @@ namespace Magitek.Logic.RedMage
                  || Core.Me.HasAura(Auras.Acceleration))
                 return false;
 
-            if (!RedMageSettings.Instance.SwiftcastVerthunderVeraero
-                && !RedMageSettings.Instance.SwiftcastScatter)
+            if (!RedMageSettings.Instance.SwiftcastScatter)
+                return false;
+
+            if (!RedMageSettings.Instance.SwiftcastVerthunderVeraero)
                 return false;
 
             return await Spells.Swiftcast.Cast(Core.Me.CurrentTarget);
