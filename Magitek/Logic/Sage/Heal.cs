@@ -106,7 +106,7 @@ namespace Magitek.Logic.Sage
             return false;
         }
 
-            public static async Task<bool> Diagnosis()
+        public static async Task<bool> Diagnosis()
         {
             if (!SageSettings.Instance.Diagnosis)
                 return false;
@@ -195,7 +195,7 @@ namespace Magitek.Logic.Sage
             return await Spells.EukrasianDiagnosis.HealAura(Core.Me, Auras.EukrasianDiagnosis);
         }
 
-            public static async Task<bool> ForceEukrasianDiagnosis()
+        public static async Task<bool> ForceEukrasianDiagnosis()
         {
 
             if (!SageSettings.Instance.ForceEukrasianDiagnosis)
@@ -206,8 +206,8 @@ namespace Magitek.Logic.Sage
 
             var target = Core.Me.CurrentTarget;
 
-            if (!await UseEukrasia(Spells.EukrasianDiagnosis.Id,targetObject: target))
-                 return false;
+            if (!await UseEukrasia(Spells.EukrasianDiagnosis.Id, targetObject: target))
+                return false;
 
             if (!await Spells.EukrasianDiagnosis.HealAura(target, Auras.EukrasianDiagnosis))
                 return false;
@@ -217,7 +217,7 @@ namespace Magitek.Logic.Sage
             return true;
         }
 
-            public static async Task<bool> Prognosis()
+        public static async Task<bool> Prognosis()
         {
             if (!SageSettings.Instance.Prognosis)
                 return false;
@@ -328,7 +328,7 @@ namespace Magitek.Logic.Sage
             var targets = Spells.PhysisII.IsKnown()
                 ? Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura))
                 : Group.CastableAlliesWithin15.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura));
-        
+
             if (targets.Count() < AoeNeedHealing)
                 return false;
 
@@ -791,9 +791,9 @@ namespace Magitek.Logic.Sage
             }
         }
 
-        
-            public static async Task<bool> Holos()
-            {
+
+        public static async Task<bool> Holos()
+        {
             if (!SageSettings.Instance.Holos)
                 return false;
 

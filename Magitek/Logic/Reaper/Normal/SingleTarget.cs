@@ -2,7 +2,6 @@ using ff14bot;
 using ff14bot.Managers;
 using Magitek.Enumerations;
 using Magitek.Extensions;
-using Magitek.Gambits.Conditions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Reaper;
 using Magitek.Utilities;
@@ -132,7 +131,8 @@ namespace Magitek.Logic.Reaper
             {
                 gibbetspell = Spells.ExecutionersGibbet;
                 gallowsspell = Spells.ExecutionersGallows;
-            } else
+            }
+            else
             {
                 gibbetspell = Spells.Gibbet;
                 gallowsspell = Spells.Gallows;

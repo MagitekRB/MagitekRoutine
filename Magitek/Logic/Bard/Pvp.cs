@@ -3,10 +3,10 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Bard;
-using Auras = Magitek.Utilities.Auras;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Bard
 {
@@ -15,13 +15,13 @@ namespace Magitek.Logic.Bard
         public static async Task<bool> PowerfulShot()
         {
 
-            if(!Spells.PowerfulShotPvp.CanCast())
+            if (!Spells.PowerfulShotPvp.CanCast())
                 return false;
 
             if (MovementManager.IsMoving)
                 return false;
 
-            if(Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())

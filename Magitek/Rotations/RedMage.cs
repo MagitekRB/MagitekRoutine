@@ -1,18 +1,16 @@
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.RedMage;
 using Magitek.Logic.Roles;
 using Magitek.Models.Account;
 using Magitek.Models.RedMage;
 using Magitek.Utilities;
-using RedMageRoutine = Magitek.Utilities.Routines.RedMage;
-using static Magitek.Logic.RedMage.Utility;
+using Magitek.Utilities.CombatMessages;
 using System.Linq;
 using System.Threading.Tasks;
-using Buddy.Coroutines;
-using Magitek.Utilities.CombatMessages;
+using static Magitek.Logic.RedMage.Utility;
+using RedMageRoutine = Magitek.Utilities.Routines.RedMage;
 
 namespace Magitek.Rotations
 {
@@ -30,7 +28,7 @@ namespace Magitek.Rotations
         }
 
         public static async Task<bool> PreCombatBuff()
-        { 
+        {
             return false;
         }
 
@@ -44,7 +42,7 @@ namespace Magitek.Rotations
 
                     if (Core.Me.ClassLevel < 2 || ShouldApproachForCombo())
                         Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach);
-                    
+
                     else Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
                 }
             }
@@ -114,7 +112,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.ScorchResolutionCombo()) return true;
             if (await SingleTarget.Verflare()) return true;
             if (await SingleTarget.Verholy()) return true;
-            if (await Aoe.Moulinet()) return true;      
+            if (await Aoe.Moulinet()) return true;
             if (await SingleTarget.Reprise()) return true;
             if (await SingleTarget.Redoublement()) return true;
             if (await SingleTarget.Zwerchhau()) return true;
@@ -124,16 +122,16 @@ namespace Magitek.Rotations
             if (await SingleTarget.ViceofThorns()) return true;
 
             if (await Aoe.GrandImpact()) return true;
-            
+
             //AoE
             if (RedMageSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(8).Count() >= RedMageSettings.Instance.AoeEnemies)
             {
-                
+
                 if (await Aoe.Impact()) return true;
                 if (await Aoe.Scatter()) return true;
                 if (await Aoe.Veraero2()) return true;
                 if (await Aoe.Verthunder2()) return true;
-                                               
+
             }
             //Single Target
             if (await SingleTarget.Verfire()) return true;
@@ -194,10 +192,10 @@ namespace Magitek.Rotations
 
                 CombatMessageManager.RegisterMessageStrategy(
                     new CombatMessageStrategy(300,
-                                              "Melee Combo Soon", 
+                                              "Melee Combo Soon",
                                               () => RedMageRoutine.WithinManaOf(6, 50) || Spells.Manafication.IsKnownAndReady()
-                ));                
+                ));
             }
-        } 
+        }
     }
 }

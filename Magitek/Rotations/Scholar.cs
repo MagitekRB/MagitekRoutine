@@ -1,16 +1,12 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
+using Magitek.Logic.Roles;
 using Magitek.Logic.Scholar;
 using Magitek.Models.Scholar;
 using Magitek.Utilities;
-using ScholarRoutine = Magitek.Utilities.Routines.Scholar;
 using System.Linq;
 using System.Threading.Tasks;
-using Magitek.Models.Account;
-using Magitek.Logic.Roles;
-using Magitek.Models.Sage;
+using ScholarRoutine = Magitek.Utilities.Routines.Scholar;
 
 namespace Magitek.Rotations
 {
@@ -196,7 +192,7 @@ namespace Magitek.Rotations
         {
             ScholarRoutine.RefreshVars();
 
-            if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;      
+            if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;
 
             if (await Pvp.ConsolationPvp()) return true;
             if (await Pvp.SummonSeraphPvp()) return true;

@@ -1,4 +1,3 @@
-using Buddy.Coroutines;
 using ff14bot;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;

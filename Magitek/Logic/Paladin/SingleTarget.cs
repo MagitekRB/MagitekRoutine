@@ -81,7 +81,7 @@ namespace Magitek.Logic.Paladin
 
             if (PaladinSettings.Instance.UseHolySpiritToPull && !Core.Me.InCombat)
                 return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
-    
+
             if (PaladinSettings.Instance.UseHolySpiritWhenOutOfMeleeRange)
             {
                 if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBlade.Range))
@@ -118,7 +118,7 @@ namespace Magitek.Logic.Paladin
                     && DivineMightAura != null && DivineMightAura.TimespanLeft.TotalMilliseconds >= (4 * PaladinRoutine.GCDTimeMilliseconds))
                     return false;
 
-                if (Spells.FightorFlight.IsReady((int) PaladinRoutine.GCDTimeMilliseconds)
+                if (Spells.FightorFlight.IsReady((int)PaladinRoutine.GCDTimeMilliseconds)
                     && DivineMightAura != null && DivineMightAura.TimespanLeft.TotalMilliseconds >= (3 * PaladinRoutine.GCDTimeMilliseconds))
                     return false;
             }
@@ -129,7 +129,7 @@ namespace Magitek.Logic.Paladin
         {
             if (!PaladinSettings.Instance.UseIntervene)
                 return false;
-            
+
             if (!Spells.Intervene.IsKnown())
                 return false;
 
@@ -163,7 +163,7 @@ namespace Magitek.Logic.Paladin
             if (!Core.Me.HasAura(Auras.FightOrFlight))
                 return false;
 
-            if (Spells.Imperator.IsKnown()) 
+            if (Spells.Imperator.IsKnown())
                 return await Spells.Imperator.Cast(Core.Me.CurrentTarget);
             else
                 return await Spells.Requiescat.Cast(Core.Me.CurrentTarget);
@@ -187,13 +187,13 @@ namespace Magitek.Logic.Paladin
                 Aura SepulchreAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.SepulchreReady && x.CasterId == Core.Player.ObjectId);
 
 
-                if (SupplicationAura != null 
-                    && Spells.FightorFlight.IsReady( ((int)PaladinRoutine.GCDTimeMilliseconds) * 2)
+                if (SupplicationAura != null
+                    && Spells.FightorFlight.IsReady(((int)PaladinRoutine.GCDTimeMilliseconds) * 2)
                     && SupplicationAura.TimespanLeft.TotalMilliseconds >= (4 * PaladinRoutine.GCDTimeMilliseconds))
                     return false;
-                
+
                 if (SepulchreAura != null
-                    && Spells.FightorFlight.IsReady( (int)PaladinRoutine.GCDTimeMilliseconds)
+                    && Spells.FightorFlight.IsReady((int)PaladinRoutine.GCDTimeMilliseconds)
                     && SepulchreAura.TimespanLeft.TotalMilliseconds >= (3 * PaladinRoutine.GCDTimeMilliseconds))
                     return false;
             }

@@ -1,15 +1,12 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Roles;
 using Magitek.Logic.Warrior;
-using Healing = Magitek.Logic.Warrior.Heal;
-using Magitek.Models.Account;
 using Magitek.Models.Warrior;
 using Magitek.Utilities;
-using WarriorRoutine = Magitek.Utilities.Routines.Warrior;
 using System.Threading.Tasks;
+using Healing = Magitek.Logic.Warrior.Heal;
+using WarriorRoutine = Magitek.Utilities.Routines.Warrior;
 
 namespace Magitek.Rotations
 {

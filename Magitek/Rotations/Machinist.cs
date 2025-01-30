@@ -1,16 +1,13 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Machinist;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Machinist;
 using Magitek.Utilities;
-using MachinistRoutine = Magitek.Utilities.Routines.Machinist;
 using System;
 using System.Threading.Tasks;
-using System.Linq;
+using MachinistRoutine = Magitek.Utilities.Routines.Machinist;
 
 namespace Magitek.Rotations
 {

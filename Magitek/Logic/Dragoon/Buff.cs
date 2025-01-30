@@ -1,14 +1,9 @@
 ﻿using ff14bot;
-using ff14bot.Enums;
 using ff14bot.Managers;
-using ff14bot.Objects;
-using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Dragoon;
-using Magitek.Toggles;
 using Magitek.Utilities;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -68,8 +63,8 @@ namespace Magitek.Logic.Dragoon
                 return false;
 
             //Life surge only for HeavensThrust / FangAndClaw for SingleTarget or DraconianFury / CoerthanTorment for AOE 
-            if (!Spells.FullThrust.IsKnown() 
-                ||                
+            if (!Spells.FullThrust.IsKnown()
+                ||
                 (Spells.FullThrust.IsKnown()
                     &&
                     (
@@ -95,7 +90,7 @@ namespace Magitek.Logic.Dragoon
                         ActionManager.LastSpell == Spells.DoomSpike
                     )
                 )
-                || 
+                ||
                 Core.Me.HasAura(Auras.DraconianFire, true)
             )
                 return await Spells.LifeSurge.Cast(Core.Me);

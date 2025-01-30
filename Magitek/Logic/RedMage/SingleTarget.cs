@@ -23,7 +23,7 @@ namespace Magitek.Logic.RedMage
 
             if (!RedMageSettings.Instance.UseMelee)
                 return false;
-                        
+
             if (Core.Me.HasAura(Auras.Swiftcast)
                 || Core.Me.HasAura(Auras.Dualcast)
                 || Core.Me.HasAura(Auras.Acceleration))
@@ -120,7 +120,7 @@ namespace Magitek.Logic.RedMage
 
             if (InComboEnder())
                 return false;
-            
+
             if (InAoeCombo())
                 return false;
 
@@ -146,6 +146,7 @@ namespace Magitek.Logic.RedMage
 
             if (Core.Me.ClassLevel >= 4 && (MovementManager.IsMoving || Core.Me.HasAura(Auras.Dualcast)))
                 return false;
+
             if (Core.Me.HasAura(Auras.Acceleration))
                 return false;
 
@@ -162,12 +163,13 @@ namespace Magitek.Logic.RedMage
             if (Core.Me.ClassLevel < 80)
                 return false;
 
-            if (Spells.Resolution.IsKnownAndReady() && RedMageRoutine.CanContinueComboAfter(Spells.Scorch)) { 
-               return await Spells.Resolution.Cast(Core.Me.CurrentTarget);
+            if (Spells.Resolution.IsKnownAndReady() && RedMageRoutine.CanContinueComboAfter(Spells.Scorch))
+            {
+                return await Spells.Resolution.Cast(Core.Me.CurrentTarget);
             }
 
             if (!Spells.Scorch.CanCast())
-                return false;            
+                return false;
 
             if (Casting.SpellCastHistory.Take(6).Any(s => s.Spell == Spells.Verholy)
                 || Casting.SpellCastHistory.Take(6).Any(s => s.Spell == Spells.Verflare))
@@ -191,7 +193,7 @@ namespace Magitek.Logic.RedMage
                 return false;
 
             if (Spells.Fleche.Cooldown != TimeSpan.Zero)
-                return false;        
+                return false;
 
             return await Spells.Fleche.Cast(Core.Me.CurrentTarget);
         }
@@ -261,7 +263,7 @@ namespace Magitek.Logic.RedMage
             return await Spells.ViceofThorns.Cast(Core.Me.CurrentTarget);
 
         }
-        
+
         public static async Task<bool> Verthunder()
         {
             if (Core.Me.ClassLevel < Spells.Verthunder.LevelAcquired)
@@ -310,7 +312,7 @@ namespace Magitek.Logic.RedMage
                     return false;
                 else if (Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.VerfireReady).TimespanLeft.TotalMilliseconds < Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.VerstoneReady).TimespanLeft.TotalMilliseconds)
                     return false;
-             
+
             if (InAoeCombo())
                 return false;
 

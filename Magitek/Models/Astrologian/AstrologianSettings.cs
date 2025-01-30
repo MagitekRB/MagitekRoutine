@@ -1,5 +1,4 @@
-﻿using Magitek.Enumerations;
-using Magitek.Models.Roles;
+﻿using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;
@@ -78,11 +77,11 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(20)]
         public int DoDamageIfTimeLeftLessThan { get; set; }
-        
+
         [Setting]
         [DefaultValue(false)]
         public bool SmartAoe { get; set; }
-        
+
         [Setting]
         [DefaultValue(false)]
         public bool AggroAst { get; set; }
@@ -122,11 +121,11 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(80.0f)]
         public float LucidDreamingManaPercent { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool Exaltation { get; set; }
-        
+
         [Setting]
         [DefaultValue(40f)]
         public float ExaltationHealthPercent { get; set; }
@@ -242,7 +241,7 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(75)]
         public float CelestialOppositionHealthPercent { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool DiurnalBenefic { get; set; }
@@ -386,39 +385,39 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(60)]
         public float GiantDominanceHealthPercent { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool Macrocosmos { get; set; }
-        
+
         [Setting]
         [DefaultValue(65f)]
         public float MacrocosmosHealthPercent { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool WeaveOGCDHeals { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool DontLetTheDRKDie { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool FightLogic_NeutralSectAspectedHelios { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool FightLogic_Exaltation { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool FightLogic_Macrocosmos { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool FightLogic_CollectiveUnconscious { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool FightLogic_Lightspeed { get; set; }
@@ -540,7 +539,7 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(4)]
         public int GnbCardWeight { get; set; }
-        
+
         #endregion
 
         #region heals
@@ -552,11 +551,11 @@ namespace Magitek.Models.Astrologian
         public int SchCardWeight { get; set; }
         [Setting]
         [DefaultValue(7)]
-        public int AstCardWeight { get; set; }        
+        public int AstCardWeight { get; set; }
         [Setting]
         [DefaultValue(8)]
         public int SgeCardWeight { get; set; }
-        
+
         #endregion
 
         #region meleeDPS
@@ -578,7 +577,7 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(14)]
         public int VprCardWeight { get; set; }
-         
+
         #endregion
 
         #region physicalRangeDPS
@@ -591,7 +590,7 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(17)]
         public int DncCardWeight { get; set; }
-        
+
 
         #endregion
 
@@ -615,6 +614,44 @@ namespace Magitek.Models.Astrologian
 
         #endregion
 
+        #endregion
+
+        #region FightLogic
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicNeutralSect { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicEarthlyStar { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool EarthlyStarCenterParty { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicCollectiveUnconscious { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool CollectiveUnconsciousCenterParty { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicHoroscope { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicAspectedHelios { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicCelestialIntersection { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicExaltation { get; set; }
         #endregion
 
         #region PVP

@@ -1,11 +1,7 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Roles;
 using Magitek.Logic.WhiteMage;
-using Magitek.Models.Account;
-using Magitek.Models.Summoner;
 using Magitek.Models.WhiteMage;
 using Magitek.Utilities;
 using System.Linq;
@@ -68,9 +64,9 @@ namespace Magitek.Rotations
             // Scalebound Extreme Rathalos
             if (Core.Me.HasAura(1495))
             {
-                if (await Dispel.Execute()) 
+                if (await Dispel.Execute())
                     return true;
-                
+
                 return false;
             }
 
@@ -170,11 +166,11 @@ namespace Magitek.Rotations
 
             if (!WhiteMageSettings.Instance.DoDamage)
                 return false;
-    
+
             if (await SingleTarget.Dots()) return true;
             if (await SingleTarget.DotMultipleTargets()) return true;
             if (await Buff.PresenceOfMind()) return true;
-            
+
             if (await SingleTarget.GlareIV()) return true;
             if (await SingleTarget.AfflatusMisery()) return true;
 

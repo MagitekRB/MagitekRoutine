@@ -1,14 +1,9 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
-using ff14bot.Managers;
-using ff14bot.Objects;
+﻿using ff14bot;
 using Magitek.Extensions;
 using Magitek.Models.Account;
 using Magitek.Models.Sage;
-using Magitek.Toggles;
 using Magitek.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Sage;

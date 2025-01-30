@@ -1,14 +1,11 @@
 ﻿using ff14bot;
+using ff14bot.Objects;
+using Magitek.Extensions;
+using Magitek.Models.Account;
 using Magitek.Models.WhiteMage;
 using Magitek.Utilities;
-using Magitek.Extensions;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Magitek.Models.Account;
-using ff14bot.Objects;
 using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.WhiteMage

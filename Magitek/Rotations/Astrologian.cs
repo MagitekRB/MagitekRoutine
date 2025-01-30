@@ -1,19 +1,11 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
-using ff14bot.Managers;
-using ff14bot.Objects;
+﻿using ff14bot;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Astrologian;
+using Magitek.Logic.Roles;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
 using System.Threading.Tasks;
-using Magitek.Models.Account;
-using System.Linq;
-using System.Windows.Controls;
 using static Magitek.Utilities.Routines.Astrologian;
-using Magitek.Logic.Roles;
-using Magitek.Models.WhiteMage;
 
 namespace Magitek.Rotations
 {
@@ -47,7 +39,10 @@ namespace Magitek.Rotations
 
             if (await Heals.Ascend()) return true;
             if (await Dispel.Execute()) return true;
-    
+
+            if (await HealFightLogic.Aoe()) return true;
+            if (await HealFightLogic.Tankbuster()) return true;
+
             if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
             {
                 if (await Buff.Divination()) return true;
@@ -77,12 +72,12 @@ namespace Magitek.Rotations
                     if (await Cards.Draw()) return true;
                     if (await Cards.PlayCards()) return true;
                 }
-                
+
                 if (await Heals.AspectedHelios()) return true;
                 if (await Heals.Helios()) return true;
                 if (await Heals.AspectedBenefic()) return true;
                 if (await Heals.Benefic2()) return true;
-                if (await Heals.Benefic()) return true;              
+                if (await Heals.Benefic()) return true;
                 if (await Heals.DontLetTheDrkDie()) return true;
             }
 
@@ -117,8 +112,8 @@ namespace Magitek.Rotations
 
         public static async Task<bool> CombatBuff()
         {
-            if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1)) 
-                
+            if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+
             {
                 if (await Buff.LucidDreaming()) return true;
                 if (await Buff.Lightspeed()) return true;
@@ -134,7 +129,7 @@ namespace Magitek.Rotations
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
-                if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))                
+                if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
                 {
                     if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;
@@ -151,7 +146,7 @@ namespace Magitek.Rotations
                     if (await Cards.Draw()) return true;
                     if (await Cards.PlayCards()) return true;
                 }
-                
+
             }
             return false;
         }

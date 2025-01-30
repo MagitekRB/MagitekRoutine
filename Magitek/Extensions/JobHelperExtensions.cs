@@ -11,16 +11,16 @@ using Magitek.Models.Machinist;
 using Magitek.Models.Monk;
 using Magitek.Models.Ninja;
 using Magitek.Models.Paladin;
+using Magitek.Models.Pictomancer;
 using Magitek.Models.Reaper;
 using Magitek.Models.RedMage;
 using Magitek.Models.Sage;
 using Magitek.Models.Samurai;
 using Magitek.Models.Scholar;
 using Magitek.Models.Summoner;
+using Magitek.Models.Viper;
 using Magitek.Models.Warrior;
 using Magitek.Models.WhiteMage;
-using Magitek.Models.Viper;
-using Magitek.Models.Pictomancer;
 
 namespace Magitek.Extensions
 {

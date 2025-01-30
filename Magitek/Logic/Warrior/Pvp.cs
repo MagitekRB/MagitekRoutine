@@ -85,7 +85,7 @@ namespace Magitek.Logic.Warrior
             if (!Spells.OrogenyPvp.CanCast())
                 return false;
 
-            if(Core.Me.CurrentTarget.HasAura(Auras.PvpOrogeny))
+            if (Core.Me.CurrentTarget.HasAura(Auras.PvpOrogeny))
                 return false;
 
             if (!WarriorSettings.Instance.Pvp_Orogeny)

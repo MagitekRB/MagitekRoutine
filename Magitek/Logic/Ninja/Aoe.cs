@@ -1,11 +1,10 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Models.Ninja;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Logic.Ninja

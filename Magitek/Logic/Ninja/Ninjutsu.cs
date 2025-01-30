@@ -123,7 +123,7 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             //Dont use TCJ when under the affect of kassatsu or in process building a ninjutsu
-            if ( ( Core.Me.HasMyAura(Auras.Kassatsu) || (Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell == Spells.Kassatsu) )
+            if ((Core.Me.HasMyAura(Auras.Kassatsu) || (Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell == Spells.Kassatsu))
                 || Core.Me.HasMyAura(Auras.Mudra) || NinjaRoutine.UsedMudras.Count() > 0)
                 return false;
 
@@ -270,7 +270,7 @@ namespace Magitek.Logic.Ninja
                 && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
                 return false;
 
-            if (Core.Me.ClassLevel >= 90 
+            if (Core.Me.ClassLevel >= 90
                 && Spells.Mug.Cooldown >= new TimeSpan(0, 1, 40))
                 return false;
 

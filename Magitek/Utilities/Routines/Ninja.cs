@@ -144,7 +144,7 @@ namespace Magitek.Utilities.Routines
             switch (UsedMudras.Count)
             {
                 case 0:
-                    break; 
+                    break;
 
                 case 1:
 
@@ -153,7 +153,7 @@ namespace Magitek.Utilities.Routines
 
                     if (!Core.Me.HasMyAura(Auras.TenChiJin) && !Core.Me.HasMyAura(Auras.Mudra) && new List<SpellData>() { Spells.Ten, Spells.Chi, Spells.Jin }.Contains(Casting.SpellCastHistory.First().Spell))
                         break;
-                                       
+
                     UsedMudras.Clear();
                     break;
 

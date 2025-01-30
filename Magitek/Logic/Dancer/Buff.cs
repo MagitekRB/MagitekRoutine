@@ -1,5 +1,4 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
@@ -92,13 +91,13 @@ namespace Magitek.Logic.Dancer
 
         public static async Task<bool> Improvisation()
         {
-            if (!DancerSettings.Instance.UseImprovisation)  
+            if (!DancerSettings.Instance.UseImprovisation)
                 return false;
 
             if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
                 return false;
 
-            if (ActionResourceManager.Dancer.Esprit > 80) 
+            if (ActionResourceManager.Dancer.Esprit > 80)
                 return false;
 
             return await Spells.Improvisation.Cast(Core.Me);
@@ -153,7 +152,7 @@ namespace Magitek.Logic.Dancer
             }
 
             if (allyList == null)
-                    return false;
+                return false;
 
             return await Spells.ClosedPosition.CastAura(allyList.FirstOrDefault(), Auras.DancePartner);
         }

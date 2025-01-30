@@ -4,10 +4,10 @@ using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Account;
 using Magitek.Models.Monk;
-using MonkRoutine = Magitek.Utilities.Routines.Monk;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using MonkRoutine = Magitek.Utilities.Routines.Monk;
 
 namespace Magitek.Logic.Monk
 {
@@ -32,10 +32,10 @@ namespace Magitek.Logic.Monk
 
             if (Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury == 0 && !Core.Me.HasAura(Auras.PerfectBalance))
             {
-                 if (Core.Me.CurrentTarget.IsBehind)
+                if (Core.Me.CurrentTarget.IsBehind)
                     return false;
 
-                 return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
+                return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
             }
 
             if (Core.Me.ClassLevel >= Spells.PouncingCoeurl.LevelAcquired && Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 0 && !Core.Me.HasAura(Auras.PerfectBalance))
@@ -65,7 +65,7 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.UseAutoMeditate)
                 return false;
 
-            if(!Core.Me.IsAlive)
+            if (!Core.Me.IsAlive)
                 return false;
 
             if (!Core.Me.InCombat && ActionResourceManager.Monk.ChakraCount < 5)
@@ -119,7 +119,7 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.UseRiddleOfFire)
                 return false;
 
-            if (Spells.PerfectBalance.IsKnownAndReady() && !Core.Me.HasAura(Auras.PerfectBalance,true))
+            if (Spells.PerfectBalance.IsKnownAndReady() && !Core.Me.HasAura(Auras.PerfectBalance, true))
                 return false;
 
             return await Spells.RiddleofFire.Cast(Core.Me);
@@ -187,7 +187,7 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.UseEarthReply)
                 return false;
 
-            if(!Core.Me.HasAura(Auras.EarthRumination,true))
+            if (!Core.Me.HasAura(Auras.EarthRumination, true))
                 return false;
 
             if (!ActionManager.CanCast(Spells.EarthReply.Id, Core.Me))

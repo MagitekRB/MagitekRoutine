@@ -1,15 +1,15 @@
 using ff14bot;
 using ff14bot.Managers;
-using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Bard;
 using Magitek.Utilities;
-using Auras = Magitek.Utilities.Auras;
-using BardRoutine = Magitek.Utilities.Routines.Bard;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
+using BardRoutine = Magitek.Utilities.Routines.Bard;
+using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 
 namespace Magitek.Logic.Bard
 {
@@ -51,7 +51,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.HasAura(Auras.RadiantEncore) && !Core.Me.HasAura(Auras.BattleVoice))
                 return false;
 
-            if(Spells.Barrage.Cooldown == TimeSpan.Zero)
+            if (Spells.Barrage.Cooldown == TimeSpan.Zero)
                 return false;
 
             return await Spells.RadiantEncore.Cast(Core.Me.CurrentTarget);
@@ -149,7 +149,8 @@ namespace Magitek.Logic.Bard
             if (BardSong.ArmysPaeon.Equals(ActionResourceManager.Bard.ActiveSong) && Spells.Bloodletter.Charges < 2.8f)
                 return false;
 
-            if (BardSong.WanderersMinuet.Equals(ActionResourceManager.Bard.ActiveSong)) {
+            if (BardSong.WanderersMinuet.Equals(ActionResourceManager.Bard.ActiveSong))
+            {
                 if (Spells.Bloodletter.Charges >= 3)
                     return await Spells.Bloodletter.Cast(Core.Me.CurrentTarget);
 
@@ -183,8 +184,8 @@ namespace Magitek.Logic.Bard
                     if (ActionResourceManager.Bard.Repertoire == 3)
                         return false;
 
-                    if (ActionResourceManager.Bard.Repertoire == 0 
-                        && BardRoutine.CurrentSongDuration() <= 1000 
+                    if (ActionResourceManager.Bard.Repertoire == 0
+                        && BardRoutine.CurrentSongDuration() <= 1000
                         && BardRoutine.NextTickUnderCurrentSong() <= 0)
                         return false;
 
@@ -213,7 +214,7 @@ namespace Magitek.Logic.Bard
 
             if (!Spells.Sidewinder.IsKnown())
                 return false;
-            
+
             if (BardSong.WanderersMinuet.Equals(ActionResourceManager.Bard.ActiveSong) && !BardRoutine.IsUnderBuffWindow)
                 return false;
 

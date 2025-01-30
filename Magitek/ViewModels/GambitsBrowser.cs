@@ -1,7 +1,6 @@
 ﻿using Clio.Utilities.Collections;
 using Magitek.Commands;
 using Magitek.Gambits;
-using Magitek.Models.Account;
 using Magitek.Utilities;
 using Magitek.Utilities.Managers;
 using Newtonsoft.Json;

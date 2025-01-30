@@ -2,7 +2,6 @@
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Gambits.Conditions;
-using Magitek.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

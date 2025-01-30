@@ -2,8 +2,6 @@
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
-using Magitek.Models.Dragoon;
-using System;
 using System.Collections.Generic;
 
 

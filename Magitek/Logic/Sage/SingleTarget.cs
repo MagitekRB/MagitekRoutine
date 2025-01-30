@@ -1,6 +1,4 @@
-﻿using Buddy.Coroutines;
-using ff14bot;
-using ff14bot.Managers;
+﻿using ff14bot;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Sage;
@@ -103,7 +101,7 @@ namespace Magitek.Logic.Sage
             // Don't multidot if we can use the aoe version of it. 
             // but multidot if we are out of range enough to use the aoe dot.
             if (Spells.EukrasianDyskrasia.IsKnown()
-                && Combat.Enemies.Count(r => r.Distance(Core.Me) <= (Spells.EukrasianDyskrasia.Radius*1.5) + r.CombatReach) >= SageSettings.Instance.AoEEnemies)
+                && Combat.Enemies.Count(r => r.Distance(Core.Me) <= (Spells.EukrasianDyskrasia.Radius * 1.5) + r.CombatReach) >= SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())

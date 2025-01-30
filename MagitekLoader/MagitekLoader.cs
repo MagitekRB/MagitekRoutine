@@ -1,17 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Net.Http;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using Clio.Utilities;
+﻿using Clio.Utilities;
 using ff14bot.AClasses;
 using ff14bot.Enums;
 using ff14bot.Helpers;
 using ff14bot.Managers;
 using ICSharpCode.SharpZipLib.Zip;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows.Media;
 using TreeSharp;
 using Action = TreeSharp.Action;
 
@@ -228,7 +227,7 @@ public class CombatRoutineLoader : CombatRoutine
         var stopwatch = Stopwatch.StartNew();
         var local = GetLocalVersion();
         _latestVersion = GetLatestVersion().Result;
-        var latest = _latestVersion;        
+        var latest = _latestVersion;
 
         if (local == latest || latest == null || (local != null && (local.StartsWith("pre-") || local.StartsWith("test-"))))
         {

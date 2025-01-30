@@ -3,9 +3,9 @@ using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Summoner;
 using Magitek.Utilities;
-using Auras = Magitek.Utilities.Auras;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Summoner
 {
@@ -14,13 +14,13 @@ namespace Magitek.Logic.Summoner
         public static async Task<bool> RuinIIIPvp()
         {
 
-            if(!Spells.RuinIIIPvp.CanCast())
+            if (!Spells.RuinIIIPvp.CanCast())
                 return false;
 
             if (MovementManager.IsMoving)
                 return false;
 
-            if(Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())

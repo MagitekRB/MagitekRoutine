@@ -1,11 +1,8 @@
 ﻿using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Managers;
-using ff14bot.Objects;
-using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Pictomancer;
-using Magitek.Views.UserControls.Bugs;
 using System;
 using System.Linq;
 
@@ -46,7 +43,7 @@ namespace Magitek.Utilities.Routines
             if (Spells.StarryMuse.Cooldown == TimeSpan.Zero)
                 return true;
 
-            if (Spells.StarryMuse.Cooldown > TimeSpan.Zero && 
+            if (Spells.StarryMuse.Cooldown > TimeSpan.Zero &&
                 Spells.StarryMuse.Cooldown.TotalMilliseconds <= msLeft)
                 return true;
 

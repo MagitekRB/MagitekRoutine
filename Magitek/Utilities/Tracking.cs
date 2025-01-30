@@ -44,7 +44,7 @@ namespace Magitek.Utilities
                 }
             }
             else
-            {                
+            {
                 // Track the attacker list combined with every aggro'd Fate Mob
                 var _fateEnemyCache = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(r =>
                     r.HasTarget
@@ -152,7 +152,7 @@ namespace Magitek.Utilities
             }
 
 
-            var removeDpsUnits = EnemyInfos.Where(r => !_enemyCache.Contains(r.Unit) || r.Unit == null || r.Unit.HasAnyAura(Auras.Invincibility) || r.Unit.IsDead ||  !r.Unit.IsValid).ToArray();
+            var removeDpsUnits = EnemyInfos.Where(r => !_enemyCache.Contains(r.Unit) || r.Unit == null || r.Unit.HasAnyAura(Auras.Invincibility) || r.Unit.IsDead || !r.Unit.IsValid).ToArray();
 
             foreach (var unit in removeDpsUnits)
             {

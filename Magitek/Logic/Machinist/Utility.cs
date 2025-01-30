@@ -16,7 +16,7 @@ namespace Magitek.Logic.Machinist
             if (!MachinistSettings.Instance.ForceTactician)
                 return false;
 
-            if (!await Spells.Tactician.Cast(Core.Me)) 
+            if (!await Spells.Tactician.Cast(Core.Me))
                 return false;
 
             MachinistSettings.Instance.ForceTactician = false;

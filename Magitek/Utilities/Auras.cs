@@ -1,8 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Operations;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Shapes;
+﻿using System.Collections.Generic;
 
 namespace Magitek.Utilities
 {
@@ -536,16 +532,16 @@ namespace Magitek.Utilities
             PvpMidare = 3203,
             PvpKuzushi = 3202,
             PvpKaiten = 3201,
-            PvpSoulsow = 2750, 
+            PvpSoulsow = 2750,
             PvpEnshrouded = 2863,
             PvpRipeforReaping = 2858,
             PvpImmortalSacrifice = 3204,
-            PvpNoMercy  = 3042,
+            PvpNoMercy = 3042,
             PvpRelentlessRush = 3052,
             PvpBlackblood = 3033,
             PvpDarkArts = 3034,
-            PvpSwordOath = 1991, 
-            PvpHallowedGround  = 1302,
+            PvpSwordOath = 1991,
+            PvpHallowedGround = 1302,
             PvpUndeadRedemption = 3039,
             PvpOnslaught = 3029,
             PvpOrogeny = 3256,

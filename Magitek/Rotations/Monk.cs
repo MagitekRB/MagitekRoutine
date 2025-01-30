@@ -1,16 +1,14 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Monk;
 using Magitek.Logic.Roles;
 using Magitek.Models.Account;
 using Magitek.Models.Monk;
 using Magitek.Utilities;
 using Magitek.Utilities.CombatMessages;
-using MonkRoutine = Magitek.Utilities.Routines.Monk;
-using System.Linq;
 using System.Threading.Tasks;
+using MonkRoutine = Magitek.Utilities.Routines.Monk;
 
 namespace Magitek.Rotations
 {
@@ -64,7 +62,7 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(MonkSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
 
             //Buff
-            if (await Buff.Meditate()) 
+            if (await Buff.Meditate())
                 return true;
 
             if (MonkRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.Bootshine.Cooldown.TotalMilliseconds > 750 + BaseSettings.Instance.UserLatencyOffset)
@@ -80,7 +78,7 @@ namespace Magitek.Rotations
                 if (await Buff.Brotherhood()) return true;
                 if (await Buff.RiddleOfWind()) return true;
                 if (await Buff.RiddleOfFire()) return true;
-      
+
                 if (await Aoe.Enlightenment()) return true;
                 if (await SingleTarget.TheForbiddenChakra()) return true;
                 if (await Buff.PerfectBalance()) return true;

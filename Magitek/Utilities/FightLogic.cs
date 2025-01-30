@@ -4,12 +4,12 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Utilities.Collections;
 using System;
-using Generic = System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Debug = Magitek.ViewModels.Debug;
 using DebugSettings = Magitek.Models.Account.BaseSettings;
+using Generic = System.Collections.Generic;
 
 namespace Magitek.Utilities
 {
@@ -145,7 +145,7 @@ namespace Magitek.Utilities
 
             var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
-            if (enemyLogic == null || enemy == null || encounter == null) 
+            if (enemyLogic == null || enemy == null || encounter == null)
                 return false;
 
             if (enemyLogic.BigAoes == null)
@@ -470,7 +470,7 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 3829,
                         Name = "Ascian Prime",
-                        TankBusters = new List<uint> { 31911 },                        
+                        TankBusters = new List<uint> { 31911 },
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
                             4361, //Shadowflare
@@ -6006,7 +6006,7 @@ namespace Magitek.Utilities
                         Id = 5, // Assuming an ID for Menphina
                         Name = "Menphina",
                         TankBusters = new List<uint>() {
-                            0x019C, 
+                            0x019C,
                         },
                         SharedTankBusters = new List<uint>() {
                             // No shared tank busters mentioned in the TypeScript data
@@ -6053,7 +6053,7 @@ namespace Magitek.Utilities
                         Id = 1, // Assuming an ID for Llymlaen
                         Name = "Llymlaen",
                         TankBusters = new List<uint>() {
-                            
+
                         },
                         SharedTankBusters = new List<uint>() {
                             // No shared tank busters mentioned in the TypeScript data
@@ -6629,7 +6629,7 @@ namespace Magitek.Utilities
                         Id = 12854,
                         Name = "Valigarmanda",
                         TankBusters = new List<uint>() {
-                            
+
                         },
                         SharedTankBusters = new List<uint>() {
                             0x8ffb, // ice talon

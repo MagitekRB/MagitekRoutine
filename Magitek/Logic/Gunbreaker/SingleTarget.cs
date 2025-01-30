@@ -58,7 +58,7 @@ namespace Magitek.Logic.Gunbreaker
             //if no target found, then check if current target is not pulled yet
             if (lightningShotTarget == null)
             {
-                lightningShotTarget = (BattleCharacter) Core.Me.CurrentTarget;
+                lightningShotTarget = (BattleCharacter)Core.Me.CurrentTarget;
 
                 if (!lightningShotTarget.ValidAttackUnit()
                     || !lightningShotTarget.NotInvulnerable()
@@ -128,7 +128,7 @@ namespace Magitek.Logic.Gunbreaker
 
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
-            
+
             if (Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveAmmoComboMseconds))
                 return false;
 
@@ -223,10 +223,11 @@ namespace Magitek.Logic.Gunbreaker
             }
 
             //Cast BurstStrike after No Mercy window
-            if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired) { 
+            if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)
+            {
                 if (!Core.Me.HasAura(Auras.NoMercy) && Cartridge >= 1 && Spells.NoMercy.Cooldown.TotalMilliseconds >= 35000 && !Spells.GnashingFang.IsKnownAndReady(6500) && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 95000)
                     return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
-             }
+            }
 
             if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.BrutalShell.Id)
                 return false;

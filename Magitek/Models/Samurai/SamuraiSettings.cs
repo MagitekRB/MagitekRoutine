@@ -39,13 +39,13 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(true)]
         public bool UseConeBasedAoECalculationMethod { get; set; }
-        
+
         #endregion
 
         #region utility
 
         [Setting]
-        [DefaultValue(true)] 
+        [DefaultValue(true)]
         public bool UseHagakure { get; set; }
 
         [Setting]
@@ -89,14 +89,14 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(true)]
         public bool UseEnpi { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool UseHissatsuGyoten { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseHissatsuGyotenOnlyWhenOutOfMeleeRange { get; set; }       
+        public bool UseHissatsuGyotenOnlyWhenOutOfMeleeRange { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -120,7 +120,7 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(true)]
         public bool UseShohaII { get; set; }
-        
+
         [Setting]
         [DefaultValue(true)]
         public bool UseAoe { get; set; }

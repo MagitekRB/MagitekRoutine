@@ -1,8 +1,8 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
+using Magitek.Extensions;
 using Magitek.Models.RedMage;
 using Magitek.Utilities;
-using Magitek.Extensions;
 using System.Linq;
 using static ff14bot.Managers.ActionResourceManager.RedMage;
 using RedMageRoutine = Magitek.Utilities.Routines.RedMage;
@@ -49,15 +49,15 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
-            if (!RedMageRoutine.CanContinueComboAfter(Spells.Moulinet) 
+            if (!RedMageRoutine.CanContinueComboAfter(Spells.Moulinet)
                 && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinet)
                 && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinetDeux)
-                && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinetTrois))            
+                && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinetTrois))
                 return false;
 
             if (ManaStacks() == 3)
                 return false;
-                        
+
             return true;
         }
 

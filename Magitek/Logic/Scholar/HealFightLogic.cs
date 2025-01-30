@@ -5,11 +5,8 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Account;
 using Magitek.Models.Scholar;
-using Magitek.Properties;
-using Magitek.Toggles;
 using Magitek.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -33,7 +30,7 @@ namespace Magitek.Logic.Scholar
 
                 if (await BigAoe())
                     return true;
-                if (await JustAoe())    
+                if (await JustAoe())
                     return true;
             }
 
@@ -45,12 +42,12 @@ namespace Magitek.Logic.Scholar
             if (!Spells.Succor.IsKnownAndReady())
                 return false;
 
-            var enemyTarget = (Character) Core.Me.CurrentTarget; 
+            var enemyTarget = (Character)Core.Me.CurrentTarget;
             var castTimeRemaining = (int)enemyTarget.SpellCastInfo.RemainingCastTime.TotalMilliseconds;
             if (enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime)
                 return false;
 
-            if (ScholarSettings.Instance.FightLogicAdloDeployBigAoe && 
+            if (ScholarSettings.Instance.FightLogicAdloDeployBigAoe &&
                 Spells.DeploymentTactics.IsKnownAndReady())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
@@ -77,9 +74,9 @@ namespace Magitek.Logic.Scholar
                 return await FightLogic.DoAndBuffer(Spells.DeploymentTactics.Cast(target));
             }
 
-            if (ScholarSettings.Instance.FightLogicRecitSuccorBigAoe && 
-                Spells.Recitation.IsKnownAndReady() && 
-                !Core.Me.HasAura(Auras.EmergencyTactics) && 
+            if (ScholarSettings.Instance.FightLogicRecitSuccorBigAoe &&
+                Spells.Recitation.IsKnownAndReady() &&
+                !Core.Me.HasAura(Auras.EmergencyTactics) &&
                 Group.CastableParty.Count(x => x.HasAura(Auras.Galvanize)) < AoeThreshold)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
@@ -91,7 +88,7 @@ namespace Magitek.Logic.Scholar
                 return await FightLogic.DoAndBuffer(Spells.Succor.Cast(Core.Me));
             }
 
-            if (ScholarSettings.Instance.FightLogicSoilBigAoe && 
+            if (ScholarSettings.Instance.FightLogicSoilBigAoe &&
                 Spells.SacredSoil.IsKnownAndReady() &&
                 Core.Me.HasAetherflow())
             {
@@ -127,11 +124,11 @@ namespace Magitek.Logic.Scholar
         private static async Task<bool> JustAoe()
         {
             if (!ScholarSettings.Instance.FightLogicSuccorAoe) return false;
-            
+
             if (!Spells.Succor.IsKnownAndReady())
                 return false;
 
-            var enemyTarget = (Character) Core.Me.CurrentTarget;
+            var enemyTarget = (Character)Core.Me.CurrentTarget;
             if (enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime)
             {
                 Logger.WriteInfo($"Enemy Target: ${enemyTarget}\t Remaining Cast Time ${enemyTarget.SpellCastInfo.RemainingCastTime}\t Succor Cast Time ${Spells.Succor.AdjustedCastTime}\t Logic Challenge: ${enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime}");
@@ -170,7 +167,7 @@ namespace Magitek.Logic.Scholar
                 {
                     await FightLogic.DoAndBuffer(
                         Spells.Adloquium.Heal(Group.CastableTanks.FirstOrDefault(r => !r.HasAura(Auras.Galvanize))));
-                    
+
                     await Coroutine.Yield();
                 }
 
@@ -178,11 +175,11 @@ namespace Magitek.Logic.Scholar
             }
 
 
-            if (ScholarSettings.Instance.FightLogicExcogTank && 
-                Spells.Excogitation.IsKnownAndReady() && 
-                Core.Me.HasAetherflow() && 
+            if (ScholarSettings.Instance.FightLogicExcogTank &&
+                Spells.Excogitation.IsKnownAndReady() &&
+                Core.Me.HasAetherflow() &&
                 !target.HasAura(Auras.Excogitation))
-                return await FightLogic.DoAndBuffer(Spells.Excogitation.CastAura(target,Auras.Excogitation));
+                return await FightLogic.DoAndBuffer(Spells.Excogitation.CastAura(target, Auras.Excogitation));
 
 
             if (ScholarSettings.Instance.FightLogicAdloTank &&
@@ -192,7 +189,7 @@ namespace Magitek.Logic.Scholar
 
             return false;
         }
-        
+
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? ScholarSettings.Instance.AoeNeedHealingFullParty : ScholarSettings.Instance.AoeNeedHealingLightParty;
 
     }

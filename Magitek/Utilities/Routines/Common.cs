@@ -1,11 +1,6 @@
 ﻿using ff14bot;
 using Magitek.Extensions;
 using Magitek.Models.Roles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magitek.Utilities.Routines
 {

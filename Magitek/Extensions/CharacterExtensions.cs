@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using ff14bot.Objects;
+﻿using ff14bot.Objects;
 using Magitek.Utilities.Managers;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -42,7 +41,7 @@ namespace Magitek.Extensions
 
         public static bool HasAnyDpsCardAura(this Character unit)
         {
-            return unit.HasAnyAura(new uint[] {    
+            return unit.HasAnyAura(new uint[] {
                                                     Auras.TheSpear,
                                                     Auras.TheBalance,
             });

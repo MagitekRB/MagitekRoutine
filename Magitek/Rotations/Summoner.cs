@@ -1,11 +1,8 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Roles;
 using Magitek.Logic.Summoner;
-using Magitek.Models.Account;
-using Magitek.Models.BlackMage;
 using Magitek.Models.Summoner;
 using Magitek.Utilities;
 using System.Threading.Tasks;
@@ -56,6 +53,12 @@ namespace Magitek.Rotations
         {
             if (Core.Me.CurrentTarget.HasAura(Auras.MagicResistance))
                 return false;
+
+            //Fix issue with level 1 SMN and/or PotD
+            if (Core.Me.ClassLevel == 1)
+            {
+                return await Spells.Ruin.Cast(Core.Me.CurrentTarget);
+            }
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;

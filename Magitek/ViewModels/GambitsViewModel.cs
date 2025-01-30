@@ -8,7 +8,6 @@ using Magitek.Gambits.Actions;
 using Magitek.Gambits.Conditions;
 using Magitek.Gambits.Helpers;
 using Magitek.Logic;
-using Magitek.Models.Account;
 using Magitek.Models.MagitekApi;
 using Magitek.Utilities;
 using Magitek.Utilities.Managers;

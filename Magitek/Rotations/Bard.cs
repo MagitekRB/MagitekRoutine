@@ -1,14 +1,11 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Logic;
 using Magitek.Logic.Bard;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Bard;
 using Magitek.Utilities;
-using BardRoutine = Magitek.Utilities.Routines.Bard;
 using System.Threading.Tasks;
+using BardRoutine = Magitek.Utilities.Routines.Bard;
 
 namespace Magitek.Rotations
 {

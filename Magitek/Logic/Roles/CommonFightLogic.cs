@@ -1,14 +1,10 @@
 ﻿using ff14bot;
 using ff14bot.Objects;
-using Magitek.Models.Roles;
 using Magitek.Extensions;
-using Magitek.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Magitek.Models.Account;
+using Magitek.Utilities;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Magitek.Logic.Roles
 {
@@ -113,9 +109,9 @@ namespace Magitek.Logic.Roles
             if (!FightLogic.ZoneHasFightLogic())
                 return false;
 
-            if (FightLogic.EnemyIsCastingAoe() 
-                || FightLogic.EnemyIsCastingBigAoe() 
-                || FightLogic.EnemyIsCastingTankBuster() != null 
+            if (FightLogic.EnemyIsCastingAoe()
+                || FightLogic.EnemyIsCastingBigAoe()
+                || FightLogic.EnemyIsCastingTankBuster() != null
                 || FightLogic.EnemyIsCastingSharedTankBuster() != null)
             {
                 if (targetAuraCheck && Core.Me.CurrentTarget.HasAura(aura))

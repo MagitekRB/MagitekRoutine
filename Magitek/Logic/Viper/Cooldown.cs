@@ -1,10 +1,7 @@
 using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
-using Magitek.Models.Machinist;
 using Magitek.Models.Viper;
 using Magitek.Utilities;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,7 +31,7 @@ namespace Magitek.Logic.Viper
             if (!ViperSettings.Instance.UseLastLash)
                 return false;
 
-            if(!Spells.LastLash.CanCast())
+            if (!Spells.LastLash.CanCast())
                 return false;
 
             return await Spells.LastLash.Cast(Core.Me);
@@ -56,7 +53,7 @@ namespace Magitek.Logic.Viper
             if (Core.Me.ClassLevel >= Spells.TwinfangThresh.LevelAcquired && Core.Me.HasAura(Auras.FellhunterVenom, true))
                 return await Spells.TwinfangThresh.Cast(Core.Me);
 
-            if (Core.Me.ClassLevel >= Spells.TwinbloodThresh.LevelAcquired &&  Core.Me.HasAura(Auras.FellskinVenom, true))
+            if (Core.Me.ClassLevel >= Spells.TwinbloodThresh.LevelAcquired && Core.Me.HasAura(Auras.FellskinVenom, true))
                 return await Spells.TwinbloodThresh.Cast(Core.Me);
 
             return false;

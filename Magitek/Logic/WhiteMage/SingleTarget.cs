@@ -62,8 +62,8 @@ namespace Magitek.Logic.WhiteMage
 
         public static async Task<bool> Dots()
         {
-            if (WhiteMageSettings.Instance.DontDotIfMoreEnemies 
-                && WhiteMageSettings.Instance.DontDotIfMoreEnemiesThan > 0 
+            if (WhiteMageSettings.Instance.DontDotIfMoreEnemies
+                && WhiteMageSettings.Instance.DontDotIfMoreEnemiesThan > 0
                 && Combat.Enemies.Count > WhiteMageSettings.Instance.DontDotIfMoreEnemiesThan)
                 return false;
 

@@ -2,10 +2,8 @@ using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
-using Magitek.Models.Account;
 using Magitek.Models.Machinist;
 using Magitek.Utilities;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,13 +68,14 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.LateWeaveWildfire)
             {
                 if (MachinistSettings.Instance.DoubleHyperchargedWildfire)
-                    if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 7000 
+                    if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 7000
                         && ActionResourceManager.Machinist.Heat < 100)
                         return false;
-                else
+                    else
                     if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
                         return false;
-            } else
+            }
+            else
             {
                 if (Spells.Wildfire.IsKnownAndReady())
                     return false;
@@ -99,7 +98,7 @@ namespace Magitek.Logic.Machinist
             }
 
             if (MachinistSettings.Instance.DoubleHyperchargedWildfire
-                && ActionResourceManager.Machinist.Heat < 100 
+                && ActionResourceManager.Machinist.Heat < 100
                 && Spells.Wildfire.Cooldown.TotalMilliseconds < 40000
                 && !Core.Me.HasAura(Auras.WildfireBuff, true)
                 && Spells.FullMetalField.IsKnown()
@@ -138,7 +137,8 @@ namespace Magitek.Logic.Machinist
 
                 if (!MachinistRoutine.GlobalCooldown.IsLateWeaveWindow())
                     return false;
-            } else
+            }
+            else
             {
                 if (!Core.Me.HasAura(Auras.Hypercharged, true) && ActionResourceManager.Machinist.Heat < 50 && ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                     return false;

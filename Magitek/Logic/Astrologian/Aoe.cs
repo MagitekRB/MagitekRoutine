@@ -1,5 +1,4 @@
 using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
@@ -17,10 +16,10 @@ namespace Magitek.Logic.Astrologian
 
             if (!Core.Me.InCombat)
                 return false;
-            
+
             if (Core.Me.CurrentTarget.IsBoss() || Combat.Enemies.Count() > 4)
 
-            if (await AggroLightSpeed()) return true;
+                if (await AggroLightSpeed()) return true;
             if (await AggroEarthlyStar()) return true;
             return await AggroMacrocosmos();
         }
@@ -41,12 +40,12 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.EarthlyStar.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAnyAura(new uint[] {Auras.EarthlyDominance,Auras.GiantDominance}))
+            if (Core.Me.HasAnyAura(new uint[] { Auras.EarthlyDominance, Auras.GiantDominance }))
                 return false;
-                
-            
+
+
             if (!await Spells.EarthlyStar.Cast(Core.Me.CurrentTarget)) return false;
-            
+
             Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
             return true;
         }
@@ -71,10 +70,10 @@ namespace Magitek.Logic.Astrologian
             var target = Combat.SmartAoeTarget(Spells.Gravity, AstrologianSettings.Instance.SmartAoe);
             if (target == null)
                 return false;
-            
+
             if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Gravity.Radius) < AstrologianSettings.Instance.GravityEnemies)
                 return false;
-            
+
             return await Spells.Gravity.Cast(target);
         }
 
@@ -101,10 +100,13 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Oracle)
                 return false;
 
-            if(!Spells.Oracle.IsKnownAndReady())
+            if (!Spells.Oracle.IsKnownAndReady())
                 return false;
 
             if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Oracle.Radius) < AstrologianSettings.Instance.OracleEnemies)
+                return false;
+
+            if (!Core.Me.HasAura(Auras.Divining, true))
                 return false;
 
             return await Spells.Oracle.Cast(Core.Me.CurrentTarget);

@@ -1,12 +1,10 @@
 using ff14bot;
-using ff14bot.Managers;
-using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Viper;
-using ViperRoutine = Magitek.Utilities.Routines.Viper;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using ViperRoutine = Magitek.Utilities.Routines.Viper;
 
 namespace Magitek.Logic.Viper
 {

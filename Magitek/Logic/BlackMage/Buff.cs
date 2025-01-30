@@ -39,11 +39,16 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // Why cast after bliz 3? Should only be used in AF
-            if (UmbralHearts == 3)
+            if (UmbralHearts > 0)
             {
-                if (Casting.LastSpell == Spells.Fire3
-                    || Casting.LastSpell == Spells.HighFireII)
+                if (Casting.LastSpell == Spells.Fire3)
                     return await Spells.Triplecast.Cast(Core.Me);
+
+                if (Casting.LastSpell == Spells.Fire2)
+                    return await Spells.Triplecast.Cast(Core.Me);
+
+                if (Casting.LastSpell == Spells.HighFireII)
+                    return await Spells.Triplecast.Cast(Core.Me);   
 
                 return false;
             }
@@ -105,7 +110,32 @@ namespace Magitek.Logic.BlackMage
 
             return false;
         }
+        public static async Task<bool> Retrace()
+        {
+            if (Core.Me.ClassLevel < Spells.Retrace.LevelAcquired)
+                return false;
 
+            if (Spells.Retrace.Cooldown != TimeSpan.Zero)
+                return false;
+
+            if (MovementManager.IsMoving)
+                return false;
+
+            if (Core.Me.HasAura(Auras.LeyLines))
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Spells.Retrace.IsKnownAndReady())
+                return false;
+
+            if (Casting.SpellCastHistory.Count() > 0
+                && Casting.SpellCastHistory.Take(10).Any(s => s.Spell == Spells.LeyLines))
+                return await Spells.LeyLines.Masked().Cast(Core.Me);
+
+            return false;
+        }
         public static async Task<bool> UmbralSoul()
         {
             if (Core.Me.ClassLevel < Spells.UmbralSoul.LevelAcquired)
@@ -118,15 +148,17 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks == 0)
                 return false;
 
-            if (UmbralStacks == 3) 
-                return false;
-
             if (Core.Me.CurrentTarget != null)
                 return false;
 
             if (!Core.Me.InCombat
                 && UmbralStacks > 0
                 && StackTimer.TotalMilliseconds != 15000)
+                return await Spells.UmbralSoul.Cast(Core.Me);
+
+            //Try and not get stuck at 2 stacks
+            if (UmbralStacks < 3
+                && UmbralStacks > 1)
                 return await Spells.UmbralSoul.Cast(Core.Me);
 
             if (Core.Me.InCombat
@@ -145,19 +177,6 @@ namespace Magitek.Logic.BlackMage
 
             if (Spells.ManaFont.Cooldown != TimeSpan.Zero)
                 return false;
-            
-            //Moved this up as it should go off regardless of toggle
-            //Swapped mana check to be first as this was going off before we had 0 mana
-            if (Core.Me.CurrentMana == 0
-                && (Casting.LastSpell == Spells.Flare
-                || Casting.LastSpell == Spells.Foul))
-                //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs                
-            {
-                Logger.WriteInfo($@"[Debug] If we get to this point we should have cast flare and have 0 mana - actual last spell is {Casting.LastSpell} and we have {Core.Me.CurrentMana} mana.");
-
-                return await Spells.ManaFont.Cast(Core.Me);
-
-            }
 
             if (!BlackMageSettings.Instance.ConvertAfterFire3)
                 return false;
@@ -169,6 +188,20 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.CurrentMana >= 7000)
                 return false;
 
+            //Moved this up as it should go off regardless of toggle
+            //Swapped mana check to be first as this was going off before we had 0 mana
+            if (Core.Me.CurrentMana == 0
+                && (Casting.LastSpell == Spells.Flare
+                || Casting.LastSpell == Spells.Foul))
+            //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs                
+            {
+                Logger.WriteInfo($@"[Debug] If we get to this point we should have cast flare and have 0 mana - actual last spell is {Casting.LastSpell} and we have {Core.Me.CurrentMana} mana.");
+
+                return await Spells.ManaFont.Cast(Core.Me);
+
+            }
+
+
             Logger.WriteInfo($@"[Debug] If we get to this point we should have less than 7000 mana - actual current mana is {Core.Me.CurrentMana}.");
 
             if (Core.Me.CurrentMana == 0
@@ -178,7 +211,7 @@ namespace Magitek.Logic.BlackMage
                 Logger.WriteInfo($@"[Debug] If we get to this point we should have cast xeno or despair - actual last spell is {Casting.LastSpell}.");
 
                 return await Spells.ManaFont.Cast(Core.Me);
-            }   
+            }
             if (Casting.LastSpell == Spells.Fire3
                 //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs
                 && BlackMageSettings.Instance.ConvertAfterFire3
@@ -199,10 +232,14 @@ namespace Magitek.Logic.BlackMage
 
             if (Spells.Transpose.Cooldown != TimeSpan.Zero)
                 return false;
-            
+
+            if (AstralStacks == 0
+                && UmbralStacks == 0)
+                return false;
+
             if (!Core.Me.InCombat
                 && AstralStacks > 0
-                && StackTimer.TotalMilliseconds < 5000)
+                && StackTimer.TotalMilliseconds < 5500)
                 return await Spells.Transpose.Cast(Core.Me);
 
             //Try to maintain AF/UI in combat if its about to drop
@@ -251,10 +288,10 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpell != Spells.Flare)
                 return false;
 
-            var etherItem = InventoryManager.FilledSlots.FirstOrDefault(s => s.RawItemId == Ether 
-            || s.RawItemId == HiEther 
-            || s.RawItemId == XEther 
-            || s.RawItemId == MegaEther 
+            var etherItem = InventoryManager.FilledSlots.FirstOrDefault(s => s.RawItemId == Ether
+            || s.RawItemId == HiEther
+            || s.RawItemId == XEther
+            || s.RawItemId == MegaEther
             || s.RawItemId == SuperEther);
 
             while (etherItem.CanUse())

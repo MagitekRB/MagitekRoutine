@@ -21,7 +21,7 @@ namespace Magitek.Utilities
             if (!potionItem.CanUse(Core.Me))
                 return false;
 
-            while(potionItem.CanUse())
+            while (potionItem.CanUse())
             {
                 Logger.WriteInfo($@"Use potion : {potionItem.Name}");
                 potionItem.UseItem(Core.Me);

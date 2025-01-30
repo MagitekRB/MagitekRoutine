@@ -1,9 +1,9 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
-using System;
 using System.Windows.Controls;
-using System.Collections.Generic;
 
 namespace Magitek.Views.UserControls.Bugs
 {

@@ -56,8 +56,8 @@ namespace Magitek.Logic.Gunbreaker
         public static async Task<bool> FatedCircle()
         {
             if (!GunbreakerSettings.Instance.UseAoe)
-                return false; 
-            
+                return false;
+
             if (!GunbreakerSettings.Instance.UseFatedCircle)
                 return false;
 
@@ -79,21 +79,21 @@ namespace Magitek.Logic.Gunbreaker
             }
 
             //Delay if nomercy ready soon
-         //   if (Spells.NoMercy.IsKnownAndReady(16000) && Cartridge < GunbreakerRoutine.MaxCartridge - 1)
-         //       return false;
-         //   if (Spells.NoMercy.IsKnownAndReady(8000) && Cartridge < GunbreakerRoutine.MaxCartridge)
-         //       return false;
+            //   if (Spells.NoMercy.IsKnownAndReady(16000) && Cartridge < GunbreakerRoutine.MaxCartridge - 1)
+            //       return false;
+            //   if (Spells.NoMercy.IsKnownAndReady(8000) && Cartridge < GunbreakerRoutine.MaxCartridge)
+            //       return false;
 
             //Delay if GnashingFang ready soon and there are less than GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies
-         //    if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
-         //   {
-         //       if (Spells.GnashingFang.IsKnownAndReady(8000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForGnashingFang)
-         //           return false;
-         //   }
+            //    if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+            //   {
+            //       if (Spells.GnashingFang.IsKnownAndReady(8000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForGnashingFang)
+            //           return false;
+            //   }
 
             //Delay if DoubleDown ready soon
-         //   if (Spells.DoubleDown.IsKnownAndReady(4000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForDoubleDown)
-         //       return false;
+            //   if (Spells.DoubleDown.IsKnownAndReady(4000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForDoubleDown)
+            //       return false;
 
             if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.DemonSlice.Id)
                 return false;

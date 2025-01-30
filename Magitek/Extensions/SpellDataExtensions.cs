@@ -45,7 +45,7 @@ namespace Magitek.Extensions
 
             if (target.Distance() > spell.Range)
                 return false;
-            
+
             if (ActionManager.GetPvPComboCurrentActionId(pvpComboId) != spell.Id)
                 return false;
 
@@ -266,7 +266,7 @@ namespace Magitek.Extensions
             Casting.AuraTarget = auraTarget;
             Casting.UseRefreshTime = useRefreshTime;
             Casting.RefreshTime = refreshTime;
-            Casting.CastingTime.Restart();            
+            Casting.CastingTime.Restart();
 
             if (callback != null)
                 await callback();
@@ -314,7 +314,7 @@ namespace Magitek.Extensions
             Casting.DoHealthChecks = healthChecks;
             Casting.RefreshTime = refreshTime;
             Casting.CastingTime.Restart();
-            Casting.Callback = callback;            
+            Casting.Callback = callback;
 
             if (!BaseSettings.Instance.DebugPlayerCasting)
                 return true;

@@ -44,7 +44,7 @@ namespace Magitek.Logic.Paladin
 
             if (!PaladinRoutine.GlobalCooldown.CanDoubleWeave() || !PaladinRoutine.GlobalCooldown.CanWeave(2))
                 return false;
- 
+
             return await Spells.FightorFlight.Cast(Core.Me);
 
         }

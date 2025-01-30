@@ -1,7 +1,5 @@
 ﻿using ff14bot;
 using ff14bot.Enums;
-using ff14bot.Managers;
-using ff14bot.Objects;
 using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Reaper;

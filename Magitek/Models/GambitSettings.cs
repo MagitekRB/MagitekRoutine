@@ -1,5 +1,4 @@
-﻿using ff14bot.Helpers;
-using Magitek.Gambits;
+﻿using Magitek.Gambits;
 using System.Collections.Generic;
 using System.Configuration;
 

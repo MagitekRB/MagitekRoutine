@@ -3,8 +3,6 @@ using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
-using Magitek.Models.Machinist;
-using System;
 using System.Collections.Generic;
 
 

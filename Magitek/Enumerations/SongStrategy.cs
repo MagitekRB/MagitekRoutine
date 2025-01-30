@@ -1,8 +1,6 @@
-﻿using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
-using Magitek.Extensions;
-using Magitek.Models.Bard;
-using Magitek.Utilities;
+﻿using Magitek.Models.Bard;
 using System.Collections.Generic;
+using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 
 namespace Magitek.Enumerations
 {
@@ -12,7 +10,7 @@ namespace Magitek.Enumerations
         MB_WM_AP,
         MB_AP_WM
     }
-    
+
     public static class SongStrategy
     {
         public static List<BardSong> GetSongOrderFromSongStrategy()

@@ -1,5 +1,4 @@
 ﻿using ff14bot;
-using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Reaper;
 using Magitek.Utilities;
@@ -51,7 +50,7 @@ namespace Magitek.Logic.Reaper
             if (!Spells.GrimSwathePvp.CanCast())
                 return false;
 
-            if(!ReaperSettings.Instance.Pvp_GrimSwathe)
+            if (!ReaperSettings.Instance.Pvp_GrimSwathe)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
@@ -240,7 +239,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_VoidReapingNCrossReaping)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpEnshrouded) || !Core.Me.HasAura(Auras.PvpEnshrouded,true,3000))
+            if (!Core.Me.HasAura(Auras.PvpEnshrouded) || !Core.Me.HasAura(Auras.PvpEnshrouded, true, 3000))
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
@@ -301,7 +300,7 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
                 return false;
 
-            if(await Spells.TenebraeLemurumPvp.Cast(Core.Me.CurrentTarget))
+            if (await Spells.TenebraeLemurumPvp.Cast(Core.Me.CurrentTarget))
             {
                 EnshroudedCount = 5;
                 return true;

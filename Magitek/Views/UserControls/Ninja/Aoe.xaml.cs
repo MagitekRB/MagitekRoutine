@@ -1,6 +1,4 @@
-﻿using Magitek.Extensions;
-using Magitek.Utilities;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace Magitek.Views.UserControls.Ninja
 {

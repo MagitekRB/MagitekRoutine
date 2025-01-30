@@ -1,13 +1,14 @@
 using Buddy.Coroutines;
 using ff14bot;
+using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
-using ff14bot.Managers;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AstroUtils =  Magitek.Utilities.Routines.Astrologian;
+using AstroUtils = Magitek.Utilities.Routines.Astrologian;
 using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Astrologian
@@ -18,6 +19,12 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> Swiftcast()
         {
+            if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Lightspeed, true))
+                return false;
+
             if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
             {
                 return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
@@ -36,7 +43,14 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Lightspeed)
                 return false;
 
-            if(Core.Me.HasAura(Auras.Lightspeed, true))
+            if (Core.Me.HasAura(Auras.Lightspeed, true))
+                return false;
+
+            if (Core.Me.HasAura(Auras.Swiftcast, true))
+                return false;
+
+            if (Spells.Lightspeed.Cooldown != TimeSpan.Zero
+                && Spells.Lightspeed.Charges == 0)
                 return false;
 
             if (!Core.Me.InCombat)
@@ -68,9 +82,14 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Divination)
                 return false;
 
-            if (!Spells.Divination.IsKnownAndReady())
+            if (!Core.Me.InCombat)
                 return false;
 
+            if (!Globals.PartyInCombat)
+                return false;
+
+            if (!Spells.Divination.IsKnownAndReady())
+                return false;
 
             // Added check to see if more than configured allies are around
             var divinationTargets = Group.CastableAlliesWithin30.Count(r => r.IsAlive);
