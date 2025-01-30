@@ -25,9 +25,6 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.HasAura(Auras.Lightspeed, true))
                 return false;
 
-            if (await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed))
-                return false;
-
             if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
             {
                 return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
@@ -50,9 +47,6 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (Core.Me.HasAura(Auras.Swiftcast, true))
-                return false;
-
-            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
                 return false;
 
             if (Spells.Lightspeed.Cooldown != TimeSpan.Zero
@@ -88,9 +82,14 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Divination)
                 return false;
 
-            if (!Spells.Divination.IsKnownAndReady())
+            if (!Core.Me.InCombat)
                 return false;
 
+            if (!Globals.PartyInCombat)
+                return false;
+
+            if (!Spells.Divination.IsKnownAndReady())
+                return false;
 
             // Added check to see if more than configured allies are around
             var divinationTargets = Group.CastableAlliesWithin30.Count(r => r.IsAlive);
