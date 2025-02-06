@@ -38,13 +38,12 @@ namespace Magitek.Logic.RedMage
 
             if (!Core.Me.HasAura(Auras.MagickedSwordplay))
             {
-                if (Core.Me.ClassLevel >= 10)
+                if (Core.Me.ClassLevel >= 50)
                 {
-                    if (BlackMana < 20
-                        || WhiteMana < 20)
+                    if (BlackMana < 50 || WhiteMana < 50)
                         return false;
                 }
-
+                
                 if (Core.Me.ClassLevel >= 35
                     && Core.Me.ClassLevel < 50)
                 {
@@ -53,11 +52,12 @@ namespace Magitek.Logic.RedMage
                         return false;
                 }
 
-                if (Core.Me.ClassLevel >= 50)
+                if (Core.Me.ClassLevel >= 10)
                 {
-                    if (BlackMana < 50 || WhiteMana < 50)
+                    if (BlackMana < 20
+                        || WhiteMana < 20)
                         return false;
-                }
+                }                                
             }
 
             return await Spells.Riposte.Cast(Core.Me.CurrentTarget);
@@ -402,10 +402,37 @@ namespace Magitek.Logic.RedMage
             if (Core.Me.ClassLevel < Spells.CorpsACorps.LevelAcquired)
                 return false;
 
+            if (Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.CorpsACorps || s.Spell == Spells.Displacement || s.Spell == Spells.Engagement))
+                return false;
+
             if (Core.Me.HasAura(Auras.Swiftcast)
                 || Core.Me.HasAura(Auras.Dualcast)
                 || Core.Me.HasAura(Auras.Acceleration))
                 return false;
+
+            if (!Core.Me.HasAura(Auras.MagickedSwordplay))
+            {
+                if (Core.Me.ClassLevel >= 50)
+                {
+                    if (BlackMana < 50 || WhiteMana < 50)
+                        return false;
+                }
+
+                if (Core.Me.ClassLevel >= 35
+                    && Core.Me.ClassLevel < 50)
+                {
+                    if (BlackMana < 35
+                        || WhiteMana < 35)
+                        return false;
+                }
+
+                if (Core.Me.ClassLevel >= 10)
+                {
+                    if (BlackMana < 20
+                        || WhiteMana < 20)
+                        return false;
+                }
+            }
 
             if (InAoeCombo())
                 return false;
@@ -426,6 +453,12 @@ namespace Magitek.Logic.RedMage
         public static async Task<bool> Displacement()
         {
             if (!RedMageSettings.Instance.Displacement)
+                return false;
+
+            if (RedMageSettings.Instance.Engagement)
+                return false;
+
+            if (Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.CorpsACorps || s.Spell == Spells.Displacement || s.Spell == Spells.Engagement))
                 return false;
 
             if (Core.Me.ClassLevel < Spells.Displacement.LevelAcquired)
@@ -449,6 +482,12 @@ namespace Magitek.Logic.RedMage
         public static async Task<bool> Engagement()
         {
             if (!RedMageSettings.Instance.Engagement)
+                return false;
+
+            if (RedMageSettings.Instance.Displacement)
+                return false;
+
+            if (Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.CorpsACorps || s.Spell == Spells.Displacement || s.Spell == Spells.Engagement))
                 return false;
 
             if (Core.Me.ClassLevel < Spells.Engagement.LevelAcquired)

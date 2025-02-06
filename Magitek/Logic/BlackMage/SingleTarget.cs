@@ -172,27 +172,16 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Fire3()
         {
+            //Change lvl 50 syn firestarter
+
             if (Core.Me.ClassLevel < Spells.Fire3.LevelAcquired)
                 return false;
 
             if (Casting.LastSpell == Spells.Blizzard3)
                 return false;
 
-            //Don't waste firestarter if we are about to enter UI
-            if (Core.Me.CurrentMana < 2000
-                && Core.Me.HasAura(Auras.FireStarter))
-                return false;
-
-            //Keep from using firestarter early - wait for full mana
-            if (Core.Me.HasAura(Auras.FireStarter)
-                && Core.Me.CurrentMana != 10000)
-                return false;
-
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
-                return false;
-
             //Level 35-57 logic - changed things so lets change the code
+            //Moved this up to see if level sync issues are fixed
             if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
             {
                 if (UmbralStacks == 3
@@ -208,6 +197,20 @@ namespace Magitek.Logic.BlackMage
 
                 return false;
             }
+
+            //Don't waste firestarter if we are about to enter UI
+            if (Core.Me.CurrentMana < 2000
+                && Core.Me.HasAura(Auras.FireStarter))
+                return false;
+
+            //Keep from using firestarter early - wait for full mana
+            if (Core.Me.HasAura(Auras.FireStarter)
+                && Core.Me.CurrentMana != 10000)
+                return false;
+
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
 
             // Use if we're in Umbral and we have 3 hearts and have max mp
             if (UmbralStacks == 3 && Core.Me.CurrentMana == 10000)
@@ -346,6 +349,10 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
                 return false;
 
+            //If flarestar is ready, cast it
+            if (AstralSoulStacks == 6)
+                return false;
+
             if (BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
@@ -353,14 +360,18 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpell == Spells.Fire3)
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
-                return false;
+            // If we have no umbral or astral stacks, cast 
+            if (AstralStacks <= 0 && UmbralStacks == 0)
+                return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
 
             //35-57 logic - idk when this changed but now bliz 4 is lvl 58 - just change it to level bliz 4 is aquired
             //Removed initial level check as it is redundant
+            //Moved up to see if level syn issue is fixed
             if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
             {
+                if (AstralStacks <= 1 && UmbralStacks <= 1)
+                    return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
+
                 if (Core.Me.CurrentMana == 10000 && UmbralStacks > 0)
                     return false;
 
@@ -368,9 +379,6 @@ namespace Magitek.Logic.BlackMage
                     return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
 
             }
-            // If we have no umbral or astral stacks, cast 
-            if (AstralStacks <= 0 && UmbralStacks == 0)
-                return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
 
             //Post 72 logic - should no longer be needed as ice spells in AF are always free now
 
