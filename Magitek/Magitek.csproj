@@ -82,7 +82,7 @@
     <PackageReference Include="System.Text.Json">
       <Version>8.0.3</Version>
     </PackageReference>
-    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.658" />
+    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.679.1" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Net.Http.Json" Version="9.0.1" />
     <PackageReference Include="System.Text.Json" Version="9.0.1" />
