@@ -25,6 +25,14 @@ namespace Magitek.Logic.RedMage
             if (Core.Me.ClassLevel < Spells.Moulinet.LevelAcquired)
                 return false;
 
+            if (ManaStacks() == 3)
+                return false;
+
+            if (Casting.LastSpell == Spells.Moulinet
+                || Casting.LastSpell == Spells.EnchantedMoulinet
+                || Casting.LastSpell == Spells.EnchantedMoulinetDeux)
+                return await Spells.Moulinet.Cast(Core.Me.CurrentTarget);
+
             if (!InAoeCombo())
             {
                 if (Core.Me.ClassLevel >= Spells.Embolden.LevelAcquired
@@ -41,9 +49,6 @@ namespace Magitek.Logic.RedMage
 
             //Updated to 50 white or black mana as this is now a legit combo
             if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 50 || BlackMana < 50))
-                return false;
-
-            if (ManaStacks() == 3)
                 return false;
 
             return await Spells.Moulinet.Cast(Core.Me.CurrentTarget);

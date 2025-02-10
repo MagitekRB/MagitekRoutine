@@ -68,8 +68,8 @@ namespace Magitek.Logic.Sage
             {
                 spell = Spells.Dyskrasia;
             }
-
-            return await spell.Cast(Core.Me.CurrentTarget);
+            //Not cast on target, cast on self
+            return await spell.Cast(Core.Me);
         }
 
         public static async Task<bool> EukrasianDyskrasia()
