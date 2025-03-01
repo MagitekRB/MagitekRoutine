@@ -111,15 +111,8 @@ jobs:
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
+        automatic_release_tag: v$env:VERSION
         files: |
           ./Magitek/bin/release/Magitek.zip
           ./Magitek/bin/release/Version.txt
 
-    - name: Create Git Tag
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git tag $env:VERSION
-        git push origin $env:VERSION
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
