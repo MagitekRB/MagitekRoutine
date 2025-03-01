@@ -129,8 +129,8 @@ namespace Magitek.Rotations
 
                 if (await SingleTarget.SharpKnife()) return true; //if melee
                 if (await SingleTarget.AbyssalTransfixion()) return true; //if SonicBoom deactivated
-
-                return await SingleTarget.SonicBoom();
+                if (await SingleTarget.SonicBoom()) return true; //if SonicBoom deactivated
+                return await SingleTarget.WaterCannon();
             }
             else
             {

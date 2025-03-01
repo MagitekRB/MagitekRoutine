@@ -114,6 +114,14 @@ namespace Magitek.Models.Monk
         public bool UsePerfectBalance { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool UsePerfectBalanceOnlyAfterOpo { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool DoubleLunar { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseRiddleOfFire { get; set; }
 
@@ -147,7 +155,19 @@ namespace Magitek.Models.Monk
 
         [Setting]
         [DefaultValue(true)]
+        public bool UseFireReplyOnlyAfterOpo { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool FightLogicMantra { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurst { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicDelayWind { get; set; }
 
         #region PVP
 

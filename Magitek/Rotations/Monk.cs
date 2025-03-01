@@ -75,9 +75,9 @@ namespace Magitek.Rotations
                 if (await Buff.TrueNorth()) return true;
 
                 if (await Buff.EarthReply()) return true;
+                if (await Buff.RiddleOfFire()) return true;
                 if (await Buff.Brotherhood()) return true;
                 if (await Buff.RiddleOfWind()) return true;
-                if (await Buff.RiddleOfFire()) return true;
 
                 if (await Aoe.Enlightenment()) return true;
                 if (await SingleTarget.TheForbiddenChakra()) return true;
@@ -85,9 +85,9 @@ namespace Magitek.Rotations
                 if (await Buff.Mantra()) return true;
             }
 
+            if (await Aoe.MasterfulBlitz()) return true;
             if (await Aoe.FireReply()) return true;
             if (await Aoe.WindReply()) return true;
-            if (await Aoe.MasterfulBlitz()) return true;
             if (await Aoe.PerfectBalance()) return true;
             if (await Aoe.Rockbreaker()) return true;
             if (await Aoe.FourPointStrike()) return true;
@@ -95,9 +95,9 @@ namespace Magitek.Rotations
 
             if (await SingleTarget.PerfectBalance()) return true;
             if (await SingleTarget.DragonKick()) return true;
+            if (await SingleTarget.Bootshine()) return true;
             if (await SingleTarget.TwinSnakes()) return true;
             if (await SingleTarget.Demolish()) return true;
-            if (await SingleTarget.Bootshine()) return true;
             if (await SingleTarget.TrueStrike()) return true;
             if (await SingleTarget.SnapPunch()) return true;
 

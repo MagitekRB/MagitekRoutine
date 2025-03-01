@@ -73,8 +73,8 @@ namespace Magitek.Rotations
             if (GunbreakerRoutine.GlobalCooldown.CanWeave())
             {
                 //oGCD - Buffs
-                if (await Buff.NoMercy()) return true;
                 if (await Buff.Bloodfest()) return true;
+                if (await Buff.NoMercy()) return true;
                 //oGCD - Damage
                 if (await SingleTarget.BlastingZone()) return true;
                 //OGCD dots

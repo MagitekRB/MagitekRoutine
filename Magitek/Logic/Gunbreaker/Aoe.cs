@@ -146,13 +146,19 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseDoubleDown)
                 return false;
 
+            if(GunbreakerSettings.Instance.UseDoubleDownOnlyNotMoving && MovementManager.IsMoving)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+                return false;
+
             if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge == GunbreakerRoutine.MaxCartridge)
+            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge >= 2)
                 return false;
 
             return await Spells.DoubleDown.Cast(Core.Me.CurrentTarget);

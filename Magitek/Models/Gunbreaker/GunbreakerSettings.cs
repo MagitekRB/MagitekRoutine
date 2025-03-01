@@ -1,3 +1,4 @@
+using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -13,6 +14,10 @@ namespace Magitek.Models.Gunbreaker
         public static GunbreakerSettings Instance { get; set; } = new GunbreakerSettings();
 
         #region General
+        [Setting]
+        [DefaultValue(GunbreakerStrategy.FastGCD)]
+        public GunbreakerStrategy GunbreakerStrategy { get; set; }
+
         [Setting]
         [DefaultValue(true)]
         public bool UseRoyalGuard { get; set; }
@@ -104,6 +109,10 @@ namespace Magitek.Models.Gunbreaker
         [Setting]
         [DefaultValue(1)]
         public int DoubleDownEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseDoubleDownOnlyNotMoving { get; set; }
         #endregion
 
         #region Defensives
