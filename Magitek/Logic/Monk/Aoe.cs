@@ -2,6 +2,7 @@
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Monk;
+using Magitek.Toggles;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace Magitek.Logic.Monk
             if (ActionResourceManager.Monk.ChakraCount < 5)
                 return false;
 
+            if (!MonkSettings.Instance.BurstLogicHoldBurst && Core.Me.ClassLevel >= Spells.RiddleofFire.LevelAcquired && Spells.RiddleofFire.IsKnownAndReady())
+                return false;
+
             return await Spells.HowlingFist.Cast(Core.Me.CurrentTarget);
         }
 
@@ -41,8 +45,14 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.UseMasterfulBlitz)
                 return false;
 
-            if (!Spells.MasterfulBlitz.IsKnownAndReady())
+            if (!Spells.MasterfulBlitz.IsKnownAndReadyAndCastable())
                 return false;
+
+            if (ActionResourceManager.Monk.ActiveNadi.HasFlag(Nadi.Lunar) && MonkSettings.Instance.DoubleLunar)
+            {
+                MonkSettings.Instance.DoubleLunar = false;
+                TogglesManager.ResetToggles();
+            }
 
             return await Spells.MasterfulBlitz.Cast(Core.Me.CurrentTarget);
 
@@ -81,20 +91,8 @@ namespace Magitek.Logic.Monk
             }
             else
             {
-                if (ActionResourceManager.Monk.MasterGaugeCount == 0)
-                {
-                    return await Spells.Rockbreaker.Cast(Core.Me.CurrentTarget);
-                }
 
-                if (ActionResourceManager.Monk.MasterGaugeCount == 1)
-                {
-                    return await Spells.Rockbreaker.Cast(Core.Me.CurrentTarget);
-                }
-
-                if (ActionResourceManager.Monk.MasterGaugeCount == 2)
-                {
-                    return await Spells.Rockbreaker.Cast(Core.Me.CurrentTarget);
-                }
+            return await Spells.Rockbreaker.Cast(Core.Me.CurrentTarget);
 
             }
 
@@ -132,6 +130,9 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (!Spells.FireReply.IsKnownAndReady())
+                return false;
+
+            if (MonkSettings.Instance.UseFireReplyOnlyAfterOpo && !Core.Me.HasAura(Auras.RaptorForm))
                 return false;
 
             return await Spells.FireReply.Cast(Core.Me.CurrentTarget);

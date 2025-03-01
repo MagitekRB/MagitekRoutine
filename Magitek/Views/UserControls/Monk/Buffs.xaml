@@ -52,8 +52,9 @@
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <CheckBox Content="Perfect Balance" IsChecked="{Binding MonkSettings.UsePerfectBalance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <CheckBox Content="Perfect Balance       " IsChecked="{Binding MonkSettings.UsePerfectBalance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="Perfect Balance Only After Opo" IsChecked="{Binding MonkSettings.UsePerfectBalanceOnlyAfterOpo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 

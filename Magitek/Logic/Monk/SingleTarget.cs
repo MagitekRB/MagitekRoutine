@@ -3,6 +3,7 @@ using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Monk;
+using Magitek.Toggles;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace Magitek.Logic.Monk
             if (Core.Me.ClassLevel < Spells.TrueStrike.LevelAcquired)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.RaptorForm) && !Core.Me.HasAura(Auras.FormlessFist))
+            if (!Core.Me.HasAura(Auras.RaptorForm) && Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
             if (Core.Me.ClassLevel >= Spells.TwinSnakes.LevelAcquired && ActionResourceManager.Monk.RaptorFury == 0)
@@ -46,7 +47,7 @@ namespace Magitek.Logic.Monk
             if (Core.Me.ClassLevel < Spells.SnapPunch.LevelAcquired)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.CoeurlForm) && !Core.Me.HasAura(Auras.FormlessFist))
+            if (!Core.Me.HasAura(Auras.CoeurlForm) && Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
             if (Core.Me.ClassLevel >= Spells.Demolish.LevelAcquired && ActionResourceManager.Monk.CoeurlFury == 0)
@@ -74,7 +75,7 @@ namespace Magitek.Logic.Monk
             if (Core.Me.ClassLevel < Spells.TwinSnakes.LevelAcquired)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.RaptorForm) && !Core.Me.HasAura(Auras.FormlessFist))
+            if (!Core.Me.HasAura(Auras.RaptorForm) && Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
             if (ActionResourceManager.Monk.RaptorFury == 1)
@@ -90,7 +91,7 @@ namespace Magitek.Logic.Monk
             if (Core.Me.ClassLevel < Spells.Demolish.LevelAcquired)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.CoeurlForm) && !Core.Me.HasAura(Auras.FormlessFist))
+            if (!Core.Me.HasAura(Auras.CoeurlForm) && Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
             if (ActionResourceManager.Monk.CoeurlFury >= 1)
@@ -110,6 +111,9 @@ namespace Magitek.Logic.Monk
             if (ActionResourceManager.Monk.ChakraCount < 5)
                 return false;
 
+            if (!MonkSettings.Instance.BurstLogicHoldBurst && Core.Me.ClassLevel >= Spells.RiddleofFire.LevelAcquired && Spells.RiddleofFire.IsKnownAndReady())
+                return false;
+
             return await Spells.SteelPeak.Cast(Core.Me.CurrentTarget);
         }
 
@@ -124,7 +128,7 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.HasAura(Auras.PerfectBalance))
                 return false;
 
-            if (!ActionResourceManager.Monk.ActiveNadi.HasFlag(Nadi.Both) && ActionResourceManager.Monk.ActiveNadi.HasFlag(Nadi.Lunar))
+            if (!ActionResourceManager.Monk.ActiveNadi.HasFlag(Nadi.Both) && ActionResourceManager.Monk.ActiveNadi.HasFlag(Nadi.Lunar) && !MonkSettings.Instance.DoubleLunar)
             {
                 if (ActionResourceManager.Monk.MasterGaugeCount == 0)
                 {
@@ -152,29 +156,11 @@ namespace Magitek.Logic.Monk
             }
             else
             {
-                if (ActionResourceManager.Monk.MasterGaugeCount == 0)
-                {
+
                     if (ActionResourceManager.Monk.OpoOpoFury == 0)
                         return await Spells.DragonKick.Cast(Core.Me.CurrentTarget);
                     else
                         return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
-                }
-
-                if (ActionResourceManager.Monk.MasterGaugeCount == 1)
-                {
-                    if (ActionResourceManager.Monk.RaptorFury == 0)
-                        return await Spells.DragonKick.Cast(Core.Me.CurrentTarget);
-                    else
-                        return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
-                }
-
-                if (ActionResourceManager.Monk.MasterGaugeCount == 2)
-                {
-                    if (ActionResourceManager.Monk.CoeurlFury == 0)
-                        return await Spells.DragonKick.Cast(Core.Me.CurrentTarget);
-                    else
-                        return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
-                }
 
             }
 

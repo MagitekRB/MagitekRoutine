@@ -48,8 +48,9 @@
                     <CheckBox Content="Wind Reply " IsChecked="{Binding MonkSettings.UseWindReply, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
-                <StackPanel  Margin="0,3">
-                    <CheckBox Content="Fire Reply " IsChecked="{Binding MonkSettings.UseFireReply, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <StackPanel  Margin="0,3" Orientation="Horizontal">
+                    <CheckBox Content="Fire Reply                 " IsChecked="{Binding MonkSettings.UseFireReply, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Fire Reply Only After Opo " IsChecked="{Binding MonkSettings.UseFireReplyOnlyAfterOpo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

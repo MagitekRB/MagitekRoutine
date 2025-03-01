@@ -1,5 +1,6 @@
 using ff14bot;
 using ff14bot.Managers;
+using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Account;
@@ -50,19 +51,17 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
                 return false;
 
-            //Special Condition for opener when UseNoMercyMaxCartridge 
-            if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)
+            if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD))
             {
-                if (GunbreakerSettings.Instance.UseNoMercyMaxCartridge && Spells.GnashingFang.IsKnownAndReady() && Spells.DoubleDown.IsKnownAndReady() && Spells.Bloodfest.IsKnownAndReady() && Cartridge > 0)
-                    return await Spells.NoMercy.Cast(Core.Me);
-
+                if (Cartridge == GunbreakerRoutine.MaxCartridge)
+                    return false;
             }
 
-            if (Cartridge < GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id == Spells.BrutalShell.Id)
-                return false;
-
-            if (Cartridge == 0 || (Cartridge < GunbreakerRoutine.MaxCartridge && GunbreakerSettings.Instance.UseNoMercyMaxCartridge))
-                return false;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.FastGCD))
+            {
+                if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id == Spells.KeenEdge.Id)
+                    return false;
+            }
 
             return await Spells.NoMercy.Cast(Core.Me);
         }
@@ -73,12 +72,6 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             if (Cartridge > GunbreakerRoutine.MaxCartridge - GunbreakerRoutine.AmountCartridgeFromBloodfest)
-                return false;
-
-            if (Spells.NoMercy.IsKnownAndReady(8000))
-                return false;
-
-            if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
             return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);

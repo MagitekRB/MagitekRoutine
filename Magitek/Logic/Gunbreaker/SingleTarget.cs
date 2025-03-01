@@ -1,6 +1,7 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Gunbreaker;
 using Magitek.Utilities;
@@ -105,8 +106,8 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            //if (Cartridge == GunbreakerRoutine.MaxCartridge)
-            //    return false;
+            if (Cartridge == GunbreakerRoutine.MaxCartridge  && Spells.BurstStrike.IsKnownAndReady() )
+                return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
 
             return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
         }
@@ -132,8 +133,8 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveAmmoComboMseconds))
                 return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady(2000) && Cartridge == GunbreakerRoutine.RequiredCartridgeForDoubleDown)
-                return false;
+            //if (Spells.DoubleDown.IsKnownAndReady(2000) && Cartridge == GunbreakerRoutine.RequiredCartridgeForDoubleDown)
+            //    return false;
 
             return await Spells.GnashingFang.Cast(Core.Me.CurrentTarget);
         }
@@ -201,38 +202,34 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForBurstStrike)
                 return false;
 
-            if (GunbreakerRoutine.IsAurasForComboActive())
-                return false;
-
             if (Spells.FatedCircle.IsKnown() && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
-            if (Core.Me.HasAura(Auras.ReadyToReign))
-                return false;
-
-            if (Spells.NoMercy.IsKnownAndReady(2000))
-                return false;
-
-            //Cast BurstStrike in NoMercy Window
-            if (Core.Me.HasAura(Auras.NoMercy) && Cartridge > 0)
+            if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.FastGCD))
             {
-                if (Cartridge < GunbreakerRoutine.MaxCartridge && (Spells.DoubleDown.IsKnownAndReady(10000) || Spells.GnashingFang.IsKnownAndReady(10000)))
+                if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.NoMercy.IsKnownAndReady(2000) && !Spells.Bloodfest.IsKnownAndReady(12000))
                     return false;
+            }
 
+            if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.NoMercy.IsKnownAndReady(2000))
+                return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+
+            if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.NoMercy.IsKnownAndReady(2000))
+                return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+
+            //No Mercy Burst After Combo
+            if (Core.Me.HasAura(Auras.NoMercy) && Cartridge >= GunbreakerRoutine.RequiredCartridgeForBurstStrike && !Spells.DoubleDown.IsKnownAndReady(1000) && !Spells.GnashingFang.IsKnownAndReady(1000))
+            {
                 return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
             }
 
-            //Cast BurstStrike after No Mercy window
-            if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)
-            {
-                if (!Core.Me.HasAura(Auras.NoMercy) && Cartridge >= 1 && Spells.NoMercy.Cooldown.TotalMilliseconds >= 35000 && !Spells.GnashingFang.IsKnownAndReady(6500) && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 95000)
-                    return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
-            }
-
-            if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.BrutalShell.Id)
+            if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
             if (Cartridge < GunbreakerRoutine.MaxCartridge)
+                return false;
+
+            if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.BrutalShell.Id)
                 return false;
 
             return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
@@ -244,6 +241,9 @@ namespace Magitek.Logic.Gunbreaker
         public static async Task<bool> Hypervelocity()
         {
             if (!Core.Me.HasAura(Auras.ReadytoBlast))
+                return false;
+
+            if (Spells.NoMercy.IsKnownAndReady(2000))
                 return false;
 
             return await Spells.Hypervelocity.Cast(Core.Me.CurrentTarget);
@@ -329,7 +329,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 118000)
+            if (Spells.GnashingFang.IsKnownAndReady() || Spells.DoubleDown.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 118000)
                 return false;
 
             return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
