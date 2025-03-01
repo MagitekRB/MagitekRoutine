@@ -2,7 +2,8 @@ name: release
 
 on:
   push:
-    branches: [ "master" ]
+    tags:
+     - "v*"
 
 jobs:
   release:
@@ -26,27 +27,12 @@ jobs:
     - name: Install dependencies
       run: pip install zipfile36
 
-    - name: Get latest release version
-      id: get_latest_version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Extract version from tag
+      id: extract_version
       run: |
-        $releases = Invoke-RestMethod -Headers @{Authorization = "token $env:GITHUB_TOKEN"} -Uri "https://api.github.com/repos/${{ github.repository }}/releases"
-        $latestVersion = $releases | Where-Object { -not $_.prerelease } | Select-Object -First 1
-        if ($latestVersion) {
-          $version = $latestVersion.tag_name -replace 'v', ''
-          $parts = $version.Split('.')
-          $major = $parts[0]
-          $minor = $parts[1]
-          $patch = [int]$parts[2] + 1
-          echo "VERSION=$major.$minor.$patch" >> $env:GITHUB_ENV
-        } else {
-          $buildNumber = ${{ github.run_number }}
-          $newVersion = 50 + $buildNumber
-          echo "VERSION=1.0.$newVersion" >> $env:GITHUB_ENV
-        }
-        Write-Host "Next version will be: $env:VERSION"
-      shell: pwsh
+        $version = "${{ github.ref_name }}.0"
+        $version = $version.Substring(1)
+        echo "VERSION=$version" >> $env:GITHUB_ENV
 
     - name: Verify version string
       run: echo "Version is $env:VERSION"
@@ -75,7 +61,7 @@ jobs:
         msbuild Magitek.sln /p:Configuration=Release
 
     - name: Generate Version.txt
-      run: echo "v$env:VERSION" > ./Magitek/bin/release/Version.txt
+      run: echo "${{ github.ref_name }}" > ./Magitek/bin/release/Version.txt
       
     - name: Create Magitek.zip
       run: |
@@ -114,12 +100,3 @@ jobs:
         files: |
           ./Magitek/bin/release/Magitek.zip
           ./Magitek/bin/release/Version.txt
-
-    - name: Create Git Tag
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git tag $env:VERSION
-        git push origin $env:VERSION
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

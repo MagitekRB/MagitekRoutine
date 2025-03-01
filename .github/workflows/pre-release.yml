@@ -4,8 +4,7 @@
 name: pre-release
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   pre-release:
@@ -94,34 +93,3 @@ jobs:
         files: |
           ./Magitek/bin/release/Magitek.zip
           ./Magitek/bin/release/Version.txt
-
-    - name: Get latest release version
-      id: get_latest_version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        $releases = Invoke-RestMethod -Headers @{Authorization = "token $env:GITHUB_TOKEN"} -Uri "https://api.github.com/repos/${{ github.repository }}/releases"
-        $latestVersion = $releases | Where-Object { -not $_.prerelease } | Select-Object -First 1
-        if ($latestVersion) {
-          $version = $latestVersion.tag_name -replace 'v', ''
-          $parts = $version.Split('.')
-          $major = $parts[0]
-          $minor = $parts[1]
-          $patch = [int]$parts[2] + 1
-          echo "VERSION=v$major.$minor.$patch" >> $env:GITHUB_ENV
-        } else {
-          $buildNumber = ${{ github.run_number }}
-          $newVersion = 50 + $buildNumber
-          echo "VERSION=v1.0.$newVersion" >> $env:GITHUB_ENV
-        }
-        Write-Host "Next version will be: $env:VERSION"
-      shell: pwsh
-
-    - name: Create and push tag
-      run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git tag $env:VERSION
-        git push origin $env:VERSION
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
