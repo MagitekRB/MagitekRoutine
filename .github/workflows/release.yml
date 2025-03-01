@@ -111,7 +111,7 @@ jobs:
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
-        automatic_release_tag: v$env:VERSION
+        automatic_release_tag: "v${{ env.VERSION }}"
         files: |
           ./Magitek/bin/release/Magitek.zip
           ./Magitek/bin/release/Version.txt
