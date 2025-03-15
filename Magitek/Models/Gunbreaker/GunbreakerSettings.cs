@@ -65,17 +65,33 @@ namespace Magitek.Models.Gunbreaker
         [Setting]
         [DefaultValue(6000)]
         public int SaveBurstStrikeMseconds { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SaveBlastingZone { get; set; }
+
+        [Setting]
+        [DefaultValue(6000)]
+        public int SaveBlastingZoneMseconds { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurst { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurstWhenMoving { get; set; }
         #endregion
 
         #region Buff
         [Setting]
         [DefaultValue(true)]
         public bool UseNoMercy { get; set; }
-        #endregion
 
         [Setting]
         [DefaultValue(false)]
         public bool UseNoMercyMaxCartridge { get; set; }
+        #endregion
 
         #region AOE
         [Setting]
@@ -109,10 +125,6 @@ namespace Magitek.Models.Gunbreaker
         [Setting]
         [DefaultValue(1)]
         public int DoubleDownEnemies { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool UseDoubleDownOnlyNotMoving { get; set; }
         #endregion
 
         #region Defensives
@@ -238,14 +250,6 @@ namespace Magitek.Models.Gunbreaker
         public bool LightningShotToDps { get; set; }
 
         #endregion
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool SaveBlastingZone { get; set; }
-
-        [Setting]
-        [DefaultValue(6000)]
-        public int SaveBlastingZoneMseconds { get; set; }
 
         #region PVP
 

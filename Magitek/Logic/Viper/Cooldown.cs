@@ -75,10 +75,7 @@ namespace Magitek.Logic.Viper
             if (Core.Me.ClassLevel < Spells.SerpentIre.LevelAcquired)
                 return false;
 
-            if (!ViperSettings.Instance.UseSerpentIre)
-                return false;
-
-            if (!Core.Me.HasAura(Auras.HunterInstinct, true))
+            if (!ViperSettings.Instance.UseSerpentIre || ViperSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (!Core.Me.HasAura(Auras.Swiftscaled, true))

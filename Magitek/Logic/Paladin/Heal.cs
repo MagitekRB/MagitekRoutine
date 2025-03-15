@@ -1,4 +1,6 @@
+using Clio.Utilities.Collections;
 using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Paladin;
 using Magitek.Utilities;
@@ -14,11 +16,17 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.UseClemency)
                 return false;
 
-            if (Casting.LastSpell == Spells.Clemency)
+            if (MovementManager.IsMoving)
+                return false;
+
+            if (Core.Me.CurrentManaPercent < PaladinSettings.Instance.MinMpClemency)
                 return false;
 
             if (PaladinSettings.Instance.UseClemencySelf)
             {
+                if (Core.Me.CurrentHealthPercent >= PaladinSettings.Instance.UseClemencySelfHp && Casting.LastSpell == Spells.Clemency)
+                    return false;
+
                 if (Core.Me.CurrentHealthPercent < PaladinSettings.Instance.UseClemencySelfHp)
                 {
                     return await Spells.Clemency.Cast(Core.Me);
@@ -26,9 +34,6 @@ namespace Magitek.Logic.Paladin
             }
 
             if (!Globals.InParty)
-                return false;
-
-            if (Core.Me.CurrentManaPercent < PaladinSettings.Instance.MinMpClemency)
                 return false;
 
             var anyHealers = Group.CastableAlliesWithin30.Any(r => r.IsHealer());

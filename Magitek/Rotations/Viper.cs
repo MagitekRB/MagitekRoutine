@@ -67,6 +67,7 @@ namespace Magitek.Rotations
                 if (await Cooldown.LastLash()) return true;
             }
 
+            if (await SingleTarget.UncoiledFury()) return true;
             if (await SingleTarget.Ouroboros()) return true;
 
             if (await SingleTarget.FourthGeneration()) return true;
@@ -84,7 +85,6 @@ namespace Magitek.Rotations
             if (await AoE.Vicepit()) return true;
 
             if (await SingleTarget.HunterOrSwiftskinCoil()) return true;
-            if (await SingleTarget.UncoiledFury()) return true;
             if (await SingleTarget.Vicewinder()) return true;
 
             if (await AoE.JaggedOrBloodiedMaw()) return true;

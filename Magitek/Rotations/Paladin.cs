@@ -86,9 +86,6 @@ namespace Magitek.Rotations
                     if (await SingleTarget.Intervene()) return true; //dash
                 }
 
-                if (await SingleTarget.ShieldLobOnLostAggro()) return true;
-                if (await SingleTarget.GoringBlade()) return true;
-
                 //Combo AOE (Single Target or Multi Target)
                 if (await Aoe.BladeOfHonor()) return true;
                 if (await Aoe.BladeOfValor()) return true;
@@ -96,10 +93,13 @@ namespace Magitek.Rotations
                 if (await Aoe.BladeOfFaith()) return true;
                 if (await Aoe.Confiteor()) return true;
 
+                if (await SingleTarget.ShieldLobOnLostAggro()) return true;
+                if (await SingleTarget.GoringBlade()) return true;
+
                 //Under Divine Might Aura to have no cast or stacks of Sword Oath
                 if (await Aoe.HolyCircle()) return true;
-                if (await SingleTarget.HolySpirit()) return true;
                 if (await SingleTarget.Atonement()) return true;
+                if (await SingleTarget.HolySpirit()) return true;
 
                 //Combo Action AOE
                 if (await Aoe.Prominence()) return true;

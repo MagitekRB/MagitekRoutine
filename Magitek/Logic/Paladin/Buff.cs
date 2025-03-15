@@ -32,7 +32,7 @@ namespace Magitek.Logic.Paladin
 
         public static async Task<bool> FightOrFlight()
         {
-            if (!PaladinSettings.Instance.UseFightOrFlight)
+            if (!PaladinSettings.Instance.UseFightOrFlight || PaladinSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (Spells.Requiescat.IsKnown() && !Spells.Requiescat.IsReady(1000))
@@ -43,6 +43,9 @@ namespace Magitek.Logic.Paladin
                 return false;
 
             if (!PaladinRoutine.GlobalCooldown.CanDoubleWeave() || !PaladinRoutine.GlobalCooldown.CanWeave(2))
+                return false;
+
+            if (Casting.LastSpell == Spells.FastBlade || Casting.LastSpell == Spells.RiotBlade)
                 return false;
 
             return await Spells.FightorFlight.Cast(Core.Me);

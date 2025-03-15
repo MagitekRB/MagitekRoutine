@@ -7,7 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels"
-             d:DesignHeight="550"
+             d:DesignHeight="450"
              d:DesignWidth="500"
              mc:Ignorable="d">
 
@@ -48,13 +48,34 @@
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Dreadwinder   " IsChecked="{Binding ViperSettings.UseVicewinder, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5" Content=" Enable UncoiledFury   " IsChecked="{Binding ViperSettings.UseUncoiledFury, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5" Content=" Enable Reawaken   " IsChecked="{Binding ViperSettings.UseReawaken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Enable Dreadwinder                 " IsChecked="{Binding ViperSettings.UseVicewinder, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Enable Death Rattle" IsChecked="{Binding ViperSettings.UseDeathRattle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Death Rattle                           " IsChecked="{Binding ViperSettings.UseDeathRattle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content=" Enable UncoiledFury " IsChecked="{Binding ViperSettings.UseUncoiledFury, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="and save at least " />
+                    <controls:Numeric MaxValue="2" MinValue="0"
+                  Value="{Binding ViperSettings.UncoiledFurySaveChrages, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" charges when out of range " />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5" Content=" Enable Reawaken" IsChecked="{Binding ViperSettings.UseReawaken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" but do Not Use If Enemy Is Dying Within  " />
+                    <controls:Numeric  MaxValue="100" MinValue="1" Value="{Binding ViperSettings.DontReawakenIfEnemyDyingWithinSeconds, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                   
                     <CheckBox Margin="5" Content=" Enable Last Lash " IsChecked="{Binding ViperSettings.UseLastLash, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Advance Burst Window Settings" />
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Hold Burst              " IsChecked="{Binding ViperSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

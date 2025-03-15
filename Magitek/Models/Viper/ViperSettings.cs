@@ -25,6 +25,10 @@ namespace Magitek.Models.Viper
         [DefaultValue(false)]
         public bool EnemyIsOmni { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurst { get; set; }
+
         #endregion
 
         #region SingleTarget-Abilities
@@ -38,8 +42,16 @@ namespace Magitek.Models.Viper
         public bool UseReawaken { get; set; }
 
         [Setting]
+        [DefaultValue(8)]
+        public int DontReawakenIfEnemyDyingWithinSeconds { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseUncoiledFury { get; set; }
+
+        [Setting]
+        [DefaultValue(1)]
+        public int UncoiledFurySaveChrages { get; set; }
 
         [Setting]
         [DefaultValue(true)]

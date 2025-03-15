@@ -112,7 +112,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseBowShock)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.NoMercy))
+            if (!Core.Me.HasAura(Auras.NoMercy) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
@@ -146,10 +146,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseDoubleDown)
                 return false;
 
-            if(GunbreakerSettings.Instance.UseDoubleDownOnlyNotMoving && MovementManager.IsMoving)
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) == 0)
                 return false;
 
             if (!Core.Me.HasAura(Auras.NoMercy))
