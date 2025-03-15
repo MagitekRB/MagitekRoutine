@@ -173,9 +173,6 @@ namespace Magitek.Logic.Viper
             if (!CanReawaken(Core.Me.CurrentTarget))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FirstGeneration.Range)
-                return false;
-
             return await Spells.Reawaken.Cast(Core.Me.CurrentTarget);
 
         }
@@ -214,10 +211,13 @@ namespace Magitek.Logic.Viper
             if (!Spells.FirstGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FirstGeneration.Range + Core.Me.CombatReach)
+            if (!Spells.FirstGeneration.CanCast())
                 return false;
 
-            if (ActionResourceManager.Viper.AnguineTribute.Equals(5))
+            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(5))
+                return await Spells.FirstGeneration.Cast(Core.Me.CurrentTarget);
+
+            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(4))
                 return await Spells.FirstGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -232,10 +232,13 @@ namespace Magitek.Logic.Viper
             if (!Spells.SecondGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.SecondGeneration.Range + Core.Me.CombatReach)
+            if (!Spells.SecondGeneration.CanCast())
                 return false;
 
-            if (ActionResourceManager.Viper.AnguineTribute.Equals(4))
+            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(4))
+                return await Spells.SecondGeneration.Cast(Core.Me.CurrentTarget);
+
+            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(3))
                 return await Spells.SecondGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -250,10 +253,13 @@ namespace Magitek.Logic.Viper
             if (!Spells.ThirdGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ThirdGeneration.Range + Core.Me.CombatReach)
+            if (!Spells.ThirdGeneration.CanCast())
                 return false;
 
-            if (ActionResourceManager.Viper.AnguineTribute.Equals(3))
+            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(3))
+                return await Spells.ThirdGeneration.Cast(Core.Me.CurrentTarget);
+
+            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(2))
                 return await Spells.ThirdGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -268,10 +274,13 @@ namespace Magitek.Logic.Viper
             if (!Spells.FourthGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FourthGeneration.Range + Core.Me.CombatReach)
+            if(!Spells.FourthGeneration.CanCast())
                 return false;
 
-            if (ActionResourceManager.Viper.AnguineTribute.Equals(2))
+            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(2))
+                return await Spells.FourthGeneration.Cast(Core.Me.CurrentTarget);
+
+            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(1))
                 return await Spells.FourthGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
