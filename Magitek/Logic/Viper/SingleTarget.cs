@@ -25,6 +25,9 @@ namespace Magitek.Logic.Viper
             if (Core.Me.HasAura(Auras.PoisedforTwinfang, true) || Core.Me.HasAura(Auras.PoisedforTwinblood, true))
                 return false;
 
+            if (Core.Me.HasAura(Auras.Reawakened, true))
+                return false;
+
             if (Core.Me.ClassLevel >= Spells.ReavingFangs.LevelAcquired && Core.Me.HasAura(Auras.HonedReavers, true))
                 return await Spells.ReavingFangs.Cast(Core.Me.CurrentTarget);
 
@@ -34,6 +37,9 @@ namespace Magitek.Logic.Viper
         public static async Task<bool> HunterOrSwiftSkinSting()
         {
             if (Core.Me.ClassLevel < Spells.HunterSting.LevelAcquired)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
             if (Core.Me.ClassLevel < Spells.SwiftskinSting.LevelAcquired)
@@ -56,6 +62,9 @@ namespace Magitek.Logic.Viper
         {
 
             if (Core.Me.ClassLevel < Spells.HindsbaneFang.LevelAcquired || Core.Me.ClassLevel < Spells.FankstingStrike.LevelAcquired)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
             if (Core.Me.HasAura(Auras.FlankstungVenom, true))
@@ -91,12 +100,18 @@ namespace Magitek.Logic.Viper
             if (Core.Me.HasAura(Auras.PoisedforTwinfang, true) || Core.Me.HasAura(Auras.PoisedforTwinblood, true))
                 return false;
 
+            if (Core.Me.HasAura(Auras.Reawakened, true))
+                return false;
+
             return await Spells.Vicewinder.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> HunterOrSwiftskinCoil()
         {
             if (Core.Me.ClassLevel < Spells.SwiftskinCoil.LevelAcquired)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
             if (Core.Me.ClassLevel >= Spells.HunterCoil.LevelAcquired && Spells.HunterCoil.CanCast())
@@ -158,6 +173,9 @@ namespace Magitek.Logic.Viper
             if (!CanReawaken(Core.Me.CurrentTarget))
                 return false;
 
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FirstGeneration.Range)
+                return false;
+
             return await Spells.Reawaken.Cast(Core.Me.CurrentTarget);
 
         }
@@ -178,7 +196,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.Ouroboros.CanCast())
                 return false;
 
-            if(Core.Me.CurrentTarget.Distance(Core.Me) > Spells.Ouroboros.Range)
+            if(Core.Me.CurrentTarget.Distance(Core.Me) > Spells.Ouroboros.Range + Core.Me.CombatReach)
                 return false;
 
             if (ActionResourceManager.Viper.AnguineTribute.Equals(1))
@@ -196,7 +214,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.FirstGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FirstGeneration.Range)
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FirstGeneration.Range + Core.Me.CombatReach)
                 return false;
 
             if (ActionResourceManager.Viper.AnguineTribute.Equals(5))
@@ -214,7 +232,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.SecondGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.SecondGeneration.Range)
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.SecondGeneration.Range + Core.Me.CombatReach)
                 return false;
 
             if (ActionResourceManager.Viper.AnguineTribute.Equals(4))
@@ -232,7 +250,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.ThirdGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ThirdGeneration.Range)
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ThirdGeneration.Range + Core.Me.CombatReach)
                 return false;
 
             if (ActionResourceManager.Viper.AnguineTribute.Equals(3))
@@ -250,7 +268,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.FourthGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FourthGeneration.Range)
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FourthGeneration.Range + Core.Me.CombatReach)
                 return false;
 
             if (ActionResourceManager.Viper.AnguineTribute.Equals(2))
