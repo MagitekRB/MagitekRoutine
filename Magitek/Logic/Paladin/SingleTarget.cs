@@ -82,6 +82,9 @@ namespace Magitek.Logic.Paladin
             if (PaladinSettings.Instance.UseHolySpiritToPull && !Core.Me.InCombat)
                 return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
 
+            if (Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady }))
+                return false;
+
             if (PaladinSettings.Instance.UseHolySpiritWhenOutOfMeleeRange)
             {
                 if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBlade.Range))
@@ -177,7 +180,19 @@ namespace Magitek.Logic.Paladin
             if (!Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady }))
                 return false;
 
+            if (Core.Me.HasAura(Auras.SepulchreReady))
+            {
+                return await Spells.Sepulchre.Cast(Core.Me.CurrentTarget);
+            }
+            if (Core.Me.HasAura(Auras.SupplicationReady))
+            {
+                return await Spells.Supplication.Cast(Core.Me.CurrentTarget);
+            }
+
             if (Core.Me.HasAura(Auras.Requiescat))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.FightOrFlight) && !PaladinRoutine.CanContinueComboAfter(Spells.RiotBlade))
                 return false;
 
             //EXPERIMENTAL - In case we have 1 or 2 atonement remaining before FOF, it is better to start Basic combo (FastBlade + RiotBlade) and Keep atonment inside FOF
@@ -198,15 +213,6 @@ namespace Magitek.Logic.Paladin
                     return false;
             }
 
-            if (Core.Me.HasAura(Auras.SupplicationReady))
-            {
-                return await Spells.Supplication.Cast(Core.Me.CurrentTarget);
-            }
-            else if (Core.Me.HasAura(Auras.SepulchreReady))
-            {
-                return await Spells.Sepulchre.Cast(Core.Me.CurrentTarget);
-            }
-
             return await Spells.Atonement.Cast(Core.Me.CurrentTarget);
         }
 
@@ -217,6 +223,10 @@ namespace Magitek.Logic.Paladin
 
             if (!Core.Me.HasAura(Auras.FightOrFlight))
                 return false;
+
+            if (Spells.Requiescat.IsKnownAndReady() || Spells.Imperator.IsKnownAndReady())
+                return false;
+
 
             return await Spells.GoringBlade.Cast(Core.Me.CurrentTarget);
         }

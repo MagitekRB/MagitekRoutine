@@ -74,12 +74,18 @@ namespace Magitek.Logic.Viper
             if (!ViperSettings.Instance.UseVicepit)
                 return false;
 
+            if (Core.Me.HasAura(Auras.Reawakened, true))
+                return false;
+
             return await Spells.Vicepit.Cast(Core.Me);
         }
 
         public static async Task<bool> HunterOrSwiftskinDen()
         {
             if (Core.Me.ClassLevel < Spells.HunterDen.LevelAcquired)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
             if (Spells.HunterDen.CanCast())

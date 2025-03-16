@@ -37,18 +37,21 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseNoMercy || !Spells.NoMercy.IsKnownAndReady())
                 return false;
 
-            //Force Delay CD
-            if (Spells.KeenEdge.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
+            if (GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
+
+            if (GunbreakerSettings.Instance.BurstLogicHoldBurstWhenMoving && MovementManager.IsMoving)
+                return false;
+
+            //Force Delay CD
+            //if (Spells.KeenEdge.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
+            //    return false;
 
             //Force Delay when pulling
             if (Casting.LastSpell == Spells.LightningShot)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
-                return false;
-
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
                 return false;
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD))
@@ -72,6 +75,12 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             if (Cartridge > GunbreakerRoutine.MaxCartridge - GunbreakerRoutine.AmountCartridgeFromBloodfest)
+                return false;
+
+            if (GunbreakerSettings.Instance.BurstLogicHoldBurst)
+                return false;
+
+            if (GunbreakerSettings.Instance.BurstLogicHoldBurstWhenMoving && MovementManager.IsMoving)
                 return false;
 
             return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);

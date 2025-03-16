@@ -6,7 +6,7 @@ namespace Magitek.Utilities.Routines
 {
     internal static class Viper
     {
-        public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Reaper, Spells.Slice);
+        public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Viper, Spells.SteelFangs);
 
         public static int EnemiesAroundPlayer5Yards;
 

@@ -93,11 +93,6 @@
                         <CheckBox Content="Use Double Down" IsChecked="{Binding GunbreakerSettings.UseDoubleDown, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Margin="5">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="0,3,0,0" Content="Avoid using Double Down when moving " IsChecked="{Binding GunbreakerSettings.UseDoubleDownOnlyNotMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    </StackPanel>
-                </StackPanel>
                 <StackPanel Grid.Row="2" Margin="3">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Content="Use Gnashing Fang and Save When No Mercy Cooldown Under " IsChecked="{Binding GunbreakerSettings.UseAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -149,6 +144,16 @@
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Content="Use Interrupt and Stun. If activated, use strategy: " IsChecked="{Binding GunbreakerSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding GunbreakerSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Advance Burst Window Settings" />
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Hold Burst              " IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Hold Burst When moving" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurstWhenMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

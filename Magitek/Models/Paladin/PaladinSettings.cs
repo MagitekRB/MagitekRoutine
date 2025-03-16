@@ -23,6 +23,10 @@ namespace Magitek.Models.Paladin
         [DefaultValue(20.0f)]
         public float HealthSettingPercent { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurst { get; set; }
+
         #region DamageBuff
         [Setting]
         [DefaultValue(true)]

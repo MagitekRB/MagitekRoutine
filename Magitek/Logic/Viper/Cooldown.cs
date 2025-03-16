@@ -19,6 +19,12 @@ namespace Magitek.Logic.Viper
             if (!ViperSettings.Instance.UseDeathRattle)
                 return false;
 
+            if (Core.Me.HasAura(Auras.Reawakened, true))
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.DeathRattle.Range)
+                return false;
+
             return await Spells.DeathRattle.Cast(Core.Me.CurrentTarget);
         }
 
@@ -39,6 +45,9 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> TwinBiteCombo()
         {
+            if (Core.Me.HasAura(Auras.Reawakened, true))
+                return false;
+
             if (Core.Me.ClassLevel >= Spells.TwinfangBite.LevelAcquired && Core.Me.HasAura(Auras.HunterVenom, true))
                 return await Spells.TwinfangBite.Cast(Core.Me.CurrentTarget);
 
@@ -50,6 +59,9 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> TwinThreshCombo()
         {
+            if (Core.Me.HasAura(Auras.Reawakened, true))
+                return false;
+
             if (Core.Me.ClassLevel >= Spells.TwinfangThresh.LevelAcquired && Core.Me.HasAura(Auras.FellhunterVenom, true))
                 return await Spells.TwinfangThresh.Cast(Core.Me);
 
@@ -61,6 +73,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> UncoiledTwinCombo()
         {
+
             if (Core.Me.ClassLevel >= Spells.UncoiledTwinfang.LevelAcquired && Core.Me.HasAura(Auras.PoisedforTwinfang, true))
                 return await Spells.UncoiledTwinfang.Cast(Core.Me.CurrentTarget);
 
@@ -75,10 +88,7 @@ namespace Magitek.Logic.Viper
             if (Core.Me.ClassLevel < Spells.SerpentIre.LevelAcquired)
                 return false;
 
-            if (!ViperSettings.Instance.UseSerpentIre)
-                return false;
-
-            if (!Core.Me.HasAura(Auras.HunterInstinct, true))
+            if (!ViperSettings.Instance.UseSerpentIre || ViperSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (!Core.Me.HasAura(Auras.Swiftscaled, true))

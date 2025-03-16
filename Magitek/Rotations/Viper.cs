@@ -47,7 +47,7 @@ namespace Magitek.Rotations
 
             if (SingleTarget.ForceLimitBreak()) return true;
 
-            if (ViperRoutine.GlobalCooldown.CanWeave())
+            if (ViperRoutine.GlobalCooldown.CanWeave(1))
             {
                 if (await CommonFightLogic.FightLogic_Debuff(ViperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
                 if (await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
@@ -67,6 +67,7 @@ namespace Magitek.Rotations
                 if (await Cooldown.LastLash()) return true;
             }
 
+            if (await SingleTarget.UncoiledFury()) return true;
             if (await SingleTarget.Ouroboros()) return true;
 
             if (await SingleTarget.FourthGeneration()) return true;
@@ -84,7 +85,6 @@ namespace Magitek.Rotations
             if (await AoE.Vicepit()) return true;
 
             if (await SingleTarget.HunterOrSwiftskinCoil()) return true;
-            if (await SingleTarget.UncoiledFury()) return true;
             if (await SingleTarget.Vicewinder()) return true;
 
             if (await AoE.JaggedOrBloodiedMaw()) return true;
@@ -94,9 +94,9 @@ namespace Magitek.Rotations
             if (await Cooldown.DeathRattle()) return true;
             if (await SingleTarget.FankstingOrFlankbane()) return true;
             if (await SingleTarget.HunterOrSwiftSkinSting()) return true;
-            return await SingleTarget.SteelOrReavingFangs();
+            if (await SingleTarget.SteelOrReavingFangs()) return true;
 
-
+            return true;
         }
 
         public static async Task<bool> PvP()

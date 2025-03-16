@@ -34,6 +34,9 @@ namespace Magitek.Logic.Gunbreaker
             if (!await Spells.LightningShot.Cast(Core.Me.CurrentTarget))
                 return false;
 
+            if (Core.Me.HasAura(Auras.NoMercy))
+                return false;
+
             Logger.WriteInfo($@"Lightning Shot On {Core.Me.CurrentTarget.Name} To DPS");
             return true;
         }
@@ -133,9 +136,6 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveAmmoComboMseconds))
                 return false;
 
-            //if (Spells.DoubleDown.IsKnownAndReady(2000) && Cartridge == GunbreakerRoutine.RequiredCartridgeForDoubleDown)
-            //    return false;
-
             return await Spells.GnashingFang.Cast(Core.Me.CurrentTarget);
         }
 
@@ -214,9 +214,6 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.NoMercy.IsKnownAndReady(2000))
                 return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.NoMercy.IsKnownAndReady(2000))
-                return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
-
             //No Mercy Burst After Combo
             if (Core.Me.HasAura(Auras.NoMercy) && Cartridge >= GunbreakerRoutine.RequiredCartridgeForBurstStrike && !Spells.DoubleDown.IsKnownAndReady(1000) && !Spells.GnashingFang.IsKnownAndReady(1000))
             {
@@ -243,7 +240,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.HasAura(Auras.ReadytoBlast))
                 return false;
 
-            if (Spells.NoMercy.IsKnownAndReady(2000))
+            if (Spells.NoMercy.IsKnownAndReady(2000) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             return await Spells.Hypervelocity.Cast(Core.Me.CurrentTarget);
@@ -268,7 +265,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady(1000))
+            if (Spells.DoubleDown.IsKnownAndReady(1000) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
@@ -305,13 +302,13 @@ namespace Magitek.Logic.Gunbreaker
          *******************************************************************************/
         public static async Task<bool> BlastingZone()
         {
-            if (GunbreakerSettings.Instance.SaveBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveBlastingZoneMseconds))
+            if (GunbreakerSettings.Instance.SaveBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveBlastingZoneMseconds) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady())
+            if (Spells.DoubleDown.IsKnownAndReady() && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
