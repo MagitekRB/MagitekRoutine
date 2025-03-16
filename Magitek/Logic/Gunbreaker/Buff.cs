@@ -44,17 +44,14 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             //Force Delay CD
-            if (Spells.KeenEdge.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
-                return false;
+            //if (Spells.KeenEdge.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
+            //    return false;
 
             //Force Delay when pulling
             if (Casting.LastSpell == Spells.LightningShot)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
-                return false;
-
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) == 0)
                 return false;
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD))

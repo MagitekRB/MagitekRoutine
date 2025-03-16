@@ -146,9 +146,6 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseDoubleDown)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) == 0)
-                return false;
-
             if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
