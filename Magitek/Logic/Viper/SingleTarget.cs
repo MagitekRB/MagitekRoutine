@@ -8,6 +8,7 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using ViperRoutine = Magitek.Utilities.Routines.Viper;
 
 namespace Magitek.Logic.Viper
 {
@@ -134,14 +135,15 @@ namespace Magitek.Logic.Viper
             if (!ViperSettings.Instance.UseUncoiledFury)
                 return false;
 
+            if (Core.Me.HasAura(Auras.HunterVenom, true) || Core.Me.HasAura(Auras.SwiftskinVenom, true))
+                return false;
+
+            if (ViperRoutine.EnemiesAroundPlayer5Yards == 0)
+                return await Spells.UncoiledFury.Cast(Core.Me.CurrentTarget);
+
             if (!Spells.UncoiledFury.CanCast() || ActionResourceManager.Viper.RattlingCoils <= ViperSettings.Instance.UncoiledFurySaveChrages)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance() >= 5)
-                return await Spells.UncoiledFury.Cast(Core.Me.CurrentTarget);
-
-            if (Core.Me.HasAura(Auras.HunterVenom, true) || Core.Me.HasAura(Auras.SwiftskinVenom, true))
-                return false;
 
             if (Spells.Vicewinder.IsKnownAndReadyAndCastable() || Spells.Reawaken.IsKnownAndReadyAndCastable() || Spells.HunterCoil.IsKnownAndReadyAndCastable() || Spells.SwiftskinCoil.IsKnownAndReadyAndCastable())
                 return false;
@@ -191,9 +193,6 @@ namespace Magitek.Logic.Viper
                 return false;
 
             if (!Spells.Ouroboros.CanCast())
-                return false;
-
-            if(Core.Me.CurrentTarget.Distance(Core.Me) > Spells.Ouroboros.Range + Core.Me.CombatReach)
                 return false;
 
             if (ActionResourceManager.Viper.AnguineTribute.Equals(1))
