@@ -48,6 +48,9 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
+            if (!Core.Me.HasAura(Auras.PvpConfiteorReady))
+                return false;
+
             if (!Spells.ConfiteorPvp.CanCast())
                 return false;
 
@@ -60,6 +63,9 @@ namespace Magitek.Logic.Paladin
         public static async Task<bool> AtonementPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpAtonementReady))
                 return false;
 
             if (!Spells.AtonementPvp.CanCast())
@@ -79,6 +85,9 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
+            if (!Core.Me.HasAura(Auras.PvpSupplicationReady))
+                return false;
+
             if (!Spells.SupplicationPvp.CanCast())
                 return false;
 
@@ -94,6 +103,9 @@ namespace Magitek.Logic.Paladin
         public static async Task<bool> SepulchrePvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpSepulchreReady))
                 return false;
 
             if (!Spells.SepulchrePvp.CanCast())
@@ -113,7 +125,7 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.ShieldSmitePvp.CanCast())
+            if (!Spells.ShieldSmitePvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ShieldSmitePvp.Range)

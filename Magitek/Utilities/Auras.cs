@@ -564,8 +564,11 @@ namespace Magitek.Utilities
             PvpWildfire = 1323,
             PvpWildfireBuff = 2018,
             PvpChainSaw = 3154,
-            PvpSacredSight = 4326
-            ;
+            PvpSacredSight = 4326,
+            PvpAtonementReady = 2015,
+            PvpSupplicationReady = 4281,
+            PvpSepulchreReady = 4282,
+            PvpConfiteorReady = 3028;
 
 
         #endregion
