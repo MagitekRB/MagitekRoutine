@@ -278,7 +278,31 @@ namespace Magitek.Models.Paladin
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_ShieldBash { get; set; }
+        public bool Pvp_Supplication { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Sepulchre { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_HolySpirit { get; set; }
+
+        [Setting]
+        [DefaultValue(85.0f)]
+        public float Pvp_HolySpiritHpThreshold { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Imperator { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_ShieldSmite { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_ShieldSmiteOnlyOnGuard { get; set; }
 
         [Setting]
         [DefaultValue(true)]

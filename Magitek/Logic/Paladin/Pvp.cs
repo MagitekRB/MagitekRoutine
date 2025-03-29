@@ -71,27 +71,98 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpSwordOath))
-                return false;
-
             return await Spells.AtonementPvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> ShieldBashPvp()
+        public static async Task<bool> SupplicationPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.ShieldBashPvp.CanCast())
+            if (!Spells.SupplicationPvp.CanCast())
                 return false;
 
-            if (!PaladinSettings.Instance.Pvp_ShieldBash)
+            if (!PaladinSettings.Instance.Pvp_Supplication)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
                 return false;
 
-            return await Spells.ShieldBashPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.SupplicationPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> SepulchrePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.SepulchrePvp.CanCast())
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_Sepulchre)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+                return false;
+
+            return await Spells.SepulchrePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ShieldSmitePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.ShieldSmitePvp.CanCast())
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ShieldSmitePvp.Range)
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_ShieldSmite)
+                return false;
+
+            if (PaladinSettings.Instance.Pvp_ShieldSmiteOnlyOnGuard && !Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
+                return false;
+
+            return await Spells.ShieldSmitePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> HolySpiritPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.HolySpiritPvp.CanCast())
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_HolySpirit)
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > PaladinSettings.Instance.Pvp_HolySpiritHpThreshold)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.HolySpiritPvp.Range)
+                return false;
+
+            return await Spells.HolySpiritPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ImperatorPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.ImperatorPvp.CanCast())
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_Imperator)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ImperatorPvp.Range)
+                return false;
+
+            return await Spells.ImperatorPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> HolySheltronPvp()

@@ -135,6 +135,14 @@ namespace Magitek.Utilities
             if (output && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo($"[AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
 
+            if (!output && enemyLogic.AoeLockOns != null)
+            {
+                output = Core.Me.VfxContainer.LockOns.Any(lockOn => enemyLogic.AoeLockOns.Contains(lockOn.Id));
+
+                if (output && DebugSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AOE Lock On Detected] {encounter.Name} {enemy.Name} lockon {Core.Me.VfxContainer.LockOns.FirstOrDefault(l => enemyLogic.AoeLockOns.Contains(l.Id))}");
+            }
+
             return output;
         }
 
@@ -196,7 +204,7 @@ namespace Magitek.Utilities
             {
                 var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
-                return (enemyLogic?.Aoes != null || enemyLogic?.BigAoes != null);
+                return (enemyLogic?.Aoes != null || enemyLogic?.BigAoes != null || enemyLogic?.AoeLockOns != null);
             }
 
             return false;
@@ -308,6 +316,10 @@ namespace Magitek.Utilities
                             if (element.BigAoes != null)
                                 Debug.Instance.FightLogicData +=
                                     $"\tBig Aoes:\n{string.Join("", element.BigAoes.Select(baoe => $"\t\t{DataManager.GetSpellData(baoe).Name} ({baoe})\n"))}";
+
+                            if (element.AoeLockOns != null)
+                                Debug.Instance.FightLogicData +=
+                                    $"\tAoe Lock Ons:\n{string.Join("", element.AoeLockOns.Select(aoeLockOn => $"\t\t({aoeLockOn})\n"))}";
 
                             Debug.Instance.FightLogicData += $"\n";
                         });
@@ -6617,6 +6629,53 @@ namespace Magitek.Utilities
                 }
             },
 
+            new Encounter {
+                ZoneId = 1266,
+                Name = "The Underkeep",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13753,
+                        Name = "Gargant",
+                        TankBusters = new List<uint> {
+                            42548, // Trap Jaws
+                        },
+                        Aoes = new List<uint> {
+                            42547, // Chilling Chirp
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13757,
+                        Name = "Soldier S0",
+                        TankBusters = new List<uint> {
+                            43136, // Thunderous Slash
+                        },
+                        Aoes = new List<uint> {
+                            42579, // Field of Scorn
+                            42574, // Static Force
+                            42570, // Electric Excess
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13749,
+                        Name = "Valia Pira",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            42525, // Entropic Sphere
+                            42519, // Electric Field
+                            42738, // Neutralize Front Lines
+                            42540, // Deterrent Pulse
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
             #endregion           
 
             #region Dawntrail: Extreme Trials
@@ -6692,6 +6751,30 @@ namespace Magitek.Utilities
                     }
                 }
             },
+
+            new Encounter {
+                ZoneId = 1270,
+                Name = "Recollection",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13861,
+                        Name = "Zelenia",
+                        TankBusters = new List<uint> {
+                            43128, // Specter of the Lost
+                        },
+                        Aoes = new List<uint> {
+                            43056, // Shock
+                            43086, // Stock Break
+                            43070, // Valorous Ascension
+                            43127, // Thorned Catharsis
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
             #endregion
 
             #region Dawntrail: Normal Raids
@@ -6901,6 +6984,7 @@ namespace Magitek.Utilities
             internal List<uint> Aoes { get; set; }
             internal List<uint> BigAoes { get; set; }
             internal List<uint> Knockbacks { get; set; }
+            internal List<uint> AoeLockOns { get; set; }
         }
 
         private class Encounter

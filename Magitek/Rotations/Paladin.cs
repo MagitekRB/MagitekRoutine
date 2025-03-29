@@ -127,17 +127,22 @@ namespace Magitek.Rotations
             if (await Pvp.BladeofFaithPvp()) return true;
             if (await Pvp.HolySheltronPvp()) return true;
 
+            if (await Pvp.ShieldSmitePvp()) return true;
+            if (await Pvp.HolySpiritPvp()) return true;
+
             if (!CommonPvp.GuardCheck(PaladinSettings.Instance))
             {
+                if (await Pvp.ImperatorPvp()) return true;
                 if (await Pvp.IntervenePvp()) return true;
-                if (await Pvp.AtonementPvp()) return true;
-                if (await Pvp.ShieldBashPvp()) return true;
-                if (await Pvp.ConfiteorPvp()) return true;
             }
+            
+            if (await Pvp.AtonementPvp()) return true;
+            if (await Pvp.SupplicationPvp()) return true;
+            if (await Pvp.SepulchrePvp()) return true;
+            if (await Pvp.ConfiteorPvp()) return true;
 
             if (await Pvp.RoyalAuthorityPvp()) return true;
             if (await Pvp.RiotBladePvp()) return true;
-
             return (await Pvp.FastBladePvp());
         }
     }

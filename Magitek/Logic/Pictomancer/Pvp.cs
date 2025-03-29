@@ -146,7 +146,9 @@ namespace Magitek.Logic.Pictomancer
             if (!spell.CanCast())
                 return false;
 
-            if (Spells.LivingMusePvp.Masked().Charges < 1 && Core.Me.HasTarget)
+            if (Spells.LivingMusePvp.Masked().Charges < 1 
+                && Core.Me.HasTarget 
+                && !Core.Me.HasAura(Auras.PvpQuickSketch))
                 return false;
 
             if (WorldManager.ZoneId == 250 && !Core.Me.HasTarget)

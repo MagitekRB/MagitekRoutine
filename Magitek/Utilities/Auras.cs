@@ -547,6 +547,7 @@ namespace Magitek.Utilities
             PvpOrogeny = 3256,
             PvpSubtractivePalette = 4102,
             PvpStarstruck = 4118,
+            PvpQuickSketch = 4324,
             PvpPomSketch = 4124,
             PvpWingSketch = 4125,
             PvpClawSketch = 4126,

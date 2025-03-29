@@ -1181,6 +1181,22 @@ namespace Magitek.Utilities
         public static readonly SpellData Purify = DataManager.GetSpellData(29056);
         public static readonly SpellData Guard = DataManager.GetSpellData(29054);
         public static readonly SpellData SprintPvp = DataManager.GetSpellData(29057);
+        public static readonly SpellData PvPRoleAction = DataManager.GetSpellData(43259);
+        public static readonly SpellData RoleDervishPvp = DataManager.GetSpellData(43249);
+        public static readonly SpellData RoleBraveryPvp = DataManager.GetSpellData(43250);
+        public static readonly SpellData RoleEageEyeShot = DataManager.GetSpellData(43251);
+        public static readonly SpellData RoleRampage = DataManager.GetSpellData(43243);
+        public static readonly SpellData RoleRampart = DataManager.GetSpellData(43244);
+        public static readonly SpellData RoleFullSwing = DataManager.GetSpellData(43245);
+        public static readonly SpellData RoleHaelan = DataManager.GetSpellData(43255);
+        public static readonly SpellData RoleStoneskinII = DataManager.GetSpellData(43256);
+        public static readonly SpellData RoleDiabrosis = DataManager.GetSpellData(43257);
+        public static readonly SpellData RoleBloodbath = DataManager.GetSpellData(43246);
+        public static readonly SpellData RoleSwift = DataManager.GetSpellData(43247);
+        public static readonly SpellData RoleSmite = DataManager.GetSpellData(43248);
+        public static readonly SpellData RoleComet = DataManager.GetSpellData(43252);
+        public static readonly SpellData RolePhantomDart = DataManager.GetSpellData(43291);
+        public static readonly SpellData RoleRust = DataManager.GetSpellData(43254);
 
         //PCT
         public static readonly SpellData PaintRGBPvp = DataManager.GetSpellData(39191); // fire in red base
@@ -1499,15 +1515,19 @@ namespace Magitek.Utilities
         public static readonly SpellData RiotBladePvp = DataManager.GetSpellData(29059);
         public static readonly SpellData RoyalAuthorityPvp = DataManager.GetSpellData(29060);
         public static readonly SpellData AtonementPvp = DataManager.GetSpellData(29061);
-        public static readonly SpellData ShieldBashPvp = DataManager.GetSpellData(29064);
+        public static readonly SpellData HolySpiritPvp = DataManager.GetSpellData(29062);
+        public static readonly SpellData ShieldSmitePvp = DataManager.GetSpellData(41430);
         public static readonly SpellData IntervenePvp = DataManager.GetSpellData(29065);
         public static readonly SpellData GuardianPvp = DataManager.GetSpellData(29066);
         public static readonly SpellData HolySheltronPvp = DataManager.GetSpellData(29067);
         public static readonly SpellData PhalanxPvp = DataManager.GetSpellData(29069);
-        public static readonly SpellData ConfiteorPvp = DataManager.GetSpellData(29070);
+        public static readonly SpellData ConfiteorPvp = DataManager.GetSpellData(42194);
         public static readonly SpellData BladeofFaithPvp = DataManager.GetSpellData(29071);
         public static readonly SpellData BladeofTruthPvp = DataManager.GetSpellData(29072);
         public static readonly SpellData BladeofValorPvp = DataManager.GetSpellData(29073);
+        public static readonly SpellData SupplicationPvp = DataManager.GetSpellData(41428);
+        public static readonly SpellData SepulchrePvp = DataManager.GetSpellData(41429);
+        public static readonly SpellData ImperatorPvp = DataManager.GetSpellData(41431);
 
         #endregion
 

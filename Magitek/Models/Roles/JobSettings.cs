@@ -55,6 +55,10 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_SprintWithoutTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseRoleActions { get; set; }
         #endregion
     }
 }
