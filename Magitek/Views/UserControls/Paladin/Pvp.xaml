@@ -68,7 +68,23 @@
                     <CheckBox Content="Confiteor" IsChecked="{Binding PaladinSettings.Pvp_Confiteor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Shield Bash                      " IsChecked="{Binding PaladinSettings.Pvp_ShieldBash, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Supplication                      " IsChecked="{Binding PaladinSettings.Pvp_Supplication, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Sepulchre" IsChecked="{Binding PaladinSettings.Pvp_Sepulchre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Imperator                      " IsChecked="{Binding PaladinSettings.Pvp_Imperator, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Holy Spirit                      " IsChecked="{Binding PaladinSettings.Pvp_HolySpirit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Below" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding PaladinSettings.Pvp_HolySpiritHpThreshold, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="% HP" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Shield Smite                      " IsChecked="{Binding PaladinSettings.Pvp_ShieldSmite, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Only on Guard" IsChecked="{Binding PaladinSettings.Pvp_ShieldSmiteOnlyOnGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Intervene" IsChecked="{Binding PaladinSettings.Pvp_Intervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">

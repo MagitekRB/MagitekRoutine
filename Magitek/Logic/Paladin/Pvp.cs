@@ -15,7 +15,16 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.FastBladePvp.CanCast())
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FastBladePvp.Range)
+                return false;
+
+            if (!Spells.FastBladePvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.FastBladePvp.CastPvpCombo(Spells.RoyalAuthorityPvpCombo, Core.Me.CurrentTarget);
@@ -25,8 +34,14 @@ namespace Magitek.Logic.Paladin
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
+                                
+            if (!Core.Me.HasTarget)
+                return false;
 
-            if (!Spells.RiotBladePvp.CanCast())
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.RiotBladePvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.RiotBladePvp.CastPvpCombo(Spells.RoyalAuthorityPvpCombo, Core.Me.CurrentTarget);
@@ -37,7 +52,13 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.RoyalAuthorityPvp.CanCast())
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.RoyalAuthorityPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.RoyalAuthorityPvp.CastPvpCombo(Spells.RoyalAuthorityPvpCombo, Core.Me.CurrentTarget);
@@ -48,7 +69,19 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.ConfiteorPvp.CanCast())
+            if (!Core.Me.HasAura(Auras.PvpConfiteorReady))
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+                
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ConfiteorPvp.Range)
+                return false;
+
+            if (!Spells.ConfiteorPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             if (!PaladinSettings.Instance.Pvp_Confiteor)
@@ -62,7 +95,16 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.AtonementPvp.CanCast())
+            if (!Core.Me.HasAura(Auras.PvpAtonementReady))
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.AtonementPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             if (!PaladinSettings.Instance.Pvp_Atonement)
@@ -71,27 +113,134 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpSwordOath))
-                return false;
-
             return await Spells.AtonementPvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> ShieldBashPvp()
+        public static async Task<bool> SupplicationPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.ShieldBashPvp.CanCast())
+            if (!Core.Me.HasAura(Auras.PvpSupplicationReady))
                 return false;
 
-            if (!PaladinSettings.Instance.Pvp_ShieldBash)
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.SupplicationPvp.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_Supplication)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
                 return false;
 
-            return await Spells.ShieldBashPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.SupplicationPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> SepulchrePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpSepulchreReady))
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.SepulchrePvp.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_Sepulchre)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+                return false;
+
+            return await Spells.SepulchrePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ShieldSmitePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.ShieldSmitePvp.CanCast())
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ShieldSmitePvp.Range)
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_ShieldSmite)
+                return false;
+
+            if (PaladinSettings.Instance.Pvp_ShieldSmiteOnlyOnGuard && !Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
+                return false;
+
+            return await Spells.ShieldSmitePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> HolySpiritPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.HolySpiritPvp.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_HolySpirit)
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > PaladinSettings.Instance.Pvp_HolySpiritHpThreshold)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.HolySpiritPvp.Range)
+                return false;
+
+            return await Spells.HolySpiritPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ImperatorPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.ImperatorPvp.CanCast(Core.Me.CurrentTarget))
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_Imperator)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ImperatorPvp.Range)
+                return false;
+
+            return await Spells.ImperatorPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> HolySheltronPvp()
@@ -116,7 +265,13 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.IntervenePvp.CanCast())
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.IntervenePvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             if (!PaladinSettings.Instance.Pvp_Intervene)
@@ -159,6 +314,12 @@ namespace Magitek.Logic.Paladin
             if (!Spells.BladeofFaithPvp.CanCast())
                 return false;
 
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             return await Spells.BladeofFaithPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -170,6 +331,12 @@ namespace Magitek.Logic.Paladin
             if (!Spells.BladeofTruthPvp.CanCast())
                 return false;
 
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             return await Spells.BladeofTruthPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -179,6 +346,12 @@ namespace Magitek.Logic.Paladin
                 return false;
 
             if (!Spells.BladeofValorPvp.CanCast())
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             return await Spells.BladeofValorPvp.Cast(Core.Me.CurrentTarget);
