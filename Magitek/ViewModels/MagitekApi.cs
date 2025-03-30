@@ -102,16 +102,42 @@ namespace Magitek.ViewModels
                             return;
 
                         // Process the body to remove commit hashes and PR links
-                        var bodyLines = x.body.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                        var filteredBodyLines = bodyLines
-                            .Where(line => !line.StartsWith("## Commits"))
-                            .Select(line =>
+                        var bodyLines = x.body?.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
+                        
+                        var filteredBodyLines = new List<string>();
+                        var isInWhatsChanged = false;
+
+                        foreach (var line in bodyLines)
+                        {
+                            if (line.StartsWith("## What's Changed"))
                             {
-                                // Remove commit hash and PR links
-                                var lineWithoutCommitHash = Regex.Replace(line, @"^- [a-f0-9]{7}: ", "");
-                                var lineWithoutPRLink = Regex.Replace(lineWithoutCommitHash, @"\[#\d+\]\(https:\/\/github.com\/MagitekRB\/MagitekRoutine\/pull\/\d+\)", "");
-                                return lineWithoutPRLink.Trim();
-                            });
+                                isInWhatsChanged = true;
+                                continue;
+                            }
+                            
+                            if (isInWhatsChanged)
+                            {
+                                if (line.StartsWith("##"))
+                                {
+                                    break; // We've hit the next section
+                                }
+                                
+                                if (line.StartsWith("* "))
+                                {
+                                    // Remove the bullet point
+                                    var lineWithoutBullet = line.Substring(2).Trim();
+                                    // Keep the contributor but remove the PR link
+                                    var lineWithoutPRLink = Regex.Replace(lineWithoutBullet, @" in https:\/\/github\.com\/[^ ]+$", "");
+                                    filteredBodyLines.Add(lineWithoutPRLink.Trim());
+                                }
+                            }
+                        }
+
+                        // If no changes were found, add the no details message
+                        if (!filteredBodyLines.Any())
+                        {
+                            filteredBodyLines.Add("No detailed changes available.");
+                        }
 
                         var filteredBody = string.Join(Environment.NewLine, filteredBodyLines);
 
