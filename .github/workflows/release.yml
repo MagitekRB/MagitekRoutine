@@ -18,10 +18,15 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
 
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
+
+    - name: Setup GitHubCLI
+      run: |
+        winget install GitHub.cli
+        gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
 
     - name: Install dependencies
       run: pip install zipfile36
@@ -106,13 +111,25 @@ jobs:
         name: Version.txt
         path: ./Magitek/bin/release/Version.txt
 
+    - name: Generate Release Body
+      id: generate_release_body
+      run: |
+        $previousTag = git describe --tags --abbrev=0 HEAD^ 2>$null
+        if ($previousTag) {
+          $commits = git log --pretty=format:"- %s" $previousTag..HEAD
+          echo "RELEASE_BODY=$commits" >> $env:GITHUB_ENV
+        } else {
+          $commits = git log --pretty=format:"- %s" HEAD
+          echo "RELEASE_BODY=$commits" >> $env:GITHUB_ENV
+        }
+      shell: pwsh
+
     - name: Create GitHub Release
-      uses: marvinpinto/action-automatic-releases@latest
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        prerelease: false
-        automatic_release_tag: "v${{ env.VERSION }}"
-        files: |
-          ./Magitek/bin/release/Magitek.zip
+      run: |
+        gh release create "v${{ env.VERSION }}" `
+          --title "v${{ env.VERSION }}" `
+          --notes "${{ env.RELEASE_BODY }}" `
+          ./Magitek/bin/release/Magitek.zip `
           ./Magitek/bin/release/Version.txt
+      shell: pwsh
 
