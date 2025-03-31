@@ -6883,6 +6883,102 @@ namespace Magitek.Utilities
                     }
                 }
             },
+
+            new Encounter {
+                ZoneId = 1256,
+                Name = "Groovy Ring",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13778,
+                        Name = "Dancing Green",
+                        TankBusters = new List<uint> {
+                            42694, // Deep Cut
+                        },
+                        Aoes = new List<uint> {
+                            42750, // Full Beat
+                            42696, // Celebrate Good Times
+                            42754, // Eighth Beats
+                            42745, // Disco Infernal
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+            new Encounter {
+                ZoneId = 1258,
+                Name = "Rebel Ring",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13822,
+                        Name = "Sugar Riot",
+                        TankBusters = new List<uint> {
+                            42608, // Color Riot
+                        },
+                        Aoes = new List<uint> {
+                            42607, // Mousse Mural
+                            42605, // Pudding Party
+                            42612, // Mousse Touch-up
+                            42587, // Taste of Fire
+                            42589, // Taste of Thunder
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+            new Encounter {
+                ZoneId = 1260,
+                Name = "Demolition Site",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13756,
+                        Name = "Brute Abombinator",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            42264, // Brutal Impact
+                            42276, // Pulp Smash
+                            42287, // Neo Bombarian Special
+                            42310, // Glower Power
+                            42306, // Abominable Blink
+                            42307, // Revenge of the Vines
+                            42312, // Powerslam
+                            42327, // Slaminator
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+            new Encounter {
+                ZoneId = 1262,
+                Name = "Hunter's Ring",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13843,
+                        Name = "Howling Blade",
+                        TankBusters = new List<uint> {
+                            41869, // Great Divide
+                        },
+                        Aoes = new List<uint> {
+                            41870, // Extraplanar Pursuit
+                            41865, // Heavensearth
+                            42210, // Tracking Tremors
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+
             #endregion
 
             #region Dawntrail: Alliance Raids

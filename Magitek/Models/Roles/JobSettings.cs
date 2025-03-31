@@ -58,6 +58,14 @@ namespace Magitek.Models.Roles
 
         [Setting]
         [DefaultValue(true)]
+        public bool Pvp_UseMount { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_AutoDismount { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Pvp_UseRoleActions { get; set; }
         #endregion
     }

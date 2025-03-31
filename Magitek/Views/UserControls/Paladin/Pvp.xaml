@@ -49,9 +49,12 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-    <CheckBox Content="Sprint Without Target" IsChecked="{Binding PaladinSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-</StackPanel>
-<StackPanel Margin="5">
+                    <CheckBox Content="Sprint Without Target" IsChecked="{Binding PaladinSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Use Mount" IsChecked="{Binding PaladinSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5">
                     <CheckBox Content="Don't attack Guard" IsChecked="{Binding PaladinSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">

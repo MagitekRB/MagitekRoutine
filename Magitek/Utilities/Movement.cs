@@ -58,7 +58,7 @@ namespace Magitek.Utilities
 
             while (Core.Me.IsMounted)
             {
-                ActionManager.Mount();
+                ActionManager.Dismount();
                 await Coroutine.Yield();
             }
 
