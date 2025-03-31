@@ -45,6 +45,9 @@ namespace Magitek.Logic.Roles
             if (await Recuperate(settings))
                 return true;
 
+            if (await Mount(settings))
+                return true;
+
             if (await Sprint(settings))
                 return true;
 
@@ -52,11 +55,14 @@ namespace Magitek.Logic.Roles
                 return true;
 
             return false;
-        }        
+        }
 
         public static async Task<bool> Sprint<T>(T settings) where T : JobSettings
         {
             if (!settings.Pvp_SprintWithoutTarget)
+                return false;
+
+            if (!MovementManager.IsMoving)
                 return false;
 
             if (Core.Me.HasAnyAura(Auras.Invincibility))
@@ -68,7 +74,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasTarget
                 && Core.Me.CurrentTarget.CanAttack
                 && Core.Me.CurrentTarget.InLineOfSight()
-                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.Distance() < 7 : Core.Me.CurrentTarget.Distance() < 25))
+                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.Distance() < 7 : Core.Me.CurrentTarget.Distance() < 30))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpSprint))
@@ -81,6 +87,47 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await Spells.SprintPvp.CastAura(Core.Me, Auras.PvpSprint);
+        }
+
+        public static async Task<bool> Mount<T>(T settings) where T : JobSettings
+        {
+            if (!settings.Pvp_UseMount)
+                return false;
+
+            if (Core.Me.HasAnyAura(Auras.Invincibility) && !MovementManager.IsMoving)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpHidden))
+                return false;
+
+            if (WorldManager.ZoneId == 250)
+                return false;
+
+            // If we're already mounted, check if we need to dismount
+            if (Core.Me.IsMounted)
+            {
+                if (Combat.Enemies.Any(x => x.Distance(Core.Me) < 45))
+                {
+                    ActionManager.Dismount();
+                    return true;
+                }
+                return false;
+            }
+
+            // If we're not mounted and conditions are good, mount up
+            if (!Core.Me.IsMounted
+                && !MovementManager.IsOccupied
+                && ActionManager.CanMount == 0
+                && MovementManager.IsMoving)
+            {
+                if (Combat.Enemies.Any(x => x.Distance(Core.Me) < 65))
+                    return false;
+
+                ActionManager.Mount();
+                return true;
+            }
+
+            return false;
         }
 
         public static async Task<bool> Guard<T>(T settings) where T : JobSettings
@@ -160,7 +207,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await Spells.Recuperate.Cast(Core.Me);
-        }        
+        }
 
         public static async Task<bool> RoleAction<T>(T settings) where T : JobSettings
         {
@@ -175,13 +222,13 @@ namespace Magitek.Logic.Roles
             // However ideally, most role actions would be better integrated into
             // the rotation logic, such as bravery being combined with chain saw.
             // This is just a quick and easy way to get role actions working.
-            
+
             if (selectedAction == Spells.RoleDervishPvp)
                 return await CastDervish(settings);
-                
+
             if (selectedAction == Spells.RoleBraveryPvp)
                 return await CastBravery(settings);
-                
+
             if (selectedAction == Spells.RoleEageEyeShot)
                 return await CastEagleEyeShot(settings);
 
@@ -223,7 +270,7 @@ namespace Magitek.Logic.Roles
 
             return false;
         }
-        
+
         private static async Task<bool> CastDervish<T>(T settings) where T : JobSettings
         {
             if (!Core.Me.HasTarget)
@@ -237,7 +284,7 @@ namespace Magitek.Logic.Roles
 
             return await Spells.RoleDervishPvp.Cast(Core.Me);
         }
-        
+
         private static async Task<bool> CastBravery<T>(T settings) where T : JobSettings
         {
             if (!Core.Me.HasTarget)
@@ -251,7 +298,7 @@ namespace Magitek.Logic.Roles
 
             return await Spells.RoleBraveryPvp.Cast(Core.Me);
         }
-        
+
         private static async Task<bool> CastEagleEyeShot<T>(T settings) where T : JobSettings
         {
             if (!Core.Me.HasTarget)
@@ -267,7 +314,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
-        }    
+        }
 
         private static async Task<bool> CastRampage<T>(T settings) where T : JobSettings
         {
@@ -366,7 +413,7 @@ namespace Magitek.Logic.Roles
         {
             if (Core.Me.CurrentHealthPercent > 85)
                 return false;
-                
+
             if (!Core.Me.HasTarget)
                 return false;
 

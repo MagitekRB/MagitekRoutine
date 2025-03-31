@@ -56,6 +56,9 @@
                     <CheckBox Content="Sprint Without Target" IsChecked="{Binding ViperSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
+                    <CheckBox Content="Use Mount" IsChecked="{Binding ViperSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5">
                     <CheckBox Content="Don't attack Guard" IsChecked="{Binding ViperSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">

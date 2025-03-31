@@ -49,9 +49,12 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-    <CheckBox Content="Sprint Without Target" IsChecked="{Binding SamuraiSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-</StackPanel>
-<StackPanel Margin="5">
+                    <CheckBox Content="Sprint Without Target" IsChecked="{Binding SamuraiSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Use Mount" IsChecked="{Binding SamuraiSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5">
                     <CheckBox Content="Don't attack Guard" IsChecked="{Binding SamuraiSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
@@ -71,7 +74,7 @@
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Mineuchi" IsChecked="{Binding SamuraiSettings.Pvp_Mineuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            </StackPanel>
+                </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Zantetsuken / LB on target at  " IsChecked="{Binding SamuraiSettings.Pvp_Zantetsuken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SamuraiSettings.Pvp_ZantetsukenHealthPercent, Mode=TwoWay}" />

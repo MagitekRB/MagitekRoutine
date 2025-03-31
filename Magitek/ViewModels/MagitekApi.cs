@@ -103,7 +103,7 @@ namespace Magitek.ViewModels
 
                         // Process the body to remove commit hashes and PR links
                         var bodyLines = x.body?.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
-                        
+
                         var filteredBodyLines = new List<string>();
                         var isInWhatsChanged = false;
 
@@ -114,14 +114,14 @@ namespace Magitek.ViewModels
                                 isInWhatsChanged = true;
                                 continue;
                             }
-                            
+
                             if (isInWhatsChanged)
                             {
-                                if (line.StartsWith("##"))
+                                if (line.StartsWith("##") || line.StartsWith("**"))
                                 {
                                     break; // We've hit the next section
                                 }
-                                
+
                                 if (line.StartsWith("* "))
                                 {
                                     // Remove the bullet point
@@ -148,7 +148,8 @@ namespace Magitek.ViewModels
                             Message = filteredBody
                         });
                     });
-                };
+                }
+                ;
             }
             catch (Exception e)
             {
