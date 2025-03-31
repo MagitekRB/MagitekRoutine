@@ -265,6 +265,13 @@
                         <CheckBox Content="Southern Cross"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseSouthernCross, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" Below "/>
+                        <controls:NumericSmall MaxValue="100"
+                                               MinValue="1"
+                                               Value="{Binding RedMageSettings.Pvp_SouthernCrossTargetHealthPercent, Mode=TwoWay}"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text="% HP"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>

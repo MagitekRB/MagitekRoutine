@@ -11,7 +11,7 @@ namespace Magitek.Logic.RedMage
 {
     internal static class Pvp
     {
-        public static bool OutsideComboRange => (Core.Me.CurrentTarget == null || Core.Me.CurrentTarget == Core.Me) ? false : Core.Me.Distance(Core.Me.CurrentTarget) > 3.4 + Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach;
+        public static bool OutsideComboRange => (Core.Me.CurrentTarget == null || Core.Me.CurrentTarget == Core.Me) ? false : Core.Me.Distance(Core.Me.CurrentTarget) > 5 + Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach;
 
         public static async Task<bool> JoltIIIPvp()
         {
@@ -270,6 +270,12 @@ namespace Magitek.Logic.RedMage
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_SouthernCrossTargetHealthPercent)
                 return false;
 
             return await Spells.SouthernCrossPvp.Cast(Core.Me.CurrentTarget);
