@@ -568,7 +568,9 @@ namespace Magitek.Utilities
             PvpAtonementReady = 2015,
             PvpSupplicationReady = 4281,
             PvpSepulchreReady = 4282,
-            PvpConfiteorReady = 3028;
+            PvpConfiteorReady = 3028,
+            PvpDualcast = 1393,
+            PvpPrefulgenceReady = 4322;
 
 
         #endregion

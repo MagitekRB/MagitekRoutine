@@ -13,10 +13,9 @@ namespace Magitek.Logic.RedMage
     {
         public static bool OutsideComboRange => (Core.Me.CurrentTarget == null || Core.Me.CurrentTarget == Core.Me) ? false : Core.Me.Distance(Core.Me.CurrentTarget) > 3.4 + Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach;
 
-        public static async Task<bool> VerstonePvp()
+        public static async Task<bool> JoltIIIPvp()
         {
-
-            if (!Spells.VerstonePvp.CanCast())
+            if (!Spells.JoltIIIPvp.CanCast())
                 return false;
 
             if (MovementManager.IsMoving)
@@ -28,16 +27,183 @@ namespace Magitek.Logic.RedMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.VerstonePvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.JoltIIIPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> GrandImpactPvp()
+        {
+            if (!Spells.GrandImpactPvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseGrandImpact)
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpDualcast))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.GrandImpactPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> EnchantedRipostePvp()
+        {
+            if (!Spells.EnchantedRipostePvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseEnchantedRiposte)
+                return false;
+
+            if (OutsideComboRange)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.EnchantedRipostePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> EnchantedZwerchhauPvp()
+        {
+            if (!Spells.EnchantedZwerchhauPvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseEnchantedZwerchhau)
+                return false;
+
+            if (OutsideComboRange)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.EnchantedZwerchhauPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> EnchantedRedoublementPvp()
+        {
+            if (!Spells.EnchantedRedoublementPvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseEnchantedRedoublement)
+                return false;
+
+            if (OutsideComboRange)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.EnchantedRedoublementPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ScorchPvp()
+        {
+            if (!Spells.ScorchPvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseScorch)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.ScorchPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> PrefulgencePvp()
+        {
+            if (!Spells.PrefulgencePvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UsePrefulgence)
+                return false;
+
+            if (!Core.Me.HasAura(Auras.PvpPrefulgenceReady))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.PrefulgencePvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> ViceOfThornsPvp()
+        {
+            if (!Spells.ViceOfThornsPvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseViceOfThorns)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.ViceOfThornsPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> FortePvp()
+        {
+            if (!Spells.FortePvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseForte)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > RedMageSettings.Instance.Pvp_ForteHealthPercent)
+                return false;
+
+            return await Spells.FortePvp.Cast(Core.Me);
+        }
+
+        public static async Task<bool> EmboldenPvp()
+        {
+            if (!Spells.EmboldenPvp.CanCast())
+                return false;
+
+            if (!RedMageSettings.Instance.Pvp_UseEmbolden)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (Core.Me.CurrentTarget == null || Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_EmboldenTargetHealthPercent)
+                return false;
+
+            return await Spells.EmboldenPvp.Cast(Core.Me);
         }
 
         public static async Task<bool> CorpsacorpsPvp()
         {
-
             if (!Spells.CorpsacorpsPvp.CanCast())
                 return false;
 
-            if (!RedMageSettings.Instance.Pvp_Corpsacorps)
+            if (!RedMageSettings.Instance.Pvp_UseCorpsACorps)
                 return false;
 
             if (OutsideComboRange)
@@ -57,185 +223,31 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> DisplacementPvp()
         {
-
             if (!Spells.DisplacementPvp.CanCast())
                 return false;
 
-            if (!RedMageSettings.Instance.Pvp_Displacement)
+            if (!RedMageSettings.Instance.Pvp_UseDisplacement)
                 return false;
 
             if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpVermilionRadiance))
+            if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (Core.Me.HasAura(Auras.PvpGuard))
+            if (Core.Me.CurrentHealthPercent > RedMageSettings.Instance.Pvp_DisplacementHealthPercent)
                 return false;
 
             return await Spells.DisplacementPvp.Cast(Core.Me.CurrentTarget);
         }
 
-
-        public static async Task<bool> MagickBarrierPvp()
+        public static async Task<bool> ResolutionPvp()
         {
-
-            if (!Spells.MagickBarrierPvp.CanCast())
+            if (!Spells.ResolutionPvp.CanCast())
                 return false;
 
-            if (!RedMageSettings.Instance.Pvp_UsedOGCD)
+            if (!RedMageSettings.Instance.Pvp_UseResolution)
                 return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedOGCD && RedMageSettings.Instance.Pvp_UsedMagickBarrier && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.MagickBarrierPvp.Cast(Core.Me);
-        }
-
-        public static async Task<bool> FazzlePvp()
-        {
-
-            if (!Spells.FazzlePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedOGCD)
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedOGCD && RedMageSettings.Instance.Pvp_UsedFazzle && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.FazzlePvp.Cast(Core.Me);
-        }
-
-        public static async Task<bool> ResolutionWhitePvp()
-        {
-
-            if (!Spells.ResolutionWhitePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedResolution)
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedResolution && RedMageSettings.Instance.Pvp_UsedResolutionWhite && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.ResolutionWhitePvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> ResolutionBlackPvp()
-        {
-
-            if (!Spells.ResolutionBlackPvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedResolution)
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedResolution && RedMageSettings.Instance.Pvp_UsedResolutionBlack && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.ResolutionBlackPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> EnchantedRiposteWhitePvp()
-        {
-
-            if (!Spells.EnchantedRiposteWhitePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (OutsideComboRange)
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerHoly && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.EnchantedRiposteWhitePvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> EnchantedZwerchhauWhitePvp()
-        {
-
-            if (!Spells.EnchantedZwerchhauWhitePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (OutsideComboRange)
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerHoly && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.EnchantedZwerchhauWhitePvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> EnchantedRedoublementWhitePvp()
-        {
-
-            if (!Spells.EnchantedRedoublementWhitePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (OutsideComboRange)
-                return false;
-
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerHoly && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.EnchantedRedoublementWhitePvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> VerHolyPvp()
-        {
-
-            if (!Spells.VerHolyPvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerHoly && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
@@ -243,131 +255,24 @@ namespace Magitek.Logic.RedMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.VerHolyPvp.Cast(Core.Me.CurrentTarget);
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_ResolutionTargetHealthPercent)
+                return false;
+
+            return await Spells.ResolutionPvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> EnchantedRiposteBlackPvp()
+        public static async Task<bool> SouthernCrossPvp()
         {
-
-            if (!Spells.EnchantedRiposteBlackPvp.CanCast())
+            if (!Spells.SouthernCrossPvp.CanCast())
                 return false;
 
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (OutsideComboRange)
-                return false;
-
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerflare && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.EnchantedRiposteBlackPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> EnchantedZwerchhauBlackPvp()
-        {
-
-            if (!Spells.EnchantedZwerchhauBlackPvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (OutsideComboRange)
-                return false;
-
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerflare && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            return await Spells.EnchantedZwerchhauBlackPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> EnchantedRedoublementBlackPvp()
-        {
-
-            if (!Spells.EnchantedRedoublementBlackPvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (OutsideComboRange)
+            if (!RedMageSettings.Instance.Pvp_UseSouthernCross)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerflare && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            return await Spells.EnchantedRedoublementBlackPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.SouthernCrossPvp.Cast(Core.Me.CurrentTarget);
         }
-
-        public static async Task<bool> VerFlarePvp()
-        {
-
-            if (!Spells.VerFlarePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_UsedMeleeCombo)
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_UsedMeleeCombo && RedMageSettings.Instance.Pvp_UsedVerflare && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.VerFlarePvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> SouthernCrossBlackPvp()
-        {
-
-            if (!Spells.SouthernCrossBlackPvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_SouthernCross)
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_SouthernCross && RedMageSettings.Instance.Pvp_SouthernCrossBlack && Core.Me.HasAura(Auras.PvpWhiteShift))
-                return await Spells.BlackShiftPvp.Cast(Core.Me);
-
-            return await Spells.SouthernCrossBlackPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> SouthernCrossWhitePvp()
-        {
-
-            if (!Spells.SouthernCrossWhitePvp.CanCast())
-                return false;
-
-            if (!RedMageSettings.Instance.Pvp_SouthernCross)
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (RedMageSettings.Instance.Pvp_SouthernCross && RedMageSettings.Instance.Pvp_SouthernCrossWhite && Core.Me.HasAura(Auras.PvpBlackShift))
-                return await Spells.WhiteShiftPvp.Cast(Core.Me);
-
-            return await Spells.SouthernCrossWhitePvp.Cast(Core.Me.CurrentTarget);
-        }
-
-
     }
 }

@@ -462,6 +462,9 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
+            if (MovementManager.IsMoving)
+                return false;
+
             if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleComet.Range)
                 return false;
 
