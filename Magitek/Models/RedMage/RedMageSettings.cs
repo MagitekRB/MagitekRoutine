@@ -227,59 +227,71 @@ namespace Magitek.Models.RedMage
         #region PVP
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Corpsacorps { get; set; }
+        public bool Pvp_UseGrandImpact { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Displacement { get; set; }
+        public bool Pvp_UseEnchantedRiposte { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsedResolution { get; set; }
+        public bool Pvp_UseEnchantedZwerchhau { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsedResolutionWhite { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool Pvp_UsedResolutionBlack { get; set; }
+        public bool Pvp_UseEnchantedRedoublement { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsedMeleeCombo { get; set; }
+        public bool Pvp_UseScorch { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsedVerHoly { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool Pvp_UsedVerflare { get; set; }
+        public bool Pvp_UsePrefulgence { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsedOGCD { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool Pvp_UsedFazzle { get; set; }
+        public bool Pvp_UseViceOfThorns { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsedMagickBarrier { get; set; }
+        public bool Pvp_UseForte { get; set; }
+
+        [Setting]
+        [DefaultValue(80.0f)]
+        public float Pvp_ForteHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_SouthernCross { get; set; }
+        public bool Pvp_UseEmbolden { get; set; }
+
+        [Setting]
+        [DefaultValue(80.0f)]
+        public float Pvp_EmboldenTargetHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_SouthernCrossWhite { get; set; }
+        public bool Pvp_UseCorpsACorps { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool Pvp_SouthernCrossBlack { get; set; }
+        [DefaultValue(true)]
+        public bool Pvp_UseDisplacement { get; set; }
+
+        [Setting]
+        [DefaultValue(40.0f)]
+        public float Pvp_DisplacementHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseResolution { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float Pvp_ResolutionTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseSouthernCross { get; set; }
         #endregion
     }
 }

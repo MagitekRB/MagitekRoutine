@@ -1440,25 +1440,20 @@ namespace Magitek.Utilities
         public static readonly SpellData SummonPhoenixPvp = DataManager.GetSpellData(29678);
 
         //RDM
-        public static readonly SpellData VerstonePvp = DataManager.GetSpellData(29683);
-        public static readonly SpellData EnchantedRiposteWhitePvp = DataManager.GetSpellData(29689);
-        public static readonly SpellData EnchantedZwerchhauWhitePvp = DataManager.GetSpellData(29690);
-        public static readonly SpellData EnchantedRedoublementWhitePvp = DataManager.GetSpellData(29691);
-        public static readonly SpellData EnchantedRiposteBlackPvp = DataManager.GetSpellData(29692);
-        public static readonly SpellData EnchantedZwerchhauBlackPvp = DataManager.GetSpellData(29693);
-        public static readonly SpellData EnchantedRedoublementBlackPvp = DataManager.GetSpellData(29694);
-        public static readonly SpellData ResolutionBlackPvp = DataManager.GetSpellData(29695);
-        public static readonly SpellData ResolutionWhitePvp = DataManager.GetSpellData(29696);
-        public static readonly SpellData MagickBarrierPvp = DataManager.GetSpellData(29697);
-        public static readonly SpellData FazzlePvp = DataManager.GetSpellData(29698);
+        public static readonly SpellData JoltIIIPvp = DataManager.GetSpellData(41486);
+        public static readonly SpellData GrandImpactPvp = DataManager.GetSpellData(41487);
+        public static readonly SpellData EnchantedRipostePvp = DataManager.GetSpellData(41488);
+        public static readonly SpellData EnchantedZwerchhauPvp = DataManager.GetSpellData(41489);
+        public static readonly SpellData EnchantedRedoublementPvp = DataManager.GetSpellData(41490);
+        public static readonly SpellData ScorchPvp = DataManager.GetSpellData(41491);
+        public static readonly SpellData PrefulgencePvp = DataManager.GetSpellData(41495);
+        public static readonly SpellData ViceOfThornsPvp = DataManager.GetSpellData(41493);
+        public static readonly SpellData FortePvp = DataManager.GetSpellData(41496);
+        public static readonly SpellData EmboldenPvp = DataManager.GetSpellData(41494);
         public static readonly SpellData CorpsacorpsPvp = DataManager.GetSpellData(29699);
         public static readonly SpellData DisplacementPvp = DataManager.GetSpellData(29700);
-        public static readonly SpellData BlackShiftPvp = DataManager.GetSpellData(29702);
-        public static readonly SpellData WhiteShiftPvp = DataManager.GetSpellData(29703);
-        public static readonly SpellData VerHolyPvp = DataManager.GetSpellData(29685);
-        public static readonly SpellData VerFlarePvp = DataManager.GetSpellData(29688);
-        public static readonly SpellData SouthernCrossBlackPvp = DataManager.GetSpellData(29704);
-        public static readonly SpellData SouthernCrossWhitePvp = DataManager.GetSpellData(29705);
+        public static readonly SpellData ResolutionPvp = DataManager.GetSpellData(41492);
+        public static readonly SpellData SouthernCrossPvp = DataManager.GetSpellData(41498);
 
         //GBN
         public static readonly uint SolidBarrelPvpCombo = 53;

@@ -148,31 +148,36 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(RedMageSettings.Instance)) return true;
 
+            // Movement Abilities
             if (await Pvp.DisplacementPvp()) return true;
+            if (await Pvp.CorpsacorpsPvp()) return true;
+
+            // Melee Combo
+            if (await Pvp.EnchantedRipostePvp()) return true;
+            if (await Pvp.EnchantedZwerchhauPvp()) return true;
+            if (await Pvp.EnchantedRedoublementPvp()) return true;
+            if (await Pvp.ScorchPvp()) return true;
+
+            // Main Rotation
             if (!CommonPvp.GuardCheck(RedMageSettings.Instance))
             {
-                if (await Pvp.SouthernCrossWhitePvp()) return true;
-                if (await Pvp.VerHolyPvp()) return true;
-                if (await Pvp.EnchantedRedoublementWhitePvp()) return true;
-                if (await Pvp.EnchantedZwerchhauWhitePvp()) return true;
-                if (await Pvp.EnchantedRiposteWhitePvp()) return true;
+                // Limit Break
+                if (await Pvp.SouthernCrossPvp()) return true;
 
-                if (await Pvp.SouthernCrossBlackPvp()) return true;
-                if (await Pvp.VerFlarePvp()) return true;
-                if (await Pvp.EnchantedRedoublementBlackPvp()) return true;
-                if (await Pvp.EnchantedZwerchhauBlackPvp()) return true;
-                if (await Pvp.EnchantedRiposteBlackPvp()) return true;
+                if (await Pvp.ResolutionPvp()) return true;
 
-                if (await Pvp.CorpsacorpsPvp()) return true;
+                if (await Pvp.EmboldenPvp()) return true;
+                if (await Pvp.PrefulgencePvp()) return true;
 
-                if (await Pvp.ResolutionWhitePvp()) return true;
-                if (await Pvp.ResolutionBlackPvp()) return true;
+                if (await Pvp.FortePvp()) return true;
+                if (await Pvp.ViceOfThornsPvp()) return true;
             }
 
-            if (await Pvp.MagickBarrierPvp()) return true;
-            if (await Pvp.FazzlePvp()) return true;
+            // Basic Spells
+            if (await Pvp.GrandImpactPvp()) return true;
+            if (await Pvp.JoltIIIPvp()) return true;
 
-            return (await Pvp.VerstonePvp());
+            return false;
         }
 
         public static void RegisterCombatMessages()
