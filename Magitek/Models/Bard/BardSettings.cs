@@ -329,23 +329,52 @@ namespace Magitek.Models.Bard
         #region PVP
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UseEmpyrealArrow { get; set; }
-
-        [Setting]
-        [DefaultValue(1)]
-        public int Pvp_UseEmpyrealArrowCharges { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_UseFinalFantasia { get; set; }
 
         [Setting]
-        [DefaultValue(1)]
-        public int Pvp_UseFinalFantasiaAlliesCount { get; set; }
+        [DefaultValue(50.0f)]
+        public float Pvp_FinalFantasiaHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_SilentNocturne { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_RepellingShot { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_WardensPaean { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_HarmonicArrow { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float Pvp_HarmonicArrowHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_EncoreOfLight { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_PowerfulShot { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_ApexArrow { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_BlastArrow { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_PitchPerfect { get; set; }
+
         #endregion
     }
 }
