@@ -1284,11 +1284,11 @@ namespace Magitek.Utilities
         public static readonly SpellData ApexArrowPvp = DataManager.GetSpellData(29393);
         public static readonly SpellData BlastArrowPvp = DataManager.GetSpellData(29394);
         public static readonly SpellData SilentNocturnePvp = DataManager.GetSpellData(29395);
-        public static readonly SpellData EmpyrealArrowPvp = DataManager.GetSpellData(29396);
-        public static readonly SpellData EmpyrealArrowIIPvp = DataManager.GetSpellData(29397);
-        public static readonly SpellData EmpyrealArrowIIIPvp = DataManager.GetSpellData(29398);
         public static readonly SpellData TheWardenPaeanPvp = DataManager.GetSpellData(29400);
         public static readonly SpellData FinalFantasiaPvp = DataManager.GetSpellData(29401);
+        public static readonly SpellData EncoreOfLightPvp = DataManager.GetSpellData(41467);
+        public static readonly SpellData RepellingShotPvp = DataManager.GetSpellData(29399);
+        public static readonly SpellData HarmonicArrowPvp = DataManager.GetSpellData(41464);
 
         //MCH
         public static readonly SpellData BlastChargePvp = DataManager.GetSpellData(29402);
@@ -1525,7 +1525,6 @@ namespace Magitek.Utilities
         public static readonly SpellData ImperatorPvp = DataManager.GetSpellData(41431);
 
         #endregion
-
     }
 
 }
