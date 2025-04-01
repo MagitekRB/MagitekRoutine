@@ -16,6 +16,19 @@ Magitek is a precompiled routine, which is different than some others. In order 
 
 Magitek automatically updates when Reborn Buddy is started, there is no need to add Magitek to an autoupdater like RepoBuddy.
 
+## Magitek Usage
+
+You probably also want a way to always use Magitek instead of having to pick the Routine every time you switch classes.
+
+There are lots of options for this maintained by the community. You can use **SeleCR** which is bundled with UpdateBuddy, or you can use a plugin like **ForceMagitek**.
+
+For convenience here is a ForceMagitek plugin that will automatically choose Magitek for you for every class. 
+
+1. Place this [ForceMagitek.cs](https://raw.githubusercontent.com/MagitekRB/MagitekRoutine/master/Plugins/ForceMagitek/ForceMagitek.cs) file in the `RebornBuddy\Plugins\ForceMagitek\` folder. 
+2. Then make sure to enable the plugin in RebornBuddy under the Plugins tab.
+
+Another alternative option is to use SeleCR from https://github.com/nt153133/CarbuncleTech
+
 ## Compiling from Source
 
 Fork the repo and compile.
