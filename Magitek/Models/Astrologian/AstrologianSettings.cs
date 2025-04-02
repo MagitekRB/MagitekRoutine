@@ -657,15 +657,7 @@ namespace Magitek.Models.Astrologian
         #region PVP
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Draw { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_GravityII { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool Pvp_HealSelfOnly { get; set; }
+        public bool Pvp_FallMalefic { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -674,6 +666,18 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(50.0f)]
         public float Pvp_AspectedBeneficHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_GravityII { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int Pvp_GravityIIEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_DoubleCast { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -689,19 +693,11 @@ namespace Magitek.Models.Astrologian
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_DoubleCast { get; set; }
+        public bool Pvp_MinorArcana { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_DoubleCastMaleficII { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_DoubleCastAspectedBenefic { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_DoubleCastFallMalefic { get; set; }
+        public bool Pvp_Oracle { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -710,6 +706,18 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(1)]
         public int Pvp_CelestialRiverNearbyAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(85.0f)]
+        public float Pvp_CelestialRiverHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int Pvp_MacrocosmosEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int Pvp_LordOfCrownsEnemies { get; set; }
         #endregion
 
     }

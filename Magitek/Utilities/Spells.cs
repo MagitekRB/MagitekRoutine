@@ -1267,6 +1267,10 @@ namespace Magitek.Utilities
         public static readonly SpellData MacrocosmosPvp = DataManager.GetSpellData(29253);
         public static readonly SpellData MicrocosmosPvp = DataManager.GetSpellData(29254);
         public static readonly SpellData CelestialRiverPvp = DataManager.GetSpellData(29255);
+        public static readonly SpellData MinorArcanaPvp = DataManager.GetSpellData(41503);
+        public static readonly SpellData LadyOfCrownsPvp = DataManager.GetSpellData(41504);
+        public static readonly SpellData LordOfCrownsPvp = DataManager.GetSpellData(41505);
+        public static readonly SpellData OraclePvp = DataManager.GetSpellData(41508);
 
         //SAGE
         public static readonly SpellData DosisIIIPvp = DataManager.GetSpellData(29256);

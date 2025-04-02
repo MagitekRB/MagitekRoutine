@@ -170,6 +170,15 @@ namespace Magitek.Extensions
 
             if (Core.Me.OnPvpMap())
             {
+                if (!spell.CanCast(target))
+                    return false;
+
+                if (Core.Me.HasAura(Auras.PvpGuard))
+                    return false;
+
+                if (!target.WithinSpellRange(spell.Range))
+                    return false;
+
                 // these spells have cast times, but can be cast while moving
                 if (spell == Spells.BlastChargePvp || spell == Spells.PowerfulShotPvp)
                     return true;
