@@ -14,6 +14,44 @@ namespace Magitek.Logic.Dancer
 {
     internal static class Pvp
     {
+        public static async Task<bool> EnAvant()
+        {
+            if (!DancerSettings.Instance.Pvp_UseEnAvant)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpEnAvant))
+                return false;
+
+            if (!Spells.EnAvantPvp.CanCast())
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // really a 10 yalm dash, only dash if it would put us within standard attack range which is 15
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
+                return false;
+
+            return await Spells.EnAvantPvp.Cast(Core.Me);
+        }
+
+        public static async Task<bool> FountainCombo()
+        {
+            // Spells: Cascade, Reverse Cascade, Saber Dance, Fountainfall, Dance of the Dawn
+            // This method is used to cast the Fountain Combo
+            // Using Masked it basically contains all in one.
+            if (await Fountain())
+                return true;
+
+            if (await Cascade())
+                return true;
+
+            return false;
+        }
+
         public static async Task<bool> Cascade()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -25,7 +63,10 @@ namespace Magitek.Logic.Dancer
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.CascadePvp.CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.CascadePvp.Range))
+                return false;
+
+            return await Spells.CascadePvp.Masked().CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> Fountain()
@@ -39,51 +80,11 @@ namespace Magitek.Logic.Dancer
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.FountainPvp.CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FountainPvp.Range))
+                return false;
+
+            return await Spells.FountainPvp.Masked().CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
         }
-
-        public static async Task<bool> ReverseCascade()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.ReverseCascadePvp.CanCast())
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.ReverseCascadePvp.CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> SaberDance()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.SaberDancePvp.CanCast())
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.SaberDancePvp.CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> FountainFall()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.FountainFallPvp.CanCast())
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.FountainFallPvp.CastPvpCombo(Spells.FountainPvpCombo, Core.Me.CurrentTarget);
-        }
-
 
         public static async Task<bool> StarfallDance()
         {
@@ -93,10 +94,10 @@ namespace Magitek.Logic.Dancer
             if (!Spells.StarfallDancePvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.StarfallDancePvp.Range))
                 return false;
 
             return await Spells.StarfallDancePvp.Cast(Core.Me.CurrentTarget);
@@ -110,10 +111,10 @@ namespace Magitek.Logic.Dancer
             if (!Spells.FanDancePvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FanDancePvp.Range))
                 return false;
 
             return await Spells.FanDancePvp.Cast(Core.Me.CurrentTarget);
@@ -130,10 +131,14 @@ namespace Magitek.Logic.Dancer
             if (!Spells.HoningDancePvp.CanCast())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < DancerSettings.Instance.Pvp_HoningDanceMinimumEnemies)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HoningDancePvp.Range))
+                return false;
+
+            var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.HoningDancePvp.Range));
+            if (enemiesAroundTarget < DancerSettings.Instance.Pvp_HoningDanceMinimumEnemies)
                 return false;
 
             return await Spells.HoningDancePvp.Cast(Core.Me.CurrentTarget);
@@ -150,10 +155,14 @@ namespace Magitek.Logic.Dancer
             if (!Spells.ContradancePvp.CanCast())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 15 + x.CombatReach) < DancerSettings.Instance.Pvp_ContradanceMinimumEnemies)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ContradancePvp.Range))
+                return false;
+
+            var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ContradancePvp.Range));
+            if (enemiesAroundTarget < DancerSettings.Instance.Pvp_ContradanceMinimumEnemies)
                 return false;
 
             return await Spells.ContradancePvp.Cast(Core.Me.CurrentTarget);
@@ -167,11 +176,18 @@ namespace Magitek.Logic.Dancer
             if (!Globals.InParty)
                 return false;
 
-            if (Core.Me.HasAura(Auras.ClosedPosition))
-                return false;
-
             if (!Spells.ClosedPositionPvp.CanCast())
                 return false;
+
+            // If we have the aura, check if any allies within range have the dance partner aura
+            if (Core.Me.HasAura(Auras.PvpClosedPosition))
+            {
+                var alliesWithDancePartner = Group.CastableAlliesWithin50.Any(a => a.IsAlive && !a.IsMe && a.HasAura(Auras.PvpDancePartner));
+                if (alliesWithDancePartner)
+                    return false;
+                if (!Core.Me.HasTarget)
+                    return false;
+            }
 
             IEnumerable<Character> allyList = null;
             switch (DancerSettings.Instance.Pvp_DancePartnerSelectedStrategy)
@@ -200,7 +216,7 @@ namespace Magitek.Logic.Dancer
             if (allyList == null)
                 return false;
 
-            return await Spells.ClosedPositionPvp.CastAura(allyList.FirstOrDefault(), Auras.ClosedPosition);
+            return await Spells.ClosedPositionPvp.CastAura(allyList.FirstOrDefault(), Auras.PvpDancePartner);
         }
 
         public static async Task<bool> CuringWaltz()
@@ -299,6 +315,12 @@ namespace Magitek.Logic.Dancer
 
                 case ClassJobType.Scholar:
                     return DancerSettings.Instance.Pvp_SchPartnerWeight;
+
+                case ClassJobType.Viper:
+                    return DancerSettings.Instance.Pvp_VprPartnerWeight;
+
+                case ClassJobType.Pictomancer:
+                    return DancerSettings.Instance.Pvp_PctPartnerWeight;
             }
 
             return c.CurrentJob == ClassJobType.Adventurer ? 70 : 0;

@@ -570,7 +570,10 @@ namespace Magitek.Utilities
             PvpSepulchreReady = 4282,
             PvpConfiteorReady = 3028,
             PvpDualcast = 1393,
-            PvpPrefulgenceReady = 4322;
+            PvpPrefulgenceReady = 4322,
+            PvpEnAvant = 2048,
+            PvpClosedPosition = 2026,
+            PvpDancePartner = 2027;
 
 
         #endregion

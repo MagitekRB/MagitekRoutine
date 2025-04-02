@@ -227,6 +227,14 @@ namespace Magitek.Models.Dancer
         [DefaultValue(19)]
         public int SagPartnerWeight { get; set; }
 
+        [Setting]
+        [DefaultValue(20)]
+        public int VprPartnerWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(21)]
+        public int PctPartnerWeight { get; set; }
+
         #endregion
 
         #region PVP
@@ -253,6 +261,10 @@ namespace Magitek.Models.Dancer
         [Setting]
         [DefaultValue(2)]
         public int Pvp_HoningDanceMinimumEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseEnAvant { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -337,6 +349,14 @@ namespace Magitek.Models.Dancer
         [Setting]
         [DefaultValue(19)]
         public int Pvp_SagPartnerWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(20)]
+        public int Pvp_VprPartnerWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(21)]
+        public int Pvp_PctPartnerWeight { get; set; }
         #endregion
 
         [Setting]

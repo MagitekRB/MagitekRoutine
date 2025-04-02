@@ -116,6 +116,7 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(DancerSettings.Instance)) return true;
 
             if (await Pvp.CuringWaltz()) return true;
+            if (await Pvp.EnAvant()) return true;
 
             //LB
             if (await Pvp.Contradance()) return true;
@@ -128,13 +129,7 @@ namespace Magitek.Rotations
                 if (await Pvp.StarfallDance()) return true;
             }
 
-            //Combo
-            if (await Pvp.SaberDance()) return true;
-            if (await Pvp.FountainFall()) return true;
-            if (await Pvp.ReverseCascade()) return true;
-            if (await Pvp.Fountain()) return true;
-
-            return await Pvp.Cascade();
+            return await Pvp.FountainCombo();
         }
     }
 }
