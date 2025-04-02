@@ -180,10 +180,12 @@ namespace Magitek.Logic.Dancer
                 return false;
 
             // If we have the aura, check if any allies within range have the dance partner aura
-            if (Core.Me.HasAura(Auras.PvpClosedPosition) && Core.Me.HasTarget)
+            if (Core.Me.HasAura(Auras.PvpClosedPosition))
             {
                 var alliesWithDancePartner = Group.CastableAlliesWithin50.Any(a => a.IsAlive && !a.IsMe && a.HasAura(Auras.PvpDancePartner));
                 if (alliesWithDancePartner)
+                    return false;
+                if (!Core.Me.HasTarget)
                     return false;
             }
 
