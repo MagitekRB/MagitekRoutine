@@ -63,7 +63,7 @@ namespace Magitek.Logic.Viper
             // resets uncoiled fury && snake scales
             var uncoiledFury = Spells.UncoiledFuryPvp;
 
-            if (Spells.OuroborosPvp.CanCast() && Core.Me.CurrentTarget.Distance() <= 5)
+            if (Spells.OuroborosPvp.CanCast() && Core.Me.CurrentTarget.WithinSpellRange(Spells.OuroborosPvp.Range))
                 return false;
 
             if (uncoiledFury.Cooldown.TotalMilliseconds <= 5000)
@@ -82,7 +82,7 @@ namespace Magitek.Logic.Viper
         {
             var spell = Spells.UncoiledFuryPvp;
 
-            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget.Distance() <= 5)
+            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget.WithinSpellRange(Spells.UncoiledFuryPvp.Radius))
                 return false;
 
             if (!spell.CanCast(Core.Me.CurrentTarget))
@@ -140,7 +140,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.WorldswallowerPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.WorldswallowerPvp.Range))
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > ViperSettings.Instance.Pvp_WorldSwallowerHealthPercent)

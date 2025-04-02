@@ -11,8 +11,6 @@ namespace Magitek.Logic.RedMage
 {
     internal static class Pvp
     {
-        public static bool OutsideComboRange => (Core.Me.CurrentTarget == null || Core.Me.CurrentTarget == Core.Me) ? false : Core.Me.Distance(Core.Me.CurrentTarget) > 5 + Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach;
-
         public static async Task<bool> JoltIIIPvp()
         {
             if (!Spells.JoltIIIPvp.CanCast())
@@ -58,7 +56,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Pvp_UseEnchantedRiposte)
                 return false;
 
-            if (OutsideComboRange)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.EnchantedRipostePvp.Range))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -78,7 +76,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Pvp_UseEnchantedZwerchhau)
                 return false;
 
-            if (OutsideComboRange)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.EnchantedZwerchhauPvp.Range))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -98,7 +96,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Pvp_UseEnchantedRedoublement)
                 return false;
 
-            if (OutsideComboRange)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.EnchantedRedoublementPvp.Range))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -206,7 +204,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Pvp_UseCorpsACorps)
                 return false;
 
-            if (OutsideComboRange)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.CorpsacorpsPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -238,6 +236,9 @@ namespace Magitek.Logic.RedMage
             if (Core.Me.CurrentHealthPercent > RedMageSettings.Instance.Pvp_DisplacementHealthPercent)
                 return false;
 
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.DisplacementPvp.Range))
+                return false;
+
             return await Spells.DisplacementPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -258,6 +259,9 @@ namespace Magitek.Logic.RedMage
             if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_ResolutionTargetHealthPercent)
                 return false;
 
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ResolutionPvp.Range))
+                return false;
+
             return await Spells.ResolutionPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -276,6 +280,9 @@ namespace Magitek.Logic.RedMage
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_SouthernCrossTargetHealthPercent)
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SouthernCrossPvp.Range))
                 return false;
 
             return await Spells.SouthernCrossPvp.Cast(Core.Me.CurrentTarget);

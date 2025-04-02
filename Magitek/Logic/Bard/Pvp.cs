@@ -26,7 +26,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.PowerfulShotPvp.Range))
                 return false;
 
             return await Spells.PowerfulShotPvp.Cast(Core.Me.CurrentTarget);
@@ -46,7 +46,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ApexArrowPvp.Range))
                 return false;
 
             return await Spells.ApexArrowPvp.Cast(Core.Me.CurrentTarget);
@@ -66,7 +66,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastArrowPvp.Range))
                 return false;
 
             return await Spells.BlastArrowPvp.Cast(Core.Me.CurrentTarget);
@@ -86,7 +86,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SilentNocturnePvp.Range))
                 return false;
 
             return await Spells.SilentNocturnePvp.Cast(Core.Me.CurrentTarget);
@@ -106,7 +106,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 10)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RepellingShotPvp.Range))
                 return false;
 
             return await Spells.RepellingShotPvp.Cast(Core.Me.CurrentTarget);
@@ -145,7 +145,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
                 return false;
 
             // Calculate damage based on current charges
@@ -210,7 +210,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FinalFantasiaPvp.Range))
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > BardSettings.Instance.Pvp_FinalFantasiaHealthPercent)
@@ -233,7 +233,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.EncoreOfLightPvp.Range))
                 return false;
 
             return await Spells.EncoreOfLightPvp.Cast(Core.Me.CurrentTarget);
@@ -253,7 +253,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.PitchPerfectPvp.Range))
                 return false;
 
             return await Spells.PitchPerfectPvp.Cast(Core.Me.CurrentTarget);

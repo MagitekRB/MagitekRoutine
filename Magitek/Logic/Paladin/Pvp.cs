@@ -21,7 +21,7 @@ namespace Magitek.Logic.Paladin
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.FastBladePvp.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBladePvp.Range))
                 return false;
 
             if (!Spells.FastBladePvp.CanCast(Core.Me.CurrentTarget))
@@ -34,7 +34,7 @@ namespace Magitek.Logic.Paladin
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
-                                
+
             if (!Core.Me.HasTarget)
                 return false;
 
@@ -74,11 +74,11 @@ namespace Magitek.Logic.Paladin
 
             if (!Core.Me.HasTarget)
                 return false;
-                
+
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ConfiteorPvp.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ConfiteorPvp.Range))
                 return false;
 
             if (!Spells.ConfiteorPvp.CanCast(Core.Me.CurrentTarget))
@@ -110,7 +110,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Atonement)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.AtonementPvp.Range))
                 return false;
 
             return await Spells.AtonementPvp.Cast(Core.Me.CurrentTarget);
@@ -136,7 +136,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Supplication)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SupplicationPvp.Range))
                 return false;
 
             return await Spells.SupplicationPvp.Cast(Core.Me.CurrentTarget);
@@ -162,7 +162,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Sepulchre)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SepulchrePvp.Range))
                 return false;
 
             return await Spells.SepulchrePvp.Cast(Core.Me.CurrentTarget);
@@ -182,7 +182,7 @@ namespace Magitek.Logic.Paladin
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ShieldSmitePvp.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ShieldSmitePvp.Range))
                 return false;
 
             if (!PaladinSettings.Instance.Pvp_ShieldSmite)
@@ -214,7 +214,7 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.CurrentHealthPercent > PaladinSettings.Instance.Pvp_HolySpiritHpThreshold)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.HolySpiritPvp.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HolySpiritPvp.Range))
                 return false;
 
             return await Spells.HolySpiritPvp.Cast(Core.Me.CurrentTarget);
@@ -237,7 +237,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Imperator)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.ImperatorPvp.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ImperatorPvp.Range))
                 return false;
 
             return await Spells.ImperatorPvp.Cast(Core.Me.CurrentTarget);
@@ -277,13 +277,10 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Intervene)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.IntervenePvp.Range))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (PaladinSettings.Instance.Pvp_SafeIntervene && Core.Me.CurrentTarget.Distance(Core.Me) > 3)
+            if (PaladinSettings.Instance.Pvp_SafeIntervene && !Core.Me.CurrentTarget.WithinSpellRange(3))
                 return false;
 
             return await Spells.IntervenePvp.Cast(Core.Me.CurrentTarget);

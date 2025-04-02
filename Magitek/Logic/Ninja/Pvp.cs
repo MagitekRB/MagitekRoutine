@@ -66,7 +66,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Assassinate)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.AssassinatePvp.Range))
                 return false;
 
             return await Spells.AssassinatePvp.Cast(Core.Me.CurrentTarget);
@@ -86,7 +86,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Bunshin)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BunshinPvp.Range))
                 return false;
 
             return await Spells.BunshinPvp.Cast(Core.Me);
@@ -112,7 +112,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaSettings.Instance.Pvp_FumaShurikenOnlyWithBunshin && !Core.Me.HasAura(Auras.PvpBunshin))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FumaShurikenPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -135,7 +135,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Shukuchi)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ShukuchiPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -199,7 +199,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaSettings.Instance.Pvp_DoNotUseThreeMudra)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ThreeMudraPvp.Range))
                 return false;
 
             return await Spells.ThreeMudraPvp.Cast(Core.Me);
@@ -219,7 +219,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_HyoshoRanryu)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HyoshoRanryuPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -242,7 +242,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_GokaMekkyaku)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.GokaMekkyakuPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -328,7 +328,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_ForkedRaiju)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ForkedRaijuPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -351,7 +351,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_FleetingRaiju)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FleetingRaijuPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -374,7 +374,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Dokumori)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.DokumoriPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -394,7 +394,7 @@ namespace Magitek.Logic.Ninja
             if (!Spells.ZeshoMeppoPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ZeshoMeppoPvp.Range))
                 return false;
 
             return await Spells.ZeshoMeppoPvp.Cast(Core.Me.CurrentTarget);
