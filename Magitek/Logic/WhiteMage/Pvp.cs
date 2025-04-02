@@ -85,6 +85,9 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.MiracleOfNaturePvp.Range))
+                return false;
+
             return await Spells.MiracleOfNaturePvp.Cast(Core.Me.CurrentTarget);
         }
 

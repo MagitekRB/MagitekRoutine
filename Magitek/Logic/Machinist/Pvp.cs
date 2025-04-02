@@ -32,7 +32,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastChargePvp.Range))
                 return false;
 
             return await Spells.BlastChargePvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks());
@@ -49,7 +49,7 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.HasAura(Auras.PvpOverheated))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlazingShotPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -72,7 +72,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.WildfirePvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.WildfirePvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -129,7 +129,7 @@ namespace Magitek.Logic.Machinist
             var targetCurrentHp = WildfireTarget.CurrentHealth;
             var wouldKill = targetCurrentHp <= estimatedDamage;
 
-            if (wouldKill || WildfireTarget.Distance(Core.Me) >= 26.75)
+            if (wouldKill || !WildfireTarget.WithinSpellRange(Spells.DetonatorPvp.Range + 2.75))
             {
                 return await Spells.DetonatorPvp.Cast(Core.Me);
             }
@@ -155,7 +155,7 @@ namespace Magitek.Logic.Machinist
                     return false;
             }
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FullMetalFieldPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -178,10 +178,10 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 12)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ScattergunPvp.Range))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) < 12) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ScattergunPvp.Range)) < 1)
                 return false;
 
             return await Spells.ScattergunPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(2));
@@ -201,7 +201,7 @@ namespace Magitek.Logic.Machinist
             if (Core.Me.HasAura(Auras.PvpAnalysis))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.AnalysisPvp.Range))
                 return false;
 
             if (!MachinistSettings.Instance.Pvp_UsedAnalysisOnDrill && Core.Me.HasAura(Auras.PvpDrillPrimed))
@@ -227,7 +227,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.DrillPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.DrillPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -244,10 +244,10 @@ namespace Magitek.Logic.Machinist
             if (!Spells.BioblasterPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 12)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BioblasterPvp.Range))
             {
                 var nearby = Combat.Enemies
-                    .Where(e => e.Distance(Core.Me) < 10
+                    .Where(e => e.WithinSpellRange(Spells.BioblasterPvp.Range)
                             && e.ValidAttackUnit()
                             && e.InLineOfSight()
                             && !e.IsWarMachina())
@@ -276,7 +276,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.AirAnchorPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.AirAnchorPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -293,7 +293,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.ChainSawPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ChainSawPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -313,10 +313,10 @@ namespace Magitek.Logic.Machinist
             if (!Spells.BishopAutoturretPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BishopAutoturretPvp.Range))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < 5) < MachinistSettings.Instance.Pvp_BishopAutoturretNumberOfEnemy)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.BishopAutoturretPvp.Radius) < MachinistSettings.Instance.Pvp_BishopAutoturretNumberOfEnemy)
                 return false;
 
             return await Spells.BishopAutoturretPvp.Cast(Core.Me.CurrentTarget);
@@ -338,7 +338,7 @@ namespace Magitek.Logic.Machinist
                 if (MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget)
                 {
                     var nearby = Combat.Enemies
-                        .Where(e => e.Distance(Core.Me) <= 50
+                        .Where(e => e.WithinSpellRange(Spells.MarksmansSpitePvp.Range)
                                 && e.ValidAttackUnit()
                                 && e.InLineOfSight()
                                 && e.CurrentHealthPercent <= MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent
