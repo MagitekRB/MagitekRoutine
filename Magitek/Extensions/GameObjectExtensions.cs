@@ -33,21 +33,33 @@ namespace Magitek.Extensions
 
         public static bool BeingTargeted(this GameObject unit)
         {
+            if (unit == null)
+                return false;
+
             return Combat.Enemies.Any(x => x.TargetCharacter == unit);
         }
 
         public static bool BeingTargetedBy(this GameObject unit, GameObject other)
         {
+            if (unit == null || other == null)
+                return false;
+
             var lp = other as Character;
             return lp != null && lp.TargetGameObject == unit;
         }
 
         public static bool WithinSpellRange(this GameObject unit, float range)
         {
+            if (unit == null)
+                return false;
+
             return (Core.Me.Distance2D(unit) - Core.Me.CombatReach - unit.CombatReach) <= range;
         }
         public static bool WithinSpellRange(this GameObject unit, double range)
         {
+            if (unit == null)
+                return false;
+
             return (Core.Me.Distance2D(unit) - Core.Me.CombatReach - unit.CombatReach) <= range;
         }
 
