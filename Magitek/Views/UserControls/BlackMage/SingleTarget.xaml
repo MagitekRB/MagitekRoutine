@@ -19,14 +19,22 @@
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Scathe When Above " IsChecked="{Binding BlackMageSettings.Scathe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding BlackMageSettings.ScatheOnlyAboveManaPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Mana Percent" />
+                    <CheckBox Content="Paradox               " IsChecked="{Binding BlackMageSettings.Paradox, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Despair               " IsChecked="{Binding BlackMageSettings.Despair, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="FlareStar " IsChecked="{Binding BlackMageSettings.Scathe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+        <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="Always Transpose To Astral         " IsChecked="{Binding BlackMageSettings.UseTransposeToAstral, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Always Transpose To Umbral          " IsChecked="{Binding BlackMageSettings.UseTransposeToUmbral, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Content="Use Thunder Spells (Single Target) Unless Target Dying Within " IsChecked="{Binding BlackMageSettings.ThunderSingle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding BlackMageSettings.ThunderTimeTillDeathSeconds, Mode=TwoWay}" />
@@ -34,22 +42,15 @@
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <CheckBox Content="Use Triplecast On Fire 4 " IsChecked="{Binding BlackMageSettings.TriplecastFire4, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            </StackPanel>
+        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Orientation="Horizontal">
+            <CheckBox Margin="5" Content="Use Xenoglossy" IsChecked="{Binding BlackMageSettings.Xenoglossy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="and save at least " />
+            <controls:Numeric MaxValue="2" MinValue="0"
+  Value="{Binding BlackMageSettings.SaveXenoglossyCharges, Mode=TwoWay}" />
+            <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" charges when moving" />
+        </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <CheckBox Content="Use Convert After Fire 3 " IsChecked="{Binding BlackMageSettings.ConvertAfterFire3, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            </StackPanel>
-        </controls:SettingsBlock>
-
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <CheckBox Content="Use Swiftcast On Thunder 3" IsChecked="{Binding BlackMageSettings.SwiftcastThunder3, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            </StackPanel>
-        </controls:SettingsBlock>
     </StackPanel>
 </UserControl>

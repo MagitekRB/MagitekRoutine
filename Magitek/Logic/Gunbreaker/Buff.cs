@@ -56,13 +56,13 @@ namespace Magitek.Logic.Gunbreaker
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD))
             {
-                if (Cartridge == GunbreakerRoutine.MaxCartridge)
+                if (Cartridge < 2)
                     return false;
             }
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.FastGCD))
             {
-                if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id == Spells.KeenEdge.Id)
+                if (Cartridge < 2 && ActionManager.LastSpell.Id == Spells.KeenEdge.Id)
                     return false;
             }
 

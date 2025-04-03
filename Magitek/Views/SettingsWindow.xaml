@@ -604,9 +604,6 @@
 
                 <TabItem Name="BlackMage" Style="{DynamicResource TabItemBlackMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="General" Style="{DynamicResource MainTabCombat}">
-                            <blackMage:General />
-                        </TabItem>
                         <TabItem Header="Single Target" Style="{DynamicResource MainTabCombat}">
                             <blackMage:SingleTarget />
                         </TabItem>

@@ -151,11 +151,15 @@
             <StackPanel Margin="5">
                 <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Advance Burst Window Settings" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hold Burst              " IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Hold Burst                        " IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="Hold Burst When moving" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurstWhenMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="Exclude BlastingZone       " IsChecked="{Binding GunbreakerSettings.BurstLogicExcludeBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Exclude Bow Shock" IsChecked="{Binding GunbreakerSettings.BurstLogicExcludeBowShock, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
-        </controls:SettingsBlock>
+    </controls:SettingsBlock>
 
     </StackPanel>
 </UserControl>

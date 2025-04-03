@@ -305,10 +305,13 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerSettings.Instance.SaveBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveBlastingZoneMseconds) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
+            if (GunbreakerSettings.Instance.SaveBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveBlastingZoneMseconds) && GunbreakerSettings.Instance.BurstLogicHoldBurst && !GunbreakerSettings.Instance.BurstLogicExcludeBlastingZone)
+                return false;
+
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady() && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
+            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() && Cartridge > 1)
                 return false;
 
             return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);

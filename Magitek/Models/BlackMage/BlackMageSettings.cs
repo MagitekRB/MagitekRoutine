@@ -38,7 +38,7 @@ namespace Magitek.Models.BlackMage
         public float ScatheOnlyAboveManaPercent { get; set; }
 
         [Setting]
-        [DefaultValue(5)]
+        [DefaultValue(4)]
         public int ThunderRefreshSecondsLeft { get; set; }
 
         [Setting]
@@ -51,43 +51,65 @@ namespace Magitek.Models.BlackMage
 
         [Setting]
         [DefaultValue(true)]
+        public bool Xenoglossy { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int SaveXenoglossyCharges { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseTransposeToAstral { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseTransposeToUmbral { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FlareStar { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Paradox { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Despair { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool TripleCastWhileMoving { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UmbralSoul { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool ManaFont { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Amplifier { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool LeyLines { get; set; }
 
         [Setting]
         [DefaultValue(true)]
         public bool LeyLinesBossOnly { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool ConvertAfterFire3 { get; set; }
-
+        #region AOE
         [Setting]
         [DefaultValue(true)]
         public bool UseAoe { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool QuadFlare { get; set; }
-
-        [Setting]
         [DefaultValue(3)]
         public int AoeEnemies { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool TriplecastFire4 { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool SwiftcastThunder3 { get; set; }
-
-        [Setting]
-        [DefaultValue(4)]
-        public int TransposeIfMovingAndAstralWillExpireAstral { get; set; }
-
-        [Setting]
-        [DefaultValue(2)]
-        public int TransposeIfMovingAndAstralWillExpireMoving { get; set; }
+        #endregion
 
         #region PVP
         [Setting]

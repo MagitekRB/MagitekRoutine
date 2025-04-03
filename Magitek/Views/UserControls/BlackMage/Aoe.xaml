@@ -25,13 +25,7 @@
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
-        <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Use ether for quad flare " IsChecked="{Binding BlackMageSettings.QuadFlare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-            </StackPanel>
-        </controls:SettingsBlock>
+
 
     </StackPanel>
 </UserControl>
