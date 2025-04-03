@@ -81,6 +81,14 @@ namespace Magitek.Models.Gunbreaker
         [Setting]
         [DefaultValue(false)]
         public bool BurstLogicHoldBurstWhenMoving { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicExcludeBlastingZone { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicExcludeBowShock { get; set; }
         #endregion
 
         #region Buff
