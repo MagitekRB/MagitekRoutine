@@ -73,6 +73,9 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlotaPvp.Range))
                 return false;
 
+            if (Spells.BlotaPvp.Masked() != Spells.BlotaPvp)
+                return false;
+
             return await Spells.BlotaPvp.Cast(Core.Me.CurrentTarget);
         }
 
