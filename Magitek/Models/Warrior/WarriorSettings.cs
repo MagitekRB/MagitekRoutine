@@ -218,7 +218,6 @@ namespace Magitek.Models.Warrior
         #endregion
 
         #region PVP
-
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_FellCleave { get; set; }
@@ -263,6 +262,17 @@ namespace Magitek.Models.Warrior
         [DefaultValue(true)]
         public bool Pvp_PrimalScream { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_PrimalWrath { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_PrimalRuination { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_InnerChaos { get; set; }
         #endregion
 
     }

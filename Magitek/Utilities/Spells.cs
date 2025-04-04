@@ -1507,6 +1507,9 @@ namespace Magitek.Utilities
         public static readonly SpellData PrimalScreamPvp = DataManager.GetSpellData(29083);
         public static readonly SpellData PrimalRendPvp = DataManager.GetSpellData(29084);
         public static readonly SpellData ChaoticCyclonePvp = DataManager.GetSpellData(29736);
+        public static readonly SpellData PrimalRuinationPvp = DataManager.GetSpellData(29737);
+        public static readonly SpellData InnerChaosPvp = DataManager.GetSpellData(29738);
+        public static readonly SpellData PrimalWrathPvp = DataManager.GetSpellData(29739);
 
         //PLD
         public static readonly uint RoyalAuthorityPvpCombo = 50;
