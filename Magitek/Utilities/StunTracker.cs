@@ -40,8 +40,6 @@ namespace Magitek.Utilities
         private const LogLevel mLogLevelToShow = LogLevel.Useful;
 
         private const double MaxTimeForStunToTakeEffectMs = 1500;
-        private const int SaveIntervalMs = 300000; // Save every 5 minutes
-        private static DateTime mLastSaveTime = DateTime.MinValue;
         private static bool mListsModified = false;
 
         private static HashSet<uint> mUnstunnableEnemyIds = new HashSet<uint>();
@@ -63,11 +61,13 @@ namespace Magitek.Utilities
             Log(LogLevel.Useful, $"Loaded {mUnstunnableEnemyIds.Count} unstunnable and {mStunnableEnemyIds.Count} stunnable enemy IDs from persistence");
         }
 
-        private static void SavePersistedData()
+        public static void Save()
         {
-            StunTrackerPersistence.SaveData(mUnstunnableEnemyIds, mStunnableEnemyIds);
-            mLastSaveTime = DateTime.UtcNow;
-            mListsModified = false;
+            if (mListsModified)
+            {
+                StunTrackerPersistence.SaveData(mUnstunnableEnemyIds, mStunnableEnemyIds);
+                mListsModified = false;
+            }
         }
 
         //This must be called often to make sure we don't miss stuns
@@ -151,12 +151,6 @@ namespace Magitek.Utilities
                         mListsModified = true;
                     }
                 }
-            }
-
-            // Periodically save the data only if the lists have been modified
-            if (mListsModified && (DateTime.UtcNow - mLastSaveTime).TotalMilliseconds > SaveIntervalMs)
-            {
-                SavePersistedData();
             }
         }
 
