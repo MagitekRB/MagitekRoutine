@@ -170,10 +170,13 @@ namespace Magitek.Extensions
 
             if (Core.Me.OnPvpMap())
             {
-                if (!spell.CanCast(target))
+                if (Core.Me.HasAura(Auras.PvpGuard))
                     return false;
 
-                if (Core.Me.HasAura(Auras.PvpGuard))
+                if (spell == Spells.PvPRoleAction)
+                    spell = spell.Masked();
+
+                if (!spell.CanCast(target))
                     return false;
 
                 if (!target.WithinSpellRange(spell.Range))

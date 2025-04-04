@@ -110,25 +110,31 @@ namespace Magitek.Rotations
 
             if (!CommonPvp.GuardCheck(WarriorSettings.Instance))
             {
-
+                // Limit Break
                 if (await Pvp.PrimalScreamPvp()) return true;
+                if (await Pvp.PrimalWrathPvp()) return true;
 
+                // High Priority Abilities
                 if (await Pvp.PrimalRendPvp()) return true;
-                if (await Pvp.OnslaughtPvp()) return true;
-                if (await Pvp.BloodwhettingPvp()) return true;
+                if (await Pvp.PrimalRuinationPvp()) return true;
+                if (await Pvp.InnerChaosPvp()) return true;
                 if (await Pvp.ChaoticCyclonePvp()) return true;
 
-                if (await Pvp.FellCleavePvp()) return true;
-
-                if (await Pvp.OrogenyPvp()) return true;
+                // Gap Closers and Utility
+                if (await Pvp.OnslaughtPvp()) return true;
                 if (await Pvp.BlotaPvp()) return true;
 
+                // Defensive and Healing
+                if (await Pvp.BloodwhettingPvp()) return true;
+                if (await Pvp.OrogenyPvp()) return true;
             }
 
+            // Basic Combo
             if (await Pvp.StormPathPvp()) return true;
             if (await Pvp.MaimPvp()) return true;
+            if (await Pvp.HeavySwingPvp()) return true;
 
-            return (await Pvp.HeavySwingPvp());
+            return false;
         }
     }
 }
