@@ -282,6 +282,7 @@ namespace Magitek
                 InterruptsAndStuns.Instance.Save();
                 BaseSettings.Instance.Save();
                 TogglesViewModel.Instance.SaveToggles();
+                StunTracker.Save();
                 _saveFormTime = time.AddSeconds(60);
             }
 
@@ -297,6 +298,7 @@ namespace Magitek
             BaseSettings.Instance.Save();
             InterruptsAndStuns.Instance.Save();
             TogglesViewModel.Instance.SaveToggles();
+            StunTracker.Save();
 
             var hotkeys = HotkeyManager.RegisteredHotkeys.Select(r => r.Name).Where(r => r.Contains("Magitek"));
 

@@ -413,7 +413,8 @@ namespace Magitek.Extensions
             return unit != null && (unit.Name.Contains("Raven")
                                 || unit.Name.Contains("Falcon")
                                 || unit.Name.Contains("Striking Dummy")
-                                || unit.Name.Contains("Icebound Tomelith"));
+                                || unit.Name.Contains("Icebound Tomelith")
+                                || unit.Name.Contains("Interceptor"));
         }
 
         public static float GetResurrectionWeight(this GameObject c)

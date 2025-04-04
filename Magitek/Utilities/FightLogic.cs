@@ -334,7 +334,7 @@ namespace Magitek.Utilities
             }
         }
 
-        private static readonly List<Encounter> Encounters = new List<Encounter> {
+        internal static readonly List<Encounter> Encounters = new List<Encounter> {
             #region A Realm Reborn: Normal Raids
 
             new Encounter {
@@ -7083,7 +7083,7 @@ namespace Magitek.Utilities
             internal List<uint> AoeLockOns { get; set; }
         }
 
-        private class Encounter
+        internal class Encounter
         {
             internal ushort ZoneId { get; set; }
             internal string Name { get; set; }
@@ -7091,7 +7091,7 @@ namespace Magitek.Utilities
             internal List<Enemy> Enemies { get; set; }
         }
 
-        private static class ZoneId
+        internal static class ZoneId
         {
             public const ushort
                     ABloodyReunion = 560,

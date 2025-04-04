@@ -26,10 +26,8 @@ namespace Magitek.Utilities
         //
         //In order benefit from these services, combat routines can call IsStunnable() before attempting to stun an enemy.
         //
-        //Note that this code doesn't make use of permanent storage, so each time it's loaded, it will need to discover
-        //afresh what enemies can and cannot be stunned. This comes at the cost of a single stun attempt per enemy type,
-        //after which, if the enemy is unstunnable, it won't try again. Note also that this has no effect on interrupts,
-        //which will still work on interruptible spells cast by unstunnable enemies.
+        //Note that this code now uses persistent storage, so it will remember which enemies can and cannot be stunned
+        //between sessions. This eliminates the need to rediscover this information each time it's loaded.
 
         //TODO: Enable non-tank classes with stuns to use this. Maybe refactor Tank.Interrupt into a general routine.
 
@@ -42,11 +40,35 @@ namespace Magitek.Utilities
         private const LogLevel mLogLevelToShow = LogLevel.Useful;
 
         private const double MaxTimeForStunToTakeEffectMs = 1500;
+        private static bool mListsModified = false;
 
         private static HashSet<uint> mUnstunnableEnemyIds = new HashSet<uint>();
         private static HashSet<uint> mStunnableEnemyIds = new HashSet<uint>();
         private static Dictionary<BattleCharacter, StunData> mAttemptedStunEnemies = new Dictionary<BattleCharacter, StunData>();
         private static Dictionary<BattleCharacter, StunData> mStunnableEnemies = new Dictionary<BattleCharacter, StunData>();
+
+        // Static constructor to load persisted data when the class is first accessed
+        static StunTracker()
+        {
+            LoadPersistedData();
+        }
+
+        private static void LoadPersistedData()
+        {
+            var data = StunTrackerPersistence.LoadData();
+            mUnstunnableEnemyIds = data.UnstunnableEnemyIds;
+            mStunnableEnemyIds = data.StunnableEnemyIds;
+            Log(LogLevel.Useful, $"Loaded {mUnstunnableEnemyIds.Count} unstunnable and {mStunnableEnemyIds.Count} stunnable enemy IDs from persistence");
+        }
+
+        public static void Save()
+        {
+            if (mListsModified)
+            {
+                StunTrackerPersistence.SaveData(mUnstunnableEnemyIds, mStunnableEnemyIds);
+                mListsModified = false;
+            }
+        }
 
         //This must be called often to make sure we don't miss stuns
         public static void Update(List<BattleCharacter> enemies)
@@ -74,6 +96,7 @@ namespace Magitek.Utilities
                     mUnstunnableEnemyIds.Remove(bc.NpcId);
                     mStunnableEnemies.Add(bc, new StunData(stun.TimespanLeft, bc));
                     Log(LogLevel.Debug, $"Added to stun list: {bc.EnglishName}");
+                    mListsModified = true;
                 }
             }
 
@@ -125,6 +148,7 @@ namespace Magitek.Utilities
                     {
                         Log(LogLevel.Useful, $"{bc.EnglishName.ToUpper()} NOT STUNNABLE");
                         mUnstunnableEnemyIds.Add(bc.NpcId);
+                        mListsModified = true;
                     }
                 }
             }
