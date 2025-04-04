@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 namespace Magitek.Utilities
 {
@@ -63,6 +64,11 @@ namespace Magitek.Utilities
 
             BossNames = new HashSet<string>(BossDictionary.Values);
             BossNames.UnionWith(JsonConvert.DeserializeObject<List<string>>(bossesNames));
+
+            FightLogic.Encounters.SelectMany(encounter => encounter.Enemies)
+                .Where(enemy => enemy.Name != null)
+                .ToList()
+                .ForEach(enemy => BossNames.Add(enemy.Name));
         }
 
 
