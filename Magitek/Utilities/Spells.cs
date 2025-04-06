@@ -1425,10 +1425,17 @@ namespace Magitek.Utilities
         public static readonly SpellData BurstPvp = DataManager.GetSpellData(29657);
         public static readonly SpellData FoulPvp = DataManager.GetSpellData(29371);
         public static readonly SpellData ParadoxPvp = DataManager.GetSpellData(29663);
+        public static readonly SpellData XenoglossyPvp = DataManager.GetSpellData(29658);
         public static readonly SpellData NightWingPvp = DataManager.GetSpellData(29659);
         public static readonly SpellData AetherialManipulationPvp = DataManager.GetSpellData(29660);
         public static readonly SpellData SuperFlarePvp = DataManager.GetSpellData(29661);
         public static readonly SpellData SoulResonancePvp = DataManager.GetSpellData(29662);
+        public static readonly SpellData ElementalWeavePvp = DataManager.GetSpellData(41475);
+        public static readonly SpellData WreathofFirePvp = DataManager.GetSpellData(41476);
+        public static readonly SpellData WreathofIcePvp = DataManager.GetSpellData(41478);
+        public static readonly SpellData FlareStarPvp = DataManager.GetSpellData(41480);
+        public static readonly SpellData FrostStarPvp = DataManager.GetSpellData(41481);
+        public static readonly SpellData LethargyPvp = DataManager.GetSpellData(41510);
 
         //SMN
         public static readonly SpellData RuinIIIPvp = DataManager.GetSpellData(29664);

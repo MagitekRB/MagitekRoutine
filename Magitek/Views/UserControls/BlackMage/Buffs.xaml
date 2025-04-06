@@ -5,43 +5,88 @@
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
     <StackPanel Margin="10">
-        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Margin="5" Content="ManaFont " IsChecked="{Binding BlackMageSettings.ManaFont, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5" Content="Amplifier  " IsChecked="{Binding BlackMageSettings.Amplifier, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5" Content="UmbralSoul" IsChecked="{Binding BlackMageSettings.UmbralSoul, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5"
+                        Orientation="Horizontal">
+                <CheckBox Margin="5"
+                          Content="ManaFont "
+                          IsChecked="{Binding BlackMageSettings.ManaFont, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
+                <CheckBox Margin="5"
+                          Content="Amplifier  "
+                          IsChecked="{Binding BlackMageSettings.Amplifier, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
+                <CheckBox Margin="5"
+                          Content="UmbralSoul"
+                          IsChecked="{Binding BlackMageSettings.UmbralSoul, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Margin="5" Content="TripleCast " IsChecked="{Binding BlackMageSettings.TripleCast, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5" Content="Save 1 Charges For Moving" IsChecked="{Binding BlackMageSettings.TripleCastWhileMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5"
+                        Orientation="Horizontal">
+                <CheckBox Margin="5"
+                          Content="TripleCast "
+                          IsChecked="{Binding BlackMageSettings.TripleCast, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
+                <CheckBox Margin="5"
+                          Content="Save 1 Charges For Moving"
+                          IsChecked="{Binding BlackMageSettings.TripleCastWhileMoving, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Margin="5" Content="Ley Lines   " IsChecked="{Binding BlackMageSettings.LeyLines, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5" Content="On Boss Only" IsChecked="{Binding BlackMageSettings.LeyLinesBossOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5"
+                        Orientation="Horizontal">
+                <CheckBox Margin="5"
+                          Content="Ley Lines   "
+                          IsChecked="{Binding BlackMageSettings.LeyLines, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
+                <CheckBox Margin="5"
+                          Content="On Boss Only"
+                          IsChecked="{Binding BlackMageSettings.LeyLinesBossOnly, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Lucid Dreaming When Under " IsChecked="{Binding BlackMageSettings.UseLucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Margin="0.3" MaxValue="100" MinValue="1" Value="{Binding BlackMageSettings.LucidDreamingMinimumManaPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Mana Percent" />
+                    <CheckBox Content="Lucid Dreaming When Under "
+                              IsChecked="{Binding BlackMageSettings.UseLucidDreaming, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Margin="0.3"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding BlackMageSettings.LucidDreamingMinimumManaPercent, Mode=TwoWay}"/>
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text=" Mana Percent"/>
                 </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5"
+                        Orientation="Horizontal">
+                <CheckBox Margin="5"
+                          Content="Use Transpose/Umbral Soul Out of Combat"
+                          IsChecked="{Binding BlackMageSettings.UsePreCombatTranspose, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
