@@ -574,7 +574,8 @@ namespace Magitek.Utilities
             PvpEnAvant = 2048,
             PvpClosedPosition = 2026,
             PvpDancePartner = 2027,
-            PvpDivining = 4332;
+            PvpDivining = 4332,
+            PvpParadox = 3223;
 
 
         #endregion

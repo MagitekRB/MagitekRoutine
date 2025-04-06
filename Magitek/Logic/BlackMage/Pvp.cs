@@ -13,11 +13,9 @@ namespace Magitek.Logic.BlackMage
     {
         public static async Task<bool> Fire()
         {
+            var fireSpell = Spells.FirePvp.Masked();
 
-            if (!Spells.FirePvp.CanCast())
-                return false;
-
-            if (!BlackMageSettings.Instance.Pvp_ToggleFireOrIceCombo)
+            if (!fireSpell.CanCast())
                 return false;
 
             if (MovementManager.IsMoving)
@@ -29,19 +27,14 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.FirePvp.Cast(Core.Me.CurrentTarget);
+            return await fireSpell.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> Blizzard()
         {
+            var blizzardSpell = Spells.BlizzardPvp.Masked();
 
-            if (!Spells.BlizzardPvp.CanCast())
-                return false;
-
-            if (BlackMageSettings.Instance.Pvp_ToggleFireOrIceCombo)
-                return false;
-
-            if (MovementManager.IsMoving)
+            if (!blizzardSpell.CanCast())
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -50,34 +43,57 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.BlizzardPvp.Cast(Core.Me.CurrentTarget);
+            return await blizzardSpell.Cast(Core.Me.CurrentTarget);
         }
 
+        public static async Task<bool> ElementalWeave()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!BlackMageSettings.Instance.Pvp_UseElementalWeave)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            var maskedSpell = Spells.ElementalWeavePvp.Masked();
+
+            if (maskedSpell == Spells.WreathofFirePvp)
+            {
+                if (!Core.Me.CurrentTarget.WithinSpellRange(25))
+                    return false;
+
+                return await Spells.WreathofFirePvp.Cast(Core.Me);
+            }
+
+            if (maskedSpell == Spells.WreathofIcePvp)
+            {
+                if (Core.Me.CurrentHealthPercent > 80)
+                    return false;
+
+                return await Spells.WreathofIcePvp.Cast(Core.Me);
+            }
+
+            return false;
+        }
 
         public static async Task<bool> Burst()
         {
-
             if (!Spells.BurstPvp.CanCast())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
-                return false;
-
-            if (MovementManager.IsMoving)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.BurstPvp.Radius)) < 1)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.BurstPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.BurstPvp.Cast(Core.Me);
         }
 
         public static async Task<bool> Paradox()
         {
-
             if (!Spells.ParadoxPvp.CanCast())
                 return false;
 
@@ -87,25 +103,15 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (BlackMageSettings.Instance.Pvp_UseParadoxOnFire && Core.Me.CurrentTarget.HasAura(Auras.PvpAstralWarmth))
-                return await Spells.ParadoxPvp.Cast(Core.Me.CurrentTarget);
+            if (!Core.Me.HasAura(Auras.PvpParadox))
+                return false;
 
-            if (BlackMageSettings.Instance.Pvp_UseParadoxOnIce && Core.Me.CurrentTarget.HasAura(Auras.PvpUmbralFreeze))
-                return await Spells.ParadoxPvp.Cast(Core.Me.CurrentTarget);
-
-            return false;
+            return await Spells.ParadoxPvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> SuperFlare()
+        public static async Task<bool> Xenoglossy()
         {
-
-            if (!Spells.SuperFlarePvp.CanCast())
-                return false;
-
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 30 + x.CombatReach) < 1)
-                return false;
-
-            if (Spells.ParadoxPvp.IsKnownAndReady())
+            if (!Spells.XenoglossyPvp.CanCast())
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -114,25 +120,15 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (BlackMageSettings.Instance.Pvp_UseSuperFlareOnFire && Core.Me.CurrentTarget.HasAura(Auras.PvpAstralWarmth))
-                return await Spells.SuperFlarePvp.Cast(Core.Me.CurrentTarget);
+            if (!BlackMageSettings.Instance.Pvp_UseXenoglossy)
+                return false;
 
-            if (BlackMageSettings.Instance.Pvp_UseSuperFlareOnIce && Core.Me.CurrentTarget.HasAura(Auras.PvpUmbralFreeze))
-                return await Spells.SuperFlarePvp.Cast(Core.Me.CurrentTarget);
-
-            return false;
+            return await Spells.XenoglossyPvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> AetherialManipulation()
+        public static async Task<bool> Lethargy()
         {
-
-            if (!Spells.AetherialManipulationPvp.CanCast())
-                return false;
-
-            if (!BlackMageSettings.Instance.Pvp_UseAetherialManipulation)
-                return false;
-
-            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpDeepFreeze))
+            if (!Spells.LethargyPvp.CanCast())
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -141,40 +137,41 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentHealthPercent < BlackMageSettings.Instance.Pvp_UseAetherialManipulationtHealthPercent)
+            if (!BlackMageSettings.Instance.Pvp_UseLethargy)
                 return false;
 
-            return await Spells.AetherialManipulationPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> FoulPvp()
-        {
-
-            if (!Spells.FoulPvp.CanCast())
+            if (!Core.Me.BeingTargetedBy(Core.Me.CurrentTarget) && !Core.Me.CurrentTarget.IsFacing(Core.Me))
                 return false;
 
-            if (!BlackMageSettings.Instance.Pvp_SoulResonance)
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.FoulPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.LethargyPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> SoulResonancePvp()
         {
-
-            if (!Spells.SoulResonancePvp.CanCast())
-                return false;
-
             if (!BlackMageSettings.Instance.Pvp_SoulResonance)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            var spell = Spells.SoulResonancePvp.Masked();
+
+            if (spell == Spells.FlareStarPvp && !MovementManager.IsMoving)
+                return await Spells.FlareStarPvp.Cast(Core.Me.CurrentTarget);
+
+            if (spell == Spells.FrostStarPvp && MovementManager.IsMoving)
+                return await Spells.FrostStarPvp.Cast(Core.Me.CurrentTarget);
+
+            if (!Spells.SoulResonancePvp.CanCast())
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > BlackMageSettings.Instance.Pvp_SoulResonanceHealthPercent)
                 return false;
 
             return await Spells.SoulResonancePvp.Cast(Core.Me);

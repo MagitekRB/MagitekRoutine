@@ -101,6 +101,10 @@ namespace Magitek.Models.BlackMage
         [DefaultValue(true)]
         public bool LeyLinesBossOnly { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePreCombatTranspose { get; set; }
+
         #region AOE
         [Setting]
         [DefaultValue(true)]
@@ -114,35 +118,23 @@ namespace Magitek.Models.BlackMage
         #region PVP
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_ToggleFireOrIceCombo { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseParadoxOnFire { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseParadoxOnIce { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseSuperFlareOnFire { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseSuperFlareOnIce { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseAetherialManipulation { get; set; }
-
-        [Setting]
-        [DefaultValue(70.0f)]
-        public float Pvp_UseAetherialManipulationtHealthPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_SoulResonance { get; set; }
+
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float Pvp_SoulResonanceHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseXenoglossy { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseLethargy { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseElementalWeave { get; set; }
         #endregion
     }
 }

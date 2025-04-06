@@ -21,6 +21,9 @@ namespace Magitek.Rotations
         public static async Task<bool> PreCombatBuff()
         {
             //Try to keep stacks outside combat
+            if (!BlackMageSettings.Instance.UsePreCombatTranspose)
+                return false;
+
             if (await Buff.UmbralSoul()) return true;
             if (await Buff.Transpose()) return true;
 
@@ -70,7 +73,7 @@ namespace Magitek.Rotations
                 //Either
                 if (await Aoe.Thunder4()) return true;
                 if (await Aoe.Foul()) return true;
-                
+
                 if (await Aoe.Blizzard2()) return true;
                 if (await Aoe.Fire2()) return true;
 
@@ -97,19 +100,27 @@ namespace Magitek.Rotations
 
             if (await CommonPvp.CommonTasks(BlackMageSettings.Instance)) return true;
 
+            // Limit Break
             if (await Pvp.SoulResonancePvp()) return true;
-            if (await Pvp.FoulPvp()) return true;
+
+            // Elemental Weave
+            if (await Pvp.ElementalWeave()) return true;
 
             if (!CommonPvp.GuardCheck(BlackMageSettings.Instance))
             {
-                if (await Pvp.AetherialManipulation()) return true;
+                // Utility actions
+                if (await Pvp.Lethargy()) return true;
 
+                // Main rotation
                 if (await Pvp.Paradox()) return true;
-                if (await Pvp.SuperFlare()) return true;
+                if (await Pvp.Xenoglossy()) return true;
             }
+
+            // AoE and basic attacks
             if (await Pvp.Burst()) return true;
+            if (await Pvp.Fire()) return true;
             if (await Pvp.Blizzard()) return true;
-            return (await Pvp.Fire());
+            return false;
         }
     }
 }
