@@ -137,6 +137,9 @@ namespace Magitek.Utilities
                 #endregion
             }
 
+            // Update LockOn history
+            UpdateLockOnHistory();
+
             if (Core.Me.HasTarget && Core.Me.CurrentTarget.ValidAttackUnit())
             {
                 Combat.CurrentTargetCombatTimeLeft = Core.Me.CurrentTarget.CombatTimeLeft();
@@ -252,6 +255,62 @@ namespace Magitek.Utilities
             var newEnemyTargetInfo = new EnemyTargetInfo(unit.Name, unit.NpcId, WorldManager.ZoneId, unit.MaxHealth, unit.ClassLevel);
             Logger.WriteInfo($@"[Debug] Adding {newEnemyTargetInfo.Name} To Enemy Target History");
             Debug.Instance.EnemyTargetHistory.Add(newEnemyTargetInfo.Id, newEnemyTargetInfo);
+        }
+
+        private static void UpdateLockOnHistory()
+        {
+            if (!BaseSettings.Instance.EnemySpellCastHistory)
+                return;
+
+            // Only track LockOns in dungeon duty zones
+            if (!Globals.InActiveDuty || Globals.OnPvpMap)
+                return;
+
+            // Get enemy with highest HP
+            var highestHpEnemy = _enemyCache.OrderByDescending(e => e.MaxHealth).FirstOrDefault();
+            var castedById = highestHpEnemy?.NpcId ?? 0;
+
+            // Check for LockOns on the player
+            foreach (var lockOn in Core.Me.VfxContainer.LockOns)
+            {
+                var targetedPlayerName = Core.Me.Name;
+
+                // Check for duplicates based on LockOn ID, CastedById, and TargetedPlayerName
+                if (Debug.Instance.LockOnHistory.ContainsKey(new Tuple<uint, uint, string>(lockOn.Id, castedById, targetedPlayerName)))
+                    continue;
+
+                var newLockOn = new LockOnInfo(lockOn.Id, highestHpEnemy?.Name, WorldManager.ZoneId, WorldManager.CurrentZoneName);
+                newLockOn.CastedById = castedById;
+                newLockOn.TargetedPlayerName = targetedPlayerName;
+                Logger.WriteInfo($@"[Debug] Adding LockOn [{newLockOn.Id}] from {newLockOn.CastedByName} targeting to LockOn History");
+                Debug.Instance.LockOnHistory.Add(new Tuple<uint, uint, string>(newLockOn.Id, castedById, targetedPlayerName), newLockOn);
+            }
+
+            // Check for LockOns on party members
+            foreach (var partyMember in Group.CastableAlliesWithin50)
+            {
+                if (partyMember == null || !partyMember.IsValid)
+                    continue;
+
+                var battleCharacter = partyMember;
+                if (battleCharacter == null)
+                    continue;
+
+                foreach (var lockOn in battleCharacter.VfxContainer.LockOns)
+                {
+                    var targetedPlayerName = battleCharacter.Name;
+
+                    // Check for duplicates based on LockOn ID, CastedById, and TargetedPlayerName
+                    if (Debug.Instance.LockOnHistory.ContainsKey(new Tuple<uint, uint, string>(lockOn.Id, castedById, targetedPlayerName)))
+                        continue;
+
+                    var newLockOn = new LockOnInfo(lockOn.Id, highestHpEnemy?.Name, WorldManager.ZoneId, WorldManager.CurrentZoneName);
+                    newLockOn.CastedById = castedById;
+                    newLockOn.TargetedPlayerName = targetedPlayerName;
+                    Logger.WriteInfo($@"[Debug] Adding LockOn [{newLockOn.Id}] from {newLockOn.CastedByName} targeting to LockOn History");
+                    Debug.Instance.LockOnHistory.Add(new Tuple<uint, uint, string>(newLockOn.Id, castedById, targetedPlayerName), newLockOn);
+                }
+            }
         }
     }
 }
