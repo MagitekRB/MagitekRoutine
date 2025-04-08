@@ -74,6 +74,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasTarget
                 && Core.Me.CurrentTarget.CanAttack
                 && Core.Me.CurrentTarget.InLineOfSight()
+                && Core.Me.CurrentTarget.InActualView()
                 && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.Distance() < 7 : Core.Me.CurrentTarget.Distance() < 30))
                 return false;
 

@@ -524,6 +524,27 @@ namespace Magitek.Extensions
             return target.RadiansFromPlayerHeading() < 0.78539f; //This is Pi/4 radians, or 45 degrees left or right
         }
 
+        public static bool InActualView(this GameObject target)
+        {
+            if (target == null)
+                return false;
+
+            if (target == Core.Me)
+                return true;
+
+            var playerLocation = Core.Me.Location;
+            var playerHeading = Core.Me.Heading; // Always use actual heading
+            var targetLocation = target.Location;
+            var d = Math.Abs(MathEx.NormalizeRadian(playerHeading - MathEx.NormalizeRadian(MathHelper.CalculateHeading(playerLocation, targetLocation) + (float)Math.PI)));
+
+            if (d > Math.PI)
+            {
+                d = Math.Abs(d - 2 * (float)Math.PI);
+            }
+
+            return d < 0.78539f; //This is Pi/4 radians, or 45 degrees left or right
+        }
+
         public static bool InCustomRadiantCone(this GameObject target, float angle)
         {
             if (target == null)
