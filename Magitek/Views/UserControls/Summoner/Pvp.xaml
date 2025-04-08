@@ -10,80 +10,183 @@
              mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
     <StackPanel Margin="5">
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}"
+                           Text="Utilities"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Purify (remove debuffs)" IsChecked="{Binding SummonerSettings.Pvp_UsePurify, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Purify (remove debuffs)"
+                              IsChecked="{Binding SummonerSettings.Pvp_UsePurify, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
 
-                    <CheckBox Grid.Row="1" Grid.Column="0" Content="Guard (Shield) At " IsChecked="{Binding SummonerSettings.Pvp_UseGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.Pvp_GuardHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <CheckBox Grid.Row="1"
+                              Grid.Column="0"
+                              Content="Guard (Shield) At "
+                              IsChecked="{Binding SummonerSettings.Pvp_UseGuard, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="1"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding SummonerSettings.Pvp_GuardHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
 
-                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Recuperate (Heal) At  " IsChecked="{Binding SummonerSettings.Pvp_UseRecuperate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <CheckBox Grid.Row="2"
+                              Grid.Column="0"
+                              Content="Recuperate (Heal) At  "
+                              IsChecked="{Binding SummonerSettings.Pvp_UseRecuperate, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="2"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding SummonerSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target" IsChecked="{Binding SummonerSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Sprint Without Target"
+                              IsChecked="{Binding SummonerSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount" IsChecked="{Binding SummonerSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Use Mount"
+                              IsChecked="{Binding SummonerSettings.Pvp_UseMount, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard" IsChecked="{Binding SummonerSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Don't attack Guard"
+                              IsChecked="{Binding SummonerSettings.Pvp_GuardCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)" IsChecked="{Binding SummonerSettings.Pvp_InvulnCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                              IsChecked="{Binding SummonerSettings.Pvp_InvulnCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Radiant Aegis At " IsChecked="{Binding SummonerSettings.Pvp_UsedRadiantAegis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.Pvp_UseRadiantAegisHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                <TextBlock Style="{DynamicResource TextBlockSection}"
+                           Text="General"/>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Radiant Aegis At "
+                              IsChecked="{Binding SummonerSettings.Pvp_UsedRadiantAegis, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="0"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding SummonerSettings.Pvp_UseRadiantAegisHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="CrimsonStrike (Require Manual Crimson Cyclone)" IsChecked="{Binding SummonerSettings.Pvp_UsedCrimsonStrike, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Crimson Cyclone (Rush forward)"
+                              IsChecked="{Binding SummonerSettings.Pvp_UsedCrimsonCyclone, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Slipstream" IsChecked="{Binding SummonerSettings.Pvp_UsedSlipstream, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Crimson Strike (Heavy knockback)"
+                              IsChecked="{Binding SummonerSettings.Pvp_UsedCrimsonStrike, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="MountainBuster" IsChecked="{Binding SummonerSettings.Pvp_UsedMountainBuster, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Necrotize (Grants Further Ruin stacks)"
+                              IsChecked="{Binding SummonerSettings.Pvp_UsedNecrotize, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Summon / LB    " IsChecked="{Binding SummonerSettings.Pvp_Summon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <RadioButton Foreground="White" Content="Bahamut        " GroupName="summonStrategy" IsChecked="{Binding SummonerSettings.Pvp_SummonBahamut, Mode=TwoWay}" />
-                    <RadioButton Foreground="White" Content="Phoenix        " GroupName="summonStrategy" IsChecked="{Binding SummonerSettings.Pvp_SummonPhoenix, Mode=TwoWay}" />
+                <StackPanel Margin="5">
+                    <CheckBox Content="Slipstream"
+                              IsChecked="{Binding SummonerSettings.Pvp_UsedSlipstream, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Mountain Buster"
+                              IsChecked="{Binding SummonerSettings.Pvp_UsedMountainBuster, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="Summon / LB    "
+                              IsChecked="{Binding SummonerSettings.Pvp_Summon, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <RadioButton Foreground="White"
+                                 Content="Bahamut        "
+                                 GroupName="summonStrategy"
+                                 IsChecked="{Binding SummonerSettings.Pvp_SummonBahamut, Mode=TwoWay}"/>
+                    <RadioButton Foreground="White"
+                                 Content="Phoenix        "
+                                 GroupName="summonStrategy"
+                                 IsChecked="{Binding SummonerSettings.Pvp_SummonPhoenix, Mode=TwoWay}"/>
+                    <RadioButton Foreground="White"
+                                 Content="Auto        "
+                                 GroupName="summonStrategy"
+                                 IsChecked="{Binding SummonerSettings.Pvp_SummonAuto, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <StackPanel Margin="25,5,5,5"
+                                Orientation="Horizontal">
+                        <TextBlock Text="Phoenix when self health below "
+                                   Style="{DynamicResource TextBlockDefault}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding SummonerSettings.Pvp_SummonPhoenixHealthPercent, Mode=TwoWay}"/>
+                        <TextBlock Text=" %"
+                                   Style="{DynamicResource TextBlockDefault}"/>
+                    </StackPanel>
+                    <StackPanel Margin="25,5,5,5"
+                                Orientation="Horizontal">
+                        <TextBlock Text="Bahamut when enemy health below "
+                                   Style="{DynamicResource TextBlockDefault}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding SummonerSettings.Pvp_SummonBahamutEnemyHealthPercent, Mode=TwoWay}"/>
+                        <TextBlock Text=" %"
+                                   Style="{DynamicResource TextBlockDefault}"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

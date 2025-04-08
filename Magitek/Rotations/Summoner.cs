@@ -84,26 +84,24 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
             if (await CommonPvp.CommonTasks(SummonerSettings.Instance)) return true;
 
+            if (await Pvp.RadiantAegisPvp()) return true;
             if (await Pvp.SummonBahamutPvp()) return true;
             if (await Pvp.SummonPhoenixPvp()) return true;
 
             if (!CommonPvp.GuardCheck(SummonerSettings.Instance))
             {
-                if (await Pvp.RadiantAegisPvp()) return true;
-
-                if (await Pvp.EnkindleBahamutPvp()) return true;
-                if (await Pvp.EnkindlePhoenixPvp()) return true;
-
-                if (await Pvp.FesterPvp()) return true;
                 if (await Pvp.CrimsonStrikePvp()) return true;
+                if (await Pvp.MountainBusterPvp()) return true;
+
+                if (await Pvp.DeathflarePvp()) return true;
+                if (await Pvp.BrandOfPurgatoryPvp()) return true;
+
+                if (await Pvp.NecrotizePvp()) return true;
+                if (await Pvp.CrimsonCyclonePvp()) return true;
 
                 if (await Pvp.SlipstreamPvp()) return true;
-                if (await Pvp.MountainBusterPvp()) return true;
             }
 
             return (await Pvp.RuinIIIPvp());
