@@ -241,6 +241,14 @@ namespace Magitek.Models.Summoner
 
         [Setting]
         [DefaultValue(true)]
+        public bool Pvp_UsedCrimsonCyclone { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UsedNecrotize { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Pvp_UsedRadiantAegis { get; set; }
 
         [Setting]
@@ -258,6 +266,18 @@ namespace Magitek.Models.Summoner
         [Setting]
         [DefaultValue(false)]
         public bool Pvp_SummonPhoenix { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SummonAuto { get; set; }
+
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float Pvp_SummonPhoenixHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float Pvp_SummonBahamutEnemyHealthPercent { get; set; }
 
         #endregion
     }

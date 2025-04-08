@@ -1439,16 +1439,17 @@ namespace Magitek.Utilities
 
         //SMN
         public static readonly SpellData RuinIIIPvp = DataManager.GetSpellData(29664);
-        public static readonly SpellData CrimsonClylonePvp = DataManager.GetSpellData(29667);
+        public static readonly SpellData CrimsonCyclonePvp = DataManager.GetSpellData(29667);
         public static readonly SpellData SlipstreamPvp = DataManager.GetSpellData(29669);
         public static readonly SpellData RadiantAegisPvp = DataManager.GetSpellData(29670);
         public static readonly SpellData MountainBusterPvp = DataManager.GetSpellData(29671);
-        public static readonly SpellData FesterPvp = DataManager.GetSpellData(29672);
-        public static readonly SpellData EnkindleBahamutPvp = DataManager.GetSpellData(29674);
-        public static readonly SpellData EnkindlePhoenixPvp = DataManager.GetSpellData(29679);
+        public static readonly SpellData NecrotizePvp = DataManager.GetSpellData(41483);
         public static readonly SpellData CrimsonStrikePvp = DataManager.GetSpellData(29668);
+        public static readonly SpellData DeathflarePvp = DataManager.GetSpellData(41484);
+        public static readonly SpellData BrandOfPurgatoryPvp = DataManager.GetSpellData(41485);
         public static readonly SpellData SummonBahamutPvp = DataManager.GetSpellData(29673);
         public static readonly SpellData SummonPhoenixPvp = DataManager.GetSpellData(29678);
+        public static readonly SpellData AstralImpulsePvp = DataManager.GetSpellData(29665);
 
         //RDM
         public static readonly SpellData JoltIIIPvp = DataManager.GetSpellData(41486);
