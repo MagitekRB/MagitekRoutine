@@ -7,6 +7,7 @@ using Magitek.Models.QueueSpell;
 using Magitek.Utilities;
 using Magitek.Utilities.Collections;
 using PropertyChanged;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -65,6 +66,8 @@ namespace Magitek.ViewModels
 
         public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderTB { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
         public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderAOE { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
+        public ObservableCollection<LockOnInfo> FightLogicBuilderLockOns { get; set; } = new ObservableCollection<LockOnInfo>();
+        public ConcurrentObservableDictionary<Tuple<uint, uint, string>, LockOnInfo> LockOnHistory { get; set; } = new ConcurrentObservableDictionary<Tuple<uint, uint, string>, LockOnInfo>();
 
         public ICommand CopyFightLogicBuilderCommand { get; } = new RelayCommand(CopyFightLogicBuilder);
 
@@ -89,9 +92,10 @@ namespace Magitek.ViewModels
 
             foreach (var enemyGroup in combinedList)
             {
+                var enemy = enemyGroup.First();
                 sb.AppendLine("        new Enemy {");
-                sb.AppendLine($"            Id = {enemyGroup.First().CastedById},");
-                sb.AppendLine($"            Name = \"{enemyGroup.Key}\",");
+                sb.AppendLine($"            Id = {enemy.CastedById},");
+                sb.AppendLine($"            Name = \"{enemy.CastedBy}\",");
 
                 // TankBusters
                 var tankBusters = enemyGroup.Where(e => instance.FightLogicBuilderTB.Contains(e));
@@ -125,6 +129,22 @@ namespace Magitek.ViewModels
                     sb.AppendLine("            Aoes = null,");
                 }
 
+                // LockOns
+                var lockOns = instance.FightLogicBuilderLockOns.Where(l => l.CastedById == enemy.CastedById);
+                if (lockOns.Any())
+                {
+                    sb.AppendLine("            AoeLockOns = new List<uint> {");
+                    foreach (var lockOn in lockOns)
+                    {
+                        sb.AppendLine($"                {lockOn.Id},");
+                    }
+                    sb.AppendLine("            },");
+                }
+                else
+                {
+                    sb.AppendLine("            AoeLockOns = null,");
+                }
+
                 sb.AppendLine("            SharedTankBusters = null,");
                 sb.AppendLine("            BigAoes = null");
                 sb.AppendLine("        },");
@@ -143,7 +163,6 @@ namespace Magitek.ViewModels
             }
         }
 
-
         public ICommand ClearFightLogicBuilderCommand { get; } = new RelayCommand(ClearFightLogicBuilder);
 
         private static void ClearFightLogicBuilder(object parameter)
@@ -159,9 +178,29 @@ namespace Magitek.ViewModels
             {
                 x.InFightLogicBuilderAOE = "[+] FightLogic AOE";
             }
+            foreach (var x in instance.FightLogicBuilderLockOns)
+            {
+                x.InFightLogicBuilder = "[+] FightLogic LockOn";
+            }
 
             instance.FightLogicBuilderTB.Clear();
             instance.FightLogicBuilderAOE.Clear();
+            instance.FightLogicBuilderLockOns.Clear();
+        }
+
+        public ICommand ClearEnemySpellCastsCommand { get; } = new RelayCommand(ClearEnemySpellCasts);
+
+        private static void ClearEnemySpellCasts(object parameter)
+        {
+            var instance = Instance;
+            if (instance == null) return;
+
+            instance.EnemySpellCasts.Clear();
+            instance.LockOnHistory.Clear();
+            instance.FightLogicBuilderTB.Clear();
+            instance.FightLogicBuilderAOE.Clear();
+            instance.FightLogicBuilderLockOns.Clear();
+            Logger.WriteInfo("[Debug] Cleared Enemy Spell Casts History");
         }
     }
 }

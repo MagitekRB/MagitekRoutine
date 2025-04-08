@@ -137,10 +137,22 @@ namespace Magitek.Utilities
 
             if (!output && enemyLogic.AoeLockOns != null)
             {
-                output = Core.Me.VfxContainer.LockOns.Any(lockOn => enemyLogic.AoeLockOns.Contains(lockOn.Id));
+                var detectedLockOn = Core.Me.VfxContainer.LockOns.FirstOrDefault(lockOn => enemyLogic.AoeLockOns.Contains(lockOn.Id));
+                output = detectedLockOn != null;
+
+                if (!output)
+                {
+                    foreach (var partyMember in Group.CastableAlliesWithin30)
+                    {
+                        detectedLockOn = partyMember.VfxContainer.LockOns.FirstOrDefault(lockOn => enemyLogic.AoeLockOns.Contains(lockOn.Id));
+                        output = detectedLockOn != null;
+                        if (output)
+                            break;
+                    }
+                }
 
                 if (output && DebugSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Lock On Detected] {encounter.Name} {enemy.Name} lockon {Core.Me.VfxContainer.LockOns.FirstOrDefault(l => enemyLogic.AoeLockOns.Contains(l.Id))}");
+                    Logger.WriteInfo($"[AOE Lock On Detected] {encounter.Name} {enemy.Name} lockon {detectedLockOn.Id}");
             }
 
             return output;
@@ -5161,7 +5173,7 @@ namespace Magitek.Utilities
                         }
                     },
                     new Enemy {
-                        Id = 0, // Assuming an ID for Durante
+                        Id = 12584, // Assuming an ID for Durante
                         Name = "Durante",
                         TankBusters = new List<uint>() {
                             // No tank busters mentioned in the TypeScript data
@@ -5171,6 +5183,10 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint>() {
                             0x88C3, // Old Magic
+                            35007 // Antipodal Assault
+                        },
+                        AoeLockOns = new List<uint>() {
+                            139
                         },
                         BigAoes = new List<uint>() {
                             // No big Aoes mentioned in the TypeScript data
@@ -6451,6 +6467,9 @@ namespace Magitek.Utilities
                             36323, // disassembly
                             36332, // superbolt
                         },
+                        AoeLockOns = new List<uint> {
+                            139
+                        },
                         BigAoes = null
                     },
                     new Enemy {
@@ -6461,6 +6480,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             36765, // disruption
                             36779, // overexposure
+                        },
+                        AoeLockOns = new List<uint> {
+                            139
                         },
                         BigAoes = null
                     }
@@ -6643,6 +6665,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             42547, // Chilling Chirp
                         },
+                        AoeLockOns = new List<uint> {
+                            558
+                        },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -6657,6 +6682,9 @@ namespace Magitek.Utilities
                             42574, // Static Force
                             42570, // Electric Excess
                         },
+                        AoeLockOns = new List<uint> {
+                            139
+                        },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -6669,6 +6697,9 @@ namespace Magitek.Utilities
                             42519, // Electric Field
                             42738, // Neutralize Front Lines
                             42540, // Deterrent Pulse
+                        },
+                        AoeLockOns = new List<uint> {
+                            376
                         },
                         SharedTankBusters = null,
                         BigAoes = null
