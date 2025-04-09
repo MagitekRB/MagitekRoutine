@@ -20,6 +20,82 @@ namespace Magitek.Utilities
         public static readonly List<EnemyInfo> EnemyInfos = new List<EnemyInfo>();
         private static List<BattleCharacter> _enemyCache = new List<BattleCharacter>();
 
+        private static bool mWasInCombat;
+
+        // HashSet for quick lookups of known spells and lockons
+        private static HashSet<Tuple<uint, uint>> KnownFightLogicTBs = new HashSet<Tuple<uint, uint>>();
+        private static HashSet<Tuple<uint, uint>> KnownFightLogicAOEs = new HashSet<Tuple<uint, uint>>();
+        private static HashSet<Tuple<uint, uint>> KnownFightLogicLockOns = new HashSet<Tuple<uint, uint>>();
+        private static bool IsInitialized = false;
+
+        private static void InitializeKnownData()
+        {
+            if (IsInitialized)
+                return;
+
+            foreach (var encounter in FightLogicEncounters.Encounters)
+            {
+                foreach (var enemy in encounter.Enemies)
+                {
+                    // Add tank busters
+                    if (enemy.TankBusters != null)
+                    {
+                        foreach (var spellId in enemy.TankBusters)
+                        {
+                            KnownFightLogicTBs.Add(new Tuple<uint, uint>(spellId, enemy.Id));
+                        }
+                    }
+
+                    // Add shared tank busters
+                    if (enemy.SharedTankBusters != null)
+                    {
+                        foreach (var spellId in enemy.SharedTankBusters)
+                        {
+                            KnownFightLogicTBs.Add(new Tuple<uint, uint>(spellId, enemy.Id));
+                        }
+                    }
+
+                    // Add AOEs
+                    if (enemy.Aoes != null)
+                    {
+                        foreach (var spellId in enemy.Aoes)
+                        {
+                            KnownFightLogicAOEs.Add(new Tuple<uint, uint>(spellId, enemy.Id));
+                        }
+                    }
+
+                    // Add big AOEs
+                    if (enemy.BigAoes != null)
+                    {
+                        foreach (var spellId in enemy.BigAoes)
+                        {
+                            KnownFightLogicAOEs.Add(new Tuple<uint, uint>(spellId, enemy.Id));
+                        }
+                    }
+
+                    // Add knockbacks
+                    if (enemy.Knockbacks != null)
+                    {
+                        foreach (var spellId in enemy.Knockbacks)
+                        {
+                            KnownFightLogicAOEs.Add(new Tuple<uint, uint>(spellId, enemy.Id));
+                        }
+                    }
+
+                    // Add lockons
+                    if (enemy.AoeLockOns != null)
+                    {
+                        foreach (var lockOnId in enemy.AoeLockOns)
+                        {
+                            KnownFightLogicLockOns.Add(new Tuple<uint, uint>(lockOnId, enemy.Id));
+                        }
+                    }
+                }
+            }
+
+            IsInitialized = true;
+        }
+
         public static void Update()
         {
             UpdateCurrentPosition();
@@ -179,8 +255,6 @@ namespace Magitek.Utilities
             }
         }
 
-        private static bool mWasInCombat;
-
         private static void UpdateCurrentPosition()
         {
             var currentTarget = Core.Me.CurrentTarget;
@@ -230,6 +304,33 @@ namespace Magitek.Utilities
                 return;
 
             var newSpellCast = new EnemySpellCastInfo(unit.SpellCastInfo.Name, unit.CastingSpellId, unit.Name, unit.NpcId, WorldManager.ZoneId, WorldManager.CurrentZoneName);
+
+            // Initialize the lookup data if needed
+            InitializeKnownData();
+
+            // Check if this spell exists in any FightLogic encounter as a tank buster
+            if (KnownFightLogicTBs.Contains(new Tuple<uint, uint>(unit.CastingSpellId, unit.NpcId)))
+            {
+                newSpellCast.InFightLogicBuilderTB = "[-] FightLogic TB";
+
+                // Add to the TB FightLogic builder collection
+                if (!Debug.Instance.FightLogicBuilderTB.Contains(newSpellCast))
+                {
+                    Debug.Instance.FightLogicBuilderTB.Add(newSpellCast);
+                }
+            }
+            // Check if this spell exists in any FightLogic encounter as an AOE
+            else if (KnownFightLogicAOEs.Contains(new Tuple<uint, uint>(unit.CastingSpellId, unit.NpcId)))
+            {
+                newSpellCast.InFightLogicBuilderAOE = "[-] FightLogic AOE";
+
+                // Add to the AOE FightLogic builder collection
+                if (!Debug.Instance.FightLogicBuilderAOE.Contains(newSpellCast))
+                {
+                    Debug.Instance.FightLogicBuilderAOE.Add(newSpellCast);
+                }
+            }
+
             Logger.WriteInfo($@"[Debug] Adding [{newSpellCast.Id}] {newSpellCast.Name} To Enemy Spell Casts");
             Debug.Instance.EnemySpellCasts.Add(newSpellCast.Id, newSpellCast);
         }
@@ -266,6 +367,9 @@ namespace Magitek.Utilities
             if (!Globals.InActiveDuty || Globals.OnPvpMap)
                 return;
 
+            // Initialize the lookup data if needed
+            InitializeKnownData();
+
             // Get enemy with highest HP
             var highestHpEnemy = _enemyCache.OrderByDescending(e => e.MaxHealth).FirstOrDefault();
             var castedById = highestHpEnemy?.NpcId ?? 0;
@@ -282,6 +386,19 @@ namespace Magitek.Utilities
                 var newLockOn = new LockOnInfo(lockOn.Id, highestHpEnemy?.Name, WorldManager.ZoneId, WorldManager.CurrentZoneName);
                 newLockOn.CastedById = castedById;
                 newLockOn.TargetedPlayerName = targetedPlayerName;
+
+                // Check if this lockon exists in any FightLogic encounter
+                if (KnownFightLogicLockOns.Contains(new Tuple<uint, uint>(lockOn.Id, castedById)))
+                {
+                    newLockOn.InFightLogicBuilder = "[-] FightLogic LockOn";
+
+                    // Add to the FightLogic builder collection
+                    if (!Debug.Instance.FightLogicBuilderLockOns.Contains(newLockOn))
+                    {
+                        Debug.Instance.FightLogicBuilderLockOns.Add(newLockOn);
+                    }
+                }
+
                 Logger.WriteInfo($@"[Debug] Adding LockOn [{newLockOn.Id}] from {newLockOn.CastedByName} targeting to LockOn History");
                 Debug.Instance.LockOnHistory.Add(new Tuple<uint, uint, string>(newLockOn.Id, castedById, targetedPlayerName), newLockOn);
             }
@@ -307,6 +424,19 @@ namespace Magitek.Utilities
                     var newLockOn = new LockOnInfo(lockOn.Id, highestHpEnemy?.Name, WorldManager.ZoneId, WorldManager.CurrentZoneName);
                     newLockOn.CastedById = castedById;
                     newLockOn.TargetedPlayerName = targetedPlayerName;
+
+                    // Check if this lockon exists in any FightLogic encounter
+                    if (KnownFightLogicLockOns.Contains(new Tuple<uint, uint>(lockOn.Id, castedById)))
+                    {
+                        newLockOn.InFightLogicBuilder = "[-] FightLogic LockOn";
+
+                        // Add to the FightLogic builder collection
+                        if (!Debug.Instance.FightLogicBuilderLockOns.Contains(newLockOn))
+                        {
+                            Debug.Instance.FightLogicBuilderLockOns.Add(newLockOn);
+                        }
+                    }
+
                     Logger.WriteInfo($@"[Debug] Adding LockOn [{newLockOn.Id}] from {newLockOn.CastedByName} targeting to LockOn History");
                     Debug.Instance.LockOnHistory.Add(new Tuple<uint, uint, string>(newLockOn.Id, castedById, targetedPlayerName), newLockOn);
                 }
