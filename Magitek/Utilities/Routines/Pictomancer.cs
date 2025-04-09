@@ -12,6 +12,10 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Pictomancer, Spells.FireinRed);
 
+        public static bool UseSimplifiedRotation =>
+            PictomancerSettings.Instance.UseSimplifiedRotation &&
+            (!PictomancerSettings.Instance.UseSimplifiedRotationBelow100 || Core.Me.ClassLevel < 100);
+
         public static void DetectSmudge()
         {
             // Places smudge in the spell cast history if detected manually
