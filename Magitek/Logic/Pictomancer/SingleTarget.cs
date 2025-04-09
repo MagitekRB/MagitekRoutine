@@ -5,6 +5,7 @@ using Magitek.Models.Pictomancer;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using PictomancerRoutine = Magitek.Utilities.Routines.Pictomancer;
 
 namespace Magitek.Logic.Pictomancer
 {
@@ -71,27 +72,30 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.UseSingleCometinBlack)
                 return false;
 
-            if (PictomancerSettings.Instance.SaveCometInBlackForStarry
-                && Utilities.Routines.Pictomancer.StarryOffCooldownSoon(PictomancerSettings.Instance.SaveForStarryMsComet)
-                && !Core.Me.HasAura(Auras.StarryMuse, true)
-                && !Spells.SubtractivePalette.CanCast()
-                && ActionResourceManager.Pictomancer.PalleteGauge < 50)
-                return false;
-            else if (PictomancerSettings.Instance.SaveCometInBlackForStarry
-                && !Core.Me.HasAura(Auras.StarryMuse, true)
-                && !Spells.SubtractivePalette.CanCast())
-                return false;
+            if (!PictomancerRoutine.UseSimplifiedRotation)
+            {
+                if (PictomancerSettings.Instance.SaveCometInBlackForStarry
+                    && Utilities.Routines.Pictomancer.StarryOffCooldownSoon(PictomancerSettings.Instance.SaveForStarryMsComet)
+                    && !Core.Me.HasAura(Auras.StarryMuse, true)
+                    && !Spells.SubtractivePalette.CanCast()
+                    && ActionResourceManager.Pictomancer.PalleteGauge < 50)
+                    return false;
+                else if (PictomancerSettings.Instance.SaveCometInBlackForStarry
+                    && !Core.Me.HasAura(Auras.StarryMuse, true)
+                    && !Spells.SubtractivePalette.CanCast())
+                    return false;
 
-            if (PictomancerSettings.Instance.CometInBlackOnlyDuringStarry
-                && !Core.Me.HasAura(Auras.StarryMuse, true))
-                return false;
+                if (PictomancerSettings.Instance.CometInBlackOnlyDuringStarry
+                    && !Core.Me.HasAura(Auras.StarryMuse, true))
+                    return false;
 
-            if (PictomancerSettings.Instance.SaveCometInBlackForStarry
-                && PictomancerSettings.Instance.SaveCometInBlackForStarryMovement
-                && !MovementManager.IsMoving
-                && ActionResourceManager.Pictomancer.PalleteGauge < 100
-                && !Core.Me.HasAura(Auras.StarryMuse, true))
-                return false;
+                if (PictomancerSettings.Instance.SaveCometInBlackForStarry
+                    && PictomancerSettings.Instance.SaveCometInBlackForStarryMovement
+                    && !MovementManager.IsMoving
+                    && ActionResourceManager.Pictomancer.PalleteGauge < 100
+                    && !Core.Me.HasAura(Auras.StarryMuse, true))
+                    return false;
+            }
 
             if (!Spells.CometinBlack.IsKnownAndReady())
                 return false;
