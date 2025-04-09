@@ -148,7 +148,7 @@ namespace Magitek.Models.Pictomancer
         public bool UseSimplifiedRotationBelow100 { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool UseSimplifiedRotation { get; set; }
         #endregion
 
