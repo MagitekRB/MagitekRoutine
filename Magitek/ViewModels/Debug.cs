@@ -134,7 +134,7 @@ namespace Magitek.ViewModels
                 if (lockOns.Any())
                 {
                     sb.AppendLine("            AoeLockOns = new List<uint> {");
-                    foreach (var lockOn in lockOns)
+                    foreach (var lockOn in lockOns.DistinctBy(l => l.Id))
                     {
                         sb.AppendLine($"                {lockOn.Id},");
                     }

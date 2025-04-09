@@ -65,7 +65,7 @@ namespace Magitek.Utilities
             BossNames = new HashSet<string>(BossDictionary.Values);
             BossNames.UnionWith(JsonConvert.DeserializeObject<List<string>>(bossesNames));
 
-            FightLogic.Encounters.SelectMany(encounter => encounter.Enemies)
+            FightLogicEncounters.Encounters.SelectMany(encounter => encounter.Enemies)
                 .Where(enemy => enemy.Name != null)
                 .ToList()
                 .ForEach(enemy => BossNames.Add(enemy.Name));
