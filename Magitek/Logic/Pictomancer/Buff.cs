@@ -79,6 +79,11 @@ namespace Magitek.Logic.Pictomancer
             if (!Core.Me.HasAura(Auras.StarryMuse, true))
                 return false;
 
+            if (Core.Me.ClassLevel < 100)
+            {
+                return false;
+            }
+
             return await MagicDps.UsePotion(PictomancerSettings.Instance);
         }
     }

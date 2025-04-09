@@ -146,27 +146,30 @@ namespace Magitek.Logic.Pictomancer
 
             var muse = Spells.LivingMuse.Masked();
 
-            if (PictomancerSettings.Instance.SaveMogForStarry
-                && Spells.StarryMuse.IsKnown()
-                && !Core.Me.HasAura(Auras.StarryMuse, true)
-                && (ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing)
-                   || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw))
-                && muse.Charges < 3)
+            if (!PictomancerRoutine.UseSimplifiedRotation)
             {
-                var cooldownForCharge = muse.AdjustedCooldown.TotalMilliseconds;
-                var cooldown2charge = cooldownForCharge * 2;
-                var nextChargeTime = muse.CooldownToNextCharge();
-                var currentCharges = Math.Floor(muse.Charges);
+                if (PictomancerSettings.Instance.SaveMogForStarry
+                    && Spells.StarryMuse.IsKnown()
+                    && !Core.Me.HasAura(Auras.StarryMuse, true)
+                    && (ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing)
+                       || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw))
+                    && muse.Charges < 3)
+                {
+                    var cooldownForCharge = muse.AdjustedCooldown.TotalMilliseconds;
+                    var cooldown2charge = cooldownForCharge * 2;
+                    var nextChargeTime = muse.CooldownToNextCharge();
+                    var currentCharges = Math.Floor(muse.Charges);
 
-                var nextMogInMs = cooldown2charge - (cooldownForCharge - nextChargeTime);
+                    var nextMogInMs = cooldown2charge - (cooldownForCharge - nextChargeTime);
 
-                if (currentCharges > 0)
-                    nextMogInMs -= (cooldownForCharge * (currentCharges - 1));
+                    if (currentCharges > 0)
+                        nextMogInMs -= (cooldownForCharge * (currentCharges - 1));
 
-                //Logger.WriteInfo($"Next Mog in {nextMogInMs}ms. Starry Cooldown {PictomancerRoutine.StarryCooldownRemaining()}");
+                    //Logger.WriteInfo($"Next Mog in {nextMogInMs}ms. Starry Cooldown {PictomancerRoutine.StarryCooldownRemaining()}");
 
-                if (nextMogInMs > PictomancerRoutine.StarryCooldownRemaining())
-                    return false;
+                    if (nextMogInMs > PictomancerRoutine.StarryCooldownRemaining())
+                        return false;
+                }
             }
 
             if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me.CurrentTarget))
@@ -184,10 +187,13 @@ namespace Magitek.Logic.Pictomancer
                 return false;
 
             // save mogs in sub-100 content
-            if (PictomancerSettings.Instance.SaveMogForStarry
-                && PictomancerRoutine.StarryOffCooldownSoon(20000)
-                && !Spells.StarPrism.IsKnown())
-                return false;
+            if (!PictomancerRoutine.UseSimplifiedRotation)
+            {
+                if (PictomancerSettings.Instance.SaveMogForStarry
+                    && PictomancerRoutine.StarryOffCooldownSoon(20000)
+                    && !Spells.StarPrism.IsKnown())
+                    return false;
+            }
 
             if (PictomancerRoutine.CheckTTDIsEnemyDyingSoon())
                 return false;
@@ -249,25 +255,28 @@ namespace Magitek.Logic.Pictomancer
 
             var muse = Spells.SteelMuse.Masked();
 
-            var starryCooldown = PictomancerRoutine.StarryCooldownRemaining();
-            var msToNextCharge = muse.CooldownToNextCharge();
+            if (!PictomancerRoutine.UseSimplifiedRotation)
+            {
+                var starryCooldown = PictomancerRoutine.StarryCooldownRemaining();
+                var msToNextCharge = muse.CooldownToNextCharge();
 
-            if (PictomancerSettings.Instance.SaveHammerForMovement
-                && (!PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss || PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss && Core.Me.CurrentTarget.IsBoss())
-                && muse.MaxCharges >= 2
-                && !MovementManager.IsMoving
-                && muse.Charges < 1.95
-                && !(PictomancerSettings.Instance.SaveHammerForStarry && Spells.StarryMuse.IsKnown() && Core.Me.HasAura(Auras.StarryMuse, true)))
-                return false;
+                if (PictomancerSettings.Instance.SaveHammerForMovement
+                    && (!PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss || PictomancerSettings.Instance.SaveHammerForMovementOnlyBoss && Core.Me.CurrentTarget.IsBoss())
+                    && muse.MaxCharges >= 2
+                    && !MovementManager.IsMoving
+                    && muse.Charges < 1.95
+                    && !(PictomancerSettings.Instance.SaveHammerForStarry && Spells.StarryMuse.IsKnown() && Core.Me.HasAura(Auras.StarryMuse, true)))
+                    return false;
 
-            if (PictomancerSettings.Instance.SaveHammerForStarry
-                && Spells.StarryMuse.IsKnown()
-                && !Core.Me.HasAura(Auras.StarryMuse, true)
-                && starryCooldown <= msToNextCharge
-                && muse.Charges < 2)
-                return false;
+                if (PictomancerSettings.Instance.SaveHammerForStarry
+                    && Spells.StarryMuse.IsKnown()
+                    && !Core.Me.HasAura(Auras.StarryMuse, true)
+                    && starryCooldown <= msToNextCharge
+                    && muse.Charges < 2)
+                    return false;
 
-            //Logger.WriteInfo($"Starry Cooldown: {starryCooldown}ms, Next Charge: {msToNextCharge}ms, Charges: {muse.Charges}");
+                //Logger.WriteInfo($"Starry Cooldown: {starryCooldown}ms, Next Charge: {msToNextCharge}ms, Charges: {muse.Charges}");
+            }
 
             if (muse.IsKnown/*AndReady*/() && muse.CanCast(Core.Me))
                 return await muse.CastAura(Core.Me, Auras.HammerTime);
@@ -363,45 +372,48 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerRoutine.GlobalCooldown.CanWeave())
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.StarryMuse.LevelAcquired)
+            if (!PictomancerRoutine.UseSimplifiedRotation)
             {
-                if (PictomancerSettings.Instance.SaveStarryForHammers)
+                if (Core.Me.ClassLevel >= Spells.StarryMuse.LevelAcquired)
                 {
-                    // Condition to continue: Weapon motif is drawn and we have 1 or more charges of Striking Muse.
-                    bool hasHammer = (ActionResourceManager.Pictomancer.WeaponMotifDrawn
-                                     && Spells.StrikingMuse.Charges >= 1);
-
-                    // If the condition is not met, return false.
-                    if (!hasHammer)
+                    if (PictomancerSettings.Instance.SaveStarryForHammers)
                     {
-                        // Condition to continue: We have 3 charges of Hammer, then it's okay to use Starry Sky and save the hammers for the window. 
-                        var hammerAura = Core.Me.CharacterAuras.Where(r => r.CasterId == Core.Player.ObjectId && r.Id == Auras.HammerTime).FirstOrDefault();
+                        // Condition to continue: Weapon motif is drawn and we have 1 or more charges of Striking Muse.
+                        bool hasHammer = (ActionResourceManager.Pictomancer.WeaponMotifDrawn
+                                         && Spells.StrikingMuse.Charges >= 1);
 
-                        if (hammerAura == null || hammerAura.Value < 3)
+                        // If the condition is not met, return false.
+                        if (!hasHammer)
                         {
-                            //Logger.WriteInfo("Not enough charges of Hammer to save for Starry Sky.");
-                            return false;
+                            // Condition to continue: We have 3 charges of Hammer, then it's okay to use Starry Sky and save the hammers for the window. 
+                            var hammerAura = Core.Me.CharacterAuras.Where(r => r.CasterId == Core.Player.ObjectId && r.Id == Auras.HammerTime).FirstOrDefault();
+
+                            if (hammerAura == null || hammerAura.Value < 3)
+                            {
+                                //Logger.WriteInfo("Not enough charges of Hammer to save for Starry Sky.");
+                                return false;
+                            }
                         }
                     }
-                }
 
-                if (PictomancerSettings.Instance.SaveStarryForMog)
-                {
-                    // Condition 1: Continue if we have a Madeen portrait or Moogle portrait AND a creature motif is drawn.
-                    bool hasPortraitAndCreatureMotif =
-                        (ActionResourceManager.Pictomancer.MadeenPortraitReady || ActionResourceManager.Pictomancer.MooglePortraitReady)
-                        && ActionResourceManager.Pictomancer.CreatureMotifDrawn;
-
-                    // Condition 2: Continue if we have a Maw or Wing on the canvas.
-                    bool hasMawOrWingOnCanvas =
-                        ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw)
-                        || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing);
-
-                    // If neither Condition 1 nor Condition 2 is satisfied, return false.
-                    if (!hasPortraitAndCreatureMotif && !hasMawOrWingOnCanvas)
+                    if (PictomancerSettings.Instance.SaveStarryForMog)
                     {
-                        //Logger.WriteInfo($"Not enough conditions met to save Starry Sky for Mog of the Ages. hasPortraitAndCreatureMotif: {hasPortraitAndCreatureMotif}, hasMawOrWingOnCanvas: {hasMawOrWingOnCanvas}");
-                        return false;
+                        // Condition 1: Continue if we have a Madeen portrait or Moogle portrait AND a creature motif is drawn.
+                        bool hasPortraitAndCreatureMotif =
+                            (ActionResourceManager.Pictomancer.MadeenPortraitReady || ActionResourceManager.Pictomancer.MooglePortraitReady)
+                            && ActionResourceManager.Pictomancer.CreatureMotifDrawn;
+
+                        // Condition 2: Continue if we have a Maw or Wing on the canvas.
+                        bool hasMawOrWingOnCanvas =
+                            ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Maw)
+                            || ActionResourceManager.Pictomancer.CanvasFlagsState.HasFlag(ActionResourceManager.Pictomancer.CanvasFlags.Wing);
+
+                        // If neither Condition 1 nor Condition 2 is satisfied, return false.
+                        if (!hasPortraitAndCreatureMotif && !hasMawOrWingOnCanvas)
+                        {
+                            //Logger.WriteInfo($"Not enough conditions met to save Starry Sky for Mog of the Ages. hasPortraitAndCreatureMotif: {hasPortraitAndCreatureMotif}, hasMawOrWingOnCanvas: {hasMawOrWingOnCanvas}");
+                            return false;
+                        }
                     }
                 }
             }
@@ -447,7 +459,8 @@ namespace Magitek.Logic.Pictomancer
             if (!Core.Me.HasAura(Auras.RainbowBright))
                 return false;
 
-            if (Core.Me.HasAura(Auras.HammerTime))
+            if (Core.Me.HasAura(Auras.HammerTime)
+                && Core.Me.GetAuraById(Auras.RainbowBright).TimespanLeft.TotalMilliseconds < 1000)
                 return false;
 
             return await Spells.RainbowDrip.Cast(Core.Me.CurrentTarget);
@@ -471,3 +484,4 @@ namespace Magitek.Logic.Pictomancer
         }
     }
 }
+

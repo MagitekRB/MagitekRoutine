@@ -142,6 +142,14 @@ namespace Magitek.Models.Pictomancer
         [Setting]
         [DefaultValue(true)]
         public bool StarrySkyEntireParty { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSimplifiedRotationBelow100 { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseSimplifiedRotation { get; set; }
         #endregion
 
         #region Single-Target-Abilities
