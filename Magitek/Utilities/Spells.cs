@@ -1489,6 +1489,9 @@ namespace Magitek.Utilities
         public static readonly SpellData AuroraPvp = DataManager.GetSpellData(29129);
         public static readonly SpellData RelentlessRushPvp = DataManager.GetSpellData(29130);
         public static readonly SpellData TerminalTriggerPvp = DataManager.GetSpellData(29131);
+        public static readonly SpellData FatedCirclePvp = DataManager.GetSpellData(41511);
+        public static readonly SpellData HeartOfCorundumPvp = DataManager.GetSpellData(41443);
+        public static readonly SpellData FatedBrandPvp = DataManager.GetSpellData(41442);
 
         //DRK
         public static readonly uint SouleaterPvpCombo = 52;
