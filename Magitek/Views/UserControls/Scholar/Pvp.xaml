@@ -10,106 +10,231 @@
              mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
     <StackPanel Margin="5">
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}"
+                           Text="Utilities"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Purify (remove debuffs)" IsChecked="{Binding ScholarSettings.Pvp_UsePurify, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Purify (remove debuffs)"
+                              IsChecked="{Binding ScholarSettings.Pvp_UsePurify, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
 
-                    <CheckBox Grid.Row="1" Grid.Column="0" Content="Guard (Shield) At " IsChecked="{Binding ScholarSettings.Pvp_UseGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.Pvp_GuardHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <CheckBox Grid.Row="1"
+                              Grid.Column="0"
+                              Content="Guard (Shield) At "
+                              IsChecked="{Binding ScholarSettings.Pvp_UseGuard, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="1"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding ScholarSettings.Pvp_GuardHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
 
-                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Recuperate (Heal) At  " IsChecked="{Binding ScholarSettings.Pvp_UseRecuperate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <CheckBox Grid.Row="2"
+                              Grid.Column="0"
+                              Content="Recuperate (Heal) At  "
+                              IsChecked="{Binding ScholarSettings.Pvp_UseRecuperate, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="2"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding ScholarSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target" IsChecked="{Binding ScholarSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Sprint Without Target"
+                              IsChecked="{Binding ScholarSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount" IsChecked="{Binding ScholarSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Use Mount"
+                              IsChecked="{Binding ScholarSettings.Pvp_UseMount, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard" IsChecked="{Binding ScholarSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Don't attack Guard"
+                              IsChecked="{Binding ScholarSettings.Pvp_GuardCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)" IsChecked="{Binding ScholarSettings.Pvp_InvulnCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                              IsChecked="{Binding ScholarSettings.Pvp_InvulnCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
+                <TextBlock Style="{DynamicResource TextBlockSection}"
+                           Text="General"/>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Biolysis" IsChecked="{Binding ScholarSettings.Pvp_Biolysis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Biolysis"
+                              IsChecked="{Binding ScholarSettings.Pvp_Biolysis, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Mummification" IsChecked="{Binding ScholarSettings.Pvp_Mummification, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Chain Stratagem"
+                              IsChecked="{Binding ScholarSettings.Pvp_ChainStratagem, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Summon Seraph / LB with at least  " IsChecked="{Binding ScholarSettings.Pvp_SummonSeraph, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="4" MinValue="0" Value="{Binding ScholarSettings.Pvp_SummonSeraphNearbyAllies, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Allies around" />
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Summon Seraph with at least  "
+                              IsChecked="{Binding ScholarSettings.Pvp_SummonSeraph, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="0"
+                                      Grid.Column="1"
+                                      MaxValue="4"
+                                      MinValue="0"
+                                      Value="{Binding ScholarSettings.Pvp_SummonSeraphNearbyAllies, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Allies around"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Consolation" IsChecked="{Binding ScholarSettings.Pvp_Consolation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Consolation"
+                              IsChecked="{Binding ScholarSettings.Pvp_Consolation, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Seraphic Halo"
+                              IsChecked="{Binding ScholarSettings.Pvp_SeraphicHalo, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Accession"
+                              IsChecked="{Binding ScholarSettings.Pvp_Accession, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="Seraphic Veil"
+                              IsChecked="{Binding ScholarSettings.Pvp_SeraphicVeil, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Seraphism / LB with at least  "
+                              IsChecked="{Binding ScholarSettings.Pvp_Seraphism, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="0"
+                                      Grid.Column="1"
+                                      MaxValue="4"
+                                      MinValue="0"
+                                      Value="{Binding ScholarSettings.Pvp_SeraphismNearbyAllies, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Allies around"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Buffs" />
-                <StackPanel Margin="5">
-                    <CheckBox Content="Expedient" IsChecked="{Binding ScholarSettings.Pvp_Expedient, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Use Deployment Tactics on" />
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Self     " IsChecked="{Binding ScholarSettings.Pvp_DeploymentTacticsOnSelf, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Allies     " IsChecked="{Binding ScholarSettings.Pvp_DeploymentTacticsOnAllies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Enemy     " IsChecked="{Binding ScholarSettings.Pvp_DeploymentTacticsOnEnemy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-            </StackPanel>
-        </controls:SettingsBlock>
+        <controls:SettingsBlock Margin="0,5,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Healing" />
-                <StackPanel Margin="5">
-                    <CheckBox Content="Self Heal Only" IsChecked="{Binding ScholarSettings.Pvp_HealSelfOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <!-- Healing Section (Left Side) -->
+                <StackPanel Grid.Column="0"
+                            Margin="0,0,5,0">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Healing"/>
+                    <StackPanel Margin="5">
+                        <CheckBox Content="Self Heal Only"
+                                  IsChecked="{Binding ScholarSettings.Pvp_HealSelfOnly, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Grid.Row="0"
+                                  Grid.Column="0"
+                                  Content="Adloquium At "
+                                  IsChecked="{Binding ScholarSettings.Pvp_Adloquium, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric Grid.Row="0"
+                                          Grid.Column="1"
+                                          MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding ScholarSettings.Pvp_AdloquiumHealthPercent, Mode=TwoWay}"/>
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="2"
+                                   Style="{DynamicResource TextBlockDefault}"
+                                   Text=" Health Percent"/>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Adloquium At " IsChecked="{Binding ScholarSettings.Pvp_Adloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.Pvp_AdloquiumHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+
+                <!-- Buffs Section (Right Side) -->
+                <StackPanel Grid.Column="1"
+                            Margin="5,0,0,0">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Buffs"/>
+                    <StackPanel Margin="5">
+                        <CheckBox Content="Expedient"
+                                  IsChecked="{Binding ScholarSettings.Pvp_Expedient, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Use Deployment Tactics on"/>
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Self     "
+                                  IsChecked="{Binding ScholarSettings.Pvp_DeploymentTacticsOnSelf, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="Allies     "
+                                  IsChecked="{Binding ScholarSettings.Pvp_DeploymentTacticsOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="Enemy     "
+                                  IsChecked="{Binding ScholarSettings.Pvp_DeploymentTacticsOnEnemy, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </controls:SettingsBlock>
 
     </StackPanel>

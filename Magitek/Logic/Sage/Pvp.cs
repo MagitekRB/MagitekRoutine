@@ -39,14 +39,39 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Pvp_PhlegmaIII)
                 return false;
 
-            if (SageRoutine.AoeEnemies5Yards < 1)
-                return false;
+            var spell = Spells.PhlegmaIIIPvp.Masked();
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            // If spell is masked (different from original), use current target
+            if (spell != Spells.PhlegmaIIIPvp)
+            {
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                return await Spells.PhlegmaIIIPvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            // Check if current target is valid and in range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.PhlegmaIIIPvp.Range))
+            {
+                // If current target isn't in range, find any valid nearby enemy
+                var nearby = Combat.Enemies
+                    .Where(e => e.WithinSpellRange(Spells.PhlegmaIIIPvp.Range)
+                            && e.ValidAttackUnit()
+                            && e.InLineOfSight())
+                    .OrderBy(e => e.Distance(Core.Me));
+
+                var nearbyTarget = nearby.FirstOrDefault();
+
+                if (nearbyTarget != null)
+                {
+                    return await Spells.PhlegmaIIIPvp.Cast(nearbyTarget);
+                }
+
                 return false;
+            }
 
             return await Spells.PhlegmaIIIPvp.Cast(Core.Me.CurrentTarget);
         }
@@ -90,7 +115,7 @@ namespace Magitek.Logic.Sage
             if (!Spells.EukrasiaPvp.CanCast())
                 return false;
 
-            if (!SageSettings.Instance.Pvp_Pneuma)
+            if (!SageSettings.Instance.Pvp_Eukrasia)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpEukrasias))
@@ -118,15 +143,38 @@ namespace Magitek.Logic.Sage
 
             var currentKardiaTarget = Group.CastableAlliesWithin30.Where(a => a.HasAura(Auras.PvpKardion, true)).FirstOrDefault();
 
-            var kardiaTarget = Group.CastableAlliesWithin30.Where(CanKardia).OrderByDescending(KardiaPriority).FirstOrDefault();
+            // Only switch targets if current target is above 80% HP or if we don't have a target
+            if (currentKardiaTarget != null && currentKardiaTarget.CurrentHealthPercent > 80 && currentKardiaTarget.WithinSpellRange(30))
+            {
+                var kardiaTarget = Group.CastableAlliesWithin30
+                    .Where(CanKardia)
+                    .OrderByDescending(x => x.CurrentHealthPercent)
+                    .FirstOrDefault();
 
-            if (kardiaTarget == null)
-                kardiaTarget = Core.Me;
+                if (kardiaTarget == null)
+                    kardiaTarget = Core.Me;
 
-            if (kardiaTarget == currentKardiaTarget)
-                return false;
+                if (kardiaTarget == currentKardiaTarget)
+                    return false;
 
-            return await Spells.KardiaPvp.CastAura(kardiaTarget, Auras.PvpKardion);
+                return await Spells.KardiaPvp.CastAura(kardiaTarget, Auras.PvpKardion);
+            }
+            // Initial Kardia application
+            else if (currentKardiaTarget == null)
+            {
+                var kardiaTarget = Group.CastableAlliesWithin30
+                    .Where(CanKardia)
+                    .OrderByDescending(KardiaPriority)
+                    .ThenBy(x => x.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                if (kardiaTarget == null)
+                    kardiaTarget = Core.Me;
+
+                return await Spells.KardiaPvp.CastAura(kardiaTarget, Auras.PvpKardion);
+            }
+
+            return false;
 
             bool CanKardia(Character unit)
             {
@@ -139,7 +187,7 @@ namespace Magitek.Logic.Sage
                 if (unit.Distance(Core.Me) > 30)
                     return false;
 
-                return false;
+                return true;
             }
 
             int KardiaPriority(Character unit)

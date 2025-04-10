@@ -194,7 +194,7 @@ namespace Magitek.Rotations
 
             if (await CommonPvp.CommonTasks(ScholarSettings.Instance)) return true;
 
-            if (await Pvp.ConsolationPvp()) return true;
+            if (await Pvp.SeraphismPvp()) return true;
             if (await Pvp.SummonSeraphPvp()) return true;
 
             if (await Pvp.DeploymentTacticsEnemyPvp()) return true;
@@ -202,10 +202,10 @@ namespace Magitek.Rotations
             if (await Pvp.DeploymentTacticsPvp()) return true;
             if (await Pvp.AdloquiumPvp()) return true;
             if (await Pvp.ExpedientPvp()) return true;
+            if (await Pvp.ChainStratagemPvp()) return true;
 
             if (!CommonPvp.GuardCheck(ScholarSettings.Instance))
             {
-                if (await Pvp.MummificationPvp()) return true;
                 if (await Pvp.BiolysisPvp()) return true;
             }
 
