@@ -606,10 +606,6 @@ namespace Magitek.Models.Scholar
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Mummification { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_Biolysis { get; set; }
 
         [Setting]
@@ -647,6 +643,30 @@ namespace Magitek.Models.Scholar
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_Consolation { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_ChainStratagem { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_SeraphicHalo { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Accession { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_SeraphicVeil { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Seraphism { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int Pvp_SeraphismNearbyAllies { get; set; }
         #endregion
 
         public void Load(string path)

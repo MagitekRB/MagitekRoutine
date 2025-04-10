@@ -109,7 +109,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge  && Spells.BurstStrike.IsKnownAndReady() )
+            if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.BurstStrike.IsKnownAndReady())
                 return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
 
             return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);

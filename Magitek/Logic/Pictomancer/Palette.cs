@@ -460,7 +460,7 @@ namespace Magitek.Logic.Pictomancer
                 return false;
 
             if (Core.Me.HasAura(Auras.HammerTime)
-                && Core.Me.GetAuraById(Auras.RainbowBright).TimespanLeft.TotalMilliseconds < 1000)
+                && Core.Me.HasAura(Auras.RainbowBright, true, 1000))
                 return false;
 
             return await Spells.RainbowDrip.Cast(Core.Me.CurrentTarget);

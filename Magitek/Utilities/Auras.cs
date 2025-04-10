@@ -518,6 +518,7 @@ namespace Magitek.Utilities
             PvpAstralWarmth = 3216,
             PvpUmbralFreeze = 3217,
             PvpDeepFreeze = 3219,
+            PvpBiolysis = 3089,
             PvpBiolytic = 3090,
             PvpCatalyze = 3088,
             PvpHidden = 1316,
@@ -576,7 +577,8 @@ namespace Magitek.Utilities
             PvpDancePartner = 2027,
             PvpDivining = 4332,
             PvpParadox = 3223,
-            PvpFurtherRuin = 4399;
+            PvpFurtherRuin = 4399,
+            PvpScorn = 4290;
 
 
         #endregion
