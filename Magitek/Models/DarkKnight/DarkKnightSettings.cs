@@ -239,10 +239,6 @@ namespace Magitek.Models.DarkKnight
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Quietus { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_SaltedEarth { get; set; }
 
         [Setting]
@@ -256,6 +252,26 @@ namespace Magitek.Models.DarkKnight
         [Setting]
         [DefaultValue(90.0f)]
         public float Pvp_EventideHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Impalement { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Disesteem { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_ScarletDelirium { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Comeuppance { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Torcleaver { get; set; }
         #endregion
 
     }

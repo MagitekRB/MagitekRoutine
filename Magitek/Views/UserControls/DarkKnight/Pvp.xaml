@@ -9,95 +9,191 @@
              d:DesignWidth="500"
              mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
-    </UserControl.DataContext>
+        <UserControl.DataContext>
+                <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
+        </UserControl.DataContext>
 
-    <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
-    </UserControl.Resources>
+        <UserControl.Resources>
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
+        </UserControl.Resources>
 
-    <StackPanel Margin="5">
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+        <StackPanel Margin="5">
+                <controls:SettingsBlock Margin="0,5"
+                                        Background="{DynamicResource ClassSelectorBackground}">
+                        <StackPanel>
+                                <TextBlock Style="{DynamicResource TextBlockSection}"
+                                           Text="Utilities"/>
+                                <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Purify (remove debuffs)" IsChecked="{Binding DarkKnightSettings.Pvp_UsePurify, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                        <CheckBox Grid.Row="0"
+                                                  Grid.Column="0"
+                                                  Content="Purify (remove debuffs)"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_UsePurify, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
 
-                    <CheckBox Grid.Row="1" Grid.Column="0" Content="Guard (Shield) At " IsChecked="{Binding DarkKnightSettings.Pvp_UseGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding DarkKnightSettings.Pvp_GuardHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                                        <CheckBox Grid.Row="1"
+                                                  Grid.Column="0"
+                                                  Content="Guard (Shield) At "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_UseGuard, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                        <controls:Numeric Grid.Row="1"
+                                                          Grid.Column="1"
+                                                          MaxValue="100"
+                                                          MinValue="1"
+                                                          Value="{Binding DarkKnightSettings.Pvp_GuardHealthPercent, Mode=TwoWay}"/>
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="2"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   Text=" Health Percent"/>
 
-                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Recuperate (Heal) At  " IsChecked="{Binding DarkKnightSettings.Pvp_UseRecuperate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding DarkKnightSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
-                </Grid>
-            </StackPanel>
-        </controls:SettingsBlock>
+                                        <CheckBox Grid.Row="2"
+                                                  Grid.Column="0"
+                                                  Content="Recuperate (Heal) At  "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_UseRecuperate, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                        <controls:Numeric Grid.Row="2"
+                                                          Grid.Column="1"
+                                                          MaxValue="100"
+                                                          MinValue="1"
+                                                          Value="{Binding DarkKnightSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Grid.Column="2"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   Text=" Health Percent"/>
+                                </Grid>
+                        </StackPanel>
+                </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target" IsChecked="{Binding DarkKnightSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount" IsChecked="{Binding DarkKnightSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard" IsChecked="{Binding DarkKnightSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)" IsChecked="{Binding DarkKnightSettings.Pvp_InvulnCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-            </StackPanel>
-        </controls:SettingsBlock>
+                <controls:SettingsBlock Margin="0,5"
+                                        Background="{DynamicResource ClassSelectorBackground}">
+                        <StackPanel Margin="5">
+                                <StackPanel Margin="5">
+                                        <CheckBox Content="Sprint Without Target"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5">
+                                        <CheckBox Content="Use Mount"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_UseMount, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5">
+                                        <CheckBox Content="Don't attack Guard"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_GuardCheck, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5">
+                                        <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_InvulnCheck, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                        </StackPanel>
+                </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Bloodspiller                    " IsChecked="{Binding DarkKnightSettings.Pvp_Bloodspiller, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Quietus " IsChecked="{Binding DarkKnightSettings.Pvp_Quietus, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Plunge                            " IsChecked="{Binding DarkKnightSettings.Pvp_Plunge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Salted Earth " IsChecked="{Binding DarkKnightSettings.Pvp_SaltedEarth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Plunge Only in Melee Range" IsChecked="{Binding DarkKnightSettings.Pvp_SafePlunge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Shadowbringer with at least  " IsChecked="{Binding DarkKnightSettings.Pvp_Shadowbringer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="20" Value="{Binding DarkKnightSettings.Pvp_ShadowbringerHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Eventide / LB when drop below  " IsChecked="{Binding DarkKnightSettings.Pvp_Eventide, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding DarkKnightSettings.Pvp_EventideHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
-                </StackPanel>
-            </StackPanel>
-        </controls:SettingsBlock>
+                <controls:SettingsBlock Margin="0,5,0,0"
+                                        Background="{DynamicResource ClassSelectorBackground}">
+                        <StackPanel Margin="5">
+                                <TextBlock Style="{DynamicResource TextBlockSection}"
+                                           Text="General"/>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Bloodspiller                    "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Bloodspiller, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                        <CheckBox Content="Impalement "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Impalement, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Plunge                            "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Plunge, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                        <CheckBox Content="Salted Earth "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_SaltedEarth, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Plunge Only in Melee Range"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_SafePlunge, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Shadowbringer with at least  "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Shadowbringer, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                        <controls:Numeric Grid.Row="1"
+                                                          Grid.Column="1"
+                                                          MaxValue="100"
+                                                          MinValue="20"
+                                                          Value="{Binding DarkKnightSettings.Pvp_ShadowbringerHealthPercent, Mode=TwoWay}"/>
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="2"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   Text=" Health Percent"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Scarlet Delirium"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_ScarletDelirium, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Salt and Darkness"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_SaltAndDarkness, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Disesteem"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Disesteem, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Eventide under  "
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Eventide, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                        <controls:Numeric Grid.Row="1"
+                                                          Grid.Column="1"
+                                                          MaxValue="100"
+                                                          MinValue="20"
+                                                          Value="{Binding DarkKnightSettings.Pvp_EventideHealthPercent, Mode=TwoWay}"/>
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="2"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   Text=" Health Percent"/>
+                                </StackPanel>
+                        </StackPanel>
+                </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Buffs" />
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Blackest Night" IsChecked="{Binding DarkKnightSettings.Pvp_BlackestNight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
-            </StackPanel>
-        </controls:SettingsBlock>
-    </StackPanel>
+                <controls:SettingsBlock Margin="0,5,0,0"
+                                        Background="{DynamicResource ClassSelectorBackground}">
+                        <StackPanel Margin="5">
+                                <TextBlock Margin="0,0,0,5"
+                                           Style="{DynamicResource TextBlockSection}"
+                                           Text="Buffs"/>
+                                <StackPanel Margin="5"
+                                            Orientation="Horizontal">
+                                        <CheckBox Content="Blackest Night"
+                                                  IsChecked="{Binding DarkKnightSettings.Pvp_BlackestNight, Mode=TwoWay}"
+                                                  Style="{DynamicResource CheckBoxFlat}"/>
+                                </StackPanel>
+                        </StackPanel>
+                </controls:SettingsBlock>
+        </StackPanel>
 </UserControl>
 

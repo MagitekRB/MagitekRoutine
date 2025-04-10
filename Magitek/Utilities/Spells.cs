@@ -1253,6 +1253,8 @@ namespace Magitek.Utilities
         public static readonly SpellData ConsolationPvp = DataManager.GetSpellData(29238);
         public static readonly SpellData SeraphicVeil = DataManager.GetSpellData(29240);
         public static readonly SpellData SummonSeraphPvp = DataManager.GetSpellData(29237);
+        public static readonly SpellData ChainStratagemPvp = DataManager.GetSpellData(29716);
+        public static readonly SpellData SeraphismPvp = DataManager.GetSpellData(41502);
 
         //AST
         public static readonly SpellData FallMaleficPvp = DataManager.GetSpellData(29242);
@@ -1499,8 +1501,12 @@ namespace Magitek.Utilities
         public static readonly SpellData BlackestNightPvp = DataManager.GetSpellData(29093);
         public static readonly SpellData SaltedEarthPvp = DataManager.GetSpellData(29094);
         public static readonly SpellData EventidePvp = DataManager.GetSpellData(29097);
-        public static readonly SpellData QuietusPvp = DataManager.GetSpellData(29737);
         public static readonly SpellData SaltAndDarknessPvp = DataManager.GetSpellData(29095);
+        public static readonly SpellData ImpalementPvp = DataManager.GetSpellData(41438);
+        public static readonly SpellData DisesteemPvp = DataManager.GetSpellData(41437);
+        public static readonly SpellData ScarletDeliriumPvp = DataManager.GetSpellData(41434);
+        public static readonly SpellData ComeuppancePvp = DataManager.GetSpellData(41435);
+        public static readonly SpellData TorcleaverPvp = DataManager.GetSpellData(41436);
 
         //WAR
         public static readonly uint StormPathPvpCombo = 51;
