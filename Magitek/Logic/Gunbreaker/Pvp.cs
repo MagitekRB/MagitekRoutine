@@ -193,10 +193,13 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.Pvp_BlastingZone)
                 return false;
 
-            if (Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastingZonePvp.Range))
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 60)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastingZonePvp.Range))
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
