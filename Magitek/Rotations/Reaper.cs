@@ -121,28 +121,33 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(ReaperSettings.Instance)) return true;
 
+            // Defensive abilities
             if (await Pvp.ArcaneCrestPvp()) return true;
+            if (await Pvp.PerfectioPvp()) return true;
+            if (await Pvp.GuillotinePvp()) return true;
 
             if (!CommonPvp.GuardCheck(ReaperSettings.Instance))
             {
+                // Enshrouded abilities
                 if (await Pvp.TenebraeLemurumPvp()) return true;
                 if (await Pvp.LemureSlicePvp()) return true;
-                if (await Pvp.GuillotinePvp()) return true;
                 if (await Pvp.CrossReapingePvp()) return true;
                 if (await Pvp.VoidReapingPvp()) return true;
                 if (await Pvp.CommunioPvp()) return true;
 
+                // Soul Gauge abilities
                 if (await Pvp.PlentifulHarvestPvp()) return true;
                 if (await Pvp.HarvestMoonPvp()) return true;
 
+                // Debuffs and utility
                 if (await Pvp.DeathWarrantPvp()) return true;
                 if (await Pvp.GrimSwathePvp()) return true;
                 if (await Pvp.SoulSlicePvp()) return true;
             }
 
+            // Basic combo
             if (await Pvp.InfernalSlicePvp()) return true;
             if (await Pvp.WaxingSlicePvp()) return true;
-
             return await Pvp.SlicePvp();
         }
 
