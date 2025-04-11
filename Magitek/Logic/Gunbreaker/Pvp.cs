@@ -4,7 +4,7 @@ using Magitek.Models.Gunbreaker;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
-
+using ff14bot.Helpers;
 
 namespace Magitek.Logic.Gunbreaker
 {
@@ -41,6 +41,17 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             return await Spells.SolidBarrelPvp.CastPvpCombo(Spells.SolidBarrelPvpCombo, Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> BurstStrikePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.BurstStrikePvp.CanCast())
+                return false;
+
+            return await Spells.BurstStrikePvp.CastPvpCombo(Spells.SolidBarrelPvpCombo, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> GnashingFangPvp()
@@ -117,62 +128,29 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.ContinuationPvp.CanCast())
-                return false;
-
             if (!GunbreakerSettings.Instance.Pvp_Continuation)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
-                return false;
-
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
                 return false;
 
-            return await Spells.ContinuationPvp.Cast(Core.Me.CurrentTarget);
-        }
+            var spell = Spells.ContinuationPvp.Masked();
 
-        public static async Task<bool> DoubleDownPvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
+            if (!spell.CanCast())
                 return false;
 
-            if (!Spells.DoubleDownPvp.CanCast())
+            if (spell == Spells.FatedBrandPvp)
+            {
+                if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.FatedBrandPvp.Radius)) < 1)
+                    return false;
+
+                return await spell.Cast(Core.Me);
+            }
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
                 return false;
 
-            if (!GunbreakerSettings.Instance.Pvp_DoubleDown)
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit())
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpRelentlessRush))
-                return false;
-
-            return await Spells.DoubleDownPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> BurstStrikePvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.BurstStrikePvp.CanCast())
-                return false;
-
-            if (!GunbreakerSettings.Instance.Pvp_BurstStrike)
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpRelentlessRush))
-                return false;
-
-            return await Spells.BurstStrikePvp.Cast(Core.Me.CurrentTarget);
+            return await spell.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> RoughDividePvp()
@@ -183,7 +161,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!Spells.RoughDividePvp.CanCast())
                 return false;
 
-            if (!GunbreakerSettings.Instance.Pvp_BurstStrike)
+            if (!GunbreakerSettings.Instance.Pvp_RoughDivide)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
@@ -204,38 +182,6 @@ namespace Magitek.Logic.Gunbreaker
             return await Spells.RoughDividePvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> DrawandJunctionPvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.DrawandJunctionPvp.CanCast())
-                return false;
-
-            if (!GunbreakerSettings.Instance.Pvp_DrawandJunction)
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit())
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
-                return false;
-
-            if (!GunbreakerSettings.Instance.Pvp_BlastingZone && Core.Me.CurrentTarget.IsDps())
-                return false;
-
-            if (!GunbreakerSettings.Instance.Pvp_Nebula && Core.Me.CurrentTarget.IsTank())
-                return false;
-
-            if (!GunbreakerSettings.Instance.Pvp_Aurora && Core.Me.CurrentTarget.IsHealer())
-                return false;
-
-            if (Core.Me.HasAura(Auras.PvpRelentlessRush))
-                return false;
-
-            return await Spells.DrawandJunctionPvp.Cast(Core.Me.CurrentTarget);
-        }
-
         public static async Task<bool> BlastingZonePvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -247,7 +193,13 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.Pvp_BlastingZone)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastingZonePvp.Range))
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
@@ -290,6 +242,49 @@ namespace Magitek.Logic.Gunbreaker
             return await Spells.AuroraPvp.Cast(Core.Me);
         }
 
+        public static async Task<bool> HeartOfCorundumPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.HeartOfCorundumPvp.CanCast())
+                return false;
+
+            if (!GunbreakerSettings.Instance.Pvp_HeartOfCorundum)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpRelentlessRush))
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > 60)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.HeartOfCorundumPvp.Cast(Core.Me);
+        }
+
+        public static async Task<bool> FatedCirclePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.FatedCirclePvp.CanCast())
+                return false;
+
+            if (!GunbreakerSettings.Instance.Pvp_FatedCircle)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpRelentlessRush))
+                return false;
+
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.FatedCirclePvp.Radius)) < 2)
+                return false;
+
+            return await Spells.FatedCirclePvp.Cast(Core.Me);
+        }
+
         public static async Task<bool> RelentlessRushPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -304,7 +299,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < GunbreakerSettings.Instance.Pvp_RelentlessRushEnemyCount)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.RelentlessRushPvp.Radius)) < GunbreakerSettings.Instance.Pvp_RelentlessRushEnemyCount)
                 return false;
 
             return await Spells.RelentlessRushPvp.Cast(Core.Me);

@@ -260,11 +260,6 @@ namespace Magitek.Models.Gunbreaker
         #endregion
 
         #region PVP
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_DoubleDown { get; set; }
-
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_RoughDivide { get; set; }
@@ -287,14 +282,6 @@ namespace Magitek.Models.Gunbreaker
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Hypervelocity { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_DrawandJunction { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_Nebula { get; set; }
 
         [Setting]
@@ -312,6 +299,14 @@ namespace Magitek.Models.Gunbreaker
         [Setting]
         [DefaultValue(1)]
         public int Pvp_RelentlessRushEnemyCount { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_HeartOfCorundum { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_FatedCircle { get; set; }
 
         #endregion
 
