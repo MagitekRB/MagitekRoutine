@@ -279,6 +279,14 @@ namespace Magitek.Models.Reaper
         [DefaultValue(1)]
         public int Pvp_ArcaneCrestNumberOfAllies { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePvpExecutionersGuillotine { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePvpFateSealed { get; set; }
+
         #endregion
     }
 }

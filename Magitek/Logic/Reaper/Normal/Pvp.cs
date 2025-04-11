@@ -96,6 +96,12 @@ namespace Magitek.Logic.Reaper
             if (Group.CastableAlliesWithin15.Count(x => x.IsValid && x.IsAlive) < ReaperSettings.Instance.Pvp_ArcaneCrestNumberOfAllies)
                 return false;
 
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(10)) < 1)
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > 80)
+                return false;
+
             return await Spells.ArcaneCrestPvp.Cast(Core.Me);
         }
 
@@ -110,10 +116,16 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_DeathWarrant)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (Core.Me.CurrentTarget.WithinSpellRange(7))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent < 15)
+                return false;
+
+            if (Spells.DeathWarrantPvp.Masked() != Spells.DeathWarrantPvp)
                 return false;
 
             return await Spells.DeathWarrantPvp.Cast(Core.Me.CurrentTarget);
@@ -171,6 +183,9 @@ namespace Magitek.Logic.Reaper
                 return false;
 
             if (!Core.Me.HasAura(Auras.PvpImmortalSacrifice))
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpEnshrouded))
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
@@ -262,7 +277,9 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.CommunioPvp.CanCast())
+            var spell = Spells.CommunioPvp.Masked();
+
+            if (!spell.CanCast())
                 return false;
 
             if (!ReaperSettings.Instance.Pvp_Communio)
@@ -280,7 +297,24 @@ namespace Magitek.Logic.Reaper
             if (EnshroudedCount != 1 && Core.Me.HasAura(Auras.PvpEnshrouded, true, 3000))
                 return false;
 
-            return await Spells.CommunioPvp.Cast(Core.Me.CurrentTarget);
+            return await spell.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> PerfectioPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.PerfectioPvp.CanCast())
+                return false;
+
+            if (!ReaperSettings.Instance.Pvp_Communio)
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.PerfectioPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> TenebraeLemurumPvp()

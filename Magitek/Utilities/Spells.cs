@@ -1419,7 +1419,9 @@ namespace Magitek.Utilities
         public static readonly SpellData TenebraeLemurumPvp = DataManager.GetSpellData(29553);
         public static readonly SpellData CommunioPvp = DataManager.GetSpellData(29554);
         public static readonly SpellData SoulSlicePvp = DataManager.GetSpellData(29566);
-        public static readonly SpellData GuillotinePvp = DataManager.GetSpellData(34786);
+        public static readonly SpellData GuillotinePvp = DataManager.GetSpellData(41456);
+        public static readonly SpellData PerfectioPvp = DataManager.GetSpellData(41458);
+        public static readonly SpellData FateSealedPvp = DataManager.GetSpellData(41457);
 
         //BLM
         public static readonly SpellData FirePvp = DataManager.GetSpellData(29649);
