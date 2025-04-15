@@ -42,6 +42,7 @@ namespace Magitek.Rotations
 
             if (await HealFightLogic.Aoe()) return true;
             if (await HealFightLogic.Tankbuster()) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(AstrologianSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
             {

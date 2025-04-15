@@ -68,6 +68,7 @@ namespace Magitek.ViewModels
         public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderAOE { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
         public ObservableCollection<LockOnInfo> FightLogicBuilderLockOns { get; set; } = new ObservableCollection<LockOnInfo>();
         public ConcurrentObservableDictionary<Tuple<uint, uint, string>, LockOnInfo> LockOnHistory { get; set; } = new ConcurrentObservableDictionary<Tuple<uint, uint, string>, LockOnInfo>();
+        public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderKnockbacks { get; set; } = new AsyncObservableCollection<EnemySpellCastInfo>();
 
         public ICommand CopyFightLogicBuilderCommand { get; } = new RelayCommand(CopyFightLogicBuilder);
 
@@ -145,6 +146,22 @@ namespace Magitek.ViewModels
                     sb.AppendLine("            AoeLockOns = null,");
                 }
 
+                // Knockbacks
+                var knockbacks = instance.FightLogicBuilderKnockbacks.Where(k => k.CastedById == enemy.CastedById);
+                if (knockbacks.Any())
+                {
+                    sb.AppendLine("            Knockbacks = new List<uint> {");
+                    foreach (var knockback in knockbacks.DistinctBy(k => k.Id))
+                    {
+                        sb.AppendLine($"                {knockback.Id}, // {knockback.Name}");
+                    }
+                    sb.AppendLine("            },");
+                }
+                else
+                {
+                    sb.AppendLine("            Knockbacks = null,");
+                }
+
                 sb.AppendLine("            SharedTankBusters = null,");
                 sb.AppendLine("            BigAoes = null");
                 sb.AppendLine("        },");
@@ -182,10 +199,15 @@ namespace Magitek.ViewModels
             {
                 x.InFightLogicBuilder = "[+] FightLogic LockOn";
             }
+            foreach (var x in instance.FightLogicBuilderKnockbacks)
+            {
+                x.InFightLogicBuilderKnockback = "[+] FightLogic KB";
+            }
 
             instance.FightLogicBuilderTB.Clear();
             instance.FightLogicBuilderAOE.Clear();
             instance.FightLogicBuilderLockOns.Clear();
+            instance.FightLogicBuilderKnockbacks.Clear();
         }
 
         public ICommand ClearEnemySpellCastsCommand { get; } = new RelayCommand(ClearEnemySpellCasts);
@@ -200,6 +222,7 @@ namespace Magitek.ViewModels
             instance.FightLogicBuilderTB.Clear();
             instance.FightLogicBuilderAOE.Clear();
             instance.FightLogicBuilderLockOns.Clear();
+            instance.FightLogicBuilderKnockbacks.Clear();
             Logger.WriteInfo("[Debug] Cleared Enemy Spell Casts History");
         }
     }

@@ -53,6 +53,7 @@ namespace Magitek.Rotations
 
             if (await HealFightLogic.Aoe()) return true;
             if (await HealFightLogic.Tankbuster()) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(ScholarSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (await Logic.Scholar.Heal.Resurrection()) return true;
 

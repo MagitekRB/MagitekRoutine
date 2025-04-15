@@ -65,6 +65,7 @@ namespace Magitek.Rotations
 
             if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
             if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (await Aoe.CrimsonStrike()) return true;
             if (await Buff.LucidDreaming()) return true;

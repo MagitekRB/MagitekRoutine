@@ -107,6 +107,13 @@
                                 Content="{Binding Value.InFightLogicBuilderAOE}"
                                 Style="{DynamicResource ButtonLists}"
                                 MinWidth="120"/>
+
+                            <Button
+                                Command="{Binding Value.AddToFightLogicBuilderKnockback}"
+                                CommandParameter="{Binding Value}"
+                                Content="{Binding Value.InFightLogicBuilderKnockback}"
+                                Style="{DynamicResource ButtonLists}"
+                                MinWidth="120"/>
                         </StackPanel>
                     </Grid>
 

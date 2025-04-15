@@ -51,6 +51,7 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_PartyShield(BardSettings.Instance.FightLogicTroubadour, Spells.Troubadour, true, PhysicalDps.partyShieldAuras)) return true;
             if (await CommonFightLogic.FightLogic_PartyShield(BardSettings.Instance.FightLogicNaturesMinne, Spells.NaturesMinne, true, aura: Auras.NaturesMinne)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(BardSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             if (BardRoutine.GlobalCooldown.CanWeave())
             {

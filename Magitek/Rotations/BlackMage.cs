@@ -53,6 +53,7 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_SelfShield(BlackMageSettings.Instance.FightLogicManaward, Spells.Manaward, castTimeRemainingMs: 19000)) return true;
             if (await MagicDps.FightLogic_Addle(BlackMageSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(BlackMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (await Aoe.FlareStar()) return true;
 

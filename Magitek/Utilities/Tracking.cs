@@ -26,6 +26,7 @@ namespace Magitek.Utilities
         private static HashSet<Tuple<uint, uint>> KnownFightLogicTBs = new HashSet<Tuple<uint, uint>>();
         private static HashSet<Tuple<uint, uint>> KnownFightLogicAOEs = new HashSet<Tuple<uint, uint>>();
         private static HashSet<Tuple<uint, uint>> KnownFightLogicLockOns = new HashSet<Tuple<uint, uint>>();
+        private static HashSet<Tuple<uint, uint>> KnownFightLogicKnockbacks = new HashSet<Tuple<uint, uint>>();
         private static bool IsInitialized = false;
 
         private static void InitializeKnownData()
@@ -78,7 +79,7 @@ namespace Magitek.Utilities
                     {
                         foreach (var spellId in enemy.Knockbacks)
                         {
-                            KnownFightLogicAOEs.Add(new Tuple<uint, uint>(spellId, enemy.Id));
+                            KnownFightLogicKnockbacks.Add(new Tuple<uint, uint>(spellId, enemy.Id));
                         }
                     }
 
@@ -328,6 +329,18 @@ namespace Magitek.Utilities
                 if (!Debug.Instance.FightLogicBuilderAOE.Contains(newSpellCast))
                 {
                     Debug.Instance.FightLogicBuilderAOE.Add(newSpellCast);
+                }
+            }
+
+            // Check if this spell exists in any FightLogic encounter as a knockback
+            else if (KnownFightLogicKnockbacks.Contains(new Tuple<uint, uint>(unit.CastingSpellId, unit.NpcId)))
+            {
+                newSpellCast.InFightLogicBuilderKnockback = "[-] FightLogic KB";
+
+                // Add to the Knockback FightLogic builder collection
+                if (!Debug.Instance.FightLogicBuilderKnockbacks.Contains(newSpellCast))
+                {
+                    Debug.Instance.FightLogicBuilderKnockbacks.Add(newSpellCast);
                 }
             }
 

@@ -85,6 +85,7 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_PartyShield(RedMageSettings.Instance.FightLogicMagickBarrier, Spells.MagickBarrier, castTimeRemainingMs: 4500)) return true;
             if (await MagicDps.FightLogic_Addle(RedMageSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(RedMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (RedMageRoutine.GlobalCooldown.CanWeave())
             {

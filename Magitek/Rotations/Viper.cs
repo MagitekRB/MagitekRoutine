@@ -50,6 +50,7 @@ namespace Magitek.Rotations
             if (ViperRoutine.GlobalCooldown.CanWeave(1))
             {
                 if (await CommonFightLogic.FightLogic_Debuff(ViperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+                if (await CommonFightLogic.FightLogic_Knockback(ViperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
                 if (await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.Bloodbath(ViperSettings.Instance)) return true;

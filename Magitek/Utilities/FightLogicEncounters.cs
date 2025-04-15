@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Magitek.Utilities;
+using System.Collections.Generic;
 
 namespace Magitek.Utilities
 {
@@ -6265,7 +6265,7 @@ namespace Magitek.Utilities
             },
 
             new Encounter {
-                ZoneId = ZoneId.YuweyawataFieldStation,
+                ZoneId = 1242,
                 Name = "Yuweyawata",
                 Expansion = FfxivExpansion.Dawntrail,
                 Enemies = new List<Enemy> {
@@ -6277,8 +6277,11 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint> {
                             40639, // Free Spirits
-                            40647, // Bloodburst
                             40654, // Dark II
+                            40647, // Bloodburst
+                        },
+                        AoeLockOns = new List<uint> {
+                            558,
                         },
                         SharedTankBusters = null,
                         BigAoes = null
@@ -6294,6 +6297,9 @@ namespace Magitek.Utilities
                             40610, // Beastly Roar
                             40618, // Sonic Howl
                         },
+                        AoeLockOns = new List<uint> {
+                            139,
+                        },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -6302,14 +6308,18 @@ namespace Magitek.Utilities
                         Name = "Lindblum Zaghnal",
                         TankBusters = null,
                         Aoes = new List<uint> {
-                            40632, // Sparking Fissure
                             40636, // Lightning Storm
+                            40632, // Sparking Fissure
+                        },
+                        AoeLockOns = new List<uint> {
+                            315,
                         },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
                 }
             },
+
 
             new Encounter {
                 ZoneId = 1266,
@@ -6470,28 +6480,30 @@ namespace Magitek.Utilities
 
             #region Dawntrail: Normal Raids
             new Encounter {
-                ZoneId = ZoneId.AacLightHeavyweightM1,
-                Name = "AacLightHeavyweightM1",
+                ZoneId = 1225,
+                Name = "Scratching Ring",
                 Expansion = FfxivExpansion.Dawntrail,
                 Enemies = new List<Enemy> {
                     new Enemy {
-                        Id = 12686, // Assuming an ID for Black Cat
+                        Id = 12686,
                         Name = "Black Cat",
-                        TankBusters = new List<uint>() {
-                            0x934A, // Biscuit Maker
+                        TankBusters = new List<uint> {
+                            37706, // Biscuit Maker
                         },
-                        SharedTankBusters = new List<uint>() {
-                            // No shared tank busters mentioned in the TypeScript data
+                        Aoes = new List<uint> {
+                            37696, // Bloody Scratch
+                            37692, // Clawful
+                            37657, // Overshadow
                         },
-                        Aoes = new List<uint>() {
-                            0x9340, // Bloody Scratch
-                            0x933C, // Clawful
-                            0x9319, // Overshadow
+                        AoeLockOns = new List<uint> {
+                            376,
                         },
-                        BigAoes = new List<uint>() {
-                            // No big Aoes mentioned in the TypeScript data
+                        SharedTankBusters = null,
+                        BigAoes = null,
+                        Knockbacks = new List<uint> {
+                            37661,
                         }
-                    }
+                    },
                 }
             },
 
@@ -6761,26 +6773,6 @@ namespace Magitek.Utilities
             },
             #endregion
         };
-    }
-
-    internal class Enemy
-    {
-        internal uint Id { get; set; }
-        internal string Name { get; set; }
-        internal List<uint> TankBusters { get; set; }
-        internal List<uint> SharedTankBusters { get; set; }
-        internal List<uint> Aoes { get; set; }
-        internal List<uint> BigAoes { get; set; }
-        internal List<uint> Knockbacks { get; set; }
-        internal List<uint> AoeLockOns { get; set; }
-    }
-
-    internal class Encounter
-    {
-        internal ushort ZoneId { get; set; }
-        internal string Name { get; set; }
-        internal FfxivExpansion Expansion { get; set; }
-        internal List<Enemy> Enemies { get; set; }
     }
 
     internal static class ZoneId

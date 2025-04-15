@@ -9,26 +9,31 @@
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
-        <UserControl.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <ObjectDataProvider x:Key="PotionEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider x:Key="PotionEnum"
+                    MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="enums:PotionEnum" />
+                    <x:Type TypeName="enums:PotionEnum"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel Margin="10">
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5,0,0"
+                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
+                <TextBlock Margin="3"
+                        Style="{DynamicResource TextBlockDefault}"
+                        TextWrapping="Wrap">
         Fight Logic: <LineBreak/>       
         This allows Routines to automatically respond to TankBusters and AoE attacks by pre-shielding, using cooldowns, or applying debuffs. <LineBreak/>
         <LineBreak/>
@@ -36,10 +41,22 @@
                 </TextBlock>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" FightLogic Use Shade Shift " IsChecked="{Binding NinjaSettings.FightLogicShadeShift, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Shade Shift "
+                                IsChecked="{Binding NinjaSettings.FightLogicShadeShift, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" FightLogic Use Feint " IsChecked="{Binding NinjaSettings.FightLogicFeint, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Feint "
+                                IsChecked="{Binding NinjaSettings.FightLogicFeint, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Knockback "
+                                IsChecked="{Binding NinjaSettings.FightLogicKnockback, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

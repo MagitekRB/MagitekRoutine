@@ -60,6 +60,8 @@ namespace Magitek.Rotations
 
             if (await HealFightLogic.Aoe()) return true;
             if (await HealFightLogic.Tankbuster()) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(WhiteMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
 
             // Scalebound Extreme Rathalos
             if (Core.Me.HasAura(1495))
