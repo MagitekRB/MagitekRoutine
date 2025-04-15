@@ -254,7 +254,7 @@ namespace Magitek.Logic.Dancer
                     return DancerSettings.Instance.Pvp_RprPartnerWeight;
 
                 case ClassJobType.Sage:
-                    return DancerSettings.Instance.Pvp_SagPartnerWeight;
+                    return DancerSettings.Instance.Pvp_SgePartnerWeight;
 
                 case ClassJobType.Astrologian:
                     return DancerSettings.Instance.Pvp_AstPartnerWeight;

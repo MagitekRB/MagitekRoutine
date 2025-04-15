@@ -225,7 +225,7 @@ namespace Magitek.Models.Dancer
 
         [Setting]
         [DefaultValue(19)]
-        public int SagPartnerWeight { get; set; }
+        public int SgePartnerWeight { get; set; }
 
         [Setting]
         [DefaultValue(20)]
@@ -348,7 +348,7 @@ namespace Magitek.Models.Dancer
 
         [Setting]
         [DefaultValue(19)]
-        public int Pvp_SagPartnerWeight { get; set; }
+        public int Pvp_SgePartnerWeight { get; set; }
 
         [Setting]
         [DefaultValue(20)]

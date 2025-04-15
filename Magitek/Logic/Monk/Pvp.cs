@@ -9,39 +9,6 @@ namespace Magitek.Logic.Monk
 {
     internal static class Pvp
     {
-        public static async Task<bool> BootshinePvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.BootshinePvp.CanCast())
-                return false;
-
-            return await Spells.BootshinePvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> TrueStrikePvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.TrueStrikePvp.CanCast())
-                return false;
-
-            return await Spells.TrueStrikePvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> SnapPunchPvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.SnapPunchPvp.CanCast())
-                return false;
-
-            return await Spells.SnapPunchPvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
-        }
-
         public static async Task<bool> DragonKickPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -75,6 +42,39 @@ namespace Magitek.Logic.Monk
             return await Spells.DemolishPvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
         }
 
+        public static async Task<bool> LeapingOpoPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.LeapingOpoPvp.CanCast())
+                return false;
+
+            return await Spells.LeapingOpoPvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> RisingRaptorPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.RisingRaptorPvp.CanCast())
+                return false;
+
+            return await Spells.RisingRaptorPvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> PouncingCoeurlPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.PouncingCoeurlPvp.CanCast())
+                return false;
+
+            return await Spells.PouncingCoeurlPvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
+        }
+
         public static async Task<bool> PhantomRushPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -86,64 +86,40 @@ namespace Magitek.Logic.Monk
             return await Spells.PhantomRushPvp.CastPvpCombo(Spells.PhantomRushPvpCombo, Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> SixSidedStarPvp()
+        public static async Task<bool> FlintsReplyPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.SixSidedStarPvp.CanCast())
+            var spell = Spells.FlintsReplyPvp.Masked();
+
+            if (!spell.CanCast())
                 return false;
 
-            if (!MonkSettings.Instance.Pvp_SixSidedStar)
+            if (!MonkSettings.Instance.Pvp_FlintsReply)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
                 return false;
 
-            return await Spells.SixSidedStarPvp.Cast(Core.Me.CurrentTarget);
+            return await spell.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> EnlightenmentPvp()
+        public static async Task<bool> WindsReplyPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.EnlightenmentPvp.CanCast())
+            if (!Spells.WindsReplyPvp.CanCast())
                 return false;
 
-            if (!MonkSettings.Instance.Pvp_Enlightenment)
+            if (!MonkSettings.Instance.Pvp_WindsReply)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 10)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.WindsReplyPvp.Range))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.EnlightenmentPvp.Cast(Core.Me.CurrentTarget);
-        }
-
-        public static async Task<bool> ThunderclapPvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.ThunderclapPvp.CanCast())
-                return false;
-
-            if (!MonkSettings.Instance.Pvp_Thunderclap)
-                return false;
-
-            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpPressurePoint))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            return await Spells.ThunderclapPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.WindsReplyPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> RisingPhoenixPvp()
@@ -160,7 +136,7 @@ namespace Magitek.Logic.Monk
             if (Core.Me.HasAura(Auras.PvpFireResonance))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 6) < 1)
                 return false;
 
             return await Spells.RisingPhoenixPvp.Cast(Core.Me);
@@ -171,22 +147,36 @@ namespace Magitek.Logic.Monk
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.RiddleofEarthPvp.CanCast())
+            if (!Spells.RiddleofEarthPvp.CanCast() && Spells.RiddleofEarthPvp.Masked() == Spells.RiddleofEarthPvp)
                 return false;
 
-            if (!MonkSettings.Instance.Pvp_RisingPhoenix)
+            if (!MonkSettings.Instance.Pvp_RiddleofEarth)
                 return false;
 
-            if (Core.Me.HasAura(Auras.PvpEarthResonance))
-                return false;
-
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(10)) < 2)
                 return false;
 
             return await Spells.RiddleofEarthPvp.Cast(Core.Me);
         }
 
-        public static async Task<bool> EarthReplyPvp()
+        public static async Task<bool> ThunderclapPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.ThunderclapPvp.CanCast())
+                return false;
+
+            if (!MonkSettings.Instance.Pvp_Thunderclap)
+                return false;
+
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+                return false;
+
+            return await Spells.ThunderclapPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> EarthsReplyPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
@@ -200,10 +190,10 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.HasAura(Auras.PvpEarthResonance))
                 return false;
 
-            if (Core.Me.HasAura(Auras.PvpEarthResonance, true, 2000) && Core.Me.CurrentHealthPercent > MonkSettings.Instance.Pvp_EarthReplyHealthPercent)
+            if (Core.Me.HasAura(Auras.PvpEarthResonance, true, 5555))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(6)) < 1)
                 return false;
 
             return await Spells.EarthReplyPvp.Cast(Core.Me);
@@ -227,9 +217,6 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > MonkSettings.Instance.Pvp_MeteodriveHealthPercent)
-                return false;
-
-            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpPressurePoint) && MonkSettings.Instance.Pvp_MeteodriveWithEnlightenment)
                 return false;
 
             return await Spells.MeteodrivePvp.Cast(Core.Me.CurrentTarget);

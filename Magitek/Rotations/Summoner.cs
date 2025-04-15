@@ -92,8 +92,8 @@ namespace Magitek.Rotations
 
             if (!CommonPvp.GuardCheck(SummonerSettings.Instance))
             {
-                if (await Pvp.CrimsonStrikePvp()) return true;
                 if (await Pvp.MountainBusterPvp()) return true;
+                if (await Pvp.CrimsonStrikePvp()) return true;
 
                 if (await Pvp.DeathflarePvp()) return true;
                 if (await Pvp.BrandOfPurgatoryPvp()) return true;

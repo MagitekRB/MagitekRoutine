@@ -165,7 +165,7 @@ namespace Magitek.Logic.Dancer
                     return DancerSettings.Instance.RprPartnerWeight;
 
                 case ClassJobType.Sage:
-                    return DancerSettings.Instance.SagPartnerWeight;
+                    return DancerSettings.Instance.SgePartnerWeight;
 
                 case ClassJobType.Astrologian:
                     return DancerSettings.Instance.AstPartnerWeight;
@@ -226,6 +226,12 @@ namespace Magitek.Logic.Dancer
 
                 case ClassJobType.Scholar:
                     return DancerSettings.Instance.SchPartnerWeight;
+
+                case ClassJobType.Pictomancer:
+                    return DancerSettings.Instance.PctPartnerWeight;
+
+                case ClassJobType.Viper:
+                    return DancerSettings.Instance.VprPartnerWeight;
             }
 
             return c.CurrentJob == ClassJobType.Adventurer ? 70 : 0;

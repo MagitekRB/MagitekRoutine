@@ -409,13 +409,13 @@
                     <TextBlock Grid.Row="5"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="SAG: "/>
+                               Text="SGE: "/>
                     <controls:Numeric Grid.Row="5"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"
                                       MaxValue="100"
                                       MinValue="1"
-                                      Value="{Binding DancerSettings.Pvp_SagPartnerWeight, Mode=TwoWay}"/>
+                                      Value="{Binding DancerSettings.Pvp_SgePartnerWeight, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="5"
                                Grid.Column="6"
                                Style="{DynamicResource TextBlockDefault}"
