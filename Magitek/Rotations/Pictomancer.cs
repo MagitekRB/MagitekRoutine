@@ -73,6 +73,8 @@ namespace Magitek.Rotations
                 if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
             }
 
+            if (await CommonFightLogic.FightLogic_Knockback(PictomancerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
             if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {
                 if (await Healer.LucidDreaming(PictomancerSettings.Instance.UseLucidDreaming, PictomancerSettings.Instance.LucidDreamingMinimumManaPercent)) return true;

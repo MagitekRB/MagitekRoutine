@@ -60,6 +60,7 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_PartyShield(MonkSettings.Instance.FightLogicMantra, Spells.Mantra, true, aura: Auras.Mantra)) return true;
             if (await CommonFightLogic.FightLogic_Debuff(MonkSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(MonkSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, Auras.ArmsLength)) return true;
 
             //Buff
             if (await Buff.Meditate())

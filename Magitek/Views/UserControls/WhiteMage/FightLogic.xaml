@@ -5,38 +5,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels"
-             d:DesignHeight="400" d:DesignWidth="500" mc:Ignorable="d">
+             d:DesignHeight="400"
+        d:DesignWidth="500"
+        mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
- <StackPanel Margin="10">
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5" Orientation="Vertical">
-                <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
+    <StackPanel Margin="10">
+        <controls:SettingsBlock Margin="0,5"
+                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5"
+                    Orientation="Vertical">
+                <TextBlock Margin="3"
+                        Style="{DynamicResource TextBlockDefault}"
+                        TextWrapping="Wrap">
         Fight Logic: <LineBreak/>       
         This allows Routines to automatically respond to TankBusters and AoE attacks by pre-shielding, using cooldowns, or applying debuffs. <LineBreak/>
         <LineBreak/>
         Only works on supported bosses and dungeons and limited to only boss-cast-bar detectable actions.
                 </TextBlock>
-                <TextBlock Margin="0,5"  Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap" Text="Tankbusters" />
+                <TextBlock Margin="0,5"
+                        Style="{DynamicResource TextBlockDefault}"
+                        TextWrapping="Wrap"
+                        Text="Tankbusters"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Content="Divine Benison" IsChecked="{Binding WhiteMageSettings.FightLogicDivineBenison, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Aquaveil " IsChecked="{Binding WhiteMageSettings.FightLogicAquaveil, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Divine Benison"
+                            IsChecked="{Binding WhiteMageSettings.FightLogicDivineBenison, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Aquaveil "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicAquaveil, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
-                <TextBlock Margin="0,5" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap" Text="Party AoE" />
+                <TextBlock Margin="0,5"
+                        Style="{DynamicResource TextBlockDefault}"
+                        TextWrapping="Wrap"
+                        Text="Party AoE"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Content="Divine Caress" IsChecked="{Binding WhiteMageSettings.FightLogicDivineCaress, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Temperance " IsChecked="{Binding WhiteMageSettings.FightLogicTemperance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Liturgy Of The Bell " IsChecked="{Binding WhiteMageSettings.FightLogicLiturgyoftheBell, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Asylum " IsChecked="{Binding WhiteMageSettings.FightLogicAsylum, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Plenary Indulgence " IsChecked="{Binding WhiteMageSettings.FightLogicPlenaryIndulgence, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Medica 2 " IsChecked="{Binding WhiteMageSettings.FightLogicMedica2, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Divine Caress"
+                            IsChecked="{Binding WhiteMageSettings.FightLogicDivineCaress, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Temperance "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicTemperance, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Liturgy Of The Bell "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicLiturgyoftheBell, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Asylum "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicAsylum, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Plenary Indulgence "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicPlenaryIndulgence, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Medica 2 "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicMedica2, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Knockback "
+                            IsChecked="{Binding WhiteMageSettings.FightLogicKnockback, Mode=TwoWay}"
+                            Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

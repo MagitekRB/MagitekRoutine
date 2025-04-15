@@ -75,6 +75,10 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(true)]
         public bool FightLogicReprisal { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicKnockback { get; set; }
         #endregion
 
         #region interrupt

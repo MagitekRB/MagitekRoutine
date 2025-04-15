@@ -128,5 +128,32 @@ namespace Magitek.Logic.Roles
 
             return false;
         }
+
+        public static async Task<bool> FightLogic_Knockback(bool useAntiKnockback, SpellData spell, bool selfAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 0)
+        {
+            if (!useAntiKnockback)
+                return false;
+
+            if (!spell.IsKnownAndReady())
+                return false;
+
+            if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyKnockbackLogic())
+                return false;
+
+            if (FightLogic.EnemyIsCastingKnockback())
+            {
+                if (selfAuraCheck && Core.Me.HasAura(aura))
+                    return false;
+
+                if (!FightLogic.HodlCastTimeRemaining(castTimeRemainingMs, BaseSettings.Instance.FightLogicResponseDelay))
+                    return false;
+
+                if (BaseSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AntiKnockback Response] Cast {spell.Name}");
+
+                return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
+            }
+            return false;
+        }
     }
 }

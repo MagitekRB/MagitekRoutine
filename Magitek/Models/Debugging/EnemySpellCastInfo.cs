@@ -25,6 +25,7 @@ namespace Magitek.Models.Debugging
             Icon = this.GetIcon();
             InFightLogicBuilderAOE = "[+] FightLogic AOE";
             InFightLogicBuilderTB = "[+] FightLogic TB";
+            InFightLogicBuilderKnockback = "[+] FightLogic KB";
         }
 
         public string Name { get; set; }
@@ -47,6 +48,7 @@ namespace Magitek.Models.Debugging
 
         public string InFightLogicBuilderAOE { get; set; }
         public string InFightLogicBuilderTB { get; set; }
+        public string InFightLogicBuilderKnockback { get; set; }
 
         public ICommand AddToFightLogicBuilderAOE => new DelegateCommand<EnemySpellCastInfo>(info =>
         {
@@ -79,6 +81,23 @@ namespace Magitek.Models.Debugging
             {
                 Debug.Instance.FightLogicBuilderTB.Add(info);
                 InFightLogicBuilderTB = "[-] FightLogic TB";
+            }
+        });
+
+        public ICommand AddToFightLogicBuilderKnockback => new DelegateCommand<EnemySpellCastInfo>(info =>
+        {
+            if (info == null)
+                return;
+
+            if (Debug.Instance.FightLogicBuilderKnockbacks.Any(r => r.Id == info.Id))
+            {
+                Debug.Instance.FightLogicBuilderKnockbacks.Remove(info);
+                InFightLogicBuilderKnockback = "[+] FightLogic KB";
+            }
+            else
+            {
+                Debug.Instance.FightLogicBuilderKnockbacks.Add(info);
+                InFightLogicBuilderKnockback = "[-] FightLogic KB";
             }
         });
 

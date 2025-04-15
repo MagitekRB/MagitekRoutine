@@ -53,5 +53,9 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(3.0f)]
         public float ResDelay { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicKnockback { get; set; }
     }
 }

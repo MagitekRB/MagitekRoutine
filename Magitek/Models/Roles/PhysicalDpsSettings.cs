@@ -69,5 +69,9 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(true)]
         public bool FightLogicFeint { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicKnockback { get; set; }
     }
 }

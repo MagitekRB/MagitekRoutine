@@ -37,5 +37,9 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(true)]
         public bool FightLogicAddle { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicKnockback { get; set; }
     }
 }

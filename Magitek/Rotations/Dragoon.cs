@@ -83,7 +83,7 @@ namespace Magitek.Rotations
             if (SingleTarget.ForceLimitBreak()) return true;
 
             if (await CommonFightLogic.FightLogic_Debuff(DragoonSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-
+            if (await CommonFightLogic.FightLogic_Knockback(DragoonSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
             //Utility
             if (await PhysicalDps.Interrupt(DragoonSettings.Instance)) return true;
             if (await PhysicalDps.SecondWind(DragoonSettings.Instance)) return true;

@@ -12,33 +12,48 @@
              mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <ObjectDataProvider x:Key="PotionEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider x:Key="PotionEnum"
+                    MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="enums:PotionEnum" />
+                    <x:Type TypeName="enums:PotionEnum"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel Margin="5">
-        
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+
+        <controls:SettingsBlock Margin="0,5,0,0"
+                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" FightLogic Use Mantra " IsChecked="{Binding MonkSettings.FightLogicMantra, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Mantra "
+                                IsChecked="{Binding MonkSettings.FightLogicMantra, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" FightLogic Use Feint " IsChecked="{Binding MonkSettings.FightLogicFeint, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Feint "
+                                IsChecked="{Binding MonkSettings.FightLogicFeint, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Knockback "
+                                IsChecked="{Binding MonkSettings.FightLogicKnockback, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

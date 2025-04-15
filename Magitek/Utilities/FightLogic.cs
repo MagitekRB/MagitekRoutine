@@ -2,14 +2,13 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
-using Magitek.Utilities.Collections;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Debug = Magitek.ViewModels.Debug;
 using DebugSettings = Magitek.Models.Account.BaseSettings;
-using Generic = System.Collections.Generic;
 
 namespace Magitek.Utilities
 {
@@ -19,7 +18,7 @@ namespace Magitek.Utilities
 
         private static readonly Stopwatch GetEnemyLogicAndEnemyCacheAge = new Stopwatch();
 
-        private static Generic.HashSet<uint> FlHandledCastingSpellId = new Generic.HashSet<uint>();
+        private static HashSet<uint> FlHandledCastingSpellId = new HashSet<uint>();
 
         private static TimeSpan FlCooldown
         {
@@ -174,6 +173,28 @@ namespace Magitek.Utilities
             return output;
         }
 
+        public static bool EnemyIsCastingKnockback()
+        {
+            if (!IsFlReady)
+                return false;
+
+            var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+            if (enemyLogic?.Knockbacks == null || enemy == null || encounter == null)
+                return false;
+
+            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
+                return false;
+            FlHandledCastingSpellId.Clear();
+
+            var output = enemyLogic.Knockbacks.Contains(enemy.CastingSpellId);
+
+            if (output && DebugSettings.Instance.DebugFightLogic)
+                Logger.WriteInfo($"[Knockback Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
+
+            return output;
+        }
+
         public static bool ZoneHasFightLogic()
         {
             if (!DebugSettings.Instance.UseFightLogic)
@@ -207,6 +228,18 @@ namespace Magitek.Utilities
                 var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
                 return (enemyLogic?.Aoes != null || enemyLogic?.BigAoes != null || enemyLogic?.AoeLockOns != null);
+            }
+
+            return false;
+        }
+
+        public static bool EnemyHasAnyKnockbackLogic()
+        {
+            if (ZoneHasFightLogic())
+            {
+                var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                return (enemyLogic?.Knockbacks != null);
             }
 
             return false;
@@ -335,5 +368,25 @@ namespace Magitek.Utilities
                 return GetEnemyLogicAndEnemyCached;
             }
         }
+    }
+
+    internal class Enemy
+    {
+        internal uint Id { get; set; }
+        internal string Name { get; set; }
+        internal List<uint> TankBusters { get; set; }
+        internal List<uint> SharedTankBusters { get; set; }
+        internal List<uint> Aoes { get; set; }
+        internal List<uint> BigAoes { get; set; }
+        internal List<uint> Knockbacks { get; set; }
+        internal List<uint> AoeLockOns { get; set; }
+    }
+
+    internal class Encounter
+    {
+        internal ushort ZoneId { get; set; }
+        internal string Name { get; set; }
+        internal FfxivExpansion Expansion { get; set; }
+        internal List<Enemy> Enemies { get; set; }
     }
 }

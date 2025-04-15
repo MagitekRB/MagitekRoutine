@@ -54,7 +54,7 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_SelfShield(SamuraiSettings.Instance.FightLogicTengentsu, Spells.Tengentsu.IsKnown() ? Spells.Tengentsu : Spells.ThirdEye, castTimeRemainingMs: 2000)) return true;
             if (await CommonFightLogic.FightLogic_Debuff(SamuraiSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-
+            if (await CommonFightLogic.FightLogic_Knockback(SamuraiSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
             //Utility
             if (await PhysicalDps.Interrupt(SamuraiSettings.Instance)) return true;
             if (await PhysicalDps.SecondWind(SamuraiSettings.Instance)) return true;

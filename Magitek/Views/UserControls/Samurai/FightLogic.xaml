@@ -12,17 +12,19 @@
              mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <ObjectDataProvider x:Key="InterruptStrategy" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider x:Key="InterruptStrategy"
+                    MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="enums:InterruptStrategy" />
+                    <x:Type TypeName="enums:InterruptStrategy"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </ResourceDictionary>
@@ -30,11 +32,14 @@
 
     <StackPanel Margin="10">
 
-       
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+
+        <controls:SettingsBlock Margin="0,5,0,0"
+                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
+                <TextBlock Margin="3"
+                        Style="{DynamicResource TextBlockDefault}"
+                        TextWrapping="Wrap">
         Fight Logic: <LineBreak/>       
         This allows Routines to automatically respond to TankBusters and AoE attacks by pre-shielding, using cooldowns, or applying debuffs. <LineBreak/>
         <LineBreak/>
@@ -42,10 +47,22 @@
                 </TextBlock>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" FightLogic Use Tengentsu " IsChecked="{Binding SamuraiSettings.FightLogicTengentsu, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Tengentsu "
+                                IsChecked="{Binding SamuraiSettings.FightLogicTengentsu, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" FightLogic Use Feint " IsChecked="{Binding SamuraiSettings.FightLogicFeint, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Feint "
+                                IsChecked="{Binding SamuraiSettings.FightLogicFeint, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5"
+                                Content=" FightLogic Use Knockback "
+                                IsChecked="{Binding SamuraiSettings.FightLogicKnockback, Mode=TwoWay}"
+                                Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
