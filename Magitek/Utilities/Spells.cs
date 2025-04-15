@@ -1336,7 +1336,6 @@ namespace Magitek.Utilities
         public static readonly SpellData DragonKickPvp = DataManager.GetSpellData(29475);
         public static readonly SpellData TwinSnakesPvp = DataManager.GetSpellData(29476);
         public static readonly SpellData DemolishPvp = DataManager.GetSpellData(29477);
-        public static readonly SpellData PhantomRushPvp = DataManager.GetSpellData(29478);
         public static readonly SpellData SixSidedStarPvp = DataManager.GetSpellData(29479);
         public static readonly SpellData EnlightenmentPvp = DataManager.GetSpellData(29480);
         public static readonly SpellData RisingPhoenixPvp = DataManager.GetSpellData(29481);
@@ -1344,6 +1343,13 @@ namespace Magitek.Utilities
         public static readonly SpellData EarthReplyPvp = DataManager.GetSpellData(29483);
         public static readonly SpellData ThunderclapPvp = DataManager.GetSpellData(29484);
         public static readonly SpellData MeteodrivePvp = DataManager.GetSpellData(29485);
+        public static readonly SpellData LeapingOpoPvp = DataManager.GetSpellData(41444);
+        public static readonly SpellData RisingRaptorPvp = DataManager.GetSpellData(41445);
+        public static readonly SpellData PouncingCoeurlPvp = DataManager.GetSpellData(41446);
+        public static readonly SpellData PhantomRushPvp = DataManager.GetSpellData(29478);
+        public static readonly SpellData FlintsReplyPvp = DataManager.GetSpellData(41447);
+        public static readonly SpellData WindsReplyPvp = DataManager.GetSpellData(41509);
+        public static readonly SpellData FiresReplyPvp = DataManager.GetSpellData(41448);
 
         //DRG
         public static readonly uint WheelingThrustPvpCombo = 56;

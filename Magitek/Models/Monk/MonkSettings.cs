@@ -210,6 +210,17 @@ namespace Magitek.Models.Monk
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_MeteodriveWithEnlightenment { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_FlintsReply { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_WindsReply { get; set; }
+
+
+
         #endregion
     }
 }
