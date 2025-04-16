@@ -42,6 +42,17 @@ namespace Magitek.Logic.Dragoon
             return await Spells.WheelingThrustPvp.CastPvpCombo(Spells.WheelingThrustPvpCombo, Core.Me.CurrentTarget);
         }
 
+        public static async Task<bool> DrakesbanePvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.DrakesbanePvp.CanCast())
+                return false;
+
+            return await Spells.DrakesbanePvp.CastPvpCombo(Spells.WheelingThrustPvpCombo, Core.Me.CurrentTarget);
+        }
+
         public static async Task<bool> HeavensThrustPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -50,10 +61,7 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.HeavensThrustPvp.CanCast())
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpHeavensent))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HeavensThrustPvp.Range))
                 return false;
 
             return await Spells.HeavensThrustPvp.Cast(Core.Me.CurrentTarget);
@@ -70,7 +78,7 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_ChaoticSpring)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ChaoticSpringPvp.Range))
                 return false;
 
             return await Spells.ChaoticSpringPvp.Cast(Core.Me.CurrentTarget);
@@ -87,7 +95,7 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_Geirskogul)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.GeirskogulPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -107,13 +115,10 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_Geirskogul)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.NastrondPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50 && Core.Me.HasAura(Auras.PvpLifeoftheDragon, true, 2000))
                 return false;
 
             return await Spells.NastrondPvp.Cast(Core.Me.CurrentTarget);
@@ -136,10 +141,7 @@ namespace Magitek.Logic.Dragoon
             if (DragoonSettings.Instance.Pvp_ElusiveJump && Spells.WyrmwindThrustPvp.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.PvpFirstmindsFocus))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HighJumpPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -159,7 +161,7 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_ElusiveJump)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ElusiveJumpPvp.Range))
                 return false;
 
             return await Spells.ElusiveJumpPvp.Cast(Core.Me);
@@ -173,10 +175,7 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.WyrmwindThrustPvp.CanCast())
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpFirstmindsFocus))
-                return false;
-
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.WyrmwindThrustPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -196,7 +195,7 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_HorridRoar)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.HorridRoarPvp.Radius)) < 1)
                 return false;
 
             return await Spells.HorridRoarPvp.Cast(Core.Me);
@@ -217,6 +216,35 @@ namespace Magitek.Logic.Dragoon
                 return false;
 
             return await Spells.SkyHighPvp.Cast(Core.Me);
+        }
+
+
+        public static async Task<bool> StarcrossPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.StarcrossPvp.CanCast())
+                return false;
+
+            if (!DragoonSettings.Instance.Pvp_Starcross)
+                return false;
+
+            if (Core.Me.CurrentTarget.WithinSpellRange(Spells.StarcrossPvp.Range))
+                return false;
+
+            return await Spells.StarcrossPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> SkyShatterPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.SkyShatterPvp.CanCast())
+                return false;
+
+            return await Spells.SkyShatterPvp.Cast(Core.Me);
         }
     }
 }

@@ -146,22 +146,23 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(DragoonSettings.Instance)) return true;
 
+            if (await Pvp.StarcrossPvp()) return true;
+            if (await Pvp.ChaoticSpringPvp()) return true;
+            if (await Pvp.HeavensThrustPvp()) return true;
+            if (await Pvp.WyrmwindThrustPvp()) return true;
+            if (await Pvp.NastrondPvp()) return true;
+            if (await Pvp.ElusiveJumpPvp()) return true;
+
             if (!CommonPvp.GuardCheck(DragoonSettings.Instance))
             {
                 if (await Pvp.SkyHighPvp()) return true;
-
-                if (await Pvp.WyrmwindThrustPvp()) return true;
-                if (await Pvp.HeavensThrustPvp()) return true;
-
-                if (await Pvp.ChaoticSpringPvp()) return true;
-                if (await Pvp.NastrondPvp()) return true;
                 if (await Pvp.GeirskogulPvp()) return true;
 
                 if (await Pvp.HighJumpPvp()) return true;
-                if (await Pvp.ElusiveJumpPvp()) return true;
+                if (await Pvp.HorridRoarPvp()) return true;
             }
 
-            if (await Pvp.HeavensThrustPvp()) return true;
+            if (await Pvp.DrakesbanePvp()) return true;
             if (await Pvp.WheelingThrustPvp()) return true;
             if (await Pvp.FangandClawPvp()) return true;
 

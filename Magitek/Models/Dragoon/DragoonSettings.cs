@@ -217,6 +217,10 @@ namespace Magitek.Models.Dragoon
         [DefaultValue(true)]
         public bool Pvp_SkyHigh { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Starcross { get; set; }
+
         #endregion
 
     }

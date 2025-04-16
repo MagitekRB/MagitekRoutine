@@ -529,8 +529,6 @@ namespace Magitek.Utilities
             PvpFleetingRaijuReady = 3211,
             PvpZeshoMeppoReady = 4305,
             PvpLifeoftheDragon = 3177,
-            PvpHeavensent = 3176,
-            PvpFirstmindsFocus = 3178,
             PvpOgiNamikiri = 3199,
             PvpMidare = 3203,
             PvpKuzushi = 3202,
