@@ -153,17 +153,19 @@ namespace Magitek.Rotations
             if (await Pvp.ZantetsukenPvp()) return true;
             if (await Pvp.MineuchiPvp()) return true;
 
+            if (await Pvp.KaeshiNamikiriPvp()) return true;
+            if (await Pvp.ZanshinPvp()) return true;
+
+            if (await Pvp.TendoKaeshiSetsugekkaPvp()) return true;
+            if (await Pvp.TendoSetsugekkaPvp()) return true;
+
             if (!CommonPvp.GuardCheck(SamuraiSettings.Instance))
             {
                 if (await Pvp.HissatsuChitenPvp()) return true;
                 if (await Pvp.HissatsuSotenPvp()) return true;
 
-                if (await Pvp.KaeshiNamikiriPvp()) return true;
                 if (await Pvp.OgiNamikiriPvp()) return true;
-
-                if (await Pvp.MidareSetsugekkaPvp()) return true;
                 if (await Pvp.MeikyoShisuiPvp()) return true;
-
             }
 
             if (await Pvp.OkaPvp()) return true;
@@ -172,7 +174,6 @@ namespace Magitek.Rotations
 
             if (await Pvp.KashaPvp()) return true;
             if (await Pvp.GekkoPvp()) return true;
-
             return (await Pvp.YukikazePvp());
         }
     }

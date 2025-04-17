@@ -1408,6 +1408,10 @@ namespace Magitek.Utilities
         public static readonly SpellData MineuchiPvp = DataManager.GetSpellData(29535);
         public static readonly SpellData MeikyoShisuiPvp = DataManager.GetSpellData(29536);
         public static readonly SpellData ZantetsukenPvp = DataManager.GetSpellData(29537);
+        public static readonly SpellData ZanshinPvp = DataManager.GetSpellData(41577);
+        public static readonly SpellData TendoSetsugekkaPvp = DataManager.GetSpellData(41454);
+        public static readonly SpellData TendoKaeshiSetsugekkaPvp = DataManager.GetSpellData(41455);
+
 
         //RPR
         public static readonly uint InfernalSlicePvpCombo = 59;

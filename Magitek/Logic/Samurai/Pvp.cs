@@ -51,6 +51,9 @@ namespace Magitek.Logic.Samurai
             if (!Spells.HyosetsuPvp.CanCast())
                 return false;
 
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.HyosetsuPvp.Radius)) < 1)
+                return false;
+
             return await Spells.HyosetsuPvp.Cast(Core.Me);
         }
 
@@ -62,6 +65,9 @@ namespace Magitek.Logic.Samurai
             if (!Spells.MangetsuPvp.CanCast())
                 return false;
 
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.MangetsuPvp.Radius)) < 1)
+                return false;
+
             return await Spells.MangetsuPvp.Cast(Core.Me);
         }
 
@@ -71,6 +77,9 @@ namespace Magitek.Logic.Samurai
                 return false;
 
             if (!Spells.OkaPvp.CanCast())
+                return false;
+
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.OkaPvp.Radius)) < 1)
                 return false;
 
             return await Spells.OkaPvp.Cast(Core.Me);
@@ -87,6 +96,9 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.Pvp_HissatsuSoten)
                 return false;
 
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HissatsuSotenPvp.Range))
+                return false;
+
             return await Spells.HissatsuSotenPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -101,10 +113,28 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.Pvp_HissatsuChiten)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            // Intentionally check for Zanshin range here
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ZanshinPvp.Range)) < 1)
                 return false;
 
             return await Spells.HissatsuChitenPvp.Cast(Core.Me);
+        }
+
+        public static async Task<bool> ZanshinPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.ZanshinPvp.CanCast())
+                return false;
+
+            if (!SamuraiSettings.Instance.Pvp_Zanshin)
+                return false;
+
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ZanshinPvp.Range)) < 1)
+                return false;
+
+            return await Spells.ZanshinPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> MineuchiPvp()
@@ -118,7 +148,7 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.Pvp_Mineuchi)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.MineuchiPvp.Range))
                 return false;
 
             return await Spells.MineuchiPvp.Cast(Core.Me.CurrentTarget);
@@ -138,7 +168,7 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.Pvp_OgiNamikiri)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.OgiNamikiriPvp.Range))
                 return false;
 
             return await Spells.OgiNamikiriPvp.Cast(Core.Me.CurrentTarget);
@@ -152,7 +182,7 @@ namespace Magitek.Logic.Samurai
             if (!Spells.KaeshiNamikiriPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.KaeshiNamikiriPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -172,13 +202,13 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.Pvp_MeikyoShisui)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.TendoSetsugekkaPvp.Range)) < 1)
                 return false;
 
             return await Spells.MeikyoShisuiPvp.Cast(Core.Me);
         }
 
-        public static async Task<bool> MidareSetsugekkaPvp()
+        public static async Task<bool> TendoSetsugekkaPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
@@ -186,19 +216,36 @@ namespace Magitek.Logic.Samurai
             if (MovementManager.IsMoving)
                 return false;
 
-            if (!Spells.MidareSetsugekkaPvp.CanCast())
+            if (!Spells.TendoSetsugekkaPvp.CanCast())
                 return false;
 
-            if (!SamuraiSettings.Instance.Pvp_MidareSetsugekka)
+            if (!SamuraiSettings.Instance.Pvp_TendoSetsugekka)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.PvpMidare))
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.TendoSetsugekkaPvp.Range))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            return await Spells.MidareSetsugekkaPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.TendoSetsugekkaPvp.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> TendoKaeshiSetsugekkaPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.TendoKaeshiSetsugekkaPvp.CanCast())
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.TendoKaeshiSetsugekkaPvp.Range))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            return await Spells.TendoKaeshiSetsugekkaPvp.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> ZantetsukenPvp()
@@ -212,7 +259,7 @@ namespace Magitek.Logic.Samurai
             if (!Spells.ZantetsukenPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ZantetsukenPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())

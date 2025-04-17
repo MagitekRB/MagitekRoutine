@@ -196,6 +196,10 @@ namespace Magitek.Models.Samurai
 
         [Setting]
         [DefaultValue(true)]
+        public bool Pvp_TendoSetsugekka { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Pvp_MidareSetsugekka { get; set; }
 
         [Setting]
@@ -205,6 +209,10 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_HissatsuChiten { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_Zanshin { get; set; }
 
         [Setting]
         [DefaultValue(true)]
