@@ -1356,10 +1356,12 @@ namespace Magitek.Utilities
         public static readonly SpellData RaidenThrustPvp = DataManager.GetSpellData(29486);
         public static readonly SpellData FangandClawPvp = DataManager.GetSpellData(29487);
         public static readonly SpellData WheelingThrustPvp = DataManager.GetSpellData(29488);
+        public static readonly SpellData DrakesbanePvp = DataManager.GetSpellData(41449);
         public static readonly SpellData HeavensThrustPvp = DataManager.GetSpellData(29489);
         public static readonly SpellData ChaoticSpringPvp = DataManager.GetSpellData(29490);
         public static readonly SpellData GeirskogulPvp = DataManager.GetSpellData(29491);
         public static readonly SpellData NastrondPvp = DataManager.GetSpellData(29492);
+        public static readonly SpellData StarcrossPvp = DataManager.GetSpellData(41450);
         public static readonly SpellData HighJumpPvp = DataManager.GetSpellData(29493);
         public static readonly SpellData ElusiveJumpPvp = DataManager.GetSpellData(29494);
         public static readonly SpellData WyrmwindThrustPvp = DataManager.GetSpellData(29495);

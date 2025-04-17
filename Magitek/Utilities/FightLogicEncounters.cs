@@ -6206,61 +6206,61 @@ namespace Magitek.Utilities
             },
 
             new Encounter {
-                ZoneId = ZoneId.TenderValley,
-                Name = "Dungeon: Tender Valley",
+                ZoneId = 1203,
+                Name = "Tender Valley",
                 Expansion = FfxivExpansion.Dawntrail,
                 Enemies = new List<Enemy> {
                     new Enemy {
                         Id = 12889,
                         Name = "Barreltender",
-                        TankBusters = new List<uint>() {
-                            39242, // tender fury
+                        TankBusters = new List<uint> {
+                            39242, // Tender Fury
                         },
-                        SharedTankBusters = new List<uint>() {
-                            // Add SharedTankBusters here if available
-                        },
-                        Aoes = new List<uint>() {
-                            37391, // succulent stomp
+                        Aoes = new List<uint> {
+                            37391, // Succulent Stomp
                             37392, // barbed bellow
                         },
-                        BigAoes = new List<uint>() {
-                            // Add BigAoes here if available
-                        }
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
                     },
                     new Enemy {
                         Id = 12853,
                         Name = "Anthracite",
-                        TankBusters = new List<uint>() {
-                            38467, // chimney smack
+                        TankBusters = new List<uint> {
+                            38467, // Chimney Smack
                         },
-                        SharedTankBusters = new List<uint>() {
-                            // Add SharedTankBusters here if available
+                        Aoes = new List<uint> {
+                            36556, // Carbonaceous Combustion
+                            36554, // Burning Coals
                         },
-                        Aoes = new List<uint>() {
-                            36556, // carbonaceous combustion
-                            36554, // burning coals
+                        AoeLockOns = new List<uint> {
+                            311,
                         },
-                        BigAoes = new List<uint>() {
-                            // Add BigAoes here if available
-                        }
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
                     },
                     new Enemy {
                         Id = 12709,
-                        Name = "The Greatest Serpent of Tural",
-                        TankBusters = new List<uint>() {
-                            36744, // screes of fury
+                        Name = "Greatest Serpent of Tural",
+                        TankBusters = new List<uint> {
+                            36744, // Screes of Fury
                         },
-                        SharedTankBusters = new List<uint>() {
-                            // Add SharedTankBusters here if available
+                        Aoes = new List<uint> {
+                            36748, // Dubious Tulidisaster
+                            36743, // Moist Summoning
                         },
-                        Aoes = new List<uint>() {
-                            36748, // dubious tulidisaster
-                            36743, // moist summoning
+                        AoeLockOns = new List<uint> {
+                            62,
+                            543,
+                            542,
                         },
-                        BigAoes = new List<uint>() {
-                            // Add BigAoes here if available
-                        }
-                    }
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
                 }
             },
 
@@ -6283,6 +6283,7 @@ namespace Magitek.Utilities
                         AoeLockOns = new List<uint> {
                             558,
                         },
+                        Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -6299,7 +6300,9 @@ namespace Magitek.Utilities
                         },
                         AoeLockOns = new List<uint> {
                             139,
+                            161,
                         },
+                        Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -6314,6 +6317,7 @@ namespace Magitek.Utilities
                         AoeLockOns = new List<uint> {
                             315,
                         },
+                        Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
                     },
