@@ -28,7 +28,7 @@ namespace Magitek.Utilities
             get
             {
                 // a lower threshold should be safe to assume if the routine is going to wait for the game to release the lock
-                if (BaseSettings.Instance.DebugActionLockWait)
+                if (BaseSettings.Instance.DebugActionLockWait2)
                     return 625;
                 else
                     return 770;

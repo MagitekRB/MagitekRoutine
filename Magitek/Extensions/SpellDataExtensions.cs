@@ -154,6 +154,12 @@ namespace Magitek.Extensions
             if (target == null)
                 return false;
 
+            if (BaseSettings.Instance.DebugActionLockWait2)
+            {
+                if (ActionManager.ActionLock != 0)
+                    return false;
+            }
+
             if (!ActionManager.HasSpell(spell.Id) && !Core.Me.OnPvpMap())
                 return false;
 

@@ -195,6 +195,10 @@ namespace Magitek.Utilities
 
         public static async Task CheckForSuccessfulCast()
         {
+            if (BaseSettings.Instance.DebugActionLockWait2)
+                if (ActionManager.ActionLock != 0)
+                    await Coroutine.Wait(Math.Max(Globals.AnimationLockMs, (int)(ActionManager.ActionLock * 1000)), () => ActionManager.ActionLock == 0);
+
             // If the timer isn't running it means it's already been stopped and the variables have already been set
             if (!CastingTime.IsRunning)
             {
@@ -212,13 +216,9 @@ namespace Magitek.Utilities
             //This is to ensure that the instant Action we just tried to use
             //was indeed used and not rejected from the server.
             //Logic behind this is, that every Action will trigger some kind of cooldown
-            if (BaseSettings.Instance.UseAdvancedSpellHistory)
+            if (BaseSettings.Instance.UseAdvancedSpellHistory2)
                 if (CastingSpell.AdjustedCastTime.TotalMilliseconds == 0 && CastingSpell.Cooldown.TotalMilliseconds == 0)
                     return;
-
-            if (BaseSettings.Instance.DebugActionLockWait)
-                if (ActionManager.ActionLock != 0)
-                    await Coroutine.Wait(Math.Max(Globals.AnimationLockMs, (int)(ActionManager.ActionLock * 1000)), () => ActionManager.ActionLock == 0);
 
             // Compare Times
             Logger.WriteCast($@"Time Casting: {CastingTime.ElapsedMilliseconds} - Expected: {SpellCastTime.TotalMilliseconds}");
@@ -274,17 +274,16 @@ namespace Magitek.Utilities
             {
                 var auraTarget = AuraTarget ?? SpellTarget;
 
-                if (UseRefreshTime)
-                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true, RefreshTime) || MovementManager.IsMoving || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
+                if (CastingSpell.AdjustedCastTime == TimeSpan.Zero)
+                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true) || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
                 else
                 {
-                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true) || MovementManager.IsMoving || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
+                    if (UseRefreshTime)
+                        await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true, RefreshTime) || MovementManager.IsMoving || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
+                    else
+                        await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura, true) || MovementManager.IsMoving || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
                 }
-
-                if (CastingSpell.AdjustedCastTime == TimeSpan.Zero)
-                    await Coroutine.Wait(3000, () => auraTarget.HasAura(Aura) || !auraTarget.IsValid || auraTarget.CurrentHealth == 0);
             }
-
 
             if (Callback != null)
                 await Callback();
