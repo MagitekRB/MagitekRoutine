@@ -67,6 +67,10 @@ namespace Magitek.Models.Roles
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_UseRoleActions { get; set; }
+
+        [Setting]
+        [DefaultValue(7)]
+        public int Pvp_MaxAlliesTargetingLimit { get; set; }
         #endregion
     }
 }

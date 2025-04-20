@@ -146,6 +146,17 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Don't use Zantetsuken if target has more than "
+                               Margin="20,0,0,0"/>
+                    <controls:Numeric MaxValue="24"
+                                      MinValue="1"
+                                      Value="{Binding SamuraiSettings.Pvp_MaxAlliesTargetingLimit, Mode=TwoWay}"/>
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text=" allies targeting it"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
                     <CheckBox Content="Zantetsuken / LB Only With Kuzushi (Instant Kill)"
                               IsChecked="{Binding SamuraiSettings.Pvp_ZantetsukenWithKuzushi, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>

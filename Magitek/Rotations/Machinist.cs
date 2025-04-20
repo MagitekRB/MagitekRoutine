@@ -149,6 +149,8 @@ namespace Magitek.Rotations
             // Utilities
             if (await CommonPvp.CommonTasks(MachinistSettings.Instance)) return true;
 
+            if (await Pvp.Drill()) return true;
+
             if (!CommonPvp.GuardCheck(MachinistSettings.Instance))
             {
                 //LB
@@ -168,7 +170,6 @@ namespace Magitek.Rotations
                 if (await Pvp.ChainSaw()) return true;
                 if (await Pvp.AirAnchor()) return true;
                 if (await Pvp.BioBlaster()) return true;
-                if (await Pvp.Drill()) return true;
 
                 if (await Pvp.FullMetalField()) return true;
             }

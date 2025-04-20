@@ -1,9 +1,11 @@
 ﻿using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Monk;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using Magitek.Logic.Roles;
 
 namespace Magitek.Logic.Monk
 {
@@ -136,7 +138,7 @@ namespace Magitek.Logic.Monk
             if (Core.Me.HasAura(Auras.PvpFireResonance))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 6) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(6)) < 1)
                 return false;
 
             return await Spells.RisingPhoenixPvp.Cast(Core.Me);
@@ -170,7 +172,7 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.Pvp_Thunderclap)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ThunderclapPvp.Range))
                 return false;
 
             return await Spells.ThunderclapPvp.Cast(Core.Me.CurrentTarget);
@@ -210,13 +212,16 @@ namespace Magitek.Logic.Monk
             if (!Spells.MeteodrivePvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.MeteodrivePvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > MonkSettings.Instance.Pvp_MeteodriveHealthPercent)
+                return false;
+
+            if (CommonPvp.TooManyAlliesTargeting(MonkSettings.Instance))
                 return false;
 
             return await Spells.MeteodrivePvp.Cast(Core.Me.CurrentTarget);

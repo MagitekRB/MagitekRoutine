@@ -7,6 +7,8 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using System.Collections.Generic;
+using System;
 
 namespace Magitek.Logic.Machinist
 {
@@ -129,7 +131,7 @@ namespace Magitek.Logic.Machinist
             var targetCurrentHp = WildfireTarget.CurrentHealth;
             var wouldKill = targetCurrentHp <= estimatedDamage;
 
-            if (wouldKill || !WildfireTarget.WithinSpellRange(Spells.DetonatorPvp.Range + 2.75))
+            if (wouldKill || (WildfireStacks > 0 && !WildfireTarget.WithinSpellRange(Spells.BlastChargePvp.Range + 5)))
             {
                 return await Spells.DetonatorPvp.Cast(Core.Me);
             }
@@ -333,6 +335,9 @@ namespace Magitek.Logic.Machinist
             if (!Spells.MarksmansSpitePvp.CanCast())
                 return false;
 
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             if (Core.Me.CurrentTarget.CurrentHealthPercent > MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent)
             {
                 if (MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget)
@@ -343,7 +348,9 @@ namespace Magitek.Logic.Machinist
                                 && e.InLineOfSight()
                                 && e.CurrentHealthPercent <= MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent
                                 && !e.IsWarMachina()
-                                && !CommonPvp.GuardCheck(MachinistSettings.Instance, e))
+                                && !CommonPvp.GuardCheck(MachinistSettings.Instance, e)
+                                // Check if too many allies are targeting this enemy
+                                && !CommonPvp.TooManyAlliesTargeting(MachinistSettings.Instance, e))
                         .OrderBy(e => e.Distance(Core.Me));
 
                     var nearbyTarget = nearby.FirstOrDefault();
@@ -354,6 +361,10 @@ namespace Magitek.Logic.Machinist
 
                 return false;
             }
+
+            // Check if too many allies are targeting current target
+            if (CommonPvp.TooManyAlliesTargeting(MachinistSettings.Instance))
+                return false;
 
             return await Spells.MarksmansSpitePvp.Cast(Core.Me.CurrentTarget);
         }

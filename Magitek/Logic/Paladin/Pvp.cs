@@ -254,7 +254,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_HolySheltron)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(5)) < 1)
                 return false;
 
             return await Spells.HolySheltronPvp.Cast(Core.Me);
@@ -297,7 +297,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Phalanx)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(5)) < 1)
                 return false;
 
             return await Spells.PhalanxPvp.Cast(Core.Me);

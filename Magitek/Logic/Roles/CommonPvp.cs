@@ -8,11 +8,97 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using System.Collections.Generic;
+using System;
 
 namespace Magitek.Logic.Roles
 {
     internal class CommonPvp
     {
+        // Target tracking for shared high-impact abilities
+        private static Dictionary<uint, int> TargetCounts { get; set; } = new Dictionary<uint, int>();
+        private static DateTime LastTargetCountUpdate { get; set; } = DateTime.MinValue;
+        private static readonly TimeSpan TargetCountUpdateInterval = TimeSpan.FromMilliseconds(500); // Update every 500ms
+
+        public static void UpdateTargetCounts()
+        {
+            var now = DateTime.Now;
+            if (now - LastTargetCountUpdate < TargetCountUpdateInterval)
+                return;
+
+            TargetCounts.Clear();
+
+            // Count all allies' targets
+            // Process party members
+            foreach (var ally in Group.CastableParty)
+            {
+                if (ally.TargetGameObject != null && ally.TargetGameObject.CanAttack)
+                {
+                    uint targetId = ally.TargetGameObject.ObjectId;
+                    if (TargetCounts.ContainsKey(targetId))
+                        TargetCounts[targetId]++;
+                    else
+                        TargetCounts[targetId] = 1;
+                }
+            }
+
+            // Process alliance members
+            foreach (var ally in Group.AllianceMembers)
+            {
+                if (ally.TargetGameObject != null && ally.TargetGameObject.CanAttack)
+                {
+                    uint targetId = ally.TargetGameObject.ObjectId;
+                    if (TargetCounts.ContainsKey(targetId))
+                        TargetCounts[targetId]++;
+                    else
+                        TargetCounts[targetId] = 1;
+                }
+            }
+
+            // Add our own target to the count
+            if (Core.Me.TargetGameObject != null && Core.Me.TargetGameObject.CanAttack)
+            {
+                uint targetId = Core.Me.TargetGameObject.ObjectId;
+                if (TargetCounts.ContainsKey(targetId))
+                    TargetCounts[targetId]++;
+                else
+                    TargetCounts[targetId] = 1;
+            }
+
+            LastTargetCountUpdate = now;
+        }
+
+        /// <summary>
+        /// Checks if too many allies are targeting the specified GameObject.
+        /// </summary>
+        /// <typeparam name="T">The JobSettings type</typeparam>
+        /// <param name="settings">The job settings</param>
+        /// <param name="target">The target to check</param>
+        /// <returns>True if too many allies are targeting this enemy, false otherwise</returns>
+        public static bool TooManyAlliesTargeting<T>(T settings, GameObject target) where T : JobSettings
+        {
+            if (target == null)
+                return true;
+
+            UpdateTargetCounts();
+
+            uint targetId = target.ObjectId;
+            int targetCount = TargetCounts.ContainsKey(targetId) ? TargetCounts[targetId] : 0;
+
+            return targetCount > settings.Pvp_MaxAlliesTargetingLimit;
+        }
+
+        /// <summary>
+        /// Checks if too many allies are targeting the current target.
+        /// </summary>
+        /// <typeparam name="T">The JobSettings type</typeparam>
+        /// <param name="settings">The job settings</param>
+        /// <returns>True if too many allies are targeting the current target, false otherwise</returns>
+        public static bool TooManyAlliesTargeting<T>(T settings) where T : JobSettings
+        {
+            return TooManyAlliesTargeting(settings, Core.Me.CurrentTarget);
+        }
+
         public static bool Attackable()
         {
             return Attackable(Core.Me.CurrentTarget);
@@ -75,7 +161,7 @@ namespace Magitek.Logic.Roles
                 && Core.Me.CurrentTarget.CanAttack
                 && Core.Me.CurrentTarget.InLineOfSight()
                 && Core.Me.CurrentTarget.InActualView()
-                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.Distance() < 7 : Core.Me.CurrentTarget.Distance() < 30))
+                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.WithinSpellRange(7) : Core.Me.CurrentTarget.WithinSpellRange(30)))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpSprint))
@@ -107,7 +193,7 @@ namespace Magitek.Logic.Roles
             // If we're already mounted, check if we need to dismount
             if (Core.Me.IsMounted)
             {
-                if (Combat.Enemies.Any(x => x.Distance(Core.Me) < 45))
+                if (Combat.Enemies.Any(x => x.WithinSpellRange(45)))
                 {
                     ActionManager.Dismount();
                     return true;
@@ -121,7 +207,7 @@ namespace Magitek.Logic.Roles
                 && ActionManager.CanMount == 0
                 && MovementManager.IsMoving)
             {
-                if (Combat.Enemies.Any(x => x.Distance(Core.Me) < 65))
+                if (Combat.Enemies.Any(x => x.WithinSpellRange(65)))
                     return false;
 
                 ActionManager.Mount();
@@ -277,7 +363,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > 60)
@@ -291,7 +377,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > 60)
@@ -311,7 +397,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 40)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(40))
                 return false;
 
             return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
@@ -322,7 +408,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleRampage.Radius)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleRampage.Radius))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -347,7 +433,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleFullSwing.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleFullSwing.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
@@ -368,7 +454,18 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentMana <= 4500)
                 return false;
 
-            var healTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 65);
+            // Check party first
+            var healTarget = Group.CastableParty
+                .Where(r => r.Distance(Core.Me) <= 30)
+                .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 65);
+
+            // If no suitable target in party, check alliance
+            if (healTarget == null)
+            {
+                healTarget = Group.AllianceMembers
+                    .Where(r => r.Distance(Core.Me) <= 30)
+                    .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 65);
+            }
 
             if (healTarget == null)
                 return false;
@@ -378,7 +475,18 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastStoneskinII<T>(T settings) where T : JobSettings
         {
-            var target = Group.CastableAlliesWithin15.FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 80);
+            // Check party first
+            var target = Group.CastableParty
+                .Where(r => r.Distance(Core.Me) <= 15)
+                .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 80);
+
+            // If no suitable target in party, check alliance
+            if (target == null)
+            {
+                target = Group.AllianceMembers
+                    .Where(r => r.Distance(Core.Me) <= 15)
+                    .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 80);
+            }
 
             if (target == null)
             {
@@ -395,7 +503,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleDiabrosis.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleDiabrosis.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -418,7 +526,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(15))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -432,7 +540,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 10)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(10))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpSprint))
@@ -446,7 +554,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleSmite.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleSmite.Range))
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > 30)
@@ -466,7 +574,7 @@ namespace Magitek.Logic.Roles
             if (MovementManager.IsMoving)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleComet.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleComet.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -483,7 +591,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RolePhantomDart.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RolePhantomDart.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -497,7 +605,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.RoleRust.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleRust.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())

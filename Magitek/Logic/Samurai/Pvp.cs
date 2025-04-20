@@ -5,6 +5,7 @@ using Magitek.Models.Samurai;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using Magitek.Logic.Roles;
 
 namespace Magitek.Logic.Samurai
 {
@@ -269,6 +270,10 @@ namespace Magitek.Logic.Samurai
                 return false;
 
             if (!Core.Me.CurrentTarget.HasAura(Auras.PvpKuzushi) && SamuraiSettings.Instance.Pvp_ZantetsukenWithKuzushi)
+                return false;
+
+            // Check if too many allies are targeting the current target
+            if (CommonPvp.TooManyAlliesTargeting(SamuraiSettings.Instance))
                 return false;
 
             return await Spells.ZantetsukenPvp.Cast(Core.Me.CurrentTarget);

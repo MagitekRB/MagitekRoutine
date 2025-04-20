@@ -6,6 +6,7 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using Magitek.Logic.Roles;
 
 namespace Magitek.Logic.RedMage
 {
@@ -283,6 +284,9 @@ namespace Magitek.Logic.RedMage
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SouthernCrossPvp.Range))
+                return false;
+
+            if (CommonPvp.TooManyAlliesTargeting(RedMageSettings.Instance))
                 return false;
 
             return await Spells.SouthernCrossPvp.Cast(Core.Me.CurrentTarget);

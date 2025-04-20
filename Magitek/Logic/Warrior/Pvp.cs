@@ -53,7 +53,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.Pvp_FellCleave)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             return await Spells.FellCleavePvp.Cast(Core.Me.CurrentTarget);
@@ -150,7 +150,7 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (WarriorSettings.Instance.Pvp_SafePrimalRendNOnslaught && Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (WarriorSettings.Instance.Pvp_SafePrimalRendNOnslaught && !Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             return await Spells.PrimalRendPvp.Cast(Core.Me.CurrentTarget);
@@ -201,7 +201,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.Pvp_Onslaught)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(20))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -210,7 +210,7 @@ namespace Magitek.Logic.Warrior
             if (Core.Me.CurrentHealthPercent < WarriorSettings.Instance.Pvp_OnslaughtHealthPercent)
                 return false;
 
-            if (WarriorSettings.Instance.Pvp_SafePrimalRendNOnslaught && Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (WarriorSettings.Instance.Pvp_SafePrimalRendNOnslaught && !Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             return await Spells.OnslaughtPvp.Cast(Core.Me.CurrentTarget);
