@@ -143,8 +143,8 @@ namespace Magitek.Models.Account
         public bool DebugFightLogicFound { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool DebugActionLockWait { get; set; }
+        [DefaultValue(true)]
+        public bool DebugActionLockWait2 { get; set; }
         #endregion
 
         #region Overlay
@@ -216,6 +216,10 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(false)]
         public bool UseAdvancedSpellHistory { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAdvancedSpellHistory2 { get; set; }
 
         [Setting]
         [DefaultValue(true)]
