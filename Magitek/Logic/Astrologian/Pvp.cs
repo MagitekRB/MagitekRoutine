@@ -68,7 +68,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             // Check for nearby enemies around the target
-            var nearbyEnemies = Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) <= Spells.GravityIIPvp.Radius);
+            var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.GravityIIPvp.Radius));
             if (nearbyEnemies < AstrologianSettings.Instance.Pvp_GravityIIEnemies)
                 return false;
 
@@ -124,7 +124,7 @@ namespace Magitek.Logic.Astrologian
                     return false;
 
                 // Check for nearby enemies around the target
-                var nearbyEnemies = Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) <= Spells.GravityIIPvp.Radius);
+                var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.GravityIIPvp.Radius));
                 if (nearbyEnemies < AstrologianSettings.Instance.Pvp_GravityIIEnemies)
                     return false;
 
@@ -149,7 +149,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             // Check for nearby enemies around the player
-            var nearbyEnemies = Combat.Enemies.Count(x => x.Distance(Core.Me) <= Spells.MacrocosmosPvp.Radius);
+            var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.MacrocosmosPvp.Radius));
             if (nearbyEnemies < AstrologianSettings.Instance.Pvp_MacrocosmosEnemies)
                 return false;
 
@@ -255,7 +255,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             // Check for enemies within Oracle range
-            var enemiesInRange = Combat.Enemies.Count(x => x.Distance(Core.Me) <= Spells.OraclePvp.Radius);
+            var enemiesInRange = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.OraclePvp.Radius));
             if (enemiesInRange == 0)
                 return false;
 

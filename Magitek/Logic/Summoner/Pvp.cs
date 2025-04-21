@@ -220,7 +220,7 @@ namespace Magitek.Logic.Summoner
                 return false;
             }
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 30)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(30))
                 return false;
 
             if (Spells.SummonBahamutPvp.Masked() != Spells.SummonBahamutPvp)
@@ -256,7 +256,7 @@ namespace Magitek.Logic.Summoner
                 return false;
             }
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 30)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(30))
                 return false;
 
             if (Spells.SummonPhoenixPvp.Masked() != Spells.SummonPhoenixPvp)

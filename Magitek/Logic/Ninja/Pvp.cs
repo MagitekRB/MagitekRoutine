@@ -160,7 +160,7 @@ namespace Magitek.Logic.Ninja
                 if (NinjaSettings.Instance.Pvp_UseSeitonTenchuAnyTarget)
                 {
                     var nearby = Combat.Enemies
-                        .Where(e => e.Distance(Core.Me) <= 20
+                        .Where(e => e.WithinSpellRange(20)
                                 && e.ValidAttackUnit()
                                 && e.InLineOfSight()
                                 && e.CurrentHealthPercent <= NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent
@@ -177,7 +177,7 @@ namespace Magitek.Logic.Ninja
                 return false;
             }
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(20))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -268,7 +268,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Doton)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < NinjaSettings.Instance.Pvp_DotonMinEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(5)) < NinjaSettings.Instance.Pvp_DotonMinEnemies)
                 return false;
 
             return await Spells.DotonPvp.Cast(Core.Me);

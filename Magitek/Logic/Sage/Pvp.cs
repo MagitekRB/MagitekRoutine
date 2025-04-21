@@ -184,7 +184,7 @@ namespace Magitek.Logic.Sage
                 if (!unit.IsAlive)
                     return false;
 
-                if (unit.Distance(Core.Me) > 30)
+                if (!unit.WithinSpellRange(30))
                     return false;
 
                 return true;

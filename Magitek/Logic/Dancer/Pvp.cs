@@ -230,14 +230,14 @@ namespace Magitek.Logic.Dancer
             if (!Spells.CuringWaltzPvp.CanCast())
                 return false;
 
-            var cureTargets = Group.CastableParty.Count(x => x.IsValid && x.CurrentHealthPercent < DancerSettings.Instance.Pvp_CuringWaltzHP && x.Distance(Core.Me) < 5);
+            var cureTargets = Group.CastableParty.Count(x => x.IsValid && x.CurrentHealthPercent < DancerSettings.Instance.Pvp_CuringWaltzHP && x.Distance(Core.Me) < 5 + x.CombatReach);
 
             if (Core.Me.HasAura(Auras.ClosedPosition))
             {
                 var DancePartner = Group.CastableParty.FirstOrDefault(x => x.HasMyAura(Auras.DancePartner));
 
                 if (DancePartner != null)
-                    cureTargets += Group.CastableParty.Count(x => x.IsValid && x.CurrentHealthPercent < DancerSettings.Instance.Pvp_CuringWaltzHP && x.Distance(DancePartner) < 5);
+                    cureTargets += Group.CastableParty.Count(x => x.IsValid && x.CurrentHealthPercent < DancerSettings.Instance.Pvp_CuringWaltzHP && x.Distance(DancePartner) < 5 + x.CombatReach);
             }
 
             if (cureTargets < 1)

@@ -212,7 +212,7 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_SkyHigh)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             return await Spells.SkyHighPvp.Cast(Core.Me);

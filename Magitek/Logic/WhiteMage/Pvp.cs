@@ -79,7 +79,7 @@ namespace Magitek.Logic.WhiteMage
             if (Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(15))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -207,7 +207,7 @@ namespace Magitek.Logic.WhiteMage
                 if (unit.CurrentHealthPercent > WhiteMageSettings.Instance.Pvp_AquaveilHealthPercent)
                     return false;
 
-                return unit.Distance(Core.Me) <= 30;
+                return unit.WithinSpellRange(30);
             }
         }
 

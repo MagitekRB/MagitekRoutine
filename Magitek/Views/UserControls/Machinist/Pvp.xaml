@@ -10,101 +10,196 @@
              mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
     <StackPanel Margin="5">
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}"
+                           Text="Utilities"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Purify (remove debuffs)" IsChecked="{Binding MachinistSettings.Pvp_UsePurify, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Purify (remove debuffs)"
+                              IsChecked="{Binding MachinistSettings.Pvp_UsePurify, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
 
-                    <CheckBox Grid.Row="1" Grid.Column="0" Content="Guard (Shield) At " IsChecked="{Binding MachinistSettings.Pvp_UseGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding MachinistSettings.Pvp_GuardHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <CheckBox Grid.Row="1"
+                              Grid.Column="0"
+                              Content="Guard (Shield) At "
+                              IsChecked="{Binding MachinistSettings.Pvp_UseGuard, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="1"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding MachinistSettings.Pvp_GuardHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
 
-                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Recuperate (Heal) At  " IsChecked="{Binding MachinistSettings.Pvp_UseRecuperate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding MachinistSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <CheckBox Grid.Row="2"
+                              Grid.Column="0"
+                              Content="Recuperate (Heal) At  "
+                              IsChecked="{Binding MachinistSettings.Pvp_UseRecuperate, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="2"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding MachinistSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target" IsChecked="{Binding MachinistSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Sprint Without Target"
+                              IsChecked="{Binding MachinistSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount" IsChecked="{Binding MachinistSettings.Pvp_UseMount, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Use Mount"
+                              IsChecked="{Binding MachinistSettings.Pvp_UseMount, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard" IsChecked="{Binding MachinistSettings.Pvp_GuardCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Don't attack Guard"
+                              IsChecked="{Binding MachinistSettings.Pvp_GuardCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)" IsChecked="{Binding MachinistSettings.Pvp_InvulnCheck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                              IsChecked="{Binding MachinistSettings.Pvp_InvulnCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Wildfire" IsChecked="{Binding MachinistSettings.Pvp_Wildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Style="{DynamicResource TextBlockSection}"
+                           Text="General"/>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="Wildfire"
+                              IsChecked="{Binding MachinistSettings.Pvp_Wildfire, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Full Metal Field" IsChecked="{Binding MachinistSettings.Pvp_FullMetalField, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Save For Wildfire" 
-                            IsChecked="{Binding MachinistSettings.Pvp_SaveFullMetalForWildfire, Mode=TwoWay}" 
-                            Style="{DynamicResource CheckBoxFlat}"
-                            Margin="20,2,0,0"
-                            ToolTip="If enabled, will save Full Metal Field when Wildfire is about to come off cooldown" />
+                    <CheckBox Content="Full Metal Field"
+                              IsChecked="{Binding MachinistSettings.Pvp_FullMetalField, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Save For Wildfire"
+                              IsChecked="{Binding MachinistSettings.Pvp_SaveFullMetalForWildfire, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"
+                              Margin="20,2,0,0"
+                              ToolTip="If enabled, will save Full Metal Field when Wildfire is about to come off cooldown"/>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Scattergun" IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="Scattergun"
+                              IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Bishop Autoturret on target when there is at least  " IsChecked="{Binding MachinistSettings.Pvp_BishopAutoturret, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="5" MinValue="0" Value="{Binding MachinistSettings.Pvp_BishopAutoturretNumberOfEnemy, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Enemies around" />
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="Bishop Autoturret on target when there is at least  "
+                              IsChecked="{Binding MachinistSettings.Pvp_BishopAutoturret, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="2"
+                                      Grid.Column="1"
+                                      MaxValue="5"
+                                      MinValue="0"
+                                      Value="{Binding MachinistSettings.Pvp_BishopAutoturretNumberOfEnemy, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Enemies around"/>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="MarksmansSpite / LB target at " IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpite, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="2" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding MachinistSettings.Pvp_UseMarksmansSpiteHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="MarksmansSpite / LB target at "
+                              IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpite, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric Grid.Row="2"
+                                      Grid.Column="1"
+                                      MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding MachinistSettings.Pvp_UseMarksmansSpiteHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text=" Health Percent"/>
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="LB Any Enemy below the threshold not just current target" Margin="10,0" IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Don't use MarksmansSpite if target has more than "
+                               Margin="20,0,0,0"/>
+                    <controls:Numeric MaxValue="24"
+                                      MinValue="1"
+                                      Value="{Binding MachinistSettings.Pvp_MaxAlliesTargetingLimit, Mode=TwoWay}"/>
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text=" allies targeting it"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="LB Any Enemy below the threshold not just current target"
+                              Margin="10,0"
+                              IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteAnyTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
-        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+        <controls:SettingsBlock Margin="0,5,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Buffs" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Use Analysis on" />
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Drill     " IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnDrill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="BioBlaster     " IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnBio, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Air Anchor     " IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnAA, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="ChainSaw" IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnChainSaw, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Margin="0,0,0,5"
+                           Style="{DynamicResource TextBlockSection}"
+                           Text="Buffs"/>
+                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                           Text="Use Analysis on"/>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="Drill     "
+                              IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnDrill, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="BioBlaster     "
+                              IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnBio, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="Air Anchor     "
+                              IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnAA, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="ChainSaw"
+                              IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnChainSaw, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

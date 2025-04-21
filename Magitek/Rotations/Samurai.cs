@@ -150,8 +150,11 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(SamuraiSettings.Instance)) return true;
 
-            if (await Pvp.ZantetsukenPvp()) return true;
-            if (await Pvp.MineuchiPvp()) return true;
+            if (!CommonPvp.GuardCheck(SamuraiSettings.Instance))
+            {
+                if (await Pvp.ZantetsukenPvp()) return true;
+                if (await Pvp.MineuchiPvp()) return true;
+            }
 
             if (await Pvp.KaeshiNamikiriPvp()) return true;
             if (await Pvp.ZanshinPvp()) return true;

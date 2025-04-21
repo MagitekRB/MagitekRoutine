@@ -53,7 +53,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_GrimSwathe)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(8))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -73,7 +73,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_LemureSlice)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(8))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -142,7 +142,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_HarvestMoon)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -165,7 +165,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_SoulSlice)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             return await Spells.SoulSlicePvp.Cast(Core.Me.CurrentTarget);
@@ -188,7 +188,7 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.HasAura(Auras.PvpEnshrouded))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 15)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(15))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -208,7 +208,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_Guillotine)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 8)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(8))
                 return false;
 
             return await Spells.GuillotinePvp.Cast(Core.Me.CurrentTarget);
@@ -228,7 +228,7 @@ namespace Magitek.Logic.Reaper
             if (!Core.Me.HasAura(Auras.PvpEnshrouded) || !Core.Me.HasAura(Auras.PvpEnshrouded, true, 3000))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             if (EnshroudedCount == 1)
@@ -257,7 +257,7 @@ namespace Magitek.Logic.Reaper
             if (!Core.Me.HasAura(Auras.PvpEnshrouded) || !Core.Me.HasAura(Auras.PvpEnshrouded, true, 3000))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             if (EnshroudedCount == 1)
@@ -288,7 +288,7 @@ namespace Magitek.Logic.Reaper
             if (!Core.Me.HasAura(Auras.PvpEnshrouded))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -331,7 +331,7 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.HasAura(Auras.PvpEnshrouded))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             if (await Spells.TenebraeLemurumPvp.Cast(Core.Me.CurrentTarget))

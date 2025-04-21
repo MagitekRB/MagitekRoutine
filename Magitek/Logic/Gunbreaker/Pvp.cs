@@ -68,7 +68,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
@@ -88,10 +88,10 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.Pvp_GnashingFangCombo)
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit())
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
@@ -114,7 +114,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.CurrentTarget.ValidAttackUnit())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 5)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
@@ -170,10 +170,10 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.PvpNoMercy))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 20)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(20))
                 return false;
 
-            if (GunbreakerSettings.Instance.Pvp_SafeRoughDivide && Core.Me.CurrentTarget.Distance(Core.Me) > 3)
+            if (GunbreakerSettings.Instance.Pvp_SafeRoughDivide && !Core.Me.CurrentTarget.WithinSpellRange(3))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))

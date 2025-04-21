@@ -120,7 +120,7 @@ namespace Magitek.Logic.Scholar
             if (DateTime.Now - _lastGalvanizeDeploymentTime < DeploymentCooldownWindow)
                 return false;
 
-            if (Group.CastableAlliesWithin15.Count(x => x.Distance(Core.Me) <= 15 + x.CombatReach) < 2)
+            if (Group.CastableAlliesWithin15.Count(x => x.WithinSpellRange(15)) < 2)
                 return false;
 
             _lastGalvanizeDeploymentTime = DateTime.Now;
@@ -202,7 +202,7 @@ namespace Magitek.Logic.Scholar
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             if (ScholarSettings.Instance.Pvp_DeploymentTacticsOnEnemy
