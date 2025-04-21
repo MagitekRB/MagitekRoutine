@@ -19,6 +19,9 @@ namespace Magitek.Extensions
         #region PvpCombo
         public static async Task<bool> CastPvpCombo(this SpellData spell, uint spellPvpCombo, GameObject target, [CallerMemberName] string caller = null, [CallerLineNumber] int sourceLineNumber = 0, [CallerFilePath] string sourceFilePath = null)
         {
+            if (spell == null)
+                return false;
+
             if (BaseSettings.Instance.DebugCastingCallerMemberName)
             {
                 Logger.WriteInfo($@"[Cast Pvp Combo] [{sourceLineNumber}] {caller}");
@@ -40,6 +43,9 @@ namespace Magitek.Extensions
 
         private static async Task<bool> DoPvPCombo(SpellData spell, uint pvpComboId, GameObject target)
         {
+            if (spell == null)
+                return false;
+
             if (target == null)
                 return false;
 
@@ -79,6 +85,9 @@ namespace Magitek.Extensions
 
         public static async Task<bool> Cast(this SpellData spell, GameObject target, Func<Task> callback = null, [CallerMemberName] string caller = null, [CallerLineNumber] int sourceLineNumber = 0, [CallerFilePath] string sourceFilePath = null)
         {
+            if (spell == null)
+                return false;
+
             if (BaseSettings.Instance.DebugCastingCallerMemberName)
             {
                 Logger.WriteInfo($@"[Cast] [{sourceLineNumber}] {caller}");
@@ -100,6 +109,9 @@ namespace Magitek.Extensions
 
         public static async Task<bool> CastAura(this SpellData spell, GameObject target, uint aura, bool useRefreshTime = false, int refreshTime = 0, bool needAura = true, GameObject auraTarget = null, Func<Task> callback = null, [CallerMemberName] string caller = null, [CallerLineNumber] int sourceLineNumber = 0, [CallerFilePath] string sourceFilePath = null)
         {
+            if (spell == null)
+                return false;
+
             if (BaseSettings.Instance.DebugCastingCallerMemberName)
             {
                 Logger.WriteInfo($@"[CastAura] [{sourceLineNumber}] {caller}");
@@ -121,6 +133,9 @@ namespace Magitek.Extensions
 
         public static async Task<bool> Heal(this SpellData spell, GameObject target, bool healthChecks = true, Func<Task> callback = null, [CallerMemberName] string caller = null, [CallerLineNumber] int sourceLineNumber = 0, [CallerFilePath] string sourceFilePath = null)
         {
+            if (spell == null)
+                return false;
+
             if (BaseSettings.Instance.DebugCastingCallerMemberName)
             {
                 Logger.WriteInfo($@"[Heal] [{sourceLineNumber}] {caller}");
@@ -136,6 +151,9 @@ namespace Magitek.Extensions
 
         public static async Task<bool> HealAura(this SpellData spell, GameObject target, uint aura, bool healthChecks = true, bool needAura = true, bool useRefreshTime = false, int refreshTime = 0, GameObject auraTarget = null, Func<Task> callback = null, [CallerMemberName] string caller = null, [CallerLineNumber] int sourceLineNumber = 0, [CallerFilePath] string sourceFilePath = null)
         {
+            if (spell == null)
+                return false;
+
             if (BaseSettings.Instance.DebugCastingCallerMemberName)
             {
                 Logger.WriteInfo($@"[HealAura] [{sourceLineNumber}] {caller}");
@@ -151,6 +169,9 @@ namespace Magitek.Extensions
 
         private static bool Check(SpellData spell, GameObject target)
         {
+            if (spell == null)
+                return false;
+
             if (target == null)
                 return false;
 
@@ -221,6 +242,9 @@ namespace Magitek.Extensions
 
         public static bool CanCast(this SpellData spell, GameObject target)
         {
+            if (spell == null)
+                return false;
+
             if (!BaseSettings.Instance.UseCastOrQueue)
             {
                 return ActionManager.CanCast(spell, target);
@@ -234,6 +258,9 @@ namespace Magitek.Extensions
 
         public static bool CanCast(this SpellData spell)
         {
+            if (spell == null)
+                return false;
+
             if (!BaseSettings.Instance.UseCastOrQueue)
             {
                 return ActionManager.CanCast(spell, Core.Me);
@@ -246,11 +273,17 @@ namespace Magitek.Extensions
 
         public static SpellData Masked(this SpellData spell)
         {
+            if (spell == null)
+                return null;
+
             return ActionManager.GetMaskedAction(spell.Id);
         }
 
         private static async Task<bool> DoAction(SpellData spell, GameObject target, uint aura = 0, bool needAura = false, bool useRefreshTime = false, int refreshTime = 0, bool canCastCheck = true, GameObject auraTarget = null, Func<Task> callback = null)
         {
+            if (spell == null)
+                return false;
+
             if (!Check(spell, target))
                 return false;
 
@@ -305,6 +338,9 @@ namespace Magitek.Extensions
 
         private static async Task<bool> DoActionHeal(SpellData spell, GameObject target, bool healthChecks = true, uint aura = 0, bool needAura = false, bool useRefreshTime = false, int refreshTime = 0, GameObject auraTarget = null, Func<Task> callback = null)
         {
+            if (spell == null)
+                return false;
+
             if (!Check(spell, target))
                 return false;
 
@@ -351,11 +387,17 @@ namespace Magitek.Extensions
 
         public static bool IsKnown(this SpellData spell)
         {
+            if (spell == null)
+                return false;
+
             return ActionManager.HasSpell(spell.Id);
         }
 
         public static double CooldownToNextCharge(this SpellData spell)
         {
+            if (spell == null)
+                return 0;
+
             if (spell.MaxCharges > 1)
             {
                 if (spell.Charges == spell.MaxCharges)
@@ -371,6 +413,9 @@ namespace Magitek.Extensions
 
         public static bool IsReady(this SpellData spell, int remainingTimeInMs = 0)
         {
+            if (spell == null)
+                return false;
+
             if (spell.MaxCharges > 1)
             {
                 if (spell.Charges >= 1)
@@ -400,26 +445,41 @@ namespace Magitek.Extensions
 
         public static bool IsKnownAndReady(this SpellData spell, int remainingTimeInMs = 0)
         {
+            if (spell == null)
+                return false;
+
             return spell.IsKnown() && spell.IsReady(remainingTimeInMs);
         }
 
         public static bool IsKnownAndReadyAndCastable(this SpellData spell, int remainingTimeInMs = 0)
         {
+            if (spell == null)
+                return false;
+
             return spell.IsKnown() && spell.IsReady(remainingTimeInMs) && spell.CanCast(Core.Me.CurrentTarget);
         }
 
         public static bool IsKnownAndReadyAndCastableAtTarget(this SpellData spell, int remainingTimeInMs = 0)
         {
+            if (spell == null)
+                return false;
+
             return spell.IsKnown() && spell.IsReady(remainingTimeInMs) && spell.CanCast(Core.Me.CurrentTarget);
         }
 
         public static bool IsKnownAndReadyAndCastable(this SpellData spell, GameObject target, int remainingTimeInMs = 0)
         {
+            if (spell == null)
+                return false;
+
             return spell.IsKnown() && spell.IsReady(remainingTimeInMs) && spell.CanCast(target);
         }
 
         public static string IconUrl(this SpellData spell)
         {
+            if (spell == null)
+                return string.Empty;
+
             var icon = (decimal)spell.Icon;
             var folder = (Math.Floor(icon / 1000) * 1000).ToString(CultureInfo.InvariantCulture).Trim().PadLeft(6, '0');
             var image = spell.Icon.ToString(CultureInfo.InvariantCulture).Trim().PadLeft(6, '0');
@@ -428,11 +488,17 @@ namespace Magitek.Extensions
 
         public static bool HasCastRecently(this SpellData LastSpellExecuted)
         {
+            if (LastSpellExecuted == null)
+                return false;
+
             return Casting.SpellCastHistory.Any(s => s.Spell == LastSpellExecuted);
         }
 
         public static bool CanContinueComboAfter(this SpellData LastSpellExecuted)
         {
+            if (LastSpellExecuted == null)
+                return false;
+
             if (ActionManager.ComboTimeLeft <= 0)
                 return false;
 
