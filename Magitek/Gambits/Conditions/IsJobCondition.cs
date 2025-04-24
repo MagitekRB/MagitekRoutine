@@ -12,11 +12,14 @@ namespace Magitek.Gambits.Conditions
         public bool IsWhm { get; set; } = false;
         public bool IsSch { get; set; } = false;
         public bool IsAst { get; set; } = false;
+        public bool IsSge { get; set; } = false;
         public bool IsWar { get; set; } = false;
         public bool IsPld { get; set; } = false;
         public bool IsDrk { get; set; } = false;
+        public bool IsGnb { get; set; } = false;
         public bool IsBrd { get; set; } = false;
         public bool IsMch { get; set; } = false;
+        public bool IsDnc { get; set; } = false;
         public bool IsSmn { get; set; } = false;
         public bool IsBlm { get; set; } = false;
         public bool IsRdm { get; set; } = false;
@@ -25,6 +28,7 @@ namespace Magitek.Gambits.Conditions
         public bool IsMnk { get; set; } = false;
         public bool IsDrg { get; set; } = false;
         public bool IsSam { get; set; } = false;
+        public bool IsRpr { get; set; } = false;
         public bool IsVpr { get; set; } = false;
         public bool IsBlu { get; set; } = false;
 
@@ -44,6 +48,9 @@ namespace Magitek.Gambits.Conditions
             if (IsAst && currentJob == ClassJobType.Astrologian)
                 return true;
 
+            if (IsSge && currentJob == ClassJobType.Sage)
+                return true;
+
             if (IsWar && currentJob == ClassJobType.Warrior)
                 return true;
 
@@ -53,10 +60,16 @@ namespace Magitek.Gambits.Conditions
             if (IsDrk && currentJob == ClassJobType.DarkKnight)
                 return true;
 
+            if (IsGnb && currentJob == ClassJobType.Gunbreaker)
+                return true;
+
             if (IsBrd && currentJob == ClassJobType.Bard)
                 return true;
 
             if (IsMch && currentJob == ClassJobType.Machinist)
+                return true;
+
+            if (IsDnc && currentJob == ClassJobType.Dancer)
                 return true;
 
             if (IsSmn && currentJob == ClassJobType.Summoner)
@@ -78,6 +91,9 @@ namespace Magitek.Gambits.Conditions
                 return true;
 
             if (IsSam && currentJob == ClassJobType.Samurai)
+                return true;
+
+            if (IsRpr && currentJob == ClassJobType.Reaper)
                 return true;
 
             if (IsVpr && currentJob == ClassJobType.Viper)

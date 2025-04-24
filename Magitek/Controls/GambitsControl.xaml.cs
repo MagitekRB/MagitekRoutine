@@ -48,12 +48,20 @@ namespace Magitek.Controls
                     DarkKnight.IsChecked = true;
                     break;
 
+                case ClassJobType.Gunbreaker:
+                    Gunbreaker.IsChecked = true;
+                    break;
+
                 case ClassJobType.Bard:
                     Bard.IsChecked = true;
                     break;
 
                 case ClassJobType.Machinist:
                     Machinist.IsChecked = true;
+                    break;
+
+                case ClassJobType.Dancer:
+                    Dancer.IsChecked = true;
                     break;
 
                 case ClassJobType.Summoner:
