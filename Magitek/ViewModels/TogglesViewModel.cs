@@ -127,10 +127,22 @@ namespace Magitek.ViewModels
 
         public void RegisterToggles()
         {
+            // First save the current toggle settings
             SaveToggles();
+
+            // Unregister all existing hotkeys for this job
+            foreach (var toggle in SettingsToggles)
+            {
+                string hotkeyId = $@"Magitek{toggle.ToggleJob}{toggle.ToggleText.Replace(" ", "")}";
+                ff14bot.Managers.HotkeyManager.Unregister(hotkeyId);
+                Logger.WriteInfo($@"[Toggles] Unregistered hotkey for {toggle.ToggleJob} - {toggle.ToggleText}");
+            }
 
             // We save here because LoadToggles reads from the json file
             TogglesManager.LoadTogglesForCurrentJob();
+
+            // Log for debugging
+            Logger.WriteInfo($@"[Toggles] All toggles for {SelectedJob} have been registered");
         }
         #endregion
 

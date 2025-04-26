@@ -152,18 +152,18 @@
                     <CheckBox Content="Summon / LB    "
                               IsChecked="{Binding SummonerSettings.Pvp_Summon, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <RadioButton Foreground="White"
-                                 Content="Bahamut        "
-                                 GroupName="summonStrategy"
-                                 IsChecked="{Binding SummonerSettings.Pvp_SummonBahamut, Mode=TwoWay}"/>
-                    <RadioButton Foreground="White"
-                                 Content="Phoenix        "
-                                 GroupName="summonStrategy"
-                                 IsChecked="{Binding SummonerSettings.Pvp_SummonPhoenix, Mode=TwoWay}"/>
-                    <RadioButton Foreground="White"
-                                 Content="Auto        "
-                                 GroupName="summonStrategy"
-                                 IsChecked="{Binding SummonerSettings.Pvp_SummonAuto, Mode=TwoWay}"/>
+                    <CheckBox Foreground="White"
+                              Content="Bahamut        "
+                              IsChecked="{Binding SummonerSettings.Pvp_SummonBahamut, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Foreground="White"
+                              Content="Phoenix        "
+                              IsChecked="{Binding SummonerSettings.Pvp_SummonPhoenix, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Foreground="White"
+                              Content="Auto        "
+                              IsChecked="{Binding SummonerSettings.Pvp_SummonAuto, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
 
                 <StackPanel Margin="5">
