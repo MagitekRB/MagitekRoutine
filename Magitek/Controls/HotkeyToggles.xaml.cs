@@ -1,32 +1,91 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using UserControl = System.Windows.Controls.UserControl;
+using WPFTextBox = System.Windows.Controls.TextBox;
 
 namespace Magitek.Controls
 {
     /// <summary>
     /// Interaction logic for HotkeyToggles.xaml
     /// </summary>
-    public partial class HotkeyToggles : UserControl
+    public partial class HotkeyToggles : UserControl, INotifyPropertyChanged
     {
         public static readonly DependencyProperty ToggleHotkeyTextProperty = DependencyProperty.Register("ToggleHotkeyText", typeof(string), typeof(HotkeyToggles), new UIPropertyMetadata("TOGGLE HOTKEY:"));
-        public static readonly DependencyProperty ToggleKeySettingProperty = DependencyProperty.Register("ToggleKeySetting", typeof(Keys), typeof(HotkeyToggles), new PropertyMetadata(Keys.None));
-        public static readonly DependencyProperty ToggleModKeySettingProperty = DependencyProperty.Register("ToggleModKeySetting", typeof(ModifierKeys), typeof(HotkeyToggles), new PropertyMetadata(ModifierKeys.None));
+        public static readonly DependencyProperty ToggleKeySettingProperty = DependencyProperty.Register("ToggleKeySetting", typeof(Keys), typeof(HotkeyToggles), new PropertyMetadata(Keys.None, OnHotkeyChanged));
+        public static readonly DependencyProperty ToggleModKeySettingProperty = DependencyProperty.Register("ToggleModKeySetting", typeof(ModifierKeys), typeof(HotkeyToggles), new PropertyMetadata(ModifierKeys.None, OnHotkeyChanged));
+        public static readonly DependencyProperty HkTextProperty = DependencyProperty.Register("HkText", typeof(string), typeof(HotkeyToggles), new PropertyMetadata(string.Empty));
 
+        private static void OnHotkeyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is HotkeyToggles hotkeyToggles)
+            {
+                // Update the HkText property when keys change
+                hotkeyToggles.HkText = $"{hotkeyToggles.ToggleModKeySetting} + {hotkeyToggles.ToggleKeySetting}";
+
+                // Also update the textbox directly if needed
+                if (hotkeyToggles._txtHk != null)
+                {
+                    hotkeyToggles._txtHk.Text = hotkeyToggles.HkText;
+                }
+            }
+        }
+
+        private WPFTextBox _txtHk;
 
         public HotkeyToggles()
         {
             InitializeComponent();
+            _txtHk = (WPFTextBox)FindName("TxtHk");
             PreviewKeyDown += OnPreviewKeyDown;
             LostFocus += OnLostFocus;
+
+            // Set initial text
+            if (_txtHk != null)
+            {
+                HkText = $"{ToggleModKeySetting} + {ToggleKeySetting}";
+                _txtHk.Text = HkText;
+            }
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
-            // Re - Registering Code
+            // Re-register hotkey for the currently selected toggle
+            // Find the parent TogglesSettings control
+            var togglesSettings = FindParent<UserControl>(this);
+            if (togglesSettings != null)
+            {
+                // Get the data context which should be TogglesViewModel
+                var togglesViewModel = togglesSettings.DataContext as ViewModels.TogglesViewModel;
+                if (togglesViewModel != null && togglesViewModel.SelectedToggle != null)
+                {
+                    // Register hotkey for the currently selected toggle
+                    togglesViewModel.SelectedToggle.RegisterHotkey();
+
+                    // Make sure to save the toggle settings to persist them
+                    togglesViewModel.SaveToggles();
+                }
+            }
+        }
+
+        // Helper method to find parent of specific type
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+            if (parentObject == null)
+                return null;
+
+            T parent = parentObject as T;
+            if (parent != null)
+                return parent;
+            else
+                return FindParent<T>(parentObject);
         }
 
         public string ToggleHotkeyText
@@ -35,18 +94,34 @@ namespace Magitek.Controls
             set => SetValue(ToggleHotkeyTextProperty, value);
         }
 
-        public string HkText => ToggleModKeySetting + " + " + ToggleKeySetting;
+        public string HkText
+        {
+            get => (string)GetValue(HkTextProperty);
+            set
+            {
+                SetValue(HkTextProperty, value);
+                OnPropertyChanged("HkText");
+            }
+        }
 
         public Keys ToggleKeySetting
         {
             get => (Keys)GetValue(ToggleKeySettingProperty);
-            set => SetValue(ToggleKeySettingProperty, value);
+            set
+            {
+                SetValue(ToggleKeySettingProperty, value);
+                OnPropertyChanged("HkText");
+            }
         }
 
         public ModifierKeys ToggleModKeySetting
         {
             get => (ModifierKeys)GetValue(ToggleModKeySettingProperty);
-            set => SetValue(ToggleModKeySettingProperty, value);
+            set
+            {
+                SetValue(ToggleModKeySettingProperty, value);
+                OnPropertyChanged("HkText");
+            }
         }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -60,9 +135,13 @@ namespace Magitek.Controls
             switch (key)
             {
                 case Key.Escape:
-                    TxtHk.Text = "None + None";
                     ToggleModKeySetting = ModifierKeys.None;
                     ToggleKeySetting = Keys.None;
+                    if (_txtHk != null)
+                    {
+                        HkText = $"{ToggleModKeySetting} + {ToggleKeySetting}";
+                        _txtHk.Text = HkText;
+                    }
                     return;
                 case Key.LeftShift:
                 case Key.RightShift:
@@ -105,8 +184,38 @@ namespace Magitek.Controls
 
             var newKey = (Keys)KeyInterop.VirtualKeyFromKey(key);
             ToggleKeySetting = newKey;
-            // Update the text box.
-            TxtHk.Text = shortcutText.ToString();
+
+            // Update the HkText property
+            HkText = $"{ToggleModKeySetting} + {ToggleKeySetting}";
+
+            // Update the text box directly
+            if (_txtHk != null)
+            {
+                _txtHk.Text = HkText;
+            }
+
+            // Immediately save the toggle
+            var togglesSettings = FindParent<UserControl>(this);
+            if (togglesSettings != null)
+            {
+                var togglesViewModel = togglesSettings.DataContext as ViewModels.TogglesViewModel;
+                if (togglesViewModel != null && togglesViewModel.SelectedToggle != null)
+                {
+                    togglesViewModel.SelectedToggle.RegisterHotkey();
+                    togglesViewModel.SaveToggles();
+                }
+            }
         }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }

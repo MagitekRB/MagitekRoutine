@@ -1,5 +1,6 @@
 ﻿using ff14bot;
 using ff14bot.Helpers;
+using ff14bot.Managers;
 using Magitek.Utilities;
 using Magitek.ViewModels;
 using Newtonsoft.Json;
@@ -55,8 +56,24 @@ namespace Magitek.Toggles
             if (settingsToggles == null)
                 return;
 
+            // First unregister all existing hotkeys that could conflict
+            var allRegisteredHotkeys = ff14bot.Managers.HotkeyManager.RegisteredHotkeys
+                .Where(h => h.Name.Contains($@"Magitek{Core.Me.CurrentJob}"))
+                .ToList();
+
+            foreach (var hotkey in allRegisteredHotkeys)
+            {
+                ff14bot.Managers.HotkeyManager.Unregister(hotkey.Name);
+                Logger.WriteInfo($@"[Toggles] Unregistered existing hotkey: {hotkey.Name}");
+            }
+
+            // Now register each toggle's hotkey
             foreach (var settingsToggle in settingsToggles)
+            {
                 settingsToggle.RegisterHotkey();
+            }
+
+            Logger.WriteInfo($@"[Toggles] Successfully set {settingsToggles.Count()} toggle hotkeys for {Core.Me.CurrentJob}");
         }
 
         private static List<SettingsToggle> GetCustomTogglesForJob

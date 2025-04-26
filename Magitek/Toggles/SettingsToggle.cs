@@ -5,6 +5,7 @@ using Magitek.Extensions;
 using Magitek.Utilities;
 using PropertyChanged;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -12,8 +13,11 @@ using System.Windows.Input;
 namespace Magitek.Toggles
 {
     [AddINotifyPropertyChangedInterface]
-    public class SettingsToggle
+    public class SettingsToggle : INotifyPropertyChanged
     {
+        private Keys _toggleKey;
+        private ModifierKeys _toggleModifierKey;
+
         // Text that's displayed on the toggle
         public string ToggleText { get; set; }
 
@@ -34,6 +38,34 @@ namespace Magitek.Toggles
 
         // Command that is bound to the Command (XAML) on the toggle
         public ICommand ExecuteToggleCommand => new DelegateCommand(ExecuteToggle);
+
+        // Hotkey for the toggle
+        public Keys ToggleKey
+        {
+            get => _toggleKey;
+            set
+            {
+                if (_toggleKey != value)
+                {
+                    _toggleKey = value;
+                    OnPropertyChanged(nameof(ToggleKey));
+                }
+            }
+        }
+
+        // Modifier key for the toggle
+        public ModifierKeys ToggleModifierKey
+        {
+            get => _toggleModifierKey;
+            set
+            {
+                if (_toggleModifierKey != value)
+                {
+                    _toggleModifierKey = value;
+                    OnPropertyChanged(nameof(ToggleModifierKey));
+                }
+            }
+        }
 
         public void SetToggleState()
         {
@@ -121,24 +153,32 @@ namespace Magitek.Toggles
             SetToggleState();
         });
 
-        // Hotkey for the toggle
-        public Keys ToggleKey { get; set; }
-
-        // Modifier key for the toggle
-        public ModifierKeys ToggleModifierKey { get; set; }
-
         // We can either use the built-in RB hotkey manager for this or we can write our own
         public void RegisterHotkey()
         {
-            //Unregister first, not sure why I did this in my previous implementations, but i'm assuming there's a reason
-            HotkeyManager.Unregister($@"Magitek{ToggleText.Replace(" ", "")}");
+            // Create a unique hotkey ID that includes both job and toggle name to avoid conflicts
+            string hotkeyId = $@"Magitek{ToggleJob}{ToggleText.Replace(" ", "")}";
+
+            // Unregister this toggle's hotkey first
+            HotkeyManager.Unregister(hotkeyId);
 
             // Does the toggle even have keys set?
             if (ToggleKey == Keys.None && ToggleModifierKey == ModifierKeys.None)
                 return;
 
-            //Register the hotkey
-            HotkeyManager.Register($@"Magitek{ToggleText.Replace(" ", "")}", ToggleKey, ToggleModifierKey, r =>
+            // Check for existing hotkeys with the same combination and unregister them
+            var existingHotkeys = HotkeyManager.RegisteredHotkeys
+                .Where(h => h.Key == ToggleKey && h.Name.Contains("Magitek"))
+                .ToList();
+
+            foreach (var existing in existingHotkeys)
+            {
+                // Logger.WriteInfo($@"[Toggles] Unregistering conflicting hotkey {existing.Name} with same key combination");
+                HotkeyManager.Unregister(existing.Name);
+            }
+
+            // Register the hotkey with the unique ID
+            HotkeyManager.Register(hotkeyId, ToggleKey, ToggleModifierKey, r =>
             {
                 if (ToggleChecked)
                 {
@@ -155,6 +195,20 @@ namespace Magitek.Toggles
                     ExecuteToggle();
                 }
             });
+
+            // Log the registration for debugging
+            Logger.WriteInfo($@"[Toggles] Registered hotkey for {ToggleJob} - {ToggleText}: {ToggleModifierKey} + {ToggleKey}");
         }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }

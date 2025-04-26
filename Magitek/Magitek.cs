@@ -20,6 +20,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Input;
 using TreeSharp;
 using Application = System.Windows.Application;
 using BaseSettings = Magitek.Models.Account.BaseSettings;
@@ -63,6 +65,7 @@ namespace Magitek
             });
 
             TogglesManager.LoadTogglesForCurrentJob();
+            RegisterOpenerHotkey();
             CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
             Logger.WriteInfo("Initialized");
         }
@@ -98,7 +101,12 @@ namespace Magitek
                 {
                     GambitsViewModel.Instance.ApplyGambits();
                     OpenersViewModel.Instance.ApplyOpeners();
+                    // First unregister all existing Magitek hotkeys
+                    UnregisterAllMagitekHotkeys();
+                    // Then load the toggles for the current job
                     TogglesManager.LoadTogglesForCurrentJob();
+                    // Register opener hotkey
+                    RegisterOpenerHotkey();
                 });
 
                 HookBehaviors();
@@ -122,7 +130,12 @@ namespace Magitek
                 {
                     GambitsViewModel.Instance.ApplyGambits();
                     OpenersViewModel.Instance.ApplyOpeners();
+                    // First unregister all existing Magitek hotkeys
+                    UnregisterAllMagitekHotkeys();
+                    // Then load the toggles for the current job
                     TogglesManager.LoadTogglesForCurrentJob();
+                    // Register opener hotkey
+                    RegisterOpenerHotkey();
                 });
             }
 
@@ -300,12 +313,7 @@ namespace Magitek
             TogglesViewModel.Instance.SaveToggles();
             StunTracker.Save();
 
-            var hotkeys = HotkeyManager.RegisteredHotkeys.Select(r => r.Name).Where(r => r.Contains("Magitek"));
-
-            foreach (var hk in hotkeys)
-            {
-                HotkeyManager.Unregister(hk);
-            }
+            UnregisterAllMagitekHotkeys();
         }
 
         private void GamelogManagerCountdownRecevied(object sender, ChatEventArgs e)
@@ -397,5 +405,39 @@ namespace Magitek
                 new ActionRunCoroutine(_ => RotationManager.Rotation.Combat())));
 
         #endregion Behavior Composites
+
+        private void RegisterOpenerHotkey()
+        {
+            // Unregister first to prevent duplicates
+            HotkeyManager.Unregister("MagitekUseOpeners");
+
+            // Check if we have a key set
+            if (Models.Account.BaseSettings.Instance.UseOpenersKey == Keys.None &&
+                Models.Account.BaseSettings.Instance.UseOpenersModkey == ModifierKeys.None)
+                return;
+
+            // Register the hotkey
+            HotkeyManager.Register("MagitekUseOpeners",
+                Models.Account.BaseSettings.Instance.UseOpenersKey,
+                Models.Account.BaseSettings.Instance.UseOpenersModkey,
+                r =>
+                {
+                    // Toggle the UseOpeners setting
+                    Models.Account.BaseSettings.Instance.UseOpeners = !Models.Account.BaseSettings.Instance.UseOpeners;
+                    Logger.WriteInfo($@"[Hotkey] Toggled UseOpeners to {Models.Account.BaseSettings.Instance.UseOpeners}");
+                });
+
+            Logger.WriteInfo($@"[Hotkeys] Registered opener hotkey: {Models.Account.BaseSettings.Instance.UseOpenersModkey} + {Models.Account.BaseSettings.Instance.UseOpenersKey}");
+        }
+
+        private void UnregisterAllMagitekHotkeys()
+        {
+            var hotkeys = HotkeyManager.RegisteredHotkeys.Select(r => r.Name).Where(r => r.Contains("Magitek")).ToList();
+
+            foreach (var hk in hotkeys)
+            {
+                HotkeyManager.Unregister(hk);
+            }
+        }
     }
 }
