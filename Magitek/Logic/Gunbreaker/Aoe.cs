@@ -70,35 +70,10 @@ namespace Magitek.Logic.Gunbreaker
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (Core.Me.HasAura(Auras.NoMercy) && Cartridge > 0)
-            {
-                if (Spells.DoubleDown.IsKnownAndReady())
-                    return false;
-
-                return await Spells.FatedCircle.Cast(Core.Me.CurrentTarget);
-            }
-
-            //Delay if nomercy ready soon
-            //   if (Spells.NoMercy.IsKnownAndReady(16000) && Cartridge < GunbreakerRoutine.MaxCartridge - 1)
-            //       return false;
-            //   if (Spells.NoMercy.IsKnownAndReady(8000) && Cartridge < GunbreakerRoutine.MaxCartridge)
-            //       return false;
-
-            //Delay if GnashingFang ready soon and there are less than GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies
-            //    if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
-            //   {
-            //       if (Spells.GnashingFang.IsKnownAndReady(8000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForGnashingFang)
-            //           return false;
-            //   }
-
-            //Delay if DoubleDown ready soon
-            //   if (Spells.DoubleDown.IsKnownAndReady(4000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForDoubleDown)
-            //       return false;
-
-            if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.DemonSlice.Id)
+            if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
-            if (Cartridge < GunbreakerRoutine.MaxCartridge)
+            if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
                 return false;
 
             return await Spells.FatedCircle.Cast(Core.Me.CurrentTarget);
@@ -112,16 +87,16 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseBowShock)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.NoMercy) && GunbreakerSettings.Instance.BurstLogicHoldBurst && !GunbreakerSettings.Instance.BurstLogicExcludeBowShock)
-                return false;
+            //if (GunbreakerRoutine.IsAurasForComboActive())
+            //    return false;
 
-            if (GunbreakerRoutine.IsAurasForComboActive())
+            if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.BowShockEnemies)
                 return false;
 
-            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() && Cartridge > 1)
+            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
                 return false;
 
             return await Spells.BowShock.Cast(Core.Me.CurrentTarget);
@@ -129,7 +104,7 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> FatedBrand()
         {
-            if (Core.Me.ClassLevel < 96)
+            if (Core.Me.ClassLevel < Spells.FatedBrand.LevelAcquired)
                 return false;
 
             if (!GunbreakerSettings.Instance.UseAoe)
