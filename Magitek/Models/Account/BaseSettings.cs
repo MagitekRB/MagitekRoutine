@@ -43,6 +43,14 @@ namespace Magitek.Models.Account
         public Keys UseOpenersKey { get; set; }
 
         [Setting]
+        [DefaultValue(ModifierKeys.None)]
+        public ModifierKeys ResetOpenersModkey { get; set; }
+
+        [Setting]
+        [DefaultValue(Keys.None)]
+        public Keys ResetOpenersKey { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool AllowGambits { get; set; }
 

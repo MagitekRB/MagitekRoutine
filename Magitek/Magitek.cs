@@ -107,6 +107,8 @@ namespace Magitek
                     TogglesManager.LoadTogglesForCurrentJob();
                     // Register opener hotkey
                     RegisterOpenerHotkey();
+                    // Register reset opener hotkey
+                    RegisterResetOpenerHotkey();
                 });
 
                 HookBehaviors();
@@ -136,6 +138,8 @@ namespace Magitek
                     TogglesManager.LoadTogglesForCurrentJob();
                     // Register opener hotkey
                     RegisterOpenerHotkey();
+                    // Register reset opener hotkey
+                    RegisterResetOpenerHotkey();
                 });
             }
 
@@ -428,6 +432,30 @@ namespace Magitek
                 });
 
             Logger.WriteInfo($@"[Hotkeys] Registered opener hotkey: {Models.Account.BaseSettings.Instance.UseOpenersModkey} + {Models.Account.BaseSettings.Instance.UseOpenersKey}");
+        }
+
+        private void RegisterResetOpenerHotkey()
+        {
+            // Unregister first to prevent duplicates
+            HotkeyManager.Unregister("MagitekResetOpeners");
+
+            // Check if we have a key set
+            if (Models.Account.BaseSettings.Instance.ResetOpenersKey == Keys.None &&
+                Models.Account.BaseSettings.Instance.ResetOpenersModkey == ModifierKeys.None)
+                return;
+
+            // Register the hotkey
+            HotkeyManager.Register("MagitekResetOpeners",
+                Models.Account.BaseSettings.Instance.ResetOpenersKey,
+                Models.Account.BaseSettings.Instance.ResetOpenersModkey,
+                r =>
+                {
+                    // Set the ResetOpeners flag to true
+                    Models.Account.BaseSettings.Instance.ResetOpeners = true;
+                    Logger.WriteInfo($@"[Hotkey] Reset Openers triggered");
+                });
+
+            Logger.WriteInfo($@"[Hotkeys] Registered reset opener hotkey: {Models.Account.BaseSettings.Instance.ResetOpenersModkey} + {Models.Account.BaseSettings.Instance.ResetOpenersKey}");
         }
 
         private void UnregisterAllMagitekHotkeys()

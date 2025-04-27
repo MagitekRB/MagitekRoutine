@@ -50,6 +50,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -68,17 +69,21 @@
                                  KeySetting="{Binding GeneralSettings.UseOpenersKey, Mode=TwoWay}"
                                  ModKeySetting="{Binding GeneralSettings.UseOpenersModkey, Mode=TwoWay}"
                                  Text="Use Openers Hotkey:"/>
-                <TextBlock Grid.Column="3"
+                <controls:Hotkey Grid.Column="3"
+                                 KeySetting="{Binding GeneralSettings.ResetOpenersKey, Mode=TwoWay}"
+                                 ModKeySetting="{Binding GeneralSettings.ResetOpenersModkey, Mode=TwoWay}"
+                                 Text="Reset Opener Hotkey:"/>
+                <TextBlock Grid.Column="4"
                            Margin="10,0,0,0"
                            VerticalAlignment="Center"
                            Foreground="{DynamicResource Light}"
                            Text="{Binding Status, Mode=OneWay}"/>
-                <Button Grid.Column="5"
+                <Button Grid.Column="6"
                         Margin="0,0,4,0"
                         HorizontalAlignment="Right"
                         Command="{Binding ApplyOpenersCommand}"
                         Style="{DynamicResource ButtonApply}"/>
-                <Button Grid.Column="6"
+                <Button Grid.Column="7"
                         Margin="0,0,5,0"
                         HorizontalAlignment="Right"
                         Command="{Binding Save}"
