@@ -49,10 +49,11 @@ namespace Magitek.Utilities.Routines
 
         public static bool IsAurasForComboActive()
         {
-            return (Spells.GnashingFang.IsKnown() && Core.Me.HasAura(Auras.ReadytoRip))
-                || (Spells.SavageClaw.IsKnown() && Core.Me.HasAura(Auras.ReadytoTear))
-                || (Spells.WickedTalon.IsKnown() && Core.Me.HasAura(Auras.ReadytoGouge))
-                || (Spells.BurstStrike.IsKnown() && Core.Me.HasAura(Auras.ReadytoBlast));
+            return (Core.Me.HasAura(Auras.ReadytoRip)
+                || Core.Me.HasAura(Auras.ReadytoTear)
+                || Core.Me.HasAura(Auras.ReadytoGouge)
+                || Core.Me.HasAura(Auras.ReadytoBlast)
+                );
         }
 
         public static bool CanContinueComboAfter(SpellData LastSpellExecuted)

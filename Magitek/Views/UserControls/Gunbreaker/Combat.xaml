@@ -88,24 +88,26 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="3">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use LionHeart Combo           " IsChecked="{Binding GunbreakerSettings.UseLionHeartCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="Use LionHeart Combo        " IsChecked="{Binding GunbreakerSettings.UseLionHeartCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Content="Use Brust Strike           " IsChecked="{Binding GunbreakerSettings.UseBurstStrike, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Content="Use Double Down" IsChecked="{Binding GunbreakerSettings.UseDoubleDown, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="3">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use Gnashing Fang and Save When No Mercy Cooldown Under " IsChecked="{Binding GunbreakerSettings.UseAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric Margin="0,3" MaxValue="20000" MinValue="100" Value="{Binding GunbreakerSettings.SaveAmmoComboMseconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Ms" />
+                        <CheckBox Content="Use Gnashing Fang            " IsChecked="{Binding GunbreakerSettings.UseAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="Hold when no mercy is ready in " IsChecked="{Binding GunbreakerSettings.HoldAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <controls:Numeric Margin="0,3" MaxValue="60" MinValue="1" Value="{Binding GunbreakerSettings.HoldAmmoComboSeconds, Mode=TwoWay}" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Margin="3">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Save Blasting Zone When No Mercy Cooldown Under " IsChecked="{Binding GunbreakerSettings.SaveBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric Margin="0,3" MaxValue="20000" MinValue="100" Value="{Binding GunbreakerSettings.SaveBlastingZoneMseconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Ms" />
+                        <CheckBox Content="Use Blasting Zone              " IsChecked="{Binding GunbreakerSettings.UseBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="Hold when no mercy is ready in " IsChecked="{Binding GunbreakerSettings.HoldBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <controls:Numeric Margin="0,3" MaxValue="60" MinValue="1" Value="{Binding GunbreakerSettings.HoldBlastingZoneSeconds, Mode=TwoWay}" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
                     </StackPanel>
                 </StackPanel>
 
@@ -152,11 +154,9 @@
                 <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Advance Burst Window Settings" />
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Hold Burst                        " IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Hold Burst When moving" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurstWhenMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Exclude BlastingZone       " IsChecked="{Binding GunbreakerSettings.BurstLogicExcludeBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Exclude Bow Shock" IsChecked="{Binding GunbreakerSettings.BurstLogicExcludeBowShock, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="Hold No Mercy until Combo is ready" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldNoMercy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
     </controls:SettingsBlock>

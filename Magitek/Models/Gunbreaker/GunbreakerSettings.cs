@@ -27,8 +27,12 @@ namespace Magitek.Models.Gunbreaker
         public bool UseAmmoCombo { get; set; }
 
         [Setting]
-        [DefaultValue(6000)]
-        public int SaveAmmoComboMseconds { get; set; }
+        [DefaultValue(false)]
+        public bool HoldAmmoCombo { get; set; }
+
+        [Setting]
+        [DefaultValue(27)]
+        public int HoldAmmoComboSeconds { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -63,16 +67,16 @@ namespace Magitek.Models.Gunbreaker
         public bool UseBurstStrike { get; set; }
 
         [Setting]
-        [DefaultValue(6000)]
-        public int SaveBurstStrikeMseconds { get; set; }
-
-        [Setting]
         [DefaultValue(true)]
-        public bool SaveBlastingZone { get; set; }
+        public bool UseBlastingZone { get; set; }
 
         [Setting]
-        [DefaultValue(6000)]
-        public int SaveBlastingZoneMseconds { get; set; }
+        [DefaultValue(false)]
+        public bool HoldBlastingZone { get; set; }
+
+        [Setting]
+        [DefaultValue(20)]
+        public int HoldBlastingZoneSeconds { get; set; }
 
         [Setting]
         [DefaultValue(false)]
@@ -80,15 +84,7 @@ namespace Magitek.Models.Gunbreaker
 
         [Setting]
         [DefaultValue(false)]
-        public bool BurstLogicHoldBurstWhenMoving { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool BurstLogicExcludeBlastingZone { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool BurstLogicExcludeBowShock { get; set; }
+        public bool BurstLogicHoldNoMercy { get; set; }
         #endregion
 
         #region Buff

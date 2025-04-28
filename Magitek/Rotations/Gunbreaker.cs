@@ -69,26 +69,17 @@ namespace Magitek.Rotations
                 if (await Defensive.HeartofLight()) return true;
                 if (await Defensive.HeartofCorundum()) return true;
                 if (await Tank.ArmsLength(GunbreakerSettings.Instance)) return true;
-            }
-
-            if (GunbreakerRoutine.GlobalCooldown.CanWeave())
-            {
-                //oGCD - Buffs
-                if (await Buff.Bloodfest()) return true;
-                if (await Buff.NoMercy()) return true;
-                //oGCD - Damage
-                if (await SingleTarget.BlastingZone()) return true;
-                //OGCD dots
-                if (await Aoe.BowShock()) return true;
 
             }
+
+            if (await Buff.Bloodfest()) return true;
+            if (await Buff.NoMercy()) return true;
+            if (await SingleTarget.BlastingZone()) return true;
+            if (await Aoe.BowShock()) return true;
 
             //oGCD to use with BurstStrike
             if (await Aoe.FatedBrand()) return true;
             if (await SingleTarget.Hypervelocity()) return true;
-
-            //GCD to use when No Mercy
-            if (await SingleTarget.SonicBreak()) return true;
 
             //oGCD to use inside Combo 2
             if (await SingleTarget.EyeGouge()) return true;
@@ -114,6 +105,7 @@ namespace Magitek.Rotations
 
             //Combo 3
             if (await SingleTarget.BurstStrike()) return true;
+            if (await SingleTarget.SonicBreak()) return true;
 
             //AOE
             if (await Aoe.FatedCircle()) return true;

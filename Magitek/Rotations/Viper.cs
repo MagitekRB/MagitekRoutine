@@ -68,6 +68,8 @@ namespace Magitek.Rotations
                 if (await Cooldown.LastLash()) return true;
             }
 
+            if (await Cooldown.TwinBiteCombo()) return true;
+
             if (await SingleTarget.UncoiledFury()) return true;
             if (await SingleTarget.Ouroboros()) return true;
 
@@ -80,7 +82,6 @@ namespace Magitek.Rotations
 
             if (await Cooldown.UncoiledTwinCombo()) return true;
             if (await Cooldown.TwinThreshCombo()) return true;
-            if (await Cooldown.TwinBiteCombo()) return true;
 
             if (await AoE.HunterOrSwiftskinDen()) return true;
             if (await AoE.Vicepit()) return true;
