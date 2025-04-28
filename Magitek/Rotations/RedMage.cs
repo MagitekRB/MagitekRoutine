@@ -142,7 +142,6 @@ namespace Magitek.Rotations
             if (await SingleTarget.Jolt()) return true;
 
             return false;
-            //return await RdmStateMachine.StateMachine.Pulse();
         }
 
         public static async Task<bool> PvP()
