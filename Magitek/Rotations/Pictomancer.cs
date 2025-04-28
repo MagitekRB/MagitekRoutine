@@ -104,8 +104,8 @@ namespace Magitek.Rotations
                 || !Core.Me.HasAura(Auras.StarryMuse, true))
             {
                 if (await Palette.LandscapeMotif()) return true;
-                if (await Palette.CreatureMotif()) return true;
                 if (await Palette.WeaponMotif()) return true;
+                if (await Palette.CreatureMotif()) return true;
             }
 
             // attacks

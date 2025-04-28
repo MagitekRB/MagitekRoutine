@@ -146,7 +146,8 @@ namespace Magitek.Logic.Pictomancer
 
             var muse = Spells.LivingMuse.Masked();
 
-            if (!PictomancerRoutine.UseSimplifiedRotation)
+            if (!PictomancerRoutine.UseSimplifiedRotation
+                && Core.Me.CurrentTarget.EnemiesNearby(muse.Radius).Count() < PictomancerSettings.Instance.AoeEnemies)
             {
                 if (PictomancerSettings.Instance.SaveMogForStarry
                     && Spells.StarryMuse.IsKnown()
@@ -255,7 +256,8 @@ namespace Magitek.Logic.Pictomancer
 
             var muse = Spells.SteelMuse.Masked();
 
-            if (!PictomancerRoutine.UseSimplifiedRotation)
+            if (!PictomancerRoutine.UseSimplifiedRotation
+                && Core.Me.CurrentTarget.EnemiesNearby(muse.Radius).Count() < PictomancerSettings.Instance.AoeEnemies)
             {
                 var starryCooldown = PictomancerRoutine.StarryCooldownRemaining();
                 var msToNextCharge = muse.CooldownToNextCharge();
