@@ -5,6 +5,10 @@ on:
     types: [closed]
     branches: [ "master" ]
 
+permissions:
+  contents: write
+  pull-requests: read
+
 jobs:
   release:
     name: "Release"
