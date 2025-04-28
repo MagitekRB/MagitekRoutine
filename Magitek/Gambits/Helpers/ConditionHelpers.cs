@@ -159,6 +159,10 @@ namespace Magitek.Gambits.Helpers
                     condition = new CombatTimeCondition();
                     break;
 
+                case "HasCurrentTarget":
+                    condition = new HasCurrentTargetCondition { MustBeEnemy = false, MustBeAlly = false };
+                    break;
+
                 default:
                     return null;
             }

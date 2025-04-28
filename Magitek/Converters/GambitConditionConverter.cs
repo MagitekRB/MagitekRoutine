@@ -122,6 +122,9 @@ namespace Magitek.Converters
                     case GambitConditionTypes.CombatTime:
                         condition = new CombatTimeCondition();
                         break;
+                    case GambitConditionTypes.HasCurrentTarget:
+                        condition = new HasCurrentTargetCondition();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

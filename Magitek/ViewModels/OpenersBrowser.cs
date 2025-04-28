@@ -112,15 +112,15 @@ namespace Magitek.ViewModels
             if (opener?.Gambits == null)
                 return;
 
-            // Check to see if any of the existing openers have the same ID
-            if (OpenersViewModel.Instance.OpenerGroups.Any(r => r.Id == opener.Id))
+            // Generate a new unique ID that doesn't clash with any existing openers
+            int newId;
+            var random = new Random();
+            do
             {
-                // Find the opener that matches
-                var oldGambitGroup = OpenersViewModel.Instance.OpenerGroups.FirstOrDefault(r => r.Id == opener.Id);
+                newId = random.Next(int.MaxValue);
+            } while (OpenersViewModel.Instance.OpenerGroups.Any(r => r.Id == newId));
 
-                // Remove it from the list so we can add the new one
-                OpenersViewModel.Instance.OpenerGroups.Remove(oldGambitGroup);
-            }
+            opener.Id = newId;
 
             // Add the downloaded opener to the list
             OpenersViewModel.Instance.OpenerGroups.Add(opener);

@@ -53,5 +53,6 @@ namespace Magitek.Gambits.Conditions
         HasPet,
         CountdownTimer,
         CombatTime,
+        HasCurrentTarget,
     }
 }
