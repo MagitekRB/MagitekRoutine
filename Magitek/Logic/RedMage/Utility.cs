@@ -49,8 +49,10 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
-            if (!RedMageRoutine.CanContinueComboAfter(Spells.Moulinet)
-                && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinet)
+            if (Core.Me.ClassLevel <= Spells.EnchantedMoulinet.LevelAcquired)
+                return false;
+
+            if (!RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinet)
                 && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinetDeux)
                 && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinetTrois))
                 return false;
