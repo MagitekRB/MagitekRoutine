@@ -1,4 +1,5 @@
-﻿using ff14bot;
+﻿using Buddy.Coroutines;
+using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Gunbreaker;
@@ -44,10 +45,47 @@ namespace Magitek.Logic.Gunbreaker
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge)
+            if (Cartridge >= 2 && CanNoMercy())
                 return false;
 
+            if (Cartridge == GunbreakerRoutine.MaxCartridge)
+            {
+                if (!await UseFatedCircle())
+                    return false;
+
+                if (CanNoMercy())
+                    return await Spells.NoMercy.Cast(Core.Me);
+            }
+
             return await Spells.DemonSlaughter.Cast(Core.Me.CurrentTarget);
+        }
+
+        private static async Task<bool> UseFatedCircle()
+        {
+            if (Core.Me.ClassLevel < Spells.FatedCircle.LevelAcquired)
+                return false;
+
+            if (!await Spells.FatedCircle.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            return await Coroutine.Wait(1000, Spells.FatedBrand.CanCast);
+        }
+
+        private static bool CanNoMercy()
+        {
+            if (!GunbreakerSettings.Instance.UseNoMercy)
+                return false;
+
+            if (GunbreakerSettings.Instance.BurstLogicHoldBurst)
+                return false;
+
+            if (GunbreakerSettings.Instance.BurstLogicHoldNoMercy && !Spells.GnashingFang.IsKnownAndReady(3000) && !Spells.DoubleDown.IsKnownAndReady(5000))
+                return false;
+
+            if (!Spells.NoMercy.IsKnownAndReady())
+                return false;
+
+            return true;
         }
 
         /*************************************************************************************

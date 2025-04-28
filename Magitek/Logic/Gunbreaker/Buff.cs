@@ -50,8 +50,16 @@ namespace Magitek.Logic.Gunbreaker
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD) && ((Cartridge == 3) || Casting.LastSpell == Spells.Bloodfest) && Spells.NoMercy.IsKnownAndReady(1000))
             {
-                if(!await UseBurstStrike())
-                    return false;
+                if(Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+                {
+                    if (!await UseFatedCircle())
+                        return false;
+                }
+                else
+                {
+                    if (!await UseBurstStrike())
+                        return false;
+                }
 
                 return await Spells.NoMercy.Cast(Core.Me);
 
@@ -97,6 +105,17 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             return await Coroutine.Wait(1000, Spells.Hypervelocity.CanCast);
+        }
+
+        private static async Task<bool> UseFatedCircle()
+        {
+            if (Core.Me.ClassLevel < Spells.FatedCircle.LevelAcquired)
+                return false;
+
+            if (!await Spells.FatedCircle.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            return await Coroutine.Wait(1000, Spells.FatedBrand.CanCast);
         }
     }
 }

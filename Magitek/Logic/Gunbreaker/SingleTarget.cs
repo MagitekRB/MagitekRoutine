@@ -174,8 +174,8 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForGnashingFang)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
-                return false;
+            //if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+            //    return false;
 
             if (Spells.NoMercy.IsKnownAndReady())
                 return false;
@@ -252,7 +252,10 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if(!Core.Me.HasAura(Auras.NoMercy))
+            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+                //    return false;
+
+                if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
             if(Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
