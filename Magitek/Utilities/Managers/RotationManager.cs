@@ -206,9 +206,6 @@ namespace Magitek.Utilities.Managers
             if (Core.Me.IsMounted)
                 return true;
 
-            if (WorldManager.InSanctuary)
-                return false;
-
             await Chocobo.HandleChocobo();
 
             Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
@@ -224,6 +221,9 @@ namespace Magitek.Utilities.Managers
             // which allows openers to be checked when not in combat.
             if (await CustomOpenerLogic.Opener())
                 return true;
+
+            if (WorldManager.InSanctuary)
+                return false;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal");
         }

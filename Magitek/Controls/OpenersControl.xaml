@@ -1345,6 +1345,40 @@
                                                                         </ComboBox>
                                                                     </DataTemplate>
 
+                                                                    <DataTemplate DataType="{x:Type conditions:HasCurrentTargetCondition}">
+                                                                        <ComboBox Margin="3,0,0,0"
+                                                                                  Background="{DynamicResource Success}"
+                                                                                  Style="{DynamicResource ComboBoxGambitCondition}"
+                                                                                  Tag="HAS TARGET">
+                                                                            <StackPanel Width="200"
+                                                                                        Margin="3">
+                                                                                <CheckBox Margin="3"
+                                                                                          Content="MUST BE ENEMY"
+                                                                                          IsChecked="{Binding MustBeEnemy, Mode=TwoWay}"
+                                                                                          Style="{DynamicResource CheckBoxGambits}"/>
+
+                                                                                <CheckBox Margin="3"
+                                                                                          Content="MUST BE ALLY"
+                                                                                          IsChecked="{Binding MustBeAlly, Mode=TwoWay}"
+                                                                                          Style="{DynamicResource CheckBoxGambits}"/>
+
+                                                                                <Button Margin="0,3,0,0"
+                                                                                        HorizontalAlignment="Right"
+                                                                                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
+                                                                                        Content="REMOVE CONDITION"
+                                                                                        Style="{DynamicResource ButtonGambitAddCondition}">
+                                                                                    <Button.CommandParameter>
+                                                                                        <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
+                                                                                            <Binding Path="DataContext"
+                                                                                                     RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}, AncestorLevel=2}"/>
+                                                                                            <Binding Path="Id"/>
+                                                                                        </MultiBinding>
+                                                                                    </Button.CommandParameter>
+                                                                                </Button>
+                                                                            </StackPanel>
+                                                                        </ComboBox>
+                                                                    </DataTemplate>
+
                                                                     <DataTemplate DataType="{x:Type conditions:MonkChakraCondition}">
                                                                         <ComboBox Margin="3,0,0,0"
                                                                                   Background="{DynamicResource Warning}"
@@ -1946,6 +1980,21 @@
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">TargetIsBoss</sys:String>
+                                                                                </Button.Resources>
+                                                                                <Button.CommandParameter>
+                                                                                    <MultiBinding Converter="{StaticResource OpenerConditionAddConverter}">
+                                                                                        <Binding Path="DataContext"
+                                                                                                 RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                                                                        <Binding Source="{StaticResource Condition}"/>
+                                                                                    </MultiBinding>
+                                                                                </Button.CommandParameter>
+                                                                            </Button>
+
+                                                                            <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
+                                                                                    Content="HAS TARGET"
+                                                                                    Style="{DynamicResource ButtonGambitAddCondition}">
+                                                                                <Button.Resources>
+                                                                                    <sys:String x:Key="Condition">HasCurrentTarget</sys:String>
                                                                                 </Button.Resources>
                                                                                 <Button.CommandParameter>
                                                                                     <MultiBinding Converter="{StaticResource OpenerConditionAddConverter}">
@@ -3668,6 +3717,40 @@
                                                                                     </ComboBox>
                                                                                 </DataTemplate>
 
+                                                                                <DataTemplate DataType="{x:Type conditions:HasCurrentTargetCondition}">
+                                                                                    <ComboBox Margin="3,0,0,0"
+                                                                                              Background="{DynamicResource Success}"
+                                                                                              Style="{DynamicResource ComboBoxGambitCondition}"
+                                                                                              Tag="HAS TARGET">
+                                                                                        <StackPanel Width="200"
+                                                                                                    Margin="3">
+                                                                                            <CheckBox Margin="3"
+                                                                                                      Content="MUST BE ENEMY"
+                                                                                                      IsChecked="{Binding MustBeEnemy, Mode=TwoWay}"
+                                                                                                      Style="{DynamicResource CheckBoxGambits}"/>
+
+                                                                                            <CheckBox Margin="3"
+                                                                                                      Content="MUST BE ALLY"
+                                                                                                      IsChecked="{Binding MustBeAlly, Mode=TwoWay}"
+                                                                                                      Style="{DynamicResource CheckBoxGambits}"/>
+
+                                                                                            <Button Margin="0,3,0,0"
+                                                                                                    HorizontalAlignment="Right"
+                                                                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
+                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Style="{DynamicResource ButtonGambitAddCondition}">
+                                                                                                <Button.CommandParameter>
+                                                                                                    <MultiBinding Converter="{StaticResource ConditionConverter}">
+                                                                                                        <Binding Path="DataContext"
+                                                                                                                 RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}, AncestorLevel=2}"/>
+                                                                                                        <Binding Path="Id"/>
+                                                                                                    </MultiBinding>
+                                                                                                </Button.CommandParameter>
+                                                                                            </Button>
+                                                                                        </StackPanel>
+                                                                                    </ComboBox>
+                                                                                </DataTemplate>
+
                                                                                 <DataTemplate DataType="{x:Type conditions:MonkChakraCondition}">
                                                                                     <ComboBox Margin="3,0,0,0"
                                                                                               Background="{DynamicResource Info}"
@@ -4285,6 +4368,21 @@
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">TargetIsBoss</sys:String>
+                                                                                            </Button.Resources>
+                                                                                            <Button.CommandParameter>
+                                                                                                <MultiBinding Converter="{StaticResource ConditionAddConverter}">
+                                                                                                    <Binding Path="DataContext"
+                                                                                                             RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                                                                                    <Binding Source="{StaticResource Condition}"/>
+                                                                                                </MultiBinding>
+                                                                                            </Button.CommandParameter>
+                                                                                        </Button>
+
+                                                                                        <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
+                                                                                                Content="HAS TARGET"
+                                                                                                Style="{DynamicResource ButtonGambitAddCondition}">
+                                                                                            <Button.Resources>
+                                                                                                <sys:String x:Key="Condition">HasCurrentTarget</sys:String>
                                                                                             </Button.Resources>
                                                                                             <Button.CommandParameter>
                                                                                                 <MultiBinding Converter="{StaticResource ConditionAddConverter}">

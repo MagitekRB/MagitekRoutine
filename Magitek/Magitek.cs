@@ -66,6 +66,7 @@ namespace Magitek
 
             TogglesManager.LoadTogglesForCurrentJob();
             RegisterOpenerHotkey();
+            RegisterResetOpenerHotkey();
             CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
             Logger.WriteInfo("Initialized");
         }
