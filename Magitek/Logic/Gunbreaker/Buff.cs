@@ -48,15 +48,18 @@ namespace Magitek.Logic.Gunbreaker
             if (Casting.LastSpell == Spells.LightningShot)
                 return false;
 
-            if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD) && ((Cartridge == 3) || Casting.LastSpell == Spells.Bloodfest) && Spells.NoMercy.IsKnownAndReady(1000))
+            if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD) && (Cartridge == 3 || Casting.LastSpell == Spells.Bloodfest) && Spells.NoMercy.IsKnownAndReady(1000))
             {
-                if(Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+
+                if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
                 {
+
                     if (!await UseFatedCircle())
                         return false;
                 }
                 else
                 {
+
                     if (!await UseBurstStrike())
                         return false;
                 }

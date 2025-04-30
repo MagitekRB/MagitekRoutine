@@ -111,7 +111,7 @@ namespace Magitek.Models.Gunbreaker
         public bool UseFatedBrand { get; set; }
 
         [Setting]
-        [DefaultValue(2)]
+        [DefaultValue(3)]
         public int UseAoeEnemies { get; set; }
 
         [Setting]

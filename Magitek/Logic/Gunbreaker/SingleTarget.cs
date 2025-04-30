@@ -252,13 +252,13 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
-                //    return false;
+            //if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+            //    return false;
 
                 if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
-            if(Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
+            if(Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady() || Spells.SonicBreak.IsKnownAndReadyAndCastable())
                 return false;
 
             return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
@@ -291,8 +291,8 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.HasAura(Auras.ReadyToReign))
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
-                return false;
+            //if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            //  return false;
 
             if (Spells.DoubleDown.IsKnownAndReady(1000) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
