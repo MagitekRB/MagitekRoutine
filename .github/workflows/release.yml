@@ -4,6 +4,7 @@ on:
   pull_request:
     types: [closed]
     branches: [ "master" ]
+  workflow_dispatch:
 
 permissions: write-all
 
@@ -12,6 +13,8 @@ jobs:
     name: "Release"
     runs-on: windows-latest
     if: github.event.pull_request.merged == true
+
+    permissions: write-all
 
     steps:
     - uses: actions/checkout@v4
