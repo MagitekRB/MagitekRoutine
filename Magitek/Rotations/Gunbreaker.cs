@@ -72,19 +72,24 @@ namespace Magitek.Rotations
 
             }
 
-            if (await Buff.Bloodfest()) return true;
-            if (await Buff.NoMercy()) return true;
-            if (await SingleTarget.BlastingZone()) return true;
-            if (await Aoe.BowShock()) return true;
+            if (GunbreakerRoutine.GlobalCooldown.CanWeave(1))
+            {
+                if (await Buff.Bloodfest()) return true;
+            }
 
-            //oGCD to use with BurstStrike
-            if (await Aoe.FatedBrand()) return true;
-            if (await SingleTarget.Hypervelocity()) return true;
+                if (await Buff.NoMercy()) return true;
+                if (await SingleTarget.BlastingZone()) return true;
+                if (await Aoe.BowShock()) return true;
 
-            //oGCD to use inside Combo 2
-            if (await SingleTarget.EyeGouge()) return true;
-            if (await SingleTarget.AbdomenTear()) return true;
-            if (await SingleTarget.JugularRip()) return true;
+                //oGCD to use with BurstStrike
+                if (await Aoe.FatedBrand()) return true;
+                if (await SingleTarget.Hypervelocity()) return true;
+
+                //oGCD to use inside Combo 2
+                if (await SingleTarget.EyeGouge()) return true;
+                if (await SingleTarget.AbdomenTear()) return true;
+                if (await SingleTarget.JugularRip()) return true;
+
 
             //Pull or get back aggro with LightningShot
             if (await SingleTarget.LightningShotToPullOrAggro()) return true;
