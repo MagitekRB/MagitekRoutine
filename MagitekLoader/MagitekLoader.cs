@@ -304,24 +304,54 @@ public class CombatRoutineLoader : CombatRoutine
     private static bool Clean(string directory)
     {
         foreach (var file in new DirectoryInfo(directory).GetFiles())
-            try
+        {
+            bool deleted = false;
+            int attempts = 0;
+            while (!deleted && attempts < 3)
             {
-                file.Delete();
+                try
+                {
+                    file.Delete();
+                    deleted = true;
+                }
+                catch (Exception e)
+                {
+                    Log($"[Error] Could not delete file {file.Name}: {e.Message}");
+                    attempts++;
+                    Task.Delay(1000).Wait();
+                }
             }
-            catch
+            if (!deleted)
             {
+                Log($"[Error] Failed to delete file {file.Name} after 3 attempts.");
                 return false;
             }
+        }
 
         foreach (var dir in new DirectoryInfo(directory).GetDirectories())
-            try
+        {
+            bool deleted = false;
+            int attempts = 0;
+            while (!deleted && attempts < 3)
             {
-                dir.Delete(true);
+                try
+                {
+                    dir.Delete(true);
+                    deleted = true;
+                }
+                catch (Exception e)
+                {
+                    Log($"[Error] Could not delete directory {dir.Name}: {e.Message}");
+                    attempts++;
+                    Task.Delay(1000).Wait();
+                }
             }
-            catch
+            if (!deleted)
             {
+                Log($"[Error] Failed to delete directory {dir.Name} after 3 attempts.");
                 return false;
             }
+        }
 
         return true;
     }
