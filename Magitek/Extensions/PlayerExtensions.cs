@@ -33,6 +33,11 @@ namespace Magitek.Extensions
             return true;
         }
 
+        public static bool OnOccultCrescent(this LocalPlayer player)
+        {
+            return WorldManager.ZoneId == 1252;
+        }
+
         private static readonly HashSet<ushort> PvpMaps = new HashSet<ushort>()
         {
             149,
