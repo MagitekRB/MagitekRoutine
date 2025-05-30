@@ -25,6 +25,9 @@ namespace Magitek.Utilities
         {
             if (Core.Me.InCombat) return States.InProgress; //If we're in Combat, don't even continue, it doesn't matter if we're in a duty or not, just unblock our actions and tell us we're in Progress
 
+            // In Occult Crescent
+            if (WorldManager.ZoneId == 1252) return States.InProgress;
+
             if (DirectorManager.ActiveDirector == null) return States.NotInDuty;
 
             if (DirectorManager.ActiveDirector.DirectorType != DirectorType.InstanceContent) return States.NotInDuty;
