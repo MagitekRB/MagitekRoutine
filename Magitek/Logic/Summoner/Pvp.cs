@@ -105,7 +105,7 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() && Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             return await Spells.RadiantAegisPvp.Cast(Core.Me);
