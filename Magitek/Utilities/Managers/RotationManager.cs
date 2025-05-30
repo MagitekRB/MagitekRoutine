@@ -3,6 +3,7 @@ using ff14bot.Enums;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic;
+using Magitek.Logic.Roles;
 using Magitek.Models.Account;
 using PropertyChanged;
 using System;
@@ -192,7 +193,11 @@ namespace Magitek.Utilities.Managers
 
             if (await GambitLogic.Gambit())
                 return true;
+
             if (await CustomOpenerLogic.Opener())
+                return true;
+
+            if (await OccultCrescent.Execute())
                 return true;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Pull");
@@ -220,6 +225,9 @@ namespace Magitek.Utilities.Managers
             // Heal is pulsed even when not in combat.
             // which allows openers to be checked when not in combat.
             if (await CustomOpenerLogic.Opener())
+                return true;
+
+            if (await OccultCrescent.Execute())
                 return true;
 
             if (WorldManager.InSanctuary)
@@ -270,7 +278,11 @@ namespace Magitek.Utilities.Managers
 
             if (await GambitLogic.Gambit())
                 return true;
+
             if (await CustomOpenerLogic.Opener())
+                return true;
+
+            if (await OccultCrescent.Execute())
                 return true;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Combat");
