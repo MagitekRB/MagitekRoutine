@@ -27,6 +27,7 @@
         xmlns:gunbreaker="clr-namespace:Magitek.Views.UserControls.Gunbreaker"
         xmlns:viper="clr-namespace:Magitek.Views.UserControls.Viper"
         xmlns:pictomancer="clr-namespace:Magitek.Views.UserControls.Pictomancer"
+        xmlns:occultCrescent="clr-namespace:Magitek.Views.UserControls.OccultCrescent"
         Width="1000"
         Height="700"
         AllowsTransparency="True"
@@ -38,60 +39,77 @@
         WindowStyle="None">
 
     <Window.DataContext>
-        <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
+        <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
     </Window.DataContext>
 
     <Window.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </Window.Resources>
 
     <Grid>
-        <Border Background="{DynamicResource Background}" BorderBrush="{DynamicResource BlackBorder}" BorderThickness="1" CornerRadius="5,0,0,5" MouseLeftButtonDown="Drag">
+        <Border Background="{DynamicResource Background}"
+                BorderBrush="{DynamicResource BlackBorder}"
+                BorderThickness="1"
+                CornerRadius="5,0,0,5"
+                MouseLeftButtonDown="Drag">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="15" Opacity=".20" RenderingBias="Performance" ShadowDepth="0" />
+                <DropShadowEffect BlurRadius="15"
+                                  Opacity=".20"
+                                  RenderingBias="Performance"
+                                  ShadowDepth="0"/>
             </Border.Effect>
 
-            <TabControl FontSize="{Binding GeneralSettings.FontSize, Mode=TwoWay}" SelectionChanged="JobTabControlSelectionChanged">
+            <TabControl FontSize="{Binding GeneralSettings.FontSize, Mode=TwoWay}"
+                        SelectionChanged="JobTabControlSelectionChanged">
                 <TabControl.Style>
                     <Style TargetType="{x:Type TabControl}">
-                        <Setter Property="TabStripPlacement" Value="Left" />
+                        <Setter Property="TabStripPlacement"
+                                Value="Left"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type TabControl}">
 
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Background="{DynamicResource ClassSelectorBackground}" />
+                                        <Border Grid.Row="0"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                Background="{DynamicResource ClassSelectorBackground}"/>
 
-                                        <Border Grid.Row="0" Grid.Column="0">
+                                        <Border Grid.Row="0"
+                                                Grid.Column="0">
                                             <Border.Background>
-                                                <DrawingBrush Opacity="0." Stretch="None" TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute">
+                                                <DrawingBrush Opacity="0."
+                                                              Stretch="None"
+                                                              TileMode="Tile"
+                                                              Viewport="0,0,4,4"
+                                                              ViewportUnits="Absolute">
                                                     <DrawingBrush.Drawing>
                                                         <DrawingGroup>
                                                             <GeometryDrawing Brush="{DynamicResource LightSquareColor}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,0,1,1" />
-                                                                        <RectangleGeometry Rect="2,2,1,1" />
+                                                                        <RectangleGeometry Rect="0,0,1,1"/>
+                                                                        <RectangleGeometry Rect="2,2,1,1"/>
                                                                     </GeometryGroup>
                                                                 </GeometryDrawing.Geometry>
                                                             </GeometryDrawing>
                                                             <GeometryDrawing Brush="{DynamicResource DarkSquareColor}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,1,1,1" />
-                                                                        <RectangleGeometry Rect="2,3,1,1" />
+                                                                        <RectangleGeometry Rect="0,1,1,1"/>
+                                                                        <RectangleGeometry Rect="2,3,1,1"/>
                                                                     </GeometryGroup>
                                                                 </GeometryDrawing.Geometry>
                                                             </GeometryDrawing>
@@ -102,56 +120,77 @@
                                         </Border>
 
                                         <!--  Top Bar  -->
-                                        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="30" CornerRadius="3,3,0,0">
+                                        <Border Grid.Row="0"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="3"
+                                                Height="30"
+                                                CornerRadius="3,3,0,0">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="0" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="0"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Rectangle Grid.Column="0" Width="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" Fill="{DynamicResource TabDividerVerticalRight}" />
+                                                <Rectangle Grid.Column="0"
+                                                           Width="2"
+                                                           HorizontalAlignment="Right"
+                                                           VerticalAlignment="Stretch"
+                                                           Fill="{DynamicResource TabDividerVerticalRight}"/>
                                                 <Rectangle Grid.Column="1"
                                                            Grid.ColumnSpan="4"
                                                            Height="2"
                                                            HorizontalAlignment="Stretch"
                                                            VerticalAlignment="Bottom"
-                                                           Fill="{DynamicResource TabDividerTop}" />
+                                                           Fill="{DynamicResource TabDividerTop}"/>
 
                                                 <Image Grid.Column="1"
                                                        Height="22"
                                                        Margin="30,0,0,0"
                                                        HorizontalAlignment="Left"
                                                        Source="https://cdn.shopify.com/s/files/1/1786/8211/files/MagitekLogo.png?8023689778259610034"
-                                                       Stretch="Uniform" />
+                                                       Stretch="Uniform"/>
 
-                                                <CheckBox Grid.Column="3" Width="12" Height="12" IsChecked="{Binding GeneralSettings.SettingsWindowTopMost, Mode=TwoWay}" Style="{DynamicResource TopMostLock}" />
-                                                <Button Grid.Column="4" Margin="5,0" VerticalAlignment="Center" Click="Close" Style="{DynamicResource CloseButton}" />
+                                                <CheckBox Grid.Column="3"
+                                                          Width="12"
+                                                          Height="12"
+                                                          IsChecked="{Binding GeneralSettings.SettingsWindowTopMost, Mode=TwoWay}"
+                                                          Style="{DynamicResource TopMostLock}"/>
+                                                <Button Grid.Column="4"
+                                                        Margin="5,0"
+                                                        VerticalAlignment="Center"
+                                                        Click="Close"
+                                                        Style="{DynamicResource CloseButton}"/>
 
                                             </Grid>
                                         </Border>
 
                                         <!--  Job Selector  -->
-                                        <Border Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                                        <Border Grid.Row="1"
+                                                Grid.Column="0">
                                             <Border.Background>
-                                                <DrawingBrush Opacity="0." Stretch="None" TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute">
+                                                <DrawingBrush Opacity="0."
+                                                              Stretch="None"
+                                                              TileMode="Tile"
+                                                              Viewport="0,0,4,4"
+                                                              ViewportUnits="Absolute">
                                                     <DrawingBrush.Drawing>
                                                         <DrawingGroup>
                                                             <GeometryDrawing Brush="{DynamicResource LightSquareColor}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,0,1,1" />
-                                                                        <RectangleGeometry Rect="2,2,1,1" />
+                                                                        <RectangleGeometry Rect="0,0,1,1"/>
+                                                                        <RectangleGeometry Rect="2,2,1,1"/>
                                                                     </GeometryGroup>
                                                                 </GeometryDrawing.Geometry>
                                                             </GeometryDrawing>
                                                             <GeometryDrawing Brush="{DynamicResource DarkSquareColor}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,1,1,1" />
-                                                                        <RectangleGeometry Rect="2,3,1,1" />
+                                                                        <RectangleGeometry Rect="0,1,1,1"/>
+                                                                        <RectangleGeometry Rect="2,3,1,1"/>
                                                                     </GeometryGroup>
                                                                 </GeometryDrawing.Geometry>
                                                             </GeometryDrawing>
@@ -162,42 +201,59 @@
 
                                             <Grid>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition />
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
                                                 </Grid.ColumnDefinitions>
-                                                <TabPanel Grid.Row="0" IsItemsHost="true" />
-                                                <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="2" Fill="{DynamicResource TabDividerVerticalLeft}" />
+                                                <ScrollViewer Grid.Row="0"
+                                                              VerticalScrollBarVisibility="Auto"
+                                                              HorizontalScrollBarVisibility="Disabled">
+                                                    <TabPanel IsItemsHost="true"/>
+                                                </ScrollViewer>
+                                                <Rectangle Grid.Row="0"
+                                                           Grid.RowSpan="2"
+                                                           Grid.Column="1"
+                                                           Width="2"
+                                                           Fill="{DynamicResource TabDividerVerticalLeft}"/>
                                             </Grid>
                                         </Border>
 
                                         <!--  Content  -->
-                                        <Border Grid.Row="1" Grid.Column="2" Background="{DynamicResource ClassSelectorBackground}" />
+                                        <Border Grid.Row="1"
+                                                Grid.Column="2"
+                                                Background="{DynamicResource ClassSelectorBackground}"/>
 
-                                        <ContentPresenter Grid.Row="1" Grid.Column="2" ContentSource="SelectedContent" />
+                                        <ContentPresenter Grid.Row="1"
+                                                          Grid.Column="2"
+                                                          ContentSource="SelectedContent"/>
 
                                         <!--  Bottom Bar  -->
-                                        <Border Grid.Row="2" Grid.Column="0">
+                                        <Border Grid.Row="2"
+                                                Grid.Column="0">
                                             <Border.Background>
-                                                <DrawingBrush Opacity="0." Stretch="None" TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute">
+                                                <DrawingBrush Opacity="0."
+                                                              Stretch="None"
+                                                              TileMode="Tile"
+                                                              Viewport="0,0,4,4"
+                                                              ViewportUnits="Absolute">
                                                     <DrawingBrush.Drawing>
                                                         <DrawingGroup>
                                                             <GeometryDrawing Brush="{DynamicResource LightSquareColor}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,0,1,1" />
-                                                                        <RectangleGeometry Rect="2,2,1,1" />
+                                                                        <RectangleGeometry Rect="0,0,1,1"/>
+                                                                        <RectangleGeometry Rect="2,2,1,1"/>
                                                                     </GeometryGroup>
                                                                 </GeometryDrawing.Geometry>
                                                             </GeometryDrawing>
                                                             <GeometryDrawing Brush="{DynamicResource DarkSquareColor}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
-                                                                        <RectangleGeometry Rect="0,1,1,1" />
-                                                                        <RectangleGeometry Rect="2,3,1,1" />
+                                                                        <RectangleGeometry Rect="0,1,1,1"/>
+                                                                        <RectangleGeometry Rect="2,3,1,1"/>
                                                                     </GeometryGroup>
                                                                 </GeometryDrawing.Geometry>
                                                             </GeometryDrawing>
@@ -207,49 +263,78 @@
                                             </Border.Background>
                                         </Border>
 
-                                        <Rectangle Grid.Row="2" Grid.Column="0" Width="2" HorizontalAlignment="Right" Fill="{DynamicResource TabDividerVerticalRight}" />
+                                        <Rectangle Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Width="2"
+                                                   HorizontalAlignment="Right"
+                                                   Fill="{DynamicResource TabDividerVerticalRight}"/>
 
-                                        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="{DynamicResource ClassSelectorBackground}" />
+                                        <Border Grid.Row="2"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                Background="{DynamicResource ClassSelectorBackground}"/>
 
-                                        <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="30">
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="1"
+                                              Grid.ColumnSpan="2"
+                                              Height="30">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="200" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
 
                                             <Grid Grid.Column="0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Button Grid.Column="0" Click="DebuggingClick" Style="{DynamicResource TabButtonDebugging}" />
-                                                <Rectangle Grid.Column="1" Width="2" Fill="{DynamicResource TabDividerVerticalRight}" />
-                                                <Button Grid.Column="2" Command="{Binding ShowSettingsModal}" Style="{DynamicResource TabButtonSettings}" />
-                                                <Rectangle Grid.Column="3" Width="2" Fill="{DynamicResource TabDividerVerticalRight}" />
-                                                <Button Grid.Column="4" Click="OpenersClick" Style="{DynamicResource TabButtonOpeners}" />
-                                                <Rectangle Grid.Column="5" Width="2" Fill="{DynamicResource TabDividerVerticalRight}" />
-                                                <Button Grid.Column="6" Click="GambitsClick" Style="{DynamicResource TabButtonGambits}" />
-                                                <Rectangle Grid.Column="7" Width="2" Fill="{DynamicResource TabDividerVerticalRight}" />
+                                                <Button Grid.Column="0"
+                                                        Click="DebuggingClick"
+                                                        Style="{DynamicResource TabButtonDebugging}"/>
+                                                <Rectangle Grid.Column="1"
+                                                           Width="2"
+                                                           Fill="{DynamicResource TabDividerVerticalRight}"/>
+                                                <Button Grid.Column="2"
+                                                        Command="{Binding ShowSettingsModal}"
+                                                        Style="{DynamicResource TabButtonSettings}"/>
+                                                <Rectangle Grid.Column="3"
+                                                           Width="2"
+                                                           Fill="{DynamicResource TabDividerVerticalRight}"/>
+                                                <Button Grid.Column="4"
+                                                        Click="OpenersClick"
+                                                        Style="{DynamicResource TabButtonOpeners}"/>
+                                                <Rectangle Grid.Column="5"
+                                                           Width="2"
+                                                           Fill="{DynamicResource TabDividerVerticalRight}"/>
+                                                <Button Grid.Column="6"
+                                                        Click="GambitsClick"
+                                                        Style="{DynamicResource TabButtonGambits}"/>
+                                                <Rectangle Grid.Column="7"
+                                                           Width="2"
+                                                           Fill="{DynamicResource TabDividerVerticalRight}"/>
                                             </Grid>
 
-                                            <Border Grid.Column="1" Grid.ColumnSpan="3" Margin="2,0,0,0" Background="{DynamicResource ClassSelectorBackground}" />
+                                            <Border Grid.Column="1"
+                                                    Grid.ColumnSpan="3"
+                                                    Margin="2,0,0,0"
+                                                    Background="{DynamicResource ClassSelectorBackground}"/>
                                             <Rectangle Grid.Column="0"
                                                        Grid.ColumnSpan="4"
                                                        Height="2"
                                                        HorizontalAlignment="Stretch"
                                                        VerticalAlignment="Top"
-                                                       Fill="{DynamicResource TabDivider}" />
+                                                       Fill="{DynamicResource TabDivider}"/>
 
                                             <TextBlock Grid.Column="3"
                                                        Margin="0,0,7,0"
@@ -264,719 +349,956 @@
                     </Style>
                 </TabControl.Style>
 
-                <TabItem Name="GambitsTab" Style="{x:Null}" Visibility="Collapsed">
-                    <customControls:GambitsControl />
+                <TabItem Name="GambitsTab"
+                         Style="{x:Null}"
+                         Visibility="Collapsed">
+                    <customControls:GambitsControl/>
                 </TabItem>
 
-                <TabItem Name="OpenersTab" Style="{x:Null}" Visibility="Collapsed">
-                    <customControls:OpenersControl />
+                <TabItem Name="OpenersTab"
+                         Style="{x:Null}"
+                         Visibility="Collapsed">
+                    <customControls:OpenersControl/>
                 </TabItem>
 
-                <TabItem Name="DebuggingTab" Style="{x:Null}" Visibility="Collapsed">
+                <TabItem Name="DebuggingTab"
+                         Style="{x:Null}"
+                         Visibility="Collapsed">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
 
-                        <TabItem Header="Debugging" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:Debug />
+                        <TabItem Header="Debugging"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:Debug/>
                         </TabItem>
 
-                        <TabItem Header="Healing Priority" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:HealingPriority />
+                        <TabItem Header="Healing Priority"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:HealingPriority/>
                         </TabItem>
 
-                        <TabItem Header="Enemy Spell Casts" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:EnemySpellCasts />
+                        <TabItem Header="Enemy Spell Casts"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:EnemySpellCasts/>
                         </TabItem>
 
-                        <TabItem Header="Enemy Aura History" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:EnemyAuras />
+                        <TabItem Header="Enemy Aura History"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:EnemyAuras/>
                         </TabItem>
 
-                        <TabItem Header="Enemy Target History" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:EnemyTargets />
+                        <TabItem Header="Enemy Target History"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:EnemyTargets/>
                         </TabItem>
 
-                        <TabItem Header="Party Member Aura History" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:PartyMemberAuras />
+                        <TabItem Header="Party Member Aura History"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:PartyMemberAuras/>
                         </TabItem>
 
-                        <TabItem Header="Enmity" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:Enmity />
+                        <TabItem Header="Enmity"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:Enmity/>
                         </TabItem>
 
-                        <TabItem Header="Healing Lists" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:HealingLists />
+                        <TabItem Header="Healing Lists"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:HealingLists/>
                         </TabItem>
 
-                        <TabItem Header="Player Spell Cast History" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:SpellCastHistory />
+                        <TabItem Header="Player Spell Cast History"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:SpellCastHistory/>
                         </TabItem>
 
-                        <TabItem Header="Fight Logic" Style="{DynamicResource MainTabNewBugReport}">
-                            <bugs:FightLogic />
+                        <TabItem Header="Fight Logic"
+                                 Style="{DynamicResource MainTabNewBugReport}">
+                            <bugs:FightLogic/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Home" Header="Home" Style="{DynamicResource MainTabHome}">
-                    <customControls:CurrentNews />
+                <TabItem Name="Home"
+                         Header="Home"
+                         Style="{DynamicResource MainTabHome}">
+                    <customControls:CurrentNews/>
                 </TabItem>
 
-                <TabItem Name="Paladin" Style="{DynamicResource TabItemPaladin}">
+                <TabItem Name="Paladin"
+                         Style="{DynamicResource TabItemPaladin}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Combat" Style="{DynamicResource MainTabCombat}">
-                            <paladin:Combat />
+                        <TabItem Header="Combat"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <paladin:Combat/>
                         </TabItem>
-                        <TabItem Header="Aggro" Style="{DynamicResource MainTabAggro}">
-                            <paladin:Aggro />
+                        <TabItem Header="Aggro"
+                                 Style="{DynamicResource MainTabAggro}">
+                            <paladin:Aggro/>
                         </TabItem>
-                        <TabItem Header="Healing" Style="{DynamicResource MainTabHealing}">
-                            <paladin:Healing />
+                        <TabItem Header="Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <paladin:Healing/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <paladin:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <paladin:Buffs/>
                         </TabItem>
-                        <TabItem Header="Defensives" Style="{DynamicResource MainTabDefensives}">
-                            <paladin:Defensives />
+                        <TabItem Header="Defensives"
+                                 Style="{DynamicResource MainTabDefensives}">
+                            <paladin:Defensives/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <paladin:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <paladin:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <paladin:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <paladin:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Warrior" Style="{DynamicResource TabItemWarrior}">
+                <TabItem Name="Warrior"
+                         Style="{DynamicResource TabItemWarrior}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Combat" Style="{DynamicResource MainTabCombat}">
-                            <warrior:Combat />
+                        <TabItem Header="Combat"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <warrior:Combat/>
                         </TabItem>
-                        <TabItem Header="Aggro" Style="{DynamicResource MainTabAggro}">
-                            <warrior:Aggro />
+                        <TabItem Header="Aggro"
+                                 Style="{DynamicResource MainTabAggro}">
+                            <warrior:Aggro/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <warrior:Buff />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <warrior:Buff/>
                         </TabItem>
-                        <TabItem Header="Defensives" Style="{DynamicResource MainTabDefensives}">
-                            <warrior:Defensives />
+                        <TabItem Header="Defensives"
+                                 Style="{DynamicResource MainTabDefensives}">
+                            <warrior:Defensives/>
                         </TabItem>
-                        <TabItem Header="Healing" Style="{DynamicResource MainTabHealing}">
-                            <warrior:Healing />
+                        <TabItem Header="Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <warrior:Healing/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <warrior:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <warrior:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <warrior:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <warrior:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
 
                 </TabItem>
 
-                <TabItem Name="DarkKnight" Style="{DynamicResource TabItemDarkknight}">
+                <TabItem Name="DarkKnight"
+                         Style="{DynamicResource TabItemDarkknight}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Combat" Style="{DynamicResource MainTabCombat}">
-                            <darkknight:Combat />
+                        <TabItem Header="Combat"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <darkknight:Combat/>
                         </TabItem>
-                        <TabItem Header="Aggro" Style="{DynamicResource MainTabAggro}">
-                            <darkknight:Aggro />
+                        <TabItem Header="Aggro"
+                                 Style="{DynamicResource MainTabAggro}">
+                            <darkknight:Aggro/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <darkknight:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <darkknight:Buffs/>
                         </TabItem>
-                        <TabItem Header="Defensives" Style="{DynamicResource MainTabDefensives}">
-                            <darkknight:Defensives />
+                        <TabItem Header="Defensives"
+                                 Style="{DynamicResource MainTabDefensives}">
+                            <darkknight:Defensives/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <darkknight:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <darkknight:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <darkknight:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <darkknight:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Gunbreaker" Style="{DynamicResource TabItemGunbreaker}">
+                <TabItem Name="Gunbreaker"
+                         Style="{DynamicResource TabItemGunbreaker}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Combat" Style="{DynamicResource MainTabCombat}">
-                            <gunbreaker:Combat />
+                        <TabItem Header="Combat"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <gunbreaker:Combat/>
                         </TabItem>
-                        <TabItem Header="Healing" Style="{DynamicResource MainTabHealing}">
-                            <gunbreaker:Healing />
+                        <TabItem Header="Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <gunbreaker:Healing/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <gunbreaker:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <gunbreaker:Buffs/>
                         </TabItem>
-                        <TabItem Header="Defensives" Style="{DynamicResource MainTabDefensives}">
-                            <gunbreaker:Defensives />
+                        <TabItem Header="Defensives"
+                                 Style="{DynamicResource MainTabDefensives}">
+                            <gunbreaker:Defensives/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <gunbreaker:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <gunbreaker:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <gunbreaker:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <gunbreaker:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Scholar" Style="{DynamicResource TabItemScholar}">
+                <TabItem Name="Scholar"
+                         Style="{DynamicResource TabItemScholar}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <lists:Dispelling />
+                        <TabItem Header="High Priority Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <scholar:DispelOptions />
+                        <TabItem Header="General Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <scholar:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="General Combat " Style="{DynamicResource MainTabCombat}">
-                            <scholar:Combat />
+                        <TabItem Header="General Combat "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <scholar:Combat/>
                         </TabItem>
-                        <TabItem Header="Damage Over Time" Style="{DynamicResource MainTabDots}">
-                            <scholar:DOTs />
+                        <TabItem Header="Damage Over Time"
+                                 Style="{DynamicResource MainTabDots}">
+                            <scholar:DOTs/>
                         </TabItem>
-                        <TabItem Header="Healing" Style="{DynamicResource MainTabHealing}">
-                            <scholar:Healing />
+                        <TabItem Header="Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <scholar:Healing/>
                         </TabItem>
-                        <TabItem Header="Aetherpact" Style="{DynamicResource MainTabHealing}">
-                            <scholar:Aetherpact />
+                        <TabItem Header="Aetherpact"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <scholar:Aetherpact/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <scholar:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <scholar:Buffs/>
                         </TabItem>
-                        <TabItem Header="Pets" Style="{DynamicResource MainTabPets}">
-                            <scholar:Pets />
+                        <TabItem Header="Pets"
+                                 Style="{DynamicResource MainTabPets}">
+                            <scholar:Pets/>
                         </TabItem>
-                        <TabItem Header="Alliance" Style="{DynamicResource MainTabAlliance}">
-                            <scholar:Alliance />
+                        <TabItem Header="Alliance"
+                                 Style="{DynamicResource MainTabAlliance}">
+                            <scholar:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <scholar:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <scholar:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <scholar:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <scholar:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="WhiteMage" Style="{DynamicResource TabItemWhiteMage}">
+                <TabItem Name="WhiteMage"
+                         Style="{DynamicResource TabItemWhiteMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <lists:Dispelling />
+                        <TabItem Header="High Priority Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <whitemage:DispelOptions />
+                        <TabItem Header="General Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <whitemage:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="General Combat " Style="{DynamicResource MainTabCombat}">
-                            <whitemage:Combat />
+                        <TabItem Header="General Combat "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <whitemage:Combat/>
                         </TabItem>
-                        <TabItem Header="Healing" Style="{DynamicResource MainTabHealing}">
-                            <whitemage:Healing />
+                        <TabItem Header="Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <whitemage:Healing/>
                         </TabItem>
-                        <TabItem Header="Regen" Style="{DynamicResource MainTabHealing}">
-                            <whitemage:Regen />
+                        <TabItem Header="Regen"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <whitemage:Regen/>
                         </TabItem>
-                        <TabItem Header="Assize" Style="{DynamicResource MainTabHealing}">
-                            <whitemage:Assize />
+                        <TabItem Header="Assize"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <whitemage:Assize/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <whitemage:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <whitemage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Alliance" Style="{DynamicResource MainTabAlliance}">
-                            <whitemage:Alliance />
+                        <TabItem Header="Alliance"
+                                 Style="{DynamicResource MainTabAlliance}">
+                            <whitemage:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <whitemage:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <whitemage:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <whitemage:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <whitemage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Astrologian" Style="{DynamicResource TabItemAstrologian}">
+                <TabItem Name="Astrologian"
+                         Style="{DynamicResource TabItemAstrologian}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <lists:Dispelling />
+                        <TabItem Header="High Priority Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <astrologian:DispelOptions />
+                        <TabItem Header="General Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <astrologian:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="Combat " Style="{DynamicResource MainTabCombat}">
-                            <astrologian:Combat />
+                        <TabItem Header="Combat "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <astrologian:Combat/>
                         </TabItem>
-                        <TabItem Header="General Healing" Style="{DynamicResource MainTabHealing}">
-                            <astrologian:Healing />
+                        <TabItem Header="General Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <astrologian:Healing/>
                         </TabItem>
-                        <TabItem Header="Aspected Healing" Style="{DynamicResource MainTabHealing}">
-                            <astrologian:DiurnalHealing />
+                        <TabItem Header="Aspected Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <astrologian:DiurnalHealing/>
                         </TabItem>
-                        <TabItem Header="Cards" Style="{DynamicResource MainTabCards}">
-                            <astrologian:Cards />
+                        <TabItem Header="Cards"
+                                 Style="{DynamicResource MainTabCards}">
+                            <astrologian:Cards/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <astrologian:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <astrologian:Buffs/>
                         </TabItem>
-                        <TabItem Header="Alliance" Style="{DynamicResource MainTabAlliance}">
-                            <astrologian:Alliance />
+                        <TabItem Header="Alliance"
+                                 Style="{DynamicResource MainTabAlliance}">
+                            <astrologian:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <astrologian:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <astrologian:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <astrologian:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <astrologian:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Sage" Style="{DynamicResource TabItemSage}">
+                <TabItem Name="Sage"
+                         Style="{DynamicResource TabItemSage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <lists:Dispelling />
+                        <TabItem Header="High Priority Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <sage:DispelOptions />
+                        <TabItem Header="General Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <sage:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="Combat " Style="{DynamicResource MainTabCombat}">
-                            <sage:Combat />
+                        <TabItem Header="Combat "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <sage:Combat/>
                         </TabItem>
-                        <TabItem Header="General Healing" Style="{DynamicResource MainTabHealing}">
-                            <sage:Healing />
+                        <TabItem Header="General Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <sage:Healing/>
                         </TabItem>
-                        <TabItem Header="Healing Options" Style="{DynamicResource MainTabHealing}">
-                            <sage:HealingOptions />
+                        <TabItem Header="Healing Options"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <sage:HealingOptions/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <sage:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <sage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Shields" Style="{DynamicResource MainTabBuffs}">
-                            <sage:Shield />
+                        <TabItem Header="Shields"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <sage:Shield/>
                         </TabItem>
-                        <TabItem Header="Alliance" Style="{DynamicResource MainTabAlliance}">
-                            <sage:Alliance />
+                        <TabItem Header="Alliance"
+                                 Style="{DynamicResource MainTabAlliance}">
+                            <sage:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <sage:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <sage:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <sage:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <sage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="BlackMage" Style="{DynamicResource TabItemBlackMage}">
+                <TabItem Name="BlackMage"
+                         Style="{DynamicResource TabItemBlackMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target" Style="{DynamicResource MainTabCombat}">
-                            <blackMage:SingleTarget />
+                        <TabItem Header="Single Target"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <blackMage:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <blackMage:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <blackMage:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <blackMage:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <blackMage:Buffs/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <blackMage:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <blackMage:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <blackMage:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <blackMage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Summoner" Style="{DynamicResource TabItemSummoner}">
+                <TabItem Name="Summoner"
+                         Style="{DynamicResource TabItemSummoner}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="General" Style="{DynamicResource MainTabCombat}">
-                            <summoner:General />
+                        <TabItem Header="General"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <summoner:General/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <summoner:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <summoner:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <summoner:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <summoner:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="RedMage" Style="{DynamicResource TabItemRedMage}">
+                <TabItem Name="RedMage"
+                         Style="{DynamicResource TabItemRedMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <lists:Dispelling />
+                        <TabItem Header="Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="Single Target" Style="{DynamicResource MainTabCombat}">
-                            <redMage:SingleTarget />
+                        <TabItem Header="Single Target"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <redMage:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <redMage:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <redMage:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <redMage:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <redMage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Healing" Style="{DynamicResource MainTabHealing}">
-                            <redMage:Heal />
+                        <TabItem Header="Healing"
+                                 Style="{DynamicResource MainTabHealing}">
+                            <redMage:Heal/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <redMage:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <redMage:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <redMage:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <redMage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Pictomancer" Style="{DynamicResource TabItemPictomancer}">
+                <TabItem Name="Pictomancer"
+                         Style="{DynamicResource TabItemPictomancer}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Paint " Style="{DynamicResource MainTabCombat}">
-                            <pictomancer:Paint />
+                        <TabItem Header="Paint "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <pictomancer:Paint/>
                         </TabItem>
-                        <TabItem Header="Palettes " Style="{DynamicResource MainTabAoe}">
-                            <pictomancer:Palettes />
+                        <TabItem Header="Palettes "
+                                 Style="{DynamicResource MainTabAoe}">
+                            <pictomancer:Palettes/>
                         </TabItem>
-                        <TabItem Header="Utilities " Style="{DynamicResource MainTabUtilities}">
-                            <pictomancer:Utility />
+                        <TabItem Header="Utilities "
+                                 Style="{DynamicResource MainTabUtilities}">
+                            <pictomancer:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <pictomancer:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <pictomancer:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <pictomancer:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <pictomancer:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Machinist" Style="{DynamicResource TabItemMachinist}">
+                <TabItem Name="Machinist"
+                         Style="{DynamicResource TabItemMachinist}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <machinist:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <machinist:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <machinist:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <machinist:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <machinist:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <machinist:Buffs/>
                         </TabItem>
-                        <TabItem Header="Turrets " Style="{DynamicResource MainTabCombat}">
-                            <machinist:Turrets />
+                        <TabItem Header="Turrets "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <machinist:Turrets/>
                         </TabItem>
-                        <TabItem Header="Utilities " Style="{DynamicResource MainTabCombat}">
-                            <machinist:Utilities />
+                        <TabItem Header="Utilities "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <machinist:Utilities/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <machinist:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <machinist:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP " Style="{DynamicResource MainTabCombat}">
-                            <machinist:Pvp />
+                        <TabItem Header="PVP "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <machinist:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Bard" Style="{DynamicResource TabItemBard}">
+                <TabItem Name="Bard"
+                         Style="{DynamicResource TabItemBard}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Dispels" Style="{DynamicResource MainTabDispelling}">
-                            <lists:Dispelling />
+                        <TabItem Header="Dispels"
+                                 Style="{DynamicResource MainTabDispelling}">
+                            <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <bard:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <bard:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Damage Over Time " Style="{DynamicResource MainTabDamageOverTime}">
-                            <bard:DamageOverTime />
+                        <TabItem Header="Damage Over Time "
+                                 Style="{DynamicResource MainTabDamageOverTime}">
+                            <bard:DamageOverTime/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <bard:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <bard:Aoe/>
                         </TabItem>
-                        <TabItem Header="Cooldowns" Style="{DynamicResource MainTabBuffs}">
-                            <bard:Cooldowns />
+                        <TabItem Header="Cooldowns"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <bard:Cooldowns/>
                         </TabItem>
-                        <TabItem Header="Songs" Style="{DynamicResource MainTabSongs}">
-                            <bard:Songs />
+                        <TabItem Header="Songs"
+                                 Style="{DynamicResource MainTabSongs}">
+                            <bard:Songs/>
                         </TabItem>
-                        <TabItem Header="Utilities" Style="{DynamicResource MainTabUtilities}">
-                            <bard:Utilities />
+                        <TabItem Header="Utilities"
+                                 Style="{DynamicResource MainTabUtilities}">
+                            <bard:Utilities/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <bard:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <bard:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <bard:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <bard:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Dancer" Style="{DynamicResource TabItemDancer}">
+                <TabItem Name="Dancer"
+                         Style="{DynamicResource TabItemDancer}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="General " Style="{DynamicResource MainTabCombat}">
-                            <dancer:General />
+                        <TabItem Header="General "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <dancer:General/>
                         </TabItem>
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <dancer:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <dancer:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect " Style="{DynamicResource MainTabAoe}">
-                            <dancer:Aoe />
+                        <TabItem Header="Area Of Effect "
+                                 Style="{DynamicResource MainTabAoe}">
+                            <dancer:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <dancer:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <dancer:Buffs/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <dancer:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <dancer:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <dancer:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <dancer:Pvp/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Dragoon" Style="{DynamicResource TabItemDragoon}">
+                <TabItem Name="Dragoon"
+                         Style="{DynamicResource TabItemDragoon}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <dragoon:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <dragoon:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <dragoon:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <dragoon:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <dragoon:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <dragoon:Buffs/>
                         </TabItem>
-                        <TabItem Header="Jumps" Style="{DynamicResource MainTabCombat}">
-                            <dragoon:Jumps />
+                        <TabItem Header="Jumps"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <dragoon:Jumps/>
                         </TabItem>
-                        <TabItem Header="Defensives" Style="{DynamicResource MainTabDefensives}">
-                            <dragoon:Defensives />
+                        <TabItem Header="Defensives"
+                                 Style="{DynamicResource MainTabDefensives}">
+                            <dragoon:Defensives/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <dragoon:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <dragoon:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <dragoon:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <dragoon:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Monk" Style="{DynamicResource TabItemMonk}">
+                <TabItem Name="Monk"
+                         Style="{DynamicResource TabItemMonk}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <monk:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <monk:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <monk:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <monk:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <monk:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <monk:Buffs/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <monk:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <monk:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <monk:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <monk:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Ninja" Style="{DynamicResource TabItemNinja}">
+                <TabItem Name="Ninja"
+                         Style="{DynamicResource TabItemNinja}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <ninja:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <ninja:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <ninja:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <ninja:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <ninja:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <ninja:Buffs/>
                         </TabItem>
-                        <TabItem Header="Ninjutsu" Style="{DynamicResource MainTabBuffs}">
-                            <ninja:Ninjutsu />
+                        <TabItem Header="Ninjutsu"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <ninja:Ninjutsu/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <ninja:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <ninja:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <ninja:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <ninja:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Samurai" Style="{DynamicResource TabItemSamurai}">
+                <TabItem Name="Samurai"
+                         Style="{DynamicResource TabItemSamurai}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <samurai:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <samurai:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <samurai:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <samurai:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <samurai:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <samurai:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities" Style="{DynamicResource MainTabUtilities}">
-                            <samurai:Utility />
+                        <TabItem Header="Utilities"
+                                 Style="{DynamicResource MainTabUtilities}">
+                            <samurai:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <samurai:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <samurai:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <samurai:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <samurai:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Reaper" Style="{DynamicResource TabItemReaper}">
+                <TabItem Name="Reaper"
+                         Style="{DynamicResource TabItemReaper}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <reaper:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <reaper:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="AoE " Style="{DynamicResource MainTabAoe}">
-                            <reaper:AoE />
+                        <TabItem Header="AoE "
+                                 Style="{DynamicResource MainTabAoe}">
+                            <reaper:AoE/>
                         </TabItem>
-                        <TabItem Header="Utilities " Style="{DynamicResource MainTabUtilities}">
-                            <reaper:Utility />
+                        <TabItem Header="Utilities "
+                                 Style="{DynamicResource MainTabUtilities}">
+                            <reaper:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <reaper:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <reaper:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp" Style="{DynamicResource MainTabCombat}">
-                            <reaper:Pvp />
+                        <TabItem Header="Pvp"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <reaper:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="Viper" Style="{DynamicResource TabItemViper}">
+                <TabItem Name="Viper"
+                         Style="{DynamicResource TabItemViper}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <viper:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <viper:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="AoE " Style="{DynamicResource MainTabAoe}">
-                            <viper:AoE />
+                        <TabItem Header="AoE "
+                                 Style="{DynamicResource MainTabAoe}">
+                            <viper:AoE/>
                         </TabItem>
-                        <TabItem Header="Buff " Style="{DynamicResource MainTabBuffs}">
-                            <viper:Buffs />
+                        <TabItem Header="Buff "
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <viper:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities " Style="{DynamicResource MainTabUtilities}">
-                            <viper:Utility />
+                        <TabItem Header="Utilities "
+                                 Style="{DynamicResource MainTabUtilities}">
+                            <viper:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <viper:FightLogic />
+                        <TabItem Header="FightLogic"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <viper:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP" Style="{DynamicResource MainTabCombat}">
-                            <viper:Pvp />
+                        <TabItem Header="PVP"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <viper:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
 
-                <TabItem Name="BlueMage" Style="{DynamicResource TabItemBlueMage}">
+                <TabItem Name="BlueMage"
+                         Style="{DynamicResource TabItemBlueMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target " Style="{DynamicResource MainTabCombat}">
-                            <blueMage:SingleTarget />
+                        <TabItem Header="Single Target "
+                                 Style="{DynamicResource MainTabCombat}">
+                            <blueMage:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect" Style="{DynamicResource MainTabAoe}">
-                            <blueMage:Aoe />
+                        <TabItem Header="Area Of Effect"
+                                 Style="{DynamicResource MainTabAoe}">
+                            <blueMage:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs" Style="{DynamicResource MainTabBuffs}">
-                            <blueMage:Buffs />
+                        <TabItem Header="Buffs"
+                                 Style="{DynamicResource MainTabBuffs}">
+                            <blueMage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities" Style="{DynamicResource MainTabUtilities}">
-                            <blueMage:Utilities />
+                        <TabItem Header="Utilities"
+                                 Style="{DynamicResource MainTabUtilities}">
+                            <blueMage:Utilities/>
                         </TabItem>
-                        <TabItem Header="Toggles" Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings />
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns" Style="{DynamicResource MainTabInterruptsAndStuns}">
-                            <lists:InterruptsAndStuns />
+                        <TabItem Header="Interrupts and Stuns"
+                                 Style="{DynamicResource MainTabInterruptsAndStuns}">
+                            <lists:InterruptsAndStuns/>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+
+                <TabItem Name="OccultCrescent"
+                         Style="{DynamicResource TabItemOccultCrescent}">
+                    <TabControl Style="{DynamicResource JobOptionsTabControl}">
+                        <TabItem Header="General"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <occultCrescent:General/>
+                        </TabItem>
+                        <TabItem Header="Toggles"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
