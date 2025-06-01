@@ -21,12 +21,16 @@
                 <StackPanel Margin="5">
                     <TextBlock Style="{DynamicResource TextBlockSection}"
                                Text="General Settings"/>
+
+                    <!-- Enable OC System -->
                     <StackPanel Margin="5"
                                 Orientation="Horizontal">
                         <CheckBox Content="Enable Occult Crescent Phantom Job System"
                                   IsChecked="{Binding Enable, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
+
+                    <!-- OC System Description -->
                     <TextBlock Margin="5"
                                Style="{DynamicResource TextBlockDefault}"
                                TextWrapping="Wrap"
@@ -35,6 +39,63 @@
                         <LineBreak/>
                         <Run Text="Magitek automatically detects your current Phantom Job and uses abilities accordingly."/>
                     </TextBlock>
+
+                    <!-- Party Buff Refresh Time Setting -->
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text="Party buff refresh time:"/>
+                        <controls:Numeric MinValue="1"
+                                          MaxValue="30"
+                                          Value="{Binding PartyBuffRefreshMinutes, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" minutes"/>
+                    </StackPanel>
+
+                    <!-- Party Buff Refresh Description -->
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals."/>
+
+                    <!-- Non-Party Resurrection Settings -->
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Revive Non-Party Dead Players (excess mana only)"
+                                  IsChecked="{Binding ReviveNonPartyPlayers, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text="Min MP for Non-Party Revive: "/>
+                        <controls:Numeric MinValue="50"
+                                          MaxValue="100"
+                                          Value="{Binding ReviveNonPartyMinimumManaPercent, Mode=TwoWay}"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Out of Combat"
+                                  IsChecked="{Binding ReviveNonPartyOutOfCombat, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="In Combat"
+                                  IsChecked="{Binding ReviveNonPartyInCombat, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Foreground="Orange"
+                               Text="In combat: Uses Swiftcast/Dualcast only. Out of combat: Uses Swiftcast first, then slowcast if needed."/>
                 </StackPanel>
             </controls:SettingsBlock>
 
@@ -377,6 +438,106 @@
                                TextWrapping="Wrap"
                                FontStyle="Italic"
                                Text="Grouped abilities share restrictions as noted."/>
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <!-- Phantom Time Mage Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Time Mage"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Quick (Speed buff for cast/recast/movement)"
+                                  IsChecked="{Binding UseOccultQuick, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding OccultQuickCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Slowga (Inflicts Slow on enemies)"
+                                  IsChecked="{Binding UseOccultSlowga, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Mage Masher (Reduces enemy magic attack power)"
+                                  IsChecked="{Binding UseOccultMageMasher, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Dispel (Removes beneficial effects from enemies)"
+                                  IsChecked="{Binding UseOccultDispel, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Comet (AoE damage - 8s cast time)"
+                                  IsChecked="{Binding UseOccultComet, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Quick prioritizes casting party members. Comet has long cast time - use carefully."/>
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <!-- Phantom Ranger Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Ranger"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Phantom Aim (Damage buff - 120s cooldown)"
+                                  IsChecked="{Binding UsePhantomAim, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Falcon (Area attack)"
+                                  IsChecked="{Binding UseOccultFalcon, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Unicorn below"
+                                  IsChecked="{Binding UseOccultUnicorn, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding OccultUnicornHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding OccultUnicornCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Unicorn creates 40k damage absorb barrier for entire party. Falcon triggers traps."/>
                 </StackPanel>
             </controls:SettingsBlock>
 

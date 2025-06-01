@@ -15,6 +15,26 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(true)]
         public bool Enable { get; set; }
+
+        [Setting]
+        [DefaultValue(15.0f)]
+        public float PartyBuffRefreshMinutes { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool ReviveNonPartyPlayers { get; set; }
+
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float ReviveNonPartyMinimumManaPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool ReviveNonPartyOutOfCombat { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool ReviveNonPartyInCombat { get; set; }
         #endregion
 
         #region Phantom Bard
@@ -73,7 +93,7 @@ namespace Magitek.Models.OccultCrescent
         public bool UseOccultHeal { get; set; }
 
         [Setting]
-        [DefaultValue(50.0f)]
+        [DefaultValue(30.0f)]
         public float OccultHealHealthPercent { get; set; }
 
         [Setting]
@@ -203,6 +223,54 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(true)]
         public bool UseSilverCannon { get; set; }
+        #endregion
+
+        #region Phantom Time Mage
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultSlowga { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultComet { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultMageMasher { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultDispel { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultQuick { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultQuickCastOnAllies { get; set; }
+        #endregion
+
+        #region Phantom Ranger
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePhantomAim { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultFalcon { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultUnicorn { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float OccultUnicornHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultUnicornCastOnAllies { get; set; }
         #endregion
     }
 }

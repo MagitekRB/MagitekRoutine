@@ -1,5 +1,6 @@
 using Buddy.Coroutines;
 using ff14bot;
+using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 using System.Collections.Generic;
 using System;
+using Clio.Utilities;
 
 namespace Magitek.Logic.Roles
 {
@@ -21,7 +23,17 @@ namespace Magitek.Logic.Roles
             RomeosBallad = 4244,
             Pray = 4232,
             EnduringFortitude = 4233,
-            HerosRime = 0; // TODO: get real aura value 4248;
+            Slow = 3493,
+            HerosRime = 4249,
+            MagicAttackDebuff = 0,
+            QuickBuff = 0,
+            SilverSickness = 4264;
+
+        // Dispellable enemy auras - add known beneficial enemy auras here
+        public static readonly uint[] DispellableAuras = new uint[]
+        {
+
+        };
     }
 
     internal static class OCSpells
@@ -60,11 +72,39 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData DarkCannon = DataManager.GetSpellData(41628);
         public static readonly SpellData ShockCannon = DataManager.GetSpellData(41629);
         public static readonly SpellData SilverCannon = DataManager.GetSpellData(41630);
+
+        // Time Mage Spells
+        public static readonly SpellData OccultSlowga = DataManager.GetSpellData(41621);
+        public static readonly SpellData OccultComet = DataManager.GetSpellData(41623);
+        public static readonly SpellData OccultMageMasher = DataManager.GetSpellData(41624);
+        public static readonly SpellData OccultDispel = DataManager.GetSpellData(41622);
+        public static readonly SpellData OccultQuick = DataManager.GetSpellData(41625);
+
+        // Ranger Spells
+        public static readonly SpellData PhantomAim = DataManager.GetSpellData(41599);
+        public static readonly SpellData OccultFalcon = DataManager.GetSpellData(41601);
+        public static readonly SpellData OccultUnicorn = DataManager.GetSpellData(41602);
     }
 
     internal class OccultCrescent
     {
+        // 1500000 25 minutes
         private static readonly uint KnowledgeCrystal = 2007457;
+
+        // Known Knowledge Crystal locations that never change
+        private static readonly Vector3[] KnowledgeCrystalLocations = new[]
+        {
+            new Vector3(835.9902f, 75.12211f, -709.3925f),
+            new Vector3(-165.9937f, 8.5f, -616.4979f),
+            new Vector3(-347.2297f, 102.3273f, -124.1305f),
+            new Vector3(-393.0761f, 99.51316f, 278.7158f),
+            new Vector3(302.5914f, 105f, 313.6591f)
+        };
+
+        // Throttling for knowledge crystal checks
+        private static DateTime _lastCrystalCheck = DateTime.MinValue;
+        private static bool _lastCrystalResult = false;
+        private static readonly TimeSpan CrystalCheckInterval = TimeSpan.FromSeconds(1.0);
 
         private static readonly Dictionary<uint, PhantomJob> PhantomJobAuras = new()
         {
@@ -74,7 +114,9 @@ namespace Magitek.Logic.Roles
             { 4360, PhantomJob.Monk },
             { 4359, PhantomJob.Berserker },
             { 4367, PhantomJob.Chemist },
-            { 4366, PhantomJob.Cannoneer }
+            { 4366, PhantomJob.Cannoneer },
+            { 4365, PhantomJob.TimeMage },
+            { 4361, PhantomJob.Ranger }
         };
 
         public enum PhantomJob
@@ -85,7 +127,86 @@ namespace Magitek.Logic.Roles
             Monk,
             Berserker,
             Chemist,
-            Cannoneer
+            Cannoneer,
+            TimeMage,
+            Ranger
+        }
+
+        /// <summary>
+        /// Check if we are near a Knowledge Crystal at a known crystal location
+        /// Throttled to only check once per second for performance
+        /// </summary>
+        /// <param name="maxDistance">Maximum distance to consider "near" (default 5)</param>
+        /// <returns>True if a Knowledge Crystal is found within range at a valid location</returns>
+        private static bool IsNearKnowledgeCrystal(float maxDistance = 5.0f)
+        {
+            var now = DateTime.Now;
+
+            // Return cached result if we checked recently
+            if (now - _lastCrystalCheck < CrystalCheckInterval)
+                return _lastCrystalResult;
+
+            // Time to do a fresh check
+            _lastCrystalCheck = now;
+            _lastCrystalResult = PerformCrystalCheck(maxDistance);
+            return _lastCrystalResult;
+        }
+
+        /// <summary>
+        /// Performs the actual crystal proximity check
+        /// </summary>
+        /// <param name="maxDistance">Maximum distance to consider "near"</param>
+        /// <returns>True if near a valid crystal</returns>
+        private static bool PerformCrystalCheck(float maxDistance)
+        {
+            // Simply check if player is near any known crystal location
+            // No need for expensive NPC searches since crystal locations are fixed
+            var loc = Core.Me.Location;
+            foreach (var crystalLocation in KnowledgeCrystalLocations)
+            {
+                if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
+                    return true;
+            }
+            return false;
+
+            /* OLD APPROACH - NPC LOOKUP METHOD (preserved for reference)
+             * This was the original implementation that verified actual NPC existence
+             * 
+            // First, quickly check if player is near any known crystal location
+            // This avoids expensive NPC searches when we're nowhere near crystals
+            bool nearAnyLocation = false;
+            foreach (var crystalLocation in KnowledgeCrystalLocations)
+            {
+                if (Core.Me.Location.Distance(crystalLocation) <= maxDistance + 2.0f) // Add small buffer
+                {
+                    nearAnyLocation = true;
+                    break;
+                }
+            }
+
+            // If not near any crystal location, don't bother searching for NPCs
+            if (!nearAnyLocation)
+                return false;
+
+            // Only now do the expensive NPC search since we're near a crystal location
+            var targetNpc = GameObjectManager.GetObjectByNPCId(KnowledgeCrystal);
+            if (targetNpc == null || !targetNpc.IsValid || !targetNpc.IsVisible)
+                return false;
+
+            // Check if player is within range of the NPC
+            if (targetNpc.Distance(Core.Me) > maxDistance)
+                return false;
+
+            // Final verification: ensure NPC is at the expected crystal location
+            const float locationTolerance = 2.0f;
+            foreach (var crystalLocation in KnowledgeCrystalLocations)
+            {
+                if (targetNpc.Location.Distance(crystalLocation) <= locationTolerance)
+                    return true;
+            }
+
+            return false; // NPC found but not at a valid crystal location
+            */
         }
 
         /// <summary>
@@ -108,7 +229,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Execute phantom job specific logic
-            return phantomJob switch
+            var phantomJobResult = phantomJob switch
             {
                 PhantomJob.Bard => await ExecuteBardPhantomJob(),
                 PhantomJob.Knight => await ExecuteKnightPhantomJob(),
@@ -116,8 +237,171 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Berserker => await ExecuteBerserkerPhantomJob(),
                 PhantomJob.Chemist => await ExecuteChemistPhantomJob(),
                 PhantomJob.Cannoneer => await ExecuteCannoneerPhantomJob(),
+                PhantomJob.TimeMage => await ExecuteTimeMagePhantomJob(),
+                PhantomJob.Ranger => await ExecuteRangerPhantomJob(),
                 _ => false
             };
+
+            // If phantom job didn't do anything, try non-party resurrection
+            if (!phantomJobResult)
+                return await ExecuteNonPartyResurrection();
+
+            return phantomJobResult;
+        }
+
+        /// <summary>
+        /// Main entry point for non-party resurrection system
+        /// Works for all jobs with resurrection spells when in Occult Crescent content
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        public static async Task<bool> ExecuteNonPartyResurrection()
+        {
+            // Check if OC is enabled
+            if (!OccultCrescentSettings.Instance.Enable)
+                return false;
+
+            // Check if we're in Occult Crescent content
+            if (!Core.Me.OnOccultCrescent())
+                return false;
+
+            // Check if non-party resurrection is enabled
+            if (!OccultCrescentSettings.Instance.ReviveNonPartyPlayers)
+                return false;
+
+            // Only use excess mana for non-party resurrections
+            if (Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
+                return false;
+
+            // Check combat preferences
+            if (Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyInCombat)
+                return false;
+
+            if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyOutOfCombat)
+                return false;
+
+            return await RaiseNonPartyPlayer();
+        }
+
+        /// <summary>
+        /// Attempts to raise a non-party player using the appropriate resurrection spell for current job
+        /// Handles swiftcast/slowcast preferences and special cases like RDM dualcast
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> RaiseNonPartyPlayer()
+        {
+            // Find dead non-party players first
+            var deadNonPartyPlayers = GetDeadNonPartyPlayers();
+            if (!deadNonPartyPlayers.Any())
+                return false;
+
+            // Select the best candidate (prioritize by job role like normal resurrection)
+            var resurrectTarget = deadNonPartyPlayers
+                .OrderByDescending(player => player.GetResurrectionWeight())
+                .FirstOrDefault();
+
+            if (resurrectTarget == null)
+                return false;
+
+            // Get the current phantom job first
+            var phantomJob = GetCurrentPhantomJob();
+            if (phantomJob == PhantomJob.Chemist)
+            {
+                // Phantom Chemist: Instant resurrection
+                if (!OCSpells.Revive.CanCast())
+                    return false;
+                return await OCSpells.Revive.Cast(resurrectTarget);
+            }
+
+            // Handle regular job resurrections
+            return Core.Me.CurrentJob switch
+            {
+                ClassJobType.WhiteMage => await RaiseWithSwiftcastOptions(Spells.Raise, resurrectTarget),
+                ClassJobType.Scholar => await RaiseWithSwiftcastOptions(Spells.Resurrection, resurrectTarget),
+                ClassJobType.Astrologian => await RaiseWithSwiftcastOptions(Spells.Ascend, resurrectTarget),
+                ClassJobType.Sage => await RaiseWithSwiftcastOptions(Spells.Egeiro, resurrectTarget),
+                ClassJobType.Summoner => await RaiseWithSwiftcastOptions(Spells.Resurrection, resurrectTarget),
+                ClassJobType.RedMage => await RaiseRedMage(resurrectTarget),
+                _ => false
+            };
+        }
+
+        /// <summary>
+        /// Handles resurrection for jobs that can use Swiftcast
+        /// Always tries swiftcast first, then slowcast if out of combat
+        /// </summary>
+        private static async Task<bool> RaiseWithSwiftcastOptions(SpellData resurrectionSpell, GameObject target)
+        {
+            if (!resurrectionSpell.CanCast(target))
+                return false;
+
+            var inCombat = Core.Me.InCombat;
+
+            // Always try swiftcast first if available
+            if (Spells.Swiftcast.IsKnownAndReady())
+            {
+                if (await Healer.Swiftcast())
+                {
+                    while (Core.Me.HasAura(Auras.Swiftcast))
+                    {
+                        if (await resurrectionSpell.CastAura(target, Auras.Raise))
+                            return true;
+                        await Coroutine.Yield();
+                    }
+                }
+            }
+
+            // If out of combat and swiftcast didn't work, try slowcast
+            if (!inCombat)
+            {
+                return await resurrectionSpell.Cast(target);
+            }
+
+            // In combat with no swiftcast available - don't slowcast
+            return false;
+        }
+
+        /// <summary>
+        /// Handles resurrection for Red Mage, preferring Dualcast procs
+        /// Falls back to regular swiftcast/slowcast logic if no dualcast
+        /// </summary>
+        private static async Task<bool> RaiseRedMage(GameObject target)
+        {
+            if (!Spells.Verraise.CanCast())
+                return false;
+
+            // First check for dualcast (best option for RDM)
+            if (Core.Me.HasAura(Auras.Dualcast))
+            {
+                return await Spells.Verraise.Cast(target);
+            }
+
+            // No dualcast, use regular swiftcast/slowcast logic
+            return await RaiseWithSwiftcastOptions(Spells.Verraise, target);
+        }
+
+        /// <summary>
+        /// Gets dead players who are not in your party and are suitable for resurrection
+        /// </summary>
+        /// <returns>Collection of dead non-party players</returns>
+        private static IEnumerable<Character> GetDeadNonPartyPlayers()
+        {
+            // Get all player characters in the area
+            var allPlayers = GameObjectManager.GetObjectsOfType<BattleCharacter>()
+                .Where(obj => obj != null &&
+                             obj.IsValid &&
+                             obj.Type == GameObjectType.Pc &&
+                             obj.IsTargetable &&
+                             obj.InLineOfSight())
+                .OfType<Character>();
+
+            // Filter to dead non-party players within range who don't already have raise
+            return allPlayers.Where(player =>
+                player.CurrentHealth == 0 &&
+                player.IsDead &&
+                !Group.CastableAlliesWithin30.Contains(player) &&
+                !player.HasAura(Auras.Raise) &&
+                player.Distance(Core.Me) <= 30 &&
+                player.IsVisible);
         }
 
         /// <summary>
@@ -256,15 +540,11 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteCannoneerPhantomJob()
         {
-            // Phantom Fire - standard ranged attack
-            if (await PhantomFire())
-                return true;
-
             // Silver Cannon - ranged attack that reduces damage target deals and takes
             if (await SilverCannon())
                 return true;
 
-            // Holy Cannon - ranged attack, more damage vs undead
+            // Holy Cannon - ranged attack, more damage vs undead, shares cooldown with Silver Cannon
             if (await HolyCannon())
                 return true;
 
@@ -274,6 +554,60 @@ namespace Magitek.Logic.Roles
 
             // Dark Cannon - ranged attack that inflicts blind
             if (await DarkCannon())
+                return true;
+
+            // Phantom Fire - standard ranged attack
+            if (await PhantomFire())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Execute Time Mage Phantom Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteTimeMagePhantomJob()
+        {
+            // OccultQuick - buff party members or self (high priority utility)
+            if (await OccultQuick())
+                return true;
+
+            // OccultDispel - remove beneficial effects from enemies
+            if (await OccultDispel())
+                return true;
+
+            // OccultSlowga - apply slow debuff to enemies  
+            if (await OccultSlowga())
+                return true;
+
+            // OccultMageMasher - magic attack power debuff
+            if (await OccultMageMasher())
+                return true;
+
+            // OccultComet - AoE damage attack (8s cast time, use carefully)
+            if (await OccultComet())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Execute Ranger Phantom Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteRangerPhantomJob()
+        {
+            // Occult Unicorn - barrier for party (high priority defensive utility)
+            if (await OccultUnicorn())
+                return true;
+
+            // Phantom Aim - damage buff (120s cooldown, use on cooldown)
+            if (await PhantomAim())
+                return true;
+
+            // Occult Falcon - area attack
+            if (await OccultFalcon())
                 return true;
 
             return false;
@@ -321,17 +655,15 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.RomeosBallad.CanCast())
                 return false;
 
-            if (!Core.Me.InCombat && !Core.Me.HasTarget)
+            if (!Core.Me.InCombat)
             {
                 if (!OccultCrescentSettings.Instance.RomeosBallad_KnowledgeCrystal)
                     return false;
 
-                if (Core.Me.HasAura(OCAuras.RomeosBallad, msLeft: 1500000))
+                if (Core.Me.HasAura(OCAuras.RomeosBallad, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
                     return false;
 
-                var targetNpc = GameObjectManager.GetObjectByNPCId(KnowledgeCrystal);
-
-                if (targetNpc != null && targetNpc.IsValid && targetNpc.Distance(Core.Me) <= 5)
+                if (IsNearKnowledgeCrystal())
                     return await OCSpells.RomeosBallad.Cast(Core.Me);
             }
             // else if (OccultCrescentSettings.Instance.RomeosBallad_InterruptEnemies)
@@ -383,34 +715,28 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UsePray)
                 return false;
 
+            if (!OCSpells.Pray.CanCast())
+                return false;
+
             if (!Core.Me.InCombat)
             {
                 // Out of combat: only cast near Knowledge Crystal if enabled
                 if (!OccultCrescentSettings.Instance.PrayKnowledgeCrystal)
                     return false;
 
-                if (Core.Me.HasAura(OCAuras.EnduringFortitude, msLeft: 1500000))
+                if (Core.Me.HasAura(OCAuras.EnduringFortitude, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
                     return false;
 
-                var targetNpc = GameObjectManager.GetObjectByNPCId(KnowledgeCrystal);
-                if (targetNpc != null && targetNpc.IsValid && targetNpc.Distance(Core.Me) <= 5)
-                {
-                    if (!OCSpells.Pray.CanCast())
-                        return false;
-
+                if (IsNearKnowledgeCrystal())
                     return await OCSpells.Pray.Cast(Core.Me);
-                }
             }
             else
             {
                 // In combat: cast if we don't have the regen effect and HP is below threshold
-                if (Core.Me.HasAura(OCAuras.Pray, msLeft: 3000))
+                if (Core.Me.HasAura(OCAuras.Pray))
                     return false;
 
                 if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.PrayHealthPercent)
-                    return false;
-
-                if (!OCSpells.Pray.CanCast())
                     return false;
 
                 return await OCSpells.Pray.Cast(Core.Me);
@@ -430,6 +756,9 @@ namespace Magitek.Logic.Roles
                 return false;
 
             if (!OCSpells.OccultHeal.CanCast())
+                return false;
+
+            if (Core.Me.CurrentManaPercent < 65)
                 return false;
 
             GameObject healTarget = null;
@@ -591,8 +920,7 @@ namespace Magitek.Logic.Roles
                 // TODO: Need parry aura ID to check if we already have the buff
                 // For now, assume we should cast if near crystal
 
-                var targetNpc = GameObjectManager.GetObjectByNPCId(KnowledgeCrystal);
-                if (targetNpc != null && targetNpc.IsValid && targetNpc.Distance(Core.Me) <= 5)
+                if (IsNearKnowledgeCrystal())
                 {
                     return await OCSpells.Counterstance.Cast(Core.Me);
                 }
@@ -899,6 +1227,10 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
+            // Don't cast if target has Silver Sickness unless it expires in 20 seconds or less
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.SilverSickness, msLeft: 20000))
+                return false;
+
             // Check if target is within spell range
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.SilverCannon.Range))
                 return false;
@@ -1042,6 +1374,268 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await OCSpells.OccultElixir.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast OccultSlowga - afflicts target with Slow (aura 3493)
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultSlowga()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultSlowga)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.OccultSlowga.CanCast())
+                return false;
+
+            // Need a valid attackable target that doesn't already have slow
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Don't cast if target already has slow debuff
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.Slow))
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultSlowga.Range))
+                return false;
+
+            return await OCSpells.OccultSlowga.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast OccultComet - AoE damage with 8s cast time
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultComet()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultComet)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.OccultComet.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultComet.Range))
+                return false;
+
+            // Long cast time ability - be careful about using it
+            return await OCSpells.OccultComet.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast OccultMageMasher - lowers target magic attack power by 10% for 60s
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultMageMasher()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultMageMasher)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.OccultMageMasher.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Don't cast if target already has magic attack debuff
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.MagicAttackDebuff))
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultMageMasher.Range))
+                return false;
+
+            return await OCSpells.OccultMageMasher.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast OccultDispel - removes one beneficial status from target
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultDispel()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultDispel)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.OccultDispel.CanCast())
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultDispel.Range))
+                return false;
+
+            return await OCSpells.OccultDispel.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast OccultQuick - buff that reduces cast/recast time and increases movement speed
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultQuick()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultQuick)
+                return false;
+
+            if (!OCSpells.OccultQuick.CanCast())
+                return false;
+
+            GameObject quickTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.OccultQuickCastOnAllies)
+            {
+                // Prioritize casters or low-mobility party members who could benefit from speed
+                quickTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.HasAura(OCAuras.QuickBuff))
+                    .OrderBy(ally => ally.IsDps() ? 0 : ally.IsTank() ? 1 : ally.IsHealer() ? 2 : 3)
+                    .FirstOrDefault();
+
+                // If no allies need buff, consider self
+                if (quickTarget == null && !Core.Me.HasAura(OCAuras.QuickBuff))
+                    quickTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode
+                if (!Core.Me.HasAura(OCAuras.QuickBuff))
+                    quickTarget = Core.Me;
+            }
+
+            if (quickTarget == null)
+                return false;
+
+            return await OCSpells.OccultQuick.Cast(quickTarget);
+        }
+
+        /// <summary>
+        /// Cast Phantom Aim - increases damage for 30s (120s recast)
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> PhantomAim()
+        {
+            if (!OccultCrescentSettings.Instance.UsePhantomAim)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.PhantomAim.CanCast())
+                return false;
+
+            // Cast on cooldown in combat for damage boost
+            return await OCSpells.PhantomAim.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Occult Falcon - area attack that also triggers traps
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultFalcon()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultFalcon)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.OccultFalcon.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultFalcon.Range))
+                return false;
+
+            // I don't know what a trap is, so disable this ability for now. 
+            return false;
+
+            return await OCSpells.OccultFalcon.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast Occult Unicorn - creates barrier around self and party that absorbs 40k damage
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultUnicorn()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultUnicorn)
+                return false;
+
+            if (!OCSpells.OccultUnicorn.CanCast())
+                return false;
+
+            GameObject unicornTarget = null;
+
+            // Check if we should consider allies
+            if (OccultCrescentSettings.Instance.OccultUnicornCastOnAllies)
+            {
+                // Find party member who needs barrier protection
+                unicornTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultUnicornHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                // If no allies need barrier, check self
+                if (unicornTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultUnicornHealthPercent)
+                    unicornTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultUnicornHealthPercent)
+                    unicornTarget = Core.Me;
+            }
+
+            if (unicornTarget == null)
+                return false;
+
+            // Cast on self but affects whole party
+            return await OCSpells.OccultUnicorn.Cast(Core.Me);
         }
     }
 }
