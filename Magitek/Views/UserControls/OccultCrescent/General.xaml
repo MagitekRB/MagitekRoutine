@@ -21,6 +21,8 @@
                 <StackPanel Margin="5">
                     <TextBlock Style="{DynamicResource TextBlockSection}"
                                Text="General Settings"/>
+
+                    <!-- Enable OC System -->
                     <StackPanel Margin="5"
                                 Orientation="Horizontal">
                         <CheckBox Content="Enable Occult Crescent Phantom Job System"
@@ -28,6 +30,17 @@
                                   Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
 
+                    <!-- OC System Description -->
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic">
+                        <Run Text="Occult Crescent content provides temporary Phantom Jobs with unique abilities."/>
+                        <LineBreak/>
+                        <Run Text="Magitek automatically detects your current Phantom Job and uses abilities accordingly."/>
+                    </TextBlock>
+
+                    <!-- Party Buff Refresh Time Setting -->
                     <StackPanel Margin="5"
                                 Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
@@ -40,16 +53,12 @@
                                    Text=" minutes"/>
                     </StackPanel>
 
+                    <!-- Party Buff Refresh Description -->
                     <TextBlock Margin="5"
                                Style="{DynamicResource TextBlockDefault}"
                                TextWrapping="Wrap"
-                               FontStyle="Italic">
-                        <Run Text="Occult Crescent content provides temporary Phantom Jobs with unique abilities."/>
-                        <LineBreak/>
-                        <Run Text="Magitek automatically detects your current Phantom Job and uses abilities accordingly."/>
-                        <LineBreak/>
-                        <Run Text="Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals."/>
-                    </TextBlock>
+                               FontStyle="Italic"
+                               Text="Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals."/>
 
                     <!-- Non-Party Resurrection Settings -->
                     <StackPanel Margin="5"
