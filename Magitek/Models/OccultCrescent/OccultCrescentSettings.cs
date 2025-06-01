@@ -17,6 +17,10 @@ namespace Magitek.Models.OccultCrescent
         public bool Enable { get; set; }
 
         [Setting]
+        [DefaultValue(15.0f)]
+        public float PartyBuffRefreshMinutes { get; set; }
+
+        [Setting]
         [DefaultValue(false)]
         public bool ReviveNonPartyPlayers { get; set; }
 

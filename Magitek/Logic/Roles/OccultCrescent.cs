@@ -88,6 +88,7 @@ namespace Magitek.Logic.Roles
 
     internal class OccultCrescent
     {
+        // 1500000 25 minutes
         private static readonly uint KnowledgeCrystal = 2007457;
 
         // Known Knowledge Crystal locations that never change
@@ -160,12 +161,12 @@ namespace Magitek.Logic.Roles
         {
             // Simply check if player is near any known crystal location
             // No need for expensive NPC searches since crystal locations are fixed
+            var loc = Core.Me.Location;
             foreach (var crystalLocation in KnowledgeCrystalLocations)
             {
-                if (Core.Me.Location.Distance(crystalLocation) <= maxDistance)
+                if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
                     return true;
             }
-
             return false;
 
             /* OLD APPROACH - NPC LOOKUP METHOD (preserved for reference)
@@ -654,12 +655,12 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.RomeosBallad.CanCast())
                 return false;
 
-            if (!Core.Me.InCombat && !Core.Me.HasTarget)
+            if (!Core.Me.InCombat)
             {
                 if (!OccultCrescentSettings.Instance.RomeosBallad_KnowledgeCrystal)
                     return false;
 
-                if (Core.Me.HasAura(OCAuras.RomeosBallad, msLeft: 1500000))
+                if (Core.Me.HasAura(OCAuras.RomeosBallad, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
                     return false;
 
                 if (IsNearKnowledgeCrystal())
@@ -714,22 +715,20 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UsePray)
                 return false;
 
+            if (!OCSpells.Pray.CanCast())
+                return false;
+
             if (!Core.Me.InCombat)
             {
                 // Out of combat: only cast near Knowledge Crystal if enabled
                 if (!OccultCrescentSettings.Instance.PrayKnowledgeCrystal)
                     return false;
 
-                if (Core.Me.HasAura(OCAuras.EnduringFortitude, msLeft: 1500000))
+                if (Core.Me.HasAura(OCAuras.EnduringFortitude, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
                     return false;
 
                 if (IsNearKnowledgeCrystal())
-                {
-                    if (!OCSpells.Pray.CanCast())
-                        return false;
-
                     return await OCSpells.Pray.Cast(Core.Me);
-                }
             }
             else
             {
@@ -738,9 +737,6 @@ namespace Magitek.Logic.Roles
                     return false;
 
                 if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.PrayHealthPercent)
-                    return false;
-
-                if (!OCSpells.Pray.CanCast())
                     return false;
 
                 return await OCSpells.Pray.Cast(Core.Me);
