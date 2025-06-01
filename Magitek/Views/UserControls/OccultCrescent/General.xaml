@@ -471,6 +471,52 @@
                 </StackPanel>
             </controls:SettingsBlock>
 
+            <!-- Phantom Ranger Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Ranger"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Phantom Aim (Damage buff - 120s cooldown)"
+                                  IsChecked="{Binding UsePhantomAim, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Falcon (Area attack)"
+                                  IsChecked="{Binding UseOccultFalcon, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Unicorn below"
+                                  IsChecked="{Binding UseOccultUnicorn, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding OccultUnicornHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding OccultUnicornCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Unicorn creates 40k damage absorb barrier for entire party. Falcon triggers traps."/>
+                </StackPanel>
+            </controls:SettingsBlock>
+
         </StackPanel>
     </ScrollViewer>
 </UserControl> 

@@ -21,7 +21,7 @@ namespace Magitek.Models.OccultCrescent
         public bool ReviveNonPartyPlayers { get; set; }
 
         [Setting]
-        [DefaultValue(70.0f)]
+        [DefaultValue(60.0f)]
         public float ReviveNonPartyMinimumManaPercent { get; set; }
 
         [Setting]
@@ -89,7 +89,7 @@ namespace Magitek.Models.OccultCrescent
         public bool UseOccultHeal { get; set; }
 
         [Setting]
-        [DefaultValue(50.0f)]
+        [DefaultValue(30.0f)]
         public float OccultHealHealthPercent { get; set; }
 
         [Setting]
@@ -245,6 +245,28 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(true)]
         public bool OccultQuickCastOnAllies { get; set; }
+        #endregion
+
+        #region Phantom Ranger
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePhantomAim { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultFalcon { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultUnicorn { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float OccultUnicornHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultUnicornCastOnAllies { get; set; }
         #endregion
     }
 }

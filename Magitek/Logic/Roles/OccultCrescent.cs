@@ -26,7 +26,8 @@ namespace Magitek.Logic.Roles
             Slow = 3493,
             HerosRime = 4249,
             MagicAttackDebuff = 0,
-            QuickBuff = 0;
+            QuickBuff = 0,
+            SilverSickness = 4264;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -78,6 +79,11 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultMageMasher = DataManager.GetSpellData(41624);
         public static readonly SpellData OccultDispel = DataManager.GetSpellData(41622);
         public static readonly SpellData OccultQuick = DataManager.GetSpellData(41625);
+
+        // Ranger Spells
+        public static readonly SpellData PhantomAim = DataManager.GetSpellData(41599);
+        public static readonly SpellData OccultFalcon = DataManager.GetSpellData(41601);
+        public static readonly SpellData OccultUnicorn = DataManager.GetSpellData(41602);
     }
 
     internal class OccultCrescent
@@ -108,7 +114,8 @@ namespace Magitek.Logic.Roles
             { 4359, PhantomJob.Berserker },
             { 4367, PhantomJob.Chemist },
             { 4366, PhantomJob.Cannoneer },
-            { 4365, PhantomJob.TimeMage }
+            { 4365, PhantomJob.TimeMage },
+            { 4361, PhantomJob.Ranger }
         };
 
         public enum PhantomJob
@@ -120,7 +127,8 @@ namespace Magitek.Logic.Roles
             Berserker,
             Chemist,
             Cannoneer,
-            TimeMage
+            TimeMage,
+            Ranger
         }
 
         /// <summary>
@@ -229,6 +237,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Chemist => await ExecuteChemistPhantomJob(),
                 PhantomJob.Cannoneer => await ExecuteCannoneerPhantomJob(),
                 PhantomJob.TimeMage => await ExecuteTimeMagePhantomJob(),
+                PhantomJob.Ranger => await ExecuteRangerPhantomJob(),
                 _ => false
             };
 
@@ -321,7 +330,7 @@ namespace Magitek.Logic.Roles
         /// </summary>
         private static async Task<bool> RaiseWithSwiftcastOptions(SpellData resurrectionSpell, GameObject target)
         {
-            if (!resurrectionSpell.CanCast())
+            if (!resurrectionSpell.CanCast(target))
                 return false;
 
             var inCombat = Core.Me.InCombat;
@@ -329,14 +338,13 @@ namespace Magitek.Logic.Roles
             // Always try swiftcast first if available
             if (Spells.Swiftcast.IsKnownAndReady())
             {
-                if (await Spells.Swiftcast.Cast(Core.Me))
+                if (await Healer.Swiftcast())
                 {
-                    // Wait a bit for swiftcast to apply
-                    await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Swiftcast));
-
-                    if (Core.Me.HasAura(Auras.Swiftcast))
+                    while (Core.Me.HasAura(Auras.Swiftcast))
                     {
-                        return await resurrectionSpell.Cast(target);
+                        if (await resurrectionSpell.CastAura(target, Auras.Raise))
+                            return true;
+                        await Coroutine.Yield();
                     }
                 }
             }
@@ -531,15 +539,11 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteCannoneerPhantomJob()
         {
-            // Phantom Fire - standard ranged attack
-            if (await PhantomFire())
-                return true;
-
             // Silver Cannon - ranged attack that reduces damage target deals and takes
             if (await SilverCannon())
                 return true;
 
-            // Holy Cannon - ranged attack, more damage vs undead
+            // Holy Cannon - ranged attack, more damage vs undead, shares cooldown with Silver Cannon
             if (await HolyCannon())
                 return true;
 
@@ -549,6 +553,10 @@ namespace Magitek.Logic.Roles
 
             // Dark Cannon - ranged attack that inflicts blind
             if (await DarkCannon())
+                return true;
+
+            // Phantom Fire - standard ranged attack
+            if (await PhantomFire())
                 return true;
 
             return false;
@@ -578,6 +586,27 @@ namespace Magitek.Logic.Roles
 
             // OccultComet - AoE damage attack (8s cast time, use carefully)
             if (await OccultComet())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Execute Ranger Phantom Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteRangerPhantomJob()
+        {
+            // Occult Unicorn - barrier for party (high priority defensive utility)
+            if (await OccultUnicorn())
+                return true;
+
+            // Phantom Aim - damage buff (120s cooldown, use on cooldown)
+            if (await PhantomAim())
+                return true;
+
+            // Occult Falcon - area attack
+            if (await OccultFalcon())
                 return true;
 
             return false;
@@ -731,6 +760,9 @@ namespace Magitek.Logic.Roles
                 return false;
 
             if (!OCSpells.OccultHeal.CanCast())
+                return false;
+
+            if (Core.Me.CurrentManaPercent < 65)
                 return false;
 
             GameObject healTarget = null;
@@ -1199,6 +1231,10 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
+            // Don't cast if target has Silver Sickness unless it expires in 20 seconds or less
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.SilverSickness, msLeft: 20000))
+                return false;
+
             // Check if target is within spell range
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.SilverCannon.Range))
                 return false;
@@ -1510,6 +1546,100 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await OCSpells.OccultQuick.Cast(quickTarget);
+        }
+
+        /// <summary>
+        /// Cast Phantom Aim - increases damage for 30s (120s recast)
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> PhantomAim()
+        {
+            if (!OccultCrescentSettings.Instance.UsePhantomAim)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.PhantomAim.CanCast())
+                return false;
+
+            // Cast on cooldown in combat for damage boost
+            return await OCSpells.PhantomAim.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Occult Falcon - area attack that also triggers traps
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultFalcon()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultFalcon)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.OccultFalcon.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultFalcon.Range))
+                return false;
+
+            // I don't know what a trap is, so disable this ability for now. 
+            return false;
+
+            return await OCSpells.OccultFalcon.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast Occult Unicorn - creates barrier around self and party that absorbs 40k damage
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultUnicorn()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultUnicorn)
+                return false;
+
+            if (!OCSpells.OccultUnicorn.CanCast())
+                return false;
+
+            GameObject unicornTarget = null;
+
+            // Check if we should consider allies
+            if (OccultCrescentSettings.Instance.OccultUnicornCastOnAllies)
+            {
+                // Find party member who needs barrier protection
+                unicornTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultUnicornHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                // If no allies need barrier, check self
+                if (unicornTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultUnicornHealthPercent)
+                    unicornTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultUnicornHealthPercent)
+                    unicornTarget = Core.Me;
+            }
+
+            if (unicornTarget == null)
+                return false;
+
+            // Cast on self but affects whole party
+            return await OCSpells.OccultUnicorn.Cast(Core.Me);
         }
     }
 }
