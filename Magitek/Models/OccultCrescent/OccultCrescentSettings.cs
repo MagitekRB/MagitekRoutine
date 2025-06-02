@@ -1,6 +1,7 @@
 using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;
+using Magitek.Enumerations;
 
 namespace Magitek.Models.OccultCrescent
 {
@@ -271,6 +272,58 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(true)]
         public bool OccultUnicornCastOnAllies { get; set; }
+        #endregion
+
+        #region Phantom Thief
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultSprint { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSteal { get; set; }
+
+        [Setting]
+        [DefaultValue(7.0f)]
+        public float StealHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseVigilance { get; set; }
+
+        [Setting]
+        [DefaultValue(20.0f)]
+        public float VigilanceTargetDistance { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePilferWeapon { get; set; }
+        #endregion
+
+        #region Phantom Samurai
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMineuchi { get; set; }
+
+        [Setting]
+        [DefaultValue(InterruptStrategy.AnyEnemy)]
+        public InterruptStrategy MineuchiStrategy { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseShirahadori { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float ShirahadoriHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseIainuki { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseZeninage { get; set; }
         #endregion
     }
 }

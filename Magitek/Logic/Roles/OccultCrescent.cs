@@ -26,10 +26,15 @@ namespace Magitek.Logic.Roles
             Slow = 3493,
             HerosRime = 4249,
             OccultMageMasher = 4259,
-            QuickBuff = 0,
+            OccultQuick = 4260,
             SilverSickness = 4264,
             Fleetfooted = 4239,
-            Counterstance = 4238;
+            Counterstance = 4238,
+            OccultSprint = 4276,
+            Vigilance = 4277,
+            ForeseenOffense = 4278,
+            WeaponPilfered = 4279,
+            Shirahadori = 4245;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -86,6 +91,18 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData PhantomAim = DataManager.GetSpellData(41599);
         public static readonly SpellData OccultFalcon = DataManager.GetSpellData(41601);
         public static readonly SpellData OccultUnicorn = DataManager.GetSpellData(41602);
+
+        // Phantom Thief Spells
+        public static readonly SpellData OccultSprint = DataManager.GetSpellData(41646);
+        public static readonly SpellData Steal = DataManager.GetSpellData(41645);
+        public static readonly SpellData Vigilance = DataManager.GetSpellData(41647);
+        public static readonly SpellData PilferWeapon = DataManager.GetSpellData(41649);
+
+        // Phantom Samurai Spells
+        public static readonly SpellData Mineuchi = DataManager.GetSpellData(41603);
+        public static readonly SpellData Shirahadori = DataManager.GetSpellData(41604);
+        public static readonly SpellData Iainuki = DataManager.GetSpellData(41605);
+        public static readonly SpellData Zeninage = DataManager.GetSpellData(41606);
     }
 
     internal class OccultCrescent
@@ -118,7 +135,9 @@ namespace Magitek.Logic.Roles
             { 4367, PhantomJob.Chemist },
             { 4366, PhantomJob.Cannoneer },
             { 4365, PhantomJob.TimeMage },
-            { 4361, PhantomJob.Ranger }
+            { 4361, PhantomJob.Ranger },
+            { 4369, PhantomJob.PhantomThief },
+            { 4362, PhantomJob.Samurai }
         };
 
         public enum PhantomJob
@@ -131,7 +150,9 @@ namespace Magitek.Logic.Roles
             Chemist,
             Cannoneer,
             TimeMage,
-            Ranger
+            Ranger,
+            PhantomThief,
+            Samurai
         }
 
         /// <summary>
@@ -241,6 +262,8 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Cannoneer => await ExecuteCannoneerPhantomJob(),
                 PhantomJob.TimeMage => await ExecuteTimeMagePhantomJob(),
                 PhantomJob.Ranger => await ExecuteRangerPhantomJob(),
+                PhantomJob.PhantomThief => await ExecutePhantomThiefJob(),
+                PhantomJob.Samurai => await ExecuteSamuraiPhantomJob(),
                 _ => false
             };
 
@@ -610,6 +633,56 @@ namespace Magitek.Logic.Roles
 
             // Occult Falcon - area attack
             if (await OccultFalcon())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Execute Phantom Thief Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecutePhantomThiefJob()
+        {
+            // Occult Sprint - buff that reduces cast/recast time and increases movement speed
+            if (await OccultSprint())
+                return true;
+
+            // Steal - steal an item from an enemy
+            if (await Steal())
+                return true;
+
+            // Vigilance - defensive cooldown that reduces damage by 60% for 10s
+            if (await Vigilance())
+                return true;
+
+            // Pilfer Weapon - steal a weapon from an enemy
+            if (await PilferWeapon())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Execute Samurai Phantom Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteSamuraiPhantomJob()
+        {
+            // Mineuchi - stuns target for 6 seconds
+            if (await Mineuchi())
+                return true;
+
+            // Shirahadori - attack with high damage
+            if (await Shirahadori())
+                return true;
+
+            // Iainuki - attack with high damage
+            if (await Iainuki())
+                return true;
+
+            // Zeninage - attack with high damage
+            if (await Zeninage())
                 return true;
 
             return false;
@@ -1566,18 +1639,18 @@ namespace Magitek.Logic.Roles
                 quickTarget = Group.CastableAlliesWithin30.Where(ally =>
                     ally.IsValid &&
                     ally.IsAlive &&
-                    !ally.HasAura(OCAuras.QuickBuff))
+                    !ally.HasAura(OCAuras.OccultQuick))
                     .OrderBy(ally => ally.IsDps() ? 0 : ally.IsTank() ? 1 : ally.IsHealer() ? 2 : 3)
                     .FirstOrDefault();
 
                 // If no allies need buff, consider self
-                if (quickTarget == null && !Core.Me.HasAura(OCAuras.QuickBuff))
+                if (quickTarget == null && !Core.Me.HasAura(OCAuras.OccultQuick))
                     quickTarget = Core.Me;
             }
             else
             {
                 // Self-only mode
-                if (!Core.Me.HasAura(OCAuras.QuickBuff))
+                if (!Core.Me.HasAura(OCAuras.OccultQuick))
                     quickTarget = Core.Me;
             }
 
@@ -1679,6 +1752,231 @@ namespace Magitek.Logic.Roles
 
             // Cast on self but affects whole party
             return await OCSpells.OccultUnicorn.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Occult Sprint - greatly increases movement speed for 10s
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultSprint()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultSprint)
+                return false;
+
+            if (!OCSpells.OccultSprint.CanCast())
+                return false;
+
+            // Don't cast if we already have the sprint buff
+            if (Core.Me.HasAura(OCAuras.OccultSprint))
+                return false;
+
+            return await OCSpells.OccultSprint.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Steal - increases chance of additional items being dropped if cast before finishing blow
+        /// Cast when enemy is below configured HP threshold
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Steal()
+        {
+            if (!OccultCrescentSettings.Instance.UseSteal)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.Steal.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Only cast when enemy is below configured HP threshold
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > OccultCrescentSettings.Instance.StealHealthPercent)
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Steal.Range))
+                return false;
+
+            return await OCSpells.Steal.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast Vigilance - grants Vigilance aura that changes to Foreseen Offense when entering combat
+        /// Can only be cast out of combat when we have a valid target
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Vigilance()
+        {
+            if (!OccultCrescentSettings.Instance.UseVigilance)
+                return false;
+
+            // Cannot be executed while in combat
+            if (Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.Vigilance.CanCast())
+                return false;
+
+            // Need a valid attackable target (but not in combat)
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within configured distance
+            if (Core.Me.CurrentTarget.Distance(Core.Me) > OccultCrescentSettings.Instance.VigilanceTargetDistance)
+                return false;
+
+            // Don't cast if we already have Vigilance or Foreseen Offense
+            if (Core.Me.HasAura(OCAuras.Vigilance) || Core.Me.HasAura(OCAuras.ForeseenOffense))
+                return false;
+
+            return await OCSpells.Vigilance.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Pilfer Weapon - lowers target's physical attack power by 10% for 60s
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> PilferWeapon()
+        {
+            if (!OccultCrescentSettings.Instance.UsePilferWeapon)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.PilferWeapon.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Don't cast if target already has weapon pilfered debuff
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.WeaponPilfered))
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.PilferWeapon.Range))
+                return false;
+
+            return await OCSpells.PilferWeapon.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast Mineuchi - stuns target for 6 seconds
+        /// Uses Magitek's interrupt/stun system with configurable strategy
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Mineuchi()
+        {
+            if (!OccultCrescentSettings.Instance.UseMineuchi)
+                return false;
+
+            // Use Magitek's interrupt/stun system
+            List<SpellData> stunSpells = new List<SpellData>() { OCSpells.Mineuchi };
+            List<SpellData> interruptSpells = new List<SpellData>(); // Empty list since Mineuchi is stun-only
+
+            return await InterruptAndStunLogic.StunOrInterrupt(stunSpells, interruptSpells, OccultCrescentSettings.Instance.MineuchiStrategy);
+        }
+
+        /// <summary>
+        /// Cast Shirahadori - renders you impervious to physical damage for one attack
+        /// Cast when health is below configured percentage
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Shirahadori()
+        {
+            if (!OccultCrescentSettings.Instance.UseShirahadori)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Shirahadori.CanCast())
+                return false;
+
+            // Don't cast if we already have the buff
+            if (Core.Me.HasAura(OCAuras.Shirahadori))
+                return false;
+
+            // Cast when health is below configured percentage
+            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.ShirahadoriHealthPercent)
+                return false;
+
+            return await OCSpells.Shirahadori.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Iainuki - cone attack with potency 300/500, chance to instantly kill
+        /// AoE attack with 8y range
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Iainuki()
+        {
+            if (!OccultCrescentSettings.Instance.UseIainuki)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.Iainuki.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Iainuki.Range))
+                return false;
+
+            return await OCSpells.Iainuki.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast Zeninage - consumes Occult Coffer for guaranteed strike with 1,500 potency
+        /// Only cast if we have an Occult Coffer (can check by spell availability)
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Zeninage()
+        {
+            if (!OccultCrescentSettings.Instance.UseZeninage)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.Zeninage.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Zeninage.Range))
+                return false;
+
+            return await OCSpells.Zeninage.Cast(Core.Me.CurrentTarget);
         }
     }
 }
