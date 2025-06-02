@@ -2,14 +2,27 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:Magitek.Controls"
-             xmlns:occultCrescent="clr-namespace:Magitek.Models.OccultCrescent">
+             xmlns:occultCrescent="clr-namespace:Magitek.Models.OccultCrescent"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:Magitek.Enumerations">
 
     <UserControl.DataContext>
         <Binding Source="{x:Static occultCrescent:OccultCrescentSettings.Instance}"/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="InterruptStrategy"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="enums:InterruptStrategy"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -538,6 +551,114 @@
                                TextWrapping="Wrap"
                                FontStyle="Italic"
                                Text="Unicorn creates 40k damage absorb barrier for entire party. Falcon triggers traps."/>
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <!-- Phantom Thief Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Thief"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Occult Sprint (Greatly increases movement speed)"
+                                  IsChecked="{Binding UseOccultSprint, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Steal when enemy below"
+                                  IsChecked="{Binding UseSteal, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="50"
+                                          MinValue="1"
+                                          Value="{Binding StealHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP (increases item drop chance)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Vigilance within"
+                                  IsChecked="{Binding UseVigilance, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="50"
+                                          MinValue="3"
+                                          Value="{Binding VigilanceTargetDistance, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" yalms of target (Vigilance → Foreseen Offense when entering combat)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Pilfer Weapon (Lowers target's physical attack power by 10%)"
+                                  IsChecked="{Binding UsePilferWeapon, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Vigilance can only be cast out of combat with a valid target. Effect changes to Foreseen Offense (+60% crit rate) when entering combat."/>
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <!-- Phantom Samurai Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Samurai"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Mineuchi stun with strategy:"
+                                  IsChecked="{Binding UseMineuchi, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <ComboBox ItemsSource="{Binding Source={StaticResource InterruptStrategy}}"
+                                  SelectedValue="{Binding MineuchiStrategy, Mode=TwoWay}"
+                                  Margin="5,0,0,0"
+                                  Width="120"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Shirahadori below"
+                                  IsChecked="{Binding UseShirahadori, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding ShirahadoriHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP (physical damage immunity for one attack)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Iainuki (Cone attack with instant kill chance)"
+                                  IsChecked="{Binding UseIainuki, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Zeninage (Consumes Occult Coffer for 1,500 potency)"
+                                  IsChecked="{Binding UseZeninage, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Mineuchi avoids stunning immune enemies. Zeninage only works when you have an Occult Coffer. Iainuki is a cone AoE attack."/>
                 </StackPanel>
             </controls:SettingsBlock>
 
