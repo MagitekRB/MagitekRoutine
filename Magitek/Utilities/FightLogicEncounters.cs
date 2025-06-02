@@ -2545,41 +2545,39 @@ namespace Magitek.Utilities
                 Expansion = FfxivExpansion.Shadowbringers,
                 Enemies = new List<Enemy> {
                     new Enemy {
-                        Id = 8445,
-                        Name = "Forgiven Dissonance",
-                        TankBusters = new List<uint>() {
-                            15812 //Pillory
-                        },
-                        SharedTankBusters = null,
-                        Aoes = new List<uint>() {
-                            15813 //Path of Light
-                        },
-                        BigAoes = null
-                    },
-                    new Enemy {
                         Id = 8300,
-                        Name = "Tesleen, The Forgiven",
-                        TankBusters = new List<uint>() {
-                            15823 //Tickler
+                        Name = "Tesleen, the Forgiven",
+                        TankBusters = new List<uint> {
+                            15823, // the Tickler
                         },
+                        Aoes = new List<uint> {
+                            15824, // Scold's Bridle
+                        },
+                        AoeLockOns = new List<uint> {
+                            79,
+                            62,
+                        },
+                        Knockbacks = null,
                         SharedTankBusters = null,
-                        Aoes = new List<uint>() {
-                            15824 //Bridle
-                        },
                         BigAoes = null
                     },
                     new Enemy {
                         Id = 8301,
                         Name = "Philia",
-                        TankBusters = new List<uint>() {
-                            15831 //Head Crusher
+                        TankBusters = new List<uint> {
+                            15831, // Head Crusher
                         },
+                        Aoes = new List<uint> {
+                            15832, // Scavenger's Daughter
+                            15842, // Taphephobia
+                            17232, // Into the Light
+                            16777, // Pendulum
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
                         SharedTankBusters = null,
-                        Aoes = new List<uint>() {
-                            15832 //Scavenger
-                        },
                         BigAoes = null
-                    }
+                    },
                 }
             },
             new Encounter {
