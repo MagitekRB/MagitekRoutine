@@ -25,9 +25,11 @@ namespace Magitek.Logic.Roles
             EnduringFortitude = 4233,
             Slow = 3493,
             HerosRime = 4249,
-            MagicAttackDebuff = 0,
+            OccultMageMasher = 4259,
             QuickBuff = 0,
-            SilverSickness = 4264;
+            SilverSickness = 4264,
+            Fleetfooted = 4239,
+            Counterstance = 4238;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -307,9 +309,9 @@ namespace Magitek.Logic.Roles
             if (phantomJob == PhantomJob.Chemist)
             {
                 // Phantom Chemist: Instant resurrection
-                if (!OCSpells.Revive.CanCast())
+                if (!OCSpells.Revive.CanCast(resurrectTarget))
                     return false;
-                return await OCSpells.Revive.Cast(resurrectTarget);
+                return await OCSpells.Revive.CastAura(resurrectTarget, Auras.Raise);
             }
 
             // Handle regular job resurrections
@@ -917,8 +919,9 @@ namespace Magitek.Logic.Roles
                 if (!OccultCrescentSettings.Instance.CounterstanceKnowledgeCrystal)
                     return false;
 
-                // TODO: Need parry aura ID to check if we already have the buff
-                // For now, assume we should cast if near crystal
+                // Check if we already have the Fleetfooted buff from crystal casting
+                if (Core.Me.HasAura(OCAuras.Fleetfooted, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
+                    return false;
 
                 if (IsNearKnowledgeCrystal())
                 {
@@ -928,8 +931,11 @@ namespace Magitek.Logic.Roles
             else
             {
                 // In combat: cast for parry rate buff
-                // TODO: Need parry aura ID to check if we already have the buff
-                // return await OCSpells.Counterstance.Cast(Core.Me);
+                // Check if we already have the Counterstance parry buff
+                if (Core.Me.HasAura(OCAuras.Counterstance))
+                    return false;
+
+                return await OCSpells.Counterstance.Cast(Core.Me);
             }
 
             return false;
@@ -1325,7 +1331,7 @@ namespace Magitek.Logic.Roles
 
         /// <summary>
         /// Cast Revive - resurrects a dead party member
-        /// Uses the standard healer resurrection pattern
+        /// Instant cast, no swiftcast needed for Chemist
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Revive()
@@ -1333,14 +1339,33 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRevive)
                 return false;
 
-            // This might not work, if it doesn't just refactor to use something really simple. 
-            return await Roles.Healer.Raise(
-                OCSpells.Revive,
-                false, // No Swiftcast for Chemist
-                true,  // Always slowcast for Chemist
-                OccultCrescentSettings.Instance.ReviveOutOfCombat,
-                OccultCrescentSettings.Instance.ReviveDelay
-            );
+            // Find dead allies using the same logic as Healer.Raise
+            var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
+                                                       !u.HasAura(Auras.Raise) &&
+                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.IsVisible &&
+                                                       u.InLineOfSight() &&
+                                                       u.IsTargetable &&
+                                                       Group.GetDeathTime(u)?.AddSeconds(OccultCrescentSettings.Instance.ReviveDelay) <= DateTime.Now)
+                .OrderByDescending(r => r.GetResurrectionWeight());
+
+            var deadTarget = deadList.FirstOrDefault();
+
+            if (deadTarget == null)
+                return false;
+
+            if (!deadTarget.IsTargetable)
+                return false;
+
+            if (!OCSpells.Revive.CanCast(deadTarget))
+                return false;
+
+            // Check combat restrictions - only check out of combat restriction
+            if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveOutOfCombat)
+                return false;
+
+            // Chemist Revive is instant - no swiftcast needed
+            return await OCSpells.Revive.CastAura(deadTarget, Auras.Raise);
         }
 
         /// <summary>
@@ -1402,6 +1427,21 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentTarget.HasAura(OCAuras.Slow))
                 return false;
 
+            // Check if target is a BattleCharacter for additional checks
+            if (Core.Me.CurrentTarget is BattleCharacter battleTarget)
+            {
+                // Check difficulty - high difficulty enemies are often immune to CC
+                if (battleTarget.RawDifficulty >= 2)
+                    return false;
+
+                if (battleTarget.DifficultyEstimate != DifficultyEstimate.Normal)
+                    return false;
+
+                // FATE enemies might have different immunity rules
+                if (battleTarget.IsFate)
+                    return false;
+            }
+
             // Check if target is within spell range
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultSlowga.Range))
                 return false;
@@ -1462,7 +1502,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Don't cast if target already has magic attack debuff
-            if (Core.Me.CurrentTarget.HasAura(OCAuras.MagicAttackDebuff))
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.OccultMageMasher))
                 return false;
 
             // Check if target is within spell range
@@ -1493,8 +1533,11 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
+            if (!Core.Me.CurrentTarget.HasDispellableAura())
                 return false;
+
+            // if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
+            //     return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultDispel.Range))
                 return false;
@@ -1569,6 +1612,9 @@ namespace Magitek.Logic.Roles
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> OccultFalcon()
         {
+            // I don't know what a trap is, so disable this ability for now. 
+            return false;
+
             if (!OccultCrescentSettings.Instance.UseOccultFalcon)
                 return false;
 
@@ -1588,9 +1634,6 @@ namespace Magitek.Logic.Roles
             // Check if target is within spell range
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultFalcon.Range))
                 return false;
-
-            // I don't know what a trap is, so disable this ability for now. 
-            return false;
 
             return await OCSpells.OccultFalcon.Cast(Core.Me.CurrentTarget);
         }

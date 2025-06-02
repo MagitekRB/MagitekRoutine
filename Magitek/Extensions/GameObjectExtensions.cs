@@ -156,6 +156,16 @@ namespace Magitek.Extensions
 
         }
 
+        public static bool HasDispellableAura(this GameObject unit)
+        {
+            var unitAsCharacter = unit as Character;
+
+            if (unitAsCharacter == null || !unitAsCharacter.IsValid)
+                return false;
+
+            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable);
+        }
+
         public static bool HasAnyAura(this GameObject unit, List<uint> auras, bool isMyAura = false, int msLeft = 0)
         {
             var unitAsCharacter = unit as Character;
