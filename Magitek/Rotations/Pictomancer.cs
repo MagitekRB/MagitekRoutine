@@ -17,7 +17,7 @@ namespace Magitek.Rotations
             if (Core.Me.CurrentHealthPercent > 70 || Core.Me.ClassLevel < 4)
                 return false;
 
-            if (WorldManager.InSanctuary)
+            if (Globals.InSanctuaryOrSafeZone)
                 return false;
 
             return false;

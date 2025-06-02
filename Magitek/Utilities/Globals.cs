@@ -18,6 +18,7 @@ namespace Magitek.Utilities
         public static bool InGcInstance => RaptureAtkUnitManager.Controls.Any(r => r.Name == "GcArmyOrder");
         public static bool OnPvpMap => Core.Me.OnPvpMap();
         public static bool InActiveDuty => DutyManager.InInstance && Duty.State() == Duty.States.InProgress;
+        public static bool InSanctuaryOrSafeZone => Core.Me.InSanctuaryOrSafeZone();
         public static GameObject HealTarget;
         // the game has a base animation lock of 610ms for most weaponskills & spells.
         // Some weaved abilities that are instant have a shorter animation lock of ~360-410ms

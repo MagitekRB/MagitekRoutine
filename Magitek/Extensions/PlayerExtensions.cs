@@ -38,6 +38,20 @@ namespace Magitek.Extensions
             return WorldManager.ZoneId == 1252;
         }
 
+        /// <summary>
+        /// Checks if the player is in a sanctuary (game's sanctuary status) or in a zone that should be treated as a sanctuary
+        /// to prevent instant casting of buffs and other actions.
+        /// </summary>
+        public static bool InSanctuaryOrSafeZone(this LocalPlayer player)
+        {
+            // Check the game's built-in sanctuary status first
+            if (WorldManager.InSanctuary)
+                return true;
+
+            // Check additional zones that should be treated as sanctuaries
+            return CustomSanctuaryZones.Contains(WorldManager.ZoneId);
+        }
+
         private static readonly HashSet<ushort> PvpMaps = new HashSet<ushort>()
         {
             149,
@@ -75,6 +89,17 @@ namespace Magitek.Extensions
             551,
             552,
             554
+        };
+
+        /// <summary>
+        /// Zone IDs that should be treated as sanctuaries even if the game doesn't mark them as such.
+        /// Add zone IDs here to prevent instant casting of buffs and other actions.
+        /// </summary>
+        private static readonly HashSet<ushort> CustomSanctuaryZones = new HashSet<ushort>()
+        {
+            // Add zone IDs here that should be treated as sanctuaries
+            1269, // Phantom Village
+            1237, // Sinus Adorum
         };
 
         public static int EnemiesInCone(this LocalPlayer player, float maxdistance)

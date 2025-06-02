@@ -170,6 +170,9 @@ namespace Magitek.Logic.DarkKnight
             if (!DarkKnightSettings.Instance.UseReprisal)
                 return false;
 
+            if (Core.Me.CurrentHealthPercent > DarkKnightSettings.Instance.ReprisalHealthPercent)
+                return false;
+
             return await Spells.Reprisal.Cast(Core.Me.CurrentTarget);
         }
 
