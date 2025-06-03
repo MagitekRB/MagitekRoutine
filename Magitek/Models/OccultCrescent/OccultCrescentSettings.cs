@@ -325,5 +325,67 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseZeninage { get; set; }
         #endregion
+
+        #region Phantom Oracle
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePredict { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePhantomJudgment { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float PhantomJudgmentHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseCleansing { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float CleansingHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBlessing { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float BlessingHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseStarfall { get; set; }
+
+        [Setting]
+        [DefaultValue(100.0f)]
+        public float StarfallHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePhantomRejuvenation { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float PhantomRejuvenationHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool PhantomRejuvenationCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseInvulnerability { get; set; }
+
+        [Setting]
+        [DefaultValue(10.0f)]
+        public float InvulnerabilityHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool InvulnerabilityCastOnAllies { get; set; }
+        #endregion
     }
 }
