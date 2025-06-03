@@ -662,6 +662,127 @@
                 </StackPanel>
             </controls:SettingsBlock>
 
+            <!-- Phantom Oracle Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Oracle"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Predict (Grants random prediction)"
+                                  IsChecked="{Binding UsePredict, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Foreground="Orange"
+                               Text="Predict cycles through 4 random predictions. Magitek will attempt to use the best prediction available as they cycle through. Only one can be used. Must cast something on 4th cycle to avoid False Prediction (deadly DoT)."/>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Foreground="Red"
+                               Text="⚠️ SAFETY: If Starfall is the 4rd prediction and you're below the Starfall threshold, the current prediction will be cast automatically to avoid being forced into deadly Starfall as the 4th prediction."/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Phantom Judgment when party below"
+                                  IsChecked="{Binding UsePhantomJudgment, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding PhantomJudgmentHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP (Damage + Healing)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Blessing when party below"
+                                  IsChecked="{Binding UseBlessing, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding BlessingHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP (Strong Healing + Regen)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Cleansing when party above"
+                                  IsChecked="{Binding UseCleansing, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding CleansingHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP (Damage + Freeze Time)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Starfall when above"
+                                  IsChecked="{Binding UseStarfall, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="90"
+                                          Value="{Binding StarfallHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP (90% max HP self damage!)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Phantom Rejuvenation below"
+                                  IsChecked="{Binding UsePhantomRejuvenation, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding PhantomRejuvenationHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding PhantomRejuvenationCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" (Prioritizes tanks)"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Invulnerability below"
+                                  IsChecked="{Binding UseInvulnerability, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="50"
+                                          MinValue="1"
+                                          Value="{Binding InvulnerabilityHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding InvulnerabilityCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" (Emergency protection)"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </controls:SettingsBlock>
+
         </StackPanel>
     </ScrollViewer>
 </UserControl> 

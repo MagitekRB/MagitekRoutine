@@ -34,7 +34,13 @@ namespace Magitek.Logic.Roles
             Vigilance = 4277,
             ForeseenOffense = 4278,
             WeaponPilfered = 4279,
-            Shirahadori = 4245;
+            Shirahadori = 4245,
+            FalsePrediction = 4269,
+            PredictionOfBlessing = 4267,
+            PredictionOfStarfall = 4268,
+            PredictionOfCleansing = 4266,
+            PredictionOfJudgment = 4265,
+            PhantomRejuvenation = 4274;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -103,6 +109,15 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData Shirahadori = DataManager.GetSpellData(41604);
         public static readonly SpellData Iainuki = DataManager.GetSpellData(41605);
         public static readonly SpellData Zeninage = DataManager.GetSpellData(41606);
+
+        // Phantom Oracle Spells
+        public static readonly SpellData Predict = DataManager.GetSpellData(41636);
+        public static readonly SpellData PhantomJudgment = DataManager.GetSpellData(41637);
+        public static readonly SpellData Cleansing = DataManager.GetSpellData(41638);
+        public static readonly SpellData Blessing = DataManager.GetSpellData(41639);
+        public static readonly SpellData Starfall = DataManager.GetSpellData(41640);
+        public static readonly SpellData PhantomRejuvenation = DataManager.GetSpellData(41643);
+        public static readonly SpellData Invulnerability = DataManager.GetSpellData(41644);
     }
 
     internal class OccultCrescent
@@ -124,6 +139,11 @@ namespace Magitek.Logic.Roles
         private static bool _lastCrystalResult = false;
         private static readonly TimeSpan CrystalCheckInterval = TimeSpan.FromSeconds(1.0);
 
+        // Oracle prediction tracking
+        private static bool _predictCasted = false;
+        private static DateTime _predictCastTime = DateTime.MinValue;
+        private static readonly List<uint> _seenPredictions = new List<uint>();
+
         private static readonly Dictionary<uint, PhantomJob> PhantomJobAuras = new()
         {
             // { auraId, PhantomJob.JobName }
@@ -136,7 +156,8 @@ namespace Magitek.Logic.Roles
             { 4365, PhantomJob.TimeMage },
             { 4361, PhantomJob.Ranger },
             { 4369, PhantomJob.PhantomThief },
-            { 4362, PhantomJob.Samurai }
+            { 4362, PhantomJob.Samurai },
+            { 4368, PhantomJob.Oracle }
         };
 
         public enum PhantomJob
@@ -151,7 +172,8 @@ namespace Magitek.Logic.Roles
             TimeMage,
             Ranger,
             PhantomThief,
-            Samurai
+            Samurai,
+            Oracle
         }
 
         /// <summary>
@@ -263,6 +285,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Ranger => await ExecuteRangerPhantomJob(),
                 PhantomJob.PhantomThief => await ExecutePhantomThiefJob(),
                 PhantomJob.Samurai => await ExecuteSamuraiPhantomJob(),
+                PhantomJob.Oracle => await ExecuteOraclePhantomJob(),
                 _ => false
             };
 
@@ -685,6 +708,279 @@ namespace Magitek.Logic.Roles
                 return true;
 
             return false;
+        }
+
+        /// <summary>
+        /// Execute Oracle Phantom Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteOraclePhantomJob()
+        {
+            // Update prediction tracking
+            UpdateOraclePredictionTracking();
+
+            // If we're in a prediction cycle, handle it intelligently
+            if (_predictCasted && GetCurrentActivePrediction() != 0)
+            {
+                return await HandlePredictionCycle();
+            }
+
+            // Cast Predict to start a new cycle if not in one
+            if (await Predict())
+                return true;
+
+            // Non-prediction Oracle abilities (can be used anytime)
+            if (await PhantomRejuvenation())
+                return true;
+
+            if (await Invulnerability())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Updates Oracle prediction tracking state
+        /// </summary>
+        private static void UpdateOraclePredictionTracking()
+        {
+            var now = DateTime.Now;
+
+            // Check if we're currently in a prediction cycle
+            var activePrediction = GetCurrentActivePrediction();
+
+            if (activePrediction != 0)
+            {
+                // We have an active prediction - add to seen predictions if not already present
+                if (!_seenPredictions.Contains(activePrediction))
+                {
+                    // New prediction detected
+                    _seenPredictions.Add(activePrediction);
+
+                    var predictionName = activePrediction switch
+                    {
+                        OCAuras.PredictionOfJudgment => "Phantom Judgment",
+                        OCAuras.PredictionOfCleansing => "Cleansing",
+                        OCAuras.PredictionOfBlessing => "Blessing",
+                        OCAuras.PredictionOfStarfall => "Starfall",
+                        _ => "Unknown"
+                    };
+
+                    Logger.WriteInfo($"[Oracle] New prediction detected: {predictionName} ({_seenPredictions.Count}/4)");
+                }
+            }
+
+            // Check if we should reset the cycle (no predictions for a while and predict was cast)
+            if (_predictCasted && (now - _predictCastTime).TotalSeconds > 20)
+            {
+                Logger.WriteInfo("[Oracle] Prediction cycle timeout - resetting tracking");
+                ResetOraclePredictionTracking();
+            }
+        }
+
+        /// <summary>
+        /// Gets the currently active prediction aura, or 0 if none
+        /// </summary>
+        /// <returns>Active prediction aura ID</returns>
+        private static uint GetCurrentActivePrediction()
+        {
+            if (Core.Me.HasAura(OCAuras.PredictionOfJudgment))
+                return OCAuras.PredictionOfJudgment;
+            if (Core.Me.HasAura(OCAuras.PredictionOfCleansing))
+                return OCAuras.PredictionOfCleansing;
+            if (Core.Me.HasAura(OCAuras.PredictionOfBlessing))
+                return OCAuras.PredictionOfBlessing;
+            if (Core.Me.HasAura(OCAuras.PredictionOfStarfall))
+                return OCAuras.PredictionOfStarfall;
+            return 0;
+        }
+
+        /// <summary>
+        /// Gets the currently active prediction aura object
+        /// </summary>
+        /// <returns>Active prediction aura object, or null if none</returns>
+        private static Aura GetCurrentActivePredictionAura()
+        {
+            var character = Core.Me as Character;
+            if (character == null)
+                return null;
+
+            return character.CharacterAuras.FirstOrDefault(aura =>
+                aura.Id == OCAuras.PredictionOfJudgment ||
+                aura.Id == OCAuras.PredictionOfCleansing ||
+                aura.Id == OCAuras.PredictionOfBlessing ||
+                aura.Id == OCAuras.PredictionOfStarfall);
+        }
+
+        /// <summary>
+        /// Resets Oracle prediction tracking
+        /// </summary>
+        private static void ResetOraclePredictionTracking()
+        {
+            _predictCasted = false;
+            _predictCastTime = DateTime.MinValue;
+            _seenPredictions.Clear();
+            // _currentPrediction = 0; // Removed - unreliable tracking
+        }
+
+        /// <summary>
+        /// Handles the prediction cycle with intelligent decision making
+        /// </summary>
+        /// <returns>True if a prediction spell was cast</returns>
+        private static async Task<bool> HandlePredictionCycle()
+        {
+            var predictionCount = _seenPredictions.Count;
+            var isLastPrediction = predictionCount >= 4;
+            var isThirdPrediction = predictionCount == 3;
+
+            // Get the current prediction aura and its remaining time
+            var currentPredictionAura = GetCurrentActivePredictionAura();
+            if (currentPredictionAura == null)
+                return false;
+
+            var timeLeft = currentPredictionAura.TimespanLeft.TotalSeconds;
+            var aboutToExpire = timeLeft <= 1.0;
+
+            // Special case: if this is the 3rd prediction and Starfall hasn't been seen yet
+            // (meaning it will be the forced 4th prediction), and we're not at 100% HP,
+            // we should cast the current prediction now to avoid being forced into Starfall
+            if (isThirdPrediction &&
+                aboutToExpire &&
+                !_seenPredictions.Contains(OCAuras.PredictionOfStarfall) &&
+                (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.StarfallHealthPercent ||
+                 !OccultCrescentSettings.Instance.UseStarfall))
+            {
+                Logger.WriteWarning($"[Oracle] STARFALL AVOIDANCE: Casting 3rd prediction to avoid Starfall as 4th (HP: {Core.Me.CurrentHealthPercent:F1}%)");
+                var success = await CastCurrentPrediction("Avoiding Starfall as 4th prediction");
+                if (success)
+                {
+                    ResetOraclePredictionTracking();
+                    return true;
+                }
+            }
+
+            // Force cast on 4th prediction to avoid False Prediction
+            if (isLastPrediction && aboutToExpire)
+            {
+                if (currentPredictionAura.Id == OCAuras.PredictionOfStarfall && Core.Me.CurrentHealthPercent < 90)
+                {
+                    Logger.WriteWarning($"[Oracle] STARFALL AVOIDANCE: Starfall would kill self if cast, so we are forced to take False Prediction (HP: {Core.Me.CurrentHealthPercent:F1}%)");
+                    return false;
+                }
+
+                Logger.WriteWarning($"[Oracle] FORCED CAST: 4th prediction to avoid False Prediction (Time left: {timeLeft:F1}s)");
+                var success = await CastCurrentPrediction("Forced to avoid False Prediction");
+                if (success)
+                {
+                    ResetOraclePredictionTracking();
+                    return true;
+                }
+            }
+
+            // Intelligent decision making based on current needs
+            if (ShouldCastCurrentPrediction())
+            {
+                var success = await CastCurrentPrediction("Intelligent decision");
+                if (success)
+                {
+                    ResetOraclePredictionTracking();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines if we should cast the current prediction based on party needs
+        /// </summary>
+        /// <returns>True if we should cast the current prediction</returns>
+        private static bool ShouldCastCurrentPrediction()
+        {
+            var currentPrediction = GetCurrentActivePrediction();
+            switch (currentPrediction)
+            {
+                case OCAuras.PredictionOfJudgment:
+                    // Cast if we/party needs moderate healing and want damage
+                    return GetLowestPartyHealthPercent() <= OccultCrescentSettings.Instance.PhantomJudgmentHealthPercent;
+
+                case OCAuras.PredictionOfBlessing:
+                    // Cast if we/party needs significant healing
+                    return GetLowestPartyHealthPercent() <= OccultCrescentSettings.Instance.BlessingHealthPercent;
+
+                case OCAuras.PredictionOfCleansing:
+                    // Cast if party is healthy and we want damage
+                    return GetLowestPartyHealthPercent() >= OccultCrescentSettings.Instance.CleansingHealthPercent;
+
+                case OCAuras.PredictionOfStarfall:
+                    // Only cast if we're at safe HP and no enemies targeting us
+                    return Core.Me.CurrentHealthPercent >= OccultCrescentSettings.Instance.StarfallHealthPercent && !HasEnemiesTargetingUs();
+
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the lowest health percentage in the party (including self)
+        /// </summary>
+        /// <returns>Lowest health percentage</returns>
+        private static float GetLowestPartyHealthPercent()
+        {
+            var partyHealth = Group.CastableAlliesWithin20
+                .Select(ally => ally.CurrentHealthPercent)
+                .DefaultIfEmpty(100f);
+
+            var lowestPartyHealth = partyHealth.Min();
+            return Math.Min(Core.Me.CurrentHealthPercent, lowestPartyHealth);
+        }
+
+        /// <summary>
+        /// Checks if any enemies are targeting us
+        /// </summary>
+        /// <returns>True if enemies are targeting us</returns>
+        private static bool HasEnemiesTargetingUs()
+        {
+            return Combat.Enemies.Any(enemy =>
+                enemy.TargetGameObject == Core.Me &&
+                enemy.ValidAttackUnit());
+        }
+
+        /// <summary>
+        /// Casts the current prediction spell
+        /// </summary>
+        /// <param name="reason">Reason for casting (for logging)</param>
+        /// <returns>True if spell was cast successfully</returns>
+        private static async Task<bool> CastCurrentPrediction(string reason)
+        {
+            var currentPrediction = GetCurrentActivePrediction();
+
+            // Get prediction name for logging
+            var predictionName = currentPrediction switch
+            {
+                OCAuras.PredictionOfJudgment => "Phantom Judgment",
+                OCAuras.PredictionOfCleansing => "Cleansing",
+                OCAuras.PredictionOfBlessing => "Blessing",
+                OCAuras.PredictionOfStarfall => "Starfall",
+                _ => "Unknown"
+            };
+
+            Logger.WriteInfo($"[Oracle] Casting {predictionName} - Reason: {reason} (Seen: {_seenPredictions.Count}/4)");
+
+            switch (currentPrediction)
+            {
+                case OCAuras.PredictionOfJudgment:
+                    return await PhantomJudgment();
+                case OCAuras.PredictionOfCleansing:
+                    return await Cleansing();
+                case OCAuras.PredictionOfBlessing:
+                    return await Blessing();
+                case OCAuras.PredictionOfStarfall:
+                    return await Starfall();
+                default:
+                    Logger.WriteWarning($"[Oracle] No valid prediction found to cast - Current: {currentPrediction}");
+                    return false;
+            }
         }
 
         /// <summary>
@@ -1976,6 +2272,227 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await OCSpells.Zeninage.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Cast Predict - cast a spell on a random party member
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Predict()
+        {
+            if (!OccultCrescentSettings.Instance.UsePredict)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.Predict.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Cleansing.Radius))
+                return false;
+
+            // Cast Predict and start tracking
+            if (await OCSpells.Predict.Cast(Core.Me))
+            {
+                Logger.WriteInfo("[Oracle] Predict cast - starting new prediction cycle");
+                _predictCasted = true;
+                _predictCastTime = DateTime.Now;
+                _seenPredictions.Clear();
+                // _currentPrediction = 0; // Removed - unreliable tracking
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Cast Phantom Judgment - cast a judgment on a random party member
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> PhantomJudgment()
+        {
+            if (!OccultCrescentSettings.Instance.UsePhantomJudgment)
+                return false;
+
+            if (!OCSpells.PhantomJudgment.CanCast())
+                return false;
+
+            // Check if we have the correct prediction aura
+            if (!Core.Me.HasAura(OCAuras.PredictionOfJudgment))
+                return false;
+
+            // Cast on self - Phantom Judgment affects area around caster
+            return await OCSpells.PhantomJudgment.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Cleansing - cast a cleansing spell on a random party member
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Cleansing()
+        {
+            if (!OccultCrescentSettings.Instance.UseCleansing)
+                return false;
+
+            if (!OCSpells.Cleansing.CanCast())
+                return false;
+
+            // Check if we have the correct prediction aura
+            if (!Core.Me.HasAura(OCAuras.PredictionOfCleansing))
+                return false;
+
+            // Cast on self - Cleansing affects area around caster
+            return await OCSpells.Cleansing.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Blessing - cast a blessing spell on a random party member
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Blessing()
+        {
+            if (!OccultCrescentSettings.Instance.UseBlessing)
+                return false;
+
+            if (!OCSpells.Blessing.CanCast())
+                return false;
+
+            // Check if we have the correct prediction aura
+            if (!Core.Me.HasAura(OCAuras.PredictionOfBlessing))
+                return false;
+
+            // Cast on self - Blessing affects self and nearby party members
+            return await OCSpells.Blessing.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Starfall - cast a starfall spell on a random party member
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Starfall()
+        {
+            if (!OccultCrescentSettings.Instance.UseStarfall)
+                return false;
+
+            if (!OCSpells.Starfall.CanCast())
+                return false;
+
+            // Check if we have the correct prediction aura
+            if (!Core.Me.HasAura(OCAuras.PredictionOfStarfall))
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.StarfallHealthPercent)
+                return false;
+
+            // Cast on self - Starfall affects self and nearby enemies
+            return await OCSpells.Starfall.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Phantom Rejuvenation - restores HP and MP of self or target
+        /// Prioritizes tanks, then self, then other party members
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> PhantomRejuvenation()
+        {
+            if (!OccultCrescentSettings.Instance.UsePhantomRejuvenation)
+                return false;
+
+            if (!OCSpells.PhantomRejuvenation.CanCast())
+                return false;
+
+            GameObject rejuvenationTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.PhantomRejuvenationCastOnAllies)
+            {
+                // First priority: Find tank who needs healing
+                rejuvenationTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.IsTank() &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.PhantomRejuvenationHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                // Second priority: Self if we need healing
+                if (rejuvenationTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.PhantomRejuvenationHealthPercent)
+                    rejuvenationTarget = Core.Me;
+
+                // Third priority: Any other party member who needs healing
+                if (rejuvenationTarget == null)
+                {
+                    rejuvenationTarget = Group.CastableAlliesWithin30.Where(ally =>
+                        ally.IsValid &&
+                        ally.IsAlive &&
+                        !ally.IsTank() &&
+                        ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.PhantomRejuvenationHealthPercent)
+                        .OrderBy(ally => ally.CurrentHealthPercent)
+                        .FirstOrDefault();
+                }
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.PhantomRejuvenationHealthPercent)
+                    rejuvenationTarget = Core.Me;
+            }
+
+            if (rejuvenationTarget == null)
+                return false;
+
+            return await OCSpells.PhantomRejuvenation.Cast(rejuvenationTarget);
+        }
+
+        /// <summary>
+        /// Cast Invulnerability - grants invulnerability to self or target
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Invulnerability()
+        {
+            if (!OccultCrescentSettings.Instance.UseInvulnerability)
+                return false;
+
+            if (!OCSpells.Invulnerability.CanCast())
+                return false;
+
+            GameObject invulnerabilityTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.InvulnerabilityCastOnAllies)
+            {
+                // Find party member who desperately needs protection
+                invulnerabilityTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                // If no allies need protection, check self
+                if (invulnerabilityTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
+                    invulnerabilityTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
+                    invulnerabilityTarget = Core.Me;
+            }
+
+            if (invulnerabilityTarget == null)
+                return false;
+
+            return await OCSpells.Invulnerability.Cast(invulnerabilityTarget);
         }
     }
 }
