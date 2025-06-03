@@ -107,7 +107,6 @@ namespace Magitek.Logic.Roles
 
     internal class OccultCrescent
     {
-        // 1500000 25 minutes
         private static readonly uint KnowledgeCrystal = 2007457;
 
         // Known Knowledge Crystal locations that never change

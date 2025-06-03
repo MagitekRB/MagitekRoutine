@@ -151,7 +151,7 @@ namespace Magitek.Utilities.Managers
             await Casting.CheckForSuccessfulCast();
             SpellQueueLogic.SpellQueue.Clear();
 
-            if (WorldManager.InSanctuary)
+            if (Globals.InSanctuaryOrSafeZone)
                 return false;
 
             if (Globals.OnPvpMap)
@@ -174,7 +174,7 @@ namespace Magitek.Utilities.Managers
                     Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 0) + Core.Me.CurrentTarget.CombatReach);
             }
 
-            if (WorldManager.InSanctuary)
+            if (Globals.InSanctuaryOrSafeZone)
                 return false;
 
             if (Globals.OnPvpMap)
@@ -230,7 +230,7 @@ namespace Magitek.Utilities.Managers
             if (await OccultCrescent.Execute())
                 return true;
 
-            if (WorldManager.InSanctuary)
+            if (Globals.InSanctuaryOrSafeZone)
                 return false;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal");

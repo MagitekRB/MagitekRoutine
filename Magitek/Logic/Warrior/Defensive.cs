@@ -1,5 +1,6 @@
 ﻿using ff14bot;
 using Magitek.Extensions;
+using Magitek.Gambits.Conditions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Warrior;
 using Magitek.Utilities;
@@ -49,7 +50,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UseReprisal)
                 return false;
 
-            if (!UseDefensives())
+            if (!UseDefensives() && Combat.Enemies.Count < 3)
                 return false;
 
             if (Core.Me.CurrentHealthPercent > WarriorSettings.Instance.ReprisalHealthPercent)

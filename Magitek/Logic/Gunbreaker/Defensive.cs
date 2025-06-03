@@ -61,7 +61,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseReprisal)
                 return false;
 
-            if (!UseDefensives())
+            if (!UseDefensives() && Combat.Enemies.Count < 3)
                 return false;
 
             if (Core.Me.CurrentHealthPercent > GunbreakerSettings.Instance.ReprisalHealthPercent)

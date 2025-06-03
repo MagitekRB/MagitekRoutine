@@ -25,6 +25,9 @@ namespace Magitek.Utilities.Overlays
                 {
                     Application.Current.Dispatcher.Invoke(delegate
                     {
+                        // Validate window position before showing
+                        Models.Account.BaseSettings.ValidateSettingsWindowPosition(1000, 700);
+
                         if (!Magitek.Form.IsVisible)
                             Magitek.Form.Show();
 

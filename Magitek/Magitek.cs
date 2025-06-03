@@ -352,6 +352,9 @@ namespace Magitek
             if (Form.IsVisible)
                 return;
 
+            // Validate window position before showing
+            Models.Account.BaseSettings.ValidateSettingsWindowPosition(1000, 700);
+
             Form.Show();
 
             OverlayManager.StartMainOverlay();

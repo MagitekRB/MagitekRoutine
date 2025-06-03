@@ -138,7 +138,8 @@ namespace Magitek.Views
 
         private void SettingsWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+            // Removed validation from here to prevent binding feedback loops
+            // Validation is handled before showing the window instead
         }
 
         private void Close(object sender, RoutedEventArgs e)
