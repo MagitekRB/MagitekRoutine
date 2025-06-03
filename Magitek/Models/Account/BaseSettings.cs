@@ -34,6 +34,74 @@ namespace Magitek.Models.Account
             Instance.Save();
         }
 
+        /// <summary>
+        /// Validates and corrects the settings window position to ensure it appears on screen.
+        /// For single monitor setups, negative coordinates will be reset to default values.
+        /// For multi-monitor setups, negative coordinates are preserved to allow positioning on secondary monitors.
+        /// </summary>
+        /// <param name="windowWidth">The width of the settings window</param>
+        /// <param name="windowHeight">The height of the settings window</param>
+        public static void ValidateSettingsWindowPosition(double windowWidth = 1000, double windowHeight = 700)
+        {
+            var screens = Screen.AllScreens;
+            var isMultiMonitor = screens.Length > 1;
+
+            var currentX = Instance.SettingsWindowPosX;
+            var currentY = Instance.SettingsWindowPosY;
+            var needsCorrection = false;
+
+            // For single monitor setups, don't allow negative coordinates
+            if (!isMultiMonitor)
+            {
+                if (currentX < 0 || currentY < 0)
+                {
+                    needsCorrection = true;
+                }
+                else
+                {
+                    // Also check if the window would be completely off-screen on the right/bottom
+                    var primaryScreen = Screen.PrimaryScreen;
+                    if (currentX > primaryScreen.WorkingArea.Width - 100 ||
+                        currentY > primaryScreen.WorkingArea.Height - 100)
+                    {
+                        needsCorrection = true;
+                    }
+                }
+            }
+            else
+            {
+                // For multi-monitor setups, check if the top-left corner is on any screen
+                // This ensures the title bar is accessible for moving the window
+                var isTopLeftOnAnyScreen = false;
+                foreach (var screen in screens)
+                {
+                    var screenBounds = screen.WorkingArea;
+                    // Check if the top-left corner is within this screen's bounds
+                    if (currentX >= screenBounds.Left &&
+                        currentX < screenBounds.Right &&
+                        currentY >= screenBounds.Top &&
+                        currentY < screenBounds.Bottom)
+                    {
+                        isTopLeftOnAnyScreen = true;
+                        break;
+                    }
+                }
+
+                if (!isTopLeftOnAnyScreen)
+                {
+                    needsCorrection = true;
+                }
+            }
+
+            // Apply correction if needed
+            if (needsCorrection)
+            {
+                Instance.SettingsWindowPosX = 60; // Default position
+                Instance.SettingsWindowPosY = 60; // Default position
+                Instance.Save();
+            }
+        }
+
         [Setting]
         [DefaultValue(ModifierKeys.None)]
         public ModifierKeys UseOpenersModkey { get; set; }

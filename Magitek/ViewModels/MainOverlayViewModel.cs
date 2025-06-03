@@ -20,7 +20,12 @@ namespace Magitek.ViewModels
 
         public ICommand OpenMainSettingsForm => new DelegateCommand(() =>
         {
-            Application.Current.Dispatcher.Invoke(delegate { Magitek.Form.Show(); });
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                // Validate window position before showing
+                Models.Account.BaseSettings.ValidateSettingsWindowPosition(1000, 700);
+                Magitek.Form.Show();
+            });
         });
 
         public ICommand EnablePvpOverlay => new DelegateCommand(() =>
