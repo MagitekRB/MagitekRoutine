@@ -783,6 +783,117 @@
                 </StackPanel>
             </controls:SettingsBlock>
 
+            <!-- Phantom Geomancer Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="Phantom Geomancer"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Battle Bell (Damage boost that stacks when taking damage)"
+                                  IsChecked="{Binding UseBattleBell, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Battle Bell prioritizes tanks first (who take most damage), then self, then other party members. Only cast in combat."/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Ringing Respite (Heals target when they take damage)"
+                                  IsChecked="{Binding UseRingingRespite, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding RingingRespiteCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" (Prioritizes tanks)"
+                                   Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Suspend"
+                                  IsChecked="{Binding UseSuspend, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="Suspend whole party"
+                                  IsChecked="{Binding SuspendCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Sunbath below"
+                                  IsChecked="{Binding UseSunbath, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding SunbathHealthPercent, Mode=TwoWay}"
+                                          Margin="5,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" percent HP"/>
+                        <CheckBox Content="On Allies"
+                                  IsChecked="{Binding SunbathCastOnAllies, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"
+                                  Margin="20,0,0,0"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text=" (Restores HP)"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockSection}"
+                               Text="Weather Effects (Combat Only)"/>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Cloudy Caress (Increases healing potency by 30%)"
+                                  IsChecked="{Binding UseCloudyCaress, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Blessed Rain (Erects magical barrier which nullifies damage)"
+                                  IsChecked="{Binding UseBlessedRain, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Misty Mirage (Increases evasion by 40%)"
+                                  IsChecked="{Binding UseMistyMirage, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Hasty Mirage (Increases movement speed by 20%)"
+                                  IsChecked="{Binding UseHastyMirage, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5"
+                                Orientation="Horizontal">
+                        <CheckBox Content="Use Aetherial Gain (Increases damage dealt by 10%)"
+                                  IsChecked="{Binding UseAetherialGain, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               TextWrapping="Wrap"
+                               FontStyle="Italic"
+                               Text="Weather effects are beneficial buffs that can only be cast in combat when available. All effects are applied to self and nearby party members."/>
+                </StackPanel>
+            </controls:SettingsBlock>
+
         </StackPanel>
     </ScrollViewer>
 </UserControl> 

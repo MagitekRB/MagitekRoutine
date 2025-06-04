@@ -387,5 +387,59 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool InvulnerabilityCastOnAllies { get; set; }
         #endregion
+
+        #region Phantom Geomancer
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBattleBell { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseRingingRespite { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool RingingRespiteCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSunbath { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float SunbathHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SunbathCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseCloudyCaress { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBlessedRain { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMistyMirage { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHastyMirage { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAetherialGain { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseSuspend { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SuspendCastOnAllies { get; set; }
+        #endregion
     }
 }
