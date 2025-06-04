@@ -2822,6 +2822,9 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRingingRespite)
                 return false;
 
+            if (!Core.Me.InCombat)
+                return false;
+
             if (!OCSpells.RingingRespite.CanCast())
                 return false;
 
