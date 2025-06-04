@@ -129,6 +129,12 @@ namespace Magitek.Views
                     case ClassJobType.Sage:
                         Sage.IsSelected = true;
                         break;
+                    case ClassJobType.Pictomancer:
+                        Pictomancer.IsSelected = true;
+                        break;
+                    case ClassJobType.Viper:
+                        Viper.IsSelected = true;
+                        break;
                     default:
                         Home.IsSelected = true;
                         break;

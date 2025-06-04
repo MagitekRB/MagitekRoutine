@@ -1296,10 +1296,6 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <occultCrescent:General/>
                         </TabItem>
-                        <TabItem Header="Toggles"
-                                 Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings/>
-                        </TabItem>
                     </TabControl>
                 </TabItem>
 

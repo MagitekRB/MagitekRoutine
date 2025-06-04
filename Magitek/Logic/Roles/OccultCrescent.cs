@@ -35,12 +35,15 @@ namespace Magitek.Logic.Roles
             ForeseenOffense = 4278,
             WeaponPilfered = 4279,
             Shirahadori = 4245,
+            BattleBell = 4251,
             FalsePrediction = 4269,
             PredictionOfBlessing = 4267,
             PredictionOfStarfall = 4268,
             PredictionOfCleansing = 4266,
             PredictionOfJudgment = 4265,
-            PhantomRejuvenation = 4274;
+            PhantomRejuvenation = 4274,
+            RingingRespite = 4257,
+            Suspend = 4258;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -118,6 +121,17 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData Starfall = DataManager.GetSpellData(41640);
         public static readonly SpellData PhantomRejuvenation = DataManager.GetSpellData(41643);
         public static readonly SpellData Invulnerability = DataManager.GetSpellData(41644);
+
+        // Geomancer Spells
+        public static readonly SpellData BattleBell = DataManager.GetSpellData(41611);
+        public static readonly SpellData Sunbath = DataManager.GetSpellData(41613);
+        public static readonly SpellData CloudyCaress = DataManager.GetSpellData(41614);
+        public static readonly SpellData BlessedRain = DataManager.GetSpellData(41615);
+        public static readonly SpellData MistyMirage = DataManager.GetSpellData(41616);
+        public static readonly SpellData HastyMirage = DataManager.GetSpellData(41617);
+        public static readonly SpellData AetherialGain = DataManager.GetSpellData(41618);
+        public static readonly SpellData RingingRespite = DataManager.GetSpellData(41619);
+        public static readonly SpellData Suspend = DataManager.GetSpellData(41620);
     }
 
     internal class OccultCrescent
@@ -139,6 +153,13 @@ namespace Magitek.Logic.Roles
         private static bool _lastCrystalResult = false;
         private static readonly TimeSpan CrystalCheckInterval = TimeSpan.FromSeconds(1.0);
 
+        // Throttling for non-party resurrection checks
+        private static DateTime _lastNonPartyResCheck = DateTime.MinValue;
+        private static readonly TimeSpan NonPartyResCheckInterval = TimeSpan.FromSeconds(2.0);
+
+        // Cannoneer alternating cannon tracking
+        private static bool _lastUsedShockCannon = false;
+
         // Oracle prediction tracking
         private static bool _predictCasted = false;
         private static DateTime _predictCastTime = DateTime.MinValue;
@@ -157,7 +178,8 @@ namespace Magitek.Logic.Roles
             { 4361, PhantomJob.Ranger },
             { 4369, PhantomJob.PhantomThief },
             { 4362, PhantomJob.Samurai },
-            { 4368, PhantomJob.Oracle }
+            { 4368, PhantomJob.Oracle },
+            { 4364, PhantomJob.Geomancer }
         };
 
         public enum PhantomJob
@@ -173,7 +195,8 @@ namespace Magitek.Logic.Roles
             Ranger,
             PhantomThief,
             Samurai,
-            Oracle
+            Oracle,
+            Geomancer
         }
 
         /// <summary>
@@ -286,6 +309,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.PhantomThief => await ExecutePhantomThiefJob(),
                 PhantomJob.Samurai => await ExecuteSamuraiPhantomJob(),
                 PhantomJob.Oracle => await ExecuteOraclePhantomJob(),
+                PhantomJob.Geomancer => await ExecuteGeomancerPhantomJob(),
                 _ => false
             };
 
@@ -315,6 +339,12 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.ReviveNonPartyPlayers)
                 return false;
 
+            // Throttle non-party resurrection checks to every 2 seconds for performance
+            var now = DateTime.Now;
+            if (now - _lastNonPartyResCheck < NonPartyResCheckInterval)
+                return false;
+            _lastNonPartyResCheck = now;
+
             // Only use excess mana for non-party resurrections
             if (Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
                 return false;
@@ -326,6 +356,17 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyOutOfCombat)
                 return false;
 
+            // Update alliance to get dead players using optimized Group system
+            Group.UpdateAlliance(
+                IgnoreAlliance: false,
+                HealAllianceDps: false,
+                HealAllianceHealers: false,
+                HealAllianceTanks: false,
+                ResAllianceDps: true,
+                ResAllianceHealers: true,
+                ResAllianceTanks: true
+            );
+
             return await RaiseNonPartyPlayer();
         }
 
@@ -336,8 +377,15 @@ namespace Magitek.Logic.Roles
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> RaiseNonPartyPlayer()
         {
-            // Find dead non-party players first
-            var deadNonPartyPlayers = GetDeadNonPartyPlayers();
+            // Get dead non-party players from the optimized Group.CastableAlliance
+            // Filter out party members since CastableAlliance includes everyone
+            var deadNonPartyPlayers = Group.CastableAlliance.Where(u => u.CurrentHealth == 0 &&
+                                                       !u.HasAura(Auras.Raise) &&
+                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.IsVisible &&
+                                                       u.InLineOfSight() &&
+                                                       u.IsTargetable);
+
             if (!deadNonPartyPlayers.Any())
                 return false;
 
@@ -424,31 +472,6 @@ namespace Magitek.Logic.Roles
 
             // No dualcast, use regular swiftcast/slowcast logic
             return await RaiseWithSwiftcastOptions(Spells.Verraise, target);
-        }
-
-        /// <summary>
-        /// Gets dead players who are not in your party and are suitable for resurrection
-        /// </summary>
-        /// <returns>Collection of dead non-party players</returns>
-        private static IEnumerable<Character> GetDeadNonPartyPlayers()
-        {
-            // Get all player characters in the area
-            var allPlayers = GameObjectManager.GetObjectsOfType<BattleCharacter>()
-                .Where(obj => obj != null &&
-                             obj.IsValid &&
-                             obj.Type == GameObjectType.Pc &&
-                             obj.IsTargetable &&
-                             obj.InLineOfSight())
-                .OfType<Character>();
-
-            // Filter to dead non-party players within range who don't already have raise
-            return allPlayers.Where(player =>
-                player.CurrentHealth == 0 &&
-                player.IsDead &&
-                !Group.CastableAlliesWithin30.Contains(player) &&
-                !player.HasAura(Auras.Raise) &&
-                player.Distance(Core.Me) <= 30 &&
-                player.IsVisible);
         }
 
         /// <summary>
@@ -595,17 +618,76 @@ namespace Magitek.Logic.Roles
             if (await HolyCannon())
                 return true;
 
-            // Shock Cannon - ranged attack that inflicts paralysis
-            if (await ShockCannon())
-                return true;
-
-            // Dark Cannon - ranged attack that inflicts blind
-            if (await DarkCannon())
+            // Handles alternating between Shock Cannon and Dark Cannon when both are available
+            // If only Dark Cannon is available (Shock not learned yet), uses Dark Cannon.
+            // If both are available (Shock learned), alternates for optimal debuff coverage.
+            if (await AlternatingCannons())
                 return true;
 
             // Phantom Fire - standard ranged attack
             if (await PhantomFire())
                 return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Handles alternating between Shock Cannon and Dark Cannon when both are available
+        /// If only Dark Cannon is available (Shock not learned yet), uses Dark Cannon.
+        /// If both are available (Shock learned), alternates for optimal debuff coverage.
+        /// </summary>
+        /// <returns>True if a cannon spell was cast, false otherwise</returns>
+        private static async Task<bool> AlternatingCannons()
+        {
+            var canShock = OCSpells.ShockCannon.CanCast();
+            var canDark = OCSpells.DarkCannon.CanCast();
+
+            // If neither can be cast, return false
+            if (!canShock && !canDark)
+                return false;
+
+            // If Shock Cannon isn't available (not learned yet), just use Dark Cannon
+            if (!canShock)
+            {
+                if (await DarkCannon())
+                {
+                    _lastUsedShockCannon = false;
+                    return true;
+                }
+            }
+            // If Shock Cannon is available, player definitely has Dark too (Dark learned first)
+            // Alternate between them for optimal debuff coverage
+            else
+            {
+                if (_lastUsedShockCannon)
+                {
+                    // Last used Shock, try Dark first
+                    if (await DarkCannon())
+                    {
+                        _lastUsedShockCannon = false;
+                        return true;
+                    }
+                    else if (await ShockCannon())
+                    {
+                        _lastUsedShockCannon = true;
+                        return true;
+                    }
+                }
+                else
+                {
+                    // Last used Dark (or first time), try Shock first
+                    if (await ShockCannon())
+                    {
+                        _lastUsedShockCannon = true;
+                        return true;
+                    }
+                    else if (await DarkCannon())
+                    {
+                        _lastUsedShockCannon = false;
+                        return true;
+                    }
+                }
+            }
 
             return false;
         }
@@ -734,6 +816,47 @@ namespace Magitek.Logic.Roles
                 return true;
 
             if (await Invulnerability())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Execute Geomancer Phantom Job actions
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteGeomancerPhantomJob()
+        {
+            // Ringing Respite - healing when taking damage, priority protective buff
+            if (await RingingRespite())
+                return true;
+
+            // Sunbath - healing spell, can be used anytime when needed
+            if (await Sunbath())
+                return true;
+
+            // Battle Bell - damage boost that stacks when taking damage (in combat only)
+            if (await BattleBell())
+                return true;
+
+            // Suspend - utility buff for jumping over obstacles
+            if (await Suspend())
+                return true;
+
+            // Weather buff spells - cast in combat when available
+            if (await CloudyCaress())
+                return true;
+
+            if (await BlessedRain())
+                return true;
+
+            if (await MistyMirage())
+                return true;
+
+            if (await HastyMirage())
+                return true;
+
+            if (await AetherialGain())
                 return true;
 
             return false;
@@ -913,8 +1036,19 @@ namespace Magitek.Logic.Roles
                     return GetLowestPartyHealthPercent() >= OccultCrescentSettings.Instance.CleansingHealthPercent;
 
                 case OCAuras.PredictionOfStarfall:
-                    // Only cast if we're at safe HP and no enemies targeting us
-                    return Core.Me.CurrentHealthPercent >= OccultCrescentSettings.Instance.StarfallHealthPercent && !HasEnemiesTargetingUs();
+                    // Starfall does massive damage to self - be very careful
+                    var hasEnemiesTargeting = HasEnemiesTargetingUs();
+                    var canCastInvulnerability = OCSpells.Invulnerability.CanCast();
+
+                    // If tanking enemies, only cast Starfall if we can cast Invulnerability (Invuln + Starfall combo available)
+                    if (hasEnemiesTargeting && !canCastInvulnerability && Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.StarfallHealthPercent)
+                        return false;
+
+                    // If not tanking, only cast if we're at safe HP
+                    if (!hasEnemiesTargeting && Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.StarfallHealthPercent)
+                        return false;
+
+                    return true;
 
                 default:
                     return false;
@@ -2493,6 +2627,288 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await OCSpells.Invulnerability.Cast(invulnerabilityTarget);
+        }
+
+        /// <summary>
+        /// Cast Battle Bell - damage boost that stacks when taking damage
+        /// Prioritizes tanks first (who take most damage), then self, then other party members
+        /// Buff lasts 60 seconds, spell has 30 second cooldown
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> BattleBell()
+        {
+            if (!OccultCrescentSettings.Instance.UseBattleBell)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.BattleBell.CanCast())
+                return false;
+
+            GameObject battleBellTarget = null;
+
+            // First priority: Find tank who doesn't have Battle Bell buff
+            battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
+                ally.IsValid &&
+                ally.IsAlive &&
+                ally.IsTank() &&
+                !ally.HasAura(OCAuras.BattleBell))
+                .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
+                .FirstOrDefault();
+
+            // Second priority: Self if we don't have the buff
+            if (battleBellTarget == null && !Core.Me.HasAura(OCAuras.BattleBell))
+                battleBellTarget = Core.Me;
+
+            // Third priority: Any other party member who doesn't have the buff
+            if (battleBellTarget == null)
+            {
+                battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.IsTank() &&
+                    !ally.HasAura(OCAuras.BattleBell))
+                    .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
+                    .FirstOrDefault();
+            }
+
+            if (battleBellTarget == null)
+                return false;
+
+            return await OCSpells.BattleBell.Cast(battleBellTarget);
+        }
+
+        /// <summary>
+        /// Cast Sunbath - healing spell that restores HP
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Sunbath()
+        {
+            if (!OccultCrescentSettings.Instance.UseSunbath)
+                return false;
+
+            if (!OCSpells.Sunbath.CanCast())
+                return false;
+
+            GameObject healTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.SunbathCastOnAllies)
+            {
+                // Find party member who needs healing most
+                healTarget = Group.CastableAlliesWithin15.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.SunbathHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                // If no allies need healing, check self
+                if (healTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.SunbathHealthPercent)
+                    healTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.SunbathHealthPercent)
+                    healTarget = Core.Me;
+            }
+
+            if (healTarget == null)
+                return false;
+
+            return await OCSpells.Sunbath.Cast(healTarget);
+        }
+
+        /// <summary>
+        /// Cast Cloudy Caress - increases healing potency by 30%
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> CloudyCaress()
+        {
+            if (!OccultCrescentSettings.Instance.UseCloudyCaress)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.CloudyCaress.CanCast())
+                return false;
+
+            return await OCSpells.CloudyCaress.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Blessed Rain - erects a magical barrier which nullifies damage
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> BlessedRain()
+        {
+            if (!OccultCrescentSettings.Instance.UseBlessedRain)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.BlessedRain.CanCast())
+                return false;
+
+            return await OCSpells.BlessedRain.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Misty Mirage - increases evasion by 40%
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> MistyMirage()
+        {
+            if (!OccultCrescentSettings.Instance.UseMistyMirage)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.MistyMirage.CanCast())
+                return false;
+
+            return await OCSpells.MistyMirage.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Hasty Mirage - increases movement speed by 20%
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> HastyMirage()
+        {
+            if (!OccultCrescentSettings.Instance.UseHastyMirage)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.HastyMirage.CanCast())
+                return false;
+
+            return await OCSpells.HastyMirage.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Aetherial Gain - increases damage dealt by 10%
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> AetherialGain()
+        {
+            if (!OccultCrescentSettings.Instance.UseAetherialGain)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.AetherialGain.CanCast())
+                return false;
+
+            return await OCSpells.AetherialGain.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Ringing Respite - heals target when they take damage
+        /// Similar to Battle Bell but focused on healing instead of damage boost
+        /// Prioritizes tanks first (who take most damage), then self, then other party members
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> RingingRespite()
+        {
+            if (!OccultCrescentSettings.Instance.UseRingingRespite)
+                return false;
+
+            if (!OCSpells.RingingRespite.CanCast())
+                return false;
+
+            GameObject ringingRespiteTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.RingingRespiteCastOnAllies)
+            {
+                // First priority: Find tank who doesn't have Ringing Respite buff
+                ringingRespiteTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.IsTank() &&
+                    !ally.HasAura(OCAuras.RingingRespite))
+                    .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
+                    .FirstOrDefault();
+
+                // Second priority: Self if we don't have the buff
+                if (ringingRespiteTarget == null && !Core.Me.HasAura(OCAuras.RingingRespite))
+                    ringingRespiteTarget = Core.Me;
+
+                // Third priority: Any other party member who doesn't have the buff
+                if (ringingRespiteTarget == null)
+                {
+                    ringingRespiteTarget = Group.CastableAlliesWithin30.Where(ally =>
+                        ally.IsValid &&
+                        ally.IsAlive &&
+                        !ally.HasAura(OCAuras.RingingRespite))
+                        .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
+                        .FirstOrDefault();
+                }
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (!Core.Me.HasAura(OCAuras.RingingRespite))
+                    ringingRespiteTarget = Core.Me;
+            }
+
+            if (ringingRespiteTarget == null)
+                return false;
+
+            return await OCSpells.RingingRespite.Cast(ringingRespiteTarget);
+        }
+
+        /// <summary>
+        /// Cast Suspend - utility buff for jumping over obstacles
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Suspend()
+        {
+            if (!OccultCrescentSettings.Instance.UseSuspend)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Suspend.CanCast())
+                return false;
+
+            GameObject suspendTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.SuspendCastOnAllies)
+            {
+                // Find party member who doesn't have Suspend buff
+                suspendTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.HasAura(OCAuras.Suspend))
+                    .FirstOrDefault();
+
+                // If no allies need suspend, check self
+                if (suspendTarget == null && !Core.Me.HasAura(OCAuras.Suspend))
+                    suspendTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self
+                if (!Core.Me.HasAura(OCAuras.Suspend))
+                    suspendTarget = Core.Me;
+            }
+
+            if (suspendTarget == null)
+                return false;
+
+            return await OCSpells.Suspend.Cast(suspendTarget);
         }
     }
 }
