@@ -2557,7 +2557,7 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Cast Invulnerability - grants invulnerability to self or target
+        /// Cast Invulnerability - grants invulnerability to party members only (cannot target self)
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Invulnerability()
@@ -2568,29 +2568,17 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.Invulnerability.CanCast())
                 return false;
 
-            GameObject invulnerabilityTarget = null;
+            // Invulnerability can only be cast on party members, not self
+            if (!OccultCrescentSettings.Instance.InvulnerabilityCastOnAllies)
+                return false;
 
-            // Check if we should cast on allies
-            if (OccultCrescentSettings.Instance.InvulnerabilityCastOnAllies)
-            {
-                // Find party member who desperately needs protection
-                invulnerabilityTarget = Group.CastableAlliesWithin30.Where(ally =>
-                    ally.IsValid &&
-                    ally.IsAlive &&
-                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
-                    .OrderBy(ally => ally.CurrentHealthPercent)
-                    .FirstOrDefault();
-
-                // If no allies need protection, check self
-                if (invulnerabilityTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
-                    invulnerabilityTarget = Core.Me;
-            }
-            else
-            {
-                // Self-only mode: only check self
-                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
-                    invulnerabilityTarget = Core.Me;
-            }
+            // Find party member who desperately needs protection
+            var invulnerabilityTarget = Group.CastableAlliesWithin30.Where(ally =>
+                ally.IsValid &&
+                ally.IsAlive &&
+                ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
+                .OrderBy(ally => ally.CurrentHealthPercent)
+                .FirstOrDefault();
 
             if (invulnerabilityTarget == null)
                 return false;

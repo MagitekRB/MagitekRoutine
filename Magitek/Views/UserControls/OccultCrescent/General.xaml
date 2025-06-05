@@ -832,6 +832,14 @@
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Always prioritize self for Battle Bell"
+                                                          IsChecked="{Binding BattleBellAlwaysIncludeSelf, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
                                         <TextBlock Margin="5"
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
@@ -850,6 +858,14 @@
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
                                                            Text=" (Prioritizes tanks)"
                                                            Margin="5,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Always prioritize self for Ringing Respite"
+                                                          IsChecked="{Binding RingingRespiteAlwaysIncludeSelf, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
