@@ -2617,29 +2617,38 @@ namespace Magitek.Logic.Roles
 
             GameObject battleBellTarget = null;
 
-            // First priority: Find tank who doesn't have Battle Bell buff
-            battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
-                ally.IsValid &&
-                ally.IsAlive &&
-                ally.IsTank() &&
-                !ally.HasAura(OCAuras.BattleBell, msLeft: 1000))
-                .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
-                .FirstOrDefault();
-
-            // Second priority: Self if we don't have the buff
-            if (battleBellTarget == null && !Core.Me.HasAura(OCAuras.BattleBell, msLeft: 1000))
-                battleBellTarget = Core.Me;
-
-            // Third priority: Any other party member who doesn't have the buff
-            if (battleBellTarget == null)
+            // Always include self option - if enabled and we don't have the buff, prioritize self
+            if (OccultCrescentSettings.Instance.BattleBellAlwaysIncludeSelf && !Core.Me.HasAura(OCAuras.BattleBell, msLeft: 1000))
             {
+                battleBellTarget = Core.Me;
+            }
+            else
+            {
+                // Normal priority system
+                // First priority: Find tank who doesn't have Battle Bell buff
                 battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
                     ally.IsValid &&
                     ally.IsAlive &&
-                    !ally.IsTank() &&
+                    ally.IsTank() &&
                     !ally.HasAura(OCAuras.BattleBell, msLeft: 1000))
-                    .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
+                    .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
                     .FirstOrDefault();
+
+                // Second priority: Self if we don't have the buff
+                if (battleBellTarget == null && !Core.Me.HasAura(OCAuras.BattleBell, msLeft: 1000))
+                    battleBellTarget = Core.Me;
+
+                // Third priority: Any other party member who doesn't have the buff
+                if (battleBellTarget == null)
+                {
+                    battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
+                        ally.IsValid &&
+                        ally.IsAlive &&
+                        !ally.IsTank() &&
+                        !ally.HasAura(OCAuras.BattleBell, msLeft: 1000))
+                        .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
+                        .FirstOrDefault();
+                }
             }
 
             if (battleBellTarget == null)
@@ -2799,8 +2808,13 @@ namespace Magitek.Logic.Roles
 
             GameObject ringingRespiteTarget = null;
 
+            // Always include self option - if enabled and we don't have the buff, prioritize self
+            if (OccultCrescentSettings.Instance.RingingRespiteAlwaysIncludeSelf && !Core.Me.HasAura(OCAuras.RingingRespite, msLeft: 1000))
+            {
+                ringingRespiteTarget = Core.Me;
+            }
             // Check if we should cast on allies
-            if (OccultCrescentSettings.Instance.RingingRespiteCastOnAllies)
+            else if (OccultCrescentSettings.Instance.RingingRespiteCastOnAllies)
             {
                 // First priority: Find tank who doesn't have Ringing Respite buff
                 ringingRespiteTarget = Group.CastableAlliesWithin30.Where(ally =>

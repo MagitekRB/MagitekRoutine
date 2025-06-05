@@ -408,12 +408,20 @@ namespace Magitek.Models.OccultCrescent
         public bool UseBattleBell { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool BattleBellAlwaysIncludeSelf { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseRingingRespite { get; set; }
 
         [Setting]
         [DefaultValue(true)]
         public bool RingingRespiteCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool RingingRespiteAlwaysIncludeSelf { get; set; }
 
         [Setting]
         [DefaultValue(true)]
