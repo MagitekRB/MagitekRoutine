@@ -2493,7 +2493,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasAura(OCAuras.PredictionOfStarfall))
                 return false;
 
-            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.StarfallHealthPercent)
+            if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.StarfallHealthPercent)
                 return false;
 
             // Cast on self - Starfall affects self and nearby enemies
