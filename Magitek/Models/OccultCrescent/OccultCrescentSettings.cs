@@ -36,6 +36,26 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(true)]
         public bool ReviveNonPartyInCombat { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool EnableAutomaticPhantomJobSwitching { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool AutoSwitchToKnightForEnduringFortitude { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool AutoSwitchToBardForRomeosBallad { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool AutoSwitchToMonkForFleetfooted { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool RestoreOriginalPhantomJobAfterAutoBuff { get; set; }
         #endregion
 
         #region Phantom Bard
@@ -47,9 +67,7 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseRomeosBallad { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool RomeosBallad_KnowledgeCrystal { get; set; }
+
 
         [Setting]
         [DefaultValue(true)]
@@ -81,9 +99,7 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UsePray { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool PrayKnowledgeCrystal { get; set; }
+
 
         [Setting]
         [DefaultValue(75.0f)]
@@ -131,9 +147,7 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseCounterstance { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool CounterstanceKnowledgeCrystal { get; set; }
+
 
         [Setting]
         [DefaultValue(true)]
@@ -394,12 +408,20 @@ namespace Magitek.Models.OccultCrescent
         public bool UseBattleBell { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool BattleBellAlwaysIncludeSelf { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseRingingRespite { get; set; }
 
         [Setting]
         [DefaultValue(true)]
         public bool RingingRespiteCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool RingingRespiteAlwaysIncludeSelf { get; set; }
 
         [Setting]
         [DefaultValue(true)]

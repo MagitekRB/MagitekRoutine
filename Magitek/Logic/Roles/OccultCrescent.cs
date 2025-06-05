@@ -155,7 +155,7 @@ namespace Magitek.Logic.Roles
 
         // Throttling for non-party resurrection checks
         private static DateTime _lastNonPartyResCheck = DateTime.MinValue;
-        private static readonly TimeSpan NonPartyResCheckInterval = TimeSpan.FromSeconds(2.0);
+        private static readonly TimeSpan NonPartyResCheckInterval = TimeSpan.FromSeconds(1.0);
 
         // Cannoneer alternating cannon tracking
         private static bool _lastUsedShockCannon = false;
@@ -205,7 +205,7 @@ namespace Magitek.Logic.Roles
         /// </summary>
         /// <param name="maxDistance">Maximum distance to consider "near" (default 5)</param>
         /// <returns>True if a Knowledge Crystal is found within range at a valid location</returns>
-        private static bool IsNearKnowledgeCrystal(float maxDistance = 5.0f)
+        public static bool IsNearKnowledgeCrystal(float maxDistance = 5.0f)
         {
             var now = DateTime.Now;
 
@@ -295,6 +295,10 @@ namespace Magitek.Logic.Roles
             if (phantomJob == PhantomJob.None)
                 return false;
 
+            // First, try automatic phantom job switching for knowledge crystal buffs
+            if (await PhantomJobSwitcher.AutoSwitchForKnowledgeCrystalBuffs())
+                return true;
+
             // Execute phantom job specific logic
             var phantomJobResult = phantomJob switch
             {
@@ -345,8 +349,12 @@ namespace Magitek.Logic.Roles
                 return false;
             _lastNonPartyResCheck = now;
 
-            // Only use excess mana for non-party resurrections
-            if (Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
+            // Check if we're Phantom Chemist (free resurrection) or need MP check for regular jobs
+            var phantomJob = GetCurrentPhantomJob();
+            bool isPhantomChemist = phantomJob == PhantomJob.Chemist;
+
+            // Only check MP for non-Chemist resurrections (Chemist Revive doesn't cost MP)
+            if (!isPhantomChemist && Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
                 return false;
 
             // Check combat preferences
@@ -478,7 +486,7 @@ namespace Magitek.Logic.Roles
         /// Determine the current phantom job based on player auras
         /// </summary>
         /// <returns>The current phantom job, or None if no phantom job is active</returns>
-        private static PhantomJob GetCurrentPhantomJob()
+        public static PhantomJob GetCurrentPhantomJob()
         {
             foreach (var kvp in PhantomJobAuras)
             {
@@ -1146,9 +1154,8 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Cast Romeo's Ballad - interrupt ability
-        /// Out of combat: cast if NpcId 2007457 is in range
-        /// In combat: cast only if a monster is casting (to interrupt)
+        /// Cast Romeo's Ballad - interrupt ability (combat only)
+        /// Knowledge crystal casting is now handled by PhantomJobSwitcher
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> RomeosBallad()
@@ -1156,32 +1163,23 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRomeosBallad)
                 return false;
 
+            // Only used in combat for interrupts, knowledge crystal usage handled by PhantomJobSwitcher
+            if (!Core.Me.InCombat)
+                return false;
+
             if (!OCSpells.RomeosBallad.CanCast())
                 return false;
 
-            if (!Core.Me.InCombat)
-            {
-                if (!OccultCrescentSettings.Instance.RomeosBallad_KnowledgeCrystal)
-                    return false;
-
-                if (Core.Me.HasAura(OCAuras.RomeosBallad, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
-                    return false;
-
-                if (IsNearKnowledgeCrystal())
-                    return await OCSpells.RomeosBallad.Cast(Core.Me);
-            }
-            // else if (OccultCrescentSettings.Instance.RomeosBallad_InterruptEnemies)
-            // {
-            //     // In combat: only cast if a monster is casting (to interrupt)
-            //     var castingEnemy = Combat.Enemies.FirstOrDefault(enemy =>
-            //         enemy.IsCasting &&
-            //         enemy.ValidAttackUnit() &&
-            //         enemy.InLineOfSight() &&
-            //         enemy.WithinSpellRange(OCSpells.RomeosBallad.Radius));
-
-            //     if (castingEnemy != null)
-            //         return await OCSpells.RomeosBallad.Cast(castingEnemy);
-            // }
+            // TODO: Implement interrupt logic if needed
+            // In combat: only cast if a monster is casting (to interrupt)
+            // var castingEnemy = Combat.Enemies.FirstOrDefault(enemy =>
+            //     enemy.IsCasting &&
+            //     enemy.ValidAttackUnit() &&
+            //     enemy.InLineOfSight() &&
+            //     enemy.WithinSpellRange(OCSpells.RomeosBallad.Radius));
+            //
+            // if (castingEnemy != null)
+            //     return await OCSpells.RomeosBallad.Cast(castingEnemy);
 
             return false;
         }
@@ -1210,8 +1208,8 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Cast Pray - regen effect that lasts for a duration
-        /// When cast near Knowledge Crystal, provides party buff (Enduring Fortitude)
+        /// Cast Pray - regen effect (combat only)
+        /// Knowledge crystal party buff casting is now handled by PhantomJobSwitcher
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Pray()
@@ -1219,34 +1217,21 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UsePray)
                 return false;
 
+            // Only used in combat for regen, knowledge crystal party buff handled by PhantomJobSwitcher
+            if (!Core.Me.InCombat)
+                return false;
+
             if (!OCSpells.Pray.CanCast())
                 return false;
 
-            if (!Core.Me.InCombat)
-            {
-                // Out of combat: only cast near Knowledge Crystal if enabled
-                if (!OccultCrescentSettings.Instance.PrayKnowledgeCrystal)
-                    return false;
+            // In combat: cast if we don't have the regen effect and HP is below threshold
+            if (Core.Me.HasAura(OCAuras.Pray))
+                return false;
 
-                if (Core.Me.HasAura(OCAuras.EnduringFortitude, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
-                    return false;
+            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.PrayHealthPercent)
+                return false;
 
-                if (IsNearKnowledgeCrystal())
-                    return await OCSpells.Pray.Cast(Core.Me);
-            }
-            else
-            {
-                // In combat: cast if we don't have the regen effect and HP is below threshold
-                if (Core.Me.HasAura(OCAuras.Pray))
-                    return false;
-
-                if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.PrayHealthPercent)
-                    return false;
-
-                return await OCSpells.Pray.Cast(Core.Me);
-            }
-
-            return false;
+            return await OCSpells.Pray.Cast(Core.Me);
         }
 
         /// <summary>
@@ -1403,8 +1388,8 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Cast Counterstance - increases parry rate by 100% for 60s
-        /// When cast near Knowledge Crystal, provides movement speed buff
+        /// Cast Counterstance - increases parry rate by 100% for 60s (combat only)
+        /// Knowledge crystal movement speed buff casting is now handled by PhantomJobSwitcher
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Counterstance()
@@ -1412,35 +1397,19 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseCounterstance)
                 return false;
 
+            // Only used in combat for parry rate, knowledge crystal movement buff handled by PhantomJobSwitcher
+            if (!Core.Me.InCombat)
+                return false;
+
             if (!OCSpells.Counterstance.CanCast())
                 return false;
 
-            if (!Core.Me.InCombat)
-            {
-                // Out of combat: only cast near Knowledge Crystal if enabled
-                if (!OccultCrescentSettings.Instance.CounterstanceKnowledgeCrystal)
-                    return false;
+            // In combat: cast for parry rate buff
+            // Check if we already have the Counterstance parry buff
+            if (Core.Me.HasAura(OCAuras.Counterstance))
+                return false;
 
-                // Check if we already have the Fleetfooted buff from crystal casting
-                if (Core.Me.HasAura(OCAuras.Fleetfooted, msLeft: (int)(OccultCrescentSettings.Instance.PartyBuffRefreshMinutes * 60 * 1000)))
-                    return false;
-
-                if (IsNearKnowledgeCrystal())
-                {
-                    return await OCSpells.Counterstance.Cast(Core.Me);
-                }
-            }
-            else
-            {
-                // In combat: cast for parry rate buff
-                // Check if we already have the Counterstance parry buff
-                if (Core.Me.HasAura(OCAuras.Counterstance))
-                    return false;
-
-                return await OCSpells.Counterstance.Cast(Core.Me);
-            }
-
-            return false;
+            return await OCSpells.Counterstance.Cast(Core.Me);
         }
 
         /// <summary>
@@ -2524,7 +2493,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.HasAura(OCAuras.PredictionOfStarfall))
                 return false;
 
-            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.StarfallHealthPercent)
+            if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.StarfallHealthPercent)
                 return false;
 
             // Cast on self - Starfall affects self and nearby enemies
@@ -2648,29 +2617,38 @@ namespace Magitek.Logic.Roles
 
             GameObject battleBellTarget = null;
 
-            // First priority: Find tank who doesn't have Battle Bell buff
-            battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
-                ally.IsValid &&
-                ally.IsAlive &&
-                ally.IsTank() &&
-                !ally.HasAura(OCAuras.BattleBell))
-                .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
-                .FirstOrDefault();
-
-            // Second priority: Self if we don't have the buff
-            if (battleBellTarget == null && !Core.Me.HasAura(OCAuras.BattleBell))
-                battleBellTarget = Core.Me;
-
-            // Third priority: Any other party member who doesn't have the buff
-            if (battleBellTarget == null)
+            // Always include self option - if enabled and we don't have the buff, prioritize self
+            if (OccultCrescentSettings.Instance.BattleBellAlwaysIncludeSelf && !Core.Me.HasAura(OCAuras.BattleBell, msLeft: 1000))
             {
+                battleBellTarget = Core.Me;
+            }
+            else
+            {
+                // Normal priority system
+                // First priority: Find tank who doesn't have Battle Bell buff
                 battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
                     ally.IsValid &&
                     ally.IsAlive &&
-                    !ally.IsTank() &&
-                    !ally.HasAura(OCAuras.BattleBell))
-                    .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
+                    ally.IsTank() &&
+                    !ally.HasAura(OCAuras.BattleBell, msLeft: 1000))
+                    .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
                     .FirstOrDefault();
+
+                // Second priority: Self if we don't have the buff
+                if (battleBellTarget == null && !Core.Me.HasAura(OCAuras.BattleBell, msLeft: 1000))
+                    battleBellTarget = Core.Me;
+
+                // Third priority: Any other party member who doesn't have the buff
+                if (battleBellTarget == null)
+                {
+                    battleBellTarget = Group.CastableAlliesWithin30.Where(ally =>
+                        ally.IsValid &&
+                        ally.IsAlive &&
+                        !ally.IsTank() &&
+                        !ally.HasAura(OCAuras.BattleBell, msLeft: 1000))
+                        .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
+                        .FirstOrDefault();
+                }
             }
 
             if (battleBellTarget == null)
@@ -2822,25 +2800,33 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRingingRespite)
                 return false;
 
+            if (!Core.Me.InCombat)
+                return false;
+
             if (!OCSpells.RingingRespite.CanCast())
                 return false;
 
             GameObject ringingRespiteTarget = null;
 
+            // Always include self option - if enabled and we don't have the buff, prioritize self
+            if (OccultCrescentSettings.Instance.RingingRespiteAlwaysIncludeSelf && !Core.Me.HasAura(OCAuras.RingingRespite, msLeft: 1000))
+            {
+                ringingRespiteTarget = Core.Me;
+            }
             // Check if we should cast on allies
-            if (OccultCrescentSettings.Instance.RingingRespiteCastOnAllies)
+            else if (OccultCrescentSettings.Instance.RingingRespiteCastOnAllies)
             {
                 // First priority: Find tank who doesn't have Ringing Respite buff
                 ringingRespiteTarget = Group.CastableAlliesWithin30.Where(ally =>
                     ally.IsValid &&
                     ally.IsAlive &&
                     ally.IsTank() &&
-                    !ally.HasAura(OCAuras.RingingRespite))
+                    !ally.HasAura(OCAuras.RingingRespite, msLeft: 1000))
                     .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize tank taking more damage
                     .FirstOrDefault();
 
                 // Second priority: Self if we don't have the buff
-                if (ringingRespiteTarget == null && !Core.Me.HasAura(OCAuras.RingingRespite))
+                if (ringingRespiteTarget == null && !Core.Me.HasAura(OCAuras.RingingRespite, msLeft: 1000))
                     ringingRespiteTarget = Core.Me;
 
                 // Third priority: Any other party member who doesn't have the buff
@@ -2849,7 +2835,7 @@ namespace Magitek.Logic.Roles
                     ringingRespiteTarget = Group.CastableAlliesWithin30.Where(ally =>
                         ally.IsValid &&
                         ally.IsAlive &&
-                        !ally.HasAura(OCAuras.RingingRespite))
+                        !ally.HasAura(OCAuras.RingingRespite, msLeft: 1000))
                         .OrderBy(ally => ally.IsHealer() ? 1 : 0) // Prefer DPS over healers
                         .FirstOrDefault();
                 }
@@ -2891,17 +2877,17 @@ namespace Magitek.Logic.Roles
                 suspendTarget = Group.CastableAlliesWithin30.Where(ally =>
                     ally.IsValid &&
                     ally.IsAlive &&
-                    !ally.HasAura(OCAuras.Suspend))
+                    !ally.HasAura(OCAuras.Suspend, msLeft: 1000))
                     .FirstOrDefault();
 
                 // If no allies need suspend, check self
-                if (suspendTarget == null && !Core.Me.HasAura(OCAuras.Suspend))
+                if (suspendTarget == null && !Core.Me.HasAura(OCAuras.Suspend, msLeft: 1000))
                     suspendTarget = Core.Me;
             }
             else
             {
                 // Self-only mode: only check self
-                if (!Core.Me.HasAura(OCAuras.Suspend))
+                if (!Core.Me.HasAura(OCAuras.Suspend, msLeft: 1000))
                     suspendTarget = Core.Me;
             }
 
