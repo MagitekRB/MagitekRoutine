@@ -38,7 +38,7 @@ namespace Magitek.Models.OccultCrescent
         public bool ReviveNonPartyInCombat { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool EnableAutomaticPhantomJobSwitching { get; set; }
 
         [Setting]

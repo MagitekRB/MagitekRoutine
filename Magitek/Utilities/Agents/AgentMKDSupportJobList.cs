@@ -53,11 +53,9 @@ namespace Magitek.Utilities.Agents
                     if (agent != null && agent.IsValid)
                     {
                         _agentPointer = agent.Pointer;
-                        Logger.WriteInfo($"[AgentMKDSupportJobList] Agent pointer cached: 0x{_agentPointer.ToInt64():X}");
                     }
                     else
                     {
-                        Logger.WriteInfo($"[AgentMKDSupportJobList] Agent {AgentId} is not valid or available");
                         return;
                     }
 
@@ -67,23 +65,17 @@ namespace Magitek.Utilities.Agents
                         // Use FindSingle as recommended by RB dev (has don't rebase option)
                         _changeSupportJobFunc = pf.FindSingle(ChangeSupportJobPattern, true);
 
-                        if (_changeSupportJobFunc != IntPtr.Zero)
+                        if (_changeSupportJobFunc == IntPtr.Zero)
                         {
-                            Logger.WriteInfo($"[AgentMKDSupportJobList] ChangeSupportJob function found and cached: 0x{_changeSupportJobFunc.ToInt64():X}");
-                        }
-                        else
-                        {
-                            Logger.WriteInfo($"[AgentMKDSupportJobList] ChangeSupportJob function not found");
                             return;
                         }
                     } // PatternFinder automatically disposed here
 
                     _initialized = true;
-                    Logger.WriteInfo($"[AgentMKDSupportJobList] Initialization completed successfully");
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteInfo($"[AgentMKDSupportJobList] Initialization failed: {ex.Message}");
+                    // Silent failure - if initialization fails, phantom job switching won't work
                 }
             }
         }
@@ -103,19 +95,14 @@ namespace Magitek.Utilities.Agents
 
                 if (!_initialized || _agentPointer == IntPtr.Zero || _changeSupportJobFunc == IntPtr.Zero)
                 {
-                    Logger.WriteInfo($"[AgentMKDSupportJobList] Not properly initialized - Agent: 0x{_agentPointer.ToInt64():X}, Function: 0x{_changeSupportJobFunc.ToInt64():X}");
                     return false;
                 }
 
                 // Validate address (replicate CallInjectedWraper validation)
                 if (_changeSupportJobFunc.ToInt64() < Core.Memory.ImageBase.ToInt64())
                 {
-                    Logger.WriteInfo($"[AgentMKDSupportJobList] Address is not in the game process");
                     return false;
                 }
-
-                Logger.WriteInfo($"[AgentMKDSupportJobList] Switching to phantom job {jobId}");
-                Logger.WriteInfo($"[AgentMKDSupportJobList] Using cached Agent: 0x{_agentPointer.ToInt64():X}, Function: 0x{_changeSupportJobFunc.ToInt64():X}");
 
                 // Call the cached function with cached agent pointer
                 lock (Core.Memory.Executor.AssemblyLock)
@@ -123,22 +110,11 @@ namespace Magitek.Utilities.Agents
                     var result = Core.Memory.CallInjected64<IntPtr>(_changeSupportJobFunc, _agentPointer, jobId);
 
                     // Return value 0x1 indicates success, anything else is failure
-                    bool success = result.ToInt64() == 0x1;
-                    if (success)
-                    {
-                        Logger.WriteInfo($"[AgentMKDSupportJobList] Phantom job switch to {jobId} succeeded");
-                    }
-                    else
-                    {
-                        Logger.WriteInfo($"[AgentMKDSupportJobList] Phantom job switch to {jobId} failed (likely job not unlocked)");
-                    }
-
-                    return success;
+                    return result.ToInt64() == 0x1;
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteInfo($"[AgentMKDSupportJobList] Error switching to phantom job {jobId}: {ex.Message}");
                 return false;
             }
         }
@@ -156,18 +132,14 @@ namespace Magitek.Utilities.Agents
 
                 if (agent == null || !agent.IsValid)
                 {
-                    Logger.WriteInfo($"[AgentMKDSupportJobList] Agent {AgentId} is not valid or available");
                     return false;
                 }
 
-                Logger.WriteInfo($"[AgentMKDSupportJobList] Opening phantom job interface");
                 agent.Toggle();
-
                 return true;
             }
             catch (Exception ex)
             {
-                Logger.WriteInfo($"[AgentMKDSupportJobList] Error opening interface: {ex.Message}");
                 return false;
             }
         }
@@ -201,9 +173,10 @@ namespace Magitek.Utilities.Agents
                 _initialized = false;
                 _agentPointer = IntPtr.Zero;
                 _changeSupportJobFunc = IntPtr.Zero;
-                Logger.WriteInfo($"[AgentMKDSupportJobList] Reset completed - will re-initialize on next use");
             }
         }
+
+
     }
 
     /// <summary>

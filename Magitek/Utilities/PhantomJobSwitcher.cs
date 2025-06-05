@@ -226,7 +226,7 @@ namespace Magitek.Utilities
             {
                 if (!AgentMKDSupportJobList.IsAvailable)
                 {
-                    Logger.WriteWarning("[PhantomJobSwitcher] AgentMKDSupportJobList is not available");
+                    Logger.WriteWarning("[PhantomJobSwitcher] Unable to automatically change phantom jobs");
                     return false;
                 }
 
@@ -241,7 +241,6 @@ namespace Magitek.Utilities
                 }
 
                 // Memory call succeeded (0x1), do a quick verification that aura actually applied
-                Logger.WriteInfo($"[PhantomJobSwitcher] Memory call succeeded for phantom job {jobId}, verifying aura...");
                 return await VerifyPhantomJobAura(jobId);
             }
             catch (Exception ex)
@@ -267,7 +266,6 @@ namespace Magitek.Utilities
             var currentJobId = GetCurrentPhantomJobId();
             if (currentJobId == jobId)
             {
-                Logger.WriteInfo($"[PhantomJobSwitcher] Phantom job {GetPhantomJobName(jobId)} verified immediately");
                 return true;
             }
 
@@ -280,7 +278,6 @@ namespace Magitek.Utilities
                 currentJobId = GetCurrentPhantomJobId();
                 if (currentJobId == jobId)
                 {
-                    Logger.WriteInfo($"[PhantomJobSwitcher] Phantom job {GetPhantomJobName(jobId)} verified after {elapsedMs}ms");
                     return true;
                 }
             }
