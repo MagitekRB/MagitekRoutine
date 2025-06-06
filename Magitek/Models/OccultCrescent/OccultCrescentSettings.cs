@@ -295,6 +295,10 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
+        public bool OccultSprintOnlyInCombat { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool UseSteal { get; set; }
 
         [Setting]
@@ -472,6 +476,10 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(7.0f)]
         public float DokumoriHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool DokumoriOnlyMultipleTargets { get; set; }
         #endregion
     }
 }

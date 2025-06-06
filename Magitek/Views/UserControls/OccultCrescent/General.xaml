@@ -605,6 +605,14 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
+                                                <CheckBox Content="Only use Occult Sprint in combat"
+                                                          IsChecked="{Binding OccultSprintOnlyInCombat, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
                                                 <CheckBox Content="Use Steal when enemy below"
                                                           IsChecked="{Binding UseSteal, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
@@ -965,12 +973,20 @@
                                                            Text=" percent HP (AoE steal - increases item drop chance)"/>
                                         </StackPanel>
 
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Only use Dokumori on multiple targets (2+ enemies)"
+                                                          IsChecked="{Binding DokumoriOnlyMultipleTargets, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
                                         <TextBlock Margin="5"
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="Gold"
-                                                   Text="Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job."/>
+                                                   Text="Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job. Enable 'multiple targets only' to save Dokumori cooldown for big AoE pulls."/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
