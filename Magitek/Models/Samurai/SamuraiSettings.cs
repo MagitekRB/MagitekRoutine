@@ -24,10 +24,6 @@ namespace Magitek.Models.Samurai
         public bool HidePositionalMessage { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool EnemyIsOmni { get; set; }
-
-        [Setting]
         [DefaultValue(10)]
         public int ReservedKenki { get; set; }
 

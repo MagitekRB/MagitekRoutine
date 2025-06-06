@@ -23,10 +23,6 @@ namespace Magitek.Models.Viper
 
         [Setting]
         [DefaultValue(false)]
-        public bool EnemyIsOmni { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
         public bool BurstLogicHoldBurst { get; set; }
 
         #endregion
