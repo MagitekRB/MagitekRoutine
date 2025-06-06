@@ -2935,7 +2935,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Check if we should skip single target usage when the setting is enabled
-            var nearbyEnemies = Combat.Enemies.Count(x => x.ValidAttackUnit() && x.WithinSpellRange(25));
+            var nearbyEnemies = Combat.Enemies.Count();
             if (nearbyEnemies < 2 && OccultCrescentSettings.Instance.DokumoriOnlyMultipleTargets)
                 return false;
 
