@@ -2172,6 +2172,14 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.OccultSprint.CanCast())
                 return false;
 
+            // Check combat-only setting
+            if (OccultCrescentSettings.Instance.OccultSprintOnlyInCombat && !Core.Me.InCombat)
+                return false;
+
+            // Only cast when moving - no point in speed buff when standing still
+            if (!MovementManager.IsMoving)
+                return false;
+
             // Don't cast if we already have the sprint buff
             if (Core.Me.HasAura(OCAuras.OccultSprint))
                 return false;
@@ -2181,7 +2189,7 @@ namespace Magitek.Logic.Roles
 
         /// <summary>
         /// Cast Steal - increases chance of additional items being dropped if cast before finishing blow
-        /// Cast when enemy is below configured HP threshold
+        /// Cast when any enemy within range is below configured HP threshold
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Steal()
@@ -2192,25 +2200,22 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.InCombat)
                 return false;
 
-            if (!Core.Me.HasTarget)
-                return false;
-
             if (!OCSpells.Steal.CanCast())
                 return false;
 
-            // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            // Find any enemy within spell range that's below the HP threshold
+            var stealTarget = Combat.Enemies.Where(enemy =>
+                enemy.ValidAttackUnit() &&
+                enemy.InLineOfSight() &&
+                enemy.WithinSpellRange(OCSpells.Steal.Range) &&
+                enemy.CurrentHealthPercent <= OccultCrescentSettings.Instance.StealHealthPercent)
+                .OrderBy(enemy => enemy.CurrentHealthPercent) // Prioritize lowest HP for finishing blow
+                .FirstOrDefault();
+
+            if (stealTarget == null)
                 return false;
 
-            // Only cast when enemy is below configured HP threshold
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > OccultCrescentSettings.Instance.StealHealthPercent)
-                return false;
-
-            // Check if target is within spell range
-            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Steal.Range))
-                return false;
-
-            return await OCSpells.Steal.Cast(Core.Me.CurrentTarget);
+            return await OCSpells.Steal.Cast(stealTarget);
         }
 
         /// <summary>
@@ -2241,8 +2246,8 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentTarget.Distance(Core.Me) > OccultCrescentSettings.Instance.VigilanceTargetDistance)
                 return false;
 
-            // Don't cast if we already have Vigilance or Foreseen Offense
-            if (Core.Me.HasAura(OCAuras.Vigilance) || Core.Me.HasAura(OCAuras.ForeseenOffense))
+            // Don't cast if we already have Vigilance
+            if (Core.Me.HasAura(OCAuras.Vigilance, msLeft: 1000))
                 return false;
 
             return await OCSpells.Vigilance.Cast(Core.Me);
@@ -2914,7 +2919,7 @@ namespace Magitek.Logic.Roles
         /// <summary>
         /// Cast Dokumori - AoE steal ability for Ninja gold farming
         /// Similar to Phantom Thief's steal but affects multiple enemies
-        /// Cast when enemy is below configured HP threshold
+        /// Cast when any enemy within range is below configured HP threshold
         /// Only used for multi-target scenarios (2+ enemies) - single target uses normal rotation
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
@@ -2926,25 +2931,27 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.InCombat)
                 return false;
 
-            if (!Core.Me.HasTarget)
-                return false;
-
             if (!OCSpells.Dokumori.CanCast())
                 return false;
 
-            // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            // Check if we should skip single target usage when the setting is enabled
+            var nearbyEnemies = Combat.Enemies.Count(x => x.ValidAttackUnit() && x.WithinSpellRange(25));
+            if (nearbyEnemies < 2 && OccultCrescentSettings.Instance.DokumoriOnlyMultipleTargets)
                 return false;
 
-            // Only cast when enemy is below configured HP threshold (for finishing blow loot bonus)
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > OccultCrescentSettings.Instance.DokumoriHealthPercent)
+            // Find any enemy within spell range that's below the HP threshold
+            var dokumoriTarget = Combat.Enemies.Where(enemy =>
+                enemy.ValidAttackUnit() &&
+                enemy.InLineOfSight() &&
+                enemy.WithinSpellRange(OCSpells.Dokumori.Range) &&
+                enemy.CurrentHealthPercent <= OccultCrescentSettings.Instance.DokumoriHealthPercent)
+                .OrderBy(enemy => enemy.CurrentHealthPercent) // Prioritize lowest HP for finishing blow
+                .FirstOrDefault();
+
+            if (dokumoriTarget == null)
                 return false;
 
-            // Check if target is within spell range
-            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Dokumori.Range))
-                return false;
-
-            return await OCSpells.Dokumori.Cast(Core.Me.CurrentTarget);
+            return await OCSpells.Dokumori.Cast(dokumoriTarget);
         }
     }
 }

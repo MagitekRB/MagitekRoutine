@@ -26,7 +26,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.OnOccultCrescent() && OccultCrescentSettings.Instance.UseDokumori)
             {
                 var nearbyEnemies = Combat.Enemies.Count();
-                if (nearbyEnemies >= 2)
+                if (nearbyEnemies >= 2 || !OccultCrescentSettings.Instance.DokumoriOnlyMultipleTargets)
                     return false;
             }
 
