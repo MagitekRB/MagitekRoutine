@@ -945,6 +945,35 @@
                                 </StackPanel>
                         </controls:SettingsBlock>
 
+                        <!-- Ninja Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Ninja (Gold Farming)"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Use Dokumori when enemy below"
+                                                          IsChecked="{Binding UseDokumori, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                                <controls:Numeric MaxValue="50"
+                                                                  MinValue="1"
+                                                                  Value="{Binding DokumoriHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text=" percent HP (AoE steal - increases item drop chance)"/>
+                                        </StackPanel>
+
+                                        <TextBlock Margin="5"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   TextWrapping="Wrap"
+                                                   FontStyle="Italic"
+                                                   Foreground="Gold"
+                                                   Text="Dokumori is an AoE steal ability that affects multiple enemies for increased gold farming efficiency. Only works when playing as Ninja job."/>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
                 </StackPanel>
         </ScrollViewer>
 </UserControl> 
