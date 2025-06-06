@@ -132,6 +132,9 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData AetherialGain = DataManager.GetSpellData(41618);
         public static readonly SpellData RingingRespite = DataManager.GetSpellData(41619);
         public static readonly SpellData Suspend = DataManager.GetSpellData(41620);
+
+        // NIN Spells (for gold farming)
+        public static readonly SpellData Dokumori = DataManager.GetSpellData(36957);
     }
 
     internal class OccultCrescent
@@ -319,9 +322,14 @@ namespace Magitek.Logic.Roles
 
             // If phantom job didn't do anything, try non-party resurrection
             if (!phantomJobResult)
-                return await ExecuteNonPartyResurrection();
+            {
+                var nonPartyResResult = await ExecuteNonPartyResurrection();
+                if (nonPartyResResult)
+                    return true;
+            }
 
-            return phantomJobResult;
+            // If no phantom job and no resurrection, try Ninja Dokumori for gold farming
+            return await ExecuteNinjaDokumori();
         }
 
         /// <summary>
@@ -2557,7 +2565,7 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Cast Invulnerability - grants invulnerability to self or target
+        /// Cast Invulnerability - grants invulnerability to party members only (cannot target self)
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Invulnerability()
@@ -2568,29 +2576,17 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.Invulnerability.CanCast())
                 return false;
 
-            GameObject invulnerabilityTarget = null;
+            // Invulnerability can only be cast on party members, not self
+            if (!OccultCrescentSettings.Instance.InvulnerabilityCastOnAllies)
+                return false;
 
-            // Check if we should cast on allies
-            if (OccultCrescentSettings.Instance.InvulnerabilityCastOnAllies)
-            {
-                // Find party member who desperately needs protection
-                invulnerabilityTarget = Group.CastableAlliesWithin30.Where(ally =>
-                    ally.IsValid &&
-                    ally.IsAlive &&
-                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
-                    .OrderBy(ally => ally.CurrentHealthPercent)
-                    .FirstOrDefault();
-
-                // If no allies need protection, check self
-                if (invulnerabilityTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
-                    invulnerabilityTarget = Core.Me;
-            }
-            else
-            {
-                // Self-only mode: only check self
-                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
-                    invulnerabilityTarget = Core.Me;
-            }
+            // Find party member who desperately needs protection
+            var invulnerabilityTarget = Group.CastableAlliesWithin30.Where(ally =>
+                ally.IsValid &&
+                ally.IsAlive &&
+                ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.InvulnerabilityHealthPercent)
+                .OrderBy(ally => ally.CurrentHealthPercent)
+                .FirstOrDefault();
 
             if (invulnerabilityTarget == null)
                 return false;
@@ -2895,6 +2891,60 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return await OCSpells.Suspend.Cast(suspendTarget);
+        }
+
+        /// <summary>
+        /// Main entry point for Ninja Dokumori gold farming
+        /// Works for NIN jobs when in Occult Crescent content
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        public static async Task<bool> ExecuteNinjaDokumori()
+        {
+            // Check if we're Ninja
+            if (Core.Me.CurrentJob != ClassJobType.Ninja)
+                return false;
+
+            // Check if Dokumori is enabled
+            if (!OccultCrescentSettings.Instance.UseDokumori)
+                return false;
+
+            return await Dokumori();
+        }
+
+        /// <summary>
+        /// Cast Dokumori - AoE steal ability for Ninja gold farming
+        /// Similar to Phantom Thief's steal but affects multiple enemies
+        /// Cast when enemy is below configured HP threshold
+        /// Only used for multi-target scenarios (2+ enemies) - single target uses normal rotation
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Dokumori()
+        {
+            if (!OccultCrescentSettings.Instance.UseDokumori)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!Core.Me.HasTarget)
+                return false;
+
+            if (!OCSpells.Dokumori.CanCast())
+                return false;
+
+            // Need a valid attackable target
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Only cast when enemy is below configured HP threshold (for finishing blow loot bonus)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > OccultCrescentSettings.Instance.DokumoriHealthPercent)
+                return false;
+
+            // Check if target is within spell range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.Dokumori.Range))
+                return false;
+
+            return await OCSpells.Dokumori.Cast(Core.Me.CurrentTarget);
         }
     }
 }

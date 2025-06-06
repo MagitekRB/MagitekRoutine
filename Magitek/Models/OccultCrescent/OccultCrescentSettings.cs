@@ -463,5 +463,15 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool SuspendCastOnAllies { get; set; }
         #endregion
+
+        #region Ninja
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDokumori { get; set; }
+
+        [Setting]
+        [DefaultValue(7.0f)]
+        public float DokumoriHealthPercent { get; set; }
+        #endregion
     }
 }

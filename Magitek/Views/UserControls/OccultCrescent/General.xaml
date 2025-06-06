@@ -832,6 +832,14 @@
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Always prioritize self for Battle Bell"
+                                                          IsChecked="{Binding BattleBellAlwaysIncludeSelf, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
                                         <TextBlock Margin="5"
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
@@ -850,6 +858,14 @@
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
                                                            Text=" (Prioritizes tanks)"
                                                            Margin="5,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Always prioritize self for Ringing Respite"
+                                                          IsChecked="{Binding RingingRespiteAlwaysIncludeSelf, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
@@ -926,6 +942,35 @@
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Text="Weather effects are beneficial buffs that can only be cast in combat when available. All effects are applied to self and nearby party members."/>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
+                        <!-- Ninja Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Ninja (Gold Farming)"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Use Dokumori when enemy below"
+                                                          IsChecked="{Binding UseDokumori, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                                <controls:Numeric MaxValue="50"
+                                                                  MinValue="1"
+                                                                  Value="{Binding DokumoriHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text=" percent HP (AoE steal - increases item drop chance)"/>
+                                        </StackPanel>
+
+                                        <TextBlock Margin="5"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   TextWrapping="Wrap"
+                                                   FontStyle="Italic"
+                                                   Foreground="Gold"
+                                                   Text="Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job."/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 

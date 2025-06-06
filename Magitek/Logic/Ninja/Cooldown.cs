@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Models.OccultCrescent;
 using Magitek.Utilities;
 using System;
 using System.Linq;
@@ -19,6 +20,15 @@ namespace Magitek.Logic.Ninja
 
             if (!Spells.Mug.IsKnown())
                 return false;
+
+            // Don't use regular Mug in Occult Crescent content if Dokumori is enabled for gold farming
+            // Only disable for multi-target scenarios (2+ enemies) - single target should use normal rotation
+            if (Core.Me.OnOccultCrescent() && OccultCrescentSettings.Instance.UseDokumori)
+            {
+                var nearbyEnemies = Combat.Enemies.Count();
+                if (nearbyEnemies >= 2)
+                    return false;
+            }
 
             if (Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * NinjaRoutine.OpenerBurstAfterGCD - 770)
                 return false;
