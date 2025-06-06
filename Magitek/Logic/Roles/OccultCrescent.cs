@@ -2915,6 +2915,7 @@ namespace Magitek.Logic.Roles
         /// Cast Dokumori - AoE steal ability for Ninja gold farming
         /// Similar to Phantom Thief's steal but affects multiple enemies
         /// Cast when enemy is below configured HP threshold
+        /// Only used for multi-target scenarios (2+ enemies) - single target uses normal rotation
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> Dokumori()

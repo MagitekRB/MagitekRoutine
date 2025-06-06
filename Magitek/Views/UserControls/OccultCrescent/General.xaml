@@ -970,7 +970,7 @@
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="Gold"
-                                                   Text="Dokumori is an AoE steal ability that affects multiple enemies for increased gold farming efficiency. Only works when playing as Ninja job."/>
+                                                   Text="Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job."/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
