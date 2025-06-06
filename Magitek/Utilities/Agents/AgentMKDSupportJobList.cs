@@ -1,7 +1,6 @@
 using System;
 using ff14bot;
 using ff14bot.Managers;
-using System;
 using GreyMagic;
 
 namespace Magitek.Utilities.Agents

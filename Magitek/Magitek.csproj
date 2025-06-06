@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowedReferenceRelatedFileExtensions>".pdb".=""</AllowedReferenceRelatedFileExtensions>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<NoWarn>1701;1702;CA1416;</NoWarn>
+	<NoWarn>1701;1702;CA1416;CS1998;CS0168;CS0414;CS0162;CS8603;</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>bin\deploy\</OutputPath>

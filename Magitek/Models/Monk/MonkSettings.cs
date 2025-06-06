@@ -42,10 +42,6 @@ namespace Magitek.Models.Monk
         public bool HidePositionalMessage { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool EnemyIsOmni { get; set; }
-
-        [Setting]
         [DefaultValue(true)]
         public bool UseMantra { get; set; }
 

@@ -14,12 +14,6 @@ namespace Magitek.Gambits.Conditions
 
         public override bool Check(GameObject gameObject = null)
         {
-            if (ActionResourceManager.Ninja.HutonTimer.Seconds < HutonMinimumTimeLeft)
-                return false;
-
-            if (ActionResourceManager.Ninja.HutonTimer.Seconds > HutonMaximumTimeLeft)
-                return false;
-
             return true;
         }
     }

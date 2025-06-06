@@ -83,9 +83,6 @@ namespace Magitek.Logic.Ninja
             if (!Spells.PhantomKamaitachi.IsKnown())
                 return false;
 
-            if (ActionResourceManager.Ninja.HutonTimer.Add(new TimeSpan(0, 0, 10)) > new TimeSpan(0, 1, 0))
-                return false;
-
             if (!Core.Me.HasMyAura(Auras.PhantomKamaitachiReady) && Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell != Spells.Bunshin)
                 return false;
 
