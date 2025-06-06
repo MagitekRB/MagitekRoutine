@@ -154,8 +154,8 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.UseBrotherhood || MonkSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
-            if (Spells.PerfectBalance.IsKnownAndReady() && !Core.Me.HasAura(Auras.PerfectBalance, true))
-                return false;
+            //if (Spells.PerfectBalance.IsKnownAndReady() && !Core.Me.HasAura(Auras.PerfectBalance, true))
+            //    return false;
 
             return await Spells.Brotherhood.Cast(Core.Me);
         }
