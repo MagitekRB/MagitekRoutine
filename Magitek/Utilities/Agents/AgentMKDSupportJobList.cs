@@ -19,9 +19,16 @@ namespace Magitek.Utilities.Agents
     internal static class AgentMKDSupportJobList
     {
         /// <summary>
-        /// Agent ID for MKDSupportJobList
+        /// Hardcoded Agent ID for MKDSupportJobList (for documentation/fallback purposes)
+        /// NOTE: This changes with game builds - prefer vtable lookup below
+        /// Can be found at: https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/UI/Agent/AgentMKDSupportJobList.cs
         /// </summary>
         private const int AgentId = 468;
+
+        /// <summary>
+        /// Memory pattern for agent vtable lookup (primary method)
+        /// </summary>
+        private const string AgentVtablePattern = "Search 48 8D 05 ? ? ? ? 48 89 03 48 8B C3 48 83 C4 ? 5B C3 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 48 8D 05 ? ? ? ? 48 89 01 E9 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 53 48 83 EC ? 48 8B 01 48 8B D9 FF 50 ? 48 8B CB Add 3 TraceRelative";
 
         /// <summary>
         /// Memory pattern for ChangeSupportJob function
@@ -31,6 +38,7 @@ namespace Magitek.Utilities.Agents
         // Cached values - initialized once and reused
         private static IntPtr _changeSupportJobFunc = IntPtr.Zero;
         private static IntPtr _agentPointer = IntPtr.Zero;
+        private static int _agentId = -1;
         private static bool _initialized = false;
         private static readonly object _initLock = new object();
 
@@ -48,21 +56,35 @@ namespace Magitek.Utilities.Agents
 
                 try
                 {
-                    // Get and cache the agent pointer
-                    var agent = AgentModule.GetAgentInterfaceById(AgentId);
-                    if (agent != null && agent.IsValid)
-                    {
-                        _agentPointer = agent.Pointer;
-                    }
-                    else
-                    {
-                        return;
-                    }
-
-                    // Find and cache the ChangeSupportJob function with proper disposal
+                    // Find agent ID via vtable lookup as recommended by dev
                     using (var pf = new PatternFinder(Core.Memory))
                     {
-                        // Use FindSingle as recommended by RB dev (has don't rebase option)
+                        var agentVtable = pf.FindSingle(AgentVtablePattern, true);
+                        if (agentVtable != IntPtr.Zero)
+                        {
+                            _agentId = AgentModule.FindAgentIdByVtable(agentVtable);
+                            if (_agentId <= 0)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                        // Get and cache the agent pointer
+                        var agent = AgentModule.GetAgentInterfaceById(_agentId);
+                        if (agent != null && agent.IsValid)
+                        {
+                            _agentPointer = agent.Pointer;
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                        // Find and cache the ChangeSupportJob function
                         _changeSupportJobFunc = pf.FindSingle(ChangeSupportJobPattern, true);
 
                         if (_changeSupportJobFunc == IntPtr.Zero)
@@ -128,7 +150,15 @@ namespace Magitek.Utilities.Agents
         {
             try
             {
-                var agent = AgentModule.GetAgentInterfaceById(AgentId);
+                // Initialize to get the dynamic agent ID
+                Initialize();
+
+                if (!_initialized || _agentId <= 0)
+                {
+                    return false;
+                }
+
+                var agent = AgentModule.GetAgentInterfaceById(_agentId);
 
                 if (agent == null || !agent.IsValid)
                 {
@@ -154,7 +184,7 @@ namespace Magitek.Utilities.Agents
                 try
                 {
                     Initialize();
-                    return _initialized && _agentPointer != IntPtr.Zero && _changeSupportJobFunc != IntPtr.Zero;
+                    return _initialized && _agentPointer != IntPtr.Zero && _changeSupportJobFunc != IntPtr.Zero && _agentId > 0;
                 }
                 catch
                 {
@@ -173,6 +203,7 @@ namespace Magitek.Utilities.Agents
                 _initialized = false;
                 _agentPointer = IntPtr.Zero;
                 _changeSupportJobFunc = IntPtr.Zero;
+                _agentId = -1;
             }
         }
 
