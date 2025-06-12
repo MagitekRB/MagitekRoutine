@@ -231,13 +231,13 @@ namespace Magitek.Utilities
                 }
 
                 // Call the memory injection and check immediate result (0x1 = success)
-                bool memoryCallSuccess = AgentMKDSupportJobList.SwitchToPhantomJob((byte)jobId);
+                long memoryCallResult = AgentMKDSupportJobList.SwitchToPhantomJob((byte)jobId);
+                bool memoryCallSuccess = memoryCallResult == 0x1;
 
                 if (!memoryCallSuccess)
                 {
-                    // Memory call failed immediately - job likely not unlocked, no need to wait
-                    Logger.WriteInfo($"[PhantomJobSwitcher] Memory call failed for phantom job {jobId} (likely not unlocked)");
-                    return false;
+                    // Memory call failed immediately - job likely not unlocked or some other issue
+                    Logger.WriteInfo($"[PhantomJobSwitcher] Memory call failed for phantom job {jobId} (likely not unlocked) result ({memoryCallResult})");
                 }
 
                 // Memory call succeeded (0x1), do a quick verification that aura actually applied

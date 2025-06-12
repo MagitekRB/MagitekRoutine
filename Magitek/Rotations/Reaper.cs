@@ -72,6 +72,7 @@ namespace Magitek.Rotations
                 if (await Enshroud.AoE.GrimReaping()) return true;
                 if (await Enshroud.SingleTarget.VoidReaping()) return true;
                 if (await Enshroud.SingleTarget.CrossReaping()) return true;
+                if (await Enshroud.AoE.LemuresScytheOffWeave()) return true;
                 if (await Enshroud.SingleTarget.LemuresSliceOfFWeave()) return true;
             }
             else
