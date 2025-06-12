@@ -151,6 +151,9 @@ namespace Magitek.Logic.Roles
             new Vector3(302.5914f, 105f, 313.6591f)
         };
 
+        // Respawn point location
+        private static readonly Vector3 RespawnPoint = new Vector3(851.87665f, 73.13358f, -704.79004f);
+
         // Throttling for knowledge crystal checks
         private static DateTime _lastCrystalCheck = DateTime.MinValue;
         private static bool _lastCrystalResult = false;
@@ -400,7 +403,8 @@ namespace Magitek.Logic.Roles
                                                        u.Distance(Core.Me) <= 30 &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
-                                                       u.IsTargetable);
+                                                       u.IsTargetable &&
+                                                       u.Location.DistanceSqr(RespawnPoint) >= 900);
 
             if (!deadNonPartyPlayers.Any())
                 return false;

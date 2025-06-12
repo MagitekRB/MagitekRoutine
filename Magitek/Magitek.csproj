@@ -76,7 +76,7 @@
       <Version>4.1.0</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.706" />
+    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.732" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />

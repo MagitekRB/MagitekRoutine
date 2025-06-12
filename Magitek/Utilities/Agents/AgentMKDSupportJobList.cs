@@ -107,7 +107,7 @@ namespace Magitek.Utilities.Agents
         /// </summary>
         /// <param name="jobId">The phantom job ID to switch to (1-12)</param>
         /// <returns>True if the switch was successful, false otherwise</returns>
-        public static bool SwitchToPhantomJob(byte jobId)
+        public static long SwitchToPhantomJob(byte jobId)
         {
             try
             {
@@ -116,13 +116,13 @@ namespace Magitek.Utilities.Agents
 
                 if (!_initialized || _agentPointer == IntPtr.Zero || _changeSupportJobFunc == IntPtr.Zero)
                 {
-                    return false;
+                    return 0x0;
                 }
 
                 // Validate address (replicate CallInjectedWraper validation)
                 if (_changeSupportJobFunc.ToInt64() < Core.Memory.ImageBase.ToInt64())
                 {
-                    return false;
+                    return 0x0;
                 }
 
                 // Call the cached function with cached agent pointer
@@ -131,12 +131,12 @@ namespace Magitek.Utilities.Agents
                     var result = Core.Memory.CallInjected64<IntPtr>(_changeSupportJobFunc, _agentPointer, jobId);
 
                     // Return value 0x1 indicates success, anything else is failure
-                    return result.ToInt64() == 0x1;
+                    return result.ToInt64();
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                return 0x0;
             }
         }
 

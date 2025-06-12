@@ -100,7 +100,7 @@ namespace Magitek.Logic.Paladin
             if (!Spells.TotalEclipse.IsKnown())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= Spells.TotalEclipse.Radius + x.CombatReach) < PaladinSettings.Instance.TotalEclipseEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.TotalEclipse.Range)) < PaladinSettings.Instance.TotalEclipseEnemies)
                 return false;
 
             return await Spells.TotalEclipse.Cast(Core.Me);
@@ -118,6 +118,9 @@ namespace Magitek.Logic.Paladin
                 return false;
 
             if (!PaladinRoutine.CanContinueComboAfter(Spells.TotalEclipse))
+                return false;
+
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.Prominence.Range)) < PaladinSettings.Instance.TotalEclipseEnemies)
                 return false;
 
             return await Spells.Prominence.Cast(Core.Me);

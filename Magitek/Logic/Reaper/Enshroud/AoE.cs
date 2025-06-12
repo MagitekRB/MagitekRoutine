@@ -67,6 +67,26 @@ namespace Magitek.Logic.Reaper.Enshroud
             return false;
         }
 
+        public static async Task<bool> LemuresScytheOffWeave()
+        {
+            if (!ReaperSettings.Instance.UseAoe)
+                return false;
+
+            if (!ReaperSettings.Instance.UseLemuresScythe || Core.Me.ClassLevel < Spells.LemuresScythe.LevelAcquired)
+                return false;
+
+
+            if ((ReaperSettings.Instance.EfficientAoEPotencyCalculation && Utilities.Routines.Reaper.EnemiesIn8YardCone * 100 >= 200)
+            || Utilities.Routines.Reaper.EnemiesIn8YardCone >= ReaperSettings.Instance.LemuresScytheTargetCount)
+            {
+                // Only use Lemures Scythe off weave if resources are deadlocked
+                if (ActionResourceManager.Reaper.VoidShroud == 2 && ActionResourceManager.Reaper.LemureShroud == 1)
+                    return await Spells.LemuresScythe.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
+        }
+
         //Logic for Smart targeting or burst sniping maybe
         public static async Task<bool> Communio()
         {
