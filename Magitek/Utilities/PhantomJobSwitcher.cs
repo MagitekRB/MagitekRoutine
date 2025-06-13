@@ -258,7 +258,7 @@ namespace Magitek.Utilities
         /// <returns>True if the aura was applied within short timeout, false otherwise</returns>
         private static async Task<bool> VerifyPhantomJobAura(PhantomJobId jobId)
         {
-            const int timeoutMs = 300; // Very short timeout since memory call already succeeded
+            const int timeoutMs = 5500; // 5.5 seconds
             const int checkIntervalMs = 50; // Check every 50ms for quick response
             int elapsedMs = 0;
 
