@@ -251,6 +251,14 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
+        public bool OccultCometOnlyWithJobSpecificBuffs { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultCometAllowSwiftcast { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool UseOccultMageMasher { get; set; }
 
         [Setting]

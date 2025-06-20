@@ -535,11 +535,25 @@
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
+                                        <StackPanel Margin="20,5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Only cast Comet with job-specific cast time reduction buffs"
+                                                          IsChecked="{Binding OccultCometOnlyWithJobSpecificBuffs, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="40,5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="Allow using Swiftcast for Comet (healers may want to save for resurrections)"
+                                                          IsChecked="{Binding OccultCometAllowSwiftcast, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
                                         <TextBlock Margin="5"
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Quick prioritizes casting party members. Comet has long cast time - use carefully."/>
+                                                   Text="Quick prioritizes casting party members. Comet restriction uses Dualcast (RDM), Requiescat (PLD), Occult Quick (Time Mage), or Swiftcast (if enabled)."/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
