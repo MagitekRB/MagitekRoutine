@@ -1934,6 +1934,8 @@ namespace Magitek.Logic.Roles
 
         /// <summary>
         /// Cast OccultComet - AoE damage with 8s cast time
+        /// Can be restricted to only cast with job-specific cast time reduction buffs
+        /// Will automatically try to use Swiftcast if available and restriction is enabled
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> OccultComet()
@@ -1958,8 +1960,87 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultComet.Range))
                 return false;
 
-            // Long cast time ability - be careful about using it
+            // If job-specific buff restriction is enabled, handle it intelligently
+            if (OccultCrescentSettings.Instance.OccultCometOnlyWithJobSpecificBuffs)
+            {
+                return await CastOccultCometWithJobSpecificBuffs();
+            }
+
+            // No restrictions - cast normally
             return await OCSpells.OccultComet.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Attempts to cast OccultComet with job-specific cast time reduction buffs
+        /// Tries to use Swiftcast if available and allowed by settings
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> CastOccultCometWithJobSpecificBuffs()
+        {
+            // First check if we already have a job-specific buff active
+            if (HasJobSpecificCastTimeReductionBuff())
+            {
+                return await OCSpells.OccultComet.Cast(Core.Me.CurrentTarget);
+            }
+
+            // Try to use Swiftcast if available and allowed by settings
+            if (Spells.Swiftcast.IsKnownAndReady() && OccultCrescentSettings.Instance.OccultCometAllowSwiftcast)
+            {
+                if (await CastSwiftcastThenComet())
+                    return true;
+            }
+
+            // No suitable buffs available
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if we currently have any job-specific cast time reduction buffs
+        /// </summary>
+        /// <returns>True if we have a relevant buff active</returns>
+        private static bool HasJobSpecificCastTimeReductionBuff()
+        {
+            // Check for Dualcast (RDM)
+            if (Core.Me.HasAura(Auras.Dualcast))
+                return true;
+
+            // Check for Requiescat (PLD)
+            if (Core.Me.HasAura(Auras.Requiescat))
+                return true;
+
+            // Check for Occult Quick (Time Mage)
+            if (Core.Me.HasAura(OCAuras.OccultQuick))
+                return true;
+
+            // Check for Swiftcast (any job that has it)
+            if (Core.Me.HasAura(Auras.Swiftcast))
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Casts Swiftcast then OccultComet (similar to resurrection logic)
+        /// </summary>
+        /// <returns>True if both spells were cast successfully</returns>
+        private static async Task<bool> CastSwiftcastThenComet()
+        {
+            // Cast Swiftcast first
+            if (!await Spells.Swiftcast.Cast(Core.Me))
+                return false;
+
+            // Wait for Swiftcast buff to apply
+            await Coroutine.Wait(2000, () => Core.Me.HasAura(Auras.Swiftcast));
+
+            // Cast OccultComet while we have Swiftcast
+            while (Core.Me.HasAura(Auras.Swiftcast))
+            {
+                if (await OCSpells.OccultComet.Cast(Core.Me.CurrentTarget))
+                    return true;
+                await Coroutine.Yield();
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -2035,6 +2116,9 @@ namespace Magitek.Logic.Roles
         private static async Task<bool> OccultQuick()
         {
             if (!OccultCrescentSettings.Instance.UseOccultQuick)
+                return false;
+
+            if (!Core.Me.InCombat)
                 return false;
 
             if (!OCSpells.OccultQuick.CanCast())
