@@ -377,7 +377,7 @@ namespace Magitek.Logic.Scholar
             if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
 
-            var needSuccor = Group.CastableAlliesWithin15.Count(r => r.IsAlive &&
+            var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.EmergencyTacticsSuccorHealthPercent) >= AoeNeedHealing;
 
             if (!needSuccor)
@@ -403,7 +403,7 @@ namespace Magitek.Logic.Scholar
             //if (Casting.LastSpell == Spells.Succor)
             //    return false;
 
-            var needSuccor = Group.CastableAlliesWithin15.Count(r => r.IsAlive &&
+            var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
                                                                      !r.HasAura(Auras.Galvanize)) >= AoeNeedHealing;
 
@@ -429,8 +429,8 @@ namespace Magitek.Logic.Scholar
             if (!Core.Me.HasAura(Auras.Seraphism))
                 return false;
 
-            var needAccession = Group.CastableAlliesWithin15.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent) >= AoeNeedHealing;
-            var needShields = Group.CastableAlliesWithin15.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasAura(Auras.Galvanize)) > 0;
+            var needAccession = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent) >= AoeNeedHealing;
+            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasAura(Auras.Galvanize)) > 0;
 
             if (!needAccession)
                 return false;
@@ -596,7 +596,7 @@ namespace Magitek.Logic.Scholar
             if (Spells.Lustrate.Cooldown != TimeSpan.Zero)
                 return false;
 
-            if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= ScholarSettings.Instance.IndomitabilityHpPercent) > AoeNeedHealing)
+            if (Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= ScholarSettings.Instance.IndomitabilityHpPercent) > AoeNeedHealing)
                 return false;
 
             if (ScholarSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
@@ -682,7 +682,7 @@ namespace Magitek.Logic.Scholar
             if (Spells.Indomitability.Cooldown != TimeSpan.Zero)
                 return false;
 
-            if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= ScholarSettings.Instance.IndomitabilityHpPercent) < AoeNeedHealing)
+            if (Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= ScholarSettings.Instance.IndomitabilityHpPercent) < AoeNeedHealing)
                 return false;
 
             await UseRecitation();
@@ -726,7 +726,7 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             var sacredSoilTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => PartyManager.VisibleMembers.Count(x => x.BattleCharacter.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
-                    && x.BattleCharacter.Distance(r) <= 15) >= AoeNeedHealing);
+                    && x.BattleCharacter.WithinSpellRange(Spells.SacredSoil.Radius)) >= AoeNeedHealing);
 
             if (sacredSoilTarget == null)
                 return false;
@@ -791,7 +791,7 @@ namespace Magitek.Logic.Scholar
                 if (unit.CurrentHealthPercent > ScholarSettings.Instance.WhisperingDawnHealthPercent)
                     return false;
 
-                return unit.Distance(Core.Me.Pet) <= 15;
+                return unit.Distance(Core.Me.Pet) <= 20;
             }
         }
 

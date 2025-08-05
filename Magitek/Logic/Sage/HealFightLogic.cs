@@ -27,14 +27,14 @@ namespace Magitek.Logic.Sage
             if (!FightLogic.HodlCastTimeRemaining(hodlTillDurationInPct: BaseSettings.Instance.FightLogicResponseDelay))
                 return false;
 
-            var useAoEBuffs = Heal.UseAoEHealingBuff(Group.CastableAlliesWithin15);
+            var useAoEBuffs = Heal.UseAoEHealingBuff(Group.CastableAlliesWithin20);
 
             if (SageSettings.Instance.FightLogic_Kerachole
                 && Spells.Kerachole.IsKnownAndReady()
                 && Addersgall >= 1
                 && useAoEBuffs)
             {
-                var targets = Group.CastableAlliesWithin15.Where(r => !r.HasAura(Auras.Kerachole) && !r.HasAura(Auras.Taurochole));
+                var targets = Group.CastableAlliesWithin20.Where(r => !r.HasAura(Auras.Kerachole) && !r.HasAura(Auras.Taurochole));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.KeracholeOnlyWithTank
                     || targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank));
@@ -90,7 +90,7 @@ namespace Magitek.Logic.Sage
                 && Core.Me.ClassLevel >= Spells.Eukrasia.LevelAcquired
                 && Heal.IsEukrasiaReady())
             {
-                var targets = Group.CastableAlliesWithin15.Where(r => !r.HasAura(Auras.EukrasianDiagnosis)
+                var targets = Group.CastableAlliesWithin20.Where(r => !r.HasAura(Auras.EukrasianDiagnosis)
                                                                 && !r.HasAura(Auras.EukrasianPrognosis)
                                                                 && !r.HasAura(Auras.Galvanize));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank

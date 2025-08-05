@@ -111,10 +111,10 @@ namespace Magitek.Logic.Machinist
                 return false;
             }
 
-            // Estimate damage based on stacks (4000 potency per stack)
+            // Estimate damage based on stacks (4500 potency per stack)
             // Using a conservative damage conversion factor for PvP
             const double PvpDamageConversionFactor = 0.8;
-            var estimatedDamage = 4000 * WildfireStacks * PvpDamageConversionFactor;
+            var estimatedDamage = 4500 * WildfireStacks * PvpDamageConversionFactor;
 
             // If target is a tank, reduce expected damage
             if (WildfireTarget.IsTank())
