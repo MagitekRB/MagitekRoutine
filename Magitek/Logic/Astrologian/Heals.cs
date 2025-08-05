@@ -602,7 +602,7 @@ namespace Magitek.Logic.Astrologian
             if (Casting.LastSpell == Spells.Horoscope)
                 return false;
 
-            var celestialOppositionCount = Group.CastableAlliesWithin15.Count(r => r.CurrentHealth > 0
+            var celestialOppositionCount = Group.CastableAlliesWithin20.Count(r => r.CurrentHealth > 0
             && r.CurrentHealthPercent <= AstrologianSettings.Instance.CelestialOppositionHealthPercent);
 
             if (celestialOppositionCount < AoeThreshold)
@@ -709,10 +709,10 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Horoscope)
                 return false;
 
-            if (Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.HoroscopeHealthPercent) < AoeThreshold)
+            if (Group.CastableAlliesWithin30.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.HoroscopeHealthPercent) < AoeThreshold)
                 return false;
 
-            if (Group.CastableAlliesWithin20.Count(r => r.HasMyAura(Auras.Horoscope)) >= AoeThreshold)
+            if (Group.CastableAlliesWithin30.Count(r => r.HasMyAura(Auras.Horoscope)) >= AoeThreshold)
                 return await AspectedHelios() ? true : await Spells.Helios.Cast(Core.Me);
 
             if (await Spells.Horoscope.Cast(Core.Me))
@@ -727,7 +727,7 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Horoscope)
                 return false;
 
-            if (Group.CastableAlliesWithin20.Count(r => r.HasMyAura(Auras.HoroscopeHelios) && r.CurrentHealthPercent <= AstrologianSettings.Instance.HoroscopeHealthPercent) < AoeThreshold)
+            if (Group.CastableAlliesWithin30.Count(r => r.HasMyAura(Auras.HoroscopeHelios) && r.CurrentHealthPercent <= AstrologianSettings.Instance.HoroscopeHealthPercent) < AoeThreshold)
                 return false;
 
             return await Spells.Horoscope.Cast(Core.Me);

@@ -307,7 +307,7 @@ namespace Magitek.Logic.WhiteMage
             if (Casting.LastSpell == Spells.AfflatusRapture)
                 return false;
 
-            var medicaCount = Group.CastableAlliesWithin30.Count(r => r.CurrentHealth > 0 && r.Distance(Core.Me) <= 15 && r.CurrentHealthPercent <= WhiteMageSettings.Instance.MedicaHealthPercent);
+            var medicaCount = Group.CastableAlliesWithin30.Count(r => r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Medica.Radius) && r.CurrentHealthPercent <= WhiteMageSettings.Instance.MedicaHealthPercent);
 
             if (medicaCount < AoeNeedHealing)
                 return false;

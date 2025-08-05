@@ -57,8 +57,7 @@ namespace Magitek.Logic.WhiteMage
             if (WhiteMageSettings.Instance.AssizeOnlyBelow90Mana && Core.Me.CurrentManaPercent >= 95)
                 return false;
 
-            //Range is now 15y
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= (15 + r.CombatReach)) < 1)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Assize.Radius)) < 1)
                 return false;
 
             if (Core.Me.CurrentTarget == null)

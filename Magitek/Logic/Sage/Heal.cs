@@ -228,7 +228,7 @@ namespace Magitek.Logic.Sage
             if (SageSettings.Instance.PrognosisOnlyBelowXAddersgall && Addersgall > SageSettings.Instance.PrognosisOnlyAddersgallValue)
                 return false;
 
-            if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PrognosisHpPercent) < AoeNeedHealing)
+            if (Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PrognosisHpPercent) < AoeNeedHealing)
                 return false;
 
             return await Spells.Prognosis.Heal(Core.Me);
@@ -242,7 +242,7 @@ namespace Magitek.Logic.Sage
             if (!IsEukrasiaReady())
                 return false;
 
-            var targets = Group.CastableAlliesWithin15.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.EukrasianPrognosisHealthPercent &&
+            var targets = Group.CastableAlliesWithin20.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.EukrasianPrognosisHealthPercent &&
                                                                 !r.HasAura(Auras.EukrasianDiagnosis) &&
                                                                 !r.HasAura(Auras.EukrasianPrognosis) &&
                                                                 !r.HasAura(Auras.Galvanize));
@@ -327,7 +327,7 @@ namespace Magitek.Logic.Sage
 
             var targets = Spells.PhysisII.IsKnown()
                 ? Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura))
-                : Group.CastableAlliesWithin15.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura));
+                : Group.CastableAlliesWithin20.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura));
 
             if (targets.Count() < AoeNeedHealing)
                 return false;
@@ -377,7 +377,7 @@ namespace Magitek.Logic.Sage
             if (!Spells.Ixochole.IsKnownAndReady())
                 return false;
 
-            if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.IxocholeHpPercent) < AoeNeedHealing)
+            if (Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.IxocholeHpPercent) < AoeNeedHealing)
                 return false;
 
             return await Spells.Ixochole.Heal(Core.Me);
@@ -390,8 +390,8 @@ namespace Magitek.Logic.Sage
             if (!Spells.Pepsis.IsKnownAndReady())
                 return false;
 
-            var needPepsis = Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PepsisHpPercent &&
-                                                                     (r.HasAura(Auras.EukrasianPrognosis, true) || r.HasAura(Auras.EukrasianDiagnosis, true))) >= AoeNeedHealing;
+            var needPepsis = Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PepsisHpPercent &&
+                                                        (r.HasAura(Auras.EukrasianPrognosis, true) || r.HasAura(Auras.EukrasianDiagnosis, true))) >= AoeNeedHealing;
 
             if (!needPepsis)
                 return false;
@@ -410,12 +410,12 @@ namespace Magitek.Logic.Sage
             if (!Spells.Pepsis.IsKnownAndReady())
                 return false;
 
-            var needPepsis = Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PepsisEukrasianPrognosisHealthPercent) >= AoeNeedHealing;
+            var needPepsis = Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PepsisEukrasianPrognosisHealthPercent) >= AoeNeedHealing;
 
             if (!needPepsis)
                 return false;
 
-            if (!await UseEukrasianPrognosisIfNeeded(Group.CastableAlliesWithin15.Count(), Spells.Pepsis, Core.Me))
+            if (!await UseEukrasianPrognosisIfNeeded(Group.CastableAlliesWithin20.Count(), Spells.Pepsis, Core.Me))
                 return false;
 
             return await Spells.Pepsis.Heal(Core.Me);
@@ -431,7 +431,7 @@ namespace Magitek.Logic.Sage
             if (!Spells.Pepsis.IsKnownAndReady())
                 return false;
 
-            if (!await UseEukrasianPrognosisIfNeeded(Group.CastableAlliesWithin15.Count(), Spells.Pepsis, Core.Me))
+            if (!await UseEukrasianPrognosisIfNeeded(Group.CastableAlliesWithin20.Count(), Spells.Pepsis, Core.Me))
                 return false;
 
             if (!await Spells.Pepsis.Heal(Core.Me))
@@ -444,7 +444,7 @@ namespace Magitek.Logic.Sage
 
         private static async Task<bool> UseEukrasianPrognosisIfNeeded(int NeedShields, SpellData forSpell, Character target)
         {
-            var needPrognosis = Group.CastableAlliesWithin15.Count(r => r.HasAura(Auras.EukrasianPrognosis, true) || r.HasAura(Auras.EukrasianDiagnosis, true)) < NeedShields;
+            var needPrognosis = Group.CastableAlliesWithin20.Count(r => r.HasAura(Auras.EukrasianPrognosis, true) || r.HasAura(Auras.EukrasianDiagnosis, true)) < NeedShields;
 
             if (needPrognosis)
             {
