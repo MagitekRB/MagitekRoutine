@@ -154,7 +154,7 @@ namespace Magitek.Utilities
                     var allianceToHeal = AllianceMembers.Where(a => !a.CanAttack && !a.HasAura(Auras.MountedPvp) && (
                                                                           HealAllianceDps && a.IsDps() ||
                                                                           HealAllianceTanks && a.IsTank() ||
-                                                                          HealAllianceHealers && a.IsDps()));
+                                                                          HealAllianceHealers && a.IsHealer()));
 
                     foreach (var ally in allianceToHeal)
                     {
@@ -168,7 +168,7 @@ namespace Magitek.Utilities
                     var allianceToRes = AllianceMembers.Where(a => a.CurrentHealth <= 0 &&
                                                                    (ResAllianceDps && a.IsDps() ||
                                                                     ResAllianceTanks && a.IsTank() ||
-                                                                    ResAllianceHealers && a.IsDps()));
+                                                                    ResAllianceHealers && a.IsHealer()));
                     foreach (var ally in allianceToRes)
                     {
                         CastableAlliance.Add(ally);
