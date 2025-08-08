@@ -37,7 +37,7 @@ namespace Magitek.Utilities.Routines
             Garuda,
             Bahamut,
             SolarBahamut,
-            Pheonix
+            Phoenix
         }
 
 
@@ -47,7 +47,7 @@ namespace Magitek.Utilities.Routines
                 return SmnPets.Bahamut;
 
             if ((int)PetManager.ActivePetType == 14)
-                return SmnPets.Pheonix;
+                return SmnPets.Phoenix;
 
             if ((int)PetManager.ActivePetType == 23)
                 return SmnPets.Carbuncle;

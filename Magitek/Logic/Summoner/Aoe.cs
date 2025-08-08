@@ -30,7 +30,7 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.SummonedPet() == SmnPets.SolarBahamut) return await Sunflare();
             if (ArcResources.TranceTimer > 0 && Core.Me.SummonedPet() == SmnPets.Carbuncle) return await Deathflare();
 
-            if (Core.Me.SummonedPet() == SmnPets.Pheonix) return await Rekindle();
+            if (Core.Me.SummonedPet() == SmnPets.Phoenix) return await Rekindle();
 
             if (!Spells.MountainBuster.IsKnown()) return false;
 
@@ -274,7 +274,7 @@ namespace Magitek.Logic.Summoner
 
             BattleCharacter target;
 
-            if (Core.Me.SummonedPet() == SmnPets.Pheonix)
+            if (Core.Me.SummonedPet() == SmnPets.Phoenix)
             {
                 target = Combat.SmartAoeTarget(Spells.BrandofPurgatory, SummonerSettings.Instance.SmartAoe);
 
@@ -353,7 +353,7 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut
                 || Core.Me.SummonedPet() == SmnPets.SolarBahamut
-                || Core.Me.SummonedPet() == SmnPets.Pheonix)
+                || Core.Me.SummonedPet() == SmnPets.Phoenix)
                 return false;
 
             if ((SmnResources.ActivePet == SmnResources.ActivePetType.Garuda
