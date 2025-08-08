@@ -20,7 +20,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Ruin)
                 return false;
 
-            if (Core.Me.SummonedPet() == SmnPets.Pheonix)
+            if (Core.Me.SummonedPet() == SmnPets.Phoenix)
                 return await Spells.FountainofFire.Cast(Core.Me.CurrentTarget);
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut)
@@ -131,7 +131,7 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut) return await EnkindleBahamut();
             if (Core.Me.SummonedPet() == SmnPets.SolarBahamut) return await EnkindleSolarBahamut();
-            if (Core.Me.SummonedPet() == SmnPets.Pheonix) return await EnkindlePhoenix();
+            if (Core.Me.SummonedPet() == SmnPets.Phoenix) return await EnkindlePhoenix();
 
             return false;
         }
