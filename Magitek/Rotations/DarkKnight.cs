@@ -43,7 +43,7 @@ namespace Magitek.Rotations
             if (await Buff.Grit()) return true;
             if (await Tank.Interrupt(DarkKnightSettings.Instance)) return true;
 
-            if (DarkKnightRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.HardSlash.Cooldown.TotalMilliseconds > 650 + BaseSettings.Instance.UserLatencyOffset)
+            if (DarkKnightRoutine.GlobalCooldown.CanWeave())
             {
                 //Potion
                 if (await Buff.UsePotion()) return true;
