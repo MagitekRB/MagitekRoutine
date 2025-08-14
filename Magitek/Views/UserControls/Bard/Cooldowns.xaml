@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Bard.Cooldowns"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -45,16 +46,16 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Use Potion " IsChecked="{Binding BardSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding BardSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding BardSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" (Item Potion selected should be in your hotkey bar)" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bard_Text_Item_Potion_selected_should_be_in_your_hotkey_bar}" />
             </Grid>
         </controls:SettingsBlock>
         
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="Selected Buffing Strategy:" />
+                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bard_Text_Selected_Buffing_Strategy}" />
                     <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource BuffStrategy}}" SelectedValue="{Binding BardSettings.UseCoolDowns, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                 </StackPanel>
             </StackPanel>
@@ -63,18 +64,18 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox  Content="Raging Strikes " IsChecked="{Binding BardSettings.UseRageingStrikes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox  Content="{x:Static properties:Resources.Bard_Content_Raging_Strikes}" IsChecked="{Binding BardSettings.UseRageingStrikes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Only During Wanderer's Minuet " IsChecked="{Binding BardSettings.UseRageingStrikesOnlyDuringWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Bard_Content_Only_During_Wanderers_Minuet}" IsChecked="{Binding BardSettings.UseRageingStrikesOnlyDuringWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Delay RS Until Barrage Is Off CD " IsChecked="{Binding BardSettings.DelayRageingStrikesUntilBarrageIsReady, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown}" IsChecked="{Binding BardSettings.DelayRageingStrikesUntilBarrageIsReady, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Delay RS Until " IsChecked="{Binding BardSettings.DelayRageingStrikesDuringWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Bard_Content_Delay_RS_Until}" IsChecked="{Binding BardSettings.DelayRageingStrikesDuringWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="45" MinValue="1" Value="{Binding BardSettings.DelayRageingStrikesDuringWanderersMinuetUntilXSecondsInWM, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds In Wanderer's Minuet" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bard_Text_Seconds_In_Wanderers_Minuet}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -83,7 +84,7 @@
             <StackPanel Margin="5">
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="Barrage   " IsChecked="{Binding BardSettings.UseBarrage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Only With Buff (RS/RF/BV) " IsChecked="{Binding BardSettings.UseBarrageOnlyWithBuff, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Bard_Content_Only_With_Buff_RSRFBV}" IsChecked="{Binding BardSettings.UseBarrageOnlyWithBuff, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -91,7 +92,7 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Battle Voice   " IsChecked="{Binding BardSettings.Instance.UseBattleVoice, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Bard_Content_Battle_Voice}" IsChecked="{Binding BardSettings.Instance.UseBattleVoice, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.WhiteMage.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,9 +22,9 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Lucid Dreaming When Under " IsChecked="{Binding WhiteMageSettings.LucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Lucid_Dreaming_When_Under}" IsChecked="{Binding WhiteMageSettings.LucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.LucidDreamingManaPercent, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Mana Percent" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Mana_Percent}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -39,15 +40,15 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Presence Of Mind " IsChecked="{Binding WhiteMageSettings.PresenceOfMind, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.WhiteMage_Content_Presence_Of_Mind}" IsChecked="{Binding WhiteMageSettings.PresenceOfMind, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.PresenceOfMindHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent When" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent_When}" />
                     <controls:Numeric Grid.Column="3" MaxValue="30" MinValue="1" Value="{Binding WhiteMageSettings.PresenceOfMindNeedHealing, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="4" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text=" Allies Need Healing" />
+                    <TextBlock Grid.Column="4" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Need_Healing}" />
                 </Grid>
-                <CheckBox Margin="0,3,0,0" Content="Use Presence Of Mind For Tank Only" IsChecked="{Binding WhiteMageSettings.PresenceOfMindTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="0,3,0,0" Content="Use Presence Of Mind Before Holy" IsChecked="{Binding WhiteMageSettings.PresenceOfMindBeforeHoly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="0,3,0,0" Content="Use Presence Of Mind On Cooldown for GlareIV" IsChecked="{Binding WhiteMageSettings.PresenceOfMindForGlareIV, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.WhiteMage_Content_Use_Presence_Of_Mind_For_Tank_On}" IsChecked="{Binding WhiteMageSettings.PresenceOfMindTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.WhiteMage_Content_Use_Presence_Of_Mind_Before_Holy}" IsChecked="{Binding WhiteMageSettings.PresenceOfMindBeforeHoly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.WhiteMage_Content_Use_Presence_Of_Mind_On_Cooldown}" IsChecked="{Binding WhiteMageSettings.PresenceOfMindForGlareIV, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -58,7 +59,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Content="Do Not Use Divine Seal And Presence Of Mind At The Same Time" IsChecked="{Binding WhiteMageSettings.DontBuffIfYouHaveOneAlready, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.WhiteMage_Content_Do_Not_Use_Divine_Seal_And_Prese}" IsChecked="{Binding WhiteMageSettings.DontBuffIfYouHaveOneAlready, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -72,10 +73,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Thin Air  " IsChecked="{Binding WhiteMageSettings.ThinAir, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Grid.Column="1" Content="Before Swiftcast Raise  " IsChecked="{Binding WhiteMageSettings.ThinAirBeforeSwiftcastRaise, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Grid.Column="2" Content="Before Holy  " IsChecked="{Binding WhiteMageSettings.ThinAirBeforeHoly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Grid.Column="3" Content="Before Cure 3" IsChecked="{Binding WhiteMageSettings.ThinAirBeforeCure3, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.WhiteMage_Content_Thin_Air}" IsChecked="{Binding WhiteMageSettings.ThinAir, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="1" Content="{x:Static properties:Resources.WhiteMage_Content_Before_Swiftcast_Raise}" IsChecked="{Binding WhiteMageSettings.ThinAirBeforeSwiftcastRaise, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="2" Content="{x:Static properties:Resources.WhiteMage_Content_Before_Holy}" IsChecked="{Binding WhiteMageSettings.ThinAirBeforeHoly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="3" Content="{x:Static properties:Resources.WhiteMage_Content_Before_Cure_3}" IsChecked="{Binding WhiteMageSettings.ThinAirBeforeCure3, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -84,7 +85,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When Mana Falls Below" />
+                    <TextBlock Grid.Column="0" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_When_Mana_Falls_Below}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.ThinAirManaPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Percent" />
                 </Grid>
@@ -92,17 +93,17 @@
         </controls:SettingsBlock>
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Divine Benison " IsChecked="{Binding WhiteMageSettings.DivineBenison, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Benison}" IsChecked="{Binding WhiteMageSettings.DivineBenison, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Plenary Indulgence " IsChecked="{Binding WhiteMageSettings.PlenaryIndulgence, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Plenary_Indulgence}" IsChecked="{Binding WhiteMageSettings.PlenaryIndulgence, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When" />
                 <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding WhiteMageSettings.PlenaryIndulgenceAllies, Mode=TwoWay}" />
-                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Allies Fall Below" />
+                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Fall_Below}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.PlenaryIndulgenceHealthPercent, Mode=TwoWay}" />
-                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="HP Percent" />
+                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_HP_Percent}" />
             </StackPanel>
         </controls:SettingsBlock>
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
@@ -110,9 +111,9 @@
                 <CheckBox Content="Temperance " IsChecked="{Binding WhiteMageSettings.Temperance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When" />
                 <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding WhiteMageSettings.TemperanceAllies, Mode=TwoWay}" />
-                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Allies Fall Below" />
+                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Fall_Below}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.TemperanceHealthPercent, Mode=TwoWay}" />
-                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="HP Percent" />
+                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_HP_Percent}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -120,9 +121,9 @@
             <StackPanel Orientation="Horizontal" Margin="5">
                 <CheckBox Grid.Column="0" Content="Aquaveil " IsChecked="{Binding WhiteMageSettings.Aquaveil, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.AquaveilHealthPercent, Mode=TwoWay}" />
-                <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
-                <CheckBox Grid.Column="3" Margin="10,1,0,1" Content="Only Tank" IsChecked="{Binding WhiteMageSettings.AquaveilTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Column="4" Margin="10,1,0,1" Content="Main Tank" IsChecked="{Binding WhiteMageSettings.AquaveilMainTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                <CheckBox Grid.Column="3" Margin="10,1,0,1" Content="{x:Static properties:Resources.Generic_Only_Tank}" IsChecked="{Binding WhiteMageSettings.AquaveilTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="4" Margin="10,1,0,1" Content="{x:Static properties:Resources.Generic_Main_Tank}" IsChecked="{Binding WhiteMageSettings.AquaveilMainTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
     </StackPanel>

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Paladin.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -40,15 +41,15 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Use Potion " IsChecked="{Binding PaladinSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding PaladinSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding PaladinSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" (Item Potion selected should be in your hotkey bar)" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}" />
             </Grid>
         </controls:SettingsBlock>
         
         <controls:SettingsBlock Margin="0, 5 ,5 ,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Use Iron Will" IsChecked="{Binding PaladinSettings.UseIronWill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Use_Iron_Will}" IsChecked="{Binding PaladinSettings.UseIronWill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -62,7 +63,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Row="1" Margin ="1,1,10,1" Grid.Column="0" Content="FightOrFlight (Damage Buff)" IsChecked="{Binding PaladinSettings.UseFightOrFlight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="1" Margin ="1,1,10,1" Grid.Column="0" Content="{x:Static properties:Resources.Paladin_Content_FightOrFlight_Damage_Buff}" IsChecked="{Binding PaladinSettings.UseFightOrFlight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>
 

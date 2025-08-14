@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Dragoon.SingleTarget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -27,7 +28,7 @@
 
         <controls:SettingsBlock Margin="0,0,0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Use Interrupt and Stun. If activated, use strategy: " IsChecked="{Binding DragoonSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activate}" IsChecked="{Binding DragoonSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding DragoonSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
         </controls:SettingsBlock>

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.WhiteMage.Combat"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -34,31 +35,31 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-                    <CheckBox Content="Do Damage When Mana Is Over " IsChecked="{Binding WhiteMageSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Do_Damage_When_Mana_Is_Over}" IsChecked="{Binding WhiteMageSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.MinimumManaPercentToDoDamage, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Percent" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
-                    <CheckBox Content="Stop Casting A Damage Spell If Someone Drops " IsChecked="{Binding WhiteMageSettings.StopDpsIfPartyMemberBelow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Stop_Casting_A_Damage_Spell_If_S}" IsChecked="{Binding WhiteMageSettings.StopDpsIfPartyMemberBelow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.StopDpsIfPartyMemberBelowHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
             </Grid>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Don't Do Damage If There Are More Than " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Dont_Do_Damage_If_There_Are_More_Th}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.StopDamageWhenMoreThanEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Combat" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Combat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Content="Stone / Glare" IsChecked="{Binding WhiteMageSettings.Stone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="0" Content="{x:Static properties:Resources.WhiteMage_Content_Stone_Glare}" IsChecked="{Binding WhiteMageSettings.Stone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -66,34 +67,34 @@
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Content="Aero / Dia" IsChecked="{Binding WhiteMageSettings.Aero, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Always Dot on the move" IsChecked="{Binding WhiteMageSettings.Dotwhilemoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" Margin="92,0,-92,0" />
+                    <CheckBox Grid.Row="0" Content="{x:Static properties:Resources.WhiteMage_Content_Aero_Dia}" IsChecked="{Binding WhiteMageSettings.Aero, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Always_Dot_on_the_move}" IsChecked="{Binding WhiteMageSettings.Dotwhilemoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" Margin="92,0,-92,0" />
                 </StackPanel>
                 <StackPanel Margin="1" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Refresh When There Are " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Refresh_When_There_Are}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.DotRefreshSeconds, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds Left Of Damage Over Time" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Seconds_Left_Of_Damage_Over_Time}" />
                 </StackPanel>
                 <StackPanel Margin="1" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Use Damage Over Time When The Enemy Has At Least " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy}" />
                     <controls:Numeric MaxValue="99999999" MinValue="1" Value="{Binding WhiteMageSettings.DotHealthMinimum, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health" />
                 </StackPanel>
                 <StackPanel Margin="1" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" And At Least " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_And_At_Least}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.DotHealthMinimumPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Dot up to " IsChecked="{Binding WhiteMageSettings.DotMultipleTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Dot_up_to}" IsChecked="{Binding WhiteMageSettings.DotMultipleTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1"
                         Value="{Binding WhiteMageSettings.DotTargetLimit, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Targets" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Don't Dot if more than " IsChecked="{Binding WhiteMageSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Dot_If_More_Than}" IsChecked="{Binding WhiteMageSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric MaxValue="100" MinValue="0" Value="{Binding WhiteMageSettings.DontDotIfMoreEnemiesThan, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies in combat" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Combat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -112,8 +113,8 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Column="0" Grid.ColumnSpan="5" Content="Use Time Till Death For Damage Over Time Spells" IsChecked="{Binding WhiteMageSettings.UseTimeTillDeathForDots, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text=" Do Not Use Damage Over Time Spells If Enemy Is Dying Within  " />
+                <CheckBox Grid.Column="0" Grid.ColumnSpan="5" Content="{x:Static properties:Resources.WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time}" IsChecked="{Binding WhiteMageSettings.UseTimeTillDeathForDots, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_}" />
                 <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.DontDotIfEnemyDyingWithin, Mode=TwoWay}" />
                 <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
             </Grid>
@@ -121,17 +122,17 @@
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Holy When There Are " IsChecked="{Binding WhiteMageSettings.Holy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Holy_When_There_Are}" IsChecked="{Binding WhiteMageSettings.Holy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.HolyEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Range" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Afflatus Misery " IsChecked="{Binding WhiteMageSettings.UseAfflatusMisery, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Afflatus_Misery}" IsChecked="{Binding WhiteMageSettings.UseAfflatusMisery, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.AfflatusMiseryEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Range" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
             </StackPanel>
         </controls:SettingsBlock>
 

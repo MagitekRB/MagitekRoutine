@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.DarkKnight.Aggro"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,7 +20,7 @@
 
     <StackPanel Margin="10">
         <StackPanel Margin="5" Orientation="Horizontal">
-            <CheckBox Grid.Column="0" Content="Grit (Tank Stance)" IsChecked="{Binding DarkKnightSettings.Grit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Grit_Tank_Stance}" IsChecked="{Binding DarkKnightSettings.Grit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
         </StackPanel>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
@@ -32,21 +33,21 @@
 
                 <StackPanel Grid.Row="0" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use Unmend if not in melee to deal damage " IsChecked="{Binding DarkKnightSettings.UnmendToDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Use_Unmend_if_not_in_melee_to_damage}" IsChecked="{Binding DarkKnightSettings.UnmendToDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="0,3,0,0" Content="Use Unmend To Pull or Regain Aggro " IsChecked="{Binding DarkKnightSettings.UnmendToPullOrAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.DarkKnight_Content_Use_Unmend_To_Pull_or_Regain_Aggro}" IsChecked="{Binding DarkKnightSettings.UnmendToPullOrAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Use Unmend When Ennemy Is At Least "  />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Use_Unmend_When_Ennemy_Is_At_Least_Yalms_Away}"  />
                         <controls:Numeric Margin="0,3" MaxValue="15" MinValue="0" Value="{Binding DarkKnightSettings.UnmendMinDistance, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Yalms Away" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Yalms_Away}" />
                     </StackPanel>
                 </StackPanel>
 

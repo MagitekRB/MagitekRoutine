@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Lists.InterruptsAndStuns"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Magitek.Views.UserControls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -66,7 +67,7 @@
                             <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="White" Text="{Binding Name}" />
 
                             <StackPanel Grid.Column="3" Orientation="Horizontal">
-                                <CheckBox Margin="0,0,2,0" IsChecked="{Binding HighPriority, Mode=TwoWay}" Style="{DynamicResource HighPriorityToggle}" ToolTip="High Priority" />
+                                <CheckBox Margin="0,0,2,0" IsChecked="{Binding HighPriority, Mode=TwoWay}" Style="{DynamicResource HighPriorityToggle}" ToolTip="{x:Static properties:Resources.Lists_ToolTip_High_Priority}" />
                                 <CheckBox IsChecked="{Binding Interrupt, Mode=TwoWay}" Style="{DynamicResource InterruptToggle}" ToolTip="Interrupt" />
                                 <CheckBox Margin="2,0" IsChecked="{Binding Stun, Mode=TwoWay}" Style="{DynamicResource StunToggle}" ToolTip="Stun" />
 
@@ -88,7 +89,7 @@
                                                                                   Grid.Column="0"
                                                                                   HorizontalAlignment="Left"
                                                                                   VerticalAlignment="Center"
-                                                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                                                  Content="{x:Static properties:Resources.Lists_Content_TemplateBinding_SelectionBoxItem}"
                                                                                   ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                                                                   ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                                                                   IsHitTestVisible="False" />

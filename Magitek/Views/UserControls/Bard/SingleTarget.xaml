@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Bard.SingleTarget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -24,14 +25,14 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Pitch Perfect At " IsChecked="{Binding BardSettings.UsePitchPerfect, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Pitch_Perfect_At}" IsChecked="{Binding BardSettings.UsePitchPerfect, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="3" MinValue="1" Value="{Binding BardSettings.UsePitchPerfectAtRepertoire, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Repertoire" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Use Pitch Perfect Within The Last " IsChecked="{Binding BardSettings.UsePitchPerfectAtTheEndOfWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds}" IsChecked="{Binding BardSettings.UsePitchPerfectAtTheEndOfWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="6" MinValue="1" Value="{Binding BardSettings.UsePitchPerfectWithinTheLastXSecondsOfWanderersMinuet, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds of Wanderer's Minuet Without Repertoire Requirement" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bard_Text_Seconds_of_Wanderers_Minuet_Without_Repertoire}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -39,10 +40,10 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Use Empyreal Arrow " IsChecked="{Binding BardSettings.UseEmpyrealArrow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_Empyreal_Arrow}" IsChecked="{Binding BardSettings.UseEmpyrealArrow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Delay Empyreal Arrow If Army's Paeon Ends In " IsChecked="{Binding BardSettings.DelayEmpyrealArrowUntilAPEnds, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" VerticalAlignment="Center" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within}" IsChecked="{Binding BardSettings.DelayEmpyrealArrowUntilAPEnds, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" VerticalAlignment="Center" />
                     <controls:Numeric MaxValue="45" MinValue="0" Value="{Binding BardSettings.DontUseEmpyrealArrowWhenSongEndsInXSeconds, Mode=TwoWay}" VerticalAlignment="Center" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" VerticalAlignment="Center" />
                 </StackPanel>
@@ -55,19 +56,19 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Use Bloodletter " IsChecked="{Binding BardSettings.UseBloodletter, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5" Content=" Prioritize Bloodletter during Mage's Ballard" IsChecked="{Binding BardSettings.PrioritizeBloodletterDuringMagesBallard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_Bloodletter}" IsChecked="{Binding BardSettings.UseBloodletter, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad}" IsChecked="{Binding BardSettings.PrioritizeBloodletterDuringMagesBallard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Use Sidewinder " IsChecked="{Binding BardSettings.UseSidewinder, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_Sidewinder}" IsChecked="{Binding BardSettings.UseSidewinder, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Margin="5" Content=" Use HeavyShot/BurstShot " IsChecked="{Binding BardSettings.UseHeavyShot, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5" Content=" Use StraightShot/Refulgent Arrow " IsChecked="{Binding BardSettings.UseStraightShot, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_HeavyShotBurstShot}" IsChecked="{Binding BardSettings.UseHeavyShot, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_StraightShotRefulgent_Arrow}" IsChecked="{Binding BardSettings.UseStraightShot, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 </StackPanel>
             </StackPanel>

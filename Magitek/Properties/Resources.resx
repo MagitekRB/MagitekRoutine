@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -59,7 +59,8 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema Id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,4127 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="PVPCheckbox" xml:space="preserve">
+    <value>Activate PVP Routine (only for PVP !!)</value>
+  </data>
+  <data name="ChocoboHealerStanceCheckbox" xml:space="preserve">
+    <value>Chocobo Switch To Healer Stance</value>
+  </data>
+  <data name="SummonChocoboCheckbox" xml:space="preserve">
+    <value>Summon Chocobo</value>
+  </data>
+  <data name="ChocoboStance" xml:space="preserve">
+    <value>Chocobo Stance:  </value>
+  </data>
+  <data name="ChocoboSettings" xml:space="preserve">
+    <value>Chocobo Settings</value>
+  </data>
+  <data name="Controls_Text_Local_Magitek_Version" xml:space="preserve">
+    <value>Local Magitek Version:</value>
+  </data>
+  <data name="Controls_Text_Last_Available_Version" xml:space="preserve">
+    <value>Last Available Version:</value>
+  </data>
+  <data name="Controls_Text_Zone" xml:space="preserve">
+    <value>Zone:</value>
+  </data>
+  <data name="Controls_Text_Gambits" xml:space="preserve">
+    <value>Gambits:</value>
+  </data>
+  <data name="Controls_Content_Show_All" xml:space="preserve">
+    <value>Show All</value>
+  </data>
+  <data name="Controls_Content_Add_New_Gambit_Group" xml:space="preserve">
+    <value>Add New Gambit Group</value>
+  </data>
+  <data name="Controls_Content_Recover_Old_Gambits" xml:space="preserve">
+    <value>Recover Old Gambits</value>
+  </data>
+  <data name="Controls_Content_Open_Shared_Gambits_Browser" xml:space="preserve">
+    <value>Open Shared Gambits Browser</value>
+  </data>
+  <data name="Controls_Content_Current_Zone" xml:space="preserve">
+    <value>Current Zone</value>
+  </data>
+  <data name="Controls_Content_PASTE_COPIED_GAMBIT" xml:space="preserve">
+    <value>PASTE COPIED GAMBIT</value>
+  </data>
+  <data name="Controls_Content_COPY_GAMBIT_GROUP" xml:space="preserve">
+    <value>COPY GAMBIT GROUP</value>
+  </data>
+  <data name="Controls_Content_PASTE_COPIED_GAMBIT_GROUP" xml:space="preserve">
+    <value>PASTE COPIED GAMBIT GROUP</value>
+  </data>
+  <data name="Controls_Content_DELETE_GAMBIT_GROUP" xml:space="preserve">
+    <value>DELETE GAMBIT GROUP</value>
+  </data>
+  <data name="Controls_Content_On_Target" xml:space="preserve">
+    <value>On Target</value>
+  </data>
+  <data name="Controls_Content_On_Pet" xml:space="preserve">
+    <value>On Pet</value>
+  </data>
+  <data name="Controls_Content_On_Player" xml:space="preserve">
+    <value>On Player</value>
+  </data>
+  <data name="Controls_Content_Any_Quality" xml:space="preserve">
+    <value>Any Quality</value>
+  </data>
+  <data name="Controls_Content_High_Quality" xml:space="preserve">
+    <value>High Quality</value>
+  </data>
+  <data name="Controls_Content_Normal_Quality" xml:space="preserve">
+    <value>Normal Quality</value>
+  </data>
+  <data name="Controls_Content_IS_PVP_SPELL" xml:space="preserve">
+    <value>IS PVP SPELL</value>
+  </data>
+  <data name="Controls_Content_On_Anyone" xml:space="preserve">
+    <value>On Anyone</value>
+  </data>
+  <data name="Controls_Content_On_Spell_Target" xml:space="preserve">
+    <value>On Spell Target</value>
+  </data>
+  <data name="Controls_Content_On_Me" xml:space="preserve">
+    <value>On Me</value>
+  </data>
+  <data name="Controls_Content_REMOVE_CONDITION" xml:space="preserve">
+    <value>REMOVE CONDITION</value>
+  </data>
+  <data name="Controls_Content_IS_MY_AURA" xml:space="preserve">
+    <value>IS MY AURA</value>
+  </data>
+  <data name="Controls_Content_Above_Or_Equal" xml:space="preserve">
+    <value>Above Or Equal</value>
+  </data>
+  <data name="Controls_Content_Lower_Or_Equal" xml:space="preserve">
+    <value>Lower Or Equal</value>
+  </data>
+  <data name="Controls_Content_WHITE_MAGE" xml:space="preserve">
+    <value>WHITE MAGE</value>
+  </data>
+  <data name="Controls_Content_DARK_KNIGHT" xml:space="preserve">
+    <value>DARK KNIGHT</value>
+  </data>
+  <data name="Controls_Content_BLACK_MAGE" xml:space="preserve">
+    <value>BLACK MAGE</value>
+  </data>
+  <data name="Controls_Content_RED_MAGE" xml:space="preserve">
+    <value>RED MAGE</value>
+  </data>
+  <data name="Controls_Content_IS_TANK" xml:space="preserve">
+    <value>IS TANK</value>
+  </data>
+  <data name="Controls_Content_IS_HEALER" xml:space="preserve">
+    <value>IS HEALER</value>
+  </data>
+  <data name="Controls_Content_IS_DPS" xml:space="preserve">
+    <value>IS DPS</value>
+  </data>
+  <data name="Controls_Content_By_Player" xml:space="preserve">
+    <value>By Player</value>
+  </data>
+  <data name="Controls_Content_By_Target_Object" xml:space="preserve">
+    <value>By Target Object</value>
+  </data>
+  <data name="Controls_Content_MUST_BE_ENEMY" xml:space="preserve">
+    <value>MUST BE ENEMY</value>
+  </data>
+  <data name="Controls_Content_MUST_BE_ALLY" xml:space="preserve">
+    <value>MUST BE ALLY</value>
+  </data>
+  <data name="Controls_Content_IN_INSTANCE" xml:space="preserve">
+    <value>IN INSTANCE</value>
+  </data>
+  <data name="Controls_Content_NOT_IN_INSTANCE" xml:space="preserve">
+    <value>NOT IN INSTANCE</value>
+  </data>
+  <data name="Controls_Content_IS_JOB" xml:space="preserve">
+    <value>IS JOB</value>
+  </data>
+  <data name="Controls_Content_IS_ROLE" xml:space="preserve">
+    <value>IS ROLE</value>
+  </data>
+  <data name="Controls_Content_PLAYER_IN_COMBAT" xml:space="preserve">
+    <value>PLAYER IN COMBAT</value>
+  </data>
+  <data name="Controls_Content_PLAYER_NOT_IN_COMBAT" xml:space="preserve">
+    <value>PLAYER NOT IN COMBAT</value>
+  </data>
+  <data name="Controls_Content_COMBAT_TIME" xml:space="preserve">
+    <value>COMBAT TIME</value>
+  </data>
+  <data name="Controls_Content_LAST_SPELL" xml:space="preserve">
+    <value>LAST SPELL</value>
+  </data>
+  <data name="Controls_Content_TARGET_NAME" xml:space="preserve">
+    <value>TARGET NAME</value>
+  </data>
+  <data name="Controls_Content_TARGET_BOSS" xml:space="preserve">
+    <value>TARGET BOSS</value>
+  </data>
+  <data name="Controls_Content_HAS_TARGET" xml:space="preserve">
+    <value>HAS TARGET</value>
+  </data>
+  <data name="Controls_Content_ENEMY_CASTING_SPELL" xml:space="preserve">
+    <value>ENEMY CASTING SPELL</value>
+  </data>
+  <data name="Controls_Content_ENEMIES_NEARBY" xml:space="preserve">
+    <value>ENEMIES NEARBY</value>
+  </data>
+  <data name="Controls_Content_HAS_AURA" xml:space="preserve">
+    <value>HAS AURA</value>
+  </data>
+  <data name="Controls_Content_DOES_NOT_HAVE_AURA" xml:space="preserve">
+    <value>DOES NOT HAVE AURA</value>
+  </data>
+  <data name="Controls_Content_SPELL_OFF_COOLDOWN" xml:space="preserve">
+    <value>SPELL OFF COOLDOWN</value>
+  </data>
+  <data name="Controls_Content_HEALTH_PERCENT_BELOW" xml:space="preserve">
+    <value>HEALTH PERCENT BELOW</value>
+  </data>
+  <data name="Controls_Content_HEALTH_PERCENT_BETWEEN" xml:space="preserve">
+    <value>HEALTH PERCENT BETWEEN</value>
+  </data>
+  <data name="Controls_Content_MP_PERCENT" xml:space="preserve">
+    <value>MP PERCENT</value>
+  </data>
+  <data name="Controls_Content_PLAYER_HAS_AURA" xml:space="preserve">
+    <value>PLAYER HAS AURA</value>
+  </data>
+  <data name="Controls_Content_PLAYER_DOES_NOT_HAVE_AURA" xml:space="preserve">
+    <value>PLAYER DOES NOT HAVE AURA</value>
+  </data>
+  <data name="Controls_Content_HAS_PET" xml:space="preserve">
+    <value>HAS PET</value>
+  </data>
+  <data name="Controls_Content_COUNTDOWN_TIMER" xml:space="preserve">
+    <value>COUNTDOWN TIMER</value>
+  </data>
+  <data name="Controls_Content_GREASED_LIGHTNING" xml:space="preserve">
+    <value>GREASED LIGHTNING</value>
+  </data>
+  <data name="Controls_Content_DRAGOON_GAUGE" xml:space="preserve">
+    <value>DRAGOON GAUGE</value>
+  </data>
+  <data name="Controls_Content_HAS_CHAIN" xml:space="preserve">
+    <value>HAS CHAIN</value>
+  </data>
+  <data name="Controls_Content_ONLY_USE_IN_CHAIN" xml:space="preserve">
+    <value>ONLY USE IN CHAIN</value>
+  </data>
+  <data name="Controls_Content_FORCE_CHAIN_ACTIONS" xml:space="preserve">
+    <value>FORCE CHAIN ACTIONS</value>
+  </data>
+  <data name="Controls_Content_GAMBIT_ENABLED" xml:space="preserve">
+    <value>GAMBIT ENABLED</value>
+  </data>
+  <data name="Controls_Content_ALLOW_GAMBIT_TO_INTERRUPT" xml:space="preserve">
+    <value>ALLOW GAMBIT TO INTERRUPT</value>
+  </data>
+  <data name="Controls_Content_COPY_GAMBIT" xml:space="preserve">
+    <value>COPY GAMBIT</value>
+  </data>
+  <data name="Controls_Content_COPY_GAMBIT_TO_CLIPBOARD" xml:space="preserve">
+    <value>COPY GAMBIT TO CLIPBOARD</value>
+  </data>
+  <data name="Controls_Content_DELETE_GAMBIT" xml:space="preserve">
+    <value>DELETE GAMBIT</value>
+  </data>
+  <data name="Controls_ToolTip_Set_Group_To_Current_Zone" xml:space="preserve">
+    <value>Set Group To Current Zone</value>
+  </data>
+  <data name="Controls_ToolTip_Add_Gambit" xml:space="preserve">
+    <value>Add Gambit</value>
+  </data>
+  <data name="Controls_Text_Use_Openers_Hotkey" xml:space="preserve">
+    <value>Use Openers Hotkey:</value>
+  </data>
+  <data name="Controls_Text_Reset_Opener_Hotkey" xml:space="preserve">
+    <value>Reset Opener Hotkey:</value>
+  </data>
+  <data name="Controls_Text_CONDITIONS_TO_START_OPENER" xml:space="preserve">
+    <value>CONDITIONS TO START OPENER:</value>
+  </data>
+  <data name="Controls_Content_Add_New_Opener" xml:space="preserve">
+    <value>Add New Opener</value>
+  </data>
+  <data name="Controls_Content_Open_Shared_Openers_Browser" xml:space="preserve">
+    <value>Open Shared Openers Browser</value>
+  </data>
+  <data name="Controls_Content_USE_ONLY_ONCE_PER_COMBAT" xml:space="preserve">
+    <value>USE ONLY ONCE PER COMBAT</value>
+  </data>
+  <data name="Controls_Content_DELETE_OPENER" xml:space="preserve">
+    <value>DELETE OPENER</value>
+  </data>
+  <data name="Controls_Content_HAS_GETSU" xml:space="preserve">
+    <value>HAS GETSU</value>
+  </data>
+  <data name="Controls_Content_HAS_SETSU" xml:space="preserve">
+    <value>HAS SETSU</value>
+  </data>
+  <data name="Controls_Content_HAS_KA" xml:space="preserve">
+    <value>HAS KA</value>
+  </data>
+  <data name="Controls_Content_ABANDON_OPENER_IF_ACTION_FAILS" xml:space="preserve">
+    <value>ABANDON OPENER IF ACTION FAILS</value>
+  </data>
+  <data name="Controls_Content_DELETE_ACTION" xml:space="preserve">
+    <value>DELETE ACTION</value>
+  </data>
+  <data name="Controls_ToolTip_Set_Opener_To_Current_Zone" xml:space="preserve">
+    <value>Set Opener To Current Zone</value>
+  </data>
+  <data name="Controls_ToolTip_Add_Action" xml:space="preserve">
+    <value>Add Action</value>
+  </data>
+  <data name="Controls_Text_TOGGLES" xml:space="preserve">
+    <value>TOGGLES:</value>
+  </data>
+  <data name="Controls_Text_TOGGLE_SHOW_ON_OVERLAY" xml:space="preserve">
+    <value>TOGGLE SHOW ON OVERLAY:</value>
+  </data>
+  <data name="Controls_Text_TOGGLE_FOR_PVP" xml:space="preserve">
+    <value>TOGGLE FOR PVP:</value>
+  </data>
+  <data name="Controls_Text_TOGGLE_ON" xml:space="preserve">
+    <value>TOGGLE ON:</value>
+  </data>
+  <data name="Controls_Text_TOGGLE_OFF" xml:space="preserve">
+    <value>TOGGLE OFF:</value>
+  </data>
+  <data name="Controls_Header_Move_Toggle_Up" xml:space="preserve">
+    <value>Move Toggle Up</value>
+  </data>
+  <data name="Controls_Header_Move_Toggle_Down" xml:space="preserve">
+    <value>Move Toggle Down</value>
+  </data>
+  <data name="Controls_Header_Remove_Toggle" xml:space="preserve">
+    <value>Remove Toggle</value>
+  </data>
+  <data name="Views_Text_Latency_Offset_Ping" xml:space="preserve">
+    <value>Latency Offset (Ping):</value>
+  </data>
+  <data name="Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi" xml:space="preserve">
+    <value>NoClippy/XivAlexander simulate a 10ms ping</value>
+  </data>
+  <data name="Views_Text_Overlay_Settings" xml:space="preserve">
+    <value>Overlay Settings</value>
+  </data>
+  <data name="Views_Text_Settings_Overlay_Size" xml:space="preserve">
+    <value>Settings Overlay Size:</value>
+  </data>
+  <data name="Views_Text_Font_Size" xml:space="preserve">
+    <value>Font Size:</value>
+  </data>
+  <data name="Views_Content_Activate_Combat_Routine" xml:space="preserve">
+    <value>Activate Combat Routine</value>
+  </data>
+  <data name="Views_Content_Use_AutoFace_for_InView_checks" xml:space="preserve">
+    <value>Use AutoFace for InView checks</value>
+  </data>
+  <data name="Views_Content_Lift_Zoom_Restrictions" xml:space="preserve">
+    <value>Lift Zoom Restrictions</value>
+  </data>
+  <data name="Views_Content_Use_The_Setting_Overlay_with" xml:space="preserve">
+    <value>Use The Setting Overlay with</value>
+  </data>
+  <data name="Views_Content_Use_The_Combat_Message_Overlay" xml:space="preserve">
+    <value>Use The Combat Message Overlay</value>
+  </data>
+  <data name="Views_Content_Make_Adjustable" xml:space="preserve">
+    <value>Make Adjustable</value>
+  </data>
+  <data name="Views_Content_Reset_Overlay_Positions" xml:space="preserve">
+    <value>Reset Overlay Positions</value>
+  </data>
+  <data name="Views_ToolTip_Check_to_move_and_resize_the_combat_" xml:space="preserve">
+    <value>Check to move and resize the combat message overlay. Uncheck when done.</value>
+  </data>
+  <data name="Views_Header_Healing_Priority" xml:space="preserve">
+    <value>Healing Priority</value>
+  </data>
+  <data name="Views_Header_Enemy_Aura_History" xml:space="preserve">
+    <value>Enemy Aura History</value>
+  </data>
+  <data name="Views_Header_Enemy_Target_History" xml:space="preserve">
+    <value>Enemy Target History</value>
+  </data>
+  <data name="Views_Header_Party_Member_Aura_History" xml:space="preserve">
+    <value>Party Member Aura History</value>
+  </data>
+  <data name="Views_Header_Healing_Lists" xml:space="preserve">
+    <value>Healing Lists</value>
+  </data>
+  <data name="Views_Header_Player_Spell_Cast_History" xml:space="preserve">
+    <value>Player Spell Cast History</value>
+  </data>
+  <data name="Views_Header_Interrupts_and_Stuns" xml:space="preserve">
+    <value>Interrupts and Stuns</value>
+  </data>
+  <data name="Views_Header_High_Priority_Dispels" xml:space="preserve">
+    <value>High Priority Dispels</value>
+  </data>
+  <data name="Views_Header_General_Dispels" xml:space="preserve">
+    <value>General Dispels</value>
+  </data>
+  <data name="Views_Header_General_Combat" xml:space="preserve">
+    <value>General Combat</value>
+  </data>
+  <data name="Views_Header_Damage_Over_Time" xml:space="preserve">
+    <value>Damage Over Time</value>
+  </data>
+  <data name="Views_Header_General_Healing" xml:space="preserve">
+    <value>General Healing</value>
+  </data>
+  <data name="Views_Header_Aspected_Healing" xml:space="preserve">
+    <value>Aspected Healing</value>
+  </data>
+  <data name="Views_Header_Healing_Options" xml:space="preserve">
+    <value>Healing Options</value>
+  </data>
+  <data name="Views_Header_Area_Of_Effect" xml:space="preserve">
+    <value>Area Of Effect</value>
+  </data>
+  <data name="UserControls_Content_Active_CR" xml:space="preserve">
+    <value>Active CR</value>
+  </data>
+  <data name="UserControls_Content_PVP_Mode" xml:space="preserve">
+    <value>PVP Mode</value>
+  </data>
+  <data name="UserControls_Content_Use_Custom_Opener" xml:space="preserve">
+    <value>Use Custom Opener</value>
+  </data>
+  <data name="UserControls_Content_Reset_Custom_Opener" xml:space="preserve">
+    <value>Reset Custom Opener</value>
+  </data>
+  <data name="UserControls_Content_Use_Chocobo" xml:space="preserve">
+    <value>Use Chocobo</value>
+  </data>
+  <data name="UserControls_Content_Execute_LimitBreak" xml:space="preserve">
+    <value>Execute LimitBreak</value>
+  </data>
+  <data name="Astrologian_Content_Heal_Alliance_DPS" xml:space="preserve">
+    <value>Heal Alliance DPS</value>
+  </data>
+  <data name="Astrologian_Content_Resurrect_Alliance_DPS" xml:space="preserve">
+    <value>Resurrect Alliance DPS</value>
+  </data>
+  <data name="Astrologian_Content_Lightspeed_with_Divination" xml:space="preserve">
+    <value>Lightspeed with Divination</value>
+  </data>
+  <data name="Astrologian_Content_Lightspeed_with_Neutral_Sect" xml:space="preserve">
+    <value>Lightspeed with Neutral Sect</value>
+  </data>
+  <data name="Astrologian_Content_Neutral_Sect_at" xml:space="preserve">
+    <value>Neutral Sect at</value>
+  </data>
+  <data name="Astrologian_Content_Use_Divination_at_least" xml:space="preserve">
+    <value>Use Divination at least</value>
+  </data>
+  <data name="Astrologian_Content_Use_Oracle_at_least" xml:space="preserve">
+    <value>Use Oracle at least</value>
+  </data>
+  <data name="Astrologian_Text_Seconds_Left_in_Combat" xml:space="preserve">
+    <value>Seconds Left in Combat.</value>
+  </data>
+  <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
+    <value>Card Priority (First to Last)</value>
+  </data>
+  <data name="Astrologian_Text_MNK" xml:space="preserve">
+    <value>MNK:</value>
+  </data>
+  <data name="Astrologian_Text_DRG" xml:space="preserve">
+    <value>DRG:</value>
+  </data>
+  <data name="Astrologian_Text_NIN" xml:space="preserve">
+    <value>NIN:</value>
+  </data>
+  <data name="Astrologian_Text_SAM" xml:space="preserve">
+    <value>SAM:</value>
+  </data>
+  <data name="Astrologian_Text_RPR" xml:space="preserve">
+    <value>RPR:</value>
+  </data>
+  <data name="Astrologian_Text_BRD" xml:space="preserve">
+    <value>BRD:</value>
+  </data>
+  <data name="Astrologian_Text_MCH" xml:space="preserve">
+    <value>MCH:</value>
+  </data>
+  <data name="Astrologian_Text_DNC" xml:space="preserve">
+    <value>DNC:</value>
+  </data>
+  <data name="Astrologian_Text_BLM" xml:space="preserve">
+    <value>BLM:</value>
+  </data>
+  <data name="Astrologian_Text_SMN" xml:space="preserve">
+    <value>SMN:</value>
+  </data>
+  <data name="Astrologian_Text_RDM" xml:space="preserve">
+    <value>RDM:</value>
+  </data>
+  <data name="Astrologian_Text_BLU" xml:space="preserve">
+    <value>BLU:</value>
+  </data>
+  <data name="Astrologian_Text_PLD" xml:space="preserve">
+    <value>PLD:</value>
+  </data>
+  <data name="Astrologian_Text_WAR" xml:space="preserve">
+    <value>WAR:</value>
+  </data>
+  <data name="Astrologian_Text_DRK" xml:space="preserve">
+    <value>DRK:</value>
+  </data>
+  <data name="Astrologian_Text_GNB" xml:space="preserve">
+    <value>GNB:</value>
+  </data>
+  <data name="Astrologian_Text_WHM" xml:space="preserve">
+    <value>WHM:</value>
+  </data>
+  <data name="Astrologian_Text_SCH" xml:space="preserve">
+    <value>SCH:</value>
+  </data>
+  <data name="Astrologian_Text_SGE" xml:space="preserve">
+    <value>SGE:</value>
+  </data>
+  <data name="Astrologian_Text_AST" xml:space="preserve">
+    <value>AST:</value>
+  </data>
+  <data name="Astrologian_Text_PCT" xml:space="preserve">
+    <value>PCT:</value>
+  </data>
+  <data name="Astrologian_Text_VPR" xml:space="preserve">
+    <value>VPR:</value>
+  </data>
+  <data name="Astrologian_Content_Use_Astral_Draw" xml:space="preserve">
+    <value>Use Astral Draw</value>
+  </data>
+  <data name="Astrologian_Content_Use_Umbral_Draw" xml:space="preserve">
+    <value>Use Umbral Draw</value>
+  </data>
+  <data name="Astrologian_Content_Lord_Of_Crowns_at_least" xml:space="preserve">
+    <value>Lord Of Crowns at least</value>
+  </data>
+  <data name="Astrologian_Content_Lady_Of_Crowns" xml:space="preserve">
+    <value>Lady Of Crowns</value>
+  </data>
+  <data name="Astrologian_Content_Play_Cards" xml:space="preserve">
+    <value>Play Cards</value>
+  </data>
+  <data name="Astrologian_Text_Milliseconds_Left" xml:space="preserve">
+    <value>Milliseconds Left</value>
+  </data>
+  <data name="Astrologian_Content_Interrupt_Damage_to_Heal" xml:space="preserve">
+    <value>Interrupt Damage to Heal</value>
+  </data>
+  <data name="Astrologian_Content_Aggro_Ast_Mode" xml:space="preserve">
+    <value>Aggro Ast Mode</value>
+  </data>
+  <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
+    <value>Use Time Till Death For Damage Over Time Spells</value>
+  </data>
+  <data name="Astrologian_Content_Dont_Dot_if_more_than" xml:space="preserve">
+    <value>Don't Dot if more than</value>
+  </data>
+  <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
+    <value>Gravity When There Are</value>
+  </data>
+  <data name="Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an" xml:space="preserve">
+    <value>Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful).</value>
+  </data>
+  <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
+    <value>Ally Health Percent</value>
+  </data>
+  <data name="Astrologian_Text_Tank_Only_at" xml:space="preserve">
+    <value>Tank Only at</value>
+  </data>
+  <data name="Astrologian_Text_Health_Percent_and" xml:space="preserve">
+    <value>Health Percent and</value>
+  </data>
+  <data name="Astrologian_Text_Minimum_Mana_To_Use" xml:space="preserve">
+    <value>Minimum Mana To Use</value>
+  </data>
+  <data name="Astrologian_Content_Aspected_Benefic" xml:space="preserve">
+    <value>Aspected Benefic</value>
+  </data>
+  <data name="Astrologian_Content_Use_On_Tanks" xml:space="preserve">
+    <value>Use On Tanks</value>
+  </data>
+  <data name="Astrologian_Content_Keep_Up_On_Tanks" xml:space="preserve">
+    <value>Keep Up On Tanks</value>
+  </data>
+  <data name="Astrologian_Content_Celestial_Intersection" xml:space="preserve">
+    <value>Celestial Intersection</value>
+  </data>
+  <data name="Astrologian_Content_Aspected_Helios" xml:space="preserve">
+    <value>Aspected Helios</value>
+  </data>
+  <data name="Astrologian_Content_Celestial_Opposition" xml:space="preserve">
+    <value>Celestial Opposition</value>
+  </data>
+  <data name="Astrologian_Text_Party_AoE" xml:space="preserve">
+    <value>Party AoE</value>
+  </data>
+  <data name="Astrologian_Content_Neutral_Sect" xml:space="preserve">
+    <value>Neutral Sect</value>
+  </data>
+  <data name="Astrologian_Content_Earthly_Star" xml:space="preserve">
+    <value>Earthly Star</value>
+  </data>
+  <data name="Astrologian_Content_Collective_Unconscious" xml:space="preserve">
+    <value>Collective Unconscious</value>
+  </data>
+  <data name="Astrologian_Text_AoE_Heal_When_Allies_Need_Healing" xml:space="preserve">
+    <value>AoE Heal When Allies Need Healing -</value>
+  </data>
+  <data name="Astrologian_Text_Light_Party" xml:space="preserve">
+    <value>Light Party:</value>
+  </data>
+  <data name="Astrologian_Text_Full_Party" xml:space="preserve">
+    <value>Full Party:</value>
+  </data>
+  <data name="Astrologian_Text_Resurrection_Delay" xml:space="preserve">
+    <value>Resurrection Delay:</value>
+  </data>
+  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
+    <value>Allies Are Below</value>
+  </data>
+  <data name="Astrologian_Text_Enemies_Near_Target" xml:space="preserve">
+    <value>Enemies Near Target</value>
+  </data>
+  <data name="Astrologian_Text_Stellar_Burst_If" xml:space="preserve">
+    <value>Stellar Burst If</value>
+  </data>
+  <data name="Astrologian_Text_Stellar_Explosion_If" xml:space="preserve">
+    <value>Stellar Explosion If</value>
+  </data>
+  <data name="Astrologian_Text_Fight_Logic" xml:space="preserve">
+    <value>Fight Logic:</value>
+  </data>
+  <data name="Astrologian_Content_Swiftcast_Ascend" xml:space="preserve">
+    <value>Swiftcast Ascend</value>
+  </data>
+  <data name="Astrologian_Content_Ascend_Out_of_Combat" xml:space="preserve">
+    <value>Ascend Out of Combat</value>
+  </data>
+  <data name="Astrologian_Content_Benefic_2" xml:space="preserve">
+    <value>Benefic 2</value>
+  </data>
+  <data name="Astrologian_Content_Essential_Dignity" xml:space="preserve">
+    <value>Essential Dignity</value>
+  </data>
+  <data name="Astrologian_Content_Collective_Unco" xml:space="preserve">
+    <value>Collective Unco.</value>
+  </data>
+  <data name="Astrologian_Content_Synastry_When" xml:space="preserve">
+    <value>Synastry When</value>
+  </data>
+  <data name="Astrologian_Content_Horoscope_When" xml:space="preserve">
+    <value>Horoscope When</value>
+  </data>
+  <data name="Astrologian_Content_Stellar_Detonation" xml:space="preserve">
+    <value>Stellar Detonation</value>
+  </data>
+  <data name="Astrologian_Content_Weave_OGCD_Heals" xml:space="preserve">
+    <value>Weave OGCD Heals</value>
+  </data>
+  <data name="Astrologian_ToolTip_This_will_automatically_cast_f" xml:space="preserve">
+    <value>This will automatically cast for Tankbusters.
+Does not work if Exaltation is disabled.</value>
+  </data>
+  <data name="Astrologian_ToolTip_This_will_automatically_cast_C" xml:space="preserve">
+    <value>This will automatically cast Collective Unconscious for AOEs.
+Does not work if Lightspeed is disabled.</value>
+  </data>
+  <data name="Astrologian_ToolTip_This_will_automatically_cast_M" xml:space="preserve">
+    <value>This will automatically cast Macrocosmos for Big AOEs.
+Does not work if Lightspeed is disabled.</value>
+  </data>
+  <data name="Astrologian_ToolTip_This_will_automatically_cast_N" xml:space="preserve">
+    <value>This will automatically cast Neutral Sect and Aspected Helios for Big AOEs if Macrocosmos Fight Logic is enabled but unavailable.
+Does not work if Neutral Sect is disabled.</value>
+  </data>
+  <data name="Astrologian_ToolTip_This_will_automatically_cast_L" xml:space="preserve">
+    <value>This will automatically cast Lightspeed for Big AOEs if Macrocosmos and Neutral Sect FightLogic are enabled but unavailable.
+Does not work if Lightspeed is disabled.</value>
+  </data>
+  <data name="Astrologian_Content_Nocturnal_Benefic" xml:space="preserve">
+    <value>Nocturnal Benefic</value>
+  </data>
+  <data name="Astrologian_Content_Use_Nocturnal_Benefic_While_Mo" xml:space="preserve">
+    <value>Use Nocturnal Benefic While Moving If Mana Is Above</value>
+  </data>
+  <data name="Astrologian_Content_Nocturnal_Helios" xml:space="preserve">
+    <value>Nocturnal Helios</value>
+  </data>
+  <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
+    <value>Gravity II with at least</value>
+  </data>
+  <data name="Astrologian_Text_enemies_around_target" xml:space="preserve">
+    <value>enemies around target</value>
+  </data>
+  <data name="Astrologian_Text_Allies_below" xml:space="preserve">
+    <value>Allies below</value>
+  </data>
+  <data name="Astrologian_Text__HP" xml:space="preserve">
+    <value>% HP</value>
+  </data>
+  <data name="Astrologian_Text_Macrocosmos_with_at_least" xml:space="preserve">
+    <value>Macrocosmos with at least</value>
+  </data>
+  <data name="Astrologian_Text_enemies_around" xml:space="preserve">
+    <value>enemies around</value>
+  </data>
+  <data name="Astrologian_Text_Special_Actions" xml:space="preserve">
+    <value>Special Actions</value>
+  </data>
+  <data name="Astrologian_Text_Lord_of_Crowns_with_at_least" xml:space="preserve">
+    <value>Lord of Crowns with at least</value>
+  </data>
+  <data name="Astrologian_Content_Purify_remove_debuffs" xml:space="preserve">
+    <value>Purify (remove debuffs)</value>
+  </data>
+  <data name="Astrologian_Content_Guard_Shield_At" xml:space="preserve">
+    <value>Guard (Shield) At</value>
+  </data>
+  <data name="Astrologian_Content_Recuperate_Heal_At" xml:space="preserve">
+    <value>Recuperate (Heal) At</value>
+  </data>
+  <data name="Astrologian_Content_Dont_attack_Guard" xml:space="preserve">
+    <value>Don't attack Guard</value>
+  </data>
+  <data name="Astrologian_Content_Fall_Malefic" xml:space="preserve">
+    <value>Fall Malefic</value>
+  </data>
+  <data name="Astrologian_Content_Gravity_II" xml:space="preserve">
+    <value>Gravity II</value>
+  </data>
+  <data name="Astrologian_Content_Double_Cast" xml:space="preserve">
+    <value>Double Cast</value>
+  </data>
+  <data name="Astrologian_Content_Aspected_Benefic_At" xml:space="preserve">
+    <value>Aspected Benefic At</value>
+  </data>
+  <data name="Astrologian_Content_Microcosmos_At" xml:space="preserve">
+    <value>Microcosmos At</value>
+  </data>
+  <data name="Astrologian_Content_Minor_Arcana" xml:space="preserve">
+    <value>Minor Arcana</value>
+  </data>
+  <data name="Bard_Text_Enemies_In_A_Cone" xml:space="preserve">
+    <value>Enemies In A Cone</value>
+  </data>
+  <data name="Bard_Text_Info_on_Buffed_Apex_Experimental" xml:space="preserve">
+    <value>Info on Buffed Apex (Experimental):</value>
+  </data>
+  <data name="Bard_Content_Quick_Nock" xml:space="preserve">
+    <value>Quick Nock</value>
+  </data>
+  <data name="Bard_Content_Rain_Of_Death" xml:space="preserve">
+    <value>Rain Of Death</value>
+  </data>
+  <data name="Bard_Content_Use_Shadowbite" xml:space="preserve">
+    <value>Use Shadowbite</value>
+  </data>
+  <data name="Bard_Content_Use_Apex_Arrow_with_Soul_Voice_" xml:space="preserve">
+    <value>Use Apex Arrow with Soul Voice &gt;=</value>
+  </data>
+  <data name="Bard_Content_Use_Buffed_Apex_Arrow_with_Soul_Voice" xml:space="preserve">
+    <value>Use Buffed Apex Arrow with Soul Voice &gt;=</value>
+  </data>
+  <data name="Bard_Text_Selected_Buffing_Strategy" xml:space="preserve">
+    <value>Selected Buffing Strategy:</value>
+  </data>
+  <data name="Bard_Text_Seconds_In_Wanderers_Minuet" xml:space="preserve">
+    <value>Seconds In Wanderer's Minuet</value>
+  </data>
+  <data name="Bard_Content_Raging_Strikes" xml:space="preserve">
+    <value>Raging Strikes</value>
+  </data>
+  <data name="Bard_Content_Only_During_Wanderers_Minuet" xml:space="preserve">
+    <value>Only During Wanderer's Minuet</value>
+  </data>
+  <data name="Bard_Content_Delay_RS_Until" xml:space="preserve">
+    <value>Delay RS Until</value>
+  </data>
+  <data name="Bard_Content_Only_With_Buff_RSRFBV" xml:space="preserve">
+    <value>Only With Buff (RS/RF/BV)</value>
+  </data>
+  <data name="Bard_Content_Battle_Voice" xml:space="preserve">
+    <value>Battle Voice</value>
+  </data>
+  <data name="Bard_Text_Refresh_DoT_Effect_With_AtLeast" xml:space="preserve">
+    <value>Refresh DoT Effect With AtLeast</value>
+  </data>
+  <data name="Bard_Text_Enemies_At_Once" xml:space="preserve">
+    <value>Enemies At Once</value>
+  </data>
+  <data name="Bard_Content_Use_WindbiteStormBite" xml:space="preserve">
+    <value>Use Windbite/StormBite</value>
+  </data>
+  <data name="Bard_Content_Use_VenomousBiteCausticBite" xml:space="preserve">
+    <value>Use VenomousBite/CausticBite</value>
+  </data>
+  <data name="Bard_Content_Use_Iron_Jaws" xml:space="preserve">
+    <value>Use Iron Jaws</value>
+  </data>
+  <data name="Bard_Content_Snapshot_Iron_Jaw" xml:space="preserve">
+    <value>Snapshot Iron Jaw</value>
+  </data>
+  <data name="Bard_Content_Enable_Multi_Dotting" xml:space="preserve">
+    <value>Enable Multi Dotting</value>
+  </data>
+  <data name="Bard_Content_FightLogic_Use_Troubadour" xml:space="preserve">
+    <value>FightLogic Use Troubadour</value>
+  </data>
+  <data name="Bard_Content_FightLogic_Use_Natures_Minnie" xml:space="preserve">
+    <value>FightLogic Use Nature's Minnie</value>
+  </data>
+  <data name="Bard_Content_FightLogic_Use_Knockback" xml:space="preserve">
+    <value>FightLogic Use Knockback</value>
+  </data>
+  <data name="Bard_Content_Powerful_Shot" xml:space="preserve">
+    <value>Powerful Shot</value>
+  </data>
+  <data name="Bard_Content_Apex_Arrow" xml:space="preserve">
+    <value>Apex Arrow</value>
+  </data>
+  <data name="Bard_Content_Blast_Arrow" xml:space="preserve">
+    <value>Blast Arrow</value>
+  </data>
+  <data name="Bard_Content_Silent_Nocturne" xml:space="preserve">
+    <value>Silent Nocturne</value>
+  </data>
+  <data name="Bard_Content_Repelling_Shot" xml:space="preserve">
+    <value>Repelling Shot</value>
+  </data>
+  <data name="Bard_Content_Wardens_Paean" xml:space="preserve">
+    <value>Warden's Paean</value>
+  </data>
+  <data name="Bard_Content_Harmonic_Arrow" xml:space="preserve">
+    <value>Harmonic Arrow</value>
+  </data>
+  <data name="Bard_Content_Encore_of_Light" xml:space="preserve">
+    <value>Encore of Light</value>
+  </data>
+  <data name="Bard_Content_Pitch_Perfect" xml:space="preserve">
+    <value>Pitch Perfect</value>
+  </data>
+  <data name="Bard_Content_Final_Fantasia_LB" xml:space="preserve">
+    <value>Final Fantasia / LB</value>
+  </data>
+  <data name="Bard_Content_Harmonic_Arrow_at" xml:space="preserve">
+    <value>Harmonic Arrow at</value>
+  </data>
+  <data name="Bard_Content_Pitch_Perfect_At" xml:space="preserve">
+    <value>Pitch Perfect At</value>
+  </data>
+  <data name="Bard_Content_Use_Empyreal_Arrow" xml:space="preserve">
+    <value>Use Empyreal Arrow</value>
+  </data>
+  <data name="Bard_Content_Use_Bloodletter" xml:space="preserve">
+    <value>Use Bloodletter</value>
+  </data>
+  <data name="Bard_Content_Use_Sidewinder" xml:space="preserve">
+    <value>Use Sidewinder</value>
+  </data>
+  <data name="Bard_Content_Use_HeavyShotBurstShot" xml:space="preserve">
+    <value>Use HeavyShot/BurstShot</value>
+  </data>
+  <data name="Bard_Content_Use_StraightShotRefulgent_Arrow" xml:space="preserve">
+    <value>Use StraightShot/Refulgent Arrow</value>
+  </data>
+  <data name="Bard_Text_Selected_Song_Order" xml:space="preserve">
+    <value>Selected Song Order:</value>
+  </data>
+  <data name="Bard_Text_ms_Or_Less_Remain" xml:space="preserve">
+    <value>ms Or Less Remain</value>
+  </data>
+  <data name="Bard_Text_Seconds_Or_Less_Remain" xml:space="preserve">
+    <value>Seconds Or Less Remain</value>
+  </data>
+  <data name="Bard_Content_Use_Songs" xml:space="preserve">
+    <value>Use Songs</value>
+  </data>
+  <data name="Bard_Content_Cut_Armys_Paeon_Short_When" xml:space="preserve">
+    <value>Cut Army's Paeon Short When</value>
+  </data>
+  <data name="Bard_Content_Cut_Mages_Ballad_Short_When" xml:space="preserve">
+    <value>Cut Mages Ballad Short When</value>
+  </data>
+  <data name="Bard_Content_Cut_Wanderers_Minuet_Short_When" xml:space="preserve">
+    <value>Cut Wanderers Minuet Short When</value>
+  </data>
+  <data name="Bard_Content_Only_When_Being_Targeted" xml:space="preserve">
+    <value>Only When Being Targeted</value>
+  </data>
+  <data name="Bard_Content_Use_Wardens_Paeon_To_Dispel" xml:space="preserve">
+    <value>Use Warden's Paeon To Dispel</value>
+  </data>
+  <data name="Bard_Content_Natures_Minne_At" xml:space="preserve">
+    <value>Nature's Minne At</value>
+  </data>
+  <data name="BlackMage_Content_Save_1_Charges_For_Moving" xml:space="preserve">
+    <value>Save 1 Charges For Moving</value>
+  </data>
+  <data name="BlackMage_Content_Ley_Lines" xml:space="preserve">
+    <value>Ley Lines</value>
+  </data>
+  <data name="BlackMage_Content_On_Boss_Only" xml:space="preserve">
+    <value>On Boss Only</value>
+  </data>
+  <data name="BlackMage_Content_FightLogic_Use_Manaward" xml:space="preserve">
+    <value>FightLogic Use Manaward</value>
+  </data>
+  <data name="BlackMage_Content_FightLogic_Use_Addle" xml:space="preserve">
+    <value>FightLogic Use Addle</value>
+  </data>
+  <data name="BlackMage_Content_Use_Xenoglossy" xml:space="preserve">
+    <value>Use Xenoglossy</value>
+  </data>
+  <data name="BlackMage_Content_Use_Lethargy" xml:space="preserve">
+    <value>Use Lethargy</value>
+  </data>
+  <data name="BlackMage_Content_Use_Elemental_Weave" xml:space="preserve">
+    <value>Use Elemental Weave</value>
+  </data>
+  <data name="BlackMage_Content_Soul_Resonance_LB" xml:space="preserve">
+    <value>Soul Resonance / LB</value>
+  </data>
+  <data name="BlackMage_Text_and_save_at_least" xml:space="preserve">
+    <value>and save at least</value>
+  </data>
+  <data name="BlackMage_Text_charges_when_moving" xml:space="preserve">
+    <value>charges when moving</value>
+  </data>
+  <data name="BlackMage_Content_Always_Transpose_To_Astral" xml:space="preserve">
+    <value>Always Transpose To Astral</value>
+  </data>
+  <data name="BlackMage_Content_Always_Transpose_To_Umbral" xml:space="preserve">
+    <value>Always Transpose To Umbral</value>
+  </data>
+  <data name="Bugs_Text_Casting_Spell" xml:space="preserve">
+    <value>Casting Spell:</value>
+  </data>
+  <data name="Bugs_Text_Spell_Target" xml:space="preserve">
+    <value>Spell Target:</value>
+  </data>
+  <data name="Bugs_Text_Casting_Time" xml:space="preserve">
+    <value>Casting Time:</value>
+  </data>
+  <data name="Bugs_Text_Casting_Heal" xml:space="preserve">
+    <value>Casting Heal:</value>
+  </data>
+  <data name="Bugs_Text_Health_Checks" xml:space="preserve">
+    <value>Health Checks:</value>
+  </data>
+  <data name="Bugs_Text_Need_Aura" xml:space="preserve">
+    <value>Need Aura:</value>
+  </data>
+  <data name="Bugs_Text_Aura" xml:space="preserve">
+    <value>Aura:</value>
+  </data>
+  <data name="Bugs_Text_Use_Refresh_Time" xml:space="preserve">
+    <value>Use Refresh Time:</value>
+  </data>
+  <data name="Bugs_Text_Refresh_Time" xml:space="preserve">
+    <value>Refresh Time:</value>
+  </data>
+  <data name="Bugs_Text_Last_Spell" xml:space="preserve">
+    <value>Last Spell:</value>
+  </data>
+  <data name="Bugs_Text_Casting_Gambit" xml:space="preserve">
+    <value>Casting Gambit:</value>
+  </data>
+  <data name="Bugs_Text_Action_Lock" xml:space="preserve">
+    <value>Action Lock:</value>
+  </data>
+  <data name="Bugs_Text_Action_Queued" xml:space="preserve">
+    <value>Action Queued:</value>
+  </data>
+  <data name="Bugs_Text_Current_Target_Boss" xml:space="preserve">
+    <value>Current Target Boss?:</value>
+  </data>
+  <data name="Bugs_Text_In_Combat_Time" xml:space="preserve">
+    <value>In Combat Time:</value>
+  </data>
+  <data name="Bugs_Text_Out_Of_Combat_Time" xml:space="preserve">
+    <value>Out Of Combat Time:</value>
+  </data>
+  <data name="Bugs_Text_In_Combat_Moving_Time" xml:space="preserve">
+    <value>In Combat Moving Time:</value>
+  </data>
+  <data name="Bugs_Text_Not_Moving_In_Combat_Time" xml:space="preserve">
+    <value>Not Moving In Combat Time:</value>
+  </data>
+  <data name="Bugs_Text_Duty_State" xml:space="preserve">
+    <value>Duty State:</value>
+  </data>
+  <data name="Bugs_Text_Time_In_Duty" xml:space="preserve">
+    <value>Time In Duty:</value>
+  </data>
+  <data name="Bugs_Text_Time_Left_In_Combat" xml:space="preserve">
+    <value>Time Left In Combat:</value>
+  </data>
+  <data name="Bugs_Text_Current_Target_Combat_Time_Left" xml:space="preserve">
+    <value>Current Target Combat Time Left:</value>
+  </data>
+  <data name="Bugs_Text_Spell_Queues_Includes_Opener" xml:space="preserve">
+    <value>Spell Queues (Includes Opener):</value>
+  </data>
+  <data name="Bugs_Content_Use_Cast_Or_Queue" xml:space="preserve">
+    <value>Use Cast Or Queue</value>
+  </data>
+  <data name="Bugs_Content_Include_File_Path" xml:space="preserve">
+    <value>Include File Path</value>
+  </data>
+  <data name="Bugs_Content_Enable_Casting_Debugging" xml:space="preserve">
+    <value>Enable Casting Debugging</value>
+  </data>
+  <data name="Bugs_Content_Enable_Tracking_Of_Enemy_Auras" xml:space="preserve">
+    <value>Enable Tracking Of Enemy Auras</value>
+  </data>
+  <data name="Bugs_Content_Add_To_Dispels" xml:space="preserve">
+    <value>Add To Dispels</value>
+  </data>
+  <data name="Bugs_Content_Copy_FightLogic_Builder_To_Clipboard" xml:space="preserve">
+    <value>Copy FightLogic Builder To Clipboard</value>
+  </data>
+  <data name="Bugs_Content_Clear_FightLogic_Builder" xml:space="preserve">
+    <value>Clear FightLogic Builder</value>
+  </data>
+  <data name="Bugs_Content_Clear_All_Spell_Casts" xml:space="preserve">
+    <value>Clear All Spell Casts</value>
+  </data>
+  <data name="Bugs_Content_Add_InterruptStun" xml:space="preserve">
+    <value>Add Interrupt/Stun</value>
+  </data>
+  <data name="Bugs_Text_Npc_Id" xml:space="preserve">
+    <value>Npc Id</value>
+  </data>
+  <data name="Bugs_Text_Zone_Id" xml:space="preserve">
+    <value>Zone Id</value>
+  </data>
+  <data name="Bugs_Text_Max_Health" xml:space="preserve">
+    <value>Max Health</value>
+  </data>
+  <data name="Bugs_Content_Enable_Tracking_Of_Enemy_Targets" xml:space="preserve">
+    <value>Enable Tracking Of Enemy Targets</value>
+  </data>
+  <data name="Bugs_Text_Response_Delay" xml:space="preserve">
+    <value>Response Delay</value>
+  </data>
+  <data name="Bugs_Content_Print_Fight_Logic_Detection" xml:space="preserve">
+    <value>Print Fight Logic Detection</value>
+  </data>
+  <data name="Bugs_Content_Display_Loaded_Logic" xml:space="preserve">
+    <value>Display Loaded Logic</value>
+  </data>
+  <data name="Bugs_Text_Castable_Within_30" xml:space="preserve">
+    <value>Castable Within 30:</value>
+  </data>
+  <data name="Bugs_Text_Castable_Within_15" xml:space="preserve">
+    <value>Castable Within 15:</value>
+  </data>
+  <data name="Bugs_Text_Castable_Within_10" xml:space="preserve">
+    <value>Castable Within 10:</value>
+  </data>
+  <data name="Bugs_Content_Enable_Healing_List_Debug" xml:space="preserve">
+    <value>Enable Healing List Debug</value>
+  </data>
+  <data name="Bugs_Content_Print_Changes_to_Console" xml:space="preserve">
+    <value>Print Changes to Console</value>
+  </data>
+  <data name="Bugs_Text_Tank_Role" xml:space="preserve">
+    <value>Tank Role</value>
+  </data>
+  <data name="Bugs_Text_Healer_Role" xml:space="preserve">
+    <value>Healer Role</value>
+  </data>
+  <data name="Bugs_Text_Rez_Mage_Role" xml:space="preserve">
+    <value>Rez Mage Role</value>
+  </data>
+  <data name="Bugs_Text_Other_DPS_Role" xml:space="preserve">
+    <value>Other DPS Role</value>
+  </data>
+  <data name="Bugs_Text_Distance_Close" xml:space="preserve">
+    <value>Distance Close</value>
+  </data>
+  <data name="Bugs_Text_Distance_Far" xml:space="preserve">
+    <value>Distance Far</value>
+  </data>
+  <data name="Bugs_Content_Enable_Healing_Priority_By_Weights" xml:space="preserve">
+    <value>Enable Healing Priority By Weights</value>
+  </data>
+  <data name="Bugs_Content_Enable_Tracking_Of_Party_Member_Auras" xml:space="preserve">
+    <value>Enable Tracking Of Party Member Auras</value>
+  </data>
+  <data name="Bugs_Text_Spell_Name" xml:space="preserve">
+    <value>Spell Name</value>
+  </data>
+  <data name="Bugs_Text_Time_Cast" xml:space="preserve">
+    <value>Time Cast</value>
+  </data>
+  <data name="Bugs_Content_Enable_Player_Spell_Cast_History" xml:space="preserve">
+    <value>Enable Player Spell Cast History</value>
+  </data>
+  <data name="Dancer_Content_Rising_Windmill" xml:space="preserve">
+    <value>Rising Windmill</value>
+  </data>
+  <data name="Dancer_Content_Fan_Dance_II" xml:space="preserve">
+    <value>Fan Dance II</value>
+  </data>
+  <data name="Dancer_Text_DPS_" xml:space="preserve">
+    <value>DPS :</value>
+  </data>
+  <data name="Dancer_Text_Partner_" xml:space="preserve">
+    <value>Partner :</value>
+  </data>
+  <data name="Dancer_Content_Use_Flourish" xml:space="preserve">
+    <value>Use Flourish</value>
+  </data>
+  <data name="Dancer_Content_Use_Devilment" xml:space="preserve">
+    <value>Use Devilment</value>
+  </data>
+  <data name="Dancer_Content_Use_Closed_Position" xml:space="preserve">
+    <value>Use Closed Position</value>
+  </data>
+  <data name="Dancer_Content_Select_Chocobo_as_partner" xml:space="preserve">
+    <value>Select Chocobo as partner</value>
+  </data>
+  <data name="Dancer_Content_Use_Improvisation" xml:space="preserve">
+    <value>Use Improvisation</value>
+  </data>
+  <data name="Dancer_Content_Curing_Waltz" xml:space="preserve">
+    <value>Curing Waltz</value>
+  </data>
+  <data name="Dancer_Content_FightLogic_Use_Shield_Samba" xml:space="preserve">
+    <value>FightLogic Use Shield Samba</value>
+  </data>
+  <data name="Dancer_Text_Ennemies_around" xml:space="preserve">
+    <value>Ennemies around</value>
+  </data>
+  <data name="Dancer_Text_Partner_Dance" xml:space="preserve">
+    <value>Partner Dance</value>
+  </data>
+  <data name="Dancer_Content_Curing_Walz_At" xml:space="preserve">
+    <value>Curing Walz At</value>
+  </data>
+  <data name="Dancer_Content_Contradance_LB_with_at_least" xml:space="preserve">
+    <value>Contradance / LB with at least</value>
+  </data>
+  <data name="Dancer_Content_Honing_Dance_with_at_least" xml:space="preserve">
+    <value>Honing Dance with at least</value>
+  </data>
+  <data name="Dancer_Content_Use_En_Avant" xml:space="preserve">
+    <value>Use En Avant</value>
+  </data>
+  <data name="Dancer_Text_Dances_" xml:space="preserve">
+    <value>Dances :</value>
+  </data>
+  <data name="Dancer_Text_Spells_" xml:space="preserve">
+    <value>Spells :</value>
+  </data>
+  <data name="Dancer_Text_85_is_recommended_value" xml:space="preserve">
+    <value>(85 is recommended value)</value>
+  </data>
+  <data name="Dancer_Content_Use_Standard_Step" xml:space="preserve">
+    <value>Use Standard Step</value>
+  </data>
+  <data name="Dancer_Content_Use_Technical_Step" xml:space="preserve">
+    <value>Use Technical Step</value>
+  </data>
+  <data name="Dancer_Content_Finish_Step_only_when_in_range" xml:space="preserve">
+    <value>Finish Step only when in range</value>
+  </data>
+  <data name="Dancer_Content_Use_Fan_Dance_I" xml:space="preserve">
+    <value>Use Fan Dance I</value>
+  </data>
+  <data name="DarkKnight_Content_Grit_Tank_Stance" xml:space="preserve">
+    <value>Grit (Tank Stance)</value>
+  </data>
+  <data name="DarkKnight_Content_Blood_Weapon" xml:space="preserve">
+    <value>Blood Weapon</value>
+  </data>
+  <data name="DarkKnight_Content_Living_Shadow" xml:space="preserve">
+    <value>Living Shadow</value>
+  </data>
+  <data name="DarkKnight_Text_Always_Save_at_least" xml:space="preserve">
+    <value>Always Save at least</value>
+  </data>
+  <data name="DarkKnight_Text_Only_in_Melee" xml:space="preserve">
+    <value>Only in Melee</value>
+  </data>
+  <data name="DarkKnight_Text_Save_this_many_charges_of_Plunge" xml:space="preserve">
+    <value>Save this many charges of Plunge</value>
+  </data>
+  <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
+    <value>Carve And Spit</value>
+  </data>
+  <data name="DarkKnight_Content_Only_With_Blood_Weapon" xml:space="preserve">
+    <value>Only With Blood Weapon</value>
+  </data>
+  <data name="DarkKnight_Content_Unleash_When_There_Are" xml:space="preserve">
+    <value>Unleash When There Are</value>
+  </data>
+  <data name="DarkKnight_Content_Quietus_When_There_Are" xml:space="preserve">
+    <value>Quietus When There Are</value>
+  </data>
+  <data name="DarkKnight_Content_Flood_When_There_Are" xml:space="preserve">
+    <value>Flood When There Are</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Plunge" xml:space="preserve">
+    <value>Use Plunge</value>
+  </data>
+  <data name="DarkKnight_Content_Living_Dead" xml:space="preserve">
+    <value>Living Dead</value>
+  </data>
+  <data name="DarkKnight_Content_Dark_Mind" xml:space="preserve">
+    <value>Dark Mind</value>
+  </data>
+  <data name="DarkKnight_Content_Shadow_Wall" xml:space="preserve">
+    <value>Shadow Wall</value>
+  </data>
+  <data name="DarkKnight_Content_The_Blackest_Night" xml:space="preserve">
+    <value>The Blackest Night</value>
+  </data>
+  <data name="DarkKnight_Content_Dark_Missionary" xml:space="preserve">
+    <value>Dark Missionary</value>
+  </data>
+  <data name="DarkKnight_Content_FightLogic_Use_Defensives" xml:space="preserve">
+    <value>FightLogic Use Defensives</value>
+  </data>
+  <data name="DarkKnight_Content_FightLogic_Use_Dark_Missionary" xml:space="preserve">
+    <value>FightLogic Use Dark Missionary</value>
+  </data>
+  <data name="DarkKnight_Content_FightLogic_Use_Reprisal" xml:space="preserve">
+    <value>FightLogic Use Reprisal</value>
+  </data>
+  <data name="DarkKnight_Content_Salted_Earth" xml:space="preserve">
+    <value>Salted Earth</value>
+  </data>
+  <data name="DarkKnight_Content_Plunge_Only_in_Melee_Range" xml:space="preserve">
+    <value>Plunge Only in Melee Range</value>
+  </data>
+  <data name="DarkKnight_Content_Scarlet_Delirium" xml:space="preserve">
+    <value>Scarlet Delirium</value>
+  </data>
+  <data name="DarkKnight_Content_Salt_and_Darkness" xml:space="preserve">
+    <value>Salt and Darkness</value>
+  </data>
+  <data name="DarkKnight_Content_Eventide_under" xml:space="preserve">
+    <value>Eventide under</value>
+  </data>
+  <data name="DarkKnight_Content_Blackest_Night" xml:space="preserve">
+    <value>Blackest Night</value>
+  </data>
+  <data name="Dragoon_Text_In_Range" xml:space="preserve">
+    <value>In Range</value>
+  </data>
+  <data name="Dragoon_Content_AOE_When_There_Are" xml:space="preserve">
+    <value>AOE When There Are</value>
+  </data>
+  <data name="Dragoon_Text_Dragon_Sight_on" xml:space="preserve">
+    <value>Dragon Sight on:</value>
+  </data>
+  <data name="Dragoon_Content_Lance_Charge" xml:space="preserve">
+    <value>Lance Charge</value>
+  </data>
+  <data name="Dragoon_Content_Battle_Litany" xml:space="preserve">
+    <value>Battle Litany</value>
+  </data>
+  <data name="Dragoon_Content_Life_Surge" xml:space="preserve">
+    <value>Life Surge</value>
+  </data>
+  <data name="Dragoon_Content_Use_Dragon_Sight" xml:space="preserve">
+    <value>Use Dragon Sight</value>
+  </data>
+  <data name="Dragoon_Content_FightLogic_Use_Feint" xml:space="preserve">
+    <value>FightLogic Use Feint</value>
+  </data>
+  <data name="Dragoon_Content_Use_Jumps" xml:space="preserve">
+    <value>Use Jumps</value>
+  </data>
+  <data name="Dragoon_Content_Safe_Jumping_Logic" xml:space="preserve">
+    <value>Safe Jumping Logic</value>
+  </data>
+  <data name="Dragoon_Content_Spineshatter_Dive" xml:space="preserve">
+    <value>Spineshatter Dive</value>
+  </data>
+  <data name="Dragoon_Content_Dragonfire_Dive" xml:space="preserve">
+    <value>Dragonfire Dive</value>
+  </data>
+  <data name="Dragoon_Content_High_Jump" xml:space="preserve">
+    <value>High Jump</value>
+  </data>
+  <data name="Dragoon_Content_Elusive_Jump" xml:space="preserve">
+    <value>Elusive Jump</value>
+  </data>
+  <data name="Dragoon_Content_Chaotic_Spring" xml:space="preserve">
+    <value>Chaotic Spring</value>
+  </data>
+  <data name="Dragoon_Content_Horrid_Roar" xml:space="preserve">
+    <value>Horrid Roar</value>
+  </data>
+  <data name="Dragoon_Content_SkyHigh_LB" xml:space="preserve">
+    <value>SkyHigh / LB</value>
+  </data>
+  <data name="Gunbreaker_Content_Royal_Guard_Tank_Stance" xml:space="preserve">
+    <value>Royal Guard (Tank Stance)</value>
+  </data>
+  <data name="Gunbreaker_Content_No_Mercy_Personal_damage_buff" xml:space="preserve">
+    <value>No Mercy (Personal damage buff)</value>
+  </data>
+  <data name="Gunbreaker_Content_Only_at_max_cartridge" xml:space="preserve">
+    <value>Only at max cartridge</value>
+  </data>
+  <data name="Gunbreaker_Content_Bloodfest_Add_cartridge" xml:space="preserve">
+    <value>Bloodfest (Add cartridge)</value>
+  </data>
+  <data name="Gunbreaker_Text_Filler_Strategy" xml:space="preserve">
+    <value>Filler Strategy:</value>
+  </data>
+  <data name="Gunbreaker_Text_25_GCD_Slow_GCD" xml:space="preserve">
+    <value>2.5 GCD =&gt; Slow GCD</value>
+  </data>
+  <data name="Gunbreaker_Text_24_GCD_Fast_GCD" xml:space="preserve">
+    <value>2.4 GCD =&gt; Fast GCD</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me" xml:space="preserve">
+    <value>Use Lightning Shot if not in melee to deal damage</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R" xml:space="preserve">
+    <value>Use Lightning Shot To Pull or Regain Aggro</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_LionHeart_Combo" xml:space="preserve">
+    <value>Use LionHeart Combo</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Brust_Strike" xml:space="preserve">
+    <value>Use Brust Strike</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Double_Down" xml:space="preserve">
+    <value>Use Double Down</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Gnashing_Fang" xml:space="preserve">
+    <value>Use Gnashing Fang</value>
+  </data>
+  <data name="Gunbreaker_Content_Hold_when_no_mercy_is_ready_in" xml:space="preserve">
+    <value>Hold when no mercy is ready in</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Blasting_Zone" xml:space="preserve">
+    <value>Use Blasting Zone</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Aoe_when_at_least" xml:space="preserve">
+    <value>Use Aoe when at least</value>
+  </data>
+  <data name="Gunbreaker_Content_Hold_No_Mercy_until_Combo_is_re" xml:space="preserve">
+    <value>Hold No Mercy until Combo is ready</value>
+  </data>
+  <data name="Gunbreaker_Content_Heart_of_Corundum_Heart_of_Ston" xml:space="preserve">
+    <value>Heart of Corundum / Heart of Stone</value>
+  </data>
+  <data name="Gunbreaker_Content_Heart_of_Light" xml:space="preserve">
+    <value>Heart of Light</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Super_Bolide_under" xml:space="preserve">
+    <value>Use Super Bolide under</value>
+  </data>
+  <data name="Gunbreaker_Content_FightLogic_Use_Heart_Of_Light" xml:space="preserve">
+    <value>FightLogic Use Heart Of Light</value>
+  </data>
+  <data name="Gunbreaker_Text_if_under" xml:space="preserve">
+    <value>if under</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Aurora" xml:space="preserve">
+    <value>Use Aurora</value>
+  </data>
+  <data name="Gunbreaker_Content_on_Yourself_with_priority" xml:space="preserve">
+    <value>on Yourself with priority</value>
+  </data>
+  <data name="Gunbreaker_Content_on_Main_Tank_with_priority" xml:space="preserve">
+    <value>on Main Tank with priority</value>
+  </data>
+  <data name="Gunbreaker_Content_on_Any_Tanks_with_priority" xml:space="preserve">
+    <value>on Any Tanks with priority</value>
+  </data>
+  <data name="Gunbreaker_Content_on_Healers_with_priority" xml:space="preserve">
+    <value>on Healers with priority</value>
+  </data>
+  <data name="Gunbreaker_Content_on_DPS_with_priority" xml:space="preserve">
+    <value>on DPS with priority</value>
+  </data>
+  <data name="Gunbreaker_Text_Enemy_nearby" xml:space="preserve">
+    <value>Enemy nearby</value>
+  </data>
+  <data name="Gunbreaker_Content_GnashingFang_Combo" xml:space="preserve">
+    <value>GnashingFang Combo</value>
+  </data>
+  <data name="Gunbreaker_Content_Burst_Strike" xml:space="preserve">
+    <value>Burst Strike</value>
+  </data>
+  <data name="Gunbreaker_Content_Rough_Divide" xml:space="preserve">
+    <value>Rough Divide</value>
+  </data>
+  <data name="Gunbreaker_Content_Rough_Divide_Only_in_Melee_Rang" xml:space="preserve">
+    <value>Rough Divide Only in Melee Range</value>
+  </data>
+  <data name="Gunbreaker_Content_Relentless_Rush_LB_when_there_i" xml:space="preserve">
+    <value>Relentless Rush / LB when there is at least</value>
+  </data>
+  <data name="Gunbreaker_Content_Heart_of_Corundum" xml:space="preserve">
+    <value>Heart of Corundum</value>
+  </data>
+  <data name="Gunbreaker_Content_Fated_Circle" xml:space="preserve">
+    <value>Fated Circle</value>
+  </data>
+  <data name="Lists_ToolTip_White_Mage" xml:space="preserve">
+    <value>White Mage</value>
+  </data>
+  <data name="Lists_ToolTip_High_Priority" xml:space="preserve">
+    <value>High Priority</value>
+  </data>
+  <data name="Machinist_Content_Use_AoEs_Does_not_Affect_Ricoche" xml:space="preserve">
+    <value>Use AoEs (Does not Affect Ricochet)</value>
+  </data>
+  <data name="Machinist_Content_Auto_Crossbow" xml:space="preserve">
+    <value>Auto Crossbow</value>
+  </data>
+  <data name="Machinist_Content_Spreadshot_Scattergun" xml:space="preserve">
+    <value>Spreadshot / Scattergun</value>
+  </data>
+  <data name="Machinist_Content_Bio_Blaster" xml:space="preserve">
+    <value>Bio Blaster</value>
+  </data>
+  <data name="Machinist_Text_Use_Reassemble_on" xml:space="preserve">
+    <value>Use Reassemble on</value>
+  </data>
+  <data name="Machinist_Text_seconds_cooldown_left" xml:space="preserve">
+    <value>seconds cooldown left</value>
+  </data>
+  <data name="Machinist_Content_Barrel_Stabilizer" xml:space="preserve">
+    <value>Barrel Stabilizer</value>
+  </data>
+  <data name="Machinist_Content_Late_Weave_Wildfire_better_align" xml:space="preserve">
+    <value>Late Weave Wildfire (better alignment for 6GCD wildfire)</value>
+  </data>
+  <data name="Machinist_Content_Save_for_Double_Hypercharged_Wil" xml:space="preserve">
+    <value>Save for Double Hypercharged Wildfires (requires late weave wildfire)</value>
+  </data>
+  <data name="Machinist_Content_Air_Anchor" xml:space="preserve">
+    <value>Air Anchor</value>
+  </data>
+  <data name="Machinist_Content_ChainSaw_Excavator" xml:space="preserve">
+    <value>ChainSaw / Excavator</value>
+  </data>
+  <data name="Machinist_Content_Delay_Hypercharge_when_Drill_AA_" xml:space="preserve">
+    <value>Delay Hypercharge when Drill / AA / ChianSaw have</value>
+  </data>
+  <data name="Machinist_Content_Delay_Wildfire_when_DrillAir_Anc" xml:space="preserve">
+    <value>Delay Wildfire when Drill/Air Anchor/ChianSaw have</value>
+  </data>
+  <data name="Machinist_Content_FightLogic_Use_Tactitian" xml:space="preserve">
+    <value>FightLogic Use Tactitian</value>
+  </data>
+  <data name="Machinist_Content_FightLogic_Use_Dismantle" xml:space="preserve">
+    <value>FightLogic Use Dismantle</value>
+  </data>
+  <data name="Machinist_Text_Enemies_around" xml:space="preserve">
+    <value>Enemies around</value>
+  </data>
+  <data name="Machinist_Text_Dont_use_MarksmansSpite_if_target_h" xml:space="preserve">
+    <value>Don't use MarksmansSpite if target has more than</value>
+  </data>
+  <data name="Machinist_Text_allies_targeting_it" xml:space="preserve">
+    <value>allies targeting it</value>
+  </data>
+  <data name="Machinist_Text_Use_Analysis_on" xml:space="preserve">
+    <value>Use Analysis on</value>
+  </data>
+  <data name="Machinist_Content_Full_Metal_Field" xml:space="preserve">
+    <value>Full Metal Field</value>
+  </data>
+  <data name="Machinist_Content_Save_For_Wildfire" xml:space="preserve">
+    <value>Save For Wildfire</value>
+  </data>
+  <data name="Machinist_Content_Bishop_Autoturret_on_target_when" xml:space="preserve">
+    <value>Bishop Autoturret on target when there is at least</value>
+  </data>
+  <data name="Machinist_Content_MarksmansSpite_LB_target_at" xml:space="preserve">
+    <value>MarksmansSpite / LB target at</value>
+  </data>
+  <data name="Machinist_Content_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
+    <value>LB Any Enemy below the threshold not just current target</value>
+  </data>
+  <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
+    <value>If enabled, will save Full Metal Field when Wildfire is about to come off cooldown</value>
+  </data>
+  <data name="Machinist_Content_Split_Shot_Combo" xml:space="preserve">
+    <value>Split Shot Combo</value>
+  </data>
+  <data name="Machinist_Content_Hot_Shot_Air_Anchor" xml:space="preserve">
+    <value>Hot Shot / Air Anchor</value>
+  </data>
+  <data name="Machinist_Content_Gauss_Round" xml:space="preserve">
+    <value>Gauss Round</value>
+  </data>
+  <data name="Machinist_Text_Battery_Gauge" xml:space="preserve">
+    <value>Battery Gauge</value>
+  </data>
+  <data name="Machinist_Content_Summon_Rook_AutoTurret_Queen_at" xml:space="preserve">
+    <value>Summon Rook AutoTurret / Queen at</value>
+  </data>
+  <data name="Monk_Content_Use_AOE_When_There_Are" xml:space="preserve">
+    <value>Use AOE When There Are</value>
+  </data>
+  <data name="Monk_Content_Masterful_Blitz" xml:space="preserve">
+    <value>Masterful Blitz</value>
+  </data>
+  <data name="Monk_Content_Wind_Reply" xml:space="preserve">
+    <value>Wind Reply</value>
+  </data>
+  <data name="Monk_Content_Fire_Reply" xml:space="preserve">
+    <value>Fire Reply</value>
+  </data>
+  <data name="Monk_Content_Fire_Reply_Only_After_Opo" xml:space="preserve">
+    <value>Fire Reply Only After Opo</value>
+  </data>
+  <data name="Monk_Text_Allies_Are_Under" xml:space="preserve">
+    <value>Allies Are Under</value>
+  </data>
+  <data name="Monk_Content_Perfect_Balance" xml:space="preserve">
+    <value>Perfect Balance</value>
+  </data>
+  <data name="Monk_Content_Perfect_Balance_Only_After_Opo" xml:space="preserve">
+    <value>Perfect Balance Only After Opo</value>
+  </data>
+  <data name="Monk_Content_Riddle_Of_Fire" xml:space="preserve">
+    <value>Riddle Of Fire</value>
+  </data>
+  <data name="Monk_Content_Riddle_Of_Wind" xml:space="preserve">
+    <value>Riddle Of Wind</value>
+  </data>
+  <data name="Monk_Content_Hide_Positional_Toasts_while_active" xml:space="preserve">
+    <value>Hide Positional Toasts while active</value>
+  </data>
+  <data name="Monk_Content_Auto_Meditate_on_downtime" xml:space="preserve">
+    <value>Auto Meditate on downtime</value>
+  </data>
+  <data name="Monk_Content_Mantra_when" xml:space="preserve">
+    <value>Mantra when</value>
+  </data>
+  <data name="Monk_Content_Earth_Reply_when" xml:space="preserve">
+    <value>Earth Reply when</value>
+  </data>
+  <data name="Monk_Content_FightLogic_Use_Mantra" xml:space="preserve">
+    <value>FightLogic Use Mantra</value>
+  </data>
+  <data name="Monk_Text_Dont_use_Meteodrive_if_target_has_more_t" xml:space="preserve">
+    <value>Don't use Meteodrive if target has more than</value>
+  </data>
+  <data name="Monk_Content_Thunderclap_After_Enlightenment" xml:space="preserve">
+    <value>Thunderclap (After Enlightenment)</value>
+  </data>
+  <data name="Monk_Content_Meteodrive_LB_on_target_at" xml:space="preserve">
+    <value>Meteodrive / LB on target at</value>
+  </data>
+  <data name="Monk_Content_Meteodrive_LB_Only_After_Enlightenmen" xml:space="preserve">
+    <value>Meteodrive / LB Only After Enlightenment</value>
+  </data>
+  <data name="Monk_Content_Rising_Phoenix" xml:space="preserve">
+    <value>Rising Phoenix</value>
+  </data>
+  <data name="Monk_Content_Riddle_of_Earth" xml:space="preserve">
+    <value>Riddle of Earth</value>
+  </data>
+  <data name="Monk_Content_Earth_Reply_At" xml:space="preserve">
+    <value>Earth Reply At</value>
+  </data>
+  <data name="Monk_Content_Delay_Riddle_of_Wind_for_Burst_Window" xml:space="preserve">
+    <value>Delay Riddle of Wind for Burst Window</value>
+  </data>
+  <data name="Ninja_Content_FightLogic_Use_Shade_Shift" xml:space="preserve">
+    <value>FightLogic Use Shade Shift</value>
+  </data>
+  <data name="Ninja_Text_Three_Mudra_Buffs" xml:space="preserve">
+    <value>Three Mudra Buffs</value>
+  </data>
+  <data name="Ninja_Text_Use_Three_Mudra_with" xml:space="preserve">
+    <value>Use Three Mudra with</value>
+  </data>
+  <data name="Ninja_Content_Fuma_Shuriken" xml:space="preserve">
+    <value>Fuma Shuriken</value>
+  </data>
+  <data name="Ninja_Content_Only_with_Bunshin" xml:space="preserve">
+    <value>Only with Bunshin</value>
+  </data>
+  <data name="Ninja_Content_Assassinate_When_Hidden" xml:space="preserve">
+    <value>Assassinate (When Hidden)</value>
+  </data>
+  <data name="Ninja_Content_Seiton_Tenchu_LB_on_target_at" xml:space="preserve">
+    <value>Seiton Tenchu / LB on target at</value>
+  </data>
+  <data name="Ninja_Content_Do_not_use_Three_Mudra" xml:space="preserve">
+    <value>Do not use Three Mudra</value>
+  </data>
+  <data name="Ninja_Content_Forked_Raiju" xml:space="preserve">
+    <value>Forked Raiju</value>
+  </data>
+  <data name="Ninja_Content_Fleeting_Raiju" xml:space="preserve">
+    <value>Fleeting Raiju</value>
+  </data>
+  <data name="Ninja_Content_Doton_when_there_is_at_least" xml:space="preserve">
+    <value>Doton when there is at least</value>
+  </data>
+  <data name="Ninja_Content_Hyosho_Ranryu" xml:space="preserve">
+    <value>Hyosho Ranryu</value>
+  </data>
+  <data name="Ninja_Content_Huton_At" xml:space="preserve">
+    <value>Huton At</value>
+  </data>
+  <data name="Ninja_Content_Meisui_At" xml:space="preserve">
+    <value>Meisui At</value>
+  </data>
+  <data name="Ninja_Content_Goka_Mekkyaku_when_there_is_at_least" xml:space="preserve">
+    <value>Goka Mekkyaku when there is at least</value>
+  </data>
+  <data name="OccultCrescent_Text_Occult_Crescent_content_provid" xml:space="preserve">
+    <value>Occult Crescent content provides temporary Phantom Jobs with unique abilities.</value>
+  </data>
+  <data name="OccultCrescent_Text_Magitek_automatically_detects_" xml:space="preserve">
+    <value>Magitek automatically detects your current Phantom Job and uses abilities accordingly.</value>
+  </data>
+  <data name="OccultCrescent_Text_Party_buff_refresh_time" xml:space="preserve">
+    <value>Party buff refresh time:</value>
+  </data>
+  <data name="OccultCrescent_Text_Party_buff_refresh_time_contro" xml:space="preserve">
+    <value>Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals.</value>
+  </data>
+  <data name="OccultCrescent_Text_In_combat_Uses_SwiftcastDualca" xml:space="preserve">
+    <value>In combat: Uses Swiftcast/Dualcast only. Out of combat: Uses Swiftcast first, then slowcast if needed.</value>
+  </data>
+  <data name="OccultCrescent_Text_When_near_Knowledge_Crystals_a" xml:space="preserve">
+    <value>When near Knowledge Crystals, automatically switches to enabled phantom jobs to cast party buffs if needed. Disable specific jobs you don't have access to.</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Bard" xml:space="preserve">
+    <value>Phantom Bard</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP" xml:space="preserve">
+    <value>percent HP</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Knight" xml:space="preserve">
+    <value>Phantom Knight</value>
+  </data>
+  <data name="OccultCrescent_Text_when_HP_below" xml:space="preserve">
+    <value>when HP below</value>
+  </data>
+  <data name="OccultCrescent_Text_Regen_when_HP_below" xml:space="preserve">
+    <value>Regen when HP below</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Monk" xml:space="preserve">
+    <value>Phantom Monk</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Berserker" xml:space="preserve">
+    <value>Phantom Berserker</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Chemist" xml:space="preserve">
+    <value>Phantom Chemist</value>
+  </data>
+  <data name="OccultCrescent_Text_100k_gilcast" xml:space="preserve">
+    <value>(100k gil/cast)</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_MP" xml:space="preserve">
+    <value>percent MP</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_party_members_need_hel" xml:space="preserve">
+    <value>percent+ party members need help</value>
+  </data>
+  <data name="OccultCrescent_Text_300k_gilcast" xml:space="preserve">
+    <value>(300k gil/cast)</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Cannoneer" xml:space="preserve">
+    <value>Phantom Cannoneer</value>
+  </data>
+  <data name="OccultCrescent_Text_Grouped_abilities_share_restri" xml:space="preserve">
+    <value>Grouped abilities share restrictions as noted.</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Time_Mage" xml:space="preserve">
+    <value>Phantom Time Mage</value>
+  </data>
+  <data name="OccultCrescent_Text_Quick_prioritizes_casting_part" xml:space="preserve">
+    <value>Quick prioritizes casting party members. Comet restriction uses Dualcast (RDM), Requiescat (PLD), Occult Quick (Time Mage), or Swiftcast (if enabled).</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Ranger" xml:space="preserve">
+    <value>Phantom Ranger</value>
+  </data>
+  <data name="OccultCrescent_Text_Unicorn_creates_40k_damage_abs" xml:space="preserve">
+    <value>Unicorn creates 40k damage absorb barrier for entire party. Falcon triggers traps.</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Thief" xml:space="preserve">
+    <value>Phantom Thief</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_increases_item_drop" xml:space="preserve">
+    <value>percent HP (increases item drop chance)</value>
+  </data>
+  <data name="OccultCrescent_Text_yalms_of_target_Vigilance_Fore" xml:space="preserve">
+    <value>yalms of target (Vigilance → Foreseen Offense when entering combat)</value>
+  </data>
+  <data name="OccultCrescent_Text_Vigilance_can_only_be_cast_out" xml:space="preserve">
+    <value>Vigilance can only be cast out of combat with a valid target. Effect changes to Foreseen Offense (+60% crit rate) when entering combat.</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Samurai" xml:space="preserve">
+    <value>Phantom Samurai</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_physical_damage_imm" xml:space="preserve">
+    <value>percent HP (physical damage immunity for one attack)</value>
+  </data>
+  <data name="OccultCrescent_Text_Mineuchi_avoids_stunning_immun" xml:space="preserve">
+    <value>Mineuchi avoids stunning immune enemies. Zeninage only works when you have an Occult Coffer. Iainuki is a cone AoE attack.</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Oracle" xml:space="preserve">
+    <value>Phantom Oracle</value>
+  </data>
+  <data name="OccultCrescent_Text_Predict_cycles_through_4_rando" xml:space="preserve">
+    <value>Predict cycles through 4 random predictions. Magitek will attempt to use the best prediction available as they cycle through. Only one can be used. Must cast something on 4th cycle to avoid False Prediction (deadly DoT).</value>
+  </data>
+  <data name="OccultCrescent_Text__SAFETY_If_Starfall_is_the_4rd" xml:space="preserve">
+    <value>⚠️ SAFETY: If Starfall is the 4rd prediction and you're below the Starfall threshold, the current prediction will be cast automatically to avoid being forced into deadly Starfall as the 4th prediction.</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_Damage_Healing" xml:space="preserve">
+    <value>percent HP (Damage + Healing)</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_Strong_Healing_Rege" xml:space="preserve">
+    <value>percent HP (Strong Healing + Regen)</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_Damage_Freeze_Time" xml:space="preserve">
+    <value>percent HP (Damage + Freeze Time)</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_90_max_HP_self_dama" xml:space="preserve">
+    <value>percent HP (90% max HP self damage!)</value>
+  </data>
+  <data name="OccultCrescent_Text_Prioritizes_tanks" xml:space="preserve">
+    <value>(Prioritizes tanks)</value>
+  </data>
+  <data name="OccultCrescent_Text_Emergency_protection" xml:space="preserve">
+    <value>(Emergency protection)</value>
+  </data>
+  <data name="OccultCrescent_Text_Phantom_Geomancer" xml:space="preserve">
+    <value>Phantom Geomancer</value>
+  </data>
+  <data name="OccultCrescent_Text_Battle_Bell_prioritizes_tanks_" xml:space="preserve">
+    <value>Battle Bell prioritizes tanks first (who take most damage), then self, then other party members. Only cast in combat.</value>
+  </data>
+  <data name="OccultCrescent_Text_Restores_HP" xml:space="preserve">
+    <value>(Restores HP)</value>
+  </data>
+  <data name="OccultCrescent_Text_Weather_Effects_Combat_Only" xml:space="preserve">
+    <value>Weather Effects (Combat Only)</value>
+  </data>
+  <data name="OccultCrescent_Text_Weather_effects_are_beneficial" xml:space="preserve">
+    <value>Weather effects are beneficial buffs that can only be cast in combat when available. All effects are applied to self and nearby party members.</value>
+  </data>
+  <data name="OccultCrescent_Text_Ninja_Gold_Farming" xml:space="preserve">
+    <value>Ninja (Gold Farming)</value>
+  </data>
+  <data name="OccultCrescent_Text_Dokumori_is_an_AoE_steal_abili" xml:space="preserve">
+    <value>Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job. Enable 'multiple targets only' to save Dokumori cooldown for big AoE pulls.</value>
+  </data>
+  <data name="OccultCrescent_Content_Enable_Occult_Crescent_Phan" xml:space="preserve">
+    <value>Enable Occult Crescent Phantom Job System</value>
+  </data>
+  <data name="OccultCrescent_Content_Out_of_Combat" xml:space="preserve">
+    <value>Out of Combat</value>
+  </data>
+  <data name="OccultCrescent_Content_In_Combat" xml:space="preserve">
+    <value>In Combat</value>
+  </data>
+  <data name="OccultCrescent_Content_Automatically_switch_phanto" xml:space="preserve">
+    <value>Automatically switch phantom jobs for Knowledge Crystal buffs</value>
+  </data>
+  <data name="OccultCrescent_Content_Restore_original_phantom_jo" xml:space="preserve">
+    <value>Restore original phantom job after auto-buffing</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Offensive_Aria_Damage_b" xml:space="preserve">
+    <value>Use Offensive Aria (Damage buff - 70s duration)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Heros_Rime_Party_damage" xml:space="preserve">
+    <value>Use Hero's Rime (Party damage/healing +10% - 120s cooldown)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Mighty_March_below" xml:space="preserve">
+    <value>Use Mighty March below</value>
+  </data>
+  <data name="OccultCrescent_Content_On_Allies" xml:space="preserve">
+    <value>On Allies</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Romeos_Ballad_Combat_in" xml:space="preserve">
+    <value>Use Romeo's Ballad (Combat interrupts only - knowledge crystal usage is automatic)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Phantom_Guard" xml:space="preserve">
+    <value>Use Phantom Guard</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Pray_Combat_regen_only_" xml:space="preserve">
+    <value>Use Pray (Combat regen only - knowledge crystal party buff is automatic)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Heal_below" xml:space="preserve">
+    <value>Use Occult Heal below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Pledge_below" xml:space="preserve">
+    <value>Use Pledge below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Phantom_Kick" xml:space="preserve">
+    <value>Use Phantom Kick</value>
+  </data>
+  <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
+    <value>Only use in melee range</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_OccultCounter_Attack_af" xml:space="preserve">
+    <value>Use OccultCounter (Attack after parry)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Counterstance_Combat_pa" xml:space="preserve">
+    <value>Use Counterstance (Combat parry buff only - knowledge crystal movement speed is automatic)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_OccultChakra_below" xml:space="preserve">
+    <value>Use OccultChakra below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deadly_Blow_High_damage" xml:space="preserve">
+    <value>Use Deadly Blow (High damage based on missing HP)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Rage_Auto_attack_neares" xml:space="preserve">
+    <value>Use Rage (Auto attack nearest enemy)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Revive_Resurrect_dead_p" xml:space="preserve">
+    <value>Use Revive (Resurrect dead party members)</value>
+  </data>
+  <data name="OccultCrescent_Content_Revive_Out_of_Combat" xml:space="preserve">
+    <value>Revive Out of Combat</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Potion_below" xml:space="preserve">
+    <value>Use Occult Potion below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Ether_below" xml:space="preserve">
+    <value>Use Occult Ether below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Elixir_when" xml:space="preserve">
+    <value>Use Occult Elixir when</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Phantom_Fire_Standard_r" xml:space="preserve">
+    <value>Use Phantom Fire (Standard ranged attack)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Holy_Cannon_More_damage" xml:space="preserve">
+    <value>Use Holy Cannon (More damage vs undead)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Silver_Cannon_Damage_de" xml:space="preserve">
+    <value>Use Silver Cannon (Damage debuff) - Mutually exclusive</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Dark_Cannon_Inflicts_bl" xml:space="preserve">
+    <value>Use Dark Cannon (Inflicts blind)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Shock_Cannon_Inflicts_p" xml:space="preserve">
+    <value>Use Shock Cannon (Inflicts paralysis) - Mutually exclusive</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Quick_Speed_buff" xml:space="preserve">
+    <value>Use Occult Quick (Speed buff for cast/recast/movement)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Slowga_Inflicts_" xml:space="preserve">
+    <value>Use Occult Slowga (Inflicts Slow on enemies)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Mage_Masher_Redu" xml:space="preserve">
+    <value>Use Occult Mage Masher (Reduces enemy magic attack power)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Dispel_Removes_b" xml:space="preserve">
+    <value>Use Occult Dispel (Removes beneficial effects from enemies)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Comet_AoE_damage" xml:space="preserve">
+    <value>Use Occult Comet (AoE damage - 8s cast time)</value>
+  </data>
+  <data name="OccultCrescent_Content_Allow_using_Swiftcast_for_C" xml:space="preserve">
+    <value>Allow using Swiftcast for Comet (healers may want to save for resurrections)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Phantom_Aim_Damage_buff" xml:space="preserve">
+    <value>Use Phantom Aim (Damage buff - 120s cooldown)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Falcon_Area_atta" xml:space="preserve">
+    <value>Use Occult Falcon (Area attack)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Unicorn_below" xml:space="preserve">
+    <value>Use Occult Unicorn below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Sprint_Greatly_i" xml:space="preserve">
+    <value>Use Occult Sprint (Greatly increases movement speed)</value>
+  </data>
+  <data name="OccultCrescent_Content_Only_use_Occult_Sprint_in_c" xml:space="preserve">
+    <value>Only use Occult Sprint in combat</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Steal_when_enemy_below" xml:space="preserve">
+    <value>Use Steal when enemy below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Vigilance_within" xml:space="preserve">
+    <value>Use Vigilance within</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Pilfer_Weapon_Lowers_ta" xml:space="preserve">
+    <value>Use Pilfer Weapon (Lowers target's physical attack power by 10%)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Mineuchi_stun_with_stra" xml:space="preserve">
+    <value>Use Mineuchi stun with strategy:</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Shirahadori_below" xml:space="preserve">
+    <value>Use Shirahadori below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Iainuki_Cone_attack_wit" xml:space="preserve">
+    <value>Use Iainuki (Cone attack with instant kill chance)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Zeninage_Consumes_Occul" xml:space="preserve">
+    <value>Use Zeninage (Consumes Occult Coffer for 1,500 potency)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Predict_Grants_random_p" xml:space="preserve">
+    <value>Use Predict (Grants random prediction)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Phantom_Judgment_when_p" xml:space="preserve">
+    <value>Use Phantom Judgment when party below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Blessing_when_party_bel" xml:space="preserve">
+    <value>Use Blessing when party below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Cleansing_when_party_ab" xml:space="preserve">
+    <value>Use Cleansing when party above</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Starfall_when_above" xml:space="preserve">
+    <value>Use Starfall when above</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Phantom_Rejuvenation_be" xml:space="preserve">
+    <value>Use Phantom Rejuvenation below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Invulnerability_below" xml:space="preserve">
+    <value>Use Invulnerability below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Battle_Bell_Damage_boos" xml:space="preserve">
+    <value>Use Battle Bell (Damage boost that stacks when taking damage)</value>
+  </data>
+  <data name="OccultCrescent_Content_Always_prioritize_self_for_" xml:space="preserve">
+    <value>Always prioritize self for Ringing Respite</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Ringing_Respite_Heals_t" xml:space="preserve">
+    <value>Use Ringing Respite (Heals target when they take damage)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Suspend" xml:space="preserve">
+    <value>Use Suspend</value>
+  </data>
+  <data name="OccultCrescent_Content_Suspend_whole_party" xml:space="preserve">
+    <value>Suspend whole party</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Sunbath_below" xml:space="preserve">
+    <value>Use Sunbath below</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Cloudy_Caress_Increases" xml:space="preserve">
+    <value>Use Cloudy Caress (Increases healing potency by 30%)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Blessed_Rain_Erects_mag" xml:space="preserve">
+    <value>Use Blessed Rain (Erects magical barrier which nullifies damage)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Misty_Mirage_Increases_" xml:space="preserve">
+    <value>Use Misty Mirage (Increases evasion by 40%)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hasty_Mirage_Increases_" xml:space="preserve">
+    <value>Use Hasty Mirage (Increases movement speed by 20%)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Aetherial_Gain_Increase" xml:space="preserve">
+    <value>Use Aetherial Gain (Increases damage dealt by 10%)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Dokumori_when_enemy_bel" xml:space="preserve">
+    <value>Use Dokumori when enemy below</value>
+  </data>
+  <data name="OccultCrescent_Content_Only_use_Dokumori_on_multip" xml:space="preserve">
+    <value>Only use Dokumori on multiple targets (2+ enemies)</value>
+  </data>
+  <data name="Paladin_Text_Pull_with" xml:space="preserve">
+    <value>Pull with:</value>
+  </data>
+  <data name="Paladin_Text_Aggro_Management" xml:space="preserve">
+    <value>Aggro Management:</value>
+  </data>
+  <data name="Paladin_Content_Shield_Lob" xml:space="preserve">
+    <value>Shield Lob</value>
+  </data>
+  <data name="Paladin_Content_Holy_Spirit" xml:space="preserve">
+    <value>Holy Spirit</value>
+  </data>
+  <data name="Paladin_Content_Use_Shield_Lob_To_Pull_Extra_Nearb" xml:space="preserve">
+    <value>Use Shield Lob To Pull Extra Nearby Enemies (When Already In Combat)</value>
+  </data>
+  <data name="Paladin_Content_Use_Shield_Lob_To_Regain_Aggro" xml:space="preserve">
+    <value>Use Shield Lob To Regain Aggro</value>
+  </data>
+  <data name="Paladin_Content_Use_Iron_Will" xml:space="preserve">
+    <value>Use Iron Will</value>
+  </data>
+  <data name="Paladin_Content_FightOrFlight_Damage_Buff" xml:space="preserve">
+    <value>FightOrFlight (Damage Buff)</value>
+  </data>
+  <data name="Paladin_Text_When_Target_is_out_of_Melee_Range" xml:space="preserve">
+    <value>When Target is out of Melee Range</value>
+  </data>
+  <data name="Paladin_Text_Multi_Target" xml:space="preserve">
+    <value>Multi Target</value>
+  </data>
+  <data name="Paladin_Text_Multi_Target_can_be_used_in_Single_Ta" xml:space="preserve">
+    <value>Multi Target (can be used in Single Target Cycle)</value>
+  </data>
+  <data name="Paladin_Content_Intervene_Dash" xml:space="preserve">
+    <value>Intervene (Dash)</value>
+  </data>
+  <data name="Paladin_Content_Only_in_Melee" xml:space="preserve">
+    <value>Only in Melee.</value>
+  </data>
+  <data name="Paladin_Content_Keep_Atonement_and_HolySpirit_in_F" xml:space="preserve">
+    <value>Keep Atonement and HolySpirit in FOF (Experimental)</value>
+  </data>
+  <data name="Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_" xml:space="preserve">
+    <value>Use HolySpirit as long as Mana is &gt;=</value>
+  </data>
+  <data name="Paladin_Content_Only_under_Divine_Might_Aura" xml:space="preserve">
+    <value>Only under Divine Might Aura.</value>
+  </data>
+  <data name="Paladin_Content_Use_ShieldLob" xml:space="preserve">
+    <value>Use ShieldLob</value>
+  </data>
+  <data name="Paladin_Content_Use_Aoe_Total_Eclipse_combo_HolyCi" xml:space="preserve">
+    <value>Use Aoe (Total Eclipse combo, HolyCircle)</value>
+  </data>
+  <data name="Paladin_Content_Use_Eclipse_Prominence_combo_with_" xml:space="preserve">
+    <value>Use Eclipse / Prominence combo with at least</value>
+  </data>
+  <data name="Paladin_Content_Use_HolyCircle_with_at_least" xml:space="preserve">
+    <value>Use HolyCircle with at least</value>
+  </data>
+  <data name="Paladin_Content_Use_Confiteor_Combo_Blade_Of_Faith" xml:space="preserve">
+    <value>Use Confiteor Combo (Blade Of Faith + Blade Of Truth + Blade Of Valor)</value>
+  </data>
+  <data name="Paladin_Content_Use_Circle_Of_Scorn" xml:space="preserve">
+    <value>Use Circle Of Scorn</value>
+  </data>
+  <data name="Paladin_Content_Use_Expiacion_Spirits_Within" xml:space="preserve">
+    <value>Use Expiacion / Spirits Within</value>
+  </data>
+  <data name="Paladin_Content_Save_Circle_Of_Scorn_Expiacon_when" xml:space="preserve">
+    <value>Save Circle Of Scorn / Expiacon when Fight or Flight is Under</value>
+  </data>
+  <data name="Paladin_Content_Use_Shield_Bash" xml:space="preserve">
+    <value>Use Shield Bash</value>
+  </data>
+  <data name="Paladin_Content_Hallowed_Ground_Invu" xml:space="preserve">
+    <value>Hallowed Ground (Invu)</value>
+  </data>
+  <data name="Paladin_Content_Use_Sheltron" xml:space="preserve">
+    <value>Use Sheltron</value>
+  </data>
+  <data name="Paladin_Content_Use_Divine_Veil" xml:space="preserve">
+    <value>Use Divine Veil</value>
+  </data>
+  <data name="Paladin_Content_On_Healers_At" xml:space="preserve">
+    <value>On Healers At</value>
+  </data>
+  <data name="Paladin_Content_On_DPS_At" xml:space="preserve">
+    <value>On DPS At</value>
+  </data>
+  <data name="Paladin_Content_Intervention_When_A_Party_Member_I" xml:space="preserve">
+    <value>Intervention When A Party Member Is Below</value>
+  </data>
+  <data name="Paladin_Content_Only_Use_Intervention_on_party_mem" xml:space="preserve">
+    <value>Only Use Intervention on party member if Sentinel or Rampart is Active</value>
+  </data>
+  <data name="Paladin_Content_Use_intervention_on_party_member_e" xml:space="preserve">
+    <value>Use intervention on party member every time Setinel or Rampart is Active</value>
+  </data>
+  <data name="Paladin_Content_FightLogic_Use_Divine_Veil" xml:space="preserve">
+    <value>FightLogic Use Divine Veil</value>
+  </data>
+  <data name="Paladin_Text_Rest_When_Under" xml:space="preserve">
+    <value>Rest When Under</value>
+  </data>
+  <data name="Paladin_Content_Clemency_When_We_Have_At_Least" xml:space="preserve">
+    <value>Clemency When We Have At Least</value>
+  </data>
+  <data name="Paladin_Content_On_Ourself_At" xml:space="preserve">
+    <value>On Ourself At</value>
+  </data>
+  <data name="Paladin_Content_Shield_Smite" xml:space="preserve">
+    <value>Shield Smite</value>
+  </data>
+  <data name="Paladin_Content_Only_on_Guard" xml:space="preserve">
+    <value>Only on Guard</value>
+  </data>
+  <data name="Paladin_Content_Intervene_Only_in_Melee_Range" xml:space="preserve">
+    <value>Intervene Only in Melee Range</value>
+  </data>
+  <data name="Paladin_Content_Phalanx_LB" xml:space="preserve">
+    <value>Phalanx / LB</value>
+  </data>
+  <data name="Paladin_Content_Holy_Sheltron" xml:space="preserve">
+    <value>Holy Sheltron</value>
+  </data>
+  <data name="Pictomancer_Content_FightLogic_Use_Tempera_CoatGra" xml:space="preserve">
+    <value>FightLogic Use Tempera Coat/Grassa</value>
+  </data>
+  <data name="Pictomancer_Text_Save_at_least_this_many_paint_cha" xml:space="preserve">
+    <value>Save at least this many paint charges</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Paint_Rotation" xml:space="preserve">
+    <value>Use Paint Rotation</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Comet_In_Black" xml:space="preserve">
+    <value>Use Comet In Black</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Rainbow_Drip" xml:space="preserve">
+    <value>Use Rainbow Drip</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Holy_In_White_while_moving" xml:space="preserve">
+    <value>Use Holy In White while moving</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Holy_in_White_when_paint_i" xml:space="preserve">
+    <value>Use Holy in White when paint is full</value>
+  </data>
+  <data name="Pictomancer_Content_Use_AOE_Rotation_When_There_Ar" xml:space="preserve">
+    <value>Use AOE Rotation When There Are</value>
+  </data>
+  <data name="Pictomancer_Content_Use_AOE_Paint_Rotation" xml:space="preserve">
+    <value>Use AOE Paint Rotation</value>
+  </data>
+  <data name="Pictomancer_Content_Use_AOE_Holy_In_White" xml:space="preserve">
+    <value>Use AOE Holy In White</value>
+  </data>
+  <data name="Pictomancer_Content_Use_AOE_Comet_In_Black" xml:space="preserve">
+    <value>Use AOE Comet In Black</value>
+  </data>
+  <data name="Pictomancer_Text_Save_hammermog_for_Starry_within" xml:space="preserve">
+    <value>Save hammer/mog for Starry within</value>
+  </data>
+  <data name="Pictomancer_Content_Only_when_in_a_duty" xml:space="preserve">
+    <value>Only when in a duty</value>
+  </data>
+  <data name="Pictomancer_Content_Cast_palettes_during_combat_wi" xml:space="preserve">
+    <value>Cast palettes during combat with no target</value>
+  </data>
+  <data name="Pictomancer_Content_HardSlow_Cast_palettes_during_" xml:space="preserve">
+    <value>Hard/Slow Cast palettes during Starry Sky buff window</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Motifs" xml:space="preserve">
+    <value>Use Motifs</value>
+  </data>
+  <data name="Pictomancer_Content_Swiftcast_Motifs" xml:space="preserve">
+    <value>Swiftcast Motifs</value>
+  </data>
+  <data name="Pictomancer_Content_Only_when_moving" xml:space="preserve">
+    <value>Only when moving</value>
+  </data>
+  <data name="Pictomancer_Content_Swiftcast_Creature" xml:space="preserve">
+    <value>Swiftcast Creature</value>
+  </data>
+  <data name="Pictomancer_Content_Swiftcast_Weapon" xml:space="preserve">
+    <value>Swiftcast Weapon</value>
+  </data>
+  <data name="Pictomancer_Content_Swiftcast_Landscape" xml:space="preserve">
+    <value>Swiftcast Landscape</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Muses" xml:space="preserve">
+    <value>Use Muses</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Hammers" xml:space="preserve">
+    <value>Use Hammers</value>
+  </data>
+  <data name="Pictomancer_Content_Save_a_hammer_for_movement" xml:space="preserve">
+    <value>Save a hammer for movement</value>
+  </data>
+  <data name="Pictomancer_Content_only_during_boss_fights" xml:space="preserve">
+    <value>only during boss fights</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Mog_Madeen" xml:space="preserve">
+    <value>Use Mog / Madeen</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Star_Prism" xml:space="preserve">
+    <value>Use Star Prism</value>
+  </data>
+  <data name="Pictomancer_Content_Enable_Starry_Sky" xml:space="preserve">
+    <value>Enable Starry Sky</value>
+  </data>
+  <data name="Pictomancer_Content_Entire_Party_In_Range_Otherwis" xml:space="preserve">
+    <value>Entire Party In Range Otherwise:</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Hammers_During_Hyperphanta" xml:space="preserve">
+    <value>Use Hammers During Hyperphantasia</value>
+  </data>
+  <data name="Pictomancer_Content_Save_Hammers_for_Starry" xml:space="preserve">
+    <value>Save Hammers for Starry</value>
+  </data>
+  <data name="Pictomancer_Content_Save_Comet_in_Black_for_Starry" xml:space="preserve">
+    <value>Save Comet in Black for Starry</value>
+  </data>
+  <data name="Pictomancer_Content_Only_use_Comet_with_Starry" xml:space="preserve">
+    <value>Only use Comet with Starry</value>
+  </data>
+  <data name="Pictomancer_Content_Use_extra_comets_only_during_m" xml:space="preserve">
+    <value>Use extra comets only during movement</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Mog_Madeen_During_Hyperpha" xml:space="preserve">
+    <value>Use Mog / Madeen During Hyperphantasia</value>
+  </data>
+  <data name="Pictomancer_Content_Save_Mog_Madeen_for_Starry" xml:space="preserve">
+    <value>Save Mog / Madeen for Starry</value>
+  </data>
+  <data name="Pictomancer_Text_enemies_are_within" xml:space="preserve">
+    <value>enemies are within</value>
+  </data>
+  <data name="Pictomancer_Content_Advent_of_chocobooism_when" xml:space="preserve">
+    <value>Advent of chocobooism when</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Subtractive_Palette" xml:space="preserve">
+    <value>Use Subtractive Palette</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Paint_Black" xml:space="preserve">
+    <value>Use Paint Black</value>
+  </data>
+  <data name="Pictomancer_Content_Swap_to_Black_While_Moving_Wit" xml:space="preserve">
+    <value>Swap to Black While Moving With Charges</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Paint_White" xml:space="preserve">
+    <value>Use Paint White</value>
+  </data>
+  <data name="Pictomancer_Content_Only_to_Heal" xml:space="preserve">
+    <value>Only to Heal</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Motif" xml:space="preserve">
+    <value>Use Motif</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Muse" xml:space="preserve">
+    <value>Use Muse</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Mog" xml:space="preserve">
+    <value>Use Mog</value>
+  </data>
+  <data name="Pictomancer_Content_Use_Paint_RGB" xml:space="preserve">
+    <value>Use Paint RGB</value>
+  </data>
+  <data name="Pictomancer_Text_Use_a_less_optimized_rotation_tha" xml:space="preserve">
+    <value>(Use a less optimized rotation that prioritizes immediate ability use)</value>
+  </data>
+  <data name="Pictomancer_Text_If_checked_the_simplified_rotatio" xml:space="preserve">
+    <value>(If checked, the simplified rotation is only active below level 100)</value>
+  </data>
+  <data name="Pictomancer_Content_Use_simplified_rotation" xml:space="preserve">
+    <value>Use simplified rotation</value>
+  </data>
+  <data name="Pictomancer_Content_Only_below_level_100" xml:space="preserve">
+    <value>Only below level 100</value>
+  </data>
+  <data name="Reaper_Content_Enable_AoE_does_not_apply_to_abilit" xml:space="preserve">
+    <value>Enable AoE (does not apply to abilities used in single target rotation)</value>
+  </data>
+  <data name="Reaper_Content_Enable_Whorl_Of_Death_Target_Count_" xml:space="preserve">
+    <value>Enable Whorl Of Death, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_Harvest_Moon_Target_Count_gr" xml:space="preserve">
+    <value>Enable Harvest Moon, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_Spinning_Scythe_Target_Count" xml:space="preserve">
+    <value>Enable Spinning Scythe, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_Nightmare_Scythe_Target_Coun" xml:space="preserve">
+    <value>Enable Nightmare Scythe, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_Soul_Scythe_Target_Count_gre" xml:space="preserve">
+    <value>Enable Soul Scythe, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Grim_Swathe_Target_Count_greater_or" xml:space="preserve">
+    <value>Grim Swathe, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_Guillotine_Target_Count_grea" xml:space="preserve">
+    <value>Enable Guillotine, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_Grim_Reaping_Target_Count_gr" xml:space="preserve">
+    <value>Enable Grim Reaping, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Enable_LemuresScythe_Target_Count_g" xml:space="preserve">
+    <value>Enable LemuresScythe, Target Count greater or equal to</value>
+  </data>
+  <data name="Reaper_Content_Use_single_target_Reaping_if_higher" xml:space="preserve">
+    <value>Use single target Reaping if higher potency than AoE Reaping</value>
+  </data>
+  <data name="Reaper_Content_Enable_Communio" xml:space="preserve">
+    <value>Enable Communio</value>
+  </data>
+  <data name="Reaper_Content_Enable_Sacrificium" xml:space="preserve">
+    <value>Enable Sacrificium</value>
+  </data>
+  <data name="Reaper_Content_FightLogic_Use_Arcane_Crest" xml:space="preserve">
+    <value>FightLogic Use Arcane Crest</value>
+  </data>
+  <data name="Generic_Allies_Around" xml:space="preserve">
+    <value>Allies around</value>
+  </data>
+  <data name="Reaper_Content_Grim_Swathe" xml:space="preserve">
+    <value>Grim Swathe</value>
+  </data>
+  <data name="Reaper_Content_Lemure_Slice" xml:space="preserve">
+    <value>Lemure Slice</value>
+  </data>
+  <data name="Reaper_Content_Void_and_Cross_Reaping" xml:space="preserve">
+    <value>Void and Cross Reaping</value>
+  </data>
+  <data name="Reaper_Content_Soul_Slice" xml:space="preserve">
+    <value>Soul Slice</value>
+  </data>
+  <data name="Reaper_Content_Plentiful_Harvest" xml:space="preserve">
+    <value>Plentiful Harvest</value>
+  </data>
+  <data name="Reaper_Content_Death_Warrant" xml:space="preserve">
+    <value>Death Warrant</value>
+  </data>
+  <data name="Reaper_Content_Harvest_Moon" xml:space="preserve">
+    <value>Harvest Moon</value>
+  </data>
+  <data name="Reaper_Content_TenebraeLemurum_LB" xml:space="preserve">
+    <value>TenebraeLemurum / LB</value>
+  </data>
+  <data name="Reaper_Content_Communio_LB" xml:space="preserve">
+    <value>Communio / LB</value>
+  </data>
+  <data name="Reaper_Content_ArcaneCrest_with" xml:space="preserve">
+    <value>ArcaneCrest with</value>
+  </data>
+  <data name="Reaper_Content_Enable_Shadow_Of_Death" xml:space="preserve">
+    <value>Enable Shadow Of Death</value>
+  </data>
+  <data name="Reaper_Content_Enable_Slice" xml:space="preserve">
+    <value>Enable Slice</value>
+  </data>
+  <data name="Reaper_Content_Enable_Waxing_Slice" xml:space="preserve">
+    <value>Enable Waxing Slice</value>
+  </data>
+  <data name="Reaper_Content_Enable_Infernal_Slice" xml:space="preserve">
+    <value>Enable Infernal Slice</value>
+  </data>
+  <data name="Reaper_Content_Enable_Soul_Slice" xml:space="preserve">
+    <value>Enable Soul Slice</value>
+  </data>
+  <data name="Reaper_Content_Enabled_Harpe_Enhanced_Harpe" xml:space="preserve">
+    <value>Enabled Harpe / Enhanced Harpe</value>
+  </data>
+  <data name="Reaper_Content_Harpe_only_when_not_in_melee_range" xml:space="preserve">
+    <value>Harpe only when not in melee range</value>
+  </data>
+  <data name="Reaper_Content_Enhanced_Harpe_Only_After_Hells_Egr" xml:space="preserve">
+    <value>Enhanced Harpe Only After Hell's Egress</value>
+  </data>
+  <data name="Reaper_Content_Enable_Gluttony" xml:space="preserve">
+    <value>Enable Gluttony</value>
+  </data>
+  <data name="Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo" xml:space="preserve">
+    <value>Hold Soul Guage for Gluttony cooldown within</value>
+  </data>
+  <data name="Reaper_Content_Enable_Blood_Stalk_Unveiled_Gibbet_" xml:space="preserve">
+    <value>Enable Blood Stalk \ Unveiled Gibbet \ Unveiled Gallows</value>
+  </data>
+  <data name="Reaper_Content_Enable_Gibbet" xml:space="preserve">
+    <value>Enable Gibbet</value>
+  </data>
+  <data name="Reaper_Content_Enable_Gallows" xml:space="preserve">
+    <value>Enable Gallows</value>
+  </data>
+  <data name="Reaper_Content_Use_True_North_only_when_Soul_Reave" xml:space="preserve">
+    <value>Use True North only when Soul Reaver buff is available</value>
+  </data>
+  <data name="Reaper_Content_Enable_Void_Reaping" xml:space="preserve">
+    <value>Enable Void Reaping</value>
+  </data>
+  <data name="Reaper_Content_Enable_Cross_Reaping" xml:space="preserve">
+    <value>Enable Cross Reaping</value>
+  </data>
+  <data name="Reaper_Content_Enable_Lemures_Slice" xml:space="preserve">
+    <value>Enable Lemure's Slice</value>
+  </data>
+  <data name="Reaper_Content_Enable_Soulsow" xml:space="preserve">
+    <value>Enable Soulsow</value>
+  </data>
+  <data name="Reaper_Content_Enable_Arcane_Circle" xml:space="preserve">
+    <value>Enable Arcane Circle</value>
+  </data>
+  <data name="RedMage_Content_Use_Full_Aoe_Rotation_With_At_Leas" xml:space="preserve">
+    <value>Use Full Aoe Rotation With At Least</value>
+  </data>
+  <data name="RedMage_Content_Use_Contre_Sixte" xml:space="preserve">
+    <value>Use Contre Sixte</value>
+  </data>
+  <data name="RedMage_Content_Use_Veraero_II_Verthunder_II" xml:space="preserve">
+    <value>Use Veraero II / Verthunder II</value>
+  </data>
+  <data name="RedMage_Content_Use_Scatter" xml:space="preserve">
+    <value>Use Scatter</value>
+  </data>
+  <data name="RedMage_Content_Swiftcast_Scatter" xml:space="preserve">
+    <value>Swiftcast Scatter</value>
+  </data>
+  <data name="RedMage_Content_Use_Moulinet" xml:space="preserve">
+    <value>Use Moulinet</value>
+  </data>
+  <data name="RedMage_Content_Automatically_choose_best_AoE_targ" xml:space="preserve">
+    <value>Automatically choose best AoE target</value>
+  </data>
+  <data name="RedMage_Text_Charges_for_Movement" xml:space="preserve">
+    <value>Charges for Movement</value>
+  </data>
+  <data name="RedMage_Text_Hold_up_to" xml:space="preserve">
+    <value>Hold up to</value>
+  </data>
+  <data name="RedMage_Text_Seconds_for_Embolden" xml:space="preserve">
+    <value>Seconds for Embolden</value>
+  </data>
+  <data name="RedMage_Text_Use_When_Wh_or_Bl_Mana_Is_At_Least" xml:space="preserve">
+    <value>Use When Wh or Bl Mana Is At Least</value>
+  </data>
+  <data name="RedMage_Text_and_Wh_or_Bl_Mana_Is_At_Most" xml:space="preserve">
+    <value>and Wh or Bl Mana Is At Most</value>
+  </data>
+  <data name="RedMage_Text_Percent_Mana" xml:space="preserve">
+    <value>Percent Mana</value>
+  </data>
+  <data name="RedMage_Content_FightLogic_Use_Magick_Barrier" xml:space="preserve">
+    <value>FightLogic Use Magick Barrier</value>
+  </data>
+  <data name="RedMage_Content_Break_Combo" xml:space="preserve">
+    <value>Break Combo</value>
+  </data>
+  <data name="RedMage_Content_Vercure_When_A_Group_Member_Is_Bel" xml:space="preserve">
+    <value>Vercure When A Group Member Is Below</value>
+  </data>
+  <data name="RedMage_Content_Use_With_Long_Cast" xml:space="preserve">
+    <value>Use With Long Cast</value>
+  </data>
+  <data name="RedMage_Content_Use_With_Dualcast" xml:space="preserve">
+    <value>Use With Dualcast</value>
+  </data>
+  <data name="RedMage_Text_Limit_Break" xml:space="preserve">
+    <value>Limit Break</value>
+  </data>
+  <data name="RedMage_Text_Dont_use_Southern_Cross_if_target_has" xml:space="preserve">
+    <value>Don't use Southern Cross if target has more than</value>
+  </data>
+  <data name="RedMage_Content_Grand_Impact" xml:space="preserve">
+    <value>Grand Impact</value>
+  </data>
+  <data name="RedMage_Content_Enchanted_Riposte" xml:space="preserve">
+    <value>Enchanted Riposte</value>
+  </data>
+  <data name="RedMage_Content_Enchanted_Zwerchhau" xml:space="preserve">
+    <value>Enchanted Zwerchhau</value>
+  </data>
+  <data name="RedMage_Content_Enchanted_Redoublement" xml:space="preserve">
+    <value>Enchanted Redoublement</value>
+  </data>
+  <data name="RedMage_Content_Vice_of_Thorns" xml:space="preserve">
+    <value>Vice of Thorns</value>
+  </data>
+  <data name="RedMage_Content_Southern_Cross" xml:space="preserve">
+    <value>Southern Cross</value>
+  </data>
+  <data name="RedMage_Content_Use_Melee" xml:space="preserve">
+    <value>Use Melee</value>
+  </data>
+  <data name="RedMage_Content_Melee_Combo_on_Bosses_Only" xml:space="preserve">
+    <value>Melee Combo on Bosses Only</value>
+  </data>
+  <data name="RedMage_Content_Only_in_Melee_Range" xml:space="preserve">
+    <value>Only in Melee Range</value>
+  </data>
+  <data name="RedMage_Content_Use_Swiftcast_on_VerthunderVeraero" xml:space="preserve">
+    <value>Use Swiftcast on Verthunder/Veraero</value>
+  </data>
+  <data name="RedMage_Content_Use_Reprise_during_movement_in_bos" xml:space="preserve">
+    <value>Use Reprise during movement in boss fights</value>
+  </data>
+  <data name="Sage_Content_Only_Heal_Alliance_Members_With_Diagn" xml:space="preserve">
+    <value>Only Heal Alliance Members With Diagnosis</value>
+  </data>
+  <data name="Sage_Text_Allow_Kardia_on" xml:space="preserve">
+    <value>Allow Kardia on</value>
+  </data>
+  <data name="Sage_Text_Uses_Pneuma_HP_On_Combat_Tab" xml:space="preserve">
+    <value>Uses Pneuma HP % On Combat Tab</value>
+  </data>
+  <data name="Sage_Text_Use_at" xml:space="preserve">
+    <value>Use at</value>
+  </data>
+  <data name="Sage_Content_Use_Kardia" xml:space="preserve">
+    <value>Use Kardia</value>
+  </data>
+  <data name="Sage_Content_Switch_Kardia_Targets_below" xml:space="preserve">
+    <value>Switch Kardia Targets below</value>
+  </data>
+  <data name="Sage_Content_Only_switch_when_current_Kardia_targe" xml:space="preserve">
+    <value>Only switch when current Kardia target is above</value>
+  </data>
+  <data name="Sage_Content_Any_Tanks" xml:space="preserve">
+    <value>Any Tanks</value>
+  </data>
+  <data name="Sage_Content_Use_Krasis_For_Tank_Only" xml:space="preserve">
+    <value>Use Krasis For Tank Only</value>
+  </data>
+  <data name="Sage_Content_Main_Tank_Only" xml:space="preserve">
+    <value>Main Tank Only</value>
+  </data>
+  <data name="Sage_Content_Use_Soteria_For_Tank_Only" xml:space="preserve">
+    <value>Use Soteria For Tank Only</value>
+  </data>
+  <data name="Sage_Content_Use_Rhizomata" xml:space="preserve">
+    <value>Use Rhizomata</value>
+  </data>
+  <data name="Sage_Content_Use_On_Tank" xml:space="preserve">
+    <value>Use On Tank</value>
+  </data>
+  <data name="Sage_Content_Use_On_Healer" xml:space="preserve">
+    <value>Use On Healer</value>
+  </data>
+  <data name="Sage_Content_Use_with_Eukrasian_Diagnosis" xml:space="preserve">
+    <value>Use with Eukrasian Diagnosis</value>
+  </data>
+  <data name="Sage_Content_Use_with_Eukrasian_Prognosis" xml:space="preserve">
+    <value>Use with Eukrasian Prognosis</value>
+  </data>
+  <data name="Sage_Content_Use_with_Pneuma" xml:space="preserve">
+    <value>Use with Pneuma</value>
+  </data>
+  <data name="Sage_Text_Milliseconds_Left_Of_Damage_Over_Time" xml:space="preserve">
+    <value>Milliseconds Left Of Damage Over Time</value>
+  </data>
+  <data name="Sage_Text_Do_Not_Use_Damage_Over_Time_Spells_If_En" xml:space="preserve">
+    <value>Do Not Use Damage Over Time Spells If Enemy Is Dying Within</value>
+  </data>
+  <data name="Sage_Text_Allies_need_healing" xml:space="preserve">
+    <value>Allies need healing</value>
+  </data>
+  <data name="Sage_Text_HP_percent" xml:space="preserve">
+    <value>HP percent</value>
+  </data>
+  <data name="Sage_Content_Stop_Casting_A_Damage_Spell_If_Someon" xml:space="preserve">
+    <value>Stop Casting A Damage Spell If Someone Drops Below</value>
+  </data>
+  <data name="Sage_Content_DoT_Multiple_Targets_Up_To" xml:space="preserve">
+    <value>DoT Multiple Targets Up To</value>
+  </data>
+  <data name="Sage_Content_Eukrasian_Dosis" xml:space="preserve">
+    <value>Eukrasian Dosis</value>
+  </data>
+  <data name="Sage_Content_AoE_When_There_Are" xml:space="preserve">
+    <value>AoE When There Are</value>
+  </data>
+  <data name="Sage_Content_Eukrasian_Dyskrasia" xml:space="preserve">
+    <value>Eukrasian Dyskrasia</value>
+  </data>
+  <data name="Sage_Content_Psyche_When_There_Are" xml:space="preserve">
+    <value>Psyche When There Are</value>
+  </data>
+  <data name="Sage_Content_Toxicon_Single_Targets_While_Moving" xml:space="preserve">
+    <value>Toxicon Single Targets While Moving</value>
+  </data>
+  <data name="Sage_Content_Toxicon_At_Full_Addersting" xml:space="preserve">
+    <value>Toxicon At Full Addersting</value>
+  </data>
+  <data name="Sage_Content_Toxicon_On_Low_Mana" xml:space="preserve">
+    <value>Toxicon On Low Mana</value>
+  </data>
+  <data name="Sage_Content_Pneuma_only_to_heal" xml:space="preserve">
+    <value>Pneuma only to heal</value>
+  </data>
+  <data name="Sage_Content_Haima_saved" xml:space="preserve">
+    <value>Haima (saved)</value>
+  </data>
+  <data name="Sage_Content_Eukrasian_Diagnosis" xml:space="preserve">
+    <value>Eukrasian Diagnosis</value>
+  </data>
+  <data name="Sage_Content_Respect_Tank_In_Range_Settings_From_H" xml:space="preserve">
+    <value>Respect Tank In Range Settings From Healing Tab</value>
+  </data>
+  <data name="Sage_Content_Panhaima_saved" xml:space="preserve">
+    <value>Panhaima (saved)</value>
+  </data>
+  <data name="Sage_Content_Eukrasian_Prognosis" xml:space="preserve">
+    <value>Eukrasian Prognosis</value>
+  </data>
+  <data name="Sage_Text_Addersgall_or_less" xml:space="preserve">
+    <value>Addersgall or less</value>
+  </data>
+  <data name="Sage_Text_Others_if_below" xml:space="preserve">
+    <value>Others if below</value>
+  </data>
+  <data name="Sage_Content_Swiftcast_Egeiro" xml:space="preserve">
+    <value>Swiftcast Egeiro</value>
+  </data>
+  <data name="Sage_Content_Egeiro_out_of_Combat" xml:space="preserve">
+    <value>Egeiro out of Combat</value>
+  </data>
+  <data name="Sage_Content_only_with" xml:space="preserve">
+    <value>only with</value>
+  </data>
+  <data name="Sage_Content_Tank_only" xml:space="preserve">
+    <value>Tank only</value>
+  </data>
+  <data name="Sage_Content_Only_when_tank_in_range" xml:space="preserve">
+    <value>Only when tank in range</value>
+  </data>
+  <data name="Sage_Content_On_Healer_Only" xml:space="preserve">
+    <value>On Healer Only</value>
+  </data>
+  <data name="Sage_Content_Eukrasian_Pepsis" xml:space="preserve">
+    <value>Eukrasian Pepsis</value>
+  </data>
+  <data name="Sage_Text_Allies_Are_Lower_Than" xml:space="preserve">
+    <value>Allies Are Lower Than</value>
+  </data>
+  <data name="Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis" xml:space="preserve">
+    <value>Healing Buffs: Panhaimatinon, Holos, Physis, Kerachole, Eukrasian Prognosis</value>
+  </data>
+  <data name="Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove" xml:space="preserve">
+    <value>Weave OGCD Abilities When Mana Is Over</value>
+  </data>
+  <data name="Sage_Content_Limit_Healing_Buffs_To_Only_Use" xml:space="preserve">
+    <value>Limit Healing Buffs To Only Use</value>
+  </data>
+  <data name="Sage_Content_Only_Consider_Own_Buffs_disable_to_in" xml:space="preserve">
+    <value>Only Consider Own Buffs (disable to include co-sage)</value>
+  </data>
+  <data name="Sage_Content_Phlegma_III" xml:space="preserve">
+    <value>Phlegma III</value>
+  </data>
+  <data name="Sage_Content_Mesotes_LB_with_at_least" xml:space="preserve">
+    <value>Mesotes / LB with at least</value>
+  </data>
+  <data name="Sage_Text_Shields_settings_are_extra_shields_which" xml:space="preserve">
+    <value>Shields settings are extra shields which apply after those in General Healing.</value>
+  </data>
+  <data name="Sage_Text_Eukrasian_Diagnosis_On" xml:space="preserve">
+    <value>Eukrasian Diagnosis On</value>
+  </data>
+  <data name="Sage_Text_Use_shield_At" xml:space="preserve">
+    <value>Use shield At</value>
+  </data>
+  <data name="Sage_Text_Always_keep_shield_up_on" xml:space="preserve">
+    <value>Always keep shield up on</value>
+  </data>
+  <data name="Sage_Content_Shields_w_Eukrasian_Diagnosis" xml:space="preserve">
+    <value>Shields w/ Eukrasian Diagnosis</value>
+  </data>
+  <data name="Sage_Content_Only_shield_while_moving" xml:space="preserve">
+    <value>Only shield while moving</value>
+  </data>
+  <data name="Sage_Content_Stop_when_Addersting_is_full" xml:space="preserve">
+    <value>Stop when Addersting is full</value>
+  </data>
+  <data name="Sage_Content_Stop_when_in_combat" xml:space="preserve">
+    <value>Stop when in combat</value>
+  </data>
+  <data name="Samurai_Content_Ogi_Namikiri" xml:space="preserve">
+    <value>Ogi Namikiri</value>
+  </data>
+  <data name="Samurai_Content_Kaeshi_Namikiri" xml:space="preserve">
+    <value>Kaeshi Namikiri</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Guren_share_Senei_CD" xml:space="preserve">
+    <value>Hissatsu Guren (share Senei CD)</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Kyuten" xml:space="preserve">
+    <value>Hissatsu Kyuten</value>
+  </data>
+  <data name="Samurai_Content_Shoha_II" xml:space="preserve">
+    <value>Shoha II</value>
+  </data>
+  <data name="Samurai_Content_Kaeshi_Goken" xml:space="preserve">
+    <value>Kaeshi Goken</value>
+  </data>
+  <data name="Samurai_Content_Tenka_Goken" xml:space="preserve">
+    <value>Tenka Goken</value>
+  </data>
+  <data name="Samurai_Content_Meikyo_Shisui" xml:space="preserve">
+    <value>Meikyo Shisui</value>
+  </data>
+  <data name="Samurai_Content_Meikyo_Shisui_only_with_0_Sen" xml:space="preserve">
+    <value>Meikyo Shisui only with 0 Sen</value>
+  </data>
+  <data name="Samurai_Content_Ikishoten_Grant_Ogi_Aura" xml:space="preserve">
+    <value>Ikishoten (Grant Ogi Aura)</value>
+  </data>
+  <data name="Samurai_Content_FightLogic_Use_Tengentsu" xml:space="preserve">
+    <value>FightLogic Use Tengentsu</value>
+  </data>
+  <data name="Samurai_Text_Dont_use_Zantetsuken_if_target_has_mo" xml:space="preserve">
+    <value>Don't use Zantetsuken if target has more than</value>
+  </data>
+  <data name="Samurai_Content_Ogi_Namikiri_Combo" xml:space="preserve">
+    <value>Ogi Namikiri Combo</value>
+  </data>
+  <data name="Samurai_Content_Tendo_Setsugekka_Combo" xml:space="preserve">
+    <value>Tendo Setsugekka Combo</value>
+  </data>
+  <data name="Samurai_Content_Midare_Setsugekka" xml:space="preserve">
+    <value>Midare Setsugekka</value>
+  </data>
+  <data name="Samurai_Content_Zantetsuken_LB_on_target_at" xml:space="preserve">
+    <value>Zantetsuken / LB on target at</value>
+  </data>
+  <data name="Samurai_Content_Zantetsuken_LB_Only_With_Kuzushi_I" xml:space="preserve">
+    <value>Zantetsuken / LB Only With Kuzushi (Instant Kill)</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Chiten" xml:space="preserve">
+    <value>Hissatsu Chiten</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Soten" xml:space="preserve">
+    <value>Hissatsu Soten</value>
+  </data>
+  <data name="Samurai_Text_GCD_with_Shifu_215214_2_GCD_Filler" xml:space="preserve">
+    <value>GCD with Shifu: 2.15/2.14 =&gt; 2 GCD Filler</value>
+  </data>
+  <data name="Samurai_Text_GCD_with_Shifu_208207206_3_GCD_Filler" xml:space="preserve">
+    <value>GCD with Shifu: 2.08/2.07/2.06 =&gt; 3 GCD Filler</value>
+  </data>
+  <data name="Samurai_Text_GCD_with_Shifu_201200199_4_GCD_Filler" xml:space="preserve">
+    <value>GCD with Shifu: 2.01/2.00/1.99 =&gt; 4 GCD Filler</value>
+  </data>
+  <data name="Samurai_Text_Kenki_for_Manual_Spells_GyotenYaten" xml:space="preserve">
+    <value>Kenki for Manual Spells (Gyoten/Yaten)</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Gyoten_Dash_forward" xml:space="preserve">
+    <value>Hissatsu Gyoten (Dash forward)</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Yaten_Dash_backward" xml:space="preserve">
+    <value>Hissatsu Yaten (Dash backward)</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Shinten" xml:space="preserve">
+    <value>Hissatsu Shinten</value>
+  </data>
+  <data name="Samurai_Content_Hissatsu_Senei" xml:space="preserve">
+    <value>Hissatsu Senei</value>
+  </data>
+  <data name="Samurai_Content_Kaeshi_Higanbana" xml:space="preserve">
+    <value>Kaeshi Higanbana</value>
+  </data>
+  <data name="Samurai_Content_Kaeshi_Setsugekka" xml:space="preserve">
+    <value>Kaeshi Setsugekka</value>
+  </data>
+  <data name="Samurai_Content_Only_Bosses" xml:space="preserve">
+    <value>Only Bosses</value>
+  </data>
+  <data name="Samurai_Content_Enpi_when_not_in_range" xml:space="preserve">
+    <value>Enpi (when not in range)</value>
+  </data>
+  <data name="Scholar_Text_When_The_Fairie_Gauge_Is_At_Least" xml:space="preserve">
+    <value>When The Fairie Gauge Is At Least</value>
+  </data>
+  <data name="Scholar_Text_When_The_Tank_Is_Below" xml:space="preserve">
+    <value>When The Tank Is Below</value>
+  </data>
+  <data name="Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O" xml:space="preserve">
+    <value>Break Aetherpact If Tank Is Full HP Only With</value>
+  </data>
+  <data name="Scholar_Text_or_less_Enemies" xml:space="preserve">
+    <value>or less Enemies</value>
+  </data>
+  <data name="Scholar_Text_When_The_Tank_Has_Aetherpact_Only_Phy" xml:space="preserve">
+    <value>When The Tank Has Aetherpact, Only Physick If Below</value>
+  </data>
+  <data name="Scholar_Text_Only_If_They_Are_Below" xml:space="preserve">
+    <value>Only If They Are Below</value>
+  </data>
+  <data name="Scholar_Content_Use_Adloquium_On_Tank_If_They_Have" xml:space="preserve">
+    <value>Use Adloquium On Tank If They Have Aetherpact</value>
+  </data>
+  <data name="Scholar_Text_Expedient_When" xml:space="preserve">
+    <value>Expedient When</value>
+  </data>
+  <data name="Scholar_Text_Targets_Are_Below" xml:space="preserve">
+    <value>Targets Are Below</value>
+  </data>
+  <data name="Scholar_Content_Deployment_Tactics_Crit_Adlo_When" xml:space="preserve">
+    <value>Deployment Tactics Crit Adlo When</value>
+  </data>
+  <data name="Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe" xml:space="preserve">
+    <value>Only When We Do Not Have Any Aetherflow</value>
+  </data>
+  <data name="Scholar_Content_With_Lustrate" xml:space="preserve">
+    <value>With Lustrate</value>
+  </data>
+  <data name="Scholar_Content_With_Excog" xml:space="preserve">
+    <value>With Excog</value>
+  </data>
+  <data name="Scholar_Content_With_Indomitability" xml:space="preserve">
+    <value>With Indomitability</value>
+  </data>
+  <data name="Scholar_Content_With_Adlo" xml:space="preserve">
+    <value>With Adlo</value>
+  </data>
+  <data name="Scholar_Content_Only_If_We_Have_No_Aetherflow" xml:space="preserve">
+    <value>Only If We Have No Aetherflow</value>
+  </data>
+  <data name="Scholar_Content_Chain_Strategem_Strategy" xml:space="preserve">
+    <value>Chain Strategem Strategy:</value>
+  </data>
+  <data name="Scholar_Content_Stop_Casting_A_Damage_Spell_If_Som" xml:space="preserve">
+    <value>Stop Casting A Damage Spell If Someone Drops Below That Health Percent</value>
+  </data>
+  <data name="Scholar_Content_Energy_Drain" xml:space="preserve">
+    <value>Energy Drain</value>
+  </data>
+  <data name="Scholar_Content_Ruin_Broil" xml:space="preserve">
+    <value>Ruin / Broil</value>
+  </data>
+  <data name="Scholar_Content_Ruin_2" xml:space="preserve">
+    <value>Ruin 2</value>
+  </data>
+  <data name="Scholar_Content_Art_of_War_When_There_Are" xml:space="preserve">
+    <value>Art of War When There Are</value>
+  </data>
+  <data name="Scholar_Content_Baneful_Impaction" xml:space="preserve">
+    <value>Baneful Impaction</value>
+  </data>
+  <data name="Scholar_Text_Seconds_Left_On_Bio" xml:space="preserve">
+    <value>Seconds Left On Bio</value>
+  </data>
+  <data name="Scholar_Content_Bio_up_to" xml:space="preserve">
+    <value>Bio up to</value>
+  </data>
+  <data name="Scholar_Text_Tankbusters" xml:space="preserve">
+    <value>Tankbusters:</value>
+  </data>
+  <data name="Scholar_Text_Big_Aoe" xml:space="preserve">
+    <value>Big Aoe:</value>
+  </data>
+  <data name="Scholar_Text_Aoe" xml:space="preserve">
+    <value>Aoe:</value>
+  </data>
+  <data name="Scholar_Text_Knockback" xml:space="preserve">
+    <value>Knockback:</value>
+  </data>
+  <data name="Scholar_Content_Adlo_Deploy" xml:space="preserve">
+    <value>Adlo Deploy</value>
+  </data>
+  <data name="Scholar_Content_Recit_Succor" xml:space="preserve">
+    <value>Recit Succor</value>
+  </data>
+  <data name="Scholar_Text_HP_Percent" xml:space="preserve">
+    <value>HP Percent</value>
+  </data>
+  <data name="Scholar_Content_Swiftcast_Resurrection" xml:space="preserve">
+    <value>Swiftcast Resurrection</value>
+  </data>
+  <data name="Scholar_Content_Resurrection_Out_of_Combat" xml:space="preserve">
+    <value>Resurrection Out of Combat</value>
+  </data>
+  <data name="Scholar_Content_Only_Healer" xml:space="preserve">
+    <value>Only Healer</value>
+  </data>
+  <data name="Scholar_Content_Sacred_Soil" xml:space="preserve">
+    <value>Sacred Soil</value>
+  </data>
+  <data name="Scholar_Content_Place_Sacred_Soil_on_the_party_mem" xml:space="preserve">
+    <value>Place Sacred Soil on the party member closest to the center of the whole party.</value>
+  </data>
+  <data name="Scholar_Content_Emergency_Tactics" xml:space="preserve">
+    <value>Emergency Tactics</value>
+  </data>
+  <data name="Scholar_Content_Keep_Adloquium_Galvanize_Up_On_The" xml:space="preserve">
+    <value>Keep Adloquium (Galvanize) Up On The Tank</value>
+  </data>
+  <data name="Scholar_Text_Selected_Pet" xml:space="preserve">
+    <value>Selected Pet:</value>
+  </data>
+  <data name="Scholar_Text_Whispering_Dawn_When" xml:space="preserve">
+    <value>Whispering Dawn When</value>
+  </data>
+  <data name="Scholar_Text_Fey_Illumination_When" xml:space="preserve">
+    <value>Fey Illumination When</value>
+  </data>
+  <data name="Scholar_Text_Fey_Blessing_When" xml:space="preserve">
+    <value>Fey Blessing When</value>
+  </data>
+  <data name="Scholar_Text_Summon_Seraph_When" xml:space="preserve">
+    <value>Summon Seraph When</value>
+  </data>
+  <data name="Scholar_Text_Nearby_Allies_Are_Below" xml:space="preserve">
+    <value>Nearby Allies Are Below</value>
+  </data>
+  <data name="Scholar_Text_Consolation_When" xml:space="preserve">
+    <value>Consolation When</value>
+  </data>
+  <data name="Scholar_Content_Whispering_Dawn" xml:space="preserve">
+    <value>Whispering Dawn</value>
+  </data>
+  <data name="Scholar_Content_Use_Only_If_Cast_Will_Capture_The_" xml:space="preserve">
+    <value>Use Only If Cast Will Capture The Tank</value>
+  </data>
+  <data name="Scholar_Content_Use_Only_With_Seraph" xml:space="preserve">
+    <value>Use Only With Seraph</value>
+  </data>
+  <data name="Scholar_Content_Force_Cast_With_Seraph_ignores_abo" xml:space="preserve">
+    <value>Force Cast With Seraph (ignores above requirements if Seraph is summoned)</value>
+  </data>
+  <data name="Scholar_Content_Fey_Illumination" xml:space="preserve">
+    <value>Fey Illumination</value>
+  </data>
+  <data name="Scholar_Content_Fey_Blessing" xml:space="preserve">
+    <value>Fey Blessing</value>
+  </data>
+  <data name="Scholar_Content_Summon_Seraph" xml:space="preserve">
+    <value>Summon Seraph</value>
+  </data>
+  <data name="Scholar_Text_Use_Deployment_Tactics_on" xml:space="preserve">
+    <value>Use Deployment Tactics on</value>
+  </data>
+  <data name="Scholar_Content_Chain_Stratagem" xml:space="preserve">
+    <value>Chain Stratagem</value>
+  </data>
+  <data name="Scholar_Content_Summon_Seraph_with_at_least" xml:space="preserve">
+    <value>Summon Seraph with at least</value>
+  </data>
+  <data name="Scholar_Content_Seraphic_Halo" xml:space="preserve">
+    <value>Seraphic Halo</value>
+  </data>
+  <data name="Scholar_Content_Seraphic_Veil" xml:space="preserve">
+    <value>Seraphic Veil</value>
+  </data>
+  <data name="Scholar_Content_Seraphism_LB_with_at_least" xml:space="preserve">
+    <value>Seraphism / LB with at least</value>
+  </data>
+  <data name="Scholar_Content_Adloquium_At" xml:space="preserve">
+    <value>Adloquium At</value>
+  </data>
+  <data name="Summoner_Text_Seconds_Left_On_DOTs_And" xml:space="preserve">
+    <value>Seconds Left On DOTs And</value>
+  </data>
+  <data name="Summoner_Text_That_Have_At_Least" xml:space="preserve">
+    <value>That Have At Least</value>
+  </data>
+  <data name="Summoner_Text_Only_Use_Area_Of_Effect_If_There_Is_" xml:space="preserve">
+    <value>Only Use Area Of Effect If There Is At Least</value>
+  </data>
+  <data name="Summoner_Text_Seconds_Left_In_Combat" xml:space="preserve">
+    <value>Seconds Left In Combat</value>
+  </data>
+  <data name="Summoner_Content_Use_Lucid_Dreaming_With_Deathflar" xml:space="preserve">
+    <value>Use Lucid Dreaming With Deathflare</value>
+  </data>
+  <data name="Summoner_Content_Bane_When_There_Are" xml:space="preserve">
+    <value>Bane When There Are</value>
+  </data>
+  <data name="Summoner_Content_Bane_Building_Aethertrail" xml:space="preserve">
+    <value>Bane Building Aethertrail</value>
+  </data>
+  <data name="Summoner_Content_Bane_During_Dreadwyrm_Stance" xml:space="preserve">
+    <value>Bane During Dreadwyrm Stance</value>
+  </data>
+  <data name="Summoner_Content_Painflare_When_There_Are" xml:space="preserve">
+    <value>Painflare When There Are</value>
+  </data>
+  <data name="Summoner_Content_Shadowflare_When_There_Are" xml:space="preserve">
+    <value>Shadowflare When There Are</value>
+  </data>
+  <data name="Summoner_Content_Dreadwyrm_Trance_When_Were_Stil_I" xml:space="preserve">
+    <value>Dreadwyrm Trance When We're Stil In Combat For At Least</value>
+  </data>
+  <data name="Summoner_Content_Lucid_Dreaming_When_Below" xml:space="preserve">
+    <value>Lucid Dreaming When Below</value>
+  </data>
+  <data name="Summoner_Content_Lucid_Dreaming_Only_When_We_Dont_" xml:space="preserve">
+    <value>Lucid Dreaming Only When We Don't Have Any Aetherflow</value>
+  </data>
+  <data name="Summoner_Content_FightLogic_Use_Radiant_Aegis" xml:space="preserve">
+    <value>FightLogic Use Radiant Aegis</value>
+  </data>
+  <data name="Summoner_Text_Pet_Summons" xml:space="preserve">
+    <value>Pet Summons:</value>
+  </data>
+  <data name="Summoner_Text_Trances" xml:space="preserve">
+    <value>Trances:</value>
+  </data>
+  <data name="Summoner_Text_Single_Target" xml:space="preserve">
+    <value>Single Target:</value>
+  </data>
+  <data name="Summoner_Text_Astral_Flow" xml:space="preserve">
+    <value>Astral Flow:</value>
+  </data>
+  <data name="Summoner_Text_Buffs" xml:space="preserve">
+    <value>Buffs:</value>
+  </data>
+  <data name="Summoner_Text_Heals" xml:space="preserve">
+    <value>Heals:</value>
+  </data>
+  <data name="Summoner_Text_Resurrection" xml:space="preserve">
+    <value>Resurrection:</value>
+  </data>
+  <data name="Summoner_Text_Other" xml:space="preserve">
+    <value>Other:</value>
+  </data>
+  <data name="Summoner_Content_RubyIfrit" xml:space="preserve">
+    <value>Ruby/Ifrit</value>
+  </data>
+  <data name="Summoner_Content_TopazTitan" xml:space="preserve">
+    <value>Topaz/Titan</value>
+  </data>
+  <data name="Summoner_Content_EmeraldGaruda" xml:space="preserve">
+    <value>Emerald/Garuda</value>
+  </data>
+  <data name="Summoner_Content_Ruin_Pet_Ruin_Pet_Rite" xml:space="preserve">
+    <value>Ruin, Pet Ruin, Pet Rite</value>
+  </data>
+  <data name="Summoner_Content_Swiftcast_Ruby_Rite" xml:space="preserve">
+    <value>Swiftcast Ruby Rite</value>
+  </data>
+  <data name="Summoner_Content_Ruin_IV" xml:space="preserve">
+    <value>Ruin IV</value>
+  </data>
+  <data name="Summoner_Content_Energy_Siphon" xml:space="preserve">
+    <value>Energy Siphon</value>
+  </data>
+  <data name="Summoner_Content_Enkindle_Bahamut" xml:space="preserve">
+    <value>Enkindle Bahamut</value>
+  </data>
+  <data name="Summoner_Content_Enkindle_Phoenix" xml:space="preserve">
+    <value>Enkindle Phoenix</value>
+  </data>
+  <data name="Summoner_Content_Rekindle_Lowest_Target_Under" xml:space="preserve">
+    <value>Rekindle Lowest Target Under</value>
+  </data>
+  <data name="Summoner_Content_Crimson_Cyclone" xml:space="preserve">
+    <value>Crimson Cyclone</value>
+  </data>
+  <data name="Summoner_Content_Crimson_Strike" xml:space="preserve">
+    <value>Crimson Strike</value>
+  </data>
+  <data name="Summoner_Content_Mountain_Buster" xml:space="preserve">
+    <value>Mountain Buster</value>
+  </data>
+  <data name="Summoner_Content_Searing_Light" xml:space="preserve">
+    <value>Searing Light</value>
+  </data>
+  <data name="Summoner_Content_Radiant_Aegis" xml:space="preserve">
+    <value>Radiant Aegis</value>
+  </data>
+  <data name="Summoner_Content_Physick_Self_When_Solo_if_Under" xml:space="preserve">
+    <value>Physick Self When Solo if Under</value>
+  </data>
+  <data name="Summoner_Content_Throttle_Egi_Summons_with_TTL" xml:space="preserve">
+    <value>Throttle Egi Summons with TTL</value>
+  </data>
+  <data name="Summoner_Content_Throttle_Trance_Summons_with_TTL" xml:space="preserve">
+    <value>Throttle Trance Summons with TTL</value>
+  </data>
+  <data name="Summoner_Text_Health_Percent" xml:space="preserve">
+    <value>Health Percent,</value>
+  </data>
+  <data name="Summoner_Content_Auto_Raise" xml:space="preserve">
+    <value>Auto Raise</value>
+  </data>
+  <data name="Summoner_Content_Lux_Solaris_when_party_members_be" xml:space="preserve">
+    <value>Lux Solaris when party members below</value>
+  </data>
+  <data name="Summoner_Content_Physick_Solo_When_Below" xml:space="preserve">
+    <value>Physick Solo When Below</value>
+  </data>
+  <data name="Summoner_Content_Physick_Party_When_Below" xml:space="preserve">
+    <value>Physick Party When Below</value>
+  </data>
+  <data name="Summoner_Content_When_Theres_No_Healer_Present_or_" xml:space="preserve">
+    <value>When There's No Healer Present or Alive.</value>
+  </data>
+  <data name="Summoner_Content_Ignore_Alliance" xml:space="preserve">
+    <value>Ignore Alliance</value>
+  </data>
+  <data name="Summoner_Content_Raise_Alliance_Tanks" xml:space="preserve">
+    <value>Raise Alliance Tanks</value>
+  </data>
+  <data name="Summoner_Content_Raise_Alliance_Healers" xml:space="preserve">
+    <value>Raise Alliance Healers</value>
+  </data>
+  <data name="Summoner_Content_Raise_Alliance_DPS" xml:space="preserve">
+    <value>Raise Alliance DPS</value>
+  </data>
+  <data name="Summoner_Content_Heal_Party_Member_Pets" xml:space="preserve">
+    <value>Heal Party Member Pets</value>
+  </data>
+  <data name="Summoner_Content_Only_Titan" xml:space="preserve">
+    <value>Only Titan</value>
+  </data>
+  <data name="Summoner_Content_Let_Magitek_Control_Your_Pet" xml:space="preserve">
+    <value>Let Magitek Control Your Pet</value>
+  </data>
+  <data name="Summoner_Content_Do_Not_Resummon_Pet_In_Combat" xml:space="preserve">
+    <value>Do Not Resummon Pet In Combat</value>
+  </data>
+  <data name="Summoner_Content_Pet_Should_Always_Attack_Your_Tar" xml:space="preserve">
+    <value>Pet Should Always Attack Your Target</value>
+  </data>
+  <data name="Summoner_Content_Summon_Bahamut" xml:space="preserve">
+    <value>Summon Bahamut</value>
+  </data>
+  <data name="Summoner_Content_Only_For_Bosses" xml:space="preserve">
+    <value>Only For Bosses</value>
+  </data>
+  <data name="Summoner_Text_Phoenix_when_self_health_below" xml:space="preserve">
+    <value>Phoenix when self health below</value>
+  </data>
+  <data name="Summoner_Text_Bahamut_when_enemy_health_below" xml:space="preserve">
+    <value>Bahamut when enemy health below</value>
+  </data>
+  <data name="Summoner_Content_Radiant_Aegis_At" xml:space="preserve">
+    <value>Radiant Aegis At</value>
+  </data>
+  <data name="Summoner_Content_Crimson_Cyclone_Rush_forward" xml:space="preserve">
+    <value>Crimson Cyclone (Rush forward)</value>
+  </data>
+  <data name="Summoner_Content_Crimson_Strike_Heavy_knockback" xml:space="preserve">
+    <value>Crimson Strike (Heavy knockback)</value>
+  </data>
+  <data name="Summoner_Content_Necrotize_Grants_Further_Ruin_sta" xml:space="preserve">
+    <value>Necrotize (Grants Further Ruin stacks)</value>
+  </data>
+  <data name="Summoner_Content_Summon_LB" xml:space="preserve">
+    <value>Summon / LB</value>
+  </data>
+  <data name="Viper_Content_SteelReaving_Maw" xml:space="preserve">
+    <value>Steel/Reaving Maw</value>
+  </data>
+  <data name="Viper_Text_Uncoiled_Fury_ranged" xml:space="preserve">
+    <value>Uncoiled Fury (ranged)</value>
+  </data>
+  <data name="Viper_Content_World_Swallower_LB_on_target_at" xml:space="preserve">
+    <value>World Swallower / LB on target at</value>
+  </data>
+  <data name="Viper_Content_Snake_Scales" xml:space="preserve">
+    <value>Snake Scales</value>
+  </data>
+  <data name="Viper_Text_charges_when_out_of_range" xml:space="preserve">
+    <value>charges when out of range</value>
+  </data>
+  <data name="Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
+    <value>but do Not Use If Enemy Is Dying Within</value>
+  </data>
+  <data name="Viper_Content_Enable_Dreadwinder" xml:space="preserve">
+    <value>Enable Dreadwinder</value>
+  </data>
+  <data name="Viper_Content_Enable_Death_Rattle" xml:space="preserve">
+    <value>Enable Death Rattle</value>
+  </data>
+  <data name="Viper_Content_Enable_UncoiledFury" xml:space="preserve">
+    <value>Enable UncoiledFury</value>
+  </data>
+  <data name="Viper_Content_Enable_Reawaken" xml:space="preserve">
+    <value>Enable Reawaken</value>
+  </data>
+  <data name="Viper_Content_Enable_Last_Lash" xml:space="preserve">
+    <value>Enable Last Lash</value>
+  </data>
+  <data name="Viper_Content_Enable_Slither" xml:space="preserve">
+    <value>Enable Slither</value>
+  </data>
+  <data name="Warrior_Content_Tank_Stance" xml:space="preserve">
+    <value>Tank Stance</value>
+  </data>
+  <data name="Warrior_Content_Overpower_Combo_When_There_Are" xml:space="preserve">
+    <value>Overpower Combo When There Are</value>
+  </data>
+  <data name="Warrior_Content_Steel_Cyclone_Decimate_When_There_" xml:space="preserve">
+    <value>Steel Cyclone / Decimate When There Are</value>
+  </data>
+  <data name="Warrior_Content_Use_Tomahawk_To_Pull" xml:space="preserve">
+    <value>Use Tomahawk To Pull</value>
+  </data>
+  <data name="Warrior_Content_Use_Tomahawk_To_Pull_Nearby_Enemie" xml:space="preserve">
+    <value>Use Tomahawk To Pull Nearby Enemies (When Already In Combat)</value>
+  </data>
+  <data name="Warrior_Content_Use_Tomahawk_To_Regain_Aggro" xml:space="preserve">
+    <value>Use Tomahawk To Regain Aggro</value>
+  </data>
+  <data name="Warrior_Text_Or_Under_Beast_Gauge" xml:space="preserve">
+    <value>Or Under Beast Gauge</value>
+  </data>
+  <data name="Warrior_Content_Use_Berserk_Inner_Release" xml:space="preserve">
+    <value>Use Berserk / Inner Release</value>
+  </data>
+  <data name="Warrior_Content_Use_Infuriate_At" xml:space="preserve">
+    <value>Use Infuriate At</value>
+  </data>
+  <data name="Warrior_Content_Nascent_Flash" xml:space="preserve">
+    <value>Nascent Flash</value>
+  </data>
+  <data name="Warrior_Content_Use_Beast_Gauge_ChaoticCycloneDeci" xml:space="preserve">
+    <value>Use Beast Gauge (ChaoticCyclone/Decimation/Fellcleave/InnerChaos won't be used outside IR)</value>
+  </data>
+  <data name="Warrior_Content_Use_FellCleave" xml:space="preserve">
+    <value>Use FellCleave</value>
+  </data>
+  <data name="Warrior_Content_Use_InnerChaos" xml:space="preserve">
+    <value>Use InnerChaos</value>
+  </data>
+  <data name="Warrior_Content_Use_Primal_Rend" xml:space="preserve">
+    <value>Use Primal Rend</value>
+  </data>
+  <data name="Warrior_Content_Use_Primal_Rend_only_when_not_movi" xml:space="preserve">
+    <value>Use Primal Rend only when not moving</value>
+  </data>
+  <data name="Warrior_Content_Use_Onslaught" xml:space="preserve">
+    <value>Use Onslaught</value>
+  </data>
+  <data name="Warrior_Content_Only_in_Melee_Save" xml:space="preserve">
+    <value>Only in Melee. Save</value>
+  </data>
+  <data name="Warrior_Content_Use_Aoe_Overpower_Mythril_Orogeny_" xml:space="preserve">
+    <value>Use Aoe (Overpower, Mythril, Orogeny, ChaoticCyclone, Decimate)</value>
+  </data>
+  <data name="Warrior_Content_Use_Steel_Cyclone_Decimate_When_Th" xml:space="preserve">
+    <value>Use Steel Cyclone / Decimate When There Are</value>
+  </data>
+  <data name="Warrior_Content_Use_Chaotic_Cyclone_When_There_Are" xml:space="preserve">
+    <value>Use Chaotic Cyclone When There Are</value>
+  </data>
+  <data name="Warrior_Content_Vengeance_Damnation" xml:space="preserve">
+    <value>Vengeance / Damnation</value>
+  </data>
+  <data name="Warrior_Content_Raw_Intuition_Bloodwhetting" xml:space="preserve">
+    <value>Raw Intuition / Bloodwhetting</value>
+  </data>
+  <data name="Warrior_Content_FightLogic_Use_Shake_It_Off" xml:space="preserve">
+    <value>FightLogic Use Shake It Off</value>
+  </data>
+  <data name="Warrior_Content_Use_Thrill_Of_Battle_When_Under" xml:space="preserve">
+    <value>Use Thrill Of Battle When Under</value>
+  </data>
+  <data name="Warrior_Content_Use_Equilibrium_When_Under" xml:space="preserve">
+    <value>Use Equilibrium When Under</value>
+  </data>
+  <data name="Warrior_Content_Chaotic_Cyclone" xml:space="preserve">
+    <value>Chaotic Cyclone</value>
+  </data>
+  <data name="Warrior_Content_Primal_Rend" xml:space="preserve">
+    <value>Primal Rend</value>
+  </data>
+  <data name="Warrior_Content_Primal_Ruination" xml:space="preserve">
+    <value>Primal Ruination</value>
+  </data>
+  <data name="Warrior_Content_Inner_Chaos" xml:space="preserve">
+    <value>Inner Chaos</value>
+  </data>
+  <data name="Warrior_Content_Orogeny_with_at_least" xml:space="preserve">
+    <value>Orogeny with at least</value>
+  </data>
+  <data name="Warrior_Content_Onslaught_with_at_least" xml:space="preserve">
+    <value>Onslaught with at least</value>
+  </data>
+  <data name="Warrior_Content_Primal_Rend_Onslaught_Only_in_Mele" xml:space="preserve">
+    <value>Primal Rend / Onslaught Only in Melee Range</value>
+  </data>
+  <data name="Warrior_Content_Primal_Scream" xml:space="preserve">
+    <value>Primal Scream</value>
+  </data>
+  <data name="Warrior_Content_Primal_Wrath" xml:space="preserve">
+    <value>Primal Wrath</value>
+  </data>
+  <data name="Generic_Text_Enemies_In_Range" xml:space="preserve">
+    <value>Enemies In Range</value>
+  </data>
+  <data name="WhiteMage_Content_Only_Below_90_Mana_Percent" xml:space="preserve">
+    <value>Only Below 90 Mana Percent</value>
+  </data>
+  <data name="WhiteMage_Content_Assize_To_Heal_ONLY" xml:space="preserve">
+    <value>Assize To Heal ONLY</value>
+  </data>
+  <data name="WhiteMage_Content_Assize_To_Regain_Mana_At" xml:space="preserve">
+    <value>Assize To Regain Mana At</value>
+  </data>
+  <data name="WhiteMage_Content_Assize_To_Deal_Damage_When_There" xml:space="preserve">
+    <value>Assize To Deal Damage When There Are</value>
+  </data>
+  <data name="WhiteMage_Text_When_Mana_Falls_Below" xml:space="preserve">
+    <value>When Mana Falls Below</value>
+  </data>
+  <data name="WhiteMage_Content_Presence_Of_Mind" xml:space="preserve">
+    <value>Presence Of Mind</value>
+  </data>
+  <data name="WhiteMage_Content_Use_Presence_Of_Mind_For_Tank_On" xml:space="preserve">
+    <value>Use Presence Of Mind For Tank Only</value>
+  </data>
+  <data name="WhiteMage_Content_Use_Presence_Of_Mind_Before_Holy" xml:space="preserve">
+    <value>Use Presence Of Mind Before Holy</value>
+  </data>
+  <data name="WhiteMage_Content_Use_Presence_Of_Mind_On_Cooldown" xml:space="preserve">
+    <value>Use Presence Of Mind On Cooldown for GlareIV</value>
+  </data>
+  <data name="WhiteMage_Content_Do_Not_Use_Divine_Seal_And_Prese" xml:space="preserve">
+    <value>Do Not Use Divine Seal And Presence Of Mind At The Same Time</value>
+  </data>
+  <data name="WhiteMage_Content_Thin_Air" xml:space="preserve">
+    <value>Thin Air</value>
+  </data>
+  <data name="WhiteMage_Content_Before_Swiftcast_Raise" xml:space="preserve">
+    <value>Before Swiftcast Raise</value>
+  </data>
+  <data name="WhiteMage_Content_Before_Holy" xml:space="preserve">
+    <value>Before Holy</value>
+  </data>
+  <data name="WhiteMage_Content_Before_Cure_3" xml:space="preserve">
+    <value>Before Cure 3</value>
+  </data>
+  <data name="WhiteMage_Content_Divine_Benison" xml:space="preserve">
+    <value>Divine Benison</value>
+  </data>
+  <data name="WhiteMage_Content_Plenary_Indulgence" xml:space="preserve">
+    <value>Plenary Indulgence</value>
+  </data>
+  <data name="WhiteMage_Text_Seconds_Left_Of_Damage_Over_Time" xml:space="preserve">
+    <value>Seconds Left Of Damage Over Time</value>
+  </data>
+  <data name="WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy" xml:space="preserve">
+    <value>Use Damage Over Time When The Enemy Has At Least</value>
+  </data>
+  <data name="WhiteMage_Content_Stop_Casting_A_Damage_Spell_If_S" xml:space="preserve">
+    <value>Stop Casting A Damage Spell If Someone Drops</value>
+  </data>
+  <data name="WhiteMage_Content_Stone_Glare" xml:space="preserve">
+    <value>Stone / Glare</value>
+  </data>
+  <data name="WhiteMage_Content_Aero_Dia" xml:space="preserve">
+    <value>Aero / Dia</value>
+  </data>
+  <data name="WhiteMage_Content_Always_Dot_on_the_move" xml:space="preserve">
+    <value>Always Dot on the move</value>
+  </data>
+  <data name="WhiteMage_Content_Dot_up_to" xml:space="preserve">
+    <value>Dot up to</value>
+  </data>
+  <data name="WhiteMage_Content_Holy_When_There_Are" xml:space="preserve">
+    <value>Holy When There Are</value>
+  </data>
+  <data name="WhiteMage_Content_Afflatus_Misery" xml:space="preserve">
+    <value>Afflatus Misery</value>
+  </data>
+  <data name="WhiteMage_Content_Divine_Caress" xml:space="preserve">
+    <value>Divine Caress</value>
+  </data>
+  <data name="WhiteMage_Content_Liturgy_Of_The_Bell" xml:space="preserve">
+    <value>Liturgy Of The Bell</value>
+  </data>
+  <data name="WhiteMage_Content_Medica_2" xml:space="preserve">
+    <value>Medica 2</value>
+  </data>
+  <data name="WhiteMage_Text_When_Party_Members_Are_Below" xml:space="preserve">
+    <value>When Party Members Are Below</value>
+  </data>
+  <data name="WhiteMage_Content_Swiftcast_Raise" xml:space="preserve">
+    <value>Swiftcast Raise</value>
+  </data>
+  <data name="WhiteMage_Content_Raise_Out_of_Combat" xml:space="preserve">
+    <value>Raise Out of Combat</value>
+  </data>
+  <data name="WhiteMage_Content_Cure_2" xml:space="preserve">
+    <value>Cure 2</value>
+  </data>
+  <data name="WhiteMage_Content_Cure_3" xml:space="preserve">
+    <value>Cure 3</value>
+  </data>
+  <data name="WhiteMage_Content_Medica_3" xml:space="preserve">
+    <value>Medica 3</value>
+  </data>
+  <data name="WhiteMage_Content_Afflatus_Rapture" xml:space="preserve">
+    <value>Afflatus Rapture</value>
+  </data>
+  <data name="WhiteMage_Content_Afflatus_Solace" xml:space="preserve">
+    <value>Afflatus Solace</value>
+  </data>
+  <data name="WhiteMage_Content_Place_healing_blossom_on_the_par" xml:space="preserve">
+    <value>Place healing blossom on the party member closest to the center of the whole party.</value>
+  </data>
+  <data name="WhiteMage_Content_Place_asylum_on_the_party_member" xml:space="preserve">
+    <value>Place asylum on the party member closest to the center of the whole party.</value>
+  </data>
+  <data name="WhiteMage_Content_Miracle_Of_Nature" xml:space="preserve">
+    <value>Miracle Of Nature</value>
+  </data>
+  <data name="WhiteMage_Content_Afflatus_Purgation_LB" xml:space="preserve">
+    <value>Afflatus Purgation / LB</value>
+  </data>
+  <data name="WhiteMage_Content_Cure_At" xml:space="preserve">
+    <value>Cure At</value>
+  </data>
+  <data name="WhiteMage_Content_Aquaveil_At" xml:space="preserve">
+    <value>Aquaveil At</value>
+  </data>
+  <data name="WhiteMage_Text_Regen_On" xml:space="preserve">
+    <value>Regen On</value>
+  </data>
+  <data name="WhiteMage_Text_Use_Regen_At" xml:space="preserve">
+    <value>Use Regen At</value>
+  </data>
+  <data name="WhiteMage_Text_Always_Keep_Regen_Up_On" xml:space="preserve">
+    <value>Always Keep Regen Up On</value>
+  </data>
+  <data name="WhiteMage_Text_Do_Not_Cure_Someone_With_Regen_Unle" xml:space="preserve">
+    <value>Do Not Cure Someone With Regen Unless They Are Below</value>
+  </data>
+  <data name="WhiteMage_Content_Only_Regen_While_Moving" xml:space="preserve">
+    <value>Only Regen While Moving</value>
+  </data>
+  <data name="Dancer_Text_PCT" xml:space="preserve">
+    <value>Pct</value>
+  </data>
+  <data name="Monk_Text_Item_Potion_selected_should_be_in_your_h" xml:space="preserve">
+    <value>Item Potion Selected Should Be In Your H</value>
+  </data>
+  <data name="Ninja_Content_LB_Any_Enemy_below_the_threshold_not" xml:space="preserve">
+    <value>Lb Any Enemy Below The Threshold Not</value>
+  </data>
+  <data name="Pictomancer_Content_Dont_attack_Invuln_Hallowed_Gr" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Gr</value>
+  </data>
+  <data name="Sage_Content_Disable_Single_Healing_When_allies_ne" xml:space="preserve">
+    <value>Disable Single Healing When Allies Ne</value>
+  </data>
+  <data name="Sage_Content_Use_Time_Till_Death_For_Damage_Over_T" xml:space="preserve">
+    <value>Use Time Till Death For Damage Over T</value>
+  </data>
+  <data name="Scholar_Content_Disable_Single_Healing_When_allies" xml:space="preserve">
+    <value>Disable Single Healing When Allies</value>
+  </data>
+  <data name="Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If" xml:space="preserve">
+    <value>Do Not Use Damage Over Time Spells If</value>
+  </data>
+  <data name="Summoner_Content_Dont_attack_Invuln_Hallowed_Groun" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Groun</value>
+  </data>
+  <data name="WhiteMage_Content_Disable_Single_Healing_When_alli" xml:space="preserve">
+    <value>Disable Single Healing When Alli</value>
+  </data>
+  <data name="WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_" xml:space="preserve">
+    <value>Do Not Use Damage Over Time Spells</value>
+  </data>
+  <data name="WhiteMage_Text_Dont_Do_Damage_If_There_Are_More_Th" xml:space="preserve">
+    <value>Dont Do Damage If There Are More Th</value>
+  </data>
+  <data name="Views_Content_Pre_Defined_Magitek_Toggle_Enabled" xml:space="preserve">
+    <value>Pre-Defined Magitek Toggle Enabled</value>
+  </data>
+  <data name="Astrologian_Text_Health_Percent_to_Pre_emptively_M" xml:space="preserve">
+    <value>Health Percent to Pre-emptively Microcosmos</value>
+  </data>
+  <data name="Bard_Text_at_Damage_Buff_" xml:space="preserve">
+    <value>at % Damage-Buff &gt;=</value>
+  </data>
+  <data name="Bard_Text___24_will_match_RSBVRFWM_EndWalker_Patch" xml:space="preserve">
+    <value>- 24% will match RS+BV+RF+WM (EndWalker Patch)</value>
+  </data>
+  <data name="Bard_Text___This_will_force_to_keep_Apex_for_Buff_" xml:space="preserve">
+    <value>- This will force to keep Apex for Buff windows, even if Soul Voice = 100</value>
+  </data>
+  <data name="Bard_Text___This_will_force_to_execute_Apex_in_MB_" xml:space="preserve">
+    <value>- This will force to execute Apex in MB window if Soul Voice &gt;= 80 at MB remaining time = 22sec</value>
+  </data>
+  <data name="Bard_Text___You_need_to_check_Use_Apex_Arrow_check" xml:space="preserve">
+    <value>- You need to check 'Use Apex Arrow' checkbox above too</value>
+  </data>
+  <data name="Gunbreaker_Text_Aurora_Priority_order_is_1___5" xml:space="preserve">
+    <value>Aurora Priority order is: 1 -&gt; 5</value>
+  </data>
+  <data name="Monk_Content_Six_Sided_Star" xml:space="preserve">
+    <value>Six-Sided Star</value>
+  </data>
+  <data name="OccultCrescent_Text_Min_MP_for_Non_Party_Revive" xml:space="preserve">
+    <value>Min MP for Non-Party Revive:</value>
+  </data>
+  <data name="OccultCrescent_Text_percent_HP_AoE_steal___increas" xml:space="preserve">
+    <value>percent HP (AoE steal - increases item drop chance)</value>
+  </data>
+  <data name="OccultCrescent_Content_Revive_Non_Party_Dead_Playe" xml:space="preserve">
+    <value>Revive Non-Party Dead Players (excess mana only)</value>
+  </data>
+  <data name="OccultCrescent_Content_Auto_switch_to_Bard_for_Rom" xml:space="preserve">
+    <value>Auto-switch to Bard for Romeo's Ballad</value>
+  </data>
+  <data name="OccultCrescent_Content_Auto_switch_to_Monk_for_Fle" xml:space="preserve">
+    <value>Auto-switch to Monk for Fleetfooted</value>
+  </data>
+  <data name="OccultCrescent_Content_Only_cast_Comet_with_job_sp" xml:space="preserve">
+    <value>Only cast Comet with job-specific cast time reduction buffs</value>
+  </data>
+  <data name="Pictomancer_Content_Pre_cast_palettes_out_of_comba" xml:space="preserve">
+    <value>Pre-cast palettes out of combat</value>
+  </data>
+  <data name="RedMage_Content_Corps_a_corps" xml:space="preserve">
+    <value>Corps-a-corps</value>
+  </data>
+  <data name="Samurai_Text_GCD___Namikiri" xml:space="preserve">
+    <value>GCD - Namikiri</value>
+  </data>
+  <data name="Samurai_Text_oGCD___Using_kenki" xml:space="preserve">
+    <value>oGCD - Using kenki</value>
+  </data>
+  <data name="Samurai_Text_oGCD___Using_meditation" xml:space="preserve">
+    <value>oGCD - Using meditation</value>
+  </data>
+  <data name="Samurai_Text_GCD___TsubameGaeshi" xml:space="preserve">
+    <value>GCD - TsubameGaeshi</value>
+  </data>
+  <data name="Samurai_Text_GCD___Iaijutsu" xml:space="preserve">
+    <value>GCD - Iaijutsu</value>
+  </data>
+  <data name="Generic_Text_Enemies" xml:space="preserve">
+    <value>Enemies</value>
+  </data>
+  <data name="Generic_Text_Allies" xml:space="preserve">
+    <value>Allies</value>
+  </data>
+  <data name="Generic_Text_Enemy" xml:space="preserve">
+    <value>Enemy</value>
+  </data>
+  <data name="Generic_Text_Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
+  <data name="Bugs_Text__progress_into_cast_bar" xml:space="preserve">
+    <value>% progress into cast bar</value>
+  </data>
+  <data name="Dancer_Text_Heal_" xml:space="preserve">
+    <value>Heal :</value>
+  </data>
+  <data name="Monk_Content_The_Forbidden_Chakra" xml:space="preserve">
+    <value>The Forbidden Chakra</value>
+  </data>
+  <data name="Scholar_Content_Only_Heal_Alliance_Members_With_Ph" xml:space="preserve">
+    <value>Only Heal Alliance Members With Physick</value>
+  </data>
+  <data name="BlueMage_Content_Use_Interrupt_and_Stun_If_activat" xml:space="preserve">
+    <value>Use Interrupt And Stun If Activat</value>
+  </data>
+  <data name="Bugs_Content_Use_AutoFace_for_InView_checks" xml:space="preserve">
+    <value>Use Autoface For Inview Checks</value>
+  </data>
+  <data name="Dancer_Text_VPR" xml:space="preserve">
+    <value>Vpr</value>
+  </data>
+  <data name="Lists_Content_TemplateBinding_SelectionBoxItem" xml:space="preserve">
+    <value>Templatebinding Selectionboxitem</value>
+  </data>
+  <data name="Machinist_Content_Use_Interrupt_and_Stun_If_activa" xml:space="preserve">
+    <value>Use Interrupt And Stun If Activa</value>
+  </data>
+  <data name="Machinist_Text_Item_Potion_selected_should_be_in_y" xml:space="preserve">
+    <value>Item Potion Selected Should Be In Y</value>
+  </data>
+  <data name="Ninja_Text_Enemies_around" xml:space="preserve">
+    <value>Enemies Around</value>
+  </data>
+  <data name="Reaper_Content_Entire_Party_In_Range_Otherwise" xml:space="preserve">
+    <value>Entire Party In Range Otherwise</value>
+  </data>
+  <data name="Samurai_Text_Filler_Strategy" xml:space="preserve">
+    <value>Filler Strategy</value>
+  </data>
+  <data name="Summoner_Text_Aoe" xml:space="preserve">
+    <value>Aoe</value>
+  </data>
+  <data name="Summoner_Text_Selected_Pet" xml:space="preserve">
+    <value>Selected Pet</value>
+  </data>
+  <data name="Viper_Text_and_save_at_least" xml:space="preserve">
+    <value>And Save At Least</value>
+  </data>
+  <data name="WhiteMage_Text_HP_Percent" xml:space="preserve">
+    <value>Hp Percent</value>
+  </data>
+  <data name="Samurai_Text_GCD___Other" xml:space="preserve">
+    <value>GCD - Other</value>
+  </data>
+  <data name="Astrologian_Content_Only_Heal_Alliance_Members_With_Regen" xml:space="preserve">
+    <value>Only Heal Alliance Members With Regen</value>
+  </data>
+  <data name="Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds" xml:space="preserve">
+    <value>Dont Play Cards When There is Less Than 30 Seconds</value>
+  </data>
+  <data name="Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than" xml:space="preserve">
+    <value>Always Do Damage If Target Time Till Death Is Less Than</value>
+  </data>
+  <data name="Astrologian_Text_Dont_Do_Damage_If_There_Are_More_Than_3_Enemies" xml:space="preserve">
+    <value>Dont Do Damage If There Are More Than 3 Enemies</value>
+  </data>
+  <data name="Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds" xml:space="preserve">
+    <value>Refresh When Combust Has Less Than 3 Seconds</value>
+  </data>
+  <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
+    <value>Dont Use DoT if Enemy Dying Within 10 Seconds</value>
+  </data>
+  <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
+    <value>Dispel Only If Nearby Players Health Is Above</value>
+  </data>
+  <data name="Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen" xml:space="preserve">
+    <value>Do Not Aspected Benefic Someone With Regen</value>
+  </data>
+  <data name="Astrologian_Content_Use_Aspected_Benefic_While_Moving" xml:space="preserve">
+    <value>Use Aspected Benefic While Moving</value>
+  </data>
+  <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
+    <value>Prevent Usage of Swiftcast Alone</value>
+  </data>
+  <data name="Astrologian_Text_Party_Members_Near_Target_That_Are_Below" xml:space="preserve">
+    <value>Party Members Near Target That Are Below</value>
+  </data>
+  <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
+    <value>Party Members Near Earthly Star Are Below</value>
+  </data>
+  <data name="Astrologian_Content_Disable_Single_Healing_When_Allies_Need_AoE" xml:space="preserve">
+    <value>Disable Single Healing When Allies Need AoE</value>
+  </data>
+  <data name="Astrologian_Content_Always_With_Enhanced_Benefic" xml:space="preserve">
+    <value>Always With Enhanced Benefic</value>
+  </data>
+  <data name="Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption" xml:space="preserve">
+    <value>Dont attack Invuln Hallowed Ground Undead Redemption</value>
+  </data>
+  <data name="Astrologian_Content_Celestial_River_LB_with_at_least" xml:space="preserve">
+    <value>Celestial River LB with at least</value>
+  </data>
+  <data name="Bard_Text_Item_Potion_selected_should_be_in_your_hotkey_bar" xml:space="preserve">
+    <value>Item Potion selected should be in your hotkey bar</value>
+  </data>
+  <data name="Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown" xml:space="preserve">
+    <value>Delay RS Until Barrage Is Off Cooldown</value>
+  </data>
+  <data name="Bard_Text_MS_Between_The_Last_Possible_GCD_And_DoT_Refresh" xml:space="preserve">
+    <value>MS Between The Last Possible GCD And DoT Refresh</value>
+  </data>
+  <data name="Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within" xml:space="preserve">
+    <value>Do Not Use Damage Over Time Abilities If Enemy Dying Within</value>
+  </data>
+  <data name="Bard_Content_Use_WindbiteStormBite_On_Additional_Enemies" xml:space="preserve">
+    <value>Use WindbiteStormBite On Additional Enemies</value>
+  </data>
+  <data name="Bard_Content_Use_VenomousBiteCausticBite_On_Additional_Enemies" xml:space="preserve">
+    <value>Use VenomousBiteCausticBite On Additional Enemies</value>
+  </data>
+  <data name="Bard_Text_Seconds_of_Wanderers_Minuet_Without_Repertoire" xml:space="preserve">
+    <value>Seconds of Wanderers Minuet Without Repertoire</value>
+  </data>
+  <data name="Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds" xml:space="preserve">
+    <value>Use Pitch Perfect Within The Last 3 Seconds</value>
+  </data>
+  <data name="Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within" xml:space="preserve">
+    <value>Delay Empyreal Arrow If Armys Paeon Ends Within</value>
+  </data>
+  <data name="Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad" xml:space="preserve">
+    <value>Prioritize Bloodletter during Mages Ballad</value>
+  </data>
+  <data name="Bard_Content_Use_Interrupt_and_Stun_If_activated_use_strategy" xml:space="preserve">
+    <value>Use Interrupt and Stun If activated use strategy</value>
+  </data>
+  <data name="BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies" xml:space="preserve">
+    <value>Use AOE Rotation Where There Are Enemies</value>
+  </data>
+  <data name="BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat" xml:space="preserve">
+    <value>Use TransposeUmbral Soul Out of Combat</value>
+  </data>
+  <data name="BlackMage_Text_Use_Soul_Resonance_when_target_HP_below" xml:space="preserve">
+    <value>Use Soul Resonance when target HP below</value>
+  </data>
+  <data name="BlackMage_Content_Use_Thunder_Spells_Single_Target_Only" xml:space="preserve">
+    <value>Use Thunder Spells Single Target Only</value>
+  </data>
+  <data name="Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode" xml:space="preserve">
+    <value>Allow Magitek to move in autonomous mode</value>
+  </data>
+  <data name="Bugs_Content_Use_Advanced_SpellHistory_Verify_spell_casting" xml:space="preserve">
+    <value>Use Advanced SpellHistory Verify spell casting</value>
+  </data>
+  <data name="Bugs_Content_Use_Animation_Lock_Waits_for_game_client" xml:space="preserve">
+    <value>Use Animation Lock Waits for game client</value>
+  </data>
+  <data name="Bugs_Content_CallerMemberName_When_Casting_Very_Specific_Spells" xml:space="preserve">
+    <value>CallerMemberName When Casting Very Specific Spells</value>
+  </data>
+  <data name="Bugs_Content_Debug_Enemy_Info_Prints_RemovesAdds_in_combat" xml:space="preserve">
+    <value>Debug Enemy Info Prints RemovesAdds in combat</value>
+  </data>
+  <data name="Bugs_Content_Enable_Tracking_Of_Enemy_Casted_Spells" xml:space="preserve">
+    <value>Enable Tracking Of Enemy Casted Spells</value>
+  </data>
+  <data name="Bugs_Text_These_weights_adjust_the_sort_priority_of_healing" xml:space="preserve">
+    <value>These weights adjust the sort priority of healing</value>
+  </data>
+  <data name="Bugs_Text_A_value_less_than_10_assigns_a_higher_priority" xml:space="preserve">
+    <value>A value less than 10 assigns a higher priority</value>
+  </data>
+  <data name="Bugs_Text_A_value_greater_than_10_assigns_a_lower_priority" xml:space="preserve">
+    <value>A value greater than 10 assigns a lower priority</value>
+  </data>
+  <data name="Bugs_Text_These_are_percentage_adjustments_applied_to_healing" xml:space="preserve">
+    <value>These are percentage adjustments applied to healing</value>
+  </data>
+  <data name="Bugs_Text_095_represents_a_5_percent_increased_priority" xml:space="preserve">
+    <value>0.95 represents a 5% increased priority</value>
+  </data>
+  <data name="Bugs_Text_120_represents_a_20_percent_decreased_priority" xml:space="preserve">
+    <value>1.20 represents a 20% decreased priority</value>
+  </data>
+  <data name="Bugs_Text_100_disables_that_value_for_priority_checks" xml:space="preserve">
+    <value>1.00 disables that value for priority checks</value>
+  </data>
+  <data name="Dancer_Content_Use_Range_and_Facing_Checks_Prevent_Errors" xml:space="preserve">
+    <value>Use Range and Facing Checks Prevent Errors</value>
+  </data>
+  <data name="Dancer_Text_When_not_under_Technical_Finish_Use_Saber_Dance" xml:space="preserve">
+    <value>When not under Technical Finish Use Saber Dance</value>
+  </data>
+  <data name="Dancer_Content_Use_Saber_Dance_AOE_Spell_used_in_Single_Target" xml:space="preserve">
+    <value>Use Saber Dance AOE Spell used in Single Target</value>
+  </data>
+  <data name="Dancer_Content_Use_Fan_Dance_III_AOE_Spell_used_in_Single_Target" xml:space="preserve">
+    <value>Use Fan Dance III AOE Spell used in Single Target</value>
+  </data>
+  <data name="Dancer_Content_Use_Fan_Dance_IV_AOE_Spell_used_in_Single_Target" xml:space="preserve">
+    <value>Use Fan Dance IV AOE Spell used in Single Target</value>
+  </data>
+  <data name="Dancer_Content_Use_Starfall_Dance_AOE_Spell_used_in_Single_Target" xml:space="preserve">
+    <value>Use Starfall Dance AOE Spell used in Single Target</value>
+  </data>
+  <data name="Dancer_Content_Do_Not_DanceDevilment_if_Target_Is_Invulnerable" xml:space="preserve">
+    <value>Do Not DanceDevilment if Target Is Invulnerable</value>
+  </data>
+  <data name="DarkKnight_Text_Use_Unmend_When_Ennemy_Is_At_Least_Yalms_Away" xml:space="preserve">
+    <value>Use Unmend When Ennemy Is At Least Yalms Away</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Unmend_if_not_in_melee_to_damage" xml:space="preserve">
+    <value>Use Unmend if not in melee to damage</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Unmend_To_Pull_or_Regain_Aggro" xml:space="preserve">
+    <value>Use Unmend To Pull or Regain Aggro</value>
+  </data>
+  <data name="DarkKnight_Content_Use_AoEs_Does_not_Affect_Abyssal_Drain" xml:space="preserve">
+    <value>Use AoEs Does not Affect Abyssal Drain</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Abyssal_Drain_When_There_Are_Enemies" xml:space="preserve">
+    <value>Use Abyssal Drain When There Are Enemies</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies" xml:space="preserve">
+    <value>Use Salted Earth When There Are Enemies</value>
+  </data>
+  <data name="DarkKnight_Text_NOTE_Does_not_include_Dark_Mind_and_Dark_Missionary" xml:space="preserve">
+    <value>NOTE: Does not include Dark Mind and Dark Missionary</value>
+  </data>
+  <data name="DarkKnight_Text_At_Which_Point_Use_A_Maximum_Of_Defensive_Buffs" xml:space="preserve">
+    <value>At Which Point Use A Maximum Of Defensive Buffs</value>
+  </data>
+  <data name="DarkKnight_Content_Shadowbringer_with_at_least_Enemies" xml:space="preserve">
+    <value>Shadowbringer with at least Enemies</value>
+  </data>
+  <data name="Dragoon_Content_Use_Buffs_LanceCharge_LifeSurge_Life_Of_The_Dragon" xml:space="preserve">
+    <value>Use Buffs LanceCharge LifeSurge Life Of The Dragon</value>
+  </data>
+  <data name="Dragoon_Content_Smart_Dragon_Sight_If_youre_not_in_a_party" xml:space="preserve">
+    <value>Smart Dragon Sight If youre not in a party</value>
+  </data>
+  <data name="Gunbreaker_Text_Use_Lightning_Shot_When_Ennemy_Is_Yalms_Away" xml:space="preserve">
+    <value>Use Lightning Shot When Ennemy Is Yalms Away</value>
+  </data>
+  <data name="Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies" xml:space="preserve">
+    <value>BowShock When There Are At Least Enemies</value>
+  </data>
+  <data name="WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time" xml:space="preserve">
+    <value>Use Time Till Death For Damage Over Time</value>
+  </data>
+  <data name="Bugs_Text_Enemies_In_Combat" xml:space="preserve">
+    <value>Enemies In Combat:</value>
+  </data>
+  <data name="Generic_Text_Enemies_In_Combat" xml:space="preserve">
+    <value>Enemies In Combat</value>
+  </data>
+  <data name="Generic_When_Below" xml:space="preserve">
+    <value>When Below</value>
+  </data>
+  <data name="Generic_Health_Percent" xml:space="preserve">
+    <value>Health Percent</value>
+  </data>
+  <data name="Generic_General_Settings" xml:space="preserve">
+    <value>General Settings</value>
+  </data>
+  <data name="Generic_Enable_Fight_Logic" xml:space="preserve">
+    <value>Enable Fight Logic</value>
+  </data>
+  <data name="Generic_Enemy_Spell_Casts" xml:space="preserve">
+    <value>Enemy Spell Casts</value>
+  </data>
+  <data name="Generic_Fight_Logic" xml:space="preserve">
+    <value>Fight Logic</value>
+  </data>
+  <data name="Generic_Single_Target" xml:space="preserve">
+    <value>Single Target</value>
+  </data>
+  <data name="Generic_Ignore_Alliance_Members" xml:space="preserve">
+    <value>Ignore Alliance Members</value>
+  </data>
+  <data name="Generic_Heal_Alliance_Healers" xml:space="preserve">
+    <value>Heal Alliance Healers</value>
+  </data>
+  <data name="Generic_Heal_Alliance_Tanks" xml:space="preserve">
+    <value>Heal Alliance Tanks</value>
+  </data>
+  <data name="Generic_Resurrect_Alliance_Healers" xml:space="preserve">
+    <value>Resurrect Alliance Healers</value>
+  </data>
+  <data name="Generic_Resurrect_Alliance_Tanks" xml:space="preserve">
+    <value>Resurrect Alliance Tanks</value>
+  </data>
+  <data name="Generic_Mana_Percent" xml:space="preserve">
+    <value>Mana Percent</value>
+  </data>
+  <data name="Generic_Lucid_Dreaming_When_Under" xml:space="preserve">
+    <value>Lucid Dreaming When Under</value>
+  </data>
+  <data name="Generic_Percent_Health" xml:space="preserve">
+    <value>Percent Health</value>
+  </data>
+  <data name="Generic_Do_Damage_When_Mana_Is_Over" xml:space="preserve">
+    <value>Do Damage When Mana Is Over</value>
+  </data>
+  <data name="Generic_Smart_Aoe" xml:space="preserve">
+    <value>Smart Aoe</value>
+  </data>
+  <data name="Generic_Use_Esuna_To_Dispel" xml:space="preserve">
+    <value>Use Esuna To Dispel</value>
+  </data>
+  <data name="Generic_Apply_This_Rule_On" xml:space="preserve">
+    <value>Apply This Rule On</value>
+  </data>
+  <data name="Generic_On_Tank_Only" xml:space="preserve">
+    <value>On Tank Only</value>
+  </data>
+  <data name="Generic_Health_Percent_When" xml:space="preserve">
+    <value>Health Percent When</value>
+  </data>
+  <data name="Generic_Allies_Need_Healing" xml:space="preserve">
+    <value>Allies Need Healing</value>
+  </data>
+  <data name="Generic_Sprint_Without_Target" xml:space="preserve">
+    <value>Sprint Without Target</value>
+  </data>
+  <data name="Generic_Use_Mount" xml:space="preserve">
+    <value>Use Mount</value>
+  </data>
+  <data name="Generic_When_There_Are" xml:space="preserve">
+    <value>When There Are</value>
+  </data>
+  <data name="Generic_Use_Area_Of_Effect_Abilities" xml:space="preserve">
+    <value>Use Area Of Effect Abilities</value>
+  </data>
+  <data name="Generic_Use_Potion" xml:space="preserve">
+    <value>Use Potion</value>
+  </data>
+  <data name="Generic_Use_Peloton" xml:space="preserve">
+    <value>Use Peloton</value>
+  </data>
+  <data name="Generic_Second_Wind_At" xml:space="preserve">
+    <value>Second Wind At</value>
+  </data>
+  <data name="Generic_On_Tanks" xml:space="preserve">
+    <value>On Tanks</value>
+  </data>
+  <data name="Generic_Dance_With" xml:space="preserve">
+    <value>Dance With:</value>
+  </data>
+  <data name="Generic_Yalms_Away" xml:space="preserve">
+    <value>Yalms Away</value>
+  </data>
+  <data name="Generic_Only_Use" xml:space="preserve">
+    <value>Only Use</value>
+  </data>
+  <data name="Generic_Defensive_Buffs_At_The_Same_Time" xml:space="preserve">
+    <value>Defensive Buffs At The Same Time</value>
+  </data>
+  <data name="Generic_Unless_You_Are_Lower_Than" xml:space="preserve">
+    <value>Unless You Are Lower Than</value>
+  </data>
+  <data name="Generic_Use_On" xml:space="preserve">
+    <value>Use On</value>
+  </data>
+  <data name="Generic_Use_Defensives" xml:space="preserve">
+    <value>Use Defensives</value>
+  </data>
+  <data name="Generic_Arms_Length" xml:space="preserve">
+    <value>Arms Length</value>
+  </data>
+  <data name="Generic_Second_Wind_When_Below" xml:space="preserve">
+    <value>Second Wind When Below</value>
+  </data>
+  <data name="Generic_Bloodbath_When_Below" xml:space="preserve">
+    <value>Bloodbath When Below</value>
+  </data>
+  <data name="Generic_Advance_Burst_Window_Settings" xml:space="preserve">
+    <value>Advance Burst Window Settings</value>
+  </data>
+  <data name="Generic_Hold_Burst" xml:space="preserve">
+    <value>Hold Burst</value>
+  </data>
+  <data name="Generic_Use_Feint" xml:space="preserve">
+    <value>Use Feint</value>
+  </data>
+  <data name="Generic_Use_True_North" xml:space="preserve">
+    <value>Use True North</value>
+  </data>
+  <data name="Generic_Hide_Positional_Message" xml:space="preserve">
+    <value>Hide Positional Message</value>
+  </data>
+  <data name="Generic_Players_Are_In_Range_For_Buff" xml:space="preserve">
+    <value>Players Are In Range For Buff</value>
+  </data>
+  <data name="Generic_Lucid_Dreaming" xml:space="preserve">
+    <value>Lucid Dreaming</value>
+  </data>
+  <data name="Generic_Main_Tank" xml:space="preserve">
+    <value>Main Tank</value>
+  </data>
+  <data name="Generic_Refresh_When_There_Are" xml:space="preserve">
+    <value>Refresh When There Are</value>
+  </data>
+  <data name="Generic_Interrupt_Healing_If_Target_HP_Gets_Over" xml:space="preserve">
+    <value>Interrupt Healing If Target HP Gets Over</value>
+  </data>
+  <data name="Generic_Healing_Buffs_At_The_Same_Time" xml:space="preserve">
+    <value>Healing Buffs At The Same Time</value>
+  </data>
+  <data name="Generic_Only_Tank" xml:space="preserve">
+    <value>Only Tank</value>
+  </data>
+  <data name="Generic_Allies_Fall_Below" xml:space="preserve">
+    <value>Allies Fall Below</value>
+  </data>
+  <data name="Generic_Self_Heal_Only" xml:space="preserve">
+    <value>Self Heal Only</value>
+  </data>
+  <data name="Generic_And_At_Least" xml:space="preserve">
+    <value>And At Least</value>
+  </data>
+  <data name="Generic_Out_Of_Combat" xml:space="preserve">
+    <value>Out Of Combat</value>
+  </data>
+  <data name="Generic_Dont_Attack_Guard" xml:space="preserve">
+    <value>Dont Attack Guard</value>
+  </data>
+  <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundund" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Groundund</value>
+  </data>
+  <data name="Generic_Guard_Shield_At" xml:space="preserve">
+    <value>Guard Shield At</value>
+  </data>
+  <data name="Generic_Purify_Remove_Debuffs" xml:space="preserve">
+    <value>Purify Remove Debuffs</value>
+  </data>
+  <data name="Generic_Recuperate_Heal_At" xml:space="preserve">
+    <value>Recuperate Heal At</value>
+  </data>
+  <data name="Generic_Ast" xml:space="preserve">
+    <value>Ast</value>
+  </data>
+  <data name="Generic_Blm" xml:space="preserve">
+    <value>Blm</value>
+  </data>
+  <data name="Generic_Brd" xml:space="preserve">
+    <value>Brd</value>
+  </data>
+  <data name="Generic_Dnc" xml:space="preserve">
+    <value>Dnc</value>
+  </data>
+  <data name="Generic_Drg" xml:space="preserve">
+    <value>Drg</value>
+  </data>
+  <data name="Generic_Drk" xml:space="preserve">
+    <value>Drk</value>
+  </data>
+  <data name="Generic_Item_Potion_Selected_Should_Be_In_Your" xml:space="preserve">
+    <value>Item Potion Selected Should Be In Your</value>
+  </data>
+  <data name="Generic_Mch" xml:space="preserve">
+    <value>Mch</value>
+  </data>
+  <data name="Generic_Mnk" xml:space="preserve">
+    <value>Mnk</value>
+  </data>
+  <data name="Generic_Nin" xml:space="preserve">
+    <value>Nin</value>
+  </data>
+  <data name="Generic_Rdm" xml:space="preserve">
+    <value>Rdm</value>
+  </data>
+  <data name="Generic_Rpr" xml:space="preserve">
+    <value>Rpr</value>
+  </data>
+  <data name="Generic_Sam" xml:space="preserve">
+    <value>Sam</value>
+  </data>
+  <data name="Generic_Sch" xml:space="preserve">
+    <value>Sch</value>
+  </data>
+  <data name="Generic_Sge" xml:space="preserve">
+    <value>Sge</value>
+  </data>
+  <data name="Generic_Smn" xml:space="preserve">
+    <value>Smn</value>
+  </data>
+  <data name="Generic_Dont_Attack_Invuln_Hallowed_Gro" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Gro</value>
+  </data>
+  <data name="Generic_Fightlogic_Use_Defensives" xml:space="preserve">
+    <value>Fightlogic Use Defensives</value>
+  </data>
+  <data name="Generic_At_Which_Point_Use_A_Maximum_Of" xml:space="preserve">
+    <value>At Which Point Use A Maximum Of</value>
+  </data>
+  <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundun" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Groundun</value>
+  </data>
+  <data name="Generic_Fightlogic_Use_Feint" xml:space="preserve">
+    <value>Fightlogic Use Feint</value>
+  </data>
+  <data name="Generic_Fightlogic_Use_Addle" xml:space="preserve">
+    <value>Fightlogic Use Addle</value>
+  </data>
+  <data name="Generic_Fightlogic_Use_Knockback" xml:space="preserve">
+    <value>Fightlogic Use Knockback</value>
+  </data>
+  <data name="Generic_Resurrection_Delay" xml:space="preserve">
+    <value>Resurrection Delay</value>
+  </data>
+  <data name="Generic_Hp" xml:space="preserve">
+    <value>Hp</value>
+  </data>
+  <data name="Generic_Allies_Targeting_It" xml:space="preserve">
+    <value>Allies Targeting It</value>
+  </data>
+  <data name="Generic_Dont_Do_Damage_If_There_Are_More_Than" xml:space="preserve">
+    <value>Dont Do Damage If There Are More Than</value>
+  </data>
+  <data name="Generic_Dispel_Anything_That_Is_Removable" xml:space="preserve">
+    <value>Dispel Anything That Is Removable</value>
+  </data>
+  <data name="Generic_True_North" xml:space="preserve">
+    <value>True North</value>
+  </data>
+  <data name="Generic_Dont_Attack_Invuln_Hallowed_Grou" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Grou</value>
+  </data>
+  <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundu" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Groundu</value>
+  </data>
+  <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
+    <value>Use Interrupt And Stun If Activated</value>
+  </data>
+  <data name="Generic_Gnb" xml:space="preserve">
+    <value>Gnb</value>
+  </data>
+  <data name="Generic_Pld" xml:space="preserve">
+    <value>Pld</value>
+  </data>
+  <data name="Generic_War" xml:space="preserve">
+    <value>War</value>
+  </data>
+  <data name="Generic_Whm" xml:space="preserve">
+    <value>Whm</value>
+  </data>
+  <data name="Generic_Use_Interrupt_And_Stun_If_Activ" xml:space="preserve">
+    <value>Use Interrupt And Stun If Activ</value>
+  </data>
+  <data name="Generic_Item_Potion_Selected_Should_Be_In" xml:space="preserve">
+    <value>Item Potion Selected Should Be In</value>
+  </data>
+  <data name="Generic_Dont_Attack_Invuln_Hallowed_Ground" xml:space="preserve">
+    <value>Dont Attack Invuln Hallowed Ground</value>
+  </data>
+  <data name="Generic_Use_Interrupt_And_Stun_If_Activate" xml:space="preserve">
+    <value>Use Interrupt And Stun If Activate</value>
+  </data>
+  <data name="Generic_Item_Potion_Selected_Should_Be_In_You" xml:space="preserve">
+    <value>Item Potion Selected Should Be In You</value>
+  </data>
+  <data name="Generic_Fightlogic_Use_Reprisal" xml:space="preserve">
+    <value>Fightlogic Use Reprisal</value>
+  </data>
+  <data name="Generic_Heal_Alliance_Dps" xml:space="preserve">
+    <value>Heal Alliance Dps</value>
+  </data>
+  <data name="Generic_Resurrect_Alliance_Dps" xml:space="preserve">
+    <value>Resurrect Alliance Dps</value>
+  </data>
+  <data name="Generic_Full_Party" xml:space="preserve">
+    <value>Full Party</value>
+  </data>
+  <data name="Generic_Light_Party" xml:space="preserve">
+    <value>Light Party</value>
+  </data>
+  <data name="Generic_Party_Aoe" xml:space="preserve">
+    <value>Party Aoe</value>
+  </data>
+  <data name="Generic_Use_Aoe_When_There_Are" xml:space="preserve">
+    <value>Use Aoe When There Are</value>
+  </data>
+  <data name="Generic_Dont_Dot_If_More_Than" xml:space="preserve">
+    <value>Dont Dot If More Than</value>
+  </data>
+  <data name="Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent" xml:space="preserve">
+    <value>Only Do Damage If Everyone Is Over 90 Percent</value>
+  </data>
+  <data name="Generic_Aoe_Heal_When_Allies_Need_Healing_" xml:space="preserve">
+    <value>Aoe Heal When Allies Need Healing -</value>
+  </data>
+  <data name="Generic_Enemies_In_Combat" xml:space="preserve">
+    <value>Enemies In Combat</value>
+  </data>
+  <data name="Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time" xml:space="preserve">
+    <value>Use Time Till Death For Area Of Effect Spells With Long Damage Over Time</value>
+  </data>
+  <data name="Samurai_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
+    <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
+  </data>
+  <data name="OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude" xml:space="preserve">
+    <value>Auto-switch to Knight for Enduring Fortitude</value>
+  </data>
+  <data name="Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
+    <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
+  </data>
+  <data name="Monk_Content_Use_Interrupt_and_Stun_If_activated_use_strategy" xml:space="preserve">
+    <value>Use Interrupt And Stun If Activated Use Strategy</value>
+  </data>
+  <data name="Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
+    <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
+  </data>
+  <data name="Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
+    <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
+  </data>
+  <data name="WhiteMage_Content_Dispel_Anything_That_Is_Removable" xml:space="preserve">
+    <value>Dispel Anything That Is Removable</value>
+  </data>
+  <data name="WhiteMage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
+    <value>Dispel Only If Nearby Players Health Is Above</value>
+  </data>
+  <data name="WhiteMage_Content_Interrupt_Healing_If_Target_HP_Gets_Over" xml:space="preserve">
+    <value>Interrupt Healing If Target HP Gets Over</value>
+  </data>
+  <data name="WhiteMage_Content_Only_Heal_Alliance_Members_With_Regen" xml:space="preserve">
+    <value>Only Heal Alliance Members With Regen</value>
+  </data>
+  <data name="Sage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
+    <value>Dispel Only If Nearby Players Health Is Above</value>
+  </data>
+  <data name="Scholar_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
+    <value>Dispel Only If Nearby Players Health Is Above</value>
+  </data>
+  <data name="Scholar_Content_Interrupt_Healing_If_Target_HP_Gets_Over" xml:space="preserve">
+    <value>Interrupt Healing If Target HP Gets Over</value>
+  </data>
+  <data name="Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_Astral_Flare_Brand_of_Purgatory" xml:space="preserve">
+    <value>Outburst, Pet Outburst, Tri-Disaster, Pet Disaster, Pet Catastrophe, Astral Flare, Brand of Purgatory</value>
+  </data>
 </root>

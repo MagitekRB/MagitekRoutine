@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels"
+             xmlns:properties="clr-namespace:Magitek.Properties"
              d:DesignHeight="400"
              d:DesignWidth="500"
              mc:Ignorable="d">
@@ -34,19 +35,19 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
-                    <CheckBox Content="Do Damage When Mana Is Over " IsChecked="{Binding ScholarSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Do_Damage_When_Mana_Is_Over}" IsChecked="{Binding ScholarSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.MinimumManaPercent, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Percent" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,5" Orientation="Horizontal">
-                    <TextBlock Margin="1,0,0,0" Style="{DynamicResource TextBlockDefault}" Text="Only Do Damage If Everyone Is Over " />
+                    <TextBlock Margin="1,0,0,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.DamageOnlyIfAboveHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Percent Health" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent_Health}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
-                    <CheckBox Content="Stop Casting A Damage Spell If Someone Drops Below That Health Percent" IsChecked="{Binding ScholarSettings.StopCastingIfBelowHealthPercent, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Stop_Casting_A_Damage_Spell_If_Som}" IsChecked="{Binding ScholarSettings.StopCastingIfBelowHealthPercent, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </Grid>
         </controls:SettingsBlock>
@@ -55,19 +56,19 @@
             <StackPanel Margin="5" Orientation="Horizontal">
 
 
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Don't Do Damage If There Are More Than " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Dont_Do_Damage_If_There_Are_More_Than}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.StopDamageWhenMoreThanEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Combat" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies_In_Combat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
 
-                <CheckBox Content="Energy Drain " IsChecked="{Binding ScholarSettings.EnergyDrain, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" When Below " />
+                <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Energy_Drain}" IsChecked="{Binding ScholarSettings.EnergyDrain, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When_Below}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.EnergyDrainManaPercent, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Mana Percent " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Mana_Percent}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -78,22 +79,22 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Row="0" Content="Ruin / Broil" IsChecked="{Binding ScholarSettings.RuinBroil, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Row="1" Margin="0,3,0,0" Content="Ruin 2" IsChecked="{Binding ScholarSettings.Ruin2, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Content="{x:Static properties:Resources.Scholar_Content_Ruin_Broil}" IsChecked="{Binding ScholarSettings.RuinBroil, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="1" Margin="0,3,0,0" Content="{x:Static properties:Resources.Scholar_Content_Ruin_2}" IsChecked="{Binding ScholarSettings.Ruin2, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Art of War When There Are " IsChecked="{Binding ScholarSettings.ArtOfWar, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Art_of_War_When_There_Are}" IsChecked="{Binding ScholarSettings.ArtOfWar, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.ArtOfWarEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Range" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Baneful Impaction " IsChecked="{Binding ScholarSettings.BanefulImpaction, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Baneful_Impaction}" IsChecked="{Binding ScholarSettings.BanefulImpaction, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
     </StackPanel>

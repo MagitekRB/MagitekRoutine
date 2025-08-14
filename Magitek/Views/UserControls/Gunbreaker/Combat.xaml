@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Gunbreaker.Combat"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -33,14 +34,14 @@
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="Filler Strategy:" />
+                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Filler_Strategy}" />
                     <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource GunbreakerStrategy}}" SelectedValue="{Binding GunbreakerSettings.GunbreakerStrategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="10,5,0,0" Style="{DynamicResource TextBlockInfo}" Text=" 2.5 GCD => Slow GCD" />
+                    <TextBlock Margin="10,5,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_25_GCD_Slow_GCD}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="10,0,0,0" Style="{DynamicResource TextBlockInfo}" Text=" 2.4 GCD => Fast GCD" />
+                    <TextBlock Margin="10,0,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_24_GCD_Fast_GCD}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -55,21 +56,21 @@
 
                 <StackPanel Grid.Row="0" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use Lightning Shot if not in melee to deal damage " IsChecked="{Binding GunbreakerSettings.LightningShotToDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me}" IsChecked="{Binding GunbreakerSettings.LightningShotToDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="0,3,0,0" Content="Use Lightning Shot To Pull or Regain Aggro " IsChecked="{Binding GunbreakerSettings.LightningShotToPullAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R}" IsChecked="{Binding GunbreakerSettings.LightningShotToPullAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Use Lightning Shot When Ennemy Is At Least "  />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Use_Lightning_Shot_When_Ennemy_Is_Yalms_Away}"  />
                         <controls:Numeric Margin="0,3" MaxValue="15" MinValue="0" Value="{Binding GunbreakerSettings.LightningShotMinDistance, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Yalms Away" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Yalms_Away}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -88,15 +89,15 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="3">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use LionHeart Combo        " IsChecked="{Binding GunbreakerSettings.UseLionHeartCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Content="Use Brust Strike           " IsChecked="{Binding GunbreakerSettings.UseBurstStrike, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Content="Use Double Down" IsChecked="{Binding GunbreakerSettings.UseDoubleDown, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_LionHeart_Combo}" IsChecked="{Binding GunbreakerSettings.UseLionHeartCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Brust_Strike}" IsChecked="{Binding GunbreakerSettings.UseBurstStrike, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Double_Down}" IsChecked="{Binding GunbreakerSettings.UseDoubleDown, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="3">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use Gnashing Fang            " IsChecked="{Binding GunbreakerSettings.UseAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Content="Hold when no mercy is ready in " IsChecked="{Binding GunbreakerSettings.HoldAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Gnashing_Fang}" IsChecked="{Binding GunbreakerSettings.UseAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Hold_when_no_mercy_is_ready_in}" IsChecked="{Binding GunbreakerSettings.HoldAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="60" MinValue="1" Value="{Binding GunbreakerSettings.HoldAmmoComboSeconds, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
                     </StackPanel>
@@ -104,8 +105,8 @@
 
                 <StackPanel Grid.Row="3" Margin="3">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use Blasting Zone              " IsChecked="{Binding GunbreakerSettings.UseBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Content="Hold when no mercy is ready in " IsChecked="{Binding GunbreakerSettings.HoldBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Blasting_Zone}" IsChecked="{Binding GunbreakerSettings.UseBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Hold_when_no_mercy_is_ready_in}" IsChecked="{Binding GunbreakerSettings.HoldBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="60" MinValue="1" Value="{Binding GunbreakerSettings.HoldBlastingZoneSeconds, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
                     </StackPanel>
@@ -124,7 +125,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Use Aoe when at least " IsChecked="{Binding GunbreakerSettings.UseAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Aoe_when_at_least}" IsChecked="{Binding GunbreakerSettings.UseAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="50" MinValue="1" Value="{Binding GunbreakerSettings.UseAoeEnemies, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies" />
                     </StackPanel>
@@ -133,7 +134,7 @@
                 <StackPanel Grid.Row="1" Margin="5">
                     <StackPanel Grid.Row="2" Margin="0">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="BowShock When There Are At Least " />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies}" />
                             <controls:Numeric Margin="0,3" MaxValue="50" MinValue="1" Value="{Binding GunbreakerSettings.BowShockEnemies, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies" />
                         </StackPanel>
@@ -144,19 +145,19 @@
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Use Interrupt and Stun. If activated, use strategy: " IsChecked="{Binding GunbreakerSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activ}" IsChecked="{Binding GunbreakerSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding GunbreakerSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Advance Burst Window Settings" />
+                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Advance_Burst_Window_Settings}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hold Burst                        " IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Hold_Burst}" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hold No Mercy until Combo is ready" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldNoMercy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Hold_No_Mercy_until_Combo_is_re}" IsChecked="{Binding GunbreakerSettings.BurstLogicHoldNoMercy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
     </controls:SettingsBlock>
