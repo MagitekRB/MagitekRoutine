@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Summoner.Pets"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -39,25 +40,25 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="Selected Pet:" />
+                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Selected_Pet}" />
                     <ComboBox Width="100" ItemsSource="{Binding Source={StaticResource Pets}}" SelectedValue="{Binding SummonerSettings.SelectedPet, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                 </StackPanel>
                 <CheckBox Grid.Row="1"
                           Grid.Column="0"
                           Margin="0,5,5,0"
-                          Content="Let Magitek Control Your Pet"
+                          Content="{x:Static properties:Resources.Summoner_Content_Let_Magitek_Control_Your_Pet}"
                           IsChecked="{Binding SummonerSettings.SummonerControlPet, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="1"
                           Grid.Column="1"
                           Margin="0,5,0,0"
-                          Content="Do Not Resummon Pet In Combat"
+                          Content="{x:Static properties:Resources.Summoner_Content_Do_Not_Resummon_Pet_In_Combat}"
                           IsChecked="{Binding SummonerSettings.PetDontResummonInCombat, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="2"
                           Grid.Column="0"
                           Margin="0,5,0,0"
-                          Content="Pet Should Always Attack Your Target"
+                          Content="{x:Static properties:Resources.Summoner_Content_Pet_Should_Always_Attack_Your_Tar}"
                           IsChecked="{Binding SummonerSettings.PetAttackSameTarget, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
@@ -69,8 +70,8 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Summon Bahamut   " IsChecked="{Binding SummonerSettings.SummonBahamut, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Only For Bosses   " IsChecked="{Binding SummonerSettings.SummonBahamutOnlyForBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Summon_Bahamut}" IsChecked="{Binding SummonerSettings.SummonBahamut, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Only_For_Bosses}" IsChecked="{Binding SummonerSettings.SummonBahamutOnlyForBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="AkhMorn" IsChecked="{Binding SummonerSettings.AkhMorn, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>

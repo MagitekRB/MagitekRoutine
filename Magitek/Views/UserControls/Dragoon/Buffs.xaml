@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Dragoon.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -44,45 +45,45 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Use Potion " IsChecked="{Binding DragoonSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding DragoonSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding DragoonSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" (Item Potion selected should be in your hotkey bar)" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}" />
             </Grid>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,10,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Use Buffs (LanceCharge, LifeSurge, Litany, DragonSight)" IsChecked="{Binding DragoonSettings.UseBuffs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Use_Buffs_LanceCharge_LifeSurge_Life_Of_The_Dragon}" IsChecked="{Binding DragoonSettings.UseBuffs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="10,0,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Lance Charge" IsChecked="{Binding DragoonSettings.UseLanceCharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Lance_Charge}" IsChecked="{Binding DragoonSettings.UseLanceCharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="10,0,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Battle Litany" IsChecked="{Binding DragoonSettings.UseBattleLitany, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Battle_Litany}" IsChecked="{Binding DragoonSettings.UseBattleLitany, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="10,0,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Life Surge" IsChecked="{Binding DragoonSettings.UseLifeSurge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Life_Surge}" IsChecked="{Binding DragoonSettings.UseLifeSurge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="10,0,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Use Dragon Sight" IsChecked="{Binding DragoonSettings.UseDragonSight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Use_Dragon_Sight}" IsChecked="{Binding DragoonSettings.UseDragonSight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,10,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Smart Dragon Sight (If you're not in a party or if no mate are around you, DragonSight is assigned to yourself)" IsChecked="{Binding DragoonSettings.UseSmartDragonSight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Smart_Dragon_Sight_If_youre_not_in_a_party}" IsChecked="{Binding DragoonSettings.UseSmartDragonSight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -99,7 +100,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-                <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="Dragon Sight on:" />
+                <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Dragoon_Text_Dragon_Sight_on}" />
                     <ComboBox Width="100" ItemsSource="{Binding Source={StaticResource LeftEye}}" SelectedValue="{Binding DragoonSettings.SelectedStrategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
 
@@ -134,51 +135,51 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- MELEE DPS -->
-                        <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="MNK: " />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Mnk}" />
                         <controls:Numeric Grid.Row="1" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.MnkEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="1" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="DRG: " />
+                        <TextBlock Grid.Row="1" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Drg}" />
                         <controls:Numeric Grid.Row="1" Grid.Column="4" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.DrgEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="1" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="NIN: " />
+                        <TextBlock Grid.Row="1" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Nin}" />
                         <controls:Numeric Grid.Row="1" Grid.Column="7" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.NinEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="1" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="SAM: " />
+                        <TextBlock Grid.Row="1" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Sam}" />
                         <controls:Numeric Grid.Row="1" Grid.Column="10" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.SamEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="1" Grid.Column="12" Style="{DynamicResource TextBlockDefault}" Text="RPR: " />
+                        <TextBlock Grid.Row="1" Grid.Column="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Rpr}" />
                         <controls:Numeric Grid.Row="1" Grid.Column="13" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.RprEyeWeight, Mode=TwoWay}" />
 
                         <!-- PHYSICAL DPS -->
-                        <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="BRD: " />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Brd}" />
                         <controls:Numeric Grid.Row="2" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.BrdEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="2" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="MCH: " />
+                        <TextBlock Grid.Row="2" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Mch}" />
                         <controls:Numeric Grid.Row="2" Grid.Column="4" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.MchEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="2" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="DNC: " />
+                        <TextBlock Grid.Row="2" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Dnc}" />
                         <controls:Numeric Grid.Row="2" Grid.Column="7" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.DncEyeWeight, Mode=TwoWay}" />
                         
                         <!-- MAGICAL DPS -->
-                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="BLM: " />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Blm}" />
                         <controls:Numeric Grid.Row="3" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.BlmEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="3" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="SMN: " />
+                        <TextBlock Grid.Row="3" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Smn}" />
                         <controls:Numeric Grid.Row="3" Grid.Column="4" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.SmnEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="3" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="RDM: " />
+                        <TextBlock Grid.Row="3" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Rdm}" />
                         <controls:Numeric Grid.Row="3" Grid.Column="7" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.RdmEyeWeight, Mode=TwoWay}" />
 
                         <!-- TANKS -->
-                        <TextBlock Grid.Row="4" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="PLD: " />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Pld}" />
                         <controls:Numeric Grid.Row="4" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.PldEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="4" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="WAR: " />
+                        <TextBlock Grid.Row="4" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_War}" />
                         <controls:Numeric Grid.Row="4" Grid.Column="4" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.WarEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="4" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="DRK: " />
+                        <TextBlock Grid.Row="4" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Drk}" />
                         <controls:Numeric Grid.Row="4" Grid.Column="7" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.DrkEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="4" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="GNB: " />
+                        <TextBlock Grid.Row="4" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Gnb}" />
                         <controls:Numeric Grid.Row="4" Grid.Column="10" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.GnbEyeWeight, Mode=TwoWay}" />
 
                         <!-- HEALERS -->
-                        <TextBlock Grid.Row="5" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="WHM: " />
+                        <TextBlock Grid.Row="5" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Whm}" />
                         <controls:Numeric Grid.Row="5" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.WhmEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="5" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="SCH: " />
+                        <TextBlock Grid.Row="5" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Sch}" />
                         <controls:Numeric Grid.Row="5" Grid.Column="4" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.SchEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="5" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="AST: " />
+                        <TextBlock Grid.Row="5" Grid.Column="6" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Ast}" />
                         <controls:Numeric Grid.Row="5" Grid.Column="7" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.AstEyeWeight, Mode=TwoWay}" />
-                        <TextBlock Grid.Row="5" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="SGE: " />
+                        <TextBlock Grid.Row="5" Grid.Column="9" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Sge}" />
                         <controls:Numeric Grid.Row="5" Grid.Column="10" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding DragoonSettings.SgeEyeWeight, Mode=TwoWay}" />
                     </Grid>
                 </controls:SettingsBlock>
@@ -187,7 +188,7 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="True North" IsChecked="{Binding DragoonSettings.UseTrueNorth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_True_North}" IsChecked="{Binding DragoonSettings.UseTrueNorth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
     </StackPanel>

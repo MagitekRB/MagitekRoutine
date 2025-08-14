@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Astrologian.Combat"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Magitek.Views.UserControls.Astrologian"
@@ -22,23 +23,23 @@
             <StackPanel Margin="5">
 
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Do Damage When Mana Is Over " IsChecked="{Binding AstrologianSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Do_Damage_When_Mana_Is_Over}" IsChecked="{Binding AstrologianSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Margin="2,0,2,0" Increment="5" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.MinimumManaPercentToDoDamage, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Percent" />
                 </StackPanel>
 
                 <!--<StackPanel Margin="0,5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
-                    <TextBlock Margin="1,0,0,0" Style="{DynamicResource TextBlockDefault}" Text="Only Do Damage If Everyone Is Over " />
+                    <TextBlock Margin="1,0,0,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent}" />
                     <controls:Numeric MinValue="1" MaxValue="100" Value="{Binding AstrologianSettings.DamageOnlyIfAboveHealthPercent, Mode=TwoWay}" Increment="5"/>
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Percent Health" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent_Health}" />
                 </StackPanel>-->
-                <CheckBox Content="Interrupt Damage to Heal" IsChecked="{Binding AstrologianSettings.InterruptDamageToHeal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Interrupt_Damage_to_Heal}" IsChecked="{Binding AstrologianSettings.InterruptDamageToHeal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <StackPanel Margin="0" Orientation="Horizontal">
-                    <TextBlock Margin="1,0,0,0" Style="{DynamicResource TextBlockDefault}" Text="Always Do Damage If Target Time To Death Is Less Than" />
+                    <TextBlock Margin="1,0,0,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than}" />
                     <controls:Numeric Margin="2,0,2,0" Increment="1" MaxValue="60" MinValue="1" Value="{Binding AstrologianSettings.DoDamageIfTimeLeftLessThan, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
                 </StackPanel>
-                <CheckBox Content="Aggro Ast Mode" IsChecked="{Binding AstrologianSettings.AggroAst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful)."/>
+                <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Aggro_Ast_Mode}" IsChecked="{Binding AstrologianSettings.AggroAst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -46,9 +47,9 @@
             <StackPanel Margin="5" Orientation="Horizontal">
 
 
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Don't Do Damage If There Are More Than " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Dont_Do_Damage_If_There_Are_More_Than_3_Enemies}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.StopDamageWhenMoreThanEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Combat" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Combat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -64,25 +65,25 @@
 
                 <StackPanel Margin="0,3,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Refresh When Combust Has Less Than " />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds}" />
                         <controls:Numeric Margin="2,0,2,0" Increment="50" MaxValue="30000" MinValue="50" Value="{Binding AstrologianSettings.CombustRefreshMSeconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Milliseconds Left" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Milliseconds_Left}" />
                     </StackPanel>
 
                     <StackPanel Margin="0,3" Orientation="Horizontal">
-                        <CheckBox Content="Use Time Till Death For Damage Over Time Spells" IsChecked="{Binding AstrologianSettings.UseTTDForCombust, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Use_Time_Till_Death_For_Damage}" IsChecked="{Binding AstrologianSettings.UseTTDForCombust, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Don't Use DoT if Enemy Dying Within " />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds}" />
                         <controls:Numeric Margin="2,0,2,0" Increment="1" MaxValue="30" MinValue="1" Value="{Binding AstrologianSettings.DontCombustIfEnemyDyingWithin, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
                     </StackPanel>
 
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="Don't Dot if more than " IsChecked="{Binding AstrologianSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
+                        <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Dont_Dot_if_more_than}" IsChecked="{Binding AstrologianSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
                         <controls:Numeric MaxValue="100" MinValue="0" Value="{Binding AstrologianSettings.DontDotIfMoreEnemiesThan, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies in combat" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies_In_Combat}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -91,10 +92,10 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Margin="0,0,5,0" Content="Gravity When There Are " IsChecked="{Binding AstrologianSettings.Gravity, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Gravity_When_There_Are}" IsChecked="{Binding AstrologianSettings.Gravity, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Margin="2,0,2,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.GravityEnemies, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies In Range" />
-                <CheckBox Margin="5,0,5,0" Content="Smart Aoe" IsChecked="{Binding AstrologianSettings.SmartAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
+                <CheckBox Margin="5,0,5,0" Content="{x:Static properties:Resources.Generic_Smart_Aoe}" IsChecked="{Binding AstrologianSettings.SmartAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
     </StackPanel>

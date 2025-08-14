@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Machinist.Pvp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -37,13 +38,13 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Purify (remove debuffs)"
+                              Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsePurify, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Guard (Shield) At "
+                              Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
                               IsChecked="{Binding MachinistSettings.Pvp_UseGuard, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="1"
@@ -54,11 +55,11 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Recuperate (Heal) At  "
+                              Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
                               IsChecked="{Binding MachinistSettings.Pvp_UseRecuperate, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -69,7 +70,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -78,22 +79,22 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
                               IsChecked="{Binding MachinistSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
                               IsChecked="{Binding MachinistSettings.Pvp_UseMount, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
                               IsChecked="{Binding MachinistSettings.Pvp_GuardCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Grou}"
                               IsChecked="{Binding MachinistSettings.Pvp_InvulnCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -112,14 +113,14 @@
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Full Metal Field"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Full_Metal_Field}"
                               IsChecked="{Binding MachinistSettings.Pvp_FullMetalField, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Save For Wildfire"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Save_For_Wildfire}"
                               IsChecked="{Binding MachinistSettings.Pvp_SaveFullMetalForWildfire, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"
                               Margin="20,2,0,0"
-                              ToolTip="If enabled, will save Full Metal Field when Wildfire is about to come off cooldown"/>
+                              ToolTip="{x:Static properties:Resources.Machinist_ToolTip_If_enabled_will_save_Full_Metal_}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
@@ -129,7 +130,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Bishop Autoturret on target when there is at least  "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Bishop_Autoturret_on_target_when}"
                               IsChecked="{Binding MachinistSettings.Pvp_BishopAutoturret, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -140,11 +141,11 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Enemies around"/>
+                               Text="{x:Static properties:Resources.Machinist_Text_Enemies_around}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="MarksmansSpite / LB target at "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_MarksmansSpite_LB_target_at}"
                               IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpite, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -155,22 +156,22 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
-                               Text="Don't use MarksmansSpite if target has more than "
+                               Text="{x:Static properties:Resources.Machinist_Text_Dont_use_MarksmansSpite_if_target_h}"
                                Margin="20,0,0,0"/>
                     <controls:Numeric MaxValue="24"
                                       MinValue="1"
                                       Value="{Binding MachinistSettings.Pvp_MaxAlliesTargetingLimit, Mode=TwoWay}"/>
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
-                               Text=" allies targeting it"/>
+                               Text="{x:Static properties:Resources.Machinist_Text_allies_targeting_it}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="LB Any Enemy below the threshold not just current target"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_LB_Any_Enemy_below_the_threshold}"
                               Margin="10,0"
                               IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteAnyTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
@@ -185,7 +186,7 @@
                            Style="{DynamicResource TextBlockSection}"
                            Text="Buffs"/>
                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                           Text="Use Analysis on"/>
+                           Text="{x:Static properties:Resources.Machinist_Text_Use_Analysis_on}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Content="Drill     "
@@ -194,7 +195,7 @@
                     <CheckBox Content="BioBlaster     "
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnBio, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Air Anchor     "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Air_Anchor}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnAA, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="ChainSaw"

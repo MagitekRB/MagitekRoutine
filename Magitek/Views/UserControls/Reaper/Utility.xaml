@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Reaper.Utility"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -39,16 +40,16 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Use Potion " IsChecked="{Binding ReaperSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding ReaperSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding ReaperSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" (Item Potion selected should be in your hotkey bar)" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_Your}" />
             </Grid>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Soulsow " IsChecked="{Binding ReaperSettings.UseSoulsow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Enable_Soulsow}" IsChecked="{Binding ReaperSettings.UseSoulsow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -56,13 +57,13 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Arcane Circle " IsChecked="{Binding ReaperSettings.UseArcaneCircle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Enable_Arcane_Circle}" IsChecked="{Binding ReaperSettings.UseArcaneCircle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 </StackPanel>
                 <StackPanel Margin="10,0" Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Entire Party In Range Otherwise:" IsChecked="{Binding ReaperSettings.ArcaneCircleEntireParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Entire_Party_In_Range_Otherwise}" IsChecked="{Binding ReaperSettings.ArcaneCircleEntireParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding ReaperSettings.ArcaneCircleCount, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Players Are In Range For Buff" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Players_Are_In_Range_For_Buff}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -70,7 +71,7 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Use TTD Checks/Save Cooldowns When Enemy Dying Within " IsChecked="{Binding ReaperSettings.UseTTD, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within}" IsChecked="{Binding ReaperSettings.UseTTD, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100000" MinValue="1" Value="{Binding ReaperSettings.SaveIfEnemyDyingWithin, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
                 </StackPanel>

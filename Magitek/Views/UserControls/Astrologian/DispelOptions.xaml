@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Astrologian.DispelOptions"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,16 +20,16 @@
   <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
    <StackPanel>
     <StackPanel Orientation="Horizontal" Margin="5">
-     <CheckBox Content="Use Esuna To Dispel" IsChecked="{Binding AstrologianSettings.Dispel, Mode=TwoWay}"
+     <CheckBox Content="{x:Static properties:Resources.Generic_Use_Esuna_To_Dispel}" IsChecked="{Binding AstrologianSettings.Dispel, Mode=TwoWay}"
                Style="{DynamicResource CheckBoxFlat}" />
     </StackPanel>
     <StackPanel Orientation="Horizontal" Margin="5">
-     <CheckBox Content="Dispel Anything That Is Removable"
+     <CheckBox Content="{x:Static properties:Resources.Generic_Dispel_Anything_That_Is_Removable}"
                IsChecked="{Binding AstrologianSettings.AutomaticallyDispelAnythingThatsDispellable, Mode=TwoWay}"
                Style="{DynamicResource CheckBoxFlat}" />
     </StackPanel>
     <StackPanel Orientation="Horizontal" Margin="5">
-     <CheckBox Content="Dispel Only If Nearby Players Health Is Above"
+     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above}"
                IsChecked="{Binding AstrologianSettings.DispelOnlyAbove, Mode=TwoWay}"
                Style="{DynamicResource CheckBoxFlat}" />
      <controls:Numeric Margin="5,0" Value="{Binding AstrologianSettings.DispelOnlyAboveHealth, Mode=TwoWay}" />

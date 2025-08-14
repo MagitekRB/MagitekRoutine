@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.WhiteMage.FightLogic"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -35,7 +36,7 @@
                         TextWrapping="Wrap"
                         Text="Tankbusters"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Content="Divine Benison"
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Benison}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicDivineBenison, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="Aquaveil "
@@ -45,24 +46,24 @@
                 <TextBlock Margin="0,5"
                         Style="{DynamicResource TextBlockDefault}"
                         TextWrapping="Wrap"
-                        Text="Party AoE"/>
+                        Text="{x:Static properties:Resources.Generic_Party_Aoe}"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Content="Divine Caress"
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Caress}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicDivineCaress, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="Temperance "
                             IsChecked="{Binding WhiteMageSettings.FightLogicTemperance, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Liturgy Of The Bell "
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Liturgy_Of_The_Bell}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicLiturgyoftheBell, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="Asylum "
                             IsChecked="{Binding WhiteMageSettings.FightLogicAsylum, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Plenary Indulgence "
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Plenary_Indulgence}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicPlenaryIndulgence, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Medica 2 "
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Medica_2}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicMedica2, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="Knockback "

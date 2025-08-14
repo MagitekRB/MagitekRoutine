@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.BlackMage.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
@@ -41,7 +42,7 @@
                           IsChecked="{Binding BlackMageSettings.TripleCast, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
                 <CheckBox Margin="5"
-                          Content="Save 1 Charges For Moving"
+                          Content="{x:Static properties:Resources.BlackMage_Content_Save_1_Charges_For_Moving}"
                           IsChecked="{Binding BlackMageSettings.TripleCastWhileMoving, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
@@ -52,11 +53,11 @@
             <StackPanel Margin="5"
                         Orientation="Horizontal">
                 <CheckBox Margin="5"
-                          Content="Ley Lines   "
+                          Content="{x:Static properties:Resources.BlackMage_Content_Ley_Lines}"
                           IsChecked="{Binding BlackMageSettings.LeyLines, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
                 <CheckBox Margin="5"
-                          Content="On Boss Only"
+                          Content="{x:Static properties:Resources.BlackMage_Content_On_Boss_Only}"
                           IsChecked="{Binding BlackMageSettings.LeyLinesBossOnly, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
@@ -66,7 +67,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Lucid Dreaming When Under "
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Lucid_Dreaming_When_Under}"
                               IsChecked="{Binding BlackMageSettings.UseLucidDreaming, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Margin="0.3"
@@ -74,7 +75,7 @@
                                       MinValue="1"
                                       Value="{Binding BlackMageSettings.LucidDreamingMinimumManaPercent, Mode=TwoWay}"/>
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
-                               Text=" Mana Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Mana_Percent}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -84,7 +85,7 @@
             <StackPanel Margin="5"
                         Orientation="Horizontal">
                 <CheckBox Margin="5"
-                          Content="Use Transpose/Umbral Soul Out of Combat"
+                          Content="{x:Static properties:Resources.BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat}"
                           IsChecked="{Binding BlackMageSettings.UsePreCombatTranspose, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>

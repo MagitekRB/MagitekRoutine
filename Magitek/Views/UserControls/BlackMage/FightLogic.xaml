@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.BlackMage.FightLogic"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
@@ -28,19 +29,19 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Manaward "
+                                Content="{x:Static properties:Resources.BlackMage_Content_FightLogic_Use_Manaward}"
                                 IsChecked="{Binding BlackMageSettings.FightLogicManaward, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Addle "
+                                Content="{x:Static properties:Resources.BlackMage_Content_FightLogic_Use_Addle}"
                                 IsChecked="{Binding BlackMageSettings.FightLogicAddle, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Knockback "
+                                Content="{x:Static properties:Resources.Generic_Fightlogic_Use_Knockback}"
                                 IsChecked="{Binding BlackMageSettings.FightLogicKnockback, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>

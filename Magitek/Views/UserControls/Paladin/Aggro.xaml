@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Paladin.Aggro"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -30,22 +31,22 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Pull with: " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Paladin_Text_Pull_with}" />
                 <StackPanel>
-                    <CheckBox Margin="0,3" Content="Shield Lob" IsChecked="{Binding PaladinSettings.UseShieldLobToPull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Paladin_Content_Shield_Lob}" IsChecked="{Binding PaladinSettings.UseShieldLobToPull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel >
-                    <CheckBox Margin="0,3" Content="Holy Spirit" IsChecked="{Binding PaladinSettings.UseHolySpiritToPull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Paladin_Content_Holy_Spirit}" IsChecked="{Binding PaladinSettings.UseHolySpiritToPull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
         
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Aggro Management: " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Paladin_Text_Aggro_Management}" />
                 <StackPanel>
-                    <CheckBox Content="Use Shield Lob To Pull Extra Nearby Enemies (When Already In Combat)" IsChecked="{Binding PaladinSettings.UseShieldLobToPullExtraEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="0,3,0,0" Content="Use Shield Lob To Regain Aggro" IsChecked="{Binding PaladinSettings.UseShieldLobOnLostAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Use_Shield_Lob_To_Pull_Extra_Nearb}" IsChecked="{Binding PaladinSettings.UseShieldLobToPullExtraEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Paladin_Content_Use_Shield_Lob_To_Regain_Aggro}" IsChecked="{Binding PaladinSettings.UseShieldLobOnLostAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

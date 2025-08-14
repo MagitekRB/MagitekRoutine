@@ -1,6 +1,7 @@
 ﻿<Window x:Class="Magitek.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
         xmlns:astrologian="clr-namespace:Magitek.Views.UserControls.Astrologian"
         xmlns:bard="clr-namespace:Magitek.Views.UserControls.Bard"
         xmlns:dancer="clr-namespace:Magitek.Views.UserControls.Dancer"
@@ -371,27 +372,27 @@
                             <bugs:Debug/>
                         </TabItem>
 
-                        <TabItem Header="Healing Priority"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Healing_Priority}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:HealingPriority/>
                         </TabItem>
 
-                        <TabItem Header="Enemy Spell Casts"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Enemy_Spell_Casts}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:EnemySpellCasts/>
                         </TabItem>
 
-                        <TabItem Header="Enemy Aura History"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Enemy_Aura_History}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:EnemyAuras/>
                         </TabItem>
 
-                        <TabItem Header="Enemy Target History"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Enemy_Target_History}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:EnemyTargets/>
                         </TabItem>
 
-                        <TabItem Header="Party Member Aura History"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Party_Member_Aura_History}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:PartyMemberAuras/>
                         </TabItem>
@@ -401,17 +402,17 @@
                             <bugs:Enmity/>
                         </TabItem>
 
-                        <TabItem Header="Healing Lists"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Healing_Lists}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:HealingLists/>
                         </TabItem>
 
-                        <TabItem Header="Player Spell Cast History"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Player_Spell_Cast_History}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:SpellCastHistory/>
                         </TabItem>
 
-                        <TabItem Header="Fight Logic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Fight_Logic}"
                                  Style="{DynamicResource MainTabNewBugReport}">
                             <bugs:FightLogic/>
                         </TabItem>
@@ -459,7 +460,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -501,7 +502,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -540,7 +541,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -578,7 +579,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -588,19 +589,19 @@
                 <TabItem Name="Scholar"
                          Style="{DynamicResource TabItemScholar}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_High_Priority_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <scholar:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="General Combat "
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Combat}"
                                  Style="{DynamicResource MainTabCombat}">
                             <scholar:Combat/>
                         </TabItem>
-                        <TabItem Header="Damage Over Time"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Damage_Over_Time}"
                                  Style="{DynamicResource MainTabDots}">
                             <scholar:DOTs/>
                         </TabItem>
@@ -636,7 +637,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -646,15 +647,15 @@
                 <TabItem Name="WhiteMage"
                          Style="{DynamicResource TabItemWhiteMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_High_Priority_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <whitemage:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="General Combat "
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Combat}"
                                  Style="{DynamicResource MainTabCombat}">
                             <whitemage:Combat/>
                         </TabItem>
@@ -696,11 +697,11 @@
                 <TabItem Name="Astrologian"
                          Style="{DynamicResource TabItemAstrologian}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_High_Priority_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <astrologian:DispelOptions/>
                         </TabItem>
@@ -708,11 +709,11 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <astrologian:Combat/>
                         </TabItem>
-                        <TabItem Header="General Healing"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <astrologian:Healing/>
                         </TabItem>
-                        <TabItem Header="Aspected Healing"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Aspected_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <astrologian:DiurnalHealing/>
                         </TabItem>
@@ -746,11 +747,11 @@
                 <TabItem Name="Sage"
                          Style="{DynamicResource TabItemSage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="High Priority Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_High_Priority_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="General Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <sage:DispelOptions/>
                         </TabItem>
@@ -758,11 +759,11 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <sage:Combat/>
                         </TabItem>
-                        <TabItem Header="General Healing"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_General_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <sage:Healing/>
                         </TabItem>
-                        <TabItem Header="Healing Options"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Healing_Options}"
                                  Style="{DynamicResource MainTabHealing}">
                             <sage:HealingOptions/>
                         </TabItem>
@@ -796,11 +797,11 @@
                 <TabItem Name="BlackMage"
                          Style="{DynamicResource TabItemBlackMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <blackMage:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <blackMage:Aoe/>
                         </TabItem>
@@ -852,11 +853,11 @@
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="Single Target"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <redMage:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <redMage:Aoe/>
                         </TabItem>
@@ -916,11 +917,11 @@
                 <TabItem Name="Machinist"
                          Style="{DynamicResource TabItemMachinist}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <machinist:Aoe/>
                         </TabItem>
@@ -948,7 +949,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -962,15 +963,15 @@
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <bard:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Damage Over Time "
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Damage_Over_Time}"
                                  Style="{DynamicResource MainTabDamageOverTime}">
                             <bard:DamageOverTime/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <bard:Aoe/>
                         </TabItem>
@@ -998,7 +999,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -1016,11 +1017,11 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <dancer:General/>
                         </TabItem>
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <dancer:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect "
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <dancer:Aoe/>
                         </TabItem>
@@ -1036,7 +1037,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <dancer:Pvp/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -1046,11 +1047,11 @@
                 <TabItem Name="Dragoon"
                          Style="{DynamicResource TabItemDragoon}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <dragoon:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <dragoon:Aoe/>
                         </TabItem>
@@ -1078,7 +1079,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -1088,11 +1089,11 @@
                 <TabItem Name="Monk"
                          Style="{DynamicResource TabItemMonk}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <monk:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <monk:Aoe/>
                         </TabItem>
@@ -1112,7 +1113,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -1122,11 +1123,11 @@
                 <TabItem Name="Ninja"
                          Style="{DynamicResource TabItemNinja}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <ninja:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <ninja:Aoe/>
                         </TabItem>
@@ -1150,7 +1151,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -1160,11 +1161,11 @@
                 <TabItem Name="Samurai"
                          Style="{DynamicResource TabItemSamurai}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <samurai:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <samurai:Aoe/>
                         </TabItem>
@@ -1188,7 +1189,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>
@@ -1198,7 +1199,7 @@
                 <TabItem Name="Reaper"
                          Style="{DynamicResource TabItemReaper}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <reaper:SingleTarget/>
                         </TabItem>
@@ -1228,7 +1229,7 @@
                 <TabItem Name="Viper"
                          Style="{DynamicResource TabItemViper}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <viper:SingleTarget/>
                         </TabItem>
@@ -1262,11 +1263,11 @@
                 <TabItem Name="BlueMage"
                          Style="{DynamicResource TabItemBlueMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Single Target "
+                        <TabItem Header="{x:Static properties:Resources.Generic_Single_Target}"
                                  Style="{DynamicResource MainTabCombat}">
                             <blueMage:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="Area Of Effect"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Area_Of_Effect}"
                                  Style="{DynamicResource MainTabAoe}">
                             <blueMage:Aoe/>
                         </TabItem>
@@ -1282,7 +1283,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="Interrupts and Stuns"
+                        <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
                         </TabItem>

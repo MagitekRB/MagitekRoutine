@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Controls.TogglesSettings"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Magitek.Controls"
@@ -42,7 +43,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="TOGGLES:"
+                <TextBlock Text="{x:Static properties:Resources.Controls_Text_TOGGLES}"
                         Foreground="{DynamicResource Info}"
                         VerticalAlignment="Center"
                         Margin="10,1,0,0"
@@ -75,13 +76,13 @@
                     <ContextMenu x:Key="ActionsListContextMenu">
                         <MenuItem Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.Instance.MoveToggleUp}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=SelectedValue}"
-                                Header="Move Toggle Up"/>
+                                Header="{x:Static properties:Resources.Controls_Header_Move_Toggle_Up}"/>
                         <MenuItem Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.Instance.MoveToggleDown}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=SelectedValue}"
-                                Header="Move Toggle Down"/>
+                                Header="{x:Static properties:Resources.Controls_Header_Move_Toggle_Down}"/>
                         <MenuItem Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.Instance.RemoveToggleCommand}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=SelectedValue}"
-                                Header="Remove Toggle"/>
+                                Header="{x:Static properties:Resources.Controls_Header_Remove_Toggle}"/>
                     </ContextMenu>
                 </ListBox.Resources>
                 <ListBox.ItemContainerStyle>
@@ -140,7 +141,7 @@
 
                     <StackPanel Orientation="Horizontal"
                             Margin="0,3,0,0">
-                        <TextBlock Text=" TOGGLE SHOW ON OVERLAY:  "
+                        <TextBlock Text="{x:Static properties:Resources.Controls_Text_TOGGLE_SHOW_ON_OVERLAY}"
                                 FontSize="10"
                                 FontWeight="Bold"
                                 VerticalAlignment="Center"
@@ -153,7 +154,7 @@
 
                     <StackPanel Orientation="Horizontal"
                             Margin="0,3,0,0">
-                        <TextBlock Text=" TOGGLE FOR PVP:  "
+                        <TextBlock Text="{x:Static properties:Resources.Controls_Text_TOGGLE_FOR_PVP}"
                                 FontSize="10"
                                 FontWeight="Bold"
                                 VerticalAlignment="Center"
@@ -214,7 +215,7 @@
                                             <StackPanel Orientation="Horizontal"
                                                     Margin="0,3,0,0">
 
-                                                <TextBlock Text=" TOGGLE ON:  "
+                                                <TextBlock Text="{x:Static properties:Resources.Controls_Text_TOGGLE_ON}"
                                                         FontSize="10"
                                                         FontWeight="Bold"
                                                         VerticalAlignment="Center"
@@ -224,7 +225,7 @@
                                                         IsChecked="{Binding BoolCheckedValue, Mode=TwoWay}"
                                                         Margin="0,0,0,0"/>
 
-                                                <TextBlock Text=" TOGGLE OFF:  "
+                                                <TextBlock Text="{x:Static properties:Resources.Controls_Text_TOGGLE_OFF}"
                                                         FontSize="10"
                                                         FontWeight="Bold"
                                                         VerticalAlignment="Center"

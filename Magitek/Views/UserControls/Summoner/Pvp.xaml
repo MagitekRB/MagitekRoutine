@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Summoner.Pvp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -37,13 +38,13 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Purify (remove debuffs)"
+                              Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsePurify, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Guard (Shield) At "
+                              Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
                               IsChecked="{Binding SummonerSettings.Pvp_UseGuard, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="1"
@@ -54,11 +55,11 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}"/>
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Recuperate (Heal) At  "
+                              Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
                               IsChecked="{Binding SummonerSettings.Pvp_UseRecuperate, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -69,7 +70,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -78,22 +79,22 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
                               IsChecked="{Binding SummonerSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
                               IsChecked="{Binding SummonerSettings.Pvp_UseMount, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
                               IsChecked="{Binding SummonerSettings.Pvp_GuardCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Dont_attack_Invuln_Hallowed_Groun}"
                               IsChecked="{Binding SummonerSettings.Pvp_InvulnCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -109,7 +110,7 @@
                             Orientation="Horizontal">
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Radiant Aegis At "
+                              Content="{x:Static properties:Resources.Summoner_Content_Radiant_Aegis_At}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsedRadiantAegis, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="0"
@@ -120,20 +121,20 @@
                     <TextBlock Grid.Row="0"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Crimson Cyclone (Rush forward)"
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Crimson_Cyclone_Rush_forward}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsedCrimsonCyclone, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Crimson Strike (Heavy knockback)"
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Crimson_Strike_Heavy_knockback}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsedCrimsonStrike, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Necrotize (Grants Further Ruin stacks)"
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Necrotize_Grants_Further_Ruin_sta}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsedNecrotize, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -143,13 +144,13 @@
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Mountain Buster"
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Mountain_Buster}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsedMountainBuster, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Summon / LB    "
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Summon_LB}"
                               IsChecked="{Binding SummonerSettings.Pvp_Summon, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Foreground="White"
@@ -169,7 +170,7 @@
                 <StackPanel Margin="5">
                     <StackPanel Margin="25,5,5,5"
                                 Orientation="Horizontal">
-                        <TextBlock Text="Phoenix when self health below "
+                        <TextBlock Text="{x:Static properties:Resources.Summoner_Text_Phoenix_when_self_health_below}"
                                    Style="{DynamicResource TextBlockDefault}"/>
                         <controls:Numeric MaxValue="100"
                                           MinValue="1"
@@ -179,7 +180,7 @@
                     </StackPanel>
                     <StackPanel Margin="25,5,5,5"
                                 Orientation="Horizontal">
-                        <TextBlock Text="Bahamut when enemy health below "
+                        <TextBlock Text="{x:Static properties:Resources.Summoner_Text_Bahamut_when_enemy_health_below}"
                                    Style="{DynamicResource TextBlockDefault}"/>
                         <controls:Numeric MaxValue="100"
                                           MinValue="1"

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.MainSettingsOverlay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels"
              xmlns:enumerations="clr-namespace:Magitek.Enumerations"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -53,12 +54,12 @@
 
                 <WrapPanel>
                     <WrapPanel Orientation="Horizontal">
-                        <CheckBox Content="Active CR" IsChecked="{Binding GeneralSettings.GeneralSettings.ActiveCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="PVP Mode" IsChecked="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Mode=TwoWay}" Command="{Binding EnablePvpOverlay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="Use Custom Opener" IsChecked="{Binding GeneralSettings.GeneralSettings.UseOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="Reset Custom Opener" IsChecked="{Binding GeneralSettings.GeneralSettings.ResetOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="Use Chocobo" IsChecked="{Binding GeneralSettings.GeneralSettings.SummonChocobo, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="Execute LimitBreak" IsChecked="{Binding GeneralSettings.GeneralSettings.ForceLimitBreak}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Active_CR}" IsChecked="{Binding GeneralSettings.GeneralSettings.ActiveCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_PVP_Mode}" IsChecked="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Mode=TwoWay}" Command="{Binding EnablePvpOverlay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Use_Custom_Opener}" IsChecked="{Binding GeneralSettings.GeneralSettings.UseOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Reset_Custom_Opener}" IsChecked="{Binding GeneralSettings.GeneralSettings.ResetOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Use_Chocobo}" IsChecked="{Binding GeneralSettings.GeneralSettings.SummonChocobo, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Execute_LimitBreak}" IsChecked="{Binding GeneralSettings.GeneralSettings.ForceLimitBreak}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
                     </WrapPanel>
                 </WrapPanel>
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding SettingsToggles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center">

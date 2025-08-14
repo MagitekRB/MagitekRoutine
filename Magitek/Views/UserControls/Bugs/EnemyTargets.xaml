@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.Bugs.EnemyTargets" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:viewModels="clr-namespace:Magitek.ViewModels">
+﻿<UserControl x:Class="Magitek.Views.UserControls.Bugs.EnemyTargets" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties" xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
     <UserControl.DataContext>
         <Binding Source="{x:Static viewModels:Debug.Instance}" />
@@ -10,7 +11,7 @@
 
     <StackPanel Margin="10">
 
-        <CheckBox Content="Enable Tracking Of Enemy Targets" IsChecked="{Binding Settings.EnemyTargetHistory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+        <CheckBox Content="{x:Static properties:Resources.Bugs_Content_Enable_Tracking_Of_Enemy_Targets}" IsChecked="{Binding Settings.EnemyTargetHistory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
         <Grid Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
@@ -26,21 +27,21 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="White"
-                       Text="Npc Id" />
+                       Text="{x:Static properties:Resources.Bugs_Text_Npc_Id}" />
             <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Text="Name" />
             <TextBlock Grid.Column="2"
                        Margin="5,0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="White"
-                       Text="Zone Id" />
+                       Text="{x:Static properties:Resources.Bugs_Text_Zone_Id}" />
             <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Text="Level" />
             <TextBlock Grid.Column="4"
                        Margin="5,0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="White"
-                       Text="Max Health" />
+                       Text="{x:Static properties:Resources.Bugs_Text_Max_Health}" />
         </Grid>
 
         <ListBox Height="405" Margin="0,3,0,0" ItemsSource="{Binding Instance.EnemyTargetHistory}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListboxNoBorderSearch}">

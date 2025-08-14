@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Dragoon.Pvp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -37,13 +38,13 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Purify (remove debuffs)"
+                              Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
                               IsChecked="{Binding DragoonSettings.Pvp_UsePurify, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Guard (Shield) At "
+                              Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
                               IsChecked="{Binding DragoonSettings.Pvp_UseGuard, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="1"
@@ -54,11 +55,11 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Recuperate (Heal) At  "
+                              Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
                               IsChecked="{Binding DragoonSettings.Pvp_UseRecuperate, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -69,7 +70,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -78,22 +79,22 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
                               IsChecked="{Binding DragoonSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
                               IsChecked="{Binding DragoonSettings.Pvp_UseMount, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
                               IsChecked="{Binding DragoonSettings.Pvp_GuardCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Ground}"
                               IsChecked="{Binding DragoonSettings.Pvp_InvulnCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -107,31 +108,31 @@
                            Text="General"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="High Jump"
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_High_Jump}"
                               IsChecked="{Binding DragoonSettings.Pvp_HighJump, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Elusive Jump"
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Elusive_Jump}"
                               IsChecked="{Binding DragoonSettings.Pvp_ElusiveJump, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Chaotic Spring"
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Chaotic_Spring}"
                               IsChecked="{Binding DragoonSettings.Pvp_ChaoticSpring, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Horrid Roar"
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Horrid_Roar}"
                               IsChecked="{Binding DragoonSettings.Pvp_HorridRoar, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="SkyHigh / LB "
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_SkyHigh_LB}"
                               IsChecked="{Binding DragoonSettings.Pvp_SkyHigh, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

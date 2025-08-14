@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Lists.Dispelling"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Magitek.Views.UserControls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -68,7 +69,7 @@
 
                             <StackPanel Grid.Column="3" Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Scholar, Mode=TwoWay}" Style="{DynamicResource ScholarToggle}" ToolTip="Scholar" />
-                                <CheckBox Margin="2,0" IsChecked="{Binding WhiteMage, Mode=TwoWay}" Style="{DynamicResource WhiteMageToggle}" ToolTip="White Mage" />
+                                <CheckBox Margin="2,0" IsChecked="{Binding WhiteMage, Mode=TwoWay}" Style="{DynamicResource WhiteMageToggle}" ToolTip="{x:Static properties:Resources.Lists_ToolTip_White_Mage}" />
                                 <CheckBox IsChecked="{Binding Astrologian, Mode=TwoWay}" Style="{DynamicResource AstrologianToggle}" ToolTip="Astrologian" />
                                 <CheckBox Margin="2,0,0,0" IsChecked="{Binding Bard, Mode=TwoWay}" Style="{DynamicResource BardToggle}" ToolTip="Bard" />
                             </StackPanel>

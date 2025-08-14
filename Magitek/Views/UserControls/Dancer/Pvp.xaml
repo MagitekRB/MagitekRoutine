@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Dancer.Pvp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -51,13 +52,13 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Purify (remove debuffs)"
+                              Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
                               IsChecked="{Binding DancerSettings.Pvp_UsePurify, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Guard (Shield) At "
+                              Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
                               IsChecked="{Binding DancerSettings.Pvp_UseGuard, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="1"
@@ -68,11 +69,11 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Recuperate (Heal) At  "
+                              Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
                               IsChecked="{Binding DancerSettings.Pvp_UseRecuperate, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -83,11 +84,11 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
 
                     <CheckBox Grid.Row="3"
                               Grid.Column="0"
-                              Content="Curing Walz At "
+                              Content="{x:Static properties:Resources.Dancer_Content_Curing_Walz_At}"
                               IsChecked="{Binding DancerSettings.Pvp_UseCuringWaltz, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="3"
@@ -98,7 +99,7 @@
                     <TextBlock Grid.Row="3"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -107,22 +108,22 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
                               IsChecked="{Binding DancerSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
                               IsChecked="{Binding DancerSettings.Pvp_UseMount, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
                               IsChecked="{Binding DancerSettings.Pvp_GuardCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Groundu}"
                               IsChecked="{Binding DancerSettings.Pvp_InvulnCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -149,7 +150,7 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Contradance / LB with at least "
+                              Content="{x:Static properties:Resources.Dancer_Content_Contradance_LB_with_at_least}"
                               IsChecked="{Binding DancerSettings.Pvp_UseContradance, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="0"
@@ -160,11 +161,11 @@
                     <TextBlock Grid.Row="0"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Ennemies around"/>
+                               Text="{x:Static properties:Resources.Dancer_Text_Ennemies_around}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Honing Dance with at least "
+                              Content="{x:Static properties:Resources.Dancer_Content_Honing_Dance_with_at_least}"
                               IsChecked="{Binding DancerSettings.Pvp_UseHoningDance, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="1"
@@ -175,11 +176,11 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Ennemies around"/>
+                               Text="{x:Static properties:Resources.Dancer_Text_Ennemies_around}"/>
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Use En Avant"
+                              Content="{x:Static properties:Resources.Dancer_Content_Use_En_Avant}"
                               IsChecked="{Binding DancerSettings.Pvp_UseEnAvant, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </Grid>
@@ -190,13 +191,13 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Partner Dance"/>
+                           Text="{x:Static properties:Resources.Dancer_Text_Partner_Dance}"/>
                 <StackPanel Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
                             Orientation="Horizontal">
                     <CheckBox Grid.Column="0"
-                              Content="Dance With: "
+                              Content="{x:Static properties:Resources.Generic_Dance_With}"
                               IsChecked="{Binding DancerSettings.Pvp_UseClosedPosition, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <ComboBox Width="150"
@@ -235,7 +236,7 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="0"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="MNK: "/>
+                               Text="{x:Static properties:Resources.Generic_Mnk}"/>
                     <controls:Numeric Grid.Row="1"
                                       Grid.Column="1"
                                       Margin="0,3,0,0"
@@ -245,7 +246,7 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="DRG: "/>
+                               Text="{x:Static properties:Resources.Generic_Drg}"/>
                     <controls:Numeric Grid.Row="1"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"
@@ -255,7 +256,7 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="6"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="NIN: "/>
+                               Text="{x:Static properties:Resources.Generic_Nin}"/>
                     <controls:Numeric Grid.Row="1"
                                       Grid.Column="7"
                                       Margin="0,3,0,0"
@@ -265,7 +266,7 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="9"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="SAM: "/>
+                               Text="{x:Static properties:Resources.Generic_Sam}"/>
                     <controls:Numeric Grid.Row="1"
                                       Grid.Column="10"
                                       Margin="0,3,0,0"
@@ -276,7 +277,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="RPR: "/>
+                               Text="{x:Static properties:Resources.Generic_Rpr}"/>
                     <controls:Numeric Grid.Row="2"
                                       Grid.Column="1"
                                       Margin="0,3,0,0"
@@ -286,7 +287,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="SMN: "/>
+                               Text="{x:Static properties:Resources.Generic_Smn}"/>
                     <controls:Numeric Grid.Row="2"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"
@@ -296,7 +297,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="6"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="RDM: "/>
+                               Text="{x:Static properties:Resources.Generic_Rdm}"/>
                     <controls:Numeric Grid.Row="2"
                                       Grid.Column="7"
                                       Margin="0,3,0,0"
@@ -306,7 +307,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="9"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="BLM: "/>
+                               Text="{x:Static properties:Resources.Generic_Blm}"/>
                     <controls:Numeric Grid.Row="2"
                                       Grid.Column="10"
                                       Margin="0,3,0,0"
@@ -317,7 +318,7 @@
                     <TextBlock Grid.Row="3"
                                Grid.Column="0"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="MCH: "/>
+                               Text="{x:Static properties:Resources.Generic_Mch}"/>
                     <controls:Numeric Grid.Row="3"
                                       Grid.Column="1"
                                       Margin="0,3,0,0"
@@ -327,7 +328,7 @@
                     <TextBlock Grid.Row="3"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="DNC: "/>
+                               Text="{x:Static properties:Resources.Generic_Dnc}"/>
                     <controls:Numeric Grid.Row="3"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"
@@ -337,7 +338,7 @@
                     <TextBlock Grid.Row="3"
                                Grid.Column="6"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="BRD: "/>
+                               Text="{x:Static properties:Resources.Generic_Brd}"/>
                     <controls:Numeric Grid.Row="3"
                                       Grid.Column="7"
                                       Margin="0,3,0,0"
@@ -347,7 +348,7 @@
                     <TextBlock Grid.Row="3"
                                Grid.Column="9"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="WAR: "/>
+                               Text="{x:Static properties:Resources.Generic_War}"/>
                     <controls:Numeric Grid.Row="3"
                                       Grid.Column="10"
                                       Margin="0,3,0,0"
@@ -358,7 +359,7 @@
                     <TextBlock Grid.Row="4"
                                Grid.Column="0"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="DRK: "/>
+                               Text="{x:Static properties:Resources.Generic_Drk}"/>
                     <controls:Numeric Grid.Row="4"
                                       Grid.Column="1"
                                       Margin="0,3,0,0"
@@ -368,7 +369,7 @@
                     <TextBlock Grid.Row="4"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="GNB: "/>
+                               Text="{x:Static properties:Resources.Generic_Gnb}"/>
                     <controls:Numeric Grid.Row="4"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"
@@ -378,7 +379,7 @@
                     <TextBlock Grid.Row="4"
                                Grid.Column="6"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="PLD: "/>
+                               Text="{x:Static properties:Resources.Generic_Pld}"/>
                     <controls:Numeric Grid.Row="4"
                                       Grid.Column="7"
                                       Margin="0,3,0,0"
@@ -388,7 +389,7 @@
                     <TextBlock Grid.Row="4"
                                Grid.Column="9"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="SCH: "/>
+                               Text="{x:Static properties:Resources.Generic_Sch}"/>
                     <controls:Numeric Grid.Row="4"
                                       Grid.Column="10"
                                       Margin="0,3,0,0"
@@ -399,7 +400,7 @@
                     <TextBlock Grid.Row="5"
                                Grid.Column="0"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="AST: "/>
+                               Text="{x:Static properties:Resources.Generic_Ast}"/>
                     <controls:Numeric Grid.Row="5"
                                       Grid.Column="1"
                                       Margin="0,3,0,0"
@@ -409,7 +410,7 @@
                     <TextBlock Grid.Row="5"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="SGE: "/>
+                               Text="{x:Static properties:Resources.Generic_Sge}"/>
                     <controls:Numeric Grid.Row="5"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"
@@ -419,7 +420,7 @@
                     <TextBlock Grid.Row="5"
                                Grid.Column="6"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="WHM: "/>
+                               Text="{x:Static properties:Resources.Generic_Whm}"/>
                     <controls:Numeric Grid.Row="5"
                                       Grid.Column="7"
                                       Margin="0,3,0,0"
@@ -430,7 +431,7 @@
                     <TextBlock Grid.Row="6"
                                Grid.Column="0"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="VPR: "/>
+                               Text="{x:Static properties:Resources.Dancer_Text_VPR}"/>
                     <controls:Numeric Grid.Row="6"
                                       Grid.Column="1"
                                       Margin="0,3,0,0"
@@ -440,7 +441,7 @@
                     <TextBlock Grid.Row="6"
                                Grid.Column="3"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text="PCT: "/>
+                               Text="{x:Static properties:Resources.Dancer_Text_PCT}"/>
                     <controls:Numeric Grid.Row="6"
                                       Grid.Column="4"
                                       Margin="0,3,0,0"

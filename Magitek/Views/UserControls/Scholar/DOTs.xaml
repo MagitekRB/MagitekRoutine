@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Scholar.DOTs" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties" 
              xmlns:controls="clr-namespace:Magitek.Controls" 
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
@@ -34,13 +35,13 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Refresh When There Are " />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Refresh_When_There_Are}" />
                         <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.BioRefreshSeconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds Left On Bio" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Seconds_Left_On_Bio}" />
                     </StackPanel>
 
                  <StackPanel Grid.Row="1" Orientation="Horizontal">
-                  <CheckBox Content="Bio up to "
+                  <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Bio_up_to}"
                             IsChecked="{Binding ScholarSettings.BioMultipleTargets, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}" />
                   <controls:Numeric MaxValue="100" MinValue="1"
@@ -58,7 +59,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <CheckBox IsChecked="{Binding ScholarSettings.BioUseTimeTillDeath, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Do Not Use Damage Over Time Spells If Enemy Is Dying Within  " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If}" />
                 <controls:Numeric  MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.BioDontIfEnemyDyingWithinSeconds, Mode=TwoWay}" />
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
             </StackPanel>
@@ -67,9 +68,9 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Don't Dot if more than " IsChecked="{Binding ScholarSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
+                <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Dot_If_More_Than}" IsChecked="{Binding ScholarSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
                 <controls:Numeric MaxValue="100" MinValue="0" Value="{Binding ScholarSettings.DontDotIfMoreEnemiesThan, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies in combat" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies_In_Combat}" />
             </StackPanel>
         </controls:SettingsBlock>
     </StackPanel>

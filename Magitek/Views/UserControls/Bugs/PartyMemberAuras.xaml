@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Bugs.PartyMemberAuras" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties" 
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
     <UserControl.DataContext>
@@ -12,7 +13,7 @@
     </UserControl.Resources>
 
     <StackPanel Margin="10">
-        <CheckBox Content="Enable Tracking Of Party Member Auras" IsChecked="{Binding Settings.PartyMemberAuraHistory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+        <CheckBox Content="{x:Static properties:Resources.Bugs_Content_Enable_Tracking_Of_Party_Member_Auras}" IsChecked="{Binding Settings.PartyMemberAuraHistory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
         <ListBox Height="405"
                  Margin="0,10,0,0"
                  HorizontalAlignment="Stretch"
@@ -47,7 +48,7 @@
                                 HorizontalAlignment="Left"
                                 Command="{Binding Value.AddToDispels}"
                                 CommandParameter="{Binding Value}"
-                                Content="Add To Dispels"
+                                Content="{x:Static properties:Resources.Bugs_Content_Add_To_Dispels}"
                                 Style="{DynamicResource ButtonLists}" />
                     </Grid>
                 </DataTemplate>

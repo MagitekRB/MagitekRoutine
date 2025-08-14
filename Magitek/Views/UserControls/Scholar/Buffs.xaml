@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Scholar.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -32,9 +33,9 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Orientation="Horizontal" Margin="5">
-                <CheckBox Content="Deployment Tactics Crit Adlo When " IsChecked="{Binding ScholarSettings.DeploymentTactics, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Deployment_Tactics_Crit_Adlo_When}" IsChecked="{Binding ScholarSettings.DeploymentTactics, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding ScholarSettings.DeploymentTacticsAllyInRange, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Players Are In Range For Buff" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Players_Are_In_Range_For_Buff}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -42,13 +43,13 @@
             <StackPanel Margin="5">
 
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="0,0,7,0" Content="Lucid Dreaming When Under" IsChecked="{Binding ScholarSettings.LucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="0,0,7,0" Content="{x:Static properties:Resources.Generic_Lucid_Dreaming_When_Under}" IsChecked="{Binding ScholarSettings.LucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.LucidDreamingManaPercent, Mode=TwoWay}" />
-                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Mana Percent" />
+                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Mana_Percent}" />
                 </StackPanel>
 
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
-                    <CheckBox Content="Only When We Do Not Have Any Aetherflow" IsChecked="{Binding ScholarSettings.LucidDreamingOnlyWhenNoAetherFlow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe}" IsChecked="{Binding ScholarSettings.LucidDreamingOnlyWhenNoAetherFlow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
             </StackPanel>
@@ -59,15 +60,15 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="Recitation" IsChecked="{Binding ScholarSettings.Recitation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="With Lustrate" Margin="10,0" IsChecked="{Binding ScholarSettings.RecitationWithLustrate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="With Excog" Margin="10,0" IsChecked="{Binding ScholarSettings.RecitationWithExcog, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="With Indomitability" IsChecked="{Binding ScholarSettings.RecitationWithIndomitability, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_With_Lustrate}" Margin="10,0" IsChecked="{Binding ScholarSettings.RecitationWithLustrate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_With_Excog}" Margin="10,0" IsChecked="{Binding ScholarSettings.RecitationWithExcog, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_With_Indomitability}" IsChecked="{Binding ScholarSettings.RecitationWithIndomitability, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 </StackPanel>
 
 
-                <CheckBox Content="With Adlo" Margin="0,5" IsChecked="{Binding ScholarSettings.RecitationWithAdlo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="0,5,0,0"  Content="Only If We Have No Aetherflow" IsChecked="{Binding ScholarSettings.RecitationOnlyNoAetherflow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Scholar_Content_With_Adlo}" Margin="0,5" IsChecked="{Binding ScholarSettings.RecitationWithAdlo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,5,0,0"  Content="{x:Static properties:Resources.Scholar_Content_Only_If_We_Have_No_Aetherflow}" IsChecked="{Binding ScholarSettings.RecitationOnlyNoAetherflow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
              
 
             </StackPanel>
@@ -78,11 +79,11 @@
                 <CheckBox Content="Expedient" IsChecked="{Binding ScholarSettings.Expedient, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Expedient When " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Expedient_When}" />
                     <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding ScholarSettings.ExpedientNeedHealing, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Targets Are Below " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Targets_Are_Below}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.ExpedientHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -91,15 +92,15 @@
             <StackPanel Orientation="Horizontal" Margin="5">
                 <CheckBox Grid.Column="0" Content="Protraction" IsChecked="{Binding ScholarSettings.Protraction, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.ProtractionHealthPercent, Mode=TwoWay}" />
-                <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
-                <CheckBox Grid.Column="3" Margin="10,1,0,1" Content="Only Tank" IsChecked="{Binding ScholarSettings.ProtractionOnlyTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                <CheckBox Grid.Column="3" Margin="10,1,0,1" Content="{x:Static properties:Resources.Generic_Only_Tank}" IsChecked="{Binding ScholarSettings.ProtractionOnlyTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Grid.Column="0" Content="Chain Strategem Strategy:" IsChecked="{Binding ScholarSettings.ChainStrategem, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Chain_Strategem_Strategy}" IsChecked="{Binding ScholarSettings.ChainStrategem, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource ChainStrategemStrategy}}" SelectedValue="{Binding ScholarSettings.ChainStrategemsStrategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                 </StackPanel>
             </StackPanel>

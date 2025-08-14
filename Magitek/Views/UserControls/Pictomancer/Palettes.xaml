@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Pictomancer.Palettes"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -33,14 +34,14 @@
             <StackPanel Margin="5">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Pre-cast palettes out of combat " IsChecked="{Binding PictomancerSettings.PrePaletteOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="5" Content=" Only when in a duty " IsChecked="{Binding PictomancerSettings.PrePaletteOutOfCombatOnlyInDuty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Pre_cast_palettes_out_of_comba}" IsChecked="{Binding PictomancerSettings.PrePaletteOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Only_when_in_a_duty}" IsChecked="{Binding PictomancerSettings.PrePaletteOutOfCombatOnlyInDuty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Cast palettes during combat with no target " IsChecked="{Binding PictomancerSettings.PaletteDuringDowntime, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Cast_palettes_during_combat_wi}" IsChecked="{Binding PictomancerSettings.PaletteDuringDowntime, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Hard/Slow Cast palettes during Starry Sky buff window " IsChecked="{Binding PictomancerSettings.PaletteDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_HardSlow_Cast_palettes_during_}" IsChecked="{Binding PictomancerSettings.PaletteDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -50,42 +51,42 @@
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Motifs " IsChecked="{Binding PictomancerSettings.UseMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Motifs}" IsChecked="{Binding PictomancerSettings.UseMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Swiftcast Motifs " IsChecked="{Binding PictomancerSettings.SwiftcastMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Swiftcast_Motifs}" IsChecked="{Binding PictomancerSettings.SwiftcastMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Only when moving " IsChecked="{Binding PictomancerSettings.SwiftcastMotifsOnlyWhenMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Only_when_moving}" IsChecked="{Binding PictomancerSettings.SwiftcastMotifsOnlyWhenMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10,0">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Swiftcast Creature " IsChecked="{Binding PictomancerSettings.SwiftcastCreatureMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Swiftcast_Creature}" IsChecked="{Binding PictomancerSettings.SwiftcastCreatureMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Swiftcast Weapon " IsChecked="{Binding PictomancerSettings.SwiftcastWeaponMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Swiftcast_Weapon}" IsChecked="{Binding PictomancerSettings.SwiftcastWeaponMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Swiftcast Landscape " IsChecked="{Binding PictomancerSettings.SwiftcastLandscapeMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Swiftcast_Landscape}" IsChecked="{Binding PictomancerSettings.SwiftcastLandscapeMotifs, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Muses " IsChecked="{Binding PictomancerSettings.UseMuses, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Muses}" IsChecked="{Binding PictomancerSettings.UseMuses, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Hammers " IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="5" Content=" Save a hammer for movement " IsChecked="{Binding PictomancerSettings.SaveHammerForMovement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="5" Content=" only during boss fights " IsChecked="{Binding PictomancerSettings.SaveHammerForMovementOnlyBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Hammers}" IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Save_a_hammer_for_movement}" IsChecked="{Binding PictomancerSettings.SaveHammerForMovement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_only_during_boss_fights}" IsChecked="{Binding PictomancerSettings.SaveHammerForMovementOnlyBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Mog / Madeen " IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Mog_Madeen}" IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Star Prism " IsChecked="{Binding PictomancerSettings.UseStarPrism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Star_Prism}" IsChecked="{Binding PictomancerSettings.UseStarPrism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -94,12 +95,12 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Starry Sky " IsChecked="{Binding PictomancerSettings.UseStarrySky, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Enable_Starry_Sky}" IsChecked="{Binding PictomancerSettings.UseStarrySky, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="10,0" Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Entire Party In Range Otherwise:" IsChecked="{Binding PictomancerSettings.StarrySkyEntireParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Entire_Party_In_Range_Otherwis}" IsChecked="{Binding PictomancerSettings.StarrySkyEntireParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding PictomancerSettings.StarrySkyCount, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Players Are In Range For Buff" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Players_Are_In_Range_For_Buff}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -107,26 +108,26 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <!-- <StackPanel Margin="10,0" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Save hammer/mog for Starry within " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Pictomancer_Text_Save_hammermog_for_Starry_within}" />
                     <controls:Numeric MaxValue="120" MinValue="0" Value="{Binding PictomancerSettings.SaveForStarryMSeconds, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds " />
                 </StackPanel> -->
 
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Hammers During Hyperphantasia " IsChecked="{Binding PictomancerSettings.UseHammerDuringHyperphantasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="5" Content=" Save Hammers for Starry " IsChecked="{Binding PictomancerSettings.SaveHammerForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Hammers_During_Hyperphanta}" IsChecked="{Binding PictomancerSettings.UseHammerDuringHyperphantasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Save_Hammers_for_Starry}" IsChecked="{Binding PictomancerSettings.SaveHammerForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Save Comet in Black for Starry " IsChecked="{Binding PictomancerSettings.SaveCometInBlackForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="5" Content=" Only use Comet with Starry " IsChecked="{Binding PictomancerSettings.CometInBlackOnlyDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Save_Comet_in_Black_for_Starry}" IsChecked="{Binding PictomancerSettings.SaveCometInBlackForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Only_use_Comet_with_Starry}" IsChecked="{Binding PictomancerSettings.CometInBlackOnlyDuringStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10,0">
-                        <CheckBox Margin="5" Content=" Use extra comets only during movement " IsChecked="{Binding PictomancerSettings.SaveCometInBlackForStarryMovement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_extra_comets_only_during_m}" IsChecked="{Binding PictomancerSettings.SaveCometInBlackForStarryMovement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content=" Use Mog / Madeen During Hyperphantasia " IsChecked="{Binding PictomancerSettings.UseMogDuringHyperphantasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="5" Content=" Save Mog / Madeen for Starry " IsChecked="{Binding PictomancerSettings.SaveMogForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Mog_Madeen_During_Hyperpha}" IsChecked="{Binding PictomancerSettings.UseMogDuringHyperphantasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Save_Mog_Madeen_for_Starry}" IsChecked="{Binding PictomancerSettings.SaveMogForStarry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

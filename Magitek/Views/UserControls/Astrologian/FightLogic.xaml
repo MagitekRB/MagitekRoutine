@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Astrologian.FightLogic"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -38,28 +39,28 @@
                     <CheckBox Content="Exaltation"
                               IsChecked="{Binding AstrologianSettings.FightLogicExaltation, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Celestial Intersection "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Celestial_Intersection}"
                               IsChecked="{Binding AstrologianSettings.FightLogicCelestialIntersection, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <TextBlock Margin="0,5"
                            Style="{DynamicResource TextBlockDefault}"
                            TextWrapping="Wrap"
-                           Text="Party AoE"/>
+                           Text="{x:Static properties:Resources.Astrologian_Text_Party_AoE}"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Content="Neutral Sect"
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Neutral_Sect}"
                               IsChecked="{Binding AstrologianSettings.FightLogicNeutralSect, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Earthly Star "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Earthly_Star}"
                               IsChecked="{Binding AstrologianSettings.FightLogicEarthlyStar, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Collective Unconscious "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Collective_Unconscious}"
                               IsChecked="{Binding AstrologianSettings.FightLogicCollectiveUnconscious, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="Horoscope "
                               IsChecked="{Binding AstrologianSettings.FightLogicHoroscope, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Aspected Helios "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Aspected_Helios}"
                               IsChecked="{Binding AstrologianSettings.FightLogicAspectedHelios, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="Knockback "
