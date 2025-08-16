@@ -50,9 +50,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         return Load();
     }
 
-
-    private static CombatRoutine? Product { get; set; }
-
     private void RedirectAssembly()
     {
         AppDomain.CurrentDomain.AssemblyResolve += Handler;
@@ -116,18 +113,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         }
     }
 
-    private void LoadProduct()
-    {
-        if (Product != null) return;
-
-        Product = Load();
-
-        if (Product == null)
-        {
-            Log("Failed to load Magitek .");
-        }
-
-    }
 
     private static void Log(string message)
     {
@@ -159,7 +144,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
         if (local == _latestVersion || _latestVersion == null || (local != null && (local.StartsWith("pre-") || local.StartsWith("test-"))))
         {
-            LoadProduct();
             return;
         }
 
@@ -195,7 +179,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
         stopwatch.Stop();
         Log($"Update complete in {stopwatch.ElapsedMilliseconds} ms.");
-        LoadProduct();
     }
 
     private  async Task<string?> GetLatestVersion()
