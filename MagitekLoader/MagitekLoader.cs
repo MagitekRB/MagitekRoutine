@@ -35,7 +35,7 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
     
     private static string? _latestVersion;
 
-
+    private readonly HttpClient _client = new HttpClient();
     public async Task<CombatRoutine> Load(string directory)
     {
         currentDirectory = directory;
@@ -249,25 +249,15 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         LoadProduct();
     }
 
-    private static async Task<string?> GetLatestVersion()
+    private  async Task<string?> GetLatestVersion()
     {
-        using var client = new HttpClient();
-        HttpResponseMessage response;
         try
         {
-            response = await client.GetAsync(VersionUrl);
-        }
-        catch (Exception e)
-        {
-            Log(e.Message);
-            return null;
-        }
+            var response = await _client.GetAsync(VersionUrl);
 
-        if (!response.IsSuccessStatusCode)
-            return null;
+            if (!response.IsSuccessStatusCode)
+                return null;
 
-        try
-        {
             return (await response.Content.ReadAsStringAsync()).Trim();
         }
         catch (Exception e)
@@ -350,34 +340,21 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         return true;
     }
 
-    private static async Task<byte[]?> DownloadLatestVersion()
+    private async Task<byte[]?> DownloadLatestVersion()
     {
-        using var client = new HttpClient();
-        HttpResponseMessage response;
         try
         {
-            response = await client.GetAsync(ZipUrl);
+            var response = await _client.GetAsync(ZipUrl);
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            return await response.Content.ReadAsByteArrayAsync();
         }
         catch (Exception e)
         {
             Log(e.Message);
             return null;
         }
-
-        if (!response.IsSuccessStatusCode)
-            return null;
-
-        byte[] responseMessageBytes;
-        try
-        {
-            responseMessageBytes = await response.Content.ReadAsByteArrayAsync();
-        }
-        catch (Exception e)
-        {
-            Log(e.Message);
-            return null;
-        }
-
-        return responseMessageBytes;
     }
 }
