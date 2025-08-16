@@ -28,9 +28,9 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
     private static readonly string GreyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");
 
-    private string currentDirectory;
-    private string ProjectAssembly;
-    private string VersionPath;
+    private string _currentDirectory;
+    private string _projectAssembly;
+    private string _versionPath;
 
     
     private static string? _latestVersion;
@@ -38,9 +38,9 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
     private readonly HttpClient _client = new HttpClient();
     public async Task<CombatRoutine> Load(string directory)
     {
-        currentDirectory = directory;
-        ProjectAssembly = Path.Combine(directory, $@"{ProjectAssemblyName}");
-        VersionPath = Path.Combine(directory, $@"Version.txt");
+        _currentDirectory = directory;
+        _projectAssembly = Path.Combine(directory, $"{ProjectAssemblyName}");
+        _versionPath = Path.Combine(directory, "Version.txt");
         
 
         await AutoUpdate();
@@ -52,10 +52,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
 
     private static CombatRoutine? Product { get; set; }
-
-
-    private static string CompiledAssembliesPath => Path.Combine(Utilities.AssemblyDirectory, "CompiledAssemblies");
-
 
     private void RedirectAssembly()
     {
@@ -80,43 +76,11 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
     {
         if (!File.Exists(path)) return null;
 
-        if (!Directory.Exists(CompiledAssembliesPath)) 
-            Directory.CreateDirectory(CompiledAssembliesPath);
-
-        var t = DateTime.Now.Ticks;
-        var name = $"{Path.GetFileNameWithoutExtension(path)}{t}{Path.GetExtension(path)}";
-        var pdbPath = path.Replace(Path.GetExtension(path), "pdb");
-        var pdb = $"{Path.GetFileNameWithoutExtension(path)}{t}.pdb";
-        var capath = Path.Combine(CompiledAssembliesPath, name);
-        if (File.Exists(capath))
-            try
-            {
-                File.Delete(capath);
-            }
-            catch (Exception)
-            {
-                //
-            }
-
-        if (File.Exists(pdb))
-            try
-            {
-                File.Delete(pdb);
-            }
-            catch (Exception)
-            {
-                //
-            }
-
-        if (!File.Exists(capath)) File.Copy(path, capath);
-
-        if (!File.Exists(pdb) && File.Exists(pdbPath)) File.Copy(pdbPath, pdb);
-
 
         Assembly? assembly = null;
         try
         {
-            assembly = Assembly.LoadFrom(capath);
+            assembly = Assembly.LoadFrom(path);
         }
         catch (Exception e)
         {
@@ -130,41 +94,26 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
     {
         RedirectAssembly();
 
-        var assembly = LoadAssembly(ProjectAssembly);
+        var assembly = LoadAssembly(_projectAssembly);
         if (assembly == null) return null;
-
-        Type baseType;
-        try
-        {
-            baseType = assembly.GetType(ProjectMainType);
-        }
-        catch (Exception e)
-        {
-            Log(e.ToString());
-            return null;
-        }
 
         CombatRoutine bb;
         try
         {
-            bb = (CombatRoutine)Activator.CreateInstance(baseType);
+            var baseType = assembly.GetType(ProjectMainType);
+            return (CombatRoutine)Activator.CreateInstance(baseType);
         }
         catch (Exception e)
         {
             Log(e.ToString());
+            Log("Could not load Magitek This can be due to a new version of Rebornbuddy being released. An update should be ready soon.");
             return null;
         }
-
-        if (bb != null)
-            Log("Magitek was loaded successfully.");
-        else
-            Log("Could not load Magitek This can be due to a new version of Rebornbuddy being released. An update should be ready soon.");
-
-
-        AppDomain.CurrentDomain.AssemblyResolve -= Handler;
-        AppDomain.CurrentDomain.AssemblyResolve -= GreyMagicHandler;
-
-        return bb;
+        finally
+        {
+            AppDomain.CurrentDomain.AssemblyResolve -= Handler;
+            AppDomain.CurrentDomain.AssemblyResolve -= GreyMagicHandler;
+        }
     }
 
     private void LoadProduct()
@@ -188,12 +137,12 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
     private string? GetLocalVersion()
     {
-        if (!File.Exists(VersionPath)) 
+        if (!File.Exists(_versionPath)) 
             return null;
 
         try
         {
-            var version = File.ReadAllText(VersionPath).Trim();
+            var version = File.ReadAllText(_versionPath).Trim();
             return version;
         }
         catch
@@ -223,13 +172,13 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
             return;
         }
 
-        if (!await Clean(currentDirectory))
+        if (!await Clean(_currentDirectory))
         {
             Log("[Error] Could not clean directory for update.");
             return;
         }
 
-        if (!Extract(bytes, currentDirectory))
+        if (!Extract(bytes, _currentDirectory))
         {
             Log("[Error] Could not extract new files.");
             return;
@@ -237,7 +186,7 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
         try
         {
-            await File.WriteAllTextAsync(VersionPath, _latestVersion);
+            await File.WriteAllTextAsync(_versionPath, _latestVersion);
         }
         catch (Exception e)
         {
