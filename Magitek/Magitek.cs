@@ -177,7 +177,8 @@ namespace Magitek
         }
 
 
-        public override string Name { get; }
+        public override string Name => "Magitek";
+
         public override float PullRange { get; } = 25;
 
         public override ClassJobType[] Class
