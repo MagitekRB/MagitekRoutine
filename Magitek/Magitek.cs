@@ -177,6 +177,7 @@ namespace Magitek
         }
 
 
+        public override CapabilityFlags SupportedCapabilities => CapabilityFlags.All;
         public override string Name => "Magitek";
         public override bool WantButton => true;
         public override float PullRange { get; } = 25;
