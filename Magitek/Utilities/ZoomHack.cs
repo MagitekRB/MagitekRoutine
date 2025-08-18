@@ -1,5 +1,6 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
+using GreyMagic;
 using Magitek.Models.Account;
 using System;
 
@@ -9,19 +10,34 @@ namespace Magitek.Utilities
     {
         private static bool _isEnabled;
 
+        private const string MaxZoomOffsetPattern = "Search F3 0F 10 9F ? ? ? ? 4C 8D 44 24 Add 4 Read32";
+
+        private static readonly bool offsetFound = false;
+        private static readonly int Offset;
+        static ZoomHack()
+        {
+            try
+            {
+                using var pf = new PatternFinder(Core.Memory);
+                Offset = (int)pf.FindSingle(MaxZoomOffsetPattern, true);
+                offsetFound = true;
+            }
+            catch
+            {
+                Logger.Write($@"[Magitek] ZoomHack Failed due to FFXIV Update");
+            }
+        }
+
         public static void Toggle()
         {
             if (_isEnabled == BaseSettings.Instance.ZoomHack)
                 return;
-            try
-            {
-                Core.Memory.Write(CameraManager.CameraPtr + 0x11c, BaseSettings.Instance.ZoomHack ? 200f : 20f);
-                _isEnabled = BaseSettings.Instance.ZoomHack;
-            }
-            catch (Exception)
-            {
-                Logger.Write($@"[Magitek] ZoomHack Failed due to FFXIV Update");
-            }
+
+            if (!offsetFound)
+                return;
+
+            Core.Memory.Write(CameraManager.CameraPtr + Offset, BaseSettings.Instance.ZoomHack ? 200f : 20f);
+            _isEnabled = BaseSettings.Instance.ZoomHack;
         }
     }
 }
