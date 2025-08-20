@@ -13,7 +13,7 @@ jobs:
   release:
     name: "Release"
     runs-on: windows-latest
-    
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/heads/master')
 
     steps:
     - uses: actions/checkout@v4
@@ -118,7 +118,8 @@ jobs:
         tag_name: v${{ env.VERSION }}
         name: v${{ env.VERSION }}
         generate_release_notes: true
-        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: false
+        token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
         files: |
           ./Magitek/bin/release/Magitek.zip
           ./Magitek/bin/release/Version.txt
