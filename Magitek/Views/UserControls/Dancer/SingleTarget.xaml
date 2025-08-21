@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Dancer.SingleTarget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -31,48 +32,48 @@
     <StackPanel Margin="10">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Dances :" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Dancer_Text_Dances_}" />
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Standard Step" IsChecked="{Binding DancerSettings.UseStandardStep, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Standard_Step}" IsChecked="{Binding DancerSettings.UseStandardStep, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Technical Step" IsChecked="{Binding DancerSettings.UseTechnicalStep, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Technical_Step}" IsChecked="{Binding DancerSettings.UseTechnicalStep, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Finish Step only when in range" IsChecked="{Binding DancerSettings.OnlyFinishStepInRange, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Finish_Step_only_when_in_range}" IsChecked="{Binding DancerSettings.OnlyFinishStepInRange, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Spells :" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Dancer_Text_Spells_}" />
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Saber Dance (AOE Spell used in Single Target Rotation)" IsChecked="{Binding DancerSettings.SaberDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Saber_Dance_AOE_Spell_used_in_Single_Target}" IsChecked="{Binding DancerSettings.SaberDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="When not under Technical Finish, Use SaberDance if Esprit >= " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Dancer_Text_When_not_under_Technical_Finish_Use_Saber_Dance}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding DancerSettings.SaberDanceEsprit, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" (85 is recommended value)" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Dancer_Text_85_is_recommended_value}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Fan Dance I" IsChecked="{Binding DancerSettings.FanDance1, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Fan_Dance_I}" IsChecked="{Binding DancerSettings.FanDance1, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Fan Dance III (AOE Spell used in Single Target Rotation)" IsChecked="{Binding DancerSettings.FanDance3, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Fan_Dance_III_AOE_Spell_used_in_Single_Target}" IsChecked="{Binding DancerSettings.FanDance3, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Fan Dance IV (AOE Spell used in Single Target Rotation)" IsChecked="{Binding DancerSettings.FanDance4, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Fan_Dance_IV_AOE_Spell_used_in_Single_Target}" IsChecked="{Binding DancerSettings.FanDance4, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content="Use Starfall Dance (AOE Spell used in Single Target Rotation)" IsChecked="{Binding DancerSettings.StarfallDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Use_Starfall_Dance_AOE_Spell_used_in_Single_Target}" IsChecked="{Binding DancerSettings.StarfallDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Orientation="Horizontal">
-                <CheckBox Margin="5" Content="Do Not Dance/Devilment if Target Is Dying Within " IsChecked="{Binding DancerSettings.DontDanceIfCurrentTargetIsDyingSoon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Do_Not_DanceDevilment_if_Target_Is_Invulnerable}" IsChecked="{Binding DancerSettings.DontDanceIfCurrentTargetIsDyingSoon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding DancerSettings.DontDanceIfCurrentTargetIsDyingWithinXSeconds, Mode=TwoWay}" />
             <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
             </StackPanel>

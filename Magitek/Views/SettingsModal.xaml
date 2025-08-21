@@ -6,6 +6,7 @@
         xmlns:rbEnums="clr-namespace:ff14bot.Enums;assembly=RebornBuddy"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModels="clr-namespace:Magitek.ViewModels"
+        xmlns:properties="clr-namespace:Magitek.Properties"
         Width="900"
         Height="600"
         AllowsTransparency="True"
@@ -40,22 +41,22 @@
                     <!-- General Settings -->
                     <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
                         <StackPanel Margin="5">
-                            <TextBlock Margin="5" Style="{DynamicResource TextBlockSection}" Text="General Settings" />
+                            <TextBlock Margin="5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General_Settings}" />
                             <StackPanel Margin="2" Orientation="Horizontal">
-                                <CheckBox Content="Activate Combat Routine          " IsChecked="{Binding GeneralSettings.ActiveCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                                <CheckBox Content="Activate PVP Routine (only for PVP !!)" IsChecked="{Binding GeneralSettings.ActivePvpCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Activate_Combat_Routine}" IsChecked="{Binding GeneralSettings.ActiveCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.PVPCheckbox}" IsChecked="{Binding GeneralSettings.ActivePvpCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                             </StackPanel>
                             <StackPanel Margin="2" Orientation="Horizontal">
-                                <CheckBox Content="Enable Fight Logic                     " IsChecked="{Binding GeneralSettings.UseFightLogic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                                <CheckBox Content="Use AutoFace for InView checks" IsChecked="{Binding GeneralSettings.UseAutoFaceChecks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Generic_Enable_Fight_Logic}" IsChecked="{Binding GeneralSettings.UseFightLogic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Use_AutoFace_for_InView_checks}" IsChecked="{Binding GeneralSettings.UseAutoFaceChecks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                             </StackPanel>
                             <StackPanel Margin="2" Orientation="Horizontal">                                
-                                <CheckBox Content="Lift Zoom Restrictions               " IsChecked="{Binding GeneralSettings.ZoomHack, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Lift_Zoom_Restrictions}" IsChecked="{Binding GeneralSettings.ZoomHack, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                             </StackPanel>
                             <StackPanel Margin="2" Orientation="Horizontal">
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Latency Offset (Ping):  " />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_Latency_Offset_Ping}" />
                                 <controls:Numeric MaxValue="5000" MinValue="0" Value="{Binding GeneralSettings.UserLatencyOffset, Mode=TwoWay}" />
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="  NoClippy/XivAlexander simulate a 10ms ping" />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi}" />
                             </StackPanel>
                         </StackPanel>
                     </controls:SettingsBlock>
@@ -63,42 +64,42 @@
                     <!-- Overlay Settings -->
                     <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
                         <StackPanel Margin="5">
-                            <TextBlock Margin="5" Style="{DynamicResource TextBlockSection}" Text="Overlay Settings" />
+                            <TextBlock Margin="5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Views_Text_Overlay_Settings}" />
                             <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
-                                <CheckBox Content="Use The Setting Overlay with  " IsChecked="{Binding GeneralSettings.UseOverlay, Mode=TwoWay}" Command="{Binding RestartOverlay}" Style="{DynamicResource CheckBoxFlat}" />
-                                <CheckBox Content="Pre-Defined Magitek Toggle Enabled" Command="{Binding ReloadOverlay}" IsChecked="{Binding GeneralSettings.EnableBaseToggle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Use_The_Setting_Overlay_with}" IsChecked="{Binding GeneralSettings.UseOverlay, Mode=TwoWay}" Command="{Binding RestartOverlay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Pre_Defined_Magitek_Toggle_Enabled}" Command="{Binding ReloadOverlay}" IsChecked="{Binding GeneralSettings.EnableBaseToggle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                             </StackPanel>
                             <StackPanel Margin="20,4,0,0" Orientation="Horizontal">
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Settings Overlay Size:   " />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_Settings_Overlay_Size}" />
                                 <Slider Width="200" Maximum="392" Minimum="176" IsSnapToTickEnabled="True" TickFrequency="72" Value="{Binding GeneralSettings.OverlayWidth, Mode=TwoWay}" />
                             </StackPanel>
                             <StackPanel Margin="0,5,0,10" Orientation="Horizontal">
-                                <CheckBox Margin ="0,0,15,0" Content="Use The Combat Message Overlay" IsChecked="{Binding GeneralSettings.UseCombatMessageOverlay, Mode=TwoWay}" Command="{Binding RestartCombatMessageOverlay}" Style="{DynamicResource CheckBoxFlat}" />
-                                <CheckBox Content="Make Adjustable" IsChecked="{Binding GeneralSettings.CombatMessageOverlayAdjustable, Mode=TwoWay}" Command="{Binding RestartCombatMessageOverlay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="Check to move and resize the combat message overlay. Uncheck when done." ToolTipService.ShowDuration="5000" ToolTipService.InitialShowDelay="0"/>
+                                <CheckBox Margin ="0,0,15,0" Content="{x:Static properties:Resources.Views_Content_Use_The_Combat_Message_Overlay}" IsChecked="{Binding GeneralSettings.UseCombatMessageOverlay, Mode=TwoWay}" Command="{Binding RestartCombatMessageOverlay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Make_Adjustable}" IsChecked="{Binding GeneralSettings.CombatMessageOverlayAdjustable, Mode=TwoWay}" Command="{Binding RestartCombatMessageOverlay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Views_ToolTip_Check_to_move_and_resize_the_combat_}" ToolTipService.ShowDuration="5000" ToolTipService.InitialShowDelay="0"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Font Size: " />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_Font_Size}" />
                                 <ComboBox Width="60" ItemsSource="{Binding FontSizes}" SelectedValue="{Binding GeneralSettings.FontSize, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                             </StackPanel>
-                            <Button Style="{DynamicResource ButtonLists}" Margin="0,10,0,0" Content="Reset Overlay Positions" Padding="0,2" Command="{Binding ResetOverlayPositions}" />
+                            <Button Style="{DynamicResource ButtonLists}" Margin="0,10,0,0" Content="{x:Static properties:Resources.Views_Content_Reset_Overlay_Positions}" Padding="0,2" Command="{Binding ResetOverlayPositions}" />
                         </StackPanel>
                     </controls:SettingsBlock>
                     
                     <!-- Chocobo Settings -->
                     <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
                         <StackPanel Margin="5">
-                            <TextBlock Margin="5" Style="{DynamicResource TextBlockSection}" Text="Chocobo Settings" />
-                            <CheckBox Content="Summon Chocobo" IsChecked="{Binding GeneralSettings.SummonChocobo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                            <TextBlock Margin="5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.ChocoboSettings}" />
+                            <CheckBox Content="{x:Static properties:Resources.SummonChocoboCheckbox}" IsChecked="{Binding GeneralSettings.SummonChocobo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox Margin="0,3" Content="Chocobo Switch To Healer Stance" IsChecked="{Binding GeneralSettings.ChocoboStanceDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" When Below " />
+                                <CheckBox Margin="0,3" Content="{x:Static properties:Resources.ChocoboHealerStanceCheckbox}" IsChecked="{Binding GeneralSettings.ChocoboStanceDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When_Below}" />
                                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding GeneralSettings.ChocoboStanceDanceHealthPercent, Mode=TwoWay}" />
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health Percent  " />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Chocobo Stance:  " />
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.ChocoboStance}" />
                                 <ComboBox Width="130" ItemsSource="{Binding Source={StaticResource ChocoboStances}}" SelectedValue="{Binding GeneralSettings.ChocoboStance, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                             </StackPanel>
                         </StackPanel>

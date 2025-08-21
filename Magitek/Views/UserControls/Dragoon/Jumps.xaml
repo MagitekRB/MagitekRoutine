@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Dragoon.Jumps"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties" 
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
@@ -16,16 +17,16 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Use Jumps" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseJumps, Mode=TwoWay}" />
-                <CheckBox Margin="0,3" Content="Safe Jumping Logic" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.SafeJumpLogic, Mode=TwoWay}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Use_Jumps}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseJumps, Mode=TwoWay}" />
+                <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Dragoon_Content_Safe_Jumping_Logic}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.SafeJumpLogic, Mode=TwoWay}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <CheckBox Content="Jump" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseHighJump, Mode=TwoWay}" />
-                <CheckBox Margin="0,3" Content="Spineshatter Dive" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseSpineshatterDive, Mode=TwoWay}" />
-                <CheckBox Content="Dragonfire Dive" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseDragonfireDive, Mode=TwoWay}" />
+                <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Dragoon_Content_Spineshatter_Dive}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseSpineshatterDive, Mode=TwoWay}" />
+                <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Dragonfire_Dive}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseDragonfireDive, Mode=TwoWay}" />
             </StackPanel>
         </controls:SettingsBlock>
 

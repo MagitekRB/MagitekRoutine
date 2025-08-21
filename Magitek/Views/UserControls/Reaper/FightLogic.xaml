@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Reaper.FightLogic"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -35,19 +36,19 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Arcane Crest "
+                                Content="{x:Static properties:Resources.Reaper_Content_FightLogic_Use_Arcane_Crest}"
                                 IsChecked="{Binding ReaperSettings.FightLogicArcaneCrest, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Feint "
+                                Content="{x:Static properties:Resources.Generic_Fightlogic_Use_Feint}"
                                 IsChecked="{Binding ReaperSettings.FightLogicFeint, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Knockback "
+                                Content="{x:Static properties:Resources.Generic_Fightlogic_Use_Knockback}"
                                 IsChecked="{Binding ReaperSettings.FightLogicKnockback, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>

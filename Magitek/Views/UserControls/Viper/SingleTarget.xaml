@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Viper.SingleTarget"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
@@ -32,7 +33,7 @@
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Use Interrupt and Stun. If activated, use strategy: " IsChecked="{Binding ViperSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activated}" IsChecked="{Binding ViperSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding ViperSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
         </controls:SettingsBlock>
@@ -40,7 +41,7 @@
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="0,3" Content=" Hide Positional Message " IsChecked="{Binding ViperSettings.HidePositionalMessage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Generic_Hide_Positional_Message}" IsChecked="{Binding ViperSettings.HidePositionalMessage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -48,34 +49,34 @@
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Dreadwinder                 " IsChecked="{Binding ViperSettings.UseVicewinder, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5" Content=" Enable Death Rattle" IsChecked="{Binding ViperSettings.UseDeathRattle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Viper_Content_Enable_Dreadwinder}" IsChecked="{Binding ViperSettings.UseVicewinder, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Viper_Content_Enable_Death_Rattle}" IsChecked="{Binding ViperSettings.UseDeathRattle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable UncoiledFury " IsChecked="{Binding ViperSettings.UseUncoiledFury, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="and save at least " />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Viper_Content_Enable_UncoiledFury}" IsChecked="{Binding ViperSettings.UseUncoiledFury, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Viper_Text_and_save_at_least}" />
                     <controls:Numeric MaxValue="2" MinValue="0"
                   Value="{Binding ViperSettings.UncoiledFurySaveChrages, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" charges when out of range " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Viper_Text_charges_when_out_of_range}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Margin="5" Content=" Enable Reawaken" IsChecked="{Binding ViperSettings.UseReawaken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" but do Not Use If Enemy Is Dying Within  " />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Viper_Content_Enable_Reawaken}" IsChecked="{Binding ViperSettings.UseReawaken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within}" />
                     <controls:Numeric  MaxValue="100" MinValue="1" Value="{Binding ViperSettings.DontReawakenIfEnemyDyingWithinSeconds, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                    
-                    <CheckBox Margin="5" Content=" Enable Last Lash " IsChecked="{Binding ViperSettings.UseLastLash, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5" Content="{x:Static properties:Resources.Viper_Content_Enable_Last_Lash}" IsChecked="{Binding ViperSettings.UseLastLash, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Advance Burst Window Settings" />
+                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Advance_Burst_Window_Settings}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hold Burst              " IsChecked="{Binding ViperSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Hold_Burst}" IsChecked="{Binding ViperSettings.BurstLogicHoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Machinist.Turrets"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -37,9 +38,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Summon Rook AutoTurret / Queen at " IsChecked="{Binding MachinistSettings.UseRookQueen, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Machinist_Content_Summon_Rook_AutoTurret_Queen_at}" IsChecked="{Binding MachinistSettings.UseRookQueen, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="50" Value="{Binding MachinistSettings.UseRookQueenBattery, Mode=TwoWay}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Battery Gauge " />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Machinist_Text_Battery_Gauge}" />
 
             </Grid>
         </controls:SettingsBlock>

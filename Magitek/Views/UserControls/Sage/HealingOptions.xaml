@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Sage.HealingOptions"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -26,7 +27,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Content="Weave OGCD Abilities When Mana Is Over " IsChecked="{Binding SageSettings.WeaveOGCDHeals, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove}" IsChecked="{Binding SageSettings.WeaveOGCDHeals, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.WeaveOGCDHealsManaPercent, Mode=TwoWay}" />
                 <TextBlock Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Percent" />
             </Grid>
@@ -35,31 +36,31 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Limit Healing Buffs To Only Use " IsChecked="{Binding SageSettings.HealingBuffsLimitAtOnce, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Limit_Healing_Buffs_To_Only_Use}" IsChecked="{Binding SageSettings.HealingBuffsLimitAtOnce, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SageSettings.HealingBuffsMaxAtOnce, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Healing Buffs At The Same Time" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Healing_Buffs_At_The_Same_Time}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Unless " />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SageSettings.HealingBuffsMoreHpNeedHealing, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Allies Are Lower Than " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Allies_Are_Lower_Than}" />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SageSettings.HealingBuffsMoreHpHealthPercentage, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="At Which Point, Use A Maximum Of  " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_At_Which_Point_Use_A_Maximum_Of}" />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SageSettings.HealingBuffsMaxUnderHp, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Healing Buffs At The Same Time" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Healing_Buffs_At_The_Same_Time}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Only Consider Own Buffs (disable to include co-sage) " IsChecked="{Binding SageSettings.HealingBuffsOnlyMine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Only_Consider_Own_Buffs_disable_to_in}" IsChecked="{Binding SageSettings.HealingBuffsOnlyMine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Healing Buffs: Panhaimatinon, Holos, Physis, Kerachole, Eukrasian Prognosis" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

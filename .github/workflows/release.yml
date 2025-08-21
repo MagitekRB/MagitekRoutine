@@ -95,6 +95,8 @@ jobs:
         # Step 1: Create initial zip archive with the specified files
         with zipfile.ZipFile(zip_path, 'w') as zipf:
             zipf.write('./Magitek/bin/release/Magitek.dll', arcname='Magitek.dll')
+            zipf.write('./Magitek/bin/release/Magitek.pdb', arcname='Magitek.pdb')
+            zipf.write('./Magitek/bin/release/zh-CN/Magitek.resources.dll', arcname='zh-CN/Magitek.resources.dll')
             zipf.write('./Magitek/bin/release/Version.txt', arcname='Version.txt')
             zipf.write('./MagitekLoader/MagitekLoader.cs', arcname='MagitekLoader.cs')
             zipf.write('./Magitek/Properties/AssemblyInfo.cs', arcname='Properties/AssemblyInfo.cs')

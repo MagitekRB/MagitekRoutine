@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Warrior.FightLogic"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
@@ -28,25 +29,25 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Defensives "
+                                Content="{x:Static properties:Resources.Generic_Fightlogic_Use_Defensives}"
                                 IsChecked="{Binding WarriorSettings.FightLogicDefensives, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Shake It Off "
+                                Content="{x:Static properties:Resources.Warrior_Content_FightLogic_Use_Shake_It_Off}"
                                 IsChecked="{Binding WarriorSettings.FightLogicPartyShield, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Reprisal "
+                                Content="{x:Static properties:Resources.Generic_Fightlogic_Use_Reprisal}"
                                 IsChecked="{Binding WarriorSettings.FightLogicReprisal, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5"
-                                Content=" FightLogic Use Knockback "
+                                Content="{x:Static properties:Resources.Generic_Fightlogic_Use_Knockback}"
                                 IsChecked="{Binding WarriorSettings.FightLogicKnockback, Mode=TwoWay}"
                                 Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>

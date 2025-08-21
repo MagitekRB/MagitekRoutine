@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Sage.Shield"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -31,8 +32,8 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Column="0" Grid.Row="0" Content="Shields w/ Eukrasian Diagnosis" IsChecked="{Binding SageSettings.Shield, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Grid.Column="0" Grid.Row="2" Style="{DynamicResource TextBlockDefault}" Text="Shields settings are extra shields which apply after those in General Healing." />
+                <CheckBox Grid.Column="0" Grid.Row="0" Content="{x:Static properties:Resources.Sage_Content_Shields_w_Eukrasian_Diagnosis}" IsChecked="{Binding SageSettings.Shield, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <TextBlock Grid.Column="0" Grid.Row="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Shields_settings_are_extra_shields_which}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -50,17 +51,17 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Eukrasian Diagnosis On " />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Eukrasian_Diagnosis_On}" />
                 <CheckBox Grid.Row="0" Grid.Column="1" Content="Tanks " IsChecked="{Binding SageSettings.ShieldOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="0" Grid.Column="2" Content="DPS " IsChecked="{Binding SageSettings.ShieldOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="0" Grid.Column="3" Content="Healers " IsChecked="{Binding SageSettings.ShieldOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="0" Grid.Column="4" Content="Self " IsChecked="{Binding SageSettings.ShieldOnSelf, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,5,0,0" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Use shield At " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Use_shield_At}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SageSettings.ShieldHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health Percent " />
-                    <CheckBox Content="Only shield while moving " IsChecked="{Binding SageSettings.OnlyShieldWhileMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Only_shield_while_moving}" IsChecked="{Binding SageSettings.OnlyShieldWhileMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </Grid>
         </controls:SettingsBlock>
@@ -80,14 +81,14 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Always keep shield up on " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Always_keep_shield_up_on}" />
                     <CheckBox Grid.Column="1" Content="Tanks " IsChecked="{Binding SageSettings.ShieldKeepUpOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="2" Content="DPS " IsChecked="{Binding SageSettings.ShieldKeepUpOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="3" Content="Healers " IsChecked="{Binding SageSettings.ShieldKeepUpOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="4" Content="Self "  IsChecked="{Binding SageSettings.ShieldKeepUpOnSelf, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
-                <CheckBox Margin="0,5" Content="Stop when Addersting is full " IsChecked="{Binding SageSettings.ShieldKeepUpUnlessAdderstingFull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="0" Content="Stop when in combat " IsChecked="{Binding SageSettings.ShieldKeepUpOnlyOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,5" Content="{x:Static properties:Resources.Sage_Content_Stop_when_Addersting_is_full}" IsChecked="{Binding SageSettings.ShieldKeepUpUnlessAdderstingFull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0" Content="{x:Static properties:Resources.Sage_Content_Stop_when_in_combat}" IsChecked="{Binding SageSettings.ShieldKeepUpOnlyOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 

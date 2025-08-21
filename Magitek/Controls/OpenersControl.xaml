@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Controls.OpenersControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:actions="clr-namespace:Magitek.Gambits.Actions"
              xmlns:conditions="clr-namespace:Magitek.Gambits.Conditions"
              xmlns:controls="clr-namespace:Magitek.Controls"
@@ -57,22 +58,22 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerGroup}"
-                        Content="Add New Opener"
+                        Content="{x:Static properties:Resources.Controls_Content_Add_New_Opener}"
                         Style="{DynamicResource ButtonLists}"/>
 
                 <Button Grid.Column="1"
                         Margin="10,0,0,0"
                         Command="{Binding ShowOpenersBrowserModal}"
-                        Content="Open Shared Openers Browser"
+                        Content="{x:Static properties:Resources.Controls_Content_Open_Shared_Openers_Browser}"
                         Style="{DynamicResource ButtonLists}"/>
                 <controls:Hotkey Grid.Column="2"
                                  KeySetting="{Binding GeneralSettings.UseOpenersKey, Mode=TwoWay}"
                                  ModKeySetting="{Binding GeneralSettings.UseOpenersModkey, Mode=TwoWay}"
-                                 Text="Use Openers Hotkey:"/>
+                                 Text="{x:Static properties:Resources.Controls_Text_Use_Openers_Hotkey}"/>
                 <controls:Hotkey Grid.Column="3"
                                  KeySetting="{Binding GeneralSettings.ResetOpenersKey, Mode=TwoWay}"
                                  ModKeySetting="{Binding GeneralSettings.ResetOpenersModkey, Mode=TwoWay}"
-                                 Text="Reset Opener Hotkey:"/>
+                                 Text="{x:Static properties:Resources.Controls_Text_Reset_Opener_Hotkey}"/>
                 <TextBlock Grid.Column="4"
                            Margin="10,0,0,0"
                            VerticalAlignment="Center"
@@ -212,7 +213,7 @@
 
                 <ToggleButton HorizontalAlignment="Right"
                               Command="{Binding ResetJobOpenerGroupsCommand}"
-                              Content="Current Zone"
+                              Content="{x:Static properties:Resources.Controls_Content_Current_Zone}"
                               IsChecked="{Binding OnlyCurrentZone, Mode=TwoWay}"
                               Style="{DynamicResource ToggleButtonGambitFilter}"/>
             </Grid>
@@ -446,7 +447,7 @@
 
                                                             <CheckBox Grid.Column="8"
                                                                       Margin="3"
-                                                                      Content="USE ONLY ONCE PER COMBAT"
+                                                                      Content="{x:Static properties:Resources.Controls_Content_USE_ONLY_ONCE_PER_COMBAT}"
                                                                       IsChecked="{Binding OnlyUseOncePerCombat, Mode=TwoWay}"
                                                                       Style="{DynamicResource CheckBoxGambits}"/>
 
@@ -456,7 +457,7 @@
                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.SetOpenerGroupCurrentZone}"
                                                                     CommandParameter="{Binding}"
                                                                     Style="{DynamicResource ButtonGambitSetZone}"
-                                                                    ToolTip="Set Opener To Current Zone"
+                                                                    ToolTip="{x:Static properties:Resources.Controls_ToolTip_Set_Opener_To_Current_Zone}"
                                                                     Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Expander}}, Path=IsExpanded, Converter={StaticResource BoolToVis}}"/>
 
                                                             <Button Grid.Column="10"
@@ -465,7 +466,7 @@
                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambit}"
                                                                     CommandParameter="{Binding}"
                                                                     Style="{DynamicResource ButtonAdd}"
-                                                                    ToolTip="Add Action"
+                                                                    ToolTip="{x:Static properties:Resources.Controls_ToolTip_Add_Action}"
                                                                     Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Expander}}, Path=IsExpanded, Converter={StaticResource BoolToVis}}"/>
 
                                                             <ComboBox Grid.Column="11"
@@ -486,7 +487,7 @@
                                                                             HorizontalAlignment="Left"
                                                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveOpenerGroup}"
                                                                             CommandParameter="{Binding}"
-                                                                            Content="DELETE OPENER"
+                                                                            Content="{x:Static properties:Resources.Controls_Content_DELETE_OPENER}"
                                                                             Style="{DynamicResource ButtonGambitAddCondition}"/>
 
                                                                 </StackPanel>
@@ -502,7 +503,7 @@
                                                                        FontSize="10"
                                                                        FontWeight="Bold"
                                                                        Foreground="{DynamicResource GrayDark}"
-                                                                       Text="CONDITIONS TO START OPENER: "/>
+                                                                       Text="{x:Static properties:Resources.Controls_Text_CONDITIONS_TO_START_OPENER}"/>
 
                                                             <!--  Conditions  -->
                                                             <ItemsControl Margin="7,0,0,0"
@@ -531,7 +532,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -560,7 +561,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -598,16 +599,16 @@
 
                                                                                 <StackPanel Margin="0,4,0,0"
                                                                                             Orientation="Horizontal">
-                                                                                    <RadioButton Content="On Anyone"
+                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_On_Anyone}"
                                                                                                  GroupName="EnemyCastingSpellTarget"
                                                                                                  IsChecked="{Binding TargetAnyone, Mode=TwoWay}"
                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
                                                                                     <RadioButton Margin="4,0"
-                                                                                                 Content="On Spell Target"
+                                                                                                 Content="{x:Static properties:Resources.Controls_Content_On_Spell_Target}"
                                                                                                  GroupName="EnemyCastingSpellTarget"
                                                                                                  IsChecked="{Binding TargetOfSpell, Mode=TwoWay}"
                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
-                                                                                    <RadioButton Content="On Me"
+                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_On_Me}"
                                                                                                  GroupName="EnemyCastingSpellTarget"
                                                                                                  IsChecked="{Binding PlayerTargetOfSpell, Mode=TwoWay}"
                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -616,7 +617,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -645,14 +646,14 @@
                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
 
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="IS PVP SPELL"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -683,7 +684,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -714,7 +715,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -745,7 +746,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -775,7 +776,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -821,13 +822,13 @@
                                                                                          Text="{Binding AuraStacks, Mode=TwoWay}"/>
 
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="IS MY AURA"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                           IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -862,13 +863,13 @@
 
 
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="IS MY AURA"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                           IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -914,13 +915,13 @@
                                                                                          Text="{Binding AuraStacks, Mode=TwoWay}"/>
 
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="IS MY AURA"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                           IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -955,13 +956,13 @@
 
 
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="IS MY AURA"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                           IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -990,7 +991,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1025,7 +1026,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1054,7 +1055,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1083,7 +1084,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1108,7 +1109,7 @@
                                                                                     <StackPanel>
                                                                                         <!-- Healers -->
                                                                                         <CheckBox Margin="3,0,0,0"
-                                                                                                  Content="WHITE MAGE"
+                                                                                                  Content="{x:Static properties:Resources.Controls_Content_WHITE_MAGE}"
                                                                                                   IsChecked="{Binding IsWhm, Mode=TwoWay}"
                                                                                                   Style="{DynamicResource CheckBoxGambits}"/>
                                                                                         <CheckBox Margin="3,3"
@@ -1134,7 +1135,7 @@
                                                                                                   IsChecked="{Binding IsWar, Mode=TwoWay}"
                                                                                                   Style="{DynamicResource CheckBoxGambits}"/>
                                                                                         <CheckBox Margin="3,0,0,0"
-                                                                                                  Content="DARK KNIGHT"
+                                                                                                  Content="{x:Static properties:Resources.Controls_Content_DARK_KNIGHT}"
                                                                                                   IsChecked="{Binding IsDrk, Mode=TwoWay}"
                                                                                                   Style="{DynamicResource CheckBoxGambits}"/>
                                                                                         <CheckBox Margin="3,3"
@@ -1193,7 +1194,7 @@
 
                                                                                         <!-- Magical DPS -->
                                                                                         <CheckBox Margin="3,3"
-                                                                                                  Content="BLACK MAGE"
+                                                                                                  Content="{x:Static properties:Resources.Controls_Content_BLACK_MAGE}"
                                                                                                   IsChecked="{Binding IsBlm, Mode=TwoWay}"
                                                                                                   Style="{DynamicResource CheckBoxGambits}"/>
                                                                                         <CheckBox Margin="3,0,0,0"
@@ -1201,7 +1202,7 @@
                                                                                                   IsChecked="{Binding IsSmn, Mode=TwoWay}"
                                                                                                   Style="{DynamicResource CheckBoxGambits}"/>
                                                                                         <CheckBox Margin="3,3"
-                                                                                                  Content="RED MAGE"
+                                                                                                  Content="{x:Static properties:Resources.Controls_Content_RED_MAGE}"
                                                                                                   IsChecked="{Binding IsRdm, Mode=TwoWay}"
                                                                                                   Style="{DynamicResource CheckBoxGambits}"/>
                                                                                         <CheckBox Margin="3,0,0,0"
@@ -1214,7 +1215,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1235,21 +1236,21 @@
                                                                                   Tag="IS ROLE">
                                                                             <StackPanel Width="150">
                                                                                 <CheckBox Margin="3,0,0,0"
-                                                                                          Content="IS TANK"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_TANK}"
                                                                                           IsChecked="{Binding IsTank, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <CheckBox Margin="3,3"
-                                                                                          Content="IS HEALER"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_HEALER}"
                                                                                           IsChecked="{Binding IsHealer, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <CheckBox Margin="3,0,0,0"
-                                                                                          Content="IS DPS"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_DPS}"
                                                                                           IsChecked="{Binding IsDps, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1286,12 +1287,12 @@
 
                                                                                 <StackPanel Margin="0,4,0,0"
                                                                                             Orientation="Horizontal">
-                                                                                    <RadioButton Content="By Player"
+                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_By_Player}"
                                                                                                  GroupName="EnemiesNearby"
                                                                                                  IsChecked="{Binding ByTargetObject, Mode=TwoWay}"
                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
                                                                                     <RadioButton Margin="4,0,0,0"
-                                                                                                 Content="By Target Object"
+                                                                                                 Content="{x:Static properties:Resources.Controls_Content_By_Target_Object}"
                                                                                                  GroupName="EnemiesNearby"
                                                                                                  IsChecked="{Binding ByPlayer, Mode=TwoWay}"
                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -1300,7 +1301,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1331,7 +1332,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1353,19 +1354,19 @@
                                                                             <StackPanel Width="200"
                                                                                         Margin="3">
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="MUST BE ENEMY"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_MUST_BE_ENEMY}"
                                                                                           IsChecked="{Binding MustBeEnemy, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                 <CheckBox Margin="3"
-                                                                                          Content="MUST BE ALLY"
+                                                                                          Content="{x:Static properties:Resources.Controls_Content_MUST_BE_ALLY}"
                                                                                           IsChecked="{Binding MustBeAlly, Mode=TwoWay}"
                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1401,7 +1402,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1437,7 +1438,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1473,7 +1474,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1509,7 +1510,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1545,7 +1546,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1581,7 +1582,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1617,7 +1618,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1653,7 +1654,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1690,7 +1691,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1727,7 +1728,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1750,15 +1751,15 @@
                                                                             <StackPanel Width="250">
                                                                                 <StackPanel Orientation="Horizontal">
                                                                                     <CheckBox Margin="3"
-                                                                                              Content="HAS GETSU"
+                                                                                              Content="{x:Static properties:Resources.Controls_Content_HAS_GETSU}"
                                                                                               IsChecked="{Binding HasGetsu, Mode=TwoWay}"
                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                     <CheckBox Margin="3"
-                                                                                              Content="HAS SETSU"
+                                                                                              Content="{x:Static properties:Resources.Controls_Content_HAS_SETSU}"
                                                                                               IsChecked="{Binding HasSetsu, Mode=TwoWay}"
                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                     <CheckBox Margin="3"
-                                                                                              Content="HAS KA"
+                                                                                              Content="{x:Static properties:Resources.Controls_Content_HAS_KA}"
                                                                                               IsChecked="{Binding HasKa, Mode=TwoWay}"
                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 </StackPanel>
@@ -1766,7 +1767,7 @@
                                                                                 <Button Margin="0,3,0,0"
                                                                                         HorizontalAlignment="Right"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveStartOpenerCondition}"
-                                                                                        Content="REMOVE CONDITION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                     <Button.CommandParameter>
                                                                                         <MultiBinding Converter="{StaticResource OpenerConditionRemoveConverter}">
@@ -1793,7 +1794,7 @@
                                                                         <StackPanel>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="ENEMY CASTING SPELL"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_ENEMY_CASTING_SPELL}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">EnemyCastingSpell</sys:String>
@@ -1808,7 +1809,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="IN INSTANCE"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_IN_INSTANCE}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">InInstance</sys:String>
@@ -1823,7 +1824,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="NOT IN INSTANCE"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_NOT_IN_INSTANCE}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">NotInInstance</sys:String>
@@ -1838,7 +1839,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="TARGET NAME"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_TARGET_NAME}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">TargetName</sys:String>
@@ -1853,7 +1854,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="LAST SPELL"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_LAST_SPELL}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">LastSpell</sys:String>
@@ -1868,7 +1869,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="HEALTH PERCENT BELOW"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_HEALTH_PERCENT_BELOW}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">HpPercentBelow</sys:String>
@@ -1883,7 +1884,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="HEALTH PERCENT BETWEEN"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_HEALTH_PERCENT_BETWEEN}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">HpPercentBetween</sys:String>
@@ -1901,7 +1902,7 @@
 
                                                                         <StackPanel Margin="5,0">
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="HAS AURA"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_HAS_AURA}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">HasAura</sys:String>
@@ -1916,7 +1917,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="PLAYER HAS AURA"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_PLAYER_HAS_AURA}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">PlayerHasAura</sys:String>
@@ -1931,7 +1932,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="IS JOB"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_IS_JOB}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">IsJob</sys:String>
@@ -1946,7 +1947,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="IS ROLE"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_IS_ROLE}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">IsRole</sys:String>
@@ -1961,7 +1962,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="ENEMIES NEARBY"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_ENEMIES_NEARBY}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">EnemiesNearby</sys:String>
@@ -1976,7 +1977,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="TARGET BOSS"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_TARGET_BOSS}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">TargetIsBoss</sys:String>
@@ -1991,7 +1992,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="HAS TARGET"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_HAS_TARGET}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">HasCurrentTarget</sys:String>
@@ -2009,7 +2010,7 @@
 
                                                                         <StackPanel Margin="5,0">
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="DOES NOT HAVE AURA"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_DOES_NOT_HAVE_AURA}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">DoesNotHaveAura</sys:String>
@@ -2024,7 +2025,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="PLAYER DOES NOT HAVE AURA"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_PLAYER_DOES_NOT_HAVE_AURA}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">PlayerDoesNotHaveAura</sys:String>
@@ -2040,7 +2041,7 @@
 
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="PLAYER IN COMBAT"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_PLAYER_IN_COMBAT}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">PlayerInCombat</sys:String>
@@ -2056,7 +2057,7 @@
 
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="PLAYER NOT IN COMBAT"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_PLAYER_NOT_IN_COMBAT}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">PlayerNotInCombat</sys:String>
@@ -2072,7 +2073,7 @@
 
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="SPELL OFF COOLDOWN"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_SPELL_OFF_COOLDOWN}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">SpellOffCooldown</sys:String>
@@ -2087,7 +2088,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="HAS PET"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_HAS_PET}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">HasPet</sys:String>
@@ -2102,7 +2103,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="COUNTDOWN TIMER"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_COUNTDOWN_TIMER}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">CountdownTimer</sys:String>
@@ -2150,7 +2151,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="GREASED LIGHTNING"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_GREASED_LIGHTNING}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">MonkGreasedLightning</sys:String>
@@ -2325,7 +2326,7 @@
                                                                             </Button>
 
                                                                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddOpenerCondition}"
-                                                                                    Content="DRAGOON GAUGE"
+                                                                                    Content="{x:Static properties:Resources.Controls_Content_DRAGOON_GAUGE}"
                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                 <Button.Resources>
                                                                                     <sys:String x:Key="Condition">DragoonGaugeTimer</sys:String>
@@ -2702,16 +2703,16 @@
                                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
                                                                                                 <StackPanel Margin="0,4,0,0"
                                                                                                             Orientation="Horizontal">
-                                                                                                    <RadioButton Content="On Target"
+                                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_On_Target}"
                                                                                                                  GroupName="PetCast"
                                                                                                                  IsChecked="{Binding OnTarget, Mode=TwoWay}"
                                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
                                                                                                     <RadioButton Margin="4,0"
-                                                                                                                 Content="On Pet"
+                                                                                                                 Content="{x:Static properties:Resources.Controls_Content_On_Pet}"
                                                                                                                  GroupName="PetCast"
                                                                                                                  IsChecked="{Binding OnPet, Mode=TwoWay}"
                                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
-                                                                                                    <RadioButton Content="On Player"
+                                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_On_Player}"
                                                                                                                  GroupName="PetCast"
                                                                                                                  IsChecked="{Binding OnPlayer, Mode=TwoWay}"
                                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -2728,7 +2729,7 @@
                                                                                                          Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="IS PVP SPELL"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -2743,7 +2744,7 @@
                                                                                                          Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="IS PVP SPELL"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -2764,7 +2765,7 @@
                                                                                                          Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                                          Text="{Binding ProcName, Mode=TwoWay}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="IS PVP SPELL"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -2779,7 +2780,7 @@
                                                                                                          Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="IS PVP SPELL"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -2794,7 +2795,7 @@
                                                                                                          Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="IS PVP SPELL"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -2809,7 +2810,7 @@
                                                                                                          Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                                          Text="{Binding SpellName, Mode=TwoWay}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="IS PVP SPELL"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                           IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -2854,16 +2855,16 @@
 
                                                                                                 <StackPanel Margin="0,4,0,0"
                                                                                                             Orientation="Horizontal">
-                                                                                                    <RadioButton Content="Any Quality"
+                                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_Any_Quality}"
                                                                                                                  GroupName="ItemType"
                                                                                                                  IsChecked="{Binding AnyQuality, Mode=TwoWay}"
                                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
                                                                                                     <RadioButton Margin="4,0"
-                                                                                                                 Content="High Quality"
+                                                                                                                 Content="{x:Static properties:Resources.Controls_Content_High_Quality}"
                                                                                                                  GroupName="ItemType"
                                                                                                                  IsChecked="{Binding HighQualityOnly, Mode=TwoWay}"
                                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
-                                                                                                    <RadioButton Content="Normal Quality"
+                                                                                                    <RadioButton Content="{x:Static properties:Resources.Controls_Content_Normal_Quality}"
                                                                                                                  GroupName="ItemType"
                                                                                                                  IsChecked="{Binding NormalQualityOnly, Mode=TwoWay}"
                                                                                                                  Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -2898,7 +2899,7 @@
                                                                                              Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
                                                                                              Text="{Binding MaxTimeToWaitForCondition, Mode=TwoWay}"/>
                                                                                     <CheckBox Margin="3"
-                                                                                              Content="ABANDON OPENER IF ACTION FAILS"
+                                                                                              Content="{x:Static properties:Resources.Controls_Content_ABANDON_OPENER_IF_ACTION_FAILS}"
                                                                                               IsChecked="{Binding AbandonOpenerIfActionFail, Mode=TwoWay}"
                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                 </StackPanel>
@@ -2943,16 +2944,16 @@
 
                                                                                             <StackPanel Margin="0,4,0,0"
                                                                                                         Orientation="Horizontal">
-                                                                                                <RadioButton Content="On Anyone"
+                                                                                                <RadioButton Content="{x:Static properties:Resources.Controls_Content_On_Anyone}"
                                                                                                              GroupName="EnemyCastingSpellTarget"
                                                                                                              IsChecked="{Binding TargetAnyone, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
                                                                                                 <RadioButton Margin="4,0"
-                                                                                                             Content="On Spell Target"
+                                                                                                             Content="{x:Static properties:Resources.Controls_Content_On_Spell_Target}"
                                                                                                              GroupName="EnemyCastingSpellTarget"
                                                                                                              IsChecked="{Binding TargetOfSpell, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
-                                                                                                <RadioButton Content="On Me"
+                                                                                                <RadioButton Content="{x:Static properties:Resources.Controls_Content_On_Me}"
                                                                                                              GroupName="EnemyCastingSpellTarget"
                                                                                                              IsChecked="{Binding PlayerTargetOfSpell, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -2961,7 +2962,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -2990,14 +2991,14 @@
                                                                                                      Text="{Binding SpellName, Mode=TwoWay}"/>
 
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="IS PVP SPELL"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_PVP_SPELL}"
                                                                                                       IsChecked="{Binding IsPvpSpell, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3028,7 +3029,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3059,7 +3060,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3089,7 +3090,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3135,13 +3136,13 @@
                                                                                                      Text="{Binding AuraStacks, Mode=TwoWay}"/>
 
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="IS MY AURA"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                                       IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3187,13 +3188,13 @@
                                                                                                      Text="{Binding AuraStacks, Mode=TwoWay}"/>
 
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="IS MY AURA"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                                       IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3228,13 +3229,13 @@
 
 
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="IS MY AURA"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                                       IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3269,13 +3270,13 @@
 
 
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="IS MY AURA"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_MY_AURA}"
                                                                                                       IsChecked="{Binding IsMyAura, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3304,7 +3305,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3339,7 +3340,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3368,7 +3369,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3397,7 +3398,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3426,7 +3427,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3455,7 +3456,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3480,7 +3481,7 @@
                                                                                                 <StackPanel>
                                                                                                     <!-- Healers -->
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="WHITE MAGE"
+                                                                                                              Content="{x:Static properties:Resources.Controls_Content_WHITE_MAGE}"
                                                                                                               IsChecked="{Binding IsWhm, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
@@ -3506,7 +3507,7 @@
                                                                                                               IsChecked="{Binding IsWar, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="DARK KNIGHT"
+                                                                                                              Content="{x:Static properties:Resources.Controls_Content_DARK_KNIGHT}"
                                                                                                               IsChecked="{Binding IsDrk, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
@@ -3565,7 +3566,7 @@
 
                                                                                                     <!-- Magical DPS -->
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="BLACK MAGE"
+                                                                                                              Content="{x:Static properties:Resources.Controls_Content_BLACK_MAGE}"
                                                                                                               IsChecked="{Binding IsBlm, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
@@ -3573,7 +3574,7 @@
                                                                                                               IsChecked="{Binding IsSmn, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="RED MAGE"
+                                                                                                              Content="{x:Static properties:Resources.Controls_Content_RED_MAGE}"
                                                                                                               IsChecked="{Binding IsRdm, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
@@ -3586,7 +3587,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3607,21 +3608,21 @@
                                                                                               Tag="IS ROLE">
                                                                                         <StackPanel Width="150">
                                                                                             <CheckBox Margin="3,0,0,0"
-                                                                                                      Content="IS TANK"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_TANK}"
                                                                                                       IsChecked="{Binding IsTank, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <CheckBox Margin="3,3"
-                                                                                                      Content="IS HEALER"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_HEALER}"
                                                                                                       IsChecked="{Binding IsHealer, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <CheckBox Margin="3,0,0,0"
-                                                                                                      Content="IS DPS"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_IS_DPS}"
                                                                                                       IsChecked="{Binding IsDps, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3658,12 +3659,12 @@
 
                                                                                             <StackPanel Margin="0,4,0,0"
                                                                                                         Orientation="Horizontal">
-                                                                                                <RadioButton Content="By Player"
+                                                                                                <RadioButton Content="{x:Static properties:Resources.Controls_Content_By_Player}"
                                                                                                              GroupName="EnemiesNearby"
                                                                                                              IsChecked="{Binding ByTargetObject, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
                                                                                                 <RadioButton Margin="4,0,0,0"
-                                                                                                             Content="By Target Object"
+                                                                                                             Content="{x:Static properties:Resources.Controls_Content_By_Target_Object}"
                                                                                                              GroupName="EnemiesNearby"
                                                                                                              IsChecked="{Binding ByPlayer, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -3672,7 +3673,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3703,7 +3704,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3725,19 +3726,19 @@
                                                                                         <StackPanel Width="200"
                                                                                                     Margin="3">
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="MUST BE ENEMY"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_MUST_BE_ENEMY}"
                                                                                                       IsChecked="{Binding MustBeEnemy, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                             <CheckBox Margin="3"
-                                                                                                      Content="MUST BE ALLY"
+                                                                                                      Content="{x:Static properties:Resources.Controls_Content_MUST_BE_ALLY}"
                                                                                                       IsChecked="{Binding MustBeAlly, Mode=TwoWay}"
                                                                                                       Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3773,7 +3774,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3809,7 +3810,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3845,7 +3846,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3881,7 +3882,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3917,7 +3918,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3953,7 +3954,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -3989,7 +3990,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -4025,7 +4026,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -4062,7 +4063,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -4099,7 +4100,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -4121,15 +4122,15 @@
                                                                                         <StackPanel Width="250">
                                                                                             <StackPanel Orientation="Horizontal">
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="HAS GETSU"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_HAS_GETSU}"
                                                                                                           IsChecked="{Binding HasGetsu, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="HAS SETSU"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_HAS_SETSU}"
                                                                                                           IsChecked="{Binding HasSetsu, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                 <CheckBox Margin="3"
-                                                                                                          Content="HAS KA"
+                                                                                                          Content="{x:Static properties:Resources.Controls_Content_HAS_KA}"
                                                                                                           IsChecked="{Binding HasKa, Mode=TwoWay}"
                                                                                                           Style="{DynamicResource CheckBoxGambits}"/>
                                                                                             </StackPanel>
@@ -4137,7 +4138,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -4167,7 +4168,7 @@
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
-                                                                                                    Content="REMOVE CONDITION"
+                                                                                                    Content="{x:Static properties:Resources.Controls_Content_REMOVE_CONDITION}"
                                                                                                     Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                                 <Button.CommandParameter>
                                                                                                     <MultiBinding Converter="{StaticResource ConditionConverter}">
@@ -4196,7 +4197,7 @@
                                                                                     <StackPanel>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="ENEMY CASTING SPELL"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_ENEMY_CASTING_SPELL}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">EnemyCastingSpell</sys:String>
@@ -4211,7 +4212,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="IN INSTANCE"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_IN_INSTANCE}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">InInstance</sys:String>
@@ -4226,7 +4227,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="TARGET NAME"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_TARGET_NAME}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">TargetName</sys:String>
@@ -4241,7 +4242,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="LAST SPELL"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_LAST_SPELL}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">LastSpell</sys:String>
@@ -4256,7 +4257,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="HEALTH PERCENT BELOW"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_HEALTH_PERCENT_BELOW}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">HpPercentBelow</sys:String>
@@ -4271,7 +4272,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="HEALTH PERCENT BETWEEN"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_HEALTH_PERCENT_BETWEEN}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">HpPercentBetween</sys:String>
@@ -4289,7 +4290,7 @@
 
                                                                                     <StackPanel Margin="5,0">
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="HAS AURA"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_HAS_AURA}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">HasAura</sys:String>
@@ -4304,7 +4305,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="PLAYER HAS AURA"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_PLAYER_HAS_AURA}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">PlayerHasAura</sys:String>
@@ -4319,7 +4320,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="IS JOB"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_IS_JOB}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">IsJob</sys:String>
@@ -4334,7 +4335,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="IS ROLE"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_IS_ROLE}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">IsRole</sys:String>
@@ -4349,7 +4350,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="ENEMIES NEARBY"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_ENEMIES_NEARBY}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">EnemiesNearby</sys:String>
@@ -4364,7 +4365,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="TARGET BOSS"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_TARGET_BOSS}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">TargetIsBoss</sys:String>
@@ -4379,7 +4380,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="HAS TARGET"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_HAS_TARGET}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">HasCurrentTarget</sys:String>
@@ -4397,7 +4398,7 @@
 
                                                                                     <StackPanel Margin="5,0">
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="DOES NOT HAVE AURA"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_DOES_NOT_HAVE_AURA}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">DoesNotHaveAura</sys:String>
@@ -4412,7 +4413,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="PLAYER DOES NOT HAVE AURA"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_PLAYER_DOES_NOT_HAVE_AURA}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">PlayerDoesNotHaveAura</sys:String>
@@ -4428,7 +4429,7 @@
 
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="PLAYER IN COMBAT"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_PLAYER_IN_COMBAT}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">PlayerInCombat</sys:String>
@@ -4444,7 +4445,7 @@
 
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="PLAYER NOT IN COMBAT"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_PLAYER_NOT_IN_COMBAT}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">PlayerNotInCombat</sys:String>
@@ -4460,7 +4461,7 @@
 
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="SPELL OFF COOLDOWN"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_SPELL_OFF_COOLDOWN}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">SpellOffCooldown</sys:String>
@@ -4475,7 +4476,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="HAS PET"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_HAS_PET}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">HasPet</sys:String>
@@ -4490,7 +4491,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="COUNTDOWN TIMER"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_COUNTDOWN_TIMER}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">CountdownTimer</sys:String>
@@ -4538,7 +4539,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="GREASED LIGHTNING"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_GREASED_LIGHTNING}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">MonkGreasedLightning</sys:String>
@@ -4712,7 +4713,7 @@
                                                                                         </Button>
 
                                                                                         <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.AddGambitCondition}"
-                                                                                                Content="DRAGOON GAUGE"
+                                                                                                Content="{x:Static properties:Resources.Controls_Content_DRAGOON_GAUGE}"
                                                                                                 Style="{DynamicResource ButtonGambitAddCondition}">
                                                                                             <Button.Resources>
                                                                                                 <sys:String x:Key="Condition">DragoonGaugeTimer</sys:String>
@@ -4839,7 +4840,7 @@
                                                                                         HorizontalAlignment="Left"
                                                                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambit}"
                                                                                         CommandParameter="{Binding}"
-                                                                                        Content="DELETE ACTION"
+                                                                                        Content="{x:Static properties:Resources.Controls_Content_DELETE_ACTION}"
                                                                                         Style="{DynamicResource ButtonGambitAddCondition}"/>
 
                                                                             </StackPanel>

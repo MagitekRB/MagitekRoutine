@@ -1,6 +1,7 @@
 <UserControl x:Class="Magitek.Views.UserControls.OccultCrescent.General"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:occultCrescent="clr-namespace:Magitek.Models.OccultCrescent"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -33,12 +34,12 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="General Settings"/>
+                                                   Text="{x:Static properties:Resources.Generic_General_Settings}"/>
 
                                         <!-- Enable OC System -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Enable Occult Crescent Phantom Job System"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Enable_Occult_Crescent_Phan}"
                                                           IsChecked="{Binding Enable, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -48,16 +49,16 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic">
-                        <Run Text="Occult Crescent content provides temporary Phantom Jobs with unique abilities."/>
+                        <Run Text="{x:Static properties:Resources.OccultCrescent_Text_Occult_Crescent_content_provid}"/>
                         <LineBreak/>
-                        <Run Text="Magitek automatically detects your current Phantom Job and uses abilities accordingly."/>
+                        <Run Text="{x:Static properties:Resources.OccultCrescent_Text_Magitek_automatically_detects_}"/>
                                         </TextBlock>
 
                                         <!-- Party Buff Refresh Time Setting -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text="Party buff refresh time:"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Party_buff_refresh_time}"/>
                                                 <controls:Numeric MinValue="1"
                                                                   MaxValue="30"
                                                                   Value="{Binding PartyBuffRefreshMinutes, Mode=TwoWay}"
@@ -71,12 +72,12 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Party_buff_refresh_time_contro}"/>
 
                                         <!-- Non-Party Resurrection Settings -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Revive Non-Party Dead Players (excess mana only)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Revive_Non_Party_Dead_Playe}"
                                                           IsChecked="{Binding ReviveNonPartyPlayers, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -84,7 +85,7 @@
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text="Min MP for Non-Party Revive: "/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Min_MP_for_Non_Party_Revive}"/>
                                                 <controls:Numeric MinValue="0"
                                                                   MaxValue="100"
                                                                   Value="{Binding ReviveNonPartyMinimumManaPercent, Mode=TwoWay}"/>
@@ -94,10 +95,10 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Out of Combat"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Out_of_Combat}"
                                                           IsChecked="{Binding ReviveNonPartyOutOfCombat, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="In Combat"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_In_Combat}"
                                                           IsChecked="{Binding ReviveNonPartyInCombat, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -108,12 +109,12 @@
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="Orange"
-                                                   Text="In combat: Uses Swiftcast/Dualcast only. Out of combat: Uses Swiftcast first, then slowcast if needed."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_In_combat_Uses_SwiftcastDualca}"/>
 
                                         <!-- Automatic Phantom Job Switching -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Automatically switch phantom jobs for Knowledge Crystal buffs"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Automatically_switch_phanto}"
                                                           IsChecked="{Binding EnableAutomaticPhantomJobSwitching, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -122,28 +123,28 @@
                                         <StackPanel Margin="20,5,5,5">
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0,2">
-                                                        <CheckBox Content="Auto-switch to Knight for Enduring Fortitude"
+                                                        <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude}"
                                                                   IsChecked="{Binding AutoSwitchToKnightForEnduringFortitude, Mode=TwoWay}"
                                                                   Style="{DynamicResource CheckBoxFlat}"
                                                                   IsEnabled="{Binding EnableAutomaticPhantomJobSwitching}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0,2">
-                                                        <CheckBox Content="Auto-switch to Bard for Romeo's Ballad"
+                                                        <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Auto_switch_to_Bard_for_Rom}"
                                                                   IsChecked="{Binding AutoSwitchToBardForRomeosBallad, Mode=TwoWay}"
                                                                   Style="{DynamicResource CheckBoxFlat}"
                                                                   IsEnabled="{Binding EnableAutomaticPhantomJobSwitching}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0,2">
-                                                        <CheckBox Content="Auto-switch to Monk for Fleetfooted"
+                                                        <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Auto_switch_to_Monk_for_Fle}"
                                                                   IsChecked="{Binding AutoSwitchToMonkForFleetfooted, Mode=TwoWay}"
                                                                   Style="{DynamicResource CheckBoxFlat}"
                                                                   IsEnabled="{Binding EnableAutomaticPhantomJobSwitching}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0,2">
-                                                        <CheckBox Content="Restore original phantom job after auto-buffing"
+                                                        <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Restore_original_phantom_jo}"
                                                                   IsChecked="{Binding RestoreOriginalPhantomJobAfterAutoBuff, Mode=TwoWay}"
                                                                   Style="{DynamicResource CheckBoxFlat}"
                                                                   IsEnabled="{Binding EnableAutomaticPhantomJobSwitching}"/>
@@ -155,7 +156,7 @@
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="LightBlue"
-                                                   Text="When near Knowledge Crystals, automatically switches to enabled phantom jobs to cast party buffs if needed. Disable specific jobs you don't have access to."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_When_near_Knowledge_Crystals_a}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -164,12 +165,12 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Bard"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Bard}"/>
 
                                         <!-- Offensive Aria -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Offensive Aria (Damage buff - 70s duration)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Offensive_Aria_Damage_b}"
                                                           IsChecked="{Binding UseOffensiveAria, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -177,7 +178,7 @@
                                         <!-- Hero's Rime -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Hero's Rime (Party damage/healing +10% - 120s cooldown)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Heros_Rime_Party_damage}"
                                                           IsChecked="{Binding UseHerosRime, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -185,7 +186,7 @@
                                         <!-- Mighty March -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Mighty March below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Mighty_March_below}"
                                                           IsChecked="{Binding UseMightyMarch, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -193,8 +194,8 @@
                                                                   Value="{Binding MightyMarchHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding MightyMarchCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -203,7 +204,7 @@
                                         <!-- Romeo's Ballad -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Romeo's Ballad (Combat interrupts only - knowledge crystal usage is automatic)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Romeos_Ballad_Combat_in}"
                                                           IsChecked="{Binding UseRomeosBallad, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -215,15 +216,15 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Knight"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Knight}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Phantom Guard"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Phantom_Guard}"
                                                           IsChecked="{Binding UsePhantomGuard, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text="when HP below "
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"
                                                            Margin="20,0,0,0"/>
                                                 <controls:Numeric MaxValue="100"
                                                                   MinValue="1"
@@ -234,11 +235,11 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Pray (Combat regen only - knowledge crystal party buff is automatic)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Pray_Combat_regen_only_}"
                                                           IsChecked="{Binding UsePray, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text="Regen when HP below "
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Regen_when_HP_below}"
                                                            Margin="20,0,0,0"/>
                                                 <controls:Numeric MaxValue="100"
                                                                   MinValue="1"
@@ -250,7 +251,7 @@
                                         <!-- Occult Heal -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Heal below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Heal_below}"
                                                           IsChecked="{Binding UseOccultHeal, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -258,8 +259,8 @@
                                                                   Value="{Binding OccultHealHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding OccultHealCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -268,7 +269,7 @@
                                         <!-- Pledge -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Pledge below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Pledge_below}"
                                                           IsChecked="{Binding UsePledge, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -276,8 +277,8 @@
                                                                   Value="{Binding PledgeHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding PledgeCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -290,14 +291,14 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Monk"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Monk}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Phantom Kick"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Phantom_Kick}"
                                                           IsChecked="{Binding UsePhantomKick, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="Only use in melee range"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Only_use_in_melee_range}"
                                                           IsChecked="{Binding PhantomKickMeleeRangeOnly, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -305,21 +306,21 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use OccultCounter (Attack after parry)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_OccultCounter_Attack_af}"
                                                           IsChecked="{Binding UseOccultCounter, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Counterstance (Combat parry buff only - knowledge crystal movement speed is automatic)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Counterstance_Combat_pa}"
                                                           IsChecked="{Binding UseCounterstance, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use OccultChakra below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_OccultChakra_below}"
                                                           IsChecked="{Binding UseOccultChakra, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -327,7 +328,7 @@
                                                                   Value="{Binding OccultChakraHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
                                         </StackPanel>
                                 </StackPanel>
                         </controls:SettingsBlock>
@@ -337,21 +338,21 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Berserker"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Berserker}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Deadly Blow (High damage based on missing HP)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Deadly_Blow_High_damage}"
                                                           IsChecked="{Binding UseDeadlyBlow, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Rage (Auto attack nearest enemy)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Rage_Auto_attack_neares}"
                                                           IsChecked="{Binding UseRage, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="Only use in melee range"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Only_use_in_melee_range}"
                                                           IsChecked="{Binding RageMeleeRangeOnly, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -364,14 +365,14 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Chemist"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Chemist}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Revive (Resurrect dead party members)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Revive_Resurrect_dead_p}"
                                                           IsChecked="{Binding UseRevive, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="Revive Out of Combat"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Revive_Out_of_Combat}"
                                                           IsChecked="{Binding ReviveOutOfCombat, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -380,7 +381,7 @@
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text="Resurrection Delay: "/>
+                                                           Text="{x:Static properties:Resources.Generic_Resurrection_Delay}"/>
                                                 <controls:Numeric MinValue="0"
                                                                   MaxValue="10"
                                                                   Value="{Binding ReviveDelay, Mode=TwoWay}"/>
@@ -390,7 +391,7 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Potion below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Potion_below}"
                                                           IsChecked="{Binding UseOccultPotion, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -398,20 +399,20 @@
                                                                   Value="{Binding OccultPotionHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding OccultPotionCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" (100k gil/cast)"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_100k_gilcast}"
                                                            Foreground="Red"
                                                            Margin="10,0,0,0"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Ether below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Ether_below}"
                                                           IsChecked="{Binding UseOccultEther, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -419,8 +420,8 @@
                                                                   Value="{Binding OccultEtherManaPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent MP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_MP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding OccultEtherCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -428,7 +429,7 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Elixir when"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Elixir_when}"
                                                           IsChecked="{Binding UseOccultElixir, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -436,9 +437,9 @@
                                                                   Value="{Binding OccultElixirPartyHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent+ party members need help"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_party_members_need_hel}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" (300k gil/cast)"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_300k_gilcast}"
                                                            Foreground="Red"
                                                            Margin="10,0,0,0"/>
                                         </StackPanel>
@@ -450,21 +451,21 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Cannoneer"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Cannoneer}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Phantom Fire (Standard ranged attack)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Phantom_Fire_Standard_r}"
                                                           IsChecked="{Binding UsePhantomFire, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Holy Cannon (More damage vs undead)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Holy_Cannon_More_damage}"
                                                           IsChecked="{Binding UseHolyCannon, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="Use Silver Cannon (Damage debuff) - Mutually exclusive"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Silver_Cannon_Damage_de}"
                                                           IsChecked="{Binding UseSilverCannon, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -472,10 +473,10 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Dark Cannon (Inflicts blind)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Dark_Cannon_Inflicts_bl}"
                                                           IsChecked="{Binding UseDarkCannon, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="Use Shock Cannon (Inflicts paralysis) - Mutually exclusive"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Shock_Cannon_Inflicts_p}"
                                                           IsChecked="{Binding UseShockCannon, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -485,7 +486,7 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Grouped abilities share restrictions as noted."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Grouped_abilities_share_restri}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -494,14 +495,14 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Time Mage"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Time_Mage}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Quick (Speed buff for cast/recast/movement)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Quick_Speed_buff}"
                                                           IsChecked="{Binding UseOccultQuick, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="On Allies"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding OccultQuickCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -509,42 +510,42 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Slowga (Inflicts Slow on enemies)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Slowga_Inflicts_}"
                                                           IsChecked="{Binding UseOccultSlowga, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Mage Masher (Reduces enemy magic attack power)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Mage_Masher_Redu}"
                                                           IsChecked="{Binding UseOccultMageMasher, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Dispel (Removes beneficial effects from enemies)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Dispel_Removes_b}"
                                                           IsChecked="{Binding UseOccultDispel, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Comet (AoE damage - 8s cast time)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Comet_AoE_damage}"
                                                           IsChecked="{Binding UseOccultComet, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="20,5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Only cast Comet with job-specific cast time reduction buffs"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Only_cast_Comet_with_job_sp}"
                                                           IsChecked="{Binding OccultCometOnlyWithJobSpecificBuffs, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="40,5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Allow using Swiftcast for Comet (healers may want to save for resurrections)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Allow_using_Swiftcast_for_C}"
                                                           IsChecked="{Binding OccultCometAllowSwiftcast, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -553,7 +554,7 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Quick prioritizes casting party members. Comet restriction uses Dualcast (RDM), Requiescat (PLD), Occult Quick (Time Mage), or Swiftcast (if enabled)."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Quick_prioritizes_casting_part}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -562,25 +563,25 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Ranger"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Ranger}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Phantom Aim (Damage buff - 120s cooldown)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Phantom_Aim_Damage_buff}"
                                                           IsChecked="{Binding UsePhantomAim, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Falcon (Area attack)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Falcon_Area_atta}"
                                                           IsChecked="{Binding UseOccultFalcon, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Unicorn below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Unicorn_below}"
                                                           IsChecked="{Binding UseOccultUnicorn, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -588,8 +589,8 @@
                                                                   Value="{Binding OccultUnicornHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding OccultUnicornCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -599,7 +600,7 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Unicorn creates 40k damage absorb barrier for entire party. Falcon triggers traps."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Unicorn_creates_40k_damage_abs}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -608,18 +609,18 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Thief"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Thief}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Occult Sprint (Greatly increases movement speed)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Sprint_Greatly_i}"
                                                           IsChecked="{Binding UseOccultSprint, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Only use Occult Sprint in combat"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Only_use_Occult_Sprint_in_c}"
                                                           IsChecked="{Binding OccultSprintOnlyInCombat, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -627,7 +628,7 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Steal when enemy below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Steal_when_enemy_below}"
                                                           IsChecked="{Binding UseSteal, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="50"
@@ -635,12 +636,12 @@
                                                                   Value="{Binding StealHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (increases item drop chance)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_increases_item_drop}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Vigilance within"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Vigilance_within}"
                                                           IsChecked="{Binding UseVigilance, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="50"
@@ -648,12 +649,12 @@
                                                                   Value="{Binding VigilanceTargetDistance, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" yalms of target (Vigilance → Foreseen Offense when entering combat)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_yalms_of_target_Vigilance_Fore}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Pilfer Weapon (Lowers target's physical attack power by 10%)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Pilfer_Weapon_Lowers_ta}"
                                                           IsChecked="{Binding UsePilferWeapon, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -662,7 +663,7 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Vigilance can only be cast out of combat with a valid target. Effect changes to Foreseen Offense (+60% crit rate) when entering combat."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Vigilance_can_only_be_cast_out}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -671,11 +672,11 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Samurai"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Samurai}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Mineuchi stun with strategy:"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Mineuchi_stun_with_stra}"
                                                           IsChecked="{Binding UseMineuchi, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <ComboBox ItemsSource="{Binding Source={StaticResource InterruptStrategy}}"
@@ -686,7 +687,7 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Shirahadori below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Shirahadori_below}"
                                                           IsChecked="{Binding UseShirahadori, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -694,19 +695,19 @@
                                                                   Value="{Binding ShirahadoriHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (physical damage immunity for one attack)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_physical_damage_imm}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Iainuki (Cone attack with instant kill chance)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Iainuki_Cone_attack_wit}"
                                                           IsChecked="{Binding UseIainuki, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Zeninage (Consumes Occult Coffer for 1,500 potency)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Zeninage_Consumes_Occul}"
                                                           IsChecked="{Binding UseZeninage, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -715,7 +716,7 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Mineuchi avoids stunning immune enemies. Zeninage only works when you have an Occult Coffer. Iainuki is a cone AoE attack."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Mineuchi_avoids_stunning_immun}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -724,11 +725,11 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Oracle"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Oracle}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Predict (Grants random prediction)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Predict_Grants_random_p}"
                                                           IsChecked="{Binding UsePredict, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -738,18 +739,18 @@
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="Orange"
-                                                   Text="Predict cycles through 4 random predictions. Magitek will attempt to use the best prediction available as they cycle through. Only one can be used. Must cast something on 4th cycle to avoid False Prediction (deadly DoT)."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Predict_cycles_through_4_rando}"/>
 
                                         <TextBlock Margin="5"
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="Red"
-                                                   Text="⚠️ SAFETY: If Starfall is the 4rd prediction and you're below the Starfall threshold, the current prediction will be cast automatically to avoid being forced into deadly Starfall as the 4th prediction."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text__SAFETY_If_Starfall_is_the_4rd}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Phantom Judgment when party below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Phantom_Judgment_when_p}"
                                                           IsChecked="{Binding UsePhantomJudgment, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -757,12 +758,12 @@
                                                                   Value="{Binding PhantomJudgmentHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (Damage + Healing)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_Damage_Healing}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Blessing when party below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Blessing_when_party_bel}"
                                                           IsChecked="{Binding UseBlessing, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -770,12 +771,12 @@
                                                                   Value="{Binding BlessingHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (Strong Healing + Regen)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_Strong_Healing_Rege}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Cleansing when party above"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Cleansing_when_party_ab}"
                                                           IsChecked="{Binding UseCleansing, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -783,12 +784,12 @@
                                                                   Value="{Binding CleansingHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (Damage + Freeze Time)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_Damage_Freeze_Time}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Starfall when above"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Starfall_when_above}"
                                                           IsChecked="{Binding UseStarfall, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -796,12 +797,12 @@
                                                                   Value="{Binding StarfallHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (90% max HP self damage!)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_90_max_HP_self_dama}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Phantom Rejuvenation below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Phantom_Rejuvenation_be}"
                                                           IsChecked="{Binding UsePhantomRejuvenation, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -809,18 +810,18 @@
                                                                   Value="{Binding PhantomRejuvenationHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding PhantomRejuvenationCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" (Prioritizes tanks)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Prioritizes_tanks}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Invulnerability below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Invulnerability_below}"
                                                           IsChecked="{Binding UseInvulnerability, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="50"
@@ -828,13 +829,13 @@
                                                                   Value="{Binding InvulnerabilityHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding InvulnerabilityCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" (Emergency protection)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Emergency_protection}"/>
                                         </StackPanel>
 
                                 </StackPanel>
@@ -845,18 +846,18 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Geomancer"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Geomancer}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Battle Bell (Damage boost that stacks when taking damage)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Battle_Bell_Damage_boos}"
                                                           IsChecked="{Binding UseBattleBell, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Always prioritize self for Battle Bell"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Always_prioritize_self_for_}"
                                                           IsChecked="{Binding BattleBellAlwaysIncludeSelf, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -866,25 +867,25 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Battle Bell prioritizes tanks first (who take most damage), then self, then other party members. Only cast in combat."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Battle_Bell_prioritizes_tanks_}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Ringing Respite (Heals target when they take damage)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Ringing_Respite_Heals_t}"
                                                           IsChecked="{Binding UseRingingRespite, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="On Allies"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding RingingRespiteCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" (Prioritizes tanks)"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Prioritizes_tanks}"
                                                            Margin="5,0,0,0"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Always prioritize self for Ringing Respite"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Always_prioritize_self_for_}"
                                                           IsChecked="{Binding RingingRespiteAlwaysIncludeSelf, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -892,10 +893,10 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Suspend"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Suspend}"
                                                           IsChecked="{Binding UseSuspend, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
-                                                <CheckBox Content="Suspend whole party"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Suspend_whole_party}"
                                                           IsChecked="{Binding SuspendCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -903,7 +904,7 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Sunbath below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Sunbath_below}"
                                                           IsChecked="{Binding UseSunbath, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="100"
@@ -911,50 +912,50 @@
                                                                   Value="{Binding SunbathHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP"/>
-                                                <CheckBox Content="On Allies"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP}"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
                                                           IsChecked="{Binding SunbathCastOnAllies, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" (Restores HP)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Restores_HP}"/>
                                         </StackPanel>
 
                                         <TextBlock Margin="5"
                                                    Style="{DynamicResource TextBlockSection}"
-                                                   Text="Weather Effects (Combat Only)"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Weather_Effects_Combat_Only}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Cloudy Caress (Increases healing potency by 30%)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Cloudy_Caress_Increases}"
                                                           IsChecked="{Binding UseCloudyCaress, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Blessed Rain (Erects magical barrier which nullifies damage)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Blessed_Rain_Erects_mag}"
                                                           IsChecked="{Binding UseBlessedRain, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Misty Mirage (Increases evasion by 40%)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Misty_Mirage_Increases_}"
                                                           IsChecked="{Binding UseMistyMirage, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Hasty Mirage (Increases movement speed by 20%)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Hasty_Mirage_Increases_}"
                                                           IsChecked="{Binding UseHastyMirage, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Aetherial Gain (Increases damage dealt by 10%)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Aetherial_Gain_Increase}"
                                                           IsChecked="{Binding UseAetherialGain, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                         </StackPanel>
@@ -963,7 +964,7 @@
                                                    Style="{DynamicResource TextBlockDefault}"
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
-                                                   Text="Weather effects are beneficial buffs that can only be cast in combat when available. All effects are applied to self and nearby party members."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Weather_effects_are_beneficial}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 
@@ -972,11 +973,11 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Ninja (Gold Farming)"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Ninja_Gold_Farming}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Use Dokumori when enemy below"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Dokumori_when_enemy_bel}"
                                                           IsChecked="{Binding UseDokumori, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
                                                 <controls:Numeric MaxValue="50"
@@ -984,12 +985,12 @@
                                                                   Value="{Binding DokumoriHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent HP (AoE steal - increases item drop chance)"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent_HP_AoE_steal___increas}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="Only use Dokumori on multiple targets (2+ enemies)"
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Only_use_Dokumori_on_multip}"
                                                           IsChecked="{Binding DokumoriOnlyMultipleTargets, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"
                                                           Margin="20,0,0,0"/>
@@ -1000,7 +1001,7 @@
                                                    TextWrapping="Wrap"
                                                    FontStyle="Italic"
                                                    Foreground="Gold"
-                                                   Text="Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job. Enable 'multiple targets only' to save Dokumori cooldown for big AoE pulls."/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Dokumori_is_an_AoE_steal_abili}"/>
                                 </StackPanel>
                         </controls:SettingsBlock>
 

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.RedMage.Pvp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -37,13 +38,13 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Purify (remove debuffs)"
+                              Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
                               IsChecked="{Binding RedMageSettings.Pvp_UsePurify, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Guard (Shield) At "
+                              Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseGuard, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="1"
@@ -54,11 +55,11 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Recuperate (Heal) At  "
+                              Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseRecuperate, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <controls:Numeric Grid.Row="2"
@@ -69,7 +70,7 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
-                               Text=" Health Percent"/>
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -78,22 +79,22 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5">
-                    <CheckBox Content="Sprint Without Target"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
                               IsChecked="{Binding RedMageSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Use Mount"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseMount, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Guard"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
                               IsChecked="{Binding RedMageSettings.Pvp_GuardCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Don't attack Invuln (Hallowed Ground/Undead Redemption)"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Ground}"
                               IsChecked="{Binding RedMageSettings.Pvp_InvulnCheck, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -120,23 +121,23 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="Grand Impact"
+                              Content="{x:Static properties:Resources.RedMage_Content_Grand_Impact}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseGrandImpact, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Grid.Row="0"
                               Grid.Column="1"
-                              Content="Enchanted Riposte"
+                              Content="{x:Static properties:Resources.RedMage_Content_Enchanted_Riposte}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseEnchantedRiposte, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Grid.Row="0"
                               Grid.Column="2"
-                              Content="Enchanted Zwerchhau"
+                              Content="{x:Static properties:Resources.RedMage_Content_Enchanted_Zwerchhau}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseEnchantedZwerchhau, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
                     <CheckBox Grid.Row="1"
                               Grid.Column="0"
-                              Content="Enchanted Redoublement"
+                              Content="{x:Static properties:Resources.RedMage_Content_Enchanted_Redoublement}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseEnchantedRedoublement, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Grid.Row="1"
@@ -152,7 +153,7 @@
 
                     <CheckBox Grid.Row="2"
                               Grid.Column="0"
-                              Content="Vice of Thorns"
+                              Content="{x:Static properties:Resources.RedMage_Content_Vice_of_Thorns}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseViceOfThorns, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <StackPanel Grid.Row="2"
@@ -167,7 +168,7 @@
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_ForteHealthPercent, Mode=TwoWay}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text="% HP"/>
+                                   Text="{x:Static properties:Resources.Generic_Hp}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2"
                                 Grid.Column="2"
@@ -181,7 +182,7 @@
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_EmboldenTargetHealthPercent, Mode=TwoWay}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text="% HP"/>
+                                   Text="{x:Static properties:Resources.Generic_Hp}"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -206,7 +207,7 @@
                     <StackPanel Grid.Row="0"
                                 Grid.Column="0"
                                 Orientation="Horizontal">
-                        <CheckBox Content="Corps-a-corps"
+                        <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Corps_a_corps}"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseCorpsACorps, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
@@ -222,7 +223,7 @@
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_DisplacementHealthPercent, Mode=TwoWay}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text="% HP"/>
+                                   Text="{x:Static properties:Resources.Generic_Hp}"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -232,7 +233,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Limit Break"/>
+                           Text="{x:Static properties:Resources.RedMage_Text_Limit_Break}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -257,12 +258,12 @@
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_ResolutionTargetHealthPercent, Mode=TwoWay}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text="% HP"/>
+                                   Text="{x:Static properties:Resources.Generic_Hp}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="0"
                                 Grid.Column="1"
                                 Orientation="Horizontal">
-                        <CheckBox Content="Southern Cross"
+                        <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Southern_Cross}"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseSouthernCross, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
@@ -271,18 +272,18 @@
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_SouthernCrossTargetHealthPercent, Mode=TwoWay}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text="% HP"/>
+                                   Text="{x:Static properties:Resources.Generic_Hp}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1"
                                 Grid.Column="1"
                                 Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text="Don't use Southern Cross if target has more than "/>
+                                   Text="{x:Static properties:Resources.RedMage_Text_Dont_use_Southern_Cross_if_target_has}"/>
                         <controls:NumericSmall MaxValue="24"
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_MaxAlliesTargetingLimit, Mode=TwoWay}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text=" allies targeting it"/>
+                                   Text="{x:Static properties:Resources.Generic_Allies_Targeting_It}"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>

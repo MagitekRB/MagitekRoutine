@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Magitek.Views.UserControls.Sage.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,9 +22,9 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Lucid Dreaming When Under " IsChecked="{Binding SageSettings.LucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Lucid_Dreaming_When_Under}" IsChecked="{Binding SageSettings.LucidDreaming, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SageSettings.LucidDreamingManaPercent, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Mana Percent" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Mana_Percent}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -35,7 +36,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Use Kardia " IsChecked="{Binding SageSettings.Kardia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Use_Kardia}" IsChecked="{Binding SageSettings.Kardia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -44,9 +45,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Switch Kardia Targets below " IsChecked="{Binding SageSettings.KardiaSwitchTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Switch_Kardia_Targets_below}" IsChecked="{Binding SageSettings.KardiaSwitchTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.KardiaSwitchTargetsHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -55,9 +56,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Only switch when current Kardia target is above " IsChecked="{Binding SageSettings.KardiaSwitchTargetsCurrent, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Only_switch_when_current_Kardia_targe}" IsChecked="{Binding SageSettings.KardiaSwitchTargetsCurrent, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.KardiaSwitchTargetsCurrentHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -68,9 +69,9 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"  Style="{DynamicResource TextBlockDefault}" Text="Allow Kardia on " />
-                    <CheckBox Grid.Column="1" Content="Main Tank " IsChecked="{Binding SageSettings.KardiaMainTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Grid.Column="2" Content="Any Tanks " IsChecked="{Binding SageSettings.KardiaTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Grid.Column="0"  Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Allow_Kardia_on}" />
+                    <CheckBox Grid.Column="1" Content="{x:Static properties:Resources.Generic_Main_Tank}" IsChecked="{Binding SageSettings.KardiaMainTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="2" Content="{x:Static properties:Resources.Sage_Content_Any_Tanks}" IsChecked="{Binding SageSettings.KardiaTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="3" Content="Healers " IsChecked="{Binding SageSettings.KardiaHealer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="4" Content="DPS " IsChecked="{Binding SageSettings.KardiaDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
@@ -88,7 +89,7 @@
 
                     <CheckBox Grid.Column="0" Content="Krasis " IsChecked="{Binding SageSettings.Krasis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.KrasisHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -96,8 +97,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Use Krasis For Tank Only " IsChecked="{Binding SageSettings.KrasisTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox  Grid.Column="1" Content="Main Tank Only" IsChecked="{Binding SageSettings.KrasisMainTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Use_Krasis_For_Tank_Only}" IsChecked="{Binding SageSettings.KrasisTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox  Grid.Column="1" Content="{x:Static properties:Resources.Sage_Content_Main_Tank_Only}" IsChecked="{Binding SageSettings.KrasisMainTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -113,9 +114,9 @@
 
                     <CheckBox Grid.Column="0" Content="Soteria " IsChecked="{Binding SageSettings.Soteria, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.SoteriaHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
-                <CheckBox Margin="0,3,0,0" Content="Use Soteria For Tank Only" IsChecked="{Binding SageSettings.SoteriaTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Sage_Content_Use_Soteria_For_Tank_Only}" IsChecked="{Binding SageSettings.SoteriaTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -128,7 +129,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Content="Use Rhizomata" IsChecked="{Binding SageSettings.Rhizomata, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Use_Rhizomata}" IsChecked="{Binding SageSettings.Rhizomata, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -143,7 +144,7 @@
 
                     <CheckBox Grid.Column="0" Content="Philosophia " IsChecked="{Binding SageSettings.Philosophia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.PhilosophiaHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -156,24 +157,24 @@
                 </StackPanel>
 
                 <StackPanel Visibility="{Binding SageSettings.OnlyZoePneuma, Converter={StaticResource BoolToVis}}">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Uses Pneuma HP % On Combat Tab" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Uses_Pneuma_HP_On_Combat_Tab}" />
                 </StackPanel>
 
                 <StackPanel Visibility="{Binding SageSettings.Zoe, Converter={StaticResource BoolToVis}}">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="0,3,0,0" Content="Use On Tank " IsChecked="{Binding SageSettings.ZoeTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Margin="0,3,0,0" Content="Main Tank" IsChecked="{Binding SageSettings.ZoeMainTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Sage_Content_Use_On_Tank}" IsChecked="{Binding SageSettings.ZoeTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Generic_Main_Tank}" IsChecked="{Binding SageSettings.ZoeMainTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
 
-                    <CheckBox Content="Use On Healer " IsChecked="{Binding SageSettings.ZoeHealer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Use_On_Healer}" IsChecked="{Binding SageSettings.ZoeHealer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Use at " />
+                        <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Use_at}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.ZoeHealthPercent, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Health Percent" />
+                        <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     </StackPanel>
-                    <CheckBox Content="Use with Eukrasian Diagnosis " IsChecked="{Binding SageSettings.ZoeEukrasianDiagnosis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Use with Eukrasian Prognosis " IsChecked="{Binding SageSettings.ZoeEukrasianPrognosis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Use with Pneuma " IsChecked="{Binding SageSettings.ZoePneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Use_with_Eukrasian_Diagnosis}" IsChecked="{Binding SageSettings.ZoeEukrasianDiagnosis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Use_with_Eukrasian_Prognosis}" IsChecked="{Binding SageSettings.ZoeEukrasianPrognosis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Use_with_Pneuma}" IsChecked="{Binding SageSettings.ZoePneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
