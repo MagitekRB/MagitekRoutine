@@ -23,7 +23,7 @@
                                         Background="{DynamicResource ClassSelectorBackground}">
                         <StackPanel>
                                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                                           Text="Utilities"/>
+                                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                                 <Grid Margin="5">
                                         <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -108,16 +108,16 @@
                                            Text="General"/>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
-                                        <CheckBox Content="Bloodspiller                    "
+                                        <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_BloodSpiller}"
                                                   IsChecked="{Binding DarkKnightSettings.Pvp_Bloodspiller, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
-                                        <CheckBox Content="Impalement "
+                                        <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Impalement}"
                                                   IsChecked="{Binding DarkKnightSettings.Pvp_Impalement, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
-                                        <CheckBox Content="Plunge                            "
+                                        <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Plunge}"
                                                   IsChecked="{Binding DarkKnightSettings.Pvp_Plunge, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
                                         <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Salted_Earth}"
@@ -159,7 +159,7 @@
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
-                                        <CheckBox Content="Disesteem"
+                                        <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Disesteem}"
                                                   IsChecked="{Binding DarkKnightSettings.Pvp_Disesteem, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
                                 </StackPanel>
@@ -186,7 +186,7 @@
                         <StackPanel Margin="5">
                                 <TextBlock Margin="0,0,0,5"
                                            Style="{DynamicResource TextBlockSection}"
-                                           Text="Buffs"/>
+                                           Text="{x:Static properties:Resources.Generic_Buffs}"/>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
                                         <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Blackest_Night}"

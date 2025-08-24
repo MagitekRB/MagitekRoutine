@@ -18,7 +18,7 @@
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Deathflare" IsChecked="{Binding SummonerSettings.Deathflare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Deathflare}" IsChecked="{Binding SummonerSettings.Deathflare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="10,0,0,0" Content="{x:Static properties:Resources.Summoner_Content_Use_Lucid_Dreaming_With_Deathflar}" IsChecked="{Binding SummonerSettings.LucidDreamingWithDeathFlare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>

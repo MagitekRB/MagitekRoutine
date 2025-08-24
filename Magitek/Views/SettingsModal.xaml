@@ -105,7 +105,7 @@
                         </StackPanel>
                     </controls:SettingsBlock>
 
-                    <Button Height="30" HorizontalAlignment="Center" Click="ButtonBase_OnClick" Content="Close" Style="{DynamicResource ButtonLists}" />
+                    <Button Height="30" HorizontalAlignment="Center" Click="ButtonBase_OnClick" Content="{x:Static properties:Resources.Generic_Close}" Style="{DynamicResource ButtonLists}" />
 
                 </StackPanel>
             </StackPanel>

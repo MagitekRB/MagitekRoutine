@@ -37,7 +37,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding DarkKnightSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding DarkKnightSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -48,7 +48,7 @@
                     <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Blood_Weapon}" IsChecked="{Binding DarkKnightSettings.BloodWeapon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Delirium  " IsChecked="{Binding DarkKnightSettings.Delirium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Delirium}" IsChecked="{Binding DarkKnightSettings.Delirium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Living_Shadow}" IsChecked="{Binding DarkKnightSettings.LivingShadow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

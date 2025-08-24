@@ -23,7 +23,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -105,10 +105,10 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="General"/>
+                           Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Wildfire"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Wildfire}"
                               IsChecked="{Binding MachinistSettings.Pvp_Wildfire, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -124,7 +124,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Scattergun"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Scattergun}"
                               IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -171,7 +171,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_LB_Any_Enemy_below_the_threshold}"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_LB_Any_Enemy_below_the_threshold}"
                               Margin="10,0"
                               IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteAnyTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
@@ -184,21 +184,21 @@
             <StackPanel Margin="5">
                 <TextBlock Margin="0,0,0,5"
                            Style="{DynamicResource TextBlockSection}"
-                           Text="Buffs"/>
+                           Text="{x:Static properties:Resources.Generic_Buffs}"/>
                 <TextBlock Style="{DynamicResource TextBlockDefault}"
                            Text="{x:Static properties:Resources.Machinist_Text_Use_Analysis_on}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Drill     "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Drill}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnDrill, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="BioBlaster     "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_BioBlaster}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnBio, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Air_Anchor}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnAA, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="ChainSaw"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_ChainSaw}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnChainSaw, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

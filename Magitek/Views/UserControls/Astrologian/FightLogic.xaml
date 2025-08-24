@@ -34,9 +34,9 @@
                 <TextBlock Margin="0,5"
                            Style="{DynamicResource TextBlockDefault}"
                            TextWrapping="Wrap"
-                           Text="Tankbusters"/>
+                           Text="{x:Static properties:Resources.Generic_Tankbusters}"/>
                 <StackPanel Orientation="Vertical">
-                    <CheckBox Content="Exaltation"
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Exaltation}"
                               IsChecked="{Binding AstrologianSettings.FightLogicExaltation, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Celestial_Intersection}"
@@ -57,13 +57,13 @@
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Collective_Unconscious}"
                               IsChecked="{Binding AstrologianSettings.FightLogicCollectiveUnconscious, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Horoscope "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Horoscope}"
                               IsChecked="{Binding AstrologianSettings.FightLogicHoroscope, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Aspected_Helios}"
                               IsChecked="{Binding AstrologianSettings.FightLogicAspectedHelios, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Knockback "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Knockback}"
                               IsChecked="{Binding AstrologianSettings.FightLogicKnockback, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

@@ -75,7 +75,7 @@
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Targets" />
                 </StackPanel>
 
-                <CheckBox Grid.Row="1" Content="Dosis" IsChecked="{Binding SageSettings.Dosis , Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="1" Content="{x:Static properties:Resources.Sage_Content_Dosis}" IsChecked="{Binding SageSettings.Dosis , Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Row="2" Content="{x:Static properties:Resources.Sage_Content_Eukrasian_Dosis}" IsChecked="{Binding SageSettings.EukrasianDosis, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 
 
@@ -151,7 +151,7 @@
         </controls:SettingsBlock>
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Pneuma " IsChecked="{Binding SageSettings.Pneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Sage_Content_Pneuma}" IsChecked="{Binding SageSettings.Pneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Content="{x:Static properties:Resources.Sage_Content_Pneuma_only_to_heal}" IsChecked="{Binding SageSettings.PneumaHealOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SageSettings.PneumaNeedHealing, Mode=TwoWay}" />
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Allies_need_healing}" />

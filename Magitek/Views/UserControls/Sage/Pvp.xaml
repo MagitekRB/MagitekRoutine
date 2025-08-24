@@ -21,7 +21,7 @@
     <StackPanel Margin="5">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -66,18 +66,18 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General}" />
                 <StackPanel Margin="5">
-                    <CheckBox Content="Kardia" IsChecked="{Binding SageSettings.Pvp_Kardia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Kardia}" IsChecked="{Binding SageSettings.Pvp_Kardia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Sage_Content_Phlegma_III}" IsChecked="{Binding SageSettings.Pvp_PhlegmaIII, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Toxikon" IsChecked="{Binding SageSettings.Pvp_Toxikon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Toxikon}" IsChecked="{Binding SageSettings.Pvp_Toxikon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Pneuma" IsChecked="{Binding SageSettings.Pvp_Pneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Pneuma}" IsChecked="{Binding SageSettings.Pvp_Pneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Mesotes_LB_with_at_least}" IsChecked="{Binding SageSettings.Pvp_Mesotes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -89,9 +89,9 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Buff" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Buffs}" />
                 <StackPanel Margin="5">
-                    <CheckBox Content="Eukrasia" IsChecked="{Binding SageSettings.Pvp_Eukrasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Eukrasia}" IsChecked="{Binding SageSettings.Pvp_Eukrasia, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

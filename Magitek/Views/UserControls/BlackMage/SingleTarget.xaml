@@ -20,9 +20,9 @@
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Paradox               " IsChecked="{Binding BlackMageSettings.Paradox, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Despair               " IsChecked="{Binding BlackMageSettings.Despair, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="FlareStar " IsChecked="{Binding BlackMageSettings.Scathe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Paradox}" IsChecked="{Binding BlackMageSettings.Paradox, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Despair}" IsChecked="{Binding BlackMageSettings.Despair, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_FlareStar}" IsChecked="{Binding BlackMageSettings.Scathe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

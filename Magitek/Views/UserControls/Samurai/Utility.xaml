@@ -80,7 +80,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activate}" IsChecked="{Binding SamuraiSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activated}" IsChecked="{Binding SamuraiSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding SamuraiSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
         </controls:SettingsBlock>

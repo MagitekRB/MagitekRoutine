@@ -107,7 +107,7 @@
                 <TextBlock Style="{DynamicResource TextBlockSection}"
                            Text="General"/>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Biolysis"
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Biolysis}"
                               IsChecked="{Binding ScholarSettings.Pvp_Biolysis, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -134,7 +134,7 @@
                                Text="{x:Static properties:Resources.Generic_Allies_Around}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Consolation"
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Consolation}"
                               IsChecked="{Binding ScholarSettings.Pvp_Consolation, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -144,7 +144,7 @@
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Accession"
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Accession}"
                               IsChecked="{Binding ScholarSettings.Pvp_Accession, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -185,7 +185,7 @@
                 <StackPanel Grid.Column="0"
                             Margin="0,0,5,0">
                     <TextBlock Style="{DynamicResource TextBlockSection}"
-                               Text="Healing"/>
+                               Text="{x:Static properties:Resources.Generic_Healing}"/>
                     <StackPanel Margin="5">
                         <CheckBox Content="{x:Static properties:Resources.Generic_Self_Heal_Only}"
                                   IsChecked="{Binding ScholarSettings.Pvp_HealSelfOnly, Mode=TwoWay}"
@@ -214,9 +214,9 @@
                 <StackPanel Grid.Column="1"
                             Margin="5,0,0,0">
                     <TextBlock Style="{DynamicResource TextBlockSection}"
-                               Text="Buffs"/>
+                               Text="{x:Static properties:Resources.Generic_Buffs}"/>
                     <StackPanel Margin="5">
-                        <CheckBox Content="Expedient"
+                        <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Expedient}"
                                   IsChecked="{Binding ScholarSettings.Pvp_Expedient, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>

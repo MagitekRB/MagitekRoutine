@@ -21,7 +21,7 @@
     <StackPanel Margin="5">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -66,7 +66,7 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General}" />
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Afflatus_Misery}" IsChecked="{Binding WhiteMageSettings.Pvp_UseAfflatusMisery, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
@@ -81,7 +81,7 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Healing" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Healing}" />
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Self_Heal_Only}" IsChecked="{Binding WhiteMageSettings.Pvp_HealSelfOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>

@@ -21,7 +21,7 @@
     <StackPanel Margin="5">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -72,7 +72,7 @@
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Lemure_Slice}" IsChecked="{Binding ReaperSettings.Pvp_LemureSlice, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Guillotine                        " IsChecked="{Binding ReaperSettings.Pvp_Guillotine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Guillotine}" IsChecked="{Binding ReaperSettings.Pvp_Guillotine, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Void_and_Cross_Reaping}" IsChecked="{Binding ReaperSettings.Pvp_VoidReapingNCrossReaping, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
@@ -92,7 +92,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Buffs" />
+                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Buffs}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_ArcaneCrest_with}" IsChecked="{Binding ReaperSettings.Pvp_ArcaneCrest, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="4" MinValue="0" Value="{Binding ReaperSettings.Pvp_ArcaneCrestNumberOfAllies, Mode=TwoWay}" />

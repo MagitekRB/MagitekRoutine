@@ -38,7 +38,7 @@
         <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="3">
                 <StackPanel  Margin="0,3">
-                    <CheckBox Content="Enlightenment" IsChecked="{Binding MonkSettings.UseEnlightenment, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Monk_Content_Enlightenment}" IsChecked="{Binding MonkSettings.UseEnlightenment, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
                 <StackPanel  Margin="0,3">

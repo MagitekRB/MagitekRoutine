@@ -44,7 +44,7 @@
                 </StackPanel>
 
                 <StackPanel  Margin="0,3">
-                    <CheckBox Content="Vicepit " IsChecked="{Binding ViperSettings.UseVicepit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Viper_Content_Vicepit}" IsChecked="{Binding ViperSettings.UseVicepit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

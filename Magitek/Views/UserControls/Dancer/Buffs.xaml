@@ -64,7 +64,7 @@
                 <TextBlock Grid.Row="0"
                            Grid.Column="2"
                            Style="{DynamicResource TextBlockDefault}"
-                           Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_Your}"/>
+                           Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}"/>
             </Grid>
         </controls:SettingsBlock>
 

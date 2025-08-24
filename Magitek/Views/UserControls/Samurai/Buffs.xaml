@@ -43,7 +43,7 @@
         
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Buff" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Buffs}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Meikyo_Shisui}" IsChecked="{Binding SamuraiSettings.UseMeikyoShisui, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
@@ -54,9 +54,9 @@
                     <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Ikishoten_Grant_Ogi_Aura}" IsChecked="{Binding SamuraiSettings.UseIkishoten, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
-                <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="Utility" />
+                <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hagakure" IsChecked="{Binding SamuraiSettings.UseHagakure, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Hagakure}" IsChecked="{Binding SamuraiSettings.UseHagakure, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

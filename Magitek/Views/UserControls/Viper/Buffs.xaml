@@ -42,7 +42,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding ViperSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding ViperSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_Your}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -55,7 +55,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="3">
-                <CheckBox Content="SerpentIre" IsChecked="{Binding ViperSettings.UseSerpentIre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Viper_Content_SerpentIre}" IsChecked="{Binding ViperSettings.UseSerpentIre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 

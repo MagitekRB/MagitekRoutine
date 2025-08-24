@@ -62,7 +62,7 @@
 
                 <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Samurai_Text_oGCD___Using_meditation}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Shoha" IsChecked="{Binding SamuraiSettings.UseShoha, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Shoha}" IsChecked="{Binding SamuraiSettings.UseShoha, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
                 <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Samurai_Text_GCD___TsubameGaeshi}" />
@@ -75,7 +75,7 @@
 
                 <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Samurai_Text_GCD___Iaijutsu}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Higabana   " IsChecked="{Binding SamuraiSettings.UseHiganbana, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Higabana}" IsChecked="{Binding SamuraiSettings.UseHiganbana, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Only_Bosses}" IsChecked="{Binding SamuraiSettings.HiganbanaOnlyBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
@@ -92,7 +92,7 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Reserve " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Reserve}" />
                     <controls:Numeric MaxValue="100" MinValue="0" Value="{Binding SamuraiSettings.ReservedKenki, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Samurai_Text_Kenki_for_Manual_Spells_GyotenYaten}" />
                 </StackPanel>

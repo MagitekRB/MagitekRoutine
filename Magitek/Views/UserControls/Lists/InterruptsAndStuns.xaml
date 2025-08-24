@@ -138,7 +138,7 @@
                                                                                                            FontSize="9"
                                                                                                            FontWeight="Bold"
                                                                                                            Foreground="{DynamicResource ClassSelectorBackground}"
-                                                                                                           Text="JOBS" />
+                                                                                                           Text="{x:Static properties:Resources.Generic_Jobs}" />
                                                                                                 <Path Name="Arrow"
                                                                                                       Grid.Column="1"
                                                                                                       Margin="2,1,0.5,0"

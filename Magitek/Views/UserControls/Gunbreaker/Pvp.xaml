@@ -23,7 +23,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -105,13 +105,13 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="General"/>
+                           Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_GnashingFang_Combo}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_GnashingFangCombo, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Continuation"
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Continuation}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_Continuation, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -171,13 +171,13 @@
                            Text="Buffs"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Nebula                   "
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Nebula}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_Nebula, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="BlastingZone             "
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_BlastingZone}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_BlastingZone, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Aurora"
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Aurora}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_Aurora, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

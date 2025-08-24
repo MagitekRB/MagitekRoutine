@@ -46,7 +46,7 @@
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="BloodSpiller " IsChecked="{Binding DarkKnightSettings.UseBloodspiller, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_BloodSpiller}" IsChecked="{Binding DarkKnightSettings.UseBloodspiller, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -98,7 +98,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activ}" IsChecked="{Binding DarkKnightSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activated}" IsChecked="{Binding DarkKnightSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding DarkKnightSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
         </controls:SettingsBlock>

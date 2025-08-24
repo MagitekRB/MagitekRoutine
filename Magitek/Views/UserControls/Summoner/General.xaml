@@ -19,7 +19,7 @@
             <StackPanel>
                 <StackPanel Margin="0,5" Orientation="Horizontal">
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Pet_Summons}" />
-                    <CheckBox Margin="5,3" Content="Carbuncle" IsChecked="{Binding SummonerSettings.SummonCarbuncle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Carbuncle}" IsChecked="{Binding SummonerSettings.SummonCarbuncle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_RubyIfrit}" IsChecked="{Binding SummonerSettings.SummonRubyIfrit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_TopazTitan}" IsChecked="{Binding SummonerSettings.SummonTopazTitan, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_EmeraldGaruda}" IsChecked="{Binding SummonerSettings.SummonEmeraldGaruda, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -27,10 +27,10 @@
             
                 <StackPanel Margin="0, 0,0,5" Orientation="Horizontal">
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Trances}" />
-                    <CheckBox Margin="5,3" Content="Aethercharge" IsChecked="{Binding SummonerSettings.Aethercharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5,3" Content="Dreadwyrm" IsChecked="{Binding SummonerSettings.DreadwyrmTrance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5,3" Content="Bahamut" IsChecked="{Binding SummonerSettings.SummonBahamut, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5,3" Content="Phoenix" IsChecked="{Binding SummonerSettings.SummonPhoenix, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Aethercharge}" IsChecked="{Binding SummonerSettings.Aethercharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Dreadwyrm}" IsChecked="{Binding SummonerSettings.DreadwyrmTrance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Bahamut}" IsChecked="{Binding SummonerSettings.SummonBahamut, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Phoenix}" IsChecked="{Binding SummonerSettings.SummonPhoenix, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -39,8 +39,8 @@
             <StackPanel Margin="0,5" Orientation="Horizontal">
                 <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Single_Target}" />
                 <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Summoner_Content_Ruin_Pet_Ruin_Pet_Rite}" IsChecked="{Binding SummonerSettings.Ruin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5,3" Content="Fester" IsChecked="{Binding SummonerSettings.Fester, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5,3" Content="EnergyDrain" IsChecked="{Binding SummonerSettings.EnergyDrain, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Fester}" IsChecked="{Binding SummonerSettings.Fester, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_EnergyDrain}" IsChecked="{Binding SummonerSettings.EnergyDrain, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -54,7 +54,7 @@
                 </StackPanel>
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Energy_Siphon}" IsChecked="{Binding SummonerSettings.EnergySiphon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5,3" Content="Painflare" IsChecked="{Binding SummonerSettings.Painflare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Painflare}" IsChecked="{Binding SummonerSettings.Painflare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Enkindle_Bahamut}" IsChecked="{Binding SummonerSettings.EnkindleBahamut, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Enkindle_Phoenix}" IsChecked="{Binding SummonerSettings.EnkindlePhoenix, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
@@ -65,7 +65,7 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Astral_Flow}" />
-                    <CheckBox Margin="5,3" Content="Deathflare" IsChecked="{Binding SummonerSettings.Deathflare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Deathflare}" IsChecked="{Binding SummonerSettings.Deathflare, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Rekindle_Lowest_Target_Under}" IsChecked="{Binding SummonerSettings.Rekindle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.RekindleHPThreshold, Mode=TwoWay}" />
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}" />
@@ -74,7 +74,7 @@
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Crimson_Cyclone}" IsChecked="{Binding SummonerSettings.CrimsonCyclone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Crimson_Strike}" IsChecked="{Binding SummonerSettings.CrimsonStrike, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Mountain_Buster}" IsChecked="{Binding SummonerSettings.MountainBuster, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5,3" Content="Slipstream" IsChecked="{Binding SummonerSettings.Slipstream, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Slipstream}" IsChecked="{Binding SummonerSettings.Slipstream, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
@@ -99,8 +99,8 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Resurrection}" />
-                    <CheckBox Margin="5,3" Content="Swiftcast" IsChecked="{Binding SummonerSettings.SwiftcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Margin="5,3" Content="Slowcast" IsChecked="{Binding SummonerSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Swiftcast}" IsChecked="{Binding SummonerSettings.SwiftcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Slowcast}" IsChecked="{Binding SummonerSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Generic_Out_Of_Combat}" IsChecked="{Binding SummonerSettings.ResOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">

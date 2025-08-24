@@ -23,7 +23,7 @@
                                         Background="{DynamicResource ClassSelectorBackground}">
                         <StackPanel>
                                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                                           Text="Utilities"/>
+                                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                                 <Grid Margin="5">
                                         <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -108,10 +108,10 @@
                                            Text="General"/>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
-                                        <CheckBox Content="FellCleave                          "
+                                        <CheckBox Content="{x:Static properties:Resources.Warrior_Content_FellCleave}"
                                                   IsChecked="{Binding WarriorSettings.Pvp_FellCleave, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
-                                        <CheckBox Content="Blota"
+                                        <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Blota}"
                                                   IsChecked="{Binding WarriorSettings.Pvp_Blota, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
                                 </StackPanel>
@@ -193,10 +193,10 @@
                         <StackPanel Margin="5">
                                 <TextBlock Margin="0,0,0,5"
                                            Style="{DynamicResource TextBlockSection}"
-                                           Text="Buffs"/>
+                                           Text="{x:Static properties:Resources.Generic_Buffs}"/>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
-                                        <CheckBox Content="Bloodwhetting"
+                                        <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Bloodwhetting}"
                                                   IsChecked="{Binding WarriorSettings.Pvp_Bloodwhetting, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>
                                 </StackPanel>

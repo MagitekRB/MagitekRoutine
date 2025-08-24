@@ -81,8 +81,8 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_On_Tanks}" IsChecked="{Binding BardSettings.Instance.NaturesMinneTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Healers  " IsChecked="{Binding BardSettings.Instance.NaturesMinneHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="DPS  " IsChecked="{Binding BardSettings.Instance.NaturesMinneDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Healers}" IsChecked="{Binding BardSettings.Instance.NaturesMinneHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_DPS}" IsChecked="{Binding BardSettings.Instance.NaturesMinneDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
             </StackPanel>
@@ -90,7 +90,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="{x:Static properties:Resources.Bard_Content_Use_Interrupt_and_Stun_If_activated_use_strategy}" IsChecked="{Binding BardSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activated}" IsChecked="{Binding BardSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding BardSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
         </controls:SettingsBlock>

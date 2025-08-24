@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Content="Regen" IsChecked="{Binding WhiteMageSettings.Regen, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Generic_Regen}" IsChecked="{Binding WhiteMageSettings.Regen, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -45,9 +45,9 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Regen_On}" />
-                <CheckBox Grid.Row="0" Grid.Column="1" Content="Tanks " IsChecked="{Binding WhiteMageSettings.RegenOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Row="0" Grid.Column="2" Content="Healers " IsChecked="{Binding WhiteMageSettings.RegenOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Row="0" Grid.Column="3" Content="DPS " IsChecked="{Binding WhiteMageSettings.RegenOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="1" Content="{x:Static properties:Resources.Generic_Tanks}" IsChecked="{Binding WhiteMageSettings.RegenOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="2" Content="{x:Static properties:Resources.Generic_Healers}" IsChecked="{Binding WhiteMageSettings.RegenOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Grid.Column="3" Content="{x:Static properties:Resources.Generic_DPS}" IsChecked="{Binding WhiteMageSettings.RegenOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,5,0,0" Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Use_Regen_At}" />
@@ -68,9 +68,9 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Always_Keep_Regen_Up_On}" />
-                <CheckBox Grid.Column="1" Content="Tanks " IsChecked="{Binding WhiteMageSettings.RegenKeepUpOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Column="2" Content="Healers " IsChecked="{Binding WhiteMageSettings.RegenKeepUpOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Grid.Column="3" Content="DPS " IsChecked="{Binding WhiteMageSettings.RegenKeepUpOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="1" Content="{x:Static properties:Resources.Generic_Tanks}" IsChecked="{Binding WhiteMageSettings.RegenKeepUpOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="2" Content="{x:Static properties:Resources.Generic_Healers}" IsChecked="{Binding WhiteMageSettings.RegenKeepUpOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="3" Content="{x:Static properties:Resources.Generic_DPS}" IsChecked="{Binding WhiteMageSettings.RegenKeepUpOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>
 
@@ -85,9 +85,9 @@
 
                 <StackPanel Margin="0,3" Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Apply_This_Rule_On}" />
-                    <CheckBox Content="Tanks " IsChecked="{Binding WhiteMageSettings.RegenDontCureUnlessUnderTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Healers " IsChecked="{Binding WhiteMageSettings.RegenDontCureUnlessUnderHealer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="DPS " IsChecked="{Binding WhiteMageSettings.RegenDontCureUnlessUnderDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Tanks}" IsChecked="{Binding WhiteMageSettings.RegenDontCureUnlessUnderTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Healers}" IsChecked="{Binding WhiteMageSettings.RegenDontCureUnlessUnderHealer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_DPS}" IsChecked="{Binding WhiteMageSettings.RegenDontCureUnlessUnderDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
             </StackPanel>

@@ -25,7 +25,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Row="0" Content="Bio" IsChecked="{Binding ScholarSettings.Bio, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Row="0" Content="{x:Static properties:Resources.Scholar_Content_Bio}" IsChecked="{Binding ScholarSettings.Bio, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>

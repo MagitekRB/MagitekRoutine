@@ -21,7 +21,7 @@
     <StackPanel Margin="5">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -66,17 +66,17 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Dokumori" IsChecked="{Binding NinjaSettings.Pvp_Dokumori, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Bunshin" IsChecked="{Binding NinjaSettings.Pvp_Bunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Dokumori}" IsChecked="{Binding NinjaSettings.Pvp_Dokumori, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Bunshin}" IsChecked="{Binding NinjaSettings.Pvp_Bunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Fuma_Shuriken}" IsChecked="{Binding NinjaSettings.Pvp_FumaShuriken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Only_with_Bunshin}" IsChecked="{Binding NinjaSettings.Pvp_FumaShurikenOnlyWithBunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Shukuchi" IsChecked="{Binding NinjaSettings.Pvp_Shukuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Shukuchi}" IsChecked="{Binding NinjaSettings.Pvp_Shukuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Assassinate_When_Hidden}" IsChecked="{Binding NinjaSettings.Pvp_Assassinate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
@@ -85,7 +85,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_LB_Any_Enemy_below_the_threshold_not}" Margin="10,0" IsChecked="{Binding NinjaSettings.Pvp_UseSeitonTenchuAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_LB_Any_Enemy_below_the_threshold}" Margin="10,0" IsChecked="{Binding NinjaSettings.Pvp_UseSeitonTenchuAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

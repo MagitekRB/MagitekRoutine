@@ -34,14 +34,14 @@
 
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Use_On_Tanks}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Healers  " IsChecked="{Binding AstrologianSettings.NocturnalBeneficOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="DPS  " IsChecked="{Binding AstrologianSettings.NocturnalBeneficOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Healers}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_DPS}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Keep_Up_On_Tanks}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficKeepUpOnTanks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Healers  " IsChecked="{Binding AstrologianSettings.NocturnalBeneficKeepUpOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="DPS  " IsChecked="{Binding AstrologianSettings.NocturnalBeneficKeepUpOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Healers}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficKeepUpOnHealers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_DPS}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficKeepUpOnDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
 
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">

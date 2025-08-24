@@ -29,7 +29,7 @@
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Flamethrower " IsChecked="{Binding MachinistSettings.UseFlamethrower, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Flamethrower}" IsChecked="{Binding MachinistSettings.UseFlamethrower, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric  Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding MachinistSettings.FlamethrowerEnemyCount, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
                 </StackPanel>
