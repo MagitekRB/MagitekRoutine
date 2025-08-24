@@ -28,7 +28,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.CurrentTarget.ValidAttackUnit()
                         || !Core.Me.CurrentTarget.NotInvulnerable()
                         || Core.Me.CurrentTarget.Distance(Core.Me) < Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
-                        || Core.Me.CurrentTarget.Distance(Core.Me) > 20 + Core.Me.CurrentTarget.CombatReach
+                        || !Core.Me.CurrentTarget.WithinSpellRange(20)
                         || (Core.Me.CurrentTarget as BattleCharacter).TargetGameObject == null)
                 return false;
 
@@ -57,7 +57,7 @@ namespace Magitek.Logic.Gunbreaker
             var lightningShotTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit()
                                                                     && r.NotInvulnerable()
                                                                     && r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
-                                                                    && r.Distance(Core.Me) <= 20 + r.CombatReach
+                                                                    && r.WithinSpellRange(20)
                                                                     && r.TargetGameObject != Core.Me);
 
             //if no target found, then check if current target is not pulled yet
@@ -68,7 +68,7 @@ namespace Magitek.Logic.Gunbreaker
                 if (!lightningShotTarget.ValidAttackUnit()
                     || !lightningShotTarget.NotInvulnerable()
                     || lightningShotTarget.Distance(Core.Me) < Core.Me.CombatReach + lightningShotTarget.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
-                    || lightningShotTarget.Distance(Core.Me) > 20 + lightningShotTarget.CombatReach
+                    || !lightningShotTarget.WithinSpellRange(20)
                     || lightningShotTarget.TargetGameObject != null)
                     return false;
             }

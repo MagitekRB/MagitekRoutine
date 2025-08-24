@@ -48,7 +48,7 @@ namespace Magitek.Utilities.Routines
                 Casting.SpellTarget?.CurrentHealthPercent >= AstrologianSettings.Instance.InterruptHealingHealthPercent)
             {
                 if (Casting.CastingSpell == Spells.Helios && PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
-                        r.CurrentHealth > 0 && r.Distance(Core.Me) <= Spells.Helios.Radius && r.CurrentHealthPercent <=
+                        r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Helios.Radius) && r.CurrentHealthPercent <=
                         AstrologianSettings.Instance.HeliosHealthPercent) < AoeThreshold)
                 {
                     Logger.Error($@"Stopped Healing: Party's Health Too High");
@@ -58,7 +58,7 @@ namespace Magitek.Utilities.Routines
                 {
                     if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
                             r.CurrentHealth > 0 &&
-                            r.Distance(Core.Me) <= Spells.AspectedHelios.Radius &&
+                            r.WithinSpellRange(Spells.AspectedHelios.Radius) &&
                             r.CurrentHealthPercent <=
                             AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
                             !r.HasAura(Auras.AspectedHelios, true)) < AoeThreshold)
@@ -89,7 +89,7 @@ namespace Magitek.Utilities.Routines
                     var lowestHealthToInterrupt = lowestHealthToInterruptList.Max();
 
                     if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Any(r => r.CurrentHealth > 0 &&
-                        r.CurrentHealthPercent <= lowestHealthToInterrupt && r.Distance() < 30 && r.InLineOfSight()))
+                        r.CurrentHealthPercent <= lowestHealthToInterrupt && r.WithinSpellRange(30) && r.InLineOfSight()))
                     {
                         Logger.Error($@"Stopping Cast: Need To Heal Someone In The Party");
                         return true;

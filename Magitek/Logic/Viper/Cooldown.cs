@@ -22,7 +22,7 @@ namespace Magitek.Logic.Viper
             if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > Spells.DeathRattle.Range)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.DeathRattle.Range))
                 return false;
 
             return await Spells.DeathRattle.Cast(Core.Me.CurrentTarget);

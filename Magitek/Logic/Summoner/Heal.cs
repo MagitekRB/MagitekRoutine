@@ -92,7 +92,7 @@ namespace Magitek.Logic.Summoner
                 return false;
 
             var deadList = Group.DeadAllies.Where(u => !u.HasAura(Auras.Raise) &&
-                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.WithinSpellRange(30) &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable)
                                            .OrderByDescending(r => r.GetResurrectionWeight());
@@ -147,7 +147,7 @@ namespace Magitek.Logic.Summoner
                 return false;
 
             var deadList = Group.DeadAllies.Where(u => !u.HasAura(Auras.Raise) &&
-                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.WithinSpellRange(30) &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable)
                                            .OrderByDescending(r => r.GetResurrectionWeight());

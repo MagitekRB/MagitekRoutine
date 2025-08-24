@@ -134,7 +134,7 @@ namespace Magitek.Logic.RedMage
                 if (unit.HasAura(Auras.Raise))
                     return false;
 
-                if (unit.Distance(Core.Me) > 30)
+                if (!unit.WithinSpellRange(30))
                     return false;
 
                 if (!unit.IsVisible || !unit.InLineOfSight() || !unit.IsTargetable)

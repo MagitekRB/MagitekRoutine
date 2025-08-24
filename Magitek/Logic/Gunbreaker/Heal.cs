@@ -41,7 +41,7 @@ namespace Magitek.Logic.Gunbreaker
                 if (!unit.IsAlive)
                     return false;
 
-                if (unit.Distance(Core.Me) > 30)
+                if (!unit.WithinSpellRange(30))
                     return false;
 
                 if (unit.HasAura(Auras.Aurora))

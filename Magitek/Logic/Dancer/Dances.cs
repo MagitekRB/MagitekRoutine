@@ -63,7 +63,7 @@ namespace Magitek.Logic.Dancer
                 return false;
 
             //Do not Standard Step if there 3+ Ennemies unless StandardStep Auras is finishing
-            if (DancerSettings.Instance.UseAoe && Combat.Enemies.Count(r => r.Distance(Core.Me) <= Spells.StandardFinish.Radius + r.CombatReach) >= 3)
+            if (DancerSettings.Instance.UseAoe && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.StandardFinish.Radius)) >= 3)
             {
                 var StandardStepAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.CasterId == Core.Player.ObjectId && x.Id == Auras.StandardStep);
                 if (Core.Me.HasAura(Auras.StandardStep, true) && StandardStepAura.TimespanLeft.TotalMilliseconds > 5000)

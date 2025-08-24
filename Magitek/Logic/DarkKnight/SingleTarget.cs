@@ -106,8 +106,8 @@ namespace Magitek.Logic.DarkKnight
             if (!Core.Me.CurrentTarget.ValidAttackUnit()
                         || !Core.Me.CurrentTarget.NotInvulnerable()
                         || Core.Me.CurrentTarget.TimeInCombat() <= 0
-                        || Core.Me.CurrentTarget.Distance(Core.Me) < Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach + DarkKnightSettings.Instance.UnmendMinDistance
-                        || Core.Me.CurrentTarget.Distance(Core.Me) > 20 + Core.Me.CurrentTarget.CombatReach
+                        || Core.Me.CurrentTarget.WithinSpellRange(DarkKnightSettings.Instance.UnmendMinDistance)
+                        || !Core.Me.CurrentTarget.WithinSpellRange(Spells.Unmend.Range)
                         || (Core.Me.CurrentTarget as BattleCharacter).TargetGameObject == null)
                 return false;
 
@@ -130,7 +130,7 @@ namespace Magitek.Logic.DarkKnight
             // If we're in AOE situation we're going to likely use Unleash which has a 5y range
             // but if we're not then we're going to melee which has a 0.66 (CombatReach) range
             // This extra bit of complexity helps make this do the right thing in more scenarios
-            var enemyCount = Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach);
+            var enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
             var enoughEnemies = enemyCount >= DarkKnightSettings.Instance.UnleashEnemies;
             var calculatedCombatReach = (DarkKnightSettings.Instance.UseUnleash && enoughEnemies)
                 ? 5
@@ -139,8 +139,8 @@ namespace Magitek.Logic.DarkKnight
             //find target already pulled on which I lose aggro
             var unmendTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit()
                                                                     && r.NotInvulnerable()
-                                                                    && r.Distance(Core.Me) >= calculatedCombatReach + r.CombatReach
-                                                                    && r.Distance(Core.Me) <= 20 + r.CombatReach
+                                                                    && !r.WithinSpellRange(calculatedCombatReach)
+                                                                    && r.WithinSpellRange(Spells.Unmend.Range)
                                                                     && r.TargetGameObject != Core.Me);
 
             if (unmendTarget == null)
@@ -149,8 +149,8 @@ namespace Magitek.Logic.DarkKnight
 
                 if (!unmendTarget.ValidAttackUnit()
                     || !unmendTarget.NotInvulnerable()
-                    || unmendTarget.Distance(Core.Me) < Core.Me.CombatReach + unmendTarget.CombatReach + DarkKnightSettings.Instance.UnmendMinDistance
-                    || unmendTarget.Distance(Core.Me) > 20 + unmendTarget.CombatReach
+                    || unmendTarget.WithinSpellRange(DarkKnightSettings.Instance.UnmendMinDistance)
+                    || !unmendTarget.WithinSpellRange(Spells.Unmend.Range)
                     || unmendTarget.TargetGameObject != null)
                     return false;
             }

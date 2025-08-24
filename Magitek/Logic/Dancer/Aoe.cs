@@ -89,9 +89,9 @@ namespace Magitek.Logic.Dancer
             if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
                 return false;
 
-            if (DancerSettings.Instance.UseRangeAndFacingChecks)
-                if (Core.Me.CurrentTarget.Distance(Core.Me) - Core.Me.CurrentTarget.CombatReach > Spells.SaberDance.Range)
-                    return false;
+            if (DancerSettings.Instance.UseRangeAndFacingChecks &&
+                !Core.Me.CurrentTarget.WithinSpellRange(Spells.SaberDance.Range))
+                return false;
 
             if (ActionResourceManager.Dancer.Esprit < 50)
                 return false;

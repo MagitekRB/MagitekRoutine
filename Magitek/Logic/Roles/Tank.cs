@@ -24,7 +24,7 @@ namespace Magitek.Logic.Roles
             if (!Globals.InParty) return false;
             if (Spells.Provoke.Cooldown > TimeSpan.Zero) return false;
 
-            var provokeTarget = Combat.Enemies.FirstOrDefault(r => r.Distance(Core.Me) <= 25 && r.TargetGameObject.IsHealer());
+            var provokeTarget = Combat.Enemies.FirstOrDefault(r => r.WithinSpellRange(Spells.Provoke.Range) && r.TargetGameObject.IsHealer());
 
             if (provokeTarget != null)
             {
@@ -39,7 +39,7 @@ namespace Magitek.Logic.Roles
                 }
             }
 
-            provokeTarget = Combat.Enemies.FirstOrDefault(r => r.Distance(Core.Me) <= 25 && r.TargetGameObject.IsDps());
+            provokeTarget = Combat.Enemies.FirstOrDefault(r => r.WithinSpellRange(Spells.Provoke.Range) && r.TargetGameObject.IsDps());
 
             if (provokeTarget == null)
                 return false;

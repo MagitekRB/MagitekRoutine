@@ -74,7 +74,7 @@ namespace Magitek.Utilities.Routines
                 Casting.SpellTarget?.CurrentHealthPercent >= SageSettings.Instance.InterruptHealingHealthPercent)
             {
                 if (Casting.CastingSpell == Spells.Prognosis && PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
-                        r.CurrentHealth > 0 && r.Distance(Core.Me) <= Spells.Prognosis.Radius && r.CurrentHealthPercent <=
+                        r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Prognosis.Radius) && r.CurrentHealthPercent <=
                         SageSettings.Instance.PrognosisHpPercent) <
                     Logic.Sage.Heal.AoeNeedHealing)
                 {
@@ -82,7 +82,7 @@ namespace Magitek.Utilities.Routines
                     return true;
                 }
                 else if (Casting.CastingSpell == Spells.Pneuma && PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
-                         r.CurrentHealth > 0 && r.Distance(Core.Me) <= Spells.Pneuma.Radius && r.CurrentHealthPercent <=
+                         r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Pneuma.Radius) && r.CurrentHealthPercent <=
                          SageSettings.Instance.PneumaHpPercent) <
                     Logic.Sage.Heal.AoeNeedHealing)
                 {
@@ -105,7 +105,7 @@ namespace Magitek.Utilities.Routines
                     Casting.CastingSpell == Spells.DyskrasiaII)
                 {
                     if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Any(r => r.CurrentHealth > 0 &&
-                        r.CurrentHealthPercent <= SageSettings.Instance.InterruptDamageHealthPercent && r.Distance() < 30 && r.InLineOfSight()))
+                        r.CurrentHealthPercent <= SageSettings.Instance.InterruptDamageHealthPercent && r.WithinSpellRange(30) && r.InLineOfSight()))
                     {
                         Logger.Error($@"Stopping Cast: Need To Heal Someone In The Party");
                         return true;

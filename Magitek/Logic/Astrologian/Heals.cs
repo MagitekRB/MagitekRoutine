@@ -337,7 +337,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             var heliosCount = PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r => r.CurrentHealth > 0
-            && r.Distance(Core.Me) < Spells.Helios.Radius
+            && r.WithinSpellRange(Spells.Helios.Radius)
             && r.CurrentHealthPercent <= r.AdjustHealthThresholdByRegen(AstrologianSettings.Instance.HeliosHealthPercent));
 
             //if (heliosCount < AstrologianSettings.Instance.HeliosAllies)
@@ -554,7 +554,7 @@ namespace Magitek.Logic.Astrologian
 
             var diurnalHeliosCount =
                 PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r => r.CurrentHealth > 0 &&
-                                                        r.Distance(Core.Me) <= Spells.AspectedHelios.Radius &&
+                                                        r.WithinSpellRange(Spells.AspectedHelios.Radius) &&
                                                         r.CurrentHealthPercent <=
                                                         AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
                                                         !r.HasAura(Auras.AspectedHelios, true) && !r.HasAura(Auras.HeliosConjunction, true));
@@ -628,7 +628,7 @@ namespace Magitek.Logic.Astrologian
                     Spells.CollectiveUnconscious.HealAura(Core.Me, Auras.CollectiveUnconsciousMitigation));
 
 
-            if (Group.CastableAlliesWithin30.Count(r => r.Distance() <= 30
+            if (Group.CastableAlliesWithin30.Count(r => r.WithinSpellRange(30)
                                                     && r.IsAlive
                                                     && r.CurrentHealthPercent <= AstrologianSettings.Instance.CollectiveUnconsciousHealth)
                                                     < AoeThreshold)
@@ -693,7 +693,7 @@ namespace Magitek.Logic.Astrologian
                 default:
                     if (Core.Target.EnemiesNearby(30).Count() > AstrologianSettings.Instance.EarthlyStarEnemiesNearTarget
                         && Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyStarPartyMembersNearTargetHealthPercent
-                        && Core.Target.Distance() <= 30)
+                        && Core.Target.WithinSpellRange(30))
                         if (await Spells.EarthlyStar.Cast(Core.Target))
                         {
                             Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
@@ -770,7 +770,7 @@ namespace Magitek.Logic.Astrologian
             var isThereABoss = Combat.Enemies.Any(x => x.IsBoss());
 
             if (isThereABoss || !Group.CastableTanks.All(x =>
-                    x.Distance() <= Spells.Macrocosmos.Radius && x.CurrentHealthPercent < 30f) ||
+                    x.WithinSpellRange(Spells.Macrocosmos.Radius) && x.CurrentHealthPercent < 30f) ||
                 enemyCount <= AoeThreshold) return false;
 
             return await Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos);

@@ -81,7 +81,7 @@ namespace Magitek.Logic.Sage
             if (Core.Me.CurrentTarget.HasAnyAura(DotAuras, true, msLeft: SageSettings.Instance.DotRefreshMSeconds))
                 return false;
 
-            if (Core.Me.CurrentTarget.Distance(Core.Me) > 25 + Core.Me.CurrentTarget.CombatReach)
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             return await UseEukrasianDosis(Core.Me.CurrentTarget);
@@ -101,7 +101,7 @@ namespace Magitek.Logic.Sage
             // Don't multidot if we can use the aoe version of it. 
             // but multidot if we are out of range enough to use the aoe dot.
             if (Spells.EukrasianDyskrasia.IsKnown()
-                && Combat.Enemies.Count(r => r.Distance(Core.Me) <= (Spells.EukrasianDyskrasia.Radius * 1.5) + r.CombatReach) >= SageSettings.Instance.AoEEnemies)
+                && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.EukrasianDyskrasia.Radius * 1.5)) >= SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())
@@ -131,7 +131,7 @@ namespace Magitek.Logic.Sage
                 // Check dosis since no eukrasia buff yet.
                 if (!Spells.Dosis.CanCast(unit))
                     return false;
-                if (unit.Distance(Core.Me) > 25 + unit.CombatReach)
+                if (!unit.WithinSpellRange(25))
                     return false;
                 if (!SageSettings.Instance.UseTTDForDots)
                     return true;

@@ -59,7 +59,7 @@ namespace Magitek.Logic.Sage
             if (Core.Me.CurrentTarget == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= Spells.Dyskrasia.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Dyskrasia.Radius)) < SageSettings.Instance.AoEEnemies)
                 return false;
 
             var spell = Spells.DyskrasiaII;
@@ -89,7 +89,7 @@ namespace Magitek.Logic.Sage
             if (!Spells.EukrasianDyskrasia.IsKnownAndReady())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= Spells.EukrasianDyskrasia.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)) < SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())
@@ -101,7 +101,7 @@ namespace Magitek.Logic.Sage
                 return false;
 
             if (!Combat.Enemies.Any(x => (!x.HasAnyAura(DotAuras, true) || (x.HasAnyAura(DotAuras, true) && !x.HasAnyAura(DotAuras, true, SageSettings.Instance.DotRefreshMSeconds)))
-                                         && x.Distance(Core.Me) <= Spells.EukrasianDyskrasia.Radius + Core.Me.CombatReach))
+                                         && x.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)))
                 return false;
 
             return await UseEukrasianDyskrasia(Core.Me.CurrentTarget);
