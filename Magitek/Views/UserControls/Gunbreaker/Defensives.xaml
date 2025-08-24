@@ -61,11 +61,11 @@
                     <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding GunbreakerSettings.HeartofCorundumHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="1" Grid.Column="0" Content="Reprisal" IsChecked="{Binding GunbreakerSettings.UseReprisal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Reprisal}" IsChecked="{Binding GunbreakerSettings.UseReprisal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="1" Grid.Column="1" Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding GunbreakerSettings.ReprisalHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Camouflage" IsChecked="{Binding GunbreakerSettings.UseCamouflage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="2" Grid.Column="0" Content="{x:Static properties:Resources.Gunbreaker_Content_Camouflage}" IsChecked="{Binding GunbreakerSettings.UseCamouflage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="2" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding GunbreakerSettings.CamouflageHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
@@ -73,11 +73,11 @@
                     <controls:Numeric Grid.Row="3" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding GunbreakerSettings.HeartofLightHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="3" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="4" Grid.Column="0" Content="Rampart" IsChecked="{Binding GunbreakerSettings.UseRampart, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="4" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Rampart}" IsChecked="{Binding GunbreakerSettings.UseRampart, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="4" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding GunbreakerSettings.RampartHpPercentage, Mode=TwoWay}" />
                     <TextBlock Grid.Row="4" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="5" Grid.Column="0" Content="Nebula" IsChecked="{Binding GunbreakerSettings.UseNebula, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="5" Grid.Column="0" Content="{x:Static properties:Resources.Gunbreaker_Content_Nebula}" IsChecked="{Binding GunbreakerSettings.UseNebula, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="5" Grid.Column="1" Margin="0,3,0,0" MaxValue="100" MinValue="1" Value="{Binding GunbreakerSettings.NebulaHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="5" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 

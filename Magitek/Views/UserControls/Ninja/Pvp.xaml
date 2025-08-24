@@ -68,15 +68,15 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Dokumori" IsChecked="{Binding NinjaSettings.Pvp_Dokumori, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Bunshin" IsChecked="{Binding NinjaSettings.Pvp_Bunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Dokumori}" IsChecked="{Binding NinjaSettings.Pvp_Dokumori, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Bunshin}" IsChecked="{Binding NinjaSettings.Pvp_Bunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Fuma_Shuriken}" IsChecked="{Binding NinjaSettings.Pvp_FumaShuriken, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Only_with_Bunshin}" IsChecked="{Binding NinjaSettings.Pvp_FumaShurikenOnlyWithBunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Shukuchi" IsChecked="{Binding NinjaSettings.Pvp_Shukuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Shukuchi}" IsChecked="{Binding NinjaSettings.Pvp_Shukuchi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Assassinate_When_Hidden}" IsChecked="{Binding NinjaSettings.Pvp_Assassinate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">

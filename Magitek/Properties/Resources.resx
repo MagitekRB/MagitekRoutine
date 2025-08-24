@@ -144,205 +144,205 @@
   <data name="Controls_Text_Gambits" xml:space="preserve">
     <value>Gambits:</value>
   </data>
-    <data name="Generic_Show_All" xml:space="preserve">
+  <data name="Generic_Show_All" xml:space="preserve">
     <value>Show All</value>
   </data>
-    <data name="Generic_Add_New_Gambit_Group" xml:space="preserve">
+  <data name="Generic_Add_New_Gambit_Group" xml:space="preserve">
     <value>Add New Gambit Group</value>
   </data>
-    <data name="Generic_Recover_Old_Gambits" xml:space="preserve">
+  <data name="Generic_Recover_Old_Gambits" xml:space="preserve">
     <value>Recover Old Gambits</value>
   </data>
-    <data name="Generic_Open_Shared_Gambits_Browser" xml:space="preserve">
+  <data name="Generic_Open_Shared_Gambits_Browser" xml:space="preserve">
     <value>Open Shared Gambits Browser</value>
   </data>
-    <data name="Generic_Current_Zone" xml:space="preserve">
+  <data name="Generic_Current_Zone" xml:space="preserve">
     <value>Current Zone</value>
   </data>
-    <data name="Generic_Paste_Copied_Gambit" xml:space="preserve">
+  <data name="Generic_Paste_Copied_Gambit" xml:space="preserve">
     <value>PASTE COPIED GAMBIT</value>
   </data>
-    <data name="Generic_Copy_Gambit_Group" xml:space="preserve">
+  <data name="Generic_Copy_Gambit_Group" xml:space="preserve">
     <value>COPY GAMBIT GROUP</value>
   </data>
-    <data name="Generic_Paste_Copied_Gambit_Group" xml:space="preserve">
+  <data name="Generic_Paste_Copied_Gambit_Group" xml:space="preserve">
     <value>PASTE COPIED GAMBIT GROUP</value>
   </data>
-    <data name="Generic_Delete_Gambit_Group" xml:space="preserve">
+  <data name="Generic_Delete_Gambit_Group" xml:space="preserve">
     <value>DELETE GAMBIT GROUP</value>
   </data>
-    <data name="Generic_On_Target" xml:space="preserve">
+  <data name="Generic_On_Target" xml:space="preserve">
     <value>On Target</value>
   </data>
-    <data name="Generic_On_Pet" xml:space="preserve">
+  <data name="Generic_On_Pet" xml:space="preserve">
     <value>On Pet</value>
   </data>
-    <data name="Generic_On_Player" xml:space="preserve">
+  <data name="Generic_On_Player" xml:space="preserve">
     <value>On Player</value>
   </data>
-    <data name="Generic_Any_Quality" xml:space="preserve">
+  <data name="Generic_Any_Quality" xml:space="preserve">
     <value>Any Quality</value>
   </data>
-    <data name="Generic_High_Quality" xml:space="preserve">
+  <data name="Generic_High_Quality" xml:space="preserve">
     <value>High Quality</value>
   </data>
-    <data name="Generic_Normal_Quality" xml:space="preserve">
+  <data name="Generic_Normal_Quality" xml:space="preserve">
     <value>Normal Quality</value>
   </data>
-    <data name="Generic_Is_Pvp_Spell" xml:space="preserve">
+  <data name="Generic_Is_Pvp_Spell" xml:space="preserve">
     <value>IS PVP SPELL</value>
   </data>
-    <data name="Generic_On_Anyone" xml:space="preserve">
+  <data name="Generic_On_Anyone" xml:space="preserve">
     <value>On Anyone</value>
   </data>
-    <data name="Generic_On_Spell_Target" xml:space="preserve">
+  <data name="Generic_On_Spell_Target" xml:space="preserve">
     <value>On Spell Target</value>
   </data>
-    <data name="Generic_On_Me" xml:space="preserve">
+  <data name="Generic_On_Me" xml:space="preserve">
     <value>On Me</value>
   </data>
-    <data name="Generic_Remove_Condition" xml:space="preserve">
+  <data name="Generic_Remove_Condition" xml:space="preserve">
     <value>REMOVE CONDITION</value>
   </data>
-    <data name="Generic_Is_My_Aura" xml:space="preserve">
+  <data name="Generic_Is_My_Aura" xml:space="preserve">
     <value>IS MY AURA</value>
   </data>
-    <data name="Generic_Above_Or_Equal" xml:space="preserve">
+  <data name="Generic_Above_Or_Equal" xml:space="preserve">
     <value>Above Or Equal</value>
   </data>
-    <data name="Generic_Lower_Or_Equal" xml:space="preserve">
+  <data name="Generic_Lower_Or_Equal" xml:space="preserve">
     <value>Lower Or Equal</value>
   </data>
-    <data name="Generic_White_Mage" xml:space="preserve">
+  <data name="Generic_White_Mage" xml:space="preserve">
     <value>WHITE MAGE</value>
   </data>
-    <data name="Generic_Dark_Knight" xml:space="preserve">
+  <data name="Generic_Dark_Knight" xml:space="preserve">
     <value>DARK KNIGHT</value>
   </data>
-    <data name="Generic_Black_Mage" xml:space="preserve">
+  <data name="Generic_Black_Mage" xml:space="preserve">
     <value>BLACK MAGE</value>
   </data>
-    <data name="Generic_Red_Mage" xml:space="preserve">
+  <data name="Generic_Red_Mage" xml:space="preserve">
     <value>RED MAGE</value>
   </data>
-    <data name="Generic_Is_Tank" xml:space="preserve">
+  <data name="Generic_Is_Tank" xml:space="preserve">
     <value>IS TANK</value>
   </data>
-    <data name="Generic_Is_Healer" xml:space="preserve">
+  <data name="Generic_Is_Healer" xml:space="preserve">
     <value>IS HEALER</value>
   </data>
-    <data name="Generic_Is_Dps" xml:space="preserve">
+  <data name="Generic_Is_Dps" xml:space="preserve">
     <value>IS DPS</value>
   </data>
-    <data name="Generic_By_Player" xml:space="preserve">
+  <data name="Generic_By_Player" xml:space="preserve">
     <value>By Player</value>
   </data>
-    <data name="Generic_By_Target_Object" xml:space="preserve">
+  <data name="Generic_By_Target_Object" xml:space="preserve">
     <value>By Target Object</value>
   </data>
-    <data name="Generic_Must_Be_Enemy" xml:space="preserve">
+  <data name="Generic_Must_Be_Enemy" xml:space="preserve">
     <value>MUST BE ENEMY</value>
   </data>
-    <data name="Generic_Must_Be_Ally" xml:space="preserve">
+  <data name="Generic_Must_Be_Ally" xml:space="preserve">
     <value>MUST BE ALLY</value>
   </data>
-    <data name="Generic_In_Instance" xml:space="preserve">
+  <data name="Generic_In_Instance" xml:space="preserve">
     <value>IN INSTANCE</value>
   </data>
-    <data name="Generic_Not_In_Instance" xml:space="preserve">
+  <data name="Generic_Not_In_Instance" xml:space="preserve">
     <value>NOT IN INSTANCE</value>
   </data>
-    <data name="Generic_Is_Job" xml:space="preserve">
+  <data name="Generic_Is_Job" xml:space="preserve">
     <value>IS JOB</value>
   </data>
-    <data name="Generic_Is_Role" xml:space="preserve">
+  <data name="Generic_Is_Role" xml:space="preserve">
     <value>IS ROLE</value>
   </data>
-    <data name="Generic_Player_In_Combat" xml:space="preserve">
+  <data name="Generic_Player_In_Combat" xml:space="preserve">
     <value>PLAYER IN COMBAT</value>
   </data>
-    <data name="Generic_Player_Not_In_Combat" xml:space="preserve">
+  <data name="Generic_Player_Not_In_Combat" xml:space="preserve">
     <value>PLAYER NOT IN COMBAT</value>
   </data>
-    <data name="Generic_Combat_Time" xml:space="preserve">
+  <data name="Generic_Combat_Time" xml:space="preserve">
     <value>COMBAT TIME</value>
   </data>
-    <data name="Generic_Last_Spell" xml:space="preserve">
+  <data name="Generic_Last_Spell" xml:space="preserve">
     <value>LAST SPELL</value>
   </data>
-    <data name="Generic_Target_Name" xml:space="preserve">
+  <data name="Generic_Target_Name" xml:space="preserve">
     <value>TARGET NAME</value>
   </data>
-    <data name="Generic_Target_Boss" xml:space="preserve">
+  <data name="Generic_Target_Boss" xml:space="preserve">
     <value>TARGET BOSS</value>
   </data>
-    <data name="Generic_Has_Target" xml:space="preserve">
+  <data name="Generic_Has_Target" xml:space="preserve">
     <value>HAS TARGET</value>
   </data>
-    <data name="Generic_Enemy_Casting_Spell" xml:space="preserve">
+  <data name="Generic_Enemy_Casting_Spell" xml:space="preserve">
     <value>ENEMY CASTING SPELL</value>
   </data>
-    <data name="Generic_Enemies_Nearby" xml:space="preserve">
+  <data name="Generic_Enemies_Nearby" xml:space="preserve">
     <value>ENEMIES NEARBY</value>
   </data>
-    <data name="Generic_Has_Aura" xml:space="preserve">
+  <data name="Generic_Has_Aura" xml:space="preserve">
     <value>HAS AURA</value>
   </data>
-    <data name="Generic_Does_Not_Have_Aura" xml:space="preserve">
+  <data name="Generic_Does_Not_Have_Aura" xml:space="preserve">
     <value>DOES NOT HAVE AURA</value>
   </data>
-    <data name="Generic_Spell_Off_Cooldown" xml:space="preserve">
+  <data name="Generic_Spell_Off_Cooldown" xml:space="preserve">
     <value>SPELL OFF COOLDOWN</value>
   </data>
-    <data name="Generic_Health_Percent_Below" xml:space="preserve">
+  <data name="Generic_Health_Percent_Below" xml:space="preserve">
     <value>HEALTH PERCENT BELOW</value>
   </data>
-    <data name="Generic_Health_Percent_Between" xml:space="preserve">
+  <data name="Generic_Health_Percent_Between" xml:space="preserve">
     <value>HEALTH PERCENT BETWEEN</value>
   </data>
-    <data name="Generic_Mp_Percent" xml:space="preserve">
+  <data name="Generic_Mp_Percent" xml:space="preserve">
     <value>MP PERCENT</value>
   </data>
-    <data name="Generic_Player_Has_Aura" xml:space="preserve">
+  <data name="Generic_Player_Has_Aura" xml:space="preserve">
     <value>PLAYER HAS AURA</value>
   </data>
-    <data name="Generic_Player_Does_Not_Have_Aura" xml:space="preserve">
+  <data name="Generic_Player_Does_Not_Have_Aura" xml:space="preserve">
     <value>PLAYER DOES NOT HAVE AURA</value>
   </data>
-    <data name="Generic_Has_Pet" xml:space="preserve">
+  <data name="Generic_Has_Pet" xml:space="preserve">
     <value>HAS PET</value>
   </data>
-    <data name="Generic_Countdown_Timer" xml:space="preserve">
+  <data name="Generic_Countdown_Timer" xml:space="preserve">
     <value>COUNTDOWN TIMER</value>
   </data>
-    <data name="Generic_Greased_Lightning" xml:space="preserve">
+  <data name="Generic_Greased_Lightning" xml:space="preserve">
     <value>GREASED LIGHTNING</value>
   </data>
-    <data name="Generic_Dragoon_Gauge" xml:space="preserve">
+  <data name="Generic_Dragoon_Gauge" xml:space="preserve">
     <value>DRAGOON GAUGE</value>
   </data>
-    <data name="Generic_Has_Chain" xml:space="preserve">
+  <data name="Generic_Has_Chain" xml:space="preserve">
     <value>HAS CHAIN</value>
   </data>
-    <data name="Generic_Only_Use_In_Chain" xml:space="preserve">
+  <data name="Generic_Only_Use_In_Chain" xml:space="preserve">
     <value>ONLY USE IN CHAIN</value>
   </data>
-    <data name="Generic_Force_Chain_Actions" xml:space="preserve">
+  <data name="Generic_Force_Chain_Actions" xml:space="preserve">
     <value>FORCE CHAIN ACTIONS</value>
   </data>
-    <data name="Generic_Gambit_Enabled" xml:space="preserve">
+  <data name="Generic_Gambit_Enabled" xml:space="preserve">
     <value>GAMBIT ENABLED</value>
   </data>
-    <data name="Generic_Allow_Gambit_To_Interrupt" xml:space="preserve">
+  <data name="Generic_Allow_Gambit_To_Interrupt" xml:space="preserve">
     <value>ALLOW GAMBIT TO INTERRUPT</value>
   </data>
-    <data name="Generic_Copy_Gambit" xml:space="preserve">
+  <data name="Generic_Copy_Gambit" xml:space="preserve">
     <value>COPY GAMBIT</value>
   </data>
-    <data name="Generic_Copy_Gambit_To_Clipboard" xml:space="preserve">
+  <data name="Generic_Copy_Gambit_To_Clipboard" xml:space="preserve">
     <value>COPY GAMBIT TO CLIPBOARD</value>
   </data>
-    <data name="Generic_Delete_Gambit" xml:space="preserve">
+  <data name="Generic_Delete_Gambit" xml:space="preserve">
     <value>DELETE GAMBIT</value>
   </data>
   <data name="Controls_ToolTip_Set_Group_To_Current_Zone" xml:space="preserve">
@@ -360,31 +360,31 @@
   <data name="Controls_Text_CONDITIONS_TO_START_OPENER" xml:space="preserve">
     <value>CONDITIONS TO START OPENER:</value>
   </data>
-    <data name="Generic_Add_New_Opener" xml:space="preserve">
+  <data name="Generic_Add_New_Opener" xml:space="preserve">
     <value>Add New Opener</value>
   </data>
-    <data name="Generic_Open_Shared_Openers_Browser" xml:space="preserve">
+  <data name="Generic_Open_Shared_Openers_Browser" xml:space="preserve">
     <value>Open Shared Openers Browser</value>
   </data>
-    <data name="Generic_Use_Only_Once_Per_Combat" xml:space="preserve">
+  <data name="Generic_Use_Only_Once_Per_Combat" xml:space="preserve">
     <value>USE ONLY ONCE PER COMBAT</value>
   </data>
-    <data name="Generic_Delete_Opener" xml:space="preserve">
+  <data name="Generic_Delete_Opener" xml:space="preserve">
     <value>DELETE OPENER</value>
   </data>
-    <data name="Generic_Has_Getsu" xml:space="preserve">
+  <data name="Generic_Has_Getsu" xml:space="preserve">
     <value>HAS GETSU</value>
   </data>
-    <data name="Generic_Has_Setsu" xml:space="preserve">
+  <data name="Generic_Has_Setsu" xml:space="preserve">
     <value>HAS SETSU</value>
   </data>
-    <data name="Generic_Has_Ka" xml:space="preserve">
+  <data name="Generic_Has_Ka" xml:space="preserve">
     <value>HAS KA</value>
   </data>
-    <data name="Generic_Abandon_Opener_If_Action_Fails" xml:space="preserve">
+  <data name="Generic_Abandon_Opener_If_Action_Fails" xml:space="preserve">
     <value>ABANDON OPENER IF ACTION FAILS</value>
   </data>
-    <data name="Generic_Delete_Action" xml:space="preserve">
+  <data name="Generic_Delete_Action" xml:space="preserve">
     <value>DELETE ACTION</value>
   </data>
   <data name="Controls_ToolTip_Set_Opener_To_Current_Zone" xml:space="preserve">
@@ -4478,53 +4478,517 @@ Does not work if Lightspeed is disabled.</value>
   <data name="WhiteMage_Content_Benediction" xml:space="preserve">
     <value>Benediction</value>
   </data>
-
-    <data name="Generic_Pictomancer" xml:space="preserve">
+  <data name="Generic_Pictomancer" xml:space="preserve">
     <value>PICTOMANCER</value>
   </data>
-
-    <data name="Generic_Chakra" xml:space="preserve">
+  <data name="Generic_Chakra" xml:space="preserve">
     <value>CHAKRA</value>
   </data>
-
-    <data name="Generic_Repertoire" xml:space="preserve">
+  <data name="Generic_Repertoire" xml:space="preserve">
     <value>REPERTOIRE</value>
   </data>
-
-    <data name="Generic_Esprit" xml:space="preserve">
+  <data name="Generic_Esprit" xml:space="preserve">
     <value>ESPRIT</value>
   </data>
-
-    <data name="Generic_Feather" xml:space="preserve">
+  <data name="Generic_Feather" xml:space="preserve">
     <value>FEATHER</value>
   </data>
-
-    <data name="Generic_Heat" xml:space="preserve">
+  <data name="Generic_Heat" xml:space="preserve">
     <value>HEAT</value>
   </data>
-
-    <data name="Generic_Gaze" xml:space="preserve">
+  <data name="Generic_Gaze" xml:space="preserve">
     <value>GAZE</value>
   </data>
-
-    <data name="Generic_Ammo" xml:space="preserve">
+  <data name="Generic_Ammo" xml:space="preserve">
     <value>AMMO</value>
   </data>
-
-    <data name="Generic_Huton" xml:space="preserve">
+  <data name="Generic_Huton" xml:space="preserve">
     <value>HUTON</value>
   </data>
-
-    <data name="Generic_Ninki" xml:space="preserve">
+  <data name="Generic_Ninki" xml:space="preserve">
     <value>NINKI</value>
   </data>
-
-    <data name="Generic_Kenki" xml:space="preserve">
+  <data name="Generic_Kenki" xml:space="preserve">
     <value>KENKI</value>
   </data>
-
-    <data name="Generic_Sen" xml:space="preserve">
+  <data name="Generic_Sen" xml:space="preserve">
     <value>SEN</value>
   </data>
-
+  <data name="Astrologian_Content_Lightspeed" xml:space="preserve">
+    <value>Lightspeed</value>
+  </data>
+  <data name="Astrologian_Content_SunSign" xml:space="preserve">
+    <value>SunSign</value>
+  </data>
+  <data name="Astrologian_Content_Malefic" xml:space="preserve">
+    <value>Malefic</value>
+  </data>
+  <data name="Astrologian_Content_Combust" xml:space="preserve">
+    <value>Combust</value>
+  </data>
+  <data name="Astrologian_Content_Exaltation" xml:space="preserve">
+    <value>Exaltation</value>
+  </data>
+  <data name="Astrologian_Content_Horoscope" xml:space="preserve">
+    <value>Horoscope</value>
+  </data>
+  <data name="Astrologian_Content_Knockback" xml:space="preserve">
+    <value>Knockback</value>
+  </data>
+  <data name="Astrologian_Content_Ascend" xml:space="preserve">
+    <value>Ascend</value>
+  </data>
+  <data name="Astrologian_Content_Benefic" xml:space="preserve">
+    <value>Benefic</value>
+  </data>
+  <data name="Astrologian_Content_Helios" xml:space="preserve">
+    <value>Helios</value>
+  </data>
+  <data name="Astrologian_Content_Macrocosmos" xml:space="preserve">
+    <value>Macrocosmos</value>
+  </data>
+  <data name="Astrologian_Content_Oracle" xml:space="preserve">
+    <value>Oracle</value>
+  </data>
+  <data name="Bard_Content_Barrage" xml:space="preserve">
+    <value>Barrage</value>
+  </data>
+  <data name="BlackMage_Content_ManaFont" xml:space="preserve">
+    <value>ManaFont</value>
+  </data>
+  <data name="BlackMage_Content_Amplifier" xml:space="preserve">
+    <value>Amplifier</value>
+  </data>
+  <data name="BlackMage_Content_UmbralSoul" xml:space="preserve">
+    <value>UmbralSoul</value>
+  </data>
+  <data name="BlackMage_Content_TripleCast" xml:space="preserve">
+    <value>TripleCast</value>
+  </data>
+  <data name="BlackMage_Content_Paradox" xml:space="preserve">
+    <value>Paradox</value>
+  </data>
+  <data name="BlackMage_Content_Despair" xml:space="preserve">
+    <value>Despair</value>
+  </data>
+  <data name="BlackMage_Content_FlareStar" xml:space="preserve">
+    <value>FlareStar</value>
+  </data>
+  <data name="Dancer_Content_Windmill" xml:space="preserve">
+    <value>Windmill</value>
+  </data>
+  <data name="Dancer_Content_Bladeshower" xml:space="preserve">
+    <value>Bladeshower</value>
+  </data>
+  <data name="Dancer_Content_Bloodshower" xml:space="preserve">
+    <value>Bloodshower</value>
+  </data>
+  <data name="DarkKnight_Content_BloodSpiller" xml:space="preserve">
+    <value>Bloodspiller</value>
+  </data>
+  <data name="DarkKnight_Content_Rampart" xml:space="preserve">
+    <value>Rampart</value>
+  </data>
+  <data name="DarkKnight_Content_Oblation" xml:space="preserve">
+    <value>Oblation</value>
+  </data>
+  <data name="DarkKnight_Content_Reprisal" xml:space="preserve">
+    <value>Reprisal</value>
+  </data>
+  <data name="DarkKnight_Content_Impalement" xml:space="preserve">
+    <value>Impalement</value>
+  </data>
+  <data name="DarkKnight_Content_Plunge" xml:space="preserve">
+    <value>Plunge</value>
+  </data>
+  <data name="DarkKnight_Content_Disesteem" xml:space="preserve">
+    <value>Disesteem</value>
+  </data>
+  <data name="Dragoon_Content_Geirskogul" xml:space="preserve">
+    <value>Geirskogul</value>
+  </data>
+  <data name="Dragoon_Content_Nastrond" xml:space="preserve">
+    <value>Nastrond</value>
+  </data>
+  <data name="Dragoon_Content_Jump" xml:space="preserve">
+    <value>Jump</value>
+  </data>
+  <data name="Dragoon_Content_Stardiver" xml:space="preserve">
+    <value>Stardiver</value>
+  </data>
+  <data name="Dragoon_Content_Starcross" xml:space="preserve">
+    <value>Starcross</value>
+  </data>
+  <data name="Gunbreaker_Content_Reprisal" xml:space="preserve">
+    <value>Reprisal</value>
+  </data>
+  <data name="Gunbreaker_Content_Camouflage" xml:space="preserve">
+    <value>Camouflage</value>
+  </data>
+  <data name="Gunbreaker_Content_Rampart" xml:space="preserve">
+    <value>Rampart</value>
+  </data>
+  <data name="Gunbreaker_Content_Nebula" xml:space="preserve">
+    <value>Nebula</value>
+  </data>
+  <data name="Gunbreaker_Content_Continuation" xml:space="preserve">
+    <value>Continuation</value>
+  </data>
+  <data name="Gunbreaker_Content_BlastingZone" xml:space="preserve">
+    <value>BlastingZone</value>
+  </data>
+  <data name="Gunbreaker_Content_Aurora" xml:space="preserve">
+    <value>Aurora</value>
+  </data>
+  <data name="Machinist_Content_Flamethrower" xml:space="preserve">
+    <value>Flamethrower</value>
+  </data>
+  <data name="Machinist_Content_Hypercharge" xml:space="preserve">
+    <value>Hypercharge</value>
+  </data>
+  <data name="Machinist_Content_Wildfire" xml:space="preserve">
+    <value>Wildfire</value>
+  </data>
+  <data name="Machinist_Content_Drill" xml:space="preserve">
+    <value>Drill</value>
+  </data>
+  <data name="Machinist_Content_Scattergun" xml:space="preserve">
+    <value>Scattergun</value>
+  </data>
+  <data name="Machinist_Content_BioBlaster" xml:space="preserve">
+    <value>BioBlaster</value>
+  </data>
+  <data name="Machinist_Content_ChainSaw" xml:space="preserve">
+    <value>ChainSaw</value>
+  </data>
+  <data name="Machinist_Content_Excavator" xml:space="preserve">
+    <value>Excavator</value>
+  </data>
+  <data name="Machinist_Content_Ricochet" xml:space="preserve">
+    <value>Ricochet</value>
+  </data>
+  <data name="Machinist_Content_FullMetalField" xml:space="preserve">
+    <value>FullMetalField</value>
+  </data>
+  <data name="Monk_Content_Enlightenment" xml:space="preserve">
+    <value>Enlightenment</value>
+  </data>
+  <data name="Monk_Content_Brotherhood" xml:space="preserve">
+    <value>Brotherhood</value>
+  </data>
+  <data name="Ninja_Content_Dokumori" xml:space="preserve">
+    <value>Dokumori</value>
+  </data>
+  <data name="Ninja_Content_Bunshin" xml:space="preserve">
+    <value>Bunshin</value>
+  </data>
+  <data name="Ninja_Content_Shukuchi" xml:space="preserve">
+    <value>Shukuchi</value>
+  </data>
+  <data name="Paladin_Content_Provoke" xml:space="preserve">
+    <value>Provoke</value>
+  </data>
+  <data name="Paladin_Content_GoringBlade" xml:space="preserve">
+    <value>GoringBlade</value>
+  </data>
+  <data name="Paladin_Content_Requiescat" xml:space="preserve">
+    <value>Requiescat</value>
+  </data>
+  <data name="Paladin_Content_Atonement" xml:space="preserve">
+    <value>Atonement</value>
+  </data>
+  <data name="Paladin_Content_Sentinel" xml:space="preserve">
+    <value>Sentinel</value>
+  </data>
+  <data name="Paladin_Content_Rampart" xml:space="preserve">
+    <value>Rampart</value>
+  </data>
+  <data name="Paladin_Content_Bulwark" xml:space="preserve">
+    <value>Bulwark</value>
+  </data>
+  <data name="Paladin_Content_Reprisal" xml:space="preserve">
+    <value>Reprisal</value>
+  </data>
+  <data name="Paladin_Content_Cover" xml:space="preserve">
+    <value>Cover</value>
+  </data>
+  <data name="Paladin_Content_Confiteor" xml:space="preserve">
+    <value>Confiteor</value>
+  </data>
+  <data name="Paladin_Content_Supplication" xml:space="preserve">
+    <value>Supplication</value>
+  </data>
+  <data name="Paladin_Content_Sepulchre" xml:space="preserve">
+    <value>Sepulchre</value>
+  </data>
+  <data name="Paladin_Content_Imperator" xml:space="preserve">
+    <value>Imperator</value>
+  </data>
+  <data name="Paladin_Content_Intervene" xml:space="preserve">
+    <value>Intervene</value>
+  </data>
+  <data name="Pictomancer_Content_Starstruck" xml:space="preserve">
+    <value>Starstruck</value>
+  </data>
+  <data name="Reaper_Content_Guillotine" xml:space="preserve">
+    <value>Guillotine</value>
+  </data>
+  <data name="RedMage_Content_Acceleration" xml:space="preserve">
+    <value>Acceleration</value>
+  </data>
+  <data name="RedMage_Content_Embolden" xml:space="preserve">
+    <value>Embolden</value>
+  </data>
+  <data name="RedMage_Content_Manafication" xml:space="preserve">
+    <value>Manafication</value>
+  </data>
+  <data name="RedMage_Content_Verraise" xml:space="preserve">
+    <value>Verraise</value>
+  </data>
+  <data name="RedMage_Content_Scorch" xml:space="preserve">
+    <value>Scorch</value>
+  </data>
+  <data name="RedMage_Content_Prefulgence" xml:space="preserve">
+    <value>Prefulgence</value>
+  </data>
+  <data name="RedMage_Content_Forte" xml:space="preserve">
+    <value>Forte</value>
+  </data>
+  <data name="RedMage_Content_Displacement" xml:space="preserve">
+    <value>Displacement</value>
+  </data>
+  <data name="RedMage_Content_Resolution" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="RedMage_Content_Engagement" xml:space="preserve">
+    <value>Engagement</value>
+  </data>
+  <data name="RedMage_Content_Fleche" xml:space="preserve">
+    <value>Fleche</value>
+  </data>
+  <data name="Sage_Content_Krasis" xml:space="preserve">
+    <value>Krasis</value>
+  </data>
+  <data name="Sage_Content_Soteria" xml:space="preserve">
+    <value>Soteria</value>
+  </data>
+  <data name="Sage_Content_Philosophia" xml:space="preserve">
+    <value>Philosophia</value>
+  </data>
+  <data name="Sage_Content_Dosis" xml:space="preserve">
+    <value>Dosis</value>
+  </data>
+  <data name="Sage_Content_Pneuma" xml:space="preserve">
+    <value>Pneuma</value>
+  </data>
+  <data name="Sage_Content_Taurochole" xml:space="preserve">
+    <value>Taurochole</value>
+  </data>
+  <data name="Sage_Content_Holos" xml:space="preserve">
+    <value>Holos</value>
+  </data>
+  <data name="Sage_Content_Kerachole" xml:space="preserve">
+    <value>Kerachole</value>
+  </data>
+  <data name="Sage_Content_Knockback" xml:space="preserve">
+    <value>Knockback</value>
+  </data>
+  <data name="Sage_Content_Egeiro" xml:space="preserve">
+    <value>Egeiro</value>
+  </data>
+  <data name="Sage_Content_Diagnosis" xml:space="preserve">
+    <value>Diagnosis</value>
+  </data>
+  <data name="Sage_Content_Druochole" xml:space="preserve">
+    <value>Druochole</value>
+  </data>
+  <data name="Sage_Content_Haima" xml:space="preserve">
+    <value>Haima</value>
+  </data>
+  <data name="Sage_Content_Prognosis" xml:space="preserve">
+    <value>Prognosis</value>
+  </data>
+  <data name="Sage_Content_Physis" xml:space="preserve">
+    <value>Physis</value>
+  </data>
+  <data name="Sage_Content_Ixochole" xml:space="preserve">
+    <value>Ixochole</value>
+  </data>
+  <data name="Sage_Content_Pepsis" xml:space="preserve">
+    <value>Pepsis</value>
+  </data>
+  <data name="Sage_Content_Panhaima" xml:space="preserve">
+    <value>Panhaima</value>
+  </data>
+  <data name="Sage_Content_Eukrasia" xml:space="preserve">
+    <value>Eukrasia</value>
+  </data>
+  <data name="Sage_Content_Kardia" xml:space="preserve">
+    <value>Kardia</value>
+  </data>
+  <data name="Sage_Content_Toxikon" xml:space="preserve">
+    <value>Toxikon</value>
+  </data>
+  <data name="Samurai_Content_Hagakure" xml:space="preserve">
+    <value>Hagakure</value>
+  </data>
+  <data name="Samurai_Content_Mineuchi" xml:space="preserve">
+    <value>Mineuchi</value>
+  </data>
+  <data name="Samurai_Content_Zanshin" xml:space="preserve">
+    <value>Zanshin</value>
+  </data>
+  <data name="Samurai_Content_Shoha" xml:space="preserve">
+    <value>Shoha</value>
+  </data>
+  <data name="Samurai_Content_Higabana" xml:space="preserve">
+    <value>Higabana</value>
+  </data>
+  <data name="Scholar_Content_Recitation" xml:space="preserve">
+    <value>Recitation</value>
+  </data>
+  <data name="Scholar_Content_Expedient" xml:space="preserve">
+    <value>Expedient</value>
+  </data>
+  <data name="Scholar_Content_Protraction" xml:space="preserve">
+    <value>Protraction</value>
+  </data>
+  <data name="Scholar_Content_Bio" xml:space="preserve">
+    <value>Bio</value>
+  </data>
+  <data name="Scholar_Content_Excog" xml:space="preserve">
+    <value>Excog</value>
+  </data>
+  <data name="Scholar_Content_Adlo" xml:space="preserve">
+    <value>Adlo</value>
+  </data>
+  <data name="Scholar_Content_Soil" xml:space="preserve">
+    <value>Soil</value>
+  </data>
+  <data name="Scholar_Content_Succor" xml:space="preserve">
+    <value>Succor</value>
+  </data>
+  <data name="Scholar_Content_Knockback" xml:space="preserve">
+    <value>Knockback</value>
+  </data>
+  <data name="Scholar_Content_Resurrection" xml:space="preserve">
+    <value>Resurrection</value>
+  </data>
+  <data name="Scholar_Content_Physick" xml:space="preserve">
+    <value>Physick</value>
+  </data>
+  <data name="Scholar_Content_Adloquium" xml:space="preserve">
+    <value>Adloquium</value>
+  </data>
+  <data name="Scholar_Content_Lustrate" xml:space="preserve">
+    <value>Lustrate</value>
+  </data>
+  <data name="Scholar_Content_Indomitability" xml:space="preserve">
+    <value>Indomitability</value>
+  </data>
+  <data name="Scholar_Content_Excogitation" xml:space="preserve">
+    <value>Excogitation</value>
+  </data>
+  <data name="Scholar_Content_Seraphism" xml:space="preserve">
+    <value>Seraphism</value>
+  </data>
+  <data name="Scholar_Content_Manifestation" xml:space="preserve">
+    <value>Manifestation</value>
+  </data>
+  <data name="Scholar_Content_Accession" xml:space="preserve">
+    <value>Accession</value>
+  </data>
+  <data name="Scholar_Content_Consolation" xml:space="preserve">
+    <value>Consolation</value>
+  </data>
+  <data name="Scholar_Content_Biolysis" xml:space="preserve">
+    <value>Biolysis</value>
+  </data>
+  <data name="Summoner_Content_Deathflare" xml:space="preserve">
+    <value>Deathflare</value>
+  </data>
+  <data name="Summoner_Content_Enkindle" xml:space="preserve">
+    <value>Enkindle</value>
+  </data>
+  <data name="Summoner_Content_Carbuncle" xml:space="preserve">
+    <value>Carbuncle</value>
+  </data>
+  <data name="Summoner_Content_Aethercharge" xml:space="preserve">
+    <value>Aethercharge</value>
+  </data>
+  <data name="Summoner_Content_Dreadwyrm" xml:space="preserve">
+    <value>Dreadwyrm</value>
+  </data>
+  <data name="Summoner_Content_Bahamut" xml:space="preserve">
+    <value>Bahamut</value>
+  </data>
+  <data name="Summoner_Content_Phoenix" xml:space="preserve">
+    <value>Phoenix</value>
+  </data>
+  <data name="Summoner_Content_Fester" xml:space="preserve">
+    <value>Fester</value>
+  </data>
+  <data name="Summoner_Content_EnergyDrain" xml:space="preserve">
+    <value>EnergyDrain</value>
+  </data>
+  <data name="Summoner_Content_Painflare" xml:space="preserve">
+    <value>Painflare</value>
+  </data>
+  <data name="Summoner_Content_Slipstream" xml:space="preserve">
+    <value>Slipstream</value>
+  </data>
+  <data name="Summoner_Content_Swiftcast" xml:space="preserve">
+    <value>Swiftcast</value>
+  </data>
+  <data name="Summoner_Content_Slowcast" xml:space="preserve">
+    <value>Slowcast</value>
+  </data>
+  <data name="Summoner_Content_AkhMorn" xml:space="preserve">
+    <value>AkhMorn</value>
+  </data>
+  <data name="Summoner_Content_Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="Viper_Content_Vicepit" xml:space="preserve">
+    <value>Vicepit</value>
+  </data>
+  <data name="Viper_Content_SerpentIre" xml:space="preserve">
+    <value>SerpentIre</value>
+  </data>
+  <data name="Warrior_Content_Provoke" xml:space="preserve">
+    <value>Provoke</value>
+  </data>
+  <data name="Warrior_Content_Tomahawk" xml:space="preserve">
+    <value>Tomahawk</value>
+  </data>
+  <data name="Warrior_Content_Holmgang" xml:space="preserve">
+    <value>Holmgang</value>
+  </data>
+  <data name="Warrior_Content_Rampart" xml:space="preserve">
+    <value>Rampart</value>
+  </data>
+  <data name="Warrior_Content_Reprisal" xml:space="preserve">
+    <value>Reprisal</value>
+  </data>
+  <data name="Warrior_Content_ShakeItOff" xml:space="preserve">
+    <value>ShakeItOff</value>
+  </data>
+  <data name="Warrior_Content_FellCleave" xml:space="preserve">
+    <value>FellCleave</value>
+  </data>
+  <data name="Warrior_Content_Blota" xml:space="preserve">
+    <value>Blota</value>
+  </data>
+  <data name="Warrior_Content_Bloodwhetting" xml:space="preserve">
+    <value>Bloodwhetting</value>
+  </data>
+  <data name="WhiteMage_Content_Temperance" xml:space="preserve">
+    <value>Temperance</value>
+  </data>
+  <data name="WhiteMage_Content_Aquaveil" xml:space="preserve">
+    <value>Aquaveil</value>
+  </data>
+  <data name="WhiteMage_Content_Knockback" xml:space="preserve">
+    <value>Knockback</value>
+  </data>
 </root>

@@ -139,7 +139,7 @@
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Slipstream"
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Slipstream}"
                               IsChecked="{Binding SummonerSettings.Pvp_UsedSlipstream, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -154,15 +154,15 @@
                               IsChecked="{Binding SummonerSettings.Pvp_Summon, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Foreground="White"
-                              Content="Bahamut        "
+                              Content="{x:Static properties:Resources.Summoner_Content_Bahamut}"
                               IsChecked="{Binding SummonerSettings.Pvp_SummonBahamut, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Foreground="White"
-                              Content="Phoenix        "
+                              Content="{x:Static properties:Resources.Summoner_Content_Phoenix}"
                               IsChecked="{Binding SummonerSettings.Pvp_SummonPhoenix, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Foreground="White"
-                              Content="Auto        "
+                              Content="{x:Static properties:Resources.Summoner_Content_Auto}"
                               IsChecked="{Binding SummonerSettings.Pvp_SummonAuto, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

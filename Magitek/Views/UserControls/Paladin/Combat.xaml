@@ -38,14 +38,14 @@
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Only_in_Melee}" IsChecked="{Binding PaladinSettings.InterveneOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="GoringBlade" IsChecked="{Binding PaladinSettings.UseGoringBlade, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_GoringBlade}" IsChecked="{Binding PaladinSettings.UseGoringBlade, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Requiescat " IsChecked="{Binding PaladinSettings.UseRequiescat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Requiescat}" IsChecked="{Binding PaladinSettings.UseRequiescat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Holy_Spirit}" IsChecked="{Binding PaladinSettings.UseHolySpirit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Atonement " IsChecked="{Binding PaladinSettings.UseAtonement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Atonement}" IsChecked="{Binding PaladinSettings.UseAtonement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Keep_Atonement_and_HolySpirit_in_F}" IsChecked="{Binding PaladinSettings.KeepHolySpiritAtonementinFoF, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

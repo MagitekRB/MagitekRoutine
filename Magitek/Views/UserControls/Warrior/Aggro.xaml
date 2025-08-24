@@ -51,13 +51,13 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Provoke" IsChecked="{Binding WarriorSettings.UseProvoke, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Provoke}" IsChecked="{Binding WarriorSettings.UseProvoke, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Tomahawk" IsChecked="{Binding WarriorSettings.UseTomahawk, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Tomahawk}" IsChecked="{Binding WarriorSettings.UseTomahawk, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Warrior_Content_Use_Tomahawk_To_Pull}" IsChecked="{Binding WarriorSettings.UseTomahawkToPull, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_Tomahawk_To_Pull_Nearby_Enemie}" IsChecked="{Binding WarriorSettings.UseTomahawkToPullExtraEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Warrior_Content_Use_Tomahawk_To_Regain_Aggro}" IsChecked="{Binding WarriorSettings.UseTomahawkOnLostAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

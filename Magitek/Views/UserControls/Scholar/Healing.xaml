@@ -52,7 +52,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Resurrection" IsChecked="{Binding ScholarSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Resurrection}" IsChecked="{Binding ScholarSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="1" Margin="5,0" Content="{x:Static properties:Resources.Scholar_Content_Swiftcast_Resurrection}" IsChecked="{Binding ScholarSettings.SwiftcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="2" Margin="5,0" Content="{x:Static properties:Resources.Scholar_Content_Resurrection_Out_of_Combat}" IsChecked="{Binding ScholarSettings.ResOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
@@ -87,7 +87,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Physick" IsChecked="{Binding ScholarSettings.Physick, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Physick}" IsChecked="{Binding ScholarSettings.Physick, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.PhysickHpPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Column="2" Margin="2,0,3,1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
@@ -102,7 +102,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" Content="Adloquium" IsChecked="{Binding ScholarSettings.Adloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Adloquium}" IsChecked="{Binding ScholarSettings.Adloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.AdloquiumHpPercent, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                         <CheckBox Grid.Column="3" Margin="10,1,0,1" Content="{x:Static properties:Resources.Generic_Only_Tank}" IsChecked="{Binding ScholarSettings.AdloquiumOnlyTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -119,7 +119,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Lustrate" IsChecked="{Binding ScholarSettings.Lustrate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Lustrate}" IsChecked="{Binding ScholarSettings.Lustrate, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.LustrateHpPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     <CheckBox Grid.Column="3" Margin="10,0" Content="{x:Static properties:Resources.Generic_Only_Tank}" IsChecked="{Binding ScholarSettings.LustrateOnlyTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -137,7 +137,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" Content="Succor" IsChecked="{Binding ScholarSettings.Succor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Succor}" IsChecked="{Binding ScholarSettings.Succor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.SuccorHpPercent, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     </Grid>
@@ -154,7 +154,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" Content="Indomitability" IsChecked="{Binding ScholarSettings.Indomitability, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Scholar_Content_Indomitability}" IsChecked="{Binding ScholarSettings.Indomitability, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.IndomitabilityHpPercent, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     </Grid>
@@ -192,13 +192,13 @@
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
 
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Adloquium  " IsChecked="{Binding ScholarSettings.EmergencyTacticsAdloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Adloquium}" IsChecked="{Binding ScholarSettings.EmergencyTacticsAdloquium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.EmergencyTacticsAdloquiumHealthPercent, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Succor  " IsChecked="{Binding ScholarSettings.EmergencyTacticsSuccor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Succor}" IsChecked="{Binding ScholarSettings.EmergencyTacticsSuccor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.EmergencyTacticsSuccorHealthPercent, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
@@ -217,7 +217,7 @@
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Excogitation" IsChecked="{Binding ScholarSettings.Excogitation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Excogitation}" IsChecked="{Binding ScholarSettings.Excogitation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.ExcogitationHpPercent, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     <CheckBox Margin="10,0" Content="{x:Static properties:Resources.Generic_Only_Tank}" IsChecked="{Binding ScholarSettings.ExcogitationOnlyTank, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -229,7 +229,7 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="1" Orientation="Horizontal">
-                    <CheckBox Content="Seraphism " IsChecked="{Binding ScholarSettings.Seraphism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Seraphism}" IsChecked="{Binding ScholarSettings.Seraphism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When" />
                     <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding ScholarSettings.SeraphismAllies, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Fall_Below}" />
@@ -237,10 +237,10 @@
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_HP_Percent}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Manifestation  " IsChecked="{Binding ScholarSettings.Manifestation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Manifestation}" IsChecked="{Binding ScholarSettings.Manifestation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.ManifestationHpPercent, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
-                    <CheckBox Content="Accession  " IsChecked="{Binding ScholarSettings.Accession, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Accession}" IsChecked="{Binding ScholarSettings.Accession, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.AccessionHpPercent, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>

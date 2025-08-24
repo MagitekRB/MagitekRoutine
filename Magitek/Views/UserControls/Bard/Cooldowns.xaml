@@ -83,7 +83,7 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Barrage   " IsChecked="{Binding BardSettings.UseBarrage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Bard_Content_Barrage}" IsChecked="{Binding BardSettings.UseBarrage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Bard_Content_Only_With_Buff_RSRFBV}" IsChecked="{Binding BardSettings.UseBarrageOnlyWithBuff, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>

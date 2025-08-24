@@ -52,8 +52,8 @@
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Orientation="Vertical">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hypercharge          " IsChecked="{Binding MachinistSettings.UseHypercharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Wildfire                     " IsChecked="{Binding MachinistSettings.UseWildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Hypercharge}" IsChecked="{Binding MachinistSettings.UseHypercharge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Wildfire}" IsChecked="{Binding MachinistSettings.UseWildfire, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Barrel_Stabilizer}" IsChecked="{Binding MachinistSettings.UseBarrelStabilizer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
@@ -69,7 +69,7 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Machinist_Text_Use_Reassemble_on}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Drill                    " IsChecked="{Binding MachinistSettings.UseReassembleOnDrill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Drill}" IsChecked="{Binding MachinistSettings.UseReassembleOnDrill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Air_Anchor}" IsChecked="{Binding MachinistSettings.UseReassembleOnAA, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_ChainSaw_Excavator}" IsChecked="{Binding MachinistSettings.UseReassembleOnChainSaw, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>

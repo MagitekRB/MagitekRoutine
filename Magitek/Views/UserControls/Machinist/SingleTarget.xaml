@@ -20,19 +20,19 @@
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Split_Shot_Combo}" IsChecked="{Binding MachinistSettings.UseSplitShotCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Drill   " IsChecked="{Binding MachinistSettings.UseDrill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Drill}" IsChecked="{Binding MachinistSettings.UseDrill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Hot_Shot_Air_Anchor}" IsChecked="{Binding MachinistSettings.UseHotAirAnchor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="ChainSaw   " IsChecked="{Binding MachinistSettings.UseChainSaw, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Excavator   " IsChecked="{Binding MachinistSettings.UseExcavator, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_ChainSaw}" IsChecked="{Binding MachinistSettings.UseChainSaw, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Excavator}" IsChecked="{Binding MachinistSettings.UseExcavator, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Gauss_Round}" IsChecked="{Binding MachinistSettings.UseGaussRound, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Ricochet" IsChecked="{Binding MachinistSettings.UseRicochet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Ricochet}" IsChecked="{Binding MachinistSettings.UseRicochet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="FullMetalField" IsChecked="{Binding MachinistSettings.UseFullMetalField, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_FullMetalField}" IsChecked="{Binding MachinistSettings.UseFullMetalField, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

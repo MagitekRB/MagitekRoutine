@@ -56,7 +56,7 @@
 
                 <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Hagakure" IsChecked="{Binding SamuraiSettings.UseHagakure, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Hagakure}" IsChecked="{Binding SamuraiSettings.UseHagakure, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

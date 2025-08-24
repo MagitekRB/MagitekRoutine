@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Content="Assize" IsChecked="{Binding WhiteMageSettings.Assize, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Generic_Assize}" IsChecked="{Binding WhiteMageSettings.Assize, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Column="1" Margin="5,0" Content="{x:Static properties:Resources.WhiteMage_Content_Only_Below_90_Mana_Percent}" IsChecked="{Binding WhiteMageSettings.AssizeOnlyBelow90Mana, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </Grid>
         </controls:SettingsBlock>

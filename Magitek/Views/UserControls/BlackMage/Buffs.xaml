@@ -19,15 +19,15 @@
             <StackPanel Margin="5"
                         Orientation="Horizontal">
                 <CheckBox Margin="5"
-                          Content="ManaFont "
+                          Content="{x:Static properties:Resources.BlackMage_Content_ManaFont}"
                           IsChecked="{Binding BlackMageSettings.ManaFont, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
                 <CheckBox Margin="5"
-                          Content="Amplifier  "
+                          Content="{x:Static properties:Resources.BlackMage_Content_Amplifier}"
                           IsChecked="{Binding BlackMageSettings.Amplifier, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
                 <CheckBox Margin="5"
-                          Content="UmbralSoul"
+                          Content="{x:Static properties:Resources.BlackMage_Content_UmbralSoul}"
                           IsChecked="{Binding BlackMageSettings.UmbralSoul, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
@@ -38,7 +38,7 @@
             <StackPanel Margin="5"
                         Orientation="Horizontal">
                 <CheckBox Margin="5"
-                          Content="TripleCast "
+                          Content="{x:Static properties:Resources.BlackMage_Content_TripleCast}"
                           IsChecked="{Binding BlackMageSettings.TripleCast, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
                 <CheckBox Margin="5"

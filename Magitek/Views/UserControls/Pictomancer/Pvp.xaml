@@ -76,7 +76,7 @@
                     <TextBlock Text=" yalms" Style="{DynamicResource TextBlockDefault}" />
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Starstruck" IsChecked="{Binding PictomancerSettings.Pvp_UseStarstruck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Starstruck}" IsChecked="{Binding PictomancerSettings.Pvp_UseStarstruck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Use_Subtractive_Palette}" IsChecked="{Binding PictomancerSettings.Pvp_UseSubtractivePalette, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

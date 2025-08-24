@@ -40,11 +40,11 @@
                             Style="{DynamicResource TextBlockDefault}"
                             Text="{x:Static properties:Resources.Scholar_Text_Tankbusters}"/>
                     <CheckBox Margin="3,0"
-                            Content="Excog"
+                            Content="{x:Static properties:Resources.Scholar_Content_Excog}"
                             IsChecked="{Binding ScholarSettings.FightLogicExcogTank, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Margin="3,0"
-                            Content="Adlo"
+                            Content="{x:Static properties:Resources.Scholar_Content_Adlo}"
                             IsChecked="{Binding ScholarSettings.FightLogicAdloTank, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -62,14 +62,14 @@
                             IsChecked="{Binding ScholarSettings.FightLogicRecitSuccorBigAoe, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Margin="3,0"
-                            Content="Soil"
+                            Content="{x:Static properties:Resources.Scholar_Content_Soil}"
                             IsChecked="{Binding ScholarSettings.FightLogicSoilBigAoe, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <TextBlock Margin="60,0,3,0"
                             Style="{DynamicResource TextBlockDefault}"
                             Text="{x:Static properties:Resources.Scholar_Text_Aoe}"/>
                     <CheckBox Margin="3,0"
-                            Content="Succor"
+                            Content="{x:Static properties:Resources.Scholar_Content_Succor}"
                             IsChecked="{Binding ScholarSettings.FightLogicSuccorAoe, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -79,7 +79,7 @@
                             Style="{DynamicResource TextBlockDefault}"
                             Text="{x:Static properties:Resources.Scholar_Text_Knockback}"/>
                     <CheckBox Margin="3,0"
-                            Content="Knockback"
+                            Content="{x:Static properties:Resources.Astrologian_Content_Knockback}"
                             IsChecked="{Binding ScholarSettings.FightLogicKnockback, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

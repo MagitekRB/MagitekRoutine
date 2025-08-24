@@ -52,7 +52,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Ascend" IsChecked="{Binding AstrologianSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Astrologian_Content_Ascend}" IsChecked="{Binding AstrologianSettings.SlowcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="1" Margin="5,0" Content="{x:Static properties:Resources.Astrologian_Content_Swiftcast_Ascend}" IsChecked="{Binding AstrologianSettings.SwiftcastRes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Grid.Column="2" Margin="5,0" Content="{x:Static properties:Resources.Astrologian_Content_Ascend_Out_of_Combat}" IsChecked="{Binding AstrologianSettings.ResOutOfCombat, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </Grid>
@@ -88,7 +88,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Content="Benefic" IsChecked="{Binding AstrologianSettings.Benefic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Astrologian_Content_Benefic}" IsChecked="{Binding AstrologianSettings.Benefic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BeneficHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Column="2" Margin="2,0,3,1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </Grid>
@@ -136,7 +136,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" Content="Helios" IsChecked="{Binding AstrologianSettings.Helios, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Astrologian_Content_Helios}" IsChecked="{Binding AstrologianSettings.Helios, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.HeliosHealthPercent, Mode=TwoWay}" />
                             <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Health_Percent_and}" />
                             <controls:Numeric Grid.Column="5" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.HeliosMinManaPercent, Mode=TwoWay}" />
@@ -172,7 +172,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         
-                        <CheckBox Grid.Column="0" Content="Exaltation" IsChecked="{Binding AstrologianSettings.Exaltation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Astrologian_Content_Exaltation}" IsChecked="{Binding AstrologianSettings.Exaltation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.ExaltationHealthPercent, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     </Grid>
@@ -185,7 +185,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         
-                        <CheckBox Content="Macrocosmos" IsChecked="{Binding AstrologianSettings.Macrocosmos, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Macrocosmos}" IsChecked="{Binding AstrologianSettings.Macrocosmos, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BeneficHealthPercent, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2" Margin="2,0,3,1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Health_Percent_to_Pre_emptively_M}" />
                     </Grid>
@@ -256,11 +256,11 @@
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <TextBlock Margin="0,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Fight_Logic}" />
-                    <CheckBox Margin="0,0,5,0" Content="Exaltation" IsChecked="{Binding AstrologianSettings.FightLogic_Exaltation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_f}"/>
+                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Exaltation}" IsChecked="{Binding AstrologianSettings.FightLogic_Exaltation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_f}"/>
                     <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Collective_Unconscious}" IsChecked="{Binding AstrologianSettings.FightLogic_CollectiveUnconscious, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_C}"/>
-                    <CheckBox Margin="0,0,5,0" Content="Macrocosmos" IsChecked="{Binding AstrologianSettings.FightLogic_Macrocosmos, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_M}"/>
+                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Macrocosmos}" IsChecked="{Binding AstrologianSettings.FightLogic_Macrocosmos, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_M}"/>
                     <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Neutral_Sect}" IsChecked="{Binding AstrologianSettings.FightLogic_NeutralSectAspectedHelios, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_N}"/>
-                    <CheckBox Margin="0,0,5,0" Content="Lightspeed" IsChecked="{Binding AstrologianSettings.FightLogic_Lightspeed, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_L}"/>
+                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Lightspeed}" IsChecked="{Binding AstrologianSettings.FightLogic_Lightspeed, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_L}"/>
 
                 </StackPanel>
             </StackPanel>

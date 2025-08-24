@@ -17,7 +17,7 @@
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Margin="0,0,0,0" Content="Acceleration" IsChecked="{Binding RedMageSettings.Acceleration, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.RedMage_Content_Acceleration}" IsChecked="{Binding RedMageSettings.Acceleration, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Margin="25,0,0,0" FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Save}" />
                 <controls:NumericSmall Margin="0,0,0,0" MaxValue="2" MinValue="0" Value="{Binding RedMageSettings.SaveAccelChargesForMovement, Mode=TwoWay}" />
                 <TextBlock FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.RedMage_Text_Charges_for_Movement}" />
@@ -27,14 +27,14 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="Embolden" IsChecked="{Binding RedMageSettings.Embolden, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Embolden}" IsChecked="{Binding RedMageSettings.Embolden, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal" >
 
-                <CheckBox Content="Manafication" IsChecked="{Binding RedMageSettings.Manafication, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Manafication}" IsChecked="{Binding RedMageSettings.Manafication, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Margin="25,0,0,0" FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.RedMage_Text_Hold_up_to}" />
                 <controls:NumericSmall MaxValue="120" MinValue="0" Value="{Binding RedMageSettings.HoldAccelForEmboldenSeconds, Mode=TwoWay}" Width="30"/>
                 <TextBlock Margin="0,0,0,0" FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.RedMage_Text_Seconds_for_Embolden}" />

@@ -39,7 +39,7 @@
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Benison}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicDivineBenison, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Aquaveil "
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Aquaveil}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicAquaveil, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -51,13 +51,13 @@
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Caress}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicDivineCaress, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Temperance "
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Temperance}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicTemperance, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Liturgy_Of_The_Bell}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicLiturgyoftheBell, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Asylum "
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Asylum}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicAsylum, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Plenary_Indulgence}"
@@ -66,7 +66,7 @@
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Medica_2}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicMedica2, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="Knockback "
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Knockback}"
                             IsChecked="{Binding WhiteMageSettings.FightLogicKnockback, Mode=TwoWay}"
                             Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

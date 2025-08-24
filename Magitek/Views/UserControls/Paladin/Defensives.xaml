@@ -69,7 +69,7 @@
                     <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding PaladinSettings.HallowedGroundHp, Mode=TwoWay}" />
                     <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="1" Grid.Column="0" Content="Sentinel" IsChecked="{Binding PaladinSettings.UseSentinel, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.Paladin_Content_Sentinel}" IsChecked="{Binding PaladinSettings.UseSentinel, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="1"
                                       Grid.Column="1"
                                       Margin="0,3"
@@ -78,7 +78,7 @@
                                       Value="{Binding PaladinSettings.SentinelHp, Mode=TwoWay}" />
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Rampart" IsChecked="{Binding PaladinSettings.UseRampart, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="2" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Rampart}" IsChecked="{Binding PaladinSettings.UseRampart, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="2"
                                       Grid.Column="1"
                                       Margin="0,3"
@@ -87,7 +87,7 @@
                                       Value="{Binding PaladinSettings.RampartHpPercentage, Mode=TwoWay}" />
                     <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="3" Grid.Column="0" Content="Bulwark" IsChecked="{Binding PaladinSettings.UseBulwark, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="3" Grid.Column="0" Content="{x:Static properties:Resources.Paladin_Content_Bulwark}" IsChecked="{Binding PaladinSettings.UseBulwark, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="3"
                                       Grid.Column="1"
                                       Margin="0,3"
@@ -97,7 +97,7 @@
                     <TextBlock Grid.Row="3" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
 
-                    <CheckBox Grid.Row="4" Grid.Column="0" Content="Reprisal" IsChecked="{Binding PaladinSettings.UseReprisal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="4" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Reprisal}" IsChecked="{Binding PaladinSettings.UseReprisal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="4"
                                       Grid.Column="1"
                                       Margin="0,3"
@@ -144,7 +144,7 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Cover" IsChecked="{Binding PaladinSettings.UseCover, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Cover}" IsChecked="{Binding PaladinSettings.UseCover, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_On_Healers_At}" IsChecked="{Binding PaladinSettings.UseCoverHealer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Margin="0,3" MaxValue="50" MinValue="1" Value="{Binding PaladinSettings.UseCoverHealerHp, Mode=TwoWay}" />

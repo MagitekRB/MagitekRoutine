@@ -68,15 +68,15 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Atonement                      " IsChecked="{Binding PaladinSettings.Pvp_Atonement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Confiteor" IsChecked="{Binding PaladinSettings.Pvp_Confiteor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Atonement}" IsChecked="{Binding PaladinSettings.Pvp_Atonement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Confiteor}" IsChecked="{Binding PaladinSettings.Pvp_Confiteor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Supplication                      " IsChecked="{Binding PaladinSettings.Pvp_Supplication, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="Sepulchre" IsChecked="{Binding PaladinSettings.Pvp_Sepulchre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Supplication}" IsChecked="{Binding PaladinSettings.Pvp_Supplication, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Sepulchre}" IsChecked="{Binding PaladinSettings.Pvp_Sepulchre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Imperator                      " IsChecked="{Binding PaladinSettings.Pvp_Imperator, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Imperator}" IsChecked="{Binding PaladinSettings.Pvp_Imperator, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Holy_Spirit}" IsChecked="{Binding PaladinSettings.Pvp_HolySpirit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -89,7 +89,7 @@
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Only_on_Guard}" IsChecked="{Binding PaladinSettings.Pvp_ShieldSmiteOnlyOnGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="Intervene" IsChecked="{Binding PaladinSettings.Pvp_Intervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Intervene}" IsChecked="{Binding PaladinSettings.Pvp_Intervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Intervene_Only_in_Melee_Range}" IsChecked="{Binding PaladinSettings.Pvp_SafeIntervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

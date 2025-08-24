@@ -60,7 +60,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="Holmgang  " IsChecked="{Binding WarriorSettings.UseHolmgang, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Warrior_Content_Holmgang}" IsChecked="{Binding WarriorSettings.UseHolmgang, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WarriorSettings.HolmgangHpPercentage, Mode=TwoWay}" />
                     <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
@@ -82,7 +82,7 @@
                                       Value="{Binding WarriorSettings.BloodWhettingHpPercentage, Mode=TwoWay}" />
                     <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="3" Grid.Column="0" Content="Rampart" IsChecked="{Binding WarriorSettings.UseRampart, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="3" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Rampart}" IsChecked="{Binding WarriorSettings.UseRampart, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="3"
                                       Grid.Column="1"
                                       Margin="0,3"
@@ -91,7 +91,7 @@
                                       Value="{Binding WarriorSettings.RampartHpPercentage, Mode=TwoWay}" />
                     <TextBlock Grid.Row="3" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="5" Grid.Column="0" Content="Reprisal" IsChecked="{Binding WarriorSettings.UseReprisal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="5" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Reprisal}" IsChecked="{Binding WarriorSettings.UseReprisal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="5"
                                       Grid.Column="1"
                                       Margin="0,3"
@@ -100,7 +100,7 @@
                                       Value="{Binding WarriorSettings.ReprisalHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="5" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
 
-                    <CheckBox Grid.Row="6" Grid.Column="0" Content="ShakeItOff" IsChecked="{Binding WarriorSettings.UseShakeItOff, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Grid.Row="6" Grid.Column="0" Content="{x:Static properties:Resources.Warrior_Content_ShakeItOff}" IsChecked="{Binding WarriorSettings.UseShakeItOff, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="6"
                                       Grid.Column="1"
                                       Margin="0,3"

@@ -55,13 +55,13 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Malefic" IsChecked="{Binding AstrologianSettings.Malefic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Malefic}" IsChecked="{Binding AstrologianSettings.Malefic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="Combust" IsChecked="{Binding AstrologianSettings.Combust, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Combust}" IsChecked="{Binding AstrologianSettings.Combust, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
 
                 <StackPanel Margin="0,3,0,0">
                     <StackPanel Orientation="Horizontal">

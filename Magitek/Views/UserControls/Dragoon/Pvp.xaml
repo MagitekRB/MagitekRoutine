@@ -138,7 +138,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Starcross"
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Starcross}"
                               IsChecked="{Binding DragoonSettings.Pvp_Starcross, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -153,7 +153,7 @@
                            Text="{x:Static properties:Resources.Generic_Buffs}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Geirskogul"
+                    <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Geirskogul}"
                               IsChecked="{Binding DragoonSettings.Pvp_Geirskogul, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

@@ -142,12 +142,12 @@
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Grid.Row="1"
                               Grid.Column="1"
-                              Content="Scorch"
+                              Content="{x:Static properties:Resources.RedMage_Content_Scorch}"
                               IsChecked="{Binding RedMageSettings.Pvp_UseScorch, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Grid.Row="1"
                               Grid.Column="2"
-                              Content="Prefulgence"
+                              Content="{x:Static properties:Resources.RedMage_Content_Prefulgence}"
                               IsChecked="{Binding RedMageSettings.Pvp_UsePrefulgence, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
 
@@ -159,7 +159,7 @@
                     <StackPanel Grid.Row="2"
                                 Grid.Column="1"
                                 Orientation="Horizontal">
-                        <CheckBox Content="Forte"
+                        <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Forte}"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseForte, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
@@ -173,7 +173,7 @@
                     <StackPanel Grid.Row="2"
                                 Grid.Column="2"
                                 Orientation="Horizontal">
-                        <CheckBox Content="Embolden"
+                        <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Embolden}"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseEmbolden, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
@@ -214,7 +214,7 @@
                     <StackPanel Grid.Row="1"
                                 Grid.Column="0"
                                 Orientation="Horizontal">
-                        <CheckBox Content="Displacement"
+                        <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Displacement}"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseDisplacement, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
@@ -249,7 +249,7 @@
                     <StackPanel Grid.Row="0"
                                 Grid.Column="0"
                                 Orientation="Horizontal">
-                        <CheckBox Content="Resolution"
+                        <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Resolution}"
                                   IsChecked="{Binding RedMageSettings.Pvp_UseResolution, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"

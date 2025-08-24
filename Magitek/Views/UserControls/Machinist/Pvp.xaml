@@ -108,7 +108,7 @@
                            Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Wildfire"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Wildfire}"
                               IsChecked="{Binding MachinistSettings.Pvp_Wildfire, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -124,7 +124,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Scattergun"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Scattergun}"
                               IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -189,16 +189,16 @@
                            Text="{x:Static properties:Resources.Machinist_Text_Use_Analysis_on}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Drill     "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Drill}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnDrill, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="BioBlaster     "
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_BioBlaster}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnBio, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Air_Anchor}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnAA, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="ChainSaw"
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_ChainSaw}"
                               IsChecked="{Binding MachinistSettings.Pvp_UsedAnalysisOnChainSaw, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

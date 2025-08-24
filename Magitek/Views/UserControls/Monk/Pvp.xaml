@@ -114,7 +114,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Enlightenment"
+                    <CheckBox Content="{x:Static properties:Resources.Monk_Content_Enlightenment}"
                               IsChecked="{Binding MonkSettings.Pvp_Enlightenment, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

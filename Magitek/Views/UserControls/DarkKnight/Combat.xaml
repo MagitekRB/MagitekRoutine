@@ -46,7 +46,7 @@
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="BloodSpiller " IsChecked="{Binding DarkKnightSettings.UseBloodspiller, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_BloodSpiller}" IsChecked="{Binding DarkKnightSettings.UseBloodspiller, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 

@@ -126,7 +126,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Mineuchi"
+                    <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Mineuchi}"
                               IsChecked="{Binding SamuraiSettings.Pvp_Mineuchi, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -191,7 +191,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="Zanshin"
+                    <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Zanshin}"
                               IsChecked="{Binding SamuraiSettings.Pvp_Zanshin, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

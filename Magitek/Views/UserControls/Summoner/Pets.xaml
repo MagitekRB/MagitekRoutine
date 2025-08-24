@@ -72,7 +72,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Summon_Bahamut}" IsChecked="{Binding SummonerSettings.SummonBahamut, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Only_For_Bosses}" IsChecked="{Binding SummonerSettings.SummonBahamutOnlyForBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="AkhMorn" IsChecked="{Binding SummonerSettings.AkhMorn, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Summoner_Content_AkhMorn}" IsChecked="{Binding SummonerSettings.AkhMorn, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

@@ -55,7 +55,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="3">
-                <CheckBox Content="SerpentIre" IsChecked="{Binding ViperSettings.UseSerpentIre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Content="{x:Static properties:Resources.Viper_Content_SerpentIre}" IsChecked="{Binding ViperSettings.UseSerpentIre, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 

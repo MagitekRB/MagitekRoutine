@@ -198,7 +198,7 @@
                                Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Macrocosmos"
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Macrocosmos}"
                               IsChecked="{Binding AstrologianSettings.Pvp_Macrocosmos, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
@@ -265,7 +265,7 @@
                                Style="{DynamicResource TextBlockDefault}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <CheckBox Content="Oracle"
+                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Oracle}"
                               IsChecked="{Binding AstrologianSettings.Pvp_Oracle, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
