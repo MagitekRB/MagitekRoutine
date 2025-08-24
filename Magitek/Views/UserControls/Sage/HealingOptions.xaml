@@ -42,7 +42,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Unless} " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Unless}" />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SageSettings.HealingBuffsMoreHpNeedHealing, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Allies_Are_Lower_Than}" />
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SageSettings.HealingBuffsMoreHpHealthPercentage, Mode=TwoWay}" />
