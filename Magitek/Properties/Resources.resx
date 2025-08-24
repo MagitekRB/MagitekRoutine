@@ -1568,7 +1568,7 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Machinist_Content_MarksmansSpite_LB_target_at" xml:space="preserve">
     <value>MarksmansSpite / LB target at</value>
   </data>
-  <data name="Machinist_Content_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
+  <data name="Generic_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
     <value>LB Any Enemy below the threshold not just current target</value>
   </data>
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
@@ -3484,9 +3484,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Dancer_Text_PCT" xml:space="preserve">
     <value>Pct</value>
-  </data>
-  <data name="Ninja_Content_LB_Any_Enemy_below_the_threshold_not" xml:space="preserve">
-    <value>Lb Any Enemy Below The Threshold Not</value>
   </data>
   <data name="Pictomancer_Content_Dont_attack_Invuln_Hallowed_Gr" xml:space="preserve">
     <value>Dont Attack Invuln Hallowed Gr</value>

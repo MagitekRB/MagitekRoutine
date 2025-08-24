@@ -5106,6 +5106,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LB Any Enemy below the threshold not just current target.
+        /// </summary>
+        public static string Generic_LB_Any_Enemy_below_the_threshold {
+            get {
+                return ResourceManager.GetString("Generic_LB_Any_Enemy_below_the_threshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string Generic_Level {
@@ -6987,15 +6996,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LB Any Enemy below the threshold not just current target.
-        /// </summary>
-        public static string Machinist_Content_LB_Any_Enemy_below_the_threshold {
-            get {
-                return ResourceManager.GetString("Machinist_Content_LB_Any_Enemy_below_the_threshold", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to MarksmansSpite / LB target at.
         /// </summary>
         public static string Machinist_Content_MarksmansSpite_LB_target_at {
@@ -7532,15 +7532,6 @@ namespace Magitek.Properties {
         public static string Ninja_Content_Hyosho_Ranryu {
             get {
                 return ResourceManager.GetString("Ninja_Content_Hyosho_Ranryu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lb Any Enemy Below The Threshold Not.
-        /// </summary>
-        public static string Ninja_Content_LB_Any_Enemy_below_the_threshold_not {
-            get {
-                return ResourceManager.GetString("Ninja_Content_LB_Any_Enemy_below_the_threshold_not", resourceCulture);
             }
         }
         

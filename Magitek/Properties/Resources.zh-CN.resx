@@ -1335,8 +1335,8 @@
   <data name="Machinist_Content_MarksmansSpite_LB_target_at" xml:space="preserve">
     <value>魔弹射手 /  LB极限技，在……</value>
   </data>
-  <data name="Machinist_Content_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
-    <value>对低于阈值的任何敌人使用极限技，而不仅仅是当前目标</value>
+  <data name="Generic_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
+    <value />
   </data>
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
     <value>如果启用，当 野火 即将冷却完毕时，会保留全金属领域</value>
@@ -3251,9 +3251,6 @@
   </data>
   <data name="Dancer_Text_PCT" xml:space="preserve">
     <value>贤者</value>
-  </data>
-  <data name="Ninja_Content_LB_Any_Enemy_below_the_threshold_not" xml:space="preserve">
-    <value>任意低于阈值的敌人不放LB极限技</value>
   </data>
   <data name="Pictomancer_Content_Dont_attack_Invuln_Hallowed_Gr" xml:space="preserve">
     <value>不攻击处于 无敌 状态的目标</value>

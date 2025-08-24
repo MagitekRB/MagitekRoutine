@@ -171,7 +171,7 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_LB_Any_Enemy_below_the_threshold}"
+                    <CheckBox Content="{x:Static properties:Resources.Generic_LB_Any_Enemy_below_the_threshold}"
                               Margin="10,0"
                               IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteAnyTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
