@@ -144,205 +144,205 @@
   <data name="Controls_Text_Gambits" xml:space="preserve">
     <value>Gambits:</value>
   </data>
-  <data name="Controls_Content_Show_All" xml:space="preserve">
+    <data name="Generic_Show_All" xml:space="preserve">
     <value>Show All</value>
   </data>
-  <data name="Controls_Content_Add_New_Gambit_Group" xml:space="preserve">
+    <data name="Generic_Add_New_Gambit_Group" xml:space="preserve">
     <value>Add New Gambit Group</value>
   </data>
-  <data name="Controls_Content_Recover_Old_Gambits" xml:space="preserve">
+    <data name="Generic_Recover_Old_Gambits" xml:space="preserve">
     <value>Recover Old Gambits</value>
   </data>
-  <data name="Controls_Content_Open_Shared_Gambits_Browser" xml:space="preserve">
+    <data name="Generic_Open_Shared_Gambits_Browser" xml:space="preserve">
     <value>Open Shared Gambits Browser</value>
   </data>
-  <data name="Controls_Content_Current_Zone" xml:space="preserve">
+    <data name="Generic_Current_Zone" xml:space="preserve">
     <value>Current Zone</value>
   </data>
-  <data name="Controls_Content_PASTE_COPIED_GAMBIT" xml:space="preserve">
+    <data name="Generic_Paste_Copied_Gambit" xml:space="preserve">
     <value>PASTE COPIED GAMBIT</value>
   </data>
-  <data name="Controls_Content_COPY_GAMBIT_GROUP" xml:space="preserve">
+    <data name="Generic_Copy_Gambit_Group" xml:space="preserve">
     <value>COPY GAMBIT GROUP</value>
   </data>
-  <data name="Controls_Content_PASTE_COPIED_GAMBIT_GROUP" xml:space="preserve">
+    <data name="Generic_Paste_Copied_Gambit_Group" xml:space="preserve">
     <value>PASTE COPIED GAMBIT GROUP</value>
   </data>
-  <data name="Controls_Content_DELETE_GAMBIT_GROUP" xml:space="preserve">
+    <data name="Generic_Delete_Gambit_Group" xml:space="preserve">
     <value>DELETE GAMBIT GROUP</value>
   </data>
-  <data name="Controls_Content_On_Target" xml:space="preserve">
+    <data name="Generic_On_Target" xml:space="preserve">
     <value>On Target</value>
   </data>
-  <data name="Controls_Content_On_Pet" xml:space="preserve">
+    <data name="Generic_On_Pet" xml:space="preserve">
     <value>On Pet</value>
   </data>
-  <data name="Controls_Content_On_Player" xml:space="preserve">
+    <data name="Generic_On_Player" xml:space="preserve">
     <value>On Player</value>
   </data>
-  <data name="Controls_Content_Any_Quality" xml:space="preserve">
+    <data name="Generic_Any_Quality" xml:space="preserve">
     <value>Any Quality</value>
   </data>
-  <data name="Controls_Content_High_Quality" xml:space="preserve">
+    <data name="Generic_High_Quality" xml:space="preserve">
     <value>High Quality</value>
   </data>
-  <data name="Controls_Content_Normal_Quality" xml:space="preserve">
+    <data name="Generic_Normal_Quality" xml:space="preserve">
     <value>Normal Quality</value>
   </data>
-  <data name="Controls_Content_IS_PVP_SPELL" xml:space="preserve">
+    <data name="Generic_Is_Pvp_Spell" xml:space="preserve">
     <value>IS PVP SPELL</value>
   </data>
-  <data name="Controls_Content_On_Anyone" xml:space="preserve">
+    <data name="Generic_On_Anyone" xml:space="preserve">
     <value>On Anyone</value>
   </data>
-  <data name="Controls_Content_On_Spell_Target" xml:space="preserve">
+    <data name="Generic_On_Spell_Target" xml:space="preserve">
     <value>On Spell Target</value>
   </data>
-  <data name="Controls_Content_On_Me" xml:space="preserve">
+    <data name="Generic_On_Me" xml:space="preserve">
     <value>On Me</value>
   </data>
-  <data name="Controls_Content_REMOVE_CONDITION" xml:space="preserve">
+    <data name="Generic_Remove_Condition" xml:space="preserve">
     <value>REMOVE CONDITION</value>
   </data>
-  <data name="Controls_Content_IS_MY_AURA" xml:space="preserve">
+    <data name="Generic_Is_My_Aura" xml:space="preserve">
     <value>IS MY AURA</value>
   </data>
-  <data name="Controls_Content_Above_Or_Equal" xml:space="preserve">
+    <data name="Generic_Above_Or_Equal" xml:space="preserve">
     <value>Above Or Equal</value>
   </data>
-  <data name="Controls_Content_Lower_Or_Equal" xml:space="preserve">
+    <data name="Generic_Lower_Or_Equal" xml:space="preserve">
     <value>Lower Or Equal</value>
   </data>
-  <data name="Controls_Content_WHITE_MAGE" xml:space="preserve">
+    <data name="Generic_White_Mage" xml:space="preserve">
     <value>WHITE MAGE</value>
   </data>
-  <data name="Controls_Content_DARK_KNIGHT" xml:space="preserve">
+    <data name="Generic_Dark_Knight" xml:space="preserve">
     <value>DARK KNIGHT</value>
   </data>
-  <data name="Controls_Content_BLACK_MAGE" xml:space="preserve">
+    <data name="Generic_Black_Mage" xml:space="preserve">
     <value>BLACK MAGE</value>
   </data>
-  <data name="Controls_Content_RED_MAGE" xml:space="preserve">
+    <data name="Generic_Red_Mage" xml:space="preserve">
     <value>RED MAGE</value>
   </data>
-  <data name="Controls_Content_IS_TANK" xml:space="preserve">
+    <data name="Generic_Is_Tank" xml:space="preserve">
     <value>IS TANK</value>
   </data>
-  <data name="Controls_Content_IS_HEALER" xml:space="preserve">
+    <data name="Generic_Is_Healer" xml:space="preserve">
     <value>IS HEALER</value>
   </data>
-  <data name="Controls_Content_IS_DPS" xml:space="preserve">
+    <data name="Generic_Is_Dps" xml:space="preserve">
     <value>IS DPS</value>
   </data>
-  <data name="Controls_Content_By_Player" xml:space="preserve">
+    <data name="Generic_By_Player" xml:space="preserve">
     <value>By Player</value>
   </data>
-  <data name="Controls_Content_By_Target_Object" xml:space="preserve">
+    <data name="Generic_By_Target_Object" xml:space="preserve">
     <value>By Target Object</value>
   </data>
-  <data name="Controls_Content_MUST_BE_ENEMY" xml:space="preserve">
+    <data name="Generic_Must_Be_Enemy" xml:space="preserve">
     <value>MUST BE ENEMY</value>
   </data>
-  <data name="Controls_Content_MUST_BE_ALLY" xml:space="preserve">
+    <data name="Generic_Must_Be_Ally" xml:space="preserve">
     <value>MUST BE ALLY</value>
   </data>
-  <data name="Controls_Content_IN_INSTANCE" xml:space="preserve">
+    <data name="Generic_In_Instance" xml:space="preserve">
     <value>IN INSTANCE</value>
   </data>
-  <data name="Controls_Content_NOT_IN_INSTANCE" xml:space="preserve">
+    <data name="Generic_Not_In_Instance" xml:space="preserve">
     <value>NOT IN INSTANCE</value>
   </data>
-  <data name="Controls_Content_IS_JOB" xml:space="preserve">
+    <data name="Generic_Is_Job" xml:space="preserve">
     <value>IS JOB</value>
   </data>
-  <data name="Controls_Content_IS_ROLE" xml:space="preserve">
+    <data name="Generic_Is_Role" xml:space="preserve">
     <value>IS ROLE</value>
   </data>
-  <data name="Controls_Content_PLAYER_IN_COMBAT" xml:space="preserve">
+    <data name="Generic_Player_In_Combat" xml:space="preserve">
     <value>PLAYER IN COMBAT</value>
   </data>
-  <data name="Controls_Content_PLAYER_NOT_IN_COMBAT" xml:space="preserve">
+    <data name="Generic_Player_Not_In_Combat" xml:space="preserve">
     <value>PLAYER NOT IN COMBAT</value>
   </data>
-  <data name="Controls_Content_COMBAT_TIME" xml:space="preserve">
+    <data name="Generic_Combat_Time" xml:space="preserve">
     <value>COMBAT TIME</value>
   </data>
-  <data name="Controls_Content_LAST_SPELL" xml:space="preserve">
+    <data name="Generic_Last_Spell" xml:space="preserve">
     <value>LAST SPELL</value>
   </data>
-  <data name="Controls_Content_TARGET_NAME" xml:space="preserve">
+    <data name="Generic_Target_Name" xml:space="preserve">
     <value>TARGET NAME</value>
   </data>
-  <data name="Controls_Content_TARGET_BOSS" xml:space="preserve">
+    <data name="Generic_Target_Boss" xml:space="preserve">
     <value>TARGET BOSS</value>
   </data>
-  <data name="Controls_Content_HAS_TARGET" xml:space="preserve">
+    <data name="Generic_Has_Target" xml:space="preserve">
     <value>HAS TARGET</value>
   </data>
-  <data name="Controls_Content_ENEMY_CASTING_SPELL" xml:space="preserve">
+    <data name="Generic_Enemy_Casting_Spell" xml:space="preserve">
     <value>ENEMY CASTING SPELL</value>
   </data>
-  <data name="Controls_Content_ENEMIES_NEARBY" xml:space="preserve">
+    <data name="Generic_Enemies_Nearby" xml:space="preserve">
     <value>ENEMIES NEARBY</value>
   </data>
-  <data name="Controls_Content_HAS_AURA" xml:space="preserve">
+    <data name="Generic_Has_Aura" xml:space="preserve">
     <value>HAS AURA</value>
   </data>
-  <data name="Controls_Content_DOES_NOT_HAVE_AURA" xml:space="preserve">
+    <data name="Generic_Does_Not_Have_Aura" xml:space="preserve">
     <value>DOES NOT HAVE AURA</value>
   </data>
-  <data name="Controls_Content_SPELL_OFF_COOLDOWN" xml:space="preserve">
+    <data name="Generic_Spell_Off_Cooldown" xml:space="preserve">
     <value>SPELL OFF COOLDOWN</value>
   </data>
-  <data name="Controls_Content_HEALTH_PERCENT_BELOW" xml:space="preserve">
+    <data name="Generic_Health_Percent_Below" xml:space="preserve">
     <value>HEALTH PERCENT BELOW</value>
   </data>
-  <data name="Controls_Content_HEALTH_PERCENT_BETWEEN" xml:space="preserve">
+    <data name="Generic_Health_Percent_Between" xml:space="preserve">
     <value>HEALTH PERCENT BETWEEN</value>
   </data>
-  <data name="Controls_Content_MP_PERCENT" xml:space="preserve">
+    <data name="Generic_Mp_Percent" xml:space="preserve">
     <value>MP PERCENT</value>
   </data>
-  <data name="Controls_Content_PLAYER_HAS_AURA" xml:space="preserve">
+    <data name="Generic_Player_Has_Aura" xml:space="preserve">
     <value>PLAYER HAS AURA</value>
   </data>
-  <data name="Controls_Content_PLAYER_DOES_NOT_HAVE_AURA" xml:space="preserve">
+    <data name="Generic_Player_Does_Not_Have_Aura" xml:space="preserve">
     <value>PLAYER DOES NOT HAVE AURA</value>
   </data>
-  <data name="Controls_Content_HAS_PET" xml:space="preserve">
+    <data name="Generic_Has_Pet" xml:space="preserve">
     <value>HAS PET</value>
   </data>
-  <data name="Controls_Content_COUNTDOWN_TIMER" xml:space="preserve">
+    <data name="Generic_Countdown_Timer" xml:space="preserve">
     <value>COUNTDOWN TIMER</value>
   </data>
-  <data name="Controls_Content_GREASED_LIGHTNING" xml:space="preserve">
+    <data name="Generic_Greased_Lightning" xml:space="preserve">
     <value>GREASED LIGHTNING</value>
   </data>
-  <data name="Controls_Content_DRAGOON_GAUGE" xml:space="preserve">
+    <data name="Generic_Dragoon_Gauge" xml:space="preserve">
     <value>DRAGOON GAUGE</value>
   </data>
-  <data name="Controls_Content_HAS_CHAIN" xml:space="preserve">
+    <data name="Generic_Has_Chain" xml:space="preserve">
     <value>HAS CHAIN</value>
   </data>
-  <data name="Controls_Content_ONLY_USE_IN_CHAIN" xml:space="preserve">
+    <data name="Generic_Only_Use_In_Chain" xml:space="preserve">
     <value>ONLY USE IN CHAIN</value>
   </data>
-  <data name="Controls_Content_FORCE_CHAIN_ACTIONS" xml:space="preserve">
+    <data name="Generic_Force_Chain_Actions" xml:space="preserve">
     <value>FORCE CHAIN ACTIONS</value>
   </data>
-  <data name="Controls_Content_GAMBIT_ENABLED" xml:space="preserve">
+    <data name="Generic_Gambit_Enabled" xml:space="preserve">
     <value>GAMBIT ENABLED</value>
   </data>
-  <data name="Controls_Content_ALLOW_GAMBIT_TO_INTERRUPT" xml:space="preserve">
+    <data name="Generic_Allow_Gambit_To_Interrupt" xml:space="preserve">
     <value>ALLOW GAMBIT TO INTERRUPT</value>
   </data>
-  <data name="Controls_Content_COPY_GAMBIT" xml:space="preserve">
+    <data name="Generic_Copy_Gambit" xml:space="preserve">
     <value>COPY GAMBIT</value>
   </data>
-  <data name="Controls_Content_COPY_GAMBIT_TO_CLIPBOARD" xml:space="preserve">
+    <data name="Generic_Copy_Gambit_To_Clipboard" xml:space="preserve">
     <value>COPY GAMBIT TO CLIPBOARD</value>
   </data>
-  <data name="Controls_Content_DELETE_GAMBIT" xml:space="preserve">
+    <data name="Generic_Delete_Gambit" xml:space="preserve">
     <value>DELETE GAMBIT</value>
   </data>
   <data name="Controls_ToolTip_Set_Group_To_Current_Zone" xml:space="preserve">
@@ -360,31 +360,31 @@
   <data name="Controls_Text_CONDITIONS_TO_START_OPENER" xml:space="preserve">
     <value>CONDITIONS TO START OPENER:</value>
   </data>
-  <data name="Controls_Content_Add_New_Opener" xml:space="preserve">
+    <data name="Generic_Add_New_Opener" xml:space="preserve">
     <value>Add New Opener</value>
   </data>
-  <data name="Controls_Content_Open_Shared_Openers_Browser" xml:space="preserve">
+    <data name="Generic_Open_Shared_Openers_Browser" xml:space="preserve">
     <value>Open Shared Openers Browser</value>
   </data>
-  <data name="Controls_Content_USE_ONLY_ONCE_PER_COMBAT" xml:space="preserve">
+    <data name="Generic_Use_Only_Once_Per_Combat" xml:space="preserve">
     <value>USE ONLY ONCE PER COMBAT</value>
   </data>
-  <data name="Controls_Content_DELETE_OPENER" xml:space="preserve">
+    <data name="Generic_Delete_Opener" xml:space="preserve">
     <value>DELETE OPENER</value>
   </data>
-  <data name="Controls_Content_HAS_GETSU" xml:space="preserve">
+    <data name="Generic_Has_Getsu" xml:space="preserve">
     <value>HAS GETSU</value>
   </data>
-  <data name="Controls_Content_HAS_SETSU" xml:space="preserve">
+    <data name="Generic_Has_Setsu" xml:space="preserve">
     <value>HAS SETSU</value>
   </data>
-  <data name="Controls_Content_HAS_KA" xml:space="preserve">
+    <data name="Generic_Has_Ka" xml:space="preserve">
     <value>HAS KA</value>
   </data>
-  <data name="Controls_Content_ABANDON_OPENER_IF_ACTION_FAILS" xml:space="preserve">
+    <data name="Generic_Abandon_Opener_If_Action_Fails" xml:space="preserve">
     <value>ABANDON OPENER IF ACTION FAILS</value>
   </data>
-  <data name="Controls_Content_DELETE_ACTION" xml:space="preserve">
+    <data name="Generic_Delete_Action" xml:space="preserve">
     <value>DELETE ACTION</value>
   </data>
   <data name="Controls_ToolTip_Set_Opener_To_Current_Zone" xml:space="preserve">
@@ -4478,4 +4478,53 @@ Does not work if Lightspeed is disabled.</value>
   <data name="WhiteMage_Content_Benediction" xml:space="preserve">
     <value>Benediction</value>
   </data>
+
+    <data name="Generic_Pictomancer" xml:space="preserve">
+    <value>PICTOMANCER</value>
+  </data>
+
+    <data name="Generic_Chakra" xml:space="preserve">
+    <value>CHAKRA</value>
+  </data>
+
+    <data name="Generic_Repertoire" xml:space="preserve">
+    <value>REPERTOIRE</value>
+  </data>
+
+    <data name="Generic_Esprit" xml:space="preserve">
+    <value>ESPRIT</value>
+  </data>
+
+    <data name="Generic_Feather" xml:space="preserve">
+    <value>FEATHER</value>
+  </data>
+
+    <data name="Generic_Heat" xml:space="preserve">
+    <value>HEAT</value>
+  </data>
+
+    <data name="Generic_Gaze" xml:space="preserve">
+    <value>GAZE</value>
+  </data>
+
+    <data name="Generic_Ammo" xml:space="preserve">
+    <value>AMMO</value>
+  </data>
+
+    <data name="Generic_Huton" xml:space="preserve">
+    <value>HUTON</value>
+  </data>
+
+    <data name="Generic_Ninki" xml:space="preserve">
+    <value>NINKI</value>
+  </data>
+
+    <data name="Generic_Kenki" xml:space="preserve">
+    <value>KENKI</value>
+  </data>
+
+    <data name="Generic_Sen" xml:space="preserve">
+    <value>SEN</value>
+  </data>
+
 </root>

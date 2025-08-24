@@ -2559,690 +2559,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ABANDON OPENER IF ACTION FAILS.
-        /// </summary>
-        public static string Controls_Content_ABANDON_OPENER_IF_ACTION_FAILS {
-            get {
-                return ResourceManager.GetString("Controls_Content_ABANDON_OPENER_IF_ACTION_FAILS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Above Or Equal.
-        /// </summary>
-        public static string Controls_Content_Above_Or_Equal {
-            get {
-                return ResourceManager.GetString("Controls_Content_Above_Or_Equal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add New Gambit Group.
-        /// </summary>
-        public static string Controls_Content_Add_New_Gambit_Group {
-            get {
-                return ResourceManager.GetString("Controls_Content_Add_New_Gambit_Group", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add New Opener.
-        /// </summary>
-        public static string Controls_Content_Add_New_Opener {
-            get {
-                return ResourceManager.GetString("Controls_Content_Add_New_Opener", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ALLOW GAMBIT TO INTERRUPT.
-        /// </summary>
-        public static string Controls_Content_ALLOW_GAMBIT_TO_INTERRUPT {
-            get {
-                return ResourceManager.GetString("Controls_Content_ALLOW_GAMBIT_TO_INTERRUPT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Any Quality.
-        /// </summary>
-        public static string Controls_Content_Any_Quality {
-            get {
-                return ResourceManager.GetString("Controls_Content_Any_Quality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BLACK MAGE.
-        /// </summary>
-        public static string Controls_Content_BLACK_MAGE {
-            get {
-                return ResourceManager.GetString("Controls_Content_BLACK_MAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to By Player.
-        /// </summary>
-        public static string Controls_Content_By_Player {
-            get {
-                return ResourceManager.GetString("Controls_Content_By_Player", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to By Target Object.
-        /// </summary>
-        public static string Controls_Content_By_Target_Object {
-            get {
-                return ResourceManager.GetString("Controls_Content_By_Target_Object", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to COMBAT TIME.
-        /// </summary>
-        public static string Controls_Content_COMBAT_TIME {
-            get {
-                return ResourceManager.GetString("Controls_Content_COMBAT_TIME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to COPY GAMBIT.
-        /// </summary>
-        public static string Controls_Content_COPY_GAMBIT {
-            get {
-                return ResourceManager.GetString("Controls_Content_COPY_GAMBIT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to COPY GAMBIT GROUP.
-        /// </summary>
-        public static string Controls_Content_COPY_GAMBIT_GROUP {
-            get {
-                return ResourceManager.GetString("Controls_Content_COPY_GAMBIT_GROUP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to COPY GAMBIT TO CLIPBOARD.
-        /// </summary>
-        public static string Controls_Content_COPY_GAMBIT_TO_CLIPBOARD {
-            get {
-                return ResourceManager.GetString("Controls_Content_COPY_GAMBIT_TO_CLIPBOARD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to COUNTDOWN TIMER.
-        /// </summary>
-        public static string Controls_Content_COUNTDOWN_TIMER {
-            get {
-                return ResourceManager.GetString("Controls_Content_COUNTDOWN_TIMER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current Zone.
-        /// </summary>
-        public static string Controls_Content_Current_Zone {
-            get {
-                return ResourceManager.GetString("Controls_Content_Current_Zone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DARK KNIGHT.
-        /// </summary>
-        public static string Controls_Content_DARK_KNIGHT {
-            get {
-                return ResourceManager.GetString("Controls_Content_DARK_KNIGHT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DELETE ACTION.
-        /// </summary>
-        public static string Controls_Content_DELETE_ACTION {
-            get {
-                return ResourceManager.GetString("Controls_Content_DELETE_ACTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DELETE GAMBIT.
-        /// </summary>
-        public static string Controls_Content_DELETE_GAMBIT {
-            get {
-                return ResourceManager.GetString("Controls_Content_DELETE_GAMBIT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DELETE GAMBIT GROUP.
-        /// </summary>
-        public static string Controls_Content_DELETE_GAMBIT_GROUP {
-            get {
-                return ResourceManager.GetString("Controls_Content_DELETE_GAMBIT_GROUP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DELETE OPENER.
-        /// </summary>
-        public static string Controls_Content_DELETE_OPENER {
-            get {
-                return ResourceManager.GetString("Controls_Content_DELETE_OPENER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DOES NOT HAVE AURA.
-        /// </summary>
-        public static string Controls_Content_DOES_NOT_HAVE_AURA {
-            get {
-                return ResourceManager.GetString("Controls_Content_DOES_NOT_HAVE_AURA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DRAGOON GAUGE.
-        /// </summary>
-        public static string Controls_Content_DRAGOON_GAUGE {
-            get {
-                return ResourceManager.GetString("Controls_Content_DRAGOON_GAUGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ENEMIES NEARBY.
-        /// </summary>
-        public static string Controls_Content_ENEMIES_NEARBY {
-            get {
-                return ResourceManager.GetString("Controls_Content_ENEMIES_NEARBY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ENEMY CASTING SPELL.
-        /// </summary>
-        public static string Controls_Content_ENEMY_CASTING_SPELL {
-            get {
-                return ResourceManager.GetString("Controls_Content_ENEMY_CASTING_SPELL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FORCE CHAIN ACTIONS.
-        /// </summary>
-        public static string Controls_Content_FORCE_CHAIN_ACTIONS {
-            get {
-                return ResourceManager.GetString("Controls_Content_FORCE_CHAIN_ACTIONS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GAMBIT ENABLED.
-        /// </summary>
-        public static string Controls_Content_GAMBIT_ENABLED {
-            get {
-                return ResourceManager.GetString("Controls_Content_GAMBIT_ENABLED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GREASED LIGHTNING.
-        /// </summary>
-        public static string Controls_Content_GREASED_LIGHTNING {
-            get {
-                return ResourceManager.GetString("Controls_Content_GREASED_LIGHTNING", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS AURA.
-        /// </summary>
-        public static string Controls_Content_HAS_AURA {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_AURA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS CHAIN.
-        /// </summary>
-        public static string Controls_Content_HAS_CHAIN {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_CHAIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS GETSU.
-        /// </summary>
-        public static string Controls_Content_HAS_GETSU {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_GETSU", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS KA.
-        /// </summary>
-        public static string Controls_Content_HAS_KA {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_KA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS PET.
-        /// </summary>
-        public static string Controls_Content_HAS_PET {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_PET", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS SETSU.
-        /// </summary>
-        public static string Controls_Content_HAS_SETSU {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_SETSU", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HAS TARGET.
-        /// </summary>
-        public static string Controls_Content_HAS_TARGET {
-            get {
-                return ResourceManager.GetString("Controls_Content_HAS_TARGET", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HEALTH PERCENT BELOW.
-        /// </summary>
-        public static string Controls_Content_HEALTH_PERCENT_BELOW {
-            get {
-                return ResourceManager.GetString("Controls_Content_HEALTH_PERCENT_BELOW", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HEALTH PERCENT BETWEEN.
-        /// </summary>
-        public static string Controls_Content_HEALTH_PERCENT_BETWEEN {
-            get {
-                return ResourceManager.GetString("Controls_Content_HEALTH_PERCENT_BETWEEN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to High Quality.
-        /// </summary>
-        public static string Controls_Content_High_Quality {
-            get {
-                return ResourceManager.GetString("Controls_Content_High_Quality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IN INSTANCE.
-        /// </summary>
-        public static string Controls_Content_IN_INSTANCE {
-            get {
-                return ResourceManager.GetString("Controls_Content_IN_INSTANCE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS DPS.
-        /// </summary>
-        public static string Controls_Content_IS_DPS {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_DPS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS HEALER.
-        /// </summary>
-        public static string Controls_Content_IS_HEALER {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_HEALER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS JOB.
-        /// </summary>
-        public static string Controls_Content_IS_JOB {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_JOB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS MY AURA.
-        /// </summary>
-        public static string Controls_Content_IS_MY_AURA {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_MY_AURA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS PVP SPELL.
-        /// </summary>
-        public static string Controls_Content_IS_PVP_SPELL {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_PVP_SPELL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS ROLE.
-        /// </summary>
-        public static string Controls_Content_IS_ROLE {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_ROLE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IS TANK.
-        /// </summary>
-        public static string Controls_Content_IS_TANK {
-            get {
-                return ResourceManager.GetString("Controls_Content_IS_TANK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LAST SPELL.
-        /// </summary>
-        public static string Controls_Content_LAST_SPELL {
-            get {
-                return ResourceManager.GetString("Controls_Content_LAST_SPELL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lower Or Equal.
-        /// </summary>
-        public static string Controls_Content_Lower_Or_Equal {
-            get {
-                return ResourceManager.GetString("Controls_Content_Lower_Or_Equal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MP PERCENT.
-        /// </summary>
-        public static string Controls_Content_MP_PERCENT {
-            get {
-                return ResourceManager.GetString("Controls_Content_MP_PERCENT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MUST BE ALLY.
-        /// </summary>
-        public static string Controls_Content_MUST_BE_ALLY {
-            get {
-                return ResourceManager.GetString("Controls_Content_MUST_BE_ALLY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MUST BE ENEMY.
-        /// </summary>
-        public static string Controls_Content_MUST_BE_ENEMY {
-            get {
-                return ResourceManager.GetString("Controls_Content_MUST_BE_ENEMY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Normal Quality.
-        /// </summary>
-        public static string Controls_Content_Normal_Quality {
-            get {
-                return ResourceManager.GetString("Controls_Content_Normal_Quality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NOT IN INSTANCE.
-        /// </summary>
-        public static string Controls_Content_NOT_IN_INSTANCE {
-            get {
-                return ResourceManager.GetString("Controls_Content_NOT_IN_INSTANCE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On Anyone.
-        /// </summary>
-        public static string Controls_Content_On_Anyone {
-            get {
-                return ResourceManager.GetString("Controls_Content_On_Anyone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On Me.
-        /// </summary>
-        public static string Controls_Content_On_Me {
-            get {
-                return ResourceManager.GetString("Controls_Content_On_Me", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On Pet.
-        /// </summary>
-        public static string Controls_Content_On_Pet {
-            get {
-                return ResourceManager.GetString("Controls_Content_On_Pet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On Player.
-        /// </summary>
-        public static string Controls_Content_On_Player {
-            get {
-                return ResourceManager.GetString("Controls_Content_On_Player", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On Spell Target.
-        /// </summary>
-        public static string Controls_Content_On_Spell_Target {
-            get {
-                return ResourceManager.GetString("Controls_Content_On_Spell_Target", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On Target.
-        /// </summary>
-        public static string Controls_Content_On_Target {
-            get {
-                return ResourceManager.GetString("Controls_Content_On_Target", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ONLY USE IN CHAIN.
-        /// </summary>
-        public static string Controls_Content_ONLY_USE_IN_CHAIN {
-            get {
-                return ResourceManager.GetString("Controls_Content_ONLY_USE_IN_CHAIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open Shared Gambits Browser.
-        /// </summary>
-        public static string Controls_Content_Open_Shared_Gambits_Browser {
-            get {
-                return ResourceManager.GetString("Controls_Content_Open_Shared_Gambits_Browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open Shared Openers Browser.
-        /// </summary>
-        public static string Controls_Content_Open_Shared_Openers_Browser {
-            get {
-                return ResourceManager.GetString("Controls_Content_Open_Shared_Openers_Browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PASTE COPIED GAMBIT.
-        /// </summary>
-        public static string Controls_Content_PASTE_COPIED_GAMBIT {
-            get {
-                return ResourceManager.GetString("Controls_Content_PASTE_COPIED_GAMBIT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PASTE COPIED GAMBIT GROUP.
-        /// </summary>
-        public static string Controls_Content_PASTE_COPIED_GAMBIT_GROUP {
-            get {
-                return ResourceManager.GetString("Controls_Content_PASTE_COPIED_GAMBIT_GROUP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PLAYER DOES NOT HAVE AURA.
-        /// </summary>
-        public static string Controls_Content_PLAYER_DOES_NOT_HAVE_AURA {
-            get {
-                return ResourceManager.GetString("Controls_Content_PLAYER_DOES_NOT_HAVE_AURA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PLAYER HAS AURA.
-        /// </summary>
-        public static string Controls_Content_PLAYER_HAS_AURA {
-            get {
-                return ResourceManager.GetString("Controls_Content_PLAYER_HAS_AURA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PLAYER IN COMBAT.
-        /// </summary>
-        public static string Controls_Content_PLAYER_IN_COMBAT {
-            get {
-                return ResourceManager.GetString("Controls_Content_PLAYER_IN_COMBAT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PLAYER NOT IN COMBAT.
-        /// </summary>
-        public static string Controls_Content_PLAYER_NOT_IN_COMBAT {
-            get {
-                return ResourceManager.GetString("Controls_Content_PLAYER_NOT_IN_COMBAT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recover Old Gambits.
-        /// </summary>
-        public static string Controls_Content_Recover_Old_Gambits {
-            get {
-                return ResourceManager.GetString("Controls_Content_Recover_Old_Gambits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RED MAGE.
-        /// </summary>
-        public static string Controls_Content_RED_MAGE {
-            get {
-                return ResourceManager.GetString("Controls_Content_RED_MAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to REMOVE CONDITION.
-        /// </summary>
-        public static string Controls_Content_REMOVE_CONDITION {
-            get {
-                return ResourceManager.GetString("Controls_Content_REMOVE_CONDITION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show All.
-        /// </summary>
-        public static string Controls_Content_Show_All {
-            get {
-                return ResourceManager.GetString("Controls_Content_Show_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SPELL OFF COOLDOWN.
-        /// </summary>
-        public static string Controls_Content_SPELL_OFF_COOLDOWN {
-            get {
-                return ResourceManager.GetString("Controls_Content_SPELL_OFF_COOLDOWN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TARGET BOSS.
-        /// </summary>
-        public static string Controls_Content_TARGET_BOSS {
-            get {
-                return ResourceManager.GetString("Controls_Content_TARGET_BOSS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TARGET NAME.
-        /// </summary>
-        public static string Controls_Content_TARGET_NAME {
-            get {
-                return ResourceManager.GetString("Controls_Content_TARGET_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to USE ONLY ONCE PER COMBAT.
-        /// </summary>
-        public static string Controls_Content_USE_ONLY_ONCE_PER_COMBAT {
-            get {
-                return ResourceManager.GetString("Controls_Content_USE_ONLY_ONCE_PER_COMBAT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WHITE MAGE.
-        /// </summary>
-        public static string Controls_Content_WHITE_MAGE {
-            get {
-                return ResourceManager.GetString("Controls_Content_WHITE_MAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Move Toggle Down.
         /// </summary>
         public static string Controls_Header_Move_Toggle_Down {
@@ -4215,6 +3531,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ABANDON OPENER IF ACTION FAILS.
+        /// </summary>
+        public static string Generic_Abandon_Opener_If_Action_Fails {
+            get {
+                return ResourceManager.GetString("Generic_Abandon_Opener_If_Action_Fails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abilities.
         /// </summary>
         public static string Generic_Abilities {
@@ -4229,6 +3554,33 @@ namespace Magitek.Properties {
         public static string Generic_Above {
             get {
                 return ResourceManager.GetString("Generic_Above", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Above Or Equal.
+        /// </summary>
+        public static string Generic_Above_Or_Equal {
+            get {
+                return ResourceManager.GetString("Generic_Above_Or_Equal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Gambit Group.
+        /// </summary>
+        public static string Generic_Add_New_Gambit_Group {
+            get {
+                return ResourceManager.GetString("Generic_Add_New_Gambit_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Opener.
+        /// </summary>
+        public static string Generic_Add_New_Opener {
+            get {
+                return ResourceManager.GetString("Generic_Add_New_Opener", resourceCulture);
             }
         }
         
@@ -4305,11 +3657,38 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALLOW GAMBIT TO INTERRUPT.
+        /// </summary>
+        public static string Generic_Allow_Gambit_To_Interrupt {
+            get {
+                return ResourceManager.GetString("Generic_Allow_Gambit_To_Interrupt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AMMO.
+        /// </summary>
+        public static string Generic_Ammo {
+            get {
+                return ResourceManager.GetString("Generic_Ammo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to And At Least.
         /// </summary>
         public static string Generic_And_At_Least {
             get {
                 return ResourceManager.GetString("Generic_And_At_Least", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any Quality.
+        /// </summary>
+        public static string Generic_Any_Quality {
+            get {
+                return ResourceManager.GetString("Generic_Any_Quality", resourceCulture);
             }
         }
         
@@ -4395,6 +3774,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BLACK MAGE.
+        /// </summary>
+        public static string Generic_Black_Mage {
+            get {
+                return ResourceManager.GetString("Generic_Black_Mage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blm.
         /// </summary>
         public static string Generic_Blm {
@@ -4440,11 +3828,38 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Player.
+        /// </summary>
+        public static string Generic_By_Player {
+            get {
+                return ResourceManager.GetString("Generic_By_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Target Object.
+        /// </summary>
+        public static string Generic_By_Target_Object {
+            get {
+                return ResourceManager.GetString("Generic_By_Target_Object", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cards.
         /// </summary>
         public static string Generic_Cards {
             get {
                 return ResourceManager.GetString("Generic_Cards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CHAKRA.
+        /// </summary>
+        public static string Generic_Chakra {
+            get {
+                return ResourceManager.GetString("Generic_Chakra", resourceCulture);
             }
         }
         
@@ -4467,11 +3882,65 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to COMBAT TIME.
+        /// </summary>
+        public static string Generic_Combat_Time {
+            get {
+                return ResourceManager.GetString("Generic_Combat_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cooldowns.
         /// </summary>
         public static string Generic_Cooldowns {
             get {
                 return ResourceManager.GetString("Generic_Cooldowns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to COPY GAMBIT.
+        /// </summary>
+        public static string Generic_Copy_Gambit {
+            get {
+                return ResourceManager.GetString("Generic_Copy_Gambit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to COPY GAMBIT GROUP.
+        /// </summary>
+        public static string Generic_Copy_Gambit_Group {
+            get {
+                return ResourceManager.GetString("Generic_Copy_Gambit_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to COPY GAMBIT TO CLIPBOARD.
+        /// </summary>
+        public static string Generic_Copy_Gambit_To_Clipboard {
+            get {
+                return ResourceManager.GetString("Generic_Copy_Gambit_To_Clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to COUNTDOWN TIMER.
+        /// </summary>
+        public static string Generic_Countdown_Timer {
+            get {
+                return ResourceManager.GetString("Generic_Countdown_Timer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Zone.
+        /// </summary>
+        public static string Generic_Current_Zone {
+            get {
+                return ResourceManager.GetString("Generic_Current_Zone", resourceCulture);
             }
         }
         
@@ -4490,6 +3959,15 @@ namespace Magitek.Properties {
         public static string Generic_Dancer {
             get {
                 return ResourceManager.GetString("Generic_Dancer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DARK KNIGHT.
+        /// </summary>
+        public static string Generic_Dark_Knight {
+            get {
+                return ResourceManager.GetString("Generic_Dark_Knight", resourceCulture);
             }
         }
         
@@ -4517,6 +3995,42 @@ namespace Magitek.Properties {
         public static string Generic_Defensives {
             get {
                 return ResourceManager.GetString("Generic_Defensives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE ACTION.
+        /// </summary>
+        public static string Generic_Delete_Action {
+            get {
+                return ResourceManager.GetString("Generic_Delete_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE GAMBIT.
+        /// </summary>
+        public static string Generic_Delete_Gambit {
+            get {
+                return ResourceManager.GetString("Generic_Delete_Gambit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE GAMBIT GROUP.
+        /// </summary>
+        public static string Generic_Delete_Gambit_Group {
+            get {
+                return ResourceManager.GetString("Generic_Delete_Gambit_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE OPENER.
+        /// </summary>
+        public static string Generic_Delete_Opener {
+            get {
+                return ResourceManager.GetString("Generic_Delete_Opener", resourceCulture);
             }
         }
         
@@ -4553,6 +4067,15 @@ namespace Magitek.Properties {
         public static string Generic_Do_Damage_When_Mana_Is_Over {
             get {
                 return ResourceManager.GetString("Generic_Do_Damage_When_Mana_Is_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DOES NOT HAVE AURA.
+        /// </summary>
+        public static string Generic_Does_Not_Have_Aura {
+            get {
+                return ResourceManager.GetString("Generic_Does_Not_Have_Aura", resourceCulture);
             }
         }
         
@@ -4656,6 +4179,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DRAGOON GAUGE.
+        /// </summary>
+        public static string Generic_Dragoon_Gauge {
+            get {
+                return ResourceManager.GetString("Generic_Dragoon_Gauge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drg.
         /// </summary>
         public static string Generic_Drg {
@@ -4701,6 +4233,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ENEMIES NEARBY.
+        /// </summary>
+        public static string Generic_Enemies_Nearby {
+            get {
+                return ResourceManager.GetString("Generic_Enemies_Nearby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ENEMY CASTING SPELL.
+        /// </summary>
+        public static string Generic_Enemy_Casting_Spell {
+            get {
+                return ResourceManager.GetString("Generic_Enemy_Casting_Spell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enemy Spell Casts.
         /// </summary>
         public static string Generic_Enemy_Spell_Casts {
@@ -4719,11 +4269,29 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ESPRIT.
+        /// </summary>
+        public static string Generic_Esprit {
+            get {
+                return ResourceManager.GetString("Generic_Esprit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to False.
         /// </summary>
         public static string Generic_False {
             get {
                 return ResourceManager.GetString("Generic_False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FEATHER.
+        /// </summary>
+        public static string Generic_Feather {
+            get {
+                return ResourceManager.GetString("Generic_Feather", resourceCulture);
             }
         }
         
@@ -4791,11 +4359,38 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FORCE CHAIN ACTIONS.
+        /// </summary>
+        public static string Generic_Force_Chain_Actions {
+            get {
+                return ResourceManager.GetString("Generic_Force_Chain_Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full Party.
         /// </summary>
         public static string Generic_Full_Party {
             get {
                 return ResourceManager.GetString("Generic_Full_Party", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAMBIT ENABLED.
+        /// </summary>
+        public static string Generic_Gambit_Enabled {
+            get {
+                return ResourceManager.GetString("Generic_Gambit_Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAZE.
+        /// </summary>
+        public static string Generic_Gaze {
+            get {
+                return ResourceManager.GetString("Generic_Gaze", resourceCulture);
             }
         }
         
@@ -4836,6 +4431,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GREASED LIGHTNING.
+        /// </summary>
+        public static string Generic_Greased_Lightning {
+            get {
+                return ResourceManager.GetString("Generic_Greased_Lightning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guard Shield At.
         /// </summary>
         public static string Generic_Guard_Shield_At {
@@ -4850,6 +4454,69 @@ namespace Magitek.Properties {
         public static string Generic_Gunbreaker {
             get {
                 return ResourceManager.GetString("Generic_Gunbreaker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS AURA.
+        /// </summary>
+        public static string Generic_Has_Aura {
+            get {
+                return ResourceManager.GetString("Generic_Has_Aura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS CHAIN.
+        /// </summary>
+        public static string Generic_Has_Chain {
+            get {
+                return ResourceManager.GetString("Generic_Has_Chain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS GETSU.
+        /// </summary>
+        public static string Generic_Has_Getsu {
+            get {
+                return ResourceManager.GetString("Generic_Has_Getsu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS KA.
+        /// </summary>
+        public static string Generic_Has_Ka {
+            get {
+                return ResourceManager.GetString("Generic_Has_Ka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS PET.
+        /// </summary>
+        public static string Generic_Has_Pet {
+            get {
+                return ResourceManager.GetString("Generic_Has_Pet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS SETSU.
+        /// </summary>
+        public static string Generic_Has_Setsu {
+            get {
+                return ResourceManager.GetString("Generic_Has_Setsu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HAS TARGET.
+        /// </summary>
+        public static string Generic_Has_Target {
+            get {
+                return ResourceManager.GetString("Generic_Has_Target", resourceCulture);
             }
         }
         
@@ -4917,6 +4584,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HEALTH PERCENT BELOW.
+        /// </summary>
+        public static string Generic_Health_Percent_Below {
+            get {
+                return ResourceManager.GetString("Generic_Health_Percent_Below", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HEALTH PERCENT BETWEEN.
+        /// </summary>
+        public static string Generic_Health_Percent_Between {
+            get {
+                return ResourceManager.GetString("Generic_Health_Percent_Between", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Health Percent When.
         /// </summary>
         public static string Generic_Health_Percent_When {
@@ -4926,11 +4611,29 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HEAT.
+        /// </summary>
+        public static string Generic_Heat {
+            get {
+                return ResourceManager.GetString("Generic_Heat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide Positional Message.
         /// </summary>
         public static string Generic_Hide_Positional_Message {
             get {
                 return ResourceManager.GetString("Generic_Hide_Positional_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Quality.
+        /// </summary>
+        public static string Generic_High_Quality {
+            get {
+                return ResourceManager.GetString("Generic_High_Quality", resourceCulture);
             }
         }
         
@@ -4962,6 +4665,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HUTON.
+        /// </summary>
+        public static string Generic_Huton {
+            get {
+                return ResourceManager.GetString("Generic_Huton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore Alliance Members.
         /// </summary>
         public static string Generic_Ignore_Alliance_Members {
@@ -4971,11 +4683,83 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IN INSTANCE.
+        /// </summary>
+        public static string Generic_In_Instance {
+            get {
+                return ResourceManager.GetString("Generic_In_Instance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interrupt Healing If Target HP Gets Over.
         /// </summary>
         public static string Generic_Interrupt_Healing_If_Target_HP_Gets_Over {
             get {
                 return ResourceManager.GetString("Generic_Interrupt_Healing_If_Target_HP_Gets_Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS DPS.
+        /// </summary>
+        public static string Generic_Is_Dps {
+            get {
+                return ResourceManager.GetString("Generic_Is_Dps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS HEALER.
+        /// </summary>
+        public static string Generic_Is_Healer {
+            get {
+                return ResourceManager.GetString("Generic_Is_Healer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS JOB.
+        /// </summary>
+        public static string Generic_Is_Job {
+            get {
+                return ResourceManager.GetString("Generic_Is_Job", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS MY AURA.
+        /// </summary>
+        public static string Generic_Is_My_Aura {
+            get {
+                return ResourceManager.GetString("Generic_Is_My_Aura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS PVP SPELL.
+        /// </summary>
+        public static string Generic_Is_Pvp_Spell {
+            get {
+                return ResourceManager.GetString("Generic_Is_Pvp_Spell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS ROLE.
+        /// </summary>
+        public static string Generic_Is_Role {
+            get {
+                return ResourceManager.GetString("Generic_Is_Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS TANK.
+        /// </summary>
+        public static string Generic_Is_Tank {
+            get {
+                return ResourceManager.GetString("Generic_Is_Tank", resourceCulture);
             }
         }
         
@@ -5016,6 +4800,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to KENKI.
+        /// </summary>
+        public static string Generic_Kenki {
+            get {
+                return ResourceManager.GetString("Generic_Kenki", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAST SPELL.
+        /// </summary>
+        public static string Generic_Last_Spell {
+            get {
+                return ResourceManager.GetString("Generic_Last_Spell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string Generic_Level {
@@ -5048,6 +4850,15 @@ namespace Magitek.Properties {
         public static string Generic_Lower {
             get {
                 return ResourceManager.GetString("Generic_Lower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lower Or Equal.
+        /// </summary>
+        public static string Generic_Lower_Or_Equal {
+            get {
+                return ResourceManager.GetString("Generic_Lower_Or_Equal", resourceCulture);
             }
         }
         
@@ -5133,6 +4944,33 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MP PERCENT.
+        /// </summary>
+        public static string Generic_Mp_Percent {
+            get {
+                return ResourceManager.GetString("Generic_Mp_Percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MUST BE ALLY.
+        /// </summary>
+        public static string Generic_Must_Be_Ally {
+            get {
+                return ResourceManager.GetString("Generic_Must_Be_Ally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MUST BE ENEMY.
+        /// </summary>
+        public static string Generic_Must_Be_Enemy {
+            get {
+                return ResourceManager.GetString("Generic_Must_Be_Enemy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Generic_Name {
@@ -5160,6 +4998,78 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NINKI.
+        /// </summary>
+        public static string Generic_Ninki {
+            get {
+                return ResourceManager.GetString("Generic_Ninki", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal Quality.
+        /// </summary>
+        public static string Generic_Normal_Quality {
+            get {
+                return ResourceManager.GetString("Generic_Normal_Quality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NOT IN INSTANCE.
+        /// </summary>
+        public static string Generic_Not_In_Instance {
+            get {
+                return ResourceManager.GetString("Generic_Not_In_Instance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Anyone.
+        /// </summary>
+        public static string Generic_On_Anyone {
+            get {
+                return ResourceManager.GetString("Generic_On_Anyone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Me.
+        /// </summary>
+        public static string Generic_On_Me {
+            get {
+                return ResourceManager.GetString("Generic_On_Me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Pet.
+        /// </summary>
+        public static string Generic_On_Pet {
+            get {
+                return ResourceManager.GetString("Generic_On_Pet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Player.
+        /// </summary>
+        public static string Generic_On_Player {
+            get {
+                return ResourceManager.GetString("Generic_On_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Spell Target.
+        /// </summary>
+        public static string Generic_On_Spell_Target {
+            get {
+                return ResourceManager.GetString("Generic_On_Spell_Target", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On Tank Only.
         /// </summary>
         public static string Generic_On_Tank_Only {
@@ -5174,6 +5084,15 @@ namespace Magitek.Properties {
         public static string Generic_On_Tanks {
             get {
                 return ResourceManager.GetString("Generic_On_Tanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Target.
+        /// </summary>
+        public static string Generic_On_Target {
+            get {
+                return ResourceManager.GetString("Generic_On_Target", resourceCulture);
             }
         }
         
@@ -5201,6 +5120,33 @@ namespace Magitek.Properties {
         public static string Generic_Only_Use {
             get {
                 return ResourceManager.GetString("Generic_Only_Use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLY USE IN CHAIN.
+        /// </summary>
+        public static string Generic_Only_Use_In_Chain {
+            get {
+                return ResourceManager.GetString("Generic_Only_Use_In_Chain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Shared Gambits Browser.
+        /// </summary>
+        public static string Generic_Open_Shared_Gambits_Browser {
+            get {
+                return ResourceManager.GetString("Generic_Open_Shared_Gambits_Browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Shared Openers Browser.
+        /// </summary>
+        public static string Generic_Open_Shared_Openers_Browser {
+            get {
+                return ResourceManager.GetString("Generic_Open_Shared_Openers_Browser", resourceCulture);
             }
         }
         
@@ -5268,6 +5214,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PASTE COPIED GAMBIT.
+        /// </summary>
+        public static string Generic_Paste_Copied_Gambit {
+            get {
+                return ResourceManager.GetString("Generic_Paste_Copied_Gambit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PASTE COPIED GAMBIT GROUP.
+        /// </summary>
+        public static string Generic_Paste_Copied_Gambit_Group {
+            get {
+                return ResourceManager.GetString("Generic_Paste_Copied_Gambit_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percent.
         /// </summary>
         public static string Generic_Percent {
@@ -5291,6 +5255,51 @@ namespace Magitek.Properties {
         public static string Generic_Pets {
             get {
                 return ResourceManager.GetString("Generic_Pets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PICTOMANCER.
+        /// </summary>
+        public static string Generic_Pictomancer {
+            get {
+                return ResourceManager.GetString("Generic_Pictomancer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLAYER DOES NOT HAVE AURA.
+        /// </summary>
+        public static string Generic_Player_Does_Not_Have_Aura {
+            get {
+                return ResourceManager.GetString("Generic_Player_Does_Not_Have_Aura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLAYER HAS AURA.
+        /// </summary>
+        public static string Generic_Player_Has_Aura {
+            get {
+                return ResourceManager.GetString("Generic_Player_Has_Aura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLAYER IN COMBAT.
+        /// </summary>
+        public static string Generic_Player_In_Combat {
+            get {
+                return ResourceManager.GetString("Generic_Player_In_Combat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLAYER NOT IN COMBAT.
+        /// </summary>
+        public static string Generic_Player_Not_In_Combat {
+            get {
+                return ResourceManager.GetString("Generic_Player_Not_In_Combat", resourceCulture);
             }
         }
         
@@ -5358,11 +5367,29 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recover Old Gambits.
+        /// </summary>
+        public static string Generic_Recover_Old_Gambits {
+            get {
+                return ResourceManager.GetString("Generic_Recover_Old_Gambits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recuperate Heal At.
         /// </summary>
         public static string Generic_Recuperate_Heal_At {
             get {
                 return ResourceManager.GetString("Generic_Recuperate_Heal_At", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RED MAGE.
+        /// </summary>
+        public static string Generic_Red_Mage {
+            get {
+                return ResourceManager.GetString("Generic_Red_Mage", resourceCulture);
             }
         }
         
@@ -5381,6 +5408,24 @@ namespace Magitek.Properties {
         public static string Generic_Regen {
             get {
                 return ResourceManager.GetString("Generic_Regen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to REMOVE CONDITION.
+        /// </summary>
+        public static string Generic_Remove_Condition {
+            get {
+                return ResourceManager.GetString("Generic_Remove_Condition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to REPERTOIRE.
+        /// </summary>
+        public static string Generic_Repertoire {
+            get {
+                return ResourceManager.GetString("Generic_Repertoire", resourceCulture);
             }
         }
         
@@ -5520,6 +5565,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEN.
+        /// </summary>
+        public static string Generic_Sen {
+            get {
+                return ResourceManager.GetString("Generic_Sen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sge.
         /// </summary>
         public static string Generic_Sge {
@@ -5543,6 +5597,15 @@ namespace Magitek.Properties {
         public static string Generic_Shields {
             get {
                 return ResourceManager.GetString("Generic_Shields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show All.
+        /// </summary>
+        public static string Generic_Show_All {
+            get {
+                return ResourceManager.GetString("Generic_Show_All", resourceCulture);
             }
         }
         
@@ -5579,6 +5642,15 @@ namespace Magitek.Properties {
         public static string Generic_Songs {
             get {
                 return ResourceManager.GetString("Generic_Songs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SPELL OFF COOLDOWN.
+        /// </summary>
+        public static string Generic_Spell_Off_Cooldown {
+            get {
+                return ResourceManager.GetString("Generic_Spell_Off_Cooldown", resourceCulture);
             }
         }
         
@@ -5624,6 +5696,24 @@ namespace Magitek.Properties {
         public static string Generic_Target {
             get {
                 return ResourceManager.GetString("Generic_Target", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TARGET BOSS.
+        /// </summary>
+        public static string Generic_Target_Boss {
+            get {
+                return ResourceManager.GetString("Generic_Target_Boss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TARGET NAME.
+        /// </summary>
+        public static string Generic_Target_Name {
+            get {
+                return ResourceManager.GetString("Generic_Target_Name", resourceCulture);
             }
         }
         
@@ -5835,6 +5925,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USE ONLY ONCE PER COMBAT.
+        /// </summary>
+        public static string Generic_Use_Only_Once_Per_Combat {
+            get {
+                return ResourceManager.GetString("Generic_Use_Only_Once_Per_Combat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Peloton.
         /// </summary>
         public static string Generic_Use_Peloton {
@@ -5939,6 +6038,15 @@ namespace Magitek.Properties {
         public static string Generic_When_There_Are {
             get {
                 return ResourceManager.GetString("Generic_When_There_Are", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WHITE MAGE.
+        /// </summary>
+        public static string Generic_White_Mage {
+            get {
+                return ResourceManager.GetString("Generic_White_Mage", resourceCulture);
             }
         }
         

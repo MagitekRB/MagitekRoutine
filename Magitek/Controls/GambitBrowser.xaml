@@ -72,7 +72,7 @@
                             <!--<ToggleButton Margin="15,0,0,0"
                                           HorizontalAlignment="Right"
                                           Command="{Binding UpdateDisplayedGambitsCommand}"
-                                          Content="{x:Static properties:Resources.Controls_Content_Show_All}"
+                                          Content="{x:Static properties:Resources.Generic_Show_All}"
                                           IsChecked="{Binding ShowAll, Mode=TwoWay}"
                                           Style="{DynamicResource ToggleButtonGambitFilter}" />-->
 
