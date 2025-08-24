@@ -3602,9 +3602,6 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Scholar_Content_Only_Heal_Alliance_Members_With_Ph" xml:space="preserve">
     <value>Only Heal Alliance Members With Physick</value>
   </data>
-  <data name="BlueMage_Content_Use_Interrupt_and_Stun_If_activat" xml:space="preserve">
-    <value>Use Interrupt And Stun If Activat</value>
-  </data>
   <data name="Bugs_Content_Use_AutoFace_for_InView_checks" xml:space="preserve">
     <value>Use Autoface For Inview Checks</value>
   </data>
@@ -3613,9 +3610,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Lists_Content_TemplateBinding_SelectionBoxItem" xml:space="preserve">
     <value>Templatebinding Selectionboxitem</value>
-  </data>
-  <data name="Machinist_Content_Use_Interrupt_and_Stun_If_activa" xml:space="preserve">
-    <value>Use Interrupt And Stun If Activa</value>
   </data>
   <data name="Ninja_Text_Enemies_around" xml:space="preserve">
     <value>Enemies Around</value>
@@ -3684,7 +3678,7 @@ Does not work if Lightspeed is disabled.</value>
     <value>Always With Enhanced Benefic</value>
   </data>
   <data name="Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption" xml:space="preserve">
-    <value>Dont attack Invuln Hallowed Ground Undead Redemption</value>
+    <value>Don't attack Invuln (Hallowed Ground, Undead, Redemption)</value>
   </data>
   <data name="Astrologian_Content_Celestial_River_LB_with_at_least" xml:space="preserve">
     <value>Celestial River LB with at least</value>
@@ -3715,9 +3709,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad" xml:space="preserve">
     <value>Prioritize Bloodletter during Mages Ballad</value>
-  </data>
-  <data name="Bard_Content_Use_Interrupt_and_Stun_If_activated_use_strategy" xml:space="preserve">
-    <value>Use Interrupt and Stun If activated use strategy</value>
   </data>
   <data name="BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies" xml:space="preserve">
     <value>Use AOE Rotation Where There Are Enemies</value>
@@ -4112,9 +4103,6 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundu" xml:space="preserve">
     <value>Dont Attack Invuln Hallowed Groundu</value>
   </data>
-  <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
-    <value>Use Interrupt And Stun If Activated</value>
-  </data>
   <data name="Generic_Gnb" xml:space="preserve">
     <value>Gnb</value>
   </data>
@@ -4127,14 +4115,8 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Whm" xml:space="preserve">
     <value>Whm</value>
   </data>
-  <data name="Generic_Use_Interrupt_And_Stun_If_Activ" xml:space="preserve">
-    <value>Use Interrupt And Stun If Activ</value>
-  </data>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Ground" xml:space="preserve">
     <value>Dont Attack Invuln Hallowed Ground</value>
-  </data>
-  <data name="Generic_Use_Interrupt_And_Stun_If_Activate" xml:space="preserve">
-    <value>Use Interrupt And Stun If Activate</value>
   </data>
   <data name="Generic_Item_Potion_Selected_Should_Be_In_You" xml:space="preserve">
     <value>(Item Potion selected should be in your hotkey bar)</value>
@@ -4172,8 +4154,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Enemies_In_Combat" xml:space="preserve">
     <value>Enemies In Combat</value>
   </data>
-  <data name="Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time" xml:space="preserve">
-    <value>Use Time Till Death For Area Of Effect Spells With Long Damage Over Time</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <data name="Samurai_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
     <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
@@ -4183,9 +4166,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
     <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
-  </data>
-  <data name="Monk_Content_Use_Interrupt_and_Stun_If_activated_use_strategy" xml:space="preserve">
-    <value>Use Interrupt And Stun If Activated Use Strategy</value>
   </data>
   <data name="Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
     <value>Use TTD Checks/Save Cooldowns When Enemy Dying Within</value>
@@ -4972,5 +4952,8 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="WhiteMage_Content_Knockback" xml:space="preserve">
     <value>Knockback</value>
+  </data>
+  <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
+    <value>Use Interrupt and Stun. If activated, use strategy: </value>
   </data>
 </root>

@@ -3369,9 +3369,6 @@
   <data name="Scholar_Content_Only_Heal_Alliance_Members_With_Ph" xml:space="preserve">
     <value>仅用“医术”治疗小队外成员</value>
   </data>
-  <data name="BlueMage_Content_Use_Interrupt_and_Stun_If_activat" xml:space="preserve">
-    <value>如果...已激活，则使用打断和击晕</value>
-  </data>
   <data name="Bugs_Content_Use_AutoFace_for_InView_checks" xml:space="preserve">
     <value>使用自动面向来进行视野检测</value>
   </data>
@@ -3380,9 +3377,6 @@
   </data>
   <data name="Lists_Content_TemplateBinding_SelectionBoxItem" xml:space="preserve">
     <value>模板绑定 选择框项目</value>
-  </data>
-  <data name="Machinist_Content_Use_Interrupt_and_Stun_If_activa" xml:space="preserve">
-    <value>使用中断和眩晕</value>
   </data>
   <data name="Ninja_Text_Enemies_around" xml:space="preserve">
     <value>周围的敌人</value>
@@ -3482,9 +3476,6 @@
   </data>
   <data name="Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad" xml:space="preserve">
     <value>在魔人的安魂曲期间优先使用失血箭</value>
-  </data>
-  <data name="Bard_Content_Use_Interrupt_and_Stun_If_activated_use_strategy" xml:space="preserve">
-    <value>如果已激活，则使用打断和击晕策略</value>
   </data>
   <data name="BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies" xml:space="preserve">
     <value>当有...敌人时使用AOE循环</value>
@@ -3879,9 +3870,6 @@
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundu" xml:space="preserve">
     <value>不攻击处于无敌/神圣领域/行尸走肉状态的目标</value>
   </data>
-  <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
-    <value>如果已激活，则使用打断和击晕</value>
-  </data>
   <data name="Generic_Gnb" xml:space="preserve">
     <value>绝枪</value>
   </data>
@@ -3894,14 +3882,8 @@
   <data name="Generic_Whm" xml:space="preserve">
     <value>白魔</value>
   </data>
-  <data name="Generic_Use_Interrupt_And_Stun_If_Activ" xml:space="preserve">
-    <value>如果...已激活，则使用打断和击晕</value>
-  </data>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Ground" xml:space="preserve">
     <value>不攻击处于无敌/神圣领域状态的目标</value>
-  </data>
-  <data name="Generic_Use_Interrupt_And_Stun_If_Activate" xml:space="preserve">
-    <value>如果...激活，则使用打断和击晕</value>
   </data>
   <data name="Generic_Item_Potion_Selected_Should_Be_In_You" xml:space="preserve">
     <value />
@@ -3950,9 +3932,6 @@
   </data>
   <data name="Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
     <value>当敌人在...内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
-  </data>
-  <data name="Monk_Content_Use_Interrupt_and_Stun_If_activated_use_strategy" xml:space="preserve">
-    <value>如果已激活，则使用打断和击晕策略</value>
   </data>
   <data name="Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
     <value>当敌人在...内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
@@ -4211,5 +4190,8 @@
   </data>
   <data name="Controls_Content_DELETE_GAMBIT" xml:space="preserve">
     <value>删除策略</value>
+  </data>
+  <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
+    <value />
   </data>
 </root>

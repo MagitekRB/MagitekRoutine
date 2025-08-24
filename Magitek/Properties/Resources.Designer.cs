@@ -223,7 +223,7 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dont attack Invuln Hallowed Ground Undead Redemption.
+        ///   Looks up a localized string similar to Don&apos;t attack Invuln (Hallowed Ground, Undead, Redemption).
         /// </summary>
         public static string Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption {
             get {
@@ -1578,15 +1578,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt and Stun If activated use strategy.
-        /// </summary>
-        public static string Bard_Content_Use_Interrupt_and_Stun_If_activated_use_strategy {
-            get {
-                return ResourceManager.GetString("Bard_Content_Use_Interrupt_and_Stun_If_activated_use_strategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use Iron Jaws.
         /// </summary>
         public static string Bard_Content_Use_Iron_Jaws {
@@ -2051,15 +2042,6 @@ namespace Magitek.Properties {
         public static string BlackMage_Text_Use_Soul_Resonance_when_target_HP_below {
             get {
                 return ResourceManager.GetString("BlackMage_Text_Use_Soul_Resonance_when_target_HP_below", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt And Stun If Activat.
-        /// </summary>
-        public static string BlueMage_Content_Use_Interrupt_and_Stun_If_activat {
-            get {
-                return ResourceManager.GetString("BlueMage_Content_Use_Interrupt_and_Stun_If_activat", resourceCulture);
             }
         }
         
@@ -6177,25 +6159,7 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt And Stun If Activ.
-        /// </summary>
-        public static string Generic_Use_Interrupt_And_Stun_If_Activ {
-            get {
-                return ResourceManager.GetString("Generic_Use_Interrupt_And_Stun_If_Activ", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt And Stun If Activate.
-        /// </summary>
-        public static string Generic_Use_Interrupt_And_Stun_If_Activate {
-            get {
-                return ResourceManager.GetString("Generic_Use_Interrupt_And_Stun_If_Activate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt And Stun If Activated.
+        ///   Looks up a localized string similar to Use Interrupt and Stun. If activated, use strategy: .
         /// </summary>
         public static string Generic_Use_Interrupt_And_Stun_If_Activated {
             get {
@@ -7077,15 +7041,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt And Stun If Activa.
-        /// </summary>
-        public static string Machinist_Content_Use_Interrupt_and_Stun_If_activa {
-            get {
-                return ResourceManager.GetString("Machinist_Content_Use_Interrupt_and_Stun_If_activa", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use TTD Checks/Save Cooldowns When Enemy Dying Within.
         /// </summary>
         public static string Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within {
@@ -7388,15 +7343,6 @@ namespace Magitek.Properties {
         public static string Monk_Content_Use_AOE_When_There_Are {
             get {
                 return ResourceManager.GetString("Monk_Content_Use_AOE_When_There_Are", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Interrupt And Stun If Activated Use Strategy.
-        /// </summary>
-        public static string Monk_Content_Use_Interrupt_and_Stun_If_activated_use_strategy {
-            get {
-                return ResourceManager.GetString("Monk_Content_Use_Interrupt_and_Stun_If_activated_use_strategy", resourceCulture);
             }
         }
         
@@ -13027,12 +12973,13 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Time Till Death For Area Of Effect Spells With Long Damage Over Time.
+        ///   Looks up a localized resource of type System.Object.
         /// </summary>
-        public static string Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time {
+        public static object Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time {
             get {
-                return ResourceManager.GetString("Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_O" +
+                object obj = ResourceManager.GetObject("Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_O" +
                         "ver_Time", resourceCulture);
+                return ((object)(obj));
             }
         }
         
