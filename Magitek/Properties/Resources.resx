@@ -4448,4 +4448,34 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Enemies" xml:space="preserve">
     <value>Enemies</value>
   </data>
+  <data name="DarkKnight_Content_Delirium" xml:space="preserve">
+    <value>Delirium</value>
+  </data>
+  <data name="Generic_Tanks" xml:space="preserve">
+    <value>Tanks</value>
+  </data>
+  <data name="Generic_Healers" xml:space="preserve">
+    <value>Healers</value>
+  </data>
+  <data name="Generic_DPS" xml:space="preserve">
+    <value>DPS</value>
+  </data>
+  <data name="WhiteMage_Content_Raise" xml:space="preserve">
+    <value>Raise</value>
+  </data>
+  <data name="WhiteMage_Content_Cure" xml:space="preserve">
+    <value>Cure</value>
+  </data>
+  <data name="WhiteMage_Content_Medica" xml:space="preserve">
+    <value>Medica</value>
+  </data>
+  <data name="WhiteMage_Content_Asylum" xml:space="preserve">
+    <value>Asylum</value>
+  </data>
+  <data name="WhiteMage_Content_Tetragrammaton" xml:space="preserve">
+    <value>Tetragrammaton</value>
+  </data>
+  <data name="WhiteMage_Content_Benediction" xml:space="preserve">
+    <value>Benediction</value>
+  </data>
 </root>

@@ -3765,6 +3765,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delirium.
+        /// </summary>
+        public static string DarkKnight_Content_Delirium {
+            get {
+                return ResourceManager.GetString("DarkKnight_Content_Delirium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eventide under.
         /// </summary>
         public static string DarkKnight_Content_Eventide_under {
@@ -4629,6 +4638,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DPS.
+        /// </summary>
+        public static string Generic_DPS {
+            get {
+                return ResourceManager.GetString("Generic_DPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DRAGOON.
         /// </summary>
         public static string Generic_Dragoon {
@@ -4859,6 +4877,15 @@ namespace Magitek.Properties {
         public static string Generic_Heal_Alliance_Tanks {
             get {
                 return ResourceManager.GetString("Generic_Heal_Alliance_Tanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Healers.
+        /// </summary>
+        public static string Generic_Healers {
+            get {
+                return ResourceManager.GetString("Generic_Healers", resourceCulture);
             }
         }
         
@@ -5579,6 +5606,15 @@ namespace Magitek.Properties {
         public static string Generic_Tankbusters {
             get {
                 return ResourceManager.GetString("Generic_Tankbusters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tanks.
+        /// </summary>
+        public static string Generic_Tanks {
+            get {
+                return ResourceManager.GetString("Generic_Tanks", resourceCulture);
             }
         }
         
@@ -12632,6 +12668,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asylum.
+        /// </summary>
+        public static string WhiteMage_Content_Asylum {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Asylum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Before Cure 3.
         /// </summary>
         public static string WhiteMage_Content_Before_Cure_3 {
@@ -12655,6 +12700,24 @@ namespace Magitek.Properties {
         public static string WhiteMage_Content_Before_Swiftcast_Raise {
             get {
                 return ResourceManager.GetString("WhiteMage_Content_Before_Swiftcast_Raise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Benediction.
+        /// </summary>
+        public static string WhiteMage_Content_Benediction {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Benediction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cure.
+        /// </summary>
+        public static string WhiteMage_Content_Cure {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Cure", resourceCulture);
             }
         }
         
@@ -12776,6 +12839,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Medica.
+        /// </summary>
+        public static string WhiteMage_Content_Medica {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Medica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medica 2.
         /// </summary>
         public static string WhiteMage_Content_Medica_2 {
@@ -12866,6 +12938,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Raise.
+        /// </summary>
+        public static string WhiteMage_Content_Raise {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Raise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Raise Out of Combat.
         /// </summary>
         public static string WhiteMage_Content_Raise_Out_of_Combat {
@@ -12898,6 +12979,15 @@ namespace Magitek.Properties {
         public static string WhiteMage_Content_Swiftcast_Raise {
             get {
                 return ResourceManager.GetString("WhiteMage_Content_Swiftcast_Raise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tetragrammaton.
+        /// </summary>
+        public static string WhiteMage_Content_Tetragrammaton {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Tetragrammaton", resourceCulture);
             }
         }
         

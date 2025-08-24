@@ -48,7 +48,7 @@
                     <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Blood_Weapon}" IsChecked="{Binding DarkKnightSettings.BloodWeapon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Delirium  " IsChecked="{Binding DarkKnightSettings.Delirium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Delirium}" IsChecked="{Binding DarkKnightSettings.Delirium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Living_Shadow}" IsChecked="{Binding DarkKnightSettings.LivingShadow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
