@@ -1767,15 +1767,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item Potion selected should be in your hotkey bar.
-        /// </summary>
-        public static string Bard_Text_Item_Potion_selected_should_be_in_your_hotkey_bar {
-            get {
-                return ResourceManager.GetString("Bard_Text_Item_Potion_selected_should_be_in_your_hotkey_bar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to MS Between The Last Possible GCD And DoT Refresh.
         /// </summary>
         public static string Bard_Text_MS_Between_The_Last_Possible_GCD_And_DoT_Refresh {
@@ -5079,29 +5070,11 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item Potion Selected Should Be In.
-        /// </summary>
-        public static string Generic_Item_Potion_Selected_Should_Be_In {
-            get {
-                return ResourceManager.GetString("Generic_Item_Potion_Selected_Should_Be_In", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Item Potion Selected Should Be In You.
+        ///   Looks up a localized string similar to (Item Potion selected should be in your hotkey bar).
         /// </summary>
         public static string Generic_Item_Potion_Selected_Should_Be_In_You {
             get {
                 return ResourceManager.GetString("Generic_Item_Potion_Selected_Should_Be_In_You", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Item Potion Selected Should Be In Your.
-        /// </summary>
-        public static string Generic_Item_Potion_Selected_Should_Be_In_Your {
-            get {
-                return ResourceManager.GetString("Generic_Item_Potion_Selected_Should_Be_In_Your", resourceCulture);
             }
         }
         
@@ -7167,15 +7140,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item Potion Selected Should Be In Y.
-        /// </summary>
-        public static string Machinist_Text_Item_Potion_selected_should_be_in_y {
-            get {
-                return ResourceManager.GetString("Machinist_Text_Item_Potion_selected_should_be_in_y", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to seconds cooldown left.
         /// </summary>
         public static string Machinist_Text_seconds_cooldown_left {
@@ -7460,15 +7424,6 @@ namespace Magitek.Properties {
         public static string Monk_Text_Dont_use_Meteodrive_if_target_has_more_t {
             get {
                 return ResourceManager.GetString("Monk_Text_Dont_use_Meteodrive_if_target_has_more_t", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Item Potion Selected Should Be In Your H.
-        /// </summary>
-        public static string Monk_Text_Item_Potion_selected_should_be_in_your_h {
-            get {
-                return ResourceManager.GetString("Monk_Text_Item_Potion_selected_should_be_in_your_h", resourceCulture);
             }
         }
         

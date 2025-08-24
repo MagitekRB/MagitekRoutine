@@ -3485,9 +3485,6 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Dancer_Text_PCT" xml:space="preserve">
     <value>Pct</value>
   </data>
-  <data name="Monk_Text_Item_Potion_selected_should_be_in_your_h" xml:space="preserve">
-    <value>Item Potion Selected Should Be In Your H</value>
-  </data>
   <data name="Ninja_Content_LB_Any_Enemy_below_the_threshold_not" xml:space="preserve">
     <value>Lb Any Enemy Below The Threshold Not</value>
   </data>
@@ -3623,9 +3620,6 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Machinist_Content_Use_Interrupt_and_Stun_If_activa" xml:space="preserve">
     <value>Use Interrupt And Stun If Activa</value>
   </data>
-  <data name="Machinist_Text_Item_Potion_selected_should_be_in_y" xml:space="preserve">
-    <value>Item Potion Selected Should Be In Y</value>
-  </data>
   <data name="Ninja_Text_Enemies_around" xml:space="preserve">
     <value>Enemies Around</value>
   </data>
@@ -3697,9 +3691,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Astrologian_Content_Celestial_River_LB_with_at_least" xml:space="preserve">
     <value>Celestial River LB with at least</value>
-  </data>
-  <data name="Bard_Text_Item_Potion_selected_should_be_in_your_hotkey_bar" xml:space="preserve">
-    <value>Item Potion selected should be in your hotkey bar</value>
   </data>
   <data name="Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown" xml:space="preserve">
     <value>Delay RS Until Barrage Is Off Cooldown</value>
@@ -4052,9 +4043,6 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Drk" xml:space="preserve">
     <value>Drk</value>
   </data>
-  <data name="Generic_Item_Potion_Selected_Should_Be_In_Your" xml:space="preserve">
-    <value>Item Potion Selected Should Be In Your</value>
-  </data>
   <data name="Generic_Mch" xml:space="preserve">
     <value>Mch</value>
   </data>
@@ -4145,9 +4133,6 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Use_Interrupt_And_Stun_If_Activ" xml:space="preserve">
     <value>Use Interrupt And Stun If Activ</value>
   </data>
-  <data name="Generic_Item_Potion_Selected_Should_Be_In" xml:space="preserve">
-    <value>Item Potion Selected Should Be In</value>
-  </data>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Ground" xml:space="preserve">
     <value>Dont Attack Invuln Hallowed Ground</value>
   </data>
@@ -4155,7 +4140,7 @@ Does not work if Lightspeed is disabled.</value>
     <value>Use Interrupt And Stun If Activate</value>
   </data>
   <data name="Generic_Item_Potion_Selected_Should_Be_In_You" xml:space="preserve">
-    <value>Item Potion Selected Should Be In You</value>
+    <value>(Item Potion selected should be in your hotkey bar)</value>
   </data>
   <data name="Generic_Fightlogic_Use_Reprisal" xml:space="preserve">
     <value>Fightlogic Use Reprisal</value>
