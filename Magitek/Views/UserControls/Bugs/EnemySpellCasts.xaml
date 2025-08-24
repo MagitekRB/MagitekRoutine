@@ -123,7 +123,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TextBlock Text="LockOns"
+                        <TextBlock Text="{x:Static properties:Resources.Generic_LockOns}"
                    Margin="0,10,0,5"
                    Foreground="White"
                    FontWeight="Bold"/>

@@ -475,7 +475,7 @@
                                                                     <Button HorizontalAlignment="Left"
                                                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ShareGambitGroup}"
                                                                             CommandParameter="{Binding}"
-                                                                            Content="SHARE"
+                                                                            Content="{x:Static properties:Resources.Generic_Share}"
                                                                             Style="{DynamicResource ButtonGambitAddCondition}"/>
 
                                                                     <!--  Remove Gambit Group  -->
@@ -1177,7 +1177,7 @@
                                                                                                      Foreground="{DynamicResource Light}"
                                                                                                      Tag="HAS PET:"
                                                                                                      Template="{DynamicResource TextBoxTemplateGambitConditionTextBox}"
-                                                                                                     Text="True"/>
+                                                                                                     Text="{x:Static properties:Resources.Generic_True}"/>
                                                                                             <Button Margin="0,3,0,0"
                                                                                                     HorizontalAlignment="Right"
                                                                                                     Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.RemoveGambitCondition}"
@@ -1397,7 +1397,7 @@
 
                                                                                             <StackPanel Margin="0,4,0,0"
                                                                                                         Orientation="Horizontal">
-                                                                                                <RadioButton Content="Above"
+                                                                                                <RadioButton Content="{x:Static properties:Resources.Generic_Above}"
                                                                                                              GroupName="MPPercentValue"
                                                                                                              IsChecked="{Binding Above, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -1408,7 +1408,7 @@
                                                                                             </StackPanel>
                                                                                             <StackPanel Margin="0,4,0,0"
                                                                                                         Orientation="Horizontal">
-                                                                                                <RadioButton Content="Lower"
+                                                                                                <RadioButton Content="{x:Static properties:Resources.Generic_Lower}"
                                                                                                              GroupName="MPPercentValue"
                                                                                                              IsChecked="{Binding Lower, Mode=TwoWay}"
                                                                                                              Style="{DynamicResource RadioButtonGambitCondition}"/>
@@ -1630,25 +1630,25 @@
                                                                                                               IsChecked="{Binding IsWhm, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="SCHOLAR"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Scholar}"
                                                                                                               IsChecked="{Binding IsSch, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="ASTROLOGIAN"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Astrologian}"
                                                                                                               IsChecked="{Binding IsAst, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="SAGE"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Sage}"
                                                                                                               IsChecked="{Binding IsSge, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                                     <!-- Tanks -->
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="PALADIN"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Paladin}"
                                                                                                               IsChecked="{Binding IsPld, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="WARRIOR"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Warrior}"
                                                                                                               IsChecked="{Binding IsWar, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
@@ -1656,27 +1656,27 @@
                                                                                                               IsChecked="{Binding IsDrk, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="GUNBREAKER"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Gunbreaker}"
                                                                                                               IsChecked="{Binding IsGnb, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                                     <!-- Physical Ranged DPS -->
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="BARD"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Bard}"
                                                                                                               IsChecked="{Binding IsBrd, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="MACHINIST"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Machinist}"
                                                                                                               IsChecked="{Binding IsMch, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="DANCER"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Dancer}"
                                                                                                               IsChecked="{Binding IsDnc, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
 
                                                                                                     <!-- Limited Job -->
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="BLUEMAGE"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Bluemage}"
                                                                                                               IsChecked="{Binding IsBlu, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                 </StackPanel>
@@ -1685,27 +1685,27 @@
                                                                                                 <StackPanel>
                                                                                                     <!-- Melee DPS -->
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="MONK"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Monk}"
                                                                                                               IsChecked="{Binding IsMnk, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="DRAGOON"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Dragoon}"
                                                                                                               IsChecked="{Binding IsDrg, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="NINJA"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Ninja}"
                                                                                                               IsChecked="{Binding IsNin, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="SAMURAI"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Samurai}"
                                                                                                               IsChecked="{Binding IsSam, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="REAPER"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Reaper}"
                                                                                                               IsChecked="{Binding IsRpr, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"
-                                                                                                              Content="VIPER"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Viper}"
                                                                                                               IsChecked="{Binding IsVpr, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
 
@@ -1715,7 +1715,7 @@
                                                                                                               IsChecked="{Binding IsBlm, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,0,0,0"
-                                                                                                              Content="SUMMONER"
+                                                                                                              Content="{x:Static properties:Resources.Generic_Summoner}"
                                                                                                               IsChecked="{Binding IsSmn, Mode=TwoWay}"
                                                                                                               Style="{DynamicResource CheckBoxGambits}"/>
                                                                                                     <CheckBox Margin="3,3"

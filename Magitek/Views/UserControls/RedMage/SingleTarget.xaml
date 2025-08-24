@@ -26,7 +26,7 @@
                     <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.RedMage_Content_Only_in_Melee_Range}" IsChecked="{Binding RedMageSettings.CorpsACorpsInMeleeRangeOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="22,3,0,0" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Save " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Save} " />
                     <controls:Numeric MaxValue="2" MinValue="0" Value="{Binding RedMageSettings.SaveCorpsACorpsCharges, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Charges" />
                 </StackPanel>

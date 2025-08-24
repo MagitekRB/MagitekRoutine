@@ -4235,4 +4235,217 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_Astral_Flare_Brand_of_Purgatory" xml:space="preserve">
     <value>Outburst, Pet Outburst, Tri-Disaster, Pet Disaster, Pet Catastrophe, Astral Flare, Brand of Purgatory</value>
   </data>
+  <data name="Generic_Percent" xml:space="preserve">
+    <value>Percent</value>
+  </data>
+  <data name="Generic_Utilities" xml:space="preserve">
+    <value>Utilities</value>
+  </data>
+  <data name="Generic_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Generic_Buffs" xml:space="preserve">
+    <value>Buffs</value>
+  </data>
+  <data name="Generic_Healing" xml:space="preserve">
+    <value>Healing</value>
+  </data>
+  <data name="Generic_Combat" xml:space="preserve">
+    <value>Combat</value>
+  </data>
+  <data name="Generic_Defensives" xml:space="preserve">
+    <value>Defensives</value>
+  </data>
+  <data name="Generic_FightLogic" xml:space="preserve">
+    <value>FightLogic</value>
+  </data>
+  <data name="Generic_Pvp" xml:space="preserve">
+    <value>Pvp</value>
+  </data>
+  <data name="Generic_Toggles" xml:space="preserve">
+    <value>Toggles</value>
+  </data>
+  <data name="Generic_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Generic_Share" xml:space="preserve">
+    <value>SHARE</value>
+  </data>
+  <data name="Generic_Above" xml:space="preserve">
+    <value>Above</value>
+  </data>
+  <data name="Generic_Lower" xml:space="preserve">
+    <value>Lower</value>
+  </data>
+  <data name="Generic_True" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Generic_False" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Generic_When" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="Generic_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Generic_Reserve" xml:space="preserve">
+    <value>Reserve</value>
+  </data>
+  <data name="Generic_Unless" xml:space="preserve">
+    <value>Unless</value>
+  </data>
+  <data name="Generic_Below" xml:space="preserve">
+    <value>Below</value>
+  </data>
+  <data name="Generic_Under" xml:space="preserve">
+    <value>Under</value>
+  </data>
+  <data name="Generic_Abilities" xml:space="preserve">
+    <value>Abilities</value>
+  </data>
+  <data name="Generic_Movement" xml:space="preserve">
+    <value>Movement</value>
+  </data>
+  <data name="Generic_Tankbusters" xml:space="preserve">
+    <value>Tankbusters</value>
+  </data>
+  <data name="Generic_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Generic_Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Generic_Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Generic_Jobs" xml:space="preserve">
+    <value>JOBS</value>
+  </data>
+  <data name="Generic_LockOns" xml:space="preserve">
+    <value>LockOns</value>
+  </data>
+  <data name="Generic_Debugging" xml:space="preserve">
+    <value>Debugging</value>
+  </data>
+  <data name="Generic_Enmity" xml:space="preserve">
+    <value>Enmity</value>
+  </data>
+  <data name="Generic_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Generic_Aggro" xml:space="preserve">
+    <value>Aggro</value>
+  </data>
+  <data name="Generic_Alliance" xml:space="preserve">
+    <value>Alliance</value>
+  </data>
+  <data name="Generic_Aetherpact" xml:space="preserve">
+    <value>Aetherpact</value>
+  </data>
+  <data name="Generic_Pets" xml:space="preserve">
+    <value>Pets</value>
+  </data>
+  <data name="Generic_Regen" xml:space="preserve">
+    <value>Regen</value>
+  </data>
+  <data name="Generic_Assize" xml:space="preserve">
+    <value>Assize</value>
+  </data>
+  <data name="Generic_Cards" xml:space="preserve">
+    <value>Cards</value>
+  </data>
+  <data name="Generic_Shields" xml:space="preserve">
+    <value>Shields</value>
+  </data>
+  <data name="Generic_Dispels" xml:space="preserve">
+    <value>Dispels</value>
+  </data>
+  <data name="Generic_Paint" xml:space="preserve">
+    <value>Paint</value>
+  </data>
+  <data name="Generic_Palettes" xml:space="preserve">
+    <value>Palettes</value>
+  </data>
+  <data name="Generic_Turrets" xml:space="preserve">
+    <value>Turrets</value>
+  </data>
+  <data name="Generic_Cooldowns" xml:space="preserve">
+    <value>Cooldowns</value>
+  </data>
+  <data name="Generic_Songs" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="Generic_Utilities_Space" xml:space="preserve">
+    <value>Utilities </value>
+  </data>
+  <data name="Generic_General_Space" xml:space="preserve">
+    <value>General </value>
+  </data>
+  <data name="Generic_Paint_Space" xml:space="preserve">
+    <value>Paint </value>
+  </data>
+  <data name="Generic_Palettes_Space" xml:space="preserve">
+    <value>Palettes </value>
+  </data>
+  <data name="Generic_Utilities_Space_2" xml:space="preserve">
+    <value>Utilities </value>
+  </data>
+  <data name="Generic_Pvp_Space" xml:space="preserve">
+    <value>PVP </value>
+  </data>
+  <data name="Generic_Scholar" xml:space="preserve">
+    <value>SCHOLAR</value>
+  </data>
+  <data name="Generic_Astrologian" xml:space="preserve">
+    <value>ASTROLOGIAN</value>
+  </data>
+  <data name="Generic_Sage" xml:space="preserve">
+    <value>SAGE</value>
+  </data>
+  <data name="Generic_Paladin" xml:space="preserve">
+    <value>PALADIN</value>
+  </data>
+  <data name="Generic_Warrior" xml:space="preserve">
+    <value>WARRIOR</value>
+  </data>
+  <data name="Generic_Gunbreaker" xml:space="preserve">
+    <value>GUNBREAKER</value>
+  </data>
+  <data name="Generic_Bard" xml:space="preserve">
+    <value>BARD</value>
+  </data>
+  <data name="Generic_Machinist" xml:space="preserve">
+    <value>MACHINIST</value>
+  </data>
+  <data name="Generic_Dancer" xml:space="preserve">
+    <value>DANCER</value>
+  </data>
+  <data name="Generic_Bluemage" xml:space="preserve">
+    <value>BLUEMAGE</value>
+  </data>
+  <data name="Generic_Monk" xml:space="preserve">
+    <value>MONK</value>
+  </data>
+  <data name="Generic_Dragoon" xml:space="preserve">
+    <value>DRAGOON</value>
+  </data>
+  <data name="Generic_Ninja" xml:space="preserve">
+    <value>NINJA</value>
+  </data>
+  <data name="Generic_Samurai" xml:space="preserve">
+    <value>SAMURAI</value>
+  </data>
+  <data name="Generic_Reaper" xml:space="preserve">
+    <value>REAPER</value>
+  </data>
+  <data name="Generic_Viper" xml:space="preserve">
+    <value>VIPER</value>
+  </data>
+  <data name="Generic_Summoner" xml:space="preserve">
+    <value>SUMMONER</value>
+  </data>
+  <data name="Generic_Enemies" xml:space="preserve">
+    <value>Enemies</value>
+  </data>
 </root>

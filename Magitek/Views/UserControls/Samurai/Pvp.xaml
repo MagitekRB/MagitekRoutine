@@ -23,7 +23,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -170,7 +170,7 @@
             <StackPanel Margin="5">
                 <TextBlock Margin="0,0,0,5"
                            Style="{DynamicResource TextBlockSection}"
-                           Text="Buffs"/>
+                           Text="{x:Static properties:Resources.Generic_Buffs}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Meikyo_Shisui}"

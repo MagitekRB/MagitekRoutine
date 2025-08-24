@@ -34,7 +34,7 @@
                 <TextBlock Margin="0,5"
                            Style="{DynamicResource TextBlockDefault}"
                            TextWrapping="Wrap"
-                           Text="Tankbusters"/>
+                           Text="{x:Static properties:Resources.Generic_Tankbusters}"/>
                 <StackPanel Orientation="Vertical">
                     <CheckBox Content="Exaltation"
                               IsChecked="{Binding AstrologianSettings.FightLogicExaltation, Mode=TwoWay}"

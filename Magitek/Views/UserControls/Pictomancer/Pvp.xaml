@@ -89,7 +89,7 @@
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Use_Paint_White}" IsChecked="{Binding PictomancerSettings.Pvp_UsePaintWhite, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Only_to_Heal}" IsChecked="{Binding PictomancerSettings.Pvp_UsePaintWhiteOnlyToHeal, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" Margin="5,0,0,0" />
                     <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                        <TextBlock Text="Under " Style="{DynamicResource TextBlockDefault}" />
+                        <TextBlock Text="{x:Static properties:Resources.Generic_Under} " Style="{DynamicResource TextBlockDefault}" />
                         <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding PictomancerSettings.Pvp_UsePaintWhiteOnlyToHealHealth, Mode=TwoWay}" />
                         <TextBlock Text="{x:Static properties:Resources.Generic_Health_Percent}" Style="{DynamicResource TextBlockDefault}" />
                     </StackPanel>

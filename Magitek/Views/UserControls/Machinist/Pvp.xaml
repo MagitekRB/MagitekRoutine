@@ -23,7 +23,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -105,7 +105,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="General"/>
+                           Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Content="Wildfire"
@@ -184,7 +184,7 @@
             <StackPanel Margin="5">
                 <TextBlock Margin="0,0,0,5"
                            Style="{DynamicResource TextBlockSection}"
-                           Text="Buffs"/>
+                           Text="{x:Static properties:Resources.Generic_Buffs}"/>
                 <TextBlock Style="{DynamicResource TextBlockDefault}"
                            Text="{x:Static properties:Resources.Machinist_Text_Use_Analysis_on}"/>
                 <StackPanel Margin="5"

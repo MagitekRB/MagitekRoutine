@@ -18,7 +18,7 @@
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Margin="0,0,0,0" Content="Acceleration" IsChecked="{Binding RedMageSettings.Acceleration, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Margin="25,0,0,0" FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="Save" />
+                <TextBlock Margin="25,0,0,0" FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Save}" />
                 <controls:NumericSmall Margin="0,0,0,0" MaxValue="2" MinValue="0" Value="{Binding RedMageSettings.SaveAccelChargesForMovement, Mode=TwoWay}" />
                 <TextBlock FontSize="12" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.RedMage_Text_Charges_for_Movement}" />
 

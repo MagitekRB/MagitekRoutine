@@ -36,7 +36,7 @@
                 <TextBlock Margin="0,5"
                         Style="{DynamicResource TextBlockDefault}"
                         TextWrapping="Wrap"
-                        Text="Tankbusters"/>
+                        Text="{x:Static properties:Resources.Generic_Tankbusters}"/>
                 <StackPanel Orientation="Vertical">
                     <CheckBox Content="{x:Static properties:Resources.Sage_Content_Haima_saved}"
                             IsChecked="{Binding SageSettings.FightLogic_Haima, Mode=TwoWay}"

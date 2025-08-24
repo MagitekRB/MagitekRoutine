@@ -33,7 +33,7 @@
                IsChecked="{Binding WhiteMageSettings.DispelOnlyAbove, Mode=TwoWay}"
                Style="{DynamicResource CheckBoxFlat}" />
      <controls:Numeric Margin="5,0" Value="{Binding WhiteMageSettings.DispelOnlyAboveHealth, Mode=TwoWay}" />
-     <TextBlock Text="Percent" VerticalAlignment="Center" />
+                     <TextBlock Text="{x:Static properties:Resources.Generic_Percent}" VerticalAlignment="Center" />
     </StackPanel>
    </StackPanel>
   </controls:SettingsBlock>

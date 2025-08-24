@@ -87,7 +87,7 @@
 
                     <TextBlock Grid.Column="0" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_When_Mana_Falls_Below}" />
                     <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.ThinAirManaPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="Percent" />
+                    <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>
@@ -99,7 +99,7 @@
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Plenary_Indulgence}" IsChecked="{Binding WhiteMageSettings.PlenaryIndulgence, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When" />
+                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When}" />
                 <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding WhiteMageSettings.PlenaryIndulgenceAllies, Mode=TwoWay}" />
                 <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Fall_Below}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.PlenaryIndulgenceHealthPercent, Mode=TwoWay}" />
@@ -109,7 +109,7 @@
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Content="Temperance " IsChecked="{Binding WhiteMageSettings.Temperance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When" />
+                <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When}" />
                 <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding WhiteMageSettings.TemperanceAllies, Mode=TwoWay}" />
                 <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Fall_Below}" />
                 <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.TemperanceHealthPercent, Mode=TwoWay}" />

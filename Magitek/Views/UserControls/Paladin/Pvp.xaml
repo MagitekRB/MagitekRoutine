@@ -80,7 +80,7 @@
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Holy_Spirit}" IsChecked="{Binding PaladinSettings.Pvp_HolySpirit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Below" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Below}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding PaladinSettings.Pvp_HolySpiritHpThreshold, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Hp}" />
                 </StackPanel>
