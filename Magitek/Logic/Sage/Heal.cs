@@ -787,7 +787,7 @@ namespace Magitek.Logic.Sage
                 if (unit.HasAura(Auras.Kerachole))
                     return false;
 
-                return unit.Distance(Core.Me) <= Spells.Kerachole.Radius;
+                return unit.WithinSpellRange(Spells.Kerachole.Radius);
             }
         }
 

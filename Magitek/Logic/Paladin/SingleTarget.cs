@@ -29,8 +29,10 @@ namespace Magitek.Logic.Paladin
         {
             if (PaladinSettings.Instance.UseShieldLobToPullExtraEnemies)
             {
-                var pullTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit() && !r.Tapped && r.Distance(Core.Me) < 15 + r.CombatReach &&
-                                                                                r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach && r.TargetGameObject != Core.Me);
+                var pullTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit() && !r.Tapped
+                                                        && r.WithinSpellRange(Spells.ShieldLob.Range)
+                                                        && !r.WithinSpellRange(Spells.FastBlade.Range)
+                                                        && r.TargetGameObject != Core.Me);
 
                 if (pullTarget != null)
                     return await Spells.ShieldLob.Cast(pullTarget);
@@ -59,7 +61,10 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.UseShieldLobOnLostAggro)
                 return false;
 
-            var shieldLobTarget = Combat.Enemies.FirstOrDefault(r => r.Distance(Core.Me) > 5 + r.CombatReach && r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach && r.Distance(Core.Me) <= 15 + r.CombatReach && r.TargetGameObject != Core.Me);
+            var shieldLobTarget = Combat.Enemies.FirstOrDefault(r =>
+                !r.WithinSpellRange(Spells.FastBlade.Range)
+                && r.WithinSpellRange(Spells.ShieldLob.Range)
+                && r.TargetGameObject != Core.Me);
 
             if (shieldLobTarget == null)
                 return false;

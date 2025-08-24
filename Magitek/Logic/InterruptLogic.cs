@@ -115,7 +115,7 @@ namespace Magitek.Logic
 
                 BattleCharacter target = enemies.FirstOrDefault(enemy => enemy.SpellCastInfo.RemainingCastTime.TotalMilliseconds >= minimumMsLeftOnEnemyCast
                                                                          && validateEnemy(enemy)
-                                                                         && enemy.Distance(Core.Me) <= interruptRange + Core.Me.CombatReach + enemy.CombatReach);
+                                                                         && enemy.WithinSpellRange(interruptRange));
 
                 if (target == null)
                 {

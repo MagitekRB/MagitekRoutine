@@ -20,8 +20,10 @@ namespace Magitek.Logic.Warrior
         {
             if (WarriorSettings.Instance.UseTomahawkToPullExtraEnemies)
             {
-                var pullTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit() && !r.Tapped && r.Distance(Core.Me) < 15 + r.CombatReach &&
-                                                                                r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach && r.TargetGameObject != Core.Me);
+                var pullTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit() && !r.Tapped
+                                                        && r.WithinSpellRange(Spells.Tomahawk.Range)
+                                                        && !r.WithinSpellRange(Spells.HeavySwing.Range)
+                                                        && r.TargetGameObject != Core.Me);
 
                 if (pullTarget != null)
                     return await Spells.Tomahawk.Cast(pullTarget);
@@ -53,7 +55,10 @@ namespace Magitek.Logic.Warrior
             //if (BotManager.Current.IsAutonomous)
             //    return false;
 
-            var tomahawkTarget = Combat.Enemies.FirstOrDefault(r => r.Distance(Core.Me) > 5 + r.CombatReach && r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach && r.Distance(Core.Me) <= 15 + r.CombatReach && r.TargetGameObject != Core.Me);
+            var tomahawkTarget = Combat.Enemies.FirstOrDefault(r =>
+                !r.WithinSpellRange(Spells.HeavySwing.Range)
+                && r.WithinSpellRange(Spells.Tomahawk.Range)
+                && r.TargetGameObject != Core.Me);
 
             if (tomahawkTarget == null)
                 return false;

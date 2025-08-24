@@ -42,7 +42,7 @@ namespace Magitek.Logic.Summoner
                         return await Spells.RubyRite.Cast(Core.Me.CurrentTarget);
 
                     var anyDead = Group.DeadAllies.Any(u => !u.HasAura(Auras.Raise) &&
-                                                            u.Distance(Core.Me) <= 30 &&
+                                                            u.WithinSpellRange(30) &&
                                                             u.InLineOfSight() &&
                                                             u.IsTargetable);
 

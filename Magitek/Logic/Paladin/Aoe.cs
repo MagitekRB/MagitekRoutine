@@ -28,7 +28,7 @@ namespace Magitek.Logic.Paladin
             if (Spells.Requiescat.IsKnownAndReady())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= Spells.CircleofScorn.Radius + x.CombatReach) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.CircleofScorn.Radius)) < 1)
                 return false;
 
             return await Spells.CircleofScorn.Cast(Core.Me);
@@ -45,7 +45,7 @@ namespace Magitek.Logic.Paladin
             if (!Spells.HolyCircle.IsKnownAndReady())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= Spells.HolyCircle.Radius + x.CombatReach) < PaladinSettings.Instance.HolyCircleEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.HolyCircle.Radius)) < PaladinSettings.Instance.HolyCircleEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.Requiescat) && !Spells.BladeOfFaith.IsKnown())

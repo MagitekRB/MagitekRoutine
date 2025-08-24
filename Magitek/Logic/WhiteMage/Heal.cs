@@ -454,7 +454,7 @@ namespace Magitek.Logic.WhiteMage
             bool CanMedica2(GameObject unit)
             {
                 //Medica II has always been 20y iirc
-                if (unit.Distance(Core.Me) > 20)
+                if (!unit.WithinSpellRange(20))
                     return false;
 
                 if (unit.CurrentHealthPercent > WhiteMageSettings.Instance.Medica2HealthPercent)
@@ -491,7 +491,7 @@ namespace Magitek.Logic.WhiteMage
             bool CanMedica3(GameObject unit)
             {
                 //Medica III has always been 20y iirc
-                if (unit.Distance(Core.Me) > 20)
+                if (!unit.WithinSpellRange(20))
                     return false;
 
                 if (unit.CurrentHealthPercent > WhiteMageSettings.Instance.Medica3HealthPercent)
