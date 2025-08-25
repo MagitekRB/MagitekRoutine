@@ -412,7 +412,7 @@
     <value>根据目标血量决定DOT的使用</value>
   </data>
   <data name="Astrologian_Content_Dont_Dot_if_more_than" xml:space="preserve">
-    <value>当小怪多于   只时不上dot </value>
+    <value>当小怪多于   只时不上dot</value>
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>当有   时使用重力</value>
@@ -481,7 +481,7 @@
     <value>目标附近的敌人</value>
   </data>
   <data name="Astrologian_Text_Stellar_Burst_If" xml:space="preserve">
-    <value>星体破裂 如果 </value>
+    <value>星体破裂 如果</value>
   </data>
   <data name="Astrologian_Text_Stellar_Explosion_If" xml:space="preserve">
     <value>星体爆炸 如果</value>
@@ -1039,7 +1039,7 @@
     <value>仅在近战范围</value>
   </data>
   <data name="DarkKnight_Text_Save_this_many_charges_of_Plunge" xml:space="preserve">
-    <value>保留此数量的下 跳斩 充能 </value>
+    <value>保留此数量的下 跳斩 充能</value>
   </data>
   <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
     <value>精雕怒斩</value>
@@ -1492,7 +1492,7 @@
     <value>辅助吟游诗人</value>
   </data>
   <data name="OccultCrescent_Text_percent_HP" xml:space="preserve">
-    <value> [X]% HP</value>
+    <value>[X]% HP</value>
   </data>
   <data name="OccultCrescent_Text_Phantom_Knight" xml:space="preserve">
     <value>幻影骑士</value>
@@ -1558,7 +1558,7 @@
     <value>幻影武士</value>
   </data>
   <data name="OccultCrescent_Text_percent_HP_physical_damage_imm" xml:space="preserve">
-    <value> [X]% HP (免疫一次物理伤害)</value>
+    <value>[X]% HP (免疫一次物理伤害)</value>
   </data>
   <data name="OccultCrescent_Text_Mineuchi_avoids_stunning_immun" xml:space="preserve">
     <value>“刀背击打”会避免击晕免疫控制的敌人。“扔钱”仅在您拥有“辅助道具：古旧的钱箱”时才能使用。“居合斩”是一个锥形范围攻击。</value>
@@ -1585,10 +1585,10 @@
     <value>[X]% HP (对自身造成90%最大HP的伤害！)</value>
   </data>
   <data name="OccultCrescent_Text_Prioritizes_tanks" xml:space="preserve">
-    <value> (优先T)</value>
+    <value>(优先T)</value>
   </data>
   <data name="OccultCrescent_Text_Emergency_protection" xml:space="preserve">
-    <value> (紧急防护)</value>
+    <value>(紧急防护)</value>
   </data>
   <data name="OccultCrescent_Text_Phantom_Geomancer" xml:space="preserve">
     <value>辅助风水师</value>
@@ -1756,7 +1756,7 @@
     <value>使用 居合斩 (锥形范围攻击，有即死几率)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Zeninage_Consumes_Occul" xml:space="preserve">
-    <value> 使用 扔钱 (消耗辅助道具：古旧的钱箱，威力1500)</value>
+    <value>使用 扔钱 (消耗辅助道具：古旧的钱箱，威力1500)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Predict_Grants_random_p" xml:space="preserve">
     <value>使用 预言 (获得随机预言)</value>
@@ -1831,7 +1831,7 @@
     <value>圣灵</value>
   </data>
   <data name="Paladin_Content_Use_Shield_Lob_To_Pull_Extra_Nearb" xml:space="preserve">
-    <value> (已在战斗中时) 使用投盾拉附近额外的敌人</value>
+    <value>(已在战斗中时) 使用投盾拉附近额外的敌人</value>
   </data>
   <data name="Paladin_Content_Use_Shield_Lob_To_Regain_Aggro" xml:space="preserve">
     <value>使用 投盾 夺回仇恨</value>
@@ -1861,7 +1861,7 @@
     <value>在战逃反应期间保留 赎罪剑和圣灵 (实验性)</value>
   </data>
   <data name="Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_" xml:space="preserve">
-    <value> = 只要蓝量 &gt;= ...就使用圣灵</value>
+    <value>= 只要蓝量 &gt;= ...就使用圣灵</value>
   </data>
   <data name="Paladin_Content_Only_under_Divine_Might_Aura" xml:space="preserve">
     <value>仅在“神圣魔法效果提高”状态下。</value>
@@ -2032,7 +2032,7 @@
     <value>全队在范围内，否则</value>
   </data>
   <data name="Pictomancer_Content_Use_Hammers_During_Hyperphanta" xml:space="preserve">
-    <value> 在“重锤”期间使用 绘灵幻景</value>
+    <value>在“重锤”期间使用 绘灵幻景</value>
   </data>
   <data name="Pictomancer_Content_Save_Hammers_for_Starry" xml:space="preserve">
     <value>为星空彩绘保留重锤</value>
@@ -2413,7 +2413,7 @@
     <value>在低蓝量时使用“箭毒”</value>
   </data>
   <data name="Sage_Content_Pneuma_only_to_heal" xml:space="preserve">
-    <value> “魂灵风息”仅用于治疗</value>
+    <value>“魂灵风息”仅用于治疗</value>
   </data>
   <data name="Sage_Content_Haima_saved" xml:space="preserve">
     <value>输血 (保留)</value>
@@ -2527,7 +2527,7 @@
     <value>明镜止水</value>
   </data>
   <data name="Samurai_Content_Meikyo_Shisui_only_with_0_Sen" xml:space="preserve">
-    <value> 仅在0闪时使用 明镜止水</value>
+    <value>仅在0闪时使用 明镜止水</value>
   </data>
   <data name="Samurai_Content_Ikishoten_Grant_Ogi_Aura" xml:space="preserve">
     <value>意气冲天 (赋予奥义状态)</value>
@@ -2674,7 +2674,7 @@
     <value>死刑：</value>
   </data>
   <data name="Scholar_Text_Big_Aoe" xml:space="preserve">
-    <value>巨型AOE：</value>
+    <value>大范围AOE：</value>
   </data>
   <data name="Scholar_Text_Aoe" xml:space="preserve">
     <value>AOE：</value>
@@ -2779,7 +2779,7 @@
     <value>持续伤害(DoT)剩余秒数</value>
   </data>
   <data name="Summoner_Text_That_Have_At_Least" xml:space="preserve">
-    <value>且拥有至少...</value>
+    <value>且拥有至少</value>
   </data>
   <data name="Summoner_Text_Only_Use_Area_Of_Effect_If_There_Is_" xml:space="preserve">
     <value>仅当有至少...时使用范围攻击(AOE)</value>
@@ -3016,13 +3016,13 @@
     <value>使用 飞斧 开怪</value>
   </data>
   <data name="Warrior_Content_Use_Tomahawk_To_Pull_Nearby_Enemie" xml:space="preserve">
-    <value> (已在战斗中时) 使用 飞斧 拉附近的敌人</value>
+    <value>(已在战斗中时) 使用 飞斧 拉附近的敌人</value>
   </data>
   <data name="Warrior_Content_Use_Tomahawk_To_Regain_Aggro" xml:space="preserve">
     <value>使用 飞斧 夺回仇恨</value>
   </data>
   <data name="Warrior_Text_Or_Under_Beast_Gauge" xml:space="preserve">
-    <value>或兽魂低于...</value>
+    <value>或兽魂低于</value>
   </data>
   <data name="Warrior_Content_Use_Berserk_Inner_Release" xml:space="preserve">
     <value>使用狂暴 / 原初的解放</value>
@@ -3289,7 +3289,7 @@
     <value>当伤害增益 &gt;= ...% 时</value>
   </data>
   <data name="Bard_Text___24_will_match_RSBVRFWM_EndWalker_Patch" xml:space="preserve">
-    <value> - 24% 将匹配猛烈枪+战斗之声+光阴神+贤者的叙事谣 (晓月版本)</value>
+    <value>- 24% 将匹配猛烈枪+战斗之声+光阴神+贤者的叙事谣 (晓月版本)</value>
   </data>
   <data name="Bard_Text___This_will_force_to_keep_Apex_for_Buff_" xml:space="preserve">
     <value>100 = - 即使诗魂=100，这也会强制为爆发窗口保留绝峰箭</value>
@@ -3433,16 +3433,16 @@
     <value>防止单独使用即刻咏唱</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Target_That_Are_Below" xml:space="preserve">
-    <value>目标附近的队友血量低于...</value>
+    <value>目标附近的队友血量低于</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
-    <value>地星范围内的队友血量低于...</value>
+    <value>地星范围内的队友血量低于</value>
   </data>
   <data name="Astrologian_Content_Disable_Single_Healing_When_Allies_Need_AoE" xml:space="preserve">
     <value>当队友需要AOE治疗时禁用单体治疗</value>
   </data>
   <data name="Astrologian_Content_Always_With_Enhanced_Benefic" xml:space="preserve">
-    <value>总是与吉星...</value>
+    <value>总是与吉星</value>
   </data>
   <data name="Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption" xml:space="preserve">
     <value>不攻击处于无敌/神圣领域/行尸走肉状态的目标</value>
@@ -3451,7 +3451,7 @@
     <value>至少有...时使用 星河漫天/LB 极限技</value>
   </data>
   <data name="Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown" xml:space="preserve">
-    <value> 等到九天连箭冷却结束后再使用猛烈枪</value>
+    <value>等到九天连箭冷却结束后再使用猛烈枪</value>
   </data>
   <data name="Bard_Text_MS_Between_The_Last_Possible_GCD_And_DoT_Refresh" xml:space="preserve">
     <value>在最后一个可行的GCD和DoT刷新之间的毫秒数</value>
@@ -3652,13 +3652,13 @@
     <value>使用康复驱散</value>
   </data>
   <data name="Generic_Apply_This_Rule_On" xml:space="preserve">
-    <value>将此规则应用于...</value>
+    <value>将此规则应用于</value>
   </data>
   <data name="Generic_On_Tank_Only" xml:space="preserve">
     <value>仅限坦克</value>
   </data>
   <data name="Generic_Health_Percent_When" xml:space="preserve">
-    <value>当血量百分比...</value>
+    <value>当血量百分比</value>
   </data>
   <data name="Generic_Allies_Need_Healing" xml:space="preserve">
     <value>队友需要治疗</value>
@@ -3691,10 +3691,10 @@
     <value>与...共舞：</value>
   </data>
   <data name="Generic_Yalms_Away" xml:space="preserve">
-    <value> ...码外</value>
+    <value>...码外</value>
   </data>
   <data name="Generic_Only_Use" xml:space="preserve">
-    <value>仅使用...</value>
+    <value>仅使用</value>
   </data>
   <data name="Generic_Defensive_Buffs_At_The_Same_Time" xml:space="preserve">
     <value>同时...个防御Buff</value>
@@ -3721,7 +3721,7 @@
     <value>高级爆发窗口设置</value>
   </data>
   <data name="Generic_Hold_Burst" xml:space="preserve">
-    <value> 保留爆发</value>
+    <value>保留爆发</value>
   </data>
   <data name="Generic_Use_Feint" xml:space="preserve">
     <value>使用 佯攻</value>
@@ -3760,7 +3760,7 @@
     <value>仅自我治疗</value>
   </data>
   <data name="Generic_And_At_Least" xml:space="preserve">
-    <value>并且至少...</value>
+    <value>并且至少</value>
   </data>
   <data name="Generic_Out_Of_Combat" xml:space="preserve">
     <value>非战斗中</value>
@@ -3832,7 +3832,7 @@
     <value>由战斗逻辑决定使用防御技能</value>
   </data>
   <data name="Generic_At_Which_Point_Use_A_Maximum_Of" xml:space="preserve">
-    <value>此时最多使用...</value>
+    <value>此时最多使用</value>
   </data>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundun" xml:space="preserve">
     <value>不攻击处于无敌/神圣领域/行尸走肉状态的目标</value>
@@ -4192,6 +4192,990 @@
     <value>删除策略</value>
   </data>
   <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
-    <value />
+    <value>使用打断和击晕。如果已激活，则使用策略：</value>
+  </data>
+  <data name="DarkKnight_Content_Disesteem" xml:space="preserve">
+    <value>掠影的蔑视</value>
+  </data>
+  <data name="Generic_Combat_Time" xml:space="preserve">
+    <value>战斗时间</value>
+  </data>
+  <data name="Astrologian_Content_Malefic" xml:space="preserve">
+    <value>凶星</value>
+  </data>
+  <data name="Generic_Samurai" xml:space="preserve">
+    <value>武士</value>
+  </data>
+  <data name="Generic_Gambit_Enabled" xml:space="preserve">
+    <value>策略已启用</value>
+  </data>
+  <data name="Astrologian_Content_Exaltation" xml:space="preserve">
+    <value>擢升</value>
+  </data>
+  <data name="Generic_Reserve" xml:space="preserve">
+    <value>预留</value>
+  </data>
+  <data name="Gunbreaker_Content_Reprisal" xml:space="preserve">
+    <value>雪仇</value>
+  </data>
+  <data name="Generic_Not_In_Instance" xml:space="preserve">
+    <value>不在副本中</value>
+  </data>
+  <data name="Generic_On_Player" xml:space="preserve">
+    <value>对玩家</value>
+  </data>
+  <data name="Generic_Cards" xml:space="preserve">
+    <value>卡牌</value>
+  </data>
+  <data name="Scholar_Content_Excogitation" xml:space="preserve">
+    <value>深谋远虑之策</value>
+  </data>
+  <data name="Summoner_Content_Slipstream" xml:space="preserve">
+    <value>螺旋气流</value>
+  </data>
+  <data name="Summoner_Content_Bahamut" xml:space="preserve">
+    <value>巴哈姆特</value>
+  </data>
+  <data name="Summoner_Content_Dreadwyrm" xml:space="preserve">
+    <value>龙神</value>
+  </data>
+  <data name="BlackMage_Content_TripleCast" xml:space="preserve">
+    <value>三连咏唱</value>
+  </data>
+  <data name="Dancer_Content_Windmill" xml:space="preserve">
+    <value>风车</value>
+  </data>
+  <data name="Paladin_Content_Intervene" xml:space="preserve">
+    <value>调停</value>
+  </data>
+  <data name="Generic_Enemies" xml:space="preserve">
+    <value>敌人</value>
+  </data>
+  <data name="Warrior_Content_Bloodwhetting" xml:space="preserve">
+    <value>原初的血气</value>
+  </data>
+  <data name="Generic_Health_Percent_Between" xml:space="preserve">
+    <value>血量百分比介于</value>
+  </data>
+  <data name="Generic_Copy_Gambit_Group" xml:space="preserve">
+    <value>复制策略组</value>
+  </data>
+  <data name="Summoner_Content_Enkindle" xml:space="preserve">
+    <value>迸发</value>
+  </data>
+  <data name="Paladin_Content_Reprisal" xml:space="preserve">
+    <value>雪仇</value>
+  </data>
+  <data name="Generic_Ammo" xml:space="preserve">
+    <value>弹药</value>
+  </data>
+  <data name="Summoner_Content_EnergyDrain" xml:space="preserve">
+    <value>能量吸收</value>
+  </data>
+  <data name="Generic_Open_Shared_Gambits_Browser" xml:space="preserve">
+    <value>打开共享策略浏览器</value>
+  </data>
+  <data name="Generic_Monk" xml:space="preserve">
+    <value>武僧</value>
+  </data>
+  <data name="Generic_Healers" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="Paladin_Content_Imperator" xml:space="preserve">
+    <value>英白拉多</value>
+  </data>
+  <data name="Generic_Delete_Gambit" xml:space="preserve">
+    <value>删除策略</value>
+  </data>
+  <data name="Ninja_Content_Bunshin" xml:space="preserve">
+    <value>分身之术</value>
+  </data>
+  <data name="BlackMage_Content_UmbralSoul" xml:space="preserve">
+    <value>灵极魂</value>
+  </data>
+  <data name="Generic_Lower" xml:space="preserve">
+    <value>低于</value>
+  </data>
+  <data name="Generic_On_Pet" xml:space="preserve">
+    <value>对宠物</value>
+  </data>
+  <data name="Scholar_Content_Seraphism" xml:space="preserve">
+    <value>炽天附体</value>
+  </data>
+  <data name="Generic_Allow_Gambit_To_Interrupt" xml:space="preserve">
+    <value>允许策略打断</value>
+  </data>
+  <data name="Generic_Ninja" xml:space="preserve">
+    <value>忍者</value>
+  </data>
+  <data name="Generic_When" xml:space="preserve">
+    <value>当...时</value>
+  </data>
+  <data name="Generic_Has_Pet" xml:space="preserve">
+    <value>有宠物</value>
+  </data>
+  <data name="Generic_Spell_Off_Cooldown" xml:space="preserve">
+    <value>技能冷却完毕</value>
+  </data>
+  <data name="Paladin_Content_Sentinel" xml:space="preserve">
+    <value>预警</value>
+  </data>
+  <data name="Generic_Current_Zone" xml:space="preserve">
+    <value>当前区域</value>
+  </data>
+  <data name="Samurai_Content_Mineuchi" xml:space="preserve">
+    <value>峰打</value>
+  </data>
+  <data name="DarkKnight_Content_Impalement" xml:space="preserve">
+    <value>刺穿</value>
+  </data>
+  <data name="Gunbreaker_Content_Rampart" xml:space="preserve">
+    <value>铁壁</value>
+  </data>
+  <data name="Samurai_Content_Higabana" xml:space="preserve">
+    <value>彼岸花</value>
+  </data>
+  <data name="RedMage_Content_Scorch" xml:space="preserve">
+    <value>火焰流</value>
+  </data>
+  <data name="Generic_Is_Dps" xml:space="preserve">
+    <value>是输出职业(DPS)</value>
+  </data>
+  <data name="Generic_Has_Setsu" xml:space="preserve">
+    <value>拥有“雪”闪</value>
+  </data>
+  <data name="RedMage_Content_Prefulgence" xml:space="preserve">
+    <value>光芒四射</value>
+  </data>
+  <data name="Generic_Share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="Generic_Target_Boss" xml:space="preserve">
+    <value>目标是首领(Boss)</value>
+  </data>
+  <data name="Scholar_Content_Resurrection" xml:space="preserve">
+    <value>复生</value>
+  </data>
+  <data name="Generic_Open_Shared_Openers_Browser" xml:space="preserve">
+    <value>打开共享起手浏览器</value>
+  </data>
+  <data name="Generic_Is_My_Aura" xml:space="preserve">
+    <value>是我的光环/状态</value>
+  </data>
+  <data name="Sage_Content_Haima" xml:space="preserve">
+    <value>输血</value>
+  </data>
+  <data name="Generic_Health_Percent_Below" xml:space="preserve">
+    <value>血量百分比低于</value>
+  </data>
+  <data name="Generic_Dancer" xml:space="preserve">
+    <value>舞者</value>
+  </data>
+  <data name="Generic_FightLogic" xml:space="preserve">
+    <value>战斗逻辑</value>
+  </data>
+  <data name="Gunbreaker_Content_Aurora" xml:space="preserve">
+    <value>极光</value>
+  </data>
+  <data name="Summoner_Content_Phoenix" xml:space="preserve">
+    <value>不死鸟</value>
+  </data>
+  <data name="DarkKnight_Content_Reprisal" xml:space="preserve">
+    <value>雪仇</value>
+  </data>
+  <data name="Generic_Gaze" xml:space="preserve">
+    <value>视线</value>
+  </data>
+  <data name="Generic_Copy_Gambit" xml:space="preserve">
+    <value>复制策略</value>
+  </data>
+  <data name="Sage_Content_Diagnosis" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="Generic_Warrior" xml:space="preserve">
+    <value>战士</value>
+  </data>
+  <data name="Generic_Movement" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="Scholar_Content_Soil" xml:space="preserve">
+    <value>野战治疗阵</value>
+  </data>
+  <data name="Scholar_Content_Adlo" xml:space="preserve">
+    <value>鼓舞</value>
+  </data>
+  <data name="Generic_Jobs" xml:space="preserve">
+    <value>职业</value>
+  </data>
+  <data name="Sage_Content_Philosophia" xml:space="preserve">
+    <value>智慧之爱</value>
+  </data>
+  <data name="Scholar_Content_Indomitability" xml:space="preserve">
+    <value>不屈不挠之策</value>
+  </data>
+  <data name="Generic_Dark_Knight" xml:space="preserve">
+    <value>暗黑骑士</value>
+  </data>
+  <data name="Generic_In_Instance" xml:space="preserve">
+    <value>在副本中</value>
+  </data>
+  <data name="BlackMage_Content_FlareStar" xml:space="preserve">
+    <value>耀星</value>
+  </data>
+  <data name="Generic_High_Quality" xml:space="preserve">
+    <value>高品质</value>
+  </data>
+  <data name="Warrior_Content_Rampart" xml:space="preserve">
+    <value>铁壁</value>
+  </data>
+  <data name="Generic_Delete_Opener" xml:space="preserve">
+    <value>删除起手爆发</value>
+  </data>
+  <data name="Generic_Buffs" xml:space="preserve">
+    <value>增益(Buff)</value>
+  </data>
+  <data name="Scholar_Content_Consolation" xml:space="preserve">
+    <value>慰藉</value>
+  </data>
+  <data name="WhiteMage_Content_Temperance" xml:space="preserve">
+    <value>节制</value>
+  </data>
+  <data name="Generic_Pvp" xml:space="preserve">
+    <value>PVP</value>
+  </data>
+  <data name="Summoner_Content_Aethercharge" xml:space="preserve">
+    <value>以太充能</value>
+  </data>
+  <data name="Scholar_Content_Physick" xml:space="preserve">
+    <value>医术</value>
+  </data>
+  <data name="Scholar_Content_Biolysis" xml:space="preserve">
+    <value>蛊毒法</value>
+  </data>
+  <data name="Warrior_Content_Tomahawk" xml:space="preserve">
+    <value>飞斧</value>
+  </data>
+  <data name="Generic_Bluemage" xml:space="preserve">
+    <value>青魔法师</value>
+  </data>
+  <data name="Sage_Content_Dosis" xml:space="preserve">
+    <value>注药</value>
+  </data>
+  <data name="Astrologian_Content_Ascend" xml:space="preserve">
+    <value>生辰</value>
+  </data>
+  <data name="Generic_Red_Mage" xml:space="preserve">
+    <value>赤魔法师</value>
+  </data>
+  <data name="Generic_Pictomancer" xml:space="preserve">
+    <value>绘灵法师</value>
+  </data>
+  <data name="Generic_Level" xml:space="preserve">
+    <value>等级</value>
+  </data>
+  <data name="Generic_Countdown_Timer" xml:space="preserve">
+    <value>倒计时</value>
+  </data>
+  <data name="Generic_Add_New_Opener" xml:space="preserve">
+    <value>新增起手爆发</value>
+  </data>
+  <data name="Generic_General" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="Generic_On_Spell_Target" xml:space="preserve">
+    <value>对技能目标</value>
+  </data>
+  <data name="Sage_Content_Taurochole" xml:space="preserve">
+    <value>白牛清汁</value>
+  </data>
+  <data name="Generic_Greased_Lightning" xml:space="preserve">
+    <value>疾风迅雷</value>
+  </data>
+  <data name="Dragoon_Content_Geirskogul" xml:space="preserve">
+    <value>武神枪</value>
+  </data>
+  <data name="Generic_Utilities_Space_2" xml:space="preserve">
+    <value>实用工具</value>
+  </data>
+  <data name="Pictomancer_Content_Starstruck" xml:space="preserve">
+    <value>天星棱光预备</value>
+  </data>
+  <data name="Summoner_Content_Painflare" xml:space="preserve">
+    <value>痛苦核爆</value>
+  </data>
+  <data name="Generic_Copy_Gambit_To_Clipboard" xml:space="preserve">
+    <value>复制策略到剪贴板</value>
+  </data>
+  <data name="Generic_Debugging" xml:space="preserve">
+    <value>调试</value>
+  </data>
+  <data name="Monk_Content_Enlightenment" xml:space="preserve">
+    <value>万象斗气圈</value>
+  </data>
+  <data name="Viper_Content_SerpentIre" xml:space="preserve">
+    <value>蛇行</value>
+  </data>
+  <data name="Generic_Astrologian" xml:space="preserve">
+    <value>占星术士</value>
+  </data>
+  <data name="BlackMage_Content_Amplifier" xml:space="preserve">
+    <value>详述</value>
+  </data>
+  <data name="Sage_Content_Holos" xml:space="preserve">
+    <value>整体论</value>
+  </data>
+  <data name="Generic_False" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="WhiteMage_Content_Tetragrammaton" xml:space="preserve">
+    <value>神名</value>
+  </data>
+  <data name="WhiteMage_Content_Asylum" xml:space="preserve">
+    <value>庇护所</value>
+  </data>
+  <data name="Paladin_Content_Requiescat" xml:space="preserve">
+    <value>安魂祈祷</value>
+  </data>
+  <data name="Sage_Content_Knockback" xml:space="preserve">
+    <value>击退</value>
+  </data>
+  <data name="Generic_Any_Quality" xml:space="preserve">
+    <value>任意品质</value>
+  </data>
+  <data name="Generic_Defensives" xml:space="preserve">
+    <value>防御技能</value>
+  </data>
+  <data name="Generic_Normal_Quality" xml:space="preserve">
+    <value>普通品质</value>
+  </data>
+  <data name="Scholar_Content_Knockback" xml:space="preserve">
+    <value>击退</value>
+  </data>
+  <data name="Warrior_Content_Blota" xml:space="preserve">
+    <value>献身</value>
+  </data>
+  <data name="WhiteMage_Content_Medica" xml:space="preserve">
+    <value>医治</value>
+  </data>
+  <data name="Generic_Abandon_Opener_If_Action_Fails" xml:space="preserve">
+    <value>如果动作失败则放弃起手</value>
+  </data>
+  <data name="Ninja_Content_Shukuchi" xml:space="preserve">
+    <value>缩地</value>
+  </data>
+  <data name="Gunbreaker_Content_Continuation" xml:space="preserve">
+    <value>续剑</value>
+  </data>
+  <data name="Generic_Dragoon" xml:space="preserve">
+    <value>龙骑士</value>
+  </data>
+  <data name="Generic_Mp_Percent" xml:space="preserve">
+    <value>MP(蓝量)百分比</value>
+  </data>
+  <data name="Generic_Under" xml:space="preserve">
+    <value>以下</value>
+  </data>
+  <data name="Generic_Enemy_Casting_Spell" xml:space="preserve">
+    <value>敌人在咏唱技能</value>
+  </data>
+  <data name="Generic_Pvp_Space" xml:space="preserve">
+    <value>PVP</value>
+  </data>
+  <data name="Paladin_Content_Bulwark" xml:space="preserve">
+    <value>壁垒</value>
+  </data>
+  <data name="Summoner_Content_AkhMorn" xml:space="preserve">
+    <value>死亡轮回</value>
+  </data>
+  <data name="RedMage_Content_Forte" xml:space="preserve">
+    <value>剑身强部</value>
+  </data>
+  <data name="Warrior_Content_FellCleave" xml:space="preserve">
+    <value>裂石飞环</value>
+  </data>
+  <data name="DarkKnight_Content_Rampart" xml:space="preserve">
+    <value>铁壁</value>
+  </data>
+  <data name="Generic_Lower_Or_Equal" xml:space="preserve">
+    <value>小于或等于</value>
+  </data>
+  <data name="Dancer_Content_Bloodshower" xml:space="preserve">
+    <value>落血雨</value>
+  </data>
+  <data name="Generic_True" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Astrologian_Content_SunSign" xml:space="preserve">
+    <value>太阳星座</value>
+  </data>
+  <data name="Generic_Paste_Copied_Gambit" xml:space="preserve">
+    <value>粘贴已复制的策略</value>
+  </data>
+  <data name="Generic_Huton" xml:space="preserve">
+    <value>风遁之术</value>
+  </data>
+  <data name="Generic_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Generic_Home" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="Sage_Content_Soteria" xml:space="preserve">
+    <value>拯救</value>
+  </data>
+  <data name="Generic_DPS" xml:space="preserve">
+    <value>DPS</value>
+  </data>
+  <data name="Scholar_Content_Manifestation" xml:space="preserve">
+    <value>显现</value>
+  </data>
+  <data name="Sage_Content_Egeiro" xml:space="preserve">
+    <value>复苏</value>
+  </data>
+  <data name="Machinist_Content_Excavator" xml:space="preserve">
+    <value>掘地飞轮</value>
+  </data>
+  <data name="Sage_Content_Pepsis" xml:space="preserve">
+    <value>消化</value>
+  </data>
+  <data name="Generic_Is_Pvp_Spell" xml:space="preserve">
+    <value>是PVP技能</value>
+  </data>
+  <data name="Generic_General_Space" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="Warrior_Content_Holmgang" xml:space="preserve">
+    <value>死斗</value>
+  </data>
+  <data name="BlackMage_Content_ManaFont" xml:space="preserve">
+    <value>魔泉</value>
+  </data>
+  <data name="Warrior_Content_ShakeItOff" xml:space="preserve">
+    <value>摆脱</value>
+  </data>
+  <data name="Generic_Sage" xml:space="preserve">
+    <value>贤者</value>
+  </data>
+  <data name="Paladin_Content_Rampart" xml:space="preserve">
+    <value>铁壁</value>
+  </data>
+  <data name="Samurai_Content_Shoha" xml:space="preserve">
+    <value>照破</value>
+  </data>
+  <data name="Reaper_Content_Guillotine" xml:space="preserve">
+    <value>断头台</value>
+  </data>
+  <data name="Generic_Delete_Gambit_Group" xml:space="preserve">
+    <value>删除策略组</value>
+  </data>
+  <data name="Generic_Player_Does_Not_Have_Aura" xml:space="preserve">
+    <value>玩家没有光环/状态</value>
+  </data>
+  <data name="Generic_Palettes_Space" xml:space="preserve">
+    <value>调色板</value>
+  </data>
+  <data name="Generic_Turrets" xml:space="preserve">
+    <value>炮台</value>
+  </data>
+  <data name="Generic_Must_Be_Enemy" xml:space="preserve">
+    <value>必须是敌人</value>
+  </data>
+  <data name="Generic_Regen" xml:space="preserve">
+    <value>再生</value>
+  </data>
+  <data name="Generic_Paste_Copied_Gambit_Group" xml:space="preserve">
+    <value>粘贴已复制的策略组</value>
+  </data>
+  <data name="Paladin_Content_Atonement" xml:space="preserve">
+    <value>赎罪剑</value>
+  </data>
+  <data name="Machinist_Content_ChainSaw" xml:space="preserve">
+    <value>回转飞锯</value>
+  </data>
+  <data name="Summoner_Content_Swiftcast" xml:space="preserve">
+    <value>即刻咏唱</value>
+  </data>
+  <data name="Generic_Is_Tank" xml:space="preserve">
+    <value>是防护职业(坦克)</value>
+  </data>
+  <data name="Machinist_Content_Scattergun" xml:space="preserve">
+    <value>霰弹枪</value>
+  </data>
+  <data name="Generic_Bard" xml:space="preserve">
+    <value>吟游诗人</value>
+  </data>
+  <data name="Generic_Abilities" xml:space="preserve">
+    <value>技能</value>
+  </data>
+  <data name="Summoner_Content_Slowcast" xml:space="preserve">
+    <value>读条</value>
+  </data>
+  <data name="Samurai_Content_Hagakure" xml:space="preserve">
+    <value>叶隐</value>
+  </data>
+  <data name="RedMage_Content_Displacement" xml:space="preserve">
+    <value>移转</value>
+  </data>
+  <data name="Machinist_Content_Flamethrower" xml:space="preserve">
+    <value>火焰喷射器</value>
+  </data>
+  <data name="Sage_Content_Toxikon" xml:space="preserve">
+    <value>箭毒</value>
+  </data>
+  <data name="Generic_Paladin" xml:space="preserve">
+    <value>骑士</value>
+  </data>
+  <data name="Generic_Paint" xml:space="preserve">
+    <value>绘画</value>
+  </data>
+  <data name="Generic_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Scholar_Content_Recitation" xml:space="preserve">
+    <value>应急战术</value>
+  </data>
+  <data name="Dragoon_Content_Nastrond" xml:space="preserve">
+    <value>死者之岸</value>
+  </data>
+  <data name="Generic_Sen" xml:space="preserve">
+    <value>闪</value>
+  </data>
+  <data name="Generic_Palettes" xml:space="preserve">
+    <value>调色板</value>
+  </data>
+  <data name="Generic_Is_Role" xml:space="preserve">
+    <value>是职能</value>
+  </data>
+  <data name="Generic_Combat" xml:space="preserve">
+    <value>战斗</value>
+  </data>
+  <data name="Generic_By_Player" xml:space="preserve">
+    <value>由玩家</value>
+  </data>
+  <data name="DarkKnight_Content_BloodSpiller" xml:space="preserve">
+    <value>血溅</value>
+  </data>
+  <data name="Scholar_Content_Excog" xml:space="preserve">
+    <value>深谋远虑之策</value>
+  </data>
+  <data name="Scholar_Content_Expedient" xml:space="preserve">
+    <value>疾风怒涛之策</value>
+  </data>
+  <data name="DarkKnight_Content_Delirium" xml:space="preserve">
+    <value>错乱剑</value>
+  </data>
+  <data name="Generic_Last_Spell" xml:space="preserve">
+    <value>上一个技能</value>
+  </data>
+  <data name="Generic_Toggles" xml:space="preserve">
+    <value>切换选项</value>
+  </data>
+  <data name="Astrologian_Content_Helios" xml:space="preserve">
+    <value>阳星</value>
+  </data>
+  <data name="Sage_Content_Eukrasia" xml:space="preserve">
+    <value>均衡</value>
+  </data>
+  <data name="Astrologian_Content_Horoscope" xml:space="preserve">
+    <value>天宫图</value>
+  </data>
+  <data name="Generic_Dispels" xml:space="preserve">
+    <value>驱散</value>
+  </data>
+  <data name="Generic_Force_Chain_Actions" xml:space="preserve">
+    <value>强制执行连锁动作</value>
+  </data>
+  <data name="Generic_Ninki" xml:space="preserve">
+    <value>忍气</value>
+  </data>
+  <data name="Generic_By_Target_Object" xml:space="preserve">
+    <value>由目标物体</value>
+  </data>
+  <data name="WhiteMage_Content_Cure" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="Machinist_Content_Hypercharge" xml:space="preserve">
+    <value>超荷</value>
+  </data>
+  <data name="Generic_Assize" xml:space="preserve">
+    <value>法令</value>
+  </data>
+  <data name="Generic_Machinist" xml:space="preserve">
+    <value>机工士</value>
+  </data>
+  <data name="Generic_Delete_Action" xml:space="preserve">
+    <value>删除动作</value>
+  </data>
+  <data name="Generic_Enemies_Nearby" xml:space="preserve">
+    <value>附近有敌人</value>
+  </data>
+  <data name="Generic_Target_Name" xml:space="preserve">
+    <value>目标名称</value>
+  </data>
+  <data name="Summoner_Content_Fester" xml:space="preserve">
+    <value>溃烂</value>
+  </data>
+  <data name="Generic_Alliance" xml:space="preserve">
+    <value>团队</value>
+  </data>
+  <data name="DarkKnight_Content_Oblation" xml:space="preserve">
+    <value>献奉</value>
+  </data>
+  <data name="Scholar_Content_Lustrate" xml:space="preserve">
+    <value>生命活性法</value>
+  </data>
+  <data name="Dragoon_Content_Starcross" xml:space="preserve">
+    <value>渡星冲</value>
+  </data>
+  <data name="Gunbreaker_Content_Nebula" xml:space="preserve">
+    <value>星云</value>
+  </data>
+  <data name="Generic_Viper" xml:space="preserve">
+    <value>蝰蛇</value>
+  </data>
+  <data name="Gunbreaker_Content_BlastingZone" xml:space="preserve">
+    <value>爆破领域</value>
+  </data>
+  <data name="Paladin_Content_Sepulchre" xml:space="preserve">
+    <value>葬送剑</value>
+  </data>
+  <data name="Generic_Chakra" xml:space="preserve">
+    <value>内丹</value>
+  </data>
+  <data name="Generic_Summoner" xml:space="preserve">
+    <value>召唤师</value>
+  </data>
+  <data name="Summoner_Content_Deathflare" xml:space="preserve">
+    <value>死星核爆</value>
+  </data>
+  <data name="Generic_Cooldowns" xml:space="preserve">
+    <value>冷却</value>
+  </data>
+  <data name="Generic_Above" xml:space="preserve">
+    <value>高于</value>
+  </data>
+  <data name="Generic_On_Target" xml:space="preserve">
+    <value>对目标</value>
+  </data>
+  <data name="Summoner_Content_Carbuncle" xml:space="preserve">
+    <value>宝石兽</value>
+  </data>
+  <data name="RedMage_Content_Engagement" xml:space="preserve">
+    <value>交剑</value>
+  </data>
+  <data name="Gunbreaker_Content_Camouflage" xml:space="preserve">
+    <value>伪装</value>
+  </data>
+  <data name="Generic_Black_Mage" xml:space="preserve">
+    <value>黑魔法师</value>
+  </data>
+  <data name="Dancer_Content_Bladeshower" xml:space="preserve">
+    <value>落刃雨</value>
+  </data>
+  <data name="Paladin_Content_GoringBlade" xml:space="preserve">
+    <value>沥血剑</value>
+  </data>
+  <data name="RedMage_Content_Embolden" xml:space="preserve">
+    <value>鼓励</value>
+  </data>
+  <data name="Warrior_Content_Reprisal" xml:space="preserve">
+    <value>雪仇</value>
+  </data>
+  <data name="Generic_Unless" xml:space="preserve">
+    <value>除非</value>
+  </data>
+  <data name="Bard_Content_Barrage" xml:space="preserve">
+    <value>纷乱箭</value>
+  </data>
+  <data name="Machinist_Content_Drill" xml:space="preserve">
+    <value>钻头</value>
+  </data>
+  <data name="Generic_Tanks" xml:space="preserve">
+    <value>坦克</value>
+  </data>
+  <data name="Astrologian_Content_Oracle" xml:space="preserve">
+    <value>神谕</value>
+  </data>
+  <data name="Machinist_Content_Ricochet" xml:space="preserve">
+    <value>弹射</value>
+  </data>
+  <data name="Generic_Is_Healer" xml:space="preserve">
+    <value>是治疗职业</value>
+  </data>
+  <data name="Generic_Esprit" xml:space="preserve">
+    <value>圣灵领域</value>
+  </data>
+  <data name="Generic_Has_Getsu" xml:space="preserve">
+    <value>拥有“月”闪</value>
+  </data>
+  <data name="Generic_Remove_Condition" xml:space="preserve">
+    <value>移除条件</value>
+  </data>
+  <data name="Sage_Content_Panhaima" xml:space="preserve">
+    <value>泛输血</value>
+  </data>
+  <data name="Sage_Content_Krasis" xml:space="preserve">
+    <value>混合</value>
+  </data>
+  <data name="Generic_Songs" xml:space="preserve">
+    <value>唱歌</value>
+  </data>
+  <data name="Generic_Below" xml:space="preserve">
+    <value>低于</value>
+  </data>
+  <data name="Generic_Target" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Generic_Is_Job" xml:space="preserve">
+    <value>是职业</value>
+  </data>
+  <data name="Paladin_Content_Provoke" xml:space="preserve">
+    <value>挑衅</value>
+  </data>
+  <data name="Machinist_Content_Wildfire" xml:space="preserve">
+    <value>野火</value>
+  </data>
+  <data name="Astrologian_Content_Combust" xml:space="preserve">
+    <value>烧灼</value>
+  </data>
+  <data name="Generic_Has_Target" xml:space="preserve">
+    <value>有目标</value>
+  </data>
+  <data name="Dragoon_Content_Stardiver" xml:space="preserve">
+    <value>坠星冲</value>
+  </data>
+  <data name="Monk_Content_Brotherhood" xml:space="preserve">
+    <value>义结金兰</value>
+  </data>
+  <data name="RedMage_Content_Resolution" xml:space="preserve">
+    <value>决断</value>
+  </data>
+  <data name="Generic_Enmity" xml:space="preserve">
+    <value>仇恨</value>
+  </data>
+  <data name="Ninja_Content_Dokumori" xml:space="preserve">
+    <value>介毒之术</value>
+  </data>
+  <data name="Sage_Content_Ixochole" xml:space="preserve">
+    <value>寄生清汁</value>
+  </data>
+  <data name="Generic_Aggro" xml:space="preserve">
+    <value>仇恨</value>
+  </data>
+  <data name="Generic_Aetherpact" xml:space="preserve">
+    <value>以太契约</value>
+  </data>
+  <data name="BlackMage_Content_Despair" xml:space="preserve">
+    <value>绝望</value>
+  </data>
+  <data name="Generic_On_Anyone" xml:space="preserve">
+    <value>对任何人</value>
+  </data>
+  <data name="Scholar_Content_Succor" xml:space="preserve">
+    <value>士气高扬之策</value>
+  </data>
+  <data name="RedMage_Content_Fleche" xml:space="preserve">
+    <value>飞刺</value>
+  </data>
+  <data name="Generic_Add_New_Gambit_Group" xml:space="preserve">
+    <value>新增策略组</value>
+  </data>
+  <data name="Generic_Dragoon_Gauge" xml:space="preserve">
+    <value>龙骑士量谱</value>
+  </data>
+  <data name="Generic_Show_All" xml:space="preserve">
+    <value>显示全部</value>
+  </data>
+  <data name="Generic_Utilities_Space" xml:space="preserve">
+    <value>实用工具</value>
+  </data>
+  <data name="Scholar_Content_Adloquium" xml:space="preserve">
+    <value>鼓舞</value>
+  </data>
+  <data name="Astrologian_Content_Benefic" xml:space="preserve">
+    <value>吉星</value>
+  </data>
+  <data name="Generic_Player_Not_In_Combat" xml:space="preserve">
+    <value>玩家不在战斗中</value>
+  </data>
+  <data name="Generic_Player_Has_Aura" xml:space="preserve">
+    <value>玩家有光环/状态</value>
+  </data>
+  <data name="Generic_Player_In_Combat" xml:space="preserve">
+    <value>玩家在战斗中</value>
+  </data>
+  <data name="Samurai_Content_Zanshin" xml:space="preserve">
+    <value>残心</value>
+  </data>
+  <data name="WhiteMage_Content_Benediction" xml:space="preserve">
+    <value>天赐祝福</value>
+  </data>
+  <data name="Paladin_Content_Supplication" xml:space="preserve">
+    <value>哀诉</value>
+  </data>
+  <data name="Generic_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Sage_Content_Physis" xml:space="preserve">
+    <value>自生</value>
+  </data>
+  <data name="Astrologian_Content_Lightspeed" xml:space="preserve">
+    <value>光速</value>
+  </data>
+  <data name="Generic_Healing" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="Astrologian_Content_Knockback" xml:space="preserve">
+    <value>击退</value>
+  </data>
+  <data name="Generic_Shields" xml:space="preserve">
+    <value>护盾</value>
+  </data>
+  <data name="Generic_Has_Aura" xml:space="preserve">
+    <value>有光环/状态</value>
+  </data>
+  <data name="Generic_Paint_Space" xml:space="preserve">
+    <value>绘画</value>
+  </data>
+  <data name="Dragoon_Content_Jump" xml:space="preserve">
+    <value>Jump= 跳跃</value>
+  </data>
+  <data name="Generic_Pets" xml:space="preserve">
+    <value>宠物</value>
+  </data>
+  <data name="Generic_Has_Chain" xml:space="preserve">
+    <value>有连锁</value>
+  </data>
+  <data name="RedMage_Content_Verraise" xml:space="preserve">
+    <value>赤复活</value>
+  </data>
+  <data name="Scholar_Content_Bio" xml:space="preserve">
+    <value>毒菌</value>
+  </data>
+  <data name="RedMage_Content_Acceleration" xml:space="preserve">
+    <value>促进</value>
+  </data>
+  <data name="Machinist_Content_FullMetalField" xml:space="preserve">
+    <value>全金属爆发</value>
+  </data>
+  <data name="Sage_Content_Kardia" xml:space="preserve">
+    <value>心关</value>
+  </data>
+  <data name="Generic_Scholar" xml:space="preserve">
+    <value>学者</value>
+  </data>
+  <data name="Sage_Content_Druochole" xml:space="preserve">
+    <value>灵橡清汁</value>
+  </data>
+  <data name="Viper_Content_Vicepit" xml:space="preserve">
+    <value>强碎灵蝰</value>
+  </data>
+  <data name="Generic_On_Me" xml:space="preserve">
+    <value>对我自己</value>
+  </data>
+  <data name="Generic_Percent" xml:space="preserve">
+    <value>百分比</value>
+  </data>
+  <data name="Summoner_Content_Auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="RedMage_Content_Manafication" xml:space="preserve">
+    <value>魔元化</value>
+  </data>
+  <data name="Generic_Use_Only_Once_Per_Combat" xml:space="preserve">
+    <value>每次战斗仅使用一次</value>
+  </data>
+  <data name="Generic_Feather" xml:space="preserve">
+    <value>尾羽</value>
+  </data>
+  <data name="Scholar_Content_Accession" xml:space="preserve">
+    <value>降临之章</value>
+  </data>
+  <data name="Generic_Utilities" xml:space="preserve">
+    <value>实用工具</value>
+  </data>
+  <data name="Generic_LockOns" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="Generic_Does_Not_Have_Aura" xml:space="preserve">
+    <value>没有光环/状态</value>
+  </data>
+  <data name="WhiteMage_Content_Aquaveil" xml:space="preserve">
+    <value>水流幕</value>
+  </data>
+  <data name="Sage_Content_Kerachole" xml:space="preserve">
+    <value>坚角清汁</value>
+  </data>
+  <data name="WhiteMage_Content_Knockback" xml:space="preserve">
+    <value>击退</value>
+  </data>
+  <data name="Sage_Content_Pneuma" xml:space="preserve">
+    <value>魂灵风息</value>
+  </data>
+  <data name="Paladin_Content_Confiteor" xml:space="preserve">
+    <value>悔罪</value>
+  </data>
+  <data name="Generic_Recover_Old_Gambits" xml:space="preserve">
+    <value>恢复旧策略</value>
+  </data>
+  <data name="Generic_Only_Use_In_Chain" xml:space="preserve">
+    <value>仅在连锁期间使用</value>
+  </data>
+  <data name="Sage_Content_Prognosis" xml:space="preserve">
+    <value>预后</value>
+  </data>
+  <data name="Machinist_Content_BioBlaster" xml:space="preserve">
+    <value>毒菌冲击</value>
+  </data>
+  <data name="Generic_Above_Or_Equal" xml:space="preserve">
+    <value>大于或等于</value>
+  </data>
+  <data name="Generic_Heat" xml:space="preserve">
+    <value>枪管热度</value>
+  </data>
+  <data name="Generic_Gunbreaker" xml:space="preserve">
+    <value>绝枪战士</value>
+  </data>
+  <data name="Paladin_Content_Cover" xml:space="preserve">
+    <value>保护</value>
+  </data>
+  <data name="Generic_Reaper" xml:space="preserve">
+    <value>镰刀</value>
+  </data>
+  <data name="DarkKnight_Content_Plunge" xml:space="preserve">
+    <value>跳斩</value>
+  </data>
+  <data name="Generic_Has_Ka" xml:space="preserve">
+    <value>拥有“花”闪</value>
+  </data>
+  <data name="Generic_Repertoire" xml:space="preserve">
+    <value>诗心</value>
+  </data>
+  <data name="Generic_Kenki" xml:space="preserve">
+    <value>剑气</value>
+  </data>
+  <data name="Astrologian_Content_Macrocosmos" xml:space="preserve">
+    <value>大宇宙</value>
+  </data>
+  <data name="Generic_Tankbusters" xml:space="preserve">
+    <value>死刑</value>
+  </data>
+  <data name="Generic_White_Mage" xml:space="preserve">
+    <value>白魔法师</value>
+  </data>
+  <data name="Warrior_Content_Provoke" xml:space="preserve">
+    <value>挑衅</value>
+  </data>
+  <data name="WhiteMage_Content_Raise" xml:space="preserve">
+    <value>复活</value>
+  </data>
+  <data name="Scholar_Content_Protraction" xml:space="preserve">
+    <value>生命回生之策</value>
+  </data>
+  <data name="Generic_Must_Be_Ally" xml:space="preserve">
+    <value>必须是队友</value>
+  </data>
+  <data name="BlackMage_Content_Paradox" xml:space="preserve">
+    <value>悖论</value>
   </data>
 </root>
