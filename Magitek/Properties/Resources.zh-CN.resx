@@ -199,10 +199,10 @@
     <value>悬浮窗设置</value>
   </data>
   <data name="Views_Text_Settings_Overlay_Size" xml:space="preserve">
-    <value>设置悬浮窗大小</value>
+    <value>设置悬浮窗大小：</value>
   </data>
   <data name="Views_Text_Font_Size" xml:space="preserve">
-    <value>字体大小</value>
+    <value>字体大小：</value>
   </data>
   <data name="Views_Content_Activate_Combat_Routine" xml:space="preserve">
     <value>激活战斗程序</value>
@@ -313,7 +313,7 @@
     <value>至少使用天宫图</value>
   </data>
   <data name="Astrologian_Text_Seconds_Left_in_Combat" xml:space="preserve">
-    <value>倒计时</value>
+    <value>倒计时.</value>
   </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>卡片优先级（从第一张到最后一张）</value>
@@ -418,16 +418,16 @@
     <value>当有   时使用重力</value>
   </data>
   <data name="Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an" xml:space="preserve">
-    <value>“光速”、“地星”、“小宇宙”好了就用（非常浪费）</value>
+    <value>“光速”、“地星”、“小宇宙”好了就用（非常浪费）.</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
-    <value>队友生命值百分比</value>
+    <value>队友HP%百分比</value>
   </data>
   <data name="Astrologian_Text_Tank_Only_at" xml:space="preserve">
     <value>仅限坦克在</value>
   </data>
   <data name="Astrologian_Text_Health_Percent_and" xml:space="preserve">
-    <value>HP生命值%</value>
+    <value>HP生命值%和</value>
   </data>
   <data name="Astrologian_Text_Minimum_Mana_To_Use" xml:space="preserve">
     <value>最低MP法力值使用</value>
@@ -463,16 +463,16 @@
     <value>命运之轮</value>
   </data>
   <data name="Astrologian_Text_AoE_Heal_When_Allies_Need_Healing" xml:space="preserve">
-    <value>当队友需要治疗时使用群体治疗</value>
+    <value>当队友需要治疗时使用群体治疗 -</value>
   </data>
   <data name="Astrologian_Text_Light_Party" xml:space="preserve">
-    <value>4人小队</value>
+    <value>4人小队：</value>
   </data>
   <data name="Astrologian_Text_Full_Party" xml:space="preserve">
-    <value>8人小队</value>
+    <value>8人小队：</value>
   </data>
   <data name="Astrologian_Text_Resurrection_Delay" xml:space="preserve">
-    <value>延迟复活</value>
+    <value>延迟复活：</value>
   </data>
   <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
     <value>队友生命值低于</value>
@@ -487,7 +487,7 @@
     <value>星体爆炸 如果</value>
   </data>
   <data name="Astrologian_Text_Fight_Logic" xml:space="preserve">
-    <value>战斗逻辑</value>
+    <value>战斗逻辑：</value>
   </data>
   <data name="Astrologian_Content_Swiftcast_Ascend" xml:space="preserve">
     <value>即刻复活</value>
@@ -502,7 +502,7 @@
     <value>先天禀赋</value>
   </data>
   <data name="Astrologian_Content_Collective_Unco" xml:space="preserve">
-    <value>命运之轮</value>
+    <value>命运之轮.</value>
   </data>
   <data name="Astrologian_Content_Synastry_When" xml:space="preserve">
     <value>使用星位合图 当</value>
@@ -517,19 +517,19 @@
     <value>插入治疗能力技</value>
   </data>
   <data name="Astrologian_ToolTip_This_will_automatically_cast_f" xml:space="preserve">
-    <value>自动对坦克职业使用。如果“擢升”禁用则无效</value>
+    <value>自动对坦克职业使用。如果“擢升”禁用则无效.</value>
   </data>
   <data name="Astrologian_ToolTip_This_will_automatically_cast_C" xml:space="preserve">
-    <value>AOE时尝试使用“命运之轮”。如果“光速”禁用则无效</value>
+    <value>AOE时尝试使用“命运之轮”。如果“光速”禁用则无效.</value>
   </data>
   <data name="Astrologian_ToolTip_This_will_automatically_cast_M" xml:space="preserve">
-    <value>超大AOE时尝试使用“大宇宙”。如果“光速”禁用则无效</value>
+    <value>超大AOE时尝试使用“大宇宙”。如果“光速”禁用则无效.</value>
   </data>
   <data name="Astrologian_ToolTip_This_will_automatically_cast_N" xml:space="preserve">
-    <value>若 “大宇宙战斗逻辑” 已启用但无法释放时，面对超大AOE会尝试使用 “中间学派” 与 “阳星相位”。如果“中间学派”禁用则无效</value>
+    <value>若 “大宇宙战斗逻辑” 已启用但无法释放时，面对超大AOE会尝试使用 “中间学派” 与 “阳星相位”。如果“中间学派”禁用则无效.</value>
   </data>
   <data name="Astrologian_ToolTip_This_will_automatically_cast_L" xml:space="preserve">
-    <value>若 “大宇宙战斗逻辑” 及“中间学派战斗逻辑”已启用但无法释放时，面对超大AOE会尝试使用 “光速”。如果“光速”禁用则无效</value>
+    <value>若 “大宇宙战斗逻辑” 及“中间学派战斗逻辑”已启用但无法释放时，面对超大AOE会尝试使用 “光速”。如果“光速”禁用则无效.</value>
   </data>
   <data name="Astrologian_Content_Nocturnal_Benefic" xml:space="preserve">
     <value>吉星相位</value>
@@ -550,10 +550,10 @@
     <value>队友生命值低于</value>
   </data>
   <data name="Astrologian_Text__HP" xml:space="preserve">
-    <value>血量百分比</value>
+    <value>HP%</value>
   </data>
   <data name="Astrologian_Text_Macrocosmos_with_at_least" xml:space="preserve">
-    <value>使用大宇宙至少</value>
+    <value>使用 大宇宙 至少</value>
   </data>
   <data name="Astrologian_Text_enemies_around" xml:space="preserve">
     <value>周围的敌人</value>
@@ -598,7 +598,7 @@
     <value>扇形范围内的敌人</value>
   </data>
   <data name="Bard_Text_Info_on_Buffed_Apex_Experimental" xml:space="preserve">
-    <value>关于强化绝峰箭的信息（实验性）</value>
+    <value>关于强化绝峰箭的信息（实验性）：</value>
   </data>
   <data name="Bard_Content_Quick_Nock" xml:space="preserve">
     <value>连珠箭</value>
@@ -616,7 +616,7 @@
     <value>使用 强化绝峰箭 当 灵魂之声 ≥</value>
   </data>
   <data name="Bard_Text_Selected_Buffing_Strategy" xml:space="preserve">
-    <value>已选择的 唱歌 使用策略</value>
+    <value>选定的增益buffs策略：</value>
   </data>
   <data name="Bard_Text_Seconds_In_Wanderers_Minuet" xml:space="preserve">
     <value>放浪神 的时间</value>
@@ -718,7 +718,7 @@
     <value>使用 直线射击/辉煌箭</value>
   </data>
   <data name="Bard_Text_Selected_Song_Order" xml:space="preserve">
-    <value>所选歌曲顺序</value>
+    <value>所选歌曲顺序：</value>
   </data>
   <data name="Bard_Text_ms_Or_Less_Remain" xml:space="preserve">
     <value>剩余（时间）不超过 [XX] 毫秒</value>
@@ -790,70 +790,70 @@
     <value>施法：</value>
   </data>
   <data name="Bugs_Text_Spell_Target" xml:space="preserve">
-    <value>施法目标</value>
+    <value>施法目标：</value>
   </data>
   <data name="Bugs_Text_Casting_Time" xml:space="preserve">
     <value>施法时间：</value>
   </data>
   <data name="Bugs_Text_Casting_Heal" xml:space="preserve">
-    <value>施法治疗术</value>
+    <value>施法治疗术：</value>
   </data>
   <data name="Bugs_Text_Health_Checks" xml:space="preserve">
-    <value>血量检测</value>
+    <value>血量检测：</value>
   </data>
   <data name="Bugs_Text_Need_Aura" xml:space="preserve">
-    <value>需要光环buff</value>
+    <value>需要光环buff：</value>
   </data>
   <data name="Bugs_Text_Aura" xml:space="preserve">
-    <value>光环buff</value>
+    <value>光环buff：</value>
   </data>
   <data name="Bugs_Text_Use_Refresh_Time" xml:space="preserve">
-    <value>使用刷新时间</value>
+    <value>使用刷新时间：</value>
   </data>
   <data name="Bugs_Text_Refresh_Time" xml:space="preserve">
-    <value>刷新时间</value>
+    <value>刷新时间：</value>
   </data>
   <data name="Bugs_Text_Last_Spell" xml:space="preserve">
-    <value>上次施法</value>
+    <value>上次施法：</value>
   </data>
   <data name="Bugs_Text_Casting_Gambit" xml:space="preserve">
-    <value>施法策略</value>
+    <value>施法策略：</value>
   </data>
   <data name="Bugs_Text_Action_Lock" xml:space="preserve">
-    <value>动画锁</value>
+    <value>动画锁：</value>
   </data>
   <data name="Bugs_Text_Action_Queued" xml:space="preserve">
-    <value>技能队列</value>
+    <value>技能队列：</value>
   </data>
   <data name="Bugs_Text_Current_Target_Boss" xml:space="preserve">
-    <value>当前目标怪</value>
+    <value>当前目标boss？：</value>
   </data>
   <data name="Bugs_Text_In_Combat_Time" xml:space="preserve">
-    <value>战斗时间</value>
+    <value>战斗时间：</value>
   </data>
   <data name="Bugs_Text_Out_Of_Combat_Time" xml:space="preserve">
-    <value>非战斗时间</value>
+    <value>非战斗时间：</value>
   </data>
   <data name="Bugs_Text_In_Combat_Moving_Time" xml:space="preserve">
-    <value>战斗中移动时间</value>
+    <value>战斗中移动时间：</value>
   </data>
   <data name="Bugs_Text_Not_Moving_In_Combat_Time" xml:space="preserve">
-    <value>战斗中不移动时间</value>
+    <value>战斗中不移动时间：</value>
   </data>
   <data name="Bugs_Text_Duty_State" xml:space="preserve">
-    <value>日常状态</value>
+    <value>日常状态：</value>
   </data>
   <data name="Bugs_Text_Time_In_Duty" xml:space="preserve">
-    <value>日常时间</value>
+    <value>日常时间：</value>
   </data>
   <data name="Bugs_Text_Time_Left_In_Combat" xml:space="preserve">
-    <value>战斗剩余时间</value>
+    <value>战斗倒计时：</value>
   </data>
   <data name="Bugs_Text_Current_Target_Combat_Time_Left" xml:space="preserve">
-    <value>当前目标剩余战斗时间</value>
+    <value>当前目标剩余战斗时间：</value>
   </data>
   <data name="Bugs_Text_Spell_Queues_Includes_Opener" xml:space="preserve">
-    <value>施法队列（包含开场技能）</value>
+    <value>施法队列（包含开场技能）：</value>
   </data>
   <data name="Bugs_Content_Use_Cast_Or_Queue" xml:space="preserve">
     <value>使用施法或队列</value>
@@ -1105,7 +1105,7 @@
     <value>范围内</value>
   </data>
   <data name="Dragoon_Content_AOE_When_There_Are" xml:space="preserve">
-    <value>当有……时使用范围攻击</value>
+    <value>当有[xx]时使用范围攻击</value>
   </data>
   <data name="Dragoon_Text_Dragon_Sight_on" xml:space="preserve">
     <value>巨龙视线 开启：</value>
@@ -1198,7 +1198,7 @@
     <value>使用 爆破领域</value>
   </data>
   <data name="Gunbreaker_Content_Use_Aoe_when_at_least" xml:space="preserve">
-    <value>当至少……时使用范围攻击</value>
+    <value>当至少[xx]时使用范围攻击</value>
   </data>
   <data name="Gunbreaker_Content_Hold_No_Mercy_until_Combo_is_re" xml:space="preserve">
     <value>保留 无情 直到连击就绪</value>
@@ -1210,13 +1210,13 @@
     <value>光之心</value>
   </data>
   <data name="Gunbreaker_Content_Use_Super_Bolide_under" xml:space="preserve">
-    <value>在……下使用超火流星</value>
+    <value>在[xx]下使用超火流星</value>
   </data>
   <data name="Gunbreaker_Content_FightLogic_Use_Heart_Of_Light" xml:space="preserve">
     <value>战斗逻辑：使用光之心</value>
   </data>
   <data name="Gunbreaker_Text_if_under" xml:space="preserve">
-    <value>如果在……下</value>
+    <value>如果在[xx]下</value>
   </data>
   <data name="Gunbreaker_Content_Use_Aurora" xml:space="preserve">
     <value>使用极光</value>
@@ -1252,7 +1252,7 @@
     <value>仅在近战范围内使用 粗分斩</value>
   </data>
   <data name="Gunbreaker_Content_Relentless_Rush_LB_when_there_i" xml:space="preserve">
-    <value>连续剑 / LB极限技，当至少有……</value>
+    <value>连续剑 / LB极限技，当至少有</value>
   </data>
   <data name="Gunbreaker_Content_Heart_of_Corundum" xml:space="preserve">
     <value>刚玉之心</value>
@@ -1300,10 +1300,10 @@
     <value>链锯 / 回转飞锯</value>
   </data>
   <data name="Machinist_Content_Delay_Hypercharge_when_Drill_AA_" xml:space="preserve">
-    <value>当钻头/空气锚/链锯有……时，延迟超荷</value>
+    <value>当钻头/空气锚/链锯有[xx]时，延迟超荷</value>
   </data>
   <data name="Machinist_Content_Delay_Wildfire_when_DrillAir_Anc" xml:space="preserve">
-    <value>当钻头/空气锚/链锯有……时，延迟野火</value>
+    <value>当钻头/空气锚/链锯有[xx]时，延迟野火</value>
   </data>
   <data name="Machinist_Content_FightLogic_Use_Tactitian" xml:space="preserve">
     <value>战斗逻辑：使用 策动</value>
@@ -1315,13 +1315,13 @@
     <value>附近的敌人</value>
   </data>
   <data name="Machinist_Text_Dont_use_MarksmansSpite_if_target_h" xml:space="preserve">
-    <value>如果目标有超过……的队友作为目标，则不要使用 魔弹射手</value>
+    <value>如果目标有超过[xx]的队友作为目标，则不要使用 魔弹射手</value>
   </data>
   <data name="Machinist_Text_allies_targeting_it" xml:space="preserve">
     <value>队友作为目标</value>
   </data>
   <data name="Machinist_Text_Use_Analysis_on" xml:space="preserve">
-    <value>在……时使用分析</value>
+    <value>在[xx]时使用分析</value>
   </data>
   <data name="Machinist_Content_Full_Metal_Field" xml:space="preserve">
     <value>全金属爆发</value>
@@ -1330,13 +1330,13 @@
     <value>为 野火 保留</value>
   </data>
   <data name="Machinist_Content_Bishop_Autoturret_on_target_when" xml:space="preserve">
-    <value>当至少有……时，对目标使用主教自动炮塔</value>
+    <value>当至少有[xx]时，对目标使用主教自动炮塔</value>
   </data>
   <data name="Machinist_Content_MarksmansSpite_LB_target_at" xml:space="preserve">
-    <value>魔弹射手 /  LB极限技，在……</value>
+    <value>魔弹射手 /  LB极限技，在[xx]</value>
   </data>
   <data name="Generic_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
-    <value />
+    <value>对任意血量低于阈值的敌人使用极限技(LB)，而不仅限于当前目标</value>
   </data>
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
     <value>如果启用，当 野火 即将冷却完毕时，会保留全金属领域</value>
@@ -1354,7 +1354,7 @@
     <value>电能量谱</value>
   </data>
   <data name="Machinist_Content_Summon_Rook_AutoTurret_Queen_at" xml:space="preserve">
-    <value>在……时召唤车式浮空炮塔 / 自动 后式自走人偶</value>
+    <value>在[xx]时召唤车式浮空炮塔 / 自动 后式自走人偶</value>
   </data>
   <data name="Monk_Content_Use_AOE_When_There_Are" xml:space="preserve">
     <value>在出现以下情况时使用 AOE</value>
@@ -1477,10 +1477,10 @@
     <value>Magitek 会自动检测您当前的幻影职业，并据此使用相应的技能.</value>
   </data>
   <data name="OccultCrescent_Text_Party_buff_refresh_time" xml:space="preserve">
-    <value>团队增益刷新时间</value>
+    <value>团队增益刷新时间:</value>
   </data>
   <data name="OccultCrescent_Text_Party_buff_refresh_time_contro" xml:space="preserve">
-    <value>此设置用于控制在“知见水晶”附近时，何时重新施加长持续时间的团队增益</value>
+    <value>此设置用于控制在“知见水晶”附近时，何时重新施加长持续时间的团队增益.</value>
   </data>
   <data name="OccultCrescent_Text_In_combat_Uses_SwiftcastDualca" xml:space="preserve">
     <value>战斗中：仅使用“瞬发”/“连续咏唱”。非战斗中：优先使用“瞬发”，若需要则进行读条.</value>
@@ -1501,7 +1501,7 @@
     <value>当HP低于</value>
   </data>
   <data name="OccultCrescent_Text_Regen_when_HP_below" xml:space="preserve">
-    <value>当HP低于...时施放持续恢复</value>
+    <value>当HP低于[xx]时施放持续恢复</value>
   </data>
   <data name="OccultCrescent_Text_Phantom_Monk" xml:space="preserve">
     <value>辅助武僧</value>
@@ -1528,7 +1528,7 @@
     <value>辅助炮击士</value>
   </data>
   <data name="OccultCrescent_Text_Grouped_abilities_share_restri" xml:space="preserve">
-    <value>分组的技能会共用其注明的限制条件</value>
+    <value>分组的技能会共用其注明的限制条件.</value>
   </data>
   <data name="OccultCrescent_Text_Phantom_Time_Mage" xml:space="preserve">
     <value>辅助时魔法师</value>
@@ -1633,7 +1633,7 @@
     <value>使用 英雄之歌 (团队伤害/治疗+10% - 120秒冷却)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Mighty_March_below" xml:space="preserve">
-    <value>在...以下使用 体力之歌</value>
+    <value>在[xx]以下使用 体力之歌</value>
   </data>
   <data name="OccultCrescent_Content_On_Allies" xml:space="preserve">
     <value>对队友</value>
@@ -1648,10 +1648,10 @@
     <value>使用 祈祷 (仅限战斗中持续恢复 - 知见水晶团辅为自动)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Heal_below" xml:space="preserve">
-    <value>在...以下使用 魔疗愈</value>
+    <value>在[xx]以下使用 魔疗愈</value>
   </data>
   <data name="OccultCrescent_Content_Use_Pledge_below" xml:space="preserve">
-    <value>在...以下使用 起誓</value>
+    <value>在[xx]以下使用 起誓</value>
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Kick" xml:space="preserve">
     <value>使用 踢击</value>
@@ -1666,7 +1666,7 @@
     <value>使用反击 架招(仅限战斗中招架增益 - 知见水晶移速为自动)</value>
   </data>
   <data name="OccultCrescent_Content_Use_OccultChakra_below" xml:space="preserve">
-    <value>在...以下使用 魔脉轮</value>
+    <value>在[xx]以下使用 魔脉轮</value>
   </data>
   <data name="OccultCrescent_Content_Use_Deadly_Blow_High_damage" xml:space="preserve">
     <value>使用 一击 (基于已损失HP造成高额伤害)</value>
@@ -1681,13 +1681,13 @@
     <value>在非战斗中复活</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Potion_below" xml:space="preserve">
-    <value>在...以下使用 魔恢复药</value>
+    <value>在[xx]以下使用 魔恢复药</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Ether_below" xml:space="preserve">
-    <value>在...以下使用 魔以太药</value>
+    <value>在[xx]以下使用 魔以太药</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Elixir_when" xml:space="preserve">
-    <value>当...时使用 魔圣灵药</value>
+    <value>当[xx]时使用 魔圣灵药</value>
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Fire_Standard_r" xml:space="preserve">
     <value>使用 炮击(标准远程攻击)</value>
@@ -1729,7 +1729,7 @@
     <value>使用 魔猎鹰 (范围攻击)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Unicorn_below" xml:space="preserve">
-    <value>在...以下使用 魔独角兽</value>
+    <value>在[xx]以下使用 魔独角兽</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Sprint_Greatly_i" xml:space="preserve">
     <value>使用 魔冲刺 (大幅提升移动速度)</value>
@@ -1738,10 +1738,10 @@
     <value>仅在战斗中使用 魔冲刺</value>
   </data>
   <data name="OccultCrescent_Content_Use_Steal_when_enemy_below" xml:space="preserve">
-    <value>当敌人...以下时使用 潜行</value>
+    <value>当敌人[xx]以下时使用 潜行</value>
   </data>
   <data name="OccultCrescent_Content_Use_Vigilance_within" xml:space="preserve">
-    <value>在...范围内使用警戒</value>
+    <value>在[xx]范围内使用警戒</value>
   </data>
   <data name="OccultCrescent_Content_Use_Pilfer_Weapon_Lowers_ta" xml:space="preserve">
     <value>使用 偷盗武器 (降低目标10%物理攻击力)</value>
@@ -1750,7 +1750,7 @@
     <value>使用 刀背击打 的击晕策略：</value>
   </data>
   <data name="OccultCrescent_Content_Use_Shirahadori_below" xml:space="preserve">
-    <value>在...以下使用 空手接白刃</value>
+    <value>在[xx]以下使用 空手接白刃</value>
   </data>
   <data name="OccultCrescent_Content_Use_Iainuki_Cone_attack_wit" xml:space="preserve">
     <value>使用 居合斩 (锥形范围攻击，有即死几率)</value>
@@ -1762,22 +1762,22 @@
     <value>使用 预言 (获得随机预言)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Judgment_when_p" xml:space="preserve">
-    <value>当团队...以下时使用 魔审判</value>
+    <value>当团队[xx]以下时使用 魔审判</value>
   </data>
   <data name="OccultCrescent_Content_Use_Blessing_when_party_bel" xml:space="preserve">
-    <value>当团队...以下时使用 加护</value>
+    <value>当团队[xx]以下时使用 加护</value>
   </data>
   <data name="OccultCrescent_Content_Use_Cleansing_when_party_ab" xml:space="preserve">
-    <value>当团队...以上时使用 净化</value>
+    <value>当团队[xx]以上时使用 净化</value>
   </data>
   <data name="OccultCrescent_Content_Use_Starfall_when_above" xml:space="preserve">
-    <value>当高于...时使用 陨石</value>
+    <value>当高于[xx]时使用 陨石</value>
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Rejuvenation_be" xml:space="preserve">
-    <value>在...以下使用 治愈宣告</value>
+    <value>在[xx]以下使用 治愈宣告</value>
   </data>
   <data name="OccultCrescent_Content_Use_Invulnerability_below" xml:space="preserve">
-    <value>在...以下使用 不死宣告</value>
+    <value>在[xx]以下使用 不死宣告</value>
   </data>
   <data name="OccultCrescent_Content_Use_Battle_Bell_Damage_boos" xml:space="preserve">
     <value>使用 战斗之铃 (受伤时叠加的伤害增益)</value>
@@ -1795,7 +1795,7 @@
     <value>浮空 整个团队</value>
   </data>
   <data name="OccultCrescent_Content_Use_Sunbath_below" xml:space="preserve">
-    <value>在...以下使用 日光浴</value>
+    <value>在[xx]以下使用 日光浴</value>
   </data>
   <data name="OccultCrescent_Content_Use_Cloudy_Caress_Increases" xml:space="preserve">
     <value>使用 晚风凉 (提升30%治疗效果)</value>
@@ -1813,7 +1813,7 @@
     <value>使用 以太浴 (提升10%造成伤害)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Dokumori_when_enemy_bel" xml:space="preserve">
-    <value>当敌人...以下时使用 介毒之术</value>
+    <value>当敌人[xx]以下时使用 介毒之术</value>
   </data>
   <data name="OccultCrescent_Content_Only_use_Dokumori_on_multip" xml:space="preserve">
     <value>仅对复数目标(2+敌人)使用 介毒之术</value>
@@ -1861,7 +1861,7 @@
     <value>在战逃反应期间保留 赎罪剑和圣灵 (实验性)</value>
   </data>
   <data name="Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_" xml:space="preserve">
-    <value>= 只要蓝量 &gt;= ...就使用圣灵</value>
+    <value>只要蓝量 &gt;= [xx]就使用圣灵</value>
   </data>
   <data name="Paladin_Content_Only_under_Divine_Might_Aura" xml:space="preserve">
     <value>仅在“神圣魔法效果提高”状态下。</value>
@@ -1873,10 +1873,10 @@
     <value>使用范围攻击 (全蚀斩连击, 圣环)</value>
   </data>
   <data name="Paladin_Content_Use_Eclipse_Prominence_combo_with_" xml:space="preserve">
-    <value>至少有...时使用 日蚀/王权剑连击</value>
+    <value>至少有[xx]时使用 日蚀/王权剑连击</value>
   </data>
   <data name="Paladin_Content_Use_HolyCircle_with_at_least" xml:space="preserve">
-    <value>至少有...时使用 圣环</value>
+    <value>至少有[xx]时使用 圣环</value>
   </data>
   <data name="Paladin_Content_Use_Confiteor_Combo_Blade_Of_Faith" xml:space="preserve">
     <value>使用 悔罪连击 (信念之剑 + 真理之剑 + 勇气之剑)</value>
@@ -1888,7 +1888,7 @@
     <value>使用赎罪 / 深奥之灵</value>
   </data>
   <data name="Paladin_Content_Save_Circle_Of_Scorn_Expiacon_when" xml:space="preserve">
-    <value>当 战逃反应 剩余时间低于...时保留 沥血剑/赎罪</value>
+    <value>当 战逃反应 剩余时间低于[xx]时保留 沥血剑/赎罪</value>
   </data>
   <data name="Paladin_Content_Use_Shield_Bash" xml:space="preserve">
     <value>使用盾牌猛击</value>
@@ -1903,13 +1903,13 @@
     <value>使用 圣光幕帘</value>
   </data>
   <data name="Paladin_Content_On_Healers_At" xml:space="preserve">
-    <value>对治疗...时</value>
+    <value>对治疗[xx]时</value>
   </data>
   <data name="Paladin_Content_On_DPS_At" xml:space="preserve">
-    <value>对DPS...时</value>
+    <value>对DPS[xx]时</value>
   </data>
   <data name="Paladin_Content_Intervention_When_A_Party_Member_I" xml:space="preserve">
-    <value>当队友血量低于...时使用 干预</value>
+    <value>当队友血量低于[xx]时使用 干预</value>
   </data>
   <data name="Paladin_Content_Only_Use_Intervention_on_party_mem" xml:space="preserve">
     <value>仅在 预警或铁壁 激活时对队友使用 干预</value>
@@ -1921,13 +1921,13 @@
     <value>由战斗逻辑决定使用 圣光幕帘</value>
   </data>
   <data name="Paladin_Text_Rest_When_Under" xml:space="preserve">
-    <value>在...以下时休息</value>
+    <value>在[xx]以下时休息</value>
   </data>
   <data name="Paladin_Content_Clemency_When_We_Have_At_Least" xml:space="preserve">
-    <value>当我们至少有...时使用深仁厚泽</value>
+    <value>当我们至少有[xx]时使用深仁厚泽</value>
   </data>
   <data name="Paladin_Content_On_Ourself_At" xml:space="preserve">
-    <value>对自己...时</value>
+    <value>对自己[xx]时</value>
   </data>
   <data name="Paladin_Content_Shield_Smite" xml:space="preserve">
     <value>盾击</value>
@@ -1966,7 +1966,7 @@
     <value>当彩绘充满时使用 神圣之白</value>
   </data>
   <data name="Pictomancer_Content_Use_AOE_Rotation_When_There_Ar" xml:space="preserve">
-    <value>当有...时使用AOE循环</value>
+    <value>当有[xx]时使用AOE循环</value>
   </data>
   <data name="Pictomancer_Content_Use_AOE_Paint_Rotation" xml:space="preserve">
     <value>使用AOE彩绘循环</value>
@@ -1978,7 +1978,7 @@
     <value>使用AOE 彗星之黑</value>
   </data>
   <data name="Pictomancer_Text_Save_hammermog_for_Starry_within" xml:space="preserve">
-    <value>为 星空彩绘 保留 重锤 / 莫古力 直到...</value>
+    <value>为 星空彩绘 保留 重锤 / 莫古力 直到[xx]</value>
   </data>
   <data name="Pictomancer_Content_Only_when_in_a_duty" xml:space="preserve">
     <value>仅在副本中</value>
@@ -2029,7 +2029,7 @@
     <value>启用星空彩绘</value>
   </data>
   <data name="Pictomancer_Content_Entire_Party_In_Range_Otherwis" xml:space="preserve">
-    <value>全队在范围内，否则</value>
+    <value>全队在范围内，否则:</value>
   </data>
   <data name="Pictomancer_Content_Use_Hammers_During_Hyperphanta" xml:space="preserve">
     <value>在“重锤”期间使用 绘灵幻景</value>
@@ -2053,10 +2053,10 @@
     <value>为 星空彩绘保留 莫古力/玛蒂恩</value>
   </data>
   <data name="Pictomancer_Text_enemies_are_within" xml:space="preserve">
-    <value>敌人位于...范围内</value>
+    <value>敌人位于[xx]范围内</value>
   </data>
   <data name="Pictomancer_Content_Advent_of_chocobooism_when" xml:space="preserve">
-    <value>当...时发动陆行鸟主义降临</value>
+    <value>当[xx]时发动陆行鸟主义降临</value>
   </data>
   <data name="Pictomancer_Content_Use_Subtractive_Palette" xml:space="preserve">
     <value>使用 减色混合</value>
@@ -2170,7 +2170,7 @@
     <value>团契 / LB极限技</value>
   </data>
   <data name="Reaper_Content_ArcaneCrest_with" xml:space="preserve">
-    <value>神秘纹与...</value>
+    <value>神秘纹与[xx]</value>
   </data>
   <data name="Reaper_Content_Enable_Shadow_Of_Death" xml:space="preserve">
     <value>启用死亡之影</value>
@@ -2200,7 +2200,7 @@
     <value>启用 暴食</value>
   </data>
   <data name="Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo" xml:space="preserve">
-    <value>当 暴食 冷却时间在...内时，保留魂量</value>
+    <value>当 暴食 冷却时间在[xx]内时，保留魂量</value>
   </data>
   <data name="Reaper_Content_Enable_Blood_Stalk_Unveiled_Gibbet_" xml:space="preserve">
     <value>启用 隐匿挥割 / 绞决爪 / 缢杀爪</value>
@@ -2230,7 +2230,7 @@
     <value>启用 神秘环</value>
   </data>
   <data name="RedMage_Content_Use_Full_Aoe_Rotation_With_At_Leas" xml:space="preserve">
-    <value>当有至少...时使用完整AOE循环</value>
+    <value>当有至少[xx]时使用完整AOE循环</value>
   </data>
   <data name="RedMage_Content_Use_Contre_Sixte" xml:space="preserve">
     <value>使用 六分反击</value>
@@ -2254,7 +2254,7 @@
     <value>为移动保留的充能</value>
   </data>
   <data name="RedMage_Text_Hold_up_to" xml:space="preserve">
-    <value>保留最多...秒</value>
+    <value>保留最多[xx]秒</value>
   </data>
   <data name="RedMage_Text_Seconds_for_Embolden" xml:space="preserve">
     <value>为鼓励</value>
@@ -2263,10 +2263,10 @@
     <value>当白魔法或黑魔法</value>
   </data>
   <data name="RedMage_Text_and_Wh_or_Bl_Mana_Is_At_Most" xml:space="preserve">
-    <value>至少为...时使用</value>
+    <value>至少为[xx]时使用</value>
   </data>
   <data name="RedMage_Text_Percent_Mana" xml:space="preserve">
-    <value>%MP魔法值</value>
+    <value>MP%魔法值</value>
   </data>
   <data name="RedMage_Content_FightLogic_Use_Magick_Barrier" xml:space="preserve">
     <value>由战斗逻辑决定使用 抗死</value>
@@ -2275,7 +2275,7 @@
     <value>破裂 连击组合</value>
   </data>
   <data name="RedMage_Content_Vercure_When_A_Group_Member_Is_Bel" xml:space="preserve">
-    <value>当团队成员血量低于...时使用赤治疗</value>
+    <value>当团队成员血量低于[xx]时使用赤治疗</value>
   </data>
   <data name="RedMage_Content_Use_With_Long_Cast" xml:space="preserve">
     <value>与长读条技能一同使用</value>
@@ -2287,7 +2287,7 @@
     <value>LB极限技</value>
   </data>
   <data name="RedMage_Text_Dont_use_Southern_Cross_if_target_has" xml:space="preserve">
-    <value>如果目标血量多于...则不使用南十字星</value>
+    <value>如果目标血量多于[xx]则不使用南十字星</value>
   </data>
   <data name="RedMage_Content_Grand_Impact" xml:space="preserve">
     <value>显贵冲击</value>
@@ -2326,22 +2326,22 @@
     <value>仅用“诊断”治疗小队外成员</value>
   </data>
   <data name="Sage_Text_Allow_Kardia_on" xml:space="preserve">
-    <value>允许对...使用 心关</value>
+    <value>允许对[xx]使用 心关</value>
   </data>
   <data name="Sage_Text_Uses_Pneuma_HP_On_Combat_Tab" xml:space="preserve">
     <value>在“战斗”标签页使用“魂灵风息”的HP%设置</value>
   </data>
   <data name="Sage_Text_Use_at" xml:space="preserve">
-    <value>在...时使用</value>
+    <value>在[xx]时使用</value>
   </data>
   <data name="Sage_Content_Use_Kardia" xml:space="preserve">
     <value>使用 心关</value>
   </data>
   <data name="Sage_Content_Switch_Kardia_Targets_below" xml:space="preserve">
-    <value>当目标血量低于...时切换 心关</value>
+    <value>当目标血量低于[xx]时切换 心关</value>
   </data>
   <data name="Sage_Content_Only_switch_when_current_Kardia_targe" xml:space="preserve">
-    <value>仅当当前 心关 目标血量高于...时切换</value>
+    <value>仅当当前 心关 目标血量高于[xx]时切换</value>
   </data>
   <data name="Sage_Content_Any_Tanks" xml:space="preserve">
     <value>任意坦克</value>
@@ -2377,7 +2377,7 @@
     <value>持续伤害(DoT)剩余毫秒数</value>
   </data>
   <data name="Sage_Text_Do_Not_Use_Damage_Over_Time_Spells_If_En" xml:space="preserve">
-    <value>如果敌人在...内即将死亡，则不使用持续伤害(DoT)技能</value>
+    <value>如果敌人在[xx]内即将死亡，则不使用持续伤害(DoT)技能</value>
   </data>
   <data name="Sage_Text_Allies_need_healing" xml:space="preserve">
     <value>当队友需要治疗时</value>
@@ -2386,22 +2386,22 @@
     <value>HP%百分比</value>
   </data>
   <data name="Sage_Content_Stop_Casting_A_Damage_Spell_If_Someon" xml:space="preserve">
-    <value>如果有人血量降到...以下，则停止咏唱伤害技能</value>
+    <value>如果有人血量降到[xx]以下，则停止咏唱伤害技能</value>
   </data>
   <data name="Sage_Content_DoT_Multiple_Targets_Up_To" xml:space="preserve">
-    <value>为最多...个目标附加DoT</value>
+    <value>为最多[xx]个目标附加DoT</value>
   </data>
   <data name="Sage_Content_Eukrasian_Dosis" xml:space="preserve">
     <value>均衡注药</value>
   </data>
   <data name="Sage_Content_AoE_When_There_Are" xml:space="preserve">
-    <value>当有...时使用AOE</value>
+    <value>当有[xx]时使用AOE</value>
   </data>
   <data name="Sage_Content_Eukrasian_Dyskrasia" xml:space="preserve">
     <value>均衡失衡</value>
   </data>
   <data name="Sage_Content_Psyche_When_There_Are" xml:space="preserve">
-    <value>当有...时使用 心魂</value>
+    <value>当有[xx]时使用 心魂</value>
   </data>
   <data name="Sage_Content_Toxicon_Single_Targets_While_Moving" xml:space="preserve">
     <value>移动时对单体目标使用“箭毒”</value>
@@ -2431,10 +2431,10 @@
     <value>均衡预后</value>
   </data>
   <data name="Sage_Text_Addersgall_or_less" xml:space="preserve">
-    <value>蛇胆量谱 少于等于...</value>
+    <value>蛇胆量谱 少于等于[xx]</value>
   </data>
   <data name="Sage_Text_Others_if_below" xml:space="preserve">
-    <value>其他人低于...时</value>
+    <value>其他人低于[xx]时</value>
   </data>
   <data name="Sage_Content_Swiftcast_Egeiro" xml:space="preserve">
     <value>即刻咏唱 “复苏”</value>
@@ -2443,7 +2443,7 @@
     <value>在非战斗中使用“复苏”</value>
   </data>
   <data name="Sage_Content_only_with" xml:space="preserve">
-    <value>仅在有...时</value>
+    <value>仅在有[xx]时</value>
   </data>
   <data name="Sage_Content_Tank_only" xml:space="preserve">
     <value>仅坦克</value>
@@ -2464,10 +2464,10 @@
     <value>治疗增益：泛输血, 整体论, 自生, 坚角清汁, 均衡预后</value>
   </data>
   <data name="Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove" xml:space="preserve">
-    <value>当蓝量高于...时穿插能力技能(oGCD)</value>
+    <value>当蓝量高于[xx]时穿插能力技能(oGCD)</value>
   </data>
   <data name="Sage_Content_Limit_Healing_Buffs_To_Only_Use" xml:space="preserve">
-    <value>限制治疗增益仅使用...</value>
+    <value>限制治疗增益仅使用[xx]</value>
   </data>
   <data name="Sage_Content_Only_Consider_Own_Buffs_disable_to_in" xml:space="preserve">
     <value>仅考虑自身增益 (取消勾选以包含搭档贤者)</value>
@@ -2476,19 +2476,19 @@
     <value>发炎III</value>
   </data>
   <data name="Sage_Content_Mesotes_LB_with_at_least" xml:space="preserve">
-    <value>至少有...时使用“中庸之道”/ LB极限技</value>
+    <value>至少有[xx]时使用“中庸之道”/ LB极限技</value>
   </data>
   <data name="Sage_Text_Shields_settings_are_extra_shields_which" xml:space="preserve">
     <value>护盾设置是额外护盾，在“通用治疗”中的护盾之后生效。</value>
   </data>
   <data name="Sage_Text_Eukrasian_Diagnosis_On" xml:space="preserve">
-    <value>对...使用均衡诊断</value>
+    <value>对[xx]使用均衡诊断</value>
   </data>
   <data name="Sage_Text_Use_shield_At" xml:space="preserve">
-    <value>在...时使用护盾</value>
+    <value>在[xx]时使用护盾</value>
   </data>
   <data name="Sage_Text_Always_keep_shield_up_on" xml:space="preserve">
-    <value>始终为...保持护盾</value>
+    <value>始终为[xx]保持护盾</value>
   </data>
   <data name="Sage_Content_Shields_w_Eukrasian_Diagnosis" xml:space="preserve">
     <value>使用“均衡诊断”的护盾</value>
@@ -2536,7 +2536,7 @@
     <value>由战斗逻辑决定使用 天眼通</value>
   </data>
   <data name="Samurai_Text_Dont_use_Zantetsuken_if_target_has_mo" xml:space="preserve">
-    <value>如果目标血量多于...则不使用斩铁剑</value>
+    <value>如果目标血量多于[xx]则不使用斩铁剑</value>
   </data>
   <data name="Samurai_Content_Ogi_Namikiri_Combo" xml:space="preserve">
     <value>奥义斩浪连击</value>
@@ -2548,7 +2548,7 @@
     <value>纷乱雪月花</value>
   </data>
   <data name="Samurai_Content_Zantetsuken_LB_on_target_at" xml:space="preserve">
-    <value>在目标...时使用斩铁剑 / LB极限技</value>
+    <value>在目标[xx]时使用斩铁剑 / LB极限技</value>
   </data>
   <data name="Samurai_Content_Zantetsuken_LB_Only_With_Kuzushi_I" xml:space="preserve">
     <value>仅在有“崩破”状态时使用斩铁剑 / 极限技 (即死)</value>
@@ -2596,34 +2596,34 @@
     <value>燕飞 (当不在近战范围内时)</value>
   </data>
   <data name="Scholar_Text_When_The_Fairie_Gauge_Is_At_Least" xml:space="preserve">
-    <value>当仙女能量至少为...</value>
+    <value>当仙女能量至少为[xx]</value>
   </data>
   <data name="Scholar_Text_When_The_Tank_Is_Below" xml:space="preserve">
-    <value>当坦克血量低于...</value>
+    <value>当坦克血量低于[xx]</value>
   </data>
   <data name="Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O" xml:space="preserve">
     <value>如果坦克满血则中断 以太契约</value>
   </data>
   <data name="Scholar_Text_or_less_Enemies" xml:space="preserve">
-    <value>仅在有...或更少敌人时</value>
+    <value>仅在有[xx]或更少敌人时</value>
   </data>
   <data name="Scholar_Text_When_The_Tank_Has_Aetherpact_Only_Phy" xml:space="preserve">
-    <value>当坦克有以太契约时，仅在血量低于...时使用医术</value>
+    <value>当坦克有以太契约时，仅在血量低于[xx]时使用医术</value>
   </data>
   <data name="Scholar_Text_Only_If_They_Are_Below" xml:space="preserve">
-    <value>仅当他们血量低于...</value>
+    <value>仅当他们血量低于[xx]</value>
   </data>
   <data name="Scholar_Content_Use_Adloquium_On_Tank_If_They_Have" xml:space="preserve">
     <value>如果坦克有以太契约，则对其使用鼓舞</value>
   </data>
   <data name="Scholar_Text_Expedient_When" xml:space="preserve">
-    <value>当...个目标血量低于</value>
+    <value>当[xx]个目标血量低于</value>
   </data>
   <data name="Scholar_Text_Targets_Are_Below" xml:space="preserve">
-    <value>...时使用疾风怒涛之计</value>
+    <value>[xx]时使用疾风怒涛之计</value>
   </data>
   <data name="Scholar_Content_Deployment_Tactics_Crit_Adlo_When" xml:space="preserve">
-    <value>当...时对暴击鼓舞使用展开战术</value>
+    <value>当[xx]时对暴击鼓舞使用展开战术</value>
   </data>
   <data name="Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe" xml:space="preserve">
     <value>仅当我们没有任何以太超流时</value>
@@ -2659,7 +2659,7 @@
     <value>毁坏</value>
   </data>
   <data name="Scholar_Content_Art_of_War_When_There_Are" xml:space="preserve">
-    <value>当有...时使用破阵法</value>
+    <value>当有[xx]时使用破阵法</value>
   </data>
   <data name="Scholar_Content_Baneful_Impaction" xml:space="preserve">
     <value>埋伏之毒</value>
@@ -2668,7 +2668,7 @@
     <value>毒菌剩余秒数</value>
   </data>
   <data name="Scholar_Content_Bio_up_to" xml:space="preserve">
-    <value>为最多...个目标上毒菌</value>
+    <value>为最多[xx]个目标上毒菌</value>
   </data>
   <data name="Scholar_Text_Tankbusters" xml:space="preserve">
     <value>死刑：</value>
@@ -2716,22 +2716,22 @@
     <value>选择的宠物：</value>
   </data>
   <data name="Scholar_Text_Whispering_Dawn_When" xml:space="preserve">
-    <value>当...时使用仙光的低语</value>
+    <value>当[xx]时使用仙光的低语</value>
   </data>
   <data name="Scholar_Text_Fey_Illumination_When" xml:space="preserve">
-    <value>当...时使用仙光之耀</value>
+    <value>当[xx]时使用仙光之耀</value>
   </data>
   <data name="Scholar_Text_Fey_Blessing_When" xml:space="preserve">
-    <value>当...时使用仙光的祝福</value>
+    <value>当[xx]时使用仙光的祝福</value>
   </data>
   <data name="Scholar_Text_Summon_Seraph_When" xml:space="preserve">
-    <value>当...时使用炽天召唤</value>
+    <value>当[xx]时使用炽天召唤</value>
   </data>
   <data name="Scholar_Text_Nearby_Allies_Are_Below" xml:space="preserve">
-    <value>附近队友血量低于...</value>
+    <value>附近队友血量低于[xx]</value>
   </data>
   <data name="Scholar_Text_Consolation_When" xml:space="preserve">
-    <value>当...时使用慰藉</value>
+    <value>当[xx]时使用慰藉</value>
   </data>
   <data name="Scholar_Content_Whispering_Dawn" xml:space="preserve">
     <value>仙光的低语</value>
@@ -2755,13 +2755,13 @@
     <value>炽天召唤</value>
   </data>
   <data name="Scholar_Text_Use_Deployment_Tactics_on" xml:space="preserve">
-    <value>对...使用展开战术</value>
+    <value>对[xx]使用展开战术</value>
   </data>
   <data name="Scholar_Content_Chain_Stratagem" xml:space="preserve">
     <value>连环计</value>
   </data>
   <data name="Scholar_Content_Summon_Seraph_with_at_least" xml:space="preserve">
-    <value>至少有...时使用炽天召唤</value>
+    <value>至少有[xx]时使用炽天召唤</value>
   </data>
   <data name="Scholar_Content_Seraphic_Halo" xml:space="preserve">
     <value>炽天的光环</value>
@@ -2770,10 +2770,10 @@
     <value>炽天的幕帘</value>
   </data>
   <data name="Scholar_Content_Seraphism_LB_with_at_least" xml:space="preserve">
-    <value>至少有...时使用 炽天附体/极限技</value>
+    <value>至少有[xx]时使用 炽天附体/极限技</value>
   </data>
   <data name="Scholar_Content_Adloquium_At" xml:space="preserve">
-    <value>在...时使用鼓舞</value>
+    <value>在[xx]时使用鼓舞</value>
   </data>
   <data name="Summoner_Text_Seconds_Left_On_DOTs_And" xml:space="preserve">
     <value>持续伤害(DoT)剩余秒数</value>
@@ -2782,7 +2782,7 @@
     <value>且拥有至少</value>
   </data>
   <data name="Summoner_Text_Only_Use_Area_Of_Effect_If_There_Is_" xml:space="preserve">
-    <value>仅当有至少...时使用范围攻击(AOE)</value>
+    <value>仅当有至少[xx]时使用范围攻击(AOE)</value>
   </data>
   <data name="Summoner_Text_Seconds_Left_In_Combat" xml:space="preserve">
     <value>战斗剩余秒数</value>
@@ -2791,7 +2791,7 @@
     <value>与 死星核爆一同使用 醒梦</value>
   </data>
   <data name="Summoner_Content_Bane_When_There_Are" xml:space="preserve">
-    <value>当有...时使用 灾祸</value>
+    <value>当有[xx]时使用 灾祸</value>
   </data>
   <data name="Summoner_Content_Bane_Building_Aethertrail" xml:space="preserve">
     <value>为 构筑以太之径使用 灾祸</value>
@@ -2800,16 +2800,16 @@
     <value>在 龙神附体期间使用 灾祸</value>
   </data>
   <data name="Summoner_Content_Painflare_When_There_Are" xml:space="preserve">
-    <value>当有...时使用 痛苦核爆</value>
+    <value>当有[xx]时使用 痛苦核爆</value>
   </data>
   <data name="Summoner_Content_Shadowflare_When_There_Are" xml:space="preserve">
-    <value>当有...时使用暗影核爆</value>
+    <value>当有[xx]时使用暗影核爆</value>
   </data>
   <data name="Summoner_Content_Dreadwyrm_Trance_When_Were_Stil_I" xml:space="preserve">
-    <value>当我们仍在战斗中至少...秒时使用龙神附体</value>
+    <value>当我们仍在战斗中至少[xx]秒时使用龙神附体</value>
   </data>
   <data name="Summoner_Content_Lucid_Dreaming_When_Below" xml:space="preserve">
-    <value>在...以下时使用 醒梦</value>
+    <value>在[xx]以下时使用 醒梦</value>
   </data>
   <data name="Summoner_Content_Lucid_Dreaming_Only_When_We_Dont_" xml:space="preserve">
     <value>仅在没有任何以太超流时使用醒梦</value>
@@ -2869,7 +2869,7 @@
     <value>不死鸟迸发</value>
   </data>
   <data name="Summoner_Content_Rekindle_Lowest_Target_Under" xml:space="preserve">
-    <value>对...血量以下最低的目标使用 苏生之炎</value>
+    <value>对[xx]血量以下最低的目标使用 苏生之炎</value>
   </data>
   <data name="Summoner_Content_Crimson_Cyclone" xml:space="preserve">
     <value>腥红旋风</value>
@@ -2887,7 +2887,7 @@
     <value>守护之光</value>
   </data>
   <data name="Summoner_Content_Physick_Self_When_Solo_if_Under" xml:space="preserve">
-    <value>单人模式下当自身血量低于...时使用医术</value>
+    <value>单人模式下当自身血量低于[xx]时使用医术</value>
   </data>
   <data name="Summoner_Content_Throttle_Egi_Summons_with_TTL" xml:space="preserve">
     <value>根据存活时间(TTL)限制宝宝召唤</value>
@@ -2896,19 +2896,19 @@
     <value>根据存活时间(TTL)限制附体召唤</value>
   </data>
   <data name="Summoner_Text_Health_Percent" xml:space="preserve">
-    <value>HP%血量百分比</value>
+    <value>HP%血量百分比,</value>
   </data>
   <data name="Summoner_Content_Auto_Raise" xml:space="preserve">
     <value>自动 复活</value>
   </data>
   <data name="Summoner_Content_Lux_Solaris_when_party_members_be" xml:space="preserve">
-    <value>当队友血量低于...时使用 日光普照</value>
+    <value>当队友血量低于[xx]时使用 日光普照</value>
   </data>
   <data name="Summoner_Content_Physick_Solo_When_Below" xml:space="preserve">
-    <value>单人模式下当血量低于...时使用医术</value>
+    <value>单人模式下当血量低于[xx]时使用医术</value>
   </data>
   <data name="Summoner_Content_Physick_Party_When_Below" xml:space="preserve">
-    <value>当团队血量低于...时使用 医术</value>
+    <value>当团队血量低于[xx]时使用 医术</value>
   </data>
   <data name="Summoner_Content_When_Theres_No_Healer_Present_or_" xml:space="preserve">
     <value>当没有治疗在场或存活时。</value>
@@ -2947,13 +2947,13 @@
     <value>仅限Boss战</value>
   </data>
   <data name="Summoner_Text_Phoenix_when_self_health_below" xml:space="preserve">
-    <value>当自身血量低于...时召唤不死鸟</value>
+    <value>当自身血量低于[xx]时召唤不死鸟</value>
   </data>
   <data name="Summoner_Text_Bahamut_when_enemy_health_below" xml:space="preserve">
-    <value>当敌人血量低于...时召唤巴哈姆特</value>
+    <value>当敌人血量低于[xx]时召唤巴哈姆特</value>
   </data>
   <data name="Summoner_Content_Radiant_Aegis_At" xml:space="preserve">
-    <value>在...时使用 守护之光</value>
+    <value>在[xx]时使用 守护之光</value>
   </data>
   <data name="Summoner_Content_Crimson_Cyclone_Rush_forward" xml:space="preserve">
     <value>腥红旋风 (向前冲锋)</value>
@@ -2974,16 +2974,16 @@
     <value>飞蛇之尾 (远程)</value>
   </data>
   <data name="Viper_Content_World_Swallower_LB_on_target_at" xml:space="preserve">
-    <value>在目标...时使用吞天巨蛇 / 极限技</value>
+    <value>在目标[xx]时使用吞天巨蛇 / 极限技</value>
   </data>
   <data name="Viper_Content_Snake_Scales" xml:space="preserve">
     <value>蛇鳞术</value>
   </data>
   <data name="Viper_Text_charges_when_out_of_range" xml:space="preserve">
-    <value>当超出范围时...层充能</value>
+    <value>当超出范围时[xx]层充能</value>
   </data>
   <data name="Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
-    <value>但如果敌人在...内即将死亡则不使用</value>
+    <value>但如果敌人在[xx]内即将死亡则不使用</value>
   </data>
   <data name="Viper_Content_Enable_Dreadwinder" xml:space="preserve">
     <value>启用 毒烈灵蛇</value>
@@ -3007,10 +3007,10 @@
     <value>坦克姿态</value>
   </data>
   <data name="Warrior_Content_Overpower_Combo_When_There_Are" xml:space="preserve">
-    <value>当有...时使用 超压斧连击</value>
+    <value>当有[xx]时使用 超压斧连击</value>
   </data>
   <data name="Warrior_Content_Steel_Cyclone_Decimate_When_There_" xml:space="preserve">
-    <value>当有...时使用钢铁旋风 / 地毁人亡</value>
+    <value>当有[xx]时使用钢铁旋风 / 地毁人亡</value>
   </data>
   <data name="Warrior_Content_Use_Tomahawk_To_Pull" xml:space="preserve">
     <value>使用 飞斧 开怪</value>
@@ -3028,7 +3028,7 @@
     <value>使用狂暴 / 原初的解放</value>
   </data>
   <data name="Warrior_Content_Use_Infuriate_At" xml:space="preserve">
-    <value>在...时使用战嚎</value>
+    <value>在[xx]时使用战嚎</value>
   </data>
   <data name="Warrior_Content_Nascent_Flash" xml:space="preserve">
     <value>原初的勇猛</value>
@@ -3052,16 +3052,16 @@
     <value>使用 猛攻</value>
   </data>
   <data name="Warrior_Content_Only_in_Melee_Save" xml:space="preserve">
-    <value>仅在近战中。保留...</value>
+    <value>仅在近战中。保留[xx]</value>
   </data>
   <data name="Warrior_Content_Use_Aoe_Overpower_Mythril_Orogeny_" xml:space="preserve">
     <value>使用AOE (超压斧, 秘银暴风, 群山隆起, 混沌旋风, 地毁人亡)</value>
   </data>
   <data name="Warrior_Content_Use_Steel_Cyclone_Decimate_When_Th" xml:space="preserve">
-    <value>当有...时使用钢铁旋风 / 地毁人亡</value>
+    <value>当有[xx]时使用钢铁旋风 / 地毁人亡</value>
   </data>
   <data name="Warrior_Content_Use_Chaotic_Cyclone_When_There_Are" xml:space="preserve">
-    <value>当有...时使用混沌旋风</value>
+    <value>当有[xx]时使用混沌旋风</value>
   </data>
   <data name="Warrior_Content_Vengeance_Damnation" xml:space="preserve">
     <value>复仇 / 诅咒</value>
@@ -3076,7 +3076,7 @@
     <value>由战斗逻辑决定使用 战栗</value>
   </data>
   <data name="Warrior_Content_Use_Equilibrium_When_Under" xml:space="preserve">
-    <value>当血量低于...时使用泰然自若</value>
+    <value>当血量低于[xx]时使用泰然自若</value>
   </data>
   <data name="Warrior_Content_Chaotic_Cyclone" xml:space="preserve">
     <value>混沌旋风</value>
@@ -3091,10 +3091,10 @@
     <value>狂魂</value>
   </data>
   <data name="Warrior_Content_Orogeny_with_at_least" xml:space="preserve">
-    <value>至少有...时使用群山隆起</value>
+    <value>至少有[xx]时使用群山隆起</value>
   </data>
   <data name="Warrior_Content_Onslaught_with_at_least" xml:space="preserve">
-    <value>至少有...时使用猛攻</value>
+    <value>至少有[xx]时使用猛攻</value>
   </data>
   <data name="Warrior_Content_Primal_Rend_Onslaught_Only_in_Mele" xml:space="preserve">
     <value>仅在近战范围内使用 蛮荒崩裂 / 猛攻</value>
@@ -3115,13 +3115,13 @@
     <value>法令 仅用于治疗</value>
   </data>
   <data name="WhiteMage_Content_Assize_To_Regain_Mana_At" xml:space="preserve">
-    <value>在...时使用 法令 回复蓝量</value>
+    <value>在[xx]时使用 法令 回复蓝量</value>
   </data>
   <data name="WhiteMage_Content_Assize_To_Deal_Damage_When_There" xml:space="preserve">
-    <value>当有...时使用 法令 造成伤害</value>
+    <value>当有[xx]时使用 法令 造成伤害</value>
   </data>
   <data name="WhiteMage_Text_When_Mana_Falls_Below" xml:space="preserve">
-    <value>当蓝量降至...以下时</value>
+    <value>当蓝量降至[xx]以下时</value>
   </data>
   <data name="WhiteMage_Content_Presence_Of_Mind" xml:space="preserve">
     <value>神速咏唱</value>
@@ -3160,10 +3160,10 @@
     <value>持续伤害(DoT)剩余秒数</value>
   </data>
   <data name="WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy" xml:space="preserve">
-    <value>当敌人血量至少为...时使用持续伤害(DoT)</value>
+    <value>当敌人血量至少为[xx]时使用持续伤害(DoT)</value>
   </data>
   <data name="WhiteMage_Content_Stop_Casting_A_Damage_Spell_If_S" xml:space="preserve">
-    <value>如果有人血量降到...以下，则停止咏唱伤害技能</value>
+    <value>如果有人血量降到[xx]以下，则停止咏唱伤害技能</value>
   </data>
   <data name="WhiteMage_Content_Stone_Glare" xml:space="preserve">
     <value>飞石 / 闪耀</value>
@@ -3175,10 +3175,10 @@
     <value>总是在移动中上DoT</value>
   </data>
   <data name="WhiteMage_Content_Dot_up_to" xml:space="preserve">
-    <value>为最多...个目标上DoT</value>
+    <value>为最多[xx]个目标上DoT</value>
   </data>
   <data name="WhiteMage_Content_Holy_When_There_Are" xml:space="preserve">
-    <value>当有...时使用神圣</value>
+    <value>当有[xx]时使用神圣</value>
   </data>
   <data name="WhiteMage_Content_Afflatus_Misery" xml:space="preserve">
     <value>苦难之心</value>
@@ -3193,7 +3193,7 @@
     <value>医济</value>
   </data>
   <data name="WhiteMage_Text_When_Party_Members_Are_Below" xml:space="preserve">
-    <value>当团队成员血量低于...</value>
+    <value>当团队成员血量低于[xx]</value>
   </data>
   <data name="WhiteMage_Content_Swiftcast_Raise" xml:space="preserve">
     <value>即刻咏唱 复活</value>
@@ -3229,22 +3229,22 @@
     <value>涤罪之心 / 极限技</value>
   </data>
   <data name="WhiteMage_Content_Cure_At" xml:space="preserve">
-    <value>在...时使用治疗</value>
+    <value>在[xx]时使用治疗</value>
   </data>
   <data name="WhiteMage_Content_Aquaveil_At" xml:space="preserve">
-    <value>在...时使用水流幕</value>
+    <value>在[xx]时使用水流幕</value>
   </data>
   <data name="WhiteMage_Text_Regen_On" xml:space="preserve">
-    <value>对...使用再生</value>
+    <value>对[xx]使用再生</value>
   </data>
   <data name="WhiteMage_Text_Use_Regen_At" xml:space="preserve">
-    <value>在...时使用再生</value>
+    <value>在[xx]时使用再生</value>
   </data>
   <data name="WhiteMage_Text_Always_Keep_Regen_Up_On" xml:space="preserve">
-    <value>始终为...保持再生</value>
+    <value>始终为[xx]保持再生</value>
   </data>
   <data name="WhiteMage_Text_Do_Not_Cure_Someone_With_Regen_Unle" xml:space="preserve">
-    <value>除非血量低于...，否则不治疗有再生效果的人</value>
+    <value>除非血量低于[xx]，否则不治疗有再生效果的人</value>
   </data>
   <data name="WhiteMage_Content_Only_Regen_While_Moving" xml:space="preserve">
     <value>仅在移动时使用再生</value>
@@ -3256,16 +3256,16 @@
     <value>不攻击处于 无敌 状态的目标</value>
   </data>
   <data name="Sage_Content_Disable_Single_Healing_When_allies_ne" xml:space="preserve">
-    <value>当队友需要...时禁用单体治疗</value>
+    <value>当队友需要[xx]时禁用单体治疗</value>
   </data>
   <data name="Sage_Content_Use_Time_Till_Death_For_Damage_Over_T" xml:space="preserve">
     <value>根据死亡倒计时决定是否使用持续伤害(DoT)</value>
   </data>
   <data name="Scholar_Content_Disable_Single_Healing_When_allies" xml:space="preserve">
-    <value>当队友...时禁用单体治疗</value>
+    <value>当队友[xx]时禁用单体治疗</value>
   </data>
   <data name="Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If" xml:space="preserve">
-    <value>如果...则不使用持续伤害(DoT)技能</value>
+    <value>如果[xx]则不使用持续伤害(DoT)技能</value>
   </data>
   <data name="Summoner_Content_Dont_attack_Invuln_Hallowed_Groun" xml:space="preserve">
     <value>不攻击处于 神圣领域 状态的目标</value>
@@ -3277,7 +3277,7 @@
     <value>不使用持续伤害(DoT)技能</value>
   </data>
   <data name="WhiteMage_Text_Dont_Do_Damage_If_There_Are_More_Th" xml:space="preserve">
-    <value>如果敌人多于...则不造成伤害</value>
+    <value>如果敌人多于[xx]则不造成伤害</value>
   </data>
   <data name="Views_Content_Pre_Defined_Magitek_Toggle_Enabled" xml:space="preserve">
     <value>预设的Magitek开关已启用</value>
@@ -3286,19 +3286,19 @@
     <value>为预读“大宇宙”设定的血量百分比</value>
   </data>
   <data name="Bard_Text_at_Damage_Buff_" xml:space="preserve">
-    <value>当伤害增益 &gt;= ...% 时</value>
+    <value>当伤害增益 &gt;=[xx]% 时</value>
   </data>
   <data name="Bard_Text___24_will_match_RSBVRFWM_EndWalker_Patch" xml:space="preserve">
     <value>- 24% 将匹配猛烈枪+战斗之声+光阴神+贤者的叙事谣 (晓月版本)</value>
   </data>
   <data name="Bard_Text___This_will_force_to_keep_Apex_for_Buff_" xml:space="preserve">
-    <value>100 = - 即使诗魂=100，这也会强制为爆发窗口保留绝峰箭</value>
+    <value>- 100 = - 即使诗魂=100，这也会强制为爆发窗口保留绝峰箭</value>
   </data>
   <data name="Bard_Text___This_will_force_to_execute_Apex_in_MB_" xml:space="preserve">
     <value>- 如果在军神的赞美歌剩余22秒时诗魂&gt;=80，这将强制在军神期间打出绝峰箭</value>
   </data>
   <data name="Bard_Text___You_need_to_check_Use_Apex_Arrow_check" xml:space="preserve">
-    <value>你需要同时勾选上方的“使用绝峰箭”复选框</value>
+    <value>- 你需要同时勾选上方的“使用绝峰箭”复选框</value>
   </data>
   <data name="Gunbreaker_Text_Aurora_Priority_order_is_1___5" xml:space="preserve">
     <value>极光优先级顺序为：1 -&gt; 5</value>
@@ -3358,7 +3358,7 @@
     <value>自身</value>
   </data>
   <data name="Bugs_Text__progress_into_cast_bar" xml:space="preserve">
-    <value>咏唱条进度百分比</value>
+    <value>咏唱条进度百分比%</value>
   </data>
   <data name="Dancer_Text_Heal_" xml:space="preserve">
     <value>治疗：</value>
@@ -3394,7 +3394,7 @@
     <value>选择的宠物</value>
   </data>
   <data name="Viper_Text_and_save_at_least" xml:space="preserve">
-    <value>并至少保留...</value>
+    <value>并至少保留[xx]</value>
   </data>
   <data name="WhiteMage_Text_HP_Percent" xml:space="preserve">
     <value>HP%百分比</value>
@@ -3409,7 +3409,7 @@
     <value>当剩余时间少于30秒时不发卡</value>
   </data>
   <data name="Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than" xml:space="preserve">
-    <value>如果目标的死亡倒计时少于...则总是造成伤害</value>
+    <value>如果目标的死亡倒计时少于[xx]则总是造成伤害</value>
   </data>
   <data name="Astrologian_Text_Dont_Do_Damage_If_There_Are_More_Than_3_Enemies" xml:space="preserve">
     <value>如果敌人多于3个则不造成伤害</value>
@@ -3421,7 +3421,7 @@
     <value>如果敌人在10秒内即将死亡，则不使用DoT</value>
   </data>
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
-    <value>仅当附近玩家血量高于...时驱散</value>
+    <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
   <data name="Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen" xml:space="preserve">
     <value>不为有再生效果的目标附加吉星相位</value>
@@ -3448,7 +3448,7 @@
     <value>不攻击处于无敌/神圣领域/行尸走肉状态的目标</value>
   </data>
   <data name="Astrologian_Content_Celestial_River_LB_with_at_least" xml:space="preserve">
-    <value>至少有...时使用 星河漫天/LB 极限技</value>
+    <value>至少有[xx]时使用 星河漫天/LB 极限技</value>
   </data>
   <data name="Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown" xml:space="preserve">
     <value>等到九天连箭冷却结束后再使用猛烈枪</value>
@@ -3457,7 +3457,7 @@
     <value>在最后一个可行的GCD和DoT刷新之间的毫秒数</value>
   </data>
   <data name="Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within" xml:space="preserve">
-    <value>如果敌人在...内即将死亡，则不使用持续伤害(DoT)技能</value>
+    <value>如果敌人在[xx]内即将死亡，则不使用持续伤害(DoT)技能</value>
   </data>
   <data name="Bard_Content_Use_WindbiteStormBite_On_Additional_Enemies" xml:space="preserve">
     <value>对额外的敌人使用狂风蚀箭/暴风蚀箭</value>
@@ -3466,25 +3466,25 @@
     <value>对额外的敌人使用毒咬箭/烈毒咬箭</value>
   </data>
   <data name="Bard_Text_Seconds_of_Wanderers_Minuet_Without_Repertoire" xml:space="preserve">
-    <value>贤者的叙事谣期间...秒内没有获得诗心</value>
+    <value>贤者的叙事谣期间[xx]秒内没有获得诗心</value>
   </data>
   <data name="Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds" xml:space="preserve">
     <value>在最后3秒内使用完美音调</value>
   </data>
   <data name="Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within" xml:space="preserve">
-    <value>如果军神的赞美歌在...内结束，则延迟帝王箭</value>
+    <value>如果军神的赞美歌在[xx]内结束，则延迟帝王箭</value>
   </data>
   <data name="Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad" xml:space="preserve">
     <value>在魔人的安魂曲期间优先使用失血箭</value>
   </data>
   <data name="BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies" xml:space="preserve">
-    <value>当有...敌人时使用AOE循环</value>
+    <value>当有[xx]敌人时使用AOE循环</value>
   </data>
   <data name="BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat" xml:space="preserve">
     <value>使用 星灵移位 灵极魂 脱离战斗</value>
   </data>
   <data name="BlackMage_Text_Use_Soul_Resonance_when_target_HP_below" xml:space="preserve">
-    <value>当目标HP低于...时使用灵魂共鸣</value>
+    <value>当目标HP低于[xx]时使用灵魂共鸣</value>
   </data>
   <data name="BlackMage_Content_Use_Thunder_Spells_Single_Target_Only" xml:space="preserve">
     <value>仅对单体目标使用雷系魔法</value>
@@ -3499,7 +3499,7 @@
     <value>使用动画锁定来等待游戏客户端响应</value>
   </data>
   <data name="Bugs_Content_CallerMemberName_When_Casting_Very_Specific_Spells" xml:space="preserve">
-    <value>当咏唱特定技能时...</value>
+    <value>当咏唱特定技能时[xx]</value>
   </data>
   <data name="Bugs_Content_Debug_Enemy_Info_Prints_RemovesAdds_in_combat" xml:space="preserve">
     <value>调试敌人信息 (在战斗中打印移除/新增的小怪)</value>
@@ -3550,7 +3550,7 @@
     <value>如果目标无敌，则不使用舞步 进攻之探戈</value>
   </data>
   <data name="DarkKnight_Text_Use_Unmend_When_Ennemy_Is_At_Least_Yalms_Away" xml:space="preserve">
-    <value>当敌人在至少...码外时使用伤残</value>
+    <value>当敌人在至少[xx]码外时使用伤残</value>
   </data>
   <data name="DarkKnight_Content_Use_Unmend_if_not_in_melee_to_damage" xml:space="preserve">
     <value>不在近战范围内时使用伤残造成伤害</value>
@@ -3562,19 +3562,19 @@
     <value>使用AOE (不影响吸血深渊)</value>
   </data>
   <data name="DarkKnight_Content_Use_Abyssal_Drain_When_There_Are_Enemies" xml:space="preserve">
-    <value>当有...敌人时使用吸血深渊</value>
+    <value>当有[xx]敌人时使用吸血深渊</value>
   </data>
   <data name="DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies" xml:space="preserve">
-    <value>当有...敌人时使用腐秽大地</value>
+    <value>当有[xx]敌人时使用腐秽大地</value>
   </data>
   <data name="DarkKnight_Text_NOTE_Does_not_include_Dark_Mind_and_Dark_Missionary" xml:space="preserve">
     <value>注意：不包括暗黑心灵和暗黑布道</value>
   </data>
   <data name="DarkKnight_Text_At_Which_Point_Use_A_Maximum_Of_Defensive_Buffs" xml:space="preserve">
-    <value>此时最多使用...个防御Buff</value>
+    <value>此时最多使用[xx]个防御Buff</value>
   </data>
   <data name="DarkKnight_Content_Shadowbringer_with_at_least_Enemies" xml:space="preserve">
-    <value>至少有...敌人时使用暗影使者</value>
+    <value>至少有[xx]敌人时使用暗影使者</value>
   </data>
   <data name="Dragoon_Content_Use_Buffs_LanceCharge_LifeSurge_Life_Of_The_Dragon" xml:space="preserve">
     <value>使用Buff：猛枪、龙剑、龙血</value>
@@ -3583,10 +3583,10 @@
     <value>如果不在小队中，则智能施放巨龙视线</value>
   </data>
   <data name="Gunbreaker_Text_Use_Lightning_Shot_When_Ennemy_Is_Yalms_Away" xml:space="preserve">
-    <value>当敌人在...码外时使用 闪雷弹</value>
+    <value>当敌人在[xx]码外时使用 闪雷弹</value>
   </data>
   <data name="Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies" xml:space="preserve">
-    <value>至少有...敌人时使用 弓形冲波</value>
+    <value>至少有[xx]敌人时使用 弓形冲波</value>
   </data>
   <data name="WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time" xml:space="preserve">
     <value>根据死亡倒计时决定是否使用持续伤害(DoT)</value>
@@ -3598,7 +3598,7 @@
     <value>战斗中的敌人</value>
   </data>
   <data name="Generic_When_Below" xml:space="preserve">
-    <value>当低于...时</value>
+    <value>当低于[xx]时</value>
   </data>
   <data name="Generic_Health_Percent" xml:space="preserve">
     <value>HP%血量百分比</value>
@@ -3637,13 +3637,13 @@
     <value>MP%蓝量百分比</value>
   </data>
   <data name="Generic_Lucid_Dreaming_When_Under" xml:space="preserve">
-    <value>在...以下时使用醒梦</value>
+    <value>在[xx]以下时使用醒梦</value>
   </data>
   <data name="Generic_Percent_Health" xml:space="preserve">
     <value>HP%血量百分比</value>
   </data>
   <data name="Generic_Do_Damage_When_Mana_Is_Over" xml:space="preserve">
-    <value>当蓝量高于...时造成伤害</value>
+    <value>当蓝量高于[xx]时造成伤害</value>
   </data>
   <data name="Generic_Smart_Aoe" xml:space="preserve">
     <value>智能AOE</value>
@@ -3670,7 +3670,7 @@
     <value>使用坐骑</value>
   </data>
   <data name="Generic_When_There_Are" xml:space="preserve">
-    <value>当有...时</value>
+    <value>当有[xx]时</value>
   </data>
   <data name="Generic_Use_Area_Of_Effect_Abilities" xml:space="preserve">
     <value>使用范围攻击(AOE)技能</value>
@@ -3682,28 +3682,28 @@
     <value>使用 速行</value>
   </data>
   <data name="Generic_Second_Wind_At" xml:space="preserve">
-    <value>在...时使用内丹</value>
+    <value>在[xx]时使用内丹</value>
   </data>
   <data name="Generic_On_Tanks" xml:space="preserve">
     <value>对坦克</value>
   </data>
   <data name="Generic_Dance_With" xml:space="preserve">
-    <value>与...共舞：</value>
+    <value>与[xx]共舞：</value>
   </data>
   <data name="Generic_Yalms_Away" xml:space="preserve">
-    <value>...码外</value>
+    <value>[xx]码外</value>
   </data>
   <data name="Generic_Only_Use" xml:space="preserve">
     <value>仅使用</value>
   </data>
   <data name="Generic_Defensive_Buffs_At_The_Same_Time" xml:space="preserve">
-    <value>同时...个防御Buff</value>
+    <value>同时[xx]个防御Buff</value>
   </data>
   <data name="Generic_Unless_You_Are_Lower_Than" xml:space="preserve">
-    <value>除非你的血量低于...</value>
+    <value>除非你的血量低于[xx]</value>
   </data>
   <data name="Generic_Use_On" xml:space="preserve">
-    <value>对...使用</value>
+    <value>对[xx]使用</value>
   </data>
   <data name="Generic_Use_Defensives" xml:space="preserve">
     <value>使用防御技能</value>
@@ -3712,10 +3712,10 @@
     <value>亲疏自行</value>
   </data>
   <data name="Generic_Second_Wind_When_Below" xml:space="preserve">
-    <value>当血量低于...时使用内丹</value>
+    <value>当血量低于[xx]时使用内丹</value>
   </data>
   <data name="Generic_Bloodbath_When_Below" xml:space="preserve">
-    <value>当血量低于...时使用浴血</value>
+    <value>当血量低于[xx]时使用浴血</value>
   </data>
   <data name="Generic_Advance_Burst_Window_Settings" xml:space="preserve">
     <value>高级爆发窗口设置</value>
@@ -3742,19 +3742,19 @@
     <value>主坦克</value>
   </data>
   <data name="Generic_Refresh_When_There_Are" xml:space="preserve">
-    <value>当有...时刷新</value>
+    <value>当有[xx]时刷新</value>
   </data>
   <data name="Generic_Interrupt_Healing_If_Target_HP_Gets_Over" xml:space="preserve">
-    <value>如果目标HP超过...则中断治疗</value>
+    <value>如果目标HP超过[xx]则中断治疗</value>
   </data>
   <data name="Generic_Healing_Buffs_At_The_Same_Time" xml:space="preserve">
-    <value>同时...个治疗Buff</value>
+    <value>同时[xx]个治疗Buff</value>
   </data>
   <data name="Generic_Only_Tank" xml:space="preserve">
     <value>仅坦克</value>
   </data>
   <data name="Generic_Allies_Fall_Below" xml:space="preserve">
-    <value>队友血量降至...以下</value>
+    <value>队友血量降至[xx]以下</value>
   </data>
   <data name="Generic_Self_Heal_Only" xml:space="preserve">
     <value>仅自我治疗</value>
@@ -3772,13 +3772,13 @@
     <value>不攻击处于无敌/神圣领域/行尸走肉状态的目标</value>
   </data>
   <data name="Generic_Guard_Shield_At" xml:space="preserve">
-    <value>在...时使用防御</value>
+    <value>在[xx]时使用防御</value>
   </data>
   <data name="Generic_Purify_Remove_Debuffs" xml:space="preserve">
     <value>净化 (移除Debuff)</value>
   </data>
   <data name="Generic_Recuperate_Heal_At" xml:space="preserve">
-    <value>恢复 (在...时治疗)</value>
+    <value>恢复 (在[xx]时治疗)</value>
   </data>
   <data name="Generic_Ast" xml:space="preserve">
     <value>占星</value>
@@ -3856,7 +3856,7 @@
     <value>正在攻击它的队友</value>
   </data>
   <data name="Generic_Dont_Do_Damage_If_There_Are_More_Than" xml:space="preserve">
-    <value>如果敌人多于...则不造成伤害</value>
+    <value>如果敌人多于[xx]则不造成伤害</value>
   </data>
   <data name="Generic_Dispel_Anything_That_Is_Removable" xml:space="preserve">
     <value>驱散任何可移除的效果</value>
@@ -3886,7 +3886,7 @@
     <value>不攻击处于无敌/神圣领域状态的目标</value>
   </data>
   <data name="Generic_Item_Potion_Selected_Should_Be_In_You" xml:space="preserve">
-    <value />
+    <value>(已选择的物品药水应出现在热键栏中）</value>
   </data>
   <data name="Generic_Fightlogic_Use_Reprisal" xml:space="preserve">
     <value>由战斗逻辑决定使用 雪仇</value>
@@ -3907,10 +3907,10 @@
     <value>团队AOE</value>
   </data>
   <data name="Generic_Use_Aoe_When_There_Are" xml:space="preserve">
-    <value>当有...时使用AOE</value>
+    <value>当有[xx]时使用AOE</value>
   </data>
   <data name="Generic_Dont_Dot_If_More_Than" xml:space="preserve">
-    <value>如果多于...则不上DoT</value>
+    <value>如果多于[xx]则不上DoT</value>
   </data>
   <data name="Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent" xml:space="preserve">
     <value>仅当所有人血量高于90%时才造成伤害</value>
@@ -3925,40 +3925,40 @@
     <value>对拥有长持续伤害(DoT)的范围法术使用死亡倒计时判定</value>
   </data>
   <data name="Samurai_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
-    <value>当敌人在...内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
+    <value>当敌人在[xx]内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
   </data>
   <data name="OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude" xml:space="preserve">
     <value>为“守护之祈祷”自动切换为骑士</value>
   </data>
   <data name="Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
-    <value>当敌人在...内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
+    <value>当敌人在[xx]内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
   </data>
   <data name="Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
-    <value>当敌人在...内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
+    <value>当敌人在[xx]内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
   </data>
   <data name="Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within" xml:space="preserve">
-    <value>当敌人在...内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
+    <value>当敌人在[xx]内即将死亡时，使用死亡倒计时(TTD)判定/保留冷却技能</value>
   </data>
   <data name="WhiteMage_Content_Dispel_Anything_That_Is_Removable" xml:space="preserve">
     <value>驱散 任何可移除的效果</value>
   </data>
   <data name="WhiteMage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
-    <value>仅当附近玩家血量高于...时驱散</value>
+    <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
   <data name="WhiteMage_Content_Interrupt_Healing_If_Target_HP_Gets_Over" xml:space="preserve">
-    <value>如果目标HP超过...则中断治疗</value>
+    <value>如果目标HP超过[xx]则中断治疗</value>
   </data>
   <data name="WhiteMage_Content_Only_Heal_Alliance_Members_With_Regen" xml:space="preserve">
     <value>仅用 再生 治疗小队外成员</value>
   </data>
   <data name="Sage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
-    <value>仅当附近玩家血量高于...时驱散</value>
+    <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
   <data name="Scholar_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
-    <value>仅当附近玩家血量高于...时驱散</value>
+    <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
   <data name="Scholar_Content_Interrupt_Healing_If_Target_HP_Gets_Over" xml:space="preserve">
-    <value>如果目标HP超过...则中断治疗</value>
+    <value>如果目标HP超过[xx]则中断治疗</value>
   </data>
   <data name="Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_Astral_Flare_Brand_of_Purgatory" xml:space="preserve">
     <value>迸裂, 宠物迸裂, 三重灾祸, 宠物灾祸, 宠物灾变, 星极核爆, 炼狱之炎</value>
@@ -4012,7 +4012,7 @@
     <value>黑魔法师</value>
   </data>
   <data name="Controls_Content_HEALTH_PERCENT_BETWEEN" xml:space="preserve">
-    <value>生命值%在...之间</value>
+    <value>生命值%在.[xx]之间</value>
   </data>
   <data name="Controls_Content_HAS_PET" xml:space="preserve">
     <value>有宠物</value>
@@ -4309,7 +4309,7 @@
     <value>忍者</value>
   </data>
   <data name="Generic_When" xml:space="preserve">
-    <value>当...时</value>
+    <value>当[xx]时</value>
   </data>
   <data name="Generic_Has_Pet" xml:space="preserve">
     <value>有宠物</value>
@@ -5038,7 +5038,7 @@
     <value>绘画</value>
   </data>
   <data name="Dragoon_Content_Jump" xml:space="preserve">
-    <value>Jump= 跳跃</value>
+    <value>跳跃</value>
   </data>
   <data name="Generic_Pets" xml:space="preserve">
     <value>宠物</value>
