@@ -6773,6 +6773,90 @@ namespace Magitek.Utilities
                     },
                 }
             },
+            new Encounter {
+                ZoneId = 1304,
+                Name = "San d'Oria: The Second Walk",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14043,
+                        Name = "Kam'lanaut",
+                        TankBusters = new List<uint> {
+                            44219, // Princely Blow
+                        },
+                        Aoes = new List<uint> {
+                            44221, // Enspirited Swordplay
+                            44212, // Transcendent Union
+                            44907, // Empyreal Banish IV
+                        },
+                        AoeLockOns = new List<uint> {
+                            376,
+                        },
+                        Knockbacks = new List<uint> {
+                            44222, // Shield Bash
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14086,
+                        Name = "Eald'narche",
+                        TankBusters = new List<uint> {
+                            44369, // Uranos Cascade
+                        },
+                        Aoes = new List<uint> {
+                            44397, // Empyreal Vortex
+                            44380, // Omega Javelin
+                        },
+                        AoeLockOns = new List<uint> {
+                            376,
+                        },
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14053,
+                        Name = "Faithbound Kirin",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            44490, // Stonega IV
+                        },
+                        AoeLockOns = new List<uint> {
+                            101,
+                        },
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14230,
+                        Name = "Omega, the One",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            44331, // Ion Efflux
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14231,
+                        Name = "Ultima, the Feared",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            44315, // Citadel Buster
+                        },
+                        AoeLockOns = new List<uint> {
+                            466,
+                        },
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
             #endregion
         };
     }
