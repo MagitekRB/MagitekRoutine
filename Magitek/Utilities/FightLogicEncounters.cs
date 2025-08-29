@@ -6378,6 +6378,55 @@ namespace Magitek.Utilities
                     },
                 }
             },
+            new Encounter {
+                ZoneId = 1292,
+                Name = "The Meso Terminal",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 13970,
+                        Name = "Chirurgeon General",
+                        TankBusters = new List<uint> {
+                            43799, // Concentrated Dose
+                        },
+                        Aoes = new List<uint> {
+                            43798, // Medicine Field
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 13974,
+                        Name = "Immortal Remains",
+                        TankBusters = new List<uint> {
+                            43823, // Memory of the Pyre
+                        },
+                        Aoes = new List<uint> {
+                            43825, // Recollection
+                            43821, // Memory of the Storm
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14047,
+                        Name = "Bloody Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
 
             #endregion           
 
