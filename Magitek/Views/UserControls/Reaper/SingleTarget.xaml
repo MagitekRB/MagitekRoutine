@@ -77,7 +77,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo}" IsChecked="{Binding ReaperSettings.GluttonySaveSoulGuage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="0" Increment="1" Value="{Binding ReaperSettings.GluttonySaveSoulGuageCooldown, Mode=TwoWay}"/>
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

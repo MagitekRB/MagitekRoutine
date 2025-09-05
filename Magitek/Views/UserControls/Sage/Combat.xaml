@@ -120,7 +120,7 @@
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Do_Not_Use_Damage_Over_Time_Spells_If_En}" />
                 <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.DontDotIfEnemyDyingWithin, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
             </Grid>
         </controls:SettingsBlock>
 

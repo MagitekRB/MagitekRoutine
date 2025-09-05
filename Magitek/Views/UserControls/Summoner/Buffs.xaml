@@ -19,7 +19,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Dreadwyrm_Trance_When_Were_Stil_I}" IsChecked="{Binding SummonerSettings.DreadwyrmTrance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.DreadwyrmTranceWhenCombatTimeLeftGreaterThan, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

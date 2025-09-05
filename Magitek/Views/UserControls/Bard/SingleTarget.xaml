@@ -27,7 +27,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Pitch_Perfect_At}" IsChecked="{Binding BardSettings.UsePitchPerfect, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="3" MinValue="1" Value="{Binding BardSettings.UsePitchPerfectAtRepertoire, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Repertoire" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Repertoire}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds}" IsChecked="{Binding BardSettings.UsePitchPerfectAtTheEndOfWanderersMinuet, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -45,7 +45,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within}" IsChecked="{Binding BardSettings.DelayEmpyrealArrowUntilAPEnds, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" VerticalAlignment="Center" />
                     <controls:Numeric MaxValue="45" MinValue="0" Value="{Binding BardSettings.DontUseEmpyrealArrowWhenSongEndsInXSeconds, Mode=TwoWay}" VerticalAlignment="Center" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" VerticalAlignment="Center" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     

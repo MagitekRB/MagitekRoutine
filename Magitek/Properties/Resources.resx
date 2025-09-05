@@ -4956,4 +4956,7 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
     <value>Use Interrupt and Stun. If activated, use strategy: </value>
   </data>
+  <data name="Generic_Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
 </root>

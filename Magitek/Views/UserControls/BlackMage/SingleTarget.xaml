@@ -39,7 +39,7 @@
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Use_Thunder_Spells_Single_Target_Only}" IsChecked="{Binding BlackMageSettings.ThunderSingle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding BlackMageSettings.ThunderTimeTillDeathSeconds, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
             </StackPanel>
         </controls:SettingsBlock>
 

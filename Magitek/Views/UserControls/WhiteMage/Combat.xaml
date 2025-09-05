@@ -116,7 +116,7 @@
                 <CheckBox Grid.Column="0" Grid.ColumnSpan="5" Content="{x:Static properties:Resources.WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time}" IsChecked="{Binding WhiteMageSettings.UseTimeTillDeathForDots, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_}" />
                 <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.DontDotIfEnemyDyingWithin, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
             </Grid>
         </controls:SettingsBlock>
 

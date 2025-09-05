@@ -106,7 +106,7 @@
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Save_Circle_Of_Scorn_Expiacon_when}" IsChecked="{Binding PaladinSettings.SaveCircleOfScorn, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="15" MinValue="1" Value="{Binding PaladinSettings.SaveCircleOfScornMseconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="seconds" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

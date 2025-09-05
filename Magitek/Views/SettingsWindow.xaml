@@ -609,7 +609,7 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <scholar:Healing/>
                         </TabItem>
-                        <TabItem Header="Aetherpact"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Aetherpact}"
                                  Style="{DynamicResource MainTabHealing}">
                             <scholar:Aetherpact/>
                         </TabItem>
@@ -617,11 +617,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <scholar:Buffs/>
                         </TabItem>
-                        <TabItem Header="Pets"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pets}"
                                  Style="{DynamicResource MainTabPets}">
                             <scholar:Pets/>
                         </TabItem>
-                        <TabItem Header="Alliance"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Alliance}"
                                  Style="{DynamicResource MainTabAlliance}">
                             <scholar:Alliance/>
                         </TabItem>
@@ -663,11 +663,11 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <whitemage:Healing/>
                         </TabItem>
-                        <TabItem Header="Regen"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Regen}"
                                  Style="{DynamicResource MainTabHealing}">
                             <whitemage:Regen/>
                         </TabItem>
-                        <TabItem Header="Assize"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Assize}"
                                  Style="{DynamicResource MainTabHealing}">
                             <whitemage:Assize/>
                         </TabItem>
@@ -675,7 +675,7 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <whitemage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Alliance"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Alliance}"
                                  Style="{DynamicResource MainTabAlliance}">
                             <whitemage:Alliance/>
                         </TabItem>
@@ -717,7 +717,7 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <astrologian:DiurnalHealing/>
                         </TabItem>
-                        <TabItem Header="Cards"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Cards}"
                                  Style="{DynamicResource MainTabCards}">
                             <astrologian:Cards/>
                         </TabItem>
@@ -725,7 +725,7 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <astrologian:Buffs/>
                         </TabItem>
-                        <TabItem Header="Alliance"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Alliance}"
                                  Style="{DynamicResource MainTabAlliance}">
                             <astrologian:Alliance/>
                         </TabItem>
@@ -771,11 +771,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <sage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Shields"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Shields}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <sage:Shield/>
                         </TabItem>
-                        <TabItem Header="Alliance"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Alliance}"
                                  Style="{DynamicResource MainTabAlliance}">
                             <sage:Alliance/>
                         </TabItem>
@@ -849,7 +849,7 @@
                 <TabItem Name="RedMage"
                          Style="{DynamicResource TabItemRedMage}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
@@ -887,11 +887,11 @@
                 <TabItem Name="Pictomancer"
                          Style="{DynamicResource TabItemPictomancer}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Paint"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Paint}"
                                  Style="{DynamicResource MainTabCombat}">
                             <pictomancer:Paint/>
                         </TabItem>
-                        <TabItem Header="Palettes"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Palettes}"
                                  Style="{DynamicResource MainTabAoe}">
                             <pictomancer:Palettes/>
                         </TabItem>
@@ -929,7 +929,7 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <machinist:Buffs/>
                         </TabItem>
-                        <TabItem Header="Turrets"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Turrets}"
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Turrets/>
                         </TabItem>
@@ -959,7 +959,7 @@
                 <TabItem Name="Bard"
                          Style="{DynamicResource TabItemBard}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Dispels"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Dispels}"
                                  Style="{DynamicResource MainTabDispelling}">
                             <lists:Dispelling/>
                         </TabItem>
@@ -975,11 +975,11 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <bard:Aoe/>
                         </TabItem>
-                        <TabItem Header="Cooldowns"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Cooldowns}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <bard:Cooldowns/>
                         </TabItem>
-                        <TabItem Header="Songs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Songs}"
                                  Style="{DynamicResource MainTabSongs}">
                             <bard:Songs/>
                         </TabItem>
@@ -1203,7 +1203,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <reaper:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="AoE"
+                        <TabItem Header="{x:Static properties:Resources.Summoner_Text_Aoe}"
                                  Style="{DynamicResource MainTabAoe}">
                             <reaper:AoE/>
                         </TabItem>
@@ -1233,7 +1233,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <viper:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="AoE"
+                        <TabItem Header="{x:Static properties:Resources.Summoner_Text_Aoe}"
                                  Style="{DynamicResource MainTabAoe}">
                             <viper:AoE/>
                         </TabItem>

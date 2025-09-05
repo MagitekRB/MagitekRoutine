@@ -51,7 +51,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within}" IsChecked="{Binding BardSettings.DontDotIfCurrentTargetIsDyingSoon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="45" MinValue="1" Value="{Binding BardSettings.DontDotIfCurrentTargetIsDyingWithinXSeconds, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
 
             </StackPanel>
@@ -85,7 +85,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within}" IsChecked="{Binding BardSettings.DontDotIfMultiDotTargetIsDyingSoon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="45" MinValue="1" Value="{Binding BardSettings.DontDotIfMultiDotTargetIsDyingWithinXSeconds, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
 
             </StackPanel>

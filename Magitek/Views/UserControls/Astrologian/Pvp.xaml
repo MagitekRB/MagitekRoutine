@@ -171,7 +171,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Movement"/>
+                           Text="{x:Static properties:Resources.Generic_Movement}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -179,7 +179,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Healing"/>
+                           Text="{x:Static properties:Resources.Generic_Healing}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Grid.Row="0"
