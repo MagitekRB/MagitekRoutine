@@ -23,7 +23,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -163,7 +163,7 @@
                                   IsChecked="{Binding RedMageSettings.Pvp_UseForte, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text=" Below "/>
+                                   Text="{x:Static properties:Resources.Generic_Below}"/>
                         <controls:NumericSmall MaxValue="100"
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_ForteHealthPercent, Mode=TwoWay}"/>
@@ -177,7 +177,7 @@
                                   IsChecked="{Binding RedMageSettings.Pvp_UseEmbolden, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text=" Below "/>
+                                   Text="{x:Static properties:Resources.Generic_Below}"/>
                         <controls:NumericSmall MaxValue="100"
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_EmboldenTargetHealthPercent, Mode=TwoWay}"/>
@@ -218,7 +218,7 @@
                                   IsChecked="{Binding RedMageSettings.Pvp_UseDisplacement, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text=" Below "/>
+                                   Text="{x:Static properties:Resources.Generic_Below}"/>
                         <controls:NumericSmall MaxValue="100"
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_DisplacementHealthPercent, Mode=TwoWay}"/>
@@ -253,7 +253,7 @@
                                   IsChecked="{Binding RedMageSettings.Pvp_UseResolution, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text=" Below "/>
+                                   Text="{x:Static properties:Resources.Generic_Below}"/>
                         <controls:NumericSmall MaxValue="100"
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_ResolutionTargetHealthPercent, Mode=TwoWay}"/>
@@ -267,7 +267,7 @@
                                   IsChecked="{Binding RedMageSettings.Pvp_UseSouthernCross, Mode=TwoWay}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                   Text=" Below "/>
+                                   Text="{x:Static properties:Resources.Generic_Below}"/>
                         <controls:NumericSmall MaxValue="100"
                                                MinValue="1"
                                                Value="{Binding RedMageSettings.Pvp_SouthernCrossTargetHealthPercent, Mode=TwoWay}"/>

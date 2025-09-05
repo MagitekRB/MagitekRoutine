@@ -175,7 +175,7 @@
                         <controls:Numeric MaxValue="100"
                                           MinValue="1"
                                           Value="{Binding SummonerSettings.Pvp_SummonPhoenixHealthPercent, Mode=TwoWay}"/>
-                        <TextBlock Text=" %"
+                        <TextBlock Text="%"
                                    Style="{DynamicResource TextBlockDefault}"/>
                     </StackPanel>
                     <StackPanel Margin="25,5,5,5"
@@ -185,7 +185,7 @@
                         <controls:Numeric MaxValue="100"
                                           MinValue="1"
                                           Value="{Binding SummonerSettings.Pvp_SummonBahamutEnemyHealthPercent, Mode=TwoWay}"/>
-                        <TextBlock Text=" %"
+                        <TextBlock Text="%"
                                    Style="{DynamicResource TextBlockDefault}"/>
                     </StackPanel>
                 </StackPanel>

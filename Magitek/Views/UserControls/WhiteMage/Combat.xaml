@@ -37,7 +37,7 @@
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Do_Damage_When_Mana_Is_Over}" IsChecked="{Binding WhiteMageSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.MinimumManaPercentToDoDamage, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
@@ -78,7 +78,7 @@
                 <StackPanel Margin="1" Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy}" />
                     <controls:Numeric MaxValue="99999999" MinValue="1" Value="{Binding WhiteMageSettings.DotHealthMinimum, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Health" />
                 </StackPanel>
                 <StackPanel Margin="1" Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_And_At_Least}" />
@@ -89,7 +89,7 @@
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Dot_up_to}" IsChecked="{Binding WhiteMageSettings.DotMultipleTargets, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1"
                         Value="{Binding WhiteMageSettings.DotTargetLimit, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Targets" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Targets" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Dot_If_More_Than}" IsChecked="{Binding WhiteMageSettings.DontDotIfMoreEnemies, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}"/>
@@ -116,7 +116,7 @@
                 <CheckBox Grid.Column="0" Grid.ColumnSpan="5" Content="{x:Static properties:Resources.WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time}" IsChecked="{Binding WhiteMageSettings.UseTimeTillDeathForDots, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_}" />
                 <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.DontDotIfEnemyDyingWithin, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
+                <TextBlock Grid.Row="1" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
             </Grid>
         </controls:SettingsBlock>
 

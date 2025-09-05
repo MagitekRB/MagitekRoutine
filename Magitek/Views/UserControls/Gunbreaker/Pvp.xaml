@@ -168,7 +168,7 @@
             <StackPanel Margin="5">
                 <TextBlock Margin="0,0,0,5"
                            Style="{DynamicResource TextBlockSection}"
-                           Text="Buffs"/>
+                           Text="{x:Static properties:Resources.Generic_Buffs}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Nebula}"

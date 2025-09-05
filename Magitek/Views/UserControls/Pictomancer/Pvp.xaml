@@ -21,7 +21,7 @@
     <StackPanel Margin="5">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -66,14 +66,14 @@
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General}" />
 
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Advent_of_chocobooism_when}" IsChecked="{Binding PictomancerSettings.Pvp_UseAdventofChocobastion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="10" MinValue="1" Value="{Binding PictomancerSettings.Pvp_AdventofChocobastionCount, Mode=TwoWay}" />
                     <TextBlock Text="{x:Static properties:Resources.Pictomancer_Text_enemies_are_within}" Style="{DynamicResource TextBlockDefault}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding PictomancerSettings.Pvp_AdventofChocobastionYalms, Mode=TwoWay}" />
-                    <TextBlock Text=" yalms" Style="{DynamicResource TextBlockDefault}" />
+                    <TextBlock Text="yalms" Style="{DynamicResource TextBlockDefault}" />
                 </StackPanel>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Starstruck}" IsChecked="{Binding PictomancerSettings.Pvp_UseStarstruck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

@@ -1,4 +1,4 @@
-<UserControl x:Class="Magitek.Views.UserControls.OccultCrescent.General"
+﻿<UserControl x:Class="Magitek.Views.UserControls.OccultCrescent.General"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -64,7 +64,7 @@
                                                                   Value="{Binding PartyBuffRefreshMinutes, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" minutes"/>
+                                                           Text="minutes"/>
                                         </StackPanel>
 
                                         <!-- Party Buff Refresh Description -->
@@ -90,7 +90,7 @@
                                                                   MaxValue="100"
                                                                   Value="{Binding ReviveNonPartyMinimumManaPercent, Mode=TwoWay}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent"/>
+                                                           Text="percent"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
@@ -230,7 +230,7 @@
                                                                   MinValue="1"
                                                                   Value="{Binding PhantomGuardHealthPercent, Mode=TwoWay}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent"/>
+                                                           Text="percent"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"
@@ -245,7 +245,7 @@
                                                                   MinValue="1"
                                                                   Value="{Binding PrayHealthPercent, Mode=TwoWay}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" percent"/>
+                                                           Text="percent"/>
                                         </StackPanel>
 
                                         <!-- Occult Heal -->
@@ -386,7 +386,7 @@
                                                                   MaxValue="10"
                                                                   Value="{Binding ReviveDelay, Mode=TwoWay}"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text=" seconds"/>
+                                                           Text="{x:Static properties:Resources.Generic_Seconds}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"

@@ -46,7 +46,7 @@
                             Style="{DynamicResource CheckBoxFlat}" />
                   <controls:Numeric MaxValue="100" MinValue="1"
                                     Value="{Binding ScholarSettings.BioTargetLimit, Mode=TwoWay}" />
-                  <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Targets" />
+                  <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Targets" />
      </StackPanel>
                     
     </Grid>
@@ -61,7 +61,7 @@
                 <CheckBox IsChecked="{Binding ScholarSettings.BioUseTimeTillDeath, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If}" />
                 <controls:Numeric  MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.BioDontIfEnemyDyingWithinSeconds, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
             </StackPanel>
 
         </controls:SettingsBlock>

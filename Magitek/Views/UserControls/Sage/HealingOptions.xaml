@@ -29,7 +29,7 @@
 
                 <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove}" IsChecked="{Binding SageSettings.WeaveOGCDHeals, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding SageSettings.WeaveOGCDHealsManaPercent, Mode=TwoWay}" />
-                <TextBlock Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text=" Percent" />
+                <TextBlock Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
             </Grid>
         </controls:SettingsBlock>
 

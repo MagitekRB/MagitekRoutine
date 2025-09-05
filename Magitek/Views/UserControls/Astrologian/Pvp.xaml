@@ -24,7 +24,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -106,7 +106,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="General"/>
+                           Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Fall_Malefic}"
                               IsChecked="{Binding AstrologianSettings.Pvp_FallMalefic, Mode=TwoWay}"
@@ -171,7 +171,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Movement"/>
+                           Text="{x:Static properties:Resources.Generic_Movement}"/>
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -179,7 +179,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Healing"/>
+                           Text="{x:Static properties:Resources.Generic_Healing}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <CheckBox Grid.Row="0"

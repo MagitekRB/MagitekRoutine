@@ -5835,6 +5835,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to seconds.
+        /// </summary>
+        public static string Generic_Seconds {
+            get {
+                return ResourceManager.GetString("Generic_Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Self Heal Only.
         /// </summary>
         public static string Generic_Self_Heal_Only {

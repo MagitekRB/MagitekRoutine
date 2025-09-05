@@ -21,7 +21,7 @@
     <StackPanel Margin="5">
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="Utilities" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Utilities}" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -66,7 +66,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Style="{DynamicResource TextBlockSection}" Text="General" />
+                <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_General}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Atonement}" IsChecked="{Binding PaladinSettings.Pvp_Atonement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Confiteor}" IsChecked="{Binding PaladinSettings.Pvp_Confiteor, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -102,7 +102,7 @@
 
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="Buffs" />
+                <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Buffs}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Holy_Sheltron}" IsChecked="{Binding PaladinSettings.Pvp_HolySheltron, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>

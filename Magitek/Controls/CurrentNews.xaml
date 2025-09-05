@@ -32,7 +32,7 @@
                        Text="{Binding MagitekVersion.DistantVersion}"
                        Height="16" />
             <TextBlock Style="{DynamicResource TextBlockInfo}"
-                       Text="       "
+                       Text=""
                        Height="16" />
         </StackPanel>
         <StackPanel>

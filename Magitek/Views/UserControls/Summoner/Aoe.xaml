@@ -65,7 +65,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_That_Have_At_Least}" />
                         <controls:Numeric Margin="0,3" MaxValue="99999999" MinValue="1" Value="{Binding SummonerSettings.ShadowFlareMinimumHealth, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Health" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Health" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_And_At_Least}" />
                         <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.ShadowFlareMinimumHealthPercent, Mode=TwoWay}" />
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}" />

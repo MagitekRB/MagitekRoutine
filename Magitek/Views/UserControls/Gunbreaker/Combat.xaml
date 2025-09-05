@@ -99,7 +99,7 @@
                         <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Gnashing_Fang}" IsChecked="{Binding GunbreakerSettings.UseAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Hold_when_no_mercy_is_ready_in}" IsChecked="{Binding GunbreakerSettings.HoldAmmoCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="60" MinValue="1" Value="{Binding GunbreakerSettings.HoldAmmoComboSeconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -108,7 +108,7 @@
                         <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Blasting_Zone}" IsChecked="{Binding GunbreakerSettings.UseBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Hold_when_no_mercy_is_ready_in}" IsChecked="{Binding GunbreakerSettings.HoldBlastingZone, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="60" MinValue="1" Value="{Binding GunbreakerSettings.HoldBlastingZoneSeconds, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" seconds" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -127,7 +127,7 @@
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Aoe_when_at_least}" IsChecked="{Binding GunbreakerSettings.UseAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Margin="0,3" MaxValue="50" MinValue="1" Value="{Binding GunbreakerSettings.UseAoeEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
                     </StackPanel>
                 </StackPanel>
 
@@ -136,7 +136,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies}" />
                             <controls:Numeric Margin="0,3" MaxValue="50" MinValue="1" Value="{Binding GunbreakerSettings.BowShockEnemies, Mode=TwoWay}" />
-                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Enemies" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

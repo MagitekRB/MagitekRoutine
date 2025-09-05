@@ -62,7 +62,7 @@
                                   MaxValue="100"
                                   MinValue="1"
                                   Value="{Binding BardSettings.RainOfDeathEnemies, Mode=TwoWay}" />
-                <TextBlock Grid.Row="2" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text=" Enemies" />
+                <TextBlock Grid.Row="2" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
 
             </Grid>
         </controls:SettingsBlock>

@@ -73,7 +73,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within}" IsChecked="{Binding ReaperSettings.UseTTD, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100000" MinValue="1" Value="{Binding ReaperSettings.SaveIfEnemyDyingWithin, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
