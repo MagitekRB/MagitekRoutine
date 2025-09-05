@@ -95,7 +95,7 @@
                            MaxValue="100"
                            MinValue="1"
                            Value="{Binding GunbreakerSettings.ArmsLengthEnemies, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="6" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                    <TextBlock Grid.Row="6" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>

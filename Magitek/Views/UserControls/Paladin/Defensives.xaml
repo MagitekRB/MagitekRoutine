@@ -120,7 +120,7 @@
                                        MaxValue="100"
                                        MinValue="1"
                                        Value="{Binding PaladinSettings.ArmsLengthEnemies, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="5" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                    <TextBlock Grid.Row="5" Grid.Column="4" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
                 </Grid>
 
             </StackPanel>

@@ -37,7 +37,7 @@
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Do_Damage_When_Mana_Is_Over}" IsChecked="{Binding WhiteMageSettings.DoDamage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding WhiteMageSettings.MinimumManaPercentToDoDamage, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">

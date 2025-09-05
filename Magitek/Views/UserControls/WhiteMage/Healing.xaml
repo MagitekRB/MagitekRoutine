@@ -41,7 +41,7 @@
                 <StackPanel Margin="5,0" Orientation="Horizontal">
                     <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.WhiteMage_Content_Interrupt_Healing_If_Target_HP_Gets_Over}" IsChecked="{Binding WhiteMageSettings.InterruptHealing, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Column="1" Margin="3,0" Value="{Binding WhiteMageSettings.InterruptHealingHealthPercent, Mode=TwoWay}" />
-                    <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="White" Text="Percent" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="White" Text="{x:Static properties:Resources.Generic_Percent}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

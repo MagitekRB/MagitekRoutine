@@ -47,7 +47,7 @@
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Use_Nocturnal_Benefic_While_Mo}" IsChecked="{Binding AstrologianSettings.NocturnalBeneficWhileMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.NocturnalBeneficWhileMovingMinMana, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Percent" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                 </StackPanel>
 
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">

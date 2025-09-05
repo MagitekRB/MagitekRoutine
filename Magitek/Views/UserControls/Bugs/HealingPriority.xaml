@@ -50,7 +50,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedBuff, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Buffs" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Buffs}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedRegen, Mode=TwoWay}" />

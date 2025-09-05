@@ -55,7 +55,7 @@
                                   MaxValue="100"
                                   MinValue="1"
                                   Value="{Binding DancerSettings.WindmillEnemies, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                <TextBlock Grid.Row="1" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
 
                 <CheckBox Grid.Row="2" Grid.Column="0" Content="{x:Static properties:Resources.Dancer_Content_Bladeshower}" IsChecked="{Binding DancerSettings.Bladeshower, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Grid.Row="2" Grid.Column="1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When_There_Are}" />
@@ -65,7 +65,7 @@
                                   MaxValue="100"
                                   MinValue="1"
                                   Value="{Binding DancerSettings.BladeshowerEnemies, Mode=TwoWay}" />
-                <TextBlock Grid.Row="2" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                <TextBlock Grid.Row="2" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
 
                 <CheckBox Grid.Row="3" Grid.Column="0" Content="{x:Static properties:Resources.Dancer_Content_Rising_Windmill}" IsChecked="{Binding DancerSettings.RisingWindmill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Grid.Row="3" Grid.Column="1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When_There_Are}" />
@@ -75,7 +75,7 @@
                                   MaxValue="100"
                                   MinValue="1"
                                   Value="{Binding DancerSettings.RisingWindmillEnemies, Mode=TwoWay}" />
-                <TextBlock Grid.Row="3" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                <TextBlock Grid.Row="3" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
 
                 <CheckBox Grid.Row="4" Grid.Column="0" Content="{x:Static properties:Resources.Dancer_Content_Bloodshower}" IsChecked="{Binding DancerSettings.Bloodshower, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Grid.Row="4" Grid.Column="1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When_There_Are}" />
@@ -85,7 +85,7 @@
                                   MaxValue="100"
                                   MinValue="1"
                                   Value="{Binding DancerSettings.BloodshowerEnemies, Mode=TwoWay}" />
-                <TextBlock Grid.Row="4" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                <TextBlock Grid.Row="4" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
 
                 <CheckBox Grid.Row="5" Grid.Column="0" Content="{x:Static properties:Resources.Dancer_Content_Fan_Dance_II}" IsChecked="{Binding DancerSettings.FanDanceTwo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <TextBlock Grid.Row="5" Grid.Column="1" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When_There_Are}" />
@@ -95,7 +95,7 @@
                                   MaxValue="100"
                                   MinValue="1"
                                   Value="{Binding DancerSettings.FanDanceTwoEnemies, Mode=TwoWay}" />
-                <TextBlock Grid.Row="5" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="Enemies" />
+                <TextBlock Grid.Row="5" Grid.Column="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Enemies}" />
 
             </Grid>
         </controls:SettingsBlock>

@@ -559,7 +559,7 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <gunbreaker:Healing/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <gunbreaker:Buffs/>
                         </TabItem>
@@ -613,7 +613,7 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <scholar:Aetherpact/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <scholar:Buffs/>
                         </TabItem>
@@ -671,7 +671,7 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <whitemage:Assize/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <whitemage:Buffs/>
                         </TabItem>
@@ -721,7 +721,7 @@
                                  Style="{DynamicResource MainTabCards}">
                             <astrologian:Cards/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <astrologian:Buffs/>
                         </TabItem>
@@ -767,7 +767,7 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <sage:HealingOptions/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <sage:Buffs/>
                         </TabItem>
@@ -805,7 +805,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <blackMage:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <blackMage:Buffs/>
                         </TabItem>
@@ -861,7 +861,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <redMage:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <redMage:Buffs/>
                         </TabItem>
@@ -925,7 +925,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <machinist:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <machinist:Buffs/>
                         </TabItem>
@@ -1025,7 +1025,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <dancer:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <dancer:Buffs/>
                         </TabItem>
@@ -1055,7 +1055,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <dragoon:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <dragoon:Buffs/>
                         </TabItem>
@@ -1097,7 +1097,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <monk:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <monk:Buffs/>
                         </TabItem>
@@ -1131,7 +1131,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <ninja:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <ninja:Buffs/>
                         </TabItem>
@@ -1169,7 +1169,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <samurai:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <samurai:Buffs/>
                         </TabItem>
@@ -1271,7 +1271,7 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <blueMage:Aoe/>
                         </TabItem>
-                        <TabItem Header="Buffs"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <blueMage:Buffs/>
                         </TabItem>
