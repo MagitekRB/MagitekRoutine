@@ -26,7 +26,7 @@
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bugs_Text_100_disables_that_value_for_priority_checks}" />
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedSelf, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Self" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Self}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedTankRole, Mode=TwoWay}" />
@@ -58,7 +58,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedShield, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Shields" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Shields}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedWeakness, Mode=TwoWay}" />

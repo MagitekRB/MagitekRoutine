@@ -230,7 +230,7 @@
             <StackPanel Margin="5">
                 <StackPanel Margin="1" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Seraphism}" IsChecked="{Binding ScholarSettings.Seraphism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="When" />
+                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_When}" />
                     <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding ScholarSettings.SeraphismAllies, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Fall_Below}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.SeraphismHealthPercent, Mode=TwoWay}" />

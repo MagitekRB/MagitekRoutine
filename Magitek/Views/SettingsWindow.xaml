@@ -551,11 +551,11 @@
                 <TabItem Name="Gunbreaker"
                          Style="{DynamicResource TabItemGunbreaker}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Combat"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Combat}"
                                  Style="{DynamicResource MainTabCombat}">
                             <gunbreaker:Combat/>
                         </TabItem>
-                        <TabItem Header="Healing"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <gunbreaker:Healing/>
                         </TabItem>
@@ -563,19 +563,19 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <gunbreaker:Buffs/>
                         </TabItem>
-                        <TabItem Header="Defensives"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Defensives}"
                                  Style="{DynamicResource MainTabDefensives}">
                             <gunbreaker:Defensives/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <gunbreaker:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <gunbreaker:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -605,7 +605,7 @@
                                  Style="{DynamicResource MainTabDots}">
                             <scholar:DOTs/>
                         </TabItem>
-                        <TabItem Header="Healing"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <scholar:Healing/>
                         </TabItem>
@@ -625,15 +625,15 @@
                                  Style="{DynamicResource MainTabAlliance}">
                             <scholar:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <scholar:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <scholar:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -659,7 +659,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <whitemage:Combat/>
                         </TabItem>
-                        <TabItem Header="Healing"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <whitemage:Healing/>
                         </TabItem>
@@ -679,15 +679,15 @@
                                  Style="{DynamicResource MainTabAlliance}">
                             <whitemage:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <whitemage:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <whitemage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -705,7 +705,7 @@
                                  Style="{DynamicResource MainTabDispelling}">
                             <astrologian:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="Combat"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Combat}"
                                  Style="{DynamicResource MainTabCombat}">
                             <astrologian:Combat/>
                         </TabItem>
@@ -729,15 +729,15 @@
                                  Style="{DynamicResource MainTabAlliance}">
                             <astrologian:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <astrologian:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <astrologian:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -755,7 +755,7 @@
                                  Style="{DynamicResource MainTabDispelling}">
                             <sage:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="Combat"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Combat}"
                                  Style="{DynamicResource MainTabCombat}">
                             <sage:Combat/>
                         </TabItem>
@@ -779,15 +779,15 @@
                                  Style="{DynamicResource MainTabAlliance}">
                             <sage:Alliance/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <sage:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <sage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -809,7 +809,7 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <blackMage:Buffs/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <blackMage:FightLogic/>
                         </TabItem>
@@ -817,7 +817,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <blackMage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -827,11 +827,11 @@
                 <TabItem Name="Summoner"
                          Style="{DynamicResource TabItemSummoner}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="General"
+                        <TabItem Header="{x:Static properties:Resources.Generic_General}"
                                  Style="{DynamicResource MainTabCombat}">
                             <summoner:General/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <summoner:FightLogic/>
                         </TabItem>
@@ -839,7 +839,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <summoner:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -865,11 +865,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <redMage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Healing"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Healing}"
                                  Style="{DynamicResource MainTabHealing}">
                             <redMage:Heal/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <redMage:FightLogic/>
                         </TabItem>
@@ -877,7 +877,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <redMage:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -895,19 +895,19 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <pictomancer:Palettes/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabUtilities}">
                             <pictomancer:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <pictomancer:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <pictomancer:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -933,11 +933,11 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Turrets/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Utilities/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <machinist:FightLogic/>
                         </TabItem>
@@ -945,7 +945,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -983,11 +983,11 @@
                                  Style="{DynamicResource MainTabSongs}">
                             <bard:Songs/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabUtilities}">
                             <bard:Utilities/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <bard:FightLogic/>
                         </TabItem>
@@ -995,7 +995,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <bard:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1009,11 +1009,11 @@
                 <TabItem Name="Dancer"
                          Style="{DynamicResource TabItemDancer}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="General"
+                        <TabItem Header="{x:Static properties:Resources.Generic_General}"
                                  Style="{DynamicResource MainTabCombat}">
                             <dancer:General/>
                         </TabItem>
@@ -1029,7 +1029,7 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <dancer:Buffs/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <dancer:FightLogic/>
                         </TabItem>
@@ -1063,19 +1063,19 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <dragoon:Jumps/>
                         </TabItem>
-                        <TabItem Header="Defensives"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Defensives}"
                                  Style="{DynamicResource MainTabDefensives}">
                             <dragoon:Defensives/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <dragoon:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <dragoon:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1101,15 +1101,15 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <monk:Buffs/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <monk:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <monk:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1139,15 +1139,15 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <ninja:Ninjutsu/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <ninja:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <ninja:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1173,11 +1173,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <samurai:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabUtilities}">
                             <samurai:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <samurai:FightLogic/>
                         </TabItem>
@@ -1185,7 +1185,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <samurai:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1207,19 +1207,19 @@
                                  Style="{DynamicResource MainTabAoe}">
                             <reaper:AoE/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabUtilities}">
                             <reaper:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <reaper:FightLogic/>
                         </TabItem>
-                        <TabItem Header="Pvp"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Pvp}"
                                  Style="{DynamicResource MainTabCombat}">
                             <reaper:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1241,11 +1241,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <viper:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabUtilities}">
                             <viper:Utility/>
                         </TabItem>
-                        <TabItem Header="FightLogic"
+                        <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <viper:FightLogic/>
                         </TabItem>
@@ -1253,7 +1253,7 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <viper:Pvp/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1275,11 +1275,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <blueMage:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
                                  Style="{DynamicResource MainTabUtilities}">
                             <blueMage:Utilities/>
                         </TabItem>
-                        <TabItem Header="Toggles"
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
@@ -1293,7 +1293,7 @@
                 <TabItem Name="OccultCrescent"
                          Style="{DynamicResource TabItemOccultCrescent}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="General"
+                        <TabItem Header="{x:Static properties:Resources.Generic_General}"
                                  Style="{DynamicResource MainTabCombat}">
                             <occultCrescent:General/>
                         </TabItem>

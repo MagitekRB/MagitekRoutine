@@ -23,7 +23,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="Utilities"/>
+                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -105,7 +105,7 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="General"/>
+                           Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Biolysis}"
                               IsChecked="{Binding ScholarSettings.Pvp_Biolysis, Mode=TwoWay}"
