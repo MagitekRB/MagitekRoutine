@@ -705,7 +705,7 @@
                                  Style="{DynamicResource MainTabDispelling}">
                             <astrologian:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="Combat "
+                        <TabItem Header="Combat"
                                  Style="{DynamicResource MainTabCombat}">
                             <astrologian:Combat/>
                         </TabItem>
@@ -755,7 +755,7 @@
                                  Style="{DynamicResource MainTabDispelling}">
                             <sage:DispelOptions/>
                         </TabItem>
-                        <TabItem Header="Combat "
+                        <TabItem Header="Combat"
                                  Style="{DynamicResource MainTabCombat}">
                             <sage:Combat/>
                         </TabItem>
@@ -887,15 +887,15 @@
                 <TabItem Name="Pictomancer"
                          Style="{DynamicResource TabItemPictomancer}">
                     <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="Paint "
+                        <TabItem Header="Paint"
                                  Style="{DynamicResource MainTabCombat}">
                             <pictomancer:Paint/>
                         </TabItem>
-                        <TabItem Header="Palettes "
+                        <TabItem Header="Palettes"
                                  Style="{DynamicResource MainTabAoe}">
                             <pictomancer:Palettes/>
                         </TabItem>
-                        <TabItem Header="Utilities "
+                        <TabItem Header="Utilities"
                                  Style="{DynamicResource MainTabUtilities}">
                             <pictomancer:Utility/>
                         </TabItem>
@@ -929,11 +929,11 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <machinist:Buffs/>
                         </TabItem>
-                        <TabItem Header="Turrets "
+                        <TabItem Header="Turrets"
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Turrets/>
                         </TabItem>
-                        <TabItem Header="Utilities "
+                        <TabItem Header="Utilities"
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Utilities/>
                         </TabItem>
@@ -941,7 +941,7 @@
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <machinist:FightLogic/>
                         </TabItem>
-                        <TabItem Header="PVP "
+                        <TabItem Header="PVP"
                                  Style="{DynamicResource MainTabCombat}">
                             <machinist:Pvp/>
                         </TabItem>
@@ -1013,7 +1013,7 @@
                                  Style="{DynamicResource MainTabHotkeys}">
                             <customControls:TogglesSettings/>
                         </TabItem>
-                        <TabItem Header="General "
+                        <TabItem Header="General"
                                  Style="{DynamicResource MainTabCombat}">
                             <dancer:General/>
                         </TabItem>
@@ -1203,11 +1203,11 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <reaper:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="AoE "
+                        <TabItem Header="AoE"
                                  Style="{DynamicResource MainTabAoe}">
                             <reaper:AoE/>
                         </TabItem>
-                        <TabItem Header="Utilities "
+                        <TabItem Header="Utilities"
                                  Style="{DynamicResource MainTabUtilities}">
                             <reaper:Utility/>
                         </TabItem>
@@ -1233,15 +1233,15 @@
                                  Style="{DynamicResource MainTabCombat}">
                             <viper:SingleTarget/>
                         </TabItem>
-                        <TabItem Header="AoE "
+                        <TabItem Header="AoE"
                                  Style="{DynamicResource MainTabAoe}">
                             <viper:AoE/>
                         </TabItem>
-                        <TabItem Header="Buff "
+                        <TabItem Header="Buff"
                                  Style="{DynamicResource MainTabBuffs}">
                             <viper:Buffs/>
                         </TabItem>
-                        <TabItem Header="Utilities "
+                        <TabItem Header="Utilities"
                                  Style="{DynamicResource MainTabUtilities}">
                             <viper:Utility/>
                         </TabItem>

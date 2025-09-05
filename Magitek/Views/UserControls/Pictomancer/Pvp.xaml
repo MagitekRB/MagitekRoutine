@@ -73,7 +73,7 @@
                     <controls:Numeric MaxValue="10" MinValue="1" Value="{Binding PictomancerSettings.Pvp_AdventofChocobastionCount, Mode=TwoWay}" />
                     <TextBlock Text="{x:Static properties:Resources.Pictomancer_Text_enemies_are_within}" Style="{DynamicResource TextBlockDefault}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding PictomancerSettings.Pvp_AdventofChocobastionYalms, Mode=TwoWay}" />
-                    <TextBlock Text=" yalms" Style="{DynamicResource TextBlockDefault}" />
+                    <TextBlock Text="yalms" Style="{DynamicResource TextBlockDefault}" />
                 </StackPanel>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Starstruck}" IsChecked="{Binding PictomancerSettings.Pvp_UseStarstruck, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

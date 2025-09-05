@@ -114,7 +114,7 @@
                                       MinValue="1"
                                       Value="{Binding PictomancerSettings.SaveIfEnemyDyingWithin, Mode=TwoWay}"/>
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
-                               Text=" Seconds"/>
+                               Text="Seconds"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

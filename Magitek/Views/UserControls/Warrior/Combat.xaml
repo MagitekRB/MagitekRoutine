@@ -45,7 +45,7 @@
                     <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_Onslaught}" IsChecked="{Binding WarriorSettings.UseOnslaught, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Only_in_Melee_Save}" IsChecked="{Binding WarriorSettings.OnslaughtOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding WarriorSettings.SaveOnslaughtCharges, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" charges" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="charges" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

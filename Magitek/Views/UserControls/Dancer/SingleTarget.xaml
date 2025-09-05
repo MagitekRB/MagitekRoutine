@@ -75,7 +75,7 @@
             <StackPanel Orientation="Horizontal">
                 <CheckBox Margin="5" Content="{x:Static properties:Resources.Dancer_Content_Do_Not_DanceDevilment_if_Target_Is_Invulnerable}" IsChecked="{Binding DancerSettings.DontDanceIfCurrentTargetIsDyingSoon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding DancerSettings.DontDanceIfCurrentTargetIsDyingWithinXSeconds, Mode=TwoWay}" />
-            <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Seconds" />
+            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Seconds" />
             </StackPanel>
         </controls:SettingsBlock>
 

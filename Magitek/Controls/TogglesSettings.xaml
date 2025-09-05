@@ -422,7 +422,7 @@
                                 <TextBlock Text="{Binding Name}"
                                         FontSize="11"
                                         Foreground="{DynamicResource GrayLighter}"/>
-                                <TextBlock Text=" : "
+                                <TextBlock Text=":"
                                         FontSize="11"
                                         Foreground="{DynamicResource GrayLighter}"/>
                                 <TextBlock Text="{Binding Type}"

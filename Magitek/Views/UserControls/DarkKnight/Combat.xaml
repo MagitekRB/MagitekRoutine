@@ -32,7 +32,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Always_Save_at_least}" />
                     <controls:Numeric Margin="0,3" Increment="100"  MaxValue="10000" MinValue="0" Value="{Binding DarkKnightSettings.SaveXMana, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Mana" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Mana" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

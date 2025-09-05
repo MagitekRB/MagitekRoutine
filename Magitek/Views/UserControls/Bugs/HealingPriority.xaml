@@ -26,7 +26,7 @@
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bugs_Text_100_disables_that_value_for_priority_checks}" />
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedSelf, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Self   " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Self" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedTankRole, Mode=TwoWay}" />
@@ -46,23 +46,23 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedDebuff, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Debuffs   " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Debuffs" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedBuff, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Buffs   " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Buffs" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedRegen, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Regens   " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Regens" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedShield, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Shields   " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Shields" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedWeakness, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text=" Weakness   " />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="Weakness" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <controls:Decimal Value="{Binding Settings.WeightedDistanceMin, Mode=TwoWay}" />
