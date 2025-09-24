@@ -16,6 +16,12 @@ namespace Magitek.Models.Ninja
         [DefaultValue(true)]
         public bool FightLogicShadeShift { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseForkedRaiju { get; set; }
+        
+
+
         #region PVP
 
         [Setting]

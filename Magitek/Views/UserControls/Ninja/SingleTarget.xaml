@@ -30,8 +30,15 @@
     </UserControl.Resources>
 
     <StackPanel Margin="10">
-        <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
 
+
+        <controls:SettingsBlock Margin="0,0,0,0" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <TextBlock Margin="0 8 0 0" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Abilities}" />
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Forked_Raiju}" IsChecked="{Binding NinjaSettings.UseForkedRaiju, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
         </controls:SettingsBlock>
     </StackPanel>
 </UserControl>

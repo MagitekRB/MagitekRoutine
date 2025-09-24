@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System;
 using System.Linq;
@@ -123,6 +124,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> ForkedRaiju()
         {
+
+            if (!NinjaSettings.Instance.UseForkedRaiju)
+                return false;
 
             if (Core.Me.ClassLevel < 90)
                 return false;
