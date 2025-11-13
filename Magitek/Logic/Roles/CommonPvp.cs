@@ -20,6 +20,14 @@ namespace Magitek.Logic.Roles
         private static DateTime LastTargetCountUpdate { get; set; } = DateTime.MinValue;
         private static readonly TimeSpan TargetCountUpdateInterval = TimeSpan.FromMilliseconds(500); // Update every 500ms
 
+        // Mount/Dismount debounce tracking with exponential backoff
+        private static DateTime LastMountStateChange { get; set; } = DateTime.MinValue;
+        private static int ConsecutiveMountStateChanges { get; set; } = 0;
+        private static readonly TimeSpan BaseMountDebounceInterval = TimeSpan.FromSeconds(2); // Base 2 second cooldown
+        private static readonly TimeSpan MaxMountDebounceInterval = TimeSpan.FromSeconds(15); // Max 15 second cooldown
+        private static readonly TimeSpan ResetThreshold = TimeSpan.FromSeconds(30); // Reset counter if stable for 30 seconds
+        private static readonly float EmergencyDismountRange = 30f; // Emergency dismount if enemy within 30 yalms (ignores debounce)
+
         public static void UpdateTargetCounts()
         {
             var now = DateTime.Now;
@@ -190,12 +198,45 @@ namespace Magitek.Logic.Roles
             if (WorldManager.ZoneId == 250)
                 return false;
 
-            // If we're already mounted, check if we need to dismount
+            var now = DateTime.Now;
+
+            // Reset consecutive changes counter if we've been stable for a while
+            if (now - LastMountStateChange > ResetThreshold)
+            {
+                ConsecutiveMountStateChanges = 0;
+            }
+
+            // EMERGENCY DISMOUNT: If enemy is dangerously close while mounted, dismount immediately
+            // This ignores debounce to prevent getting mount-stunned and killed
+            if (Core.Me.IsMounted && Combat.Enemies.Any(x => x.WithinSpellRange(EmergencyDismountRange)))
+            {
+                ActionManager.Dismount();
+                LastMountStateChange = now;
+                ConsecutiveMountStateChanges++;
+                return true;
+            }
+
+            // Calculate current debounce interval with exponential backoff
+            // Formula: BaseInterval * 2^(consecutiveChanges) capped at MaxInterval
+            var currentDebounceInterval = TimeSpan.FromSeconds(
+                Math.Min(
+                    BaseMountDebounceInterval.TotalSeconds * Math.Pow(2, ConsecutiveMountStateChanges),
+                    MaxMountDebounceInterval.TotalSeconds
+                )
+            );
+
+            // Check debounce - prevent rapid mount/dismount spam with exponential backoff
+            if (now - LastMountStateChange < currentDebounceInterval)
+                return false;
+
+            // If we're already mounted, check if we need to dismount (normal range)
             if (Core.Me.IsMounted)
             {
                 if (Combat.Enemies.Any(x => x.WithinSpellRange(45)))
                 {
                     ActionManager.Dismount();
+                    LastMountStateChange = now;
+                    ConsecutiveMountStateChanges++;
                     return true;
                 }
                 return false;
@@ -207,10 +248,12 @@ namespace Magitek.Logic.Roles
                 && ActionManager.CanMount == 0
                 && MovementManager.IsMoving)
             {
-                if (Combat.Enemies.Any(x => x.WithinSpellRange(65)))
+                if (Combat.Enemies.Any(x => x.WithinSpellRange(70)))
                     return false;
 
                 ActionManager.Mount();
+                LastMountStateChange = now;
+                ConsecutiveMountStateChanges++;
                 return true;
             }
 
