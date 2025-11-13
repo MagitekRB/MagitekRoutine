@@ -6683,7 +6683,7 @@ namespace Magitek.Utilities
                 }
             },
 
-
+            
             #endregion
 
             #region Dawntrail: Alliance Raids
