@@ -4013,6 +4013,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Recuperate_Heal_At" xml:space="preserve">
     <value>Recuperate Heal At</value>
   </data>
+  <data name="Generic_AutoGuard_MarksmansSpite" xml:space="preserve">
+    <value>Auto Guard vs Marksman's Spite</value>
+  </data>
   <data name="Generic_Ast" xml:space="preserve">
     <value>Ast</value>
   </data>
@@ -4116,7 +4119,7 @@ Does not work if Lightspeed is disabled.</value>
     <value>Whm</value>
   </data>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Ground" xml:space="preserve">
-    <value>Dont Attack Invuln Hallowed Ground</value>
+    <value>Don't attack Invuln (Hallowed Ground, Undead, Redemption)</value>
   </data>
   <data name="Generic_Item_Potion_Selected_Should_Be_In_You" xml:space="preserve">
     <value>(Item Potion selected should be in your hotkey bar)</value>

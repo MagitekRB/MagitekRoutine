@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
+             xmlns:common="clr-namespace:Magitek.Views.UserControls.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Magitek.Enumerations"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -32,16 +33,13 @@
     </UserControl.Resources>
 
     <StackPanel Margin="5">
+        <common:PvpUtilities DataContext="{Binding DancerSettings}"/>
+
         <controls:SettingsBlock Margin="0,5"
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
-                <TextBlock Style="{DynamicResource TextBlockSection}"
-                           Text="{x:Static properties:Resources.Generic_Utilities}"/>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -52,81 +50,19 @@
 
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
-                              IsChecked="{Binding DancerSettings.Pvp_UsePurify, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-
-                    <CheckBox Grid.Row="1"
-                              Grid.Column="0"
-                              Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
-                              IsChecked="{Binding DancerSettings.Pvp_UseGuard, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                    <controls:Numeric Grid.Row="1"
-                                      Grid.Column="1"
-                                      MaxValue="100"
-                                      MinValue="1"
-                                      Value="{Binding DancerSettings.Pvp_GuardHealthPercent, Mode=TwoWay}"/>
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="2"
-                               Style="{DynamicResource TextBlockDefault}"
-                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
-
-                    <CheckBox Grid.Row="2"
-                              Grid.Column="0"
-                              Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
-                              IsChecked="{Binding DancerSettings.Pvp_UseRecuperate, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                    <controls:Numeric Grid.Row="2"
-                                      Grid.Column="1"
-                                      MaxValue="100"
-                                      MinValue="1"
-                                      Value="{Binding DancerSettings.Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="2"
-                               Style="{DynamicResource TextBlockDefault}"
-                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
-
-                    <CheckBox Grid.Row="3"
-                              Grid.Column="0"
                               Content="{x:Static properties:Resources.Dancer_Content_Curing_Walz_At}"
                               IsChecked="{Binding DancerSettings.Pvp_UseCuringWaltz, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
-                    <controls:Numeric Grid.Row="3"
+                    <controls:Numeric Grid.Row="0"
                                       Grid.Column="1"
                                       MaxValue="100"
                                       MinValue="1"
                                       Value="{Binding DancerSettings.Pvp_CuringWaltzHP, Mode=TwoWay}"/>
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="0"
                                Grid.Column="2"
                                Style="{DynamicResource TextBlockDefault}"
                                Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </Grid>
-            </StackPanel>
-        </controls:SettingsBlock>
-
-        <controls:SettingsBlock Margin="0,5"
-                                Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5">
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
-                              IsChecked="{Binding DancerSettings.Pvp_SprintWithoutTarget, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
-                              IsChecked="{Binding DancerSettings.Pvp_UseMount, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
-                              IsChecked="{Binding DancerSettings.Pvp_GuardCheck, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Groundu}"
-                              IsChecked="{Binding DancerSettings.Pvp_InvulnCheck, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
