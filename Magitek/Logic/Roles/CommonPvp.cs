@@ -130,6 +130,9 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return true;
 
+            if (await AutoGuard(settings))
+                return true;
+
             if (await Guard(settings))
                 return true;
 
@@ -258,6 +261,45 @@ namespace Magitek.Logic.Roles
             }
 
             return false;
+        }
+
+        public static async Task<bool> AutoGuard<T>(T settings) where T : JobSettings
+        {
+            if (!settings.Pvp_UseGuard)
+                return false;
+
+            if (!Spells.Guard.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (Core.Me.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }))
+                return false;
+
+            bool shouldAutoGuard = false;
+
+            // Check if enemy is casting Marksman's Spite on us
+            if (settings.Pvp_AutoGuardMarksmanSpite)
+            {
+                var enemyCastingMarksman = Combat.Enemies.FirstOrDefault(e =>
+                    e.IsCasting &&
+                    e.CastingSpellId == Spells.MarksmansSpitePvp.Id &&
+                    e.TargetGameObject == Core.Me);
+
+                if (enemyCastingMarksman != null)
+                    shouldAutoGuard = true;
+            }
+
+            // Add more auto-guard conditions here in the future
+
+            if (!shouldAutoGuard)
+                return false;
+
+            if (!await Spells.Guard.CastAura(Core.Me, Auras.PvpGuard))
+                return false;
+
+            return await Coroutine.Wait(1500, () => Core.Me.HasAura(Auras.PvpGuard, true));
         }
 
         public static async Task<bool> Guard<T>(T settings) where T : JobSettings

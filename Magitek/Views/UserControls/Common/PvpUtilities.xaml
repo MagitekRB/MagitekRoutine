@@ -1,0 +1,77 @@
+<UserControl x:Class="Magitek.Views.UserControls.Common.PvpUtilities"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:properties="clr-namespace:Magitek.Properties"
+             xmlns:controls="clr-namespace:Magitek.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="150"
+             d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
+    </UserControl.Resources>
+
+    <controls:SettingsBlock Margin="0,5"
+                            Background="{DynamicResource ClassSelectorBackground}">
+        <StackPanel>
+            <TextBlock Style="{DynamicResource TextBlockSection}"
+                       Text="{x:Static properties:Resources.Generic_Utilities}"/>
+            <StackPanel Margin="5">
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Purify_Remove_Debuffs}"
+                              IsChecked="{Binding Pvp_UsePurify, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
+                              IsChecked="{Binding Pvp_UseGuard, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding Pvp_GuardHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_AutoGuard_MarksmansSpite}"
+                              IsChecked="{Binding Pvp_AutoGuardMarksmanSpite, Mode=TwoWay}"
+                              Margin="15,0,0,0"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
+                              IsChecked="{Binding Pvp_UseRecuperate, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                    <controls:Numeric MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
+                              IsChecked="{Binding Pvp_SprintWithoutTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
+                              IsChecked="{Binding Pvp_UseMount, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
+                              IsChecked="{Binding Pvp_GuardCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Ground}"
+                              IsChecked="{Binding Pvp_InvulnCheck, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </controls:SettingsBlock>
+</UserControl>
+

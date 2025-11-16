@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Magitek.Properties {
+namespace Magitek.Properties
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,14556 +23,17799 @@ namespace Magitek.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
-        
+    public class Resources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Magitek.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aggro Ast Mode.
         /// </summary>
-        public static string Astrologian_Content_Aggro_Ast_Mode {
-            get {
+        public static string Astrologian_Content_Aggro_Ast_Mode
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Aggro_Ast_Mode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always With Enhanced Benefic.
         /// </summary>
-        public static string Astrologian_Content_Always_With_Enhanced_Benefic {
-            get {
+        public static string Astrologian_Content_Always_With_Enhanced_Benefic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Always_With_Enhanced_Benefic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ascend.
         /// </summary>
-        public static string Astrologian_Content_Ascend {
-            get {
+        public static string Astrologian_Content_Ascend
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Ascend", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ascend Out of Combat.
         /// </summary>
-        public static string Astrologian_Content_Ascend_Out_of_Combat {
-            get {
+        public static string Astrologian_Content_Ascend_Out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Ascend_Out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aspected Benefic.
         /// </summary>
-        public static string Astrologian_Content_Aspected_Benefic {
-            get {
+        public static string Astrologian_Content_Aspected_Benefic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Aspected_Benefic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aspected Benefic At.
         /// </summary>
-        public static string Astrologian_Content_Aspected_Benefic_At {
-            get {
+        public static string Astrologian_Content_Aspected_Benefic_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Aspected_Benefic_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aspected Helios.
         /// </summary>
-        public static string Astrologian_Content_Aspected_Helios {
-            get {
+        public static string Astrologian_Content_Aspected_Helios
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Aspected_Helios", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Benefic.
         /// </summary>
-        public static string Astrologian_Content_Benefic {
-            get {
+        public static string Astrologian_Content_Benefic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Benefic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Benefic 2.
         /// </summary>
-        public static string Astrologian_Content_Benefic_2 {
-            get {
+        public static string Astrologian_Content_Benefic_2
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Benefic_2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Celestial Intersection.
         /// </summary>
-        public static string Astrologian_Content_Celestial_Intersection {
-            get {
+        public static string Astrologian_Content_Celestial_Intersection
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Celestial_Intersection", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Celestial Opposition.
         /// </summary>
-        public static string Astrologian_Content_Celestial_Opposition {
-            get {
+        public static string Astrologian_Content_Celestial_Opposition
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Celestial_Opposition", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Celestial River LB with at least.
         /// </summary>
-        public static string Astrologian_Content_Celestial_River_LB_with_at_least {
-            get {
+        public static string Astrologian_Content_Celestial_River_LB_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Celestial_River_LB_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Collective Unco..
         /// </summary>
-        public static string Astrologian_Content_Collective_Unco {
-            get {
+        public static string Astrologian_Content_Collective_Unco
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Collective_Unco", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Collective Unconscious.
         /// </summary>
-        public static string Astrologian_Content_Collective_Unconscious {
-            get {
+        public static string Astrologian_Content_Collective_Unconscious
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Collective_Unconscious", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Combust.
         /// </summary>
-        public static string Astrologian_Content_Combust {
-            get {
+        public static string Astrologian_Content_Combust
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Combust", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Disable Single Healing When Allies Need AoE.
         /// </summary>
-        public static string Astrologian_Content_Disable_Single_Healing_When_Allies_Need_AoE {
-            get {
+        public static string Astrologian_Content_Disable_Single_Healing_When_Allies_Need_AoE
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Disable_Single_Healing_When_Allies_Need_AoE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispel Only If Nearby Players Health Is Above.
         /// </summary>
-        public static string Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above {
-            get {
+        public static string Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t attack Guard.
         /// </summary>
-        public static string Astrologian_Content_Dont_attack_Guard {
-            get {
+        public static string Astrologian_Content_Dont_attack_Guard
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Dont_attack_Guard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t attack Invuln (Hallowed Ground, Undead, Redemption).
         /// </summary>
-        public static string Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption {
-            get {
+        public static string Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t Dot if more than.
         /// </summary>
-        public static string Astrologian_Content_Dont_Dot_if_more_than {
-            get {
+        public static string Astrologian_Content_Dont_Dot_if_more_than
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Dont_Dot_if_more_than", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Double Cast.
         /// </summary>
-        public static string Astrologian_Content_Double_Cast {
-            get {
+        public static string Astrologian_Content_Double_Cast
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Double_Cast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Earthly Star.
         /// </summary>
-        public static string Astrologian_Content_Earthly_Star {
-            get {
+        public static string Astrologian_Content_Earthly_Star
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Earthly_Star", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Essential Dignity.
         /// </summary>
-        public static string Astrologian_Content_Essential_Dignity {
-            get {
+        public static string Astrologian_Content_Essential_Dignity
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Essential_Dignity", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Exaltation.
         /// </summary>
-        public static string Astrologian_Content_Exaltation {
-            get {
+        public static string Astrologian_Content_Exaltation
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Exaltation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fall Malefic.
         /// </summary>
-        public static string Astrologian_Content_Fall_Malefic {
-            get {
+        public static string Astrologian_Content_Fall_Malefic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Fall_Malefic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gravity II.
         /// </summary>
-        public static string Astrologian_Content_Gravity_II {
-            get {
+        public static string Astrologian_Content_Gravity_II
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Gravity_II", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gravity When There Are.
         /// </summary>
-        public static string Astrologian_Content_Gravity_When_There_Are {
-            get {
+        public static string Astrologian_Content_Gravity_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Gravity_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Guard (Shield) At.
         /// </summary>
-        public static string Astrologian_Content_Guard_Shield_At {
-            get {
+        public static string Astrologian_Content_Guard_Shield_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Guard_Shield_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heal Alliance DPS.
         /// </summary>
-        public static string Astrologian_Content_Heal_Alliance_DPS {
-            get {
+        public static string Astrologian_Content_Heal_Alliance_DPS
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Heal_Alliance_DPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Helios.
         /// </summary>
-        public static string Astrologian_Content_Helios {
-            get {
+        public static string Astrologian_Content_Helios
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Helios", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Horoscope.
         /// </summary>
-        public static string Astrologian_Content_Horoscope {
-            get {
+        public static string Astrologian_Content_Horoscope
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Horoscope", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Horoscope When.
         /// </summary>
-        public static string Astrologian_Content_Horoscope_When {
-            get {
+        public static string Astrologian_Content_Horoscope_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Horoscope_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Interrupt Damage to Heal.
         /// </summary>
-        public static string Astrologian_Content_Interrupt_Damage_to_Heal {
-            get {
+        public static string Astrologian_Content_Interrupt_Damage_to_Heal
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Interrupt_Damage_to_Heal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Keep Up On Tanks.
         /// </summary>
-        public static string Astrologian_Content_Keep_Up_On_Tanks {
-            get {
+        public static string Astrologian_Content_Keep_Up_On_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Keep_Up_On_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Knockback.
         /// </summary>
-        public static string Astrologian_Content_Knockback {
-            get {
+        public static string Astrologian_Content_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lady Of Crowns.
         /// </summary>
-        public static string Astrologian_Content_Lady_Of_Crowns {
-            get {
+        public static string Astrologian_Content_Lady_Of_Crowns
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Lady_Of_Crowns", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lightspeed.
         /// </summary>
-        public static string Astrologian_Content_Lightspeed {
-            get {
+        public static string Astrologian_Content_Lightspeed
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Lightspeed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lightspeed with Divination.
         /// </summary>
-        public static string Astrologian_Content_Lightspeed_with_Divination {
-            get {
+        public static string Astrologian_Content_Lightspeed_with_Divination
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Lightspeed_with_Divination", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lightspeed with Neutral Sect.
         /// </summary>
-        public static string Astrologian_Content_Lightspeed_with_Neutral_Sect {
-            get {
+        public static string Astrologian_Content_Lightspeed_with_Neutral_Sect
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Lightspeed_with_Neutral_Sect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lord Of Crowns at least.
         /// </summary>
-        public static string Astrologian_Content_Lord_Of_Crowns_at_least {
-            get {
+        public static string Astrologian_Content_Lord_Of_Crowns_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Lord_Of_Crowns_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Macrocosmos.
         /// </summary>
-        public static string Astrologian_Content_Macrocosmos {
-            get {
+        public static string Astrologian_Content_Macrocosmos
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Macrocosmos", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Malefic.
         /// </summary>
-        public static string Astrologian_Content_Malefic {
-            get {
+        public static string Astrologian_Content_Malefic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Malefic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Microcosmos At.
         /// </summary>
-        public static string Astrologian_Content_Microcosmos_At {
-            get {
+        public static string Astrologian_Content_Microcosmos_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Microcosmos_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Minor Arcana.
         /// </summary>
-        public static string Astrologian_Content_Minor_Arcana {
-            get {
+        public static string Astrologian_Content_Minor_Arcana
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Minor_Arcana", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Neutral Sect.
         /// </summary>
-        public static string Astrologian_Content_Neutral_Sect {
-            get {
+        public static string Astrologian_Content_Neutral_Sect
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Neutral_Sect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Neutral Sect at.
         /// </summary>
-        public static string Astrologian_Content_Neutral_Sect_at {
-            get {
+        public static string Astrologian_Content_Neutral_Sect_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Neutral_Sect_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nocturnal Benefic.
         /// </summary>
-        public static string Astrologian_Content_Nocturnal_Benefic {
-            get {
+        public static string Astrologian_Content_Nocturnal_Benefic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Nocturnal_Benefic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nocturnal Helios.
         /// </summary>
-        public static string Astrologian_Content_Nocturnal_Helios {
-            get {
+        public static string Astrologian_Content_Nocturnal_Helios
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Nocturnal_Helios", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Regen.
         /// </summary>
-        public static string Astrologian_Content_Only_Heal_Alliance_Members_With_Regen {
-            get {
+        public static string Astrologian_Content_Only_Heal_Alliance_Members_With_Regen
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Only_Heal_Alliance_Members_With_Regen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Oracle.
         /// </summary>
-        public static string Astrologian_Content_Oracle {
-            get {
+        public static string Astrologian_Content_Oracle
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Oracle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Play Cards.
         /// </summary>
-        public static string Astrologian_Content_Play_Cards {
-            get {
+        public static string Astrologian_Content_Play_Cards
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Play_Cards", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Prevent Usage of Swiftcast Alone.
         /// </summary>
-        public static string Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone {
-            get {
+        public static string Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Purify (remove debuffs).
         /// </summary>
-        public static string Astrologian_Content_Purify_remove_debuffs {
-            get {
+        public static string Astrologian_Content_Purify_remove_debuffs
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Purify_remove_debuffs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Recuperate (Heal) At.
         /// </summary>
-        public static string Astrologian_Content_Recuperate_Heal_At {
-            get {
+        public static string Astrologian_Content_Recuperate_Heal_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Recuperate_Heal_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrect Alliance DPS.
         /// </summary>
-        public static string Astrologian_Content_Resurrect_Alliance_DPS {
-            get {
+        public static string Astrologian_Content_Resurrect_Alliance_DPS
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Resurrect_Alliance_DPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stellar Detonation.
         /// </summary>
-        public static string Astrologian_Content_Stellar_Detonation {
-            get {
+        public static string Astrologian_Content_Stellar_Detonation
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Stellar_Detonation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SunSign.
         /// </summary>
-        public static string Astrologian_Content_SunSign {
-            get {
+        public static string Astrologian_Content_SunSign
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_SunSign", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Ascend.
         /// </summary>
-        public static string Astrologian_Content_Swiftcast_Ascend {
-            get {
+        public static string Astrologian_Content_Swiftcast_Ascend
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Swiftcast_Ascend", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Synastry When.
         /// </summary>
-        public static string Astrologian_Content_Synastry_When {
-            get {
+        public static string Astrologian_Content_Synastry_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Synastry_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aspected Benefic While Moving.
         /// </summary>
-        public static string Astrologian_Content_Use_Aspected_Benefic_While_Moving {
-            get {
+        public static string Astrologian_Content_Use_Aspected_Benefic_While_Moving
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Aspected_Benefic_While_Moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Astral Draw.
         /// </summary>
-        public static string Astrologian_Content_Use_Astral_Draw {
-            get {
+        public static string Astrologian_Content_Use_Astral_Draw
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Astral_Draw", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Divination at least.
         /// </summary>
-        public static string Astrologian_Content_Use_Divination_at_least {
-            get {
+        public static string Astrologian_Content_Use_Divination_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Divination_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Nocturnal Benefic While Moving If Mana Is Above.
         /// </summary>
-        public static string Astrologian_Content_Use_Nocturnal_Benefic_While_Mo {
-            get {
+        public static string Astrologian_Content_Use_Nocturnal_Benefic_While_Mo
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Nocturnal_Benefic_While_Mo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use On Tanks.
         /// </summary>
-        public static string Astrologian_Content_Use_On_Tanks {
-            get {
+        public static string Astrologian_Content_Use_On_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_On_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Oracle at least.
         /// </summary>
-        public static string Astrologian_Content_Use_Oracle_at_least {
-            get {
+        public static string Astrologian_Content_Use_Oracle_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Oracle_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Time Till Death For Damage Over Time Spells.
         /// </summary>
-        public static string Astrologian_Content_Use_Time_Till_Death_For_Damage {
-            get {
+        public static string Astrologian_Content_Use_Time_Till_Death_For_Damage
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Time_Till_Death_For_Damage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Umbral Draw.
         /// </summary>
-        public static string Astrologian_Content_Use_Umbral_Draw {
-            get {
+        public static string Astrologian_Content_Use_Umbral_Draw
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Use_Umbral_Draw", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Weave OGCD Heals.
         /// </summary>
-        public static string Astrologian_Content_Weave_OGCD_Heals {
-            get {
+        public static string Astrologian_Content_Weave_OGCD_Heals
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Content_Weave_OGCD_Heals", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to % HP.
         /// </summary>
-        public static string Astrologian_Text__HP {
-            get {
+        public static string Astrologian_Text__HP
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text__HP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies Are Below.
         /// </summary>
-        public static string Astrologian_Text_Allies_Are_Below {
-            get {
+        public static string Astrologian_Text_Allies_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Allies_Are_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies below.
         /// </summary>
-        public static string Astrologian_Text_Allies_below {
-            get {
+        public static string Astrologian_Text_Allies_below
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Allies_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ally Health Percent.
         /// </summary>
-        public static string Astrologian_Text_Ally_Health_Percent {
-            get {
+        public static string Astrologian_Text_Ally_Health_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Ally_Health_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always Do Damage If Target Time Till Death Is Less Than.
         /// </summary>
-        public static string Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than {
-            get {
+        public static string Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AoE Heal When Allies Need Healing -.
         /// </summary>
-        public static string Astrologian_Text_AoE_Heal_When_Allies_Need_Healing {
-            get {
+        public static string Astrologian_Text_AoE_Heal_When_Allies_Need_Healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_AoE_Heal_When_Allies_Need_Healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AST:.
         /// </summary>
-        public static string Astrologian_Text_AST {
-            get {
+        public static string Astrologian_Text_AST
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_AST", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BLM:.
         /// </summary>
-        public static string Astrologian_Text_BLM {
-            get {
+        public static string Astrologian_Text_BLM
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_BLM", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BLU:.
         /// </summary>
-        public static string Astrologian_Text_BLU {
-            get {
+        public static string Astrologian_Text_BLU
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_BLU", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BRD:.
         /// </summary>
-        public static string Astrologian_Text_BRD {
-            get {
+        public static string Astrologian_Text_BRD
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_BRD", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Card Priority (First to Last).
         /// </summary>
-        public static string Astrologian_Text_Card_Priority_First_to_Last {
-            get {
+        public static string Astrologian_Text_Card_Priority_First_to_Last
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Card_Priority_First_to_Last", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DNC:.
         /// </summary>
-        public static string Astrologian_Text_DNC {
-            get {
+        public static string Astrologian_Text_DNC
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_DNC", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Aspected Benefic Someone With Regen.
         /// </summary>
-        public static string Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen {
-            get {
+        public static string Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Do Damage If There Are More Than 3 Enemies.
         /// </summary>
-        public static string Astrologian_Text_Dont_Do_Damage_If_There_Are_More_Than_3_Enemies {
-            get {
+        public static string Astrologian_Text_Dont_Do_Damage_If_There_Are_More_Than_3_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Dont_Do_Damage_If_There_Are_More_Than_3_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Play Cards When There is Less Than 30 Seconds.
         /// </summary>
-        public static string Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds {
-            get {
+        public static string Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Use DoT if Enemy Dying Within 10 Seconds.
         /// </summary>
-        public static string Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds {
-            get {
+        public static string Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DRG:.
         /// </summary>
-        public static string Astrologian_Text_DRG {
-            get {
+        public static string Astrologian_Text_DRG
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_DRG", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DRK:.
         /// </summary>
-        public static string Astrologian_Text_DRK {
-            get {
+        public static string Astrologian_Text_DRK
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_DRK", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to enemies around.
         /// </summary>
-        public static string Astrologian_Text_enemies_around {
-            get {
+        public static string Astrologian_Text_enemies_around
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_enemies_around", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to enemies around target.
         /// </summary>
-        public static string Astrologian_Text_enemies_around_target {
-            get {
+        public static string Astrologian_Text_enemies_around_target
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_enemies_around_target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies Near Target.
         /// </summary>
-        public static string Astrologian_Text_Enemies_Near_Target {
-            get {
+        public static string Astrologian_Text_Enemies_Near_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Enemies_Near_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fight Logic:.
         /// </summary>
-        public static string Astrologian_Text_Fight_Logic {
-            get {
+        public static string Astrologian_Text_Fight_Logic
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Fight_Logic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Full Party:.
         /// </summary>
-        public static string Astrologian_Text_Full_Party {
-            get {
+        public static string Astrologian_Text_Full_Party
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Full_Party", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GNB:.
         /// </summary>
-        public static string Astrologian_Text_GNB {
-            get {
+        public static string Astrologian_Text_GNB
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_GNB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gravity II with at least.
         /// </summary>
-        public static string Astrologian_Text_Gravity_II_with_at_least {
-            get {
+        public static string Astrologian_Text_Gravity_II_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Gravity_II_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Health Percent and.
         /// </summary>
-        public static string Astrologian_Text_Health_Percent_and {
-            get {
+        public static string Astrologian_Text_Health_Percent_and
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Health_Percent_and", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Health Percent to Pre-emptively Microcosmos.
         /// </summary>
-        public static string Astrologian_Text_Health_Percent_to_Pre_emptively_M {
-            get {
+        public static string Astrologian_Text_Health_Percent_to_Pre_emptively_M
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Health_Percent_to_Pre_emptively_M", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Light Party:.
         /// </summary>
-        public static string Astrologian_Text_Light_Party {
-            get {
+        public static string Astrologian_Text_Light_Party
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Light_Party", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lord of Crowns with at least.
         /// </summary>
-        public static string Astrologian_Text_Lord_of_Crowns_with_at_least {
-            get {
+        public static string Astrologian_Text_Lord_of_Crowns_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Lord_of_Crowns_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Macrocosmos with at least.
         /// </summary>
-        public static string Astrologian_Text_Macrocosmos_with_at_least {
-            get {
+        public static string Astrologian_Text_Macrocosmos_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Macrocosmos_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MCH:.
         /// </summary>
-        public static string Astrologian_Text_MCH {
-            get {
+        public static string Astrologian_Text_MCH
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_MCH", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Milliseconds Left.
         /// </summary>
-        public static string Astrologian_Text_Milliseconds_Left {
-            get {
+        public static string Astrologian_Text_Milliseconds_Left
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Milliseconds_Left", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Minimum Mana To Use.
         /// </summary>
-        public static string Astrologian_Text_Minimum_Mana_To_Use {
-            get {
+        public static string Astrologian_Text_Minimum_Mana_To_Use
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Minimum_Mana_To_Use", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MNK:.
         /// </summary>
-        public static string Astrologian_Text_MNK {
-            get {
+        public static string Astrologian_Text_MNK
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_MNK", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to NIN:.
         /// </summary>
-        public static string Astrologian_Text_NIN {
-            get {
+        public static string Astrologian_Text_NIN
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_NIN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party AoE.
         /// </summary>
-        public static string Astrologian_Text_Party_AoE {
-            get {
+        public static string Astrologian_Text_Party_AoE
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Party_AoE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party Members Near Earthly Star Are Below.
         /// </summary>
-        public static string Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below {
-            get {
+        public static string Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party Members Near Target That Are Below.
         /// </summary>
-        public static string Astrologian_Text_Party_Members_Near_Target_That_Are_Below {
-            get {
+        public static string Astrologian_Text_Party_Members_Near_Target_That_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Party_Members_Near_Target_That_Are_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PCT:.
         /// </summary>
-        public static string Astrologian_Text_PCT {
-            get {
+        public static string Astrologian_Text_PCT
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_PCT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PLD:.
         /// </summary>
-        public static string Astrologian_Text_PLD {
-            get {
+        public static string Astrologian_Text_PLD
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_PLD", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to RDM:.
         /// </summary>
-        public static string Astrologian_Text_RDM {
-            get {
+        public static string Astrologian_Text_RDM
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_RDM", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Refresh When Combust Has Less Than 3 Seconds.
         /// </summary>
-        public static string Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds {
-            get {
+        public static string Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrection Delay:.
         /// </summary>
-        public static string Astrologian_Text_Resurrection_Delay {
-            get {
+        public static string Astrologian_Text_Resurrection_Delay
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Resurrection_Delay", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to RPR:.
         /// </summary>
-        public static string Astrologian_Text_RPR {
-            get {
+        public static string Astrologian_Text_RPR
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_RPR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SAM:.
         /// </summary>
-        public static string Astrologian_Text_SAM {
-            get {
+        public static string Astrologian_Text_SAM
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_SAM", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SCH:.
         /// </summary>
-        public static string Astrologian_Text_SCH {
-            get {
+        public static string Astrologian_Text_SCH
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_SCH", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds Left in Combat..
         /// </summary>
-        public static string Astrologian_Text_Seconds_Left_in_Combat {
-            get {
+        public static string Astrologian_Text_Seconds_Left_in_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Seconds_Left_in_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SGE:.
         /// </summary>
-        public static string Astrologian_Text_SGE {
-            get {
+        public static string Astrologian_Text_SGE
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_SGE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SMN:.
         /// </summary>
-        public static string Astrologian_Text_SMN {
-            get {
+        public static string Astrologian_Text_SMN
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_SMN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Special Actions.
         /// </summary>
-        public static string Astrologian_Text_Special_Actions {
-            get {
+        public static string Astrologian_Text_Special_Actions
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Special_Actions", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stellar Burst If.
         /// </summary>
-        public static string Astrologian_Text_Stellar_Burst_If {
-            get {
+        public static string Astrologian_Text_Stellar_Burst_If
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Stellar_Burst_If", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stellar Explosion If.
         /// </summary>
-        public static string Astrologian_Text_Stellar_Explosion_If {
-            get {
+        public static string Astrologian_Text_Stellar_Explosion_If
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Stellar_Explosion_If", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tank Only at.
         /// </summary>
-        public static string Astrologian_Text_Tank_Only_at {
-            get {
+        public static string Astrologian_Text_Tank_Only_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_Tank_Only_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to VPR:.
         /// </summary>
-        public static string Astrologian_Text_VPR {
-            get {
+        public static string Astrologian_Text_VPR
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_VPR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to WAR:.
         /// </summary>
-        public static string Astrologian_Text_WAR {
-            get {
+        public static string Astrologian_Text_WAR
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_WAR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to WHM:.
         /// </summary>
-        public static string Astrologian_Text_WHM {
-            get {
+        public static string Astrologian_Text_WHM
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_Text_WHM", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful)..
         /// </summary>
-        public static string Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an {
-            get {
+        public static string Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This will automatically cast Collective Unconscious for AOEs.
         ///Does not work if Lightspeed is disabled..
         /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_C {
-            get {
+        public static string Astrologian_ToolTip_This_will_automatically_cast_C
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_C", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This will automatically cast for Tankbusters.
         ///Does not work if Exaltation is disabled..
         /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_f {
-            get {
+        public static string Astrologian_ToolTip_This_will_automatically_cast_f
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_f", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This will automatically cast Lightspeed for Big AOEs if Macrocosmos and Neutral Sect FightLogic are enabled but unavailable.
         ///Does not work if Lightspeed is disabled..
         /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_L {
-            get {
+        public static string Astrologian_ToolTip_This_will_automatically_cast_L
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_L", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This will automatically cast Macrocosmos for Big AOEs.
         ///Does not work if Lightspeed is disabled..
         /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_M {
-            get {
+        public static string Astrologian_ToolTip_This_will_automatically_cast_M
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_M", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This will automatically cast Neutral Sect and Aspected Helios for Big AOEs if Macrocosmos Fight Logic is enabled but unavailable.
         ///Does not work if Neutral Sect is disabled..
         /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_N {
-            get {
+        public static string Astrologian_ToolTip_This_will_automatically_cast_N
+        {
+            get
+            {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_N", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Apex Arrow.
         /// </summary>
-        public static string Bard_Content_Apex_Arrow {
-            get {
+        public static string Bard_Content_Apex_Arrow
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Apex_Arrow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Barrage.
         /// </summary>
-        public static string Bard_Content_Barrage {
-            get {
+        public static string Bard_Content_Barrage
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Barrage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Battle Voice.
         /// </summary>
-        public static string Bard_Content_Battle_Voice {
-            get {
+        public static string Bard_Content_Battle_Voice
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Battle_Voice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Blast Arrow.
         /// </summary>
-        public static string Bard_Content_Blast_Arrow {
-            get {
+        public static string Bard_Content_Blast_Arrow
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Blast_Arrow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cut Army&apos;s Paeon Short When.
         /// </summary>
-        public static string Bard_Content_Cut_Armys_Paeon_Short_When {
-            get {
+        public static string Bard_Content_Cut_Armys_Paeon_Short_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Cut_Armys_Paeon_Short_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cut Mages Ballad Short When.
         /// </summary>
-        public static string Bard_Content_Cut_Mages_Ballad_Short_When {
-            get {
+        public static string Bard_Content_Cut_Mages_Ballad_Short_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Cut_Mages_Ballad_Short_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cut Wanderers Minuet Short When.
         /// </summary>
-        public static string Bard_Content_Cut_Wanderers_Minuet_Short_When {
-            get {
+        public static string Bard_Content_Cut_Wanderers_Minuet_Short_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Cut_Wanderers_Minuet_Short_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delay Empyreal Arrow If Armys Paeon Ends Within.
         /// </summary>
-        public static string Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within {
-            get {
+        public static string Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Delay_Empyreal_Arrow_If_Armys_Paeon_Ends_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delay RS Until.
         /// </summary>
-        public static string Bard_Content_Delay_RS_Until {
-            get {
+        public static string Bard_Content_Delay_RS_Until
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Delay_RS_Until", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delay RS Until Barrage Is Off Cooldown.
         /// </summary>
-        public static string Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown {
-            get {
+        public static string Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Delay_RS_Until_Barrage_Is_Off_Cooldown", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Use Damage Over Time Abilities If Enemy Dying Within.
         /// </summary>
-        public static string Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within {
-            get {
+        public static string Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Do_Not_Use_Damage_Over_Time_Abilities_If_Enemy_Dying_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Multi Dotting.
         /// </summary>
-        public static string Bard_Content_Enable_Multi_Dotting {
-            get {
+        public static string Bard_Content_Enable_Multi_Dotting
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Enable_Multi_Dotting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encore of Light.
         /// </summary>
-        public static string Bard_Content_Encore_of_Light {
-            get {
+        public static string Bard_Content_Encore_of_Light
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Encore_of_Light", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Knockback.
         /// </summary>
-        public static string Bard_Content_FightLogic_Use_Knockback {
-            get {
+        public static string Bard_Content_FightLogic_Use_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_FightLogic_Use_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Nature&apos;s Minnie.
         /// </summary>
-        public static string Bard_Content_FightLogic_Use_Natures_Minnie {
-            get {
+        public static string Bard_Content_FightLogic_Use_Natures_Minnie
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_FightLogic_Use_Natures_Minnie", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Troubadour.
         /// </summary>
-        public static string Bard_Content_FightLogic_Use_Troubadour {
-            get {
+        public static string Bard_Content_FightLogic_Use_Troubadour
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_FightLogic_Use_Troubadour", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Final Fantasia / LB.
         /// </summary>
-        public static string Bard_Content_Final_Fantasia_LB {
-            get {
+        public static string Bard_Content_Final_Fantasia_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Final_Fantasia_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Harmonic Arrow.
         /// </summary>
-        public static string Bard_Content_Harmonic_Arrow {
-            get {
+        public static string Bard_Content_Harmonic_Arrow
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Harmonic_Arrow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Harmonic Arrow at.
         /// </summary>
-        public static string Bard_Content_Harmonic_Arrow_at {
-            get {
+        public static string Bard_Content_Harmonic_Arrow_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Harmonic_Arrow_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nature&apos;s Minne At.
         /// </summary>
-        public static string Bard_Content_Natures_Minne_At {
-            get {
+        public static string Bard_Content_Natures_Minne_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Natures_Minne_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only During Wanderer&apos;s Minuet.
         /// </summary>
-        public static string Bard_Content_Only_During_Wanderers_Minuet {
-            get {
+        public static string Bard_Content_Only_During_Wanderers_Minuet
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Only_During_Wanderers_Minuet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only When Being Targeted.
         /// </summary>
-        public static string Bard_Content_Only_When_Being_Targeted {
-            get {
+        public static string Bard_Content_Only_When_Being_Targeted
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Only_When_Being_Targeted", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only With Buff (RS/RF/BV).
         /// </summary>
-        public static string Bard_Content_Only_With_Buff_RSRFBV {
-            get {
+        public static string Bard_Content_Only_With_Buff_RSRFBV
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Only_With_Buff_RSRFBV", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pitch Perfect.
         /// </summary>
-        public static string Bard_Content_Pitch_Perfect {
-            get {
+        public static string Bard_Content_Pitch_Perfect
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Pitch_Perfect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pitch Perfect At.
         /// </summary>
-        public static string Bard_Content_Pitch_Perfect_At {
-            get {
+        public static string Bard_Content_Pitch_Perfect_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Pitch_Perfect_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Powerful Shot.
         /// </summary>
-        public static string Bard_Content_Powerful_Shot {
-            get {
+        public static string Bard_Content_Powerful_Shot
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Powerful_Shot", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Prioritize Bloodletter during Mages Ballad.
         /// </summary>
-        public static string Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad {
-            get {
+        public static string Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Prioritize_Bloodletter_during_Mages_Ballad", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Quick Nock.
         /// </summary>
-        public static string Bard_Content_Quick_Nock {
-            get {
+        public static string Bard_Content_Quick_Nock
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Quick_Nock", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raging Strikes.
         /// </summary>
-        public static string Bard_Content_Raging_Strikes {
-            get {
+        public static string Bard_Content_Raging_Strikes
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Raging_Strikes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rain Of Death.
         /// </summary>
-        public static string Bard_Content_Rain_Of_Death {
-            get {
+        public static string Bard_Content_Rain_Of_Death
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Rain_Of_Death", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Repelling Shot.
         /// </summary>
-        public static string Bard_Content_Repelling_Shot {
-            get {
+        public static string Bard_Content_Repelling_Shot
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Repelling_Shot", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Silent Nocturne.
         /// </summary>
-        public static string Bard_Content_Silent_Nocturne {
-            get {
+        public static string Bard_Content_Silent_Nocturne
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Silent_Nocturne", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Snapshot Iron Jaw.
         /// </summary>
-        public static string Bard_Content_Snapshot_Iron_Jaw {
-            get {
+        public static string Bard_Content_Snapshot_Iron_Jaw
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Snapshot_Iron_Jaw", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Apex Arrow with Soul Voice &gt;=.
         /// </summary>
-        public static string Bard_Content_Use_Apex_Arrow_with_Soul_Voice_ {
-            get {
+        public static string Bard_Content_Use_Apex_Arrow_with_Soul_Voice_
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Apex_Arrow_with_Soul_Voice_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Bloodletter.
         /// </summary>
-        public static string Bard_Content_Use_Bloodletter {
-            get {
+        public static string Bard_Content_Use_Bloodletter
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Bloodletter", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Buffed Apex Arrow with Soul Voice &gt;=.
         /// </summary>
-        public static string Bard_Content_Use_Buffed_Apex_Arrow_with_Soul_Voice {
-            get {
+        public static string Bard_Content_Use_Buffed_Apex_Arrow_with_Soul_Voice
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Buffed_Apex_Arrow_with_Soul_Voice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Empyreal Arrow.
         /// </summary>
-        public static string Bard_Content_Use_Empyreal_Arrow {
-            get {
+        public static string Bard_Content_Use_Empyreal_Arrow
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Empyreal_Arrow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use HeavyShot/BurstShot.
         /// </summary>
-        public static string Bard_Content_Use_HeavyShotBurstShot {
-            get {
+        public static string Bard_Content_Use_HeavyShotBurstShot
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_HeavyShotBurstShot", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Iron Jaws.
         /// </summary>
-        public static string Bard_Content_Use_Iron_Jaws {
-            get {
+        public static string Bard_Content_Use_Iron_Jaws
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Iron_Jaws", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Pitch Perfect Within The Last 3 Seconds.
         /// </summary>
-        public static string Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds {
-            get {
+        public static string Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Pitch_Perfect_Within_The_Last_3_Seconds", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Shadowbite.
         /// </summary>
-        public static string Bard_Content_Use_Shadowbite {
-            get {
+        public static string Bard_Content_Use_Shadowbite
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Shadowbite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Sidewinder.
         /// </summary>
-        public static string Bard_Content_Use_Sidewinder {
-            get {
+        public static string Bard_Content_Use_Sidewinder
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Sidewinder", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Songs.
         /// </summary>
-        public static string Bard_Content_Use_Songs {
-            get {
+        public static string Bard_Content_Use_Songs
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Songs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use StraightShot/Refulgent Arrow.
         /// </summary>
-        public static string Bard_Content_Use_StraightShotRefulgent_Arrow {
-            get {
+        public static string Bard_Content_Use_StraightShotRefulgent_Arrow
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_StraightShotRefulgent_Arrow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use VenomousBite/CausticBite.
         /// </summary>
-        public static string Bard_Content_Use_VenomousBiteCausticBite {
-            get {
+        public static string Bard_Content_Use_VenomousBiteCausticBite
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_VenomousBiteCausticBite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use VenomousBiteCausticBite On Additional Enemies.
         /// </summary>
-        public static string Bard_Content_Use_VenomousBiteCausticBite_On_Additional_Enemies {
-            get {
+        public static string Bard_Content_Use_VenomousBiteCausticBite_On_Additional_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_VenomousBiteCausticBite_On_Additional_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Warden&apos;s Paeon To Dispel.
         /// </summary>
-        public static string Bard_Content_Use_Wardens_Paeon_To_Dispel {
-            get {
+        public static string Bard_Content_Use_Wardens_Paeon_To_Dispel
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_Wardens_Paeon_To_Dispel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Windbite/StormBite.
         /// </summary>
-        public static string Bard_Content_Use_WindbiteStormBite {
-            get {
+        public static string Bard_Content_Use_WindbiteStormBite
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_WindbiteStormBite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use WindbiteStormBite On Additional Enemies.
         /// </summary>
-        public static string Bard_Content_Use_WindbiteStormBite_On_Additional_Enemies {
-            get {
+        public static string Bard_Content_Use_WindbiteStormBite_On_Additional_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Use_WindbiteStormBite_On_Additional_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Warden&apos;s Paean.
         /// </summary>
-        public static string Bard_Content_Wardens_Paean {
-            get {
+        public static string Bard_Content_Wardens_Paean
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Content_Wardens_Paean", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to - 24% will match RS+BV+RF+WM (EndWalker Patch).
         /// </summary>
-        public static string Bard_Text___24_will_match_RSBVRFWM_EndWalker_Patch {
-            get {
+        public static string Bard_Text___24_will_match_RSBVRFWM_EndWalker_Patch
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text___24_will_match_RSBVRFWM_EndWalker_Patch", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to - This will force to execute Apex in MB window if Soul Voice &gt;= 80 at MB remaining time = 22sec.
         /// </summary>
-        public static string Bard_Text___This_will_force_to_execute_Apex_in_MB_ {
-            get {
+        public static string Bard_Text___This_will_force_to_execute_Apex_in_MB_
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text___This_will_force_to_execute_Apex_in_MB_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to - This will force to keep Apex for Buff windows, even if Soul Voice = 100.
         /// </summary>
-        public static string Bard_Text___This_will_force_to_keep_Apex_for_Buff_ {
-            get {
+        public static string Bard_Text___This_will_force_to_keep_Apex_for_Buff_
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text___This_will_force_to_keep_Apex_for_Buff_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to - You need to check &apos;Use Apex Arrow&apos; checkbox above too.
         /// </summary>
-        public static string Bard_Text___You_need_to_check_Use_Apex_Arrow_check {
-            get {
+        public static string Bard_Text___You_need_to_check_Use_Apex_Arrow_check
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text___You_need_to_check_Use_Apex_Arrow_check", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to at % Damage-Buff &gt;=.
         /// </summary>
-        public static string Bard_Text_at_Damage_Buff_ {
-            get {
+        public static string Bard_Text_at_Damage_Buff_
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_at_Damage_Buff_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies At Once.
         /// </summary>
-        public static string Bard_Text_Enemies_At_Once {
-            get {
+        public static string Bard_Text_Enemies_At_Once
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Enemies_At_Once", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies In A Cone.
         /// </summary>
-        public static string Bard_Text_Enemies_In_A_Cone {
-            get {
+        public static string Bard_Text_Enemies_In_A_Cone
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Enemies_In_A_Cone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Info on Buffed Apex (Experimental):.
         /// </summary>
-        public static string Bard_Text_Info_on_Buffed_Apex_Experimental {
-            get {
+        public static string Bard_Text_Info_on_Buffed_Apex_Experimental
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Info_on_Buffed_Apex_Experimental", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MS Between The Last Possible GCD And DoT Refresh.
         /// </summary>
-        public static string Bard_Text_MS_Between_The_Last_Possible_GCD_And_DoT_Refresh {
-            get {
+        public static string Bard_Text_MS_Between_The_Last_Possible_GCD_And_DoT_Refresh
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_MS_Between_The_Last_Possible_GCD_And_DoT_Refresh", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ms Or Less Remain.
         /// </summary>
-        public static string Bard_Text_ms_Or_Less_Remain {
-            get {
+        public static string Bard_Text_ms_Or_Less_Remain
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_ms_Or_Less_Remain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Refresh DoT Effect With AtLeast.
         /// </summary>
-        public static string Bard_Text_Refresh_DoT_Effect_With_AtLeast {
-            get {
+        public static string Bard_Text_Refresh_DoT_Effect_With_AtLeast
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Refresh_DoT_Effect_With_AtLeast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds In Wanderer&apos;s Minuet.
         /// </summary>
-        public static string Bard_Text_Seconds_In_Wanderers_Minuet {
-            get {
+        public static string Bard_Text_Seconds_In_Wanderers_Minuet
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Seconds_In_Wanderers_Minuet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds of Wanderers Minuet Without Repertoire.
         /// </summary>
-        public static string Bard_Text_Seconds_of_Wanderers_Minuet_Without_Repertoire {
-            get {
+        public static string Bard_Text_Seconds_of_Wanderers_Minuet_Without_Repertoire
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Seconds_of_Wanderers_Minuet_Without_Repertoire", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds Or Less Remain.
         /// </summary>
-        public static string Bard_Text_Seconds_Or_Less_Remain {
-            get {
+        public static string Bard_Text_Seconds_Or_Less_Remain
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Seconds_Or_Less_Remain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Selected Buffing Strategy:.
         /// </summary>
-        public static string Bard_Text_Selected_Buffing_Strategy {
-            get {
+        public static string Bard_Text_Selected_Buffing_Strategy
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Selected_Buffing_Strategy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Selected Song Order:.
         /// </summary>
-        public static string Bard_Text_Selected_Song_Order {
-            get {
+        public static string Bard_Text_Selected_Song_Order
+        {
+            get
+            {
                 return ResourceManager.GetString("Bard_Text_Selected_Song_Order", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always Transpose To Astral.
         /// </summary>
-        public static string BlackMage_Content_Always_Transpose_To_Astral {
-            get {
+        public static string BlackMage_Content_Always_Transpose_To_Astral
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Always_Transpose_To_Astral", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always Transpose To Umbral.
         /// </summary>
-        public static string BlackMage_Content_Always_Transpose_To_Umbral {
-            get {
+        public static string BlackMage_Content_Always_Transpose_To_Umbral
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Always_Transpose_To_Umbral", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Amplifier.
         /// </summary>
-        public static string BlackMage_Content_Amplifier {
-            get {
+        public static string BlackMage_Content_Amplifier
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Amplifier", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Despair.
         /// </summary>
-        public static string BlackMage_Content_Despair {
-            get {
+        public static string BlackMage_Content_Despair
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Despair", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Addle.
         /// </summary>
-        public static string BlackMage_Content_FightLogic_Use_Addle {
-            get {
+        public static string BlackMage_Content_FightLogic_Use_Addle
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_FightLogic_Use_Addle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Manaward.
         /// </summary>
-        public static string BlackMage_Content_FightLogic_Use_Manaward {
-            get {
+        public static string BlackMage_Content_FightLogic_Use_Manaward
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_FightLogic_Use_Manaward", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FlareStar.
         /// </summary>
-        public static string BlackMage_Content_FlareStar {
-            get {
+        public static string BlackMage_Content_FlareStar
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_FlareStar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ley Lines.
         /// </summary>
-        public static string BlackMage_Content_Ley_Lines {
-            get {
+        public static string BlackMage_Content_Ley_Lines
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Ley_Lines", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ManaFont.
         /// </summary>
-        public static string BlackMage_Content_ManaFont {
-            get {
+        public static string BlackMage_Content_ManaFont
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_ManaFont", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Boss Only.
         /// </summary>
-        public static string BlackMage_Content_On_Boss_Only {
-            get {
+        public static string BlackMage_Content_On_Boss_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_On_Boss_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Paradox.
         /// </summary>
-        public static string BlackMage_Content_Paradox {
-            get {
+        public static string BlackMage_Content_Paradox
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Paradox", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save 1 Charges For Moving.
         /// </summary>
-        public static string BlackMage_Content_Save_1_Charges_For_Moving {
-            get {
+        public static string BlackMage_Content_Save_1_Charges_For_Moving
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Save_1_Charges_For_Moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Soul Resonance / LB.
         /// </summary>
-        public static string BlackMage_Content_Soul_Resonance_LB {
-            get {
+        public static string BlackMage_Content_Soul_Resonance_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Soul_Resonance_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TripleCast.
         /// </summary>
-        public static string BlackMage_Content_TripleCast {
-            get {
+        public static string BlackMage_Content_TripleCast
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_TripleCast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to UmbralSoul.
         /// </summary>
-        public static string BlackMage_Content_UmbralSoul {
-            get {
+        public static string BlackMage_Content_UmbralSoul
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_UmbralSoul", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AOE Rotation Where There Are Enemies.
         /// </summary>
-        public static string BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies {
-            get {
+        public static string BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Elemental Weave.
         /// </summary>
-        public static string BlackMage_Content_Use_Elemental_Weave {
-            get {
+        public static string BlackMage_Content_Use_Elemental_Weave
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Use_Elemental_Weave", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Lethargy.
         /// </summary>
-        public static string BlackMage_Content_Use_Lethargy {
-            get {
+        public static string BlackMage_Content_Use_Lethargy
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Use_Lethargy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Thunder Spells Single Target Only.
         /// </summary>
-        public static string BlackMage_Content_Use_Thunder_Spells_Single_Target_Only {
-            get {
+        public static string BlackMage_Content_Use_Thunder_Spells_Single_Target_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Use_Thunder_Spells_Single_Target_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use TransposeUmbral Soul Out of Combat.
         /// </summary>
-        public static string BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat {
-            get {
+        public static string BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Xenoglossy.
         /// </summary>
-        public static string BlackMage_Content_Use_Xenoglossy {
-            get {
+        public static string BlackMage_Content_Use_Xenoglossy
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Content_Use_Xenoglossy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to and save at least.
         /// </summary>
-        public static string BlackMage_Text_and_save_at_least {
-            get {
+        public static string BlackMage_Text_and_save_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Text_and_save_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to charges when moving.
         /// </summary>
-        public static string BlackMage_Text_charges_when_moving {
-            get {
+        public static string BlackMage_Text_charges_when_moving
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Text_charges_when_moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Soul Resonance when target HP below.
         /// </summary>
-        public static string BlackMage_Text_Use_Soul_Resonance_when_target_HP_below {
-            get {
+        public static string BlackMage_Text_Use_Soul_Resonance_when_target_HP_below
+        {
+            get
+            {
                 return ResourceManager.GetString("BlackMage_Text_Use_Soul_Resonance_when_target_HP_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add Interrupt/Stun.
         /// </summary>
-        public static string Bugs_Content_Add_InterruptStun {
-            get {
+        public static string Bugs_Content_Add_InterruptStun
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Add_InterruptStun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add To Dispels.
         /// </summary>
-        public static string Bugs_Content_Add_To_Dispels {
-            get {
+        public static string Bugs_Content_Add_To_Dispels
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Add_To_Dispels", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allow Magitek to move in autonomous mode.
         /// </summary>
-        public static string Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode {
-            get {
+        public static string Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CallerMemberName When Casting Very Specific Spells.
         /// </summary>
-        public static string Bugs_Content_CallerMemberName_When_Casting_Very_Specific_Spells {
-            get {
+        public static string Bugs_Content_CallerMemberName_When_Casting_Very_Specific_Spells
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_CallerMemberName_When_Casting_Very_Specific_Spells", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Clear All Spell Casts.
         /// </summary>
-        public static string Bugs_Content_Clear_All_Spell_Casts {
-            get {
+        public static string Bugs_Content_Clear_All_Spell_Casts
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Clear_All_Spell_Casts", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Clear FightLogic Builder.
         /// </summary>
-        public static string Bugs_Content_Clear_FightLogic_Builder {
-            get {
+        public static string Bugs_Content_Clear_FightLogic_Builder
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Clear_FightLogic_Builder", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Copy FightLogic Builder To Clipboard.
         /// </summary>
-        public static string Bugs_Content_Copy_FightLogic_Builder_To_Clipboard {
-            get {
+        public static string Bugs_Content_Copy_FightLogic_Builder_To_Clipboard
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Copy_FightLogic_Builder_To_Clipboard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Debug Enemy Info Prints RemovesAdds in combat.
         /// </summary>
-        public static string Bugs_Content_Debug_Enemy_Info_Prints_RemovesAdds_in_combat {
-            get {
+        public static string Bugs_Content_Debug_Enemy_Info_Prints_RemovesAdds_in_combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Debug_Enemy_Info_Prints_RemovesAdds_in_combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Display Loaded Logic.
         /// </summary>
-        public static string Bugs_Content_Display_Loaded_Logic {
-            get {
+        public static string Bugs_Content_Display_Loaded_Logic
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Display_Loaded_Logic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Casting Debugging.
         /// </summary>
-        public static string Bugs_Content_Enable_Casting_Debugging {
-            get {
+        public static string Bugs_Content_Enable_Casting_Debugging
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Casting_Debugging", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Healing List Debug.
         /// </summary>
-        public static string Bugs_Content_Enable_Healing_List_Debug {
-            get {
+        public static string Bugs_Content_Enable_Healing_List_Debug
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Healing_List_Debug", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Healing Priority By Weights.
         /// </summary>
-        public static string Bugs_Content_Enable_Healing_Priority_By_Weights {
-            get {
+        public static string Bugs_Content_Enable_Healing_Priority_By_Weights
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Healing_Priority_By_Weights", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Player Spell Cast History.
         /// </summary>
-        public static string Bugs_Content_Enable_Player_Spell_Cast_History {
-            get {
+        public static string Bugs_Content_Enable_Player_Spell_Cast_History
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Player_Spell_Cast_History", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Tracking Of Enemy Auras.
         /// </summary>
-        public static string Bugs_Content_Enable_Tracking_Of_Enemy_Auras {
-            get {
+        public static string Bugs_Content_Enable_Tracking_Of_Enemy_Auras
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Tracking_Of_Enemy_Auras", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Tracking Of Enemy Casted Spells.
         /// </summary>
-        public static string Bugs_Content_Enable_Tracking_Of_Enemy_Casted_Spells {
-            get {
+        public static string Bugs_Content_Enable_Tracking_Of_Enemy_Casted_Spells
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Tracking_Of_Enemy_Casted_Spells", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Tracking Of Enemy Targets.
         /// </summary>
-        public static string Bugs_Content_Enable_Tracking_Of_Enemy_Targets {
-            get {
+        public static string Bugs_Content_Enable_Tracking_Of_Enemy_Targets
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Tracking_Of_Enemy_Targets", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Tracking Of Party Member Auras.
         /// </summary>
-        public static string Bugs_Content_Enable_Tracking_Of_Party_Member_Auras {
-            get {
+        public static string Bugs_Content_Enable_Tracking_Of_Party_Member_Auras
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Enable_Tracking_Of_Party_Member_Auras", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Include File Path.
         /// </summary>
-        public static string Bugs_Content_Include_File_Path {
-            get {
+        public static string Bugs_Content_Include_File_Path
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Include_File_Path", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Print Changes to Console.
         /// </summary>
-        public static string Bugs_Content_Print_Changes_to_Console {
-            get {
+        public static string Bugs_Content_Print_Changes_to_Console
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Print_Changes_to_Console", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Print Fight Logic Detection.
         /// </summary>
-        public static string Bugs_Content_Print_Fight_Logic_Detection {
-            get {
+        public static string Bugs_Content_Print_Fight_Logic_Detection
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Print_Fight_Logic_Detection", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Advanced SpellHistory Verify spell casting.
         /// </summary>
-        public static string Bugs_Content_Use_Advanced_SpellHistory_Verify_spell_casting {
-            get {
+        public static string Bugs_Content_Use_Advanced_SpellHistory_Verify_spell_casting
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Use_Advanced_SpellHistory_Verify_spell_casting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Animation Lock Waits for game client.
         /// </summary>
-        public static string Bugs_Content_Use_Animation_Lock_Waits_for_game_client {
-            get {
+        public static string Bugs_Content_Use_Animation_Lock_Waits_for_game_client
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Use_Animation_Lock_Waits_for_game_client", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Autoface For Inview Checks.
         /// </summary>
-        public static string Bugs_Content_Use_AutoFace_for_InView_checks {
-            get {
+        public static string Bugs_Content_Use_AutoFace_for_InView_checks
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Use_AutoFace_for_InView_checks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Cast Or Queue.
         /// </summary>
-        public static string Bugs_Content_Use_Cast_Or_Queue {
-            get {
+        public static string Bugs_Content_Use_Cast_Or_Queue
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Content_Use_Cast_Or_Queue", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to % progress into cast bar.
         /// </summary>
-        public static string Bugs_Text__progress_into_cast_bar {
-            get {
+        public static string Bugs_Text__progress_into_cast_bar
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text__progress_into_cast_bar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to 0.95 represents a 5% increased priority.
         /// </summary>
-        public static string Bugs_Text_095_represents_a_5_percent_increased_priority {
-            get {
+        public static string Bugs_Text_095_represents_a_5_percent_increased_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_095_represents_a_5_percent_increased_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to 1.00 disables that value for priority checks.
         /// </summary>
-        public static string Bugs_Text_100_disables_that_value_for_priority_checks {
-            get {
+        public static string Bugs_Text_100_disables_that_value_for_priority_checks
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_100_disables_that_value_for_priority_checks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to 1.20 represents a 20% decreased priority.
         /// </summary>
-        public static string Bugs_Text_120_represents_a_20_percent_decreased_priority {
-            get {
+        public static string Bugs_Text_120_represents_a_20_percent_decreased_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_120_represents_a_20_percent_decreased_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to A value greater than 10 assigns a lower priority.
         /// </summary>
-        public static string Bugs_Text_A_value_greater_than_10_assigns_a_lower_priority {
-            get {
+        public static string Bugs_Text_A_value_greater_than_10_assigns_a_lower_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_A_value_greater_than_10_assigns_a_lower_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to A value less than 10 assigns a higher priority.
         /// </summary>
-        public static string Bugs_Text_A_value_less_than_10_assigns_a_higher_priority {
-            get {
+        public static string Bugs_Text_A_value_less_than_10_assigns_a_higher_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_A_value_less_than_10_assigns_a_higher_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Action Lock:.
         /// </summary>
-        public static string Bugs_Text_Action_Lock {
-            get {
+        public static string Bugs_Text_Action_Lock
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Action_Lock", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Action Queued:.
         /// </summary>
-        public static string Bugs_Text_Action_Queued {
-            get {
+        public static string Bugs_Text_Action_Queued
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Action_Queued", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aura:.
         /// </summary>
-        public static string Bugs_Text_Aura {
-            get {
+        public static string Bugs_Text_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Castable Within 10:.
         /// </summary>
-        public static string Bugs_Text_Castable_Within_10 {
-            get {
+        public static string Bugs_Text_Castable_Within_10
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Castable_Within_10", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Castable Within 15:.
         /// </summary>
-        public static string Bugs_Text_Castable_Within_15 {
-            get {
+        public static string Bugs_Text_Castable_Within_15
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Castable_Within_15", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Castable Within 30:.
         /// </summary>
-        public static string Bugs_Text_Castable_Within_30 {
-            get {
+        public static string Bugs_Text_Castable_Within_30
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Castable_Within_30", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Casting Gambit:.
         /// </summary>
-        public static string Bugs_Text_Casting_Gambit {
-            get {
+        public static string Bugs_Text_Casting_Gambit
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Casting_Gambit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Casting Heal:.
         /// </summary>
-        public static string Bugs_Text_Casting_Heal {
-            get {
+        public static string Bugs_Text_Casting_Heal
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Casting_Heal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Casting Spell:.
         /// </summary>
-        public static string Bugs_Text_Casting_Spell {
-            get {
+        public static string Bugs_Text_Casting_Spell
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Casting_Spell", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Casting Time:.
         /// </summary>
-        public static string Bugs_Text_Casting_Time {
-            get {
+        public static string Bugs_Text_Casting_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Casting_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Current Target Boss?:.
         /// </summary>
-        public static string Bugs_Text_Current_Target_Boss {
-            get {
+        public static string Bugs_Text_Current_Target_Boss
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Current_Target_Boss", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Current Target Combat Time Left:.
         /// </summary>
-        public static string Bugs_Text_Current_Target_Combat_Time_Left {
-            get {
+        public static string Bugs_Text_Current_Target_Combat_Time_Left
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Current_Target_Combat_Time_Left", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Distance Close.
         /// </summary>
-        public static string Bugs_Text_Distance_Close {
-            get {
+        public static string Bugs_Text_Distance_Close
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Distance_Close", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Distance Far.
         /// </summary>
-        public static string Bugs_Text_Distance_Far {
-            get {
+        public static string Bugs_Text_Distance_Far
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Distance_Far", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Duty State:.
         /// </summary>
-        public static string Bugs_Text_Duty_State {
-            get {
+        public static string Bugs_Text_Duty_State
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Duty_State", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies In Combat:.
         /// </summary>
-        public static string Bugs_Text_Enemies_In_Combat {
-            get {
+        public static string Bugs_Text_Enemies_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Enemies_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healer Role.
         /// </summary>
-        public static string Bugs_Text_Healer_Role {
-            get {
+        public static string Bugs_Text_Healer_Role
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Healer_Role", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Health Checks:.
         /// </summary>
-        public static string Bugs_Text_Health_Checks {
-            get {
+        public static string Bugs_Text_Health_Checks
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Health_Checks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to In Combat Moving Time:.
         /// </summary>
-        public static string Bugs_Text_In_Combat_Moving_Time {
-            get {
+        public static string Bugs_Text_In_Combat_Moving_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_In_Combat_Moving_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to In Combat Time:.
         /// </summary>
-        public static string Bugs_Text_In_Combat_Time {
-            get {
+        public static string Bugs_Text_In_Combat_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_In_Combat_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Last Spell:.
         /// </summary>
-        public static string Bugs_Text_Last_Spell {
-            get {
+        public static string Bugs_Text_Last_Spell
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Last_Spell", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Max Health.
         /// </summary>
-        public static string Bugs_Text_Max_Health {
-            get {
+        public static string Bugs_Text_Max_Health
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Max_Health", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Need Aura:.
         /// </summary>
-        public static string Bugs_Text_Need_Aura {
-            get {
+        public static string Bugs_Text_Need_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Need_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Not Moving In Combat Time:.
         /// </summary>
-        public static string Bugs_Text_Not_Moving_In_Combat_Time {
-            get {
+        public static string Bugs_Text_Not_Moving_In_Combat_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Not_Moving_In_Combat_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Npc Id.
         /// </summary>
-        public static string Bugs_Text_Npc_Id {
-            get {
+        public static string Bugs_Text_Npc_Id
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Npc_Id", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Other DPS Role.
         /// </summary>
-        public static string Bugs_Text_Other_DPS_Role {
-            get {
+        public static string Bugs_Text_Other_DPS_Role
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Other_DPS_Role", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Out Of Combat Time:.
         /// </summary>
-        public static string Bugs_Text_Out_Of_Combat_Time {
-            get {
+        public static string Bugs_Text_Out_Of_Combat_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Out_Of_Combat_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Refresh Time:.
         /// </summary>
-        public static string Bugs_Text_Refresh_Time {
-            get {
+        public static string Bugs_Text_Refresh_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Refresh_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Response Delay.
         /// </summary>
-        public static string Bugs_Text_Response_Delay {
-            get {
+        public static string Bugs_Text_Response_Delay
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Response_Delay", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rez Mage Role.
         /// </summary>
-        public static string Bugs_Text_Rez_Mage_Role {
-            get {
+        public static string Bugs_Text_Rez_Mage_Role
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Rez_Mage_Role", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Spell Name.
         /// </summary>
-        public static string Bugs_Text_Spell_Name {
-            get {
+        public static string Bugs_Text_Spell_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Spell_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Spell Queues (Includes Opener):.
         /// </summary>
-        public static string Bugs_Text_Spell_Queues_Includes_Opener {
-            get {
+        public static string Bugs_Text_Spell_Queues_Includes_Opener
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Spell_Queues_Includes_Opener", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Spell Target:.
         /// </summary>
-        public static string Bugs_Text_Spell_Target {
-            get {
+        public static string Bugs_Text_Spell_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Spell_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tank Role.
         /// </summary>
-        public static string Bugs_Text_Tank_Role {
-            get {
+        public static string Bugs_Text_Tank_Role
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Tank_Role", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to These are percentage adjustments applied to healing.
         /// </summary>
-        public static string Bugs_Text_These_are_percentage_adjustments_applied_to_healing {
-            get {
+        public static string Bugs_Text_These_are_percentage_adjustments_applied_to_healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_These_are_percentage_adjustments_applied_to_healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to These weights adjust the sort priority of healing.
         /// </summary>
-        public static string Bugs_Text_These_weights_adjust_the_sort_priority_of_healing {
-            get {
+        public static string Bugs_Text_These_weights_adjust_the_sort_priority_of_healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_These_weights_adjust_the_sort_priority_of_healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Time Cast.
         /// </summary>
-        public static string Bugs_Text_Time_Cast {
-            get {
+        public static string Bugs_Text_Time_Cast
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Time_Cast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Time In Duty:.
         /// </summary>
-        public static string Bugs_Text_Time_In_Duty {
-            get {
+        public static string Bugs_Text_Time_In_Duty
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Time_In_Duty", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Time Left In Combat:.
         /// </summary>
-        public static string Bugs_Text_Time_Left_In_Combat {
-            get {
+        public static string Bugs_Text_Time_Left_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Time_Left_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Refresh Time:.
         /// </summary>
-        public static string Bugs_Text_Use_Refresh_Time {
-            get {
+        public static string Bugs_Text_Use_Refresh_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Use_Refresh_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Zone Id.
         /// </summary>
-        public static string Bugs_Text_Zone_Id {
-            get {
+        public static string Bugs_Text_Zone_Id
+        {
+            get
+            {
                 return ResourceManager.GetString("Bugs_Text_Zone_Id", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chocobo Switch To Healer Stance.
         /// </summary>
-        public static string ChocoboHealerStanceCheckbox {
-            get {
+        public static string ChocoboHealerStanceCheckbox
+        {
+            get
+            {
                 return ResourceManager.GetString("ChocoboHealerStanceCheckbox", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chocobo Settings.
         /// </summary>
-        public static string ChocoboSettings {
-            get {
+        public static string ChocoboSettings
+        {
+            get
+            {
                 return ResourceManager.GetString("ChocoboSettings", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chocobo Stance:  .
         /// </summary>
-        public static string ChocoboStance {
-            get {
+        public static string ChocoboStance
+        {
+            get
+            {
                 return ResourceManager.GetString("ChocoboStance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Move Toggle Down.
         /// </summary>
-        public static string Controls_Header_Move_Toggle_Down {
-            get {
+        public static string Controls_Header_Move_Toggle_Down
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Header_Move_Toggle_Down", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Move Toggle Up.
         /// </summary>
-        public static string Controls_Header_Move_Toggle_Up {
-            get {
+        public static string Controls_Header_Move_Toggle_Up
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Header_Move_Toggle_Up", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Remove Toggle.
         /// </summary>
-        public static string Controls_Header_Remove_Toggle {
-            get {
+        public static string Controls_Header_Remove_Toggle
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Header_Remove_Toggle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CONDITIONS TO START OPENER:.
         /// </summary>
-        public static string Controls_Text_CONDITIONS_TO_START_OPENER {
-            get {
+        public static string Controls_Text_CONDITIONS_TO_START_OPENER
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_CONDITIONS_TO_START_OPENER", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gambits:.
         /// </summary>
-        public static string Controls_Text_Gambits {
-            get {
+        public static string Controls_Text_Gambits
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_Gambits", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Last Available Version:.
         /// </summary>
-        public static string Controls_Text_Last_Available_Version {
-            get {
+        public static string Controls_Text_Last_Available_Version
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_Last_Available_Version", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Local Magitek Version:.
         /// </summary>
-        public static string Controls_Text_Local_Magitek_Version {
-            get {
+        public static string Controls_Text_Local_Magitek_Version
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_Local_Magitek_Version", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reset Opener Hotkey:.
         /// </summary>
-        public static string Controls_Text_Reset_Opener_Hotkey {
-            get {
+        public static string Controls_Text_Reset_Opener_Hotkey
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_Reset_Opener_Hotkey", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TOGGLE FOR PVP:.
         /// </summary>
-        public static string Controls_Text_TOGGLE_FOR_PVP {
-            get {
+        public static string Controls_Text_TOGGLE_FOR_PVP
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_TOGGLE_FOR_PVP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TOGGLE OFF:.
         /// </summary>
-        public static string Controls_Text_TOGGLE_OFF {
-            get {
+        public static string Controls_Text_TOGGLE_OFF
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_TOGGLE_OFF", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TOGGLE ON:.
         /// </summary>
-        public static string Controls_Text_TOGGLE_ON {
-            get {
+        public static string Controls_Text_TOGGLE_ON
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_TOGGLE_ON", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TOGGLE SHOW ON OVERLAY:.
         /// </summary>
-        public static string Controls_Text_TOGGLE_SHOW_ON_OVERLAY {
-            get {
+        public static string Controls_Text_TOGGLE_SHOW_ON_OVERLAY
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_TOGGLE_SHOW_ON_OVERLAY", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TOGGLES:.
         /// </summary>
-        public static string Controls_Text_TOGGLES {
-            get {
+        public static string Controls_Text_TOGGLES
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_TOGGLES", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Openers Hotkey:.
         /// </summary>
-        public static string Controls_Text_Use_Openers_Hotkey {
-            get {
+        public static string Controls_Text_Use_Openers_Hotkey
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_Use_Openers_Hotkey", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Zone:.
         /// </summary>
-        public static string Controls_Text_Zone {
-            get {
+        public static string Controls_Text_Zone
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_Text_Zone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add Action.
         /// </summary>
-        public static string Controls_ToolTip_Add_Action {
-            get {
+        public static string Controls_ToolTip_Add_Action
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_ToolTip_Add_Action", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add Gambit.
         /// </summary>
-        public static string Controls_ToolTip_Add_Gambit {
-            get {
+        public static string Controls_ToolTip_Add_Gambit
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_ToolTip_Add_Gambit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Set Group To Current Zone.
         /// </summary>
-        public static string Controls_ToolTip_Set_Group_To_Current_Zone {
-            get {
+        public static string Controls_ToolTip_Set_Group_To_Current_Zone
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_ToolTip_Set_Group_To_Current_Zone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Set Opener To Current Zone.
         /// </summary>
-        public static string Controls_ToolTip_Set_Opener_To_Current_Zone {
-            get {
+        public static string Controls_ToolTip_Set_Opener_To_Current_Zone
+        {
+            get
+            {
                 return ResourceManager.GetString("Controls_ToolTip_Set_Opener_To_Current_Zone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bladeshower.
         /// </summary>
-        public static string Dancer_Content_Bladeshower {
-            get {
+        public static string Dancer_Content_Bladeshower
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Bladeshower", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bloodshower.
         /// </summary>
-        public static string Dancer_Content_Bloodshower {
-            get {
+        public static string Dancer_Content_Bloodshower
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Bloodshower", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Contradance / LB with at least.
         /// </summary>
-        public static string Dancer_Content_Contradance_LB_with_at_least {
-            get {
+        public static string Dancer_Content_Contradance_LB_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Contradance_LB_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Curing Waltz.
         /// </summary>
-        public static string Dancer_Content_Curing_Waltz {
-            get {
+        public static string Dancer_Content_Curing_Waltz
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Curing_Waltz", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Curing Walz At.
         /// </summary>
-        public static string Dancer_Content_Curing_Walz_At {
-            get {
+        public static string Dancer_Content_Curing_Walz_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Curing_Walz_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not DanceDevilment if Target Is Invulnerable.
         /// </summary>
-        public static string Dancer_Content_Do_Not_DanceDevilment_if_Target_Is_Invulnerable {
-            get {
+        public static string Dancer_Content_Do_Not_DanceDevilment_if_Target_Is_Invulnerable
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Do_Not_DanceDevilment_if_Target_Is_Invulnerable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fan Dance II.
         /// </summary>
-        public static string Dancer_Content_Fan_Dance_II {
-            get {
+        public static string Dancer_Content_Fan_Dance_II
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Fan_Dance_II", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Shield Samba.
         /// </summary>
-        public static string Dancer_Content_FightLogic_Use_Shield_Samba {
-            get {
+        public static string Dancer_Content_FightLogic_Use_Shield_Samba
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_FightLogic_Use_Shield_Samba", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Finish Step only when in range.
         /// </summary>
-        public static string Dancer_Content_Finish_Step_only_when_in_range {
-            get {
+        public static string Dancer_Content_Finish_Step_only_when_in_range
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Finish_Step_only_when_in_range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Honing Dance with at least.
         /// </summary>
-        public static string Dancer_Content_Honing_Dance_with_at_least {
-            get {
+        public static string Dancer_Content_Honing_Dance_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Honing_Dance_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rising Windmill.
         /// </summary>
-        public static string Dancer_Content_Rising_Windmill {
-            get {
+        public static string Dancer_Content_Rising_Windmill
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Rising_Windmill", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Select Chocobo as partner.
         /// </summary>
-        public static string Dancer_Content_Select_Chocobo_as_partner {
-            get {
+        public static string Dancer_Content_Select_Chocobo_as_partner
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Select_Chocobo_as_partner", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Closed Position.
         /// </summary>
-        public static string Dancer_Content_Use_Closed_Position {
-            get {
+        public static string Dancer_Content_Use_Closed_Position
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Closed_Position", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Devilment.
         /// </summary>
-        public static string Dancer_Content_Use_Devilment {
-            get {
+        public static string Dancer_Content_Use_Devilment
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Devilment", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use En Avant.
         /// </summary>
-        public static string Dancer_Content_Use_En_Avant {
-            get {
+        public static string Dancer_Content_Use_En_Avant
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_En_Avant", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Fan Dance I.
         /// </summary>
-        public static string Dancer_Content_Use_Fan_Dance_I {
-            get {
+        public static string Dancer_Content_Use_Fan_Dance_I
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Fan_Dance_I", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Fan Dance III AOE Spell used in Single Target.
         /// </summary>
-        public static string Dancer_Content_Use_Fan_Dance_III_AOE_Spell_used_in_Single_Target {
-            get {
+        public static string Dancer_Content_Use_Fan_Dance_III_AOE_Spell_used_in_Single_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Fan_Dance_III_AOE_Spell_used_in_Single_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Fan Dance IV AOE Spell used in Single Target.
         /// </summary>
-        public static string Dancer_Content_Use_Fan_Dance_IV_AOE_Spell_used_in_Single_Target {
-            get {
+        public static string Dancer_Content_Use_Fan_Dance_IV_AOE_Spell_used_in_Single_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Fan_Dance_IV_AOE_Spell_used_in_Single_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Flourish.
         /// </summary>
-        public static string Dancer_Content_Use_Flourish {
-            get {
+        public static string Dancer_Content_Use_Flourish
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Flourish", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Improvisation.
         /// </summary>
-        public static string Dancer_Content_Use_Improvisation {
-            get {
+        public static string Dancer_Content_Use_Improvisation
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Improvisation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Range and Facing Checks Prevent Errors.
         /// </summary>
-        public static string Dancer_Content_Use_Range_and_Facing_Checks_Prevent_Errors {
-            get {
+        public static string Dancer_Content_Use_Range_and_Facing_Checks_Prevent_Errors
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Range_and_Facing_Checks_Prevent_Errors", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Saber Dance AOE Spell used in Single Target.
         /// </summary>
-        public static string Dancer_Content_Use_Saber_Dance_AOE_Spell_used_in_Single_Target {
-            get {
+        public static string Dancer_Content_Use_Saber_Dance_AOE_Spell_used_in_Single_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Saber_Dance_AOE_Spell_used_in_Single_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Standard Step.
         /// </summary>
-        public static string Dancer_Content_Use_Standard_Step {
-            get {
+        public static string Dancer_Content_Use_Standard_Step
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Standard_Step", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Starfall Dance AOE Spell used in Single Target.
         /// </summary>
-        public static string Dancer_Content_Use_Starfall_Dance_AOE_Spell_used_in_Single_Target {
-            get {
+        public static string Dancer_Content_Use_Starfall_Dance_AOE_Spell_used_in_Single_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Starfall_Dance_AOE_Spell_used_in_Single_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Technical Step.
         /// </summary>
-        public static string Dancer_Content_Use_Technical_Step {
-            get {
+        public static string Dancer_Content_Use_Technical_Step
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Use_Technical_Step", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Windmill.
         /// </summary>
-        public static string Dancer_Content_Windmill {
-            get {
+        public static string Dancer_Content_Windmill
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Content_Windmill", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (85 is recommended value).
         /// </summary>
-        public static string Dancer_Text_85_is_recommended_value {
-            get {
+        public static string Dancer_Text_85_is_recommended_value
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_85_is_recommended_value", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dances :.
         /// </summary>
-        public static string Dancer_Text_Dances_ {
-            get {
+        public static string Dancer_Text_Dances_
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_Dances_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DPS :.
         /// </summary>
-        public static string Dancer_Text_DPS_ {
-            get {
+        public static string Dancer_Text_DPS_
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_DPS_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ennemies around.
         /// </summary>
-        public static string Dancer_Text_Ennemies_around {
-            get {
+        public static string Dancer_Text_Ennemies_around
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_Ennemies_around", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heal :.
         /// </summary>
-        public static string Dancer_Text_Heal_ {
-            get {
+        public static string Dancer_Text_Heal_
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_Heal_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Partner :.
         /// </summary>
-        public static string Dancer_Text_Partner_ {
-            get {
+        public static string Dancer_Text_Partner_
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_Partner_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Partner Dance.
         /// </summary>
-        public static string Dancer_Text_Partner_Dance {
-            get {
+        public static string Dancer_Text_Partner_Dance
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_Partner_Dance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pct.
         /// </summary>
-        public static string Dancer_Text_PCT {
-            get {
+        public static string Dancer_Text_PCT
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_PCT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Spells :.
         /// </summary>
-        public static string Dancer_Text_Spells_ {
-            get {
+        public static string Dancer_Text_Spells_
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_Spells_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Vpr.
         /// </summary>
-        public static string Dancer_Text_VPR {
-            get {
+        public static string Dancer_Text_VPR
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_VPR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When not under Technical Finish Use Saber Dance.
         /// </summary>
-        public static string Dancer_Text_When_not_under_Technical_Finish_Use_Saber_Dance {
-            get {
+        public static string Dancer_Text_When_not_under_Technical_Finish_Use_Saber_Dance
+        {
+            get
+            {
                 return ResourceManager.GetString("Dancer_Text_When_not_under_Technical_Finish_Use_Saber_Dance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Blackest Night.
         /// </summary>
-        public static string DarkKnight_Content_Blackest_Night {
-            get {
+        public static string DarkKnight_Content_Blackest_Night
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Blackest_Night", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Blood Weapon.
         /// </summary>
-        public static string DarkKnight_Content_Blood_Weapon {
-            get {
+        public static string DarkKnight_Content_Blood_Weapon
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Blood_Weapon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bloodspiller.
         /// </summary>
-        public static string DarkKnight_Content_BloodSpiller {
-            get {
+        public static string DarkKnight_Content_BloodSpiller
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_BloodSpiller", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Carve And Spit.
         /// </summary>
-        public static string DarkKnight_Content_Carve_And_Spit {
-            get {
+        public static string DarkKnight_Content_Carve_And_Spit
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Carve_And_Spit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dark Mind.
         /// </summary>
-        public static string DarkKnight_Content_Dark_Mind {
-            get {
+        public static string DarkKnight_Content_Dark_Mind
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Dark_Mind", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dark Missionary.
         /// </summary>
-        public static string DarkKnight_Content_Dark_Missionary {
-            get {
+        public static string DarkKnight_Content_Dark_Missionary
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Dark_Missionary", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delirium.
         /// </summary>
-        public static string DarkKnight_Content_Delirium {
-            get {
+        public static string DarkKnight_Content_Delirium
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Delirium", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Disesteem.
         /// </summary>
-        public static string DarkKnight_Content_Disesteem {
-            get {
+        public static string DarkKnight_Content_Disesteem
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Disesteem", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eventide under.
         /// </summary>
-        public static string DarkKnight_Content_Eventide_under {
-            get {
+        public static string DarkKnight_Content_Eventide_under
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Eventide_under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Dark Missionary.
         /// </summary>
-        public static string DarkKnight_Content_FightLogic_Use_Dark_Missionary {
-            get {
+        public static string DarkKnight_Content_FightLogic_Use_Dark_Missionary
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_FightLogic_Use_Dark_Missionary", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Defensives.
         /// </summary>
-        public static string DarkKnight_Content_FightLogic_Use_Defensives {
-            get {
+        public static string DarkKnight_Content_FightLogic_Use_Defensives
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_FightLogic_Use_Defensives", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Reprisal.
         /// </summary>
-        public static string DarkKnight_Content_FightLogic_Use_Reprisal {
-            get {
+        public static string DarkKnight_Content_FightLogic_Use_Reprisal
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_FightLogic_Use_Reprisal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Flood When There Are.
         /// </summary>
-        public static string DarkKnight_Content_Flood_When_There_Are {
-            get {
+        public static string DarkKnight_Content_Flood_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Flood_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Grit (Tank Stance).
         /// </summary>
-        public static string DarkKnight_Content_Grit_Tank_Stance {
-            get {
+        public static string DarkKnight_Content_Grit_Tank_Stance
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Grit_Tank_Stance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Impalement.
         /// </summary>
-        public static string DarkKnight_Content_Impalement {
-            get {
+        public static string DarkKnight_Content_Impalement
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Impalement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Living Dead.
         /// </summary>
-        public static string DarkKnight_Content_Living_Dead {
-            get {
+        public static string DarkKnight_Content_Living_Dead
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Living_Dead", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Living Shadow.
         /// </summary>
-        public static string DarkKnight_Content_Living_Shadow {
-            get {
+        public static string DarkKnight_Content_Living_Shadow
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Living_Shadow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Oblation.
         /// </summary>
-        public static string DarkKnight_Content_Oblation {
-            get {
+        public static string DarkKnight_Content_Oblation
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Oblation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only With Blood Weapon.
         /// </summary>
-        public static string DarkKnight_Content_Only_With_Blood_Weapon {
-            get {
+        public static string DarkKnight_Content_Only_With_Blood_Weapon
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Only_With_Blood_Weapon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Plunge.
         /// </summary>
-        public static string DarkKnight_Content_Plunge {
-            get {
+        public static string DarkKnight_Content_Plunge
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Plunge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Plunge Only in Melee Range.
         /// </summary>
-        public static string DarkKnight_Content_Plunge_Only_in_Melee_Range {
-            get {
+        public static string DarkKnight_Content_Plunge_Only_in_Melee_Range
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Plunge_Only_in_Melee_Range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Quietus When There Are.
         /// </summary>
-        public static string DarkKnight_Content_Quietus_When_There_Are {
-            get {
+        public static string DarkKnight_Content_Quietus_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Quietus_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rampart.
         /// </summary>
-        public static string DarkKnight_Content_Rampart {
-            get {
+        public static string DarkKnight_Content_Rampart
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Rampart", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reprisal.
         /// </summary>
-        public static string DarkKnight_Content_Reprisal {
-            get {
+        public static string DarkKnight_Content_Reprisal
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Reprisal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Salt and Darkness.
         /// </summary>
-        public static string DarkKnight_Content_Salt_and_Darkness {
-            get {
+        public static string DarkKnight_Content_Salt_and_Darkness
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Salt_and_Darkness", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Salted Earth.
         /// </summary>
-        public static string DarkKnight_Content_Salted_Earth {
-            get {
+        public static string DarkKnight_Content_Salted_Earth
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Salted_Earth", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Scarlet Delirium.
         /// </summary>
-        public static string DarkKnight_Content_Scarlet_Delirium {
-            get {
+        public static string DarkKnight_Content_Scarlet_Delirium
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Scarlet_Delirium", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shadow Wall.
         /// </summary>
-        public static string DarkKnight_Content_Shadow_Wall {
-            get {
+        public static string DarkKnight_Content_Shadow_Wall
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Shadow_Wall", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shadowbringer with at least Enemies.
         /// </summary>
-        public static string DarkKnight_Content_Shadowbringer_with_at_least_Enemies {
-            get {
+        public static string DarkKnight_Content_Shadowbringer_with_at_least_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Shadowbringer_with_at_least_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The Blackest Night.
         /// </summary>
-        public static string DarkKnight_Content_The_Blackest_Night {
-            get {
+        public static string DarkKnight_Content_The_Blackest_Night
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_The_Blackest_Night", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unleash When There Are.
         /// </summary>
-        public static string DarkKnight_Content_Unleash_When_There_Are {
-            get {
+        public static string DarkKnight_Content_Unleash_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Unleash_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Abyssal Drain When There Are Enemies.
         /// </summary>
-        public static string DarkKnight_Content_Use_Abyssal_Drain_When_There_Are_Enemies {
-            get {
+        public static string DarkKnight_Content_Use_Abyssal_Drain_When_There_Are_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Use_Abyssal_Drain_When_There_Are_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AoEs Does not Affect Abyssal Drain.
         /// </summary>
-        public static string DarkKnight_Content_Use_AoEs_Does_not_Affect_Abyssal_Drain {
-            get {
+        public static string DarkKnight_Content_Use_AoEs_Does_not_Affect_Abyssal_Drain
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Use_AoEs_Does_not_Affect_Abyssal_Drain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Plunge.
         /// </summary>
-        public static string DarkKnight_Content_Use_Plunge {
-            get {
+        public static string DarkKnight_Content_Use_Plunge
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Use_Plunge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Salted Earth When There Are Enemies.
         /// </summary>
-        public static string DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies {
-            get {
+        public static string DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Unmend if not in melee to damage.
         /// </summary>
-        public static string DarkKnight_Content_Use_Unmend_if_not_in_melee_to_damage {
-            get {
+        public static string DarkKnight_Content_Use_Unmend_if_not_in_melee_to_damage
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Use_Unmend_if_not_in_melee_to_damage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Unmend To Pull or Regain Aggro.
         /// </summary>
-        public static string DarkKnight_Content_Use_Unmend_To_Pull_or_Regain_Aggro {
-            get {
+        public static string DarkKnight_Content_Use_Unmend_To_Pull_or_Regain_Aggro
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Content_Use_Unmend_To_Pull_or_Regain_Aggro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always Save at least.
         /// </summary>
-        public static string DarkKnight_Text_Always_Save_at_least {
-            get {
+        public static string DarkKnight_Text_Always_Save_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Text_Always_Save_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At Which Point Use A Maximum Of Defensive Buffs.
         /// </summary>
-        public static string DarkKnight_Text_At_Which_Point_Use_A_Maximum_Of_Defensive_Buffs {
-            get {
+        public static string DarkKnight_Text_At_Which_Point_Use_A_Maximum_Of_Defensive_Buffs
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Text_At_Which_Point_Use_A_Maximum_Of_Defensive_Buffs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to NOTE: Does not include Dark Mind and Dark Missionary.
         /// </summary>
-        public static string DarkKnight_Text_NOTE_Does_not_include_Dark_Mind_and_Dark_Missionary {
-            get {
+        public static string DarkKnight_Text_NOTE_Does_not_include_Dark_Mind_and_Dark_Missionary
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Text_NOTE_Does_not_include_Dark_Mind_and_Dark_Missionary", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only in Melee.
         /// </summary>
-        public static string DarkKnight_Text_Only_in_Melee {
-            get {
+        public static string DarkKnight_Text_Only_in_Melee
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Text_Only_in_Melee", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save this many charges of Plunge.
         /// </summary>
-        public static string DarkKnight_Text_Save_this_many_charges_of_Plunge {
-            get {
+        public static string DarkKnight_Text_Save_this_many_charges_of_Plunge
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Text_Save_this_many_charges_of_Plunge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Unmend When Ennemy Is At Least Yalms Away.
         /// </summary>
-        public static string DarkKnight_Text_Use_Unmend_When_Ennemy_Is_At_Least_Yalms_Away {
-            get {
+        public static string DarkKnight_Text_Use_Unmend_When_Ennemy_Is_At_Least_Yalms_Away
+        {
+            get
+            {
                 return ResourceManager.GetString("DarkKnight_Text_Use_Unmend_When_Ennemy_Is_At_Least_Yalms_Away", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AOE When There Are.
         /// </summary>
-        public static string Dragoon_Content_AOE_When_There_Are {
-            get {
+        public static string Dragoon_Content_AOE_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_AOE_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Battle Litany.
         /// </summary>
-        public static string Dragoon_Content_Battle_Litany {
-            get {
+        public static string Dragoon_Content_Battle_Litany
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Battle_Litany", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chaotic Spring.
         /// </summary>
-        public static string Dragoon_Content_Chaotic_Spring {
-            get {
+        public static string Dragoon_Content_Chaotic_Spring
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Chaotic_Spring", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dragonfire Dive.
         /// </summary>
-        public static string Dragoon_Content_Dragonfire_Dive {
-            get {
+        public static string Dragoon_Content_Dragonfire_Dive
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Dragonfire_Dive", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Elusive Jump.
         /// </summary>
-        public static string Dragoon_Content_Elusive_Jump {
-            get {
+        public static string Dragoon_Content_Elusive_Jump
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Elusive_Jump", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Feint.
         /// </summary>
-        public static string Dragoon_Content_FightLogic_Use_Feint {
-            get {
+        public static string Dragoon_Content_FightLogic_Use_Feint
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_FightLogic_Use_Feint", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Geirskogul.
         /// </summary>
-        public static string Dragoon_Content_Geirskogul {
-            get {
+        public static string Dragoon_Content_Geirskogul
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Geirskogul", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to High Jump.
         /// </summary>
-        public static string Dragoon_Content_High_Jump {
-            get {
+        public static string Dragoon_Content_High_Jump
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_High_Jump", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Horrid Roar.
         /// </summary>
-        public static string Dragoon_Content_Horrid_Roar {
-            get {
+        public static string Dragoon_Content_Horrid_Roar
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Horrid_Roar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Jump.
         /// </summary>
-        public static string Dragoon_Content_Jump {
-            get {
+        public static string Dragoon_Content_Jump
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Jump", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lance Charge.
         /// </summary>
-        public static string Dragoon_Content_Lance_Charge {
-            get {
+        public static string Dragoon_Content_Lance_Charge
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Lance_Charge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Life Surge.
         /// </summary>
-        public static string Dragoon_Content_Life_Surge {
-            get {
+        public static string Dragoon_Content_Life_Surge
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Life_Surge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nastrond.
         /// </summary>
-        public static string Dragoon_Content_Nastrond {
-            get {
+        public static string Dragoon_Content_Nastrond
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Nastrond", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Safe Jumping Logic.
         /// </summary>
-        public static string Dragoon_Content_Safe_Jumping_Logic {
-            get {
+        public static string Dragoon_Content_Safe_Jumping_Logic
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Safe_Jumping_Logic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SkyHigh / LB.
         /// </summary>
-        public static string Dragoon_Content_SkyHigh_LB {
-            get {
+        public static string Dragoon_Content_SkyHigh_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_SkyHigh_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Smart Dragon Sight If youre not in a party.
         /// </summary>
-        public static string Dragoon_Content_Smart_Dragon_Sight_If_youre_not_in_a_party {
-            get {
+        public static string Dragoon_Content_Smart_Dragon_Sight_If_youre_not_in_a_party
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Smart_Dragon_Sight_If_youre_not_in_a_party", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Spineshatter Dive.
         /// </summary>
-        public static string Dragoon_Content_Spineshatter_Dive {
-            get {
+        public static string Dragoon_Content_Spineshatter_Dive
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Spineshatter_Dive", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Starcross.
         /// </summary>
-        public static string Dragoon_Content_Starcross {
-            get {
+        public static string Dragoon_Content_Starcross
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Starcross", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stardiver.
         /// </summary>
-        public static string Dragoon_Content_Stardiver {
-            get {
+        public static string Dragoon_Content_Stardiver
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Stardiver", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Buffs LanceCharge LifeSurge Life Of The Dragon.
         /// </summary>
-        public static string Dragoon_Content_Use_Buffs_LanceCharge_LifeSurge_Life_Of_The_Dragon {
-            get {
+        public static string Dragoon_Content_Use_Buffs_LanceCharge_LifeSurge_Life_Of_The_Dragon
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Use_Buffs_LanceCharge_LifeSurge_Life_Of_The_Dragon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Dragon Sight.
         /// </summary>
-        public static string Dragoon_Content_Use_Dragon_Sight {
-            get {
+        public static string Dragoon_Content_Use_Dragon_Sight
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Use_Dragon_Sight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Jumps.
         /// </summary>
-        public static string Dragoon_Content_Use_Jumps {
-            get {
+        public static string Dragoon_Content_Use_Jumps
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Content_Use_Jumps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dragon Sight on:.
         /// </summary>
-        public static string Dragoon_Text_Dragon_Sight_on {
-            get {
+        public static string Dragoon_Text_Dragon_Sight_on
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Text_Dragon_Sight_on", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to In Range.
         /// </summary>
-        public static string Dragoon_Text_In_Range {
-            get {
+        public static string Dragoon_Text_In_Range
+        {
+            get
+            {
                 return ResourceManager.GetString("Dragoon_Text_In_Range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ABANDON OPENER IF ACTION FAILS.
         /// </summary>
-        public static string Generic_Abandon_Opener_If_Action_Fails {
-            get {
+        public static string Generic_Abandon_Opener_If_Action_Fails
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Abandon_Opener_If_Action_Fails", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Abilities.
         /// </summary>
-        public static string Generic_Abilities {
-            get {
+        public static string Generic_Abilities
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Abilities", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Above.
         /// </summary>
-        public static string Generic_Above {
-            get {
+        public static string Generic_Above
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Above", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Above Or Equal.
         /// </summary>
-        public static string Generic_Above_Or_Equal {
-            get {
+        public static string Generic_Above_Or_Equal
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Above_Or_Equal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add New Gambit Group.
         /// </summary>
-        public static string Generic_Add_New_Gambit_Group {
-            get {
+        public static string Generic_Add_New_Gambit_Group
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Add_New_Gambit_Group", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add New Opener.
         /// </summary>
-        public static string Generic_Add_New_Opener {
-            get {
+        public static string Generic_Add_New_Opener
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Add_New_Opener", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Advance Burst Window Settings.
         /// </summary>
-        public static string Generic_Advance_Burst_Window_Settings {
-            get {
+        public static string Generic_Advance_Burst_Window_Settings
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Advance_Burst_Window_Settings", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aetherpact.
         /// </summary>
-        public static string Generic_Aetherpact {
-            get {
+        public static string Generic_Aetherpact
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Aetherpact", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aggro.
         /// </summary>
-        public static string Generic_Aggro {
-            get {
+        public static string Generic_Aggro
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Aggro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Alliance.
         /// </summary>
-        public static string Generic_Alliance {
-            get {
+        public static string Generic_Alliance
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Alliance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies around.
         /// </summary>
-        public static string Generic_Allies_Around {
-            get {
+        public static string Generic_Allies_Around
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Allies_Around", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies Fall Below.
         /// </summary>
-        public static string Generic_Allies_Fall_Below {
-            get {
+        public static string Generic_Allies_Fall_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Allies_Fall_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies Need Healing.
         /// </summary>
-        public static string Generic_Allies_Need_Healing {
-            get {
+        public static string Generic_Allies_Need_Healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Allies_Need_Healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies Targeting It.
         /// </summary>
-        public static string Generic_Allies_Targeting_It {
-            get {
+        public static string Generic_Allies_Targeting_It
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Allies_Targeting_It", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ALLOW GAMBIT TO INTERRUPT.
         /// </summary>
-        public static string Generic_Allow_Gambit_To_Interrupt {
-            get {
+        public static string Generic_Allow_Gambit_To_Interrupt
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Allow_Gambit_To_Interrupt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AMMO.
         /// </summary>
-        public static string Generic_Ammo {
-            get {
+        public static string Generic_Ammo
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Ammo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to And At Least.
         /// </summary>
-        public static string Generic_And_At_Least {
-            get {
+        public static string Generic_And_At_Least
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_And_At_Least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Any Quality.
         /// </summary>
-        public static string Generic_Any_Quality {
-            get {
+        public static string Generic_Any_Quality
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Any_Quality", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aoe Heal When Allies Need Healing -.
         /// </summary>
-        public static string Generic_Aoe_Heal_When_Allies_Need_Healing_ {
-            get {
+        public static string Generic_Aoe_Heal_When_Allies_Need_Healing_
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Aoe_Heal_When_Allies_Need_Healing_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Apply This Rule On.
         /// </summary>
-        public static string Generic_Apply_This_Rule_On {
-            get {
+        public static string Generic_Apply_This_Rule_On
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Apply_This_Rule_On", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Arms Length.
         /// </summary>
-        public static string Generic_Arms_Length {
-            get {
+        public static string Generic_Arms_Length
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Arms_Length", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Assize.
         /// </summary>
-        public static string Generic_Assize {
-            get {
+        public static string Generic_Assize
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Assize", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Guard vs Marksman's Spite.
+        /// </summary>
+        public static string Generic_AutoGuard_MarksmansSpite
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_AutoGuard_MarksmansSpite", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Ast.
         /// </summary>
-        public static string Generic_Ast {
-            get {
+        public static string Generic_Ast
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Ast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ASTROLOGIAN.
         /// </summary>
-        public static string Generic_Astrologian {
-            get {
+        public static string Generic_Astrologian
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Astrologian", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At Which Point Use A Maximum Of.
         /// </summary>
-        public static string Generic_At_Which_Point_Use_A_Maximum_Of {
-            get {
+        public static string Generic_At_Which_Point_Use_A_Maximum_Of
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_At_Which_Point_Use_A_Maximum_Of", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BARD.
         /// </summary>
-        public static string Generic_Bard {
-            get {
+        public static string Generic_Bard
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Bard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Below.
         /// </summary>
-        public static string Generic_Below {
-            get {
+        public static string Generic_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BLACK MAGE.
         /// </summary>
-        public static string Generic_Black_Mage {
-            get {
+        public static string Generic_Black_Mage
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Black_Mage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Blm.
         /// </summary>
-        public static string Generic_Blm {
-            get {
+        public static string Generic_Blm
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Blm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bloodbath When Below.
         /// </summary>
-        public static string Generic_Bloodbath_When_Below {
-            get {
+        public static string Generic_Bloodbath_When_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Bloodbath_When_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BLUEMAGE.
         /// </summary>
-        public static string Generic_Bluemage {
-            get {
+        public static string Generic_Bluemage
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Bluemage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Brd.
         /// </summary>
-        public static string Generic_Brd {
-            get {
+        public static string Generic_Brd
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Brd", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Buffs.
         /// </summary>
-        public static string Generic_Buffs {
-            get {
+        public static string Generic_Buffs
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Buffs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to By Player.
         /// </summary>
-        public static string Generic_By_Player {
-            get {
+        public static string Generic_By_Player
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_By_Player", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to By Target Object.
         /// </summary>
-        public static string Generic_By_Target_Object {
-            get {
+        public static string Generic_By_Target_Object
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_By_Target_Object", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cards.
         /// </summary>
-        public static string Generic_Cards {
-            get {
+        public static string Generic_Cards
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Cards", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CHAKRA.
         /// </summary>
-        public static string Generic_Chakra {
-            get {
+        public static string Generic_Chakra
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Chakra", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
-        public static string Generic_Close {
-            get {
+        public static string Generic_Close
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Close", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Combat.
         /// </summary>
-        public static string Generic_Combat {
-            get {
+        public static string Generic_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to COMBAT TIME.
         /// </summary>
-        public static string Generic_Combat_Time {
-            get {
+        public static string Generic_Combat_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Combat_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cooldowns.
         /// </summary>
-        public static string Generic_Cooldowns {
-            get {
+        public static string Generic_Cooldowns
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Cooldowns", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to COPY GAMBIT.
         /// </summary>
-        public static string Generic_Copy_Gambit {
-            get {
+        public static string Generic_Copy_Gambit
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Copy_Gambit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to COPY GAMBIT GROUP.
         /// </summary>
-        public static string Generic_Copy_Gambit_Group {
-            get {
+        public static string Generic_Copy_Gambit_Group
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Copy_Gambit_Group", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to COPY GAMBIT TO CLIPBOARD.
         /// </summary>
-        public static string Generic_Copy_Gambit_To_Clipboard {
-            get {
+        public static string Generic_Copy_Gambit_To_Clipboard
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Copy_Gambit_To_Clipboard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to COUNTDOWN TIMER.
         /// </summary>
-        public static string Generic_Countdown_Timer {
-            get {
+        public static string Generic_Countdown_Timer
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Countdown_Timer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Current Zone.
         /// </summary>
-        public static string Generic_Current_Zone {
-            get {
+        public static string Generic_Current_Zone
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Current_Zone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dance With:.
         /// </summary>
-        public static string Generic_Dance_With {
-            get {
+        public static string Generic_Dance_With
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dance_With", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DANCER.
         /// </summary>
-        public static string Generic_Dancer {
-            get {
+        public static string Generic_Dancer
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dancer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DARK KNIGHT.
         /// </summary>
-        public static string Generic_Dark_Knight {
-            get {
+        public static string Generic_Dark_Knight
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dark_Knight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Debugging.
         /// </summary>
-        public static string Generic_Debugging {
-            get {
+        public static string Generic_Debugging
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Debugging", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Defensive Buffs At The Same Time.
         /// </summary>
-        public static string Generic_Defensive_Buffs_At_The_Same_Time {
-            get {
+        public static string Generic_Defensive_Buffs_At_The_Same_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Defensive_Buffs_At_The_Same_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Defensives.
         /// </summary>
-        public static string Generic_Defensives {
-            get {
+        public static string Generic_Defensives
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Defensives", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DELETE ACTION.
         /// </summary>
-        public static string Generic_Delete_Action {
-            get {
+        public static string Generic_Delete_Action
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Delete_Action", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DELETE GAMBIT.
         /// </summary>
-        public static string Generic_Delete_Gambit {
-            get {
+        public static string Generic_Delete_Gambit
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Delete_Gambit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DELETE GAMBIT GROUP.
         /// </summary>
-        public static string Generic_Delete_Gambit_Group {
-            get {
+        public static string Generic_Delete_Gambit_Group
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Delete_Gambit_Group", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DELETE OPENER.
         /// </summary>
-        public static string Generic_Delete_Opener {
-            get {
+        public static string Generic_Delete_Opener
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Delete_Opener", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispel Anything That Is Removable.
         /// </summary>
-        public static string Generic_Dispel_Anything_That_Is_Removable {
-            get {
+        public static string Generic_Dispel_Anything_That_Is_Removable
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dispel_Anything_That_Is_Removable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispels.
         /// </summary>
-        public static string Generic_Dispels {
-            get {
+        public static string Generic_Dispels
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dispels", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dnc.
         /// </summary>
-        public static string Generic_Dnc {
-            get {
+        public static string Generic_Dnc
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dnc", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Damage When Mana Is Over.
         /// </summary>
-        public static string Generic_Do_Damage_When_Mana_Is_Over {
-            get {
+        public static string Generic_Do_Damage_When_Mana_Is_Over
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Do_Damage_When_Mana_Is_Over", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DOES NOT HAVE AURA.
         /// </summary>
-        public static string Generic_Does_Not_Have_Aura {
-            get {
+        public static string Generic_Does_Not_Have_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Does_Not_Have_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Guard.
         /// </summary>
-        public static string Generic_Dont_Attack_Guard {
-            get {
+        public static string Generic_Dont_Attack_Guard
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Guard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Gro.
         /// </summary>
-        public static string Generic_Dont_Attack_Invuln_Hallowed_Gro {
-            get {
+        public static string Generic_Dont_Attack_Invuln_Hallowed_Gro
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Invuln_Hallowed_Gro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Grou.
         /// </summary>
-        public static string Generic_Dont_Attack_Invuln_Hallowed_Grou {
-            get {
+        public static string Generic_Dont_Attack_Invuln_Hallowed_Grou
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Invuln_Hallowed_Grou", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Ground.
         /// </summary>
-        public static string Generic_Dont_Attack_Invuln_Hallowed_Ground {
-            get {
+        public static string Generic_Dont_Attack_Invuln_Hallowed_Ground
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Invuln_Hallowed_Ground", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Groundu.
         /// </summary>
-        public static string Generic_Dont_Attack_Invuln_Hallowed_Groundu {
-            get {
+        public static string Generic_Dont_Attack_Invuln_Hallowed_Groundu
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Invuln_Hallowed_Groundu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Groundun.
         /// </summary>
-        public static string Generic_Dont_Attack_Invuln_Hallowed_Groundun {
-            get {
+        public static string Generic_Dont_Attack_Invuln_Hallowed_Groundun
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Invuln_Hallowed_Groundun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Groundund.
         /// </summary>
-        public static string Generic_Dont_Attack_Invuln_Hallowed_Groundund {
-            get {
+        public static string Generic_Dont_Attack_Invuln_Hallowed_Groundund
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Attack_Invuln_Hallowed_Groundund", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Do Damage If There Are More Than.
         /// </summary>
-        public static string Generic_Dont_Do_Damage_If_There_Are_More_Than {
-            get {
+        public static string Generic_Dont_Do_Damage_If_There_Are_More_Than
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Do_Damage_If_There_Are_More_Than", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Dot If More Than.
         /// </summary>
-        public static string Generic_Dont_Dot_If_More_Than {
-            get {
+        public static string Generic_Dont_Dot_If_More_Than
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dont_Dot_If_More_Than", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DPS.
         /// </summary>
-        public static string Generic_DPS {
-            get {
+        public static string Generic_DPS
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_DPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DRAGOON.
         /// </summary>
-        public static string Generic_Dragoon {
-            get {
+        public static string Generic_Dragoon
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dragoon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DRAGOON GAUGE.
         /// </summary>
-        public static string Generic_Dragoon_Gauge {
-            get {
+        public static string Generic_Dragoon_Gauge
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Dragoon_Gauge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Drg.
         /// </summary>
-        public static string Generic_Drg {
-            get {
+        public static string Generic_Drg
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Drg", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Drk.
         /// </summary>
-        public static string Generic_Drk {
-            get {
+        public static string Generic_Drk
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Drk", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Fight Logic.
         /// </summary>
-        public static string Generic_Enable_Fight_Logic {
-            get {
+        public static string Generic_Enable_Fight_Logic
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enable_Fight_Logic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies.
         /// </summary>
-        public static string Generic_Enemies {
-            get {
+        public static string Generic_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies In Combat.
         /// </summary>
-        public static string Generic_Enemies_In_Combat {
-            get {
+        public static string Generic_Enemies_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enemies_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ENEMIES NEARBY.
         /// </summary>
-        public static string Generic_Enemies_Nearby {
-            get {
+        public static string Generic_Enemies_Nearby
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enemies_Nearby", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ENEMY CASTING SPELL.
         /// </summary>
-        public static string Generic_Enemy_Casting_Spell {
-            get {
+        public static string Generic_Enemy_Casting_Spell
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enemy_Casting_Spell", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemy Spell Casts.
         /// </summary>
-        public static string Generic_Enemy_Spell_Casts {
-            get {
+        public static string Generic_Enemy_Spell_Casts
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enemy_Spell_Casts", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enmity.
         /// </summary>
-        public static string Generic_Enmity {
-            get {
+        public static string Generic_Enmity
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Enmity", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ESPRIT.
         /// </summary>
-        public static string Generic_Esprit {
-            get {
+        public static string Generic_Esprit
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Esprit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to False.
         /// </summary>
-        public static string Generic_False {
-            get {
+        public static string Generic_False
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_False", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FEATHER.
         /// </summary>
-        public static string Generic_Feather {
-            get {
+        public static string Generic_Feather
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Feather", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fight Logic.
         /// </summary>
-        public static string Generic_Fight_Logic {
-            get {
+        public static string Generic_Fight_Logic
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Fight_Logic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic.
         /// </summary>
-        public static string Generic_FightLogic {
-            get {
+        public static string Generic_FightLogic
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_FightLogic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fightlogic Use Addle.
         /// </summary>
-        public static string Generic_Fightlogic_Use_Addle {
-            get {
+        public static string Generic_Fightlogic_Use_Addle
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Fightlogic_Use_Addle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fightlogic Use Defensives.
         /// </summary>
-        public static string Generic_Fightlogic_Use_Defensives {
-            get {
+        public static string Generic_Fightlogic_Use_Defensives
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Fightlogic_Use_Defensives", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fightlogic Use Feint.
         /// </summary>
-        public static string Generic_Fightlogic_Use_Feint {
-            get {
+        public static string Generic_Fightlogic_Use_Feint
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Fightlogic_Use_Feint", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fightlogic Use Knockback.
         /// </summary>
-        public static string Generic_Fightlogic_Use_Knockback {
-            get {
+        public static string Generic_Fightlogic_Use_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Fightlogic_Use_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fightlogic Use Reprisal.
         /// </summary>
-        public static string Generic_Fightlogic_Use_Reprisal {
-            get {
+        public static string Generic_Fightlogic_Use_Reprisal
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Fightlogic_Use_Reprisal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FORCE CHAIN ACTIONS.
         /// </summary>
-        public static string Generic_Force_Chain_Actions {
-            get {
+        public static string Generic_Force_Chain_Actions
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Force_Chain_Actions", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Full Party.
         /// </summary>
-        public static string Generic_Full_Party {
-            get {
+        public static string Generic_Full_Party
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Full_Party", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GAMBIT ENABLED.
         /// </summary>
-        public static string Generic_Gambit_Enabled {
-            get {
+        public static string Generic_Gambit_Enabled
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Gambit_Enabled", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GAZE.
         /// </summary>
-        public static string Generic_Gaze {
-            get {
+        public static string Generic_Gaze
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Gaze", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
-        public static string Generic_General {
-            get {
+        public static string Generic_General
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_General", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to General Settings.
         /// </summary>
-        public static string Generic_General_Settings {
-            get {
+        public static string Generic_General_Settings
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_General_Settings", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to General .
         /// </summary>
-        public static string Generic_General_Space {
-            get {
+        public static string Generic_General_Space
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_General_Space", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gnb.
         /// </summary>
-        public static string Generic_Gnb {
-            get {
+        public static string Generic_Gnb
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Gnb", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GREASED LIGHTNING.
         /// </summary>
-        public static string Generic_Greased_Lightning {
-            get {
+        public static string Generic_Greased_Lightning
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Greased_Lightning", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Guard Shield At.
         /// </summary>
-        public static string Generic_Guard_Shield_At {
-            get {
+        public static string Generic_Guard_Shield_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Guard_Shield_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GUNBREAKER.
         /// </summary>
-        public static string Generic_Gunbreaker {
-            get {
+        public static string Generic_Gunbreaker
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Gunbreaker", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS AURA.
         /// </summary>
-        public static string Generic_Has_Aura {
-            get {
+        public static string Generic_Has_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS CHAIN.
         /// </summary>
-        public static string Generic_Has_Chain {
-            get {
+        public static string Generic_Has_Chain
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Chain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS GETSU.
         /// </summary>
-        public static string Generic_Has_Getsu {
-            get {
+        public static string Generic_Has_Getsu
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Getsu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS KA.
         /// </summary>
-        public static string Generic_Has_Ka {
-            get {
+        public static string Generic_Has_Ka
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Ka", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS PET.
         /// </summary>
-        public static string Generic_Has_Pet {
-            get {
+        public static string Generic_Has_Pet
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Pet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS SETSU.
         /// </summary>
-        public static string Generic_Has_Setsu {
-            get {
+        public static string Generic_Has_Setsu
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Setsu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HAS TARGET.
         /// </summary>
-        public static string Generic_Has_Target {
-            get {
+        public static string Generic_Has_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Has_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heal Alliance Dps.
         /// </summary>
-        public static string Generic_Heal_Alliance_Dps {
-            get {
+        public static string Generic_Heal_Alliance_Dps
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Heal_Alliance_Dps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heal Alliance Healers.
         /// </summary>
-        public static string Generic_Heal_Alliance_Healers {
-            get {
+        public static string Generic_Heal_Alliance_Healers
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Heal_Alliance_Healers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heal Alliance Tanks.
         /// </summary>
-        public static string Generic_Heal_Alliance_Tanks {
-            get {
+        public static string Generic_Heal_Alliance_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Heal_Alliance_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healers.
         /// </summary>
-        public static string Generic_Healers {
-            get {
+        public static string Generic_Healers
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Healers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healing.
         /// </summary>
-        public static string Generic_Healing {
-            get {
+        public static string Generic_Healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healing Buffs At The Same Time.
         /// </summary>
-        public static string Generic_Healing_Buffs_At_The_Same_Time {
-            get {
+        public static string Generic_Healing_Buffs_At_The_Same_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Healing_Buffs_At_The_Same_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Health Percent.
         /// </summary>
-        public static string Generic_Health_Percent {
-            get {
+        public static string Generic_Health_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Health_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HEALTH PERCENT BELOW.
         /// </summary>
-        public static string Generic_Health_Percent_Below {
-            get {
+        public static string Generic_Health_Percent_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Health_Percent_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HEALTH PERCENT BETWEEN.
         /// </summary>
-        public static string Generic_Health_Percent_Between {
-            get {
+        public static string Generic_Health_Percent_Between
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Health_Percent_Between", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Health Percent When.
         /// </summary>
-        public static string Generic_Health_Percent_When {
-            get {
+        public static string Generic_Health_Percent_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Health_Percent_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HEAT.
         /// </summary>
-        public static string Generic_Heat {
-            get {
+        public static string Generic_Heat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Heat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hide Positional Message.
         /// </summary>
-        public static string Generic_Hide_Positional_Message {
-            get {
+        public static string Generic_Hide_Positional_Message
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Hide_Positional_Message", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to High Quality.
         /// </summary>
-        public static string Generic_High_Quality {
-            get {
+        public static string Generic_High_Quality
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_High_Quality", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hold Burst.
         /// </summary>
-        public static string Generic_Hold_Burst {
-            get {
+        public static string Generic_Hold_Burst
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Hold_Burst", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
-        public static string Generic_Home {
-            get {
+        public static string Generic_Home
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Home", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hp.
         /// </summary>
-        public static string Generic_Hp {
-            get {
+        public static string Generic_Hp
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Hp", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HUTON.
         /// </summary>
-        public static string Generic_Huton {
-            get {
+        public static string Generic_Huton
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Huton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ignore Alliance Members.
         /// </summary>
-        public static string Generic_Ignore_Alliance_Members {
-            get {
+        public static string Generic_Ignore_Alliance_Members
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Ignore_Alliance_Members", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IN INSTANCE.
         /// </summary>
-        public static string Generic_In_Instance {
-            get {
+        public static string Generic_In_Instance
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_In_Instance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Interrupt Healing If Target HP Gets Over.
         /// </summary>
-        public static string Generic_Interrupt_Healing_If_Target_HP_Gets_Over {
-            get {
+        public static string Generic_Interrupt_Healing_If_Target_HP_Gets_Over
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Interrupt_Healing_If_Target_HP_Gets_Over", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS DPS.
         /// </summary>
-        public static string Generic_Is_Dps {
-            get {
+        public static string Generic_Is_Dps
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_Dps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS HEALER.
         /// </summary>
-        public static string Generic_Is_Healer {
-            get {
+        public static string Generic_Is_Healer
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_Healer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS JOB.
         /// </summary>
-        public static string Generic_Is_Job {
-            get {
+        public static string Generic_Is_Job
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_Job", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS MY AURA.
         /// </summary>
-        public static string Generic_Is_My_Aura {
-            get {
+        public static string Generic_Is_My_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_My_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS PVP SPELL.
         /// </summary>
-        public static string Generic_Is_Pvp_Spell {
-            get {
+        public static string Generic_Is_Pvp_Spell
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_Pvp_Spell", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS ROLE.
         /// </summary>
-        public static string Generic_Is_Role {
-            get {
+        public static string Generic_Is_Role
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_Role", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IS TANK.
         /// </summary>
-        public static string Generic_Is_Tank {
-            get {
+        public static string Generic_Is_Tank
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Is_Tank", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (Item Potion selected should be in your hotkey bar).
         /// </summary>
-        public static string Generic_Item_Potion_Selected_Should_Be_In_You {
-            get {
+        public static string Generic_Item_Potion_Selected_Should_Be_In_You
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Item_Potion_Selected_Should_Be_In_You", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to JOBS.
         /// </summary>
-        public static string Generic_Jobs {
-            get {
+        public static string Generic_Jobs
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Jobs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to KENKI.
         /// </summary>
-        public static string Generic_Kenki {
-            get {
+        public static string Generic_Kenki
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Kenki", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to LAST SPELL.
         /// </summary>
-        public static string Generic_Last_Spell {
-            get {
+        public static string Generic_Last_Spell
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Last_Spell", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to LB Any Enemy below the threshold not just current target.
         /// </summary>
-        public static string Generic_LB_Any_Enemy_below_the_threshold {
-            get {
+        public static string Generic_LB_Any_Enemy_below_the_threshold
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_LB_Any_Enemy_below_the_threshold", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
-        public static string Generic_Level {
-            get {
+        public static string Generic_Level
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Level", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Light Party.
         /// </summary>
-        public static string Generic_Light_Party {
-            get {
+        public static string Generic_Light_Party
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Light_Party", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to LockOns.
         /// </summary>
-        public static string Generic_LockOns {
-            get {
+        public static string Generic_LockOns
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_LockOns", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lower.
         /// </summary>
-        public static string Generic_Lower {
-            get {
+        public static string Generic_Lower
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Lower", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lower Or Equal.
         /// </summary>
-        public static string Generic_Lower_Or_Equal {
-            get {
+        public static string Generic_Lower_Or_Equal
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Lower_Or_Equal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lucid Dreaming.
         /// </summary>
-        public static string Generic_Lucid_Dreaming {
-            get {
+        public static string Generic_Lucid_Dreaming
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Lucid_Dreaming", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lucid Dreaming When Under.
         /// </summary>
-        public static string Generic_Lucid_Dreaming_When_Under {
-            get {
+        public static string Generic_Lucid_Dreaming_When_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Lucid_Dreaming_When_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MACHINIST.
         /// </summary>
-        public static string Generic_Machinist {
-            get {
+        public static string Generic_Machinist
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Machinist", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Main Tank.
         /// </summary>
-        public static string Generic_Main_Tank {
-            get {
+        public static string Generic_Main_Tank
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Main_Tank", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mana Percent.
         /// </summary>
-        public static string Generic_Mana_Percent {
-            get {
+        public static string Generic_Mana_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Mana_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mch.
         /// </summary>
-        public static string Generic_Mch {
-            get {
+        public static string Generic_Mch
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Mch", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mnk.
         /// </summary>
-        public static string Generic_Mnk {
-            get {
+        public static string Generic_Mnk
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Mnk", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MONK.
         /// </summary>
-        public static string Generic_Monk {
-            get {
+        public static string Generic_Monk
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Monk", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Movement.
         /// </summary>
-        public static string Generic_Movement {
-            get {
+        public static string Generic_Movement
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Movement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MP PERCENT.
         /// </summary>
-        public static string Generic_Mp_Percent {
-            get {
+        public static string Generic_Mp_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Mp_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MUST BE ALLY.
         /// </summary>
-        public static string Generic_Must_Be_Ally {
-            get {
+        public static string Generic_Must_Be_Ally
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Must_Be_Ally", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MUST BE ENEMY.
         /// </summary>
-        public static string Generic_Must_Be_Enemy {
-            get {
+        public static string Generic_Must_Be_Enemy
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Must_Be_Enemy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        public static string Generic_Name {
-            get {
+        public static string Generic_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nin.
         /// </summary>
-        public static string Generic_Nin {
-            get {
+        public static string Generic_Nin
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Nin", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to NINJA.
         /// </summary>
-        public static string Generic_Ninja {
-            get {
+        public static string Generic_Ninja
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Ninja", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to NINKI.
         /// </summary>
-        public static string Generic_Ninki {
-            get {
+        public static string Generic_Ninki
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Ninki", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Normal Quality.
         /// </summary>
-        public static string Generic_Normal_Quality {
-            get {
+        public static string Generic_Normal_Quality
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Normal_Quality", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to NOT IN INSTANCE.
         /// </summary>
-        public static string Generic_Not_In_Instance {
-            get {
+        public static string Generic_Not_In_Instance
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Not_In_Instance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Anyone.
         /// </summary>
-        public static string Generic_On_Anyone {
-            get {
+        public static string Generic_On_Anyone
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Anyone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Me.
         /// </summary>
-        public static string Generic_On_Me {
-            get {
+        public static string Generic_On_Me
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Me", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Pet.
         /// </summary>
-        public static string Generic_On_Pet {
-            get {
+        public static string Generic_On_Pet
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Pet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Player.
         /// </summary>
-        public static string Generic_On_Player {
-            get {
+        public static string Generic_On_Player
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Player", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Spell Target.
         /// </summary>
-        public static string Generic_On_Spell_Target {
-            get {
+        public static string Generic_On_Spell_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Spell_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Tank Only.
         /// </summary>
-        public static string Generic_On_Tank_Only {
-            get {
+        public static string Generic_On_Tank_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Tank_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Tanks.
         /// </summary>
-        public static string Generic_On_Tanks {
-            get {
+        public static string Generic_On_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Target.
         /// </summary>
-        public static string Generic_On_Target {
-            get {
+        public static string Generic_On_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_On_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Do Damage If Everyone Is Over 90 Percent.
         /// </summary>
-        public static string Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent {
-            get {
+        public static string Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Only_Do_Damage_If_Everyone_Is_Over_90_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Tank.
         /// </summary>
-        public static string Generic_Only_Tank {
-            get {
+        public static string Generic_Only_Tank
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Only_Tank", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Use.
         /// </summary>
-        public static string Generic_Only_Use {
-            get {
+        public static string Generic_Only_Use
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Only_Use", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ONLY USE IN CHAIN.
         /// </summary>
-        public static string Generic_Only_Use_In_Chain {
-            get {
+        public static string Generic_Only_Use_In_Chain
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Only_Use_In_Chain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Open Shared Gambits Browser.
         /// </summary>
-        public static string Generic_Open_Shared_Gambits_Browser {
-            get {
+        public static string Generic_Open_Shared_Gambits_Browser
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Open_Shared_Gambits_Browser", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Open Shared Openers Browser.
         /// </summary>
-        public static string Generic_Open_Shared_Openers_Browser {
-            get {
+        public static string Generic_Open_Shared_Openers_Browser
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Open_Shared_Openers_Browser", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Out Of Combat.
         /// </summary>
-        public static string Generic_Out_Of_Combat {
-            get {
+        public static string Generic_Out_Of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Out_Of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Paint.
         /// </summary>
-        public static string Generic_Paint {
-            get {
+        public static string Generic_Paint
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Paint", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Paint .
         /// </summary>
-        public static string Generic_Paint_Space {
-            get {
+        public static string Generic_Paint_Space
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Paint_Space", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PALADIN.
         /// </summary>
-        public static string Generic_Paladin {
-            get {
+        public static string Generic_Paladin
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Paladin", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Palettes.
         /// </summary>
-        public static string Generic_Palettes {
-            get {
+        public static string Generic_Palettes
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Palettes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Palettes .
         /// </summary>
-        public static string Generic_Palettes_Space {
-            get {
+        public static string Generic_Palettes_Space
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Palettes_Space", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party Aoe.
         /// </summary>
-        public static string Generic_Party_Aoe {
-            get {
+        public static string Generic_Party_Aoe
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Party_Aoe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PASTE COPIED GAMBIT.
         /// </summary>
-        public static string Generic_Paste_Copied_Gambit {
-            get {
+        public static string Generic_Paste_Copied_Gambit
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Paste_Copied_Gambit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PASTE COPIED GAMBIT GROUP.
         /// </summary>
-        public static string Generic_Paste_Copied_Gambit_Group {
-            get {
+        public static string Generic_Paste_Copied_Gambit_Group
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Paste_Copied_Gambit_Group", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Percent.
         /// </summary>
-        public static string Generic_Percent {
-            get {
+        public static string Generic_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Percent Health.
         /// </summary>
-        public static string Generic_Percent_Health {
-            get {
+        public static string Generic_Percent_Health
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Percent_Health", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pets.
         /// </summary>
-        public static string Generic_Pets {
-            get {
+        public static string Generic_Pets
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Pets", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PICTOMANCER.
         /// </summary>
-        public static string Generic_Pictomancer {
-            get {
+        public static string Generic_Pictomancer
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Pictomancer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PLAYER DOES NOT HAVE AURA.
         /// </summary>
-        public static string Generic_Player_Does_Not_Have_Aura {
-            get {
+        public static string Generic_Player_Does_Not_Have_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Player_Does_Not_Have_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PLAYER HAS AURA.
         /// </summary>
-        public static string Generic_Player_Has_Aura {
-            get {
+        public static string Generic_Player_Has_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Player_Has_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PLAYER IN COMBAT.
         /// </summary>
-        public static string Generic_Player_In_Combat {
-            get {
+        public static string Generic_Player_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Player_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PLAYER NOT IN COMBAT.
         /// </summary>
-        public static string Generic_Player_Not_In_Combat {
-            get {
+        public static string Generic_Player_Not_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Player_Not_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Players Are In Range For Buff.
         /// </summary>
-        public static string Generic_Players_Are_In_Range_For_Buff {
-            get {
+        public static string Generic_Players_Are_In_Range_For_Buff
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Players_Are_In_Range_For_Buff", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pld.
         /// </summary>
-        public static string Generic_Pld {
-            get {
+        public static string Generic_Pld
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Pld", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Purify Remove Debuffs.
         /// </summary>
-        public static string Generic_Purify_Remove_Debuffs {
-            get {
+        public static string Generic_Purify_Remove_Debuffs
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Purify_Remove_Debuffs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pvp.
         /// </summary>
-        public static string Generic_Pvp {
-            get {
+        public static string Generic_Pvp
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Pvp", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PVP .
         /// </summary>
-        public static string Generic_Pvp_Space {
-            get {
+        public static string Generic_Pvp_Space
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Pvp_Space", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rdm.
         /// </summary>
-        public static string Generic_Rdm {
-            get {
+        public static string Generic_Rdm
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Rdm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to REAPER.
         /// </summary>
-        public static string Generic_Reaper {
-            get {
+        public static string Generic_Reaper
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Reaper", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Recover Old Gambits.
         /// </summary>
-        public static string Generic_Recover_Old_Gambits {
-            get {
+        public static string Generic_Recover_Old_Gambits
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Recover_Old_Gambits", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Recuperate Heal At.
         /// </summary>
-        public static string Generic_Recuperate_Heal_At {
-            get {
+        public static string Generic_Recuperate_Heal_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Recuperate_Heal_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to RED MAGE.
         /// </summary>
-        public static string Generic_Red_Mage {
-            get {
+        public static string Generic_Red_Mage
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Red_Mage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Refresh When There Are.
         /// </summary>
-        public static string Generic_Refresh_When_There_Are {
-            get {
+        public static string Generic_Refresh_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Refresh_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Regen.
         /// </summary>
-        public static string Generic_Regen {
-            get {
+        public static string Generic_Regen
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Regen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to REMOVE CONDITION.
         /// </summary>
-        public static string Generic_Remove_Condition {
-            get {
+        public static string Generic_Remove_Condition
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Remove_Condition", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to REPERTOIRE.
         /// </summary>
-        public static string Generic_Repertoire {
-            get {
+        public static string Generic_Repertoire
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Repertoire", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reserve.
         /// </summary>
-        public static string Generic_Reserve {
-            get {
+        public static string Generic_Reserve
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Reserve", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrect Alliance Dps.
         /// </summary>
-        public static string Generic_Resurrect_Alliance_Dps {
-            get {
+        public static string Generic_Resurrect_Alliance_Dps
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Resurrect_Alliance_Dps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrect Alliance Healers.
         /// </summary>
-        public static string Generic_Resurrect_Alliance_Healers {
-            get {
+        public static string Generic_Resurrect_Alliance_Healers
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Resurrect_Alliance_Healers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrect Alliance Tanks.
         /// </summary>
-        public static string Generic_Resurrect_Alliance_Tanks {
-            get {
+        public static string Generic_Resurrect_Alliance_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Resurrect_Alliance_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrection Delay.
         /// </summary>
-        public static string Generic_Resurrection_Delay {
-            get {
+        public static string Generic_Resurrection_Delay
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Resurrection_Delay", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rpr.
         /// </summary>
-        public static string Generic_Rpr {
-            get {
+        public static string Generic_Rpr
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Rpr", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SAGE.
         /// </summary>
-        public static string Generic_Sage {
-            get {
+        public static string Generic_Sage
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Sage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sam.
         /// </summary>
-        public static string Generic_Sam {
-            get {
+        public static string Generic_Sam
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Sam", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SAMURAI.
         /// </summary>
-        public static string Generic_Samurai {
-            get {
+        public static string Generic_Samurai
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Samurai", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        public static string Generic_Save {
-            get {
+        public static string Generic_Save
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Save", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sch.
         /// </summary>
-        public static string Generic_Sch {
-            get {
+        public static string Generic_Sch
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Sch", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SCHOLAR.
         /// </summary>
-        public static string Generic_Scholar {
-            get {
+        public static string Generic_Scholar
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Scholar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Second Wind At.
         /// </summary>
-        public static string Generic_Second_Wind_At {
-            get {
+        public static string Generic_Second_Wind_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Second_Wind_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Second Wind When Below.
         /// </summary>
-        public static string Generic_Second_Wind_When_Below {
-            get {
+        public static string Generic_Second_Wind_When_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Second_Wind_When_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to seconds.
         /// </summary>
-        public static string Generic_Seconds {
-            get {
+        public static string Generic_Seconds
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Seconds", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Self Heal Only.
         /// </summary>
-        public static string Generic_Self_Heal_Only {
-            get {
+        public static string Generic_Self_Heal_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Self_Heal_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SEN.
         /// </summary>
-        public static string Generic_Sen {
-            get {
+        public static string Generic_Sen
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Sen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sge.
         /// </summary>
-        public static string Generic_Sge {
-            get {
+        public static string Generic_Sge
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Sge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SHARE.
         /// </summary>
-        public static string Generic_Share {
-            get {
+        public static string Generic_Share
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Share", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shields.
         /// </summary>
-        public static string Generic_Shields {
-            get {
+        public static string Generic_Shields
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Shields", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Show All.
         /// </summary>
-        public static string Generic_Show_All {
-            get {
+        public static string Generic_Show_All
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Show_All", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Single Target.
         /// </summary>
-        public static string Generic_Single_Target {
-            get {
+        public static string Generic_Single_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Single_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Smart Aoe.
         /// </summary>
-        public static string Generic_Smart_Aoe {
-            get {
+        public static string Generic_Smart_Aoe
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Smart_Aoe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Smn.
         /// </summary>
-        public static string Generic_Smn {
-            get {
+        public static string Generic_Smn
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Smn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Songs.
         /// </summary>
-        public static string Generic_Songs {
-            get {
+        public static string Generic_Songs
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Songs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SPELL OFF COOLDOWN.
         /// </summary>
-        public static string Generic_Spell_Off_Cooldown {
-            get {
+        public static string Generic_Spell_Off_Cooldown
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Spell_Off_Cooldown", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sprint Without Target.
         /// </summary>
-        public static string Generic_Sprint_Without_Target {
-            get {
+        public static string Generic_Sprint_Without_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Sprint_Without_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SUMMONER.
         /// </summary>
-        public static string Generic_Summoner {
-            get {
+        public static string Generic_Summoner
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Summoner", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tankbusters.
         /// </summary>
-        public static string Generic_Tankbusters {
-            get {
+        public static string Generic_Tankbusters
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Tankbusters", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tanks.
         /// </summary>
-        public static string Generic_Tanks {
-            get {
+        public static string Generic_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Target.
         /// </summary>
-        public static string Generic_Target {
-            get {
+        public static string Generic_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TARGET BOSS.
         /// </summary>
-        public static string Generic_Target_Boss {
-            get {
+        public static string Generic_Target_Boss
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Target_Boss", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TARGET NAME.
         /// </summary>
-        public static string Generic_Target_Name {
-            get {
+        public static string Generic_Target_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Target_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies.
         /// </summary>
-        public static string Generic_Text_Allies {
-            get {
+        public static string Generic_Text_Allies
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Text_Allies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies.
         /// </summary>
-        public static string Generic_Text_Enemies {
-            get {
+        public static string Generic_Text_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Text_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies In Combat.
         /// </summary>
-        public static string Generic_Text_Enemies_In_Combat {
-            get {
+        public static string Generic_Text_Enemies_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Text_Enemies_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies In Range.
         /// </summary>
-        public static string Generic_Text_Enemies_In_Range {
-            get {
+        public static string Generic_Text_Enemies_In_Range
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Text_Enemies_In_Range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemy.
         /// </summary>
-        public static string Generic_Text_Enemy {
-            get {
+        public static string Generic_Text_Enemy
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Text_Enemy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Self.
         /// </summary>
-        public static string Generic_Text_Self {
-            get {
+        public static string Generic_Text_Self
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Text_Self", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Toggles.
         /// </summary>
-        public static string Generic_Toggles {
-            get {
+        public static string Generic_Toggles
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Toggles", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to True.
         /// </summary>
-        public static string Generic_True {
-            get {
+        public static string Generic_True
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_True", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to True North.
         /// </summary>
-        public static string Generic_True_North {
-            get {
+        public static string Generic_True_North
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_True_North", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Turrets.
         /// </summary>
-        public static string Generic_Turrets {
-            get {
+        public static string Generic_Turrets
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Turrets", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Under.
         /// </summary>
-        public static string Generic_Under {
-            get {
+        public static string Generic_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unless.
         /// </summary>
-        public static string Generic_Unless {
-            get {
+        public static string Generic_Unless
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Unless", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unless You Are Lower Than.
         /// </summary>
-        public static string Generic_Unless_You_Are_Lower_Than {
-            get {
+        public static string Generic_Unless_You_Are_Lower_Than
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Unless_You_Are_Lower_Than", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aoe When There Are.
         /// </summary>
-        public static string Generic_Use_Aoe_When_There_Are {
-            get {
+        public static string Generic_Use_Aoe_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Aoe_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Area Of Effect Abilities.
         /// </summary>
-        public static string Generic_Use_Area_Of_Effect_Abilities {
-            get {
+        public static string Generic_Use_Area_Of_Effect_Abilities
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Area_Of_Effect_Abilities", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Defensives.
         /// </summary>
-        public static string Generic_Use_Defensives {
-            get {
+        public static string Generic_Use_Defensives
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Defensives", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Esuna To Dispel.
         /// </summary>
-        public static string Generic_Use_Esuna_To_Dispel {
-            get {
+        public static string Generic_Use_Esuna_To_Dispel
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Esuna_To_Dispel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Feint.
         /// </summary>
-        public static string Generic_Use_Feint {
-            get {
+        public static string Generic_Use_Feint
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Feint", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Interrupt and Stun. If activated, use strategy: .
         /// </summary>
-        public static string Generic_Use_Interrupt_And_Stun_If_Activated {
-            get {
+        public static string Generic_Use_Interrupt_And_Stun_If_Activated
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Interrupt_And_Stun_If_Activated", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mount.
         /// </summary>
-        public static string Generic_Use_Mount {
-            get {
+        public static string Generic_Use_Mount
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Mount", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use On.
         /// </summary>
-        public static string Generic_Use_On {
-            get {
+        public static string Generic_Use_On
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_On", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to USE ONLY ONCE PER COMBAT.
         /// </summary>
-        public static string Generic_Use_Only_Once_Per_Combat {
-            get {
+        public static string Generic_Use_Only_Once_Per_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Only_Once_Per_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Peloton.
         /// </summary>
-        public static string Generic_Use_Peloton {
-            get {
+        public static string Generic_Use_Peloton
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Peloton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Potion.
         /// </summary>
-        public static string Generic_Use_Potion {
-            get {
+        public static string Generic_Use_Potion
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_Potion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use True North.
         /// </summary>
-        public static string Generic_Use_True_North {
-            get {
+        public static string Generic_Use_True_North
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Use_True_North", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Utilities.
         /// </summary>
-        public static string Generic_Utilities {
-            get {
+        public static string Generic_Utilities
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Utilities", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Utilities .
         /// </summary>
-        public static string Generic_Utilities_Space {
-            get {
+        public static string Generic_Utilities_Space
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Utilities_Space", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Utilities .
         /// </summary>
-        public static string Generic_Utilities_Space_2 {
-            get {
+        public static string Generic_Utilities_Space_2
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Utilities_Space_2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to VIPER.
         /// </summary>
-        public static string Generic_Viper {
-            get {
+        public static string Generic_Viper
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Viper", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to War.
         /// </summary>
-        public static string Generic_War {
-            get {
+        public static string Generic_War
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_War", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to WARRIOR.
         /// </summary>
-        public static string Generic_Warrior {
-            get {
+        public static string Generic_Warrior
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Warrior", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When.
         /// </summary>
-        public static string Generic_When {
-            get {
+        public static string Generic_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When Below.
         /// </summary>
-        public static string Generic_When_Below {
-            get {
+        public static string Generic_When_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_When_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When There Are.
         /// </summary>
-        public static string Generic_When_There_Are {
-            get {
+        public static string Generic_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to WHITE MAGE.
         /// </summary>
-        public static string Generic_White_Mage {
-            get {
+        public static string Generic_White_Mage
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_White_Mage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Whm.
         /// </summary>
-        public static string Generic_Whm {
-            get {
+        public static string Generic_Whm
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Whm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Yalms Away.
         /// </summary>
-        public static string Generic_Yalms_Away {
-            get {
+        public static string Generic_Yalms_Away
+        {
+            get
+            {
                 return ResourceManager.GetString("Generic_Yalms_Away", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aurora.
         /// </summary>
-        public static string Gunbreaker_Content_Aurora {
-            get {
+        public static string Gunbreaker_Content_Aurora
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Aurora", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BlastingZone.
         /// </summary>
-        public static string Gunbreaker_Content_BlastingZone {
-            get {
+        public static string Gunbreaker_Content_BlastingZone
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_BlastingZone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bloodfest (Add cartridge).
         /// </summary>
-        public static string Gunbreaker_Content_Bloodfest_Add_cartridge {
-            get {
+        public static string Gunbreaker_Content_Bloodfest_Add_cartridge
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Bloodfest_Add_cartridge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Burst Strike.
         /// </summary>
-        public static string Gunbreaker_Content_Burst_Strike {
-            get {
+        public static string Gunbreaker_Content_Burst_Strike
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Burst_Strike", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Camouflage.
         /// </summary>
-        public static string Gunbreaker_Content_Camouflage {
-            get {
+        public static string Gunbreaker_Content_Camouflage
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Camouflage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Continuation.
         /// </summary>
-        public static string Gunbreaker_Content_Continuation {
-            get {
+        public static string Gunbreaker_Content_Continuation
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Continuation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fated Circle.
         /// </summary>
-        public static string Gunbreaker_Content_Fated_Circle {
-            get {
+        public static string Gunbreaker_Content_Fated_Circle
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Fated_Circle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Heart Of Light.
         /// </summary>
-        public static string Gunbreaker_Content_FightLogic_Use_Heart_Of_Light {
-            get {
+        public static string Gunbreaker_Content_FightLogic_Use_Heart_Of_Light
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_FightLogic_Use_Heart_Of_Light", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GnashingFang Combo.
         /// </summary>
-        public static string Gunbreaker_Content_GnashingFang_Combo {
-            get {
+        public static string Gunbreaker_Content_GnashingFang_Combo
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_GnashingFang_Combo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heart of Corundum.
         /// </summary>
-        public static string Gunbreaker_Content_Heart_of_Corundum {
-            get {
+        public static string Gunbreaker_Content_Heart_of_Corundum
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Heart_of_Corundum", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heart of Corundum / Heart of Stone.
         /// </summary>
-        public static string Gunbreaker_Content_Heart_of_Corundum_Heart_of_Ston {
-            get {
+        public static string Gunbreaker_Content_Heart_of_Corundum_Heart_of_Ston
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Heart_of_Corundum_Heart_of_Ston", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heart of Light.
         /// </summary>
-        public static string Gunbreaker_Content_Heart_of_Light {
-            get {
+        public static string Gunbreaker_Content_Heart_of_Light
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Heart_of_Light", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hold No Mercy until Combo is ready.
         /// </summary>
-        public static string Gunbreaker_Content_Hold_No_Mercy_until_Combo_is_re {
-            get {
+        public static string Gunbreaker_Content_Hold_No_Mercy_until_Combo_is_re
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Hold_No_Mercy_until_Combo_is_re", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hold when no mercy is ready in.
         /// </summary>
-        public static string Gunbreaker_Content_Hold_when_no_mercy_is_ready_in {
-            get {
+        public static string Gunbreaker_Content_Hold_when_no_mercy_is_ready_in
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Hold_when_no_mercy_is_ready_in", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nebula.
         /// </summary>
-        public static string Gunbreaker_Content_Nebula {
-            get {
+        public static string Gunbreaker_Content_Nebula
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Nebula", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to No Mercy (Personal damage buff).
         /// </summary>
-        public static string Gunbreaker_Content_No_Mercy_Personal_damage_buff {
-            get {
+        public static string Gunbreaker_Content_No_Mercy_Personal_damage_buff
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_No_Mercy_Personal_damage_buff", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to on Any Tanks with priority.
         /// </summary>
-        public static string Gunbreaker_Content_on_Any_Tanks_with_priority {
-            get {
+        public static string Gunbreaker_Content_on_Any_Tanks_with_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_on_Any_Tanks_with_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to on DPS with priority.
         /// </summary>
-        public static string Gunbreaker_Content_on_DPS_with_priority {
-            get {
+        public static string Gunbreaker_Content_on_DPS_with_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_on_DPS_with_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to on Healers with priority.
         /// </summary>
-        public static string Gunbreaker_Content_on_Healers_with_priority {
-            get {
+        public static string Gunbreaker_Content_on_Healers_with_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_on_Healers_with_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to on Main Tank with priority.
         /// </summary>
-        public static string Gunbreaker_Content_on_Main_Tank_with_priority {
-            get {
+        public static string Gunbreaker_Content_on_Main_Tank_with_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_on_Main_Tank_with_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to on Yourself with priority.
         /// </summary>
-        public static string Gunbreaker_Content_on_Yourself_with_priority {
-            get {
+        public static string Gunbreaker_Content_on_Yourself_with_priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_on_Yourself_with_priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only at max cartridge.
         /// </summary>
-        public static string Gunbreaker_Content_Only_at_max_cartridge {
-            get {
+        public static string Gunbreaker_Content_Only_at_max_cartridge
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Only_at_max_cartridge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rampart.
         /// </summary>
-        public static string Gunbreaker_Content_Rampart {
-            get {
+        public static string Gunbreaker_Content_Rampart
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Rampart", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Relentless Rush / LB when there is at least.
         /// </summary>
-        public static string Gunbreaker_Content_Relentless_Rush_LB_when_there_i {
-            get {
+        public static string Gunbreaker_Content_Relentless_Rush_LB_when_there_i
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Relentless_Rush_LB_when_there_i", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reprisal.
         /// </summary>
-        public static string Gunbreaker_Content_Reprisal {
-            get {
+        public static string Gunbreaker_Content_Reprisal
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Reprisal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rough Divide.
         /// </summary>
-        public static string Gunbreaker_Content_Rough_Divide {
-            get {
+        public static string Gunbreaker_Content_Rough_Divide
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Rough_Divide", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rough Divide Only in Melee Range.
         /// </summary>
-        public static string Gunbreaker_Content_Rough_Divide_Only_in_Melee_Rang {
-            get {
+        public static string Gunbreaker_Content_Rough_Divide_Only_in_Melee_Rang
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Rough_Divide_Only_in_Melee_Rang", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Royal Guard (Tank Stance).
         /// </summary>
-        public static string Gunbreaker_Content_Royal_Guard_Tank_Stance {
-            get {
+        public static string Gunbreaker_Content_Royal_Guard_Tank_Stance
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Royal_Guard_Tank_Stance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aoe when at least.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Aoe_when_at_least {
-            get {
+        public static string Gunbreaker_Content_Use_Aoe_when_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Aoe_when_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aurora.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Aurora {
-            get {
+        public static string Gunbreaker_Content_Use_Aurora
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Aurora", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Blasting Zone.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Blasting_Zone {
-            get {
+        public static string Gunbreaker_Content_Use_Blasting_Zone
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Blasting_Zone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Brust Strike.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Brust_Strike {
-            get {
+        public static string Gunbreaker_Content_Use_Brust_Strike
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Brust_Strike", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Double Down.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Double_Down {
-            get {
+        public static string Gunbreaker_Content_Use_Double_Down
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Double_Down", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Gnashing Fang.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Gnashing_Fang {
-            get {
+        public static string Gunbreaker_Content_Use_Gnashing_Fang
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Gnashing_Fang", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Lightning Shot if not in melee to deal damage.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me {
-            get {
+        public static string Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Lightning Shot To Pull or Regain Aggro.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R {
-            get {
+        public static string Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use LionHeart Combo.
         /// </summary>
-        public static string Gunbreaker_Content_Use_LionHeart_Combo {
-            get {
+        public static string Gunbreaker_Content_Use_LionHeart_Combo
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_LionHeart_Combo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Super Bolide under.
         /// </summary>
-        public static string Gunbreaker_Content_Use_Super_Bolide_under {
-            get {
+        public static string Gunbreaker_Content_Use_Super_Bolide_under
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Content_Use_Super_Bolide_under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to 2.4 GCD =&gt; Fast GCD.
         /// </summary>
-        public static string Gunbreaker_Text_24_GCD_Fast_GCD {
-            get {
+        public static string Gunbreaker_Text_24_GCD_Fast_GCD
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_24_GCD_Fast_GCD", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to 2.5 GCD =&gt; Slow GCD.
         /// </summary>
-        public static string Gunbreaker_Text_25_GCD_Slow_GCD {
-            get {
+        public static string Gunbreaker_Text_25_GCD_Slow_GCD
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_25_GCD_Slow_GCD", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aurora Priority order is: 1 -&gt; 5.
         /// </summary>
-        public static string Gunbreaker_Text_Aurora_Priority_order_is_1___5 {
-            get {
+        public static string Gunbreaker_Text_Aurora_Priority_order_is_1___5
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_Aurora_Priority_order_is_1___5", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BowShock When There Are At Least Enemies.
         /// </summary>
-        public static string Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies {
-            get {
+        public static string Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_BowShock_When_There_Are_At_Least_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemy nearby.
         /// </summary>
-        public static string Gunbreaker_Text_Enemy_nearby {
-            get {
+        public static string Gunbreaker_Text_Enemy_nearby
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_Enemy_nearby", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Filler Strategy:.
         /// </summary>
-        public static string Gunbreaker_Text_Filler_Strategy {
-            get {
+        public static string Gunbreaker_Text_Filler_Strategy
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_Filler_Strategy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to if under.
         /// </summary>
-        public static string Gunbreaker_Text_if_under {
-            get {
+        public static string Gunbreaker_Text_if_under
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_if_under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Lightning Shot When Ennemy Is Yalms Away.
         /// </summary>
-        public static string Gunbreaker_Text_Use_Lightning_Shot_When_Ennemy_Is_Yalms_Away {
-            get {
+        public static string Gunbreaker_Text_Use_Lightning_Shot_When_Ennemy_Is_Yalms_Away
+        {
+            get
+            {
                 return ResourceManager.GetString("Gunbreaker_Text_Use_Lightning_Shot_When_Ennemy_Is_Yalms_Away", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Templatebinding Selectionboxitem.
         /// </summary>
-        public static string Lists_Content_TemplateBinding_SelectionBoxItem {
-            get {
+        public static string Lists_Content_TemplateBinding_SelectionBoxItem
+        {
+            get
+            {
                 return ResourceManager.GetString("Lists_Content_TemplateBinding_SelectionBoxItem", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to High Priority.
         /// </summary>
-        public static string Lists_ToolTip_High_Priority {
-            get {
+        public static string Lists_ToolTip_High_Priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Lists_ToolTip_High_Priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to White Mage.
         /// </summary>
-        public static string Lists_ToolTip_White_Mage {
-            get {
+        public static string Lists_ToolTip_White_Mage
+        {
+            get
+            {
                 return ResourceManager.GetString("Lists_ToolTip_White_Mage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Air Anchor.
         /// </summary>
-        public static string Machinist_Content_Air_Anchor {
-            get {
+        public static string Machinist_Content_Air_Anchor
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Air_Anchor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto Crossbow.
         /// </summary>
-        public static string Machinist_Content_Auto_Crossbow {
-            get {
+        public static string Machinist_Content_Auto_Crossbow
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Auto_Crossbow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Barrel Stabilizer.
         /// </summary>
-        public static string Machinist_Content_Barrel_Stabilizer {
-            get {
+        public static string Machinist_Content_Barrel_Stabilizer
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Barrel_Stabilizer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bio Blaster.
         /// </summary>
-        public static string Machinist_Content_Bio_Blaster {
-            get {
+        public static string Machinist_Content_Bio_Blaster
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Bio_Blaster", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to BioBlaster.
         /// </summary>
-        public static string Machinist_Content_BioBlaster {
-            get {
+        public static string Machinist_Content_BioBlaster
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_BioBlaster", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bishop Autoturret on target when there is at least.
         /// </summary>
-        public static string Machinist_Content_Bishop_Autoturret_on_target_when {
-            get {
+        public static string Machinist_Content_Bishop_Autoturret_on_target_when
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Bishop_Autoturret_on_target_when", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ChainSaw.
         /// </summary>
-        public static string Machinist_Content_ChainSaw {
-            get {
+        public static string Machinist_Content_ChainSaw
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_ChainSaw", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ChainSaw / Excavator.
         /// </summary>
-        public static string Machinist_Content_ChainSaw_Excavator {
-            get {
+        public static string Machinist_Content_ChainSaw_Excavator
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_ChainSaw_Excavator", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delay Hypercharge when Drill / AA / ChianSaw have.
         /// </summary>
-        public static string Machinist_Content_Delay_Hypercharge_when_Drill_AA_ {
-            get {
+        public static string Machinist_Content_Delay_Hypercharge_when_Drill_AA_
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Delay_Hypercharge_when_Drill_AA_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delay Wildfire when Drill/Air Anchor/ChianSaw have.
         /// </summary>
-        public static string Machinist_Content_Delay_Wildfire_when_DrillAir_Anc {
-            get {
+        public static string Machinist_Content_Delay_Wildfire_when_DrillAir_Anc
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Delay_Wildfire_when_DrillAir_Anc", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Drill.
         /// </summary>
-        public static string Machinist_Content_Drill {
-            get {
+        public static string Machinist_Content_Drill
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Drill", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Excavator.
         /// </summary>
-        public static string Machinist_Content_Excavator {
-            get {
+        public static string Machinist_Content_Excavator
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Excavator", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Dismantle.
         /// </summary>
-        public static string Machinist_Content_FightLogic_Use_Dismantle {
-            get {
+        public static string Machinist_Content_FightLogic_Use_Dismantle
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_FightLogic_Use_Dismantle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Tactitian.
         /// </summary>
-        public static string Machinist_Content_FightLogic_Use_Tactitian {
-            get {
+        public static string Machinist_Content_FightLogic_Use_Tactitian
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_FightLogic_Use_Tactitian", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Flamethrower.
         /// </summary>
-        public static string Machinist_Content_Flamethrower {
-            get {
+        public static string Machinist_Content_Flamethrower
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Flamethrower", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Full Metal Field.
         /// </summary>
-        public static string Machinist_Content_Full_Metal_Field {
-            get {
+        public static string Machinist_Content_Full_Metal_Field
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Full_Metal_Field", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FullMetalField.
         /// </summary>
-        public static string Machinist_Content_FullMetalField {
-            get {
+        public static string Machinist_Content_FullMetalField
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_FullMetalField", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gauss Round.
         /// </summary>
-        public static string Machinist_Content_Gauss_Round {
-            get {
+        public static string Machinist_Content_Gauss_Round
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Gauss_Round", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hot Shot / Air Anchor.
         /// </summary>
-        public static string Machinist_Content_Hot_Shot_Air_Anchor {
-            get {
+        public static string Machinist_Content_Hot_Shot_Air_Anchor
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Hot_Shot_Air_Anchor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hypercharge.
         /// </summary>
-        public static string Machinist_Content_Hypercharge {
-            get {
+        public static string Machinist_Content_Hypercharge
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Hypercharge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Late Weave Wildfire (better alignment for 6GCD wildfire).
         /// </summary>
-        public static string Machinist_Content_Late_Weave_Wildfire_better_align {
-            get {
+        public static string Machinist_Content_Late_Weave_Wildfire_better_align
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Late_Weave_Wildfire_better_align", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MarksmansSpite / LB target at.
         /// </summary>
-        public static string Machinist_Content_MarksmansSpite_LB_target_at {
-            get {
+        public static string Machinist_Content_MarksmansSpite_LB_target_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_MarksmansSpite_LB_target_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ricochet.
         /// </summary>
-        public static string Machinist_Content_Ricochet {
-            get {
+        public static string Machinist_Content_Ricochet
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Ricochet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save for Double Hypercharged Wildfires (requires late weave wildfire).
         /// </summary>
-        public static string Machinist_Content_Save_for_Double_Hypercharged_Wil {
-            get {
+        public static string Machinist_Content_Save_for_Double_Hypercharged_Wil
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Save_for_Double_Hypercharged_Wil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save For Wildfire.
         /// </summary>
-        public static string Machinist_Content_Save_For_Wildfire {
-            get {
+        public static string Machinist_Content_Save_For_Wildfire
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Save_For_Wildfire", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Scattergun.
         /// </summary>
-        public static string Machinist_Content_Scattergun {
-            get {
+        public static string Machinist_Content_Scattergun
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Scattergun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Split Shot Combo.
         /// </summary>
-        public static string Machinist_Content_Split_Shot_Combo {
-            get {
+        public static string Machinist_Content_Split_Shot_Combo
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Split_Shot_Combo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Spreadshot / Scattergun.
         /// </summary>
-        public static string Machinist_Content_Spreadshot_Scattergun {
-            get {
+        public static string Machinist_Content_Spreadshot_Scattergun
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Spreadshot_Scattergun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon Rook AutoTurret / Queen at.
         /// </summary>
-        public static string Machinist_Content_Summon_Rook_AutoTurret_Queen_at {
-            get {
+        public static string Machinist_Content_Summon_Rook_AutoTurret_Queen_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Summon_Rook_AutoTurret_Queen_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AoEs (Does not Affect Ricochet).
         /// </summary>
-        public static string Machinist_Content_Use_AoEs_Does_not_Affect_Ricoche {
-            get {
+        public static string Machinist_Content_Use_AoEs_Does_not_Affect_Ricoche
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Use_AoEs_Does_not_Affect_Ricoche", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use TTD Checks/Save Cooldowns When Enemy Dying Within.
         /// </summary>
-        public static string Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within {
-            get {
+        public static string Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Wildfire.
         /// </summary>
-        public static string Machinist_Content_Wildfire {
-            get {
+        public static string Machinist_Content_Wildfire
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Content_Wildfire", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to allies targeting it.
         /// </summary>
-        public static string Machinist_Text_allies_targeting_it {
-            get {
+        public static string Machinist_Text_allies_targeting_it
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_allies_targeting_it", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Battery Gauge.
         /// </summary>
-        public static string Machinist_Text_Battery_Gauge {
-            get {
+        public static string Machinist_Text_Battery_Gauge
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_Battery_Gauge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t use MarksmansSpite if target has more than.
         /// </summary>
-        public static string Machinist_Text_Dont_use_MarksmansSpite_if_target_h {
-            get {
+        public static string Machinist_Text_Dont_use_MarksmansSpite_if_target_h
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_Dont_use_MarksmansSpite_if_target_h", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies around.
         /// </summary>
-        public static string Machinist_Text_Enemies_around {
-            get {
+        public static string Machinist_Text_Enemies_around
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_Enemies_around", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to seconds cooldown left.
         /// </summary>
-        public static string Machinist_Text_seconds_cooldown_left {
-            get {
+        public static string Machinist_Text_seconds_cooldown_left
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_seconds_cooldown_left", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Analysis on.
         /// </summary>
-        public static string Machinist_Text_Use_Analysis_on {
-            get {
+        public static string Machinist_Text_Use_Analysis_on
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_Use_Analysis_on", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Reassemble on.
         /// </summary>
-        public static string Machinist_Text_Use_Reassemble_on {
-            get {
+        public static string Machinist_Text_Use_Reassemble_on
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_Text_Use_Reassemble_on", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to If enabled, will save Full Metal Field when Wildfire is about to come off cooldown.
         /// </summary>
-        public static string Machinist_ToolTip_If_enabled_will_save_Full_Metal_ {
-            get {
+        public static string Machinist_ToolTip_If_enabled_will_save_Full_Metal_
+        {
+            get
+            {
                 return ResourceManager.GetString("Machinist_ToolTip_If_enabled_will_save_Full_Metal_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto Meditate on downtime.
         /// </summary>
-        public static string Monk_Content_Auto_Meditate_on_downtime {
-            get {
+        public static string Monk_Content_Auto_Meditate_on_downtime
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Auto_Meditate_on_downtime", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Brotherhood.
         /// </summary>
-        public static string Monk_Content_Brotherhood {
-            get {
+        public static string Monk_Content_Brotherhood
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Brotherhood", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delay Riddle of Wind for Burst Window.
         /// </summary>
-        public static string Monk_Content_Delay_Riddle_of_Wind_for_Burst_Window {
-            get {
+        public static string Monk_Content_Delay_Riddle_of_Wind_for_Burst_Window
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Delay_Riddle_of_Wind_for_Burst_Window", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Earth Reply At.
         /// </summary>
-        public static string Monk_Content_Earth_Reply_At {
-            get {
+        public static string Monk_Content_Earth_Reply_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Earth_Reply_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Earth Reply when.
         /// </summary>
-        public static string Monk_Content_Earth_Reply_when {
-            get {
+        public static string Monk_Content_Earth_Reply_when
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Earth_Reply_when", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enlightenment.
         /// </summary>
-        public static string Monk_Content_Enlightenment {
-            get {
+        public static string Monk_Content_Enlightenment
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Enlightenment", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Mantra.
         /// </summary>
-        public static string Monk_Content_FightLogic_Use_Mantra {
-            get {
+        public static string Monk_Content_FightLogic_Use_Mantra
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_FightLogic_Use_Mantra", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fire Reply.
         /// </summary>
-        public static string Monk_Content_Fire_Reply {
-            get {
+        public static string Monk_Content_Fire_Reply
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Fire_Reply", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fire Reply Only After Opo.
         /// </summary>
-        public static string Monk_Content_Fire_Reply_Only_After_Opo {
-            get {
+        public static string Monk_Content_Fire_Reply_Only_After_Opo
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Fire_Reply_Only_After_Opo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hide Positional Toasts while active.
         /// </summary>
-        public static string Monk_Content_Hide_Positional_Toasts_while_active {
-            get {
+        public static string Monk_Content_Hide_Positional_Toasts_while_active
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Hide_Positional_Toasts_while_active", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mantra when.
         /// </summary>
-        public static string Monk_Content_Mantra_when {
-            get {
+        public static string Monk_Content_Mantra_when
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Mantra_when", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Masterful Blitz.
         /// </summary>
-        public static string Monk_Content_Masterful_Blitz {
-            get {
+        public static string Monk_Content_Masterful_Blitz
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Masterful_Blitz", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Meteodrive / LB on target at.
         /// </summary>
-        public static string Monk_Content_Meteodrive_LB_on_target_at {
-            get {
+        public static string Monk_Content_Meteodrive_LB_on_target_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Meteodrive_LB_on_target_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Meteodrive / LB Only After Enlightenment.
         /// </summary>
-        public static string Monk_Content_Meteodrive_LB_Only_After_Enlightenmen {
-            get {
+        public static string Monk_Content_Meteodrive_LB_Only_After_Enlightenmen
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Meteodrive_LB_Only_After_Enlightenmen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Perfect Balance.
         /// </summary>
-        public static string Monk_Content_Perfect_Balance {
-            get {
+        public static string Monk_Content_Perfect_Balance
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Perfect_Balance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Perfect Balance Only After Opo.
         /// </summary>
-        public static string Monk_Content_Perfect_Balance_Only_After_Opo {
-            get {
+        public static string Monk_Content_Perfect_Balance_Only_After_Opo
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Perfect_Balance_Only_After_Opo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Riddle of Earth.
         /// </summary>
-        public static string Monk_Content_Riddle_of_Earth {
-            get {
+        public static string Monk_Content_Riddle_of_Earth
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Riddle_of_Earth", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Riddle Of Fire.
         /// </summary>
-        public static string Monk_Content_Riddle_Of_Fire {
-            get {
+        public static string Monk_Content_Riddle_Of_Fire
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Riddle_Of_Fire", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Riddle Of Wind.
         /// </summary>
-        public static string Monk_Content_Riddle_Of_Wind {
-            get {
+        public static string Monk_Content_Riddle_Of_Wind
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Riddle_Of_Wind", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rising Phoenix.
         /// </summary>
-        public static string Monk_Content_Rising_Phoenix {
-            get {
+        public static string Monk_Content_Rising_Phoenix
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Rising_Phoenix", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Six-Sided Star.
         /// </summary>
-        public static string Monk_Content_Six_Sided_Star {
-            get {
+        public static string Monk_Content_Six_Sided_Star
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Six_Sided_Star", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The Forbidden Chakra.
         /// </summary>
-        public static string Monk_Content_The_Forbidden_Chakra {
-            get {
+        public static string Monk_Content_The_Forbidden_Chakra
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_The_Forbidden_Chakra", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Thunderclap (After Enlightenment).
         /// </summary>
-        public static string Monk_Content_Thunderclap_After_Enlightenment {
-            get {
+        public static string Monk_Content_Thunderclap_After_Enlightenment
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Thunderclap_After_Enlightenment", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AOE When There Are.
         /// </summary>
-        public static string Monk_Content_Use_AOE_When_There_Are {
-            get {
+        public static string Monk_Content_Use_AOE_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Use_AOE_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Wind Reply.
         /// </summary>
-        public static string Monk_Content_Wind_Reply {
-            get {
+        public static string Monk_Content_Wind_Reply
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Content_Wind_Reply", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies Are Under.
         /// </summary>
-        public static string Monk_Text_Allies_Are_Under {
-            get {
+        public static string Monk_Text_Allies_Are_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Text_Allies_Are_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t use Meteodrive if target has more than.
         /// </summary>
-        public static string Monk_Text_Dont_use_Meteodrive_if_target_has_more_t {
-            get {
+        public static string Monk_Text_Dont_use_Meteodrive_if_target_has_more_t
+        {
+            get
+            {
                 return ResourceManager.GetString("Monk_Text_Dont_use_Meteodrive_if_target_has_more_t", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Assassinate (When Hidden).
         /// </summary>
-        public static string Ninja_Content_Assassinate_When_Hidden {
-            get {
+        public static string Ninja_Content_Assassinate_When_Hidden
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Assassinate_When_Hidden", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bunshin.
         /// </summary>
-        public static string Ninja_Content_Bunshin {
-            get {
+        public static string Ninja_Content_Bunshin
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Bunshin", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do not use Three Mudra.
         /// </summary>
-        public static string Ninja_Content_Do_not_use_Three_Mudra {
-            get {
+        public static string Ninja_Content_Do_not_use_Three_Mudra
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Do_not_use_Three_Mudra", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dokumori.
         /// </summary>
-        public static string Ninja_Content_Dokumori {
-            get {
+        public static string Ninja_Content_Dokumori
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Dokumori", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Doton when there is at least.
         /// </summary>
-        public static string Ninja_Content_Doton_when_there_is_at_least {
-            get {
+        public static string Ninja_Content_Doton_when_there_is_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Doton_when_there_is_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Shade Shift.
         /// </summary>
-        public static string Ninja_Content_FightLogic_Use_Shade_Shift {
-            get {
+        public static string Ninja_Content_FightLogic_Use_Shade_Shift
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_FightLogic_Use_Shade_Shift", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fleeting Raiju.
         /// </summary>
-        public static string Ninja_Content_Fleeting_Raiju {
-            get {
+        public static string Ninja_Content_Fleeting_Raiju
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Fleeting_Raiju", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Forked Raiju.
         /// </summary>
-        public static string Ninja_Content_Forked_Raiju {
-            get {
+        public static string Ninja_Content_Forked_Raiju
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Forked_Raiju", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fuma Shuriken.
         /// </summary>
-        public static string Ninja_Content_Fuma_Shuriken {
-            get {
+        public static string Ninja_Content_Fuma_Shuriken
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Fuma_Shuriken", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Goka Mekkyaku when there is at least.
         /// </summary>
-        public static string Ninja_Content_Goka_Mekkyaku_when_there_is_at_least {
-            get {
+        public static string Ninja_Content_Goka_Mekkyaku_when_there_is_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Goka_Mekkyaku_when_there_is_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Huton At.
         /// </summary>
-        public static string Ninja_Content_Huton_At {
-            get {
+        public static string Ninja_Content_Huton_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Huton_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hyosho Ranryu.
         /// </summary>
-        public static string Ninja_Content_Hyosho_Ranryu {
-            get {
+        public static string Ninja_Content_Hyosho_Ranryu
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Hyosho_Ranryu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Meisui At.
         /// </summary>
-        public static string Ninja_Content_Meisui_At {
-            get {
+        public static string Ninja_Content_Meisui_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Meisui_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only with Bunshin.
         /// </summary>
-        public static string Ninja_Content_Only_with_Bunshin {
-            get {
+        public static string Ninja_Content_Only_with_Bunshin
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Only_with_Bunshin", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seiton Tenchu / LB on target at.
         /// </summary>
-        public static string Ninja_Content_Seiton_Tenchu_LB_on_target_at {
-            get {
+        public static string Ninja_Content_Seiton_Tenchu_LB_on_target_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Seiton_Tenchu_LB_on_target_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shukuchi.
         /// </summary>
-        public static string Ninja_Content_Shukuchi {
-            get {
+        public static string Ninja_Content_Shukuchi
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Content_Shukuchi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemies Around.
         /// </summary>
-        public static string Ninja_Text_Enemies_around {
-            get {
+        public static string Ninja_Text_Enemies_around
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Text_Enemies_around", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Three Mudra Buffs.
         /// </summary>
-        public static string Ninja_Text_Three_Mudra_Buffs {
-            get {
+        public static string Ninja_Text_Three_Mudra_Buffs
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Text_Three_Mudra_Buffs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Three Mudra with.
         /// </summary>
-        public static string Ninja_Text_Use_Three_Mudra_with {
-            get {
+        public static string Ninja_Text_Use_Three_Mudra_with
+        {
+            get
+            {
                 return ResourceManager.GetString("Ninja_Text_Use_Three_Mudra_with", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allow using Swiftcast for Comet (healers may want to save for resurrections).
         /// </summary>
-        public static string OccultCrescent_Content_Allow_using_Swiftcast_for_C {
-            get {
+        public static string OccultCrescent_Content_Allow_using_Swiftcast_for_C
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Allow_using_Swiftcast_for_C", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always prioritize self for Ringing Respite.
         /// </summary>
-        public static string OccultCrescent_Content_Always_prioritize_self_for_ {
-            get {
+        public static string OccultCrescent_Content_Always_prioritize_self_for_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Always_prioritize_self_for_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto-switch to Bard for Romeo&apos;s Ballad.
         /// </summary>
-        public static string OccultCrescent_Content_Auto_switch_to_Bard_for_Rom {
-            get {
+        public static string OccultCrescent_Content_Auto_switch_to_Bard_for_Rom
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Auto_switch_to_Bard_for_Rom", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto-switch to Knight for Enduring Fortitude.
         /// </summary>
-        public static string OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude {
-            get {
+        public static string OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto-switch to Monk for Fleetfooted.
         /// </summary>
-        public static string OccultCrescent_Content_Auto_switch_to_Monk_for_Fle {
-            get {
+        public static string OccultCrescent_Content_Auto_switch_to_Monk_for_Fle
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Auto_switch_to_Monk_for_Fle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Automatically switch phantom jobs for Knowledge Crystal buffs.
         /// </summary>
-        public static string OccultCrescent_Content_Automatically_switch_phanto {
-            get {
+        public static string OccultCrescent_Content_Automatically_switch_phanto
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Automatically_switch_phanto", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Occult Crescent Phantom Job System.
         /// </summary>
-        public static string OccultCrescent_Content_Enable_Occult_Crescent_Phan {
-            get {
+        public static string OccultCrescent_Content_Enable_Occult_Crescent_Phan
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Enable_Occult_Crescent_Phan", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to In Combat.
         /// </summary>
-        public static string OccultCrescent_Content_In_Combat {
-            get {
+        public static string OccultCrescent_Content_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Allies.
         /// </summary>
-        public static string OccultCrescent_Content_On_Allies {
-            get {
+        public static string OccultCrescent_Content_On_Allies
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_On_Allies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only cast Comet with job-specific cast time reduction buffs.
         /// </summary>
-        public static string OccultCrescent_Content_Only_cast_Comet_with_job_sp {
-            get {
+        public static string OccultCrescent_Content_Only_cast_Comet_with_job_sp
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Only_cast_Comet_with_job_sp", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only use Dokumori on multiple targets (2+ enemies).
         /// </summary>
-        public static string OccultCrescent_Content_Only_use_Dokumori_on_multip {
-            get {
+        public static string OccultCrescent_Content_Only_use_Dokumori_on_multip
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Only_use_Dokumori_on_multip", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only use in melee range.
         /// </summary>
-        public static string OccultCrescent_Content_Only_use_in_melee_range {
-            get {
+        public static string OccultCrescent_Content_Only_use_in_melee_range
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Only_use_in_melee_range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only use Occult Sprint in combat.
         /// </summary>
-        public static string OccultCrescent_Content_Only_use_Occult_Sprint_in_c {
-            get {
+        public static string OccultCrescent_Content_Only_use_Occult_Sprint_in_c
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Only_use_Occult_Sprint_in_c", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Out of Combat.
         /// </summary>
-        public static string OccultCrescent_Content_Out_of_Combat {
-            get {
+        public static string OccultCrescent_Content_Out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Restore original phantom job after auto-buffing.
         /// </summary>
-        public static string OccultCrescent_Content_Restore_original_phantom_jo {
-            get {
+        public static string OccultCrescent_Content_Restore_original_phantom_jo
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Restore_original_phantom_jo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Revive Non-Party Dead Players (excess mana only).
         /// </summary>
-        public static string OccultCrescent_Content_Revive_Non_Party_Dead_Playe {
-            get {
+        public static string OccultCrescent_Content_Revive_Non_Party_Dead_Playe
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Revive_Non_Party_Dead_Playe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Revive Out of Combat.
         /// </summary>
-        public static string OccultCrescent_Content_Revive_Out_of_Combat {
-            get {
+        public static string OccultCrescent_Content_Revive_Out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Revive_Out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Suspend whole party.
         /// </summary>
-        public static string OccultCrescent_Content_Suspend_whole_party {
-            get {
+        public static string OccultCrescent_Content_Suspend_whole_party
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Suspend_whole_party", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aetherial Gain (Increases damage dealt by 10%).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Aetherial_Gain_Increase {
-            get {
+        public static string OccultCrescent_Content_Use_Aetherial_Gain_Increase
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Aetherial_Gain_Increase", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Battle Bell (Damage boost that stacks when taking damage).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Battle_Bell_Damage_boos {
-            get {
+        public static string OccultCrescent_Content_Use_Battle_Bell_Damage_boos
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Battle_Bell_Damage_boos", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Blessed Rain (Erects magical barrier which nullifies damage).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Blessed_Rain_Erects_mag {
-            get {
+        public static string OccultCrescent_Content_Use_Blessed_Rain_Erects_mag
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Blessed_Rain_Erects_mag", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Blessing when party below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Blessing_when_party_bel {
-            get {
+        public static string OccultCrescent_Content_Use_Blessing_when_party_bel
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Blessing_when_party_bel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Cleansing when party above.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Cleansing_when_party_ab {
-            get {
+        public static string OccultCrescent_Content_Use_Cleansing_when_party_ab
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Cleansing_when_party_ab", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Cloudy Caress (Increases healing potency by 30%).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Cloudy_Caress_Increases {
-            get {
+        public static string OccultCrescent_Content_Use_Cloudy_Caress_Increases
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Cloudy_Caress_Increases", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Counterstance (Combat parry buff only - knowledge crystal movement speed is automatic).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Counterstance_Combat_pa {
-            get {
+        public static string OccultCrescent_Content_Use_Counterstance_Combat_pa
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Counterstance_Combat_pa", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Dark Cannon (Inflicts blind).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Dark_Cannon_Inflicts_bl {
-            get {
+        public static string OccultCrescent_Content_Use_Dark_Cannon_Inflicts_bl
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Dark_Cannon_Inflicts_bl", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Deadly Blow (High damage based on missing HP).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Deadly_Blow_High_damage {
-            get {
+        public static string OccultCrescent_Content_Use_Deadly_Blow_High_damage
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Deadly_Blow_High_damage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Dokumori when enemy below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Dokumori_when_enemy_bel {
-            get {
+        public static string OccultCrescent_Content_Use_Dokumori_when_enemy_bel
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Dokumori_when_enemy_bel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Hasty Mirage (Increases movement speed by 20%).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_ {
-            get {
+        public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Hasty_Mirage_Increases_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Hero&apos;s Rime (Party damage/healing +10% - 120s cooldown).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Heros_Rime_Party_damage {
-            get {
+        public static string OccultCrescent_Content_Use_Heros_Rime_Party_damage
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Heros_Rime_Party_damage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Holy Cannon (More damage vs undead).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Holy_Cannon_More_damage {
-            get {
+        public static string OccultCrescent_Content_Use_Holy_Cannon_More_damage
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Holy_Cannon_More_damage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Iainuki (Cone attack with instant kill chance).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Iainuki_Cone_attack_wit {
-            get {
+        public static string OccultCrescent_Content_Use_Iainuki_Cone_attack_wit
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Iainuki_Cone_attack_wit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Invulnerability below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Invulnerability_below {
-            get {
+        public static string OccultCrescent_Content_Use_Invulnerability_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Invulnerability_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mighty March below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Mighty_March_below {
-            get {
+        public static string OccultCrescent_Content_Use_Mighty_March_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Mighty_March_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mineuchi stun with strategy:.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Mineuchi_stun_with_stra {
-            get {
+        public static string OccultCrescent_Content_Use_Mineuchi_stun_with_stra
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Mineuchi_stun_with_stra", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Misty Mirage (Increases evasion by 40%).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Misty_Mirage_Increases_ {
-            get {
+        public static string OccultCrescent_Content_Use_Misty_Mirage_Increases_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Misty_Mirage_Increases_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Comet (AoE damage - 8s cast time).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Comet_AoE_damage {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Comet_AoE_damage
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Comet_AoE_damage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Dispel (Removes beneficial effects from enemies).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Dispel_Removes_b {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Dispel_Removes_b
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Dispel_Removes_b", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Elixir when.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Elixir_when {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Elixir_when
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Elixir_when", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Ether below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Ether_below {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Ether_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Ether_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Falcon (Area attack).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Falcon_Area_atta {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Falcon_Area_atta
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Falcon_Area_atta", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Heal below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Heal_below {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Heal_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Heal_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Mage Masher (Reduces enemy magic attack power).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Mage_Masher_Redu {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Mage_Masher_Redu
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Mage_Masher_Redu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Potion below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Potion_below {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Potion_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Potion_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Quick (Speed buff for cast/recast/movement).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Quick_Speed_buff {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Quick_Speed_buff
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Quick_Speed_buff", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Slowga (Inflicts Slow on enemies).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Slowga_Inflicts_ {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Slowga_Inflicts_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Slowga_Inflicts_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Sprint (Greatly increases movement speed).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Sprint_Greatly_i {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Sprint_Greatly_i
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Sprint_Greatly_i", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Unicorn below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Unicorn_below {
-            get {
+        public static string OccultCrescent_Content_Use_Occult_Unicorn_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Unicorn_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use OccultChakra below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_OccultChakra_below {
-            get {
+        public static string OccultCrescent_Content_Use_OccultChakra_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_OccultChakra_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use OccultCounter (Attack after parry).
         /// </summary>
-        public static string OccultCrescent_Content_Use_OccultCounter_Attack_af {
-            get {
+        public static string OccultCrescent_Content_Use_OccultCounter_Attack_af
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_OccultCounter_Attack_af", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Offensive Aria (Damage buff - 70s duration).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Offensive_Aria_Damage_b {
-            get {
+        public static string OccultCrescent_Content_Use_Offensive_Aria_Damage_b
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Offensive_Aria_Damage_b", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Phantom Aim (Damage buff - 120s cooldown).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Phantom_Aim_Damage_buff {
-            get {
+        public static string OccultCrescent_Content_Use_Phantom_Aim_Damage_buff
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Phantom_Aim_Damage_buff", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Phantom Fire (Standard ranged attack).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Phantom_Fire_Standard_r {
-            get {
+        public static string OccultCrescent_Content_Use_Phantom_Fire_Standard_r
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Phantom_Fire_Standard_r", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Phantom Guard.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Phantom_Guard {
-            get {
+        public static string OccultCrescent_Content_Use_Phantom_Guard
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Phantom_Guard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Phantom Judgment when party below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Phantom_Judgment_when_p {
-            get {
+        public static string OccultCrescent_Content_Use_Phantom_Judgment_when_p
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Phantom_Judgment_when_p", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Phantom Kick.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Phantom_Kick {
-            get {
+        public static string OccultCrescent_Content_Use_Phantom_Kick
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Phantom_Kick", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Phantom Rejuvenation below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Phantom_Rejuvenation_be {
-            get {
+        public static string OccultCrescent_Content_Use_Phantom_Rejuvenation_be
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Phantom_Rejuvenation_be", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Pilfer Weapon (Lowers target&apos;s physical attack power by 10%).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Pilfer_Weapon_Lowers_ta {
-            get {
+        public static string OccultCrescent_Content_Use_Pilfer_Weapon_Lowers_ta
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Pilfer_Weapon_Lowers_ta", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Pledge below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Pledge_below {
-            get {
+        public static string OccultCrescent_Content_Use_Pledge_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Pledge_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Pray (Combat regen only - knowledge crystal party buff is automatic).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Pray_Combat_regen_only_ {
-            get {
+        public static string OccultCrescent_Content_Use_Pray_Combat_regen_only_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Pray_Combat_regen_only_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Predict (Grants random prediction).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Predict_Grants_random_p {
-            get {
+        public static string OccultCrescent_Content_Use_Predict_Grants_random_p
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Predict_Grants_random_p", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Rage (Auto attack nearest enemy).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Rage_Auto_attack_neares {
-            get {
+        public static string OccultCrescent_Content_Use_Rage_Auto_attack_neares
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Rage_Auto_attack_neares", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Revive (Resurrect dead party members).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Revive_Resurrect_dead_p {
-            get {
+        public static string OccultCrescent_Content_Use_Revive_Resurrect_dead_p
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Revive_Resurrect_dead_p", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Ringing Respite (Heals target when they take damage).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Ringing_Respite_Heals_t {
-            get {
+        public static string OccultCrescent_Content_Use_Ringing_Respite_Heals_t
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Ringing_Respite_Heals_t", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Romeo&apos;s Ballad (Combat interrupts only - knowledge crystal usage is automatic).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Romeos_Ballad_Combat_in {
-            get {
+        public static string OccultCrescent_Content_Use_Romeos_Ballad_Combat_in
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Romeos_Ballad_Combat_in", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Shirahadori below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Shirahadori_below {
-            get {
+        public static string OccultCrescent_Content_Use_Shirahadori_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Shirahadori_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Shock Cannon (Inflicts paralysis) - Mutually exclusive.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Shock_Cannon_Inflicts_p {
-            get {
+        public static string OccultCrescent_Content_Use_Shock_Cannon_Inflicts_p
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Shock_Cannon_Inflicts_p", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Silver Cannon (Damage debuff) - Mutually exclusive.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Silver_Cannon_Damage_de {
-            get {
+        public static string OccultCrescent_Content_Use_Silver_Cannon_Damage_de
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Silver_Cannon_Damage_de", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Starfall when above.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Starfall_when_above {
-            get {
+        public static string OccultCrescent_Content_Use_Starfall_when_above
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Starfall_when_above", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Steal when enemy below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Steal_when_enemy_below {
-            get {
+        public static string OccultCrescent_Content_Use_Steal_when_enemy_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Steal_when_enemy_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Sunbath below.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Sunbath_below {
-            get {
+        public static string OccultCrescent_Content_Use_Sunbath_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Sunbath_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Suspend.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Suspend {
-            get {
+        public static string OccultCrescent_Content_Use_Suspend
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Suspend", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Vigilance within.
         /// </summary>
-        public static string OccultCrescent_Content_Use_Vigilance_within {
-            get {
+        public static string OccultCrescent_Content_Use_Vigilance_within
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Vigilance_within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Zeninage (Consumes Occult Coffer for 1,500 potency).
         /// </summary>
-        public static string OccultCrescent_Content_Use_Zeninage_Consumes_Occul {
-            get {
+        public static string OccultCrescent_Content_Use_Zeninage_Consumes_Occul
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Zeninage_Consumes_Occul", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ⚠️ SAFETY: If Starfall is the 4rd prediction and you&apos;re below the Starfall threshold, the current prediction will be cast automatically to avoid being forced into deadly Starfall as the 4th prediction..
         /// </summary>
-        public static string OccultCrescent_Text__SAFETY_If_Starfall_is_the_4rd {
-            get {
+        public static string OccultCrescent_Text__SAFETY_If_Starfall_is_the_4rd
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text__SAFETY_If_Starfall_is_the_4rd", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (100k gil/cast).
         /// </summary>
-        public static string OccultCrescent_Text_100k_gilcast {
-            get {
+        public static string OccultCrescent_Text_100k_gilcast
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_100k_gilcast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (300k gil/cast).
         /// </summary>
-        public static string OccultCrescent_Text_300k_gilcast {
-            get {
+        public static string OccultCrescent_Text_300k_gilcast
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_300k_gilcast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Battle Bell prioritizes tanks first (who take most damage), then self, then other party members. Only cast in combat..
         /// </summary>
-        public static string OccultCrescent_Text_Battle_Bell_prioritizes_tanks_ {
-            get {
+        public static string OccultCrescent_Text_Battle_Bell_prioritizes_tanks_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Battle_Bell_prioritizes_tanks_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dokumori is an AoE steal ability for gold farming. Only uses gold farming mode with 2+ enemies - single target scenarios use normal rotation for ninki gauge benefits. Only works when playing as Ninja job. Enable &apos;multiple targets only&apos; to save Dokumori cooldown for big AoE pulls..
         /// </summary>
-        public static string OccultCrescent_Text_Dokumori_is_an_AoE_steal_abili {
-            get {
+        public static string OccultCrescent_Text_Dokumori_is_an_AoE_steal_abili
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Dokumori_is_an_AoE_steal_abili", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (Emergency protection).
         /// </summary>
-        public static string OccultCrescent_Text_Emergency_protection {
-            get {
+        public static string OccultCrescent_Text_Emergency_protection
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Emergency_protection", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Grouped abilities share restrictions as noted..
         /// </summary>
-        public static string OccultCrescent_Text_Grouped_abilities_share_restri {
-            get {
+        public static string OccultCrescent_Text_Grouped_abilities_share_restri
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Grouped_abilities_share_restri", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to In combat: Uses Swiftcast/Dualcast only. Out of combat: Uses Swiftcast first, then slowcast if needed..
         /// </summary>
-        public static string OccultCrescent_Text_In_combat_Uses_SwiftcastDualca {
-            get {
+        public static string OccultCrescent_Text_In_combat_Uses_SwiftcastDualca
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_In_combat_Uses_SwiftcastDualca", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Magitek automatically detects your current Phantom Job and uses abilities accordingly..
         /// </summary>
-        public static string OccultCrescent_Text_Magitek_automatically_detects_ {
-            get {
+        public static string OccultCrescent_Text_Magitek_automatically_detects_
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Magitek_automatically_detects_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Min MP for Non-Party Revive:.
         /// </summary>
-        public static string OccultCrescent_Text_Min_MP_for_Non_Party_Revive {
-            get {
+        public static string OccultCrescent_Text_Min_MP_for_Non_Party_Revive
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Min_MP_for_Non_Party_Revive", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mineuchi avoids stunning immune enemies. Zeninage only works when you have an Occult Coffer. Iainuki is a cone AoE attack..
         /// </summary>
-        public static string OccultCrescent_Text_Mineuchi_avoids_stunning_immun {
-            get {
+        public static string OccultCrescent_Text_Mineuchi_avoids_stunning_immun
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Mineuchi_avoids_stunning_immun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ninja (Gold Farming).
         /// </summary>
-        public static string OccultCrescent_Text_Ninja_Gold_Farming {
-            get {
+        public static string OccultCrescent_Text_Ninja_Gold_Farming
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Ninja_Gold_Farming", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Occult Crescent content provides temporary Phantom Jobs with unique abilities..
         /// </summary>
-        public static string OccultCrescent_Text_Occult_Crescent_content_provid {
-            get {
+        public static string OccultCrescent_Text_Occult_Crescent_content_provid
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Occult_Crescent_content_provid", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party buff refresh time:.
         /// </summary>
-        public static string OccultCrescent_Text_Party_buff_refresh_time {
-            get {
+        public static string OccultCrescent_Text_Party_buff_refresh_time
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Party_buff_refresh_time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals..
         /// </summary>
-        public static string OccultCrescent_Text_Party_buff_refresh_time_contro {
-            get {
+        public static string OccultCrescent_Text_Party_buff_refresh_time_contro
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Party_buff_refresh_time_contro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP.
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP {
-            get {
+        public static string OccultCrescent_Text_percent_HP
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (90% max HP self damage!).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_90_max_HP_self_dama {
-            get {
+        public static string OccultCrescent_Text_percent_HP_90_max_HP_self_dama
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_90_max_HP_self_dama", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (AoE steal - increases item drop chance).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_AoE_steal___increas {
-            get {
+        public static string OccultCrescent_Text_percent_HP_AoE_steal___increas
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_AoE_steal___increas", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (Damage + Freeze Time).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_Damage_Freeze_Time {
-            get {
+        public static string OccultCrescent_Text_percent_HP_Damage_Freeze_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_Damage_Freeze_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (Damage + Healing).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_Damage_Healing {
-            get {
+        public static string OccultCrescent_Text_percent_HP_Damage_Healing
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_Damage_Healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (increases item drop chance).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_increases_item_drop {
-            get {
+        public static string OccultCrescent_Text_percent_HP_increases_item_drop
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_increases_item_drop", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (physical damage immunity for one attack).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_physical_damage_imm {
-            get {
+        public static string OccultCrescent_Text_percent_HP_physical_damage_imm
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_physical_damage_imm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP (Strong Healing + Regen).
         /// </summary>
-        public static string OccultCrescent_Text_percent_HP_Strong_Healing_Rege {
-            get {
+        public static string OccultCrescent_Text_percent_HP_Strong_Healing_Rege
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_HP_Strong_Healing_Rege", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent MP.
         /// </summary>
-        public static string OccultCrescent_Text_percent_MP {
-            get {
+        public static string OccultCrescent_Text_percent_MP
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_MP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to percent+ party members need help.
         /// </summary>
-        public static string OccultCrescent_Text_percent_party_members_need_hel {
-            get {
+        public static string OccultCrescent_Text_percent_party_members_need_hel
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_percent_party_members_need_hel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Bard.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Bard {
-            get {
+        public static string OccultCrescent_Text_Phantom_Bard
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Bard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Berserker.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Berserker {
-            get {
+        public static string OccultCrescent_Text_Phantom_Berserker
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Berserker", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Cannoneer.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Cannoneer {
-            get {
+        public static string OccultCrescent_Text_Phantom_Cannoneer
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Cannoneer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Chemist.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Chemist {
-            get {
+        public static string OccultCrescent_Text_Phantom_Chemist
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Chemist", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Geomancer.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Geomancer {
-            get {
+        public static string OccultCrescent_Text_Phantom_Geomancer
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Geomancer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Knight.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Knight {
-            get {
+        public static string OccultCrescent_Text_Phantom_Knight
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Knight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Monk.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Monk {
-            get {
+        public static string OccultCrescent_Text_Phantom_Monk
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Monk", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Oracle.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Oracle {
-            get {
+        public static string OccultCrescent_Text_Phantom_Oracle
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Oracle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Ranger.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Ranger {
-            get {
+        public static string OccultCrescent_Text_Phantom_Ranger
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Ranger", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Samurai.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Samurai {
-            get {
+        public static string OccultCrescent_Text_Phantom_Samurai
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Samurai", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Thief.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Thief {
-            get {
+        public static string OccultCrescent_Text_Phantom_Thief
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Thief", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phantom Time Mage.
         /// </summary>
-        public static string OccultCrescent_Text_Phantom_Time_Mage {
-            get {
+        public static string OccultCrescent_Text_Phantom_Time_Mage
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Phantom_Time_Mage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Predict cycles through 4 random predictions. Magitek will attempt to use the best prediction available as they cycle through. Only one can be used. Must cast something on 4th cycle to avoid False Prediction (deadly DoT)..
         /// </summary>
-        public static string OccultCrescent_Text_Predict_cycles_through_4_rando {
-            get {
+        public static string OccultCrescent_Text_Predict_cycles_through_4_rando
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Predict_cycles_through_4_rando", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (Prioritizes tanks).
         /// </summary>
-        public static string OccultCrescent_Text_Prioritizes_tanks {
-            get {
+        public static string OccultCrescent_Text_Prioritizes_tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Prioritizes_tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Quick prioritizes casting party members. Comet restriction uses Dualcast (RDM), Requiescat (PLD), Occult Quick (Time Mage), or Swiftcast (if enabled)..
         /// </summary>
-        public static string OccultCrescent_Text_Quick_prioritizes_casting_part {
-            get {
+        public static string OccultCrescent_Text_Quick_prioritizes_casting_part
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Quick_prioritizes_casting_part", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Regen when HP below.
         /// </summary>
-        public static string OccultCrescent_Text_Regen_when_HP_below {
-            get {
+        public static string OccultCrescent_Text_Regen_when_HP_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Regen_when_HP_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (Restores HP).
         /// </summary>
-        public static string OccultCrescent_Text_Restores_HP {
-            get {
+        public static string OccultCrescent_Text_Restores_HP
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Restores_HP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unicorn creates 40k damage absorb barrier for entire party. Falcon triggers traps..
         /// </summary>
-        public static string OccultCrescent_Text_Unicorn_creates_40k_damage_abs {
-            get {
+        public static string OccultCrescent_Text_Unicorn_creates_40k_damage_abs
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Unicorn_creates_40k_damage_abs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Vigilance can only be cast out of combat with a valid target. Effect changes to Foreseen Offense (+60% crit rate) when entering combat..
         /// </summary>
-        public static string OccultCrescent_Text_Vigilance_can_only_be_cast_out {
-            get {
+        public static string OccultCrescent_Text_Vigilance_can_only_be_cast_out
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Vigilance_can_only_be_cast_out", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Weather effects are beneficial buffs that can only be cast in combat when available. All effects are applied to self and nearby party members..
         /// </summary>
-        public static string OccultCrescent_Text_Weather_effects_are_beneficial {
-            get {
+        public static string OccultCrescent_Text_Weather_effects_are_beneficial
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Weather_effects_are_beneficial", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Weather Effects (Combat Only).
         /// </summary>
-        public static string OccultCrescent_Text_Weather_Effects_Combat_Only {
-            get {
+        public static string OccultCrescent_Text_Weather_Effects_Combat_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_Weather_Effects_Combat_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to when HP below.
         /// </summary>
-        public static string OccultCrescent_Text_when_HP_below {
-            get {
+        public static string OccultCrescent_Text_when_HP_below
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_when_HP_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When near Knowledge Crystals, automatically switches to enabled phantom jobs to cast party buffs if needed. Disable specific jobs you don&apos;t have access to..
         /// </summary>
-        public static string OccultCrescent_Text_When_near_Knowledge_Crystals_a {
-            get {
+        public static string OccultCrescent_Text_When_near_Knowledge_Crystals_a
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_When_near_Knowledge_Crystals_a", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to yalms of target (Vigilance → Foreseen Offense when entering combat).
         /// </summary>
-        public static string OccultCrescent_Text_yalms_of_target_Vigilance_Fore {
-            get {
+        public static string OccultCrescent_Text_yalms_of_target_Vigilance_Fore
+        {
+            get
+            {
                 return ResourceManager.GetString("OccultCrescent_Text_yalms_of_target_Vigilance_Fore", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Atonement.
         /// </summary>
-        public static string Paladin_Content_Atonement {
-            get {
+        public static string Paladin_Content_Atonement
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Atonement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bulwark.
         /// </summary>
-        public static string Paladin_Content_Bulwark {
-            get {
+        public static string Paladin_Content_Bulwark
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Bulwark", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Clemency When We Have At Least.
         /// </summary>
-        public static string Paladin_Content_Clemency_When_We_Have_At_Least {
-            get {
+        public static string Paladin_Content_Clemency_When_We_Have_At_Least
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Clemency_When_We_Have_At_Least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Confiteor.
         /// </summary>
-        public static string Paladin_Content_Confiteor {
-            get {
+        public static string Paladin_Content_Confiteor
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Confiteor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cover.
         /// </summary>
-        public static string Paladin_Content_Cover {
-            get {
+        public static string Paladin_Content_Cover
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Cover", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Divine Veil.
         /// </summary>
-        public static string Paladin_Content_FightLogic_Use_Divine_Veil {
-            get {
+        public static string Paladin_Content_FightLogic_Use_Divine_Veil
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_FightLogic_Use_Divine_Veil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightOrFlight (Damage Buff).
         /// </summary>
-        public static string Paladin_Content_FightOrFlight_Damage_Buff {
-            get {
+        public static string Paladin_Content_FightOrFlight_Damage_Buff
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_FightOrFlight_Damage_Buff", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GoringBlade.
         /// </summary>
-        public static string Paladin_Content_GoringBlade {
-            get {
+        public static string Paladin_Content_GoringBlade
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_GoringBlade", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hallowed Ground (Invu).
         /// </summary>
-        public static string Paladin_Content_Hallowed_Ground_Invu {
-            get {
+        public static string Paladin_Content_Hallowed_Ground_Invu
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Hallowed_Ground_Invu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Holy Sheltron.
         /// </summary>
-        public static string Paladin_Content_Holy_Sheltron {
-            get {
+        public static string Paladin_Content_Holy_Sheltron
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Holy_Sheltron", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Holy Spirit.
         /// </summary>
-        public static string Paladin_Content_Holy_Spirit {
-            get {
+        public static string Paladin_Content_Holy_Spirit
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Holy_Spirit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Imperator.
         /// </summary>
-        public static string Paladin_Content_Imperator {
-            get {
+        public static string Paladin_Content_Imperator
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Imperator", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Intervene.
         /// </summary>
-        public static string Paladin_Content_Intervene {
-            get {
+        public static string Paladin_Content_Intervene
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Intervene", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Intervene (Dash).
         /// </summary>
-        public static string Paladin_Content_Intervene_Dash {
-            get {
+        public static string Paladin_Content_Intervene_Dash
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Intervene_Dash", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Intervene Only in Melee Range.
         /// </summary>
-        public static string Paladin_Content_Intervene_Only_in_Melee_Range {
-            get {
+        public static string Paladin_Content_Intervene_Only_in_Melee_Range
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Intervene_Only_in_Melee_Range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Intervention When A Party Member Is Below.
         /// </summary>
-        public static string Paladin_Content_Intervention_When_A_Party_Member_I {
-            get {
+        public static string Paladin_Content_Intervention_When_A_Party_Member_I
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Intervention_When_A_Party_Member_I", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Keep Atonement and HolySpirit in FOF (Experimental).
         /// </summary>
-        public static string Paladin_Content_Keep_Atonement_and_HolySpirit_in_F {
-            get {
+        public static string Paladin_Content_Keep_Atonement_and_HolySpirit_in_F
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Keep_Atonement_and_HolySpirit_in_F", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On DPS At.
         /// </summary>
-        public static string Paladin_Content_On_DPS_At {
-            get {
+        public static string Paladin_Content_On_DPS_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_On_DPS_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Healers At.
         /// </summary>
-        public static string Paladin_Content_On_Healers_At {
-            get {
+        public static string Paladin_Content_On_Healers_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_On_Healers_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Ourself At.
         /// </summary>
-        public static string Paladin_Content_On_Ourself_At {
-            get {
+        public static string Paladin_Content_On_Ourself_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_On_Ourself_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only in Melee..
         /// </summary>
-        public static string Paladin_Content_Only_in_Melee {
-            get {
+        public static string Paladin_Content_Only_in_Melee
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Only_in_Melee", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only on Guard.
         /// </summary>
-        public static string Paladin_Content_Only_on_Guard {
-            get {
+        public static string Paladin_Content_Only_on_Guard
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Only_on_Guard", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only under Divine Might Aura..
         /// </summary>
-        public static string Paladin_Content_Only_under_Divine_Might_Aura {
-            get {
+        public static string Paladin_Content_Only_under_Divine_Might_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Only_under_Divine_Might_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Use Intervention on party member if Sentinel or Rampart is Active.
         /// </summary>
-        public static string Paladin_Content_Only_Use_Intervention_on_party_mem {
-            get {
+        public static string Paladin_Content_Only_Use_Intervention_on_party_mem
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Only_Use_Intervention_on_party_mem", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phalanx / LB.
         /// </summary>
-        public static string Paladin_Content_Phalanx_LB {
-            get {
+        public static string Paladin_Content_Phalanx_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Phalanx_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Provoke.
         /// </summary>
-        public static string Paladin_Content_Provoke {
-            get {
+        public static string Paladin_Content_Provoke
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Provoke", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rampart.
         /// </summary>
-        public static string Paladin_Content_Rampart {
-            get {
+        public static string Paladin_Content_Rampart
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Rampart", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reprisal.
         /// </summary>
-        public static string Paladin_Content_Reprisal {
-            get {
+        public static string Paladin_Content_Reprisal
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Reprisal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Requiescat.
         /// </summary>
-        public static string Paladin_Content_Requiescat {
-            get {
+        public static string Paladin_Content_Requiescat
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Requiescat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save Circle Of Scorn / Expiacon when Fight or Flight is Under.
         /// </summary>
-        public static string Paladin_Content_Save_Circle_Of_Scorn_Expiacon_when {
-            get {
+        public static string Paladin_Content_Save_Circle_Of_Scorn_Expiacon_when
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Save_Circle_Of_Scorn_Expiacon_when", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sentinel.
         /// </summary>
-        public static string Paladin_Content_Sentinel {
-            get {
+        public static string Paladin_Content_Sentinel
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Sentinel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sepulchre.
         /// </summary>
-        public static string Paladin_Content_Sepulchre {
-            get {
+        public static string Paladin_Content_Sepulchre
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Sepulchre", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shield Lob.
         /// </summary>
-        public static string Paladin_Content_Shield_Lob {
-            get {
+        public static string Paladin_Content_Shield_Lob
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Shield_Lob", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shield Smite.
         /// </summary>
-        public static string Paladin_Content_Shield_Smite {
-            get {
+        public static string Paladin_Content_Shield_Smite
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Shield_Smite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Supplication.
         /// </summary>
-        public static string Paladin_Content_Supplication {
-            get {
+        public static string Paladin_Content_Supplication
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Supplication", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aoe (Total Eclipse combo, HolyCircle).
         /// </summary>
-        public static string Paladin_Content_Use_Aoe_Total_Eclipse_combo_HolyCi {
-            get {
+        public static string Paladin_Content_Use_Aoe_Total_Eclipse_combo_HolyCi
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Aoe_Total_Eclipse_combo_HolyCi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Circle Of Scorn.
         /// </summary>
-        public static string Paladin_Content_Use_Circle_Of_Scorn {
-            get {
+        public static string Paladin_Content_Use_Circle_Of_Scorn
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Circle_Of_Scorn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Confiteor Combo (Blade Of Faith + Blade Of Truth + Blade Of Valor).
         /// </summary>
-        public static string Paladin_Content_Use_Confiteor_Combo_Blade_Of_Faith {
-            get {
+        public static string Paladin_Content_Use_Confiteor_Combo_Blade_Of_Faith
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Confiteor_Combo_Blade_Of_Faith", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Divine Veil.
         /// </summary>
-        public static string Paladin_Content_Use_Divine_Veil {
-            get {
+        public static string Paladin_Content_Use_Divine_Veil
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Divine_Veil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Eclipse / Prominence combo with at least.
         /// </summary>
-        public static string Paladin_Content_Use_Eclipse_Prominence_combo_with_ {
-            get {
+        public static string Paladin_Content_Use_Eclipse_Prominence_combo_with_
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Eclipse_Prominence_combo_with_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Expiacion / Spirits Within.
         /// </summary>
-        public static string Paladin_Content_Use_Expiacion_Spirits_Within {
-            get {
+        public static string Paladin_Content_Use_Expiacion_Spirits_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Expiacion_Spirits_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use HolyCircle with at least.
         /// </summary>
-        public static string Paladin_Content_Use_HolyCircle_with_at_least {
-            get {
+        public static string Paladin_Content_Use_HolyCircle_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_HolyCircle_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use HolySpirit as long as Mana is &gt;=.
         /// </summary>
-        public static string Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_ {
-            get {
+        public static string Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use intervention on party member every time Setinel or Rampart is Active.
         /// </summary>
-        public static string Paladin_Content_Use_intervention_on_party_member_e {
-            get {
+        public static string Paladin_Content_Use_intervention_on_party_member_e
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_intervention_on_party_member_e", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Iron Will.
         /// </summary>
-        public static string Paladin_Content_Use_Iron_Will {
-            get {
+        public static string Paladin_Content_Use_Iron_Will
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Iron_Will", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Sheltron.
         /// </summary>
-        public static string Paladin_Content_Use_Sheltron {
-            get {
+        public static string Paladin_Content_Use_Sheltron
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Sheltron", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Shield Bash.
         /// </summary>
-        public static string Paladin_Content_Use_Shield_Bash {
-            get {
+        public static string Paladin_Content_Use_Shield_Bash
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Shield_Bash", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Shield Lob To Pull Extra Nearby Enemies (When Already In Combat).
         /// </summary>
-        public static string Paladin_Content_Use_Shield_Lob_To_Pull_Extra_Nearb {
-            get {
+        public static string Paladin_Content_Use_Shield_Lob_To_Pull_Extra_Nearb
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Shield_Lob_To_Pull_Extra_Nearb", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Shield Lob To Regain Aggro.
         /// </summary>
-        public static string Paladin_Content_Use_Shield_Lob_To_Regain_Aggro {
-            get {
+        public static string Paladin_Content_Use_Shield_Lob_To_Regain_Aggro
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_Shield_Lob_To_Regain_Aggro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use ShieldLob.
         /// </summary>
-        public static string Paladin_Content_Use_ShieldLob {
-            get {
+        public static string Paladin_Content_Use_ShieldLob
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Content_Use_ShieldLob", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aggro Management:.
         /// </summary>
-        public static string Paladin_Text_Aggro_Management {
-            get {
+        public static string Paladin_Text_Aggro_Management
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Text_Aggro_Management", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Multi Target.
         /// </summary>
-        public static string Paladin_Text_Multi_Target {
-            get {
+        public static string Paladin_Text_Multi_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Text_Multi_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Multi Target (can be used in Single Target Cycle).
         /// </summary>
-        public static string Paladin_Text_Multi_Target_can_be_used_in_Single_Ta {
-            get {
+        public static string Paladin_Text_Multi_Target_can_be_used_in_Single_Ta
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Text_Multi_Target_can_be_used_in_Single_Ta", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pull with:.
         /// </summary>
-        public static string Paladin_Text_Pull_with {
-            get {
+        public static string Paladin_Text_Pull_with
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Text_Pull_with", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rest When Under.
         /// </summary>
-        public static string Paladin_Text_Rest_When_Under {
-            get {
+        public static string Paladin_Text_Rest_When_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Text_Rest_When_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When Target is out of Melee Range.
         /// </summary>
-        public static string Paladin_Text_When_Target_is_out_of_Melee_Range {
-            get {
+        public static string Paladin_Text_When_Target_is_out_of_Melee_Range
+        {
+            get
+            {
                 return ResourceManager.GetString("Paladin_Text_When_Target_is_out_of_Melee_Range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Advent of chocobooism when.
         /// </summary>
-        public static string Pictomancer_Content_Advent_of_chocobooism_when {
-            get {
+        public static string Pictomancer_Content_Advent_of_chocobooism_when
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Advent_of_chocobooism_when", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cast palettes during combat with no target.
         /// </summary>
-        public static string Pictomancer_Content_Cast_palettes_during_combat_wi {
-            get {
+        public static string Pictomancer_Content_Cast_palettes_during_combat_wi
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Cast_palettes_during_combat_wi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Gr.
         /// </summary>
-        public static string Pictomancer_Content_Dont_attack_Invuln_Hallowed_Gr {
-            get {
+        public static string Pictomancer_Content_Dont_attack_Invuln_Hallowed_Gr
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Dont_attack_Invuln_Hallowed_Gr", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Starry Sky.
         /// </summary>
-        public static string Pictomancer_Content_Enable_Starry_Sky {
-            get {
+        public static string Pictomancer_Content_Enable_Starry_Sky
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Enable_Starry_Sky", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Entire Party In Range Otherwise:.
         /// </summary>
-        public static string Pictomancer_Content_Entire_Party_In_Range_Otherwis {
-            get {
+        public static string Pictomancer_Content_Entire_Party_In_Range_Otherwis
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Entire_Party_In_Range_Otherwis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Tempera Coat/Grassa.
         /// </summary>
-        public static string Pictomancer_Content_FightLogic_Use_Tempera_CoatGra {
-            get {
+        public static string Pictomancer_Content_FightLogic_Use_Tempera_CoatGra
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_FightLogic_Use_Tempera_CoatGra", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hard/Slow Cast palettes during Starry Sky buff window.
         /// </summary>
-        public static string Pictomancer_Content_HardSlow_Cast_palettes_during_ {
-            get {
+        public static string Pictomancer_Content_HardSlow_Cast_palettes_during_
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_HardSlow_Cast_palettes_during_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only below level 100.
         /// </summary>
-        public static string Pictomancer_Content_Only_below_level_100 {
-            get {
+        public static string Pictomancer_Content_Only_below_level_100
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Only_below_level_100", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to only during boss fights.
         /// </summary>
-        public static string Pictomancer_Content_only_during_boss_fights {
-            get {
+        public static string Pictomancer_Content_only_during_boss_fights
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_only_during_boss_fights", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only to Heal.
         /// </summary>
-        public static string Pictomancer_Content_Only_to_Heal {
-            get {
+        public static string Pictomancer_Content_Only_to_Heal
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Only_to_Heal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only use Comet with Starry.
         /// </summary>
-        public static string Pictomancer_Content_Only_use_Comet_with_Starry {
-            get {
+        public static string Pictomancer_Content_Only_use_Comet_with_Starry
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Only_use_Comet_with_Starry", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only when in a duty.
         /// </summary>
-        public static string Pictomancer_Content_Only_when_in_a_duty {
-            get {
+        public static string Pictomancer_Content_Only_when_in_a_duty
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Only_when_in_a_duty", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only when moving.
         /// </summary>
-        public static string Pictomancer_Content_Only_when_moving {
-            get {
+        public static string Pictomancer_Content_Only_when_moving
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Only_when_moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pre-cast palettes out of combat.
         /// </summary>
-        public static string Pictomancer_Content_Pre_cast_palettes_out_of_comba {
-            get {
+        public static string Pictomancer_Content_Pre_cast_palettes_out_of_comba
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Pre_cast_palettes_out_of_comba", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save a hammer for movement.
         /// </summary>
-        public static string Pictomancer_Content_Save_a_hammer_for_movement {
-            get {
+        public static string Pictomancer_Content_Save_a_hammer_for_movement
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Save_a_hammer_for_movement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save Comet in Black for Starry.
         /// </summary>
-        public static string Pictomancer_Content_Save_Comet_in_Black_for_Starry {
-            get {
+        public static string Pictomancer_Content_Save_Comet_in_Black_for_Starry
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Save_Comet_in_Black_for_Starry", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save Hammers for Starry.
         /// </summary>
-        public static string Pictomancer_Content_Save_Hammers_for_Starry {
-            get {
+        public static string Pictomancer_Content_Save_Hammers_for_Starry
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Save_Hammers_for_Starry", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save Mog / Madeen for Starry.
         /// </summary>
-        public static string Pictomancer_Content_Save_Mog_Madeen_for_Starry {
-            get {
+        public static string Pictomancer_Content_Save_Mog_Madeen_for_Starry
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Save_Mog_Madeen_for_Starry", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Starstruck.
         /// </summary>
-        public static string Pictomancer_Content_Starstruck {
-            get {
+        public static string Pictomancer_Content_Starstruck
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Starstruck", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swap to Black While Moving With Charges.
         /// </summary>
-        public static string Pictomancer_Content_Swap_to_Black_While_Moving_Wit {
-            get {
+        public static string Pictomancer_Content_Swap_to_Black_While_Moving_Wit
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Swap_to_Black_While_Moving_Wit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Creature.
         /// </summary>
-        public static string Pictomancer_Content_Swiftcast_Creature {
-            get {
+        public static string Pictomancer_Content_Swiftcast_Creature
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Swiftcast_Creature", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Landscape.
         /// </summary>
-        public static string Pictomancer_Content_Swiftcast_Landscape {
-            get {
+        public static string Pictomancer_Content_Swiftcast_Landscape
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Swiftcast_Landscape", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Motifs.
         /// </summary>
-        public static string Pictomancer_Content_Swiftcast_Motifs {
-            get {
+        public static string Pictomancer_Content_Swiftcast_Motifs
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Swiftcast_Motifs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Weapon.
         /// </summary>
-        public static string Pictomancer_Content_Swiftcast_Weapon {
-            get {
+        public static string Pictomancer_Content_Swiftcast_Weapon
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Swiftcast_Weapon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AOE Comet In Black.
         /// </summary>
-        public static string Pictomancer_Content_Use_AOE_Comet_In_Black {
-            get {
+        public static string Pictomancer_Content_Use_AOE_Comet_In_Black
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_AOE_Comet_In_Black", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AOE Holy In White.
         /// </summary>
-        public static string Pictomancer_Content_Use_AOE_Holy_In_White {
-            get {
+        public static string Pictomancer_Content_Use_AOE_Holy_In_White
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_AOE_Holy_In_White", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AOE Paint Rotation.
         /// </summary>
-        public static string Pictomancer_Content_Use_AOE_Paint_Rotation {
-            get {
+        public static string Pictomancer_Content_Use_AOE_Paint_Rotation
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_AOE_Paint_Rotation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AOE Rotation When There Are.
         /// </summary>
-        public static string Pictomancer_Content_Use_AOE_Rotation_When_There_Ar {
-            get {
+        public static string Pictomancer_Content_Use_AOE_Rotation_When_There_Ar
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_AOE_Rotation_When_There_Ar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Comet In Black.
         /// </summary>
-        public static string Pictomancer_Content_Use_Comet_In_Black {
-            get {
+        public static string Pictomancer_Content_Use_Comet_In_Black
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Comet_In_Black", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use extra comets only during movement.
         /// </summary>
-        public static string Pictomancer_Content_Use_extra_comets_only_during_m {
-            get {
+        public static string Pictomancer_Content_Use_extra_comets_only_during_m
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_extra_comets_only_during_m", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Hammers.
         /// </summary>
-        public static string Pictomancer_Content_Use_Hammers {
-            get {
+        public static string Pictomancer_Content_Use_Hammers
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Hammers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Hammers During Hyperphantasia.
         /// </summary>
-        public static string Pictomancer_Content_Use_Hammers_During_Hyperphanta {
-            get {
+        public static string Pictomancer_Content_Use_Hammers_During_Hyperphanta
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Hammers_During_Hyperphanta", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Holy in White when paint is full.
         /// </summary>
-        public static string Pictomancer_Content_Use_Holy_in_White_when_paint_i {
-            get {
+        public static string Pictomancer_Content_Use_Holy_in_White_when_paint_i
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Holy_in_White_when_paint_i", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Holy In White while moving.
         /// </summary>
-        public static string Pictomancer_Content_Use_Holy_In_White_while_moving {
-            get {
+        public static string Pictomancer_Content_Use_Holy_In_White_while_moving
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Holy_In_White_while_moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mog.
         /// </summary>
-        public static string Pictomancer_Content_Use_Mog {
-            get {
+        public static string Pictomancer_Content_Use_Mog
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Mog", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mog / Madeen.
         /// </summary>
-        public static string Pictomancer_Content_Use_Mog_Madeen {
-            get {
+        public static string Pictomancer_Content_Use_Mog_Madeen
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Mog_Madeen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mog / Madeen During Hyperphantasia.
         /// </summary>
-        public static string Pictomancer_Content_Use_Mog_Madeen_During_Hyperpha {
-            get {
+        public static string Pictomancer_Content_Use_Mog_Madeen_During_Hyperpha
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Mog_Madeen_During_Hyperpha", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Motif.
         /// </summary>
-        public static string Pictomancer_Content_Use_Motif {
-            get {
+        public static string Pictomancer_Content_Use_Motif
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Motif", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Motifs.
         /// </summary>
-        public static string Pictomancer_Content_Use_Motifs {
-            get {
+        public static string Pictomancer_Content_Use_Motifs
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Motifs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Muse.
         /// </summary>
-        public static string Pictomancer_Content_Use_Muse {
-            get {
+        public static string Pictomancer_Content_Use_Muse
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Muse", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Muses.
         /// </summary>
-        public static string Pictomancer_Content_Use_Muses {
-            get {
+        public static string Pictomancer_Content_Use_Muses
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Muses", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Paint Black.
         /// </summary>
-        public static string Pictomancer_Content_Use_Paint_Black {
-            get {
+        public static string Pictomancer_Content_Use_Paint_Black
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Paint_Black", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Paint RGB.
         /// </summary>
-        public static string Pictomancer_Content_Use_Paint_RGB {
-            get {
+        public static string Pictomancer_Content_Use_Paint_RGB
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Paint_RGB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Paint Rotation.
         /// </summary>
-        public static string Pictomancer_Content_Use_Paint_Rotation {
-            get {
+        public static string Pictomancer_Content_Use_Paint_Rotation
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Paint_Rotation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Paint White.
         /// </summary>
-        public static string Pictomancer_Content_Use_Paint_White {
-            get {
+        public static string Pictomancer_Content_Use_Paint_White
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Paint_White", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Rainbow Drip.
         /// </summary>
-        public static string Pictomancer_Content_Use_Rainbow_Drip {
-            get {
+        public static string Pictomancer_Content_Use_Rainbow_Drip
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Rainbow_Drip", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use simplified rotation.
         /// </summary>
-        public static string Pictomancer_Content_Use_simplified_rotation {
-            get {
+        public static string Pictomancer_Content_Use_simplified_rotation
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_simplified_rotation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Star Prism.
         /// </summary>
-        public static string Pictomancer_Content_Use_Star_Prism {
-            get {
+        public static string Pictomancer_Content_Use_Star_Prism
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Star_Prism", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Subtractive Palette.
         /// </summary>
-        public static string Pictomancer_Content_Use_Subtractive_Palette {
-            get {
+        public static string Pictomancer_Content_Use_Subtractive_Palette
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Subtractive_Palette", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use TTD Checks/Save Cooldowns When Enemy Dying Within.
         /// </summary>
-        public static string Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within {
-            get {
+        public static string Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to enemies are within.
         /// </summary>
-        public static string Pictomancer_Text_enemies_are_within {
-            get {
+        public static string Pictomancer_Text_enemies_are_within
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Text_enemies_are_within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (If checked, the simplified rotation is only active below level 100).
         /// </summary>
-        public static string Pictomancer_Text_If_checked_the_simplified_rotatio {
-            get {
+        public static string Pictomancer_Text_If_checked_the_simplified_rotatio
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Text_If_checked_the_simplified_rotatio", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save at least this many paint charges.
         /// </summary>
-        public static string Pictomancer_Text_Save_at_least_this_many_paint_cha {
-            get {
+        public static string Pictomancer_Text_Save_at_least_this_many_paint_cha
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Text_Save_at_least_this_many_paint_cha", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save hammer/mog for Starry within.
         /// </summary>
-        public static string Pictomancer_Text_Save_hammermog_for_Starry_within {
-            get {
+        public static string Pictomancer_Text_Save_hammermog_for_Starry_within
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Text_Save_hammermog_for_Starry_within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (Use a less optimized rotation that prioritizes immediate ability use).
         /// </summary>
-        public static string Pictomancer_Text_Use_a_less_optimized_rotation_tha {
-            get {
+        public static string Pictomancer_Text_Use_a_less_optimized_rotation_tha
+        {
+            get
+            {
                 return ResourceManager.GetString("Pictomancer_Text_Use_a_less_optimized_rotation_tha", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Activate PVP Routine (only for PVP !!).
         /// </summary>
-        public static string PVPCheckbox {
-            get {
+        public static string PVPCheckbox
+        {
+            get
+            {
                 return ResourceManager.GetString("PVPCheckbox", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ArcaneCrest with.
         /// </summary>
-        public static string Reaper_Content_ArcaneCrest_with {
-            get {
+        public static string Reaper_Content_ArcaneCrest_with
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_ArcaneCrest_with", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Communio / LB.
         /// </summary>
-        public static string Reaper_Content_Communio_LB {
-            get {
+        public static string Reaper_Content_Communio_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Communio_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Death Warrant.
         /// </summary>
-        public static string Reaper_Content_Death_Warrant {
-            get {
+        public static string Reaper_Content_Death_Warrant
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Death_Warrant", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable AoE (does not apply to abilities used in single target rotation).
         /// </summary>
-        public static string Reaper_Content_Enable_AoE_does_not_apply_to_abilit {
-            get {
+        public static string Reaper_Content_Enable_AoE_does_not_apply_to_abilit
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_AoE_does_not_apply_to_abilit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Arcane Circle.
         /// </summary>
-        public static string Reaper_Content_Enable_Arcane_Circle {
-            get {
+        public static string Reaper_Content_Enable_Arcane_Circle
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Arcane_Circle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Blood Stalk \ Unveiled Gibbet \ Unveiled Gallows.
         /// </summary>
-        public static string Reaper_Content_Enable_Blood_Stalk_Unveiled_Gibbet_ {
-            get {
+        public static string Reaper_Content_Enable_Blood_Stalk_Unveiled_Gibbet_
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Blood_Stalk_Unveiled_Gibbet_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Communio.
         /// </summary>
-        public static string Reaper_Content_Enable_Communio {
-            get {
+        public static string Reaper_Content_Enable_Communio
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Communio", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Cross Reaping.
         /// </summary>
-        public static string Reaper_Content_Enable_Cross_Reaping {
-            get {
+        public static string Reaper_Content_Enable_Cross_Reaping
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Cross_Reaping", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Gallows.
         /// </summary>
-        public static string Reaper_Content_Enable_Gallows {
-            get {
+        public static string Reaper_Content_Enable_Gallows
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Gallows", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Gibbet.
         /// </summary>
-        public static string Reaper_Content_Enable_Gibbet {
-            get {
+        public static string Reaper_Content_Enable_Gibbet
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Gibbet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Gluttony.
         /// </summary>
-        public static string Reaper_Content_Enable_Gluttony {
-            get {
+        public static string Reaper_Content_Enable_Gluttony
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Gluttony", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Grim Reaping, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Grim_Reaping_Target_Count_gr {
-            get {
+        public static string Reaper_Content_Enable_Grim_Reaping_Target_Count_gr
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Grim_Reaping_Target_Count_gr", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Guillotine, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Guillotine_Target_Count_grea {
-            get {
+        public static string Reaper_Content_Enable_Guillotine_Target_Count_grea
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Guillotine_Target_Count_grea", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Harvest Moon, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Harvest_Moon_Target_Count_gr {
-            get {
+        public static string Reaper_Content_Enable_Harvest_Moon_Target_Count_gr
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Harvest_Moon_Target_Count_gr", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Infernal Slice.
         /// </summary>
-        public static string Reaper_Content_Enable_Infernal_Slice {
-            get {
+        public static string Reaper_Content_Enable_Infernal_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Infernal_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Lemure&apos;s Slice.
         /// </summary>
-        public static string Reaper_Content_Enable_Lemures_Slice {
-            get {
+        public static string Reaper_Content_Enable_Lemures_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Lemures_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable LemuresScythe, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_LemuresScythe_Target_Count_g {
-            get {
+        public static string Reaper_Content_Enable_LemuresScythe_Target_Count_g
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_LemuresScythe_Target_Count_g", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Nightmare Scythe, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Nightmare_Scythe_Target_Coun {
-            get {
+        public static string Reaper_Content_Enable_Nightmare_Scythe_Target_Coun
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Nightmare_Scythe_Target_Coun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Sacrificium.
         /// </summary>
-        public static string Reaper_Content_Enable_Sacrificium {
-            get {
+        public static string Reaper_Content_Enable_Sacrificium
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Sacrificium", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Shadow Of Death.
         /// </summary>
-        public static string Reaper_Content_Enable_Shadow_Of_Death {
-            get {
+        public static string Reaper_Content_Enable_Shadow_Of_Death
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Shadow_Of_Death", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Slice.
         /// </summary>
-        public static string Reaper_Content_Enable_Slice {
-            get {
+        public static string Reaper_Content_Enable_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Soul Scythe, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Soul_Scythe_Target_Count_gre {
-            get {
+        public static string Reaper_Content_Enable_Soul_Scythe_Target_Count_gre
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Soul_Scythe_Target_Count_gre", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Soul Slice.
         /// </summary>
-        public static string Reaper_Content_Enable_Soul_Slice {
-            get {
+        public static string Reaper_Content_Enable_Soul_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Soul_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Soulsow.
         /// </summary>
-        public static string Reaper_Content_Enable_Soulsow {
-            get {
+        public static string Reaper_Content_Enable_Soulsow
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Soulsow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Spinning Scythe, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Spinning_Scythe_Target_Count {
-            get {
+        public static string Reaper_Content_Enable_Spinning_Scythe_Target_Count
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Spinning_Scythe_Target_Count", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Void Reaping.
         /// </summary>
-        public static string Reaper_Content_Enable_Void_Reaping {
-            get {
+        public static string Reaper_Content_Enable_Void_Reaping
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Void_Reaping", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Waxing Slice.
         /// </summary>
-        public static string Reaper_Content_Enable_Waxing_Slice {
-            get {
+        public static string Reaper_Content_Enable_Waxing_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Waxing_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Whorl Of Death, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Enable_Whorl_Of_Death_Target_Count_ {
-            get {
+        public static string Reaper_Content_Enable_Whorl_Of_Death_Target_Count_
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enable_Whorl_Of_Death_Target_Count_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enabled Harpe / Enhanced Harpe.
         /// </summary>
-        public static string Reaper_Content_Enabled_Harpe_Enhanced_Harpe {
-            get {
+        public static string Reaper_Content_Enabled_Harpe_Enhanced_Harpe
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enabled_Harpe_Enhanced_Harpe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enhanced Harpe Only After Hell&apos;s Egress.
         /// </summary>
-        public static string Reaper_Content_Enhanced_Harpe_Only_After_Hells_Egr {
-            get {
+        public static string Reaper_Content_Enhanced_Harpe_Only_After_Hells_Egr
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Enhanced_Harpe_Only_After_Hells_Egr", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Entire Party In Range Otherwise.
         /// </summary>
-        public static string Reaper_Content_Entire_Party_In_Range_Otherwise {
-            get {
+        public static string Reaper_Content_Entire_Party_In_Range_Otherwise
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Entire_Party_In_Range_Otherwise", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Arcane Crest.
         /// </summary>
-        public static string Reaper_Content_FightLogic_Use_Arcane_Crest {
-            get {
+        public static string Reaper_Content_FightLogic_Use_Arcane_Crest
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_FightLogic_Use_Arcane_Crest", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Grim Swathe.
         /// </summary>
-        public static string Reaper_Content_Grim_Swathe {
-            get {
+        public static string Reaper_Content_Grim_Swathe
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Grim_Swathe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Grim Swathe, Target Count greater or equal to.
         /// </summary>
-        public static string Reaper_Content_Grim_Swathe_Target_Count_greater_or {
-            get {
+        public static string Reaper_Content_Grim_Swathe_Target_Count_greater_or
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Grim_Swathe_Target_Count_greater_or", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Guillotine.
         /// </summary>
-        public static string Reaper_Content_Guillotine {
-            get {
+        public static string Reaper_Content_Guillotine
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Guillotine", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Harpe only when not in melee range.
         /// </summary>
-        public static string Reaper_Content_Harpe_only_when_not_in_melee_range {
-            get {
+        public static string Reaper_Content_Harpe_only_when_not_in_melee_range
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Harpe_only_when_not_in_melee_range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Harvest Moon.
         /// </summary>
-        public static string Reaper_Content_Harvest_Moon {
-            get {
+        public static string Reaper_Content_Harvest_Moon
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Harvest_Moon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hold Soul Guage for Gluttony cooldown within.
         /// </summary>
-        public static string Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo {
-            get {
+        public static string Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lemure Slice.
         /// </summary>
-        public static string Reaper_Content_Lemure_Slice {
-            get {
+        public static string Reaper_Content_Lemure_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Lemure_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Plentiful Harvest.
         /// </summary>
-        public static string Reaper_Content_Plentiful_Harvest {
-            get {
+        public static string Reaper_Content_Plentiful_Harvest
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Plentiful_Harvest", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Soul Slice.
         /// </summary>
-        public static string Reaper_Content_Soul_Slice {
-            get {
+        public static string Reaper_Content_Soul_Slice
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Soul_Slice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to TenebraeLemurum / LB.
         /// </summary>
-        public static string Reaper_Content_TenebraeLemurum_LB {
-            get {
+        public static string Reaper_Content_TenebraeLemurum_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_TenebraeLemurum_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use single target Reaping if higher potency than AoE Reaping.
         /// </summary>
-        public static string Reaper_Content_Use_single_target_Reaping_if_higher {
-            get {
+        public static string Reaper_Content_Use_single_target_Reaping_if_higher
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Use_single_target_Reaping_if_higher", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use True North only when Soul Reaver buff is available.
         /// </summary>
-        public static string Reaper_Content_Use_True_North_only_when_Soul_Reave {
-            get {
+        public static string Reaper_Content_Use_True_North_only_when_Soul_Reave
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Use_True_North_only_when_Soul_Reave", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use TTD Checks/Save Cooldowns When Enemy Dying Within.
         /// </summary>
-        public static string Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within {
-            get {
+        public static string Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Void and Cross Reaping.
         /// </summary>
-        public static string Reaper_Content_Void_and_Cross_Reaping {
-            get {
+        public static string Reaper_Content_Void_and_Cross_Reaping
+        {
+            get
+            {
                 return ResourceManager.GetString("Reaper_Content_Void_and_Cross_Reaping", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Acceleration.
         /// </summary>
-        public static string RedMage_Content_Acceleration {
-            get {
+        public static string RedMage_Content_Acceleration
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Acceleration", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Automatically choose best AoE target.
         /// </summary>
-        public static string RedMage_Content_Automatically_choose_best_AoE_targ {
-            get {
+        public static string RedMage_Content_Automatically_choose_best_AoE_targ
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Automatically_choose_best_AoE_targ", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Break Combo.
         /// </summary>
-        public static string RedMage_Content_Break_Combo {
-            get {
+        public static string RedMage_Content_Break_Combo
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Break_Combo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Corps-a-corps.
         /// </summary>
-        public static string RedMage_Content_Corps_a_corps {
-            get {
+        public static string RedMage_Content_Corps_a_corps
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Corps_a_corps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Displacement.
         /// </summary>
-        public static string RedMage_Content_Displacement {
-            get {
+        public static string RedMage_Content_Displacement
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Displacement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Embolden.
         /// </summary>
-        public static string RedMage_Content_Embolden {
-            get {
+        public static string RedMage_Content_Embolden
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Embolden", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enchanted Redoublement.
         /// </summary>
-        public static string RedMage_Content_Enchanted_Redoublement {
-            get {
+        public static string RedMage_Content_Enchanted_Redoublement
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Enchanted_Redoublement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enchanted Riposte.
         /// </summary>
-        public static string RedMage_Content_Enchanted_Riposte {
-            get {
+        public static string RedMage_Content_Enchanted_Riposte
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Enchanted_Riposte", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enchanted Zwerchhau.
         /// </summary>
-        public static string RedMage_Content_Enchanted_Zwerchhau {
-            get {
+        public static string RedMage_Content_Enchanted_Zwerchhau
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Enchanted_Zwerchhau", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Engagement.
         /// </summary>
-        public static string RedMage_Content_Engagement {
-            get {
+        public static string RedMage_Content_Engagement
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Engagement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Magick Barrier.
         /// </summary>
-        public static string RedMage_Content_FightLogic_Use_Magick_Barrier {
-            get {
+        public static string RedMage_Content_FightLogic_Use_Magick_Barrier
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_FightLogic_Use_Magick_Barrier", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fleche.
         /// </summary>
-        public static string RedMage_Content_Fleche {
-            get {
+        public static string RedMage_Content_Fleche
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Fleche", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Forte.
         /// </summary>
-        public static string RedMage_Content_Forte {
-            get {
+        public static string RedMage_Content_Forte
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Forte", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Grand Impact.
         /// </summary>
-        public static string RedMage_Content_Grand_Impact {
-            get {
+        public static string RedMage_Content_Grand_Impact
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Grand_Impact", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Manafication.
         /// </summary>
-        public static string RedMage_Content_Manafication {
-            get {
+        public static string RedMage_Content_Manafication
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Manafication", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Melee Combo on Bosses Only.
         /// </summary>
-        public static string RedMage_Content_Melee_Combo_on_Bosses_Only {
-            get {
+        public static string RedMage_Content_Melee_Combo_on_Bosses_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Melee_Combo_on_Bosses_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only in Melee Range.
         /// </summary>
-        public static string RedMage_Content_Only_in_Melee_Range {
-            get {
+        public static string RedMage_Content_Only_in_Melee_Range
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Only_in_Melee_Range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Prefulgence.
         /// </summary>
-        public static string RedMage_Content_Prefulgence {
-            get {
+        public static string RedMage_Content_Prefulgence
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Prefulgence", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resolution.
         /// </summary>
-        public static string RedMage_Content_Resolution {
-            get {
+        public static string RedMage_Content_Resolution
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Resolution", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Scorch.
         /// </summary>
-        public static string RedMage_Content_Scorch {
-            get {
+        public static string RedMage_Content_Scorch
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Scorch", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Southern Cross.
         /// </summary>
-        public static string RedMage_Content_Southern_Cross {
-            get {
+        public static string RedMage_Content_Southern_Cross
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Southern_Cross", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Scatter.
         /// </summary>
-        public static string RedMage_Content_Swiftcast_Scatter {
-            get {
+        public static string RedMage_Content_Swiftcast_Scatter
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Swiftcast_Scatter", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Contre Sixte.
         /// </summary>
-        public static string RedMage_Content_Use_Contre_Sixte {
-            get {
+        public static string RedMage_Content_Use_Contre_Sixte
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Contre_Sixte", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Full Aoe Rotation With At Least.
         /// </summary>
-        public static string RedMage_Content_Use_Full_Aoe_Rotation_With_At_Leas {
-            get {
+        public static string RedMage_Content_Use_Full_Aoe_Rotation_With_At_Leas
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Full_Aoe_Rotation_With_At_Leas", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Melee.
         /// </summary>
-        public static string RedMage_Content_Use_Melee {
-            get {
+        public static string RedMage_Content_Use_Melee
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Melee", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Moulinet.
         /// </summary>
-        public static string RedMage_Content_Use_Moulinet {
-            get {
+        public static string RedMage_Content_Use_Moulinet
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Moulinet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Reprise during movement in boss fights.
         /// </summary>
-        public static string RedMage_Content_Use_Reprise_during_movement_in_bos {
-            get {
+        public static string RedMage_Content_Use_Reprise_during_movement_in_bos
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Reprise_during_movement_in_bos", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Scatter.
         /// </summary>
-        public static string RedMage_Content_Use_Scatter {
-            get {
+        public static string RedMage_Content_Use_Scatter
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Scatter", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Swiftcast on Verthunder/Veraero.
         /// </summary>
-        public static string RedMage_Content_Use_Swiftcast_on_VerthunderVeraero {
-            get {
+        public static string RedMage_Content_Use_Swiftcast_on_VerthunderVeraero
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Swiftcast_on_VerthunderVeraero", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Veraero II / Verthunder II.
         /// </summary>
-        public static string RedMage_Content_Use_Veraero_II_Verthunder_II {
-            get {
+        public static string RedMage_Content_Use_Veraero_II_Verthunder_II
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_Veraero_II_Verthunder_II", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use With Dualcast.
         /// </summary>
-        public static string RedMage_Content_Use_With_Dualcast {
-            get {
+        public static string RedMage_Content_Use_With_Dualcast
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_With_Dualcast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use With Long Cast.
         /// </summary>
-        public static string RedMage_Content_Use_With_Long_Cast {
-            get {
+        public static string RedMage_Content_Use_With_Long_Cast
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Use_With_Long_Cast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Vercure When A Group Member Is Below.
         /// </summary>
-        public static string RedMage_Content_Vercure_When_A_Group_Member_Is_Bel {
-            get {
+        public static string RedMage_Content_Vercure_When_A_Group_Member_Is_Bel
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Vercure_When_A_Group_Member_Is_Bel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Verraise.
         /// </summary>
-        public static string RedMage_Content_Verraise {
-            get {
+        public static string RedMage_Content_Verraise
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Verraise", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Vice of Thorns.
         /// </summary>
-        public static string RedMage_Content_Vice_of_Thorns {
-            get {
+        public static string RedMage_Content_Vice_of_Thorns
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Content_Vice_of_Thorns", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to and Wh or Bl Mana Is At Most.
         /// </summary>
-        public static string RedMage_Text_and_Wh_or_Bl_Mana_Is_At_Most {
-            get {
+        public static string RedMage_Text_and_Wh_or_Bl_Mana_Is_At_Most
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_and_Wh_or_Bl_Mana_Is_At_Most", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Charges for Movement.
         /// </summary>
-        public static string RedMage_Text_Charges_for_Movement {
-            get {
+        public static string RedMage_Text_Charges_for_Movement
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Charges_for_Movement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t use Southern Cross if target has more than.
         /// </summary>
-        public static string RedMage_Text_Dont_use_Southern_Cross_if_target_has {
-            get {
+        public static string RedMage_Text_Dont_use_Southern_Cross_if_target_has
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Dont_use_Southern_Cross_if_target_has", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hold up to.
         /// </summary>
-        public static string RedMage_Text_Hold_up_to {
-            get {
+        public static string RedMage_Text_Hold_up_to
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Hold_up_to", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Limit Break.
         /// </summary>
-        public static string RedMage_Text_Limit_Break {
-            get {
+        public static string RedMage_Text_Limit_Break
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Limit_Break", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Percent Mana.
         /// </summary>
-        public static string RedMage_Text_Percent_Mana {
-            get {
+        public static string RedMage_Text_Percent_Mana
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Percent_Mana", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds for Embolden.
         /// </summary>
-        public static string RedMage_Text_Seconds_for_Embolden {
-            get {
+        public static string RedMage_Text_Seconds_for_Embolden
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Seconds_for_Embolden", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use When Wh or Bl Mana Is At Least.
         /// </summary>
-        public static string RedMage_Text_Use_When_Wh_or_Bl_Mana_Is_At_Least {
-            get {
+        public static string RedMage_Text_Use_When_Wh_or_Bl_Mana_Is_At_Least
+        {
+            get
+            {
                 return ResourceManager.GetString("RedMage_Text_Use_When_Wh_or_Bl_Mana_Is_At_Least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Any Tanks.
         /// </summary>
-        public static string Sage_Content_Any_Tanks {
-            get {
+        public static string Sage_Content_Any_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Any_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AoE When There Are.
         /// </summary>
-        public static string Sage_Content_AoE_When_There_Are {
-            get {
+        public static string Sage_Content_AoE_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_AoE_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Diagnosis.
         /// </summary>
-        public static string Sage_Content_Diagnosis {
-            get {
+        public static string Sage_Content_Diagnosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Diagnosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Disable Single Healing When Allies Ne.
         /// </summary>
-        public static string Sage_Content_Disable_Single_Healing_When_allies_ne {
-            get {
+        public static string Sage_Content_Disable_Single_Healing_When_allies_ne
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Disable_Single_Healing_When_allies_ne", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispel Only If Nearby Players Health Is Above.
         /// </summary>
-        public static string Sage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above {
-            get {
+        public static string Sage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dosis.
         /// </summary>
-        public static string Sage_Content_Dosis {
-            get {
+        public static string Sage_Content_Dosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Dosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to DoT Multiple Targets Up To.
         /// </summary>
-        public static string Sage_Content_DoT_Multiple_Targets_Up_To {
-            get {
+        public static string Sage_Content_DoT_Multiple_Targets_Up_To
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_DoT_Multiple_Targets_Up_To", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Druochole.
         /// </summary>
-        public static string Sage_Content_Druochole {
-            get {
+        public static string Sage_Content_Druochole
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Druochole", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Egeiro.
         /// </summary>
-        public static string Sage_Content_Egeiro {
-            get {
+        public static string Sage_Content_Egeiro
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Egeiro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Egeiro out of Combat.
         /// </summary>
-        public static string Sage_Content_Egeiro_out_of_Combat {
-            get {
+        public static string Sage_Content_Egeiro_out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Egeiro_out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasia.
         /// </summary>
-        public static string Sage_Content_Eukrasia {
-            get {
+        public static string Sage_Content_Eukrasia
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Eukrasia", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasian Diagnosis.
         /// </summary>
-        public static string Sage_Content_Eukrasian_Diagnosis {
-            get {
+        public static string Sage_Content_Eukrasian_Diagnosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Eukrasian_Diagnosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasian Dosis.
         /// </summary>
-        public static string Sage_Content_Eukrasian_Dosis {
-            get {
+        public static string Sage_Content_Eukrasian_Dosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Eukrasian_Dosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasian Dyskrasia.
         /// </summary>
-        public static string Sage_Content_Eukrasian_Dyskrasia {
-            get {
+        public static string Sage_Content_Eukrasian_Dyskrasia
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Eukrasian_Dyskrasia", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasian Pepsis.
         /// </summary>
-        public static string Sage_Content_Eukrasian_Pepsis {
-            get {
+        public static string Sage_Content_Eukrasian_Pepsis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Eukrasian_Pepsis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasian Prognosis.
         /// </summary>
-        public static string Sage_Content_Eukrasian_Prognosis {
-            get {
+        public static string Sage_Content_Eukrasian_Prognosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Eukrasian_Prognosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Haima.
         /// </summary>
-        public static string Sage_Content_Haima {
-            get {
+        public static string Sage_Content_Haima
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Haima", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Haima (saved).
         /// </summary>
-        public static string Sage_Content_Haima_saved {
-            get {
+        public static string Sage_Content_Haima_saved
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Haima_saved", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Holos.
         /// </summary>
-        public static string Sage_Content_Holos {
-            get {
+        public static string Sage_Content_Holos
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Holos", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ixochole.
         /// </summary>
-        public static string Sage_Content_Ixochole {
-            get {
+        public static string Sage_Content_Ixochole
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Ixochole", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kardia.
         /// </summary>
-        public static string Sage_Content_Kardia {
-            get {
+        public static string Sage_Content_Kardia
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Kardia", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kerachole.
         /// </summary>
-        public static string Sage_Content_Kerachole {
-            get {
+        public static string Sage_Content_Kerachole
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Kerachole", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Knockback.
         /// </summary>
-        public static string Sage_Content_Knockback {
-            get {
+        public static string Sage_Content_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Krasis.
         /// </summary>
-        public static string Sage_Content_Krasis {
-            get {
+        public static string Sage_Content_Krasis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Krasis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Limit Healing Buffs To Only Use.
         /// </summary>
-        public static string Sage_Content_Limit_Healing_Buffs_To_Only_Use {
-            get {
+        public static string Sage_Content_Limit_Healing_Buffs_To_Only_Use
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Limit_Healing_Buffs_To_Only_Use", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Main Tank Only.
         /// </summary>
-        public static string Sage_Content_Main_Tank_Only {
-            get {
+        public static string Sage_Content_Main_Tank_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Main_Tank_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mesotes / LB with at least.
         /// </summary>
-        public static string Sage_Content_Mesotes_LB_with_at_least {
-            get {
+        public static string Sage_Content_Mesotes_LB_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Mesotes_LB_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Healer Only.
         /// </summary>
-        public static string Sage_Content_On_Healer_Only {
-            get {
+        public static string Sage_Content_On_Healer_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_On_Healer_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Consider Own Buffs (disable to include co-sage).
         /// </summary>
-        public static string Sage_Content_Only_Consider_Own_Buffs_disable_to_in {
-            get {
+        public static string Sage_Content_Only_Consider_Own_Buffs_disable_to_in
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Only_Consider_Own_Buffs_disable_to_in", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Diagnosis.
         /// </summary>
-        public static string Sage_Content_Only_Heal_Alliance_Members_With_Diagn {
-            get {
+        public static string Sage_Content_Only_Heal_Alliance_Members_With_Diagn
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Only_Heal_Alliance_Members_With_Diagn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only shield while moving.
         /// </summary>
-        public static string Sage_Content_Only_shield_while_moving {
-            get {
+        public static string Sage_Content_Only_shield_while_moving
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Only_shield_while_moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only switch when current Kardia target is above.
         /// </summary>
-        public static string Sage_Content_Only_switch_when_current_Kardia_targe {
-            get {
+        public static string Sage_Content_Only_switch_when_current_Kardia_targe
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Only_switch_when_current_Kardia_targe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only when tank in range.
         /// </summary>
-        public static string Sage_Content_Only_when_tank_in_range {
-            get {
+        public static string Sage_Content_Only_when_tank_in_range
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Only_when_tank_in_range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to only with.
         /// </summary>
-        public static string Sage_Content_only_with {
-            get {
+        public static string Sage_Content_only_with
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_only_with", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Panhaima.
         /// </summary>
-        public static string Sage_Content_Panhaima {
-            get {
+        public static string Sage_Content_Panhaima
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Panhaima", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Panhaima (saved).
         /// </summary>
-        public static string Sage_Content_Panhaima_saved {
-            get {
+        public static string Sage_Content_Panhaima_saved
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Panhaima_saved", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pepsis.
         /// </summary>
-        public static string Sage_Content_Pepsis {
-            get {
+        public static string Sage_Content_Pepsis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Pepsis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Philosophia.
         /// </summary>
-        public static string Sage_Content_Philosophia {
-            get {
+        public static string Sage_Content_Philosophia
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Philosophia", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phlegma III.
         /// </summary>
-        public static string Sage_Content_Phlegma_III {
-            get {
+        public static string Sage_Content_Phlegma_III
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Phlegma_III", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Physis.
         /// </summary>
-        public static string Sage_Content_Physis {
-            get {
+        public static string Sage_Content_Physis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Physis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pneuma.
         /// </summary>
-        public static string Sage_Content_Pneuma {
-            get {
+        public static string Sage_Content_Pneuma
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Pneuma", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pneuma only to heal.
         /// </summary>
-        public static string Sage_Content_Pneuma_only_to_heal {
-            get {
+        public static string Sage_Content_Pneuma_only_to_heal
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Pneuma_only_to_heal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Prognosis.
         /// </summary>
-        public static string Sage_Content_Prognosis {
-            get {
+        public static string Sage_Content_Prognosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Prognosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Psyche When There Are.
         /// </summary>
-        public static string Sage_Content_Psyche_When_There_Are {
-            get {
+        public static string Sage_Content_Psyche_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Psyche_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Respect Tank In Range Settings From Healing Tab.
         /// </summary>
-        public static string Sage_Content_Respect_Tank_In_Range_Settings_From_H {
-            get {
+        public static string Sage_Content_Respect_Tank_In_Range_Settings_From_H
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Respect_Tank_In_Range_Settings_From_H", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shields w/ Eukrasian Diagnosis.
         /// </summary>
-        public static string Sage_Content_Shields_w_Eukrasian_Diagnosis {
-            get {
+        public static string Sage_Content_Shields_w_Eukrasian_Diagnosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Shields_w_Eukrasian_Diagnosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Soteria.
         /// </summary>
-        public static string Sage_Content_Soteria {
-            get {
+        public static string Sage_Content_Soteria
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Soteria", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stop Casting A Damage Spell If Someone Drops Below.
         /// </summary>
-        public static string Sage_Content_Stop_Casting_A_Damage_Spell_If_Someon {
-            get {
+        public static string Sage_Content_Stop_Casting_A_Damage_Spell_If_Someon
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Stop_Casting_A_Damage_Spell_If_Someon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stop when Addersting is full.
         /// </summary>
-        public static string Sage_Content_Stop_when_Addersting_is_full {
-            get {
+        public static string Sage_Content_Stop_when_Addersting_is_full
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Stop_when_Addersting_is_full", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stop when in combat.
         /// </summary>
-        public static string Sage_Content_Stop_when_in_combat {
-            get {
+        public static string Sage_Content_Stop_when_in_combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Stop_when_in_combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Egeiro.
         /// </summary>
-        public static string Sage_Content_Swiftcast_Egeiro {
-            get {
+        public static string Sage_Content_Swiftcast_Egeiro
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Swiftcast_Egeiro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Switch Kardia Targets below.
         /// </summary>
-        public static string Sage_Content_Switch_Kardia_Targets_below {
-            get {
+        public static string Sage_Content_Switch_Kardia_Targets_below
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Switch_Kardia_Targets_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tank only.
         /// </summary>
-        public static string Sage_Content_Tank_only {
-            get {
+        public static string Sage_Content_Tank_only
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Tank_only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Taurochole.
         /// </summary>
-        public static string Sage_Content_Taurochole {
-            get {
+        public static string Sage_Content_Taurochole
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Taurochole", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Toxicon At Full Addersting.
         /// </summary>
-        public static string Sage_Content_Toxicon_At_Full_Addersting {
-            get {
+        public static string Sage_Content_Toxicon_At_Full_Addersting
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Toxicon_At_Full_Addersting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Toxicon On Low Mana.
         /// </summary>
-        public static string Sage_Content_Toxicon_On_Low_Mana {
-            get {
+        public static string Sage_Content_Toxicon_On_Low_Mana
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Toxicon_On_Low_Mana", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Toxicon Single Targets While Moving.
         /// </summary>
-        public static string Sage_Content_Toxicon_Single_Targets_While_Moving {
-            get {
+        public static string Sage_Content_Toxicon_Single_Targets_While_Moving
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Toxicon_Single_Targets_While_Moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Toxikon.
         /// </summary>
-        public static string Sage_Content_Toxikon {
-            get {
+        public static string Sage_Content_Toxikon
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Toxikon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Kardia.
         /// </summary>
-        public static string Sage_Content_Use_Kardia {
-            get {
+        public static string Sage_Content_Use_Kardia
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_Kardia", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Krasis For Tank Only.
         /// </summary>
-        public static string Sage_Content_Use_Krasis_For_Tank_Only {
-            get {
+        public static string Sage_Content_Use_Krasis_For_Tank_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_Krasis_For_Tank_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use On Healer.
         /// </summary>
-        public static string Sage_Content_Use_On_Healer {
-            get {
+        public static string Sage_Content_Use_On_Healer
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_On_Healer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use On Tank.
         /// </summary>
-        public static string Sage_Content_Use_On_Tank {
-            get {
+        public static string Sage_Content_Use_On_Tank
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_On_Tank", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Rhizomata.
         /// </summary>
-        public static string Sage_Content_Use_Rhizomata {
-            get {
+        public static string Sage_Content_Use_Rhizomata
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_Rhizomata", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Soteria For Tank Only.
         /// </summary>
-        public static string Sage_Content_Use_Soteria_For_Tank_Only {
-            get {
+        public static string Sage_Content_Use_Soteria_For_Tank_Only
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_Soteria_For_Tank_Only", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Time Till Death For Damage Over T.
         /// </summary>
-        public static string Sage_Content_Use_Time_Till_Death_For_Damage_Over_T {
-            get {
+        public static string Sage_Content_Use_Time_Till_Death_For_Damage_Over_T
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_Time_Till_Death_For_Damage_Over_T", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use with Eukrasian Diagnosis.
         /// </summary>
-        public static string Sage_Content_Use_with_Eukrasian_Diagnosis {
-            get {
+        public static string Sage_Content_Use_with_Eukrasian_Diagnosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_with_Eukrasian_Diagnosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use with Eukrasian Prognosis.
         /// </summary>
-        public static string Sage_Content_Use_with_Eukrasian_Prognosis {
-            get {
+        public static string Sage_Content_Use_with_Eukrasian_Prognosis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_with_Eukrasian_Prognosis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use with Pneuma.
         /// </summary>
-        public static string Sage_Content_Use_with_Pneuma {
-            get {
+        public static string Sage_Content_Use_with_Pneuma
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Use_with_Pneuma", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Weave OGCD Abilities When Mana Is Over.
         /// </summary>
-        public static string Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove {
-            get {
+        public static string Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Addersgall or less.
         /// </summary>
-        public static string Sage_Text_Addersgall_or_less {
-            get {
+        public static string Sage_Text_Addersgall_or_less
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Addersgall_or_less", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies Are Lower Than.
         /// </summary>
-        public static string Sage_Text_Allies_Are_Lower_Than {
-            get {
+        public static string Sage_Text_Allies_Are_Lower_Than
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Allies_Are_Lower_Than", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allies need healing.
         /// </summary>
-        public static string Sage_Text_Allies_need_healing {
-            get {
+        public static string Sage_Text_Allies_need_healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Allies_need_healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allow Kardia on.
         /// </summary>
-        public static string Sage_Text_Allow_Kardia_on {
-            get {
+        public static string Sage_Text_Allow_Kardia_on
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Allow_Kardia_on", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always keep shield up on.
         /// </summary>
-        public static string Sage_Text_Always_keep_shield_up_on {
-            get {
+        public static string Sage_Text_Always_keep_shield_up_on
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Always_keep_shield_up_on", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Use Damage Over Time Spells If Enemy Is Dying Within.
         /// </summary>
-        public static string Sage_Text_Do_Not_Use_Damage_Over_Time_Spells_If_En {
-            get {
+        public static string Sage_Text_Do_Not_Use_Damage_Over_Time_Spells_If_En
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Do_Not_Use_Damage_Over_Time_Spells_If_En", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Eukrasian Diagnosis On.
         /// </summary>
-        public static string Sage_Text_Eukrasian_Diagnosis_On {
-            get {
+        public static string Sage_Text_Eukrasian_Diagnosis_On
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Eukrasian_Diagnosis_On", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healing Buffs: Panhaimatinon, Holos, Physis, Kerachole, Eukrasian Prognosis.
         /// </summary>
-        public static string Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis {
-            get {
+        public static string Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HP percent.
         /// </summary>
-        public static string Sage_Text_HP_percent {
-            get {
+        public static string Sage_Text_HP_percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_HP_percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Milliseconds Left Of Damage Over Time.
         /// </summary>
-        public static string Sage_Text_Milliseconds_Left_Of_Damage_Over_Time {
-            get {
+        public static string Sage_Text_Milliseconds_Left_Of_Damage_Over_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Milliseconds_Left_Of_Damage_Over_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Others if below.
         /// </summary>
-        public static string Sage_Text_Others_if_below {
-            get {
+        public static string Sage_Text_Others_if_below
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Others_if_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shields settings are extra shields which apply after those in General Healing..
         /// </summary>
-        public static string Sage_Text_Shields_settings_are_extra_shields_which {
-            get {
+        public static string Sage_Text_Shields_settings_are_extra_shields_which
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Shields_settings_are_extra_shields_which", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use at.
         /// </summary>
-        public static string Sage_Text_Use_at {
-            get {
+        public static string Sage_Text_Use_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Use_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use shield At.
         /// </summary>
-        public static string Sage_Text_Use_shield_At {
-            get {
+        public static string Sage_Text_Use_shield_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Use_shield_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Uses Pneuma HP % On Combat Tab.
         /// </summary>
-        public static string Sage_Text_Uses_Pneuma_HP_On_Combat_Tab {
-            get {
+        public static string Sage_Text_Uses_Pneuma_HP_On_Combat_Tab
+        {
+            get
+            {
                 return ResourceManager.GetString("Sage_Text_Uses_Pneuma_HP_On_Combat_Tab", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enpi (when not in range).
         /// </summary>
-        public static string Samurai_Content_Enpi_when_not_in_range {
-            get {
+        public static string Samurai_Content_Enpi_when_not_in_range
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Enpi_when_not_in_range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Tengentsu.
         /// </summary>
-        public static string Samurai_Content_FightLogic_Use_Tengentsu {
-            get {
+        public static string Samurai_Content_FightLogic_Use_Tengentsu
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_FightLogic_Use_Tengentsu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hagakure.
         /// </summary>
-        public static string Samurai_Content_Hagakure {
-            get {
+        public static string Samurai_Content_Hagakure
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hagakure", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Higabana.
         /// </summary>
-        public static string Samurai_Content_Higabana {
-            get {
+        public static string Samurai_Content_Higabana
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Higabana", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Chiten.
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Chiten {
-            get {
+        public static string Samurai_Content_Hissatsu_Chiten
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Chiten", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Guren (share Senei CD).
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Guren_share_Senei_CD {
-            get {
+        public static string Samurai_Content_Hissatsu_Guren_share_Senei_CD
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Guren_share_Senei_CD", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Gyoten (Dash forward).
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Gyoten_Dash_forward {
-            get {
+        public static string Samurai_Content_Hissatsu_Gyoten_Dash_forward
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Gyoten_Dash_forward", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Kyuten.
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Kyuten {
-            get {
+        public static string Samurai_Content_Hissatsu_Kyuten
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Kyuten", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Senei.
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Senei {
-            get {
+        public static string Samurai_Content_Hissatsu_Senei
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Senei", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Shinten.
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Shinten {
-            get {
+        public static string Samurai_Content_Hissatsu_Shinten
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Shinten", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Soten.
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Soten {
-            get {
+        public static string Samurai_Content_Hissatsu_Soten
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Soten", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hissatsu Yaten (Dash backward).
         /// </summary>
-        public static string Samurai_Content_Hissatsu_Yaten_Dash_backward {
-            get {
+        public static string Samurai_Content_Hissatsu_Yaten_Dash_backward
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Hissatsu_Yaten_Dash_backward", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ikishoten (Grant Ogi Aura).
         /// </summary>
-        public static string Samurai_Content_Ikishoten_Grant_Ogi_Aura {
-            get {
+        public static string Samurai_Content_Ikishoten_Grant_Ogi_Aura
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Ikishoten_Grant_Ogi_Aura", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kaeshi Goken.
         /// </summary>
-        public static string Samurai_Content_Kaeshi_Goken {
-            get {
+        public static string Samurai_Content_Kaeshi_Goken
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Kaeshi_Goken", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kaeshi Higanbana.
         /// </summary>
-        public static string Samurai_Content_Kaeshi_Higanbana {
-            get {
+        public static string Samurai_Content_Kaeshi_Higanbana
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Kaeshi_Higanbana", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kaeshi Namikiri.
         /// </summary>
-        public static string Samurai_Content_Kaeshi_Namikiri {
-            get {
+        public static string Samurai_Content_Kaeshi_Namikiri
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Kaeshi_Namikiri", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kaeshi Setsugekka.
         /// </summary>
-        public static string Samurai_Content_Kaeshi_Setsugekka {
-            get {
+        public static string Samurai_Content_Kaeshi_Setsugekka
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Kaeshi_Setsugekka", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Meikyo Shisui.
         /// </summary>
-        public static string Samurai_Content_Meikyo_Shisui {
-            get {
+        public static string Samurai_Content_Meikyo_Shisui
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Meikyo_Shisui", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Meikyo Shisui only with 0 Sen.
         /// </summary>
-        public static string Samurai_Content_Meikyo_Shisui_only_with_0_Sen {
-            get {
+        public static string Samurai_Content_Meikyo_Shisui_only_with_0_Sen
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Meikyo_Shisui_only_with_0_Sen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Midare Setsugekka.
         /// </summary>
-        public static string Samurai_Content_Midare_Setsugekka {
-            get {
+        public static string Samurai_Content_Midare_Setsugekka
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Midare_Setsugekka", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mineuchi.
         /// </summary>
-        public static string Samurai_Content_Mineuchi {
-            get {
+        public static string Samurai_Content_Mineuchi
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Mineuchi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ogi Namikiri.
         /// </summary>
-        public static string Samurai_Content_Ogi_Namikiri {
-            get {
+        public static string Samurai_Content_Ogi_Namikiri
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Ogi_Namikiri", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ogi Namikiri Combo.
         /// </summary>
-        public static string Samurai_Content_Ogi_Namikiri_Combo {
-            get {
+        public static string Samurai_Content_Ogi_Namikiri_Combo
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Ogi_Namikiri_Combo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Bosses.
         /// </summary>
-        public static string Samurai_Content_Only_Bosses {
-            get {
+        public static string Samurai_Content_Only_Bosses
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Only_Bosses", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shoha.
         /// </summary>
-        public static string Samurai_Content_Shoha {
-            get {
+        public static string Samurai_Content_Shoha
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Shoha", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shoha II.
         /// </summary>
-        public static string Samurai_Content_Shoha_II {
-            get {
+        public static string Samurai_Content_Shoha_II
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Shoha_II", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tendo Setsugekka Combo.
         /// </summary>
-        public static string Samurai_Content_Tendo_Setsugekka_Combo {
-            get {
+        public static string Samurai_Content_Tendo_Setsugekka_Combo
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Tendo_Setsugekka_Combo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tenka Goken.
         /// </summary>
-        public static string Samurai_Content_Tenka_Goken {
-            get {
+        public static string Samurai_Content_Tenka_Goken
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Tenka_Goken", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use TTD Checks/Save Cooldowns When Enemy Dying Within.
         /// </summary>
-        public static string Samurai_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within {
-            get {
+        public static string Samurai_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Use_TTD_ChecksSave_Cooldowns_When_Enemy_Dying_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Zanshin.
         /// </summary>
-        public static string Samurai_Content_Zanshin {
-            get {
+        public static string Samurai_Content_Zanshin
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Zanshin", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Zantetsuken / LB on target at.
         /// </summary>
-        public static string Samurai_Content_Zantetsuken_LB_on_target_at {
-            get {
+        public static string Samurai_Content_Zantetsuken_LB_on_target_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Zantetsuken_LB_on_target_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Zantetsuken / LB Only With Kuzushi (Instant Kill).
         /// </summary>
-        public static string Samurai_Content_Zantetsuken_LB_Only_With_Kuzushi_I {
-            get {
+        public static string Samurai_Content_Zantetsuken_LB_Only_With_Kuzushi_I
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Content_Zantetsuken_LB_Only_With_Kuzushi_I", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Don&apos;t use Zantetsuken if target has more than.
         /// </summary>
-        public static string Samurai_Text_Dont_use_Zantetsuken_if_target_has_mo {
-            get {
+        public static string Samurai_Text_Dont_use_Zantetsuken_if_target_has_mo
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_Dont_use_Zantetsuken_if_target_has_mo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Filler Strategy.
         /// </summary>
-        public static string Samurai_Text_Filler_Strategy {
-            get {
+        public static string Samurai_Text_Filler_Strategy
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_Filler_Strategy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD - Iaijutsu.
         /// </summary>
-        public static string Samurai_Text_GCD___Iaijutsu {
-            get {
+        public static string Samurai_Text_GCD___Iaijutsu
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD___Iaijutsu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD - Namikiri.
         /// </summary>
-        public static string Samurai_Text_GCD___Namikiri {
-            get {
+        public static string Samurai_Text_GCD___Namikiri
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD___Namikiri", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD - Other.
         /// </summary>
-        public static string Samurai_Text_GCD___Other {
-            get {
+        public static string Samurai_Text_GCD___Other
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD___Other", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD - TsubameGaeshi.
         /// </summary>
-        public static string Samurai_Text_GCD___TsubameGaeshi {
-            get {
+        public static string Samurai_Text_GCD___TsubameGaeshi
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD___TsubameGaeshi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD with Shifu: 2.01/2.00/1.99 =&gt; 4 GCD Filler.
         /// </summary>
-        public static string Samurai_Text_GCD_with_Shifu_201200199_4_GCD_Filler {
-            get {
+        public static string Samurai_Text_GCD_with_Shifu_201200199_4_GCD_Filler
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD_with_Shifu_201200199_4_GCD_Filler", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD with Shifu: 2.08/2.07/2.06 =&gt; 3 GCD Filler.
         /// </summary>
-        public static string Samurai_Text_GCD_with_Shifu_208207206_3_GCD_Filler {
-            get {
+        public static string Samurai_Text_GCD_with_Shifu_208207206_3_GCD_Filler
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD_with_Shifu_208207206_3_GCD_Filler", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to GCD with Shifu: 2.15/2.14 =&gt; 2 GCD Filler.
         /// </summary>
-        public static string Samurai_Text_GCD_with_Shifu_215214_2_GCD_Filler {
-            get {
+        public static string Samurai_Text_GCD_with_Shifu_215214_2_GCD_Filler
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_GCD_with_Shifu_215214_2_GCD_Filler", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kenki for Manual Spells (Gyoten/Yaten).
         /// </summary>
-        public static string Samurai_Text_Kenki_for_Manual_Spells_GyotenYaten {
-            get {
+        public static string Samurai_Text_Kenki_for_Manual_Spells_GyotenYaten
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_Kenki_for_Manual_Spells_GyotenYaten", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to oGCD - Using kenki.
         /// </summary>
-        public static string Samurai_Text_oGCD___Using_kenki {
-            get {
+        public static string Samurai_Text_oGCD___Using_kenki
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_oGCD___Using_kenki", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to oGCD - Using meditation.
         /// </summary>
-        public static string Samurai_Text_oGCD___Using_meditation {
-            get {
+        public static string Samurai_Text_oGCD___Using_meditation
+        {
+            get
+            {
                 return ResourceManager.GetString("Samurai_Text_oGCD___Using_meditation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Accession.
         /// </summary>
-        public static string Scholar_Content_Accession {
-            get {
+        public static string Scholar_Content_Accession
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Accession", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Adlo.
         /// </summary>
-        public static string Scholar_Content_Adlo {
-            get {
+        public static string Scholar_Content_Adlo
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Adlo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Adlo Deploy.
         /// </summary>
-        public static string Scholar_Content_Adlo_Deploy {
-            get {
+        public static string Scholar_Content_Adlo_Deploy
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Adlo_Deploy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Adloquium.
         /// </summary>
-        public static string Scholar_Content_Adloquium {
-            get {
+        public static string Scholar_Content_Adloquium
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Adloquium", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Adloquium At.
         /// </summary>
-        public static string Scholar_Content_Adloquium_At {
-            get {
+        public static string Scholar_Content_Adloquium_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Adloquium_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Art of War When There Are.
         /// </summary>
-        public static string Scholar_Content_Art_of_War_When_There_Are {
-            get {
+        public static string Scholar_Content_Art_of_War_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Art_of_War_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Baneful Impaction.
         /// </summary>
-        public static string Scholar_Content_Baneful_Impaction {
-            get {
+        public static string Scholar_Content_Baneful_Impaction
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Baneful_Impaction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bio.
         /// </summary>
-        public static string Scholar_Content_Bio {
-            get {
+        public static string Scholar_Content_Bio
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Bio", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bio up to.
         /// </summary>
-        public static string Scholar_Content_Bio_up_to {
-            get {
+        public static string Scholar_Content_Bio_up_to
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Bio_up_to", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Biolysis.
         /// </summary>
-        public static string Scholar_Content_Biolysis {
-            get {
+        public static string Scholar_Content_Biolysis
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Biolysis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chain Stratagem.
         /// </summary>
-        public static string Scholar_Content_Chain_Stratagem {
-            get {
+        public static string Scholar_Content_Chain_Stratagem
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Chain_Stratagem", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chain Strategem Strategy:.
         /// </summary>
-        public static string Scholar_Content_Chain_Strategem_Strategy {
-            get {
+        public static string Scholar_Content_Chain_Strategem_Strategy
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Chain_Strategem_Strategy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Consolation.
         /// </summary>
-        public static string Scholar_Content_Consolation {
-            get {
+        public static string Scholar_Content_Consolation
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Consolation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Deployment Tactics Crit Adlo When.
         /// </summary>
-        public static string Scholar_Content_Deployment_Tactics_Crit_Adlo_When {
-            get {
+        public static string Scholar_Content_Deployment_Tactics_Crit_Adlo_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Deployment_Tactics_Crit_Adlo_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Disable Single Healing When Allies.
         /// </summary>
-        public static string Scholar_Content_Disable_Single_Healing_When_allies {
-            get {
+        public static string Scholar_Content_Disable_Single_Healing_When_allies
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Disable_Single_Healing_When_allies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispel Only If Nearby Players Health Is Above.
         /// </summary>
-        public static string Scholar_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above {
-            get {
+        public static string Scholar_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Emergency Tactics.
         /// </summary>
-        public static string Scholar_Content_Emergency_Tactics {
-            get {
+        public static string Scholar_Content_Emergency_Tactics
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Emergency_Tactics", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Energy Drain.
         /// </summary>
-        public static string Scholar_Content_Energy_Drain {
-            get {
+        public static string Scholar_Content_Energy_Drain
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Energy_Drain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Excog.
         /// </summary>
-        public static string Scholar_Content_Excog {
-            get {
+        public static string Scholar_Content_Excog
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Excog", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Excogitation.
         /// </summary>
-        public static string Scholar_Content_Excogitation {
-            get {
+        public static string Scholar_Content_Excogitation
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Excogitation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Expedient.
         /// </summary>
-        public static string Scholar_Content_Expedient {
-            get {
+        public static string Scholar_Content_Expedient
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Expedient", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fey Blessing.
         /// </summary>
-        public static string Scholar_Content_Fey_Blessing {
-            get {
+        public static string Scholar_Content_Fey_Blessing
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Fey_Blessing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fey Illumination.
         /// </summary>
-        public static string Scholar_Content_Fey_Illumination {
-            get {
+        public static string Scholar_Content_Fey_Illumination
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Fey_Illumination", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Force Cast With Seraph (ignores above requirements if Seraph is summoned).
         /// </summary>
-        public static string Scholar_Content_Force_Cast_With_Seraph_ignores_abo {
-            get {
+        public static string Scholar_Content_Force_Cast_With_Seraph_ignores_abo
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Force_Cast_With_Seraph_ignores_abo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Indomitability.
         /// </summary>
-        public static string Scholar_Content_Indomitability {
-            get {
+        public static string Scholar_Content_Indomitability
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Indomitability", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Interrupt Healing If Target HP Gets Over.
         /// </summary>
-        public static string Scholar_Content_Interrupt_Healing_If_Target_HP_Gets_Over {
-            get {
+        public static string Scholar_Content_Interrupt_Healing_If_Target_HP_Gets_Over
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Interrupt_Healing_If_Target_HP_Gets_Over", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Keep Adloquium (Galvanize) Up On The Tank.
         /// </summary>
-        public static string Scholar_Content_Keep_Adloquium_Galvanize_Up_On_The {
-            get {
+        public static string Scholar_Content_Keep_Adloquium_Galvanize_Up_On_The
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Keep_Adloquium_Galvanize_Up_On_The", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Knockback.
         /// </summary>
-        public static string Scholar_Content_Knockback {
-            get {
+        public static string Scholar_Content_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lustrate.
         /// </summary>
-        public static string Scholar_Content_Lustrate {
-            get {
+        public static string Scholar_Content_Lustrate
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Lustrate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Manifestation.
         /// </summary>
-        public static string Scholar_Content_Manifestation {
-            get {
+        public static string Scholar_Content_Manifestation
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Manifestation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Physick.
         /// </summary>
-        public static string Scholar_Content_Only_Heal_Alliance_Members_With_Ph {
-            get {
+        public static string Scholar_Content_Only_Heal_Alliance_Members_With_Ph
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Only_Heal_Alliance_Members_With_Ph", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Healer.
         /// </summary>
-        public static string Scholar_Content_Only_Healer {
-            get {
+        public static string Scholar_Content_Only_Healer
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Only_Healer", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only If We Have No Aetherflow.
         /// </summary>
-        public static string Scholar_Content_Only_If_We_Have_No_Aetherflow {
-            get {
+        public static string Scholar_Content_Only_If_We_Have_No_Aetherflow
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Only_If_We_Have_No_Aetherflow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only When We Do Not Have Any Aetherflow.
         /// </summary>
-        public static string Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe {
-            get {
+        public static string Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Physick.
         /// </summary>
-        public static string Scholar_Content_Physick {
-            get {
+        public static string Scholar_Content_Physick
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Physick", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Place Sacred Soil on the party member closest to the center of the whole party..
         /// </summary>
-        public static string Scholar_Content_Place_Sacred_Soil_on_the_party_mem {
-            get {
+        public static string Scholar_Content_Place_Sacred_Soil_on_the_party_mem
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Place_Sacred_Soil_on_the_party_mem", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Protraction.
         /// </summary>
-        public static string Scholar_Content_Protraction {
-            get {
+        public static string Scholar_Content_Protraction
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Protraction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Recit Succor.
         /// </summary>
-        public static string Scholar_Content_Recit_Succor {
-            get {
+        public static string Scholar_Content_Recit_Succor
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Recit_Succor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Recitation.
         /// </summary>
-        public static string Scholar_Content_Recitation {
-            get {
+        public static string Scholar_Content_Recitation
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Recitation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrection.
         /// </summary>
-        public static string Scholar_Content_Resurrection {
-            get {
+        public static string Scholar_Content_Resurrection
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Resurrection", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrection Out of Combat.
         /// </summary>
-        public static string Scholar_Content_Resurrection_Out_of_Combat {
-            get {
+        public static string Scholar_Content_Resurrection_Out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Resurrection_Out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ruin 2.
         /// </summary>
-        public static string Scholar_Content_Ruin_2 {
-            get {
+        public static string Scholar_Content_Ruin_2
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Ruin_2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ruin / Broil.
         /// </summary>
-        public static string Scholar_Content_Ruin_Broil {
-            get {
+        public static string Scholar_Content_Ruin_Broil
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Ruin_Broil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sacred Soil.
         /// </summary>
-        public static string Scholar_Content_Sacred_Soil {
-            get {
+        public static string Scholar_Content_Sacred_Soil
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Sacred_Soil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seraphic Halo.
         /// </summary>
-        public static string Scholar_Content_Seraphic_Halo {
-            get {
+        public static string Scholar_Content_Seraphic_Halo
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Seraphic_Halo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seraphic Veil.
         /// </summary>
-        public static string Scholar_Content_Seraphic_Veil {
-            get {
+        public static string Scholar_Content_Seraphic_Veil
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Seraphic_Veil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seraphism.
         /// </summary>
-        public static string Scholar_Content_Seraphism {
-            get {
+        public static string Scholar_Content_Seraphism
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Seraphism", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seraphism / LB with at least.
         /// </summary>
-        public static string Scholar_Content_Seraphism_LB_with_at_least {
-            get {
+        public static string Scholar_Content_Seraphism_LB_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Seraphism_LB_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Soil.
         /// </summary>
-        public static string Scholar_Content_Soil {
-            get {
+        public static string Scholar_Content_Soil
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Soil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stop Casting A Damage Spell If Someone Drops Below That Health Percent.
         /// </summary>
-        public static string Scholar_Content_Stop_Casting_A_Damage_Spell_If_Som {
-            get {
+        public static string Scholar_Content_Stop_Casting_A_Damage_Spell_If_Som
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Stop_Casting_A_Damage_Spell_If_Som", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Succor.
         /// </summary>
-        public static string Scholar_Content_Succor {
-            get {
+        public static string Scholar_Content_Succor
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Succor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon Seraph.
         /// </summary>
-        public static string Scholar_Content_Summon_Seraph {
-            get {
+        public static string Scholar_Content_Summon_Seraph
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Summon_Seraph", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon Seraph with at least.
         /// </summary>
-        public static string Scholar_Content_Summon_Seraph_with_at_least {
-            get {
+        public static string Scholar_Content_Summon_Seraph_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Summon_Seraph_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Resurrection.
         /// </summary>
-        public static string Scholar_Content_Swiftcast_Resurrection {
-            get {
+        public static string Scholar_Content_Swiftcast_Resurrection
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Swiftcast_Resurrection", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Adloquium On Tank If They Have Aetherpact.
         /// </summary>
-        public static string Scholar_Content_Use_Adloquium_On_Tank_If_They_Have {
-            get {
+        public static string Scholar_Content_Use_Adloquium_On_Tank_If_They_Have
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Use_Adloquium_On_Tank_If_They_Have", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Only If Cast Will Capture The Tank.
         /// </summary>
-        public static string Scholar_Content_Use_Only_If_Cast_Will_Capture_The_ {
-            get {
+        public static string Scholar_Content_Use_Only_If_Cast_Will_Capture_The_
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Use_Only_If_Cast_Will_Capture_The_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Only With Seraph.
         /// </summary>
-        public static string Scholar_Content_Use_Only_With_Seraph {
-            get {
+        public static string Scholar_Content_Use_Only_With_Seraph
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Use_Only_With_Seraph", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Whispering Dawn.
         /// </summary>
-        public static string Scholar_Content_Whispering_Dawn {
-            get {
+        public static string Scholar_Content_Whispering_Dawn
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_Whispering_Dawn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to With Adlo.
         /// </summary>
-        public static string Scholar_Content_With_Adlo {
-            get {
+        public static string Scholar_Content_With_Adlo
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_With_Adlo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to With Excog.
         /// </summary>
-        public static string Scholar_Content_With_Excog {
-            get {
+        public static string Scholar_Content_With_Excog
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_With_Excog", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to With Indomitability.
         /// </summary>
-        public static string Scholar_Content_With_Indomitability {
-            get {
+        public static string Scholar_Content_With_Indomitability
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_With_Indomitability", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to With Lustrate.
         /// </summary>
-        public static string Scholar_Content_With_Lustrate {
-            get {
+        public static string Scholar_Content_With_Lustrate
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Content_With_Lustrate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aoe:.
         /// </summary>
-        public static string Scholar_Text_Aoe {
-            get {
+        public static string Scholar_Text_Aoe
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Aoe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Big Aoe:.
         /// </summary>
-        public static string Scholar_Text_Big_Aoe {
-            get {
+        public static string Scholar_Text_Big_Aoe
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Big_Aoe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Break Aetherpact If Tank Is Full HP Only With.
         /// </summary>
-        public static string Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O {
-            get {
+        public static string Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Consolation When.
         /// </summary>
-        public static string Scholar_Text_Consolation_When {
-            get {
+        public static string Scholar_Text_Consolation_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Consolation_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Use Damage Over Time Spells If.
         /// </summary>
-        public static string Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If {
-            get {
+        public static string Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Do_Not_Use_Damage_Over_Time_Spells_If", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Expedient When.
         /// </summary>
-        public static string Scholar_Text_Expedient_When {
-            get {
+        public static string Scholar_Text_Expedient_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Expedient_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fey Blessing When.
         /// </summary>
-        public static string Scholar_Text_Fey_Blessing_When {
-            get {
+        public static string Scholar_Text_Fey_Blessing_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Fey_Blessing_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fey Illumination When.
         /// </summary>
-        public static string Scholar_Text_Fey_Illumination_When {
-            get {
+        public static string Scholar_Text_Fey_Illumination_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Fey_Illumination_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to HP Percent.
         /// </summary>
-        public static string Scholar_Text_HP_Percent {
-            get {
+        public static string Scholar_Text_HP_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_HP_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Knockback:.
         /// </summary>
-        public static string Scholar_Text_Knockback {
-            get {
+        public static string Scholar_Text_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nearby Allies Are Below.
         /// </summary>
-        public static string Scholar_Text_Nearby_Allies_Are_Below {
-            get {
+        public static string Scholar_Text_Nearby_Allies_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Nearby_Allies_Are_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only If They Are Below.
         /// </summary>
-        public static string Scholar_Text_Only_If_They_Are_Below {
-            get {
+        public static string Scholar_Text_Only_If_They_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Only_If_They_Are_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to or less Enemies.
         /// </summary>
-        public static string Scholar_Text_or_less_Enemies {
-            get {
+        public static string Scholar_Text_or_less_Enemies
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_or_less_Enemies", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds Left On Bio.
         /// </summary>
-        public static string Scholar_Text_Seconds_Left_On_Bio {
-            get {
+        public static string Scholar_Text_Seconds_Left_On_Bio
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Seconds_Left_On_Bio", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Selected Pet:.
         /// </summary>
-        public static string Scholar_Text_Selected_Pet {
-            get {
+        public static string Scholar_Text_Selected_Pet
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Selected_Pet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon Seraph When.
         /// </summary>
-        public static string Scholar_Text_Summon_Seraph_When {
-            get {
+        public static string Scholar_Text_Summon_Seraph_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Summon_Seraph_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tankbusters:.
         /// </summary>
-        public static string Scholar_Text_Tankbusters {
-            get {
+        public static string Scholar_Text_Tankbusters
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Tankbusters", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Targets Are Below.
         /// </summary>
-        public static string Scholar_Text_Targets_Are_Below {
-            get {
+        public static string Scholar_Text_Targets_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Targets_Are_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Deployment Tactics on.
         /// </summary>
-        public static string Scholar_Text_Use_Deployment_Tactics_on {
-            get {
+        public static string Scholar_Text_Use_Deployment_Tactics_on
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Use_Deployment_Tactics_on", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When The Fairie Gauge Is At Least.
         /// </summary>
-        public static string Scholar_Text_When_The_Fairie_Gauge_Is_At_Least {
-            get {
+        public static string Scholar_Text_When_The_Fairie_Gauge_Is_At_Least
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_When_The_Fairie_Gauge_Is_At_Least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When The Tank Has Aetherpact, Only Physick If Below.
         /// </summary>
-        public static string Scholar_Text_When_The_Tank_Has_Aetherpact_Only_Phy {
-            get {
+        public static string Scholar_Text_When_The_Tank_Has_Aetherpact_Only_Phy
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_When_The_Tank_Has_Aetherpact_Only_Phy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When The Tank Is Below.
         /// </summary>
-        public static string Scholar_Text_When_The_Tank_Is_Below {
-            get {
+        public static string Scholar_Text_When_The_Tank_Is_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_When_The_Tank_Is_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Whispering Dawn When.
         /// </summary>
-        public static string Scholar_Text_Whispering_Dawn_When {
-            get {
+        public static string Scholar_Text_Whispering_Dawn_When
+        {
+            get
+            {
                 return ResourceManager.GetString("Scholar_Text_Whispering_Dawn_When", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon Chocobo.
         /// </summary>
-        public static string SummonChocoboCheckbox {
-            get {
+        public static string SummonChocoboCheckbox
+        {
+            get
+            {
                 return ResourceManager.GetString("SummonChocoboCheckbox", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aethercharge.
         /// </summary>
-        public static string Summoner_Content_Aethercharge {
-            get {
+        public static string Summoner_Content_Aethercharge
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Aethercharge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AkhMorn.
         /// </summary>
-        public static string Summoner_Content_AkhMorn {
-            get {
+        public static string Summoner_Content_AkhMorn
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_AkhMorn", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto.
         /// </summary>
-        public static string Summoner_Content_Auto {
-            get {
+        public static string Summoner_Content_Auto
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Auto", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Auto Raise.
         /// </summary>
-        public static string Summoner_Content_Auto_Raise {
-            get {
+        public static string Summoner_Content_Auto_Raise
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Auto_Raise", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bahamut.
         /// </summary>
-        public static string Summoner_Content_Bahamut {
-            get {
+        public static string Summoner_Content_Bahamut
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Bahamut", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bane Building Aethertrail.
         /// </summary>
-        public static string Summoner_Content_Bane_Building_Aethertrail {
-            get {
+        public static string Summoner_Content_Bane_Building_Aethertrail
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Bane_Building_Aethertrail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bane During Dreadwyrm Stance.
         /// </summary>
-        public static string Summoner_Content_Bane_During_Dreadwyrm_Stance {
-            get {
+        public static string Summoner_Content_Bane_During_Dreadwyrm_Stance
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Bane_During_Dreadwyrm_Stance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bane When There Are.
         /// </summary>
-        public static string Summoner_Content_Bane_When_There_Are {
-            get {
+        public static string Summoner_Content_Bane_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Bane_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Carbuncle.
         /// </summary>
-        public static string Summoner_Content_Carbuncle {
-            get {
+        public static string Summoner_Content_Carbuncle
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Carbuncle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Crimson Cyclone.
         /// </summary>
-        public static string Summoner_Content_Crimson_Cyclone {
-            get {
+        public static string Summoner_Content_Crimson_Cyclone
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Crimson_Cyclone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Crimson Cyclone (Rush forward).
         /// </summary>
-        public static string Summoner_Content_Crimson_Cyclone_Rush_forward {
-            get {
+        public static string Summoner_Content_Crimson_Cyclone_Rush_forward
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Crimson_Cyclone_Rush_forward", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Crimson Strike.
         /// </summary>
-        public static string Summoner_Content_Crimson_Strike {
-            get {
+        public static string Summoner_Content_Crimson_Strike
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Crimson_Strike", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Crimson Strike (Heavy knockback).
         /// </summary>
-        public static string Summoner_Content_Crimson_Strike_Heavy_knockback {
-            get {
+        public static string Summoner_Content_Crimson_Strike_Heavy_knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Crimson_Strike_Heavy_knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Deathflare.
         /// </summary>
-        public static string Summoner_Content_Deathflare {
-            get {
+        public static string Summoner_Content_Deathflare
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Deathflare", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Resummon Pet In Combat.
         /// </summary>
-        public static string Summoner_Content_Do_Not_Resummon_Pet_In_Combat {
-            get {
+        public static string Summoner_Content_Do_Not_Resummon_Pet_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Do_Not_Resummon_Pet_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Attack Invuln Hallowed Groun.
         /// </summary>
-        public static string Summoner_Content_Dont_attack_Invuln_Hallowed_Groun {
-            get {
+        public static string Summoner_Content_Dont_attack_Invuln_Hallowed_Groun
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Dont_attack_Invuln_Hallowed_Groun", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dreadwyrm.
         /// </summary>
-        public static string Summoner_Content_Dreadwyrm {
-            get {
+        public static string Summoner_Content_Dreadwyrm
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Dreadwyrm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dreadwyrm Trance When We&apos;re Stil In Combat For At Least.
         /// </summary>
-        public static string Summoner_Content_Dreadwyrm_Trance_When_Were_Stil_I {
-            get {
+        public static string Summoner_Content_Dreadwyrm_Trance_When_Were_Stil_I
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Dreadwyrm_Trance_When_Were_Stil_I", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Emerald/Garuda.
         /// </summary>
-        public static string Summoner_Content_EmeraldGaruda {
-            get {
+        public static string Summoner_Content_EmeraldGaruda
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_EmeraldGaruda", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Energy Siphon.
         /// </summary>
-        public static string Summoner_Content_Energy_Siphon {
-            get {
+        public static string Summoner_Content_Energy_Siphon
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Energy_Siphon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to EnergyDrain.
         /// </summary>
-        public static string Summoner_Content_EnergyDrain {
-            get {
+        public static string Summoner_Content_EnergyDrain
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_EnergyDrain", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enkindle.
         /// </summary>
-        public static string Summoner_Content_Enkindle {
-            get {
+        public static string Summoner_Content_Enkindle
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Enkindle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enkindle Bahamut.
         /// </summary>
-        public static string Summoner_Content_Enkindle_Bahamut {
-            get {
+        public static string Summoner_Content_Enkindle_Bahamut
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Enkindle_Bahamut", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enkindle Phoenix.
         /// </summary>
-        public static string Summoner_Content_Enkindle_Phoenix {
-            get {
+        public static string Summoner_Content_Enkindle_Phoenix
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Enkindle_Phoenix", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Fester.
         /// </summary>
-        public static string Summoner_Content_Fester {
-            get {
+        public static string Summoner_Content_Fester
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Fester", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Radiant Aegis.
         /// </summary>
-        public static string Summoner_Content_FightLogic_Use_Radiant_Aegis {
-            get {
+        public static string Summoner_Content_FightLogic_Use_Radiant_Aegis
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_FightLogic_Use_Radiant_Aegis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heal Party Member Pets.
         /// </summary>
-        public static string Summoner_Content_Heal_Party_Member_Pets {
-            get {
+        public static string Summoner_Content_Heal_Party_Member_Pets
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Heal_Party_Member_Pets", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ignore Alliance.
         /// </summary>
-        public static string Summoner_Content_Ignore_Alliance {
-            get {
+        public static string Summoner_Content_Ignore_Alliance
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Ignore_Alliance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Let Magitek Control Your Pet.
         /// </summary>
-        public static string Summoner_Content_Let_Magitek_Control_Your_Pet {
-            get {
+        public static string Summoner_Content_Let_Magitek_Control_Your_Pet
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Let_Magitek_Control_Your_Pet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lucid Dreaming Only When We Don&apos;t Have Any Aetherflow.
         /// </summary>
-        public static string Summoner_Content_Lucid_Dreaming_Only_When_We_Dont_ {
-            get {
+        public static string Summoner_Content_Lucid_Dreaming_Only_When_We_Dont_
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Lucid_Dreaming_Only_When_We_Dont_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lucid Dreaming When Below.
         /// </summary>
-        public static string Summoner_Content_Lucid_Dreaming_When_Below {
-            get {
+        public static string Summoner_Content_Lucid_Dreaming_When_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Lucid_Dreaming_When_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lux Solaris when party members below.
         /// </summary>
-        public static string Summoner_Content_Lux_Solaris_when_party_members_be {
-            get {
+        public static string Summoner_Content_Lux_Solaris_when_party_members_be
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Lux_Solaris_when_party_members_be", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mountain Buster.
         /// </summary>
-        public static string Summoner_Content_Mountain_Buster {
-            get {
+        public static string Summoner_Content_Mountain_Buster
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Mountain_Buster", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Necrotize (Grants Further Ruin stacks).
         /// </summary>
-        public static string Summoner_Content_Necrotize_Grants_Further_Ruin_sta {
-            get {
+        public static string Summoner_Content_Necrotize_Grants_Further_Ruin_sta
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Necrotize_Grants_Further_Ruin_sta", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only For Bosses.
         /// </summary>
-        public static string Summoner_Content_Only_For_Bosses {
-            get {
+        public static string Summoner_Content_Only_For_Bosses
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Only_For_Bosses", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Titan.
         /// </summary>
-        public static string Summoner_Content_Only_Titan {
-            get {
+        public static string Summoner_Content_Only_Titan
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Only_Titan", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Outburst, Pet Outburst, Tri-Disaster, Pet Disaster, Pet Catastrophe, Astral Flare, Brand of Purgatory.
         /// </summary>
-        public static string Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_Astral_Flare_Brand_of_Purgatory {
-            get {
+        public static string Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_Astral_Flare_Brand_of_Purgatory
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_" +
                         "Astral_Flare_Brand_of_Purgatory", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Painflare.
         /// </summary>
-        public static string Summoner_Content_Painflare {
-            get {
+        public static string Summoner_Content_Painflare
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Painflare", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Painflare When There Are.
         /// </summary>
-        public static string Summoner_Content_Painflare_When_There_Are {
-            get {
+        public static string Summoner_Content_Painflare_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Painflare_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pet Should Always Attack Your Target.
         /// </summary>
-        public static string Summoner_Content_Pet_Should_Always_Attack_Your_Tar {
-            get {
+        public static string Summoner_Content_Pet_Should_Always_Attack_Your_Tar
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Pet_Should_Always_Attack_Your_Tar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phoenix.
         /// </summary>
-        public static string Summoner_Content_Phoenix {
-            get {
+        public static string Summoner_Content_Phoenix
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Phoenix", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Physick Party When Below.
         /// </summary>
-        public static string Summoner_Content_Physick_Party_When_Below {
-            get {
+        public static string Summoner_Content_Physick_Party_When_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Physick_Party_When_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Physick Self When Solo if Under.
         /// </summary>
-        public static string Summoner_Content_Physick_Self_When_Solo_if_Under {
-            get {
+        public static string Summoner_Content_Physick_Self_When_Solo_if_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Physick_Self_When_Solo_if_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Physick Solo When Below.
         /// </summary>
-        public static string Summoner_Content_Physick_Solo_When_Below {
-            get {
+        public static string Summoner_Content_Physick_Solo_When_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Physick_Solo_When_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Radiant Aegis.
         /// </summary>
-        public static string Summoner_Content_Radiant_Aegis {
-            get {
+        public static string Summoner_Content_Radiant_Aegis
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Radiant_Aegis", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Radiant Aegis At.
         /// </summary>
-        public static string Summoner_Content_Radiant_Aegis_At {
-            get {
+        public static string Summoner_Content_Radiant_Aegis_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Radiant_Aegis_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raise Alliance DPS.
         /// </summary>
-        public static string Summoner_Content_Raise_Alliance_DPS {
-            get {
+        public static string Summoner_Content_Raise_Alliance_DPS
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Raise_Alliance_DPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raise Alliance Healers.
         /// </summary>
-        public static string Summoner_Content_Raise_Alliance_Healers {
-            get {
+        public static string Summoner_Content_Raise_Alliance_Healers
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Raise_Alliance_Healers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raise Alliance Tanks.
         /// </summary>
-        public static string Summoner_Content_Raise_Alliance_Tanks {
-            get {
+        public static string Summoner_Content_Raise_Alliance_Tanks
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Raise_Alliance_Tanks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rekindle Lowest Target Under.
         /// </summary>
-        public static string Summoner_Content_Rekindle_Lowest_Target_Under {
-            get {
+        public static string Summoner_Content_Rekindle_Lowest_Target_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Rekindle_Lowest_Target_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ruby/Ifrit.
         /// </summary>
-        public static string Summoner_Content_RubyIfrit {
-            get {
+        public static string Summoner_Content_RubyIfrit
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_RubyIfrit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ruin IV.
         /// </summary>
-        public static string Summoner_Content_Ruin_IV {
-            get {
+        public static string Summoner_Content_Ruin_IV
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Ruin_IV", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ruin, Pet Ruin, Pet Rite.
         /// </summary>
-        public static string Summoner_Content_Ruin_Pet_Ruin_Pet_Rite {
-            get {
+        public static string Summoner_Content_Ruin_Pet_Ruin_Pet_Rite
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Ruin_Pet_Ruin_Pet_Rite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Searing Light.
         /// </summary>
-        public static string Summoner_Content_Searing_Light {
-            get {
+        public static string Summoner_Content_Searing_Light
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Searing_Light", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Shadowflare When There Are.
         /// </summary>
-        public static string Summoner_Content_Shadowflare_When_There_Are {
-            get {
+        public static string Summoner_Content_Shadowflare_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Shadowflare_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Slipstream.
         /// </summary>
-        public static string Summoner_Content_Slipstream {
-            get {
+        public static string Summoner_Content_Slipstream
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Slipstream", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Slowcast.
         /// </summary>
-        public static string Summoner_Content_Slowcast {
-            get {
+        public static string Summoner_Content_Slowcast
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Slowcast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon Bahamut.
         /// </summary>
-        public static string Summoner_Content_Summon_Bahamut {
-            get {
+        public static string Summoner_Content_Summon_Bahamut
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Summon_Bahamut", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Summon / LB.
         /// </summary>
-        public static string Summoner_Content_Summon_LB {
-            get {
+        public static string Summoner_Content_Summon_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Summon_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast.
         /// </summary>
-        public static string Summoner_Content_Swiftcast {
-            get {
+        public static string Summoner_Content_Swiftcast
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Swiftcast", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Ruby Rite.
         /// </summary>
-        public static string Summoner_Content_Swiftcast_Ruby_Rite {
-            get {
+        public static string Summoner_Content_Swiftcast_Ruby_Rite
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Swiftcast_Ruby_Rite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Throttle Egi Summons with TTL.
         /// </summary>
-        public static string Summoner_Content_Throttle_Egi_Summons_with_TTL {
-            get {
+        public static string Summoner_Content_Throttle_Egi_Summons_with_TTL
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Throttle_Egi_Summons_with_TTL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Throttle Trance Summons with TTL.
         /// </summary>
-        public static string Summoner_Content_Throttle_Trance_Summons_with_TTL {
-            get {
+        public static string Summoner_Content_Throttle_Trance_Summons_with_TTL
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Throttle_Trance_Summons_with_TTL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Topaz/Titan.
         /// </summary>
-        public static string Summoner_Content_TopazTitan {
-            get {
+        public static string Summoner_Content_TopazTitan
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_TopazTitan", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Lucid Dreaming With Deathflare.
         /// </summary>
-        public static string Summoner_Content_Use_Lucid_Dreaming_With_Deathflar {
-            get {
+        public static string Summoner_Content_Use_Lucid_Dreaming_With_Deathflar
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_Use_Lucid_Dreaming_With_Deathflar", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Object.
         /// </summary>
-        public static object Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time {
-            get {
+        public static object Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_Over_Time
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("Summoner_Content_Use_Time_Till_Death_For_Area_Of_Effect_Spells_With_Long_Damage_O" +
                         "ver_Time", resourceCulture);
                 return ((object)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When There&apos;s No Healer Present or Alive..
         /// </summary>
-        public static string Summoner_Content_When_Theres_No_Healer_Present_or_ {
-            get {
+        public static string Summoner_Content_When_Theres_No_Healer_Present_or_
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Content_When_Theres_No_Healer_Present_or_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aoe.
         /// </summary>
-        public static string Summoner_Text_Aoe {
-            get {
+        public static string Summoner_Text_Aoe
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Aoe", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Astral Flow:.
         /// </summary>
-        public static string Summoner_Text_Astral_Flow {
-            get {
+        public static string Summoner_Text_Astral_Flow
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Astral_Flow", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bahamut when enemy health below.
         /// </summary>
-        public static string Summoner_Text_Bahamut_when_enemy_health_below {
-            get {
+        public static string Summoner_Text_Bahamut_when_enemy_health_below
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Bahamut_when_enemy_health_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Buffs:.
         /// </summary>
-        public static string Summoner_Text_Buffs {
-            get {
+        public static string Summoner_Text_Buffs
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Buffs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heals:.
         /// </summary>
-        public static string Summoner_Text_Heals {
-            get {
+        public static string Summoner_Text_Heals
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Heals", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Health Percent,.
         /// </summary>
-        public static string Summoner_Text_Health_Percent {
-            get {
+        public static string Summoner_Text_Health_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Health_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Use Area Of Effect If There Is At Least.
         /// </summary>
-        public static string Summoner_Text_Only_Use_Area_Of_Effect_If_There_Is_ {
-            get {
+        public static string Summoner_Text_Only_Use_Area_Of_Effect_If_There_Is_
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Only_Use_Area_Of_Effect_If_There_Is_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Other:.
         /// </summary>
-        public static string Summoner_Text_Other {
-            get {
+        public static string Summoner_Text_Other
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Other", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pet Summons:.
         /// </summary>
-        public static string Summoner_Text_Pet_Summons {
-            get {
+        public static string Summoner_Text_Pet_Summons
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Pet_Summons", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Phoenix when self health below.
         /// </summary>
-        public static string Summoner_Text_Phoenix_when_self_health_below {
-            get {
+        public static string Summoner_Text_Phoenix_when_self_health_below
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Phoenix_when_self_health_below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Resurrection:.
         /// </summary>
-        public static string Summoner_Text_Resurrection {
-            get {
+        public static string Summoner_Text_Resurrection
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Resurrection", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds Left In Combat.
         /// </summary>
-        public static string Summoner_Text_Seconds_Left_In_Combat {
-            get {
+        public static string Summoner_Text_Seconds_Left_In_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Seconds_Left_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds Left On DOTs And.
         /// </summary>
-        public static string Summoner_Text_Seconds_Left_On_DOTs_And {
-            get {
+        public static string Summoner_Text_Seconds_Left_On_DOTs_And
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Seconds_Left_On_DOTs_And", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Selected Pet.
         /// </summary>
-        public static string Summoner_Text_Selected_Pet {
-            get {
+        public static string Summoner_Text_Selected_Pet
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Selected_Pet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Single Target:.
         /// </summary>
-        public static string Summoner_Text_Single_Target {
-            get {
+        public static string Summoner_Text_Single_Target
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Single_Target", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to That Have At Least.
         /// </summary>
-        public static string Summoner_Text_That_Have_At_Least {
-            get {
+        public static string Summoner_Text_That_Have_At_Least
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_That_Have_At_Least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Trances:.
         /// </summary>
-        public static string Summoner_Text_Trances {
-            get {
+        public static string Summoner_Text_Trances
+        {
+            get
+            {
                 return ResourceManager.GetString("Summoner_Text_Trances", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Active CR.
         /// </summary>
-        public static string UserControls_Content_Active_CR {
-            get {
+        public static string UserControls_Content_Active_CR
+        {
+            get
+            {
                 return ResourceManager.GetString("UserControls_Content_Active_CR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Execute LimitBreak.
         /// </summary>
-        public static string UserControls_Content_Execute_LimitBreak {
-            get {
+        public static string UserControls_Content_Execute_LimitBreak
+        {
+            get
+            {
                 return ResourceManager.GetString("UserControls_Content_Execute_LimitBreak", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PVP Mode.
         /// </summary>
-        public static string UserControls_Content_PVP_Mode {
-            get {
+        public static string UserControls_Content_PVP_Mode
+        {
+            get
+            {
                 return ResourceManager.GetString("UserControls_Content_PVP_Mode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reset Custom Opener.
         /// </summary>
-        public static string UserControls_Content_Reset_Custom_Opener {
-            get {
+        public static string UserControls_Content_Reset_Custom_Opener
+        {
+            get
+            {
                 return ResourceManager.GetString("UserControls_Content_Reset_Custom_Opener", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Chocobo.
         /// </summary>
-        public static string UserControls_Content_Use_Chocobo {
-            get {
+        public static string UserControls_Content_Use_Chocobo
+        {
+            get
+            {
                 return ResourceManager.GetString("UserControls_Content_Use_Chocobo", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Custom Opener.
         /// </summary>
-        public static string UserControls_Content_Use_Custom_Opener {
-            get {
+        public static string UserControls_Content_Use_Custom_Opener
+        {
+            get
+            {
                 return ResourceManager.GetString("UserControls_Content_Use_Custom_Opener", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Activate Combat Routine.
         /// </summary>
-        public static string Views_Content_Activate_Combat_Routine {
-            get {
+        public static string Views_Content_Activate_Combat_Routine
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Activate_Combat_Routine", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lift Zoom Restrictions.
         /// </summary>
-        public static string Views_Content_Lift_Zoom_Restrictions {
-            get {
+        public static string Views_Content_Lift_Zoom_Restrictions
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Lift_Zoom_Restrictions", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Make Adjustable.
         /// </summary>
-        public static string Views_Content_Make_Adjustable {
-            get {
+        public static string Views_Content_Make_Adjustable
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Make_Adjustable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Pre-Defined Magitek Toggle Enabled.
         /// </summary>
-        public static string Views_Content_Pre_Defined_Magitek_Toggle_Enabled {
-            get {
+        public static string Views_Content_Pre_Defined_Magitek_Toggle_Enabled
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Pre_Defined_Magitek_Toggle_Enabled", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reset Overlay Positions.
         /// </summary>
-        public static string Views_Content_Reset_Overlay_Positions {
-            get {
+        public static string Views_Content_Reset_Overlay_Positions
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Reset_Overlay_Positions", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use AutoFace for InView checks.
         /// </summary>
-        public static string Views_Content_Use_AutoFace_for_InView_checks {
-            get {
+        public static string Views_Content_Use_AutoFace_for_InView_checks
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Use_AutoFace_for_InView_checks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use The Combat Message Overlay.
         /// </summary>
-        public static string Views_Content_Use_The_Combat_Message_Overlay {
-            get {
+        public static string Views_Content_Use_The_Combat_Message_Overlay
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Use_The_Combat_Message_Overlay", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use The Setting Overlay with.
         /// </summary>
-        public static string Views_Content_Use_The_Setting_Overlay_with {
-            get {
+        public static string Views_Content_Use_The_Setting_Overlay_with
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Content_Use_The_Setting_Overlay_with", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Area Of Effect.
         /// </summary>
-        public static string Views_Header_Area_Of_Effect {
-            get {
+        public static string Views_Header_Area_Of_Effect
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Area_Of_Effect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aspected Healing.
         /// </summary>
-        public static string Views_Header_Aspected_Healing {
-            get {
+        public static string Views_Header_Aspected_Healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Aspected_Healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Damage Over Time.
         /// </summary>
-        public static string Views_Header_Damage_Over_Time {
-            get {
+        public static string Views_Header_Damage_Over_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Damage_Over_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemy Aura History.
         /// </summary>
-        public static string Views_Header_Enemy_Aura_History {
-            get {
+        public static string Views_Header_Enemy_Aura_History
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Enemy_Aura_History", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enemy Target History.
         /// </summary>
-        public static string Views_Header_Enemy_Target_History {
-            get {
+        public static string Views_Header_Enemy_Target_History
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Enemy_Target_History", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to General Combat.
         /// </summary>
-        public static string Views_Header_General_Combat {
-            get {
+        public static string Views_Header_General_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_General_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to General Dispels.
         /// </summary>
-        public static string Views_Header_General_Dispels {
-            get {
+        public static string Views_Header_General_Dispels
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_General_Dispels", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to General Healing.
         /// </summary>
-        public static string Views_Header_General_Healing {
-            get {
+        public static string Views_Header_General_Healing
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_General_Healing", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healing Lists.
         /// </summary>
-        public static string Views_Header_Healing_Lists {
-            get {
+        public static string Views_Header_Healing_Lists
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Healing_Lists", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healing Options.
         /// </summary>
-        public static string Views_Header_Healing_Options {
-            get {
+        public static string Views_Header_Healing_Options
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Healing_Options", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Healing Priority.
         /// </summary>
-        public static string Views_Header_Healing_Priority {
-            get {
+        public static string Views_Header_Healing_Priority
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Healing_Priority", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to High Priority Dispels.
         /// </summary>
-        public static string Views_Header_High_Priority_Dispels {
-            get {
+        public static string Views_Header_High_Priority_Dispels
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_High_Priority_Dispels", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Interrupts and Stuns.
         /// </summary>
-        public static string Views_Header_Interrupts_and_Stuns {
-            get {
+        public static string Views_Header_Interrupts_and_Stuns
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Interrupts_and_Stuns", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Party Member Aura History.
         /// </summary>
-        public static string Views_Header_Party_Member_Aura_History {
-            get {
+        public static string Views_Header_Party_Member_Aura_History
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Party_Member_Aura_History", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Player Spell Cast History.
         /// </summary>
-        public static string Views_Header_Player_Spell_Cast_History {
-            get {
+        public static string Views_Header_Player_Spell_Cast_History
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Header_Player_Spell_Cast_History", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Font Size:.
         /// </summary>
-        public static string Views_Text_Font_Size {
-            get {
+        public static string Views_Text_Font_Size
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Text_Font_Size", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Latency Offset (Ping):.
         /// </summary>
-        public static string Views_Text_Latency_Offset_Ping {
-            get {
+        public static string Views_Text_Latency_Offset_Ping
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Text_Latency_Offset_Ping", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to NoClippy/XivAlexander simulate a 10ms ping.
         /// </summary>
-        public static string Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi {
-            get {
+        public static string Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Overlay Settings.
         /// </summary>
-        public static string Views_Text_Overlay_Settings {
-            get {
+        public static string Views_Text_Overlay_Settings
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Text_Overlay_Settings", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Settings Overlay Size:.
         /// </summary>
-        public static string Views_Text_Settings_Overlay_Size {
-            get {
+        public static string Views_Text_Settings_Overlay_Size
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_Text_Settings_Overlay_Size", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Check to move and resize the combat message overlay. Uncheck when done..
         /// </summary>
-        public static string Views_ToolTip_Check_to_move_and_resize_the_combat_ {
-            get {
+        public static string Views_ToolTip_Check_to_move_and_resize_the_combat_
+        {
+            get
+            {
                 return ResourceManager.GetString("Views_ToolTip_Check_to_move_and_resize_the_combat_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Death Rattle.
         /// </summary>
-        public static string Viper_Content_Enable_Death_Rattle {
-            get {
+        public static string Viper_Content_Enable_Death_Rattle
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Enable_Death_Rattle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Dreadwinder.
         /// </summary>
-        public static string Viper_Content_Enable_Dreadwinder {
-            get {
+        public static string Viper_Content_Enable_Dreadwinder
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Enable_Dreadwinder", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Last Lash.
         /// </summary>
-        public static string Viper_Content_Enable_Last_Lash {
-            get {
+        public static string Viper_Content_Enable_Last_Lash
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Enable_Last_Lash", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Reawaken.
         /// </summary>
-        public static string Viper_Content_Enable_Reawaken {
-            get {
+        public static string Viper_Content_Enable_Reawaken
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Enable_Reawaken", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Slither.
         /// </summary>
-        public static string Viper_Content_Enable_Slither {
-            get {
+        public static string Viper_Content_Enable_Slither
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Enable_Slither", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enable UncoiledFury.
         /// </summary>
-        public static string Viper_Content_Enable_UncoiledFury {
-            get {
+        public static string Viper_Content_Enable_UncoiledFury
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Enable_UncoiledFury", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to SerpentIre.
         /// </summary>
-        public static string Viper_Content_SerpentIre {
-            get {
+        public static string Viper_Content_SerpentIre
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_SerpentIre", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Snake Scales.
         /// </summary>
-        public static string Viper_Content_Snake_Scales {
-            get {
+        public static string Viper_Content_Snake_Scales
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Snake_Scales", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Steel/Reaving Maw.
         /// </summary>
-        public static string Viper_Content_SteelReaving_Maw {
-            get {
+        public static string Viper_Content_SteelReaving_Maw
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_SteelReaving_Maw", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Vicepit.
         /// </summary>
-        public static string Viper_Content_Vicepit {
-            get {
+        public static string Viper_Content_Vicepit
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_Vicepit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to World Swallower / LB on target at.
         /// </summary>
-        public static string Viper_Content_World_Swallower_LB_on_target_at {
-            get {
+        public static string Viper_Content_World_Swallower_LB_on_target_at
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Content_World_Swallower_LB_on_target_at", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to And Save At Least.
         /// </summary>
-        public static string Viper_Text_and_save_at_least {
-            get {
+        public static string Viper_Text_and_save_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Text_and_save_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to but do Not Use If Enemy Is Dying Within.
         /// </summary>
-        public static string Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within {
-            get {
+        public static string Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to charges when out of range.
         /// </summary>
-        public static string Viper_Text_charges_when_out_of_range {
-            get {
+        public static string Viper_Text_charges_when_out_of_range
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Text_charges_when_out_of_range", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Uncoiled Fury (ranged).
         /// </summary>
-        public static string Viper_Text_Uncoiled_Fury_ranged {
-            get {
+        public static string Viper_Text_Uncoiled_Fury_ranged
+        {
+            get
+            {
                 return ResourceManager.GetString("Viper_Text_Uncoiled_Fury_ranged", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bloodwhetting.
         /// </summary>
-        public static string Warrior_Content_Bloodwhetting {
-            get {
+        public static string Warrior_Content_Bloodwhetting
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Bloodwhetting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Blota.
         /// </summary>
-        public static string Warrior_Content_Blota {
-            get {
+        public static string Warrior_Content_Blota
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Blota", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Chaotic Cyclone.
         /// </summary>
-        public static string Warrior_Content_Chaotic_Cyclone {
-            get {
+        public static string Warrior_Content_Chaotic_Cyclone
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Chaotic_Cyclone", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FellCleave.
         /// </summary>
-        public static string Warrior_Content_FellCleave {
-            get {
+        public static string Warrior_Content_FellCleave
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_FellCleave", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FightLogic Use Shake It Off.
         /// </summary>
-        public static string Warrior_Content_FightLogic_Use_Shake_It_Off {
-            get {
+        public static string Warrior_Content_FightLogic_Use_Shake_It_Off
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_FightLogic_Use_Shake_It_Off", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Holmgang.
         /// </summary>
-        public static string Warrior_Content_Holmgang {
-            get {
+        public static string Warrior_Content_Holmgang
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Holmgang", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Inner Chaos.
         /// </summary>
-        public static string Warrior_Content_Inner_Chaos {
-            get {
+        public static string Warrior_Content_Inner_Chaos
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Inner_Chaos", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nascent Flash.
         /// </summary>
-        public static string Warrior_Content_Nascent_Flash {
-            get {
+        public static string Warrior_Content_Nascent_Flash
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Nascent_Flash", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only in Melee. Save.
         /// </summary>
-        public static string Warrior_Content_Only_in_Melee_Save {
-            get {
+        public static string Warrior_Content_Only_in_Melee_Save
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Only_in_Melee_Save", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Onslaught with at least.
         /// </summary>
-        public static string Warrior_Content_Onslaught_with_at_least {
-            get {
+        public static string Warrior_Content_Onslaught_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Onslaught_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Orogeny with at least.
         /// </summary>
-        public static string Warrior_Content_Orogeny_with_at_least {
-            get {
+        public static string Warrior_Content_Orogeny_with_at_least
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Orogeny_with_at_least", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Overpower Combo When There Are.
         /// </summary>
-        public static string Warrior_Content_Overpower_Combo_When_There_Are {
-            get {
+        public static string Warrior_Content_Overpower_Combo_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Overpower_Combo_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Primal Rend.
         /// </summary>
-        public static string Warrior_Content_Primal_Rend {
-            get {
+        public static string Warrior_Content_Primal_Rend
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Primal_Rend", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Primal Rend / Onslaught Only in Melee Range.
         /// </summary>
-        public static string Warrior_Content_Primal_Rend_Onslaught_Only_in_Mele {
-            get {
+        public static string Warrior_Content_Primal_Rend_Onslaught_Only_in_Mele
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Primal_Rend_Onslaught_Only_in_Mele", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Primal Ruination.
         /// </summary>
-        public static string Warrior_Content_Primal_Ruination {
-            get {
+        public static string Warrior_Content_Primal_Ruination
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Primal_Ruination", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Primal Scream.
         /// </summary>
-        public static string Warrior_Content_Primal_Scream {
-            get {
+        public static string Warrior_Content_Primal_Scream
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Primal_Scream", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Primal Wrath.
         /// </summary>
-        public static string Warrior_Content_Primal_Wrath {
-            get {
+        public static string Warrior_Content_Primal_Wrath
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Primal_Wrath", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Provoke.
         /// </summary>
-        public static string Warrior_Content_Provoke {
-            get {
+        public static string Warrior_Content_Provoke
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Provoke", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Rampart.
         /// </summary>
-        public static string Warrior_Content_Rampart {
-            get {
+        public static string Warrior_Content_Rampart
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Rampart", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raw Intuition / Bloodwhetting.
         /// </summary>
-        public static string Warrior_Content_Raw_Intuition_Bloodwhetting {
-            get {
+        public static string Warrior_Content_Raw_Intuition_Bloodwhetting
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Raw_Intuition_Bloodwhetting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reprisal.
         /// </summary>
-        public static string Warrior_Content_Reprisal {
-            get {
+        public static string Warrior_Content_Reprisal
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Reprisal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ShakeItOff.
         /// </summary>
-        public static string Warrior_Content_ShakeItOff {
-            get {
+        public static string Warrior_Content_ShakeItOff
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_ShakeItOff", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Steel Cyclone / Decimate When There Are.
         /// </summary>
-        public static string Warrior_Content_Steel_Cyclone_Decimate_When_There_ {
-            get {
+        public static string Warrior_Content_Steel_Cyclone_Decimate_When_There_
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Steel_Cyclone_Decimate_When_There_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tank Stance.
         /// </summary>
-        public static string Warrior_Content_Tank_Stance {
-            get {
+        public static string Warrior_Content_Tank_Stance
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Tank_Stance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tomahawk.
         /// </summary>
-        public static string Warrior_Content_Tomahawk {
-            get {
+        public static string Warrior_Content_Tomahawk
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Tomahawk", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Aoe (Overpower, Mythril, Orogeny, ChaoticCyclone, Decimate).
         /// </summary>
-        public static string Warrior_Content_Use_Aoe_Overpower_Mythril_Orogeny_ {
-            get {
+        public static string Warrior_Content_Use_Aoe_Overpower_Mythril_Orogeny_
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Aoe_Overpower_Mythril_Orogeny_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Beast Gauge (ChaoticCyclone/Decimation/Fellcleave/InnerChaos won&apos;t be used outside IR).
         /// </summary>
-        public static string Warrior_Content_Use_Beast_Gauge_ChaoticCycloneDeci {
-            get {
+        public static string Warrior_Content_Use_Beast_Gauge_ChaoticCycloneDeci
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Beast_Gauge_ChaoticCycloneDeci", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Berserk / Inner Release.
         /// </summary>
-        public static string Warrior_Content_Use_Berserk_Inner_Release {
-            get {
+        public static string Warrior_Content_Use_Berserk_Inner_Release
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Berserk_Inner_Release", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Chaotic Cyclone When There Are.
         /// </summary>
-        public static string Warrior_Content_Use_Chaotic_Cyclone_When_There_Are {
-            get {
+        public static string Warrior_Content_Use_Chaotic_Cyclone_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Chaotic_Cyclone_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Equilibrium When Under.
         /// </summary>
-        public static string Warrior_Content_Use_Equilibrium_When_Under {
-            get {
+        public static string Warrior_Content_Use_Equilibrium_When_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Equilibrium_When_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use FellCleave.
         /// </summary>
-        public static string Warrior_Content_Use_FellCleave {
-            get {
+        public static string Warrior_Content_Use_FellCleave
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_FellCleave", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Infuriate At.
         /// </summary>
-        public static string Warrior_Content_Use_Infuriate_At {
-            get {
+        public static string Warrior_Content_Use_Infuriate_At
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Infuriate_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use InnerChaos.
         /// </summary>
-        public static string Warrior_Content_Use_InnerChaos {
-            get {
+        public static string Warrior_Content_Use_InnerChaos
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_InnerChaos", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Onslaught.
         /// </summary>
-        public static string Warrior_Content_Use_Onslaught {
-            get {
+        public static string Warrior_Content_Use_Onslaught
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Onslaught", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Primal Rend.
         /// </summary>
-        public static string Warrior_Content_Use_Primal_Rend {
-            get {
+        public static string Warrior_Content_Use_Primal_Rend
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Primal_Rend", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Primal Rend only when not moving.
         /// </summary>
-        public static string Warrior_Content_Use_Primal_Rend_only_when_not_movi {
-            get {
+        public static string Warrior_Content_Use_Primal_Rend_only_when_not_movi
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Primal_Rend_only_when_not_movi", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Steel Cyclone / Decimate When There Are.
         /// </summary>
-        public static string Warrior_Content_Use_Steel_Cyclone_Decimate_When_Th {
-            get {
+        public static string Warrior_Content_Use_Steel_Cyclone_Decimate_When_Th
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Steel_Cyclone_Decimate_When_Th", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Thrill Of Battle When Under.
         /// </summary>
-        public static string Warrior_Content_Use_Thrill_Of_Battle_When_Under {
-            get {
+        public static string Warrior_Content_Use_Thrill_Of_Battle_When_Under
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Thrill_Of_Battle_When_Under", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Tomahawk To Pull.
         /// </summary>
-        public static string Warrior_Content_Use_Tomahawk_To_Pull {
-            get {
+        public static string Warrior_Content_Use_Tomahawk_To_Pull
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Tomahawk_To_Pull", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Tomahawk To Pull Nearby Enemies (When Already In Combat).
         /// </summary>
-        public static string Warrior_Content_Use_Tomahawk_To_Pull_Nearby_Enemie {
-            get {
+        public static string Warrior_Content_Use_Tomahawk_To_Pull_Nearby_Enemie
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Tomahawk_To_Pull_Nearby_Enemie", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Tomahawk To Regain Aggro.
         /// </summary>
-        public static string Warrior_Content_Use_Tomahawk_To_Regain_Aggro {
-            get {
+        public static string Warrior_Content_Use_Tomahawk_To_Regain_Aggro
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Use_Tomahawk_To_Regain_Aggro", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Vengeance / Damnation.
         /// </summary>
-        public static string Warrior_Content_Vengeance_Damnation {
-            get {
+        public static string Warrior_Content_Vengeance_Damnation
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Content_Vengeance_Damnation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Or Under Beast Gauge.
         /// </summary>
-        public static string Warrior_Text_Or_Under_Beast_Gauge {
-            get {
+        public static string Warrior_Text_Or_Under_Beast_Gauge
+        {
+            get
+            {
                 return ResourceManager.GetString("Warrior_Text_Or_Under_Beast_Gauge", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aero / Dia.
         /// </summary>
-        public static string WhiteMage_Content_Aero_Dia {
-            get {
+        public static string WhiteMage_Content_Aero_Dia
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Aero_Dia", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Afflatus Misery.
         /// </summary>
-        public static string WhiteMage_Content_Afflatus_Misery {
-            get {
+        public static string WhiteMage_Content_Afflatus_Misery
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Afflatus_Misery", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Afflatus Purgation / LB.
         /// </summary>
-        public static string WhiteMage_Content_Afflatus_Purgation_LB {
-            get {
+        public static string WhiteMage_Content_Afflatus_Purgation_LB
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Afflatus_Purgation_LB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Afflatus Rapture.
         /// </summary>
-        public static string WhiteMage_Content_Afflatus_Rapture {
-            get {
+        public static string WhiteMage_Content_Afflatus_Rapture
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Afflatus_Rapture", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Afflatus Solace.
         /// </summary>
-        public static string WhiteMage_Content_Afflatus_Solace {
-            get {
+        public static string WhiteMage_Content_Afflatus_Solace
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Afflatus_Solace", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always Dot on the move.
         /// </summary>
-        public static string WhiteMage_Content_Always_Dot_on_the_move {
-            get {
+        public static string WhiteMage_Content_Always_Dot_on_the_move
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Always_Dot_on_the_move", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aquaveil.
         /// </summary>
-        public static string WhiteMage_Content_Aquaveil {
-            get {
+        public static string WhiteMage_Content_Aquaveil
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Aquaveil", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Aquaveil At.
         /// </summary>
-        public static string WhiteMage_Content_Aquaveil_At {
-            get {
+        public static string WhiteMage_Content_Aquaveil_At
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Aquaveil_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Assize To Deal Damage When There Are.
         /// </summary>
-        public static string WhiteMage_Content_Assize_To_Deal_Damage_When_There {
-            get {
+        public static string WhiteMage_Content_Assize_To_Deal_Damage_When_There
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Assize_To_Deal_Damage_When_There", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Assize To Heal ONLY.
         /// </summary>
-        public static string WhiteMage_Content_Assize_To_Heal_ONLY {
-            get {
+        public static string WhiteMage_Content_Assize_To_Heal_ONLY
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Assize_To_Heal_ONLY", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Assize To Regain Mana At.
         /// </summary>
-        public static string WhiteMage_Content_Assize_To_Regain_Mana_At {
-            get {
+        public static string WhiteMage_Content_Assize_To_Regain_Mana_At
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Assize_To_Regain_Mana_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Asylum.
         /// </summary>
-        public static string WhiteMage_Content_Asylum {
-            get {
+        public static string WhiteMage_Content_Asylum
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Asylum", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Before Cure 3.
         /// </summary>
-        public static string WhiteMage_Content_Before_Cure_3 {
-            get {
+        public static string WhiteMage_Content_Before_Cure_3
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Before_Cure_3", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Before Holy.
         /// </summary>
-        public static string WhiteMage_Content_Before_Holy {
-            get {
+        public static string WhiteMage_Content_Before_Holy
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Before_Holy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Before Swiftcast Raise.
         /// </summary>
-        public static string WhiteMage_Content_Before_Swiftcast_Raise {
-            get {
+        public static string WhiteMage_Content_Before_Swiftcast_Raise
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Before_Swiftcast_Raise", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Benediction.
         /// </summary>
-        public static string WhiteMage_Content_Benediction {
-            get {
+        public static string WhiteMage_Content_Benediction
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Benediction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cure.
         /// </summary>
-        public static string WhiteMage_Content_Cure {
-            get {
+        public static string WhiteMage_Content_Cure
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Cure", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cure 2.
         /// </summary>
-        public static string WhiteMage_Content_Cure_2 {
-            get {
+        public static string WhiteMage_Content_Cure_2
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Cure_2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cure 3.
         /// </summary>
-        public static string WhiteMage_Content_Cure_3 {
-            get {
+        public static string WhiteMage_Content_Cure_3
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Cure_3", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cure At.
         /// </summary>
-        public static string WhiteMage_Content_Cure_At {
-            get {
+        public static string WhiteMage_Content_Cure_At
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Cure_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Disable Single Healing When Alli.
         /// </summary>
-        public static string WhiteMage_Content_Disable_Single_Healing_When_alli {
-            get {
+        public static string WhiteMage_Content_Disable_Single_Healing_When_alli
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Disable_Single_Healing_When_alli", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispel Anything That Is Removable.
         /// </summary>
-        public static string WhiteMage_Content_Dispel_Anything_That_Is_Removable {
-            get {
+        public static string WhiteMage_Content_Dispel_Anything_That_Is_Removable
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Dispel_Anything_That_Is_Removable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dispel Only If Nearby Players Health Is Above.
         /// </summary>
-        public static string WhiteMage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above {
-            get {
+        public static string WhiteMage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Divine Benison.
         /// </summary>
-        public static string WhiteMage_Content_Divine_Benison {
-            get {
+        public static string WhiteMage_Content_Divine_Benison
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Divine_Benison", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Divine Caress.
         /// </summary>
-        public static string WhiteMage_Content_Divine_Caress {
-            get {
+        public static string WhiteMage_Content_Divine_Caress
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Divine_Caress", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Use Divine Seal And Presence Of Mind At The Same Time.
         /// </summary>
-        public static string WhiteMage_Content_Do_Not_Use_Divine_Seal_And_Prese {
-            get {
+        public static string WhiteMage_Content_Do_Not_Use_Divine_Seal_And_Prese
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Do_Not_Use_Divine_Seal_And_Prese", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dot up to.
         /// </summary>
-        public static string WhiteMage_Content_Dot_up_to {
-            get {
+        public static string WhiteMage_Content_Dot_up_to
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Dot_up_to", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Holy When There Are.
         /// </summary>
-        public static string WhiteMage_Content_Holy_When_There_Are {
-            get {
+        public static string WhiteMage_Content_Holy_When_There_Are
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Holy_When_There_Are", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Interrupt Healing If Target HP Gets Over.
         /// </summary>
-        public static string WhiteMage_Content_Interrupt_Healing_If_Target_HP_Gets_Over {
-            get {
+        public static string WhiteMage_Content_Interrupt_Healing_If_Target_HP_Gets_Over
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Interrupt_Healing_If_Target_HP_Gets_Over", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Knockback.
         /// </summary>
-        public static string WhiteMage_Content_Knockback {
-            get {
+        public static string WhiteMage_Content_Knockback
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Knockback", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Liturgy Of The Bell.
         /// </summary>
-        public static string WhiteMage_Content_Liturgy_Of_The_Bell {
-            get {
+        public static string WhiteMage_Content_Liturgy_Of_The_Bell
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Liturgy_Of_The_Bell", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Medica.
         /// </summary>
-        public static string WhiteMage_Content_Medica {
-            get {
+        public static string WhiteMage_Content_Medica
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Medica", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Medica 2.
         /// </summary>
-        public static string WhiteMage_Content_Medica_2 {
-            get {
+        public static string WhiteMage_Content_Medica_2
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Medica_2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Medica 3.
         /// </summary>
-        public static string WhiteMage_Content_Medica_3 {
-            get {
+        public static string WhiteMage_Content_Medica_3
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Medica_3", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Miracle Of Nature.
         /// </summary>
-        public static string WhiteMage_Content_Miracle_Of_Nature {
-            get {
+        public static string WhiteMage_Content_Miracle_Of_Nature
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Miracle_Of_Nature", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Below 90 Mana Percent.
         /// </summary>
-        public static string WhiteMage_Content_Only_Below_90_Mana_Percent {
-            get {
+        public static string WhiteMage_Content_Only_Below_90_Mana_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Only_Below_90_Mana_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Regen.
         /// </summary>
-        public static string WhiteMage_Content_Only_Heal_Alliance_Members_With_Regen {
-            get {
+        public static string WhiteMage_Content_Only_Heal_Alliance_Members_With_Regen
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Only_Heal_Alliance_Members_With_Regen", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Only Regen While Moving.
         /// </summary>
-        public static string WhiteMage_Content_Only_Regen_While_Moving {
-            get {
+        public static string WhiteMage_Content_Only_Regen_While_Moving
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Only_Regen_While_Moving", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Place asylum on the party member closest to the center of the whole party..
         /// </summary>
-        public static string WhiteMage_Content_Place_asylum_on_the_party_member {
-            get {
+        public static string WhiteMage_Content_Place_asylum_on_the_party_member
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Place_asylum_on_the_party_member", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Place healing blossom on the party member closest to the center of the whole party..
         /// </summary>
-        public static string WhiteMage_Content_Place_healing_blossom_on_the_par {
-            get {
+        public static string WhiteMage_Content_Place_healing_blossom_on_the_par
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Place_healing_blossom_on_the_par", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Plenary Indulgence.
         /// </summary>
-        public static string WhiteMage_Content_Plenary_Indulgence {
-            get {
+        public static string WhiteMage_Content_Plenary_Indulgence
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Plenary_Indulgence", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Presence Of Mind.
         /// </summary>
-        public static string WhiteMage_Content_Presence_Of_Mind {
-            get {
+        public static string WhiteMage_Content_Presence_Of_Mind
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Presence_Of_Mind", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raise.
         /// </summary>
-        public static string WhiteMage_Content_Raise {
-            get {
+        public static string WhiteMage_Content_Raise
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Raise", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Raise Out of Combat.
         /// </summary>
-        public static string WhiteMage_Content_Raise_Out_of_Combat {
-            get {
+        public static string WhiteMage_Content_Raise_Out_of_Combat
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Raise_Out_of_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stone / Glare.
         /// </summary>
-        public static string WhiteMage_Content_Stone_Glare {
-            get {
+        public static string WhiteMage_Content_Stone_Glare
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Stone_Glare", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Stop Casting A Damage Spell If Someone Drops.
         /// </summary>
-        public static string WhiteMage_Content_Stop_Casting_A_Damage_Spell_If_S {
-            get {
+        public static string WhiteMage_Content_Stop_Casting_A_Damage_Spell_If_S
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Stop_Casting_A_Damage_Spell_If_S", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Swiftcast Raise.
         /// </summary>
-        public static string WhiteMage_Content_Swiftcast_Raise {
-            get {
+        public static string WhiteMage_Content_Swiftcast_Raise
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Swiftcast_Raise", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Temperance.
         /// </summary>
-        public static string WhiteMage_Content_Temperance {
-            get {
+        public static string WhiteMage_Content_Temperance
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Temperance", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tetragrammaton.
         /// </summary>
-        public static string WhiteMage_Content_Tetragrammaton {
-            get {
+        public static string WhiteMage_Content_Tetragrammaton
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Tetragrammaton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Thin Air.
         /// </summary>
-        public static string WhiteMage_Content_Thin_Air {
-            get {
+        public static string WhiteMage_Content_Thin_Air
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Thin_Air", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Presence Of Mind Before Holy.
         /// </summary>
-        public static string WhiteMage_Content_Use_Presence_Of_Mind_Before_Holy {
-            get {
+        public static string WhiteMage_Content_Use_Presence_Of_Mind_Before_Holy
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Use_Presence_Of_Mind_Before_Holy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Presence Of Mind For Tank Only.
         /// </summary>
-        public static string WhiteMage_Content_Use_Presence_Of_Mind_For_Tank_On {
-            get {
+        public static string WhiteMage_Content_Use_Presence_Of_Mind_For_Tank_On
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Use_Presence_Of_Mind_For_Tank_On", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Presence Of Mind On Cooldown for GlareIV.
         /// </summary>
-        public static string WhiteMage_Content_Use_Presence_Of_Mind_On_Cooldown {
-            get {
+        public static string WhiteMage_Content_Use_Presence_Of_Mind_On_Cooldown
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Use_Presence_Of_Mind_On_Cooldown", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Time Till Death For Damage Over Time.
         /// </summary>
-        public static string WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time {
-            get {
+        public static string WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Content_Use_Time_Till_Death_For_Damage_Over_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Always Keep Regen Up On.
         /// </summary>
-        public static string WhiteMage_Text_Always_Keep_Regen_Up_On {
-            get {
+        public static string WhiteMage_Text_Always_Keep_Regen_Up_On
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Always_Keep_Regen_Up_On", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Cure Someone With Regen Unless They Are Below.
         /// </summary>
-        public static string WhiteMage_Text_Do_Not_Cure_Someone_With_Regen_Unle {
-            get {
+        public static string WhiteMage_Text_Do_Not_Cure_Someone_With_Regen_Unle
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Do_Not_Cure_Someone_With_Regen_Unle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Do Not Use Damage Over Time Spells.
         /// </summary>
-        public static string WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_ {
-            get {
+        public static string WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Do_Not_Use_Damage_Over_Time_Spells_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Dont Do Damage If There Are More Th.
         /// </summary>
-        public static string WhiteMage_Text_Dont_Do_Damage_If_There_Are_More_Th {
-            get {
+        public static string WhiteMage_Text_Dont_Do_Damage_If_There_Are_More_Th
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Dont_Do_Damage_If_There_Are_More_Th", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hp Percent.
         /// </summary>
-        public static string WhiteMage_Text_HP_Percent {
-            get {
+        public static string WhiteMage_Text_HP_Percent
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_HP_Percent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Regen On.
         /// </summary>
-        public static string WhiteMage_Text_Regen_On {
-            get {
+        public static string WhiteMage_Text_Regen_On
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Regen_On", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Seconds Left Of Damage Over Time.
         /// </summary>
-        public static string WhiteMage_Text_Seconds_Left_Of_Damage_Over_Time {
-            get {
+        public static string WhiteMage_Text_Seconds_Left_Of_Damage_Over_Time
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Seconds_Left_Of_Damage_Over_Time", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Damage Over Time When The Enemy Has At Least.
         /// </summary>
-        public static string WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy {
-            get {
+        public static string WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Use_Damage_Over_Time_When_The_Enemy", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Regen At.
         /// </summary>
-        public static string WhiteMage_Text_Use_Regen_At {
-            get {
+        public static string WhiteMage_Text_Use_Regen_At
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_Use_Regen_At", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When Mana Falls Below.
         /// </summary>
-        public static string WhiteMage_Text_When_Mana_Falls_Below {
-            get {
+        public static string WhiteMage_Text_When_Mana_Falls_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_When_Mana_Falls_Below", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When Party Members Are Below.
         /// </summary>
-        public static string WhiteMage_Text_When_Party_Members_Are_Below {
-            get {
+        public static string WhiteMage_Text_When_Party_Members_Are_Below
+        {
+            get
+            {
                 return ResourceManager.GetString("WhiteMage_Text_When_Party_Members_Are_Below", resourceCulture);
             }
         }

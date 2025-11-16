@@ -4008,6 +4008,9 @@
   <data name="Generic_Recuperate_Heal_At" xml:space="preserve">
     <value>恢复 (在[xx]时治疗)</value>
   </data>
+  <data name="Generic_AutoGuard_MarksmansSpite" xml:space="preserve">
+    <value>自动防御 (针对狙击手之怨)</value>
+  </data>
   <data name="Generic_Ast" xml:space="preserve">
     <value>占星</value>
   </data>
