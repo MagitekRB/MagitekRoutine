@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.Scholar.Combat"
+<UserControl x:Class="Magitek.Views.UserControls.Scholar.Combat"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:Magitek.Controls"
@@ -18,7 +18,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <Grid Margin="5">
@@ -96,6 +97,7 @@
             <StackPanel Margin="5" Orientation="Horizontal">
                 <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Baneful_Impaction}" IsChecked="{Binding ScholarSettings.BanefulImpaction, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
-        </controls:SettingsBlock>
-    </StackPanel>
+        </controls:SettingsBlock>        
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

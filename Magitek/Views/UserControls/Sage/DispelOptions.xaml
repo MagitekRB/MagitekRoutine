@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.Sage.DispelOptions"
+<UserControl x:Class="Magitek.Views.UserControls.Sage.DispelOptions"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -16,7 +16,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
@@ -36,6 +37,7 @@
                     <TextBlock Text="{x:Static properties:Resources.Generic_Percent}" VerticalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
-        </controls:SettingsBlock>
-    </StackPanel>
+        </controls:SettingsBlock>        
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

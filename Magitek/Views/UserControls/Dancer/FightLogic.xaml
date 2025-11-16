@@ -32,7 +32,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
 
 
@@ -64,6 +65,7 @@
             </StackPanel>
         </controls:SettingsBlock>
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

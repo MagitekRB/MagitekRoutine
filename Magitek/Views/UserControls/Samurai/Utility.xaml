@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.Samurai.Utility"
+<UserControl x:Class="Magitek.Views.UserControls.Samurai.Utility"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -29,7 +29,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
@@ -83,7 +84,8 @@
                 <CheckBox Content="{x:Static properties:Resources.Generic_Use_Interrupt_And_Stun_If_Activated}" IsChecked="{Binding SamuraiSettings.UseStunOrInterrupt, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource InterruptStrategy}}" SelectedValue="{Binding SamuraiSettings.Strategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
             </StackPanel>
-        </controls:SettingsBlock>
-    </StackPanel>
+        </controls:SettingsBlock>        
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

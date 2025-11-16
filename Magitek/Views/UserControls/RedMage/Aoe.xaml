@@ -20,8 +20,9 @@
     <UserControl.DataContext>
         <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
     </UserControl.DataContext>
-    <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
-        <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="10">
 
 
             <StackPanel Margin="0,3,0,3" Orientation="Horizontal">
@@ -55,7 +56,8 @@
                 </StackPanel>
             </StackPanel>
 
-        </StackPanel>
-    </controls:SettingsBlock>
+            </StackPanel>
+        </controls:SettingsBlock>
+    </ScrollViewer>
 
 </UserControl>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.RedMage.SingleTarget" 
+<UserControl x:Class="Magitek.Views.UserControls.RedMage.SingleTarget" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties" 
@@ -13,7 +13,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
@@ -44,7 +45,8 @@
             <StackPanel Margin="5">
                 <CheckBox Content="{x:Static properties:Resources.RedMage_Content_Use_Reprise_during_movement_in_bos}" IsChecked="{Binding RedMageSettings.UseReprise, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
-        </controls:SettingsBlock>
-    </StackPanel>
+        </controls:SettingsBlock>        
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

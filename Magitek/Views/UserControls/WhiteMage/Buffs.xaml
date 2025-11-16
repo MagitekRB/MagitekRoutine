@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.WhiteMage.Buffs"
+<UserControl x:Class="Magitek.Views.UserControls.WhiteMage.Buffs"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -18,7 +18,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5" Orientation="Horizontal">
@@ -125,6 +126,7 @@
                 <CheckBox Grid.Column="3" Margin="10,1,0,1" Content="{x:Static properties:Resources.Generic_Only_Tank}" IsChecked="{Binding WhiteMageSettings.AquaveilTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <CheckBox Grid.Column="4" Margin="10,1,0,1" Content="{x:Static properties:Resources.Generic_Main_Tank}" IsChecked="{Binding WhiteMageSettings.AquaveilMainTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
-        </controls:SettingsBlock>
-    </StackPanel>
+        </controls:SettingsBlock>        
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

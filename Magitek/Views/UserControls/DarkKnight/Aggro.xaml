@@ -18,7 +18,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
         <StackPanel Margin="5" Orientation="Horizontal">
             <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Grit_Tank_Stance}" IsChecked="{Binding DarkKnightSettings.Grit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
         </StackPanel>
@@ -55,5 +56,6 @@
                 </StackPanel>
             </Grid>
         </controls:SettingsBlock>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

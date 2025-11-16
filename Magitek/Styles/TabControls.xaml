@@ -178,6 +178,136 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MainTabChangelog"
+           TargetType="{x:Type TabItem}">
+        <Setter Property="Foreground"
+                Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+
+                    <Border Name="Background"
+                            Margin="0,0,2,0">
+                        <Grid Margin="15,3"
+                              IsHitTestVisible="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Path Name="Path"
+                                  Height="12"
+                                  VerticalAlignment="Center"
+                                  Data="M11.008998,13.651001C10.096003,13.651001 9.5629978,14.52002 9.5629978,15.68103 9.5629978,16.851013 10.112002,17.674988 11.018001,17.674988 11.931003,17.674988 12.453998,16.807007 12.453998,15.645996 12.453998,14.572998 11.938998,13.651001 11.008998,13.651001z M4.1309976,12.674988L5.4870009,12.674988 5.4870009,17.515991 7.8630008,17.515991 7.8630008,18.651001 4.1309976,18.651001z M17.992001,12.612976C18.763004,12.612976,19.356998,12.763977,19.648998,12.905029L19.366001,13.987C19.036999,13.846008 18.629002,13.731018 17.974003,13.731018 16.848003,13.731018 15.995998,14.367981 15.995998,15.663025 15.995998,16.895996 16.768002,17.622009 17.875004,17.622009 18.187,17.622009 18.435001,17.588013 18.540005,17.533997L18.540005,16.28302 17.619999,16.28302 17.619999,15.229004 19.844,15.229004 19.844,18.375977C19.426998,18.518005 18.639004,18.713989 17.850002,18.713989 16.758999,18.713989 15.969997,18.437988 15.420002,17.906006 14.870998,17.393005 14.570003,16.612 14.578999,15.734985 14.587002,13.747986 16.033001,12.612976 17.992001,12.612976z M11.044002,12.578003C12.88,12.578003 13.881,13.953003 13.881,15.601013 13.881,17.559998 12.693004,18.749023 10.946002,18.749023 9.1739978,18.749023 8.1370029,17.409973 8.1370029,15.708008 8.1370029,13.916992 9.2790012,12.578003 11.044002,12.578003z M1.8919987,1.8930054L1.8919987,29.981018 15.937,29.981018 15.916004,22.963013 21.704,22.968994 21.704,1.8930054z M0,0L23.733,0 23.733,25.247009 17.698002,32 0,32z"
+                                  Fill="{DynamicResource MainTabUnselected}"
+                                  Stretch="Uniform"/>
+                            <ContentPresenter Grid.Column="1"
+                                              Margin="5,0"
+                                              VerticalAlignment="Center"
+                                              ContentSource="Header"/>
+
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Trigger.Setters>
+                                <Setter TargetName="Path"
+                                        Property="Fill"
+                                        Value="{DynamicResource MainTabSelected}"/>
+                                <Setter TargetName="Background"
+                                        Property="Background"
+                                        Value="{DynamicResource MainTabBackgroundSelected}"/>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MainTabOccultCrescent"
+           TargetType="{x:Type TabItem}">
+        <Setter Property="Foreground"
+                Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+
+                    <Border Name="Background"
+                            Margin="0,0,2,0">
+                        <Grid Margin="15,3"
+                              IsHitTestVisible="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Viewbox Name="IconViewbox"
+                                     Height="12"
+                                     VerticalAlignment="Center"
+                                     Margin="0">
+                                <Canvas Width="72"
+                                        Height="72">
+                                    <!-- Outer coin -->
+                                    <Ellipse x:Name="Icon"
+                                             Width="68"
+                                             Height="68"
+                                             Canvas.Left="2"
+                                             Canvas.Top="2"
+                                             Fill="{DynamicResource MainTabUnselected}"
+                                             Stroke="{DynamicResource MainTabUnselected}"
+                                             StrokeThickness="2"/>
+                                    <!-- Middle ring -->
+                                    <Ellipse Width="54"
+                                             Height="54"
+                                             Canvas.Left="9"
+                                             Canvas.Top="9"
+                                             Fill="Transparent"
+                                             Stroke="#AAA"
+                                             StrokeThickness="1"/>
+                                    <!-- Inner hole -->
+                                    <Ellipse Width="18"
+                                             Height="18"
+                                             Canvas.Left="27"
+                                             Canvas.Top="27"
+                                             Fill="Black"
+                                             Stroke="#999"
+                                             StrokeThickness="2"/>
+                                </Canvas>
+                            </Viewbox>
+                            <ContentPresenter Grid.Column="1"
+                                              Margin="5,0"
+                                              VerticalAlignment="Center"
+                                              ContentSource="Header"/>
+
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Trigger.Setters>
+                                <Setter TargetName="Icon"
+                                        Property="Fill"
+                                        Value="{DynamicResource MainTabSelected}"/>
+                                <Setter TargetName="Icon"
+                                        Property="Stroke"
+                                        Value="{DynamicResource MainTabSelected}"/>
+                                <Setter TargetName="Background"
+                                        Property="Background"
+                                        Value="{DynamicResource MainTabBackgroundSelected}"/>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="MainTabAlliance"
            TargetType="{x:Type TabItem}">
         <Setter Property="Foreground"

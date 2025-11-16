@@ -13,7 +13,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
@@ -170,6 +171,7 @@
                 <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Paladin_Content_Use_intervention_on_party_member_e}" IsChecked="{Binding PaladinSettings.InterventionPartyAlwaysWithCD, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 
 </UserControl>

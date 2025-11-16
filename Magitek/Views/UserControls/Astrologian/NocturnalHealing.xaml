@@ -18,6 +18,7 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
     
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
     <!-- 
     <StackPanel Margin="10">
 
@@ -85,4 +86,5 @@
 
     </StackPanel>
     -->
+    </ScrollViewer>
 </UserControl>
