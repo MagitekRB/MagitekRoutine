@@ -2,6 +2,7 @@
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
+using Magitek.Models.Account;
 using Magitek.Models.Machinist;
 using Magitek.Utilities;
 using System.Linq;
@@ -73,6 +74,14 @@ namespace Magitek.Logic.Machinist
 
             if (!Spells.WildfirePvp.CanCast())
                 return false;
+
+            if (MachinistSettings.Instance.Pvp_SaveFullMetalForWildfire && MachinistSettings.Instance.Pvp_FullMetalField)
+            {
+                var fullMetalReady = Spells.FullMetalFieldPvp.Cooldown.TotalMilliseconds;
+                // HOLD if Full Metal Field is coming up soon - wait to combo them together
+                if (fullMetalReady > 0 && fullMetalReady <= 8000 + Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset)
+                    return false;
+            }
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.WildfirePvp.Range))
                 return false;
@@ -153,7 +162,7 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.Pvp_SaveFullMetalForWildfire)
             {
                 var wildfireReady = Spells.WildfirePvp.Cooldown.TotalSeconds;
-                if (wildfireReady > 0 && wildfireReady <= 8)
+                if (wildfireReady <= 8)
                     return false;
             }
 
@@ -197,25 +206,53 @@ namespace Magitek.Logic.Machinist
             if (!Spells.AnalysisPvp.CanCast())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
             if (Core.Me.HasAura(Auras.PvpAnalysis))
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.AnalysisPvp.Range))
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!MachinistSettings.Instance.Pvp_UsedAnalysisOnDrill && Core.Me.HasAura(Auras.PvpDrillPrimed))
-                return false;
+            // Only cast Analysis right before using the primed abilities it buffs
+            // Check if each ability is ready to cast (using spell CanCast and basic range checks)
+            bool shouldCast = false;
 
-            if (!MachinistSettings.Instance.Pvp_UsedAnalysisOnBio && Core.Me.HasAura(Auras.PvpBioPrimed))
-                return false;
+            // Drill - check if primed, enabled, and ready to use
+            if (MachinistSettings.Instance.Pvp_UsedAnalysisOnDrill &&
+                Core.Me.HasAura(Auras.PvpDrillPrimed) &&
+                Spells.DrillPvp.CanCast() &&
+                Core.Me.CurrentTarget.WithinSpellRange(Spells.DrillPvp.Range))
+            {
+                shouldCast = true;
+            }
 
-            if (!MachinistSettings.Instance.Pvp_UsedAnalysisOnAA && Core.Me.HasAura(Auras.PvpAirAnchorPrimed))
-                return false;
+            // Bio Blaster - check if primed, enabled, and ready to use
+            if (MachinistSettings.Instance.Pvp_UsedAnalysisOnBio &&
+                Core.Me.HasAura(Auras.PvpBioPrimed) &&
+                Spells.BioblasterPvp.CanCast() &&
+                Core.Me.CurrentTarget.WithinSpellRange(Spells.BioblasterPvp.Range))
+            {
+                shouldCast = true;
+            }
 
-            if (!MachinistSettings.Instance.Pvp_UsedAnalysisOnChainSaw && Core.Me.HasAura(Auras.PvpChainSawPrimed))
+            // Air Anchor - check if primed, enabled, and ready to use
+            if (MachinistSettings.Instance.Pvp_UsedAnalysisOnAA &&
+                Core.Me.HasAura(Auras.PvpAirAnchorPrimed) &&
+                Spells.AirAnchorPvp.CanCast() &&
+                Core.Me.CurrentTarget.WithinSpellRange(Spells.AirAnchorPvp.Range))
+            {
+                shouldCast = true;
+            }
+
+            // Chain Saw - check if primed, enabled, and ready to use
+            if (MachinistSettings.Instance.Pvp_UsedAnalysisOnChainSaw &&
+                Core.Me.HasAura(Auras.PvpChainSawPrimed) &&
+                Spells.ChainSawPvp.CanCast() &&
+                Core.Me.CurrentTarget.WithinSpellRange(Spells.ChainSawPvp.Range))
+            {
+                shouldCast = true;
+            }
+
+            if (!shouldCast)
                 return false;
 
             return await Spells.AnalysisPvp.Cast(Core.Me);
