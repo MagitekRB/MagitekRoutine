@@ -30,7 +30,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <CheckBox Margin="5" Content="{x:Static properties:Resources.Generic_Ignore_Alliance_Members}" IsChecked="{Binding AstrologianSettings.IgnoreAlliance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -69,6 +70,7 @@
         </controls:SettingsBlock>
 
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 
 </UserControl>

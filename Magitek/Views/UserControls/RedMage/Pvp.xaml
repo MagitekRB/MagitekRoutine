@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.RedMage.Pvp"
+<UserControl x:Class="Magitek.Views.UserControls.RedMage.Pvp"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -19,7 +19,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
-    <StackPanel Margin="5">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
         <common:PvpUtilities DataContext="{Binding RedMageSettings}"/>
 
 
@@ -209,8 +210,9 @@
                     </StackPanel>
                 </Grid>
             </StackPanel>
-        </controls:SettingsBlock>
+        </controls:SettingsBlock>        
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

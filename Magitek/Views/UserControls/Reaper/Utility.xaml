@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.Reaper.Utility"
+<UserControl x:Class="Magitek.Views.UserControls.Reaper.Utility"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -29,7 +29,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
         <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
@@ -76,9 +77,10 @@
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
             </StackPanel>
-        </controls:SettingsBlock>
+        </controls:SettingsBlock>        
 
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

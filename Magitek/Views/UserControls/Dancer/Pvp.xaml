@@ -32,7 +32,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Margin="5">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="5">
         <common:PvpUtilities DataContext="{Binding DancerSettings}"/>
 
         <controls:SettingsBlock Margin="0,5"
@@ -389,6 +390,7 @@
         </controls:SettingsBlock>
 
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

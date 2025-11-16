@@ -18,7 +18,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Orientation="Horizontal">
@@ -152,6 +153,7 @@
             </Grid>
         </controls:SettingsBlock>
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 
 </UserControl>

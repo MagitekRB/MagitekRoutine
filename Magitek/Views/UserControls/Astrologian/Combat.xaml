@@ -17,7 +17,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
@@ -98,5 +99,6 @@
                 <CheckBox Margin="5,0,5,0" Content="{x:Static properties:Resources.Generic_Smart_Aoe}" IsChecked="{Binding AstrologianSettings.SmartAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

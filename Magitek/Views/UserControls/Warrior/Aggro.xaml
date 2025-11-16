@@ -18,7 +18,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
@@ -63,5 +64,6 @@
                 <CheckBox Margin="0,3,0,0" Content="{x:Static properties:Resources.Warrior_Content_Use_Tomahawk_To_Regain_Aggro}" IsChecked="{Binding WarriorSettings.UseTomahawkOnLostAggro, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

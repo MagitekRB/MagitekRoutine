@@ -19,7 +19,8 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
     </UserControl.Resources>
 
-    <StackPanel Margin="5">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="5">
         <common:PvpUtilities DataContext="{Binding BlackMageSettings}"/>
 
 
@@ -61,6 +62,7 @@
             </StackPanel>
         </controls:SettingsBlock>
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

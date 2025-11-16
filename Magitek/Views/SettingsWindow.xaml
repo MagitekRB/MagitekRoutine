@@ -422,7 +422,16 @@
                 <TabItem Name="Home"
                          Header="{x:Static properties:Resources.Generic_Home}"
                          Style="{DynamicResource MainTabHome}">
-                    <customControls:CurrentNews/>
+                    <TabControl Style="{DynamicResource JobOptionsTabControl}">
+                        <TabItem Header="Changelog"
+                                 Style="{DynamicResource MainTabChangelog}">
+                            <customControls:CurrentNews/>
+                        </TabItem>
+                        <TabItem Header="Occult Crescent"
+                                 Style="{DynamicResource MainTabOccultCrescent}">
+                            <occultCrescent:General/>
+                        </TabItem>
+                    </TabControl>
                 </TabItem>
 
                 <TabItem Name="Paladin"
@@ -1286,16 +1295,6 @@
                         <TabItem Header="{x:Static properties:Resources.Views_Header_Interrupts_and_Stuns}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <lists:InterruptsAndStuns/>
-                        </TabItem>
-                    </TabControl>
-                </TabItem>
-
-                <TabItem Name="OccultCrescent"
-                         Style="{DynamicResource TabItemOccultCrescent}">
-                    <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="{x:Static properties:Resources.Generic_General}"
-                                 Style="{DynamicResource MainTabCombat}">
-                            <occultCrescent:General/>
                         </TabItem>
                     </TabControl>
                 </TabItem>
