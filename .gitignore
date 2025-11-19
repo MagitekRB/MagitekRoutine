@@ -289,3 +289,6 @@ __pycache__/
 VsCodeWorkspace.code-workspace
 
 .vscode/
+.cursor/
+.claude/
+AGENTS.md

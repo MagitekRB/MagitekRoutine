@@ -44,11 +44,15 @@
                               Margin="20,2,0,0"
                               ToolTip="{x:Static properties:Resources.Machinist_ToolTip_If_enabled_will_save_Full_Metal_}"/>
                 </StackPanel>
-                <StackPanel Margin="5"
-                            Orientation="Horizontal">
+                <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Scattergun}"
                               IsChecked="{Binding MachinistSettings.Pvp_Scattergun, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
+                    <CheckBox Content="{x:Static properties:Resources.Machinist_Content_Scattergun_Target_Closest}"
+                              IsChecked="{Binding MachinistSettings.Pvp_ScattergunTargetClosest, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"
+                              Margin="20,2,0,0"
+                              ToolTip="{x:Static properties:Resources.Machinist_ToolTip_Scattergun_Will_target_closest}"/>
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">

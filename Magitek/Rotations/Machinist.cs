@@ -157,6 +157,7 @@ namespace Magitek.Rotations
             }
 
             if (await Pvp.BlazingShot()) return true;
+            if (await Pvp.Scattergun()) return true;
             if (await Pvp.Analysis()) return true;
             if (await Pvp.Drill()) return true;
 
@@ -166,8 +167,6 @@ namespace Magitek.Rotations
                 if (await Pvp.MarksmansSpite()) return true;
 
                 if (await Pvp.Detonator()) return true;
-
-                if (await Pvp.Scattergun()) return true;
 
                 // Buff
                 if (await Pvp.BishopAutoturret()) return true;

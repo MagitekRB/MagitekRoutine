@@ -1574,6 +1574,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
     <value>If enabled, will save Full Metal Field when Wildfire is about to come off cooldown</value>
   </data>
+  <data name="Machinist_ToolTip_Scattergun_Will_target_closest" xml:space="preserve">
+    <value>If enabled, Scattergun will target the closest enemy within range instead of current target (defensive use)</value>
+  </data>
   <data name="Machinist_Content_Split_Shot_Combo" xml:space="preserve">
     <value>Split Shot Combo</value>
   </data>
@@ -4619,6 +4622,9 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Machinist_Content_Scattergun" xml:space="preserve">
     <value>Scattergun</value>
+  </data>
+  <data name="Machinist_Content_Scattergun_Target_Closest" xml:space="preserve">
+    <value>Target Closest Enemy</value>
   </data>
   <data name="Machinist_Content_BioBlaster" xml:space="preserve">
     <value>BioBlaster</value>

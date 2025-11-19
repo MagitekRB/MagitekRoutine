@@ -186,13 +186,30 @@ namespace Magitek.Logic.Machinist
             if (!Spells.ScattergunPvp.CanCast())
                 return false;
 
+            // If targeting closest is enabled, find closest enemy within range
+            if (MachinistSettings.Instance.Pvp_ScattergunTargetClosest)
+            {
+                var nearby = Combat.Enemies
+                    .Where(e => e.WithinSpellRange(Spells.ScattergunPvp.Range)
+                            && e.ValidAttackUnit()
+                            && e.InLineOfSight()
+                            && !e.IsWarMachina())
+                    .OrderBy(e => e.Distance(Core.Me));
+                var nearbyTarget = nearby.FirstOrDefault();
+
+                if (nearbyTarget != null)
+                {
+                    return await Spells.ScattergunPvp.Cast(nearbyTarget, callback: async () => await IncrementWildfireStacks(2));
+                }
+
+                return false;
+            }
+
+            // Default behavior: use on current target
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ScattergunPvp.Range))
-                return false;
-
-            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ScattergunPvp.Range)) < 1)
                 return false;
 
             return await Spells.ScattergunPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(2));
@@ -355,6 +372,16 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BishopAutoturretPvp.Range))
                 return false;
 
+            // Count total enemies nearby (within 20 yalms)
+            var nearbyEnemyCount = Combat.Enemies.Count(x => x.Distance(Core.Me) <= 20);
+
+            // If only 1 enemy nearby (1v1 situation), always cast turret
+            if (nearbyEnemyCount == 1)
+            {
+                return await Spells.BishopAutoturretPvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            // If multiple enemies, only cast when enough are clustered around target
             if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.BishopAutoturretPvp.Radius) < MachinistSettings.Instance.Pvp_BishopAutoturretNumberOfEnemy)
                 return false;
 

@@ -8577,6 +8577,14 @@ namespace Magitek.Properties
             }
         }
 
+        public static string Machinist_Content_Scattergun_Target_Closest
+        {
+            get
+            {
+                return ResourceManager.GetString("Machinist_Content_Scattergun_Target_Closest", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Split Shot Combo.
         /// </summary>
@@ -8728,6 +8736,14 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Machinist_ToolTip_If_enabled_will_save_Full_Metal_", resourceCulture);
+            }
+        }
+
+        public static string Machinist_ToolTip_Scattergun_Will_target_closest
+        {
+            get
+            {
+                return ResourceManager.GetString("Machinist_ToolTip_Scattergun_Will_target_closest", resourceCulture);
             }
         }
 

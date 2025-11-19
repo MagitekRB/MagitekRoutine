@@ -1569,6 +1569,9 @@
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
     <value>如果启用，当 野火 即将冷却完毕时，会保留全金属领域</value>
   </data>
+  <data name="Machinist_ToolTip_Scattergun_Will_target_closest" xml:space="preserve">
+    <value>如果启用，霰弹枪将目标最近的敌人而不是当前目标（防御性使用）</value>
+  </data>
   <data name="Machinist_Content_Split_Shot_Combo" xml:space="preserve">
     <value>分裂弹连击</value>
   </data>
@@ -4613,6 +4616,9 @@
   </data>
   <data name="Machinist_Content_Scattergun" xml:space="preserve">
     <value>霰弹枪</value>
+  </data>
+  <data name="Machinist_Content_Scattergun_Target_Closest" xml:space="preserve">
+    <value>目标最近的敌人</value>
   </data>
   <data name="Machinist_Content_BioBlaster" xml:space="preserve">
     <value>毒菌冲击</value>

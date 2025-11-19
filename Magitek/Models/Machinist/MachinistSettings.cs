@@ -193,6 +193,10 @@ namespace Magitek.Models.Machinist
 
         [Setting]
         [DefaultValue(true)]
+        public bool Pvp_ScattergunTargetClosest { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Pvp_BishopAutoturret { get; set; }
 
         [Setting]
