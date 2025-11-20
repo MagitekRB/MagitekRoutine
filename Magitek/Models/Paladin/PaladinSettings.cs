@@ -325,6 +325,10 @@ namespace Magitek.Models.Paladin
         public bool Pvp_Phalanx { get; set; }
 
         [Setting]
+        [DefaultValue(45.0f)]
+        public float Pvp_PhalanxHpThreshold { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Pvp_Confiteor { get; set; }
         #endregion

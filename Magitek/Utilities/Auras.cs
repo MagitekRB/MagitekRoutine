@@ -510,6 +510,7 @@ namespace Magitek.Utilities
             PvpKardia = 2871,
             PvpKardion = 2872,
             PvpEukrasias = 2867,
+            PvpMesotes = 3119,
             PvpAddersting = 3115,
             PvpAstralFireIII = 3381,
             PvpSwiftcast = 1987,
