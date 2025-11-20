@@ -180,13 +180,20 @@ namespace Magitek.Rotations
 
             if (await CommonPvp.CommonTasks(SageSettings.Instance)) return true;
 
-            if (await Pvp.MesotesPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.MesotesPvp()) return true;
+            }
 
             if (await Pvp.KardiaPvp()) return true;
             if (await Pvp.PneumaPvp()) return true;
-            if (await Pvp.EukrasiaPvp()) return true;
 
-            if (!CommonPvp.GuardCheck(SageSettings.Instance))
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.EukrasiaPvp()) return true;
+            }
+
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(SageSettings.Instance))
             {
                 if (await Pvp.PhlegmaIIIPvp()) return true;
                 if (await Pvp.ToxikonPvp()) return true;

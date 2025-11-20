@@ -67,6 +67,7 @@ namespace Magitek
             TogglesManager.LoadTogglesForCurrentJob();
             RegisterOpenerHotkey();
             RegisterResetOpenerHotkey();
+            RegisterHoldPvpBurstHotkey();
             CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
             Logger.WriteInfo("Initialized");
         }
@@ -110,6 +111,8 @@ namespace Magitek
                     RegisterOpenerHotkey();
                     // Register reset opener hotkey
                     RegisterResetOpenerHotkey();
+                    // Register hold PvP burst hotkey
+                    RegisterHoldPvpBurstHotkey();
                 });
 
                 HookBehaviors();
@@ -141,6 +144,8 @@ namespace Magitek
                     RegisterOpenerHotkey();
                     // Register reset opener hotkey
                     RegisterResetOpenerHotkey();
+                    // Register hold PvP burst hotkey
+                    RegisterHoldPvpBurstHotkey();
                 });
             }
 
@@ -462,6 +467,30 @@ namespace Magitek
                 });
 
             Logger.WriteInfo($@"[Hotkeys] Registered reset opener hotkey: {Models.Account.BaseSettings.Instance.ResetOpenersModkey} + {Models.Account.BaseSettings.Instance.ResetOpenersKey}");
+        }
+
+        public static void RegisterHoldPvpBurstHotkey()
+        {
+            // Unregister first to prevent duplicates
+            HotkeyManager.Unregister("MagitekHoldPvpBurst");
+
+            // Check if we have a key set
+            if (Models.Account.BaseSettings.Instance.HoldPvpBurstKey == Keys.None &&
+                Models.Account.BaseSettings.Instance.HoldPvpBurstModkey == ModifierKeys.None)
+                return;
+
+            // Register the hotkey
+            HotkeyManager.Register("MagitekHoldPvpBurst",
+                Models.Account.BaseSettings.Instance.HoldPvpBurstKey,
+                Models.Account.BaseSettings.Instance.HoldPvpBurstModkey,
+                r =>
+                {
+                    // Toggle the HoldPvpBurst boolean
+                    Models.Account.BaseSettings.Instance.HoldPvpBurst = !Models.Account.BaseSettings.Instance.HoldPvpBurst;
+                    Logger.WriteInfo($@"[Hotkey] Hold PvP Burst: {Models.Account.BaseSettings.Instance.HoldPvpBurst}");
+                });
+
+            Logger.WriteInfo($@"[Hotkeys] Registered Hold PvP Burst hotkey: {Models.Account.BaseSettings.Instance.HoldPvpBurstModkey} + {Models.Account.BaseSettings.Instance.HoldPvpBurstKey}");
         }
 
         private void UnregisterAllMagitekHotkeys()

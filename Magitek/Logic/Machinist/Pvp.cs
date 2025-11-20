@@ -230,40 +230,41 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             // Only cast Analysis right before using the primed abilities it buffs
-            // Check if each ability is ready to cast (using spell CanCast and basic range checks)
+            // Since Analysis is an oGCD, we can prep it even if the primed ability can't be cast this instant
+            // Check if ability is ready within one GCD window (similar to PvE Reassemble logic)
             bool shouldCast = false;
 
-            // Drill - check if primed, enabled, and ready to use
+            // Drill - check if primed, enabled, ready within GCD window, and target in range
             if (MachinistSettings.Instance.Pvp_UsedAnalysisOnDrill &&
                 Core.Me.HasAura(Auras.PvpDrillPrimed) &&
-                Spells.DrillPvp.CanCast() &&
+                Spells.DrillPvp.IsKnownAndReady((int)Spells.BlastChargePvp.Cooldown.TotalMilliseconds - 100) &&
                 Core.Me.CurrentTarget.WithinSpellRange(Spells.DrillPvp.Range))
             {
                 shouldCast = true;
             }
 
-            // Bio Blaster - check if primed, enabled, and ready to use
+            // Bio Blaster - check if primed, enabled, ready within GCD window, and target in range
             if (MachinistSettings.Instance.Pvp_UsedAnalysisOnBio &&
                 Core.Me.HasAura(Auras.PvpBioPrimed) &&
-                Spells.BioblasterPvp.CanCast() &&
+                Spells.BioblasterPvp.IsKnownAndReady((int)Spells.BlastChargePvp.Cooldown.TotalMilliseconds - 100) &&
                 Core.Me.CurrentTarget.WithinSpellRange(Spells.BioblasterPvp.Range))
             {
                 shouldCast = true;
             }
 
-            // Air Anchor - check if primed, enabled, and ready to use
+            // Air Anchor - check if primed, enabled, ready within GCD window, and target in range
             if (MachinistSettings.Instance.Pvp_UsedAnalysisOnAA &&
                 Core.Me.HasAura(Auras.PvpAirAnchorPrimed) &&
-                Spells.AirAnchorPvp.CanCast() &&
+                Spells.AirAnchorPvp.IsKnownAndReady((int)Spells.BlastChargePvp.Cooldown.TotalMilliseconds - 100) &&
                 Core.Me.CurrentTarget.WithinSpellRange(Spells.AirAnchorPvp.Range))
             {
                 shouldCast = true;
             }
 
-            // Chain Saw - check if primed, enabled, and ready to use
+            // Chain Saw - check if primed, enabled, ready within GCD window, and target in range
             if (MachinistSettings.Instance.Pvp_UsedAnalysisOnChainSaw &&
                 Core.Me.HasAura(Auras.PvpChainSawPrimed) &&
-                Spells.ChainSawPvp.CanCast() &&
+                Spells.ChainSawPvp.IsKnownAndReady((int)Spells.BlastChargePvp.Cooldown.TotalMilliseconds - 100) &&
                 Core.Me.CurrentTarget.WithinSpellRange(Spells.ChainSawPvp.Range))
             {
                 shouldCast = true;

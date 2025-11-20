@@ -162,6 +162,7 @@ namespace Magitek.Views
             TogglesViewModel.Instance.SaveToggles();
 
             #region Save Settings For All Routines
+            Models.Account.BaseSettings.Instance.Save();
             ScholarSettings.Instance.Save();
             WhiteMageSettings.Instance.Save();
             AstrologianSettings.Instance.Save();

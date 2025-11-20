@@ -423,6 +423,24 @@
   <data name="Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi" xml:space="preserve">
     <value>NoClippy/XivAlexander simulate a 10ms ping</value>
   </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Settings" xml:space="preserve">
+    <value>Hold Burst Settings</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Hotkey_Label" xml:space="preserve">
+    <value>Hold Burst Hotkey</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Description" xml:space="preserve">
+    <value>Configure a hotkey to manually hold burst abilities in PvP. When active, burst cooldowns are saved and only basic attacks will be used.</value>
+  </data>
+  <data name="GlobalPvp_Text_Hotkey" xml:space="preserve">
+    <value>Hotkey:</value>
+  </data>
+  <data name="GlobalPvp_Text_Warmachina_Description" xml:space="preserve">
+    <value>Warmachina are NPCs in PvP (Ravens, Falcons, Striking Dummies, Icebound Tomeliths, etc.). By default, burst abilities are saved when targeting them. Enable the checkbox above to allow burst on Warmachina.</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Overlay_Note" xml:space="preserve">
+    <value>Note: The 'Hold PVP Burst' toggle also appears in the main settings overlay when PVP mode is active, and can be toggled manually there as well.</value>
+  </data>
   <data name="Views_Text_Overlay_Settings" xml:space="preserve">
     <value>Overlay Settings</value>
   </data>
@@ -518,6 +536,9 @@
   </data>
   <data name="UserControls_Content_Execute_LimitBreak" xml:space="preserve">
     <value>Execute LimitBreak</value>
+  </data>
+  <data name="UserControls_Content_Hold_PVP_Burst" xml:space="preserve">
+    <value>Hold PVP Burst</value>
   </data>
   <data name="Astrologian_Content_Heal_Alliance_DPS" xml:space="preserve">
     <value>Heal Alliance DPS</value>
@@ -4229,6 +4250,9 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Generic_Pvp" xml:space="preserve">
     <value>Pvp</value>
+  </data>
+  <data name="Generic_PvpUseBurstOnWarmachina" xml:space="preserve">
+    <value>Use Burst on Warmachina</value>
   </data>
   <data name="Generic_Toggles" xml:space="preserve">
     <value>Toggles</value>

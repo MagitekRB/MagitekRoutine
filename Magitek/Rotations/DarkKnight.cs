@@ -85,19 +85,24 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(DarkKnightSettings.Instance)) return true;
 
-            if (await Pvp.EventidePvp()) return true;
-            if (await Pvp.SaltAndDarkness()) return true;
-            if (await Pvp.BlackestNightPvp()) return true;
-            if (await Pvp.SaltedEarthPvp()) return true;
-
-            if (!CommonPvp.GuardCheck(DarkKnightSettings.Instance))
+            // BURST CHECK: Wrap everything except basic combo
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.PlungePvp()) return true;
-                if (await Pvp.ShadowbringerPvp()) return true;
-                if (await Pvp.ImpalementPvp()) return true;
-                if (await Pvp.DisesteemPvp()) return true;
+                if (await Pvp.EventidePvp()) return true;
+                if (await Pvp.SaltAndDarkness()) return true;
+                if (await Pvp.BlackestNightPvp()) return true;
+                if (await Pvp.SaltedEarthPvp()) return true;
+
+                if (!CommonPvp.GuardCheck(DarkKnightSettings.Instance))
+                {
+                    if (await Pvp.PlungePvp()) return true;
+                    if (await Pvp.ShadowbringerPvp()) return true;
+                    if (await Pvp.ImpalementPvp()) return true;
+                    if (await Pvp.DisesteemPvp()) return true;
+                }
             }
 
+            // Basic Combo (ungated)
             if (await Pvp.SouleaterPvp()) return true;
             if (await Pvp.SyphonStrikePvp()) return true;
             return (await Pvp.HardSlashPvp());

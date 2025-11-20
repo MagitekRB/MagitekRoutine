@@ -203,9 +203,13 @@ namespace Magitek.Rotations
             if (await Pvp.DeploymentTacticsPvp()) return true;
             if (await Pvp.AdloquiumPvp()) return true;
             if (await Pvp.ExpedientPvp()) return true;
-            if (await Pvp.ChainStratagemPvp()) return true;
 
-            if (!CommonPvp.GuardCheck(ScholarSettings.Instance))
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.ChainStratagemPvp()) return true;
+            }
+
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(ScholarSettings.Instance))
             {
                 if (await Pvp.BiolysisPvp()) return true;
             }

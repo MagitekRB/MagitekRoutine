@@ -77,18 +77,18 @@ namespace Magitek.Rotations
                 if (await Buff.Bloodfest()) return true;
             }
 
-                if (await Buff.NoMercy()) return true;
-                if (await SingleTarget.BlastingZone()) return true;
-                if (await Aoe.BowShock()) return true;
+            if (await Buff.NoMercy()) return true;
+            if (await SingleTarget.BlastingZone()) return true;
+            if (await Aoe.BowShock()) return true;
 
-                //oGCD to use with BurstStrike
-                if (await Aoe.FatedBrand()) return true;
-                if (await SingleTarget.Hypervelocity()) return true;
+            //oGCD to use with BurstStrike
+            if (await Aoe.FatedBrand()) return true;
+            if (await SingleTarget.Hypervelocity()) return true;
 
-                //oGCD to use inside Combo 2
-                if (await SingleTarget.EyeGouge()) return true;
-                if (await SingleTarget.AbdomenTear()) return true;
-                if (await SingleTarget.JugularRip()) return true;
+            //oGCD to use inside Combo 2
+            if (await SingleTarget.EyeGouge()) return true;
+            if (await SingleTarget.AbdomenTear()) return true;
+            if (await SingleTarget.JugularRip()) return true;
 
 
             //Pull or get back aggro with LightningShot
@@ -128,21 +128,27 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(GunbreakerSettings.Instance)) return true;
 
-            if (await Pvp.HeartOfCorundumPvp()) return true;
-            if (await Pvp.ContinuationPvp()) return true;
-            if (await Pvp.BlastingZonePvp()) return true;
-            if (await Pvp.FatedCirclePvp()) return true;
-            if (await Pvp.RelentlessRushPvp()) return true;
-
-            if (!CommonPvp.GuardCheck(GunbreakerSettings.Instance))
+            // BURST CHECK: Wrap everything except basic combo
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.RoughDividePvp()) return true;
-                if (await Pvp.WickedTalonPvp()) return true;
-                if (await Pvp.SavageClawPvp()) return true;
-                if (await Pvp.GnashingFangPvp()) return true;
+                if (await Pvp.HeartOfCorundumPvp()) return true;
+                if (await Pvp.ContinuationPvp()) return true;
+                if (await Pvp.BlastingZonePvp()) return true;
+                if (await Pvp.FatedCirclePvp()) return true;
+                if (await Pvp.RelentlessRushPvp()) return true;
+
+                if (!CommonPvp.GuardCheck(GunbreakerSettings.Instance))
+                {
+                    if (await Pvp.RoughDividePvp()) return true;
+                    if (await Pvp.WickedTalonPvp()) return true;
+                    if (await Pvp.SavageClawPvp()) return true;
+                    if (await Pvp.GnashingFangPvp()) return true;
+                }
+
+                if (await Pvp.BurstStrikePvp()) return true;
             }
 
-            if (await Pvp.BurstStrikePvp()) return true;
+            // Basic Combo (ungated)
             if (await Pvp.SolidBarrelPvp()) return true;
             if (await Pvp.BrutalShelPvp()) return true;
             return (await Pvp.KeenEdgePvp());

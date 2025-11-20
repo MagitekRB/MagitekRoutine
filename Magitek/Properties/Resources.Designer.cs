@@ -6884,6 +6884,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Burst on Warmachina.
+        /// </summary>
+        public static string Generic_PvpUseBurstOnWarmachina
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_PvpUseBurstOnWarmachina", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Rdm.
         /// </summary>
         public static string Generic_Rdm
@@ -7749,6 +7760,72 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Generic_Yalms_Away", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Configure a hotkey to manually hold burst abilities in PvP. When active, burst cooldowns are saved and only basic attacks will be used.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold Burst Settings.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Settings
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Settings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Note: The 'Hold PVP Burst' toggle also appears in the main settings overlay when PVP mode is active, and can be toggled manually there as well.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Overlay_Note
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Overlay_Note", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold Burst Hotkey.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Hotkey_Label
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Hotkey_Label", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hotkey:.
+        /// </summary>
+        public static string GlobalPvp_Text_Hotkey
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hotkey", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Warmachina are NPCs in PvP (Ravens, Falcons, Striking Dummies, Icebound Tomeliths, etc.). By default, burst abilities are saved when targeting them. Enable the checkbox above to allow burst on Warmachina.
+        /// </summary>
+        public static string GlobalPvp_Text_Warmachina_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Warmachina_Description", resourceCulture);
             }
         }
 
@@ -16117,6 +16194,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("UserControls_Content_Execute_LimitBreak", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold PVP Burst.
+        /// </summary>
+        public static string UserControls_Content_Hold_PVP_Burst
+        {
+            get
+            {
+                return ResourceManager.GetString("UserControls_Content_Hold_PVP_Burst", resourceCulture);
             }
         }
 

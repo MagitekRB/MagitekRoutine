@@ -149,17 +149,23 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(RedMageSettings.Instance)) return true;
 
             // Movement Abilities
-            if (await Pvp.DisplacementPvp()) return true;
-            if (await Pvp.CorpsacorpsPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.DisplacementPvp()) return true;
+                if (await Pvp.CorpsacorpsPvp()) return true;
+            }
 
             // Melee Combo
-            if (await Pvp.EnchantedRipostePvp()) return true;
-            if (await Pvp.EnchantedZwerchhauPvp()) return true;
-            if (await Pvp.EnchantedRedoublementPvp()) return true;
-            if (await Pvp.ScorchPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.EnchantedRipostePvp()) return true;
+                if (await Pvp.EnchantedZwerchhauPvp()) return true;
+                if (await Pvp.EnchantedRedoublementPvp()) return true;
+                if (await Pvp.ScorchPvp()) return true;
+            }
 
             // Main Rotation
-            if (!CommonPvp.GuardCheck(RedMageSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(RedMageSettings.Instance))
             {
                 // Limit Break
                 if (await Pvp.SouthernCrossPvp()) return true;
@@ -173,7 +179,7 @@ namespace Magitek.Rotations
                 if (await Pvp.ViceOfThornsPvp()) return true;
             }
 
-            // Basic Spells
+            // Basic Spells (ungated)
             if (await Pvp.GrandImpactPvp()) return true;
             if (await Pvp.JoltIIIPvp()) return true;
 

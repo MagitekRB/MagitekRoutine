@@ -423,6 +423,24 @@
   <data name="Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi" xml:space="preserve">
     <value>模拟10毫秒的延迟</value>
   </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Settings" xml:space="preserve">
+    <value>保留爆发技能设置</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Hotkey_Label" xml:space="preserve">
+    <value>保留爆发技能热键</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Description" xml:space="preserve">
+    <value>配置一个热键以在PVP中手动保留爆发技能。启用时，将保存爆发冷却技能，只使用基础攻击。</value>
+  </data>
+  <data name="GlobalPvp_Text_Hotkey" xml:space="preserve">
+    <value>热键：</value>
+  </data>
+  <data name="GlobalPvp_Text_Warmachina_Description" xml:space="preserve">
+    <value>战斗机甲是PVP中的NPC（乌鸦、猎鹰、木人、冰缚碑文等）。默认情况下，瞄准它们时会保留爆发技能。启用上方复选框以允许对战斗机甲使用爆发技能。</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Overlay_Note" xml:space="preserve">
+    <value>注意：当PVP模式激活时，"保留PVP爆发技能"切换选项也会出现在主设置悬浮窗中，可以在那里手动切换。</value>
+  </data>
   <data name="Views_Text_Overlay_Settings" xml:space="preserve">
     <value>悬浮窗设置</value>
   </data>
@@ -518,6 +536,9 @@
   </data>
   <data name="UserControls_Content_Execute_LimitBreak" xml:space="preserve">
     <value>使用极限技</value>
+  </data>
+  <data name="UserControls_Content_Hold_PVP_Burst" xml:space="preserve">
+    <value>保留PVP爆发技能</value>
   </data>
   <data name="Astrologian_Content_Heal_Alliance_DPS" xml:space="preserve">
     <value>治疗友方输出</value>
@@ -4223,6 +4244,9 @@
   </data>
   <data name="Generic_Pvp" xml:space="preserve">
     <value>PVP</value>
+  </data>
+  <data name="Generic_PvpUseBurstOnWarmachina" xml:space="preserve">
+    <value>对战斗机甲使用爆发技能</value>
   </data>
   <data name="Generic_Toggles" xml:space="preserve">
     <value>切换选项</value>

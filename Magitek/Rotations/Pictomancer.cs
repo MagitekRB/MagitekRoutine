@@ -121,20 +121,23 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(PictomancerSettings.Instance)) return true;
 
-            if (!CommonPvp.GuardCheck(PictomancerSettings.Instance))
+            if (await Pvp.TemperaCoat()) return true;
+            if (await Pvp.TemperaGrassa()) return true;
+
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.TemperaCoat()) return true;
-                if (await Pvp.TemperaGrassa()) return true;
+                if (!CommonPvp.GuardCheck(PictomancerSettings.Instance))
+                {
+                    if (await Pvp.Starstruck()) return true;
+                    if (await Pvp.AdventofChocobastion()) return true;
+                    if (await Pvp.SubtractivePalette()) return true;
 
-                if (await Pvp.Starstruck()) return true;
-                if (await Pvp.AdventofChocobastion()) return true;
-                if (await Pvp.SubtractivePalette()) return true;
+                    if (await Pvp.PaintB()) return true;
+                    if (await Pvp.PaintW()) return true;
 
-                if (await Pvp.PaintB()) return true;
-                if (await Pvp.PaintW()) return true;
-
-                if (await Pvp.MogoftheAges()) return true;
-                if (await Pvp.LivingMuse()) return true;
+                    if (await Pvp.MogoftheAges()) return true;
+                    if (await Pvp.LivingMuse()) return true;
+                }
             }
 
             if (await Pvp.CreatureMotif()) return true;

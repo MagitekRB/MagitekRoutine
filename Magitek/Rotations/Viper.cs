@@ -109,11 +109,14 @@ namespace Magitek.Rotations
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (await Pvp.SerpentsTail()) return true;
-            if (await Pvp.WorldGeneration()) return true;
-            if (await Pvp.WorldSwallower()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.SerpentsTail()) return true;
+                if (await Pvp.WorldGeneration()) return true;
+                if (await Pvp.WorldSwallower()) return true;
+            }
 
-            if (!CommonPvp.GuardCheck(ViperSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(ViperSettings.Instance))
             {
                 if (await Pvp.RattlingCoil()) return true;
                 if (await Pvp.UncoiledFury()) return true;

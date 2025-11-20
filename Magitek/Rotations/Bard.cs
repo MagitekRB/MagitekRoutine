@@ -104,12 +104,15 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(BardSettings.Instance)) return true;
 
-            if (await Pvp.EncoreOfLight()) return true;
-            if (await Pvp.FinalFantasiaPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.EncoreOfLight()) return true;
+                if (await Pvp.FinalFantasiaPvp()) return true;
 
-            if (await Pvp.HarmonicArrow()) return true;
+                if (await Pvp.HarmonicArrow()) return true;
+            }
 
-            if (!CommonPvp.GuardCheck(BardSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(BardSettings.Instance))
             {
                 if (await Pvp.SilentNocturnePvp()) return true;
 
@@ -120,7 +123,11 @@ namespace Magitek.Rotations
                 if (await Pvp.ApexArrow()) return true;
             }
 
-            if (await Pvp.PitchPerfect()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.PitchPerfect()) return true;
+            }
+
             return (await Pvp.PowerfulShot());
         }
     }

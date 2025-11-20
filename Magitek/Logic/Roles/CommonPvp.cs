@@ -340,6 +340,21 @@ namespace Magitek.Logic.Roles
                 || (checkInvuln && settings.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }));
         }
 
+        public static bool ShouldUseBurst()
+        {
+            // Check global "Hold Burst" toggle
+            if (Models.Account.BaseSettings.Instance.HoldPvpBurst)
+                return false;
+
+            // Check if target is Warmachina and global setting says don't burst on them
+            if (Core.Me.CurrentTarget != null &&
+                Core.Me.CurrentTarget.IsWarMachina() &&
+                !Models.Account.BaseSettings.Instance.PvpUseBurstOnWarmachina)
+                return false;
+
+            return true;
+        }
+
         public static async Task<bool> Purify<T>(T settings) where T : JobSettings
         {
             if (!settings.Pvp_UsePurify)

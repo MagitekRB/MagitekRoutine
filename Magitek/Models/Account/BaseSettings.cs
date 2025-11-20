@@ -341,6 +341,24 @@ namespace Magitek.Models.Account
         public bool ForceLimitBreak { get; set; }
         #endregion
 
+        #region PvP
+        [Setting]
+        [DefaultValue(false)]
+        public bool HoldPvpBurst { get; set; }
+
+        [Setting]
+        [DefaultValue(Keys.None)]
+        public Keys HoldPvpBurstKey { get; set; }
+
+        [Setting]
+        [DefaultValue(ModifierKeys.None)]
+        public ModifierKeys HoldPvpBurstModkey { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool PvpUseBurstOnWarmachina { get; set; }
+        #endregion
+
         [Setting]
         [DefaultValue(false)]
         public bool AssumeFaceTargetOnAction { get; set; }

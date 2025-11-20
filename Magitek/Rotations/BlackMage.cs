@@ -102,12 +102,18 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(BlackMageSettings.Instance)) return true;
 
             // Limit Break
-            if (await Pvp.SoulResonancePvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.SoulResonancePvp()) return true;
+            }
 
             // Elemental Weave
-            if (await Pvp.ElementalWeave()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.ElementalWeave()) return true;
+            }
 
-            if (!CommonPvp.GuardCheck(BlackMageSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(BlackMageSettings.Instance))
             {
                 // Utility actions
                 if (await Pvp.Lethargy()) return true;
@@ -117,7 +123,7 @@ namespace Magitek.Rotations
                 if (await Pvp.Xenoglossy()) return true;
             }
 
-            // AoE and basic attacks
+            // AoE and basic attacks (ungated)
             if (await Pvp.Burst()) return true;
             if (await Pvp.Fire()) return true;
             if (await Pvp.Blizzard()) return true;
