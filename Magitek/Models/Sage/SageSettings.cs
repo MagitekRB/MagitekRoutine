@@ -685,6 +685,10 @@ namespace Magitek.Models.Sage
         [Setting]
         [DefaultValue(1)]
         public int Pvp_MesoteNearbyAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(80.0f)]
+        public float Pvp_MesotesHealthPercent { get; set; }
         #endregion
 
     }

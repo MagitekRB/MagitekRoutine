@@ -39,9 +39,12 @@
                     <CheckBox Content="{x:Static properties:Resources.Sage_Content_Pneuma}" IsChecked="{Binding SageSettings.Pvp_Pneuma, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Sage_Content_Mesotes_LB_with_at_least}" IsChecked="{Binding SageSettings.Pvp_Mesotes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="4" MinValue="0" Value="{Binding SageSettings.Pvp_MesoteNearbyAllies, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Around}" />
+                    <CheckBox Content="{x:Static properties:Resources.Sage_Content_Mesotes_LB_with_at_least}" IsChecked="{Binding SageSettings.Pvp_Mesotes, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric MaxValue="4" MinValue="0" Value="{Binding SageSettings.Pvp_MesoteNearbyAllies, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Allies_Around}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Below}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SageSettings.Pvp_MesotesHealthPercent, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Hp}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

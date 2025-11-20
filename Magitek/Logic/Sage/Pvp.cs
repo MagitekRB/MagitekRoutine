@@ -209,13 +209,30 @@ namespace Magitek.Logic.Sage
             if (!Spells.MesotesPvp.CanCast())
                 return false;
 
+            if (Core.Me.HasAura(Auras.PvpMesotes))
+                return false;
+
             if (MovementManager.IsMoving)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (Group.CastableAlliesWithin10.Count(x => x.IsValid && x.IsAlive) < SageSettings.Instance.Pvp_MesoteNearbyAllies)
+            // Check for enemies nearby (only cast in combat)
+            if (Combat.Enemies.Count(x => x.IsValid && x.IsAlive && x.WithinSpellRange(25)) < 1)
+                return false;
+
+            // Check if any allies need healing
+            var alliesNeedingHealing = Group.CastableAlliesWithin15.Count(x =>
+                x.IsValid &&
+                x.IsAlive &&
+                x.CurrentHealthPercent <= SageSettings.Instance.Pvp_MesotesHealthPercent);
+
+            // Include self in the count if below health threshold
+            if (Core.Me.CurrentHealthPercent <= SageSettings.Instance.Pvp_MesotesHealthPercent)
+                alliesNeedingHealing++;
+
+            if (alliesNeedingHealing < SageSettings.Instance.Pvp_MesoteNearbyAllies)
                 return false;
 
             return await Spells.MesotesPvp.Cast(Core.Me);

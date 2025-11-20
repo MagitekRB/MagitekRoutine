@@ -297,7 +297,10 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.Pvp_Phalanx)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.WithinSpellRange(5)) < 1)
+            if (Core.Me.CurrentHealthPercent > PaladinSettings.Instance.Pvp_PhalanxHpThreshold)
+                return false;
+
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(20)) < 1)
                 return false;
 
             return await Spells.PhalanxPvp.Cast(Core.Me);
