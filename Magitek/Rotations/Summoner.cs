@@ -87,11 +87,14 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(SummonerSettings.Instance)) return true;
 
-            if (await Pvp.RadiantAegisPvp()) return true;
-            if (await Pvp.SummonBahamutPvp()) return true;
-            if (await Pvp.SummonPhoenixPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.RadiantAegisPvp()) return true;
+                if (await Pvp.SummonBahamutPvp()) return true;
+                if (await Pvp.SummonPhoenixPvp()) return true;
+            }
 
-            if (!CommonPvp.GuardCheck(SummonerSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(SummonerSettings.Instance))
             {
                 if (await Pvp.MountainBusterPvp()) return true;
                 if (await Pvp.CrimsonStrikePvp()) return true;

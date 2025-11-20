@@ -423,6 +423,24 @@
   <data name="Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi" xml:space="preserve">
     <value>模拟10毫秒的延迟</value>
   </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Settings" xml:space="preserve">
+    <value>保留爆发技能设置</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Hotkey_Label" xml:space="preserve">
+    <value>保留爆发技能热键</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Description" xml:space="preserve">
+    <value>配置一个热键以在PVP中手动保留爆发技能。启用时，将保存爆发冷却技能，只使用基础攻击。</value>
+  </data>
+  <data name="GlobalPvp_Text_Hotkey" xml:space="preserve">
+    <value>热键：</value>
+  </data>
+  <data name="GlobalPvp_Text_Warmachina_Description" xml:space="preserve">
+    <value>战斗机甲是PVP中的NPC（乌鸦、猎鹰、木人、冰缚碑文等）。默认情况下，瞄准它们时会保留爆发技能。启用上方复选框以允许对战斗机甲使用爆发技能。</value>
+  </data>
+  <data name="GlobalPvp_Text_Hold_Burst_Overlay_Note" xml:space="preserve">
+    <value>注意：当PVP模式激活时，"保留PVP爆发技能"切换选项也会出现在主设置悬浮窗中，可以在那里手动切换。</value>
+  </data>
   <data name="Views_Text_Overlay_Settings" xml:space="preserve">
     <value>悬浮窗设置</value>
   </data>
@@ -518,6 +536,9 @@
   </data>
   <data name="UserControls_Content_Execute_LimitBreak" xml:space="preserve">
     <value>使用极限技</value>
+  </data>
+  <data name="UserControls_Content_Hold_PVP_Burst" xml:space="preserve">
+    <value>保留PVP爆发技能</value>
   </data>
   <data name="Astrologian_Content_Heal_Alliance_DPS" xml:space="preserve">
     <value>治疗友方输出</value>
@@ -1568,6 +1589,9 @@
   </data>
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
     <value>如果启用，当 野火 即将冷却完毕时，会保留全金属领域</value>
+  </data>
+  <data name="Machinist_ToolTip_Scattergun_Will_target_closest" xml:space="preserve">
+    <value>如果启用，霰弹枪将目标最近的敌人而不是当前目标（防御性使用）</value>
   </data>
   <data name="Machinist_Content_Split_Shot_Combo" xml:space="preserve">
     <value>分裂弹连击</value>
@@ -3892,10 +3916,13 @@
     <value>队友需要治疗</value>
   </data>
   <data name="Generic_Sprint_Without_Target" xml:space="preserve">
-    <value>无目标时使用 冲刺</value>
+    <value>自动疾跑（无目标/逃跑时疾跑）</value>
   </data>
   <data name="Generic_Use_Mount" xml:space="preserve">
-    <value>使用坐骑</value>
+    <value>自动坐骑（安全时自动上/下坐骑）</value>
+  </data>
+  <data name="Generic_Use_Role_Actions" xml:space="preserve">
+    <value>使用职能技能</value>
   </data>
   <data name="Generic_When_There_Are" xml:space="preserve">
     <value>当有[xx]时</value>
@@ -4220,6 +4247,9 @@
   </data>
   <data name="Generic_Pvp" xml:space="preserve">
     <value>PVP</value>
+  </data>
+  <data name="Generic_PvpUseBurstOnWarmachina" xml:space="preserve">
+    <value>对战斗机甲使用爆发技能</value>
   </data>
   <data name="Generic_Toggles" xml:space="preserve">
     <value>切换选项</value>
@@ -4613,6 +4643,9 @@
   </data>
   <data name="Machinist_Content_Scattergun" xml:space="preserve">
     <value>霰弹枪</value>
+  </data>
+  <data name="Machinist_Content_Scattergun_Target_Closest" xml:space="preserve">
+    <value>目标最近的敌人</value>
   </data>
   <data name="Machinist_Content_BioBlaster" xml:space="preserve">
     <value>毒菌冲击</value>

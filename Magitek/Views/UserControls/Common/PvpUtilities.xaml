@@ -24,6 +24,11 @@
                               IsChecked="{Binding Pvp_UsePurify, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Role_Actions}"
+                              IsChecked="{Binding Pvp_UseRoleActions, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Guard_Shield_At}"
                               IsChecked="{Binding Pvp_UseGuard, Mode=TwoWay}"
@@ -34,7 +39,7 @@
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
                                Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </StackPanel>
-                <StackPanel Margin="5">
+                <StackPanel Margin="5,5,5,5">
                     <CheckBox Content="{x:Static properties:Resources.Generic_AutoGuard_MarksmansSpite}"
                               IsChecked="{Binding Pvp_AutoGuardMarksmanSpite, Mode=TwoWay}"
                               Margin="15,0,0,0"
@@ -49,26 +54,6 @@
                                       Value="{Binding Pvp_RecuperateHealthPercent, Mode=TwoWay}"/>
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
                                Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
-                              IsChecked="{Binding Pvp_SprintWithoutTarget, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
-                              IsChecked="{Binding Pvp_UseMount, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
-                              IsChecked="{Binding Pvp_GuardCheck, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Ground}"
-                              IsChecked="{Binding Pvp_InvulnCheck, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

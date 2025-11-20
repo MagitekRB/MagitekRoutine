@@ -109,28 +109,32 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(WarriorSettings.Instance)) return true;
 
-            if (!CommonPvp.GuardCheck(WarriorSettings.Instance))
+            // BURST CHECK: Wrap everything except basic combo
+            if (CommonPvp.ShouldUseBurst())
             {
-                // Limit Break
-                if (await Pvp.PrimalScreamPvp()) return true;
-                if (await Pvp.PrimalWrathPvp()) return true;
+                if (!CommonPvp.GuardCheck(WarriorSettings.Instance))
+                {
+                    // Limit Break
+                    if (await Pvp.PrimalScreamPvp()) return true;
+                    if (await Pvp.PrimalWrathPvp()) return true;
 
-                // High Priority Abilities
-                if (await Pvp.PrimalRendPvp()) return true;
-                if (await Pvp.PrimalRuinationPvp()) return true;
-                if (await Pvp.InnerChaosPvp()) return true;
-                if (await Pvp.ChaoticCyclonePvp()) return true;
+                    // High Priority Abilities
+                    if (await Pvp.PrimalRendPvp()) return true;
+                    if (await Pvp.PrimalRuinationPvp()) return true;
+                    if (await Pvp.InnerChaosPvp()) return true;
+                    if (await Pvp.ChaoticCyclonePvp()) return true;
 
-                // Gap Closers and Utility
-                if (await Pvp.OnslaughtPvp()) return true;
-                if (await Pvp.BlotaPvp()) return true;
+                    // Gap Closers and Utility
+                    if (await Pvp.OnslaughtPvp()) return true;
+                    if (await Pvp.BlotaPvp()) return true;
 
-                // Defensive and Healing
-                if (await Pvp.BloodwhettingPvp()) return true;
-                if (await Pvp.OrogenyPvp()) return true;
+                    // Defensive and Healing
+                    if (await Pvp.BloodwhettingPvp()) return true;
+                    if (await Pvp.OrogenyPvp()) return true;
+                }
             }
 
-            // Basic Combo
+            // Basic Combo (ungated)
             if (await Pvp.StormPathPvp()) return true;
             if (await Pvp.MaimPvp()) return true;
             if (await Pvp.HeavySwingPvp()) return true;

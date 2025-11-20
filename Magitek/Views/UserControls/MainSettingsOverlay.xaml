@@ -18,6 +18,7 @@
     <Grid>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBoolToVis" xmlns:converters="clr-namespace:Magitek.Converters" />
             <ObjectDataProvider x:Key="SummonerPets" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="enumerations:SummonerPets" />
@@ -56,10 +57,11 @@
                     <WrapPanel Orientation="Horizontal">
                         <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Active_CR}" IsChecked="{Binding GeneralSettings.GeneralSettings.ActiveCombatRoutine, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
                         <CheckBox Content="{x:Static properties:Resources.UserControls_Content_PVP_Mode}" IsChecked="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Mode=TwoWay}" Command="{Binding EnablePvpOverlay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Use_Custom_Opener}" IsChecked="{Binding GeneralSettings.GeneralSettings.UseOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Reset_Custom_Opener}" IsChecked="{Binding GeneralSettings.GeneralSettings.ResetOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Use_Chocobo}" IsChecked="{Binding GeneralSettings.GeneralSettings.SummonChocobo, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
-                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Execute_LimitBreak}" IsChecked="{Binding GeneralSettings.GeneralSettings.ForceLimitBreak}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Use_Custom_Opener}" IsChecked="{Binding GeneralSettings.GeneralSettings.UseOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" Visibility="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Converter={StaticResource InvertedBoolToVis}}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Reset_Custom_Opener}" IsChecked="{Binding GeneralSettings.GeneralSettings.ResetOpeners, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" Visibility="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Converter={StaticResource InvertedBoolToVis}}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Use_Chocobo}" IsChecked="{Binding GeneralSettings.GeneralSettings.SummonChocobo, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" Visibility="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Converter={StaticResource InvertedBoolToVis}}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Execute_LimitBreak}" IsChecked="{Binding GeneralSettings.GeneralSettings.ForceLimitBreak}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" Visibility="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Converter={StaticResource InvertedBoolToVis}}" />
+                        <CheckBox Content="{x:Static properties:Resources.UserControls_Content_Hold_PVP_Burst}" IsChecked="{Binding GeneralSettings.GeneralSettings.Pvp_HoldBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxOverlayCustomToggle}" Visibility="{Binding GeneralSettings.GeneralSettings.ActivePvpCombatRoutine, Converter={StaticResource BoolToVis}}" />
                     </WrapPanel>
                 </WrapPanel>
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding SettingsToggles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center">

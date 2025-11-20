@@ -156,7 +156,7 @@ namespace Magitek.Logic.Roles
 
         public static async Task<bool> Sprint<T>(T settings) where T : JobSettings
         {
-            if (!settings.Pvp_SprintWithoutTarget)
+            if (!Models.Account.BaseSettings.Instance.Pvp_SprintWithoutTarget)
                 return false;
 
             if (!MovementManager.IsMoving)
@@ -189,7 +189,7 @@ namespace Magitek.Logic.Roles
 
         public static async Task<bool> Mount<T>(T settings) where T : JobSettings
         {
-            if (!settings.Pvp_UseMount)
+            if (!Models.Account.BaseSettings.Instance.Pvp_UseMount)
                 return false;
 
             if (Core.Me.HasAnyAura(Auras.Invincibility) && !MovementManager.IsMoving)
@@ -336,8 +336,23 @@ namespace Magitek.Logic.Roles
                 return true;
 
             return !Attackable(target)
-                || (checkGuard && settings.Pvp_GuardCheck && target.HasAura(Auras.PvpGuard))
-                || (checkInvuln && settings.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }));
+                || (checkGuard && Models.Account.BaseSettings.Instance.Pvp_GuardCheck && target.HasAura(Auras.PvpGuard))
+                || (checkInvuln && Models.Account.BaseSettings.Instance.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }));
+        }
+
+        public static bool ShouldUseBurst()
+        {
+            // Check global "Hold Burst" toggle
+            if (Models.Account.BaseSettings.Instance.Pvp_HoldBurst)
+                return false;
+
+            // Check if target is Warmachina and global setting says don't burst on them
+            if (Core.Me.CurrentTarget != null &&
+                Core.Me.CurrentTarget.IsWarMachina() &&
+                !Models.Account.BaseSettings.Instance.Pvp_UseBurstOnWarmachina)
+                return false;
+
+            return true;
         }
 
         public static async Task<bool> Purify<T>(T settings) where T : JobSettings

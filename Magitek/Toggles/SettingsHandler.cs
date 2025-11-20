@@ -1,4 +1,5 @@
 ﻿using Magitek.Models;
+using Magitek.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +9,50 @@ namespace Magitek.Toggles
 {
     internal static class SettingsHandler
     {
-        // Method to set a property on an IRoutineSetting instance
-        public static void SetPropertyOnSettingsInstance(List<SettingsToggleSetting> settings, IRoutineSettings settingsInstance, bool checkedOn)
+        // Extract BaseSettings PvP properties (any property starting with "Pvp_" that is a valid toggle type)
+        // Only properties in the #region PvP section of BaseSettings.cs should use the Pvp_ prefix
+        public static IEnumerable<ToggleProperty> ExtractBaseSettingsPvpProperties()
         {
-            // does the toggle have multiple settings? If so, we should try to iterate through the IRoutineSettings once
+            var baseSettings = BaseSettings.Instance;
+            return baseSettings.GetType()
+                .GetProperties()
+                .Where(p => p.Name.StartsWith("Pvp_") && TypeIsValidType(p))
+                .Select(r => new ToggleProperty { Name = r.Name, Type = r.TypeToSettingType() })
+                .ToList()
+                .OrderBy(r => r.Name);
+        }
+
+        // Check if a property exists in BaseSettings (any property starting with "Pvp_")
+        public static bool IsBaseSettingsProperty(string propertyName)
+        {
+            return propertyName.StartsWith("Pvp_") &&
+                   BaseSettings.Instance.GetType().GetProperty(propertyName) != null;
+        }
+
+        // Get the appropriate settings instance (BaseSettings for PvP_ properties, otherwise job settings)
+        public static object GetSettingsInstanceForProperty(string propertyName, IRoutineSettings jobSettings)
+        {
+            if (IsBaseSettingsProperty(propertyName))
+                return BaseSettings.Instance;
+            return jobSettings;
+        }
+        // Method to set a property on an IRoutineSetting instance (or BaseSettings for PvP_ properties)
+        public static void SetPropertyOnSettingsInstance(List<SettingsToggleSetting> settings, IRoutineSettings jobSettingsInstance, bool checkedOn)
+        {
+            // does the toggle have multiple settings? If so, we should try to iterate through the settings once
             // and change them at the same time
 
             if (settings.Count > 1)
             {
-                foreach (var property in settingsInstance.GetType().GetProperties())
+                foreach (var setting in settings)
                 {
-                    var setting = settings.FirstOrDefault(r => r.Name == property.Name);
+                    var targetInstance = GetSettingsInstanceForProperty(setting.Name, jobSettingsInstance);
+                    var property = targetInstance.GetType().GetProperty(setting.Name);
 
-                    if (setting == null)
+                    if (property == null)
                         continue;
 
-                    SetValueOnProperty(property, setting, settingsInstance, checkedOn);
+                    SetValueOnProperty(property, setting, targetInstance, checkedOn);
                 }
             }
             else
@@ -33,11 +62,17 @@ namespace Magitek.Toggles
                 if (setting == null)
                     return;
 
-                SetValueOnProperty(settingsInstance.GetType().GetProperties().FirstOrDefault(r => r.Name == setting.Name), setting, settingsInstance, checkedOn);
+                var targetInstance = GetSettingsInstanceForProperty(setting.Name, jobSettingsInstance);
+                var property = targetInstance.GetType().GetProperty(setting.Name);
+
+                if (property == null)
+                    return;
+
+                SetValueOnProperty(property, setting, targetInstance, checkedOn);
             }
         }
 
-        private static void SetValueOnProperty(PropertyInfo property, SettingsToggleSetting setting, IRoutineSettings settingsInstance, bool checkedOn)
+        private static void SetValueOnProperty(PropertyInfo property, SettingsToggleSetting setting, object settingsInstance, bool checkedOn)
         {
             switch (setting.Type)
             {
@@ -88,20 +123,28 @@ namespace Magitek.Toggles
             return SettingType.None;
         }
 
-        public static bool SettingToggleSettingMatchesProperty(SettingsToggleSetting setting, PropertyInfo property, IRoutineSettings iroutineSettingsInstance)
+        public static bool SettingToggleSettingMatchesProperty(SettingsToggleSetting setting, PropertyInfo property, IRoutineSettings jobSettingsInstance)
         {
+            // Get the appropriate instance (BaseSettings for PvP_ properties, otherwise job settings)
+            var targetInstance = GetSettingsInstanceForProperty(setting.Name, jobSettingsInstance);
+
+            // Get the property from the correct instance
+            var targetProperty = targetInstance.GetType().GetProperty(setting.Name);
+            if (targetProperty == null)
+                return false;
+
             switch (setting.Type)
             {
                 case SettingType.Boolean:
-                    var boolValue = (bool)property.GetValue(iroutineSettingsInstance, null);
+                    var boolValue = (bool)targetProperty.GetValue(targetInstance, null);
                     return setting.BoolCheckedValue == boolValue;
 
                 case SettingType.Integer:
-                    var intValue = (int)property.GetValue(iroutineSettingsInstance, null);
+                    var intValue = (int)targetProperty.GetValue(targetInstance, null);
                     return setting.IntCheckedValue == intValue;
 
                 case SettingType.Float:
-                    var floatValue = (float)property.GetValue(iroutineSettingsInstance, null);
+                    var floatValue = (float)targetProperty.GetValue(targetInstance, null);
                     return setting.FloatCheckedValue == floatValue;
 
                 case SettingType.None:

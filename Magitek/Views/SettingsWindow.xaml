@@ -29,6 +29,7 @@
         xmlns:viper="clr-namespace:Magitek.Views.UserControls.Viper"
         xmlns:pictomancer="clr-namespace:Magitek.Views.UserControls.Pictomancer"
         xmlns:occultCrescent="clr-namespace:Magitek.Views.UserControls.OccultCrescent"
+        xmlns:globalPvp="clr-namespace:Magitek.Views.UserControls.GlobalPvp"
         Width="1000"
         Height="700"
         AllowsTransparency="True"
@@ -426,6 +427,10 @@
                         <TabItem Header="Changelog"
                                  Style="{DynamicResource MainTabChangelog}">
                             <customControls:CurrentNews/>
+                        </TabItem>
+                        <TabItem Header="Global PVP"
+                                 Style="{DynamicResource MainTabPvp}">
+                            <globalPvp:General/>
                         </TabItem>
                         <TabItem Header="Occult Crescent"
                                  Style="{DynamicResource MainTabOccultCrescent}">

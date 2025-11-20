@@ -1,5 +1,6 @@
 using ff14bot;
 using Magitek.Extensions;
+using Magitek.Models.Account;
 using Magitek.Models.Paladin;
 using Magitek.Utilities;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace Magitek.Logic.Paladin
 {
     internal static class Pvp
     {
-
         public static async Task<bool> FastBladePvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))

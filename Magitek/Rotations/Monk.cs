@@ -145,25 +145,31 @@ namespace Magitek.Rotations
 
             if (await CommonPvp.CommonTasks(MonkSettings.Instance)) return true;
 
-            if (await Pvp.MeteodrivePvp()) return true;
-            if (await Pvp.EarthsReplyPvp()) return true;
-            if (await Pvp.RiddleofEarthPvp()) return true;
-
-            if (!CommonPvp.GuardCheck(MonkSettings.Instance))
+            // BURST CHECK: Wrap everything except basic combo
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.RisingPhoenixPvp()) return true;
-                if (await Pvp.FlintsReplyPvp()) return true;
+                if (await Pvp.MeteodrivePvp()) return true;
+                if (await Pvp.EarthsReplyPvp()) return true;
+                if (await Pvp.RiddleofEarthPvp()) return true;
 
-                if (await Pvp.WindsReplyPvp()) return true;
-                if (await Pvp.ThunderclapPvp()) return true;
+                if (!CommonPvp.GuardCheck(MonkSettings.Instance))
+                {
+                    if (await Pvp.RisingPhoenixPvp()) return true;
+                    if (await Pvp.FlintsReplyPvp()) return true;
+
+                    if (await Pvp.WindsReplyPvp()) return true;
+                    if (await Pvp.ThunderclapPvp()) return true;
+                }
+
+                // if (await Pvp.EnlightenmentPvp()) return true;
+
+                if (await Pvp.PhantomRushPvp()) return true;
+                if (await Pvp.PouncingCoeurlPvp()) return true;
+                if (await Pvp.RisingRaptorPvp()) return true;
+                if (await Pvp.LeapingOpoPvp()) return true;
             }
 
-            // if (await Pvp.EnlightenmentPvp()) return true;
-
-            if (await Pvp.PhantomRushPvp()) return true;
-            if (await Pvp.PouncingCoeurlPvp()) return true;
-            if (await Pvp.RisingRaptorPvp()) return true;
-            if (await Pvp.LeapingOpoPvp()) return true;
+            // Basic Combo (ungated)
             if (await Pvp.DemolishPvp()) return true;
             if (await Pvp.TwinSnakesPvp()) return true;
             return (await Pvp.DragonKickPvp());

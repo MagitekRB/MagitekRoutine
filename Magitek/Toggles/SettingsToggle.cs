@@ -76,20 +76,22 @@ namespace Magitek.Toggles
                 return;
             }
 
-            var settingsInstance = ToggleJob.GetIRoutineSettingsFromJobString();
-            var settingsProperties = settingsInstance.GetType().GetProperties();
+            var jobSettingsInstance = ToggleJob.GetIRoutineSettingsFromJobString();
+            if (jobSettingsInstance == null)
+                return;
 
             foreach (var settingsToggleSetting in Settings)
             {
-                // Find the property that matches the toggle setting
-                var settingsProperty = settingsProperties.FirstOrDefault(r => r.Name == settingsToggleSetting.Name);
+                // Get the appropriate instance (BaseSettings for PvP_ properties, otherwise job settings)
+                var targetInstance = SettingsHandler.GetSettingsInstanceForProperty(settingsToggleSetting.Name, jobSettingsInstance);
+                var targetProperty = targetInstance.GetType().GetProperty(settingsToggleSetting.Name);
 
                 // If there's no property, continue the loop
-                if (settingsProperty == null)
+                if (targetProperty == null)
                     continue;
 
                 // Check to see if the value on the property matches what our Checked value should be 
-                if (SettingsHandler.SettingToggleSettingMatchesProperty(settingsToggleSetting, settingsProperty, settingsInstance))
+                if (SettingsHandler.SettingToggleSettingMatchesProperty(settingsToggleSetting, targetProperty, jobSettingsInstance))
                     continue;
 
                 // Toggle is unchecked because one of its properties does not match its checked value

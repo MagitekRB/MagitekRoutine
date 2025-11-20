@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Magitek.ViewModels;
 
 namespace Magitek.Controls
 {
@@ -7,6 +8,12 @@ namespace Magitek.Controls
         public CurrentNews()
         {
             InitializeComponent();
+            Loaded += CurrentNews_Loaded;
+        }
+
+        private void CurrentNews_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MagitekApi.Instance.RefreshIfNeeded();
         }
     }
 }

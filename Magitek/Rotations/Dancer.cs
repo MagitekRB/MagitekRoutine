@@ -117,12 +117,19 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(DancerSettings.Instance)) return true;
 
             if (await Pvp.CuringWaltz()) return true;
-            if (await Pvp.EnAvant()) return true;
+
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.EnAvant()) return true;
+            }
 
             //LB
-            if (await Pvp.Contradance()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.Contradance()) return true;
+            }
 
-            if (!CommonPvp.GuardCheck(DancerSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(DancerSettings.Instance))
             {
                 //oGCD
                 if (await Pvp.HoningDance()) return true;

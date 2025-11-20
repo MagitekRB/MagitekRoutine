@@ -149,40 +149,44 @@ namespace Magitek.Rotations
             // Utilities
             if (await CommonPvp.CommonTasks(MachinistSettings.Instance)) return true;
 
-            // HIGH PRIORITY: Full Metal Field during Wildfire burst window
-            // Cast BEFORE other abilities since FMF extends Overheated buff and adds 2 Wildfire stacks
-            if (Core.Me.HasAura(Auras.PvpWildfireBuff))
+            // BURST CHECK: Wrap everything except BlastedCharge (the basic attack fallback)
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.FullMetalField()) return true;
-            }
+                // HIGH PRIORITY: Full Metal Field during Wildfire burst window
+                // Cast BEFORE other abilities since FMF extends Overheated buff and adds 2 Wildfire stacks
+                if (Core.Me.HasAura(Auras.PvpWildfireBuff))
+                {
+                    if (await Pvp.FullMetalField()) return true;
+                }
 
-            if (await Pvp.BlazingShot()) return true;
-            if (await Pvp.Analysis()) return true;
-            if (await Pvp.Drill()) return true;
-
-            if (!CommonPvp.GuardCheck(MachinistSettings.Instance))
-            {
-                //LB
-                if (await Pvp.MarksmansSpite()) return true;
-
-                if (await Pvp.Detonator()) return true;
-
+                if (await Pvp.BlazingShot()) return true;
                 if (await Pvp.Scattergun()) return true;
+                if (await Pvp.Analysis()) return true;
+                if (await Pvp.Drill()) return true;
 
-                // Buff
-                if (await Pvp.BishopAutoturret()) return true;
-                if (await Pvp.WildFire()) return true;
+                if (!CommonPvp.GuardCheck(MachinistSettings.Instance))
+                {
+                    //LB
+                    if (await Pvp.MarksmansSpite()) return true;
 
-                // Tools
-                if (await Pvp.ChainSaw()) return true;
-                if (await Pvp.AirAnchor()) return true;
-                if (await Pvp.BioBlaster()) return true;
+                    if (await Pvp.Detonator()) return true;
 
-                // NORMAL PRIORITY: Full Metal Field when not in burst window
-                if (await Pvp.FullMetalField()) return true;
+                    // Buff
+                    if (await Pvp.BishopAutoturret()) return true;
+                    if (await Pvp.WildFire()) return true;
+
+                    // Tools
+                    if (await Pvp.ChainSaw()) return true;
+                    if (await Pvp.AirAnchor()) return true;
+                    if (await Pvp.BioBlaster()) return true;
+
+                    // NORMAL PRIORITY: Full Metal Field when not in burst window
+                    if (await Pvp.FullMetalField()) return true;
+                }
             }
 
-            // Main
+            // Main - Basic attack fallback (ONLY ungated ability)
+            if (await Pvp.BlazingShot()) return true;
             return await Pvp.BlastedCharge();
         }
     }

@@ -186,13 +186,16 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(WhiteMageSettings.Instance)) return true;
 
-            if (await Pvp.AfflatusPurgationPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.AfflatusPurgationPvp()) return true;
+            }
 
             if (await Pvp.CureIIIPvp()) return true;
             if (await Pvp.AquaveilPvp()) return true;
             if (await Pvp.CureIIPvp()) return true;
 
-            if (!CommonPvp.GuardCheck(WhiteMageSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(WhiteMageSettings.Instance))
             {
                 if (await Pvp.GlareIVPvp()) return true;
                 if (await Pvp.AfflatusMiseryPvp()) return true;

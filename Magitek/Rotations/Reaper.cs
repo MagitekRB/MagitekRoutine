@@ -125,10 +125,14 @@ namespace Magitek.Rotations
 
             // Defensive abilities
             if (await Pvp.ArcaneCrestPvp()) return true;
-            if (await Pvp.PerfectioPvp()) return true;
-            if (await Pvp.GuillotinePvp()) return true;
 
-            if (!CommonPvp.GuardCheck(ReaperSettings.Instance))
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.PerfectioPvp()) return true;
+                if (await Pvp.GuillotinePvp()) return true;
+            }
+
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(ReaperSettings.Instance))
             {
                 // Enshrouded abilities
                 if (await Pvp.TenebraeLemurumPvp()) return true;
@@ -147,7 +151,7 @@ namespace Magitek.Rotations
                 if (await Pvp.SoulSlicePvp()) return true;
             }
 
-            // Basic combo
+            // Basic combo (ungated)
             if (await Pvp.InfernalSlicePvp()) return true;
             if (await Pvp.WaxingSlicePvp()) return true;
             return await Pvp.SlicePvp();

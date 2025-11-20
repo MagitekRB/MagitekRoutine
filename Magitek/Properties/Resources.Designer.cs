@@ -5344,7 +5344,7 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Dont Attack Guard.
+        ///   Looks up a localized string similar to Don't Attack Guard.
         /// </summary>
         public static string Generic_Dont_Attack_Guard
         {
@@ -6884,6 +6884,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Burst on Warmachina.
+        /// </summary>
+        public static string Generic_PvpUseBurstOnWarmachina
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_PvpUseBurstOnWarmachina", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Rdm.
         /// </summary>
         public static string Generic_Rdm
@@ -7269,7 +7280,7 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Sprint Without Target.
+        ///   Looks up a localized string similar to Auto Sprint (Will sprint without target / running away).
         /// </summary>
         public static string Generic_Sprint_Without_Target
         {
@@ -7555,7 +7566,7 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Use Mount.
+        ///   Looks up a localized string similar to Auto Mount (Will attempt to mount / dismount when safe).
         /// </summary>
         public static string Generic_Use_Mount
         {
@@ -7606,6 +7617,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Generic_Use_Potion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Role Actions.
+        /// </summary>
+        public static string Generic_Use_Role_Actions
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Use_Role_Actions", resourceCulture);
             }
         }
 
@@ -7749,6 +7771,72 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Generic_Yalms_Away", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Configure a hotkey to manually hold burst abilities in PvP. When active, burst cooldowns are saved and only basic attacks will be used.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold Burst Settings.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Settings
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Settings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Note: The 'Hold PVP Burst' toggle also appears in the main settings overlay when PVP mode is active, and can be toggled manually there as well.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Overlay_Note
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Overlay_Note", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold Burst Hotkey.
+        /// </summary>
+        public static string GlobalPvp_Text_Hold_Burst_Hotkey_Label
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hold_Burst_Hotkey_Label", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hotkey:.
+        /// </summary>
+        public static string GlobalPvp_Text_Hotkey
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Hotkey", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Warmachina are NPCs in PvP (Ravens, Falcons, Striking Dummies, Icebound Tomeliths, etc.). By default, burst abilities are saved when targeting them. Enable the checkbox above to allow burst on Warmachina.
+        /// </summary>
+        public static string GlobalPvp_Text_Warmachina_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("GlobalPvp_Text_Warmachina_Description", resourceCulture);
             }
         }
 
@@ -8577,6 +8665,14 @@ namespace Magitek.Properties
             }
         }
 
+        public static string Machinist_Content_Scattergun_Target_Closest
+        {
+            get
+            {
+                return ResourceManager.GetString("Machinist_Content_Scattergun_Target_Closest", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Split Shot Combo.
         /// </summary>
@@ -8728,6 +8824,14 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Machinist_ToolTip_If_enabled_will_save_Full_Metal_", resourceCulture);
+            }
+        }
+
+        public static string Machinist_ToolTip_Scattergun_Will_target_closest
+        {
+            get
+            {
+                return ResourceManager.GetString("Machinist_ToolTip_Scattergun_Will_target_closest", resourceCulture);
             }
         }
 
@@ -16101,6 +16205,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("UserControls_Content_Execute_LimitBreak", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold PVP Burst.
+        /// </summary>
+        public static string UserControls_Content_Hold_PVP_Burst
+        {
+            get
+            {
+                return ResourceManager.GetString("UserControls_Content_Hold_PVP_Burst", resourceCulture);
             }
         }
 

@@ -113,32 +113,35 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(NinjaSettings.Instance)) return true;
 
-
-
-            if (!CommonPvp.GuardCheck(NinjaSettings.Instance))
+            // BURST CHECK: Wrap everything except basic combo
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.BunshinPvp()) return true;
-                if (await Pvp.ShukuchiPvp()) return true;
-                if (await Pvp.AssassinatePvp()) return true;
+                if (!CommonPvp.GuardCheck(NinjaSettings.Instance))
+                {
+                    if (await Pvp.BunshinPvp()) return true;
+                    if (await Pvp.ShukuchiPvp()) return true;
+                    if (await Pvp.AssassinatePvp()) return true;
 
-                if (await Pvp.SeitonTenchuPvp()) return true;
-                if (await Pvp.FleetingRaijuPvp()) return true;
-                if (await Pvp.DokumoriPvp()) return true;
-                if (await Pvp.ZeshoMeppoPvp()) return true;
+                    if (await Pvp.SeitonTenchuPvp()) return true;
+                    if (await Pvp.FleetingRaijuPvp()) return true;
+                    if (await Pvp.DokumoriPvp()) return true;
+                    if (await Pvp.ZeshoMeppoPvp()) return true;
 
-                if (await Pvp.FumaShurikenPvp()) return true;
+                    if (await Pvp.FumaShurikenPvp()) return true;
 
-                if (await Pvp.HutonPvp()) return true;
-                if (await Pvp.MeisuiPvp()) return true;
+                    if (await Pvp.HutonPvp()) return true;
+                    if (await Pvp.MeisuiPvp()) return true;
 
-                if (await Pvp.DotonPvp()) return true;
-                if (await Pvp.GokaMekkyakuPvp()) return true;
+                    if (await Pvp.DotonPvp()) return true;
+                    if (await Pvp.GokaMekkyakuPvp()) return true;
 
-                if (await Pvp.HyoshoRanryuPvp()) return true;
-                if (await Pvp.ForkedRaijuPvp()) return true;
-                if (await Pvp.ThreeMudraPvp()) return true;
+                    if (await Pvp.HyoshoRanryuPvp()) return true;
+                    if (await Pvp.ForkedRaijuPvp()) return true;
+                    if (await Pvp.ThreeMudraPvp()) return true;
+                }
             }
 
+            // Basic Combo (ungated)
             if (await Pvp.AeolianEdgePvp()) return true;
             if (await Pvp.GustSlashPvp()) return true;
 

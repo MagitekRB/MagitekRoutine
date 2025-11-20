@@ -122,19 +122,23 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(PaladinSettings.Instance)) return true;
 
-            if (await Pvp.PhalanxPvp()) return true;
-            if (await Pvp.BladeofValorPvp()) return true;
-            if (await Pvp.BladeofTruthPvp()) return true;
-            if (await Pvp.BladeofFaithPvp()) return true;
-            if (await Pvp.HolySheltronPvp()) return true;
-
-            if (await Pvp.ShieldSmitePvp()) return true;
-            if (await Pvp.HolySpiritPvp()) return true;
-
-            if (!CommonPvp.GuardCheck(PaladinSettings.Instance))
+            // BURST CHECK: Wrap everything except FastBlade combo (the basic attack fallback)
+            if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.ImperatorPvp()) return true;
-                if (await Pvp.IntervenePvp()) return true;
+                if (await Pvp.PhalanxPvp()) return true;
+                if (await Pvp.BladeofValorPvp()) return true;
+                if (await Pvp.BladeofTruthPvp()) return true;
+                if (await Pvp.BladeofFaithPvp()) return true;
+                if (await Pvp.HolySheltronPvp()) return true;
+
+                if (await Pvp.ShieldSmitePvp()) return true;
+                if (await Pvp.HolySpiritPvp()) return true;
+
+                if (!CommonPvp.GuardCheck(PaladinSettings.Instance))
+                {
+                    if (await Pvp.ImperatorPvp()) return true;
+                    if (await Pvp.IntervenePvp()) return true;
+                }
             }
 
             if (await Pvp.AtonementPvp()) return true;
@@ -142,6 +146,7 @@ namespace Magitek.Rotations
             if (await Pvp.SepulchrePvp()) return true;
             if (await Pvp.ConfiteorPvp()) return true;
 
+            // Basic combo fallback (ONLY ungated abilities)
             if (await Pvp.RoyalAuthorityPvp()) return true;
             if (await Pvp.RiotBladePvp()) return true;
             return (await Pvp.FastBladePvp());

@@ -22,6 +22,7 @@ namespace Magitek.ViewModels
         private readonly HttpClient _webClient = new HttpClient();
         private const string GithubAddress = "https://api.github.com";
         private const string VersionUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Version.txt";
+        private DateTime _lastFetchTime = DateTime.MinValue;
 
         public static MagitekApi Instance => _instance ?? (_instance = new MagitekApi());
         public bool SpinnerVisible { get; set; } = false;
@@ -96,6 +97,7 @@ namespace Magitek.ViewModels
                     if (response == null)
                         return;
 
+                    NewsList.Clear();
                     response.ForEach(x =>
                     {
                         if (x?.prerelease == true)
@@ -148,6 +150,8 @@ namespace Magitek.ViewModels
                             Message = filteredBody
                         });
                     });
+
+                    _lastFetchTime = DateTime.Now;
                 }
                 ;
             }
@@ -156,6 +160,15 @@ namespace Magitek.ViewModels
                 Logger.Error(e.Message);
             }
             SpinnerVisible = false;
+        }
+
+        public void RefreshIfNeeded()
+        {
+            var timeSinceLastFetch = DateTime.Now - _lastFetchTime;
+            if (timeSinceLastFetch.TotalHours >= 1)
+            {
+                UpdateNews();
+            }
         }
     }
 }

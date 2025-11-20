@@ -28,6 +28,7 @@ using Magitek.Utilities;
 using Newtonsoft.Json;
 using PropertyChanged;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -199,96 +200,108 @@ namespace Magitek.ViewModels
 
         private void ResetPropertiesForJob(string job)
         {
+            List<ToggleProperty> jobProperties;
+
             switch (SelectedJob)
             {
                 case "Scholar":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ScholarSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ScholarSettings.Instance));
                     break;
 
                 case "WhiteMage":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(WhiteMageSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(WhiteMageSettings.Instance));
                     break;
 
                 case "Astrologian":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(AstrologianSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(AstrologianSettings.Instance));
                     break;
 
                 case "Paladin":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(PaladinSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(PaladinSettings.Instance));
                     break;
 
                 case "Warrior":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(WarriorSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(WarriorSettings.Instance));
                     break;
 
                 case "DarkKnight":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(DarkKnightSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(DarkKnightSettings.Instance));
                     break;
 
                 case "Gunbreaker":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(GunbreakerSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(GunbreakerSettings.Instance));
                     break;
 
                 case "Bard":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(BardSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(BardSettings.Instance));
                     break;
 
                 case "Machinist":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(MachinistSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(MachinistSettings.Instance));
                     break;
 
                 case "Dancer":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(DancerSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(DancerSettings.Instance));
                     break;
 
                 case "BlackMage":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(BlackMageSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(BlackMageSettings.Instance));
                     break;
 
                 case "Summoner":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SummonerSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SummonerSettings.Instance));
                     break;
 
                 case "RedMage":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(RedMageSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(RedMageSettings.Instance));
                     break;
 
                 case "Monk":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(MonkSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(MonkSettings.Instance));
                     break;
 
                 case "Dragoon":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(DragoonSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(DragoonSettings.Instance));
                     break;
 
                 case "Ninja":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(NinjaSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(NinjaSettings.Instance));
                     break;
 
                 case "Samurai":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SamuraiSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SamuraiSettings.Instance));
                     break;
 
                 case "Reaper":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ReaperSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ReaperSettings.Instance));
                     break;
 
                 case "Sage":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SageSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(SageSettings.Instance));
                     break;
 
                 case "Pictomancer":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(PictomancerSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(PictomancerSettings.Instance));
                     break;
 
                 case "Viper":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ViperSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(ViperSettings.Instance));
                     break;
 
                 case "BlueMage":
-                    JobSettingsList = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(BlueMageSettings.Instance));
+                    jobProperties = new List<ToggleProperty>(SettingsHandler.ExtractPropertyNamesAndTypesFromSettingsInstance(BlueMageSettings.Instance));
+                    break;
+
+                default:
+                    jobProperties = new List<ToggleProperty>();
                     break;
             }
+
+            // Combine job properties with BaseSettings PvP properties
+            var baseSettingsPvpProperties = SettingsHandler.ExtractBaseSettingsPvpProperties();
+            JobSettingsList = jobProperties.Concat(baseSettingsPvpProperties)
+                .OrderBy(p => p.Name)
+                .ToList();
         }
     }
 }

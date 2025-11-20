@@ -24,6 +24,19 @@ namespace Magitek.Models.Roles
         #endregion
 
         #region pvp
+        // Per-job Utilities (displayed in each job's PVP Utilities section)
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UsePurify { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_AutoGuardMarksmanSpite { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseRoleActions { get; set; }
+
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_UseRecuperate { get; set; }
@@ -34,43 +47,11 @@ namespace Magitek.Models.Roles
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_UsePurify { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_UseGuard { get; set; }
 
         [Setting]
         [DefaultValue(40.0f)]
         public float Pvp_GuardHealthPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_AutoGuardMarksmanSpite { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_GuardCheck { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_InvulnCheck { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_SprintWithoutTarget { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseMount { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_AutoDismount { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_UseRoleActions { get; set; }
 
         [Setting]
         [DefaultValue(7)]

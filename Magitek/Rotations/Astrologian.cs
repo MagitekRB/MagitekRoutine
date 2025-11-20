@@ -185,18 +185,24 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(AstrologianSettings.Instance)) return true;
 
             // Limit Break
-            if (await Pvp.CelestialRiverPvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.CelestialRiverPvp()) return true;
+            }
 
             // Healing
             if (await Pvp.MacrocosmosPvp()) return true;
             if (await Pvp.AspectedBeneficPvp()) return true;
 
             // Special Actions
-            if (await Pvp.MinorArcanaPvp()) return true;
-            if (await Pvp.OraclePvp()) return true;
+            if (CommonPvp.ShouldUseBurst())
+            {
+                if (await Pvp.MinorArcanaPvp()) return true;
+                if (await Pvp.OraclePvp()) return true;
+            }
 
             // Damage
-            if (!CommonPvp.GuardCheck(AstrologianSettings.Instance))
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(AstrologianSettings.Instance))
             {
                 if (await Pvp.DoubleCastPvp()) return true;
                 if (await Pvp.GravityIIPvp()) return true;
