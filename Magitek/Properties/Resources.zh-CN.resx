@@ -3916,10 +3916,13 @@
     <value>队友需要治疗</value>
   </data>
   <data name="Generic_Sprint_Without_Target" xml:space="preserve">
-    <value>无目标时使用 冲刺</value>
+    <value>自动疾跑（无目标/逃跑时疾跑）</value>
   </data>
   <data name="Generic_Use_Mount" xml:space="preserve">
-    <value>使用坐骑</value>
+    <value>自动坐骑（安全时自动上/下坐骑）</value>
+  </data>
+  <data name="Generic_Use_Role_Actions" xml:space="preserve">
+    <value>使用职能技能</value>
   </data>
   <data name="Generic_When_There_Are" xml:space="preserve">
     <value>当有[xx]时</value>

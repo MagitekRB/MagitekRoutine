@@ -344,19 +344,36 @@ namespace Magitek.Models.Account
         #region PvP
         [Setting]
         [DefaultValue(false)]
-        public bool HoldPvpBurst { get; set; }
+        public bool Pvp_HoldBurst { get; set; }
 
         [Setting]
         [DefaultValue(Keys.None)]
-        public Keys HoldPvpBurstKey { get; set; }
+        public Keys Pvp_HoldBurstKey { get; set; }
 
         [Setting]
         [DefaultValue(ModifierKeys.None)]
-        public ModifierKeys HoldPvpBurstModkey { get; set; }
+        public ModifierKeys Pvp_HoldBurstModkey { get; set; }
 
         [Setting]
         [DefaultValue(false)]
-        public bool PvpUseBurstOnWarmachina { get; set; }
+        public bool Pvp_UseBurstOnWarmachina { get; set; }
+
+        // Global Utilities (will be displayed in Global PVP section)
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_GuardCheck { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_InvulnCheck { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_SprintWithoutTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseMount { get; set; }
         #endregion
 
         [Setting]

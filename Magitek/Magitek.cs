@@ -475,22 +475,22 @@ namespace Magitek
             HotkeyManager.Unregister("MagitekHoldPvpBurst");
 
             // Check if we have a key set
-            if (Models.Account.BaseSettings.Instance.HoldPvpBurstKey == Keys.None &&
-                Models.Account.BaseSettings.Instance.HoldPvpBurstModkey == ModifierKeys.None)
+            if (Models.Account.BaseSettings.Instance.Pvp_HoldBurstKey == Keys.None &&
+                Models.Account.BaseSettings.Instance.Pvp_HoldBurstModkey == ModifierKeys.None)
                 return;
 
             // Register the hotkey
             HotkeyManager.Register("MagitekHoldPvpBurst",
-                Models.Account.BaseSettings.Instance.HoldPvpBurstKey,
-                Models.Account.BaseSettings.Instance.HoldPvpBurstModkey,
+                Models.Account.BaseSettings.Instance.Pvp_HoldBurstKey,
+                Models.Account.BaseSettings.Instance.Pvp_HoldBurstModkey,
                 r =>
                 {
-                    // Toggle the HoldPvpBurst boolean
-                    Models.Account.BaseSettings.Instance.HoldPvpBurst = !Models.Account.BaseSettings.Instance.HoldPvpBurst;
-                    Logger.WriteInfo($@"[Hotkey] Hold PvP Burst: {Models.Account.BaseSettings.Instance.HoldPvpBurst}");
+                    // Toggle the Pvp_HoldBurst boolean
+                    Models.Account.BaseSettings.Instance.Pvp_HoldBurst = !Models.Account.BaseSettings.Instance.Pvp_HoldBurst;
+                    Logger.WriteInfo($@"[Hotkey] Hold PvP Burst: {Models.Account.BaseSettings.Instance.Pvp_HoldBurst}");
                 });
 
-            Logger.WriteInfo($@"[Hotkeys] Registered Hold PvP Burst hotkey: {Models.Account.BaseSettings.Instance.HoldPvpBurstModkey} + {Models.Account.BaseSettings.Instance.HoldPvpBurstKey}");
+            Logger.WriteInfo($@"[Hotkeys] Registered Hold PvP Burst hotkey: {Models.Account.BaseSettings.Instance.Pvp_HoldBurstModkey} + {Models.Account.BaseSettings.Instance.Pvp_HoldBurstKey}");
         }
 
         private void UnregisterAllMagitekHotkeys()

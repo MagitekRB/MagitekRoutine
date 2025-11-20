@@ -38,15 +38,15 @@
                                    VerticalAlignment="Center"
                                    Margin="0,0,10,0"/>
                         <controls:Hotkey Text="{x:Static properties:Resources.GlobalPvp_Text_Hold_Burst_Hotkey_Label}"
-                                         KeySetting="{Binding GeneralSettings.HoldPvpBurstKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         ModKeySetting="{Binding GeneralSettings.HoldPvpBurstModkey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                         KeySetting="{Binding GeneralSettings.Pvp_HoldBurstKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         ModKeySetting="{Binding GeneralSettings.Pvp_HoldBurstModkey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
 
                     <!-- Warmachina Setting -->
                     <StackPanel Margin="5"
                                 Orientation="Horizontal">
                         <CheckBox Content="{x:Static properties:Resources.Generic_PvpUseBurstOnWarmachina}"
-                                  IsChecked="{Binding GeneralSettings.PvpUseBurstOnWarmachina, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsChecked="{Binding GeneralSettings.Pvp_UseBurstOnWarmachina, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{DynamicResource CheckBoxFlat}"/>
                     </StackPanel>
 
@@ -65,6 +65,40 @@
                                FontStyle="Italic"
                                Foreground="Orange"
                                Text="{x:Static properties:Resources.GlobalPvp_Text_Hold_Burst_Overlay_Note}"/>
+
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <!-- Global PvP Utilities Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="{x:Static properties:Resources.Generic_Utilities}"/>
+
+                    <StackPanel Margin="5">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Guard}"
+                                  IsChecked="{Binding GeneralSettings.Pvp_GuardCheck, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Attack_Invuln_Hallowed_Ground}"
+                                  IsChecked="{Binding GeneralSettings.Pvp_InvulnCheck, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Sprint_Without_Target}"
+                                  IsChecked="{Binding GeneralSettings.Pvp_SprintWithoutTarget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Use_Mount}"
+                                  IsChecked="{Binding GeneralSettings.Pvp_UseMount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
 
                 </StackPanel>
             </controls:SettingsBlock>

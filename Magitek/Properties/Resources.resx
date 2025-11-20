@@ -3921,10 +3921,13 @@ Does not work if Lightspeed is disabled.</value>
     <value>Allies Need Healing</value>
   </data>
   <data name="Generic_Sprint_Without_Target" xml:space="preserve">
-    <value>Sprint Without Target</value>
+    <value>Auto Sprint (Will sprint without target / running away)</value>
   </data>
   <data name="Generic_Use_Mount" xml:space="preserve">
-    <value>Use Mount</value>
+    <value>Auto Mount (Will attempt to mount / dismount when safe)</value>
+  </data>
+  <data name="Generic_Use_Role_Actions" xml:space="preserve">
+    <value>Use Role Actions</value>
   </data>
   <data name="Generic_When_There_Are" xml:space="preserve">
     <value>When There Are</value>
@@ -4023,7 +4026,7 @@ Does not work if Lightspeed is disabled.</value>
     <value>Out Of Combat</value>
   </data>
   <data name="Generic_Dont_Attack_Guard" xml:space="preserve">
-    <value>Dont Attack Guard</value>
+    <value>Don't Attack Guard</value>
   </data>
   <data name="Generic_Dont_Attack_Invuln_Hallowed_Groundund" xml:space="preserve">
     <value>Dont Attack Invuln Hallowed Groundund</value>

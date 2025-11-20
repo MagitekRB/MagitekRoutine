@@ -24,8 +24,8 @@ namespace Magitek.ViewModels
             GeneralSettings.Save();
 
             // Re-register hotkey when hotkey properties change
-            if (e.PropertyName == nameof(GeneralSettings.HoldPvpBurstKey) ||
-                e.PropertyName == nameof(GeneralSettings.HoldPvpBurstModkey))
+            if (e.PropertyName == nameof(GeneralSettings.Pvp_HoldBurstKey) ||
+                e.PropertyName == nameof(GeneralSettings.Pvp_HoldBurstModkey))
             {
                 Magitek.RegisterHoldPvpBurstHotkey();
             }

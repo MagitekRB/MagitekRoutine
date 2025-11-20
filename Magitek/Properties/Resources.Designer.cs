@@ -5344,7 +5344,7 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Dont Attack Guard.
+        ///   Looks up a localized string similar to Don't Attack Guard.
         /// </summary>
         public static string Generic_Dont_Attack_Guard
         {
@@ -7280,7 +7280,7 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Sprint Without Target.
+        ///   Looks up a localized string similar to Auto Sprint (Will sprint without target / running away).
         /// </summary>
         public static string Generic_Sprint_Without_Target
         {
@@ -7566,7 +7566,7 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Use Mount.
+        ///   Looks up a localized string similar to Auto Mount (Will attempt to mount / dismount when safe).
         /// </summary>
         public static string Generic_Use_Mount
         {
@@ -7617,6 +7617,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Generic_Use_Potion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Role Actions.
+        /// </summary>
+        public static string Generic_Use_Role_Actions
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Use_Role_Actions", resourceCulture);
             }
         }
 

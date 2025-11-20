@@ -139,12 +139,12 @@ namespace Magitek.Rotations
                     if (await Pvp.ImperatorPvp()) return true;
                     if (await Pvp.IntervenePvp()) return true;
                 }
-
-                if (await Pvp.AtonementPvp()) return true;
-                if (await Pvp.SupplicationPvp()) return true;
-                if (await Pvp.SepulchrePvp()) return true;
-                if (await Pvp.ConfiteorPvp()) return true;
             }
+
+            if (await Pvp.AtonementPvp()) return true;
+            if (await Pvp.SupplicationPvp()) return true;
+            if (await Pvp.SepulchrePvp()) return true;
+            if (await Pvp.ConfiteorPvp()) return true;
 
             // Basic combo fallback (ONLY ungated abilities)
             if (await Pvp.RoyalAuthorityPvp()) return true;
