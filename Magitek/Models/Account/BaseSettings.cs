@@ -11,18 +11,7 @@ namespace Magitek.Models.Account
     [AddINotifyPropertyChangedInterface]
     public class BaseSettings : JsonSettings
     {
-        public BaseSettings() : base(CharacterSettingsDirectory + "/Magitek/BaseSettings.json")
-        {
-            PropertyChanged += OnPropertyChanged;
-        }
-
-        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ZoomHack))
-            {
-                Utilities.ZoomHack.Toggle();
-            }
-        }
+        public BaseSettings() : base(CharacterSettingsDirectory + "/Magitek/BaseSettings.json") { }
 
         private static BaseSettings _instance;
 
