@@ -1,5 +1,4 @@
 ﻿using ff14bot.Enums;
-using Magitek.Utilities;
 using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;
