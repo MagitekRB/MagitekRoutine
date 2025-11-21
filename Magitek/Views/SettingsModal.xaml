@@ -51,7 +51,7 @@
                                 <CheckBox Content="{x:Static properties:Resources.Views_Content_Use_AutoFace_for_InView_checks}" IsChecked="{Binding GeneralSettings.UseAutoFaceChecks, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                             </StackPanel>
                             <StackPanel Margin="2" Orientation="Horizontal">                                
-                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Lift_Zoom_Restrictions}" IsChecked="{Binding GeneralSettings.ZoomHack, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Lift_Zoom_Restrictions}" IsChecked="{Binding GeneralSettings.ZoomHack, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" Click="ZoomHackCheckBox_Click" />
                             </StackPanel>
                             <StackPanel Margin="2" Orientation="Horizontal">
                                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_Latency_Offset_Ping}" />

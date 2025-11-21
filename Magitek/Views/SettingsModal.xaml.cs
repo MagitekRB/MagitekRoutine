@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Magitek.Utilities;
 
 namespace Magitek.Views
 {
@@ -12,6 +13,11 @@ namespace Magitek.Views
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ZoomHackCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            ZoomHack.Toggle();
         }
 
         //private void OverlayCheckChanged(object sender, RoutedEventArgs e)
