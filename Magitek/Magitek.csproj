@@ -12,6 +12,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\release\</OutputPath>
@@ -28,6 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>bin\deploy\</OutputPath>
     <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
@@ -76,7 +83,7 @@
       <Version>4.1.0</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.732" />
+    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.781" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
