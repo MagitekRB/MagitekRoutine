@@ -12,7 +12,7 @@ namespace Magitek.Utilities
 
         private const string MaxZoomOffsetPattern = "Search F3 0F 10 9F ? ? ? ? 4C 8D 44 24 Add 4 Read32";
 
-        private static readonly bool offsetFound = false;
+        private static readonly bool offsetFound;
         private static readonly int Offset;
         static ZoomHack()
         {
@@ -24,7 +24,8 @@ namespace Magitek.Utilities
             }
             catch
             {
-                Logger.Write($@"[Magitek] ZoomHack Failed due to FFXIV Update");
+                offsetFound = false;
+                Logger.WriteInfo("ZoomHack Failed due to FFXIV Update");
             }
         }
 
@@ -36,6 +37,8 @@ namespace Magitek.Utilities
             if (!offsetFound)
                 return;
 
+            var status = BaseSettings.Instance.ZoomHack ? "Enabled" : "Disabled";
+            Logger.WriteInfo($"ZoomHack {status}");
             Core.Memory.Write(CameraManager.CameraPtr + Offset, BaseSettings.Instance.ZoomHack ? 200f : 20f);
             _isEnabled = BaseSettings.Instance.ZoomHack;
         }
