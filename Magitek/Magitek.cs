@@ -69,6 +69,15 @@ namespace Magitek
             RegisterResetOpenerHotkey();
             RegisterHoldPvpBurstHotkey();
             CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
+
+            // Start overlays if bot is already running (hot-reload scenario)
+            if (TreeRoot.IsRunning)
+            {
+                OverlayManager.StartMainOverlay();
+                OverlayManager.StartCombatMessageOverlay();
+                Logger.WriteInfo("[Hot-Reload] Overlays restarted after Initialize()");
+            }
+
             Logger.WriteInfo("Initialized");
         }
 
@@ -165,8 +174,11 @@ namespace Magitek
             // Apply the gambits we have
             GambitsViewModel.Instance.ApplyGambits();
             OpenersViewModel.Instance.ApplyOpeners();
+
+            // Start overlays (protected by try-catch in overlay components)
             OverlayManager.StartMainOverlay();
             OverlayManager.StartCombatMessageOverlay();
+
             CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
             HookBehaviors();
 
@@ -316,8 +328,50 @@ namespace Magitek
 
         public override void ShutDown()
         {
+            // Stop overlays FIRST to prevent WPF resource errors from unloaded assembly
+            try
+            {
+                OverlayManager.StopMainOverlay();
+                OverlayManager.StopCombatMessageOverlay();
+                Logger.WriteInfo("[Hot-Reload] Overlays stopped during shutdown");
+            }
+            catch (Exception e)
+            {
+                Logger.WriteInfo($"[Hot-Reload] Error stopping overlays: {e.Message}");
+            }
+
             TreeRoot.OnStart -= OnStart;
             TreeRoot.OnStop -= OnStop;
+
+            // Unhook all TreeHooks to prevent duplicate instances
+            try
+            {
+                TreeHooks.Instance.RemoveHook("Rest", RestBehavior);
+                TreeHooks.Instance.RemoveHook("PreCombatBuff", PreCombatBuffBehavior);
+                TreeHooks.Instance.RemoveHook("Pull", PullBehavior);
+                TreeHooks.Instance.RemoveHook("Heal", HealBehavior);
+                TreeHooks.Instance.RemoveHook("CombatBuff", CombatBuffBehavior);
+                TreeHooks.Instance.RemoveHook("Combat", CombatBehavior);
+                Logger.WriteInfo("[Hot-Reload] TreeHooks removed during shutdown");
+            }
+            catch (Exception e)
+            {
+                Logger.WriteInfo($"[Hot-Reload] Error removing TreeHooks: {e.Message}");
+            }
+
+            // Unregister GameEvents to prevent old assembly callbacks
+            try
+            {
+                GameEvents.OnClassChanged -= GameEventsOnOnClassChanged;
+                GameEvents.OnLevelUp -= GameEventsOnOnLevelUp;
+                GameEvents.OnMapChanged -= GameEventsOnOnMapChanged;
+                GamelogManager.MessageRecevied -= GamelogManagerCountdownRecevied;
+                Logger.WriteInfo("[Hot-Reload] GameEvents unregistered during shutdown");
+            }
+            catch (Exception e)
+            {
+                Logger.WriteInfo($"[Hot-Reload] Error unregistering GameEvents: {e.Message}");
+            }
 
             Dispelling.Instance.Save();
             BaseSettings.Instance.Save();

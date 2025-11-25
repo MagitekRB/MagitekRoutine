@@ -33,6 +33,7 @@ namespace Magitek.Utilities.Overlays
             {
                 Core.OverlayManager.RemoveUIComponent(MainSettingsOverlay);
             }
+
             MainSettingsOverlay = null;
         }
 
@@ -67,6 +68,7 @@ namespace Magitek.Utilities.Overlays
             {
                 Core.OverlayManager.RemoveUIComponent(CombatMessageOverlay);
             }
+
             CombatMessageOverlay = null;
         }
 

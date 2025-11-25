@@ -19,7 +19,17 @@ namespace Magitek.Utilities.Overlays
                 if (_control != null)
                     return _control;
 
-                var overlayUc = new CombatMessageOverlay();
+                CombatMessageOverlay overlayUc;
+                try
+                {
+                    overlayUc = new CombatMessageOverlay();
+                }
+                catch (System.Exception)
+                {
+                    // XAML resources not available (hot-reload with GUID temp file)
+                    // Return empty control to prevent crash
+                    return new OverlayControl() { Name = "MagitekCombatTextOverlay_Unavailable" };
+                }
 
                 double width = BaseSettings.Instance.CombatMessageOverlayWidth;
                 double height = BaseSettings.Instance.CombatMessageOverlayHeight;
