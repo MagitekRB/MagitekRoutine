@@ -48,33 +48,66 @@ namespace Magitek.Logic.Gunbreaker
             if (Casting.LastSpell == Spells.LightningShot)
                 return false;
 
-            if (GunbreakerSettings.Instance.GunbreakerStrategy.Equals(GunbreakerStrategy.SlowGCD) && (Cartridge == 3 || Casting.LastSpell == Spells.Bloodfest) && Spells.NoMercy.IsKnownAndReady(1000))
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == GunbreakerStrategy.OptimizedBurst)
             {
+                // Optimized No Mercy timing following The Balance guide
+                // Uses late weave window for faster GCD speeds to fit 9 GCDs inside No Mercy
 
-                if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+                // Require 2+ cartridges before No Mercy
+                if (Cartridge < 2)
+                    return false;
+
+                // Don't cast right after Bloodfest (let GCD roll)
+                if (Casting.LastSpell == Spells.Bloodfest)
+                    return false;
+
+                // Get GCD speed to determine weave timing
+                double gcdSpeed = Spells.KeenEdge.AdjustedCooldown.TotalSeconds;
+
+                // For GCD speeds < 2.50, use late weave to fit 9th GCD inside No Mercy
+                // At 2.50 GCD, can use early weave (any time during weave window)
+                if (gcdSpeed < 2.50)
                 {
-
-                    if (!await UseFatedCircle())
+                    // Only cast No Mercy in the late weave window (9 o'clock position)
+                    if (!GunbreakerRoutine.GlobalCooldown.IsLateWeaveWindow())
                         return false;
                 }
                 else
                 {
-
-                    if (!await UseBurstStrike())
+                    // At 2.50 GCD, just need to be in any weave window
+                    if (!GunbreakerRoutine.GlobalCooldown.CanWeave())
                         return false;
                 }
 
                 return await Spells.NoMercy.Cast(Core.Me);
-
             }
+            else
+            {
+                // Legacy No Mercy timing (FastGCD/SlowGCD strategies)
+                if (GunbreakerSettings.Instance.GunbreakerStrategy == GunbreakerStrategy.SlowGCD && (Cartridge == 3 || Casting.LastSpell == Spells.Bloodfest) && Spells.NoMercy.IsKnownAndReady(1000))
+                {
+                    if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+                    {
+                        if (!await UseFatedCircle())
+                            return false;
+                    }
+                    else
+                    {
+                        if (!await UseBurstStrike())
+                            return false;
+                    }
 
-            if (Casting.LastSpell == Spells.Bloodfest)
-                return false;
+                    return await Spells.NoMercy.Cast(Core.Me);
+                }
 
-            if (Cartridge < 2)
-                return false;
+                if (Casting.LastSpell == Spells.Bloodfest)
+                    return false;
 
-            return await Spells.NoMercy.Cast(Core.Me);
+                if (Cartridge < 2)
+                    return false;
+
+                return await Spells.NoMercy.Cast(Core.Me);
+            }
         }
 
         public static async Task<bool> Bloodfest() // +2 or +3 cartrige

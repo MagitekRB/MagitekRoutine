@@ -1418,14 +1418,17 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Gunbreaker_Content_Bloodfest_Add_cartridge" xml:space="preserve">
     <value>Bloodfest (Add cartridge)</value>
   </data>
-  <data name="Gunbreaker_Text_Filler_Strategy" xml:space="preserve">
-    <value>Filler Strategy:</value>
+  <data name="Gunbreaker_Text_Rotation_Strategy" xml:space="preserve">
+    <value>Rotation Strategy:</value>
   </data>
-  <data name="Gunbreaker_Text_25_GCD_Slow_GCD" xml:space="preserve">
-    <value>2.5 GCD =&gt; Slow GCD</value>
+  <data name="Gunbreaker_Text_FastGCD_Legacy" xml:space="preserve">
+    <value>FastGCD: Legacy rotation (2.4 GCD speed)</value>
   </data>
-  <data name="Gunbreaker_Text_24_GCD_Fast_GCD" xml:space="preserve">
-    <value>2.4 GCD =&gt; Fast GCD</value>
+  <data name="Gunbreaker_Text_SlowGCD_Legacy" xml:space="preserve">
+    <value>SlowGCD: Legacy rotation (2.5 GCD speed)</value>
+  </data>
+  <data name="Gunbreaker_Text_OptimizedBurst_Balance" xml:space="preserve">
+    <value>OptimizedBurst: The Balance guide (Late weave No Mercy, correct GCD priority)</value>
   </data>
   <data name="Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me" xml:space="preserve">
     <value>Use Lightning Shot if not in melee to deal damage</value>

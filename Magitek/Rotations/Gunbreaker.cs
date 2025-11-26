@@ -1,4 +1,5 @@
 ﻿using ff14bot;
+using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Logic.Gunbreaker;
 using Magitek.Logic.Roles;
@@ -95,22 +96,51 @@ namespace Magitek.Rotations
             if (await SingleTarget.LightningShotToPullOrAggro()) return true;
             if (await SingleTarget.LightningShotToDps()) return true;
 
-            //Burst
-            if (await Aoe.DoubleDown()) return true;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == GunbreakerStrategy.OptimizedBurst)
+            {
+                // Optimized burst priority following The Balance guide
+                // Ensures proper buff alignment for maximum damage inside No Mercy
 
-            //Combo 2
-            if (await SingleTarget.SavageClaw()) return true;
-            if (await SingleTarget.WickedTalon()) return true;
-            if (await SingleTarget.GnashingFang()) return true;
+                //Gnashing Fang Combo - highest priority GCD in burst
+                if (await SingleTarget.GnashingFang()) return true;
+                if (await SingleTarget.SavageClaw()) return true;
+                if (await SingleTarget.WickedTalon()) return true;
 
-            //LionHeart Combo
-            if (await SingleTarget.LionHeart()) return true;
-            if (await SingleTarget.NobleBlood()) return true;
-            if (await SingleTarget.ReignOfBeasts()) return true;
+                //Double Down - before Reign combo
+                if (await Aoe.DoubleDown()) return true;
 
-            //Combo 3
-            if (await SingleTarget.BurstStrike()) return true;
-            if (await SingleTarget.SonicBreak()) return true;
+                //Reign of Beasts Combo
+                if (await SingleTarget.ReignOfBeasts()) return true;
+                if (await SingleTarget.NobleBlood()) return true;
+                if (await SingleTarget.LionHeart()) return true;
+
+                //Sonic Break - flexible filler
+                if (await SingleTarget.SonicBreak()) return true;
+
+                //Burst Strike - lowest priority cartridge spender
+                if (await SingleTarget.BurstStrike()) return true;
+            }
+            else
+            {
+                // Legacy burst priority (FastGCD/SlowGCD strategies)
+
+                //Burst
+                if (await Aoe.DoubleDown()) return true;
+
+                //Combo 2
+                if (await SingleTarget.SavageClaw()) return true;
+                if (await SingleTarget.WickedTalon()) return true;
+                if (await SingleTarget.GnashingFang()) return true;
+
+                //LionHeart Combo
+                if (await SingleTarget.LionHeart()) return true;
+                if (await SingleTarget.NobleBlood()) return true;
+                if (await SingleTarget.ReignOfBeasts()) return true;
+
+                //Combo 3
+                if (await SingleTarget.BurstStrike()) return true;
+                if (await SingleTarget.SonicBreak()) return true;
+            }
 
             //AOE
             if (await Aoe.FatedCircle()) return true;

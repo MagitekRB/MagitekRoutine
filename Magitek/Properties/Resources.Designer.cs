@@ -8259,24 +8259,35 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to 2.4 GCD =&gt; Fast GCD.
+        ///   Looks up a localized string similar to FastGCD: Legacy rotation (2.4 GCD speed).
         /// </summary>
-        public static string Gunbreaker_Text_24_GCD_Fast_GCD
+        public static string Gunbreaker_Text_FastGCD_Legacy
         {
             get
             {
-                return ResourceManager.GetString("Gunbreaker_Text_24_GCD_Fast_GCD", resourceCulture);
+                return ResourceManager.GetString("Gunbreaker_Text_FastGCD_Legacy", resourceCulture);
             }
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to 2.5 GCD =&gt; Slow GCD.
+        ///   Looks up a localized string similar to SlowGCD: Legacy rotation (2.5 GCD speed).
         /// </summary>
-        public static string Gunbreaker_Text_25_GCD_Slow_GCD
+        public static string Gunbreaker_Text_SlowGCD_Legacy
         {
             get
             {
-                return ResourceManager.GetString("Gunbreaker_Text_25_GCD_Slow_GCD", resourceCulture);
+                return ResourceManager.GetString("Gunbreaker_Text_SlowGCD_Legacy", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to OptimizedBurst: The Balance guide (Late weave No Mercy, correct GCD priority).
+        /// </summary>
+        public static string Gunbreaker_Text_OptimizedBurst_Balance
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Text_OptimizedBurst_Balance", resourceCulture);
             }
         }
 
@@ -8314,13 +8325,13 @@ namespace Magitek.Properties
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Filler Strategy:.
+        ///   Looks up a localized string similar to Rotation Strategy:.
         /// </summary>
-        public static string Gunbreaker_Text_Filler_Strategy
+        public static string Gunbreaker_Text_Rotation_Strategy
         {
             get
             {
-                return ResourceManager.GetString("Gunbreaker_Text_Filler_Strategy", resourceCulture);
+                return ResourceManager.GetString("Gunbreaker_Text_Rotation_Strategy", resourceCulture);
             }
         }
 
