@@ -153,7 +153,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerSettings.Instance.BurstLogicHoldNoMercy && !Spells.GnashingFang.IsKnownAndReady(3000) && !Spells.DoubleDown.IsKnownAndReady(5000))
                 return false;
 
-            if(!Spells.NoMercy.IsKnownAndReady())
+            if (!Spells.NoMercy.IsKnownAndReady())
                 return false;
 
             return true;
@@ -180,8 +180,29 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.NoMercy.IsKnownAndReady())
                 return false;
 
-            if (GunbreakerSettings.Instance.HoldAmmoCombo && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
-                return false;
+            // Smart Gnashing Fang hold logic for OptimizedBurst strategy
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                double noMercyCooldown = Spells.NoMercy.Cooldown.TotalSeconds;
+
+                // Get Gnashing Fang's actual cooldown from spell data (accounts for skill speed)
+                // Cooldown starts immediately when cast, not after the combo finishes
+                double gnashingFangCooldown = Spells.GnashingFang.AdjustedCooldown.TotalSeconds;
+
+                // Hold Gnashing Fang if No Mercy will be ready before Gnashing Fang comes off cooldown
+                // This ensures Gnashing Fang is always available for the No Mercy burst window
+                if (noMercyCooldown > 0 && noMercyCooldown < gnashingFangCooldown)
+                {
+                    // Hold - using Gnashing Fang now would make it unavailable for No Mercy burst
+                    return false;
+                }
+            }
+            else
+            {
+                // Legacy hold logic for FastGCD/SlowGCD strategies
+                if (GunbreakerSettings.Instance.HoldAmmoCombo && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
+                    return false;
+            }
 
             return await Spells.GnashingFang.Cast(Core.Me.CurrentTarget);
         }
@@ -255,10 +276,10 @@ namespace Magitek.Logic.Gunbreaker
             //if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
             //    return false;
 
-                if (!Core.Me.HasAura(Auras.NoMercy))
+            if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
-            if(Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady() || Spells.SonicBreak.IsKnownAndReadyAndCastable())
+            if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady() || Spells.SonicBreak.IsKnownAndReadyAndCastable())
                 return false;
 
             return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
@@ -337,7 +358,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.NoMercy.IsKnownAndReady())
                 return false;
 
-            if (GunbreakerSettings.Instance.HoldBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds *1000))
+            if (GunbreakerSettings.Instance.HoldBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
                 return false;
 
             if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
@@ -352,7 +373,7 @@ namespace Magitek.Logic.Gunbreaker
          *******************************************************************************/
         public static async Task<bool> SonicBreak()
         {
-            if(!Spells.SonicBreak.IsKnownAndReadyAndCastable())
+            if (!Spells.SonicBreak.IsKnownAndReadyAndCastable())
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
@@ -361,7 +382,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.GnashingFang.IsKnownAndReady() || Spells.DoubleDown.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 118000)
                 return false;
 
-            if(Core.Me.HasAura(Auras.ReadyToReign) || Spells.NobleBlood.IsKnownAndReadyAndCastable() || Spells.LionHeart.IsKnownAndReadyAndCastable())
+            if (Core.Me.HasAura(Auras.ReadyToReign) || Spells.NobleBlood.IsKnownAndReadyAndCastable() || Spells.LionHeart.IsKnownAndReadyAndCastable())
                 return false;
 
             return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
