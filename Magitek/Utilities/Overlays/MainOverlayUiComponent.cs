@@ -19,7 +19,17 @@ namespace Magitek.Utilities.Overlays
                 if (_control != null)
                     return _control;
 
-                var overlayUc = new MainSettingsOverlay();
+                MainSettingsOverlay overlayUc;
+                try
+                {
+                    overlayUc = new MainSettingsOverlay();
+                }
+                catch (System.Exception)
+                {
+                    // XAML resources not available (hot-reload with GUID temp file)
+                    // Return empty control to prevent crash
+                    return new OverlayControl() { Name = "MagitekOverlay_Unavailable" };
+                }
 
                 overlayUc.BtnOpenSettings.Click += (sender, args) =>
                 {
