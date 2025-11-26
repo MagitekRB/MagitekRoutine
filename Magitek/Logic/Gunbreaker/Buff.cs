@@ -66,7 +66,7 @@ namespace Magitek.Logic.Gunbreaker
 
                 // For GCD speeds < 2.50, use late weave to fit 9th GCD inside No Mercy
                 // At 2.50 GCD, can use early weave (any time during weave window)
-                if (gcdSpeed < 2.50)
+                if (gcdSpeed < 2.48)
                 {
                     // Only cast No Mercy in the late weave window (9 o'clock position)
                     if (!GunbreakerRoutine.GlobalCooldown.IsLateWeaveWindow())
