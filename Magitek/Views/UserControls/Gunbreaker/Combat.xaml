@@ -35,14 +35,17 @@
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Filler_Strategy}" />
+                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Rotation_Strategy}" />
                     <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource GunbreakerStrategy}}" SelectedValue="{Binding GunbreakerSettings.GunbreakerStrategy, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="10,5,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_25_GCD_Slow_GCD}" />
+                    <TextBlock Margin="10,5,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_FastGCD_Legacy}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="10,0,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_24_GCD_Fast_GCD}" />
+                    <TextBlock Margin="10,0,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_SlowGCD_Legacy}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,0,0" Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Gunbreaker_Text_OptimizedBurst_Balance}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

@@ -3,6 +3,7 @@
     public enum GunbreakerStrategy
     {
         FastGCD,
-        SlowGCD
+        SlowGCD,
+        OptimizedBurst
     }
 }

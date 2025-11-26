@@ -14,21 +14,46 @@ namespace Magitek.Toggles
 {
     internal static class TogglesManager
     {
+        private static bool _isLoadingToggles = false;
+        private static readonly object _toggleLoadLock = new object();
+
         public static void LoadTogglesForCurrentJob()
         {
-            Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Loading Toggle...");
+            // Prevent re-entry during toggle loading to avoid duplicate hotkey registrations
+            lock (_toggleLoadLock)
+            {
+                if (_isLoadingToggles)
+                {
+                    Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Toggle loading already in progress, skipping duplicate call.");
+                    return;
+                }
 
-            var settingsMagitekToggles = GetBasicTogglesForJob;
-            var settingsCustomToggles = GetCustomTogglesForJob;
-            Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Found {(settingsMagitekToggles == null ? 0 : settingsMagitekToggles.Count)} Magitek Toggles and {(settingsCustomToggles == null ? 0 : settingsCustomToggles.Count)} Custom Toggles...");
+                _isLoadingToggles = true;
+            }
 
-            var settingsAllToggles = settingsMagitekToggles.Concat(settingsCustomToggles).ToList();
+            try
+            {
+                Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Loading Toggle...");
 
-            Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Loaded {(settingsAllToggles == null ? 0 : settingsAllToggles.Count)} Toggles...");
+                var settingsMagitekToggles = GetBasicTogglesForJob;
+                var settingsCustomToggles = GetCustomTogglesForJob;
+                Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Found {(settingsMagitekToggles == null ? 0 : settingsMagitekToggles.Count)} Magitek Toggles and {(settingsCustomToggles == null ? 0 : settingsCustomToggles.Count)} Custom Toggles...");
 
-            SetToggleHotkeys(settingsAllToggles);
-            SetTogglesOnOverlay(settingsAllToggles);
-            ResetToggles();
+                var settingsAllToggles = settingsMagitekToggles.Concat(settingsCustomToggles).ToList();
+
+                Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Loaded {(settingsAllToggles == null ? 0 : settingsAllToggles.Count)} Toggles...");
+
+                SetToggleHotkeys(settingsAllToggles);
+                SetTogglesOnOverlay(settingsAllToggles);
+                ResetToggles();
+            }
+            finally
+            {
+                lock (_toggleLoadLock)
+                {
+                    _isLoadingToggles = false;
+                }
+            }
         }
 
         public static void ResetToggles()
