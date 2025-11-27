@@ -103,6 +103,213 @@
                 </StackPanel>
             </controls:SettingsBlock>
 
+            <!-- PvP Role Actions Settings -->
+            <controls:SettingsBlock Margin="0,5"
+                                    Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockSection}"
+                               Text="{x:Static properties:Resources.Generic_PvP_Role_Actions}"/>
+
+                    <!-- Tank Role Actions -->
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Tank Role Actions"
+                               FontWeight="Bold"
+                               Margin="5,10,5,5"/>
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Rampage_AoE_Count}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="10"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_RampageAoeCount, Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Rampart_Self_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_RampartHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Rampart_Enemy_Range}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="50"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_RampartEnemyRange, Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_FullSwing_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_FullSwingTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Healer Role Actions -->
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Healer Role Actions"
+                               FontWeight="Bold"
+                               Margin="5,10,5,5"/>
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Haelan_Minimum_Mana}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="10000"
+                                              MinValue="0"
+                                              Value="{Binding GeneralSettings.Pvp_HaelanMinimumMana, Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Haelan_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_HaelanTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_StoneskinII_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_StoneskinIITargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Diabrosis_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_DiabrosisTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Diabrosis_AoE_Count}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="10"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_DiabrosisAoeCount, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Melee DPS Role Actions -->
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Melee DPS Role Actions"
+                               FontWeight="Bold"
+                               Margin="5,10,5,5"/>
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Smite_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_SmiteTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Bloodbath_Self_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_BloodbathHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Physical Ranged DPS Role Actions -->
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Physical Ranged DPS Role Actions"
+                               FontWeight="Bold"
+                               Margin="5,10,5,5"/>
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Dervish_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_DervishTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Bravery_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_BraveryTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_EagleEyeShot_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_EagleEyeShotTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Magical Ranged DPS Role Actions -->
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                               Text="Magical Ranged DPS Role Actions"
+                               FontWeight="Bold"
+                               Margin="5,10,5,5"/>
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Comet_AoE_Count}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="10"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_CometAoeCount, Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_PhantomDart_Target_HP}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="100"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_PhantomDartTargetHealthPercent, Mode=TwoWay}"/>
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                       Text="{x:Static properties:Resources.Generic_Rust_AoE_Count}"
+                                       Width="300"/>
+                            <controls:Numeric MaxValue="10"
+                                              MinValue="1"
+                                              Value="{Binding GeneralSettings.Pvp_RustAoeCount, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </controls:SettingsBlock>
+
         </StackPanel>
     </ScrollViewer>
 </UserControl>

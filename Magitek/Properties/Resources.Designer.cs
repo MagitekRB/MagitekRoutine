@@ -4915,6 +4915,204 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Role Actions.
+        /// </summary>
+        public static string Generic_PvP_Role_Actions
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_PvP_Role_Actions", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Dervish: Use When Target Below HP%:.
+        /// </summary>
+        public static string Generic_Dervish_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Dervish_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bravery: Use When Target Below HP%:.
+        /// </summary>
+        public static string Generic_Bravery_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Bravery_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rampage: Minimum Enemies for AoE:.
+        /// </summary>
+        public static string Generic_Rampage_AoE_Count
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Rampage_AoE_Count", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rampart: Use When Below HP%:.
+        /// </summary>
+        public static string Generic_Rampart_Self_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Rampart_Self_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rampart: Require Enemy Within Yalms:.
+        /// </summary>
+        public static string Generic_Rampart_Enemy_Range
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Rampart_Enemy_Range", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Haelan: Minimum Mana (Save for Recuperate):.
+        /// </summary>
+        public static string Generic_Haelan_Minimum_Mana
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Haelan_Minimum_Mana", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Haelan: Use When Ally Below HP%:.
+        /// </summary>
+        public static string Generic_Haelan_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Haelan_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stoneskin II: Use When Ally Below HP%:.
+        /// </summary>
+        public static string Generic_StoneskinII_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_StoneskinII_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Diabrosis: Use When Target Below HP%:.
+        /// </summary>
+        public static string Generic_Diabrosis_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Diabrosis_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Diabrosis: Minimum Enemies for AoE:.
+        /// </summary>
+        public static string Generic_Diabrosis_AoE_Count
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Diabrosis_AoE_Count", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bloodbath: Use When Below HP%:.
+        /// </summary>
+        public static string Generic_Bloodbath_Self_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Bloodbath_Self_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Smite: Use When Target Below HP%:.
+        /// </summary>
+        public static string Generic_Smite_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Smite_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Comet: Minimum Enemies for AoE:.
+        /// </summary>
+        public static string Generic_Comet_AoE_Count
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Comet_AoE_Count", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rust: Minimum Enemies for AoE:.
+        /// </summary>
+        public static string Generic_Rust_AoE_Count
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Rust_AoE_Count", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Eagle Eye Shot: Use When Target Below HP%:.
+        /// </summary>
+        public static string Generic_EagleEyeShot_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_EagleEyeShot_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Full Swing: Use When Target Below HP% (or has Guard):.
+        /// </summary>
+        public static string Generic_FullSwing_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_FullSwing_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Phantom Dart: Use When Target Below HP%:.
+        /// </summary>
+        public static string Generic_PhantomDart_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_PhantomDart_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Ast.
         /// </summary>
         public static string Generic_Ast

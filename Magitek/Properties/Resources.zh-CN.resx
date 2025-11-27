@@ -4041,6 +4041,60 @@
   <data name="Generic_AutoGuard_MarksmansSpite" xml:space="preserve">
     <value>自动防御 (针对狙击手之怨)</value>
   </data>
+  <data name="Generic_PvP_Role_Actions" xml:space="preserve">
+    <value>职能技能</value>
+  </data>
+  <data name="Generic_Dervish_Target_HP" xml:space="preserve">
+    <value>托钵武士：在目标血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Bravery_Target_HP" xml:space="preserve">
+    <value>勇气：在目标血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Rampage_AoE_Count" xml:space="preserve">
+    <value>暴走：AOE最少敌人数量：</value>
+  </data>
+  <data name="Generic_Rampart_Self_HP" xml:space="preserve">
+    <value>预警：在自己血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Rampart_Enemy_Range" xml:space="preserve">
+    <value>预警：需要敌人在多少码内：</value>
+  </data>
+  <data name="Generic_Haelan_Minimum_Mana" xml:space="preserve">
+    <value>希拉：最小法力值（为恢复保留）：</value>
+  </data>
+  <data name="Generic_Haelan_Target_HP" xml:space="preserve">
+    <value>希拉：在队友血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_StoneskinII_Target_HP" xml:space="preserve">
+    <value>石肤II：在队友血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Diabrosis_Target_HP" xml:space="preserve">
+    <value>腐蚀：在目标血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Diabrosis_AoE_Count" xml:space="preserve">
+    <value>腐蚀：AOE最少敌人数量：</value>
+  </data>
+  <data name="Generic_Bloodbath_Self_HP" xml:space="preserve">
+    <value>嗜血：在自己血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Smite_Target_HP" xml:space="preserve">
+    <value>重击：在目标血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_Comet_AoE_Count" xml:space="preserve">
+    <value>彗星：AOE最少敌人数量：</value>
+  </data>
+  <data name="Generic_Rust_AoE_Count" xml:space="preserve">
+    <value>锈蚀：AOE最少敌人数量：</value>
+  </data>
+  <data name="Generic_EagleEyeShot_Target_HP" xml:space="preserve">
+    <value>鹰眼射击：在目标血量低于 HP% 时使用：</value>
+  </data>
+  <data name="Generic_FullSwing_Target_HP" xml:space="preserve">
+    <value>全力挥击：在目标血量低于 HP% 时使用（或有防御）：</value>
+  </data>
+  <data name="Generic_PhantomDart_Target_HP" xml:space="preserve">
+    <value>幽灵飞镖：在目标血量低于 HP% 时使用：</value>
+  </data>
   <data name="Generic_Ast" xml:space="preserve">
     <value>占星</value>
   </data>
