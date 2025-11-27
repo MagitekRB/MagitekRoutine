@@ -28,7 +28,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            return await Spells.DemonSlice.Cast(Core.Me.CurrentTarget);
+            return await Spells.DemonSlice.Cast(Core.Me);
         }
 
         public static async Task<bool> DemonSlaughter()
@@ -45,19 +45,38 @@ namespace Magitek.Logic.Gunbreaker
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (Cartridge >= 2 && CanNoMercy())
-                return false;
-
-            if (Cartridge == GunbreakerRoutine.MaxCartridge)
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
             {
-                if (!await UseFatedCircle())
+                // For OptimizedBurst: Prevent cartridge overcapping
+                // Let rotation priority handle Fated Circle when at max cartridges
+
+                // Don't finish combo if at max cartridges - let Fated Circle spend first
+                if (Cartridge >= GunbreakerRoutine.MaxCartridge)
                     return false;
 
-                if (CanNoMercy())
-                    return await Spells.NoMercy.Cast(Core.Me);
-            }
+                // Hold combo completion if we're about to use No Mercy (avoid cartridge overcap)
+                if (Cartridge >= 2 && CanNoMercy())
+                    return false;
 
-            return await Spells.DemonSlaughter.Cast(Core.Me.CurrentTarget);
+                return await Spells.DemonSlaughter.Cast(Core.Me);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                if (Cartridge >= 2 && CanNoMercy())
+                    return false;
+
+                if (Cartridge == GunbreakerRoutine.MaxCartridge)
+                {
+                    if (!await UseFatedCircle())
+                        return false;
+
+                    if (CanNoMercy())
+                        return await Spells.NoMercy.Cast(Core.Me);
+                }
+
+                return await Spells.DemonSlaughter.Cast(Core.Me);
+            }
         }
 
         private static async Task<bool> UseFatedCircle()
@@ -65,7 +84,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.ClassLevel < Spells.FatedCircle.LevelAcquired)
                 return false;
 
-            if (!await Spells.FatedCircle.Cast(Core.Me.CurrentTarget))
+            if (!await Spells.FatedCircle.Cast(Core.Me))
                 return false;
 
             return await Coroutine.Wait(1000, Spells.FatedBrand.CanCast);
@@ -114,7 +133,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
                 return false;
 
-            return await Spells.FatedCircle.Cast(Core.Me.CurrentTarget);
+            return await Spells.FatedCircle.Cast(Core.Me);
         }
 
         /*************************************************************************************
@@ -137,7 +156,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
                 return false;
 
-            return await Spells.BowShock.Cast(Core.Me.CurrentTarget);
+            return await Spells.BowShock.Cast(Core.Me);
         }
 
         public static async Task<bool> FatedBrand()
@@ -151,7 +170,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            return await Spells.FatedBrand.Cast(Core.Me.CurrentTarget);
+            return await Spells.FatedBrand.Cast(Core.Me);
         }
 
         public static async Task<bool> DoubleDown()
@@ -168,7 +187,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.GnashingFang.IsKnownAndReady(1000) && Cartridge >= 1)
                 return false;
 
-            return await Spells.DoubleDown.Cast(Core.Me.CurrentTarget);
+            return await Spells.DoubleDown.Cast(Core.Me);
         }
     }
 }

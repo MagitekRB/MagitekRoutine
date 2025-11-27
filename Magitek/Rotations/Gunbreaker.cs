@@ -79,17 +79,22 @@ namespace Magitek.Rotations
             }
 
             if (await Buff.NoMercy()) return true;
-            if (await SingleTarget.BlastingZone()) return true;
-            if (await Aoe.BowShock()) return true;
 
-            //oGCD to use with BurstStrike
-            if (await Aoe.FatedBrand()) return true;
-            if (await SingleTarget.Hypervelocity()) return true;
+            // oGCDs during weave windows
+            if (GunbreakerRoutine.GlobalCooldown.CanWeave())
+            {
+                if (await SingleTarget.BlastingZone()) return true;
+                if (await Aoe.BowShock()) return true;
 
-            //oGCD to use inside Combo 2
-            if (await SingleTarget.EyeGouge()) return true;
-            if (await SingleTarget.AbdomenTear()) return true;
-            if (await SingleTarget.JugularRip()) return true;
+                //oGCD to use with BurstStrike
+                if (await Aoe.FatedBrand()) return true;
+                if (await SingleTarget.Hypervelocity()) return true;
+
+                //oGCD to use inside Combo 2
+                if (await SingleTarget.EyeGouge()) return true;
+                if (await SingleTarget.AbdomenTear()) return true;
+                if (await SingleTarget.JugularRip()) return true;
+            }
 
 
             //Pull or get back aggro with LightningShot
@@ -114,7 +119,7 @@ namespace Magitek.Rotations
                 if (await SingleTarget.NobleBlood()) return true;
                 if (await SingleTarget.LionHeart()) return true;
 
-                //Sonic Break - flexible filler
+                //Sonic Break - flexible filler GCD
                 if (await SingleTarget.SonicBreak()) return true;
 
                 //Burst Strike - lowest priority cartridge spender

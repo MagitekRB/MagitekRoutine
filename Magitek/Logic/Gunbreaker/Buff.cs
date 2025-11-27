@@ -38,6 +38,13 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseNoMercy)
                 return false;
 
+            // Don't try to cast if not ready or already active
+            if (!Spells.NoMercy.IsKnownAndReady())
+                return false;
+
+            if (Core.Me.HasAura(Auras.NoMercy))
+                return false;
+
             if (GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
@@ -79,7 +86,7 @@ namespace Magitek.Logic.Gunbreaker
                         return false;
                 }
 
-                return await Spells.NoMercy.Cast(Core.Me);
+                return await Spells.NoMercy.CastAura(Core.Me, Auras.NoMercy);
             }
             else
             {
@@ -97,7 +104,7 @@ namespace Magitek.Logic.Gunbreaker
                             return false;
                     }
 
-                    return await Spells.NoMercy.Cast(Core.Me);
+                    return await Spells.NoMercy.CastAura(Core.Me, Auras.NoMercy);
                 }
 
                 if (Casting.LastSpell == Spells.Bloodfest)
@@ -106,7 +113,7 @@ namespace Magitek.Logic.Gunbreaker
                 if (Cartridge < 2)
                     return false;
 
-                return await Spells.NoMercy.Cast(Core.Me);
+                return await Spells.NoMercy.CastAura(Core.Me, Auras.NoMercy);
             }
         }
 
@@ -115,13 +122,59 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseBloodfest)
                 return false;
 
-            if (Cartridge > GunbreakerRoutine.MaxCartridge - GunbreakerRoutine.AmountCartridgeFromBloodfest)
+            // Don't try to cast if not ready
+            if (!Spells.Bloodfest.IsKnownAndReady())
+                return false;
+
+            // Don't cast immediately after No Mercy in the same pulse
+            if (Casting.LastSpell == Spells.NoMercy)
                 return false;
 
             if (GunbreakerSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
-            return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                // Smart Bloodfest logic for OptimizedBurst strategy
+                // Bloodfest: 120s CD, No Mercy: 60s CD → Bloodfest every OTHER burst window
+                // Priority: Use Bloodfest ASAP when available > Perfect ammo usage
+
+                // Allow up to 1 cartridge before Bloodfest (sacrifice 1 for alignment if needed)
+                if (Cartridge > 1)
+                    return false;
+
+                // Case 1: No Mercy buff is ACTIVE → Use Bloodfest immediately (in the burst window)
+                if (Core.Me.HasAura(Auras.NoMercy))
+                    return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);
+
+                // Case 2: No Mercy is coming up very soon → Use Bloodfest to prep burst
+                if (Spells.NoMercy.IsKnownAndReady(5000)) // Within 5s of No Mercy
+                    return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);
+
+                // Case 3: No Mercy was used recently (on cooldown with significant time remaining)
+                // Use Bloodfest ASAP to avoid drift
+                double noMercyCooldown = Spells.NoMercy.Cooldown.TotalSeconds;
+                if (noMercyCooldown > 40) // No Mercy was used within last ~20s (>40s remaining on 60s CD)
+                {
+                    // Use Bloodfest immediately at 0-1 cartridges to catch the burst window
+                    return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);
+                }
+
+                // Case 4: Normal situation - prefer 0 cartridges
+                if (Cartridge == 0)
+                    return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);
+
+                return false;
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                // Must have room for all cartridges from Bloodfest (stricter)
+                if (Cartridge > GunbreakerRoutine.MaxCartridge - GunbreakerRoutine.AmountCartridgeFromBloodfest)
+                    return false;
+
+                return await Spells.Bloodfest.Cast(Core.Me.CurrentTarget);
+            }
         }
 
         public static async Task<bool> UsePotion()
