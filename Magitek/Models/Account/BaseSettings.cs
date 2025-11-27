@@ -374,6 +374,75 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_UseMount { get; set; }
+
+        // PvP Role Actions
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float Pvp_DervishTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float Pvp_BraveryTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int Pvp_RampageAoeCount { get; set; }
+
+        [Setting]
+        [DefaultValue(85.0f)]
+        public float Pvp_RampartHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(20.0f)]
+        public float Pvp_RampartEnemyRange { get; set; }
+
+        [Setting]
+        [DefaultValue(4500)]
+        public int Pvp_HaelanMinimumMana { get; set; }
+
+        [Setting]
+        [DefaultValue(65.0f)]
+        public float Pvp_HaelanTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(80.0f)]
+        public float Pvp_StoneskinIITargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(35.0f)]
+        public float Pvp_DiabrosisTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int Pvp_DiabrosisAoeCount { get; set; }
+
+        [Setting]
+        [DefaultValue(85.0f)]
+        public float Pvp_BloodbathHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(30.0f)]
+        public float Pvp_SmiteTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(4)]
+        public int Pvp_CometAoeCount { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int Pvp_RustAoeCount { get; set; }
+
+        [Setting]
+        [DefaultValue(35.0f)]
+        public float Pvp_EagleEyeShotTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float Pvp_FullSwingTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(80.0f)]
+        public float Pvp_PhantomDartTargetHealthPercent { get; set; }
         #endregion
 
         [Setting]

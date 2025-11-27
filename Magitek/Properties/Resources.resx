@@ -4046,6 +4046,60 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_AutoGuard_MarksmansSpite" xml:space="preserve">
     <value>Auto Guard vs Marksman's Spite</value>
   </data>
+  <data name="Generic_PvP_Role_Actions" xml:space="preserve">
+    <value>Role Actions</value>
+  </data>
+  <data name="Generic_Dervish_Target_HP" xml:space="preserve">
+    <value>Dervish: Use When Target Below HP%:</value>
+  </data>
+  <data name="Generic_Bravery_Target_HP" xml:space="preserve">
+    <value>Bravery: Use When Target Below HP%:</value>
+  </data>
+  <data name="Generic_Rampage_AoE_Count" xml:space="preserve">
+    <value>Rampage: Minimum Enemies for AoE:</value>
+  </data>
+  <data name="Generic_Rampart_Self_HP" xml:space="preserve">
+    <value>Rampart: Use When Below HP%:</value>
+  </data>
+  <data name="Generic_Rampart_Enemy_Range" xml:space="preserve">
+    <value>Rampart: Require Enemy Within Yalms:</value>
+  </data>
+  <data name="Generic_Haelan_Minimum_Mana" xml:space="preserve">
+    <value>Haelan: Minimum Mana (Save for Recuperate):</value>
+  </data>
+  <data name="Generic_Haelan_Target_HP" xml:space="preserve">
+    <value>Haelan: Use When Ally Below HP%:</value>
+  </data>
+  <data name="Generic_StoneskinII_Target_HP" xml:space="preserve">
+    <value>Stoneskin II: Use When Ally Below HP%:</value>
+  </data>
+  <data name="Generic_Diabrosis_Target_HP" xml:space="preserve">
+    <value>Diabrosis: Use When Target Below HP%:</value>
+  </data>
+  <data name="Generic_Diabrosis_AoE_Count" xml:space="preserve">
+    <value>Diabrosis: Minimum Enemies for AoE:</value>
+  </data>
+  <data name="Generic_Bloodbath_Self_HP" xml:space="preserve">
+    <value>Bloodbath: Use When Below HP%:</value>
+  </data>
+  <data name="Generic_Smite_Target_HP" xml:space="preserve">
+    <value>Smite: Use When Target Below HP%:</value>
+  </data>
+  <data name="Generic_Comet_AoE_Count" xml:space="preserve">
+    <value>Comet: Minimum Enemies for AoE:</value>
+  </data>
+  <data name="Generic_Rust_AoE_Count" xml:space="preserve">
+    <value>Rust: Minimum Enemies for AoE:</value>
+  </data>
+  <data name="Generic_EagleEyeShot_Target_HP" xml:space="preserve">
+    <value>Eagle Eye Shot: Use When Target Below HP%:</value>
+  </data>
+  <data name="Generic_FullSwing_Target_HP" xml:space="preserve">
+    <value>Full Swing: Use When Target Below HP% (or has Guard):</value>
+  </data>
+  <data name="Generic_PhantomDart_Target_HP" xml:space="preserve">
+    <value>Phantom Dart: Use When Target Below HP%:</value>
+  </data>
   <data name="Generic_Ast" xml:space="preserve">
     <value>Ast</value>
   </data>

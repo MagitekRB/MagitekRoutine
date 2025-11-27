@@ -283,9 +283,20 @@ namespace Magitek.Logic.Roles
             if (settings.Pvp_AutoGuardMarksmanSpite)
             {
                 var enemyCastingMarksman = Combat.Enemies.FirstOrDefault(e =>
-                    e.IsCasting &&
-                    e.CastingSpellId == Spells.MarksmansSpitePvp.Id &&
-                    e.TargetGameObject == Core.Me);
+                {
+                    try
+                    {
+                        return e != null &&
+                               e.IsValid &&
+                               e.IsCasting &&
+                               e.CastingSpellId == Spells.MarksmansSpitePvp.Id &&
+                               e.TargetGameObject == Core.Me;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                });
 
                 if (enemyCastingMarksman != null)
                     shouldAutoGuard = true;
@@ -466,7 +477,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 60)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_DervishTargetHealthPercent)
                 return false;
 
             return await Spells.RoleDervishPvp.Cast(Core.Me);
@@ -480,7 +491,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 60)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_BraveryTargetHealthPercent)
                 return false;
 
             return await Spells.RoleBraveryPvp.Cast(Core.Me);
@@ -500,6 +511,9 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(40))
                 return false;
 
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_EagleEyeShotTargetHealthPercent)
+                return false;
+
             return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
         }
 
@@ -514,7 +528,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleRampage.Radius) < 3)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleRampage.Radius) < Models.Account.BaseSettings.Instance.Pvp_RampageAoeCount)
                 return false;
 
             return await Spells.RoleRampage.Cast(Core.Me);
@@ -522,7 +536,10 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastRampart<T>(T settings) where T : JobSettings
         {
-            if (Core.Me.CurrentHealthPercent > 70)
+            if (Core.Me.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_RampartHealthPercent)
+                return false;
+
+            if (!Combat.Enemies.Any(x => x.WithinSpellRange(Models.Account.BaseSettings.Instance.Pvp_RampartEnemyRange)))
                 return false;
 
             return await Spells.RoleRampart.Cast(Core.Me);
@@ -536,7 +553,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleFullSwing.Range))
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
+            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpGuard) && Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_FullSwingTargetHealthPercent)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -551,20 +568,20 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Save mana for self-recuperate
-            if (Core.Me.CurrentMana <= 4500)
+            if (Core.Me.CurrentMana <= Models.Account.BaseSettings.Instance.Pvp_HaelanMinimumMana)
                 return false;
 
             // Check party first
             var healTarget = Group.CastableParty
                 .Where(r => r.Distance(Core.Me) <= 30)
-                .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 65);
+                .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= Models.Account.BaseSettings.Instance.Pvp_HaelanTargetHealthPercent);
 
             // If no suitable target in party, check alliance
             if (healTarget == null)
             {
                 healTarget = Group.AllianceMembers
                     .Where(r => r.Distance(Core.Me) <= 30)
-                    .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 65);
+                    .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= Models.Account.BaseSettings.Instance.Pvp_HaelanTargetHealthPercent);
             }
 
             if (healTarget == null)
@@ -578,19 +595,19 @@ namespace Magitek.Logic.Roles
             // Check party first
             var target = Group.CastableParty
                 .Where(r => r.Distance(Core.Me) <= 15)
-                .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 80);
+                .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= Models.Account.BaseSettings.Instance.Pvp_StoneskinIITargetHealthPercent);
 
             // If no suitable target in party, check alliance
             if (target == null)
             {
                 target = Group.AllianceMembers
                     .Where(r => r.Distance(Core.Me) <= 15)
-                    .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= 80);
+                    .FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= Models.Account.BaseSettings.Instance.Pvp_StoneskinIITargetHealthPercent);
             }
 
             if (target == null)
             {
-                if (Core.Me.CurrentHealthPercent <= 80)
+                if (Core.Me.CurrentHealthPercent <= Models.Account.BaseSettings.Instance.Pvp_StoneskinIITargetHealthPercent)
                     return await Spells.RoleStoneskinII.Cast(Core.Me);
                 return false;
             }
@@ -609,10 +626,10 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent <= 35)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent <= Models.Account.BaseSettings.Instance.Pvp_DiabrosisTargetHealthPercent)
                 return await Spells.RoleDiabrosis.Cast(Core.Me.CurrentTarget);
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleDiabrosis.Radius) < 3)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleDiabrosis.Radius) < Models.Account.BaseSettings.Instance.Pvp_DiabrosisAoeCount)
                 return false;
 
             return await Spells.RoleDiabrosis.Cast(Core.Me.CurrentTarget);
@@ -620,7 +637,7 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastBloodbath<T>(T settings) where T : JobSettings
         {
-            if (Core.Me.CurrentHealthPercent > 85)
+            if (Core.Me.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_BloodbathHealthPercent)
                 return false;
 
             if (!Core.Me.HasTarget)
@@ -657,7 +674,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleSmite.Range))
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 30)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_SmiteTargetHealthPercent)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -680,7 +697,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleComet.Radius) < 4)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleComet.Radius) < Models.Account.BaseSettings.Instance.Pvp_CometAoeCount)
                 return false;
 
             return await Spells.RoleComet.Cast(Core.Me.CurrentTarget);
@@ -697,6 +714,9 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_PhantomDartTargetHealthPercent)
+                return false;
+
             return await Spells.RolePhantomDart.Cast(Core.Me.CurrentTarget);
         }
 
@@ -711,7 +731,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleRust.Radius) < 3)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.RoleRust.Radius) < Models.Account.BaseSettings.Instance.Pvp_RustAoeCount)
                 return false;
 
             return await Spells.RoleRust.Cast(Core.Me.CurrentTarget);
