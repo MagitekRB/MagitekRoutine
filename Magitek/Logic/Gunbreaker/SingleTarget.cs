@@ -116,19 +116,38 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Cartridge >= 2 && CanNoMercy())
-                return false;
-
-            if (Cartridge == GunbreakerRoutine.MaxCartridge)
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
             {
-                if (!await UseBurstStrike())
+                // For OptimizedBurst: Prevent cartridge overcapping
+                // Let rotation priority handle burst strike when at max cartridges
+
+                // Don't finish combo if at max cartridges - let Burst Strike spend first
+                if (Cartridge >= GunbreakerRoutine.MaxCartridge)
                     return false;
 
-                if (CanNoMercy())
-                    return await Spells.NoMercy.Cast(Core.Me);
-            }
+                // Hold combo completion if we're about to use No Mercy (avoid cartridge overcap)
+                if (Cartridge >= 2 && CanNoMercy())
+                    return false;
 
-            return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
+                return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                if (Cartridge >= 2 && CanNoMercy())
+                    return false;
+
+                if (Cartridge == GunbreakerRoutine.MaxCartridge)
+                {
+                    if (!await UseBurstStrike())
+                        return false;
+
+                    if (CanNoMercy())
+                        return await Spells.NoMercy.Cast(Core.Me);
+                }
+
+                return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
+            }
         }
 
         private static async Task<bool> UseBurstStrike()
@@ -174,8 +193,9 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForGnashingFang)
                 return false;
 
-            //if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
-            //    return false;
+            // AoE check: At 4+ enemies, prefer Fated Circle over Gnashing Fang combo
+            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+                return false;
 
             if (Spells.NoMercy.IsKnownAndReady())
                 return false;
@@ -185,15 +205,15 @@ namespace Magitek.Logic.Gunbreaker
             {
                 double noMercyCooldown = Spells.NoMercy.Cooldown.TotalSeconds;
 
-                // Get Gnashing Fang's actual cooldown from spell data (accounts for skill speed)
-                // Cooldown starts immediately when cast, not after the combo finishes
+                // Get Gnashing Fang's cooldown and subtract 5s buffer for safety
                 double gnashingFangCooldown = Spells.GnashingFang.AdjustedCooldown.TotalSeconds;
+                double holdThreshold = gnashingFangCooldown - 5.0; // e.g., 28.89s - 5s = 23.89s
 
-                // Hold Gnashing Fang if No Mercy will be ready before Gnashing Fang comes off cooldown
-                // This ensures Gnashing Fang is always available for the No Mercy burst window
-                if (noMercyCooldown > 0 && noMercyCooldown < gnashingFangCooldown)
+                // Only use Gnashing Fang if it will be ready again before No Mercy comes off CD
+                // Hold if No Mercy CD < (Gnashing Fang CD - 5s buffer)
+                if (noMercyCooldown > 0 && noMercyCooldown < holdThreshold)
                 {
-                    // Hold - using Gnashing Fang now would make it unavailable for No Mercy burst
+                    // Hold - using Gnashing Fang now would make it unavailable for No Mercy
                     return false;
                 }
             }
@@ -273,16 +293,67 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            //if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
-            //    return false;
-
-            if (!Core.Me.HasAura(Auras.NoMercy))
+            // AoE check: At 2+ enemies, prefer Fated Circle over Burst Strike
+            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady() || Spells.SonicBreak.IsKnownAndReadyAndCastable())
-                return false;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                // Get GCD time for calculations
+                double gcdTime = Spells.KeenEdge.AdjustedCooldown.TotalMilliseconds;
 
-            return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+                // Priority 1: The Balance - "Burst Strike into No Mercy when you will also have Bloodfest"
+                // Prevent cartridge overcap - ALWAYS dump at max cartridges
+                if (Cartridge >= GunbreakerRoutine.MaxCartridge)
+                {
+                    // Don't dump if Reign combo is active AND No Mercy is active (executing in burst)
+                    // This is the ONLY case where we skip - Reign combo should execute in No Mercy
+                    if (Core.Me.HasAura(Auras.ReadyToReign) && Core.Me.HasAura(Auras.NoMercy))
+                        return false; // Let Reign execute inside No Mercy buff
+
+                    // In ALL other cases at max cartridges: DUMP
+                    // This prevents: Bloodfest → Keen Edge (breaks combo)
+                    // This allows: Bloodfest → Burst Strike → filler GCD → No Mercy
+                    return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+                }
+
+                // Priority 2: Force cartridge spending when Bloodfest is coming soon
+                // Start dumping ~3 GCDs before Bloodfest comes off cooldown
+                int bloodfestPreDumpWindow = (int)(gcdTime * 3); // 3 GCDs worth of time
+
+                // If Bloodfest will be ready within 3 GCDs and we have cartridges, start dumping
+                if (Spells.Bloodfest.IsKnownAndReady(bloodfestPreDumpWindow) && Cartridge > 0)
+                {
+                    // Don't spend during important combos, but dump otherwise
+                    if (!Spells.GnashingFang.IsKnownAndReady() &&
+                        !Spells.DoubleDown.IsKnownAndReady() &&
+                        !Core.Me.HasAura(Auras.ReadyToReign))
+                    {
+                        return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+                    }
+                }
+
+                // Priority 3: Normal burst strike logic (inside No Mercy)
+                if (!Core.Me.HasAura(Auras.NoMercy))
+                    return false;
+
+                if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady() || Spells.SonicBreak.IsKnownAndReadyAndCastable())
+                    return false;
+
+                return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                // Normal burst strike logic (inside No Mercy)
+                if (!Core.Me.HasAura(Auras.NoMercy))
+                    return false;
+
+                if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady() || Spells.SonicBreak.IsKnownAndReadyAndCastable())
+                    return false;
+
+                return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
+            }
         }
 
         /********************************************************************************
@@ -312,16 +383,32 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.HasAura(Auras.ReadyToReign))
                 return false;
 
-            //if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
-            //  return false;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                // For OptimizedBurst: ALWAYS save Lion Heart combo for No Mercy
+                // Lion Heart is ~1000 potency - must be buffed by No Mercy!
+                if (!Core.Me.HasAura(Auras.NoMercy))
+                    return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady(1000) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
-                return false;
+                if (GunbreakerRoutine.IsAurasForComboActive())
+                    return false;
 
-            if (GunbreakerRoutine.IsAurasForComboActive())
-                return false;
+                return await Spells.ReignOfBeasts.Cast(Core.Me.CurrentTarget);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                //if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+                //  return false;
 
-            return await Spells.ReignOfBeasts.Cast(Core.Me.CurrentTarget);
+                if (Spells.DoubleDown.IsKnownAndReady(1000) && !GunbreakerSettings.Instance.BurstLogicHoldBurst)
+                    return false;
+
+                if (GunbreakerRoutine.IsAurasForComboActive())
+                    return false;
+
+                return await Spells.ReignOfBeasts.Cast(Core.Me.CurrentTarget);
+            }
         }
 
         public static async Task<bool> NobleBlood()
@@ -355,16 +442,31 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseBlastingZone)
                 return false;
 
-            if (Spells.NoMercy.IsKnownAndReady())
-                return false;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                // Use Blasting Zone on cooldown (30s CD)
+                // This gives 2 uses per No Mercy window (60s / 30s = 2)
 
-            if (GunbreakerSettings.Instance.HoldBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
-                return false;
+                // Hold if No Mercy is coming up very soon - save it for inside the buff window
+                if (Spells.NoMercy.IsKnownAndReady(5000))
+                    return false;
 
-            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
-                return false;
+                return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                if (Spells.NoMercy.IsKnownAndReady())
+                    return false;
 
-            return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
+                if (GunbreakerSettings.Instance.HoldBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
+                    return false;
+
+                if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
+                    return false;
+
+                return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
+            }
         }
 
 
@@ -379,13 +481,32 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady() || Spells.DoubleDown.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 118000)
-                return false;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                // For OptimizedBurst: Sonic Break is lowest priority GCD filler
+                // Only use when higher priority GCDs are not available
 
-            if (Core.Me.HasAura(Auras.ReadyToReign) || Spells.NobleBlood.IsKnownAndReadyAndCastable() || Spells.LionHeart.IsKnownAndReadyAndCastable())
-                return false;
+                // Don't use if any higher priority GCD is ready
+                if (Spells.GnashingFang.IsKnownAndReady() ||
+                    Spells.DoubleDown.IsKnownAndReady() ||
+                    Core.Me.HasAura(Auras.ReadyToReign) ||
+                    Spells.NobleBlood.IsKnownAndReadyAndCastable() ||
+                    Spells.LionHeart.IsKnownAndReadyAndCastable())
+                    return false;
 
-            return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
+                return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                if (Spells.GnashingFang.IsKnownAndReady() || Spells.DoubleDown.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 118000)
+                    return false;
+
+                if (Core.Me.HasAura(Auras.ReadyToReign) || Spells.NobleBlood.IsKnownAndReadyAndCastable() || Spells.LionHeart.IsKnownAndReadyAndCastable())
+                    return false;
+
+                return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
+            }
         }
     }
 }
