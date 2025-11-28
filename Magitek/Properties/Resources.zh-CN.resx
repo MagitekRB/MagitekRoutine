@@ -5274,4 +5274,13 @@
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>
   </data>
+  <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
+    <value>使用 PVP 仇恨计数器</value>
+  </data>
+  <data name="Views_ToolTip_Shows_how_many_enemy_players_are_targeting_you" xml:space="preserve">
+    <value>显示有多少敌对玩家正在瞄准你</value>
+  </data>
+  <data name="Views_ToolTip_Check_to_move_and_resize_the_pvp_aggro_count_overlay" xml:space="preserve">
+    <value>选中以移动和调整 PVP 仇恨计数器的大小</value>
+  </data>
 </root>

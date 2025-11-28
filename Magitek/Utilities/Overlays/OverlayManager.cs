@@ -7,6 +7,7 @@ namespace Magitek.Utilities.Overlays
     {
         private static MainOverlayUiComponent MainSettingsOverlay;
         private static CombatMessageUiComponent CombatMessageOverlay;
+        private static PvpAggroCountUiComponent PvpAggroCountOverlay;
 
         public static void StartMainOverlay()
         {
@@ -76,6 +77,41 @@ namespace Magitek.Utilities.Overlays
         {
             StopCombatMessageOverlay();
             StartCombatMessageOverlay();
+        }
+
+        public static void StartPvpAggroCountOverlay()
+        {
+            if (!Core.OverlayManager.IsActive)
+                return;
+
+            if (!BaseSettings.Instance.UsePvpAggroCountOverlay)
+                return;
+
+            if (PvpAggroCountOverlay == null)
+            {
+                PvpAggroCountOverlay = new PvpAggroCountUiComponent(BaseSettings.Instance.PvpAggroCountOverlayAdjustable);
+            }
+
+            Core.OverlayManager.AddUIComponent(PvpAggroCountOverlay);
+        }
+
+        public static void StopPvpAggroCountOverlay()
+        {
+            if (!Core.OverlayManager.IsActive)
+                return;
+
+            if (PvpAggroCountOverlay != null)
+            {
+                Core.OverlayManager.RemoveUIComponent(PvpAggroCountOverlay);
+            }
+
+            PvpAggroCountOverlay = null;
+        }
+
+        public static void RestartPvpAggroCountOverlay()
+        {
+            StopPvpAggroCountOverlay();
+            StartPvpAggroCountOverlay();
         }
     }
 }

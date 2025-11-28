@@ -5052,4 +5052,13 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>seconds</value>
   </data>
+  <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
+    <value>Use PvP Aggro Count Overlay</value>
+  </data>
+  <data name="Views_ToolTip_Shows_how_many_enemy_players_are_targeting_you" xml:space="preserve">
+    <value>Shows how many enemy players are currently targeting you in PvP</value>
+  </data>
+  <data name="Views_ToolTip_Check_to_move_and_resize_the_pvp_aggro_count_overlay" xml:space="preserve">
+    <value>Check to move and resize the PvP aggro count overlay</value>
+  </data>
 </root>

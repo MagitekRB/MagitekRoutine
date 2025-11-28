@@ -75,6 +75,14 @@ namespace Magitek
             {
                 OverlayManager.StartMainOverlay();
                 OverlayManager.StartCombatMessageOverlay();
+
+                // Start PvP aggro count overlay if in PvP and routine is active
+                // (ShutDown already stopped the old instance)
+                if (WorldManager.InPvP && BaseSettings.Instance.ActivePvpCombatRoutine)
+                {
+                    OverlayManager.StartPvpAggroCountOverlay();
+                }
+
                 Logger.WriteInfo("[Hot-Reload] Overlays restarted after Initialize()");
             }
 
@@ -179,6 +187,13 @@ namespace Magitek
             OverlayManager.StartMainOverlay();
             OverlayManager.StartCombatMessageOverlay();
 
+            // Start PvP aggro count overlay if already in PvP when bot starts
+            // (Zone switching logic handles entering/leaving PvP while bot is running)
+            if (WorldManager.InPvP && BaseSettings.Instance.ActivePvpCombatRoutine)
+            {
+                OverlayManager.StartPvpAggroCountOverlay();
+            }
+
             CombatMessageManager.RegisterMessageStrategiesForClass(Core.Me.CurrentJob);
             HookBehaviors();
 
@@ -189,6 +204,7 @@ namespace Magitek
         {
             OverlayManager.StopMainOverlay();
             OverlayManager.StopCombatMessageOverlay();
+            OverlayManager.StopPvpAggroCountOverlay(); // Stop PvP overlay when bot stops
             TogglesViewModel.Instance.SaveToggles();
             GamelogManagerCountdown.StopCooldown();
         }
@@ -295,6 +311,9 @@ namespace Magitek
                     GambitsViewModel.Instance.ApplyGambits();
                     OpenersViewModel.Instance.ApplyOpeners();
                     TogglesManager.LoadTogglesForCurrentJob();
+
+                    // Start PvP aggro count overlay when entering PvP
+                    OverlayManager.StartPvpAggroCountOverlay();
                 });
             }
             else if (!WorldManager.InPvP && BaseSettings.Instance.ActivePvpCombatRoutine)
@@ -306,6 +325,9 @@ namespace Magitek
                     GambitsViewModel.Instance.ApplyGambits();
                     OpenersViewModel.Instance.ApplyOpeners();
                     TogglesManager.LoadTogglesForCurrentJob();
+
+                    // Stop PvP aggro count overlay when leaving PvP
+                    OverlayManager.StopPvpAggroCountOverlay();
                 });
             }
 
@@ -333,6 +355,7 @@ namespace Magitek
             {
                 OverlayManager.StopMainOverlay();
                 OverlayManager.StopCombatMessageOverlay();
+                OverlayManager.StopPvpAggroCountOverlay(); // Stop PvP overlay for hot-reload
                 Logger.WriteInfo("[Hot-Reload] Overlays stopped during shutdown");
             }
             catch (Exception e)

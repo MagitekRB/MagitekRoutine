@@ -16539,6 +16539,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use PvP Aggro Count Overlay.
+        /// </summary>
+        public static string Views_Content_Use_Pvp_Aggro_Count_Overlay
+        {
+            get
+            {
+                return ResourceManager.GetString("Views_Content_Use_Pvp_Aggro_Count_Overlay", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use The Combat Message Overlay.
         /// </summary>
         public static string Views_Content_Use_The_Combat_Message_Overlay
@@ -16788,6 +16799,28 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Views_ToolTip_Check_to_move_and_resize_the_combat_", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Check to move and resize the PvP aggro count overlay.
+        /// </summary>
+        public static string Views_ToolTip_Check_to_move_and_resize_the_pvp_aggro_count_overlay
+        {
+            get
+            {
+                return ResourceManager.GetString("Views_ToolTip_Check_to_move_and_resize_the_pvp_aggro_count_overlay", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Shows how many enemy players are currently targeting you in PvP.
+        /// </summary>
+        public static string Views_ToolTip_Shows_how_many_enemy_players_are_targeting_you
+        {
+            get
+            {
+                return ResourceManager.GetString("Views_ToolTip_Shows_how_many_enemy_players_are_targeting_you", resourceCulture);
             }
         }
 
