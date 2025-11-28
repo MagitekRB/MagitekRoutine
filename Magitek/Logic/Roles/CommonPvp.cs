@@ -122,6 +122,9 @@ namespace Magitek.Logic.Roles
 
         public static async Task<bool> CommonTasks<T>(T settings) where T : JobSettings
         {
+            // Update PvP aggro count overlay
+            PvpAggroCountTracker.UpdateAggroCount();
+
             if (await Casting.TrackSpellCast())
                 return true;
 

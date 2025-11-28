@@ -48,6 +48,7 @@ namespace Magitek.ViewModels
 
             OverlayManager.RestartMainOverlay();
             OverlayManager.RestartCombatMessageOverlay();
+            OverlayManager.RestartPvpAggroCountOverlay();
         });
 
         public ICommand RestartOverlay => new DelegateCommand(() =>
@@ -63,6 +64,11 @@ namespace Magitek.ViewModels
         public ICommand RestartCombatMessageOverlay => new DelegateCommand(() =>
         {
             OverlayManager.RestartCombatMessageOverlay();
+        });
+
+        public ICommand RestartPvpAggroCountOverlay => new DelegateCommand(() =>
+        {
+            OverlayManager.RestartPvpAggroCountOverlay();
         });
 
         public AsyncObservableCollection<double> FontSizes { get; set; } = new AsyncObservableCollection<double>() { 9, 10, 11, 12 };

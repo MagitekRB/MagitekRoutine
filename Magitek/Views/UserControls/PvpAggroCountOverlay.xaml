@@ -1,0 +1,57 @@
+<UserControl x:Class="Magitek.Views.UserControls.PvpAggroCountOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewModels="clr-namespace:Magitek.ViewModels"
+             xmlns:converters="clr-namespace:Magitek.Converters">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:BooleanToOpaqueConverter x:Key="BooleanToOpaqueConverter" />
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:StringToColorBrushConverter x:Key="StringToColorBrushConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <Binding Source="{x:Static viewModels:PvpAggroCountOverlayViewModel.Instance}" />
+    </UserControl.DataContext>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <SolidColorBrush Color="{Binding BaseSettingsInstance.PvpAggroCountBackgroundColor, Converter={StaticResource StringToColorBrushConverter}, Mode=OneWay}" 
+                           Opacity="{Binding BaseSettingsInstance.PvpAggroCountBackgroundOpacity, Mode=OneWay}"/>
+        </Grid.Background>
+
+        <!-- Title/Label (Optional) -->
+        <Viewbox Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" 
+                 Visibility="{Binding BaseSettingsInstance.PvpAggroCountShowLabel, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+            <TextBlock Text="AGGRO COUNT" 
+                      Foreground="{Binding BaseSettingsInstance.PvpAggroCountLabelColor, Converter={StaticResource StringToColorBrushConverter}, Mode=OneWay}"
+                      FontWeight="Bold"
+                      Margin="5,5,5,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="2" Color="Black" Opacity="1.0" BlurRadius="3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Viewbox>
+
+        <!-- Giant Number -->
+        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding AggroCountModel.EnemiesTargetingMe, Mode=OneWay}"
+                      Foreground="{Binding BaseSettingsInstance.PvpAggroCountTextColor, Converter={StaticResource StringToColorBrushConverter}, Mode=OneWay}"
+                      FontWeight="UltraBold"
+                      FontSize="200"
+                      Margin="10">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="3" Color="Black" Opacity="1.0" BlurRadius="5"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Viewbox>
+    </Grid>
+
+</UserControl>
+

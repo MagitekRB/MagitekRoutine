@@ -31,6 +31,10 @@ namespace Magitek.Models.Account
             Instance.CombatMessageOverlayHeight = DefaultCombatMessageOverlayHeight;
             Instance.CombatMessageOverlayPosX = DefaultCombatMessageOverlayPosX;
             Instance.CombatMessageOverlayPosY = DefaultCombatMessageOverlayPosY;
+            Instance.PvpAggroCountOverlayWidth = 200;
+            Instance.PvpAggroCountOverlayHeight = 200;
+            Instance.PvpAggroCountOverlayPosX = -1;
+            Instance.PvpAggroCountOverlayPosY = -1;
             Instance.Save();
         }
 
@@ -283,6 +287,50 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(DefaultCombatMessageOverlayHeight)]
         public double CombatMessageOverlayHeight { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePvpAggroCountOverlay { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool PvpAggroCountOverlayAdjustable { get; set; }
+
+        [Setting]
+        [DefaultValue(-1.0)]
+        public double PvpAggroCountOverlayPosX { get; set; }
+
+        [Setting]
+        [DefaultValue(-1.0)]
+        public double PvpAggroCountOverlayPosY { get; set; }
+
+        [Setting]
+        [DefaultValue(200.0)]
+        public double PvpAggroCountOverlayWidth { get; set; }
+
+        [Setting]
+        [DefaultValue(200.0)]
+        public double PvpAggroCountOverlayHeight { get; set; }
+
+        [Setting]
+        [DefaultValue("Red")]
+        public string PvpAggroCountTextColor { get; set; }
+
+        [Setting]
+        [DefaultValue("Black")]
+        public string PvpAggroCountBackgroundColor { get; set; }
+
+        [Setting]
+        [DefaultValue(0.7)]
+        public double PvpAggroCountBackgroundOpacity { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool PvpAggroCountShowLabel { get; set; }
+
+        [Setting]
+        [DefaultValue("White")]
+        public string PvpAggroCountLabelColor { get; set; }
         #endregion
 
         [Setting]
