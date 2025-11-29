@@ -23,10 +23,10 @@
                 <TextBlock Margin="3"
                         Style="{DynamicResource TextBlockDefault}"
                         TextWrapping="Wrap">
-        Fight Logic: <LineBreak/>       
-        This allows Routines to automatically respond to TankBusters and AoE attacks by pre-shielding, using cooldowns, or applying debuffs. <LineBreak/>
-        <LineBreak/>
-        Only works on supported bosses and dungeons and limited to only boss-cast-bar detectable actions.
+                    <Run Text="{x:Static properties:Resources.Generic_Fight_Logic}"/>: <LineBreak/>       
+                    <Run Text="{x:Static properties:Resources.Generic_Fight_Logic_Description}"/> <LineBreak/>
+                    <LineBreak/>
+                    <Run Text="{x:Static properties:Resources.Generic_Fight_Logic_Limitation}"/>
                 </TextBlock>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">

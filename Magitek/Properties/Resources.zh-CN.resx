@@ -3870,6 +3870,12 @@
   <data name="Generic_Fight_Logic" xml:space="preserve">
     <value>战斗逻辑</value>
   </data>
+  <data name="Generic_Fight_Logic_Description" xml:space="preserve">
+    <value>这允许例程通过预护盾、使用冷却时间或应用减益效果来自动响应坦克杀手和范围攻击。</value>
+  </data>
+  <data name="Generic_Fight_Logic_Limitation" xml:space="preserve">
+    <value>仅在支持的Boss和副本中有效，且仅限于可通过Boss咏唱条检测到的动作。</value>
+  </data>
   <data name="Generic_Single_Target" xml:space="preserve">
     <value>单体目标</value>
   </data>
