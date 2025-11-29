@@ -1352,7 +1352,7 @@ namespace Magitek.Utilities
         public static readonly SpellData FiresReplyPvp = DataManager.GetSpellData(41448);
 
         //DRG
-        public static readonly uint WheelingThrustPvpCombo = 56;
+        public static readonly uint DrakesbanePvpCombo = 56;
         public static readonly SpellData RaidenThrustPvp = DataManager.GetSpellData(29486);
         public static readonly SpellData FangandClawPvp = DataManager.GetSpellData(29487);
         public static readonly SpellData WheelingThrustPvp = DataManager.GetSpellData(29488);
