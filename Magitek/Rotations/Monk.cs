@@ -162,17 +162,16 @@ namespace Magitek.Rotations
                 }
 
                 // if (await Pvp.EnlightenmentPvp()) return true;
-
-                if (await Pvp.PhantomRushPvp()) return true;
-                if (await Pvp.PouncingCoeurlPvp()) return true;
-                if (await Pvp.RisingRaptorPvp()) return true;
-                if (await Pvp.LeapingOpoPvp()) return true;
             }
 
-            // Basic Combo (ungated)
+            // Basic Combo (ungated) - reverse order for priority
+            if (await Pvp.PhantomRushPvp()) return true;
+            if (await Pvp.PouncingCoeurlPvp()) return true;
+            if (await Pvp.RisingRaptorPvp()) return true;
+            if (await Pvp.LeapingOpoPvp()) return true;
             if (await Pvp.DemolishPvp()) return true;
             if (await Pvp.TwinSnakesPvp()) return true;
-            return (await Pvp.DragonKickPvp());
+            return await Pvp.DragonKickPvp();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.RaidenThrustPvp.CanCast())
                 return false;
 
-            return await Spells.RaidenThrustPvp.CastPvpCombo(Spells.WheelingThrustPvpCombo, Core.Me.CurrentTarget);
+            return await Spells.RaidenThrustPvp.CastPvpCombo(Spells.DrakesbanePvpCombo, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> FangandClawPvp()
@@ -28,7 +28,7 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.FangandClawPvp.CanCast())
                 return false;
 
-            return await Spells.FangandClawPvp.CastPvpCombo(Spells.WheelingThrustPvpCombo, Core.Me.CurrentTarget);
+            return await Spells.FangandClawPvp.CastPvpCombo(Spells.DrakesbanePvpCombo, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> WheelingThrustPvp()
@@ -39,7 +39,7 @@ namespace Magitek.Logic.Dragoon
             if (!Spells.WheelingThrustPvp.CanCast())
                 return false;
 
-            return await Spells.WheelingThrustPvp.CastPvpCombo(Spells.WheelingThrustPvpCombo, Core.Me.CurrentTarget);
+            return await Spells.WheelingThrustPvp.CastPvpCombo(Spells.DrakesbanePvpCombo, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> DrakesbanePvp()
@@ -47,10 +47,12 @@ namespace Magitek.Logic.Dragoon
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.DrakesbanePvp.CanCast())
-                return false;
+            if (!Spells.DrakesbanePvp.CanCast()) {
 
-            return await Spells.DrakesbanePvp.CastPvpCombo(Spells.WheelingThrustPvpCombo, Core.Me.CurrentTarget);
+                Logger.Write($"DrakesbanePvp cannot cast: {Spells.DrakesbanePvp.Name}");
+                return false;}
+
+            return await Spells.DrakesbanePvp.CastPvpCombo(Spells.DrakesbanePvpCombo, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> HeavensThrustPvp()

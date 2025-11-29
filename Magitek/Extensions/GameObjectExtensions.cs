@@ -422,7 +422,6 @@ namespace Magitek.Extensions
         {
             return unit != null && (unit.EnglishName.Contains("Raven")
                                 || unit.EnglishName.Contains("Falcon")
-                                || unit.EnglishName.Contains("Striking Dummy")
                                 || unit.EnglishName.Contains("Icebound Tomelith")
                                 || unit.EnglishName.Contains("Interceptor"));
         }

@@ -164,14 +164,12 @@ namespace Magitek.Rotations
                     if (await Pvp.HighJumpPvp()) return true;
                     if (await Pvp.HorridRoarPvp()) return true;
                 }
-
-                if (await Pvp.DrakesbanePvp()) return true;
             }
 
             // Basic Combo (ungated)
+            if (await Pvp.DrakesbanePvp()) return true;
             if (await Pvp.WheelingThrustPvp()) return true;
             if (await Pvp.FangandClawPvp()) return true;
-
             return (await Pvp.RaidenThrustPvp());
         }
 
