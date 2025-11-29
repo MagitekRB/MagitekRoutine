@@ -194,7 +194,7 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             // AoE check: At 4+ enemies, prefer Fated Circle over Gnashing Fang combo
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
                 return false;
 
             if (Spells.NoMercy.IsKnownAndReady())
@@ -294,7 +294,7 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             // AoE check: At 2+ enemies, prefer Fated Circle over Burst Strike
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)

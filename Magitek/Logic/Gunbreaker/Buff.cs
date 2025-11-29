@@ -60,8 +60,15 @@ namespace Magitek.Logic.Gunbreaker
                 // Optimized No Mercy timing following The Balance guide
                 // Uses late weave window for faster GCD speeds to fit 9 GCDs inside No Mercy
 
-                // Require 2+ cartridges before No Mercy
-                if (Cartridge < 2)
+                // Cartridge requirement depends on AoE vs single-target
+                int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
+                int requiredCartridges = 2; // Default for single-target (Gnashing Fang + Double Down)
+
+                // In AoE (4+ enemies), we skip Gnashing Fang, so only need 1 cartridge for Double Down
+                if (enemyCount >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+                    requiredCartridges = 1;
+
+                if (Cartridge < requiredCartridges)
                     return false;
 
                 // Don't cast right after Bloodfest (let GCD roll)
@@ -93,7 +100,7 @@ namespace Magitek.Logic.Gunbreaker
                 // Legacy No Mercy timing (FastGCD/SlowGCD strategies)
                 if (GunbreakerSettings.Instance.GunbreakerStrategy == GunbreakerStrategy.SlowGCD && (Cartridge == 3 || Casting.LastSpell == Spells.Bloodfest) && Spells.NoMercy.IsKnownAndReady(1000))
                 {
-                    if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+                    if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.UseAoeEnemies)
                     {
                         if (!await UseFatedCircle())
                             return false;
