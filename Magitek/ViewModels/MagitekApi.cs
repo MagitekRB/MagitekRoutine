@@ -108,15 +108,25 @@ namespace Magitek.ViewModels
 
                         var filteredBodyLines = new List<string>();
                         var isInWhatsChanged = false;
+                        var isInChanges = false;
 
                         foreach (var line in bodyLines)
                         {
+                            // Check for "## What's Changed" (PR merge format)
                             if (line.StartsWith("## What's Changed"))
                             {
                                 isInWhatsChanged = true;
                                 continue;
                             }
 
+                            // Check for "## Changes" (direct commit format)
+                            if (line.StartsWith("## Changes"))
+                            {
+                                isInChanges = true;
+                                continue;
+                            }
+
+                            // Handle "## What's Changed" section (PR merges)
                             if (isInWhatsChanged)
                             {
                                 if (line.StartsWith("##") || line.StartsWith("**"))
@@ -131,6 +141,21 @@ namespace Magitek.ViewModels
                                     // Keep the contributor but remove the PR link
                                     var lineWithoutPRLink = Regex.Replace(lineWithoutBullet, @" in https:\/\/github\.com\/[^ ]+$", "");
                                     filteredBodyLines.Add(lineWithoutPRLink.Trim());
+                                }
+                            }
+
+                            // Handle "## Changes" section (direct commits)
+                            if (isInChanges)
+                            {
+                                if (line.StartsWith("##") || line.StartsWith("**"))
+                                {
+                                    break; // We've hit the next section
+                                }
+
+                                // Add all non-empty lines in the Changes section
+                                if (!string.IsNullOrWhiteSpace(line))
+                                {
+                                    filteredBodyLines.Add(line.Trim());
                                 }
                             }
                         }
