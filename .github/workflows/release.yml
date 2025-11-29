@@ -118,11 +118,37 @@ jobs:
         name: Version.txt
         path: ./Magitek/bin/release/Version.txt
 
+    - name: Get commit message and check if PR merge
+      id: get_commit_message
+      run: |
+        $commitMessage = git log -1 --pretty=%B
+        $commitSubject = git log -1 --pretty=%s
+        
+        # Check if this is a merge commit (has 2 parents) or has PR number pattern
+        $parentCount = (git rev-list --parents -n 1 HEAD).Split(' ').Count - 1
+        $hasPRNumber = $commitSubject -match '\(#\d+\)$'
+        
+        $isPRMerge = ($parentCount -gt 1) -or $hasPRNumber
+        
+        if ($isPRMerge) {
+          Write-Host "Detected PR merge commit (parents: $parentCount, has PR#: $hasPRNumber)"
+          echo "IS_PR_MERGE=true" >> $env:GITHUB_ENV
+          echo "COMMIT_MESSAGE=" >> $env:GITHUB_ENV
+        } else {
+          Write-Host "Detected direct commit (parents: $parentCount, has PR#: $hasPRNumber)"
+          echo "IS_PR_MERGE=false" >> $env:GITHUB_ENV
+          $commitMessage = $commitMessage -replace "`r`n", "%0A" -replace "`n", "%0A"
+          echo "COMMIT_MESSAGE=$commitMessage" >> $env:GITHUB_ENV
+        }
+      shell: pwsh
+
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ env.VERSION }}
         name: v${{ env.VERSION }}
+        body: |
+          ${{ env.IS_PR_MERGE == 'false' && format('## Changes{0}{1}{0}', '%0A', env.COMMIT_MESSAGE) || '' }}
         generate_release_notes: true
         draft: false
         token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
