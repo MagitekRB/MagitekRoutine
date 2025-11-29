@@ -210,13 +210,14 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FinalFantasiaPvp.Range))
+            // FinalFantasy doesn't have a range check, so we use EncoreOfLight's range
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.EncoreOfLightPvp.Range))
                 return false;
 
             if (Core.Me.CurrentTarget.CurrentHealthPercent > BardSettings.Instance.Pvp_FinalFantasiaHealthPercent)
                 return false;
 
-            return await Spells.FinalFantasiaPvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.FinalFantasiaPvp.Cast(Core.Me);
         }
 
         public static async Task<bool> EncoreOfLight()
