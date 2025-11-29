@@ -5817,6 +5817,28 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to This allows Routines to automatically respond to TankBusters and AoE attacks by pre-shielding, using cooldowns, or applying debuffs..
+        /// </summary>
+        public static string Generic_Fight_Logic_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Fight_Logic_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only works on supported bosses and dungeons and limited to only boss-cast-bar detectable actions..
+        /// </summary>
+        public static string Generic_Fight_Logic_Limitation
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Fight_Logic_Limitation", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to FightLogic.
         /// </summary>
         public static string Generic_FightLogic

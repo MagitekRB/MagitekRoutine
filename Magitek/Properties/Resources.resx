@@ -3875,6 +3875,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Fight_Logic" xml:space="preserve">
     <value>Fight Logic</value>
   </data>
+  <data name="Generic_Fight_Logic_Description" xml:space="preserve">
+    <value>This allows Routines to automatically respond to TankBusters and AoE attacks by pre-shielding, using cooldowns, or applying debuffs.</value>
+  </data>
+  <data name="Generic_Fight_Logic_Limitation" xml:space="preserve">
+    <value>Only works on supported bosses and dungeons and limited to only boss-cast-bar detectable actions.</value>
+  </data>
   <data name="Generic_Single_Target" xml:space="preserve">
     <value>Single Target</value>
   </data>
