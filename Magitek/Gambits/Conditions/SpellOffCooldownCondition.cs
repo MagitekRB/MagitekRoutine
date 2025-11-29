@@ -19,7 +19,7 @@ namespace Magitek.Gambits.Conditions
 
             if (spell == null)
             {
-                Logger.Write($@"[Magitek] {spell} is not off cooldown, not starting opener.");
+                Logger.Write($@"[Magitek] {SpellName} is not found, not starting opener.");
                 return false;
             }
 
@@ -28,7 +28,12 @@ namespace Magitek.Gambits.Conditions
 
         private bool SpellDataCheck(SpellData spell)
         {
+            // If looking for PvP spell, only match PvP spells
             if (IsPvpSpell && !spell.IsPvP)
+                return false;
+
+            // If NOT looking for PvP spell, exclude PvP spells to avoid matching wrong spell type
+            if (!IsPvpSpell && spell.IsPvP)
                 return false;
 
             return string.Equals(spell.Name, SpellName, StringComparison.CurrentCultureIgnoreCase);

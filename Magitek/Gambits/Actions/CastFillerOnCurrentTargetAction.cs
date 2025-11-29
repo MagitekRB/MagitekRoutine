@@ -59,12 +59,16 @@ namespace Magitek.Gambits.Actions
                     return null;
 
                 return ActionManager.CurrentActions.Values.FirstOrDefault(ProcDataCheck);
-
             }
         }
         private bool ProcDataCheck(SpellData spell)
         {
+            // If looking for PvP spell, only match PvP spells
             if (IsPvpSpell && !spell.IsPvP)
+                return false;
+
+            // If NOT looking for PvP spell, exclude PvP spells to avoid matching wrong spell type
+            if (!IsPvpSpell && spell.IsPvP)
                 return false;
 
             return string.Equals(spell.Name, ProcName, StringComparison.CurrentCultureIgnoreCase);
