@@ -22,7 +22,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
@@ -42,7 +42,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
             if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
@@ -124,16 +124,29 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.NoMercy))
-                return false;
+            if (GunbreakerSettings.Instance.GunbreakerStrategy == Enumerations.GunbreakerStrategy.OptimizedBurst)
+            {
+                // For OptimizedBurst in AoE: Just use Fated Circle whenever we have cartridges
+                // The rotation priority already ensures higher priority abilities fire first:
+                // - Double Down (checked at line 115)
+                // - Reign combo (checked at line 118)
+                // So we can just fire Fated Circle freely here
+                return await Spells.FatedCircle.Cast(Core.Me);
+            }
+            else
+            {
+                // Legacy logic for FastGCD/SlowGCD strategies
+                if (!Core.Me.HasAura(Auras.NoMercy))
+                    return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
-                return false;
+                if (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
+                    return false;
 
-            return await Spells.FatedCircle.Cast(Core.Me);
+                return await Spells.FatedCircle.Cast(Core.Me);
+            }
         }
 
         /*************************************************************************************
@@ -150,11 +163,18 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.HasAura(Auras.NoMercy))
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.BowShockEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.BowShockEnemies)
                 return false;
 
-            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady())
-                return false;
+            // Only check Gnashing Fang if we're doing single-target rotation (< 4 enemies)
+            // At 4+ enemies, Gnashing Fang is skipped in favor of AoE, so don't block Bow Shock
+            int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
+            if (enemyCount < GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+            {
+                // Single-target: Check if higher priority abilities are ready
+                if (Core.Me.HasAura(Auras.NoMercy) && (Spells.DoubleDown.IsKnownAndReady() || Spells.GnashingFang.IsKnownAndReady()))
+                    return false;
+            }
 
             return await Spells.BowShock.Cast(Core.Me);
         }
@@ -167,7 +187,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
             return await Spells.FatedBrand.Cast(Core.Me);
@@ -184,7 +204,18 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Cartridge >= 1)
+            // Only check Gnashing Fang if we're doing single-target rotation (< 4 enemies)
+            // At 4+ enemies, Gnashing Fang is skipped in favor of AoE, so don't block Double Down
+            int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
+            if (enemyCount < GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+            {
+                // Single-target: Hold Double Down if Gnashing Fang is coming up soon
+                if (Spells.GnashingFang.IsKnownAndReady(1000) && Cartridge >= 1)
+                    return false;
+            }
+
+            // Check enemy count threshold for using Double Down
+            if (enemyCount < GunbreakerSettings.Instance.DoubleDownEnemies)
                 return false;
 
             return await Spells.DoubleDown.Cast(Core.Me);
