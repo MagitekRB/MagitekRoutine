@@ -154,23 +154,6 @@ namespace Magitek.Logic.Reaper
             return await Spells.HarvestMoonPvp.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> SoulSlicePvp()
-        {
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Spells.SoulSlicePvp.CanCast())
-                return false;
-
-            if (!ReaperSettings.Instance.Pvp_SoulSlice)
-                return false;
-
-            if (!Core.Me.CurrentTarget.WithinSpellRange(5))
-                return false;
-
-            return await Spells.SoulSlicePvp.Cast(Core.Me.CurrentTarget);
-        }
-
         public static async Task<bool> PlentifulHarvestPvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))

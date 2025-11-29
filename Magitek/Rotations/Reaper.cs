@@ -148,7 +148,6 @@ namespace Magitek.Rotations
                 // Debuffs and utility
                 if (await Pvp.DeathWarrantPvp()) return true;
                 if (await Pvp.GrimSwathePvp()) return true;
-                if (await Pvp.SoulSlicePvp()) return true;
             }
 
             // Basic combo (ungated)

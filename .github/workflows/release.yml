@@ -133,12 +133,17 @@ jobs:
         if ($isPRMerge) {
           Write-Host "Detected PR merge commit (parents: $parentCount, has PR#: $hasPRNumber)"
           echo "IS_PR_MERGE=true" >> $env:GITHUB_ENV
-          echo "COMMIT_MESSAGE=" >> $env:GITHUB_ENV
+          echo "RELEASE_BODY=" >> $env:GITHUB_ENV
         } else {
           Write-Host "Detected direct commit (parents: $parentCount, has PR#: $hasPRNumber)"
           echo "IS_PR_MERGE=false" >> $env:GITHUB_ENV
-          $commitMessage = $commitMessage -replace "`r`n", "%0A" -replace "`n", "%0A"
-          echo "COMMIT_MESSAGE=$commitMessage" >> $env:GITHUB_ENV
+          # Create release body with proper formatting
+          $releaseBody = "## Changes`n`n$commitMessage`n"
+          # Use multiline delimiter for GitHub Actions
+          $delimiter = "EOF_RELEASE_BODY"
+          echo "RELEASE_BODY<<$delimiter" >> $env:GITHUB_ENV
+          echo $releaseBody >> $env:GITHUB_ENV
+          echo $delimiter >> $env:GITHUB_ENV
         }
       shell: pwsh
 
@@ -147,8 +152,7 @@ jobs:
       with:
         tag_name: v${{ env.VERSION }}
         name: v${{ env.VERSION }}
-        body: |
-          ${{ env.IS_PR_MERGE == 'false' && format('## Changes{0}{1}{0}', '%0A', env.COMMIT_MESSAGE) || '' }}
+        body: ${{ env.RELEASE_BODY }}
         generate_release_notes: true
         draft: false
         token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
