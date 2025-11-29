@@ -134,14 +134,14 @@ namespace Magitek.Logic.Dancer
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HoningDancePvp.Range))
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.HoningDancePvp.Radius))
                 return false;
 
-            var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.HoningDancePvp.Range));
+            var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.HoningDancePvp.Radius));
             if (enemiesAroundTarget < DancerSettings.Instance.Pvp_HoningDanceMinimumEnemies)
                 return false;
 
-            return await Spells.HoningDancePvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.HoningDancePvp.Cast(Core.Me);
         }
 
         public static async Task<bool> Contradance()
@@ -158,14 +158,14 @@ namespace Magitek.Logic.Dancer
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ContradancePvp.Range))
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ContradancePvp.Radius))
                 return false;
 
-            var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ContradancePvp.Range));
+            var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ContradancePvp.Radius));
             if (enemiesAroundTarget < DancerSettings.Instance.Pvp_ContradanceMinimumEnemies)
                 return false;
 
-            return await Spells.ContradancePvp.Cast(Core.Me.CurrentTarget);
+            return await Spells.ContradancePvp.Cast(Core.Me);
         }
 
         public static async Task<bool> ClosedPosition()
