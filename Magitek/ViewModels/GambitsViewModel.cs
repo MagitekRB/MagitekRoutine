@@ -167,7 +167,7 @@ namespace Magitek.ViewModels
                 Action = new CastSpellOnEnemyAction(),
                 ActionType = GambitActionTypes.CastSpellOnEnemy,
                 IsEnabled = true,
-                Order = group.Gambits.Count + 1,
+                Order = group.Gambits.Count > 0 ? group.Gambits.Max(g => g.Order) + 1 : 1,
                 Job = SelectedJob,
                 Id = new Random().Next(int.MaxValue),
                 PreventSameActionForTheNextMilliseconds = 2000,
@@ -296,7 +296,7 @@ namespace Magitek.ViewModels
             var newGambit = JsonConvert.DeserializeObject<Gambit>(CopiedGambit);
             newGambit.Job = group.Job;
             newGambit.Id = new Random().Next(int.MaxValue);
-            newGambit.Order = group.Gambits.Count + 1;
+            newGambit.Order = group.Gambits.Count > 0 ? group.Gambits.Max(g => g.Order) + 1 : 1;
             group.Gambits.Add(newGambit);
         });
 

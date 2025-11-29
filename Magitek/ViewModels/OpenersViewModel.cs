@@ -172,7 +172,7 @@ namespace Magitek.ViewModels
                 Action = new CastSpellOnCurrentTargetAction(),
                 ActionType = GambitActionTypes.CastSpellOnCurrentTarget,
                 IsEnabled = true,
-                Order = openerGroup.Gambits.Count + 1,
+                Order = openerGroup.Gambits.Count > 0 ? openerGroup.Gambits.Max(g => g.Order) + 1 : 1,
                 Job = SelectedJob,
                 Id = new Random().Next(int.MaxValue),
                 PreventSameActionForTheNextMilliseconds = 2000,
