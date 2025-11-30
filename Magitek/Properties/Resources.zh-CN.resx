@@ -2106,6 +2106,9 @@
   <data name="Paladin_Text_Multi_Target_can_be_used_in_Single_Ta" xml:space="preserve">
     <value>多目标 (可在单目标循环中使用)</value>
   </data>
+  <data name="Paladin_Text_Save_this_many_charges_of_Intervene" xml:space="preserve">
+    <value>保留此数量的调停充能</value>
+  </data>
   <data name="Paladin_Content_Intervene_Dash" xml:space="preserve">
     <value>调停 (冲刺)</value>
   </data>

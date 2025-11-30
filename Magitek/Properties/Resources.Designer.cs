@@ -11509,6 +11509,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Intervene.
+        /// </summary>
+        public static string Paladin_Text_Save_this_many_charges_of_Intervene
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Text_Save_this_many_charges_of_Intervene", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Pull with:.
         /// </summary>
         public static string Paladin_Text_Pull_with

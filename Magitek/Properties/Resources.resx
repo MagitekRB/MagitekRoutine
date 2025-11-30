@@ -2111,6 +2111,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Paladin_Text_Multi_Target_can_be_used_in_Single_Ta" xml:space="preserve">
     <value>Multi Target (can be used in Single Target Cycle)</value>
   </data>
+  <data name="Paladin_Text_Save_this_many_charges_of_Intervene" xml:space="preserve">
+    <value>Save this many charges of Intervene</value>
+  </data>
   <data name="Paladin_Content_Intervene_Dash" xml:space="preserve">
     <value>Intervene (Dash)</value>
   </data>

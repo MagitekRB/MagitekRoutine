@@ -156,6 +156,9 @@ namespace Magitek.Logic.Paladin
             if (PaladinSettings.Instance.InterveneOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBlade.Range))
                 return false;
 
+            if (Spells.Intervene.Charges <= PaladinSettings.Instance.SaveInterveneCharges + 1)
+                return false;
+
             return await Spells.Intervene.Cast(Core.Me.CurrentTarget);
         }
 
