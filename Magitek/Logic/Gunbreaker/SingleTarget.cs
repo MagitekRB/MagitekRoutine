@@ -481,6 +481,9 @@ namespace Magitek.Logic.Gunbreaker
             if (!Spells.Trajectory.IsKnown())
                 return false;
 
+            if (Casting.LastSpell == Spells.Trajectory)
+                return false;
+
             if (GunbreakerSettings.Instance.TrajectoryOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
                 return false;
 

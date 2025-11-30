@@ -7,6 +7,7 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using DarkKnightRoutine = Magitek.Utilities.Routines.DarkKnight;
 
 namespace Magitek.Logic.DarkKnight
 {
@@ -99,16 +100,22 @@ namespace Magitek.Logic.DarkKnight
          *********************************************************************/
         public static async Task<bool> Shadowstride()
         {
-            if (!DarkKnightSettings.Instance.UsePlunge)
+            if (!DarkKnightSettings.Instance.UseShadowstride)
                 return false;
 
             if (!Spells.Shadowstride.IsKnown())
                 return false;
 
-            if (DarkKnightSettings.Instance.PlungeOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.HardSlash.Range))
+            if (Casting.LastSpell == Spells.Shadowstride)
                 return false;
 
-            if (Spells.Shadowstride.Charges <= DarkKnightSettings.Instance.SavePlungeCharges + 1)
+            if (DarkKnightSettings.Instance.ShadowstrideOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.HardSlash.Range))
+                return false;
+
+            if (Spells.Shadowstride.Charges <= DarkKnightSettings.Instance.SaveShadowstrideCharges + 1)
+                return false;
+
+            if (!DarkKnightRoutine.GlobalCooldown.CanWeave(1))
                 return false;
 
             return await Spells.Shadowstride.Cast(Core.Me.CurrentTarget);
