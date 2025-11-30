@@ -1436,6 +1436,15 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R" xml:space="preserve">
     <value>Use Lightning Shot To Pull or Regain Aggro</value>
   </data>
+  <data name="Gunbreaker_Content_Use_Trajectory" xml:space="preserve">
+    <value>Trajectory (Dash)</value>
+  </data>
+  <data name="Gunbreaker_Content_Trajectory_Only_in_Melee" xml:space="preserve">
+    <value>Only in Melee</value>
+  </data>
+  <data name="Gunbreaker_Text_Save_this_many_charges_of_Trajectory" xml:space="preserve">
+    <value>Save this many charges of Trajectory</value>
+  </data>
   <data name="Gunbreaker_Content_Use_LionHeart_Combo" xml:space="preserve">
     <value>Use LionHeart Combo</value>
   </data>

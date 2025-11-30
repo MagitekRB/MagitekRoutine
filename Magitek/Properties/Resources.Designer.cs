@@ -8457,6 +8457,39 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Trajectory (Dash).
+        /// </summary>
+        public static string Gunbreaker_Content_Use_Trajectory
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Use_Trajectory", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only in Melee.
+        /// </summary>
+        public static string Gunbreaker_Content_Trajectory_Only_in_Melee
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Trajectory_Only_in_Melee", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Trajectory.
+        /// </summary>
+        public static string Gunbreaker_Text_Save_this_many_charges_of_Trajectory
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Text_Save_this_many_charges_of_Trajectory", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use LionHeart Combo.
         /// </summary>
         public static string Gunbreaker_Content_Use_LionHeart_Combo

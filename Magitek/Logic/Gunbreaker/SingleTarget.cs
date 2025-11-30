@@ -471,6 +471,29 @@ namespace Magitek.Logic.Gunbreaker
 
 
         /********************************************************************************
+         *                                    Gap Closer
+         *******************************************************************************/
+        public static async Task<bool> Trajectory()
+        {
+            if (!GunbreakerSettings.Instance.UseTrajectory)
+                return false;
+
+            if (!Spells.Trajectory.IsKnown())
+                return false;
+
+            if (GunbreakerSettings.Instance.TrajectoryOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
+                return false;
+
+            if (Spells.Trajectory.Charges <= GunbreakerSettings.Instance.SaveTrajectoryCharges + 1)
+                return false;
+
+            if (!GunbreakerRoutine.GlobalCooldown.CanWeave(1))
+                return false;
+
+            return await Spells.Trajectory.Cast(Core.Me.CurrentTarget);
+        }
+
+        /********************************************************************************
          *                                    GCD 
          *******************************************************************************/
         public static async Task<bool> SonicBreak()

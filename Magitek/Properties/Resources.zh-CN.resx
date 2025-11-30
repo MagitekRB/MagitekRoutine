@@ -1431,6 +1431,15 @@
   <data name="Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R" xml:space="preserve">
     <value>使用 闪雷弹 来开怪或重新获得仇恨</value>
   </data>
+  <data name="Gunbreaker_Content_Use_Trajectory" xml:space="preserve">
+    <value>弹道 (冲刺)</value>
+  </data>
+  <data name="Gunbreaker_Content_Trajectory_Only_in_Melee" xml:space="preserve">
+    <value>仅在近战中</value>
+  </data>
+  <data name="Gunbreaker_Text_Save_this_many_charges_of_Trajectory" xml:space="preserve">
+    <value>保留此数量的弹道充能</value>
+  </data>
   <data name="Gunbreaker_Content_Use_LionHeart_Combo" xml:space="preserve">
     <value>使用 终结之心</value>
   </data>

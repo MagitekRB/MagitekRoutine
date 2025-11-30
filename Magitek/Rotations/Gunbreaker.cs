@@ -83,6 +83,7 @@ namespace Magitek.Rotations
             // oGCDs during weave windows
             if (GunbreakerRoutine.GlobalCooldown.CanWeave())
             {
+                if (await SingleTarget.Trajectory()) return true;
                 if (await SingleTarget.BlastingZone()) return true;
                 if (await Aoe.BowShock()) return true;
 

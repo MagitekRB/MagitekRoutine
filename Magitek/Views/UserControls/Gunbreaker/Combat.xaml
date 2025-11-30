@@ -77,10 +77,18 @@
                         <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Yalms_Away}" />
                     </StackPanel>
                 </StackPanel>
-
-                <StackPanel Margin="5">
-                </StackPanel>
             </Grid>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Trajectory}" IsChecked="{Binding GunbreakerSettings.UseTrajectory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Trajectory_Only_in_Melee}" IsChecked="{Binding GunbreakerSettings.TrajectoryOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Save_this_many_charges_of_Trajectory}" Margin="5,0" />
+                    <controls:Numeric Margin="5,3" MaxValue="5" MinValue="0" Value="{Binding GunbreakerSettings.SaveTrajectoryCharges, Mode=TwoWay}" />
+                </StackPanel>
+            </StackPanel>
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
