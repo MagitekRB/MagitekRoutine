@@ -433,11 +433,14 @@ namespace Magitek
 
         public override void OnButtonPress()
         {
-            if (Form.IsVisible)
-                return;
-
             // Validate window position before showing
             Models.Account.BaseSettings.ValidateSettingsWindowPosition(1000, 700);
+
+            if (Form.IsVisible)
+            {
+                Form.Activate();
+                return;
+            }
 
             Form.Show();
 

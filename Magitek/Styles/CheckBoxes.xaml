@@ -43,6 +43,7 @@
                                 Grid.Column="0"
                                 Width="18"
                                 Height="18"
+                                Margin="5,0,5,0"
                                 Background="{DynamicResource CheckBoxBackgroundUncheckedColor}"
                                 BorderBrush="{DynamicResource CheckBoxBorderUncheckedColor}"
                                 CornerRadius="2">
@@ -57,7 +58,7 @@
                             </Path>
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1">
                             <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                         </Border>
                     </Grid>
@@ -90,7 +91,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Border Name="CheckboxBorder" Grid.Column="0" Width="16" Height="16" CornerRadius="2">
+                        <Border Name="CheckboxBorder" Grid.Column="0" Width="16" Height="16" Margin="5,0,5,0" CornerRadius="2">
                             <Grid>
                                 <Path Name="Checked"
                                       Height="8"
@@ -114,7 +115,7 @@
                             </Grid>
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1">
                             <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                         </Border>
                     </Grid>
@@ -153,7 +154,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Border Name="CheckboxBorder" Grid.Column="0" Width="16" Height="16" CornerRadius="2">
+                        <Border Name="CheckboxBorder" Grid.Column="0" Width="16" Height="16" Margin="5,0,5,0" CornerRadius="2">
                             <Grid>
                                 <Path Name="Checked"
                                       Height="8"
@@ -177,7 +178,7 @@
                             </Grid>
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1">
                             <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                         </Border>
                     </Grid>
@@ -217,7 +218,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Border Name="CheckboxBorder" Grid.Column="0" Width="16" Height="16" CornerRadius="2">
+                        <Border Name="CheckboxBorder" Grid.Column="0" Width="16" Height="16" Margin="5,0,5,0" CornerRadius="2">
                             <Grid>
                                 <Path Name="Checked"
                                       Height="6"
@@ -241,7 +242,7 @@
                             </Grid>
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1" Padding="12,0,0,0">
                             <ContentPresenter Margin="0,0,0,1" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                         </Border>
                     </Grid>
@@ -284,6 +285,7 @@
                                 Grid.Column="0"
                                 Width="14"
                                 Height="14"
+                                Margin="5,0,5,0"
                                 BorderBrush="{DynamicResource FlatControlBackground}"
                                 BorderThickness="1"
                                 CornerRadius="2">
@@ -310,7 +312,7 @@
                             </Grid>
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1" Padding="12,0,0,0">
                             <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" SnapsToDevicePixels="True">
                                 <ContentPresenter.Effect>
                                     <DropShadowEffect Opacity="0.50" Color="Black" />
@@ -1229,7 +1231,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Border Name="CheckboxBorder" Grid.Column="0" Width="14" Height="14">
+                        <Border Name="CheckboxBorder" Grid.Column="0" Width="14" Height="14" Margin="5,0,5,0">
                             <Grid>
                                 <Path Name="Checked"
                                       Height="10"
@@ -1251,7 +1253,7 @@
                             </Grid>
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1">
                             <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" SnapsToDevicePixels="True" />
                         </Border>
                     </Grid>
@@ -1301,7 +1303,7 @@
 
                         </Border>
 
-                        <Border Grid.Column="1" Padding="5,0,0,0">
+                        <Border Grid.Column="1" Padding="12,0,0,0">
                             <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" SnapsToDevicePixels="True">
                                 <ContentPresenter.Effect>
                                     <DropShadowEffect Opacity="0.50" Color="Black" />

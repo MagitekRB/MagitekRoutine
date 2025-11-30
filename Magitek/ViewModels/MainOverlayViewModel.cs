@@ -24,7 +24,11 @@ namespace Magitek.ViewModels
             {
                 // Validate window position before showing
                 Models.Account.BaseSettings.ValidateSettingsWindowPosition(1000, 700);
-                Magitek.Form.Show();
+                
+                if (!Magitek.Form.IsVisible)
+                    Magitek.Form.Show();
+                
+                Magitek.Form.Activate();
             });
         });
 
