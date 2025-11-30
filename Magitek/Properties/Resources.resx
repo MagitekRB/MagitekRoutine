@@ -3512,6 +3512,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="WhiteMage_Content_Aquaveil_At" xml:space="preserve">
     <value>Aquaveil At</value>
   </data>
+  <data name="WhiteMage_Content_Seraph_Strike" xml:space="preserve">
+    <value>Seraph Strike</value>
+  </data>
+  <data name="WhiteMage_Content_Seraph_Strike_Half_Range" xml:space="preserve">
+    <value>Seraph Strike Only Within Half Range</value>
+  </data>
   <data name="WhiteMage_Text_Regen_On" xml:space="preserve">
     <value>Regen On</value>
   </data>

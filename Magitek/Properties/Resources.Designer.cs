@@ -17936,6 +17936,28 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Seraph Strike.
+        /// </summary>
+        public static string WhiteMage_Content_Seraph_Strike
+        {
+            get
+            {
+                return ResourceManager.GetString("WhiteMage_Content_Seraph_Strike", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Seraph Strike Only Within Half Range.
+        /// </summary>
+        public static string WhiteMage_Content_Seraph_Strike_Half_Range
+        {
+            get
+            {
+                return ResourceManager.GetString("WhiteMage_Content_Seraph_Strike_Half_Range", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Only Below 90 Mana Percent.
         /// </summary>
         public static string WhiteMage_Content_Only_Below_90_Mana_Percent

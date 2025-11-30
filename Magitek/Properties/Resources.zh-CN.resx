@@ -3507,6 +3507,12 @@
   <data name="WhiteMage_Content_Aquaveil_At" xml:space="preserve">
     <value>在[xx]时使用水流幕</value>
   </data>
+  <data name="WhiteMage_Content_Seraph_Strike" xml:space="preserve">
+    <value>炽天使强袭</value>
+  </data>
+  <data name="WhiteMage_Content_Seraph_Strike_Half_Range" xml:space="preserve">
+    <value>炽天使强袭仅在半数射程内使用</value>
+  </data>
   <data name="WhiteMage_Text_Regen_On" xml:space="preserve">
     <value>对[xx]使用再生</value>
   </data>

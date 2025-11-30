@@ -601,6 +601,14 @@ namespace Magitek.Models.WhiteMage
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_AfflatusPurgation { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseSeraphStrike { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_SeraphStrikeHalfRange { get; set; }
         #endregion
     }
 }

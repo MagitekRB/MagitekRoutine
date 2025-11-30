@@ -35,6 +35,12 @@
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Afflatus_Purgation_LB}" IsChecked="{Binding WhiteMageSettings.Pvp_AfflatusPurgation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Seraph_Strike}" IsChecked="{Binding WhiteMageSettings.Pvp_UseSeraphStrike, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Seraph_Strike_Half_Range}" IsChecked="{Binding WhiteMageSettings.Pvp_SeraphStrikeHalfRange, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

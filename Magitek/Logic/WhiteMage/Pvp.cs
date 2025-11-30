@@ -230,5 +230,29 @@ namespace Magitek.Logic.WhiteMage
 
             return await Spells.AfflatusPurgationPvp.Cast(Core.Me.CurrentTarget);
         }
+
+        public static async Task<bool> SeraphStrikePvp()
+        {
+            if (!WhiteMageSettings.Instance.Pvp_UseSeraphStrike)
+                return false;
+
+            if (!Spells.SeraphStrikePvp.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // If half range option is enabled, only use within half of the spell's range
+            // Otherwise use full range
+            float maxRange = WhiteMageSettings.Instance.Pvp_SeraphStrikeHalfRange ? (float)(Spells.SeraphStrikePvp.Range / 2f) : (float)Spells.SeraphStrikePvp.Range;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(maxRange))
+                return false;
+
+            return await Spells.SeraphStrikePvp.Cast(Core.Me.CurrentTarget);
+        }
     }
 }

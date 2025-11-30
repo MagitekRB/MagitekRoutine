@@ -200,6 +200,7 @@ namespace Magitek.Rotations
                 if (await Pvp.GlareIVPvp()) return true;
                 if (await Pvp.AfflatusMiseryPvp()) return true;
                 if (await Pvp.MiracleOfNaturePvp()) return true;
+                if (await Pvp.SeraphStrikePvp()) return true;
             }
 
             return (await Pvp.GlareIIIPvp());
