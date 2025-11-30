@@ -89,7 +89,16 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             if (Cartridge >= 2 && CanNoMercy())
+            {
+                // Check if No Mercy is ready but we're not in a weave window
+                // If so, allow casting this GCD to create the weave window for No Mercy
+                if (Spells.NoMercy.IsKnownAndReady() && !GunbreakerRoutine.GlobalCooldown.CanWeave())
+                {
+                    // Allow casting to create weave window - this breaks the deadlock
+                    return await Spells.KeenEdge.Cast(Core.Me.CurrentTarget);
+                }
                 return false;
+            }
 
             return await Spells.KeenEdge.Cast(Core.Me.CurrentTarget);
         }
@@ -103,7 +112,16 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             if (Cartridge >= 2 && CanNoMercy() && Casting.LastSpell != Spells.Bloodfest)
+            {
+                // Check if No Mercy is ready but we're not in a weave window
+                // If so, allow casting this GCD to create the weave window for No Mercy
+                if (Spells.NoMercy.IsKnownAndReady() && !GunbreakerRoutine.GlobalCooldown.CanWeave())
+                {
+                    // Allow casting to create weave window - this breaks the deadlock
+                    return await Spells.BrutalShell.Cast(Core.Me.CurrentTarget);
+                }
                 return false;
+            }
 
             return await Spells.BrutalShell.Cast(Core.Me.CurrentTarget);
         }
@@ -126,8 +144,18 @@ namespace Magitek.Logic.Gunbreaker
                     return false;
 
                 // Hold combo completion if we're about to use No Mercy (avoid cartridge overcap)
+                // BUT: Allow casting if No Mercy is ready but not in weave window - we need to cast a GCD to create the weave window
                 if (Cartridge >= 2 && CanNoMercy())
+                {
+                    // Check if No Mercy is ready but we're not in a weave window
+                    // If so, allow casting this GCD to create the weave window for No Mercy
+                    if (Spells.NoMercy.IsKnownAndReady() && !GunbreakerRoutine.GlobalCooldown.CanWeave())
+                    {
+                        // Allow casting to create weave window - this breaks the deadlock
+                        return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
+                    }
                     return false;
+                }
 
                 return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
             }
@@ -194,7 +222,10 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             // AoE check: At 4+ enemies, prefer Fated Circle over Gnashing Fang combo
-            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
+            // BUT: If Fated Circle is not available, allow Gnashing Fang in AoE
+            int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
+            bool hasFatedCircle = Core.Me.ClassLevel >= Spells.FatedCircle.LevelAcquired;
+            if (enemyCount >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies && hasFatedCircle)
                 return false;
 
             if (Spells.NoMercy.IsKnownAndReady())
