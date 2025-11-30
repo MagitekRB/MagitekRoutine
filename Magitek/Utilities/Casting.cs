@@ -77,13 +77,22 @@ namespace Magitek.Utilities
             if (CastingGambit)
                 return true;
 
-            if (!SpellTarget.IsTargetable)
+            try
             {
-                await CancelCast("Target is no Longer Targetable");
-            }
+                if (SpellTarget == null || !SpellTarget.IsValid)
+                {
+                    await CancelCast("Target is no Longer Valid");
+                    return true;
+                }
 
-            if (!SpellTarget.IsValid)
+                if (!SpellTarget.IsTargetable)
+                {
+                    await CancelCast("Target is no Longer Targetable");
+                }
+            }
+            catch
             {
+                // Object is invalid in memory (e.g., player died, entity despawned)
                 await CancelCast("Target is no Longer Valid");
             }
 
