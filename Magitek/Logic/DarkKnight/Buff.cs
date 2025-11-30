@@ -53,6 +53,10 @@ namespace Magitek.Logic.DarkKnight
             if (Spells.HardSlash.Cooldown.TotalMilliseconds > 800)
                 return false;
 
+            // Only use Delirium when in melee range to avoid wasting it on Unmend spam
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.WithinSpellRange(Spells.ScarletDelirium.Range))
+                return false;
+
             return await Spells.Delirium.Cast(Core.Me);
         }
 
