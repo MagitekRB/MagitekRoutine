@@ -60,13 +60,31 @@ namespace Magitek.Logic.Gunbreaker
                 // Optimized No Mercy timing following The Balance guide
                 // Uses late weave window for faster GCD speeds to fit 9 GCDs inside No Mercy
 
-                // Cartridge requirement depends on AoE vs single-target
+                // Cartridge requirement depends on AoE vs single-target and available abilities
+                // Note: DoubleDown (90) requires GnashingFang (60), so if we have DoubleDown we have both
                 int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
-                int requiredCartridges = 2; // Default for single-target (Gnashing Fang + Double Down)
+                bool hasDoubleDown = Core.Me.ClassLevel >= Spells.DoubleDown.LevelAcquired;
+                bool hasGnashingFang = Core.Me.ClassLevel >= Spells.GnashingFang.LevelAcquired;
 
-                // In AoE (4+ enemies), we skip Gnashing Fang, so only need 1 cartridge for Double Down
+                int requiredCartridges = 0;
+
+                // Calculate required cartridges based on available abilities
                 if (enemyCount >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
-                    requiredCartridges = 1;
+                {
+                    // AoE: Skip Gnashing Fang, only need Double Down if available
+                    if (hasDoubleDown)
+                        requiredCartridges = 1;
+                    // If no DoubleDown, no cartridges needed for AoE burst
+                }
+                else
+                {
+                    // Single-target: Need cartridges for available burst abilities
+                    if (hasDoubleDown)
+                        requiredCartridges = 2; // Have both Gnashing Fang and Double Down
+                    else if (hasGnashingFang)
+                        requiredCartridges = 1; // Only Gnashing Fang available
+                    // If neither available, no cartridges needed (will use Burst Strike or other fillers)
+                }
 
                 if (Cartridge < requiredCartridges)
                     return false;

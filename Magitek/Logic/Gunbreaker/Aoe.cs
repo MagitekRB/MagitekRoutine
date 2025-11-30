@@ -51,12 +51,24 @@ namespace Magitek.Logic.Gunbreaker
                 // Let rotation priority handle Fated Circle when at max cartridges
 
                 // Don't finish combo if at max cartridges - let Fated Circle spend first
-                if (Cartridge >= GunbreakerRoutine.MaxCartridge)
+                // BUT: If Fated Circle is not available, allow finishing combo to avoid deadlock
+                bool hasFatedCircle = Core.Me.ClassLevel >= Spells.FatedCircle.LevelAcquired;
+                if (Cartridge >= GunbreakerRoutine.MaxCartridge && hasFatedCircle)
                     return false;
 
                 // Hold combo completion if we're about to use No Mercy (avoid cartridge overcap)
+                // BUT: Allow casting if No Mercy is ready but not in weave window - we need to cast a GCD to create the weave window
                 if (Cartridge >= 2 && CanNoMercy())
+                {
+                    // Check if No Mercy is ready but we're not in a weave window
+                    // If so, allow casting this GCD to create the weave window for No Mercy
+                    if (Spells.NoMercy.IsKnownAndReady() && !GunbreakerRoutine.GlobalCooldown.CanWeave())
+                    {
+                        // Allow casting to create weave window - this breaks the deadlock
+                        return await Spells.DemonSlaughter.Cast(Core.Me);
+                    }
                     return false;
+                }
 
                 return await Spells.DemonSlaughter.Cast(Core.Me);
             }
