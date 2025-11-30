@@ -4299,6 +4299,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Shadowstride.
+        /// </summary>
+        public static string DarkKnight_Content_Use_Shadowstride
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Content_Use_Shadowstride", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Salted Earth When There Are Enemies.
         /// </summary>
         public static string DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies
@@ -4383,6 +4394,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("DarkKnight_Text_Save_this_many_charges_of_Plunge", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Shadowstride.
+        /// </summary>
+        public static string DarkKnight_Text_Save_this_many_charges_of_Shadowstride
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Text_Save_this_many_charges_of_Shadowstride", resourceCulture);
             }
         }
 

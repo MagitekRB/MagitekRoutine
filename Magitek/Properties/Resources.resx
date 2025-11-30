@@ -1295,6 +1295,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="DarkKnight_Text_Save_this_many_charges_of_Plunge" xml:space="preserve">
     <value>Save this many charges of Plunge</value>
   </data>
+  <data name="DarkKnight_Text_Save_this_many_charges_of_Shadowstride" xml:space="preserve">
+    <value>Save this many charges of Shadowstride</value>
+  </data>
   <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
     <value>Carve And Spit</value>
   </data>
@@ -1312,6 +1315,9 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="DarkKnight_Content_Use_Plunge" xml:space="preserve">
     <value>Use Plunge</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Shadowstride" xml:space="preserve">
+    <value>Use Shadowstride</value>
   </data>
   <data name="DarkKnight_Content_Living_Dead" xml:space="preserve">
     <value>Living Dead</value>

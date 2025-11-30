@@ -48,18 +48,6 @@ namespace Magitek.Models.Gunbreaker
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseRoughDivide { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool RoughDivideOnlyInMelee { get; set; }
-
-        [Setting]
-        [DefaultValue(0)]
-        public int SaveRoughDivideCharges { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool UseTrajectory { get; set; }
 
         [Setting]

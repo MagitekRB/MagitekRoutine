@@ -95,6 +95,26 @@ namespace Magitek.Logic.DarkKnight
         }
 
         /*********************************************************************
+         *                         Gap Closer
+         *********************************************************************/
+        public static async Task<bool> Shadowstride()
+        {
+            if (!DarkKnightSettings.Instance.UsePlunge)
+                return false;
+
+            if (!Spells.Shadowstride.IsKnown())
+                return false;
+
+            if (DarkKnightSettings.Instance.PlungeOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.HardSlash.Range))
+                return false;
+
+            if (Spells.Shadowstride.Charges <= DarkKnightSettings.Instance.SavePlungeCharges + 1)
+                return false;
+
+            return await Spells.Shadowstride.Cast(Core.Me.CurrentTarget);
+        }
+
+        /*********************************************************************
          *                         Unmend
          *********************************************************************/
 

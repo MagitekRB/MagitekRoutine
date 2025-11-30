@@ -86,10 +86,10 @@
                         <CheckBox Grid.Row="5" Grid.Column="0" Margin="0,3" Content="{x:Static properties:Resources.DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies}" IsChecked="{Binding DarkKnightSettings.UseSaltedEarth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Row="5" Grid.Column="1" Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding DarkKnightSettings.SaltedEarthEnemies, Mode=TwoWay}" />
                         <TextBlock Grid.Row="5" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
-                        <CheckBox Grid.Row="6" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Use_Plunge}" IsChecked="{Binding DarkKnightSettings.UsePlunge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Grid.Row="6" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Use_Shadowstride}" IsChecked="{Binding DarkKnightSettings.UsePlunge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding DarkKnightSettings.PlungeOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <TextBlock Grid.Row="6" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Only_in_Melee}" />
-                        <TextBlock Grid.Row="7" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Save_this_many_charges_of_Plunge}" />
+                        <TextBlock Grid.Row="7" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Save_this_many_charges_of_Shadowstride}" />
                         <controls:Numeric Grid.Row="7" Grid.Column="1" Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding DarkKnightSettings.SavePlungeCharges, Mode=TwoWay}" />
 
                     </Grid>

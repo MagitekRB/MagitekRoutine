@@ -1290,6 +1290,9 @@
   <data name="DarkKnight_Text_Save_this_many_charges_of_Plunge" xml:space="preserve">
     <value>保留此数量的下 跳斩 充能</value>
   </data>
+  <data name="DarkKnight_Text_Save_this_many_charges_of_Shadowstride" xml:space="preserve">
+    <value>保留此数量的影步 充能</value>
+  </data>
   <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
     <value>精雕怒斩</value>
   </data>
@@ -1307,6 +1310,9 @@
   </data>
   <data name="DarkKnight_Content_Use_Plunge" xml:space="preserve">
     <value>使用 跳斩</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Shadowstride" xml:space="preserve">
+    <value>使用 影步</value>
   </data>
   <data name="DarkKnight_Content_Living_Dead" xml:space="preserve">
     <value>行尸走肉</value>
