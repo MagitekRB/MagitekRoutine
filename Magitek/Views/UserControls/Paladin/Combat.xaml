@@ -37,6 +37,8 @@
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Intervene_Dash}" IsChecked="{Binding PaladinSettings.UseIntervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Only_in_Melee}" IsChecked="{Binding PaladinSettings.InterveneOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Paladin_Text_Save_this_many_charges_of_Intervene}" Margin="5,0" />
+                    <controls:Numeric Margin="5,3" MaxValue="5" MinValue="0" Value="{Binding PaladinSettings.SaveInterveneCharges, Mode=TwoWay}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_GoringBlade}" IsChecked="{Binding PaladinSettings.UseGoringBlade, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

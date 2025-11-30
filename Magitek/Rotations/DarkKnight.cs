@@ -63,6 +63,7 @@ namespace Magitek.Rotations
                 if (await Buff.BloodWeapon()) return true;
                 if (await Buff.LivingShadow()) return true;
                 if (await SingleTarget.Shadowbringer()) return true;
+                if (await SingleTarget.Shadowstride()) return true;
             }
 
             //Pull or get back aggro with LightningShot

@@ -141,15 +141,15 @@ namespace Magitek.Models.DarkKnight
         #region oGCDs
         [Setting]
         [DefaultValue(false)]
-        public bool UsePlunge { get; set; }
+        public bool UseShadowstride { get; set; }
 
         [Setting]
         [DefaultValue(true)]
-        public bool PlungeOnlyInMelee { get; set; }
+        public bool ShadowstrideOnlyInMelee { get; set; }
 
         [Setting]
         [DefaultValue(0)]
-        public int SavePlungeCharges { get; set; }
+        public int SaveShadowstrideCharges { get; set; }
 
         [Setting]
         [DefaultValue(true)]

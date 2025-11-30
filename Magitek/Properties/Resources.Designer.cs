@@ -4299,6 +4299,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Shadowstride.
+        /// </summary>
+        public static string DarkKnight_Content_Use_Shadowstride
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Content_Use_Shadowstride", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Salted Earth When There Are Enemies.
         /// </summary>
         public static string DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies
@@ -4383,6 +4394,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("DarkKnight_Text_Save_this_many_charges_of_Plunge", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Shadowstride.
+        /// </summary>
+        public static string DarkKnight_Text_Save_this_many_charges_of_Shadowstride
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Text_Save_this_many_charges_of_Shadowstride", resourceCulture);
             }
         }
 
@@ -8457,6 +8479,39 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Trajectory (Dash).
+        /// </summary>
+        public static string Gunbreaker_Content_Use_Trajectory
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Use_Trajectory", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only in Melee.
+        /// </summary>
+        public static string Gunbreaker_Content_Trajectory_Only_in_Melee
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Trajectory_Only_in_Melee", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Trajectory.
+        /// </summary>
+        public static string Gunbreaker_Text_Save_this_many_charges_of_Trajectory
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Text_Save_this_many_charges_of_Trajectory", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use LionHeart Combo.
         /// </summary>
         public static string Gunbreaker_Content_Use_LionHeart_Combo
@@ -11505,6 +11560,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Paladin_Text_Multi_Target_can_be_used_in_Single_Ta", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Intervene.
+        /// </summary>
+        public static string Paladin_Text_Save_this_many_charges_of_Intervene
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Text_Save_this_many_charges_of_Intervene", resourceCulture);
             }
         }
 

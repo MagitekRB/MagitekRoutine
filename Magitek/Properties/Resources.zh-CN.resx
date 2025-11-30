@@ -1290,6 +1290,9 @@
   <data name="DarkKnight_Text_Save_this_many_charges_of_Plunge" xml:space="preserve">
     <value>保留此数量的下 跳斩 充能</value>
   </data>
+  <data name="DarkKnight_Text_Save_this_many_charges_of_Shadowstride" xml:space="preserve">
+    <value>保留此数量的影步 充能</value>
+  </data>
   <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
     <value>精雕怒斩</value>
   </data>
@@ -1307,6 +1310,9 @@
   </data>
   <data name="DarkKnight_Content_Use_Plunge" xml:space="preserve">
     <value>使用 跳斩</value>
+  </data>
+  <data name="DarkKnight_Content_Use_Shadowstride" xml:space="preserve">
+    <value>使用 影步</value>
   </data>
   <data name="DarkKnight_Content_Living_Dead" xml:space="preserve">
     <value>行尸走肉</value>
@@ -1430,6 +1436,15 @@
   </data>
   <data name="Gunbreaker_Content_Use_Lightning_Shot_To_Pull_or_R" xml:space="preserve">
     <value>使用 闪雷弹 来开怪或重新获得仇恨</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_Trajectory" xml:space="preserve">
+    <value>弹道 (冲刺)</value>
+  </data>
+  <data name="Gunbreaker_Content_Trajectory_Only_in_Melee" xml:space="preserve">
+    <value>仅在近战中</value>
+  </data>
+  <data name="Gunbreaker_Text_Save_this_many_charges_of_Trajectory" xml:space="preserve">
+    <value>保留此数量的弹道充能</value>
   </data>
   <data name="Gunbreaker_Content_Use_LionHeart_Combo" xml:space="preserve">
     <value>使用 终结之心</value>
@@ -2105,6 +2120,9 @@
   </data>
   <data name="Paladin_Text_Multi_Target_can_be_used_in_Single_Ta" xml:space="preserve">
     <value>多目标 (可在单目标循环中使用)</value>
+  </data>
+  <data name="Paladin_Text_Save_this_many_charges_of_Intervene" xml:space="preserve">
+    <value>保留此数量的调停充能</value>
   </data>
   <data name="Paladin_Content_Intervene_Dash" xml:space="preserve">
     <value>调停 (冲刺)</value>

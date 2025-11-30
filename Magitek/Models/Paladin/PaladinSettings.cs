@@ -180,9 +180,9 @@ namespace Magitek.Models.Paladin
         [DefaultValue(true)]
         public bool InterveneOnlyInMelee { get; set; }
 
-        /*[Setting]
+        [Setting]
         [DefaultValue(0)]
-        public int SaveInterveneCharges { get; set; }*/
+        public int SaveInterveneCharges { get; set; }
         #endregion
 
         #region DefensiveGroup

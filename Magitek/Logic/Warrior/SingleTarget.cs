@@ -149,22 +149,23 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UseOnslaught)
                 return false;
 
+            if (!Spells.Onslaught.IsKnown())
+                return false;
+
+            if (Casting.LastSpell == Spells.Onslaught)
+                return false;
+
             if (!Core.Me.HasAura(Auras.InnerRelease))
                 return false;
 
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 3 + r.CombatReach) > 1)
                 return false;
 
-            if (WarriorSettings.Instance.OnslaughtOnlyInMelee
-                && !Core.Me.CurrentTarget.WithinSpellRange(3))
-            {
+            if (WarriorSettings.Instance.OnslaughtOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.HeavySwing.Range))
                 return false;
-            }
 
             if (Spells.Onslaught.Charges <= WarriorSettings.Instance.SaveOnslaughtCharges + 1)
-            {
                 return false;
-            }
 
             if (!WarriorRoutine.GlobalCooldown.CanWeave(1))
                 return false;
