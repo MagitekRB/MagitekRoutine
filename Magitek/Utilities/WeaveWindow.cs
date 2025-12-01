@@ -115,6 +115,16 @@ namespace Magitek.Utilities
                 (targetWindow * Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset);
             return targetWindowIsZero || (timeBased && spellFitsInWindow);
         }
+
+        /// <summary>
+        /// Gets the GCD duration in milliseconds (adjusted for Skill Speed/Spell Speed)
+        /// </summary>
+        public double AdjustedCooldownMs => _gcd.AdjustedCooldown.TotalMilliseconds;
+
+        /// <summary>
+        /// Gets the GCD duration as a TimeSpan (adjusted for Skill Speed/Spell Speed)
+        /// </summary>
+        public System.TimeSpan AdjustedCooldown => _gcd.AdjustedCooldown;
     }
 
 }
