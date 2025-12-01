@@ -74,28 +74,119 @@ namespace Magitek.ViewModels
         public AsyncObservableCollection<double> FontSizes { get; set; } = new AsyncObservableCollection<double>() { 9, 10, 11, 12 };
 
         public Models.Account.BaseSettings GeneralSettings => Models.Account.BaseSettings.Instance;
-        public ScholarSettings ScholarSettings { get; set; } = ScholarSettings.Instance;
-        public WhiteMageSettings WhiteMageSettings { get; set; } = WhiteMageSettings.Instance;
-        public AstrologianSettings AstrologianSettings { get; set; } = AstrologianSettings.Instance;
-        public PaladinSettings PaladinSettings { get; set; } = PaladinSettings.Instance;
-        public DarkKnightSettings DarkKnightSettings { get; set; } = DarkKnightSettings.Instance;
-        public WarriorSettings WarriorSettings { get; set; } = WarriorSettings.Instance;
-        public BardSettings BardSettings { get; set; } = BardSettings.Instance;
-        public DancerSettings DancerSettings { get; set; } = DancerSettings.Instance;
-        public MachinistSettings MachinistSettings { get; set; } = MachinistSettings.Instance;
-        public DragoonSettings DragoonSettings { get; set; } = DragoonSettings.Instance;
-        public MonkSettings MonkSettings { get; set; } = MonkSettings.Instance;
-        public NinjaSettings NinjaSettings { get; set; } = NinjaSettings.Instance;
-        public SamuraiSettings SamuraiSettings { get; set; } = SamuraiSettings.Instance;
-        public BlueMageSettings BlueMageSettings { get; set; } = BlueMageSettings.Instance;
-        public BlackMageSettings BlackMageSettings { get; set; } = BlackMageSettings.Instance;
-        public RedMageSettings RedMageSettings { get; set; } = RedMageSettings.Instance;
-        public SummonerSettings SummonerSettings { get; set; } = SummonerSettings.Instance;
-        public GunbreakerSettings GunbreakerSettings { get; set; } = GunbreakerSettings.Instance;
-        public ReaperSettings ReaperSettings { get; set; } = ReaperSettings.Instance;
-        public SageSettings SageSettings { get; set; } = SageSettings.Instance;
-        public ViperSettings ViperSettings { get; set; } = ViperSettings.Instance;
-        public PictomancerSettings PictomancerSettings { get; set; } = PictomancerSettings.Instance;
+
+        // Properties always return current Instance to survive hot reload
+        // Using expression-bodied members for minimal overhead (static property access is ~2ns)
+        public ScholarSettings ScholarSettings
+        {
+            get => ScholarSettings.Instance;
+            set => ScholarSettings.Instance = value;
+        }
+        public WhiteMageSettings WhiteMageSettings
+        {
+            get => WhiteMageSettings.Instance;
+            set => WhiteMageSettings.Instance = value;
+        }
+        public AstrologianSettings AstrologianSettings
+        {
+            get => AstrologianSettings.Instance;
+            set => AstrologianSettings.Instance = value;
+        }
+        public PaladinSettings PaladinSettings
+        {
+            get => PaladinSettings.Instance;
+            set => PaladinSettings.Instance = value;
+        }
+        public DarkKnightSettings DarkKnightSettings
+        {
+            get => DarkKnightSettings.Instance;
+            set => DarkKnightSettings.Instance = value;
+        }
+        public WarriorSettings WarriorSettings
+        {
+            get => WarriorSettings.Instance;
+            set => WarriorSettings.Instance = value;
+        }
+        public BardSettings BardSettings
+        {
+            get => BardSettings.Instance;
+            set => BardSettings.Instance = value;
+        }
+        public DancerSettings DancerSettings
+        {
+            get => DancerSettings.Instance;
+            set => DancerSettings.Instance = value;
+        }
+        public MachinistSettings MachinistSettings
+        {
+            get => MachinistSettings.Instance;
+            set => MachinistSettings.Instance = value;
+        }
+        public DragoonSettings DragoonSettings
+        {
+            get => DragoonSettings.Instance;
+            set => DragoonSettings.Instance = value;
+        }
+        public MonkSettings MonkSettings
+        {
+            get => MonkSettings.Instance;
+            set => MonkSettings.Instance = value;
+        }
+        public NinjaSettings NinjaSettings
+        {
+            get => NinjaSettings.Instance;
+            set => NinjaSettings.Instance = value;
+        }
+        public SamuraiSettings SamuraiSettings
+        {
+            get => SamuraiSettings.Instance;
+            set => SamuraiSettings.Instance = value;
+        }
+        public BlueMageSettings BlueMageSettings
+        {
+            get => BlueMageSettings.Instance;
+            set => BlueMageSettings.Instance = value;
+        }
+        public BlackMageSettings BlackMageSettings
+        {
+            get => BlackMageSettings.Instance;
+            set => BlackMageSettings.Instance = value;
+        }
+        public RedMageSettings RedMageSettings
+        {
+            get => RedMageSettings.Instance;
+            set => RedMageSettings.Instance = value;
+        }
+        public SummonerSettings SummonerSettings
+        {
+            get => SummonerSettings.Instance;
+            set => SummonerSettings.Instance = value;
+        }
+        public GunbreakerSettings GunbreakerSettings
+        {
+            get => GunbreakerSettings.Instance;
+            set => GunbreakerSettings.Instance = value;
+        }
+        public ReaperSettings ReaperSettings
+        {
+            get => ReaperSettings.Instance;
+            set => ReaperSettings.Instance = value;
+        }
+        public SageSettings SageSettings
+        {
+            get => SageSettings.Instance;
+            set => SageSettings.Instance = value;
+        }
+        public ViperSettings ViperSettings
+        {
+            get => ViperSettings.Instance;
+            set => ViperSettings.Instance = value;
+        }
+        public PictomancerSettings PictomancerSettings
+        {
+            get => PictomancerSettings.Instance;
+            set => PictomancerSettings.Instance = value;
+        }
         public string CurrentRoutine { get; set; }
         public string RoutineSelectedInUi { get; set; }
         public bool SettingsFirstInitialization { get; set; }

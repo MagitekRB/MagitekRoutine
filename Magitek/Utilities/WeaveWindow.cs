@@ -97,7 +97,7 @@ namespace Magitek.Utilities
 
         public bool IsLateWeaveWindow()
         {
-            return (_gcd.Cooldown.TotalMilliseconds <= (Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset));
+            return (_gcd.Cooldown.TotalMilliseconds <= (Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100));
         }
 
         public bool IsWeaveWindow(int targetWindow = 1, bool timeBased = false)

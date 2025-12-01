@@ -26,11 +26,34 @@
                     <x:Type TypeName="enums:GunbreakerStrategy" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
+            <ObjectDataProvider x:Key="GunbreakerImplementation" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="enums:GunbreakerImplementation" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10">
+
+        <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Margin="0,0,10,0" Style="{DynamicResource TextBlockDefault}" Text="Implementation:" />
+                    <ComboBox Width="170" ItemsSource="{Binding Source={StaticResource GunbreakerImplementation}}" SelectedValue="{Binding GunbreakerSettings.Implementation, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                    <TextBlock Style="{DynamicResource TextBlockInfo}" Text="Latest (Default) - Current codebase version" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <TextBlock Style="{DynamicResource TextBlockInfo}" Text="V49 - Restored from tag v1.0.49 (working version)" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <TextBlock Style="{DynamicResource TextBlockInfo}" Text="Experimental - V49 combined with latest features and updates from Optimized burst logic" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">

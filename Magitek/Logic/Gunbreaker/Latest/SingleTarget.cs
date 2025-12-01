@@ -12,7 +12,7 @@ using static ff14bot.Managers.ActionResourceManager.Gunbreaker;
 using Auras = Magitek.Utilities.Auras;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker
+namespace Magitek.Logic.Gunbreaker.Latest
 {
     internal static class SingleTarget
     {

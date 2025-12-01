@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker
+namespace Magitek.Logic.Gunbreaker.Experimental
 {
     internal static class Defensive
     {
@@ -61,7 +61,7 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.UseReprisal)
                 return false;
 
-            if (!UseDefensives() && Combat.Enemies.Count < 3)
+            if (!UseDefensives())
                 return false;
 
             if (Core.Me.CurrentHealthPercent > GunbreakerSettings.Instance.ReprisalHealthPercent)
@@ -138,3 +138,4 @@ namespace Magitek.Logic.Gunbreaker
         }
     }
 }
+
