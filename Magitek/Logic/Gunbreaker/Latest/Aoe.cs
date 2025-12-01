@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Gunbreaker;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker
+namespace Magitek.Logic.Gunbreaker.Latest
 {
     internal static class Aoe
     {

@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Gunbreaker;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 
-namespace Magitek.Logic.Gunbreaker
+namespace Magitek.Logic.Gunbreaker.V49
 {
     internal static class Heal
     {
@@ -41,7 +41,7 @@ namespace Magitek.Logic.Gunbreaker
                 if (!unit.IsAlive)
                     return false;
 
-                if (!unit.WithinSpellRange(30))
+                if (unit.Distance(Core.Me) > 30)
                     return false;
 
                 if (unit.HasAura(Auras.Aurora))
@@ -83,3 +83,4 @@ namespace Magitek.Logic.Gunbreaker
         }
     }
 }
+

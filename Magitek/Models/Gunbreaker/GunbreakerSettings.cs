@@ -14,6 +14,13 @@ namespace Magitek.Models.Gunbreaker
         public static GunbreakerSettings Instance { get; set; } = new GunbreakerSettings();
 
         #region General
+        /// <summary>
+        /// Selects which Gunbreaker rotation implementation to use.
+        /// </summary>
+        [Setting]
+        [DefaultValue(GunbreakerImplementation.Latest)]
+        public GunbreakerImplementation Implementation { get; set; }
+
         [Setting]
         [DefaultValue(GunbreakerStrategy.FastGCD)]
         public GunbreakerStrategy GunbreakerStrategy { get; set; }
@@ -31,8 +38,15 @@ namespace Magitek.Models.Gunbreaker
         public bool HoldAmmoCombo { get; set; }
 
         [Setting]
-        [DefaultValue(27)]
+        [DefaultValue(19)]
         public int HoldAmmoComboSeconds { get; set; }
+
+        /// <summary>
+        /// V49 setting: Milliseconds before No Mercy to save ammo combo (legacy, used by V49 implementation).
+        /// </summary>
+        [Setting]
+        [DefaultValue(6000)]
+        public int SaveAmmoComboMseconds { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -77,6 +91,20 @@ namespace Magitek.Models.Gunbreaker
         [Setting]
         [DefaultValue(20)]
         public int HoldBlastingZoneSeconds { get; set; }
+
+        /// <summary>
+        /// V49 setting: Save Blasting Zone for No Mercy window (legacy, used by V49 implementation).
+        /// </summary>
+        [Setting]
+        [DefaultValue(true)]
+        public bool SaveBlastingZone { get; set; }
+
+        /// <summary>
+        /// V49 setting: Milliseconds before No Mercy to save Blasting Zone (legacy, used by V49 implementation).
+        /// </summary>
+        [Setting]
+        [DefaultValue(6000)]
+        public int SaveBlastingZoneMseconds { get; set; }
 
         [Setting]
         [DefaultValue(false)]
