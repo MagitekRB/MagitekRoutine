@@ -129,7 +129,7 @@ namespace Magitek.Logic.Roles
             return false;
         }
 
-        public static async Task<bool> FightLogic_Knockback(bool useAntiKnockback, SpellData spell, bool selfAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 0)
+        public static async Task<bool> FightLogic_Knockback(bool useAntiKnockback, SpellData spell, bool selfAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 3000)
         {
             if (!useAntiKnockback)
                 return false;
