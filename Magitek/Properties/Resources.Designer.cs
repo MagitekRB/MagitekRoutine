@@ -3375,6 +3375,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to ⚠ Update Available.
+        /// </summary>
+        public static string Controls_Text_Version_Out_Of_Sync
+        {
+            get
+            {
+                return ResourceManager.GetString("Controls_Text_Version_Out_Of_Sync", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Local Magitek Version:.
         /// </summary>
         public static string Controls_Text_Local_Magitek_Version

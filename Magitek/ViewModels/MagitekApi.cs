@@ -53,7 +53,7 @@ namespace Magitek.ViewModels
             SpinnerVisible = false;
         }
 
-        private async void UpdateVersion()
+        public async void UpdateVersion()
         {
             var local = "UNKNOWN";
             var distant = "UNKNOWN";
@@ -75,10 +75,21 @@ namespace Magitek.ViewModels
             {
                 Logger.Error("Can't read distant Magitek version. Please reinstall it");
             }
+
+            // Trim whitespace and compare versions
+            var localTrimmed = local?.Trim() ?? string.Empty;
+            var distantTrimmed = distant?.Trim() ?? string.Empty;
+            var isOutOfSync = !string.IsNullOrEmpty(localTrimmed) &&
+                             !string.IsNullOrEmpty(distantTrimmed) &&
+                             localTrimmed != distantTrimmed &&
+                             localTrimmed != "UNKNOWN" &&
+                             distantTrimmed != "UNKNOWN";
+
             MagitekVersion = new MagitekVersion()
             {
                 LocalVersion = local,
-                DistantVersion = distant
+                DistantVersion = distant,
+                IsOutOfSync = isOutOfSync
             };
         }
 
@@ -189,11 +200,9 @@ namespace Magitek.ViewModels
 
         public void RefreshIfNeeded()
         {
-            var timeSinceLastFetch = DateTime.Now - _lastFetchTime;
-            if (timeSinceLastFetch.TotalHours >= 1)
-            {
-                UpdateNews();
-            }
+            // Always refresh both news and version when UI is shown to ensure it's up to date
+            UpdateNews();
+            UpdateVersion();
         }
     }
 }

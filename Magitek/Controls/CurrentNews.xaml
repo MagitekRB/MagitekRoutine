@@ -2,10 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
-             xmlns:viewModels="clr-namespace:Magitek.ViewModels">
+             xmlns:viewModels="clr-namespace:Magitek.ViewModels"
+             xmlns:converters="clr-namespace:Magitek.Converters">
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <UserControl.DataContext>
@@ -13,28 +19,40 @@
     </UserControl.DataContext>
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal" 
-                    Height="16" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center" 
-                    Margin="0,3,0,10" 
-                    Background="{DynamicResource ClassSelectorBackgroundVersion}">
-            <TextBlock Style="{DynamicResource TextBlockDefault}"
-                       Text="{x:Static properties:Resources.Controls_Text_Local_Magitek_Version}"
-                       Height="16" />
-            <TextBlock Style="{DynamicResource TextBlockInfo}"
-                       Text="{Binding MagitekVersion.LocalVersion}" 
-                       Height="16" />
-            <TextBlock Style="{DynamicResource TextBlockDefault}"
-                       Text="{x:Static properties:Resources.Controls_Text_Last_Available_Version}"
-                       Height="16" />
-            <TextBlock Style="{DynamicResource TextBlockInfo}"
-                       Text="{Binding MagitekVersion.DistantVersion}"
-                       Height="16" />
-            <TextBlock Style="{DynamicResource TextBlockInfo}"
-                       Text=""
-                       Height="16" />
-        </StackPanel>
+        <Border HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Margin="0,3,0,10" 
+                Background="{DynamicResource ClassSelectorBackgroundVersion}"
+                Padding="5,0">
+            <StackPanel Orientation="Horizontal" 
+                        Height="16" 
+                        VerticalAlignment="Center">
+                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                           Text="{x:Static properties:Resources.Controls_Text_Local_Magitek_Version}"
+                           Height="16" />
+                <TextBlock Style="{DynamicResource TextBlockInfo}"
+                           Text="{Binding MagitekVersion.LocalVersion}" 
+                           Height="16"
+                           Margin="3,0,0,0" />
+                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                           Text="{x:Static properties:Resources.Controls_Text_Last_Available_Version}"
+                           Height="16"
+                           Margin="5,0,0,0" />
+                <TextBlock Style="{DynamicResource TextBlockInfo}"
+                           Text="{Binding MagitekVersion.DistantVersion}"
+                           Height="16"
+                           Margin="3,0,0,0" />
+            </StackPanel>
+        </Border>
+        <TextBlock Style="{DynamicResource TextBlockInfo}"
+                   Text="{x:Static properties:Resources.Controls_Text_Version_Out_Of_Sync}"
+                   Foreground="{DynamicResource Warning}"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Height="18"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,10"
+                   Visibility="{Binding MagitekVersion.IsOutOfSync, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <StackPanel>
             <Canvas>
                 <Grid Height="550" Panel.ZIndex="1">
