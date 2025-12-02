@@ -3774,7 +3774,10 @@ Does not work if Lightspeed is disabled.</value>
     <value>Use Soul Resonance when target HP below</value>
   </data>
   <data name="BlackMage_Content_Use_Thunder_Spells_Single_Target_Only" xml:space="preserve">
-    <value>Use Thunder Spells Single Target Only</value>
+    <value>Use Thunder Spells in Single Target that will live for at least</value>
+  </data>
+  <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
+    <value>Use Thunder Spells in AoE</value>
   </data>
   <data name="Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode" xml:space="preserve">
     <value>Allow Magitek to move in autonomous mode</value>

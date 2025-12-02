@@ -3771,6 +3771,9 @@
   <data name="BlackMage_Content_Use_Thunder_Spells_Single_Target_Only" xml:space="preserve">
     <value>仅对单体目标使用雷系魔法</value>
   </data>
+  <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
+    <value>在范围攻击时使用雷系魔法</value>
+  </data>
   <data name="Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode" xml:space="preserve">
     <value>允许Magitek在自主模式下移动</value>
   </data>

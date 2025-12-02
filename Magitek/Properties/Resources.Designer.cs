@@ -2440,6 +2440,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Thunder Spells in AoE.
+        /// </summary>
+        public static string BlackMage_Content_Use_Thunder_Spells_AOE
+        {
+            get
+            {
+                return ResourceManager.GetString("BlackMage_Content_Use_Thunder_Spells_AOE", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use TransposeUmbral Soul Out of Combat.
         /// </summary>
         public static string BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat

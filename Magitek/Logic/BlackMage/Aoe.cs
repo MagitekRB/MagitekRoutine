@@ -80,7 +80,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.FlareStar.LevelAcquired)
                 return false;
 
-            if(!Spells.FlareStar.IsKnownAndReadyAndCastableAtTarget())
+            if (!Spells.FlareStar.IsKnownAndReadyAndCastableAtTarget())
                 return false;
 
             if (Casting.LastSpell == Spells.Fire3 || Casting.LastSpell == Spells.Blizzard3)
@@ -103,7 +103,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Can only use in Umbral Ice
-            if (UmbralStacks !=  3)
+            if (UmbralStacks != 3)
                 return false;
 
             if (Core.Me.CurrentMana == 10000)
@@ -117,7 +117,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Thunder2.LevelAcquired)
                 return false;
 
-            if (!BlackMageSettings.Instance.ThunderSingle)
+            if (!BlackMageSettings.Instance.ThunderAoe)
                 return false;
 
             //If flarestar is ready, cast it
@@ -131,7 +131,7 @@ namespace Magitek.Logic.BlackMage
             // If we have the triplecast aura, stop
             if (Core.Me.HasAura(Auras.Triplecast))
                 return false;
-            
+
             //If we don't need to refresh Thunder, skip
             if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
                 return false;
