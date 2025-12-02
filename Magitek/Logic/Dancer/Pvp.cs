@@ -3,6 +3,7 @@ using ff14bot.Enums;
 using ff14bot.Objects;
 using Magitek.Enumerations;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Dancer;
 using Magitek.Utilities;
 using System.Collections.Generic;
@@ -163,6 +164,10 @@ namespace Magitek.Logic.Dancer
 
             var enemiesAroundTarget = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ContradancePvp.Radius));
             if (enemiesAroundTarget < DancerSettings.Instance.Pvp_ContradanceMinimumEnemies)
+                return false;
+
+            // Don't use Contradance when target is mounted in Warmachina (ability is centered around target)
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.ContradancePvp.Cast(Core.Me);

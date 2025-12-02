@@ -2,6 +2,7 @@
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.WhiteMage;
 using Magitek.Utilities;
 using System.Linq;
@@ -86,6 +87,10 @@ namespace Magitek.Logic.WhiteMage
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.MiracleOfNaturePvp.Range))
+                return false;
+
+            // Don't use Miracle of Nature on mounted targets in Warmachina
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.MiracleOfNaturePvp.Cast(Core.Me.CurrentTarget);
@@ -226,6 +231,10 @@ namespace Magitek.Logic.WhiteMage
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            // Don't use Afflatus Purgation on mounted targets in Warmachina
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.AfflatusPurgationPvp.Cast(Core.Me.CurrentTarget);

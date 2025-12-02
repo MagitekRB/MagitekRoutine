@@ -2,6 +2,7 @@
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Bard;
 using Magitek.Utilities;
 using System.Linq;
@@ -89,6 +90,10 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SilentNocturnePvp.Range))
                 return false;
 
+            // Don't use Silent Nocturne on mounted targets in Warmachina
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
+                return false;
+
             return await Spells.SilentNocturnePvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -107,6 +112,10 @@ namespace Magitek.Logic.Bard
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RepellingShotPvp.Range))
+                return false;
+
+            // Don't use Repelling Shot on mounted targets in Warmachina
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.RepellingShotPvp.Cast(Core.Me.CurrentTarget);

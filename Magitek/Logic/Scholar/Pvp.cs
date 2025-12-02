@@ -1,6 +1,7 @@
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Scholar;
 using Magitek.Utilities;
 using System;
@@ -178,6 +179,10 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) <= 15 + x.CombatReach) < 2)
+                return false;
+
+            // Don't use Deployment Tactics on mounted targets in Warmachina
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             _lastBiolysisDeploymentTime = DateTime.Now;

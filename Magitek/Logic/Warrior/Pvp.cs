@@ -1,5 +1,6 @@
 using ff14bot;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Warrior;
 using Magitek.Utilities;
 using System.Linq;
@@ -74,6 +75,10 @@ namespace Magitek.Logic.Warrior
                 return false;
 
             if (Spells.BlotaPvp.Masked() != Spells.BlotaPvp)
+                return false;
+
+            // Don't use Blota on mounted targets in Warmachina
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.BlotaPvp.Cast(Core.Me.CurrentTarget);

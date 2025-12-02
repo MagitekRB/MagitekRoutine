@@ -124,7 +124,7 @@ namespace Magitek.Logic.Viper
                 return false;
 
             if (spell == Spells.SnakeScalesPvp)
-                return await spell.Cast(Core.Me);
+                return await spell.CastAura(Core.Me, Auras.PvpHardenedScales);
             //else
             // spell is now backlash
             //return await spell.Cast(Core.Me.CurrentTarget);

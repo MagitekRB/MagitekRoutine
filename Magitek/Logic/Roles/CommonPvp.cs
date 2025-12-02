@@ -171,11 +171,13 @@ namespace Magitek.Logic.Roles
             if (Core.Me.HasAura(Auras.PvpHidden))
                 return false;
 
+            // Don't sprint if current target is nearby and in LoS (prevents interrupting melee rotations during brawls)
+            // Check regardless of whether we're "looking at them" - if they're close and visible, don't sprint
             if (Core.Me.HasTarget
                 && Core.Me.CurrentTarget.CanAttack
                 && Core.Me.CurrentTarget.InLineOfSight()
-                && Core.Me.CurrentTarget.InActualView()
-                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.WithinSpellRange(7) : Core.Me.CurrentTarget.WithinSpellRange(30)))
+                // && Core.Me.CurrentTarget.InActualView() removed b/c it was causing issues with brawls
+                && (Core.Me.IsMeleeDps() || Core.Me.IsTank() ? Core.Me.CurrentTarget.WithinSpellRange(15) : Core.Me.CurrentTarget.WithinSpellRange(25)))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpSprint))
@@ -351,7 +353,7 @@ namespace Magitek.Logic.Roles
 
             return !Attackable(target)
                 || (checkGuard && Models.Account.BaseSettings.Instance.Pvp_GuardCheck && target.HasAura(Auras.PvpGuard))
-                || (checkInvuln && Models.Account.BaseSettings.Instance.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption }));
+                || (checkInvuln && Models.Account.BaseSettings.Instance.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption, Auras.PvpHardenedScales, Auras.PvpArmoredScales }));
         }
 
         public static bool ShouldUseBurst()
@@ -367,6 +369,17 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return true;
+        }
+
+        /// <summary>
+        /// Check if a target is mounted in PvP (Warmachina mount status)
+        /// </summary>
+        public static bool IsPvpMounted(GameObject target)
+        {
+            if (target == null)
+                return false;
+
+            return target.HasAura(Auras.MountedPvp);
         }
 
         public static async Task<bool> Purify<T>(T settings) where T : JobSettings
