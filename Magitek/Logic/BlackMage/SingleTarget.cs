@@ -163,6 +163,9 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Thunder.LevelAcquired)
                 return false;
 
+            if (!BlackMageSettings.Instance.ThunderSingle)
+                return false;
+
             // Skip if we're in an AoE situation (use Thunder4 instead)
             if (BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)

@@ -113,6 +113,10 @@ namespace Magitek.Models.BlackMage
         [Setting]
         [DefaultValue(3)]
         public int AoeEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool ThunderAoe { get; set; }
         #endregion
 
         #region PVP
