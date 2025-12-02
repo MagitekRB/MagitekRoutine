@@ -18,6 +18,9 @@ namespace Magitek.Logic.Warrior
     {
         public static async Task<bool> Defiance()
         {
+            if (WarriorSettings.Instance.ManuallyControlTankStance)
+                return false;
+
             if (!WarriorSettings.Instance.UseDefiance)
             {
                 if (Core.Me.HasAura(Auras.Defiance))

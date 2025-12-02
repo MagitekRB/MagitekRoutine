@@ -6598,6 +6598,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Manually Control.
+        /// </summary>
+        public static string Generic_Manually_Control_Tank_Stance
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Manually_Control_Tank_Stance", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Mana Percent.
         /// </summary>
         public static string Generic_Mana_Percent

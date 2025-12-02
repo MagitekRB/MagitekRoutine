@@ -46,6 +46,7 @@
             <StackPanel Margin="3">
                 <StackPanel Margin="3" Orientation="Horizontal">
                     <CheckBox Grid.Row="0" Content="{x:Static properties:Resources.Gunbreaker_Content_Royal_Guard_Tank_Stance}" IsChecked="{Binding GunbreakerSettings.UseRoyalGuard, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,0,0,0" Content="{x:Static properties:Resources.Generic_Manually_Control_Tank_Stance}" IsChecked="{Binding GunbreakerSettings.ManuallyControlTankStance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="3" Orientation="Horizontal">
                     <CheckBox Grid.Row="1" Content="{x:Static properties:Resources.Gunbreaker_Content_No_Mercy_Personal_damage_buff}" IsChecked="{Binding GunbreakerSettings.UseNoMercy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

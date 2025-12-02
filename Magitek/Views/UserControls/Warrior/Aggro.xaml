@@ -23,8 +23,10 @@
 
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Margin="0,0,0,3" Content="{x:Static properties:Resources.Warrior_Content_Tank_Stance}" IsChecked="{Binding WarriorSettings.UseDefiance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Tank_Stance}" IsChecked="{Binding WarriorSettings.UseDefiance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,0,0,0" Content="{x:Static properties:Resources.Generic_Manually_Control_Tank_Stance}" IsChecked="{Binding WarriorSettings.ManuallyControlTankStance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

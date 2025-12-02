@@ -4040,6 +4040,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Main_Tank" xml:space="preserve">
     <value>Main Tank</value>
   </data>
+  <data name="Generic_Manually_Control_Tank_Stance" xml:space="preserve">
+    <value>Manually Control</value>
+  </data>
   <data name="Generic_Refresh_When_There_Are" xml:space="preserve">
     <value>Refresh When There Are</value>
   </data>

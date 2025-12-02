@@ -22,6 +22,7 @@
         <StackPanel Margin="10">
         <StackPanel Margin="5" Orientation="Horizontal">
             <CheckBox Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Grit_Tank_Stance}" IsChecked="{Binding DarkKnightSettings.Grit, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <CheckBox Margin="5,0,0,0" Content="{x:Static properties:Resources.Generic_Manually_Control_Tank_Stance}" IsChecked="{Binding DarkKnightSettings.ManuallyControlTankStance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
         </StackPanel>
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">

@@ -4035,6 +4035,9 @@
   <data name="Generic_Main_Tank" xml:space="preserve">
     <value>主坦克</value>
   </data>
+  <data name="Generic_Manually_Control_Tank_Stance" xml:space="preserve">
+    <value>手动控制</value>
+  </data>
   <data name="Generic_Refresh_When_There_Are" xml:space="preserve">
     <value>当有[xx]时刷新</value>
   </data>

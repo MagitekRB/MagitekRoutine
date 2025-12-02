@@ -65,6 +65,10 @@ namespace Magitek.Models.Roles
         public bool UseProvoke { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool ManuallyControlTankStance { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool FightLogicDefensives { get; set; }
 

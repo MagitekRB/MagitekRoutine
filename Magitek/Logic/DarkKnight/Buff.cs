@@ -13,6 +13,9 @@ namespace Magitek.Logic.DarkKnight
     {
         public static async Task<bool> Grit()
         {
+            if (DarkKnightSettings.Instance.ManuallyControlTankStance)
+                return false;
+
             if (!DarkKnightSettings.Instance.Grit)
             {
                 if (Core.Me.HasAura(Auras.Grit))
