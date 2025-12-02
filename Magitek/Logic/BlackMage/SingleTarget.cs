@@ -336,7 +336,7 @@ namespace Magitek.Logic.BlackMage
             if (!await Spells.Transpose.Cast(Core.Me))
                 return false;
 
-            return await Coroutine.Wait(1000, Spells.Fire4.CanCast);
+            return await Coroutine.Wait(1000, Spells.Fire4.Masked().CanCast);
         }
 
         private static async Task<bool> UseTransposeToBlizzard()
@@ -351,7 +351,7 @@ namespace Magitek.Logic.BlackMage
             if (!await Spells.Transpose.Cast(Core.Me))
                 return false;
 
-            return await Coroutine.Wait(1000, Spells.Blizzard4.CanCast);
+            return await Coroutine.Wait(1000, Spells.Blizzard4.Masked().CanCast);
         }
 
     }

@@ -6,6 +6,7 @@ using Magitek.Models.BlackMage;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using static ff14bot.Managers.ActionResourceManager.BlackMage;
 using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
 
 namespace Magitek.Rotations
@@ -88,6 +89,15 @@ namespace Magitek.Rotations
 
             if (await SingleTarget.Blizzard3()) return true;
             if (await SingleTarget.Fire3()) return true;
+
+            // Low-level mana management: Transpose from Astral Fire to Umbral Ice when out of mana
+            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
+            {
+                if (AstralStacks > 0 && Core.Me.CurrentMana < 800 && Spells.Transpose.IsKnownAndReady())
+                {
+                    if (await Buff.Transpose()) return true;
+                }
+            }
 
             if (await SingleTarget.Fire()) return true;
             if (await SingleTarget.Blizzard()) return true;
