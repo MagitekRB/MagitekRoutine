@@ -563,6 +563,8 @@ namespace Magitek.Utilities
             PvpSprint = 1342,
             PvpTemperaCoat = 4114,
             PvpReawakened = 4094,
+            PvpHardenedScales = 4096,
+            PvpArmoredScales = 4097,
             PvpWildfire = 1323,
             PvpWildfireBuff = 2018,
             PvpChainSaw = 3154,
