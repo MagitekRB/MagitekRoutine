@@ -59,10 +59,10 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if(UmbralStacks > 0)
+            if (UmbralStacks > 0)
                 return false;
 
-            if(!Spells.Despair.IsKnownAndReadyAndCastable())
+            if (!Spells.Despair.IsKnownAndReadyAndCastable())
                 return false;
 
             if (Spells.ManaFont.IsKnownAndReadyAndCastable())
@@ -145,10 +145,10 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.HasAura(Auras.Triplecast))
                 return false;
 
-            if(AstralStacks == 3 || UmbralStacks < 3)
+            if (AstralStacks == 3 || UmbralStacks < 3)
                 return false;
 
-            if (UmbralStacks == 3 && Core.Me.CurrentMana == Core.Me.MaxMana  && BlackMageSettings.Instance.UseTransposeToAstral)
+            if (UmbralStacks == 3 && Core.Me.CurrentMana == Core.Me.MaxMana && BlackMageSettings.Instance.UseTransposeToAstral)
             {
                 if (!await UseTransposeToFire())
                     return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
@@ -161,6 +161,11 @@ namespace Magitek.Logic.BlackMage
         {
 
             if (Core.Me.ClassLevel < Spells.Thunder.LevelAcquired)
+                return false;
+
+            // Skip if we're in an AoE situation (use Thunder4 instead)
+            if (BlackMageSettings.Instance.UseAoe
+                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
 
             // If the last spell we cast is triple cast, stop
@@ -217,7 +222,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (Core.Me.CurrentMana == Core.Me.MaxMana)
-                   return false;
+                return false;
 
             if (Casting.LastSpell == Spells.Blizzard4)
                 return false;
@@ -242,9 +247,9 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if(AstralStacks < 3 || UmbralStacks == 3)
+            if (AstralStacks < 3 || UmbralStacks == 3)
                 return false;
-            
+
             if (BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
@@ -252,7 +257,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.CurrentMana >= 1600)
                 return false;
 
-            if(Spells.ManaFont.IsKnownAndReady())
+            if (Spells.ManaFont.IsKnownAndReady())
                 return false;
 
             if (AstralStacks == 3 && BlackMageSettings.Instance.UseTransposeToUmbral)
@@ -304,13 +309,13 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpell == Spells.Blizzard3)
                 return false;
 
-            if(AstralStacks != 3 && UmbralStacks != 3)
+            if (AstralStacks != 3 && UmbralStacks != 3)
                 return false;
 
-            if(Spells.ManaFont.IsKnownAndReady())
+            if (Spells.ManaFont.IsKnownAndReady())
                 return false;
 
-            if(Spells.Fire4.IsKnownAndReadyAndCastableAtTarget() && Spells.ManaFont.Cooldown.TotalMilliseconds >= 70000)
+            if (Spells.Fire4.IsKnownAndReadyAndCastableAtTarget() && Spells.ManaFont.Cooldown.TotalMilliseconds >= 70000)
                 return false;
 
             return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
@@ -328,7 +333,7 @@ namespace Magitek.Logic.BlackMage
             if (!await Spells.Transpose.Cast(Core.Me))
                 return false;
 
-            return await Coroutine.Wait(1000,Spells.Fire4.CanCast);
+            return await Coroutine.Wait(1000, Spells.Fire4.CanCast);
         }
 
         private static async Task<bool> UseTransposeToBlizzard()
