@@ -18,6 +18,9 @@ namespace Magitek.Logic.Gunbreaker.Latest
     {
         public static async Task<bool> RoyalGuard() //Tank stance
         {
+            if (GunbreakerSettings.Instance.ManuallyControlTankStance)
+                return false;
+
             switch (GunbreakerSettings.Instance.UseRoyalGuard)
             {
                 case true:

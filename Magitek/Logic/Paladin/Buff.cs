@@ -15,6 +15,9 @@ namespace Magitek.Logic.Paladin
 
         public static async Task<bool> IronWill()
         {
+            if (PaladinSettings.Instance.ManuallyControlTankStance)
+                return false;
+
             if (!PaladinSettings.Instance.UseIronWill)
             {
                 if (Core.Me.HasAura(Auras.IronWill, true))

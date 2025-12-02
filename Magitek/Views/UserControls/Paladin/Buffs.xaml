@@ -49,7 +49,10 @@
         
         <controls:SettingsBlock Margin="0, 5 ,5 ,5" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Use_Iron_Will}" IsChecked="{Binding PaladinSettings.UseIronWill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Use_Iron_Will}" IsChecked="{Binding PaladinSettings.UseIronWill, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,0,0,0" Content="{x:Static properties:Resources.Generic_Manually_Control_Tank_Stance}" IsChecked="{Binding PaladinSettings.ManuallyControlTankStance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
