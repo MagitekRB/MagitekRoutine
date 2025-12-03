@@ -45,6 +45,18 @@
                               Margin="15,0,0,0"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
+                <StackPanel Margin="5,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_AutoGuard_Wildfire}"
+                              IsChecked="{Binding Pvp_AutoGuardWildfire, Mode=TwoWay}"
+                              Margin="15,0,0,0"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_AutoGuard_Kuzushi}"
+                              IsChecked="{Binding Pvp_AutoGuardKuzushi, Mode=TwoWay}"
+                              Margin="15,0,0,0"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Recuperate_Heal_At}"
                               IsChecked="{Binding Pvp_UseRecuperate, Mode=TwoWay}"

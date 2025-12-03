@@ -4959,6 +4959,28 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Auto Guard vs Wildfire (1.5s remaining).
+        /// </summary>
+        public static string Generic_AutoGuard_Wildfire
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_AutoGuard_Wildfire", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Guard vs Kuzushi (Zantetsuken).
+        /// </summary>
+        public static string Generic_AutoGuard_Kuzushi
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_AutoGuard_Kuzushi", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Role Actions.
         /// </summary>
         public static string Generic_PvP_Role_Actions
