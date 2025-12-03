@@ -307,10 +307,10 @@ namespace Magitek.Logic.Roles
                     shouldAutoGuard = true;
             }
 
-            // Check if we have WildfirePvp debuff with 1.5 seconds remaining
+            // Check if we have WildfirePvp debuff with 1.5 seconds or less remaining
             if (settings.Pvp_AutoGuardWildfire)
             {
-                if (Core.Me.HasAura(Auras.PvpWildfire, false, 1500))
+                if (Core.Me.HasAuraExpiringWithin(Auras.PvpWildfire, msRemaining: 1500))
                     shouldAutoGuard = true;
             }
 
