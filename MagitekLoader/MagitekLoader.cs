@@ -117,8 +117,17 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
     private const string ProjectName = "Magitek";
     private const string ProjectMainType = "Magitek.Magitek";
     private const string ProjectAssemblyName = "Magitek.dll";
+#if RB_TC
+    private const string ZipUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Magitek-TC.zip";
+    private const string VersionUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Version-TC.txt";
+#elif RB_CN
+    private const string ZipUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Magitek-CN.zip";
+    private const string VersionUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Version-CN.txt";
+#else
+    // EN/Global - existing URLs
     private const string ZipUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Magitek.zip";
     private const string VersionUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Version.txt";
+#endif
     private static readonly Color LogColor = Colors.CornflowerBlue;
 
     private static readonly string GreyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");

@@ -1,0 +1,19 @@
+{
+    "_comment": "Regional manifest for workflow builds. Defines which git tags to checkout when building CN/TC versions.",
+    "_note": "Loaders never read this file - they use Version-CN.txt and Version-TC.txt from releases.",
+    "ffxiv_versions": {
+        "_comment": "Mapping of FFXIV patch versions to Magitek git tags. Use this to find the tag when updating regional versions.",
+        "7.0": "v1.0.43",
+        "7.1": "v1.0.74",
+        "7.2": "v1.0.113",
+        "7.3": "latest"
+    },
+    "cn": {
+        "tag": "master",
+        "version": "latest"
+    },
+    "tc": {
+        "tag": "v1.0.43",
+        "version": "v1.0.43"
+    }
+}
