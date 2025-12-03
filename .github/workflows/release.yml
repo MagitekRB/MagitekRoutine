@@ -176,9 +176,9 @@ jobs:
         $cnVersion = "${{ needs.setup.outputs.cn_version }}"
         $globalVersion = "${{ needs.setup.outputs.version }}"
         if ($cnVersion -eq "latest") {
-          echo "CN-v$globalVersion" > ./Magitek/bin/release/Version-CN.txt
+          echo "CN-$globalVersion" > ./Magitek/bin/release/Version-CN.txt
         } else {
-          echo "CN-v$cnVersion" > ./Magitek/bin/release/Version-CN.txt
+          echo "CN-$cnVersion" > ./Magitek/bin/release/Version-CN.txt
         }
       shell: pwsh
       
@@ -247,9 +247,9 @@ jobs:
         $tcVersion = "${{ needs.setup.outputs.tc_version }}"
         $globalVersion = "${{ needs.setup.outputs.version }}"
         if ($tcVersion -eq "latest") {
-          echo "TC-v$globalVersion" > ./Magitek/bin/release/Version-TC.txt
+          echo "TC-$globalVersion" > ./Magitek/bin/release/Version-TC.txt
         } else {
-          echo "TC-v$tcVersion" > ./Magitek/bin/release/Version-TC.txt
+          echo "TC-$tcVersion" > ./Magitek/bin/release/Version-TC.txt
         }
       shell: pwsh
       
