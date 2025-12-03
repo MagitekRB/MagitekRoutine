@@ -307,6 +307,20 @@ namespace Magitek.Logic.Roles
                     shouldAutoGuard = true;
             }
 
+            // Check if we have WildfirePvp debuff with 1.5 seconds remaining
+            if (settings.Pvp_AutoGuardWildfire)
+            {
+                if (Core.Me.HasAura(Auras.PvpWildfire, false, 1500))
+                    shouldAutoGuard = true;
+            }
+
+            // Check if we have Kuzushi debuff (about to be hit by Zantetsuken)
+            if (settings.Pvp_AutoGuardKuzushi)
+            {
+                if (Core.Me.HasAura(Auras.PvpKuzushi))
+                    shouldAutoGuard = true;
+            }
+
             // Add more auto-guard conditions here in the future
 
             if (!shouldAutoGuard)

@@ -4080,6 +4080,12 @@
   <data name="Generic_AutoGuard_MarksmansSpite" xml:space="preserve">
     <value>自动防御 (针对狙击手之怨)</value>
   </data>
+  <data name="Generic_AutoGuard_Wildfire" xml:space="preserve">
+    <value>自动防御 (针对野火，剩余1.5秒)</value>
+  </data>
+  <data name="Generic_AutoGuard_Kuzushi" xml:space="preserve">
+    <value>自动防御 (针对崩击 - 斩铁剑)</value>
+  </data>
   <data name="Generic_PvP_Role_Actions" xml:space="preserve">
     <value>职能技能</value>
   </data>

@@ -4085,6 +4085,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_AutoGuard_MarksmansSpite" xml:space="preserve">
     <value>Auto Guard vs Marksman's Spite</value>
   </data>
+  <data name="Generic_AutoGuard_Wildfire" xml:space="preserve">
+    <value>Auto Guard vs Wildfire (1.5s remaining)</value>
+  </data>
+  <data name="Generic_AutoGuard_Kuzushi" xml:space="preserve">
+    <value>Auto Guard vs Kuzushi (Zantetsuken)</value>
+  </data>
   <data name="Generic_PvP_Role_Actions" xml:space="preserve">
     <value>Role Actions</value>
   </data>
