@@ -13,7 +13,7 @@
         "version": "latest"
     },
     "tc": {
-        "tag": "v1.0.43",
-        "version": "v1.0.43"
+        "tag": "master",
+        "version": "latest"
     }
 }

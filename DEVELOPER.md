@@ -45,16 +45,20 @@ The `regional-manifest.json` file in the repo root defines which git tags to che
 - `tag`: Git tag or branch name to checkout when building the regional DLL. Use `"master"` when the region should get latest updates (same as global).
 - `version`: Version string to write to `Version-CN.txt` or `Version-TC.txt` (format: `CN-v1.0.56` or `TC-v1.0.67`). Use `"latest"` when tag is `"master"` - the workflow will use the current release version.
 
+**Current state:**
+- Both CN and TC are currently set to `"tag": "master"` and `"version": "latest"` (same as global)
+- This means all regions get the same latest updates with i18n support
+- The regional system is in place for future use when versions need to diverge (e.g., when a new expansion releases and regions are on different FFXIV patches)
+
 **Updating the manifest:**
-- When CN/TC regions need to be updated to a new pinned version:
-  1. Look up the FFXIV patch version in the `ffxiv_versions` mapping (e.g., "7.3" → "v1.0.171")
-  2. Update the `tag` and `version` fields in the `cn` or `tc` section with the corresponding tag
-  3. The workflow will automatically build from the specified tag on the next release
 - When a region should get latest updates (same as global):
   - Set `"tag": "master"` and `"version": "latest"`
   - The workflow will build from master branch and use the current release version for the version file
-- Example: If TC updates to FFXIV 7.3, look up "7.3" in `ffxiv_versions` to get "v1.0.171", then set `"tag": "v1.0.171"` and `"version": "v1.0.171"` in the `tc` section
-- Example: If CN is on latest FFXIV version, set `"tag": "master"` and `"version": "latest"` in the `cn` section
+- When CN/TC regions need to be pinned to an older version (e.g., after a new expansion):
+  1. Look up the FFXIV patch version in the `ffxiv_versions` mapping (e.g., "7.3" → "v1.0.171")
+  2. Update the `tag` and `version` fields in the `cn` or `tc` section with the corresponding tag
+  3. The workflow will automatically build from the specified tag on the next release
+- Example: If TC needs to be pinned to FFXIV 7.3, look up "7.3" in `ffxiv_versions` to get "v1.0.171", then set `"tag": "v1.0.171"` and `"version": "v1.0.171"` in the `tc` section
 
 **Note:** This manifest is only used by the GitHub Actions workflow. Loaders never read it - they download `Version-CN.txt`/`Version-TC.txt` from releases.
 
