@@ -46,14 +46,15 @@ namespace Magitek.Logic.Roles
             if (!useShield)
                 return false;
 
-            if (!spell.IsKnownAndReady())
-                return false;
-
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyAoeLogic())
                 return false;
 
             if (FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe())
             {
+                // Now check if spell is ready before attempting to cast
+                if (!spell.IsKnownAndReady())
+                    return false;
+
                 if (selfAuraCheck && Core.Me.HasAura(aura))
                     return false;
 
@@ -73,14 +74,15 @@ namespace Magitek.Logic.Roles
             if (!useShield)
                 return false;
 
-            if (!spell.IsKnownAndReady())
-                return false;
-
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyAoeLogic())
                 return false;
 
             if (FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe())
             {
+                // Now check if spell is ready before attempting to cast
+                if (!spell.IsKnownAndReady())
+                    return false;
+
                 if (selfAuraCheck && auras != null && Core.Me.HasAnyAura(auras))
                     return false;
 
@@ -98,12 +100,9 @@ namespace Magitek.Logic.Roles
             return false;
         }
 
-        public static async Task<bool> FightLogic_Debuff(bool useDebuff, SpellData spell, bool targetAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 0)
+        public static async Task<bool> FightLogic_Debuff(bool useDebuff, SpellData spell, bool targetAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 0, float range = 0f)
         {
             if (!useDebuff)
-                return false;
-
-            if (!spell.IsKnownAndReady())
                 return false;
 
             if (!FightLogic.ZoneHasFightLogic())
@@ -114,6 +113,17 @@ namespace Magitek.Logic.Roles
                 || FightLogic.EnemyIsCastingTankBuster() != null
                 || FightLogic.EnemyIsCastingSharedTankBuster() != null)
             {
+                if (!spell.IsKnownAndReady())
+                    return false;
+
+                if (Core.Me.CurrentTarget == null)
+                    return false;
+
+                // For range-based debuffs (e.g., Reprisal), check if current target is within range
+                if (range > 0f && !Core.Me.CurrentTarget.WithinSpellRange(range))
+                    return false;
+
+                // For target-based debuffs, check target aura
                 if (targetAuraCheck && Core.Me.CurrentTarget.HasAura(aura))
                     return false;
 
@@ -134,14 +144,14 @@ namespace Magitek.Logic.Roles
             if (!useAntiKnockback)
                 return false;
 
-            if (!spell.IsKnownAndReady())
-                return false;
-
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyKnockbackLogic())
                 return false;
 
             if (FightLogic.EnemyIsCastingKnockback())
             {
+                if (!spell.IsKnownAndReady())
+                    return false;
+
                 if (selfAuraCheck && Core.Me.HasAura(aura))
                     return false;
 

@@ -143,6 +143,10 @@ namespace Magitek.Models.Account
         public float FightLogicResponseDelay { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool FightLogicIncludeCommonAoeLockOnsTest { get; set; }
+
+        [Setting]
         public string ContributorKey { get; set; }
 
         [Setting]

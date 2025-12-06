@@ -20,6 +20,32 @@ namespace Magitek.Utilities
 
         private static HashSet<uint> FlHandledCastingSpellId = new HashSet<uint>();
 
+        // Global list of common AoeLockOn IDs that are used across multiple dungeons
+        // These are visual indicators that seem to always represent AoE attacks regardless of dungeon
+        private static readonly HashSet<uint> CommonAoeLockOns = new HashSet<uint>
+        {
+            100,  // Common AoE lockon
+            62,   // Common AoE lockon
+            79,   // Common AoE lockon
+            96,   // Common AoE lockon
+            101,  // Common AoE lockon
+            139,  // Very common AoE lockon (used in many dungeons)
+            161,  // Common AoE lockon
+            311,  // Common AoE lockon
+            315,  // Common AoE lockon
+            316,  // Common AoE lockon
+            376,  // Common AoE lockon
+            466,  // Common AoE lockon
+            542,  // Common AoE lockon
+            543,  // Common AoE lockon
+            558,  // Common AoE lockon
+        };
+
+        /// <summary>
+        /// Returns a comma-separated string of common AoeLockOn IDs for display in UI
+        /// </summary>
+        public static string CommonAoeLockOnsDisplay => string.Join(", ", CommonAoeLockOns.OrderBy(x => x));
+
         private static TimeSpan FlCooldown
         {
             get
@@ -105,6 +131,33 @@ namespace Magitek.Utilities
 
         }
 
+        /// <summary>
+        /// Checks if any of the specified AoeLockOn IDs are present on the player or party members
+        /// </summary>
+        private static (bool found, uint? lockOnId) CheckAoeLockOns(IEnumerable<uint> lockOnIds)
+        {
+            if (lockOnIds == null)
+                return (false, null);
+
+            // Check player first
+            var detectedLockOn = Core.Me.VfxContainer.LockOns.FirstOrDefault(lockOn => lockOnIds.Contains(lockOn.Id));
+            if (detectedLockOn != null)
+                return (true, detectedLockOn.Id);
+
+            // Check party members
+            foreach (var partyMember in Group.CastableAlliesWithin50)
+            {
+                if (partyMember == null || !partyMember.IsValid)
+                    continue;
+
+                detectedLockOn = partyMember.VfxContainer.LockOns.FirstOrDefault(lockOn => lockOnIds.Contains(lockOn.Id));
+                if (detectedLockOn != null)
+                    return (true, detectedLockOn.Id);
+            }
+
+            return (false, null);
+        }
+
         public static bool EnemyIsCastingAoe()
         {
             if (!IsFlReady)
@@ -112,39 +165,51 @@ namespace Magitek.Utilities
 
             var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
-            if (enemyLogic?.Aoes == null || enemy == null || encounter == null)
-                return false;
-
-            if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
-                return false;
-            FlHandledCastingSpellId.Clear();
-
-            var output = enemyLogic.Aoes.Contains(enemy.CastingSpellId);
-
-            if (output && DebugSettings.Instance.DebugFightLogic)
-                Logger.WriteInfo($"[AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
-
-            if (!output && enemyLogic.AoeLockOns != null)
+            // Check for AoE spell casting (requires enemy to be present and casting)
+            if (enemy != null && enemyLogic?.Aoes != null && encounter != null)
             {
-                var detectedLockOn = Core.Me.VfxContainer.LockOns.FirstOrDefault(lockOn => enemyLogic.AoeLockOns.Contains(lockOn.Id));
-                output = detectedLockOn != null;
+                if (FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
+                    return false;
+                FlHandledCastingSpellId.Clear();
 
-                if (!output)
-                {
-                    foreach (var partyMember in Group.CastableAlliesWithin30)
-                    {
-                        detectedLockOn = partyMember.VfxContainer.LockOns.FirstOrDefault(lockOn => enemyLogic.AoeLockOns.Contains(lockOn.Id));
-                        output = detectedLockOn != null;
-                        if (output)
-                            break;
-                    }
-                }
+                var output = enemyLogic.Aoes.Contains(enemy.CastingSpellId);
 
                 if (output && DebugSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Lock On Detected] {encounter.Name} {enemy.Name} lockon {detectedLockOn.Id}");
+                    Logger.WriteInfo($"[AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
+
+                if (output)
+                    return true;
             }
 
-            return output;
+            // Check for encounter-specific AoeLockOns (doesn't require enemy to be present - lockons are on player/party)
+            if (enemyLogic?.AoeLockOns != null)
+            {
+                var (found, lockOnId) = CheckAoeLockOns(enemyLogic.AoeLockOns);
+                if (found)
+                {
+                    if (DebugSettings.Instance.DebugFightLogic)
+                    {
+                        var encounterName = encounter?.Name ?? "Unknown Encounter";
+                        var enemyName = enemy?.Name ?? "Unknown Enemy";
+                        Logger.WriteInfo($"[AOE Lock On Detected] {encounterName} {enemyName} lockon {lockOnId}");
+                    }
+                    return true;
+                }
+            }
+
+            // Also check common AoeLockOns if enabled (works even when boss isn't in encounter definition)
+            if (DebugSettings.Instance.FightLogicIncludeCommonAoeLockOnsTest)
+            {
+                var (found, lockOnId) = CheckAoeLockOns(CommonAoeLockOns);
+                if (found)
+                {
+                    if (DebugSettings.Instance.DebugFightLogic)
+                        Logger.WriteInfo($"[AOE Lock On Detected] Common lockon {lockOnId}");
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static bool EnemyIsCastingBigAoe()
@@ -206,6 +271,10 @@ namespace Magitek.Utilities
             if (!Core.Me.InCombat)
                 return false;
 
+            // If common AoeLockOns are enabled, all dungeons technically have fightlogic
+            if (DebugSettings.Instance.FightLogicIncludeCommonAoeLockOnsTest)
+                return true;
+
             return FightLogicEncounters.Encounters.Any(x => x.ZoneId == WorldManager.RawZoneId);
         }
 
@@ -226,6 +295,10 @@ namespace Magitek.Utilities
             if (ZoneHasFightLogic())
             {
                 var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                // If common AoeLockOns are enabled, we always have AoE logic available
+                if (DebugSettings.Instance.FightLogicIncludeCommonAoeLockOnsTest)
+                    return true;
 
                 return (enemyLogic?.Aoes != null || enemyLogic?.BigAoes != null || enemyLogic?.AoeLockOns != null);
             }
@@ -303,9 +376,6 @@ namespace Magitek.Utilities
                 return SetAndReturn();
 
             enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Enemies.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
-
-            if (enemyLogic == null)
-                return SetAndReturn();
 
             enemy = Combat.Enemies.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Enemies.FirstOrDefault());
 

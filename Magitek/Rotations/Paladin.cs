@@ -50,7 +50,7 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveFastSpells, PaladinRoutine.Defensives, castTimeRemainingMs: 3000)) return true;
             if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveSpells, PaladinRoutine.Defensives)) return true;
             if (await CommonFightLogic.FightLogic_PartyShield(PaladinSettings.Instance.FightLogicPartyShield, Spells.DivineVeil, true, aura: Auras.DivineVeil)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(PaladinSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(PaladinSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(PaladinSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             if (!Core.Me.HasAura(Auras.PassageOfArms))

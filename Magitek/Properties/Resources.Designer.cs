@@ -5773,6 +5773,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Include All Common AoE Lock-Ons.
+        /// </summary>
+        public static string Generic_Fight_Logic_Include_Common_Aoe_Lock_Ons
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Fight_Logic_Include_Common_Aoe_Lock_Ons", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Enemies.
         /// </summary>
         public static string Generic_Enemies
