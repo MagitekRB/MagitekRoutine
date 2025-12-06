@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties" 
     xmlns:viewModels="clr-namespace:Magitek.ViewModels"
-    xmlns:controls="clr-namespace:Magitek.Controls">
+    xmlns:controls="clr-namespace:Magitek.Controls"
+    xmlns:utilities="clr-namespace:Magitek.Utilities">
     
     <UserControl.DataContext>
         <Binding Source="{x:Static viewModels:Debug.Instance}" />
@@ -14,29 +15,38 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <StackPanel Margin="5" Background="{DynamicResource ClassSelectorBackground}">
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <CheckBox Margin="0,0,10,0" Content="{x:Static properties:Resources.Generic_Enable_Fight_Logic}" IsChecked="{Binding Settings.UseFightLogic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            <CheckBox Margin="0,0,10,0" Content="{x:Static properties:Resources.Bugs_Content_Print_Fight_Logic_Detection}" IsChecked="{Binding Settings.DebugFightLogic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-            <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.Bugs_Content_Display_Loaded_Logic}" IsChecked="{Binding Settings.DebugFightLogicFound, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bugs_Text_Response_Delay}" />
-            <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="0" Value="{Binding Settings.FightLogicResponseDelay, Mode=TwoWay}" />
-            <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bugs_Text__progress_into_cast_bar}" />
-        </StackPanel>
-        <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
-            <Run Text="{x:Static properties:Resources.Generic_Fight_Logic}"/>: <LineBreak/>
-            <Run Text="{x:Static properties:Resources.Generic_Fight_Logic_Description}"/> <LineBreak/>
-            <LineBreak/>
-            <Run Text="{x:Static properties:Resources.Generic_Fight_Logic_Limitation}"/>
-        </TextBlock>
-        <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
-            Detected FightLogic:
-        </TextBlock>
-        <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <CheckBox Margin="0,0,10,0" Content="{x:Static properties:Resources.Generic_Enable_Fight_Logic}" IsChecked="{Binding Settings.UseFightLogic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,0,10,0" Content="{x:Static properties:Resources.Bugs_Content_Print_Fight_Logic_Detection}" IsChecked="{Binding Settings.DebugFightLogic, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.Bugs_Content_Display_Loaded_Logic}" IsChecked="{Binding Settings.DebugFightLogicFound, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.Generic_Fight_Logic_Include_Common_Aoe_Lock_Ons}" IsChecked="{Binding Settings.FightLogicIncludeCommonAoeLockOnsTest, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            </StackPanel>
+            <StackPanel Margin="5,0,5,5">
+                <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap" FontSize="9">
+                    <Run Text="Common AoE Lock-On IDs: "/>
+                    <Run Text="{x:Static utilities:FightLogic.CommonAoeLockOnsDisplay}"/>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bugs_Text_Response_Delay}" />
+                <controls:Numeric Grid.Row="0" Grid.Column="1" MaxValue="100" MinValue="0" Value="{Binding Settings.FightLogicResponseDelay, Mode=TwoWay}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Bugs_Text__progress_into_cast_bar}" />
+            </StackPanel>
+            <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
+                <Run Text="{x:Static properties:Resources.Generic_Fight_Logic}"/>: <LineBreak/>
+                <Run Text="{x:Static properties:Resources.Generic_Fight_Logic_Description}"/> <LineBreak/>
+                <LineBreak/>
+                <Run Text="{x:Static properties:Resources.Generic_Fight_Logic_Limitation}"/>
+            </TextBlock>
+            <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap">
+                Detected FightLogic:
+            </TextBlock>
             <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{Binding FightLogicData, Mode=OneWay}" />
-        </ScrollViewer>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
 

@@ -47,7 +47,7 @@ namespace Magitek.Rotations
 
             if (await CommonFightLogic.FightLogic_TankDefensive(WarriorSettings.Instance.FightLogicDefensives, WarriorRoutine.DefensiveSpells, WarriorRoutine.Defensives)) return true;
             if (await CommonFightLogic.FightLogic_PartyShield(WarriorSettings.Instance.FightLogicPartyShield, Spells.ShakeItOff, true, aura: Auras.ShakeItOff)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(WarriorSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(WarriorSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(WarriorSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             //Utility

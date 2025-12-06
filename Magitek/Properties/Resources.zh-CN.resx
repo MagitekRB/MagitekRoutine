@@ -3894,6 +3894,9 @@
   <data name="Generic_Enable_Fight_Logic" xml:space="preserve">
     <value>启用战斗逻辑</value>
   </data>
+  <data name="Generic_Fight_Logic_Include_Common_Aoe_Lock_Ons" xml:space="preserve">
+    <value>包含所有通用范围锁定标记</value>
+  </data>
   <data name="Generic_Enemy_Spell_Casts" xml:space="preserve">
     <value>敌人咏唱的技能</value>
   </data>

@@ -3899,6 +3899,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Enable_Fight_Logic" xml:space="preserve">
     <value>Enable Fight Logic</value>
   </data>
+  <data name="Generic_Fight_Logic_Include_Common_Aoe_Lock_Ons" xml:space="preserve">
+    <value>Include All Common AoE Lock-Ons</value>
+  </data>
   <data name="Generic_Enemy_Spell_Casts" xml:space="preserve">
     <value>Enemy Spell Casts</value>
   </data>
