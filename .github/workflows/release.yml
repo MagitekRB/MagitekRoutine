@@ -286,6 +286,8 @@ jobs:
     needs: [setup, build_global, build_cn, build_tc]
     if: startsWith(github.ref, 'refs/heads/master')
     steps:
+    - uses: actions/checkout@v4
+
     - name: Download all artifacts
       uses: actions/download-artifact@v4
       with:
