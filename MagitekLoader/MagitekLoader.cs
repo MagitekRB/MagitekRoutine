@@ -511,17 +511,19 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
             _pulseMethod = productType.GetMethod("Pulse");
             _buttonMethod = productType.GetMethod("OnButtonPress");
 
-            // Call Initialize on the new instance
-            if (_initializeMethod != null)
+            // Call Initialize() only during hot-reload. For normal initial load,
+            // RebornBuddy's RoutineManager will call Initialize() automatically
+            // when it detects the routine has been loaded.
+            if (_isReloading && _initializeMethod != null)
             {
                 try
                 {
                     _initializeMethod.Invoke(_product, null);
-                    Log($"{ProjectName} initialized after load.");
+                    Log($"{ProjectName} initialized after hot-reload.");
                 }
                 catch (Exception e)
                 {
-                    Log($"Error calling Initialize: {e.Message}");
+                    Log($"Error calling Initialize during hot-reload: {e.Message}");
                     Logging.WriteException(e);
                 }
             }
