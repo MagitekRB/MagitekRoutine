@@ -14,11 +14,65 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
-    name: "Release"
+  setup:
+    name: "Setup"
     runs-on: windows-latest
     if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/heads/master')
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+      cn_tag: ${{ steps.read_manifest.outputs.cn_tag }}
+      cn_version: ${{ steps.read_manifest.outputs.cn_version }}
+      tc_tag: ${{ steps.read_manifest.outputs.tc_tag }}
+      tc_version: ${{ steps.read_manifest.outputs.tc_version }}
+    steps:
+    - uses: actions/checkout@v4
 
+    - name: Get latest release version
+      id: get_version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $releases = Invoke-RestMethod -Headers @{Authorization = "token $env:GITHUB_TOKEN"} -Uri "https://api.github.com/repos/${{ github.repository }}/releases"
+        $latestVersion = $releases | Where-Object { -not $_.prerelease } | Select-Object -First 1
+        if ($latestVersion) {
+          $version = $latestVersion.tag_name -replace 'v', ''
+          $parts = $version.Split('.')
+          $major = $parts[0]
+          $minor = $parts[1]
+          $patch = [int]$parts[2] + 1
+          echo "version=$major.$minor.$patch" >> $env:GITHUB_OUTPUT
+          echo "VERSION=$major.$minor.$patch" >> $env:GITHUB_ENV
+        } else {
+          $buildNumber = ${{ github.run_number }}
+          $newVersion = 50 + $buildNumber
+          echo "version=1.0.$newVersion" >> $env:GITHUB_OUTPUT
+          echo "VERSION=1.0.$newVersion" >> $env:GITHUB_ENV
+        }
+        Write-Host "Next version will be: $env:VERSION"
+      shell: pwsh
+
+    - name: Read regional manifest
+      id: read_manifest
+      run: |
+        $manifest = Get-Content "regional-manifest.json" | ConvertFrom-Json
+        $cnTag = $manifest.cn.tag
+        $cnVersion = $manifest.cn.version
+        $tcTag = $manifest.tc.tag
+        $tcVersion = $manifest.tc.version
+        
+        echo "cn_tag=$cnTag" >> $env:GITHUB_OUTPUT
+        echo "cn_version=$cnVersion" >> $env:GITHUB_OUTPUT
+        echo "tc_tag=$tcTag" >> $env:GITHUB_OUTPUT
+        echo "tc_version=$tcVersion" >> $env:GITHUB_OUTPUT
+        
+        Write-Host "CN: tag=$cnTag, version=$cnVersion"
+        Write-Host "TC: tag=$tcTag, version=$tcVersion"
+      shell: pwsh
+
+  build_global:
+    name: "Build Global (EN)"
+    runs-on: windows-latest
+    needs: setup
     steps:
     - uses: actions/checkout@v4
 
@@ -36,31 +90,6 @@ jobs:
     - name: Install dependencies
       run: pip install zipfile36
 
-    - name: Get latest release version
-      id: get_latest_version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        $releases = Invoke-RestMethod -Headers @{Authorization = "token $env:GITHUB_TOKEN"} -Uri "https://api.github.com/repos/${{ github.repository }}/releases"
-        $latestVersion = $releases | Where-Object { -not $_.prerelease } | Select-Object -First 1
-        if ($latestVersion) {
-          $version = $latestVersion.tag_name -replace 'v', ''
-          $parts = $version.Split('.')
-          $major = $parts[0]
-          $minor = $parts[1]
-          $patch = [int]$parts[2] + 1
-          echo "VERSION=$major.$minor.$patch" >> $env:GITHUB_ENV
-        } else {
-          $buildNumber = ${{ github.run_number }}
-          $newVersion = 50 + $buildNumber
-          echo "VERSION=1.0.$newVersion" >> $env:GITHUB_ENV
-        }
-        Write-Host "Next version will be: $env:VERSION"
-      shell: pwsh
-
-    - name: Verify version string
-      run: echo "Version is $env:VERSION"
-
     - name: Restore NuGet packages
       run: |
         cd Magitek
@@ -68,16 +97,11 @@ jobs:
 
     - name: Update AssemblyInfo
       run: |
-        $version = $env:VERSION
+        $version = "${{ needs.setup.outputs.version }}"
         Write-Host "Updating AssemblyInfo.cs with version $version"
         $assemblyInfoPath = "Magitek/Properties/AssemblyInfo.cs"
         (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyVersion\(")[^"]*("\)\])', "[assembly: AssemblyVersion(`"$version`")]" | Set-Content $assemblyInfoPath
         (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyFileVersion\(")[^"]*("\)\])', "[assembly: AssemblyFileVersion(`"$version`")]" | Set-Content $assemblyInfoPath
-
-    - name: Verify AssemblyInfo
-      run: |
-        Write-Host "Contents of AssemblyInfo.cs after replacement:"
-        Get-Content "Magitek/Properties/AssemblyInfo.cs"
 
     - name: Build solution
       run: |
@@ -85,7 +109,7 @@ jobs:
         msbuild Magitek.sln /p:Configuration=Release
 
     - name: Generate Version.txt
-      run: echo "v$env:VERSION" > ./Magitek/bin/release/Version.txt
+      run: echo "v${{ needs.setup.outputs.version }}" > ./Magitek/bin/release/Version.txt
       
     - name: Create Magitek.zip
       run: |
@@ -93,30 +117,179 @@ jobs:
         import os
         import zipfile
 
-        # Define paths
         zip_path = './Magitek/bin/release/Magitek.zip'
 
-        # Step 1: Create initial zip archive with the specified files
         with zipfile.ZipFile(zip_path, 'w') as zipf:
             zipf.write('./Magitek/bin/release/Magitek.dll', arcname='Magitek.dll')
             zipf.write('./Magitek/bin/release/Magitek.pdb', arcname='Magitek.pdb')
-            zipf.write('./Magitek/bin/release/zh-CN/Magitek.resources.dll', arcname='zh-CN/Magitek.resources.dll')
+            zh_cn_path = './Magitek/bin/release/zh-CN/Magitek.resources.dll'
+            if os.path.exists(zh_cn_path):
+                zipf.write(zh_cn_path, arcname='zh-CN/Magitek.resources.dll')
             zipf.write('./Magitek/bin/release/Version.txt', arcname='Version.txt')
             zipf.write('./MagitekLoader/MagitekLoader.cs', arcname='MagitekLoader.cs')
             zipf.write('./Magitek/Properties/AssemblyInfo.cs', arcname='Properties/AssemblyInfo.cs')
         "
 
-    - name: Upload Artifacts for Release
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Magitek.zip
-        path: ./Magitek/bin/release/Magitek.zip
+        name: global-build
+        path: |
+          ./Magitek/bin/release/Magitek.zip
+          ./Magitek/bin/release/Version.txt
 
-    - name: Upload Version.txt for Release
+  build_cn:
+    name: "Build CN"
+    runs-on: windows-latest
+    needs: setup
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ needs.setup.outputs.cn_tag }}
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install zipfile36
+
+    - name: Restore NuGet packages
+      run: |
+        cd Magitek
+        nuget restore Magitek.sln
+
+    - name: Build solution
+      run: |
+        cd Magitek
+        msbuild Magitek.sln /p:Configuration=Release
+
+    - name: Generate Version-CN.txt
+      run: |
+        $cnVersion = "${{ needs.setup.outputs.cn_version }}"
+        $globalVersion = "${{ needs.setup.outputs.version }}"
+        if ($cnVersion -eq "latest") {
+          echo "CN-$globalVersion" > ./Magitek/bin/release/Version-CN.txt
+        } else {
+          echo "CN-$cnVersion" > ./Magitek/bin/release/Version-CN.txt
+        }
+      shell: pwsh
+      
+    - name: Create Magitek-CN.zip
+      run: |
+        python -c "
+        import os
+        import zipfile
+
+        zip_path = './Magitek/bin/release/Magitek-CN.zip'
+
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            zipf.write('./Magitek/bin/release/Magitek.dll', arcname='Magitek.dll')
+            zipf.write('./Magitek/bin/release/Magitek.pdb', arcname='Magitek.pdb')
+            zh_cn_path = './Magitek/bin/release/zh-CN/Magitek.resources.dll'
+            if os.path.exists(zh_cn_path):
+                zipf.write(zh_cn_path, arcname='zh-CN/Magitek.resources.dll')
+            zipf.write('./Magitek/bin/release/Version-CN.txt', arcname='Version.txt')
+            zipf.write('./MagitekLoader/MagitekLoader.cs', arcname='MagitekLoader.cs')
+            zipf.write('./Magitek/Properties/AssemblyInfo.cs', arcname='Properties/AssemblyInfo.cs')
+        "
+
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Version.txt
-        path: ./Magitek/bin/release/Version.txt
+        name: cn-build
+        path: |
+          ./Magitek/bin/release/Magitek-CN.zip
+          ./Magitek/bin/release/Version-CN.txt
+
+  build_tc:
+    name: "Build TC"
+    runs-on: windows-latest
+    needs: setup
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ needs.setup.outputs.tc_tag }}
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install zipfile36
+
+    - name: Restore NuGet packages
+      run: |
+        cd Magitek
+        nuget restore Magitek.sln
+
+    - name: Build solution
+      run: |
+        cd Magitek
+        msbuild Magitek.sln /p:Configuration=Release
+
+    - name: Generate Version-TC.txt
+      run: |
+        $tcVersion = "${{ needs.setup.outputs.tc_version }}"
+        $globalVersion = "${{ needs.setup.outputs.version }}"
+        if ($tcVersion -eq "latest") {
+          echo "TC-$globalVersion" > ./Magitek/bin/release/Version-TC.txt
+        } else {
+          echo "TC-$tcVersion" > ./Magitek/bin/release/Version-TC.txt
+        }
+      shell: pwsh
+      
+    - name: Create Magitek-TC.zip
+      run: |
+        python -c "
+        import os
+        import zipfile
+
+        zip_path = './Magitek/bin/release/Magitek-TC.zip'
+
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            zipf.write('./Magitek/bin/release/Magitek.dll', arcname='Magitek.dll')
+            zipf.write('./Magitek/bin/release/Magitek.pdb', arcname='Magitek.pdb')
+            zh_cn_path = './Magitek/bin/release/zh-CN/Magitek.resources.dll'
+            if os.path.exists(zh_cn_path):
+                zipf.write(zh_cn_path, arcname='zh-CN/Magitek.resources.dll')
+            zipf.write('./Magitek/bin/release/Version-TC.txt', arcname='Version.txt')
+            zipf.write('./MagitekLoader/MagitekLoader.cs', arcname='MagitekLoader.cs')
+            zipf.write('./Magitek/Properties/AssemblyInfo.cs', arcname='Properties/AssemblyInfo.cs')
+        "
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: tc-build
+        path: |
+          ./Magitek/bin/release/Magitek-TC.zip
+          ./Magitek/bin/release/Version-TC.txt
+
+  release:
+    name: "Create Release"
+    runs-on: windows-latest
+    needs: [setup, build_global, build_cn, build_tc]
+    if: startsWith(github.ref, 'refs/heads/master')
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./artifacts
 
     - name: Get commit message and check if PR merge
       id: get_commit_message
@@ -124,7 +297,6 @@ jobs:
         $commitMessage = git log -1 --pretty=%B
         $commitSubject = git log -1 --pretty=%s
         
-        # Check if this is a merge commit (has 2 parents) or has PR number pattern
         $parentCount = (git rev-list --parents -n 1 HEAD).Split(' ').Count - 1
         $hasPRNumber = $commitSubject -match '\(#\d+\)$'
         
@@ -137,9 +309,7 @@ jobs:
         } else {
           Write-Host "Detected direct commit (parents: $parentCount, has PR#: $hasPRNumber)"
           echo "IS_PR_MERGE=false" >> $env:GITHUB_ENV
-          # Create release body with proper formatting
           $releaseBody = "## Changes`n`n$commitMessage`n"
-          # Use multiline delimiter for GitHub Actions
           $delimiter = "EOF_RELEASE_BODY"
           echo "RELEASE_BODY<<$delimiter" >> $env:GITHUB_ENV
           echo $releaseBody >> $env:GITHUB_ENV
@@ -150,13 +320,16 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v${{ env.VERSION }}
-        name: v${{ env.VERSION }}
+        tag_name: v${{ needs.setup.outputs.version }}
+        name: v${{ needs.setup.outputs.version }}
         body: ${{ env.RELEASE_BODY }}
         generate_release_notes: true
         draft: false
         token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
         files: |
-          ./Magitek/bin/release/Magitek.zip
-          ./Magitek/bin/release/Version.txt
-
+          ./artifacts/global-build/Magitek.zip
+          ./artifacts/global-build/Version.txt
+          ./artifacts/cn-build/Magitek-CN.zip
+          ./artifacts/cn-build/Version-CN.txt
+          ./artifacts/tc-build/Magitek-TC.zip
+          ./artifacts/tc-build/Version-TC.txt
