@@ -310,6 +310,37 @@ namespace Magitek.Utilities
 
             #endregion
         }
+
+        /// <summary>
+        /// Checks if the last spell cast was the specified spell, succeeded, and was cast within the specified time window.
+        /// </summary>
+        /// <param name="spell">The spell to check for</param>
+        /// <param name="withinMs">Time window in milliseconds. Defaults to 1 GCD (2500ms). Use -1 to ignore time check.</param>
+        /// <returns>True if last spell matches, succeeded, and was within the time window</returns>
+        public static bool LastSpellWas(SpellData spell, int withinMs = 3000)
+        {
+            if (spell == null)
+                return false;
+
+            if (LastSpell == null)
+                return false;
+
+            if (LastSpell.Id != spell.Id)
+                return false;
+
+            if (!LastSpellSucceeded)
+                return false;
+
+            // If withinMs is -1, skip time check (allow regardless of time)
+            if (withinMs == -1)
+                return true;
+
+            // Check if the last spell was cast within the specified time window
+            if (!LastSpellTimeFinishAge.IsRunning)
+                return false;
+
+            return LastSpellTimeFinishAge.ElapsedMilliseconds <= withinMs;
+        }
     }
 
     public class SpellCastHistoryItem

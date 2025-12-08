@@ -63,7 +63,7 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Despair)
                 return false;
 
-            if (Casting.LastSpell == Spells.Despair)
+            if (Casting.LastSpellWas(Spells.Despair))
                 return false;
 
             //If flarestar is ready, cast it
@@ -136,7 +136,7 @@ namespace Magitek.Logic.BlackMage
             //     && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
             //     return false;
 
-            if (Casting.LastSpell == Spells.Fire3)
+            if (Casting.LastSpellWas(Spells.Fire3))
                 return false;
 
             //Don't waste firestarter if we are about to enter UI
@@ -186,7 +186,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // If the last spell we cast is triple cast, stop
-            if (Casting.LastSpell == Spells.Triplecast)
+            if (Casting.LastSpellWas(Spells.Triplecast))
                 return false;
 
             // If we have the triplecast aura, stop
@@ -194,16 +194,16 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Moved this up to see if it stops the doublecast
-            if (Casting.LastSpell == Spells.Thunder || Casting.LastSpell == Spells.Thunder3 || Casting.LastSpell == Spells.HighThunder)
+            if (Casting.LastSpellWas(Spells.Thunder) || Casting.LastSpellWas(Spells.Thunder3) || Casting.LastSpellWas(Spells.HighThunder))
                 return false;
 
             // Try to keep from double-casting thunder
-            if (Casting.LastSpell == Spells.Thunder
-                || Casting.LastSpell == Spells.Thunder2
-                || Casting.LastSpell == Spells.Thunder3
-                || Casting.LastSpell == Spells.Thunder4
-                || Casting.LastSpell == Spells.HighThunder
-                || Casting.LastSpell == Spells.HighThunderII)
+            if (Casting.LastSpellWas(Spells.Thunder)
+                || Casting.LastSpellWas(Spells.Thunder2)
+                || Casting.LastSpellWas(Spells.Thunder3)
+                || Casting.LastSpellWas(Spells.Thunder4)
+                || Casting.LastSpellWas(Spells.HighThunder)
+                || Casting.LastSpellWas(Spells.HighThunderII))
                 return false;
 
             if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
@@ -244,7 +244,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.CurrentMana == Core.Me.MaxMana)
                 return false;
 
-            if (Casting.LastSpell == Spells.Blizzard4)
+            if (Casting.LastSpellWas(Spells.Blizzard4))
                 return false;
 
             if (Casting.LastSpell == Spells.Transpose)
@@ -259,8 +259,8 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
                 return false;
 
-            if (Casting.LastSpell == Spells.Blizzard3
-                || Casting.LastSpell == Spells.ManaFont)
+            if (Casting.LastSpellWas(Spells.Blizzard3)
+                || Casting.LastSpellWas(Spells.ManaFont))
                 return false;
 
             //If flarestar is ready, cast it
@@ -309,7 +309,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
             }
 
-            if (Casting.LastSpell == Spells.Blizzard4)
+            if (Casting.LastSpellWas(Spells.Blizzard4))
                 return false;
 
 
@@ -323,10 +323,10 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Paradox)
                 return false;
 
-            if (Casting.LastSpell == Spells.Fire3)
+            if (Casting.LastSpellWas(Spells.Fire3))
                 return false;
 
-            if (Casting.LastSpell == Spells.Blizzard3)
+            if (Casting.LastSpellWas(Spells.Blizzard3))
                 return false;
 
             if (AstralStacks != 3 && UmbralStacks != 3)

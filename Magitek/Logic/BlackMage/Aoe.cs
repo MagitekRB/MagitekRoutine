@@ -90,7 +90,7 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.FlareStar.IsKnownAndReadyAndCastableAtTarget())
                 return false;
 
-            if (Casting.LastSpell == Spells.Fire3 || Casting.LastSpell == Spells.Blizzard3)
+            if (Casting.LastSpellWas(Spells.Fire3) || Casting.LastSpellWas(Spells.Blizzard3))
                 return false;
 
             return await Spells.FlareStar.Cast(Core.Me.CurrentTarget);
@@ -102,7 +102,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Freeze.LevelAcquired)
                 return false;
 
-            if (Casting.LastSpell == Spells.Freeze)
+            if (Casting.LastSpellWas(Spells.Freeze))
                 return false;
 
             //If flarestar is ready, cast it
@@ -132,7 +132,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // If the last spell we cast is triple cast, stop
-            if (Casting.LastSpell == Spells.Triplecast)
+            if (Casting.LastSpellWas(Spells.Triplecast))
                 return false;
 
             // If we have the triplecast aura, stop
@@ -212,9 +212,9 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (Casting.LastSpell == Spells.Blizzard2
-                || Casting.LastSpell == Spells.HighBlizzardII
-                || Casting.LastSpell == Spells.ManaFont)
+            if (Casting.LastSpellWas(Spells.Blizzard2)
+                || Casting.LastSpellWas(Spells.HighBlizzardII)
+                || Casting.LastSpellWas(Spells.ManaFont))
                 return false;
 
             if (AstralStacks < 3 || UmbralStacks == 3)
