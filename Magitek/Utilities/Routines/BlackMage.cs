@@ -55,7 +55,7 @@ namespace Magitek.Utilities.Routines
             var polyglotTimer = ActionResourceManager.BlackMage.PolyglotTimer;
 
             // Calculate how many GCDs worth of time we need to check (buffer for movement)
-            var gcdsToCheck = 1;
+            var gcdsToCheck = 1.5;
             var timeThreshold = gcdDuration * gcdsToCheck;
 
             // We're at max polyglots and timer will expire soon - need to spend one now

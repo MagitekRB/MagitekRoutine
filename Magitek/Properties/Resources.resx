@@ -3779,6 +3779,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
     <value>Use Thunder Spells in AoE</value>
   </data>
+  <data name="BlackMage_Content_Use_TTD_For_Thunder_Single" xml:space="preserve">
+    <value>Use TTD Check for Thunder Single (Don't cast if enemy dying within)</value>
+  </data>
+  <data name="BlackMage_Content_Use_TTD_For_Thunder_AOE" xml:space="preserve">
+    <value>Use TTD Check for Thunder AoE (Don't cast if enemy dying within)</value>
+  </data>
   <data name="Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode" xml:space="preserve">
     <value>Allow Magitek to move in autonomous mode</value>
   </data>

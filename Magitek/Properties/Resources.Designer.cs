@@ -2451,6 +2451,28 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use TTD Check for Thunder AoE (Don't cast if enemy dying within).
+        /// </summary>
+        public static string BlackMage_Content_Use_TTD_For_Thunder_AOE
+        {
+            get
+            {
+                return ResourceManager.GetString("BlackMage_Content_Use_TTD_For_Thunder_AOE", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use TTD Check for Thunder Single (Don't cast if enemy dying within).
+        /// </summary>
+        public static string BlackMage_Content_Use_TTD_For_Thunder_Single
+        {
+            get
+            {
+                return ResourceManager.GetString("BlackMage_Content_Use_TTD_For_Thunder_Single", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use TransposeUmbral Soul Out of Combat.
         /// </summary>
         public static string BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat

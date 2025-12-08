@@ -3774,6 +3774,12 @@
   <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
     <value>在范围攻击时使用雷系魔法</value>
   </data>
+  <data name="BlackMage_Content_Use_TTD_For_Thunder_Single" xml:space="preserve">
+    <value>对单体雷系魔法使用死亡倒计时(TTD)判定（敌人在[xx]秒内即将死亡时不使用）</value>
+  </data>
+  <data name="BlackMage_Content_Use_TTD_For_Thunder_AOE" xml:space="preserve">
+    <value>对范围雷系魔法使用死亡倒计时(TTD)判定（敌人在[xx]秒内即将死亡时不使用）</value>
+  </data>
   <data name="Bugs_Content_Allow_Magitek_to_move_in_autonomous_mode" xml:space="preserve">
     <value>允许Magitek在自主模式下移动</value>
   </data>
