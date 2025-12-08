@@ -48,7 +48,7 @@
             <StackPanel Orientation="Horizontal">
             <CheckBox Margin="5" Content="{x:Static properties:Resources.BlackMage_Content_Use_Xenoglossy}" IsChecked="{Binding BlackMageSettings.Xenoglossy, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BlackMage_Text_and_save_at_least}" />
-            <controls:Numeric MaxValue="2" MinValue="0"
+            <controls:Numeric MaxValue="3" MinValue="0"
   Value="{Binding BlackMageSettings.SaveXenoglossyCharges, Mode=TwoWay}" />
             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BlackMage_Text_charges_when_moving}" />
         </StackPanel>

@@ -66,7 +66,6 @@ namespace Magitek.Rotations
 
             if (await SingleTarget.Thunder3()) return true;
             if (await SingleTarget.Paradox()) return true;
-            if (await SingleTarget.Xenoglossy()) return true;
             if (await SingleTarget.Despair()) return true;
 
             //AoE Section
@@ -81,9 +80,9 @@ namespace Magitek.Rotations
 
                 if (await Aoe.Flare()) return true;
                 if (await Aoe.Freeze()) return true;
-
             }
 
+            if (await SingleTarget.Xenoglossy()) return true;
             if (await SingleTarget.Blizzard4()) return true;
             if (await SingleTarget.Fire4()) return true;
 

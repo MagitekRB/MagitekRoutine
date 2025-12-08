@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.BlackMage;
 using Auras = Magitek.Utilities.Auras;
+using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
 
 namespace Magitek.Logic.BlackMage
 {
@@ -15,8 +16,14 @@ namespace Magitek.Logic.BlackMage
     {
         public static async Task<bool> Xenoglossy()
         {
+            // If below Xenoglossy level, use Foul instead
             if (Core.Me.ClassLevel < Spells.Xenoglossy.LevelAcquired)
+            {
+                // Check if we can use Foul
+                if (Core.Me.ClassLevel >= Spells.Foul.LevelAcquired && PolyglotStatus)
+                    return await Aoe.Foul();
                 return false;
+            }
 
             if (!BlackMageSettings.Instance.Xenoglossy)
                 return false;
@@ -37,7 +44,11 @@ namespace Magitek.Logic.BlackMage
                     return await Spells.Xenoglossy.Cast(Core.Me.CurrentTarget);
             }
 
-            //If at 2 stacks of polyglot, cast
+            // Cast if we're about to overcap Polyglot (prevent waste)
+            if (BlackMageRoutine.WillOvercapPolyglot())
+                return await Spells.Xenoglossy.Cast(Core.Me.CurrentTarget);
+
+            //If at save threshold, don't cast
             if (PolyglotCount <= BlackMageSettings.Instance.SaveXenoglossyCharges)
                 return false;
 
@@ -121,9 +132,9 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks < 3 && UmbralStacks == 0)
                 return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
 
-            if (BlackMageSettings.Instance.UseAoe
-                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
-                return false;
+            // if (BlackMageSettings.Instance.UseAoe
+            //     && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+            //     return false;
 
             if (Casting.LastSpell == Spells.Fire3)
                 return false;
@@ -146,6 +157,9 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (AstralStacks == 3 || UmbralStacks < 3)
+                return false;
+
+            if (UmbralStacks > 0 && Core.Me.CurrentMana != Core.Me.MaxMana)
                 return false;
 
             if (UmbralStacks == 3 && Core.Me.CurrentMana == Core.Me.MaxMana && BlackMageSettings.Instance.UseTransposeToAstral)

@@ -54,7 +54,7 @@ namespace Magitek.Models.BlackMage
         public bool Xenoglossy { get; set; }
 
         [Setting]
-        [DefaultValue(2)]
+        [DefaultValue(3)]
         public int SaveXenoglossyCharges { get; set; }
 
         [Setting]

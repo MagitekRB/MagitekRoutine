@@ -8,6 +8,7 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.BlackMage;
+using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
 
 
 namespace Magitek.Logic.BlackMage
@@ -21,26 +22,32 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Can't use whatcha don't have
-            if (Core.Me.ClassLevel < 70)
+            if (Core.Me.ClassLevel < Spells.Foul.LevelAcquired)
                 return false;
 
             //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            if (AstralSoulStacks == 6 && Core.Me.ClassLevel >= Spells.FlareStar.LevelAcquired)
                 return false;
 
             // If we're moving in combat
             if (MovementManager.IsMoving)
             {
-                // If we don't have any procs (while in movement), cast
-                if (!Core.Me.HasAura(Auras.Swiftcast)
-                    && !Core.Me.HasAura(Auras.Triplecast))
-                    return await Spells.Xenoglossy.Cast(Core.Me.CurrentTarget);
+                // If we have instant cast Foul (level 80+) and have Swiftcast/Triplecast,
+                // don't cast Foul - use procs on other spells instead
+                if (Core.Me.ClassLevel >= 80 && (Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Triplecast)))
+                    return false;
+
+                // If below level 80 (Foul has cast time) and we don't have Swiftcast/Triplecast,
+                // skip Foul - can't cast it while moving
+                if (Core.Me.ClassLevel < 80 && !Core.Me.HasAura(Auras.Swiftcast) && !Core.Me.HasAura(Auras.Triplecast))
+                    return false;
             }
 
-            //If at 2 stacks of polyglot, cast
-            if (PolyglotCount <= BlackMageSettings.Instance.SaveXenoglossyCharges)
-                return false;
+            // Always cast if we're about to overcap Polyglot (prevent waste)
+            if (BlackMageRoutine.WillOvercapPolyglot())
+                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
 
+            // In AoE, don't save charges - use them for more damage
             return await Spells.Foul.Cast(Core.Me.CurrentTarget);
         }
 
@@ -57,8 +64,8 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Flare.LevelAcquired)
                 return false;
 
-            if (Core.Me.CurrentMana < 800)
-                return false;
+            // if (Core.Me.CurrentMana < 800)
+            //     return false;
 
             if (Core.Me.ClassLevel == 100)
             {
@@ -162,16 +169,27 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Try and keep from doublecasting or using after manafont
-            if (Casting.LastSpell == Spells.Fire2
-                || Casting.LastSpell == Spells.HighFireII
-                || Casting.LastSpell == Spells.ManaFont)
-                return false;
+            // if (Casting.LastSpell == Spells.Fire2
+            //     || Casting.LastSpell == Spells.HighFireII
+            //     || Casting.LastSpell == Spells.ManaFont)
+            //     return false;
 
             if (Core.Me.HasAura(Auras.Triplecast))
                 return false;
 
-            if (AstralStacks == 3 || UmbralStacks < 3)
-                return false;
+            // At level 58+, Umbral Hearts allow two Flares, so Fire2 is less valuable
+            // Below level 58, we need Fire2 in Astral Fire (after Transpose from Umbral Ice)
+            if (Core.Me.ClassLevel >= 58)
+            {
+                if (AstralStacks == 3 || UmbralStacks < 3)
+                    return false;
+            }
+            else
+            {
+                // // Below level 58, need to be in Astral Fire to cast Fire2
+                // if (AstralStacks >= 1)
+                //     return false;
+            }
 
             if (UmbralStacks == 3 && Core.Me.CurrentMana == Core.Me.MaxMana && BlackMageSettings.Instance.UseTransposeToAstral)
             {
