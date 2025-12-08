@@ -29,8 +29,15 @@
         </controls:SettingsBlock>
 
         <controls:SettingsBlock Margin="0,3,0,0" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Use_Thunder_Spells_AOE}" IsChecked="{Binding BlackMageSettings.ThunderAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Use_Thunder_Spells_AOE}" IsChecked="{Binding BlackMageSettings.ThunderAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Use_TTD_For_Thunder_AOE}" IsChecked="{Binding BlackMageSettings.UseTTDForThunderAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric Margin="5" MaxValue="100" MinValue="1" Value="{Binding BlackMageSettings.ThunderAoeTTDSeconds, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

@@ -209,6 +209,9 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
                 return false;
 
+            if (BlackMageSettings.Instance.UseTTDForThunderSingle && Combat.CurrentTargetCombatTimeLeft <= BlackMageSettings.Instance.ThunderSingleTTDSeconds && !Core.Me.CurrentTarget.IsBoss())
+                return false;
+
             if (Core.Me.ClassLevel < Spells.Thunder3.LevelAcquired)
                 return await Spells.Thunder.Cast(Core.Me.CurrentTarget);
 

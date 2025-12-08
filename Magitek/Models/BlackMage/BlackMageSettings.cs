@@ -42,8 +42,24 @@ namespace Magitek.Models.BlackMage
         public int ThunderRefreshSecondsLeft { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool UseTTDForThunderSingle { get; set; }
+
+        [Setting]
+        [DefaultValue(13)]
+        public int ThunderSingleTTDSeconds { get; set; }
+
+        [Setting]
         [DefaultValue(6)]
         public int ThunderTimeTillDeathSeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseTTDForThunderAoe { get; set; }
+
+        [Setting]
+        [DefaultValue(13)]
+        public int ThunderAoeTTDSeconds { get; set; }
 
         [Setting]
         [DefaultValue(true)]
