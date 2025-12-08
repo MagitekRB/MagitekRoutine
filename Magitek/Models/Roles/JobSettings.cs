@@ -31,10 +31,6 @@ namespace Magitek.Models.Roles
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_AutoGuardMarksmanSpite { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_AutoGuardWildfire { get; set; }
 
         [Setting]

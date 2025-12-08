@@ -40,12 +40,6 @@
                                Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,5,5">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_AutoGuard_MarksmansSpite}"
-                              IsChecked="{Binding Pvp_AutoGuardMarksmanSpite, Mode=TwoWay}"
-                              Margin="15,0,0,0"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5,5,5,5">
                     <CheckBox Content="{x:Static properties:Resources.Generic_AutoGuard_Wildfire}"
                               IsChecked="{Binding Pvp_AutoGuardWildfire, Mode=TwoWay}"
                               Margin="15,0,0,0"

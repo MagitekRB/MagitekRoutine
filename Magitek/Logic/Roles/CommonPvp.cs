@@ -1,5 +1,6 @@
 ﻿using Buddy.Coroutines;
 using ff14bot;
+using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
@@ -284,41 +285,44 @@ namespace Magitek.Logic.Roles
 
             bool shouldAutoGuard = false;
 
-            // Check if enemy is casting Marksman's Spite on us
-            if (settings.Pvp_AutoGuardMarksmanSpite)
-            {
-                var enemyCastingMarksman = Combat.Enemies.FirstOrDefault(e =>
-                {
-                    try
-                    {
-                        return e != null &&
-                               e.IsValid &&
-                               e.IsCasting &&
-                               e.CastingSpellId == Spells.MarksmansSpitePvp.Id &&
-                               e.TargetGameObject == Core.Me;
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                });
-
-                if (enemyCastingMarksman != null)
-                    shouldAutoGuard = true;
-            }
+            // NOTE: Marksman's Spite auto-guard is not implemented
+            // The combat log doesn't log until after damage is applied, making it too late to guard.
+            // Detection would require network packet analysis (like ACT) which isn't available in RBB.
+            // or Detect AVFX file ID if we can identify which one corresponds to Marksman's Spite (penumbra).
 
             // Check if we have WildfirePvp debuff with 1.5 seconds or less remaining
-            if (settings.Pvp_AutoGuardWildfire)
+            if (!shouldAutoGuard && settings.Pvp_AutoGuardWildfire)
             {
                 if (Core.Me.HasAuraExpiringWithin(Auras.PvpWildfire, msRemaining: 1500))
                     shouldAutoGuard = true;
             }
 
             // Check if we have Kuzushi debuff (about to be hit by Zantetsuken)
-            if (settings.Pvp_AutoGuardKuzushi)
+            // Only guard if there's an enemy Samurai within Zantetsuken range targeting us
+            if (!shouldAutoGuard && settings.Pvp_AutoGuardKuzushi)
             {
                 if (Core.Me.HasAura(Auras.PvpKuzushi))
-                    shouldAutoGuard = true;
+                {
+                    var enemySamurai = Combat.Enemies.FirstOrDefault(e =>
+                    {
+                        try
+                        {
+                            return e != null &&
+                                   e.IsValid &&
+                                   e is BattleCharacter bc &&
+                                   bc.CurrentJob == ClassJobType.Samurai &&
+                                   e.WithinSpellRange(Spells.ZantetsukenPvp.Range) &&
+                                   e.TargetGameObject == Core.Me;
+                        }
+                        catch
+                        {
+                            return false;
+                        }
+                    });
+
+                    if (enemySamurai != null)
+                        shouldAutoGuard = true;
+                }
             }
 
             // Add more auto-guard conditions here in the future
