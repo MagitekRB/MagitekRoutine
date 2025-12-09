@@ -25,8 +25,8 @@ namespace Magitek.Rotations
             if (!BlackMageSettings.Instance.UsePreCombatTranspose)
                 return false;
 
-            if (await Buff.UmbralSoul()) return true;
-            if (await Buff.Transpose()) return true;
+            if (await Buff.PreCombatUmbralSoul()) return true;
+            if (await Buff.PreCombatTranspose()) return true;
 
             return false;
         }
@@ -61,6 +61,7 @@ namespace Magitek.Rotations
             if (await Buff.Amplifier()) return true;
             if (await Buff.Triplecast()) return true;
             if (await Buff.LeyLines()) return true;
+            if (await Buff.Retrace()) return true;
             if (await Buff.ManaFont()) return true;
             if (await Buff.UmbralSoul()) return true;
 
@@ -90,9 +91,13 @@ namespace Magitek.Rotations
             if (await SingleTarget.Fire3()) return true;
 
             // Low-level mana management: Transpose from Astral Fire to Umbral Ice when out of mana
-            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
+            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired || !Spells.Blizzard3.IsKnown() || !Spells.Fire3.IsKnown())
             {
-                if (AstralStacks > 0 && Core.Me.CurrentMana < 800 && Spells.Transpose.IsKnownAndReady())
+                if (AstralStacks > 0 && Core.Me.CurrentMana < Spells.Fire.Cost && Spells.Transpose.IsKnownAndReady())
+                {
+                    if (await Buff.Transpose()) return true;
+                }
+                if (UmbralStacks > 0 && Core.Me.CurrentMana == Core.Me.MaxMana && Spells.Transpose.IsKnownAndReady())
                 {
                     if (await Buff.Transpose()) return true;
                 }
@@ -111,7 +116,7 @@ namespace Magitek.Rotations
             if (await CommonPvp.CommonTasks(BlackMageSettings.Instance)) return true;
 
             // Limit Break
-            if (CommonPvp.ShouldUseBurst())
+            if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(BlackMageSettings.Instance))
             {
                 if (await Pvp.SoulResonancePvp()) return true;
             }

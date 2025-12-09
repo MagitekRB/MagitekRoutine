@@ -261,6 +261,10 @@ namespace Magitek
 
         public override void Pulse()
         {
+            // Early return if bot is shutting down to prevent accessing cached objects during cancellation
+            if (!TreeRoot.IsRunning)
+                return;
+
             Tracking.Update();
             Combat.AdjustCombatTime();
             Combat.AdjustDutyTime();
