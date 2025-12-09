@@ -30,7 +30,7 @@ namespace Magitek.Logic.BlackMage
             if ((MovementManager.IsMoving && AstralStacks == 3))
                 return await Spells.Triplecast.Cast(Core.Me);
 
-            if (BlackMageSettings.Instance.TripleCastWhileMoving && Spells.Triplecast.Charges<= 1)
+            if (BlackMageSettings.Instance.TripleCastWhileMoving && Spells.Triplecast.Charges <= 1)
                 return false;
 
             // Don't dot if time in combat less than 30 seconds
@@ -101,12 +101,12 @@ namespace Magitek.Logic.BlackMage
                 || Core.Me.HasAura(Auras.Triplecast)))
                 // High Fire II is always used at the start of Astral
                 return await Spells.LeyLines.Cast(Core.Me);
-           
+
             return await Spells.LeyLines.Cast(Core.Me);
         }
 
-       private static readonly uint[] ThunderAuras =
-       {
+        private static readonly uint[] ThunderAuras =
+        {
             Auras.Thunder,
             Auras.Thunder2,
             Auras.Thunder3,
@@ -120,26 +120,25 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.ClassLevel < Spells.Retrace.LevelAcquired)
                 return false;
 
+            if (!Spells.Retrace.IsKnownAndReady())
+                return false;
+
             if (Spells.Retrace.Cooldown != TimeSpan.Zero)
+                return false;
+
+            if (!Core.Me.HasAura(Auras.LeyLines))
+                return false;
+
+            if (Core.Me.HasAura(Auras.CircleOfPower))
                 return false;
 
             if (MovementManager.IsMoving)
                 return false;
 
-            if (Core.Me.HasAura(Auras.LeyLines))
-                return false;
-
             if (!Core.Me.InCombat)
                 return false;
 
-            if (!Spells.Retrace.IsKnownAndReady())
-                return false;
-
-            if (Casting.SpellCastHistory.Count() > 0
-                && Casting.SpellCastHistory.Take(10).Any(s => s.Spell == Spells.LeyLines))
-                return await Spells.LeyLines.Masked().Cast(Core.Me);
-
-            return false;
+            return await Spells.Retrace.Cast(Core.Me);
         }
         public static async Task<bool> UmbralSoul()
         {
@@ -168,6 +167,32 @@ namespace Magitek.Logic.BlackMage
 
         }
 
+        public static async Task<bool> PreCombatUmbralSoul()
+        {
+            if (Core.Me.ClassLevel < Spells.UmbralSoul.LevelAcquired)
+                return false;
+
+            if (!BlackMageSettings.Instance.UmbralSoul)
+                return false;
+
+            if (!Spells.UmbralSoul.IsKnownAndReady())
+                return false;
+
+            // Only use out of combat (restores 10,000 MP when used outside combat)
+            if (Core.Me.InCombat)
+                return false;
+
+            // Can only be executed while under the effect of Umbral Ice
+            if (UmbralStacks == 0)
+                return false;
+
+            // Only use when not at max mana (to restore MP)
+            if (Core.Me.CurrentMana >= Core.Me.MaxMana)
+                return false;
+
+            return await Spells.UmbralSoul.Cast(Core.Me);
+        }
+
         public static async Task<bool> ManaFont()
         {
             if (Core.Me.ClassLevel < Spells.ManaFont.LevelAcquired)
@@ -176,7 +201,7 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.ManaFont)
                 return false;
 
-            if(UmbralStacks != 0)
+            if (UmbralStacks != 0)
                 return false;
 
             /*
@@ -238,6 +263,29 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Transpose()
         {
             if (Core.Me.ClassLevel < Spells.Transpose.LevelAcquired)
+                return false;
+
+            return await Spells.Transpose.Cast(Core.Me);
+        }
+
+        public static async Task<bool> PreCombatTranspose()
+        {
+            if (Core.Me.ClassLevel < Spells.Transpose.LevelAcquired)
+                return false;
+
+            if (!Spells.Transpose.IsKnownAndReady())
+                return false;
+
+            // Only transpose out of combat
+            if (Core.Me.InCombat)
+                return false;
+
+            // Only transpose when we have astral fire
+            if (AstralStacks == 0)
+                return false;
+
+            // Only transpose when not at max mana
+            if (Core.Me.CurrentMana >= Core.Me.MaxMana)
                 return false;
 
             return await Spells.Transpose.Cast(Core.Me);
