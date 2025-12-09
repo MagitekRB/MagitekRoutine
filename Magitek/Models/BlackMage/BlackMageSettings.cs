@@ -75,14 +75,6 @@ namespace Magitek.Models.BlackMage
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseTransposeToAstral { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool UseTransposeToUmbral { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool FlareStar { get; set; }
 
         [Setting]

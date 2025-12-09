@@ -162,12 +162,6 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks > 0 && Core.Me.CurrentMana != Core.Me.MaxMana)
                 return false;
 
-            if (UmbralStacks == 3 && Core.Me.CurrentMana == Core.Me.MaxMana && BlackMageSettings.Instance.UseTransposeToAstral)
-            {
-                if (!await UseTransposeToFire())
-                    return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
-            }
-
             return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
         }
 
@@ -280,12 +274,6 @@ namespace Magitek.Logic.BlackMage
             if (Spells.ManaFont.IsKnownAndReady())
                 return false;
 
-            if (AstralStacks == 3 && BlackMageSettings.Instance.UseTransposeToUmbral)
-            {
-                if (!await UseTransposeToBlizzard())
-                    return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
-            }
-
             return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
         }
         public static async Task<bool> Blizzard()
@@ -339,36 +327,6 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
-        }
-
-        private static async Task<bool> UseTransposeToFire()
-        {
-
-            if (!Spells.Transpose.IsKnownAndReady())
-                return false;
-
-            if (!BlackMageSettings.Instance.UseTransposeToAstral)
-                return false;
-
-            if (!await Spells.Transpose.Cast(Core.Me))
-                return false;
-
-            return await Coroutine.Wait(1000, Spells.Fire4.Masked().CanCast);
-        }
-
-        private static async Task<bool> UseTransposeToBlizzard()
-        {
-
-            if (!Spells.Transpose.IsKnownAndReady())
-                return false;
-
-            if (!BlackMageSettings.Instance.UseTransposeToUmbral)
-                return false;
-
-            if (!await Spells.Transpose.Cast(Core.Me))
-                return false;
-
-            return await Coroutine.Wait(1000, Spells.Blizzard4.Masked().CanCast);
         }
 
     }
