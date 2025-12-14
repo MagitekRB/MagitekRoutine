@@ -168,13 +168,18 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
         await AutoUpdate();
 
-        // Create proxy once - RebornBuddy will keep this reference
+        // In production mode (non-dev versions), load and return directly without proxy
+        if (!IsDevVersion())
+        {
+            return LoadDirect();
+        }
+
+        // In dev mode, use proxy for hot-reload support
         if (_proxy == null)
         {
             _proxy = new MagitekProxy();
         }
 
-        // Load the actual Magitek instance into the proxy
         LoadProduct();
 
         return _proxy;
@@ -480,16 +485,7 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
                 return; // Already loaded and not reloading
             }
 
-            // Dev versions use temp file + collectible AssemblyLoadContext for hot-reload
-            // Production versions use simple direct load (no overhead)
-            if (IsDevVersion())
-            {
-                _product = LoadFromTemp();
-            }
-            else
-            {
-                _product = LoadDirect();
-            }
+            _product = LoadFromTemp();
 
             _loaded = true;
 
