@@ -1,4 +1,4 @@
-﻿using Clio.Utilities;
+using Clio.Utilities;
 using ff14bot.AClasses;
 using ff14bot.Enums;
 using ff14bot.Helpers;
@@ -272,7 +272,9 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         CombatRoutine? routine;
         try
         {
-            routine = (CombatRoutine?)Activator.CreateInstance(baseType);
+            // Get version info before creating instance
+            var localVersion = GetLocalVersion() ?? "Unknown";
+            routine = (CombatRoutine?)Activator.CreateInstance(baseType, localVersion, VersionUrl);
         }
         catch (Exception e)
         {
@@ -328,7 +330,9 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         CombatRoutine? routine;
         try
         {
-            routine = (CombatRoutine?)Activator.CreateInstance(baseType);
+            // Get version info before creating instance (hot-reload mode)
+            var localVersion = GetLocalVersion() ?? "Unknown";
+            routine = (CombatRoutine?)Activator.CreateInstance(baseType, localVersion, VersionUrl);
         }
         catch (Exception e)
         {
