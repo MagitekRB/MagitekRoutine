@@ -168,16 +168,25 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 
         await AutoUpdate();
 
-        // Create proxy once - RebornBuddy will keep this reference
-        if (_proxy == null)
+        // Dev versions use proxy for hot-reload; production returns direct instance
+        if (IsDevVersion())
         {
-            _proxy = new MagitekProxy();
+            // Create proxy once - RebornBuddy will keep this reference
+            if (_proxy == null)
+            {
+                _proxy = new MagitekProxy();
+            }
+
+            // Load the actual Magitek instance into the proxy
+            LoadProduct();
+
+            return _proxy;
         }
-
-        // Load the actual Magitek instance into the proxy
-        LoadProduct();
-
-        return _proxy;
+        else
+        {
+            // Production: Direct load, no proxy overhead
+            return LoadDirect();
+        }
     }
 
     private void RedirectAssembly()
