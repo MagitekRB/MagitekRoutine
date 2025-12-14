@@ -1,5 +1,6 @@
 ﻿using Buddy.Coroutines;
 using ff14bot;
+using ff14bot.Behavior;
 using ff14bot.Managers;
 using ff14bot.Navigation;
 using ff14bot.Objects;
@@ -13,7 +14,7 @@ namespace Magitek.Utilities
     internal static class Movement
     {
 
-        public static void NavigateToUnitLos(GameObject unit, float distance)
+        public static async Task NavigateToUnitLos(GameObject unit, float distance)
         {
             if (!BaseSettings.Instance.MagitekMovement)
                 return;
@@ -33,12 +34,15 @@ namespace Magitek.Utilities
             //if (!MovementManager.IsMoving && !unit.InView() && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing))
             //   Core.Me.Face(Core.Me.CurrentTarget);
 
-            if (unit.Distance(Core.Me) > distance)
+            var me = Core.Me;
+
+            //Care about line of sight first
+            if (!unit.InLineOfSight() || unit.Distance(me) > distance)
             {
-                Navigator.MoveTo(new MoveToParameters(unit.Location));
+                await CommonTasks.MoveTo(unit.Location);
             }
 
-            if (Core.Me.Distance(unit.Location) <= distance && unit.InView() && unit.InLineOfSight())
+            if (unit.InView())
             {
                 if (MovementManager.IsMoving)
                 {
@@ -47,22 +51,8 @@ namespace Magitek.Utilities
             }
             else
             {
-                Navigator.MoveTo(new MoveToParameters(unit.Location));
+                unit.Face();
             }
-        }
-
-        public static async Task<bool> Dismount()
-        {
-            if (!Core.Me.IsMounted)
-                return false;
-
-            while (Core.Me.IsMounted)
-            {
-                ActionManager.Dismount();
-                await Coroutine.Yield();
-            }
-
-            return true;
         }
     }
 }

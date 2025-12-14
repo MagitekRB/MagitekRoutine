@@ -41,9 +41,9 @@ namespace Magitek.Rotations
                     // attempt to move to melee if in combo and we got out of range somehow
 
                     if (Core.Me.ClassLevel < 2 || ShouldApproachForCombo())
-                        Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach);
+                        await Movement.NavigateToUnitLos(Core.Me.CurrentTarget, Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach);
 
-                    else Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
+                    else await Movement.NavigateToUnitLos(Core.Me.CurrentTarget, 20 + Core.Me.CurrentTarget.CombatReach);
                 }
             }
             return await Combat();
