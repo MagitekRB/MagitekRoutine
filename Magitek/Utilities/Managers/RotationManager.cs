@@ -171,7 +171,7 @@ namespace Magitek.Utilities.Managers
             if (BotManager.Current.IsAutonomous)
             {
                 if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 0) + Core.Me.CurrentTarget.CombatReach);
+                    await Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 0) + Core.Me.CurrentTarget.CombatReach);
             }
 
             if (Globals.InSanctuaryOrSafeZone)
@@ -256,7 +256,7 @@ namespace Magitek.Utilities.Managers
             if (BotManager.Current.IsAutonomous)
             {
                 if (Core.Me.HasTarget)
-                    Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 2) + Core.Me.CurrentTarget.CombatReach);
+                    await Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 2) + Core.Me.CurrentTarget.CombatReach);
             }
 
             if (Core.Me.CurrentTarget.HasAnyAura(Auras.Invincibility))
