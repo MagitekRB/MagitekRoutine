@@ -1,4 +1,4 @@
-﻿using Clio.Utilities.Collections;
+using Clio.Utilities.Collections;
 using Magitek.Commands;
 using Magitek.Models.MagitekApi;
 using Magitek.Utilities;
@@ -21,7 +21,6 @@ namespace Magitek.ViewModels
         private static MagitekApi _instance;
         private readonly HttpClient _webClient = new HttpClient();
         private const string GithubAddress = "https://api.github.com";
-        private const string VersionUrl = "https://github.com/MagitekRB/MagitekRoutine/releases/latest/download/Version.txt";
         private DateTime _lastFetchTime = DateTime.MinValue;
 
         public static MagitekApi Instance => _instance ?? (_instance = new MagitekApi());
@@ -55,21 +54,16 @@ namespace Magitek.ViewModels
 
         public async void UpdateVersion()
         {
-            var local = "UNKNOWN";
+            // Use version info from Magitek (provided by MagitekLoader)
+            var local = Magitek.LocalVersion ?? "UNKNOWN";
             var distant = "UNKNOWN";
 
             try
             {
-                local = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, $@"Routines\Magitek\Version.txt"));
-            }
-            catch
-            {
-                Logger.Error("Can't read local Magitek version. Please reinstall it");
-            }
-
-            try
-            {
-                distant = await _webClient.GetStringAsync(VersionUrl);
+                if (!string.IsNullOrEmpty(Magitek.VersionUrl))
+                {
+                    distant = await _webClient.GetStringAsync(Magitek.VersionUrl);
+                }
             }
             catch
             {
