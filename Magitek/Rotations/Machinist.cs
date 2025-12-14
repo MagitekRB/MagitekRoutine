@@ -159,10 +159,10 @@ namespace Magitek.Rotations
                     if (await Pvp.FullMetalField()) return true;
                 }
 
-                if (await Pvp.BlazingShot()) return true;
-                if (await Pvp.Scattergun()) return true;
                 if (await Pvp.Analysis()) return true;
                 if (await Pvp.Drill()) return true;
+                if (await Pvp.BlazingShot()) return true;
+                if (await Pvp.Scattergun()) return true;
 
                 if (!CommonPvp.GuardCheck(MachinistSettings.Instance))
                 {

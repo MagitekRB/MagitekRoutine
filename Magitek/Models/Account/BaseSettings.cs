@@ -135,7 +135,7 @@ namespace Magitek.Models.Account
         public bool ResetOpeners { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool UseFightLogic { get; set; }
 
         [Setting]
@@ -297,7 +297,7 @@ namespace Magitek.Models.Account
         public bool UsePvpAggroCountOverlay { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool PvpAggroCountOverlayAdjustable { get; set; }
 
         [Setting]
@@ -473,10 +473,6 @@ namespace Magitek.Models.Account
         public float Pvp_BloodbathHealthPercent { get; set; }
 
         [Setting]
-        [DefaultValue(30.0f)]
-        public float Pvp_SmiteTargetHealthPercent { get; set; }
-
-        [Setting]
         [DefaultValue(4)]
         public int Pvp_CometAoeCount { get; set; }
 
@@ -487,6 +483,26 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(35.0f)]
         public float Pvp_EagleEyeShotTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_UseEagleEyeShotForKillsOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_EagleEyeShotAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float Pvp_SmiteTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SmiteForKillsOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SmiteAnyTarget { get; set; }
 
         [Setting]
         [DefaultValue(50.0f)]

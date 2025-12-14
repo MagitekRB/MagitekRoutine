@@ -3,8 +3,10 @@ using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using GameObject = ff14bot.Objects.GameObject;
 
 namespace Magitek.Logic.Ninja
 {
@@ -149,41 +151,67 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.PvpGuard) || Core.Me.HasAura(Auras.PvpHidden))
                 return false;
 
-            if (!Spells.SeitonTenchuPvp.CanCast())
-                return false;
-
             if (!NinjaSettings.Instance.Pvp_SeitonTenchu)
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent)
-            {
-                if (NinjaSettings.Instance.Pvp_UseSeitonTenchuAnyTarget)
-                {
-                    var nearby = Combat.Enemies
-                        .Where(e => e.WithinSpellRange(20)
-                                && e.ValidAttackUnit()
-                                && e.InLineOfSight()
-                                && e.CurrentHealthPercent <= NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent
-                                && !e.IsWarMachina()
-                                && !CommonPvp.GuardCheck(NinjaSettings.Instance, e))
-                        .OrderBy(e => e.Distance(Core.Me));
-
-                    var nearbyTarget = nearby.FirstOrDefault();
-
-                    if (nearbyTarget != null)
-                        return await Spells.SeitonTenchuPvp.Cast(nearbyTarget);
-                }
-
+            if (!Spells.SeitonTenchuPvp.CanCast())
                 return false;
+
+            // Seiton Tenchu: 12,000 potency, incapacitates foes below 50% HP, ignores Guard
+            const double potency = 12000;
+            const float range = 20f;
+
+            // Seiton Tenchu incapacitates below 50% HP, so we consider it a "kill" for that purpose
+            Func<GameObject, double> potencyCalculator = (target) =>
+            {
+                // If target is below 50% HP, treat as killable (incapacitates)
+                if (target.CurrentHealthPercent <= 50)
+                    return target.CurrentHealth; // Treat as killable
+                return potency;
+            };
+
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                NinjaSettings.Instance,
+                potency,
+                range,
+                ignoreGuard: true,
+                checkGuard: false, // Seiton Tenchu ignores Guard
+                searchAllTargets: NinjaSettings.Instance.Pvp_UseSeitonTenchuAnyTarget,
+                potencyCalculator: potencyCalculator);
+
+            if (killableTarget != null)
+            {
+                return await Spells.SeitonTenchuPvp.Cast(killableTarget);
             }
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(20))
-                return false;
+            // Fallback: cast normally if not kill-only mode
+            if (!NinjaSettings.Instance.Pvp_SeitonTenchuForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
 
-            return await Spells.SeitonTenchuPvp.Cast(Core.Me.CurrentTarget);
+                if (!Core.Me.CurrentTarget.WithinSpellRange(20f))
+                    return false;
+
+                // Health check - Seiton Tenchu incapacitates below 50% HP
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > NinjaSettings.Instance.Pvp_SeitonTenchuHealthPercent)
+                    return false;
+
+                // Check Guard if enabled (though Seiton Tenchu ignores Guard, we still respect the setting)
+                if (CommonPvp.GuardCheck(NinjaSettings.Instance, Core.Me.CurrentTarget, checkGuard: false))
+                    return false;
+
+                if (!Spells.SeitonTenchuPvp.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await Spells.SeitonTenchuPvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         #region Three Mudra

@@ -106,10 +106,10 @@ namespace Magitek.Rotations
 
             if (CommonPvp.ShouldUseBurst())
             {
+                if (await Pvp.HarmonicArrow()) return true;
+
                 if (await Pvp.EncoreOfLight()) return true;
                 if (await Pvp.FinalFantasiaPvp()) return true;
-
-                if (await Pvp.HarmonicArrow()) return true;
             }
 
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(BardSettings.Instance))

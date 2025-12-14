@@ -121,6 +121,15 @@
                               IsChecked="{Binding DancerSettings.Pvp_UseEnAvant, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </Grid>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Dancer_Content_Starfall_Dance}" IsChecked="{Binding DancerSettings.Pvp_StarfallDance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}" Margin="20,0,0,0" IsChecked="{Binding DancerSettings.Pvp_StarfallDanceForKillsOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}" Margin="20,0,0,0" IsChecked="{Binding DancerSettings.Pvp_StarfallDanceAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

@@ -242,6 +242,10 @@ namespace Magitek.Models.Machinist
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_SaveFullMetalForWildfire { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_UseMarksmansSpiteForKillsOnly { get; set; }
         #endregion
     }
 }

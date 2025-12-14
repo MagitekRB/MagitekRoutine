@@ -44,7 +44,10 @@
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Generic_LB_Any_Enemy_below_the_threshold}" Margin="10,0" IsChecked="{Binding NinjaSettings.Pvp_UseSeitonTenchuAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}" Margin="20,0,0,0" IsChecked="{Binding NinjaSettings.Pvp_SeitonTenchuForKillsOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}" Margin="20,0,0,0" IsChecked="{Binding NinjaSettings.Pvp_UseSeitonTenchuAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

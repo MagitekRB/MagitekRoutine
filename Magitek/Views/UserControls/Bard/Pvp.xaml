@@ -135,6 +135,20 @@
                                Style="{DynamicResource TextBlockDefault}"
                                Text="{x:Static properties:Resources.Generic_Hp}"/>
                 </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                              Margin="20,0,0,0"
+                              IsChecked="{Binding BardSettings.Pvp_HarmonicArrowForKillsOnly, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}"
+                              Margin="20,0,0,0"
+                              IsChecked="{Binding BardSettings.Pvp_HarmonicArrowAnyTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
         </StackPanel>

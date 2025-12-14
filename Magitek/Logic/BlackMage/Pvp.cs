@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.BlackMage;
 using Magitek.Utilities;
 using System.Linq;
@@ -123,7 +124,41 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Pvp_UseXenoglossy)
                 return false;
 
-            return await Spells.XenoglossyPvp.Cast(Core.Me.CurrentTarget);
+            // Determine potency based on HP
+            // Xenoglossy does 12,000 potency normally, or 8,000 potency + 16,000 heal if under 50% HP
+            double potency = Core.Me.CurrentHealthPercent < 50 ? 8000 : 12000;
+
+            // 1. Cast if we can kill the enemy with it (always prioritize kills)
+            if (CommonPvp.WouldKillWithPotency(potency, Core.Me.CurrentTarget))
+                return await Spells.XenoglossyPvp.Cast(Core.Me.CurrentTarget);
+
+            // If "Save for Kills" is enabled, skip overcap protection (would prevent us from ever using charges for movement/healing)
+            if (!BlackMageSettings.Instance.Pvp_SaveXenoglossyForKills)
+            {
+                // Calculate overcap threshold: GCD is 2.5s, charge time is 16s
+                // We need to cast if we'll get a charge within the next GCD window
+                const double PvpGcdSeconds = 2.5;
+                const double ChargeTimeSeconds = 16.0;
+                double overcapThreshold = Spells.XenoglossyPvp.MaxCharges - (PvpGcdSeconds / ChargeTimeSeconds);
+
+                // 2. Cast if about to overcap charges (prevent waste)
+                if (Spells.XenoglossyPvp.Charges >= overcapThreshold)
+                    return await Spells.XenoglossyPvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            // If "Save for Kills" is enabled, don't use the saved charge for anything except kills
+            if (BlackMageSettings.Instance.Pvp_SaveXenoglossyForKills)
+            {
+                if (Spells.XenoglossyPvp.Charges <= 1)
+                    return false;
+            }
+
+            // 3. Cast while moving (prefer over ice spells)
+            if (MovementManager.IsMoving)
+                return await Spells.XenoglossyPvp.Cast(Core.Me.CurrentTarget);
+
+            // Otherwise, save charges
+            return false;
         }
 
         public static async Task<bool> Lethargy()

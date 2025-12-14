@@ -210,7 +210,7 @@ namespace Magitek.Logic.Monk
         public static async Task<bool> FormShiftIC()
         {
             if (Core.Me.ClassLevel < Spells.FormShift.LevelAcquired)
-                return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
+                return false;
 
             if (!Spells.FormShift.CanCast())
                 return false;

@@ -278,6 +278,26 @@ namespace Magitek.Models.Pictomancer
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_UseTemperaGrassa { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_MogOfTheAgesAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_MogOfTheAgesForKillsOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_UseCometInBlack { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_CometInBlackAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_CometInBlackForKillsOnly { get; set; }
         #endregion
     }
 }

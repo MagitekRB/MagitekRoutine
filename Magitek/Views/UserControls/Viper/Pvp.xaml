@@ -36,6 +36,12 @@
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}" Margin="20,0,0,0" IsChecked="{Binding ViperSettings.Pvp_UncoiledFuryForKillsOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}" Margin="20,0,0,0" IsChecked="{Binding ViperSettings.Pvp_UncoiledFuryAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Viper_Content_World_Swallower_LB_on_target_at}" IsChecked="{Binding ViperSettings.Pvp_WorldSwallower, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Grid.Row="1" Grid.Column="1" MaxValue="100" MinValue="1" Value="{Binding ViperSettings.Pvp_WorldSwallowerHealthPercent, Mode=TwoWay}" />
                     <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />

@@ -375,6 +375,14 @@ namespace Magitek.Models.Bard
         [DefaultValue(true)]
         public bool Pvp_PitchPerfect { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_HarmonicArrowAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_HarmonicArrowForKillsOnly { get; set; }
+
         #endregion
     }
 }

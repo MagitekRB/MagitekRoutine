@@ -28,6 +28,26 @@ namespace Magitek.Logic.Monk
             return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
         }
 
+        /// <summary>
+        /// Fallback Bootshine with relaxed form requirements - used as last resort to initiate combat
+        /// </summary>
+        public static async Task<bool> BootshineFallback()
+        {
+            // Only check if we're in wrong form (Raptor/Coeurl), but allow casting without form
+            if (Core.Me.HasAura(Auras.RaptorForm) || Core.Me.HasAura(Auras.CoeurlForm))
+                return false;
+
+            // Don't cast if we have PerfectBalance active (let PerfectBalance logic handle it)
+            if (Core.Me.HasAura(Auras.PerfectBalance))
+                return false;
+
+            // Basic check: Bootshine must be known and ready
+            if (!Spells.Bootshine.IsKnownAndReady())
+                return false;
+
+            return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
+        }
+
         public static async Task<bool> TrueStrike()
         {
             if (Core.Me.ClassLevel < Spells.TrueStrike.LevelAcquired)
@@ -157,10 +177,10 @@ namespace Magitek.Logic.Monk
             else
             {
 
-                    if (ActionResourceManager.Monk.OpoOpoFury == 0)
-                        return await Spells.DragonKick.Cast(Core.Me.CurrentTarget);
-                    else
-                        return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
+                if (ActionResourceManager.Monk.OpoOpoFury == 0)
+                    return await Spells.DragonKick.Cast(Core.Me.CurrentTarget);
+                else
+                    return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
 
             }
 

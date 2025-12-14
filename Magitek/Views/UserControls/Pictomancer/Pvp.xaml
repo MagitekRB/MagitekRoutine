@@ -65,6 +65,24 @@
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Use_Paint_RGB}" IsChecked="{Binding PictomancerSettings.Pvp_UsePaintRGB, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Mog_of_the_Ages_Retribution_of_Madeen}" IsChecked="{Binding PictomancerSettings.Pvp_UseMog, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}" Margin="20,0,0,0" IsChecked="{Binding PictomancerSettings.Pvp_MogOfTheAgesForKillsOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}" Margin="20,0,0,0" IsChecked="{Binding PictomancerSettings.Pvp_MogOfTheAgesAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Pictomancer_Content_Comet_in_Black}" IsChecked="{Binding PictomancerSettings.Pvp_UseCometInBlack, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}" Margin="20,0,0,0" IsChecked="{Binding PictomancerSettings.Pvp_CometInBlackForKillsOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}" Margin="20,0,0,0" IsChecked="{Binding PictomancerSettings.Pvp_CometInBlackAnyTarget, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>        
 

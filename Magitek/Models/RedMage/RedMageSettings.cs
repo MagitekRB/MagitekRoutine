@@ -296,6 +296,14 @@ namespace Magitek.Models.RedMage
         [Setting]
         [DefaultValue(50.0f)]
         public float Pvp_SouthernCrossTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SouthernCrossAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SouthernCrossForKillsOnly { get; set; }
         #endregion
     }
 }

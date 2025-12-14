@@ -268,28 +268,54 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> SouthernCrossPvp()
         {
-            if (!Spells.SouthernCrossPvp.CanCast())
-                return false;
-
             if (!RedMageSettings.Instance.Pvp_UseSouthernCross)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Spells.SouthernCrossPvp.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_SouthernCrossTargetHealthPercent)
-                return false;
+            // Southern Cross: 12,000 damage potency (also 12,000 cure potency for party members)
+            const double potency = 12000;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SouthernCrossPvp.Range))
-                return false;
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                RedMageSettings.Instance,
+                potency,
+                (float)Spells.SouthernCrossPvp.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: RedMageSettings.Instance.Pvp_SouthernCrossAnyTarget);
 
-            if (CommonPvp.TooManyAlliesTargeting(RedMageSettings.Instance))
-                return false;
+            if (killableTarget != null)
+            {
+                return await Spells.SouthernCrossPvp.Cast(killableTarget);
+            }
 
-            return await Spells.SouthernCrossPvp.Cast(Core.Me.CurrentTarget);
+            // Fallback to HP threshold if WouldKill is disabled or target not killable
+            if (!RedMageSettings.Instance.Pvp_SouthernCrossForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.SouthernCrossPvp.Range))
+                    return false;
+
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_SouthernCrossTargetHealthPercent)
+                    return false;
+
+                if (!Spells.SouthernCrossPvp.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await Spells.SouthernCrossPvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
     }
 }

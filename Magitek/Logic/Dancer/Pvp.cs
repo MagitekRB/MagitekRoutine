@@ -92,16 +92,48 @@ namespace Magitek.Logic.Dancer
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
+            if (!DancerSettings.Instance.Pvp_StarfallDance)
+                return false;
+
             if (!Spells.StarfallDancePvp.CanCast())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
+            // Starfall Dance: 12,000 potency to all enemies in a straight line
+            const double potency = 12000;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.StarfallDancePvp.Range))
-                return false;
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                DancerSettings.Instance,
+                potency,
+                (float)Spells.StarfallDancePvp.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: DancerSettings.Instance.Pvp_StarfallDanceAnyTarget);
 
-            return await Spells.StarfallDancePvp.Cast(Core.Me.CurrentTarget);
+            if (killableTarget != null)
+            {
+                return await Spells.StarfallDancePvp.Cast(killableTarget);
+            }
+
+            // Fallback: cast normally if not kill-only mode
+            if (!DancerSettings.Instance.Pvp_StarfallDanceForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.StarfallDancePvp.Range))
+                    return false;
+
+                if (!Spells.StarfallDancePvp.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await Spells.StarfallDancePvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         public static async Task<bool> FanDance()

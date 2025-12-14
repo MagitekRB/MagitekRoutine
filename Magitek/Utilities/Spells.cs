@@ -1204,6 +1204,7 @@ namespace Magitek.Utilities
         public static readonly SpellData CreatureMotifPvp = DataManager.GetSpellData(39204);
         public static readonly SpellData LivingMusePvp = DataManager.GetSpellData(39209);
         public static readonly SpellData MogOfTheAgesPvp = DataManager.GetSpellData(39782);
+        public static readonly SpellData RetributionOfMadeenPvp = DataManager.GetSpellData(39783);
         public static readonly SpellData SubtractivePalettePvp = DataManager.GetSpellData(39213);
         public static readonly SpellData ReleaseSubtractivePalettePvp = DataManager.GetSpellData(39214);
         public static readonly SpellData AdventofChocobastionPvp = DataManager.GetSpellData(39215); // star prism
