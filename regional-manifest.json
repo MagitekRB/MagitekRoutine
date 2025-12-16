@@ -6,14 +6,15 @@
         "7.0": "v1.0.43",
         "7.1": "v1.0.74",
         "7.2": "v1.0.113",
-        "7.3": "latest"
+        "7.3": "v1.0.184",
+        "7.4": "latest"
     },
     "cn": {
         "tag": "master",
         "version": "latest"
     },
     "tc": {
-        "tag": "master",
-        "version": "latest"
+        "tag": "v1.0.184",
+        "version": "v1.0.184"
     }
 }
