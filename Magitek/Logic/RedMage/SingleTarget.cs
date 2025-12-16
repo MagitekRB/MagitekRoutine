@@ -43,7 +43,7 @@ namespace Magitek.Logic.RedMage
                     if (BlackMana < 50 || WhiteMana < 50)
                         return false;
                 }
-                
+
                 if (Core.Me.ClassLevel >= 35
                     && Core.Me.ClassLevel < 50)
                 {
@@ -57,7 +57,7 @@ namespace Magitek.Logic.RedMage
                     if (BlackMana < 20
                         || WhiteMana < 20)
                         return false;
-                }                                
+                }
             }
 
             return await Spells.Riposte.Cast(Core.Me.CurrentTarget);

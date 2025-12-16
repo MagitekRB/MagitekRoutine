@@ -17,10 +17,6 @@ namespace Magitek.Rotations
 
     public static class RedMage
     {
-        static RedMage()
-        {
-            //StateMachineManager.RegisterStateMachine(RdmStateMachine.StateMachine);
-        }
 
         public static Task<bool> Rest()
         {
