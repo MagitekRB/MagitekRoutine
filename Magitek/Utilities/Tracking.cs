@@ -251,7 +251,6 @@ namespace Magitek.Utilities
             if (Core.Me.InCombat) mWasInCombat = true;
             if (!Core.Me.InCombat && mWasInCombat)
             {
-                StateMachineManager.ResetRegisteredStateMachines();
                 mWasInCombat = false;
             }
         }
