@@ -175,6 +175,8 @@ jobs:
         } else {
           $version = $cnVersion
         }
+        # Strip 'v' prefix if present (AssemblyVersion format doesn't allow it)
+        $version = $version -replace '^v', ''
         Write-Host "Updating AssemblyInfo.cs with version $version"
         $assemblyInfoPath = "Magitek/Properties/AssemblyInfo.cs"
         (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyVersion\(")[^"]*("\)\])', "[assembly: AssemblyVersion(`"$version`")]" | Set-Content $assemblyInfoPath
@@ -261,6 +263,8 @@ jobs:
         } else {
           $version = $tcVersion
         }
+        # Strip 'v' prefix if present (AssemblyVersion format doesn't allow it)
+        $version = $version -replace '^v', ''
         Write-Host "Updating AssemblyInfo.cs with version $version"
         $assemblyInfoPath = "Magitek/Properties/AssemblyInfo.cs"
         (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyVersion\(")[^"]*("\)\])', "[assembly: AssemblyVersion(`"$version`")]" | Set-Content $assemblyInfoPath
