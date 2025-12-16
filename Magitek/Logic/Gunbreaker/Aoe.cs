@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Gunbreaker;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker.V49
+namespace Magitek.Logic.Gunbreaker
 {
     internal static class Aoe
     {
@@ -21,13 +21,13 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            return await Spells.DemonSlice.Cast(Core.Me.CurrentTarget);
+            return await Spells.DemonSlice.Cast(Core.Me);
         }
 
         public static async Task<bool> DemonSlaughter()
@@ -41,13 +41,14 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge)
+            // Block overcapping when FatedCircle is known (the aoe cartridge dump)
+            if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.FatedCircle.IsKnown())
                 return false;
 
-            return await Spells.DemonSlaughter.Cast(Core.Me.CurrentTarget);
+            return await Spells.DemonSlaughter.Cast(Core.Me);
         }
 
         /*************************************************************************************
@@ -67,7 +68,7 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.NoMercy) && Cartridge > 0)
@@ -75,33 +76,18 @@ namespace Magitek.Logic.Gunbreaker.V49
                 if (Spells.DoubleDown.IsKnownAndReady())
                     return false;
 
-                return await Spells.FatedCircle.Cast(Core.Me.CurrentTarget);
+                return await Spells.FatedCircle.Cast(Core.Me);
             }
 
-            //Delay if nomercy ready soon
-            //   if (Spells.NoMercy.IsKnownAndReady(16000) && Cartridge < GunbreakerRoutine.MaxCartridge - 1)
-            //       return false;
-            //   if (Spells.NoMercy.IsKnownAndReady(8000) && Cartridge < GunbreakerRoutine.MaxCartridge)
-            //       return false;
-
-            //Delay if GnashingFang ready soon and there are less than GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies
-            //    if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.PrioritizeFatedCircleOverGnashingFangEnemies)
-            //   {
-            //       if (Spells.GnashingFang.IsKnownAndReady(8000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForGnashingFang)
-            //           return false;
-            //   }
-
-            //Delay if DoubleDown ready soon
-            //   if (Spells.DoubleDown.IsKnownAndReady(4000) && Cartridge <= GunbreakerRoutine.RequiredCartridgeForDoubleDown)
-            //       return false;
-
-            if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.DemonSlice.Id)
+            if (Cartridge == GunbreakerRoutine.MaxCartridge
+            && !GunbreakerRoutine.CanContinueComboAfter(Spells.DemonSlice)
+            && !GunbreakerRoutine.CanContinueComboAfter(Spells.BrutalShell))
                 return false;
 
             if (Cartridge < GunbreakerRoutine.MaxCartridge)
                 return false;
 
-            return await Spells.FatedCircle.Cast(Core.Me.CurrentTarget);
+            return await Spells.FatedCircle.Cast(Core.Me);
         }
 
         /*************************************************************************************
@@ -118,27 +104,27 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.BowShockEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.BowShockEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady())
                 return false;
 
-            return await Spells.BowShock.Cast(Core.Me.CurrentTarget);
+            return await Spells.BowShock.Cast(Core.Me);
         }
 
         public static async Task<bool> FatedBrand()
         {
-            if (Core.Me.ClassLevel < 96)
+            if (Core.Me.ClassLevel < Spells.FatedBrand.LevelAcquired)
                 return false;
 
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
-            return await Spells.FatedBrand.Cast(Core.Me.CurrentTarget);
+            return await Spells.FatedBrand.Cast(Core.Me);
         }
 
         public static async Task<bool> DoubleDown()
@@ -152,10 +138,10 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge == GunbreakerRoutine.MaxCartridge)
+            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge == GunbreakerRoutine.MaxCartridge)
                 return false;
 
-            return await Spells.DoubleDown.Cast(Core.Me.CurrentTarget);
+            return await Spells.DoubleDown.Cast(Core.Me);
         }
     }
 }

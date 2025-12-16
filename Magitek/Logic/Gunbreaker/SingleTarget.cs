@@ -10,7 +10,7 @@ using static ff14bot.Managers.ActionResourceManager.Gunbreaker;
 using Auras = Magitek.Utilities.Auras;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker.V49
+namespace Magitek.Logic.Gunbreaker
 {
     internal static class SingleTarget
     {
@@ -26,7 +26,7 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (!Core.Me.CurrentTarget.ValidAttackUnit()
                         || !Core.Me.CurrentTarget.NotInvulnerable()
                         || Core.Me.CurrentTarget.Distance(Core.Me) < Core.Me.CombatReach + Core.Me.CurrentTarget.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
-                        || Core.Me.CurrentTarget.Distance(Core.Me) > 20 + Core.Me.CurrentTarget.CombatReach
+                        || !Core.Me.WithinSpellRange(20)
                         || (Core.Me.CurrentTarget as BattleCharacter).TargetGameObject == null)
                 return false;
 
@@ -52,7 +52,7 @@ namespace Magitek.Logic.Gunbreaker.V49
             var lightningShotTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit()
                                                                     && r.NotInvulnerable()
                                                                     && r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
-                                                                    && r.Distance(Core.Me) <= 20 + r.CombatReach
+                                                                    && r.WithinSpellRange(20)
                                                                     && r.TargetGameObject != Core.Me);
 
             //if no target found, then check if current target is not pulled yet
@@ -63,7 +63,7 @@ namespace Magitek.Logic.Gunbreaker.V49
                 if (!lightningShotTarget.ValidAttackUnit()
                     || !lightningShotTarget.NotInvulnerable()
                     || lightningShotTarget.Distance(Core.Me) < Core.Me.CombatReach + lightningShotTarget.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
-                    || lightningShotTarget.Distance(Core.Me) > 20 + lightningShotTarget.CombatReach
+                    || !lightningShotTarget.WithinSpellRange(20)
                     || lightningShotTarget.TargetGameObject != null)
                     return false;
             }
@@ -105,9 +105,6 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            //if (Cartridge == GunbreakerRoutine.MaxCartridge)
-            //    return false;
-
             return await Spells.SolidBarrel.Cast(Core.Me.CurrentTarget);
         }
 
@@ -126,10 +123,10 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForGnashingFang)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
-            if (Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveAmmoComboMseconds))
+            if (Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
                 return false;
 
             if (Spells.DoubleDown.IsKnownAndReady(2000) && Cartridge == GunbreakerRoutine.RequiredCartridgeForDoubleDown)
@@ -204,13 +201,13 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.FatedCircle.IsKnown() && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
+            if (Spells.FatedCircle.IsKnown() && Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.ReadyToReign))
                 return false;
 
-            if (Spells.NoMercy.IsKnownAndReady(2000))
+            if (Spells.NoMercy.IsKnownAndReady(2000) && Cartridge < GunbreakerRoutine.MaxCartridge)
                 return false;
 
             //Cast BurstStrike in NoMercy Window
@@ -225,11 +222,16 @@ namespace Magitek.Logic.Gunbreaker.V49
             //Cast BurstStrike after No Mercy window
             if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)
             {
-                if (!Core.Me.HasAura(Auras.NoMercy) && Cartridge >= 1 && Spells.NoMercy.Cooldown.TotalMilliseconds >= 35000 && !Spells.GnashingFang.IsKnownAndReady(6500) && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 95000)
+                if (!Core.Me.HasAura(Auras.NoMercy)
+                && Cartridge >= 1
+                && Spells.NoMercy.Cooldown.TotalMilliseconds >= 35000
+                && !Spells.GnashingFang.IsKnownAndReady(6500)
+                && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 95000)
                     return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
             }
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge && ActionManager.LastSpell.Id != Spells.BrutalShell.Id)
+            if (Cartridge == GunbreakerRoutine.MaxCartridge
+                && (ActionManager.LastSpell.Id != Spells.BrutalShell.Id))
                 return false;
 
             if (Cartridge < GunbreakerRoutine.MaxCartridge)
@@ -265,7 +267,7 @@ namespace Magitek.Logic.Gunbreaker.V49
             if (!Core.Me.HasAura(Auras.ReadyToReign))
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < GunbreakerSettings.Instance.UseAoeEnemies)
+            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
             if (Spells.DoubleDown.IsKnownAndReady(1000))
@@ -305,13 +307,19 @@ namespace Magitek.Logic.Gunbreaker.V49
          *******************************************************************************/
         public static async Task<bool> BlastingZone()
         {
-            if (GunbreakerSettings.Instance.SaveBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.SaveBlastingZoneMseconds))
+            if (!GunbreakerSettings.Instance.UseBlastingZone)
+                return false;
+
+            if (GunbreakerSettings.Instance.HoldBlastingZone && Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldBlastingZoneSeconds * 1000))
                 return false;
 
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.DoubleDown.IsKnownAndReady())
+            if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady())
+                return false;
+
+            if (Core.Me.HasAura(Auras.NoMercy) && Spells.GnashingFang.IsKnownAndReady())
                 return false;
 
             return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
@@ -333,6 +341,32 @@ namespace Magitek.Logic.Gunbreaker.V49
                 return false;
 
             return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
+        }
+
+        /********************************************************************************
+         *                                    Gap Closer
+         *******************************************************************************/
+        public static async Task<bool> Trajectory()
+        {
+            if (!GunbreakerSettings.Instance.UseTrajectory)
+                return false;
+
+            if (!Spells.Trajectory.IsKnown())
+                return false;
+
+            if (Casting.LastSpell == Spells.Trajectory)
+                return false;
+
+            if (GunbreakerSettings.Instance.TrajectoryOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
+                return false;
+
+            if (Spells.Trajectory.Charges <= GunbreakerSettings.Instance.SaveTrajectoryCharges + 1)
+                return false;
+
+            if (!GunbreakerRoutine.GlobalCooldown.CanWeave(1))
+                return false;
+
+            return await Spells.Trajectory.Cast(Core.Me.CurrentTarget);
         }
     }
 }

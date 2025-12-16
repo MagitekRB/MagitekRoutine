@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Gunbreaker;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker.Experimental
+namespace Magitek.Logic.Gunbreaker
 {
     internal static class Buff
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 using GunbreakerRoutine = Magitek.Utilities.Routines.Gunbreaker;
 
-namespace Magitek.Logic.Gunbreaker.Experimental
+namespace Magitek.Logic.Gunbreaker
 {
     internal static class Defensive
     {
