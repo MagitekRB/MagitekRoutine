@@ -45,7 +45,7 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             // Block overcapping when FatedCircle is known (the aoe cartridge dump)
-            if (Cartridge == GunbreakerRoutine.MaxCartridge && Spells.FatedCircle.IsKnown())
+            if (Cartridge >= GunbreakerRoutine.MaxCartridge && Spells.FatedCircle.IsKnown())
                 return false;
 
             return await Spells.DemonSlaughter.Cast(Core.Me);
@@ -79,7 +79,7 @@ namespace Magitek.Logic.Gunbreaker
                 return await Spells.FatedCircle.Cast(Core.Me);
             }
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge
+            if (Cartridge >= GunbreakerRoutine.MaxCartridge
             && !GunbreakerRoutine.CanContinueComboAfter(Spells.DemonSlice)
             && !GunbreakerRoutine.CanContinueComboAfter(Spells.BrutalShell))
                 return false;
@@ -138,7 +138,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge == GunbreakerRoutine.MaxCartridge)
+            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge >= GunbreakerRoutine.MaxCartridge)
                 return false;
 
             return await Spells.DoubleDown.Cast(Core.Me);

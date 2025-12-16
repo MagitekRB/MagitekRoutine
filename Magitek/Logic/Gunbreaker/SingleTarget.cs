@@ -226,11 +226,11 @@ namespace Magitek.Logic.Gunbreaker
                 && Cartridge >= 1
                 && Spells.NoMercy.Cooldown.TotalMilliseconds >= 35000
                 && !Spells.GnashingFang.IsKnownAndReady(6500)
-                && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 95000)
+                && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 47400)
                     return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
             }
 
-            if (Cartridge == GunbreakerRoutine.MaxCartridge
+            if (Cartridge >= GunbreakerRoutine.MaxCartridge
                 && (ActionManager.LastSpell.Id != Spells.BrutalShell.Id))
                 return false;
 
@@ -337,7 +337,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 118000)
+            if (Spells.GnashingFang.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 58800)
                 return false;
 
             return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);

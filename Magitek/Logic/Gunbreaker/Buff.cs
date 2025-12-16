@@ -120,26 +120,10 @@ namespace Magitek.Logic.Gunbreaker
             return await Spells.NoMercy.CastAura(Core.Me, Auras.NoMercy);
         }
 
-        public static async Task<bool> Bloodfest() // +2 or +3 cartrige
+        public static async Task<bool> Bloodfest() // Adds 3 cartridges and increases max to 6
         {
             if (!GunbreakerSettings.Instance.UseBloodfest || !Spells.Bloodfest.IsKnownAndReady())
                 return false;
-
-            // Allow sacrifice 1 cartridge for alignment if needed, but only if No Mercy has less GCDs remaining
-            if (Cartridge > 1 + GunbreakerRoutine.MaxCartridge - GunbreakerRoutine.AmountCartridgeFromBloodfest)
-            {
-                // Calculate minimum time for GCDs using GlobalCooldown
-                int minTimeForGcds = (int)(GunbreakerRoutine.GlobalCooldown.AdjustedCooldownMs * 3.5);
-
-                // Only allow sacrificing if No Mercy has less than the threshold GCDs remaining
-                if (Core.Me.HasAura(Auras.NoMercy, false, minTimeForGcds))
-                    return false; // Has enough GCDs remaining, don't sacrifice
-            }
-            // Otherwise, ensure we won't overcap at all (0 cartridges left after Bloodfest)
-            else if (Cartridge > GunbreakerRoutine.MaxCartridge - GunbreakerRoutine.AmountCartridgeFromBloodfest)
-            {
-                return false;
-            }
 
             // Don't cast immediately after No Mercy in the same pulse
             if (Casting.LastSpell == Spells.NoMercy)
