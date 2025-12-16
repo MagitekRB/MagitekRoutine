@@ -1,4 +1,4 @@
-﻿//using Clio.Utilities.Collections;
+//using Clio.Utilities.Collections;
 using ff14bot;
 using ff14bot.AClasses;
 using ff14bot.Behavior;
@@ -20,6 +20,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Input;
 using TreeSharp;
@@ -36,11 +37,29 @@ namespace Magitek
         private DateTime _pulseLimiter, _saveFormTime;
         private ClassJobType CurrentJob { get; set; }
         private ushort CurrentZone { get; set; }
-        private static readonly string VersionPath = Path.Combine(Environment.CurrentDirectory, @"Routines\Magitek\Version.txt");
+
+        // Version info provided by MagitekLoader (source of truth)
+        public static string LocalVersion { get; private set; } = "Unknown";
+        public static string VersionUrl { get; private set; } = string.Empty;
+
+        // Constructor to receive version info from MagitekLoader
+        public Magitek() : this(null, null) { }
+
+        public Magitek(string localVersion, string versionUrl)
+        {
+            if (!string.IsNullOrEmpty(localVersion))
+            {
+                LocalVersion = localVersion;
+            }
+            if (!string.IsNullOrEmpty(versionUrl))
+            {
+                VersionUrl = versionUrl;
+            }
+        }
 
         public override void Initialize()
         {
-            Logger.WriteInfo($"Initializing Version: {File.ReadAllText(VersionPath).Trim()} ...");
+            Logger.WriteInfo($"Initializing Version: {LocalVersion} ...");
             ViewModels.BaseSettings.Instance.RoutineSelectedInUi = RotationManager.CurrentRotation.ToString();
             ViewModels.BaseSettings.Instance.SettingsFirstInitialization = true;
             DispelManager.Reset();

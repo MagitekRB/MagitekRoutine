@@ -166,6 +166,21 @@ jobs:
         cd Magitek
         nuget restore Magitek.sln
 
+    - name: Update AssemblyInfo
+      run: |
+        $cnVersion = "${{ needs.setup.outputs.cn_version }}"
+        $globalVersion = "${{ needs.setup.outputs.version }}"
+        if ($cnVersion -eq "latest") {
+          $version = $globalVersion
+        } else {
+          $version = $cnVersion
+        }
+        Write-Host "Updating AssemblyInfo.cs with version $version"
+        $assemblyInfoPath = "Magitek/Properties/AssemblyInfo.cs"
+        (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyVersion\(")[^"]*("\)\])', "[assembly: AssemblyVersion(`"$version`")]" | Set-Content $assemblyInfoPath
+        (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyFileVersion\(")[^"]*("\)\])', "[assembly: AssemblyFileVersion(`"$version`")]" | Set-Content $assemblyInfoPath
+      shell: pwsh
+
     - name: Build solution
       run: |
         cd Magitek
@@ -236,6 +251,21 @@ jobs:
       run: |
         cd Magitek
         nuget restore Magitek.sln
+
+    - name: Update AssemblyInfo
+      run: |
+        $tcVersion = "${{ needs.setup.outputs.tc_version }}"
+        $globalVersion = "${{ needs.setup.outputs.version }}"
+        if ($tcVersion -eq "latest") {
+          $version = $globalVersion
+        } else {
+          $version = $tcVersion
+        }
+        Write-Host "Updating AssemblyInfo.cs with version $version"
+        $assemblyInfoPath = "Magitek/Properties/AssemblyInfo.cs"
+        (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyVersion\(")[^"]*("\)\])', "[assembly: AssemblyVersion(`"$version`")]" | Set-Content $assemblyInfoPath
+        (Get-Content $assemblyInfoPath) -replace '(\[assembly: AssemblyFileVersion\(")[^"]*("\)\])', "[assembly: AssemblyFileVersion(`"$version`")]" | Set-Content $assemblyInfoPath
+      shell: pwsh
 
     - name: Build solution
       run: |
