@@ -14,13 +14,6 @@ namespace Magitek.Models.Gunbreaker
         public static GunbreakerSettings Instance { get; set; } = new GunbreakerSettings();
 
         #region General
-        /// <summary>
-        /// Selects which Gunbreaker rotation implementation to use.
-        /// </summary>
-        [Setting]
-        [DefaultValue(GunbreakerImplementation.Latest)]
-        public GunbreakerImplementation Implementation { get; set; }
-
         [Setting]
         [DefaultValue(GunbreakerStrategy.FastGCD)]
         public GunbreakerStrategy GunbreakerStrategy { get; set; }

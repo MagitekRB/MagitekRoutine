@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
 
-namespace Magitek.Logic.Gunbreaker.V49
+namespace Magitek.Logic.Gunbreaker
 {
     internal static class Heal
     {
