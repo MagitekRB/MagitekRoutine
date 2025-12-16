@@ -106,7 +106,7 @@ namespace Magitek.Rotations
             if (await Buff.FormShiftIC()) return true;
 
             // Absolute last resort: Try Bootshine with relaxed form requirements if FormShift didn't work
-            // if (await SingleTarget.BootshineFallback()) return true;
+            if (await SingleTarget.BootshineFallback()) return true;
 
             return false;
         }
