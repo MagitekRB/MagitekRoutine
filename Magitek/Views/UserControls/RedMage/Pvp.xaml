@@ -208,6 +208,20 @@
                         <TextBlock Style="{DynamicResource TextBlockDefault}"
                                    Text="{x:Static properties:Resources.Generic_Allies_Targeting_It}"/>
                     </StackPanel>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                                  IsChecked="{Binding RedMageSettings.Pvp_SouthernCrossForKillsOnly, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}"
+                                  IsChecked="{Binding RedMageSettings.Pvp_SouthernCrossAnyTarget, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
                 </Grid>
             </StackPanel>
         </controls:SettingsBlock>        

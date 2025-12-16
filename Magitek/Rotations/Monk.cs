@@ -102,7 +102,13 @@ namespace Magitek.Rotations
             if (await SingleTarget.TrueStrike()) return true;
             if (await SingleTarget.SnapPunch()) return true;
 
-            return await Buff.FormShiftIC();
+            // FormShift should be last to maintain form state
+            if (await Buff.FormShiftIC()) return true;
+
+            // Absolute last resort: Try Bootshine with relaxed form requirements if FormShift didn't work
+            if (await SingleTarget.BootshineFallback()) return true;
+
+            return false;
         }
 
         public static void RegisterCombatMessages()

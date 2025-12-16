@@ -40,8 +40,8 @@ namespace Magitek.Utilities.Overlays
                     /* Default (or invalid) values - take a reasonable guess where it should go */
                     width = 200;
                     height = 200;
-                    posX = Core.OverlayManager.UnscaledOverlayWidth / 2 - 100; // Center horizontally
-                    posY = Core.OverlayManager.UnscaledOverlayHeight / 4; // Upper-center area
+                    posX = 60; // Top-left area
+                    posY = 60; // Top-left area
                 }
 
                 _control = new OverlayControl()
@@ -52,16 +52,25 @@ namespace Magitek.Utilities.Overlays
                     Height = height,
                     X = posX,
                     Y = posY,
-                    AllowMoving = true
+                    AllowMoving = IsHitTestable,
+                    AllowResizing = IsHitTestable
                 };
 
                 _control.MouseLeave += (sender, args) =>
                 {
-                    BaseSettings.Instance.PvpAggroCountOverlayWidth = _control.Width;
-                    BaseSettings.Instance.PvpAggroCountOverlayHeight = _control.Height;
-                    BaseSettings.Instance.PvpAggroCountOverlayPosX = _control.X;
-                    BaseSettings.Instance.PvpAggroCountOverlayPosY = _control.Y;
-                    BaseSettings.Instance.Save();
+                    if (IsHitTestable)
+                    {
+                        BaseSettings.Instance.PvpAggroCountOverlayWidth = _control.Width;
+                        BaseSettings.Instance.PvpAggroCountOverlayHeight = _control.Height;
+                        BaseSettings.Instance.PvpAggroCountOverlayPosX = _control.X;
+                        BaseSettings.Instance.PvpAggroCountOverlayPosY = _control.Y;
+                        BaseSettings.Instance.Save();
+                    }
+                };
+
+                _control.MouseLeftButtonDown += (sender, args) =>
+                {
+                    _control.DragMove();
                 };
 
                 return _control;

@@ -2495,6 +2495,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Save Xenoglossy for Kills.
+        /// </summary>
+        public static string BlackMage_Content_Save_Xenoglossy_For_Kills
+        {
+            get
+            {
+                return ResourceManager.GetString("BlackMage_Content_Save_Xenoglossy_For_Kills", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to and save at least.
         /// </summary>
         public static string BlackMage_Text_and_save_at_least
@@ -3723,6 +3734,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Dancer_Content_Use_En_Avant", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Starfall Dance.
+        /// </summary>
+        public static string Dancer_Content_Starfall_Dance
+        {
+            get
+            {
+                return ResourceManager.GetString("Dancer_Content_Starfall_Dance", resourceCulture);
             }
         }
 
@@ -6554,6 +6576,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Any Enemy below the threshold not just current target.
+        /// </summary>
+        public static string Generic_Any_Enemy_below_the_threshold
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Any_Enemy_below_the_threshold", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string Generic_Level
@@ -7925,6 +7958,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Generic_Use_Only_Once_Per_Combat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use For Kills Only.
+        /// </summary>
+        public static string Generic_Use_For_Kills_Only
+        {
+            get
+            {
+                return ResourceManager.GetString("Generic_Use_For_Kills_Only", resourceCulture);
             }
         }
 
@@ -12011,6 +12055,50 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Pictomancer_Content_Use_Comet_In_Black", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Comet in Black.
+        /// </summary>
+        public static string Pictomancer_Content_Comet_in_Black
+        {
+            get
+            {
+                return ResourceManager.GetString("Pictomancer_Content_Comet_in_Black", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mog of the Ages.
+        /// </summary>
+        public static string Pictomancer_Content_Mog_of_the_Ages
+        {
+            get
+            {
+                return ResourceManager.GetString("Pictomancer_Content_Mog_of_the_Ages", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mog of the Ages / Retribution of Madeen.
+        /// </summary>
+        public static string Pictomancer_Content_Mog_of_the_Ages_Retribution_of_Madeen
+        {
+            get
+            {
+                return ResourceManager.GetString("Pictomancer_Content_Mog_of_the_Ages_Retribution_of_Madeen", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Retribution of Madeen.
+        /// </summary>
+        public static string Pictomancer_Content_Retribution_of_Madeen
+        {
+            get
+            {
+                return ResourceManager.GetString("Pictomancer_Content_Retribution_of_Madeen", resourceCulture);
             }
         }
 

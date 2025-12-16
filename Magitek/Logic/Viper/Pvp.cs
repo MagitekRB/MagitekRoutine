@@ -1,5 +1,6 @@
 ﻿using ff14bot;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Viper;
 using Magitek.Utilities;
 using System.Linq;
@@ -82,16 +83,51 @@ namespace Magitek.Logic.Viper
         {
             var spell = Spells.UncoiledFuryPvp;
 
-            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget.WithinSpellRange(Spells.UncoiledFuryPvp.Radius))
+            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.WithinSpellRange(Spells.UncoiledFuryPvp.Radius))
                 return false;
 
-            if (!spell.CanCast(Core.Me.CurrentTarget))
+            if (!spell.CanCast())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > ViperSettings.Instance.Pvp_UncoiledFuryHealthPercent)
-                return false;
+            // Uncoiled Fury: 8,000 potency AoE (first enemy), hits target and nearby enemies
+            const double potency = 8000;
 
-            return await spell.Cast(Core.Me.CurrentTarget);
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                ViperSettings.Instance,
+                potency,
+                (float)Spells.UncoiledFuryPvp.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: ViperSettings.Instance.Pvp_UncoiledFuryAnyTarget);
+
+            if (killableTarget != null)
+            {
+                return await spell.Cast(killableTarget);
+            }
+
+            // Fallback to HP threshold if WouldKill is disabled or target not killable
+            if (!ViperSettings.Instance.Pvp_UncoiledFuryForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.UncoiledFuryPvp.Range))
+                    return false;
+
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > ViperSettings.Instance.Pvp_UncoiledFuryHealthPercent)
+                    return false;
+
+                if (!spell.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await spell.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         public static async Task<bool> Bloodcoil()

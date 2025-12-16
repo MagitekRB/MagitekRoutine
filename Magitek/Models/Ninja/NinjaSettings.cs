@@ -19,7 +19,7 @@ namespace Magitek.Models.Ninja
         [Setting]
         [DefaultValue(false)]
         public bool UseForkedRaiju { get; set; }
-        
+
 
 
         #region PVP
@@ -107,6 +107,10 @@ namespace Magitek.Models.Ninja
         [Setting]
         [DefaultValue(false)]
         public bool Pvp_UseSeitonTenchuAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SeitonTenchuForKillsOnly { get; set; }
 
         #endregion
     }

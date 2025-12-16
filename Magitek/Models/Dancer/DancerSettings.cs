@@ -357,6 +357,18 @@ namespace Magitek.Models.Dancer
         [Setting]
         [DefaultValue(21)]
         public int Pvp_PctPartnerWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool Pvp_StarfallDance { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_StarfallDanceAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_StarfallDanceForKillsOnly { get; set; }
         #endregion
 
         [Setting]

@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Pictomancer;
 using Magitek.Utilities;
 using System;
@@ -122,15 +123,47 @@ namespace Magitek.Logic.Pictomancer
             if (!Core.Me.HasAura(Auras.PvpSubtractivePalette))
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
             var spell = Spells.PaintWBPvp.Masked();
 
-            if (!spell.CanCast(Core.Me.CurrentTarget))
+            if (!spell.CanCast())
                 return false;
 
-            return await spell.Cast(Core.Me.CurrentTarget);
+            // PaintB is Comet in Black: 12,000 potency to target and all enemies nearby it
+            const double potency = 12000;
+
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                PictomancerSettings.Instance,
+                potency,
+                (float)spell.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: PictomancerSettings.Instance.Pvp_CometInBlackAnyTarget);
+
+            if (killableTarget != null)
+            {
+                return await spell.Cast(killableTarget);
+            }
+
+            // Fallback: cast normally if not kill-only mode
+            if (!PictomancerSettings.Instance.Pvp_CometInBlackForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
+                    return false;
+
+                if (!spell.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await spell.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         public static async Task<bool> CreatureMotif()
@@ -184,15 +217,48 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.Pvp_UseMog)
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
             var spell = Spells.MogOfTheAgesPvp.Masked();
 
-            if (!spell.CanCast(Core.Me.CurrentTarget))
+            if (!spell.CanCast())
                 return false;
 
-            return await spell.Cast(Core.Me.CurrentTarget);
+            // Check if masked spell is Retribution of Madeen (ID 39783) or Mog of the Ages (ID 39782)
+            // Mog of the Ages: 14,000 potency, Retribution of Madeen: 16,000 potency
+            double potency = (spell.Id == Spells.RetributionOfMadeenPvp.Id) ? 16000 : 14000;
+
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                PictomancerSettings.Instance,
+                potency,
+                (float)spell.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: PictomancerSettings.Instance.Pvp_MogOfTheAgesAnyTarget);
+
+            if (killableTarget != null)
+            {
+                return await spell.Cast(killableTarget);
+            }
+
+            // Fallback: cast normally if not kill-only mode
+            if (!PictomancerSettings.Instance.Pvp_MogOfTheAgesForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
+                    return false;
+
+                if (!spell.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await spell.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         public static async Task<bool> SubtractivePalette()

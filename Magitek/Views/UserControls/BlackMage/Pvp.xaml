@@ -35,6 +35,11 @@
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
                 <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Save_Xenoglossy_For_Kills}"
+                              IsChecked="{Binding BlackMageSettings.Pvp_SaveXenoglossyForKills, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.BlackMage_Content_Use_Lethargy}"
                               IsChecked="{Binding BlackMageSettings.Pvp_UseLethargy, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>

@@ -97,8 +97,15 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                              Margin="20,0,0,0"
+                              IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteForKillsOnly, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_LB_Any_Enemy_below_the_threshold}"
-                              Margin="10,0"
+                              Margin="20,0,0,0"
                               IsChecked="{Binding MachinistSettings.Pvp_UseMarksmansSpiteAnyTarget, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>

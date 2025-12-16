@@ -1,4 +1,5 @@
 ﻿using ff14bot;
+using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
@@ -8,8 +9,6 @@ using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
-using System.Collections.Generic;
-using System;
 
 namespace Magitek.Logic.Machinist
 {
@@ -120,26 +119,14 @@ namespace Magitek.Logic.Machinist
                 return false;
             }
 
-            // Estimate damage based on stacks (4500 potency per stack)
-            // Using a conservative damage conversion factor for PvP
-            const double PvpDamageConversionFactor = 0.8;
-            var estimatedDamage = 4500 * WildfireStacks * PvpDamageConversionFactor;
+            // Calculate total potency: 4500 potency per stack
+            double totalPotency = 4500 * WildfireStacks;
 
-            // If target is a tank, reduce expected damage
-            if (WildfireTarget.IsTank())
-            {
-                estimatedDamage *= 0.8;
-            }
+            // Check if detonator would kill the target
+            // Chain Saw vulnerability is automatically checked in WouldKillWithPotency
+            bool wouldKill = CommonPvp.WouldKillWithPotency(totalPotency, WildfireTarget);
 
-            // If target has Chain Saw vulnerability, increase damage by 20%
-            if (WildfireTarget.HasAura(Auras.PvpChainSaw))
-            {
-                estimatedDamage *= 1.2;
-            }
-
-            var targetCurrentHp = WildfireTarget.CurrentHealth;
-            var wouldKill = targetCurrentHp <= estimatedDamage;
-
+            // Detonate if it would kill, or if target is out of range and we have stacks
             if (wouldKill || (WildfireStacks > 0 && !WildfireTarget.WithinSpellRange(Spells.BlastChargePvp.Range + 5)))
             {
                 return await Spells.DetonatorPvp.Cast(Core.Me);
@@ -400,38 +387,50 @@ namespace Magitek.Logic.Machinist
             if (!Spells.MarksmansSpitePvp.CanCast())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
+            // Marksman's Spite: 40,000 potency
+            const double potency = 40000;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent)
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                MachinistSettings.Instance,
+                potency,
+                (float)Spells.MarksmansSpitePvp.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget);
+
+            if (killableTarget != null)
             {
-                if (MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget)
-                {
-                    var nearby = Combat.Enemies
-                        .Where(e => e.WithinSpellRange(Spells.MarksmansSpitePvp.Range)
-                                && e.ValidAttackUnit()
-                                && e.InLineOfSight()
-                                && e.CurrentHealthPercent <= MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent
-                                && !e.IsWarMachina()
-                                && !CommonPvp.GuardCheck(MachinistSettings.Instance, e)
-                                // Check if too many allies are targeting this enemy
-                                && !CommonPvp.TooManyAlliesTargeting(MachinistSettings.Instance, e))
-                        .OrderBy(e => e.Distance(Core.Me));
-
-                    var nearbyTarget = nearby.FirstOrDefault();
-
-                    if (nearbyTarget != null)
-                        return await Spells.MarksmansSpitePvp.Cast(nearbyTarget);
-                }
-
-                return false;
+                return await Spells.MarksmansSpitePvp.Cast(killableTarget);
             }
 
-            // Check if too many allies are targeting current target
-            if (CommonPvp.TooManyAlliesTargeting(MachinistSettings.Instance))
-                return false;
+            // Fallback: cast normally if not kill-only mode
+            if (!MachinistSettings.Instance.Pvp_UseMarksmansSpiteForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
 
-            return await Spells.MarksmansSpitePvp.Cast(Core.Me.CurrentTarget);
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.MarksmansSpitePvp.Range))
+                    return false;
+
+                // Health check
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > MachinistSettings.Instance.Pvp_UseMarksmansSpiteHealthPercent)
+                    return false;
+
+                // Check Guard if enabled
+                if (CommonPvp.GuardCheck(MachinistSettings.Instance, Core.Me.CurrentTarget))
+                    return false;
+
+                if (!Spells.MarksmansSpitePvp.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
+                return await Spells.MarksmansSpitePvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
     }
 }

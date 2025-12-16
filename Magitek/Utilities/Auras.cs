@@ -581,7 +581,17 @@ namespace Magitek.Utilities
             PvpDivining = 4332,
             PvpParadox = 3223,
             PvpFurtherRuin = 4399,
-            PvpScorn = 4290;
+            PvpScorn = 4290,
+            PvpBravery = 4479,
+            // Damage-modifying auras (placeholder IDs - to be filled in with correct values)
+            PvpRampage = 4476, // Tank role action - increases target damage taken by 25%
+            PvpPhantomDart = 1986, // BLM - increases target damage taken by 25%
+            PvpLordOfCrowns = 1451, // AST - increases target damage taken by 10%
+            PvpLadyOfCrowns = 1452, // AST - reduces target damage taken by 10%
+            PvpMonomachy = 3242, // RDM Corps-a-Corps - increases damage target receives from you by 10%
+            PvpDisplacement = 3243, // RDM - increases next spell's damage by 15%
+            PvpRust = 4480, // BLM - reduces target damage dealt and healing by 25% (not used in damage calc, but listed for completeness)
+            PvpCelestialRiver = 3105; // AST LB - increases damage dealt by 30%
 
 
         #endregion

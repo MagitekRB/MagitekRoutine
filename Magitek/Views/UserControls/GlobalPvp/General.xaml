@@ -225,6 +225,16 @@
                                        Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
                         </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
+                            <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                                      IsChecked="{Binding GeneralSettings.Pvp_SmiteForKillsOnly, Mode=TwoWay}"
+                                      Style="{DynamicResource CheckBoxFlat}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}"
+                                      IsChecked="{Binding GeneralSettings.Pvp_SmiteAnyTarget, Mode=TwoWay}"
+                                      Style="{DynamicResource CheckBoxFlat}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}"
                                        Text="{x:Static properties:Resources.Generic_Bloodbath_Self_HP}"
                                        Width="300"/>
@@ -271,6 +281,16 @@
                                               Value="{Binding GeneralSettings.Pvp_EagleEyeShotTargetHealthPercent, Mode=TwoWay}"/>
                             <TextBlock Style="{DynamicResource TextBlockDefault}"
                                        Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                                      IsChecked="{Binding GeneralSettings.Pvp_UseEagleEyeShotForKillsOnly, Mode=TwoWay}"
+                                      Style="{DynamicResource CheckBoxFlat}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}"
+                                      IsChecked="{Binding GeneralSettings.Pvp_EagleEyeShotAnyTarget, Mode=TwoWay}"
+                                      Style="{DynamicResource CheckBoxFlat}"/>
                         </StackPanel>
                     </StackPanel>
 

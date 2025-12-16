@@ -116,6 +116,14 @@ namespace Magitek.Models.Viper
         [Setting]
         [DefaultValue(50.0f)]
         public float Pvp_WorldSwallowerHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_UncoiledFuryAnyTarget { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_UncoiledFuryForKillsOnly { get; set; }
         #endregion
     }
 }

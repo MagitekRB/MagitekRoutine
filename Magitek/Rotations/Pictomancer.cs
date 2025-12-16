@@ -132,10 +132,11 @@ namespace Magitek.Rotations
                     if (await Pvp.AdventofChocobastion()) return true;
                     if (await Pvp.SubtractivePalette()) return true;
 
+                    if (await Pvp.MogoftheAges()) return true;
+                    
                     if (await Pvp.PaintB()) return true;
                     if (await Pvp.PaintW()) return true;
 
-                    if (await Pvp.MogoftheAges()) return true;
                     if (await Pvp.LivingMuse()) return true;
                 }
             }

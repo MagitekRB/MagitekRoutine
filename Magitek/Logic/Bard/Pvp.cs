@@ -143,66 +143,81 @@ namespace Magitek.Logic.Bard
             if (!BardSettings.Instance.Pvp_HarmonicArrow)
                 return false;
 
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
             var spell = Spells.HarmonicArrowPvp.Masked();
 
             if (!spell.CanCast())
                 return false;
 
-            if (Core.Me.HasAura(Auras.PvpGuard))
-                return false;
-
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
-                return false;
-
-            // Calculate damage based on current charges
-            const double PvpDamageConversionFactor = 0.8;
             var currentCharges = spell.Charges;
-            var estimatedDamage = 0.0;
-
             if (currentCharges < 1)
                 return false;
 
-            // Calculate damage based on charge count
+            // Calculate total potency based on charge count
+            // 2 Charge: 6,000 per strike (12,000 total)
+            // 3 Charge: 5,000 per strike (15,000 total)
+            // 4 Charge: 4,500 per strike (18,000 total)
+            // Base: 9,000 (1 charge)
+            double totalPotency = 0;
             if (currentCharges >= 4)
             {
-                estimatedDamage = 4250 * 4 * PvpDamageConversionFactor;
+                totalPotency = 4500 * 4; // 18,000
             }
             else if (currentCharges >= 3)
             {
-                estimatedDamage = 5000 * 3 * PvpDamageConversionFactor;
+                totalPotency = 5000 * 3; // 15,000
             }
             else if (currentCharges >= 2)
             {
-                estimatedDamage = 6000 * 2 * PvpDamageConversionFactor;
+                totalPotency = 6000 * 2; // 12,000
             }
-            else if (currentCharges >= 1)
+            else
             {
-                estimatedDamage = 8000 * 1 * PvpDamageConversionFactor;
-            }
-
-            // If target is a tank, reduce expected damage
-            if (Core.Me.CurrentTarget.IsTank())
-            {
-                estimatedDamage *= 0.8;
+                totalPotency = 9000; // Base 9,000
             }
 
-            var targetCurrentHp = Core.Me.CurrentTarget.CurrentHealth;
-            var wouldKill = targetCurrentHp <= estimatedDamage;
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                BardSettings.Instance,
+                totalPotency,
+                (float)spell.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: BardSettings.Instance.Pvp_HarmonicArrowAnyTarget);
 
-            if (wouldKill)
+            if (killableTarget != null)
             {
+                return await spell.Cast(killableTarget);
+            }
+
+            // Fallback to HP threshold if WouldKill is disabled or target not killable
+            if (!BardSettings.Instance.Pvp_HarmonicArrowForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
+                    return false;
+
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > BardSettings.Instance.Pvp_HarmonicArrowHealthPercent)
+                    return false;
+
+                // Only use if we have 4 charges (max damage)
+                if (currentCharges < 4)
+                    return false;
+
+                if (!spell.CanCast(Core.Me.CurrentTarget))
+                    return false;
+
                 return await spell.Cast(Core.Me.CurrentTarget);
             }
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > BardSettings.Instance.Pvp_HarmonicArrowHealthPercent)
-                return false;
-
-            if (currentCharges < 4)
-                return false;
-            return await spell.Cast(Core.Me.CurrentTarget);
+            return false;
         }
 
         public static async Task<bool> FinalFantasiaPvp()

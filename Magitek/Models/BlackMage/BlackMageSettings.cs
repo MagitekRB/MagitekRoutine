@@ -147,6 +147,10 @@ namespace Magitek.Models.BlackMage
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_UseElementalWeave { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_SaveXenoglossyForKills { get; set; }
         #endregion
     }
 }

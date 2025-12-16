@@ -372,6 +372,9 @@
   <data name="Generic_Use_Only_Once_Per_Combat" xml:space="preserve">
     <value>每次战斗仅使用一次</value>
   </data>
+  <data name="Generic_Use_For_Kills_Only" xml:space="preserve">
+    <value>仅用于击杀</value>
+  </data>
   <data name="Generic_Delete_Opener" xml:space="preserve">
     <value>删除起手爆发</value>
   </data>
@@ -1017,6 +1020,9 @@
   <data name="BlackMage_Content_Use_Xenoglossy" xml:space="preserve">
     <value>使用 异言</value>
   </data>
+  <data name="BlackMage_Content_Save_Xenoglossy_For_Kills" xml:space="preserve">
+    <value>为击杀保留异言</value>
+  </data>
   <data name="BlackMage_Content_Use_Lethargy" xml:space="preserve">
     <value>使用 昏沉</value>
   </data>
@@ -1253,6 +1259,9 @@
   </data>
   <data name="Dancer_Content_Use_En_Avant" xml:space="preserve">
     <value>使用 前冲步</value>
+  </data>
+  <data name="Dancer_Content_Starfall_Dance" xml:space="preserve">
+    <value>星落舞</value>
   </data>
   <data name="Dancer_Text_Dances_" xml:space="preserve">
     <value>舞步：</value>
@@ -1607,6 +1616,9 @@
   </data>
   <data name="Generic_LB_Any_Enemy_below_the_threshold" xml:space="preserve">
     <value>对任意血量低于阈值的敌人使用极限技(LB)，而不仅限于当前目标</value>
+  </data>
+  <data name="Generic_Any_Enemy_below_the_threshold" xml:space="preserve">
+    <value>对任意血量低于阈值的敌人使用，而不仅限于当前目标</value>
   </data>
   <data name="Machinist_ToolTip_If_enabled_will_save_Full_Metal_" xml:space="preserve">
     <value>如果启用，当 野火 即将冷却完毕时，会保留全金属领域</value>
@@ -2231,6 +2243,15 @@
   </data>
   <data name="Pictomancer_Content_Use_Comet_In_Black" xml:space="preserve">
     <value>使用 彗星之黑</value>
+  </data>
+  <data name="Pictomancer_Content_Comet_in_Black" xml:space="preserve">
+    <value>彗星之黑</value>
+  </data>
+  <data name="Pictomancer_Content_Mog_of_the_Ages" xml:space="preserve">
+    <value>历代莫古力</value>
+  </data>
+  <data name="Pictomancer_Content_Mog_of_the_Ages_Retribution_of_Madeen" xml:space="preserve">
+    <value>历代莫古力 / 马迪恩的报应</value>
   </data>
   <data name="Pictomancer_Content_Use_Rainbow_Drip" xml:space="preserve">
     <value>使用 彩虹点滴</value>

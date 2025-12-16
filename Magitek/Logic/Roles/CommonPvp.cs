@@ -298,7 +298,8 @@ namespace Magitek.Logic.Roles
             }
 
             // Check if we have Kuzushi debuff (about to be hit by Zantetsuken)
-            // Only guard if there's an enemy Samurai within Zantetsuken range targeting us
+            // Zantetsuken ignores Guard, so our only recourse is to heal to full HP
+            // Recuperate if there's an enemy Samurai within Zantetsuken range targeting us
             if (!shouldAutoGuard && settings.Pvp_AutoGuardKuzushi)
             {
                 if (Core.Me.HasAura(Auras.PvpKuzushi))
@@ -321,7 +322,19 @@ namespace Magitek.Logic.Roles
                     });
 
                     if (enemySamurai != null)
-                        shouldAutoGuard = true;
+                    {
+                        // Zantetsuken ignores Guard - our only defense is to heal to full HP
+                        // Recuperate if not at max HP
+                        if (Core.Me.CurrentHealthPercent < 100.0f)
+                        {
+                            if (settings.Pvp_UseRecuperate && Spells.Recuperate.CanCast())
+                            {
+                                return await Spells.Recuperate.Cast(Core.Me);
+                            }
+                        }
+                        // Already at max HP or can't recuperate - nothing we can do
+                        return false;
+                    }
                 }
             }
 
@@ -398,6 +411,142 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return target.HasAura(Auras.MountedPvp);
+        }
+
+        private static readonly Dictionary<uint, double> TargetAuras = new Dictionary<uint, double>
+        {
+            // Auras on target that increase damage they take (vulnerability debuffs)
+            { Auras.PvpGuard, 0.10 }, // Guard - reduces damage taken by 90%
+            { Auras.PvpChainSaw, 1.2 }, // MCH - increases damage taken by 20%
+            { Auras.PvpRampage, 1.25 }, // Tank role action - increases damage taken by 25%
+            { Auras.PvpPhantomDart, 1.25 }, // BLM - increases damage taken by 25%
+            { Auras.PvpLordOfCrowns, 1.10 }, // AST - increases damage taken by 10%
+            { Auras.PvpMonomachy, 1.10 }, // RDM Corps-a-Corps - increases damage target receives from you by 10%
+            
+            // Auras on target that reduce damage they take (mitigation)
+            { Auras.PvpBravery, 0.75 }, // Role action - reduces damage taken by 25%
+            { Auras.PvpLadyOfCrowns, 0.90 }, // AST - reduces damage taken by 10%
+        };
+
+        private static readonly Dictionary<uint, double> SelfAuras = new Dictionary<uint, double>
+        {
+            // Auras on self that increase damage dealt
+            { Auras.PvpBravery, 1.25 }, // Role action - increases damage dealt by 25%
+            { Auras.PvpDisplacement, 1.15 }, // RDM - increases next spell's damage by 15%
+            { Auras.PvpCelestialRiver, 1.30 }, // AST LB - increases damage dealt by 30%
+        };
+
+        /// <summary>
+        /// Checks if an attack with the given potency would kill the target.
+        /// </summary>
+        /// <param name="potency">The potency of the attack</param>
+        /// <param name="target">Target to check (defaults to CurrentTarget)</param>
+        /// <param name="damageMultiplier">Optional additional multiplier from caller</param>
+        /// <param name="ignoreGuard">If true, ignores Guard aura damage reduction (for spells that ignore Guard)</param>
+        /// <returns>True if estimated damage would kill the target</returns>
+        public static bool WouldKillWithPotency(double potency, GameObject target = null, double damageMultiplier = 1.0, bool ignoreGuard = false)
+        {
+            if (target == null)
+                target = Core.Me.CurrentTarget;
+
+            if (target == null || !target.ValidAttackUnit())
+                return false;
+
+            const double PvpDamageConversionFactor = 1.0;
+            double estimatedDamage = potency * PvpDamageConversionFactor;
+
+            estimatedDamage *= damageMultiplier;
+
+            foreach (var aura in TargetAuras)
+            {
+                // Skip Guard aura if ignoreGuard is true
+                if (ignoreGuard && aura.Key == Auras.PvpGuard)
+                    continue;
+
+                if (target.HasAura(aura.Key))
+                {
+                    estimatedDamage *= aura.Value;
+                }
+            }
+
+            foreach (var aura in SelfAuras)
+            {
+                if (Core.Me.HasAura(aura.Key))
+                {
+                    estimatedDamage *= aura.Value;
+                }
+            }
+
+            if (target.IsTank())
+            {
+                estimatedDamage *= 0.8;
+            }
+
+            return target.CurrentHealth <= estimatedDamage;
+        }
+
+        /// <summary>
+        /// Finds a killable target within spell range that would be killed by the given potency.
+        /// </summary>
+        /// <typeparam name="T">The JobSettings type</typeparam>
+        /// <param name="settings">The job settings</param>
+        /// <param name="spell">The spell to cast</param>
+        /// <param name="potency">The potency of the attack</param>
+        /// <param name="range">The range of the spell</param>
+        /// <param name="ignoreGuard">If true, ignores Guard aura damage reduction</param>
+        /// <param name="checkGuard">If false, skips Guard check when filtering targets</param>
+        /// <param name="searchAllTargets">If true, searches all enemies in range, not just current target</param>
+        /// <param name="potencyCalculator">Optional function to calculate potency per target (for scaling potency)</param>
+        /// <returns>The killable target, or null if none found</returns>
+        public static GameObject FindKillableTargetInRange<T>(
+            T settings,
+            double potency,
+            float range,
+            bool ignoreGuard = false,
+            bool checkGuard = true,
+            bool searchAllTargets = false,
+            Func<GameObject, double> potencyCalculator = null) where T : JobSettings
+        {
+            // First check current target if valid
+            if (Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.ValidAttackUnit() && Core.Me.CurrentTarget.InLineOfSight())
+            {
+                if (Core.Me.CurrentTarget.WithinSpellRange(range))
+                {
+                    // Check Guard if required
+                    if (checkGuard && GuardCheck(settings, Core.Me.CurrentTarget))
+                        return null; // Skip guarded target
+
+                    double targetPotency = potencyCalculator != null ? potencyCalculator(Core.Me.CurrentTarget) : potency;
+                    if (WouldKillWithPotency(targetPotency, Core.Me.CurrentTarget, ignoreGuard: ignoreGuard))
+                    {
+                        return Core.Me.CurrentTarget;
+                    }
+                }
+            }
+
+            // Only search all targets if the setting is enabled
+            if (!searchAllTargets)
+                return null;
+
+            // Search for any killable target in range
+            var nearby = Combat.Enemies
+                .Where(e => e.WithinSpellRange(range)
+                        && e.ValidAttackUnit()
+                        && e.InLineOfSight()
+                        && !e.IsWarMachina()
+                        && (!checkGuard || !GuardCheck(settings, e)))
+                .OrderBy(e => e.Distance(Core.Me));
+
+            foreach (var target in nearby)
+            {
+                double targetPotency = potencyCalculator != null ? potencyCalculator(target) : potency;
+                if (WouldKillWithPotency(targetPotency, target, ignoreGuard: ignoreGuard))
+                {
+                    return target;
+                }
+            }
+
+            return null;
         }
 
         public static async Task<bool> Purify<T>(T settings) where T : JobSettings
@@ -533,22 +682,46 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastEagleEyeShot<T>(T settings) where T : JobSettings
         {
-            if (!Core.Me.HasTarget)
+            if (!Spells.PvPRoleAction.CanCast())
                 return false;
 
-            if (!Spells.PvPRoleAction.CanCast(Core.Me.CurrentTarget))
-                return false;
+            // Eagle Eye Shot: 12,000 potency, ignores Guard, 40y range
+            const double potency = 12000;
+            const float range = 40f;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
+            // Find killable target in range (Eagle Eye Shot ignores Guard)
+            var killableTarget = FindKillableTargetInRange(
+                settings,
+                potency,
+                range,
+                ignoreGuard: true,
+                checkGuard: false, // Eagle Eye Shot ignores Guard
+                searchAllTargets: Models.Account.BaseSettings.Instance.Pvp_EagleEyeShotAnyTarget);
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(40))
-                return false;
+            if (killableTarget != null)
+            {
+                return await Spells.PvPRoleAction.Cast(killableTarget);
+            }
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_EagleEyeShotTargetHealthPercent)
-                return false;
+            // Fallback to HP threshold if WouldKill is disabled or target not killable
+            if (!Models.Account.BaseSettings.Instance.Pvp_UseEagleEyeShotForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
 
-            return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(range))
+                    return false;
+
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_EagleEyeShotTargetHealthPercent)
+                    return false;
+
+                return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         private static async Task<bool> CastRampage<T>(T settings) where T : JobSettings
@@ -702,19 +875,60 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastSmite<T>(T settings) where T : JobSettings
         {
-            if (!Core.Me.HasTarget)
+            if (!Spells.RoleSmite.CanCast())
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleSmite.Range))
-                return false;
+            // Smite: 6,000 base potency, scales up to 18,000 at 25% HP or less
+            // Potency calculator function for scaling based on target HP
+            Func<GameObject, double> potencyCalculator = (target) =>
+            {
+                if (target.CurrentHealthPercent <= 25)
+                {
+                    return 18000; // Max potency at 25% HP or less
+                }
+                else
+                {
+                    // Linear scaling from 100% HP (6000) to 25% HP (18000)
+                    double hpPercent = target.CurrentHealthPercent;
+                    double scaleFactor = (100 - hpPercent) / 75.0; // 0 at 100% HP, 1 at 25% HP
+                    return 6000 + (scaleFactor * 12000); // Scale from 6000 to 18000
+                }
+            };
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_SmiteTargetHealthPercent)
-                return false;
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = FindKillableTargetInRange(
+                settings,
+                6000, // Base potency (will be calculated per target)
+                (float)Spells.RoleSmite.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: Models.Account.BaseSettings.Instance.Pvp_SmiteAnyTarget,
+                potencyCalculator: potencyCalculator);
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
+            if (killableTarget != null)
+            {
+                return await Spells.RoleSmite.Cast(killableTarget);
+            }
 
-            return await Spells.RoleSmite.Cast(Core.Me.CurrentTarget);
+            // Fallback to HP threshold if WouldKill is disabled or target not killable
+            if (!Models.Account.BaseSettings.Instance.Pvp_SmiteForKillsOnly)
+            {
+                if (!Core.Me.HasTarget)
+                    return false;
+
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.RoleSmite.Range))
+                    return false;
+
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_SmiteTargetHealthPercent)
+                    return false;
+
+                return await Spells.RoleSmite.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         private static async Task<bool> CastComet<T>(T settings) where T : JobSettings
