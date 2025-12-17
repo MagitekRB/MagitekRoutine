@@ -385,7 +385,7 @@ namespace Magitek.Models.Account
         public bool ActivePvpCombatRoutine { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool EnableBaseToggle { get; set; }
 
         [Setting]
