@@ -591,7 +591,12 @@ namespace Magitek.Utilities
             PvpMonomachy = 3242, // RDM Corps-a-Corps - increases damage target receives from you by 10%
             PvpDisplacement = 3243, // RDM - increases next spell's damage by 15%
             PvpRust = 4480, // BLM - reduces target damage dealt and healing by 25% (not used in damage calc, but listed for completeness)
-            PvpCelestialRiver = 3105; // AST LB - increases damage dealt by 30%
+            PvpCelestialRiver = 3105, // AST LB - increases damage dealt by 30%
+            PvpBattleHigh1 = 2131, // Battle High I - increases damage dealt and healing potency by 10%
+            PvpBattleHigh2 = 2132, // Battle High II - increases damage dealt and healing potency by 20%
+            PvpBattleHigh3 = 2133, // Battle High III - increases damage dealt and healing potency by 30%
+            PvpBattleHigh4 = 2134, // Battle High IV - increases damage dealt and healing potency by 40%
+            PvpBattleHigh5 = 2135; // Battle High V - increases damage dealt and healing potency by 50%
 
 
         #endregion
