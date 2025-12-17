@@ -434,6 +434,11 @@ namespace Magitek.Logic.Roles
             { Auras.PvpBravery, 1.25 }, // Role action - increases damage dealt by 25%
             { Auras.PvpDisplacement, 1.15 }, // RDM - increases next spell's damage by 15%
             { Auras.PvpCelestialRiver, 1.30 }, // AST LB - increases damage dealt by 30%
+            { Auras.PvpBattleHigh1, 1.10 }, // Battle High I - increases damage dealt and healing potency by 10%
+            { Auras.PvpBattleHigh2, 1.20 }, // Battle High II - increases damage dealt and healing potency by 20%
+            { Auras.PvpBattleHigh3, 1.30 }, // Battle High III - increases damage dealt and healing potency by 30%
+            { Auras.PvpBattleHigh4, 1.40 }, // Battle High IV - increases damage dealt and healing potency by 40%
+            { Auras.PvpBattleHigh5, 1.50 }, // Battle High V - increases damage dealt and healing potency by 50%
         };
 
         /// <summary>
