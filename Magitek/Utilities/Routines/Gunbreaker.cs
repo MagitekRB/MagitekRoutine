@@ -11,6 +11,9 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Gunbreaker, Spells.KeenEdge);
 
+        // Track Gnashing Fang usage in current burst window (reset on No Mercy, increment on each GF cast)
+        public static int GnashingFangUsesThisBurst = 0;
+
         public static readonly SpellData[] DefensiveSpells = new SpellData[]
         {
             Spells.Rampart,

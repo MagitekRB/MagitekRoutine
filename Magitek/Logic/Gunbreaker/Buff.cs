@@ -117,7 +117,13 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.MaxCartridge && GunbreakerSettings.Instance.UseNoMercyMaxCartridge)
                 return false;
 
-            return await Spells.NoMercy.CastAura(Core.Me, Auras.NoMercy);
+            return await Spells.NoMercy.CastAura(Core.Me, Auras.NoMercy, callback: async () =>
+            {
+                // Reset Gnashing Fang burst counter when No Mercy successfully casts
+                GunbreakerRoutine.GnashingFangUsesThisBurst = 0;
+                Logger.WriteInfo($@"[NoMercy] Cast successful - Reset GnashingFangUsesThisBurst to 0");
+                await Task.CompletedTask;
+            });
         }
 
         public static async Task<bool> Bloodfest() // Adds 3 cartridges and increases max to 6

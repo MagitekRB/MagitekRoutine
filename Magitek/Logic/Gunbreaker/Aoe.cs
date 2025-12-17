@@ -138,7 +138,10 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies && Cartridge >= GunbreakerRoutine.MaxCartridge)
+            if (Spells.GnashingFang.IsKnownAndReady(1000) 
+            && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies 
+            && Cartridge >= GunbreakerRoutine.MaxCartridge
+            && GunbreakerRoutine.GnashingFangUsesThisBurst < 1)
                 return false;
 
             return await Spells.DoubleDown.Cast(Core.Me);
