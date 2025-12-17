@@ -31,6 +31,10 @@ namespace Magitek.Models.Gunbreaker
         public bool HoldAmmoCombo { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool SaveGnashingFangForNoMercy { get; set; }
+
+        [Setting]
         [DefaultValue(19)]
         public int HoldAmmoComboSeconds { get; set; }
 

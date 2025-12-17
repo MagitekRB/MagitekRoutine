@@ -1475,6 +1475,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Gunbreaker_Content_Use_Gnashing_Fang" xml:space="preserve">
     <value>Use Gnashing Fang</value>
   </data>
+  <data name="Gunbreaker_Content_Save_Gnashing_Fang_For_No_Mercy" xml:space="preserve">
+    <value>Save Gnashing Fang for No Mercy</value>
+  </data>
   <data name="Gunbreaker_Content_Hold_when_no_mercy_is_ready_in" xml:space="preserve">
     <value>Hold when no mercy is ready in</value>
   </data>

@@ -1470,6 +1470,9 @@
   <data name="Gunbreaker_Content_Use_Gnashing_Fang" xml:space="preserve">
     <value>使用 烈牙</value>
   </data>
+  <data name="Gunbreaker_Content_Save_Gnashing_Fang_For_No_Mercy" xml:space="preserve">
+    <value>为无情保留烈牙</value>
+  </data>
   <data name="Gunbreaker_Content_Hold_when_no_mercy_is_ready_in" xml:space="preserve">
     <value>当 无情 就绪时保留</value>
   </data>
