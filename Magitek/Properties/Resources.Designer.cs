@@ -8589,6 +8589,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Save Gnashing Fang for No Mercy.
+        /// </summary>
+        public static string Gunbreaker_Content_Save_Gnashing_Fang_For_No_Mercy
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Save_Gnashing_Fang_For_No_Mercy", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Lightning Shot if not in melee to deal damage.
         /// </summary>
         public static string Gunbreaker_Content_Use_Lightning_Shot_if_not_in_me

@@ -121,7 +121,6 @@ namespace Magitek.Logic.Gunbreaker
             {
                 // Reset Gnashing Fang burst counter when No Mercy successfully casts
                 GunbreakerRoutine.GnashingFangUsesThisBurst = 0;
-                Logger.WriteInfo($@"[NoMercy] Cast successful - Reset GnashingFangUsesThisBurst to 0");
                 await Task.CompletedTask;
             });
         }
