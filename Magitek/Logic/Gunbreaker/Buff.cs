@@ -107,10 +107,10 @@ namespace Magitek.Logic.Gunbreaker
             }
 
             // solid barrel into No Mercy
-            if (Cartridge < GunbreakerRoutine.MaxCartridge
-            && ActionManager.LastSpell.Id == Spells.BrutalShell.Id
-            && ActionManager.LastSpell.Id != Spells.BurstStrike.Id)
-                return false;
+            // if (Cartridge < GunbreakerRoutine.MaxCartridge
+            // && ActionManager.LastSpell.Id == Spells.BrutalShell.Id
+            // && ActionManager.LastSpell.Id != Spells.BurstStrike.Id)
+            //     return false;
 
             if (Cartridge == 0)
                 return false;
