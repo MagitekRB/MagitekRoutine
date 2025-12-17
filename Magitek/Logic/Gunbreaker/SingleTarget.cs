@@ -132,6 +132,62 @@ namespace Magitek.Logic.Gunbreaker
             if (Spells.DoubleDown.IsKnownAndReady(2000) && Cartridge == GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
+            // Handle 2-charge Gnashing Fang logic for optimal No Mercy window usage (7.4+)
+            if (Core.Me.HasAura(Auras.NoMercy))
+            {
+                int gnashingFangUses = GunbreakerRoutine.GnashingFangUsesThisBurst;
+                Logger.WriteInfo($@"[GnashingFang] In NoMercy window - GnashingFangUsesThisBurst: {gnashingFangUses}, Charges: {Spells.GnashingFang.Charges:F2}");
+
+                // First use (early in burst window)
+                if (gnashingFangUses == 0)
+                {
+                    Logger.WriteInfo($@"[GnashingFang] Attempting first use (early in burst)");
+                    return await Spells.GnashingFang.Cast(Core.Me.CurrentTarget, callback: async () =>
+                    {
+                        GunbreakerRoutine.GnashingFangUsesThisBurst++;
+                        Logger.WriteInfo($@"[GnashingFang] First use successful - counter now: {GunbreakerRoutine.GnashingFangUsesThisBurst}");
+                        await Task.CompletedTask;
+                    });
+                }
+
+                // Second use (after Lion Heart combo completes)
+                if (gnashingFangUses == 1)
+                {
+                    // Check if Bloodfest has been used (60s cooldown as of 7.4)
+                    bool bloodfestUsed = Spells.Bloodfest.Cooldown.TotalMilliseconds > 0;
+
+                    // Check if Lion Heart combo is complete
+                    bool lionHeartComboComplete = !Core.Me.HasAura(Auras.ReadyToReign) &&
+                                                  !Spells.ReignOfBeasts.CanCast() &&
+                                                  !Spells.LionHeart.CanCast() &&
+                                                  !Spells.NobleBlood.CanCast();
+
+                    Logger.WriteInfo($@"[GnashingFang] Second use check - BloodfestUsed: {bloodfestUsed}, LionHeartComboComplete: {lionHeartComboComplete}");
+
+                    // Only use second charge after Bloodfest and Lion Heart combo
+                    if (bloodfestUsed && lionHeartComboComplete)
+                    {
+                        Logger.WriteInfo($@"[GnashingFang] Attempting second use (after Lion Heart combo)");
+                        return await Spells.GnashingFang.Cast(Core.Me.CurrentTarget, callback: async () =>
+                        {
+                            GunbreakerRoutine.GnashingFangUsesThisBurst++;
+                            Logger.WriteInfo($@"[GnashingFang] Second use successful - counter now: {GunbreakerRoutine.GnashingFangUsesThisBurst}");
+                            await Task.CompletedTask;
+                        });
+                    }
+
+                    // Not ready for second charge yet - hold
+                    Logger.WriteInfo($@"[GnashingFang] SKIP: Second use not ready yet (holding for conditions)");
+                    return false;
+                }
+
+                // Already used both charges this burst - don't use more
+                Logger.WriteInfo($@"[GnashingFang] SKIP: Already used {gnashingFangUses} charges this burst");
+                return false;
+            }
+
+            // Outside No Mercy window - use normally (don't track, counter resets on next No Mercy)
+            Logger.WriteInfo($@"[GnashingFang] Outside NoMercy window - using normally");
             return await Spells.GnashingFang.Cast(Core.Me.CurrentTarget);
         }
 
@@ -226,7 +282,7 @@ namespace Magitek.Logic.Gunbreaker
                 && Cartridge >= 1
                 && Spells.NoMercy.Cooldown.TotalMilliseconds >= 35000
                 && !Spells.GnashingFang.IsKnownAndReady(6500)
-                && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 47400)
+                && Spells.Bloodfest.Cooldown.TotalMilliseconds >= 30000)
                     return await Spells.BurstStrike.Cast(Core.Me.CurrentTarget);
             }
 
@@ -257,25 +313,49 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> ReignOfBeasts()
         {
-
             if (Core.Me.ClassLevel < 100)
+            {
+                Logger.WriteInfo($@"[ReignOfBeasts] SKIP: Level {Core.Me.ClassLevel} < 100");
                 return false;
+            }
 
             if (!GunbreakerSettings.Instance.UseLionHeartCombo)
+            {
+                Logger.WriteInfo($@"[ReignOfBeasts] SKIP: UseLionHeartCombo disabled");
                 return false;
+            }
 
             if (!Core.Me.HasAura(Auras.ReadyToReign))
+            {
+                Logger.WriteInfo($@"[ReignOfBeasts] SKIP: No ReadyToReign aura");
                 return false;
+            }
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
+            int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
+            bool gnashingFangReady = Spells.GnashingFang.IsKnownAndReady(1000);
+            int gnashingFangUses = GunbreakerRoutine.GnashingFangUsesThisBurst;
+
+            if (gnashingFangReady
+            && enemyCount < GunbreakerSettings.Instance.UseAoeEnemies
+            && gnashingFangUses < 1)
+            {
+                Logger.WriteInfo($@"[ReignOfBeasts] SKIP: GnashingFang ready (charges: {Spells.GnashingFang.Charges:F2}), enemyCount: {enemyCount}, GnashingFangUsesThisBurst: {gnashingFangUses} < 1");
                 return false;
+            }
 
             if (Spells.DoubleDown.IsKnownAndReady(1000))
+            {
+                Logger.WriteInfo($@"[ReignOfBeasts] SKIP: DoubleDown ready");
                 return false;
+            }
 
             if (GunbreakerRoutine.IsAurasForComboActive())
+            {
+                Logger.WriteInfo($@"[ReignOfBeasts] SKIP: Combo continuation auras active");
                 return false;
+            }
 
+            Logger.WriteInfo($@"[ReignOfBeasts] CASTING - GnashingFangUsesThisBurst: {gnashingFangUses}, EnemyCount: {enemyCount}");
             return await Spells.ReignOfBeasts.Cast(Core.Me.CurrentTarget);
         }
 
@@ -319,7 +399,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.NoMercy) && Spells.GnashingFang.IsKnownAndReady())
+            if (Core.Me.HasAura(Auras.NoMercy) && Spells.GnashingFang.IsKnownAndReady() && GunbreakerRoutine.GnashingFangUsesThisBurst < 1)
                 return false;
 
             return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
@@ -337,7 +417,10 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady() || Spells.Bloodfest.IsKnownAndReady() || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 58800)
+            // Delay Sonic Break until after Gnashing Fang and Bloodfest are used (7.4: 60s Bloodfest)
+            if ((Spells.GnashingFang.IsKnownAndReady() && GunbreakerRoutine.GnashingFangUsesThisBurst < 1)
+                || Spells.Bloodfest.IsKnownAndReady()
+                || Spells.Bloodfest.Cooldown.TotalMilliseconds >= 58800)
                 return false;
 
             return await Spells.SonicBreak.Cast(Core.Me.CurrentTarget);
