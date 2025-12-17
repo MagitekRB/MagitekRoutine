@@ -6907,6 +6907,125 @@ namespace Magitek.Utilities
                 }
             },
             #endregion
+
+            #region Dawntrail: Heavyweight Raids
+            new Encounter {
+                ZoneId = 1320,
+                Name = "Ring Noir",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14300,
+                        Name = "Vamp Fatale",
+                        TankBusters = new List<uint> {
+                            45914, // Hardcore
+                        },
+                        Aoes = new List<uint> {
+                            45921, // Killer Voice
+                            45875, // Sadistic Screech
+                            45886, // Crowd Kill
+                            45888, // Finale Fatale
+                            45895, // Aetherletting
+                            45917, // Brutal Rain
+                            45892, // Insatiable Thirst
+                            45889, // Finale Fatale
+                            45924, // Penetrating Pitch
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+            new Encounter {
+                ZoneId = 1322,
+                Name = "The X-Ring",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14370,
+                        Name = "Red Hot",
+                        TankBusters = new List<uint> {
+                            46464, // Hot Impact
+                        },
+                        Aoes = new List<uint> {
+                            46470, // Alley-oop Inferno
+                            46466, // Divers' Dare
+                            46472, // Pyrotation
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14369,
+                        Name = "Deep Blue",
+                        TankBusters = new List<uint> {
+                            46465, // Deep Impact
+                        },
+                        Aoes = new List<uint> {
+                            46467, // Divers' Dare
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+            new Encounter {
+                ZoneId = 1324,
+                Name = "The Crown",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14305,
+                        Name = "The Tyrant",
+                        TankBusters = new List<uint> {
+                            46016, // Raw Steel
+                            46016, // Raw Steel
+                        },
+                        Aoes = new List<uint> {
+                            46016, // Raw Steel
+                            46006, // Crown of Arcadia
+                            46033, // Dance of Domination
+                            46016, // Raw Steel
+                            46043, // One and Only
+                            46079, // Heartbreak Kick
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+            new Encounter {
+                ZoneId = 1326,
+                Name = "Arcadia",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14378,
+                        Name = "Lindwurm",
+                        TankBusters = new List<uint> {
+                            46226, // Visceral Burst
+                        },
+                        Aoes = new List<uint> {
+                            46228, // The Fixer
+                            47552, // Splattershed
+                            48096, // Splattershed
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+            #endregion
         };
     }
 
