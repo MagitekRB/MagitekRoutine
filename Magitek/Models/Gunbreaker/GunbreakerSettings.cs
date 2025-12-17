@@ -78,6 +78,10 @@ namespace Magitek.Models.Gunbreaker
         public bool UseBurstStrike { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool ForceBurstStrike { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseBlastingZone { get; set; }
 

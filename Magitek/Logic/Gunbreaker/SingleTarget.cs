@@ -3,6 +3,7 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Gunbreaker;
+using Magitek.Toggles;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
@@ -240,6 +241,25 @@ namespace Magitek.Logic.Gunbreaker
          *                              Third combo GCD  
          *******************************************************************************/
 
+        public static async Task<bool> ForceBurstStrike()
+        {
+            if (!GunbreakerSettings.Instance.ForceBurstStrike)
+                return false;
+
+            if (Cartridge < GunbreakerRoutine.RequiredCartridgeForBurstStrike)
+                return false;
+
+            if (!Spells.BurstStrike.IsKnownAndReady())
+                return false;
+
+            if (!await Spells.BurstStrike.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            GunbreakerSettings.Instance.ForceBurstStrike = false;
+            TogglesManager.ResetToggles();
+            return true;
+        }
+
         public static async Task<bool> BurstStrike()
         {
             if (!GunbreakerSettings.Instance.UseBurstStrike)
@@ -374,7 +394,14 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.NoMercy) && Spells.GnashingFang.IsKnownAndReady() && GunbreakerRoutine.GnashingFangUsesThisBurst < 1)
+            // In AoE situations, Gnashing Fang doesn't get used, so bypass the GF check
+            int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
+            bool isAoeSituation = enemyCount >= GunbreakerSettings.Instance.UseAoeEnemies;
+
+            if (Core.Me.HasAura(Auras.NoMercy)
+            && Spells.GnashingFang.IsKnownAndReady()
+            && GunbreakerRoutine.GnashingFangUsesThisBurst < 1
+            && !isAoeSituation)
                 return false;
 
             return await GunbreakerRoutine.BlastingZone.Cast(Core.Me.CurrentTarget);
