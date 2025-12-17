@@ -39,7 +39,22 @@ namespace Magitek.Toggles
                 var settingsCustomToggles = GetCustomTogglesForJob;
                 Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Found {(settingsMagitekToggles == null ? 0 : settingsMagitekToggles.Count)} Magitek Toggles and {(settingsCustomToggles == null ? 0 : settingsCustomToggles.Count)} Custom Toggles...");
 
-                var settingsAllToggles = settingsMagitekToggles.Concat(settingsCustomToggles).ToList();
+                // Merge toggles: user toggles overwrite defaults by ToggleText
+                var settingsAllToggles = new List<SettingsToggle>(settingsMagitekToggles);
+                foreach (var customToggle in settingsCustomToggles)
+                {
+                    var existingIndex = settingsAllToggles.FindIndex(t => t.ToggleText == customToggle.ToggleText);
+                    if (existingIndex >= 0)
+                    {
+                        // User toggle overwrites default toggle
+                        settingsAllToggles[existingIndex] = customToggle;
+                    }
+                    else
+                    {
+                        // New user toggle, append it
+                        settingsAllToggles.Add(customToggle);
+                    }
+                }
 
                 Logger.WriteInfo($@"[Toggles] {Core.Me.CurrentJob} - Loaded {(settingsAllToggles == null ? 0 : settingsAllToggles.Count)} Toggles...");
 

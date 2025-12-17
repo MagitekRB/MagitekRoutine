@@ -1,0 +1,122 @@
+[
+    {
+        "ToggleText": "Tank Stance",
+        "ToggleJob": "Paladin",
+        "ToggleShowOnOverlay": true,
+        "IsPvpToggle": false,
+        "ToggleChecked": true,
+        "Settings": [
+            {
+                "Name": "UseIronWill",
+                "Type": 1,
+                "BoolCheckedValue": true,
+                "BoolUncheckedValue": false,
+                "IntCheckedValue": 0,
+                "IntUncheckedValue": 0,
+                "FloatCheckedValue": 0.0,
+                "FloatUncheckedValue": 0.0
+            }
+        ],
+        "ExecuteToggleCommand": {},
+        "AddToggleSettingCommand": {},
+        "RemoveToggleSettingCommand": {},
+        "ToggleKey": 0,
+        "ToggleModifierKey": 0
+    },
+    {
+        "ToggleText": "Stun/Interrupt",
+        "ToggleJob": "Paladin",
+        "ToggleShowOnOverlay": true,
+        "IsPvpToggle": false,
+        "ToggleChecked": false,
+        "Settings": [
+            {
+                "Name": "UseStunOrInterrupt",
+                "Type": 1,
+                "BoolCheckedValue": true,
+                "BoolUncheckedValue": false,
+                "IntCheckedValue": 0,
+                "IntUncheckedValue": 0,
+                "FloatCheckedValue": 0.0,
+                "FloatUncheckedValue": 0.0
+            }
+        ],
+        "ExecuteToggleCommand": {},
+        "AddToggleSettingCommand": {},
+        "RemoveToggleSettingCommand": {},
+        "ToggleKey": 0,
+        "ToggleModifierKey": 0
+    },
+    {
+        "ToggleText": "Dash",
+        "ToggleJob": "Paladin",
+        "ToggleShowOnOverlay": true,
+        "IsPvpToggle": false,
+        "ToggleChecked": false,
+        "Settings": [
+            {
+                "Name": "UseIntervene",
+                "Type": 1,
+                "BoolCheckedValue": true,
+                "BoolUncheckedValue": false,
+                "IntCheckedValue": 0,
+                "IntUncheckedValue": 0,
+                "FloatCheckedValue": 0.0,
+                "FloatUncheckedValue": 0.0
+            }
+        ],
+        "ExecuteToggleCommand": {},
+        "AddToggleSettingCommand": {},
+        "RemoveToggleSettingCommand": {},
+        "ToggleKey": 0,
+        "ToggleModifierKey": 0
+    },
+    {
+        "ToggleText": "Pull",
+        "ToggleJob": "Paladin",
+        "ToggleShowOnOverlay": true,
+        "IsPvpToggle": false,
+        "ToggleChecked": true,
+        "Settings": [
+            {
+                "Name": "UseShieldLobToPull",
+                "Type": 1,
+                "BoolCheckedValue": true,
+                "BoolUncheckedValue": false,
+                "IntCheckedValue": 0,
+                "IntUncheckedValue": 0,
+                "FloatCheckedValue": 0.0,
+                "FloatUncheckedValue": 0.0
+            }
+        ],
+        "ExecuteToggleCommand": {},
+        "AddToggleSettingCommand": {},
+        "RemoveToggleSettingCommand": {},
+        "ToggleKey": 0,
+        "ToggleModifierKey": 0
+    },
+    {
+        "ToggleText": "Pull Lost Aggro",
+        "ToggleJob": "Paladin",
+        "ToggleShowOnOverlay": true,
+        "IsPvpToggle": false,
+        "ToggleChecked": true,
+        "Settings": [
+            {
+                "Name": "UseShieldLobOnLostAggro",
+                "Type": 1,
+                "BoolCheckedValue": true,
+                "BoolUncheckedValue": false,
+                "IntCheckedValue": 0,
+                "IntUncheckedValue": 0,
+                "FloatCheckedValue": 0.0,
+                "FloatUncheckedValue": 0.0
+            }
+        ],
+        "ExecuteToggleCommand": {},
+        "AddToggleSettingCommand": {},
+        "RemoveToggleSettingCommand": {},
+        "ToggleKey": 0,
+        "ToggleModifierKey": 0
+    }
+]
