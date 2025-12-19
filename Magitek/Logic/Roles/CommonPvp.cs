@@ -413,32 +413,196 @@ namespace Magitek.Logic.Roles
             return target.HasAura(Auras.MountedPvp);
         }
 
+        // PvP Damage Modifiers
+        // 
+        // TANKS:
+        // PLD - 4283 Shield Smite: increases damage taken by 10%
+        // PLD - 1991 Sword Oath: increases damage dealt by 15%
+        // PLD - 3188 Shield Oath: reduces damage taken by 15%
+        // PLD - 3210 Phalanx: reduces damage taken by 33%
+        // PLD - 3026 Holy Sheltron: absorbs potency of 8000
+        // WAR - 3029 Onslaught: increases damage taken by 10%
+        // War - 3256 Orogeny: Damage dealth is reduced by 10%
+        // War - 3031 Stem The Tide: aborbs potency of <20% of 66000 (20% of 66000 = 13200)>
+        // DRK - 3037 Salted Earth reducer: reduces damage taken by 20%
+        // DRK - 1308 Blackest Night: absorbs potency of 8000
+        // GNB - 3052 Relentless Rush: reduces damage taken by 25%
+        // GNB - 3053 Relentless Shrapnel: increases damage taken by 5% 
+        // GNB - 4295 Heart of Corundum: reduces damage taken by 10%
+        // GNB - 3042 NoMercy : increases damage dealt by 10%
+        // GNB - 3051 Nebula : aborbs potency of 4000
+        // TANK ROLE - 1978 Rampart: reduces damage taken by 50%
+        // TANK ROLE - 4476 Rampage: increases target's damage taken by 25%
+        //
+        // HEALERS:
+        // WHM - 1415 Seraph Strike Protect: reduces damage taken by 10%
+        // WHM - 3086 Aquaveil: absorbs potency of 8000
+        // SCH - 3087 Galvanize: absorbs potency of 4000
+        // SCH - 3088 Catalyze: reduces damage taken by 10%
+        // SCH - 1406 Chain Strategem: increases damage taken by 10%
+        // SCH - 3093 Desperate Measures: Increases damage dealt by 10%
+        // SCH - 3097 Seraphic Veil: absorbs potency of 6000
+        // SCH - 3098 Consolation: absorbs potency of 8000
+        // AST - 1451 Lord of Crowns: increases damage taken by 10%
+        // AST - 1452 Lady of Crowns: reduces damage taken by 10%
+        // AST - 4330 Epicycle: absorbs potency of 6000
+        // AST - 3105 Celestial River (LB): increases damage dealt by 30% (decreases by 10% every 5s, 15 s total duration), 
+        // AST - 3106 Celestial Tide: reduces damage dealt by 30% (decreases by 10% every 5s, 15 s total duration)
+        // AST - 3100 Nocturnal Benefic: absorbs potency of 4000
+        // SGE - 3110 Haima: absorbs potency of 4000
+        // SGE - 3113 Toxicon: increases damage taken by 10%
+        // SGE - 3119 Mesotes (on target): If target has this buff, then we can't do damage unless we have Lype on ourselves
+        // SGE - 3120 Lype (on self): If we have this buff, then we can do damage to the target even if they have Mesotes
+        // HEALER ROLE - 4481 Stoneskin: absorbs potency of 12000
+        //
+        // MELEE DPS:
+        // MNK - 3172 Pressure Point (on target): adds 12,000 more potency to the next attack against the char afflicted with pressure point
+        // MNK - 3173 Thunderclap: absorbs potency of 8000
+        // MNK - 3170 Fire Resonance: increases damage dealt by next weaponskill by 50%
+        // DRG - 3177 Life of the Dragon (on self): increases damage dealt by 25%
+        // DRG - 3177 Life of the Dragon (on target): increases damage dealt by 15%
+        // DRG - 3179 Horrid Roar (on self if target is a dragoon): reduces damage dealt by 50% 
+        // NIN - 2011 Shade Shift: absorbs potency of 8000
+        // NIN - 3186 Huton: absorbs potency of 16000
+        // SAM - 1240 Chiten: reduces damage taken by 33%
+        // SAM - Auras.PvpKuzushi: (if we are sam against target with kuzushi) increases damage dealt to target by 25%
+        // SAM - 3200 Kaeshi: Namikiri: absorbs potency of 10000
+        // SAM - 4306 Debana: (if we are sam against target with debana) increases damage dealt to target by 15%
+        // RPR - 2861 Crest of time borrowed: absorbs potency of 12000
+        // VPR - 4099 Noxious Gnash (if we are vpr against target with noxious gnash) increases damage dealt to target by 25%
+        // VPR - 4096 Hardened Scales: reduces damage taken by 50%
+        // VPR - 4097 Armored Scales: Absorbs potency of 4000
+        // MELEE ROLE - 1982 Bloodbath: increases damage dealt by 10%
+        //
+        // RANGED PHYSICAL DPS:
+        // BRD - 2178 Warden's Grace: reduces damage taken by 25%
+        // MCH - 3154 Chain Saw: increases damage taken by 20%
+        // MCH - 3156 Aether Mortar: absorbs potency of 7500
+        // DNC - 2052 Fan Dance: reduces damage taken by 20%
+        // RANGED PHYS ROLE - Bravery: increases damage dealt by 25%, reduces damage taken by 25%
+        //
+        // RANGED MAGICAL DPS:
+        // BLM - 4316 Wreath of Ice reduces damage taken by 20%
+        // BLM - 3221 Burst: Absorbs potency of 15000
+        // SMN - 3231 Scarlet Flame: reduces damage dealt by 50%
+        // SMN - 3224 Radiant Aegis: absorbs potency by 12000 and reduces damage taken by 25%
+        // RDM - 3242 Monomachy: increases damage dealt to target by 10%
+        // RDM - 4320 Forte: Reduces damage taken by 50% and absorbs potency of 4000
+        // RDM - 3234 Enchanted Riposte: absorbs potency of 4000
+        // RDM - 3235 Enchanted Zwerchhau: absorbs potency of 4000
+        // RDM - 3236 Enchanted Redoublement: absorbs potency of 4000
+        // RDM - 2285 Embolden (self): increases damage dealt by 8%
+        // RDM - 2285 Embolden (target): reduces damage taken by 8%
+        // RDM - 3243 Displacement: Increases next spell's damage by 15%
+        // PCT - 4111 Clawed Muse: increases damage taken by 10%
+        // PCT - 4114 Tempera Coat: absorbs potency of 12000
+        // PCT - 4115 Tempera Grassa: absorbs potency of 8000
+        // PCT - 4109 Pom Muse:increases damage dealt by 20%
+        // PCT - 4119 Star Prism: increases damage dealt by 15%
+        // PCT - 4117 Chocobastion: reduces damage taken by 25%
+        // RANGED ROLE - 4480 Rust: reduces damage dealt by 33%
+
+        // COMMON:
+        // Guard: reduces damage taken by 90%
+        // Battle High I-V: increases damage dealt and healing potency by 10/20/30/40/50%
+        // 
+
         private static readonly Dictionary<uint, double> TargetAuras = new Dictionary<uint, double>
         {
             // Auras on target that increase damage they take (vulnerability debuffs)
             { Auras.PvpGuard, 0.10 }, // Guard - reduces damage taken by 90%
-            { Auras.PvpChainSaw, 1.2 }, // MCH - increases damage taken by 20%
+            { Auras.PvpShieldSmite, 1.10 }, // PLD - increases damage taken by 10%
+            { Auras.PvpOnslaught, 1.10 }, // WAR - increases damage taken by 10%
+            { Auras.PvpRelentlessShrapnel, 1.05 }, // GNB - increases damage taken by 5%
             { Auras.PvpRampage, 1.25 }, // Tank role action - increases damage taken by 25%
-            { Auras.PvpPhantomDart, 1.25 }, // BLM - increases damage taken by 25%
+            { Auras.PvpChainStrategem, 1.10 }, // SCH - increases damage taken by 10%
             { Auras.PvpLordOfCrowns, 1.10 }, // AST - increases damage taken by 10%
+            { Auras.PvpToxicon, 1.10 }, // SGE - increases damage taken by 10%
+            { Auras.PvpChainSaw, 1.20 }, // MCH - increases damage taken by 20%
+            { Auras.PvpPhantomDart, 1.25 }, // BLM - increases damage taken by 25%
             { Auras.PvpMonomachy, 1.10 }, // RDM Corps-a-Corps - increases damage target receives from you by 10%
+            { Auras.PvpClawedMuse, 1.10 }, // PCT - increases damage taken by 10%
             
             // Auras on target that reduce damage they take (mitigation)
             { Auras.PvpBravery, 0.75 }, // Role action - reduces damage taken by 25%
+            { Auras.PvpShieldOath, 0.85 }, // PLD - reduces damage taken by 15%
+            { Auras.PvpPhalanx, 0.67 }, // PLD - reduces damage taken by 33%
+            { Auras.PvpRampart, 0.50 }, // Tank role - reduces damage taken by 50%
+            { Auras.PvpSeraphStrike, 0.90 }, // WHM - reduces damage taken by 10%
+            { Auras.PvpCatalyze, 0.90 }, // SCH - reduces damage taken by 10%
             { Auras.PvpLadyOfCrowns, 0.90 }, // AST - reduces damage taken by 10%
+            { Auras.PvpHeartOfCorundum, 0.90 }, // GNB - reduces damage taken by 10%
+            { Auras.PvpChiten, 0.67 }, // SAM - reduces damage taken by 33%
+            { Auras.PvpWardensGrace, 0.75 }, // BRD - reduces damage taken by 25%
+            { Auras.PvpFanDance, 0.80 }, // DNC - reduces damage taken by 20%
+            { Auras.PvpWreathOfIce, 0.80 }, // BLM - reduces damage taken by 20%
+            { Auras.PvpRadiantAegis, 0.75 }, // SMN - reduces damage taken by 25%
+            { Auras.PvpForte, 0.50 }, // RDM - reduces damage taken by 50%
+            { Auras.PvpChocobastion, 0.75 }, // PCT - reduces damage taken by 25%
+            { Auras.PvpEmbolden, 0.92 }, // RDM - reduces damage taken by 8% (when on target)
+            { Auras.PvpRelentlessRush, 0.75 }, // GNB - reduces damage taken by 25%
+            { Auras.PvpSaltedEarth, 0.80 }, // DRK - reduces damage taken by 20%
+            { Auras.PvpLifeoftheDragon, 1.15 }, // DRG - increases damage dealt by 15% (when on target)
         };
 
         private static readonly Dictionary<uint, double> SelfAuras = new Dictionary<uint, double>
         {
             // Auras on self that increase damage dealt
             { Auras.PvpBravery, 1.25 }, // Role action - increases damage dealt by 25%
+            { Auras.PvpSwordOath, 1.15 }, // PLD - increases damage dealt by 15%
+            { Auras.PvpNoMercy, 1.10 }, // GNB - increases damage dealt by 10%
+            { Auras.PvpDesperateMeasures, 1.10 }, // SCH - increases damage dealt by 10%
+            { Auras.PvpFireResonance, 1.50 }, // MNK - increases damage dealt by next weaponskill by 50%
+            { Auras.PvpLifeoftheDragon, 1.25 }, // DRG - increases damage dealt by 25% (on self)
+            { Auras.PvpBloodbath, 1.10 }, // Melee role - increases damage dealt by 10%
             { Auras.PvpDisplacement, 1.15 }, // RDM - increases next spell's damage by 15%
+            { Auras.PvpEmbolden, 1.08 }, // RDM - increases damage dealt by 8% (on self)
+            { Auras.PvpPomMuse, 1.20 }, // PCT - increases damage dealt by 20%
+            { Auras.PvpStarPrism, 1.15 }, // PCT - increases damage dealt by 15%
             { Auras.PvpCelestialRiver, 1.30 }, // AST LB - increases damage dealt by 30%
             { Auras.PvpBattleHigh1, 1.10 }, // Battle High I - increases damage dealt and healing potency by 10%
             { Auras.PvpBattleHigh2, 1.20 }, // Battle High II - increases damage dealt and healing potency by 20%
             { Auras.PvpBattleHigh3, 1.30 }, // Battle High III - increases damage dealt and healing potency by 30%
             { Auras.PvpBattleHigh4, 1.40 }, // Battle High IV - increases damage dealt and healing potency by 40%
             { Auras.PvpBattleHigh5, 1.50 }, // Battle High V - increases damage dealt and healing potency by 50%
+            
+            // Auras on self that reduce damage dealt
+            { Auras.PvpOrogeny, 0.90 }, // WAR - reduces damage dealt by 10%
+            { Auras.PvpScarletFlame, 0.50 }, // SMN - reduces damage dealt by 50%
+            { Auras.PvpRust, 0.67 }, // Ranged role - reduces damage dealt by 33%
+            { Auras.PvpHorridRoar, 0.50 }, // DRG - reduces damage dealt by 50% (if target is dragoon)
+        };
+
+        // Absorb auras: subtract from final damage (capped at 0)
+        private static readonly Dictionary<uint, double> AbsorbAuras = new Dictionary<uint, double>
+        {
+            { Auras.PvpHolySheltron, 8000 }, // PLD - absorbs potency of 8000
+            { Auras.PvpStemTheTide, 13200 }, // WAR - absorbs potency of 13200 (20% of 66000)
+            { Auras.PvpBlackestNight, 8000 }, // DRK PvP - absorbs potency of 8000
+            { Auras.PvpNebula, 4000 }, // GNB - absorbs potency of 4000
+            { Auras.PvpAquaveil, 8000 }, // WHM - absorbs potency of 8000
+            { Auras.PvpGalvanize, 4000 }, // SCH - absorbs potency of 4000
+            { Auras.PvpSeraphicVeil, 6000 }, // SCH - absorbs potency of 6000
+            { Auras.PvpConsolation, 8000 }, // SCH - absorbs potency of 8000
+            { Auras.PvpEpicycle, 6000 }, // AST - absorbs potency of 6000
+            { Auras.PvpNocturnalBenefic, 4000 }, // AST - absorbs potency of 4000
+            { Auras.PvpHaima, 4000 }, // SGE - absorbs potency of 4000
+            { Auras.PvpStoneskin, 12000 }, // Healer role - absorbs potency of 12000
+            { Auras.PvpThunderclap, 8000 }, // MNK - absorbs potency of 8000
+            { Auras.PvpShadeShift, 8000 }, // NIN - absorbs potency of 8000
+            { Auras.PvpHuton, 16000 }, // NIN - absorbs potency of 16000
+            { Auras.PvpKaeshiNamikiri, 10000 }, // SAM - absorbs potency of 10000
+            { Auras.PvpCrestOfTimeBorrowed, 12000 }, // RPR - absorbs potency of 12000
+            { Auras.PvpArmoredScales, 4000 }, // VPR - absorbs potency of 4000
+            { Auras.PvpAetherMortar, 7500 }, // MCH - absorbs potency of 7500
+            { Auras.PvpBurst, 15000 }, // BLM - absorbs potency of 15000
+            { Auras.PvpRadiantAegis, 12000 }, // SMN - absorbs potency of 12000
+            { Auras.PvpForte, 4000 }, // RDM - absorbs potency of 4000
+            { Auras.PvpEnchantedRiposte, 4000 }, // RDM - absorbs potency of 4000
+            { Auras.PvpEnchantedZwerchhau, 4000 }, // RDM - absorbs potency of 4000
+            { Auras.PvpEnchantedRedoublement, 4000 }, // RDM - absorbs potency of 4000
+            { Auras.PvpTemperaCoat, 12000 }, // PCT - absorbs potency of 12000
+            { Auras.PvpTemperaGrassa, 8000 }, // PCT - absorbs potency of 8000
         };
 
         /// <summary>
@@ -457,11 +621,25 @@ namespace Magitek.Logic.Roles
             if (target == null || !target.ValidAttackUnit())
                 return false;
 
+            // Special case: Mesotes/Lype interaction
+            // If target has Mesotes, we can't damage them unless we have Lype
+            if (target.HasAura(Auras.PvpMesotes) && !Core.Me.HasAura(Auras.PvpLype))
+            {
+                return false; // Can't damage target with Mesotes without Lype
+            }
+
             const double PvpDamageConversionFactor = 1.0;
             double estimatedDamage = potency * PvpDamageConversionFactor;
 
+            // Special case: Pressure Point adds 12,000 potency to next attack
+            if (target.HasAura(Auras.PvpPressurePoint))
+            {
+                estimatedDamage += 12000;
+            }
+
             estimatedDamage *= damageMultiplier;
 
+            // Apply target auras (affect damage target takes)
             foreach (var aura in TargetAuras)
             {
                 // Skip Guard aura if ignoreGuard is true
@@ -474,14 +652,55 @@ namespace Magitek.Logic.Roles
                 }
             }
 
+            // Apply self auras (affect damage we deal)
             foreach (var aura in SelfAuras)
             {
-                if (Core.Me.HasAura(aura.Key))
+                // Special case: Horrid Roar only applies if target is a dragoon
+                if (aura.Key == Auras.PvpHorridRoar)
+                {
+                    if (Core.Me.HasAura(aura.Key) && target is BattleCharacter bc && bc.CurrentJob == ClassJobType.Dragoon)
+                    {
+                        estimatedDamage *= aura.Value;
+                    }
+                }
+                else if (Core.Me.HasAura(aura.Key))
                 {
                     estimatedDamage *= aura.Value;
                 }
             }
 
+            // Special case: Debana (SAM) - only applies if we're SAM and we applied it
+            // Note: We can't easily verify if we applied it, so we check if we're SAM
+            if (target.HasAura(Auras.PvpDebana) && Core.Me.CurrentJob == ClassJobType.Samurai)
+            {
+                estimatedDamage *= 1.15; // Increases damage dealt to target by 15%
+            }
+
+            // Special case: Noxious Gnash (VPR) - only applies if we're VPR and we applied it
+            // Note: We can't easily verify if we applied it, so we check if we're VPR
+            if (target.HasAura(Auras.PvpNoxiousGnash) && Core.Me.CurrentJob == ClassJobType.Viper)
+            {
+                estimatedDamage *= 1.25; // Increases damage dealt to target by 25%
+            }
+
+            // Special case: Kuzushi (SAM) - increases damage dealt to target by 25% if we're SAM
+            if (target.HasAura(Auras.PvpKuzushi) && Core.Me.CurrentJob == ClassJobType.Samurai)
+            {
+                estimatedDamage *= 1.25; // Increases damage dealt to target by 25%
+            }
+
+            // Apply absorbs (subtract from final damage, capped at 0)
+            double totalAbsorb = 0;
+            foreach (var absorb in AbsorbAuras)
+            {
+                if (target.HasAura(absorb.Key))
+                {
+                    totalAbsorb += absorb.Value;
+                }
+            }
+            estimatedDamage = Math.Max(0, estimatedDamage - totalAbsorb);
+
+            // Tank damage reduction (20% reduction for tanks)
             if (target.IsTank())
             {
                 estimatedDamage *= 0.8;

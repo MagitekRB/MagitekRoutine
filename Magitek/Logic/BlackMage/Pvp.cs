@@ -84,7 +84,7 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.BurstPvp.CanCast())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.BurstPvp.Radius)) < 1)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.BurstPvp.Radius) && !x.HasAura(Auras.PvpGuard)) < 1)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
