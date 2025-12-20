@@ -1,5 +1,6 @@
 using ff14bot;
 using ff14bot.Objects;
+using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Paladin;
@@ -135,34 +136,22 @@ namespace Magitek.Logic.Paladin
 
         public static async Task<bool> Intervene() //Dash
         {
-            if (!PaladinSettings.Instance.UseIntervene)
-                return false;
-
-            if (!Spells.Intervene.IsKnown())
-                return false;
-
-            if (Spells.FightorFlight.IsKnown() && !Core.Me.HasAura(Auras.FightOrFlight))
-                return false;
-
-            if (Spells.Requiescat.IsKnown() && !Core.Me.HasAura(Auras.Requiescat))
-                return false;
-
-            if (PaladinRoutine.RequiescatStackCount >= 4)
-                return false;
-
-            if (Casting.LastSpell == Spells.Intervene)
-                return false;
-
-            if (PaladinSettings.Instance.InterveneOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBlade.Range))
-                return false;
-
-            if (Spells.Intervene.Charges <= PaladinSettings.Instance.SaveInterveneCharges + 1)
-                return false;
-
-            if (!PaladinRoutine.GlobalCooldown.CanWeave(1))
-                return false;
-
-            return await Spells.Intervene.Cast(Core.Me.CurrentTarget);
+            return await Tank.Dash(
+                Spells.Intervene,
+                PaladinSettings.Instance.UseIntervene,
+                PaladinSettings.Instance.InterveneUseForMobility,
+                PaladinSettings.Instance.InterveneUseForDps,
+                PaladinSettings.Instance.InterveneOnlyDuringBurst,
+                PaladinSettings.Instance.SaveInterveneCharges,
+                () =>
+                {
+                    bool hasFightOrFlight = Spells.FightorFlight.IsKnown() && Core.Me.HasAura(Auras.FightOrFlight);
+                    bool hasRequiescat = Spells.Requiescat.IsKnown() && Core.Me.HasAura(Auras.Requiescat);
+                    return hasFightOrFlight && hasRequiescat && (PaladinRoutine.RequiescatStackCount < 4);
+                },
+                () => PaladinRoutine.GlobalCooldown.CanWeave(1),
+                Spells.FastBlade.Range // Melee range for checking if in melee
+            );
         }
 
         public static async Task<bool> Requiescat()

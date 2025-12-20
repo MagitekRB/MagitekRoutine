@@ -35,12 +35,6 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Single_Target}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Intervene_Dash}" IsChecked="{Binding PaladinSettings.UseIntervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Only_in_Melee}" IsChecked="{Binding PaladinSettings.InterveneOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Paladin_Text_Save_this_many_charges_of_Intervene}" Margin="5,0" />
-                    <controls:Numeric Margin="5,3" MaxValue="5" MinValue="0" Value="{Binding PaladinSettings.SaveInterveneCharges, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_GoringBlade}" IsChecked="{Binding PaladinSettings.UseGoringBlade, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
@@ -52,6 +46,30 @@
                 </StackPanel>
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Keep_Atonement_and_HolySpirit_in_F}" IsChecked="{Binding PaladinSettings.KeepHolySpiritAtonementinFoF, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Intervene_Dash}" IsChecked="{Binding PaladinSettings.UseIntervene, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Use_When_Out_Of_Range_For_Mobility}" IsChecked="{Binding PaladinSettings.InterveneUseForMobility, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Use_When_In_Melee_For_Dps}" IsChecked="{Binding PaladinSettings.InterveneUseForDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="45,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Only_During_Burst_Rotation}" IsChecked="{Binding PaladinSettings.InterveneOnlyDuringBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="45,0,5,5">
+                    <TextBlock Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Paladin_Text_Only_During_Burst_Explanation}" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Paladin_Text_Save_this_many_charges_of_Intervene}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <controls:Numeric Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding PaladinSettings.SaveInterveneCharges, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

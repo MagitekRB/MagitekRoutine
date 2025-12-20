@@ -1,5 +1,7 @@
-﻿using Magitek.Models.Roles;
+﻿using Magitek.Enumerations;
+using Magitek.Models.Roles;
 using PropertyChanged;
+using System;
 using System.ComponentModel;
 using System.Configuration;
 
@@ -8,7 +10,47 @@ namespace Magitek.Models.Paladin
     [AddINotifyPropertyChangedInterface]
     public class PaladinSettings : TankSettings, IRoutineSettings
     {
-        public PaladinSettings() : base(CharacterSettingsDirectory + "/Magitek/Paladin/PaladinSettings.json") { }
+        public PaladinSettings() : base(CharacterSettingsDirectory + "/Magitek/Paladin/PaladinSettings.json")
+        {
+        }
+
+        protected override void Migrate()
+        {
+            int originalVersion = SettingsVersion;
+            base.Migrate();
+
+            // If original version was -1 (new file), base.Migrate() set it to 1, now set to 2 (latest for tanks)
+            if (originalVersion == -1)
+            {
+                SettingsVersion = 2;
+                Save();
+                return;
+            }
+
+            // Version 1 -> 2: Migrate InterveneOnlyInMelee to new checkbox settings
+            // Only migrate if version is < 2 (existing users with old settings)
+            if (SettingsVersion < 2)
+            {
+                // Migrate from old InterveneOnlyInMelee boolean to new checkbox settings
+                if (InterveneOnlyInMelee)
+                {
+                    // Old setting was true (melee only) -> migrate to DPS only during burst
+                    InterveneUseForMobility = false;
+                    InterveneUseForDps = true;
+                    InterveneOnlyDuringBurst = true;
+                }
+                else
+                {
+                    // Old setting was false (both) -> migrate to both mobility and DPS
+                    InterveneUseForMobility = true;
+                    InterveneUseForDps = true;
+                    InterveneOnlyDuringBurst = false;
+                }
+
+                SettingsVersion = 2;
+                Save();
+            }
+        }
         public static PaladinSettings Instance { get; set; } = new PaladinSettings();
 
         [Setting]
@@ -178,11 +220,25 @@ namespace Magitek.Models.Paladin
 
         [Setting]
         [DefaultValue(true)]
-        public bool InterveneOnlyInMelee { get; set; }
+        public bool InterveneUseForMobility { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool InterveneUseForDps { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool InterveneOnlyDuringBurst { get; set; }
 
         [Setting]
         [DefaultValue(0)]
         public int SaveInterveneCharges { get; set; }
+
+        // Legacy property for migration - will be removed in a future version
+        [Setting]
+        [DefaultValue(true)]
+        [Obsolete("Use InterveneUseForMobility, InterveneUseForDps, and InterveneOnlyDuringBurst instead")]
+        public bool InterveneOnlyInMelee { get; set; }
         #endregion
 
         #region DefensiveGroup

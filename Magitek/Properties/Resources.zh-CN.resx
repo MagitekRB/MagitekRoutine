@@ -1305,6 +1305,9 @@
   <data name="DarkKnight_Text_Save_this_many_charges_of_Shadowstride" xml:space="preserve">
     <value>保留此数量的影步 充能</value>
   </data>
+  <data name="DarkKnight_Text_Shadowstride_Usage_Mode" xml:space="preserve">
+    <value>影步使用模式：</value>
+  </data>
   <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
     <value>精雕怒斩</value>
   </data>
@@ -1325,6 +1328,12 @@
   </data>
   <data name="DarkKnight_Content_Use_Shadowstride" xml:space="preserve">
     <value>使用 影步</value>
+  </data>
+  <data name="DarkKnight_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>在近战时用于DPS</value>
+  </data>
+  <data name="DarkKnight_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>超出范围时用于机动</value>
   </data>
   <data name="DarkKnight_Content_Living_Dead" xml:space="preserve">
     <value>行尸走肉</value>
@@ -1452,11 +1461,23 @@
   <data name="Gunbreaker_Content_Use_Trajectory" xml:space="preserve">
     <value>弹道 (冲刺)</value>
   </data>
+  <data name="Gunbreaker_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>在近战时用于DPS</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>超出范围时用于机动</value>
+  </data>
   <data name="Gunbreaker_Content_Trajectory_Only_in_Melee" xml:space="preserve">
     <value>仅在近战中</value>
   </data>
   <data name="Gunbreaker_Text_Save_this_many_charges_of_Trajectory" xml:space="preserve">
     <value>保留此数量的弹道充能</value>
+  </data>
+  <data name="Gunbreaker_Text_Trajectory_Usage_Mode" xml:space="preserve">
+    <value>弹道使用模式：</value>
+  </data>
+  <data name="Gunbreaker_Text_Trajectory_Usage_Mode_Description" xml:space="preserve">
+    <value>两者：超出范围时用于机动。仅机动：仅在超出近战范围时使用。仅近战：仅在近战范围内使用。仅DPS：不适用（弹道没有DPS组件）。</value>
   </data>
   <data name="Gunbreaker_Content_Use_LionHeart_Combo" xml:space="preserve">
     <value>使用 终结之心</value>
@@ -2142,8 +2163,26 @@
   <data name="Paladin_Text_Save_this_many_charges_of_Intervene" xml:space="preserve">
     <value>保留此数量的调停充能</value>
   </data>
+  <data name="Paladin_Text_Intervene_Usage_Mode" xml:space="preserve">
+    <value>调停使用模式：</value>
+  </data>
+  <data name="Paladin_Text_Intervene_Usage_Mode_Description" xml:space="preserve">
+    <value>仅DPS：在爆发窗口使用（需要战逃反应 + 安魂祈祷）。两者：超出范围时用于机动，或在爆发期间在范围内时用于DPS。仅机动：仅在超出近战范围时使用。仅近战：仅在近战范围内使用。</value>
+  </data>
   <data name="Paladin_Content_Intervene_Dash" xml:space="preserve">
     <value>调停 (冲刺)</value>
+  </data>
+  <data name="Paladin_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>在近战时用于DPS</value>
+  </data>
+  <data name="Paladin_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>超出范围时用于机动</value>
+  </data>
+  <data name="Paladin_Content_Only_During_Burst_Rotation" xml:space="preserve">
+    <value>仅在爆发循环期间</value>
+  </data>
+  <data name="Paladin_Text_Only_During_Burst_Explanation" xml:space="preserve">
+    <value>需要战逃反应 + 安魂祈祷光环激活</value>
   </data>
   <data name="Paladin_Content_Only_in_Melee" xml:space="preserve">
     <value>仅在近战中。</value>
@@ -3350,6 +3389,21 @@
   </data>
   <data name="Warrior_Content_Use_Onslaught" xml:space="preserve">
     <value>使用 猛攻</value>
+  </data>
+  <data name="Warrior_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>在近战时用于DPS</value>
+  </data>
+  <data name="Warrior_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>超出范围时用于机动</value>
+  </data>
+  <data name="Warrior_Content_Only_During_Burst_Rotation" xml:space="preserve">
+    <value>仅在爆发循环期间</value>
+  </data>
+  <data name="Warrior_Text_Only_During_Burst_Explanation" xml:space="preserve">
+    <value>需要原初的解放光环激活</value>
+  </data>
+  <data name="Warrior_Text_Save_this_many_charges_of_Onslaught" xml:space="preserve">
+    <value>保留此数量的猛攻充能</value>
   </data>
   <data name="Warrior_Content_Only_in_Melee_Save" xml:space="preserve">
     <value>仅在近战中。保留[xx]</value>

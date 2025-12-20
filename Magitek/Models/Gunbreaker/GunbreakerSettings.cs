@@ -1,6 +1,7 @@
 using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
+using System;
 using System.ComponentModel;
 using System.Configuration;
 
@@ -9,7 +10,45 @@ namespace Magitek.Models.Gunbreaker
     [AddINotifyPropertyChangedInterface]
     public class GunbreakerSettings : TankSettings, IRoutineSettings
     {
-        public GunbreakerSettings() : base(CharacterSettingsDirectory + "/Magitek/Gunbreaker/GunbreakerSettings.json") { }
+        public GunbreakerSettings() : base(CharacterSettingsDirectory + "/Magitek/Gunbreaker/GunbreakerSettings.json")
+        {
+        }
+
+        protected override void Migrate()
+        {
+            int originalVersion = SettingsVersion;
+            base.Migrate();
+
+            // If original version was -1 (new file), base.Migrate() set it to 1, now set to 2 (latest for tanks)
+            if (originalVersion == -1)
+            {
+                SettingsVersion = 2;
+                Save();
+                return;
+            }
+
+            // Version 1 -> 2: Migrate TrajectoryOnlyInMelee to new checkbox settings
+            // Only migrate if version is < 2 (existing users with old settings)
+            if (SettingsVersion < 2)
+            {
+                // Migrate from old TrajectoryOnlyInMelee boolean to new checkbox settings
+                if (TrajectoryOnlyInMelee)
+                {
+                    TrajectoryUseForMobility = false;
+                    TrajectoryUseForDps = true;
+                    TrajectoryOnlyDuringBurst = false;
+                }
+                else
+                {
+                    TrajectoryUseForMobility = true;
+                    TrajectoryUseForDps = true;
+                    TrajectoryOnlyDuringBurst = false;
+                }
+
+                SettingsVersion = 2;
+                Save();
+            }
+        }
 
         public static GunbreakerSettings Instance { get; set; } = new GunbreakerSettings();
 
@@ -63,11 +102,25 @@ namespace Magitek.Models.Gunbreaker
 
         [Setting]
         [DefaultValue(true)]
-        public bool TrajectoryOnlyInMelee { get; set; }
+        public bool TrajectoryUseForMobility { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool TrajectoryUseForDps { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool TrajectoryOnlyDuringBurst { get; set; }
 
         [Setting]
         [DefaultValue(0)]
         public int SaveTrajectoryCharges { get; set; }
+
+        // Legacy property for migration - will be removed in a future version
+        [Setting]
+        [DefaultValue(true)]
+        [Obsolete("Use TrajectoryUseForMobility, TrajectoryUseForDps, and TrajectoryOnlyDuringBurst instead")]
+        public bool TrajectoryOnlyInMelee { get; set; }
 
         [Setting]
         [DefaultValue(true)]

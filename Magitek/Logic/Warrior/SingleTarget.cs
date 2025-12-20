@@ -1,6 +1,8 @@
 using ff14bot;
 using ff14bot.Objects;
+using Magitek.Enumerations;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Warrior;
 using Magitek.Utilities;
 using System.Linq;
@@ -146,31 +148,18 @@ namespace Magitek.Logic.Warrior
 
         public static async Task<bool> Onslaught()
         {
-            if (!WarriorSettings.Instance.UseOnslaught)
-                return false;
-
-            if (!Spells.Onslaught.IsKnown())
-                return false;
-
-            if (Casting.LastSpell == Spells.Onslaught)
-                return false;
-
-            if (!Core.Me.HasAura(Auras.InnerRelease))
-                return false;
-
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 3 + r.CombatReach) > 1)
-                return false;
-
-            if (WarriorSettings.Instance.OnslaughtOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.HeavySwing.Range))
-                return false;
-
-            if (Spells.Onslaught.Charges <= WarriorSettings.Instance.SaveOnslaughtCharges + 1)
-                return false;
-
-            if (!WarriorRoutine.GlobalCooldown.CanWeave(1))
-                return false;
-
-            return await Spells.Onslaught.Cast(Core.Me.CurrentTarget);
+            return await Tank.Dash(
+                Spells.Onslaught,
+                WarriorSettings.Instance.UseOnslaught,
+                WarriorSettings.Instance.OnslaughtUseForMobility,
+                WarriorSettings.Instance.OnslaughtUseForDps,
+                WarriorSettings.Instance.OnslaughtOnlyDuringBurst,
+                WarriorSettings.Instance.SaveOnslaughtCharges,
+                () =>
+                    Spells.InnerRelease.IsKnown() && Core.Me.HasAura(Auras.InnerRelease),
+                () => WarriorRoutine.GlobalCooldown.CanWeave(1),
+                Spells.HeavySwing.Range // Melee range for checking if in melee
+            );
         }
 
         /*************************************************************************************
