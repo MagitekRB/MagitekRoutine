@@ -130,6 +130,12 @@ namespace Magitek.Utilities
                 AddAllyToCastable(ally);
             }
 
+            // Track player's own auras when setting is enabled
+            if (BaseSettings.Instance.PartyMemberAuraHistory && Core.Me != null && Core.Me.IsValid)
+            {
+                UpdatePartyMemberHistory(Core.Me);
+            }
+
             extensions?.Invoke();
         }
 
