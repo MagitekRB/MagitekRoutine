@@ -42,11 +42,29 @@
                     <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_Primal_Rend}" IsChecked="{Binding WarriorSettings.UsePrimalRend, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_Primal_Rend_only_when_not_movi}" IsChecked="{Binding WarriorSettings.UsePrimalRendWhenNotMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_Onslaught}" IsChecked="{Binding WarriorSettings.UseOnslaught, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Only_in_Melee_Save}" IsChecked="{Binding WarriorSettings.OnslaughtOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_When_Out_Of_Range_For_Mobility}" IsChecked="{Binding WarriorSettings.OnslaughtUseForMobility, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Use_When_In_Melee_For_Dps}" IsChecked="{Binding WarriorSettings.OnslaughtUseForDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="45,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Warrior_Content_Only_During_Burst_Rotation}" IsChecked="{Binding WarriorSettings.OnslaughtOnlyDuringBurst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="45,0,5,5">
+                    <TextBlock Style="{DynamicResource TextBlockInfo}" Text="{x:Static properties:Resources.Warrior_Text_Only_During_Burst_Explanation}" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Warrior_Text_Save_this_many_charges_of_Onslaught}" VerticalAlignment="Center" Margin="0,0,10,0" />
                     <controls:Numeric Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding WarriorSettings.SaveOnslaughtCharges, Mode=TwoWay}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="charges" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

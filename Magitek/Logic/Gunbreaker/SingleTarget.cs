@@ -1,7 +1,9 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Enumerations;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Gunbreaker;
 using Magitek.Toggles;
 using Magitek.Utilities;
@@ -433,25 +435,17 @@ namespace Magitek.Logic.Gunbreaker
          *******************************************************************************/
         public static async Task<bool> Trajectory()
         {
-            if (!GunbreakerSettings.Instance.UseTrajectory)
-                return false;
-
-            if (!Spells.Trajectory.IsKnown())
-                return false;
-
-            if (Casting.LastSpell == Spells.Trajectory)
-                return false;
-
-            if (GunbreakerSettings.Instance.TrajectoryOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.KeenEdge.Range))
-                return false;
-
-            if (Spells.Trajectory.Charges <= GunbreakerSettings.Instance.SaveTrajectoryCharges + 1)
-                return false;
-
-            if (!GunbreakerRoutine.GlobalCooldown.CanWeave(1))
-                return false;
-
-            return await Spells.Trajectory.Cast(Core.Me.CurrentTarget);
+            return await Tank.Dash(
+                Spells.Trajectory,
+                GunbreakerSettings.Instance.UseTrajectory,
+                GunbreakerSettings.Instance.TrajectoryUseForMobility,
+                GunbreakerSettings.Instance.TrajectoryUseForDps,
+                GunbreakerSettings.Instance.TrajectoryOnlyDuringBurst,
+                GunbreakerSettings.Instance.SaveTrajectoryCharges,
+                () => false, // No burst auras for GNB
+                () => GunbreakerRoutine.GlobalCooldown.CanWeave(1),
+                Spells.KeenEdge.Range // Melee range for checking if in melee
+            );
         }
     }
 }

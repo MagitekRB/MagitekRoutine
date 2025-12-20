@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -18,6 +19,29 @@ public abstract class JsonSettings : INotifyPropertyChanged
     {
         FilePath = path;
         LoadFrom(FilePath);
+        Migrate();
+    }
+
+    /// <summary>
+    /// Gets or sets the settings version. -1 means new file (no migration needed), otherwise increment when making backwards-incompatible changes.
+    /// </summary>
+    [Setting]
+    [DefaultValue(-1)]
+    public int SettingsVersion { get; set; }
+
+    /// <summary>
+    /// Override this method to perform migrations when SettingsVersion changes.
+    /// Call base.Migrate() first, then check current version and apply migrations.
+    /// </summary>
+    protected virtual void Migrate()
+    {
+        // If -1 (new file), set to version 1 (latest for most jobs)
+        // Tanks will override and set to 2 after migration
+        if (SettingsVersion == -1)
+        {
+            SettingsVersion = 1;
+            Save();
+        }
     }
     //
     public static string AssemblyPath => Utils.AssemblyDirectory ?? throw new InvalidOperationException();

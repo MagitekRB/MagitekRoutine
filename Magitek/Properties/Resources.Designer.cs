@@ -4376,6 +4376,28 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use when in melee for DPS.
+        /// </summary>
+        public static string DarkKnight_Content_Use_When_In_Melee_For_Dps
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Content_Use_When_In_Melee_For_Dps", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use when out of range for mobility.
+        /// </summary>
+        public static string DarkKnight_Content_Use_When_Out_Of_Range_For_Mobility
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Content_Use_When_Out_Of_Range_For_Mobility", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Salted Earth When There Are Enemies.
         /// </summary>
         public static string DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies
@@ -4471,6 +4493,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("DarkKnight_Text_Save_this_many_charges_of_Shadowstride", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Shadowstride Usage Mode:.
+        /// </summary>
+        public static string DarkKnight_Text_Shadowstride_Usage_Mode
+        {
+            get
+            {
+                return ResourceManager.GetString("DarkKnight_Text_Shadowstride_Usage_Mode", resourceCulture);
             }
         }
 
@@ -8633,6 +8666,28 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use when in melee for DPS.
+        /// </summary>
+        public static string Gunbreaker_Content_Use_When_In_Melee_For_Dps
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Use_When_In_Melee_For_Dps", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use when out of range for mobility.
+        /// </summary>
+        public static string Gunbreaker_Content_Use_When_Out_Of_Range_For_Mobility
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Content_Use_When_Out_Of_Range_For_Mobility", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Only in Melee.
         /// </summary>
         public static string Gunbreaker_Content_Trajectory_Only_in_Melee
@@ -8651,6 +8706,28 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Gunbreaker_Text_Save_this_many_charges_of_Trajectory", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Trajectory Usage Mode:.
+        /// </summary>
+        public static string Gunbreaker_Text_Trajectory_Usage_Mode
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Text_Trajectory_Usage_Mode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Both: Use for mobility when out of range. Mobility Only: Use only when out of melee range. Melee Only: Use only when in melee range. DPS Only: Not applicable (Trajectory has no DPS component)..
+        /// </summary>
+        public static string Gunbreaker_Text_Trajectory_Usage_Mode_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Text_Trajectory_Usage_Mode_Description", resourceCulture);
             }
         }
 
@@ -11278,6 +11355,50 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use when in melee for DPS.
+        /// </summary>
+        public static string Paladin_Content_Use_When_In_Melee_For_Dps
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Content_Use_When_In_Melee_For_Dps", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use when out of range for mobility.
+        /// </summary>
+        public static string Paladin_Content_Use_When_Out_Of_Range_For_Mobility
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Content_Use_When_Out_Of_Range_For_Mobility", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only during burst rotation.
+        /// </summary>
+        public static string Paladin_Content_Only_During_Burst_Rotation
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Content_Only_During_Burst_Rotation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Requires Fight or Flight + Requiescat auras active.
+        /// </summary>
+        public static string Paladin_Text_Only_During_Burst_Explanation
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Text_Only_During_Burst_Explanation", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Intervene Only in Melee Range.
         /// </summary>
         public static string Paladin_Content_Intervene_Only_in_Melee_Range
@@ -11714,6 +11835,28 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Paladin_Text_Save_this_many_charges_of_Intervene", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Intervene Usage Mode:.
+        /// </summary>
+        public static string Paladin_Text_Intervene_Usage_Mode
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Text_Intervene_Usage_Mode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DPS Only: Use during burst windows (requires Fight or Flight + Requiescat). Both: Use for mobility when out of range, or DPS when in range during burst. Mobility Only: Use only when out of melee range. Melee Only: Use only when in melee range..
+        /// </summary>
+        public static string Paladin_Text_Intervene_Usage_Mode_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Paladin_Text_Intervene_Usage_Mode_Description", resourceCulture);
             }
         }
 
@@ -17635,6 +17778,83 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("Warrior_Content_Use_Onslaught", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use when in melee for DPS.
+        /// </summary>
+        public static string Warrior_Content_Use_When_In_Melee_For_Dps
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Content_Use_When_In_Melee_For_Dps", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use when out of range for mobility.
+        /// </summary>
+        public static string Warrior_Content_Use_When_Out_Of_Range_For_Mobility
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Content_Use_When_Out_Of_Range_For_Mobility", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only during burst rotation.
+        /// </summary>
+        public static string Warrior_Content_Only_During_Burst_Rotation
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Content_Only_During_Burst_Rotation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Requires Inner Release aura active.
+        /// </summary>
+        public static string Warrior_Text_Only_During_Burst_Explanation
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Text_Only_During_Burst_Explanation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Onslaught Usage Mode:.
+        /// </summary>
+        public static string Warrior_Text_Onslaught_Usage_Mode
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Text_Onslaught_Usage_Mode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DPS Only: Use during burst windows (requires Inner Release). Both: Use for mobility when out of range, or DPS when in range during burst. Mobility Only: Use only when out of melee range. Melee Only: Use only when in melee range..
+        /// </summary>
+        public static string Warrior_Text_Onslaught_Usage_Mode_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Text_Onslaught_Usage_Mode_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Save this many charges of Onslaught.
+        /// </summary>
+        public static string Warrior_Text_Save_this_many_charges_of_Onslaught
+        {
+            get
+            {
+                return ResourceManager.GetString("Warrior_Text_Save_this_many_charges_of_Onslaught", resourceCulture);
             }
         }
 

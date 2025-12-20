@@ -1,5 +1,7 @@
+using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
+using System;
 using System.ComponentModel;
 using System.Configuration;
 
@@ -8,7 +10,45 @@ namespace Magitek.Models.Warrior
     [AddINotifyPropertyChangedInterface]
     public class WarriorSettings : TankSettings, IRoutineSettings
     {
-        public WarriorSettings() : base(CharacterSettingsDirectory + "/Magitek/Warrior/WarriorSettings.json") { }
+        public WarriorSettings() : base(CharacterSettingsDirectory + "/Magitek/Warrior/WarriorSettings.json")
+        {
+        }
+
+        protected override void Migrate()
+        {
+            int originalVersion = SettingsVersion;
+            base.Migrate();
+
+            // If original version was -1 (new file), base.Migrate() set it to 1, now set to 2 (latest for tanks)
+            if (originalVersion == -1)
+            {
+                SettingsVersion = 2;
+                Save();
+                return;
+            }
+
+            // Version 1 -> 2: Migrate OnslaughtOnlyInMelee to new checkbox settings
+            // Only migrate if version is < 2 (existing users with old settings)
+            if (SettingsVersion < 2)
+            {
+                // Migrate from old OnslaughtOnlyInMelee boolean to new checkbox settings
+                if (OnslaughtOnlyInMelee)
+                {
+                    OnslaughtUseForMobility = false;
+                    OnslaughtUseForDps = true;
+                    OnslaughtOnlyDuringBurst = true;
+                }
+                else
+                {
+                    OnslaughtUseForMobility = true;
+                    OnslaughtUseForDps = true;
+                    OnslaughtOnlyDuringBurst = false;
+                }
+
+                SettingsVersion = 2;
+                Save();
+            }
+        }
 
         public static WarriorSettings Instance { get; set; } = new WarriorSettings();
 
@@ -206,11 +246,25 @@ namespace Magitek.Models.Warrior
 
         [Setting]
         [DefaultValue(true)]
-        public bool OnslaughtOnlyInMelee { get; set; }
+        public bool OnslaughtUseForMobility { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OnslaughtUseForDps { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OnslaughtOnlyDuringBurst { get; set; }
 
         [Setting]
         [DefaultValue(0)]
         public int SaveOnslaughtCharges { get; set; }
+
+        // Legacy property for migration - will be removed in a future version
+        [Setting]
+        [DefaultValue(true)]
+        [Obsolete("Use OnslaughtUseForMobility, OnslaughtUseForDps, and OnslaughtOnlyDuringBurst instead")]
+        public bool OnslaughtOnlyInMelee { get; set; }
 
         [Setting]
         [DefaultValue(true)]

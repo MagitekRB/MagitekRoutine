@@ -1,7 +1,9 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Enumerations;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.DarkKnight;
 using Magitek.Utilities;
 using System.Linq;
@@ -100,25 +102,17 @@ namespace Magitek.Logic.DarkKnight
          *********************************************************************/
         public static async Task<bool> Shadowstride()
         {
-            if (!DarkKnightSettings.Instance.UseShadowstride)
-                return false;
-
-            if (!Spells.Shadowstride.IsKnown())
-                return false;
-
-            if (Casting.LastSpell == Spells.Shadowstride)
-                return false;
-
-            if (DarkKnightSettings.Instance.ShadowstrideOnlyInMelee && !Core.Me.CurrentTarget.WithinSpellRange(Spells.HardSlash.Range))
-                return false;
-
-            if (Spells.Shadowstride.Charges <= DarkKnightSettings.Instance.SaveShadowstrideCharges + 1)
-                return false;
-
-            if (!DarkKnightRoutine.GlobalCooldown.CanWeave(1))
-                return false;
-
-            return await Spells.Shadowstride.Cast(Core.Me.CurrentTarget);
+            return await Tank.Dash(
+                Spells.Shadowstride,
+                DarkKnightSettings.Instance.UseShadowstride,
+                DarkKnightSettings.Instance.ShadowstrideUseForMobility,
+                DarkKnightSettings.Instance.ShadowstrideUseForDps,
+                DarkKnightSettings.Instance.ShadowstrideOnlyDuringBurst,
+                DarkKnightSettings.Instance.SaveShadowstrideCharges,
+                () => false, // No burst auras for DRK
+                () => DarkKnightRoutine.GlobalCooldown.CanWeave(1),
+                Spells.HardSlash.Range // Melee range for checking if in melee
+            );
         }
 
         /*********************************************************************

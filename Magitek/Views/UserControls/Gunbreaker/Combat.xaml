@@ -82,11 +82,18 @@
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
-                <StackPanel Margin="5" Orientation="Horizontal">
+                <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_Trajectory}" IsChecked="{Binding GunbreakerSettings.UseTrajectory, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Trajectory_Only_in_Melee}" IsChecked="{Binding GunbreakerSettings.TrajectoryOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Save_this_many_charges_of_Trajectory}" Margin="5,0" />
-                    <controls:Numeric Margin="5,3" MaxValue="5" MinValue="0" Value="{Binding GunbreakerSettings.SaveTrajectoryCharges, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_When_Out_Of_Range_For_Mobility}" IsChecked="{Binding GunbreakerSettings.TrajectoryUseForMobility, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Use_When_In_Melee_For_Dps}" IsChecked="{Binding GunbreakerSettings.TrajectoryUseForDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Gunbreaker_Text_Save_this_many_charges_of_Trajectory}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <controls:Numeric Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding GunbreakerSettings.SaveTrajectoryCharges, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

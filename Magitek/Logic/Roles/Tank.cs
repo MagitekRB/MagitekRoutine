@@ -2,6 +2,7 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Enumerations;
 using Magitek.Extensions;
 using Magitek.Models.Account;
 using Magitek.Models.Roles;
@@ -212,6 +213,59 @@ namespace Magitek.Logic.Roles
         public static bool GuardCheck()
         {
             return Core.Me.CurrentTarget.HasAura(Auras.PvpGuard);
+        }
+
+        public static async Task<bool> Dash(
+            SpellData dashSpell,
+            bool useDash,
+            bool useForMobility,
+            bool useForDps,
+            bool onlyDuringBurst,
+            int saveCharges,
+            Func<bool> hasBurstAuras,
+            Func<bool> canWeave,
+            double meleeRange)
+        {
+            if (!useDash)
+                return false;
+
+            if (!dashSpell.IsKnown())
+                return false;
+
+            if (Casting.LastSpell == dashSpell)
+                return false;
+
+            if ((uint)Math.Floor(dashSpell.Charges) <= saveCharges)
+                return false;
+
+            if (!Core.Me.HasTarget || Core.Me.CurrentTarget == null)
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(dashSpell.Range))
+                return false;
+
+            bool inMeleeRange = Core.Me.CurrentTarget.WithinSpellRange(meleeRange);
+
+            if (inMeleeRange)
+            {
+                if (!useForDps)
+                    return false;
+
+                if (onlyDuringBurst)
+                {
+                    if (hasBurstAuras == null || !hasBurstAuras())
+                        return false;
+                    if (!canWeave())
+                        return false;
+                }
+            }
+            else
+            {
+                if (!useForMobility)
+                    return false;
+            }
+
+            return await dashSpell.Cast(Core.Me.CurrentTarget);
         }
     }
 }

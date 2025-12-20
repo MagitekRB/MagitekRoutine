@@ -1,5 +1,7 @@
+using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
+using System;
 using System.ComponentModel;
 using System.Configuration;
 
@@ -8,7 +10,45 @@ namespace Magitek.Models.DarkKnight
     [AddINotifyPropertyChangedInterface]
     public class DarkKnightSettings : TankSettings, IRoutineSettings
     {
-        public DarkKnightSettings() : base(CharacterSettingsDirectory + "/Magitek/DarkKnight/DarkKkightSettings.json") { }
+        public DarkKnightSettings() : base(CharacterSettingsDirectory + "/Magitek/DarkKnight/DarkKkightSettings.json")
+        {
+        }
+
+        protected override void Migrate()
+        {
+            int originalVersion = SettingsVersion;
+            base.Migrate();
+
+            // If original version was -1 (new file), base.Migrate() set it to 1, now set to 2 (latest for tanks)
+            if (originalVersion == -1)
+            {
+                SettingsVersion = 2;
+                Save();
+                return;
+            }
+
+            // Version 1 -> 2: Migrate ShadowstrideOnlyInMelee to new checkbox settings
+            // Only migrate if version is < 2 (existing users with old settings)
+            if (SettingsVersion < 2)
+            {
+                // Migrate from old ShadowstrideOnlyInMelee boolean to new checkbox settings
+                if (ShadowstrideOnlyInMelee)
+                {
+                    ShadowstrideUseForMobility = false;
+                    ShadowstrideUseForDps = true;
+                    ShadowstrideOnlyDuringBurst = false;
+                }
+                else
+                {
+                    ShadowstrideUseForMobility = true;
+                    ShadowstrideUseForDps = true;
+                    ShadowstrideOnlyDuringBurst = false;
+                }
+
+                SettingsVersion = 2;
+                Save();
+            }
+        }
 
         public static DarkKnightSettings Instance { get; set; } = new DarkKnightSettings();
 
@@ -145,11 +185,25 @@ namespace Magitek.Models.DarkKnight
 
         [Setting]
         [DefaultValue(true)]
-        public bool ShadowstrideOnlyInMelee { get; set; }
+        public bool ShadowstrideUseForMobility { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool ShadowstrideUseForDps { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool ShadowstrideOnlyDuringBurst { get; set; }
 
         [Setting]
         [DefaultValue(0)]
         public int SaveShadowstrideCharges { get; set; }
+
+        // Legacy property for migration - will be removed in a future version
+        [Setting]
+        [DefaultValue(true)]
+        [Obsolete("Use ShadowstrideUseForMobility, ShadowstrideUseForDps, and ShadowstrideOnlyDuringBurst instead")]
+        public bool ShadowstrideOnlyInMelee { get; set; }
 
         [Setting]
         [DefaultValue(true)]

@@ -67,8 +67,6 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <CheckBox Grid.Row="0" Grid.Column="0" Margin="0,5" Content="{x:Static properties:Resources.DarkKnight_Content_Use_AoEs_Does_not_Affect_Abyssal_Drain}" IsChecked="{Binding DarkKnightSettings.UseAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Unleash_When_There_Are}" IsChecked="{Binding DarkKnightSettings.UseUnleash, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -86,13 +84,26 @@
                         <CheckBox Grid.Row="5" Grid.Column="0" Margin="0,3" Content="{x:Static properties:Resources.DarkKnight_Content_Use_Salted_Earth_When_There_Are_Enemies}" IsChecked="{Binding DarkKnightSettings.UseSaltedEarth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric Grid.Row="5" Grid.Column="1" Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding DarkKnightSettings.SaltedEarthEnemies, Mode=TwoWay}" />
                         <TextBlock Grid.Row="5" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Text_Enemies_In_Range}" />
-                        <CheckBox Grid.Row="6" Grid.Column="0" Content="{x:Static properties:Resources.DarkKnight_Content_Use_Shadowstride}" IsChecked="{Binding DarkKnightSettings.UseShadowstride, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding DarkKnightSettings.ShadowstrideOnlyInMelee, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <TextBlock Grid.Row="6" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Only_in_Melee}" />
-                        <TextBlock Grid.Row="7" Grid.Column="0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Save_this_many_charges_of_Shadowstride}" />
-                        <controls:Numeric Grid.Row="7" Grid.Column="1" Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding DarkKnightSettings.SaveShadowstrideCharges, Mode=TwoWay}" />
 
                     </Grid>
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Use_Shadowstride}" IsChecked="{Binding DarkKnightSettings.UseShadowstride, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Use_When_Out_Of_Range_For_Mobility}" IsChecked="{Binding DarkKnightSettings.ShadowstrideUseForMobility, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="25,5,5,5">
+                    <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Use_When_In_Melee_For_Dps}" IsChecked="{Binding DarkKnightSettings.ShadowstrideUseForDps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.DarkKnight_Text_Save_this_many_charges_of_Shadowstride}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <controls:Numeric Margin="0,3" MaxValue="5" MinValue="0" Value="{Binding DarkKnightSettings.SaveShadowstrideCharges, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

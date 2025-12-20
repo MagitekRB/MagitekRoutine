@@ -1310,6 +1310,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="DarkKnight_Text_Save_this_many_charges_of_Shadowstride" xml:space="preserve">
     <value>Save this many charges of Shadowstride</value>
   </data>
+  <data name="DarkKnight_Text_Shadowstride_Usage_Mode" xml:space="preserve">
+    <value>Shadowstride Usage Mode:</value>
+  </data>
   <data name="DarkKnight_Content_Carve_And_Spit" xml:space="preserve">
     <value>Carve And Spit</value>
   </data>
@@ -1330,6 +1333,12 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="DarkKnight_Content_Use_Shadowstride" xml:space="preserve">
     <value>Use Shadowstride</value>
+  </data>
+  <data name="DarkKnight_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>Use when in melee for DPS</value>
+  </data>
+  <data name="DarkKnight_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>Use when out of range for mobility</value>
   </data>
   <data name="DarkKnight_Content_Living_Dead" xml:space="preserve">
     <value>Living Dead</value>
@@ -1456,6 +1465,12 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Gunbreaker_Content_Use_Trajectory" xml:space="preserve">
     <value>Trajectory (Dash)</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>Use when in melee for DPS</value>
+  </data>
+  <data name="Gunbreaker_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>Use when out of range for mobility</value>
   </data>
   <data name="Gunbreaker_Content_Trajectory_Only_in_Melee" xml:space="preserve">
     <value>Only in Melee</value>
@@ -2147,8 +2162,26 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Paladin_Text_Save_this_many_charges_of_Intervene" xml:space="preserve">
     <value>Save this many charges of Intervene</value>
   </data>
+  <data name="Paladin_Text_Intervene_Usage_Mode" xml:space="preserve">
+    <value>Intervene Usage Mode:</value>
+  </data>
+  <data name="Paladin_Text_Intervene_Usage_Mode_Description" xml:space="preserve">
+    <value>DPS Only: Use during burst windows (requires Fight or Flight + Requiescat). Both: Use for mobility when out of range, or DPS when in range during burst. Mobility Only: Use only when out of melee range. Melee Only: Use only when in melee range.</value>
+  </data>
   <data name="Paladin_Content_Intervene_Dash" xml:space="preserve">
     <value>Intervene (Dash)</value>
+  </data>
+  <data name="Paladin_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>Use when in melee for DPS</value>
+  </data>
+  <data name="Paladin_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>Use when out of range for mobility</value>
+  </data>
+  <data name="Paladin_Content_Only_During_Burst_Rotation" xml:space="preserve">
+    <value>Only during burst rotation</value>
+  </data>
+  <data name="Paladin_Text_Only_During_Burst_Explanation" xml:space="preserve">
+    <value>Requires Fight or Flight + Requiescat auras active</value>
   </data>
   <data name="Paladin_Content_Only_in_Melee" xml:space="preserve">
     <value>Only in Melee.</value>
@@ -3355,6 +3388,21 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Warrior_Content_Use_Onslaught" xml:space="preserve">
     <value>Use Onslaught</value>
+  </data>
+  <data name="Warrior_Content_Use_When_In_Melee_For_Dps" xml:space="preserve">
+    <value>Use when in melee for DPS</value>
+  </data>
+  <data name="Warrior_Content_Use_When_Out_Of_Range_For_Mobility" xml:space="preserve">
+    <value>Use when out of range for mobility</value>
+  </data>
+  <data name="Warrior_Content_Only_During_Burst_Rotation" xml:space="preserve">
+    <value>Only during burst rotation</value>
+  </data>
+  <data name="Warrior_Text_Only_During_Burst_Explanation" xml:space="preserve">
+    <value>Requires Inner Release aura active</value>
+  </data>
+  <data name="Warrior_Text_Save_this_many_charges_of_Onslaught" xml:space="preserve">
+    <value>Save this many charges of Onslaught</value>
   </data>
   <data name="Warrior_Content_Only_in_Melee_Save" xml:space="preserve">
     <value>Only in Melee. Save</value>
