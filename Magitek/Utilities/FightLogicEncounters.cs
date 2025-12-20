@@ -6529,6 +6529,36 @@ namespace Magitek.Utilities
 
             #endregion
 
+            #region Dawntrail: Trials
+            new Encounter {
+                ZoneId = 1307,
+                Name = "Hell on Rails",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14284,
+                        Name = "Doomtrain",
+                        TankBusters = new List<uint> {
+                            45660, // Lightning Burst
+                        },
+                        Aoes = new List<uint> {
+                            45618, // Lightning Express
+                            45623, // Unlimited Express
+                            45648, // Derailment Siege
+                            47529, // Battering Arms
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = new List<uint> {
+                            45625, // Windpipe
+                        },
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+            #endregion
+
             #region Dawntrail: Normal Raids
             new Encounter {
                 ZoneId = 1225,
@@ -7020,6 +7050,63 @@ namespace Magitek.Utilities
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+            new Encounter {
+                ZoneId = 1314,
+                Name = "Mistwake",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14270,
+                        Name = "Treno Catoblepas",
+                        TankBusters = new List<uint> {
+                            43329, // Thunder III
+                        },
+                        Aoes = new List<uint> {
+                            43327, // Earthquake
+                            43331, // Thunder II
+                            44825, // Ray of Lightning
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14271,
+                        Name = "Amdusias",
+                        TankBusters = new List<uint> {
+                            45355, // Shockbolt
+                        },
+                        Aoes = new List<uint> {
+                            45344, // Bio II
+                            45350, // Thunder IV
+                            45352, // Thunder III
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14288,
+                        Name = "Thundergust Griffin",
+                        TankBusters = new List<uint> {
+                            45305, // Golden Talons
+                        },
+                        Aoes = new List<uint> {
+                            45291, // Thunderspark
+                            45292, // High Volts
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = new List<uint> {
+                            45301, // Fulgurous Fall
+                        },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
