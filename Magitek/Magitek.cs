@@ -74,14 +74,8 @@ namespace Magitek
 
             HookBehaviors();
 
-            Application.Current.Dispatcher.Invoke(delegate
-            {
-                _form = new SettingsWindow();
-                _form.Closed += (_, _) =>
-                {
-                    _form = null;
-                };
-            });
+            // SettingsWindow is created lazily via Form property when user clicks the button
+            // This avoids blocking initialization with expensive XAML parsing (~3.5 seconds)
 
             TogglesManager.LoadTogglesForCurrentJob();
             RegisterOpenerHotkey();
@@ -475,11 +469,16 @@ namespace Magitek
             get
             {
                 if (_form != null) return _form;
-                _form = new SettingsWindow();
-                _form.Closed += (_, _) =>
+
+                // Create window on dispatcher thread (required for WPF)
+                Application.Current.Dispatcher.Invoke(delegate
                 {
-                    _form = null;
-                };
+                    _form = new SettingsWindow();
+                    _form.Closed += (_, _) =>
+                    {
+                        _form = null;
+                    };
+                });
                 return _form;
             }
         }
