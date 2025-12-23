@@ -1,10 +1,14 @@
 ﻿using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Gunbreaker;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ff14bot.Helpers;
+using GameObject = ff14bot.Objects.GameObject;
 
 namespace Magitek.Logic.Gunbreaker
 {
@@ -193,19 +197,60 @@ namespace Magitek.Logic.Gunbreaker
             if (!GunbreakerSettings.Instance.Pvp_BlastingZone)
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastingZonePvp.Range))
-                return false;
-
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
-                return false;
-
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
                 return false;
 
-            return await Spells.BlastingZonePvp.Cast(Core.Me.CurrentTarget);
+            // Blasting Zone: 5,000 potency at 100% HP, scales linearly up to 10,000 when target HP <= 50%
+            const double basePotency = 5000;
+            const double maxPotency = 10000;
+
+            // Potency calculator: linear scaling from 5,000 (100% HP) to 10,000 (50% HP or less)
+            Func<GameObject, double> potencyCalculator = (target) =>
+            {
+                if (target.CurrentHealthPercent <= 50)
+                {
+                    return maxPotency; // Max potency at 50% HP or less
+                }
+                else
+                {
+                    // Linear scaling from 100% HP (5000) to 50% HP (10000)
+                    double hpPercent = target.CurrentHealthPercent;
+                    double scaleFactor = (100 - hpPercent) / 50.0; // 0 at 100% HP, 1 at 50% HP
+                    return basePotency + (scaleFactor * (maxPotency - basePotency)); // Scale from 5000 to 10000
+                }
+            };
+
+            // Find killable target in range (handles target validation internally)
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                GunbreakerSettings.Instance,
+                basePotency,
+                (float)Spells.BlastingZonePvp.Range,
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: GunbreakerSettings.Instance.Pvp_BlastingZoneAnyTarget,
+                potencyCalculator: potencyCalculator);
+
+            if (killableTarget != null)
+            {
+                return await Spells.BlastingZonePvp.Cast(killableTarget);
+            }
+
+            // Fallback to HP threshold if WouldKill is disabled or target not killable
+            if (!GunbreakerSettings.Instance.Pvp_BlastingZoneForKillsOnly)
+            {
+                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                    return false;
+
+                if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BlastingZonePvp.Range))
+                    return false;
+
+                if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
+                    return false;
+
+                return await Spells.BlastingZonePvp.Cast(Core.Me.CurrentTarget);
+            }
+
+            return false;
         }
 
         public static async Task<bool> NebulaPvp()

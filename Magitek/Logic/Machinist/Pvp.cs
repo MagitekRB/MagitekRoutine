@@ -173,14 +173,15 @@ namespace Magitek.Logic.Machinist
             if (!Spells.ScattergunPvp.CanCast())
                 return false;
 
-            // If targeting closest is enabled, find closest enemy within range
+            // If targeting closest is enabled, find closest enemy within range (excluding guard/invuln)
             if (MachinistSettings.Instance.Pvp_ScattergunTargetClosest)
             {
                 var nearby = Combat.Enemies
                     .Where(e => e.WithinSpellRange(Spells.ScattergunPvp.Range)
                             && e.ValidAttackUnit()
                             && e.InLineOfSight()
-                            && !e.IsWarMachina())
+                            && !e.IsWarMachina()
+                            && !CommonPvp.GuardCheck(MachinistSettings.Instance, e))
                     .OrderBy(e => e.Distance(Core.Me));
                 var nearbyTarget = nearby.FirstOrDefault();
 
@@ -192,8 +193,11 @@ namespace Magitek.Logic.Machinist
                 return false;
             }
 
-            // Default behavior: use on current target
+            // Default behavior: use on current target (check guard/invuln)
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (CommonPvp.GuardCheck(MachinistSettings.Instance, Core.Me.CurrentTarget))
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ScattergunPvp.Range))
@@ -294,7 +298,8 @@ namespace Magitek.Logic.Machinist
                     .Where(e => e.WithinSpellRange(Spells.BioblasterPvp.Range)
                             && e.ValidAttackUnit()
                             && e.InLineOfSight()
-                            && !e.IsWarMachina())
+                            && !e.IsWarMachina()
+                            && !CommonPvp.GuardCheck(MachinistSettings.Instance, e))
                     .OrderBy(e => e.Distance(Core.Me));
                 var nearbyTarget = nearby.FirstOrDefault();
 
@@ -307,6 +312,9 @@ namespace Magitek.Logic.Machinist
             }
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (CommonPvp.GuardCheck(MachinistSettings.Instance, Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.BioblasterPvp.Cast(Core.Me.CurrentTarget, callback: async () => await IncrementWildfireStacks(1));

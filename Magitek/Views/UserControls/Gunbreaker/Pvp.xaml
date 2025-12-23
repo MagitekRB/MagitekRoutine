@@ -83,6 +83,26 @@
                               IsChecked="{Binding GunbreakerSettings.Pvp_FatedCircle, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_BlastingZone}"
+                              IsChecked="{Binding GunbreakerSettings.Pvp_BlastingZone, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                              Margin="20,0,0,0"
+                              IsChecked="{Binding GunbreakerSettings.Pvp_BlastingZoneForKillsOnly, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}"
+                              Margin="20,0,0,0"
+                              IsChecked="{Binding GunbreakerSettings.Pvp_BlastingZoneAnyTarget, Mode=TwoWay}"
+                              Style="{DynamicResource CheckBoxFlat}"/>
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
@@ -96,9 +116,6 @@
                             Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Nebula}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_Nebula, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                    <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_BlastingZone}"
-                              IsChecked="{Binding GunbreakerSettings.Pvp_BlastingZone, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
                     <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Aurora}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_Aurora, Mode=TwoWay}"
