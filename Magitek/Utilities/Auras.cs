@@ -648,7 +648,8 @@ namespace Magitek.Utilities
             PvpHorridRoar = 3179, // DRG - reduces damage dealt by 50% (if target is dragoon)
             PvpStemTheTide = 3031, // WAR - absorbs potency of 20% of 66000 (13200)
             PvpBlackestNight = 1308, // DRK - absorbs potency of 8000
-            PvpSaltedEarth = 3037; // DRK - reduces damage taken by 20%
+            PvpSaltedEarth = 3037, // DRK - reduces damage taken by 20%
+            PvpSnowFort = 4965; // Environmental buff - shield from Worqor Chirteh
 
 
         #endregion

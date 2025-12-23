@@ -29,6 +29,16 @@ namespace Magitek.Logic.Roles
         private static readonly TimeSpan ResetThreshold = TimeSpan.FromSeconds(30); // Reset counter if stable for 30 seconds
         private static readonly float EmergencyDismountRange = 30f; // Emergency dismount if enemy within 30 yalms (ignores debounce)
 
+        // PvP invulnerability auras that should be avoided (PLD Hallowed Ground, Viper Hardened/Armored Scales, SAM Chiten)
+        private static readonly uint[] InvulnerabilityAuras = new uint[]
+        {
+            Auras.PvpHallowedGround,
+            Auras.PvpUndeadRedemption,
+            Auras.PvpHardenedScales,
+            Auras.PvpArmoredScales,
+            Auras.PvpChiten
+        };
+
         public static void UpdateTargetCounts()
         {
             var now = DateTime.Now;
@@ -384,7 +394,7 @@ namespace Magitek.Logic.Roles
 
             return !Attackable(target)
                 || (checkGuard && Models.Account.BaseSettings.Instance.Pvp_GuardCheck && target.HasAura(Auras.PvpGuard))
-                || (checkInvuln && Models.Account.BaseSettings.Instance.Pvp_InvulnCheck && target.HasAnyAura(new uint[] { Auras.PvpHallowedGround, Auras.PvpUndeadRedemption, Auras.PvpHardenedScales, Auras.PvpArmoredScales }));
+                || (checkInvuln && Models.Account.BaseSettings.Instance.Pvp_InvulnCheck && target.HasAnyAura(InvulnerabilityAuras));
         }
 
         public static bool ShouldUseBurst()
@@ -603,6 +613,7 @@ namespace Magitek.Logic.Roles
             { Auras.PvpEnchantedRedoublement, 4000 }, // RDM - absorbs potency of 4000
             { Auras.PvpTemperaCoat, 12000 }, // PCT - absorbs potency of 12000
             { Auras.PvpTemperaGrassa, 8000 }, // PCT - absorbs potency of 8000
+            { Auras.PvpSnowFort, 25000 }, // Environmental buff in Worqor Chirteh
         };
 
         /// <summary>

@@ -367,6 +367,14 @@ namespace Magitek.Models.Gunbreaker
         public bool Pvp_BlastingZone { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_BlastingZoneForKillsOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_BlastingZoneAnyTarget { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Pvp_Aurora { get; set; }
 
