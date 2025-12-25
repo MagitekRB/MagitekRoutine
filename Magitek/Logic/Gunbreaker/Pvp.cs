@@ -301,7 +301,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Core.Me.HasAura(Auras.PvpRelentlessRush))
                 return false;
 
-            if (Core.Me.CurrentHealthPercent > 60)
+            if (Core.Me.CurrentHealthPercent > GunbreakerSettings.Instance.Pvp_HeartOfCorundumHealthPercent)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())

@@ -8369,6 +8369,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Heart of Corundum: Use When Below HP%:.
+        /// </summary>
+        public static string Gunbreaker_Text_Heart_of_Corundum_Use_When_Below_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Gunbreaker_Text_Heart_of_Corundum_Use_When_Below_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Heart of Light.
         /// </summary>
         public static string Gunbreaker_Content_Heart_of_Light

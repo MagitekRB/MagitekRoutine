@@ -1560,6 +1560,9 @@
   <data name="Gunbreaker_Content_Heart_of_Corundum" xml:space="preserve">
     <value>刚玉之心</value>
   </data>
+  <data name="Gunbreaker_Text_Heart_of_Corundum_Use_When_Below_HP" xml:space="preserve">
+    <value>刚玉之心：血量低于 HP% 时使用：</value>
+  </data>
   <data name="Gunbreaker_Content_Fated_Circle" xml:space="preserve">
     <value>命运之环</value>
   </data>
