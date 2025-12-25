@@ -1559,6 +1559,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Gunbreaker_Content_Heart_of_Corundum" xml:space="preserve">
     <value>Heart of Corundum</value>
   </data>
+  <data name="Gunbreaker_Text_Heart_of_Corundum_Use_When_Below_HP" xml:space="preserve">
+    <value>Heart of Corundum: Use When Below HP%:</value>
+  </data>
   <data name="Gunbreaker_Content_Fated_Circle" xml:space="preserve">
     <value>Fated Circle</value>
   </data>

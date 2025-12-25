@@ -28,7 +28,7 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.HasAura(Auras.InnerRelease) && !WarriorSettings.Instance.UseBeastGauge)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < WarriorSettings.Instance.ChaoticCycloneMinimumEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ChaoticCyclone.Radius)) < WarriorSettings.Instance.ChaoticCycloneMinimumEnemies)
                 return false;
 
             return await Spells.ChaoticCyclone.Cast(Core.Me.CurrentTarget);
@@ -52,7 +52,7 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.HasAura(Auras.InnerRelease) && !WarriorSettings.Instance.UseBeastGauge)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 5 + x.CombatReach) < WarriorSettings.Instance.DecimateMinimumEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(WarriorRoutine.Decimate.Radius)) < WarriorSettings.Instance.DecimateMinimumEnemies)
                 return false;
 
             return await WarriorRoutine.Decimate.Cast(Core.Me.CurrentTarget);
@@ -64,7 +64,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UseAoe)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < WarriorSettings.Instance.OverpowerMinimumEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Overpower.Radius)) < WarriorSettings.Instance.OverpowerMinimumEnemies)
                 return false;
 
             return await Spells.Overpower.Cast(Core.Me.CurrentTarget);
@@ -78,7 +78,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorRoutine.CanContinueComboAfter(Spells.Overpower))
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < WarriorSettings.Instance.MythrilTempestMinimumEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.MythrilTempest.Radius)) < WarriorSettings.Instance.MythrilTempestMinimumEnemies)
                 return false;
 
             return await Spells.MythrilTempest.Cast(Core.Me.CurrentTarget);
@@ -95,7 +95,7 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.HasAura(Auras.SurgingTempest))
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < WarriorSettings.Instance.OrogenyMinimumEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Orogeny.Radius)) < WarriorSettings.Instance.OrogenyMinimumEnemies)
                 return false;
 
             return await Spells.Orogeny.Cast(Core.Me.CurrentTarget);
@@ -112,7 +112,7 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.HasAura(Auras.SurgingTempest))
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 5 + r.CombatReach) < WarriorSettings.Instance.PrimalRendMinimumEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.PrimalRend.Radius)) < WarriorSettings.Instance.PrimalRendMinimumEnemies)
                 return false;
 
             if (WarriorSettings.Instance.UsePrimalRendWhenNotMoving && MovementManager.IsMoving)

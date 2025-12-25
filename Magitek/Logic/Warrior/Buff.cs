@@ -43,7 +43,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UseInnerRelease)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 3 + r.CombatReach + Core.Me.CombatReach) < 1)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.HeavySwing.Range)) < 1)
                 return false;
 
             //Added level check as this skill is available as berserk at lvl 6 and AoE combo isnt until lvl 40

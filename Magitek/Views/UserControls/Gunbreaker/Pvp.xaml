@@ -79,6 +79,15 @@
                 </StackPanel>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}"
+                              Text="{x:Static properties:Resources.Gunbreaker_Text_Heart_of_Corundum_Use_When_Below_HP}"
+                              Margin="20,0,5,0"/>
+                    <controls:Numeric MaxValue="100"
+                                      MinValue="1"
+                                      Value="{Binding GunbreakerSettings.Pvp_HeartOfCorundumHealthPercent, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Gunbreaker_Content_Fated_Circle}"
                               IsChecked="{Binding GunbreakerSettings.Pvp_FatedCircle, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>

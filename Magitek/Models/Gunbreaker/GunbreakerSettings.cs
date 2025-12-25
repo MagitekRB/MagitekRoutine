@@ -391,6 +391,10 @@ namespace Magitek.Models.Gunbreaker
         public bool Pvp_HeartOfCorundum { get; set; }
 
         [Setting]
+        [DefaultValue(60)]
+        public int Pvp_HeartOfCorundumHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Pvp_FatedCircle { get; set; }
 
