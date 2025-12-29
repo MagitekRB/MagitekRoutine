@@ -104,7 +104,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.BowShockEnemies)
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.BowShock.Radius)) < GunbreakerSettings.Instance.BowShockEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.NoMercy) && Spells.DoubleDown.IsKnownAndReady())
@@ -138,8 +138,11 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForDoubleDown)
                 return false;
 
-            if (Spells.GnashingFang.IsKnownAndReady(1000) 
-            && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies 
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.DoubleDown.Radius))
+                return false;
+
+            if (Spells.GnashingFang.IsKnownAndReady(1000)
+            && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies
             && Cartridge >= GunbreakerRoutine.MaxCartridge
             && GunbreakerRoutine.GnashingFangUsesThisBurst < 1)
                 return false;

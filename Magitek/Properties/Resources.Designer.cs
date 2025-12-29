@@ -15469,6 +15469,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Seraphism For Movement.
+        /// </summary>
+        public static string Scholar_Content_Seraphism_For_Movement
+        {
+            get
+            {
+                return ResourceManager.GetString("Scholar_Content_Seraphism_For_Movement", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Seraphism / LB with at least.
         /// </summary>
         public static string Scholar_Content_Seraphism_LB_with_at_least

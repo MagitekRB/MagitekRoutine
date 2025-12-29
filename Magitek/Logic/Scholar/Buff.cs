@@ -118,6 +118,18 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.Pet.EnglishName == "Seraph")
                 return false;
 
+            // Check for movement-based Seraphism (to enable instant Manifestation/Accession)
+            if (ScholarSettings.Instance.SeraphismForMovement && MovementManager.IsMoving)
+            {
+                // Check if someone needs Adloquium (would use Manifestation when moving)
+                if (WouldNeedAdloquium())
+                    return await Spells.Seraphism.Cast(Core.Me);
+
+                // Check if someone needs Succor (would use Accession when moving)
+                if (WouldNeedSuccor())
+                    return await Spells.Seraphism.Cast(Core.Me);
+            }
+
             if (Globals.InParty)
             {
                 if (Group.CastableAlliesWithin30.Count(CanSeraphism) < ScholarSettings.Instance.SeraphismAllies)
@@ -137,6 +149,76 @@ namespace Magitek.Logic.Scholar
                     return false;
                 return unit.CurrentHealthPercent < ScholarSettings.Instance.SeraphismHealthPercent;
             }
+        }
+
+        private static bool WouldNeedAdloquium()
+        {
+            if (!ScholarSettings.Instance.Adloquium)
+                return false;
+
+            if (!ScholarSettings.Instance.AdloOutOfCombat && !Core.Me.InCombat)
+                return false;
+
+            if (ScholarSettings.Instance.DisableSingleHealWhenNeedAoeHealing && Heal.NeedAoEHealing())
+                return false;
+
+            if (Globals.InParty)
+            {
+                // Check if tank needs Adloquium for buff
+                if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
+                {
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasAura(Auras.Galvanize));
+                    if (tankAdloTarget != null)
+                        return true;
+                }
+
+                // Check if anyone needs Adloquium
+                var adloTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanAdlo);
+                if (adloTarget != null)
+                    return true;
+
+                bool CanAdlo(Character unit)
+                {
+                    if (unit == null)
+                        return false;
+
+                    if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
+                        return false;
+
+                    if (unit.HasAura(Auras.Galvanize))
+                        return false;
+
+                    if (unit.HasAura(Auras.Excogitation))
+                        return false;
+
+                    if (!ScholarSettings.Instance.AdloquiumOnlyHealer && !ScholarSettings.Instance.AdloquiumOnlyTank)
+                        return true;
+
+                    if (ScholarSettings.Instance.AdloquiumOnlyHealer && unit.IsHealer())
+                        return true;
+
+                    return ScholarSettings.Instance.AdloquiumOnlyTank && unit.IsTank();
+                }
+            }
+
+            // Solo check
+            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasAura(Auras.Galvanize))
+                return true;
+
+            return false;
+        }
+
+        private static bool WouldNeedSuccor()
+        {
+            if (!ScholarSettings.Instance.Succor)
+                return false;
+
+            var aoeNeedHealing = Heal.AoeNeedHealing;
+            var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
+                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
+                                                                     !r.HasAura(Auras.Galvanize)) >= aoeNeedHealing;
+
+            return needSuccor;
         }
 
         public static async Task<bool> Swiftcast()
@@ -309,6 +391,11 @@ namespace Magitek.Logic.Scholar
 
             if (aetherpactTarget == null)
                 return false;
+
+            // Don't cast Fey Union while player or tank is moving (e.g., pulling adds)
+            if (MovementManager.IsMoving)
+                return false;
+
             //if (Casting.LastSpell != Spells.Biolysis || Casting.LastSpell != Spells.ArtOfWar || Casting.LastSpell != Spells.Adloquium || Casting.LastSpell != Spells.Succor)
             //    if (await Spells.Ruin2.Cast(Core.Me.CurrentTarget))
             //        return true;

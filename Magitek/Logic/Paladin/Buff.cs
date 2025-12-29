@@ -48,9 +48,6 @@ namespace Magitek.Logic.Paladin
             if (!PaladinRoutine.GlobalCooldown.CanDoubleWeave() || !PaladinRoutine.GlobalCooldown.CanWeave(2))
                 return false;
 
-            if (Casting.LastSpell == Spells.FastBlade || Casting.LastSpell == Spells.RiotBlade)
-                return false;
-
             return await Spells.FightorFlight.Cast(Core.Me);
 
         }

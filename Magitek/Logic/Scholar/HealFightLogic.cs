@@ -82,8 +82,11 @@ namespace Magitek.Logic.Scholar
                 if (BaseSettings.Instance.DebugFightLogic)
                     Logger.WriteInfo($"[AOE Response] Cast Recitation Succor");
 
-                if (!await Spells.Recitation.Cast(Core.Me))
-                    return false;
+                if (Spells.Recitation.IsKnownAndReady())
+                {
+                    if (await Spells.Recitation.Cast(Core.Me))
+                        await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Recitation, true));
+                }
 
                 return await FightLogic.DoAndBuffer(Spells.Succor.Cast(Core.Me));
             }
@@ -106,7 +109,7 @@ namespace Magitek.Logic.Scholar
                     target = targets.FirstOrDefault(Core.Me);
                 }
 
-                return await FightLogic.DoAndBuffer(Spells.SacredSoil.Cast(Core.Me));
+                return await FightLogic.DoAndBuffer(Spells.SacredSoil.Cast(target));
             }
 
             if (ScholarSettings.Instance.FightLogicSuccorAoe &&
@@ -131,7 +134,7 @@ namespace Magitek.Logic.Scholar
             var enemyTarget = (Character)Core.Me.CurrentTarget;
             if (enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime)
             {
-                Logger.WriteInfo($"Enemy Target: ${enemyTarget}\t Remaining Cast Time ${enemyTarget.SpellCastInfo.RemainingCastTime}\t Succor Cast Time ${Spells.Succor.AdjustedCastTime}\t Logic Challenge: ${enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime}");
+                Logger.WriteInfo($"Enemy Target: {enemyTarget}\t Remaining Cast Time {enemyTarget.SpellCastInfo.RemainingCastTime}\t Succor Cast Time {Spells.Succor.AdjustedCastTime}\t Logic Challenge: {enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime}");
                 return false;
             }
 

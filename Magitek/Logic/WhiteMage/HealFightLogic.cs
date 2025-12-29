@@ -10,7 +10,7 @@ using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.WhiteMage
 {
-    internal class HealFightLogic
+    internal static class HealFightLogic
     {
         public static async Task<bool> Aoe()
         {

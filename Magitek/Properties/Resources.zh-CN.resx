@@ -5076,6 +5076,9 @@
   <data name="Scholar_Content_Seraphism" xml:space="preserve">
     <value>炽天附体</value>
   </data>
+  <data name="Scholar_Content_Seraphism_For_Movement" xml:space="preserve">
+    <value>移动时使用炽天附体</value>
+  </data>
   <data name="Scholar_Content_Manifestation" xml:space="preserve">
     <value>显现</value>
   </data>

@@ -5076,6 +5076,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Scholar_Content_Seraphism" xml:space="preserve">
     <value>Seraphism</value>
   </data>
+  <data name="Scholar_Content_Seraphism_For_Movement" xml:space="preserve">
+    <value>Seraphism For Movement</value>
+  </data>
   <data name="Scholar_Content_Manifestation" xml:space="preserve">
     <value>Manifestation</value>
   </data>

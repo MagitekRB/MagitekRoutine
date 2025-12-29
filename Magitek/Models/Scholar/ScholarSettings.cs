@@ -400,6 +400,10 @@ namespace Magitek.Models.Scholar
         [DefaultValue(true)]
         public bool Seraphism { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool SeraphismForMovement { get; set; }
+
 
         #endregion
 
