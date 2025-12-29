@@ -38,17 +38,19 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.UseFightOrFlight || PaladinSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
-            if (Spells.Requiescat.IsKnown() && !Spells.Requiescat.IsReady(1000))
-                return false;
-
             //if you're not in Range for your burst (Req Range, do not launch it
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.Requiescat.Range))
                 return false;
 
-            if (!PaladinRoutine.GlobalCooldown.CanDoubleWeave() || !PaladinRoutine.GlobalCooldown.CanWeave(2))
+            // if (!PaladinRoutine.GlobalCooldown.CanDoubleWeave() || !PaladinRoutine.GlobalCooldown.CanWeave(2))
+            //     return false;
+
+            if (Spells.Atonement.IsKnown() &&
+               !Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady })
+               && Casting.LastSpell != Spells.Sepulchre)
                 return false;
 
-            return await Spells.FightorFlight.Cast(Core.Me);
+            return await Spells.FightorFlight.CastAura(Core.Me, Auras.FightOrFlight);
 
         }
 

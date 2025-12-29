@@ -99,15 +99,20 @@ namespace Magitek.Rotations
 
                 //Under Divine Might Aura to have no cast or stacks of Sword Oath
                 if (await Aoe.HolyCircle()) return true;
-                if (await SingleTarget.Atonement()) return true;
                 if (await SingleTarget.HolySpirit()) return true;
 
                 //Combo Action AOE
                 if (await Aoe.Prominence()) return true;
                 if (await Aoe.TotalEclipse()) return true;
 
-                //Combo Action Single Target
+                // Use resources after Royal Authority (Atonement/Supplication/Sepulchre)
+                if (await SingleTarget.Atonement()) return true;
+
+                //Combo Action Single Target - Prioritize Royal Authority when combo is ready
+                //Filler rotation: RA → Atonement → Fast Blade → Riot Blade → Supplication → Holy Spirit → Sepulchre → RA
                 if (await SingleTarget.RoyalAuthority()) return true;
+
+                // Continue combo: Fast Blade → Riot Blade
                 if (await SingleTarget.RiotBlade()) return true;
                 if (await SingleTarget.FastBlade()) return true;
 

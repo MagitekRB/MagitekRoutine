@@ -88,9 +88,6 @@ namespace Magitek.Logic.Paladin
             if (PaladinSettings.Instance.UseHolySpiritToPull && !Core.Me.InCombat)
                 return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady }))
-                return false;
-
             if (PaladinSettings.Instance.UseHolySpiritWhenOutOfMeleeRange)
             {
                 if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.FastBlade.Range))
@@ -118,19 +115,31 @@ namespace Magitek.Logic.Paladin
             if (!Core.Me.HasAura(Auras.DivineMight))
                 return false;
 
-            //EXPERIMENTAL - In case we have DivineMight before FOF, it is better to start Basic combo (FastBlade + RiotBlade) and Keep HolySpirit + Atonement inside FOF
-            if (PaladinSettings.Instance.KeepHolySpiritAtonementinFoF && Spells.FightorFlight.IsKnown())
+            // During FoF: Use Holy Spirit before Atonement, but only if we won't get Sepulchre by the time FoF ends
+            // Outside FoF filler rotation: RA → Atonement → Fast Blade → Riot Blade → Supplication → Holy Spirit → Sepulchre → RA
+            if (Spells.Atonement.IsKnown())
             {
-                Aura DivineMightAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.DivineMight && x.CasterId == Core.Player.ObjectId);
-
-                if (Spells.FightorFlight.IsReady(((int)PaladinRoutine.GCDTimeMilliseconds) * 2)
-                    && DivineMightAura != null && DivineMightAura.TimespanLeft.TotalMilliseconds >= (4 * PaladinRoutine.GCDTimeMilliseconds))
+                // During FoF: Block Holy Spirit if we can reach Sepulchre before FoF ends (prioritize getting to Sepulchre)
+                if (Core.Me.HasAura(Auras.FightOrFlight) && PaladinRoutine.CanReachSepulchreBeforeFoFEnds())
                     return false;
 
-                if (Spells.FightorFlight.IsReady((int)PaladinRoutine.GCDTimeMilliseconds)
-                    && DivineMightAura != null && DivineMightAura.TimespanLeft.TotalMilliseconds >= (3 * PaladinRoutine.GCDTimeMilliseconds))
+                // Outside FoF: Block Holy Spirit only if we have Atonement or Supplication (allow Holy Spirit before Sepulchre)
+                if (!Core.Me.HasAura(Auras.FightOrFlight) && (Core.Me.HasAura(Auras.AtonementReady) || Core.Me.HasAura(Auras.SupplicationReady)))
                     return false;
             }
+
+            // During FoF, prioritize using Divine Might empowered Holy Spirit
+            if (Core.Me.HasAura(Auras.FightOrFlight))
+                return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
+
+            // Outside FoF: Bank Divine Might until next Royal Authority is ready (if setting enabled)
+            if (PaladinSettings.Instance.BankResourcesForReopener && PaladinRoutine.ShouldBankResourcesForRoyalAuthority())
+                return false;
+
+            // Only use Divine Might empowered Holy Spirit outside FoF if Royal Authority combo is ready
+            if (!PaladinRoutine.CanContinueComboAfter(Spells.RiotBlade) && !Core.Me.HasAura(Auras.DivineMight, msLeft: 3000))
+                return false;
+
             return await Spells.HolySpirit.Cast(Core.Me.CurrentTarget);
         }
 
@@ -167,9 +176,12 @@ namespace Magitek.Logic.Paladin
                 return false;
 
             if (Spells.Imperator.IsKnown())
-                return await Spells.Imperator.Cast(Core.Me.CurrentTarget);
+                if (Spells.Imperator.Masked() == Spells.Imperator)
+                    return await Spells.Imperator.CastAura(Core.Me.CurrentTarget, Auras.Requiescat, auraTarget: Core.Me);
+                else
+                    return await Spells.Imperator.Cast(Core.Me.CurrentTarget);
             else
-                return await Spells.Requiescat.Cast(Core.Me.CurrentTarget);
+                return await Spells.Requiescat.CastAura(Core.Me.CurrentTarget, Auras.Requiescat, auraTarget: Core.Me);
         }
 
         public static async Task<bool> Atonement()
@@ -177,43 +189,41 @@ namespace Magitek.Logic.Paladin
             if (!PaladinSettings.Instance.UseAtonement)
                 return false;
 
+            if (Core.Me.HasAura(Auras.Requiescat))
+                return false;
+
             if (!Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady }))
                 return false;
 
+            // Priority: Sepulchre > Supplication > Atonement
             if (Core.Me.HasAura(Auras.SepulchreReady))
             {
+                // During FoF, use immediately. Outside FoF, bank if RA is 1-2 GCDs away (if setting enabled)
+                if (!Core.Me.HasAura(Auras.FightOrFlight) && PaladinSettings.Instance.BankResourcesForReopener && PaladinRoutine.ShouldBankResourcesForRoyalAuthority())
+                    return false;
+
                 return await Spells.Sepulchre.Cast(Core.Me.CurrentTarget);
             }
             if (Core.Me.HasAura(Auras.SupplicationReady))
             {
+                // During FoF, use immediately. Outside FoF, bank if RA is 1-2 GCDs away (if setting enabled)
+                if (!Core.Me.HasAura(Auras.FightOrFlight) && PaladinSettings.Instance.BankResourcesForReopener && PaladinRoutine.ShouldBankResourcesForRoyalAuthority())
+                    return false;
+
                 return await Spells.Supplication.Cast(Core.Me.CurrentTarget);
             }
 
-            if (Core.Me.HasAura(Auras.Requiescat))
+            // During FoF, prioritize using Atonement
+            if (Core.Me.HasAura(Auras.FightOrFlight))
+                return await Spells.Atonement.Cast(Core.Me.CurrentTarget);
+
+            // Outside FoF: Use Atonement immediately after RA (don't bank it)
+            // Filler rotation: RA → Atonement → Fast Blade → Riot Blade → Supplication → Holy Spirit → Sepulchre → RA
+            // Only Supplication and Sepulchre are banked until next RA is ready
+            if (Core.Me.HasAura(Auras.AtonementReady))
+                return await Spells.Atonement.Cast(Core.Me.CurrentTarget);
+            else
                 return false;
-
-            if (!Core.Me.HasAura(Auras.FightOrFlight) && !PaladinRoutine.CanContinueComboAfter(Spells.RiotBlade))
-                return false;
-
-            //EXPERIMENTAL - In case we have 1 or 2 atonement remaining before FOF, it is better to start Basic combo (FastBlade + RiotBlade) and Keep atonment inside FOF
-            if (PaladinSettings.Instance.KeepHolySpiritAtonementinFoF && Spells.FightorFlight.IsKnown())
-            {
-                Aura SupplicationAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.SupplicationReady && x.CasterId == Core.Player.ObjectId);
-                Aura SepulchreAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.SepulchreReady && x.CasterId == Core.Player.ObjectId);
-
-
-                if (SupplicationAura != null
-                    && Spells.FightorFlight.IsReady(((int)PaladinRoutine.GCDTimeMilliseconds) * 2)
-                    && SupplicationAura.TimespanLeft.TotalMilliseconds >= (4 * PaladinRoutine.GCDTimeMilliseconds))
-                    return false;
-
-                if (SepulchreAura != null
-                    && Spells.FightorFlight.IsReady((int)PaladinRoutine.GCDTimeMilliseconds)
-                    && SepulchreAura.TimespanLeft.TotalMilliseconds >= (3 * PaladinRoutine.GCDTimeMilliseconds))
-                    return false;
-            }
-
-            return await Spells.Atonement.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> GoringBlade()
@@ -239,7 +249,7 @@ namespace Magitek.Logic.Paladin
             if (!PaladinRoutine.CanContinueComboAfter(Spells.RiotBlade))
                 return false;
 
-            if (Core.Me.HasAura(Auras.AtonementReady))
+            if (Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady }))
                 return false;
 
             return await PaladinRoutine.RoyalAuthority.Cast(Core.Me.CurrentTarget);

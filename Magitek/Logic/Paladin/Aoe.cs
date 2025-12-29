@@ -56,16 +56,6 @@ namespace Magitek.Logic.Paladin
             if (!Core.Me.HasAura(Auras.DivineMight))
                 return false;
 
-            //EXPERIMENTAL - In case we have DivineMight before FOF, it is better to start Basic combo (FastBlade + RiotBlade) and Keep HolySpirit + Atonement inside FOF
-            if (PaladinSettings.Instance.KeepHolySpiritAtonementinFoF && Spells.FightorFlight.IsKnown())
-            {
-                Aura DivineMightAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.DivineMight && x.CasterId == Core.Player.ObjectId);
-
-                if (Spells.FightorFlight.IsReady((int)PaladinRoutine.GCDTimeMilliseconds)
-                    && DivineMightAura != null && DivineMightAura.TimespanLeft.TotalMilliseconds >= (3 * PaladinRoutine.GCDTimeMilliseconds))
-                    return false;
-            }
-
             return await Spells.HolyCircle.Cast(Core.Me);
         }
 
@@ -139,22 +129,6 @@ namespace Magitek.Logic.Paladin
 
             if (!Core.Me.HasAura(Auras.FightOrFlight))
                 return false;
-
-            //EXPERIMENTAL - In case we have DivineMight before FOF, it is better to start Basic combo (FastBlade + RiotBlade) and Keep HolySpirit + Atonement inside FOF
-            if (PaladinSettings.Instance.KeepHolySpiritAtonementinFoF)
-            {
-                var FightOrFlightAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.FightOrFlight && x.CasterId == Core.Player.ObjectId);
-                if (FightOrFlightAura != null && FightOrFlightAura.TimespanLeft.TotalMilliseconds >= (4 * Spells.Confiteor.AdjustedCooldown.TotalMilliseconds))
-                {
-                    var SwordOathAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.AtonementReady && x.CasterId == Core.Player.ObjectId);
-                    if (SwordOathAura != null && SwordOathAura.TimespanLeft.TotalMilliseconds <= (3 * PaladinRoutine.GCDTimeMilliseconds))
-                        return false;
-
-                    var DivineMightAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.DivineMight && x.CasterId == Core.Player.ObjectId);
-                    if (DivineMightAura != null && DivineMightAura.TimespanLeft.TotalMilliseconds <= (3 * PaladinRoutine.GCDTimeMilliseconds))
-                        return false;
-                }
-            }
 
             return await Spells.Confiteor.Cast(Core.Me.CurrentTarget);
         }

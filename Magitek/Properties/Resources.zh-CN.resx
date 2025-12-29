@@ -2191,7 +2191,7 @@
     <value>仅在近战中。</value>
   </data>
   <data name="Paladin_Content_Keep_Atonement_and_HolySpirit_in_F" xml:space="preserve">
-    <value>在战逃反应期间保留 赎罪剑和圣灵 (实验性)</value>
+    <value>为重新开场储备资源</value>
   </data>
   <data name="Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_" xml:space="preserve">
     <value>只要蓝量 &gt;= [xx]就使用圣灵</value>
