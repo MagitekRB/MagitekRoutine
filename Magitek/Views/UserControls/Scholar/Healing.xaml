@@ -245,6 +245,9 @@
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.AccessionHpPercent, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Seraphism_For_Movement}" IsChecked="{Binding ScholarSettings.SeraphismForMovement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>        
         </StackPanel>
