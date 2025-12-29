@@ -47,7 +47,8 @@ namespace Magitek.Logic.Paladin
 
             if (Spells.Atonement.IsKnown() &&
                !Core.Me.HasAnyAura(new uint[] { Auras.AtonementReady, Auras.SupplicationReady, Auras.SepulchreReady })
-               && Casting.LastSpell != Spells.Sepulchre)
+               && Casting.LastSpell != Spells.Sepulchre
+               && Combat.Enemies.Count(x => x.WithinSpellRange(Spells.TotalEclipse.Radius)) < PaladinSettings.Instance.TotalEclipseEnemies)
                 return false;
 
             return await Spells.FightorFlight.CastAura(Core.Me, Auras.FightOrFlight);
