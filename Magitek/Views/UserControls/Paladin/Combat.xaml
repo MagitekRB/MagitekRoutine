@@ -45,7 +45,7 @@
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Atonement}" IsChecked="{Binding PaladinSettings.UseAtonement, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="25 0 0 0" Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Keep_Atonement_and_HolySpirit_in_F}" IsChecked="{Binding PaladinSettings.KeepHolySpiritAtonementinFoF, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Keep_Atonement_and_HolySpirit_in_F}" IsChecked="{Binding PaladinSettings.BankResourcesForReopener, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

@@ -2190,7 +2190,7 @@ Does not work if Lightspeed is disabled.</value>
     <value>Only in Melee.</value>
   </data>
   <data name="Paladin_Content_Keep_Atonement_and_HolySpirit_in_F" xml:space="preserve">
-    <value>Keep Atonement and HolySpirit in FOF (Experimental)</value>
+    <value>Bank Resources for Reopener</value>
   </data>
   <data name="Paladin_Content_Use_HolySpirit_as_long_as_Mana_is_" xml:space="preserve">
     <value>Use HolySpirit as long as Mana is &gt;=</value>

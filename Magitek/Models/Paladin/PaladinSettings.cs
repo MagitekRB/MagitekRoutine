@@ -286,7 +286,7 @@ namespace Magitek.Models.Paladin
 
         [Setting]
         [DefaultValue(true)]
-        public bool KeepHolySpiritAtonementinFoF { get; set; }
+        public bool BankResourcesForReopener { get; set; }
 
         [Setting]
         [DefaultValue(true)]
