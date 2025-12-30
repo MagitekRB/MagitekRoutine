@@ -215,9 +215,10 @@ namespace Magitek.Utilities.Agents
     /// Data Source (MUST be kept in sync with this table):
     /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/MKDSupportJob.csv
     /// 
-    /// Correct job mapping from CSV (0-12):
+    /// Correct job mapping from CSV (0-15):
     /// 0=Freelancer, 1=Knight, 2=Berserker, 3=Monk, 4=Ranger, 5=Samurai,
-    /// 6=Bard, 7=Geomancer, 8=TimeMage, 9=Cannoneer, 10=Chemist, 11=Oracle, 12=Thief
+    /// 6=Bard, 7=Geomancer, 8=TimeMage, 9=Cannoneer, 10=Chemist, 11=Oracle, 12=Thief,
+    /// 13=MysticKnight, 14=Gladiator, 15=Dancer
     /// </summary>
     public enum PhantomJobId : byte
     {
@@ -233,6 +234,9 @@ namespace Magitek.Utilities.Agents
         Cannoneer = 9,
         Chemist = 10,
         Oracle = 11,
-        Thief = 12
+        Thief = 12,
+        MysticKnight = 13,
+        Gladiator = 14,
+        Dancer = 15
     }
 }

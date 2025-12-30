@@ -55,6 +55,10 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
+        public bool AutoSwitchToDancerForQuickerStep { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool RestoreOriginalPhantomJobAfterAutoBuff { get; set; }
         #endregion
 
@@ -488,6 +492,36 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(false)]
         public bool DokumoriOnlyMultipleTargets { get; set; }
+        #endregion
+
+        #region Phantom Dancer
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDance { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseQuickstep { get; set; }
+
+        [Setting]
+        [DefaultValue(90.0f)]
+        public float QuickstepHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSteadfastStance { get; set; }
+
+        [Setting]
+        [DefaultValue(75.0f)]
+        public float SteadfastStanceHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool SteadfastStanceCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMesmerize { get; set; }
         #endregion
     }
 }
