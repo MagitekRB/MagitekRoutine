@@ -144,6 +144,13 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0,2">
+                                                        <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Auto_switch_to_Dancer_for_Qui}"
+                                                                  IsChecked="{Binding AutoSwitchToDancerForQuickerStep, Mode=TwoWay}"
+                                                                  Style="{DynamicResource CheckBoxFlat}"
+                                                                  IsEnabled="{Binding EnableAutomaticPhantomJobSwitching}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Margin="0,2">
                                                         <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Restore_original_phantom_jo}"
                                                                   IsChecked="{Binding RestoreOriginalPhantomJobAfterAutoBuff, Mode=TwoWay}"
                                                                   Style="{DynamicResource CheckBoxFlat}"
@@ -1002,6 +1009,88 @@
                                                    FontStyle="Italic"
                                                    Foreground="Gold"
                                                    Text="{x:Static properties:Resources.OccultCrescent_Text_Dokumori_is_an_AoE_steal_abili}"/>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
+                        <!-- Phantom Dancer Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Dancer"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Dance}"
+                                                          IsChecked="{Binding UseDance, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Quickstep}"
+                                                          IsChecked="{Binding UseQuickstep, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_target_targeting_us_and_HP_below}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding QuickstepHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Steadfast_Stance}"
+                                                          IsChecked="{Binding UseSteadfastStance, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"
+                                                           Margin="20,0,0,0"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding SteadfastStanceHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
+                                                          IsChecked="{Binding SteadfastStanceCastOnAllies, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Mesmerize}"
+                                                          IsChecked="{Binding UseMesmerize, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
+                        <!-- Phantom Mystic Knight Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Mystic Knight"/>
+                                        <!-- TODO: Add checkboxes and controls for Phantom Mystic Knight spells -->
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
+                        <!-- Phantom Gladiator Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Gladiator"/>
+                                        <!-- TODO: Add checkboxes and controls for Phantom Gladiator spells -->
                                 </StackPanel>
                         </controls:SettingsBlock>
 

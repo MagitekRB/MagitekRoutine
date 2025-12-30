@@ -43,7 +43,16 @@ namespace Magitek.Logic.Roles
             PredictionOfJudgment = 4265,
             PhantomRejuvenation = 4274,
             RingingRespite = 4257,
-            Suspend = 4258;
+            Suspend = 4258,
+            PoisedToSwordDance = 4794,
+            TemptedToTango = 4795,
+            Jitterbugged = 4796,
+            WillingToWaltz = 4797,
+            Quickstep = 4798,
+            QuickerStep = 4799,
+            SteadfastStance = 4800,
+            Enamored = 4801,
+            Mesmerized = 4802;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -135,6 +144,24 @@ namespace Magitek.Logic.Roles
 
         // NIN Spells (for gold farming)
         public static readonly SpellData Dokumori = DataManager.GetSpellData(36957);
+
+        // Phantom Dancer Spells (Job ID: 4805)
+        public static readonly SpellData Dance = DataManager.GetSpellData(46598);
+        public static readonly SpellData PhantomSwordDance = DataManager.GetSpellData(46599);
+        public static readonly SpellData TemptingTango = DataManager.GetSpellData(46600);
+        public static readonly SpellData Jitterbug = DataManager.GetSpellData(46601);
+        public static readonly SpellData MysteryWaltz = DataManager.GetSpellData(46602);
+        public static readonly SpellData Quickstep = DataManager.GetSpellData(46603);
+        public static readonly SpellData SteadfastStance = DataManager.GetSpellData(46604);
+        public static readonly SpellData Mesmerize = DataManager.GetSpellData(46605);
+
+        // Phantom Mystic Knight Spells (Job ID: 4803)
+        // TODO: Add spell definitions here
+        // public static readonly SpellData SpellName = DataManager.GetSpellData(SPELL_ID);
+
+        // Phantom Gladiator Spells (Job ID: 4804)
+        // TODO: Add spell definitions here
+        // public static readonly SpellData SpellName = DataManager.GetSpellData(SPELL_ID);
     }
 
     internal class OccultCrescent
@@ -185,7 +212,10 @@ namespace Magitek.Logic.Roles
             { 4369, PhantomJob.PhantomThief },
             { 4362, PhantomJob.Samurai },
             { 4368, PhantomJob.Oracle },
-            { 4364, PhantomJob.Geomancer }
+            { 4364, PhantomJob.Geomancer },
+            { 4805, PhantomJob.Dancer },
+            { 4803, PhantomJob.MysticKnight },
+            { 4804, PhantomJob.Gladiator }
         };
 
         public enum PhantomJob
@@ -202,7 +232,10 @@ namespace Magitek.Logic.Roles
             PhantomThief,
             Samurai,
             Oracle,
-            Geomancer
+            Geomancer,
+            Dancer,
+            MysticKnight,
+            Gladiator
         }
 
         /// <summary>
@@ -320,6 +353,9 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Samurai => await ExecuteSamuraiPhantomJob(),
                 PhantomJob.Oracle => await ExecuteOraclePhantomJob(),
                 PhantomJob.Geomancer => await ExecuteGeomancerPhantomJob(),
+                PhantomJob.Dancer => await ExecuteDancerPhantomJob(),
+                PhantomJob.MysticKnight => await ExecuteMysticKnightPhantomJob(),
+                PhantomJob.Gladiator => await ExecuteGladiatorPhantomJob(),
                 _ => false
             };
 
@@ -1720,6 +1756,10 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentTarget.HasAura(OCAuras.SilverSickness, msLeft: 20000))
                 return false;
 
+            // Don't cast if target has Enamored or Mesmerized (conflicts with SilverSickness)
+            if (Core.Me.CurrentTarget.HasAura(OCAuras.Mesmerized))
+                return false;
+
             // Check if target is within spell range
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.SilverCannon.Range))
                 return false;
@@ -3041,5 +3081,237 @@ namespace Magitek.Logic.Roles
 
             return await OCSpells.Dokumori.Cast(dokumoriTarget);
         }
+
+        #region Phantom Dancer (Job ID: 4805)
+        /// <summary>
+        /// Execute Phantom Dancer phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteDancerPhantomJob()
+        {
+            // Steadfast Stance - barrier for self or party members
+            if (await SteadfastStance())
+                return true;
+
+            // Mesmerize - debuff enemy (conflicts with SilverSickness)
+            if (await Mesmerize())
+                return true;
+
+            // Quickstep - evasion buff, or knowledge crystal buff if near crystal
+            if (await Quickstep())
+                return true;
+
+            // Dance - masked action that becomes one of four abilities based on aura
+            if (await Dance())
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Cast Dance - masked action that becomes Phantom Sword Dance, Tempting Tango, Jitterbug, or Mystery Waltz based on aura
+        /// Dance grants one of four statuses (Poised to Sword Dance, Tempted to Tango, Jitterbugged, Willing to Waltz),
+        /// then becomes the corresponding attack ability when cast again
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Dance()
+        {
+            if (!OccultCrescentSettings.Instance.UseDance)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            // Check if we have a target
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range (all dance abilities have 30y range)
+            if (!target.WithinSpellRange(30.0f))
+                return false;
+
+            // Check which aura we have and cast the corresponding ability
+            // Since Masked() doesn't work reliably, we check each aura and cast the corresponding spell directly
+            if (Core.Me.HasAura(OCAuras.PoisedToSwordDance))
+            {
+                if (OCSpells.PhantomSwordDance.CanCast(target))
+                    return await OCSpells.PhantomSwordDance.Cast(target);
+            }
+            else if (Core.Me.HasAura(OCAuras.TemptedToTango))
+            {
+                if (OCSpells.TemptingTango.CanCast(target))
+                    return await OCSpells.TemptingTango.Cast(target);
+            }
+            else if (Core.Me.HasAura(OCAuras.Jitterbugged))
+            {
+                if (OCSpells.Jitterbug.CanCast(target))
+                    return await OCSpells.Jitterbug.Cast(target);
+            }
+            else if (Core.Me.HasAura(OCAuras.WillingToWaltz))
+            {
+                if (OCSpells.MysteryWaltz.CanCast(target))
+                    return await OCSpells.MysteryWaltz.Cast(target);
+            }
+            else
+            {
+                // No aura active, cast Dance to get an aura
+                if (OCSpells.Dance.CanCast(target))
+                    return await OCSpells.Dance.Cast(target);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Cast Quickstep - increases evasion by 20% for 90s (combat only)
+        /// Knowledge crystal party buff casting is now handled by PhantomJobSwitcher
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Quickstep()
+        {
+            if (!OccultCrescentSettings.Instance.UseQuickstep)
+                return false;
+
+            // Only used in combat for evasion buff, knowledge crystal party buff handled by PhantomJobSwitcher
+            if (!Core.Me.InCombat)
+                return false;
+
+            // Check if we already have the Quickstep evasion aura (don't recast unnecessarily)
+            if (Core.Me.HasAura(OCAuras.Quickstep, msLeft: 1000))
+                return false;
+
+            if (!OCSpells.Quickstep.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit())
+                return false;
+
+            // Check if target is targeting us
+            if (!Core.Me.BeingTargetedBy(target))
+                return false;
+
+            // Check if we're at configured HP% or lower
+            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.QuickstepHealthPercent)
+                return false;
+
+            return await OCSpells.Quickstep.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Cast Steadfast Stance - grants barrier that absorbs damage equal to 10% of max HP for 30s
+        /// Can be cast on self or party members
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> SteadfastStance()
+        {
+            if (!OccultCrescentSettings.Instance.UseSteadfastStance)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.SteadfastStance.CanCast())
+                return false;
+
+            GameObject stanceTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.SteadfastStanceCastOnAllies)
+            {
+                // Find party member who doesn't have Steadfast Stance buff and is below HP threshold
+                stanceTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.HasAura(OCAuras.SteadfastStance, msLeft: 1000) &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.SteadfastStanceHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent) // Prioritize lower HP
+                    .FirstOrDefault();
+
+                // If no allies need it, check self
+                if (stanceTarget == null &&
+                    !Core.Me.HasAura(OCAuras.SteadfastStance, msLeft: 1000) &&
+                    Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.SteadfastStanceHealthPercent)
+                    stanceTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self if below HP threshold
+                if (!Core.Me.HasAura(OCAuras.SteadfastStance, msLeft: 1000) &&
+                    Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.SteadfastStanceHealthPercent)
+                    stanceTarget = Core.Me;
+            }
+
+            if (stanceTarget == null)
+                return false;
+
+            // Check if target is within spell range
+            if (!stanceTarget.WithinSpellRange(OCSpells.SteadfastStance.Range))
+                return false;
+
+            return await OCSpells.SteadfastStance.Cast(stanceTarget);
+        }
+
+        /// <summary>
+        /// Cast Mesmerize - afflicts target with Enamored (40% damage reduction for 4s) and Mesmerized (10% damage reduction, 5% damage taken increase for 100s)
+        /// Cannot be cast if target has SilverSickness (conflicts)
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> Mesmerize()
+        {
+            if (!OccultCrescentSettings.Instance.UseMesmerize)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Mesmerize.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            // Check if target is within spell range
+            if (!target.WithinSpellRange(OCSpells.Mesmerize.Range))
+                return false;
+
+            // Don't cast if target has SilverSickness (conflicts with Mesmerized)
+            if (target.HasAura(OCAuras.SilverSickness))
+                return false;
+
+            // Don't recast if target already has Mesmerized (the long duration debuff)
+            if (target.HasAura(OCAuras.Mesmerized, msLeft: 5000))
+                return false;
+
+            return await OCSpells.Mesmerize.Cast(target);
+        }
+        #endregion
+
+        #region Phantom Mystic Knight (Job ID: 4803)
+        /// <summary>
+        /// Execute Phantom Mystic Knight phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteMysticKnightPhantomJob()
+        {
+            // TODO: Add spell implementations here
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Gladiator (Job ID: 4804)
+        /// <summary>
+        /// Execute Phantom Gladiator phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteGladiatorPhantomJob()
+        {
+            // TODO: Add spell implementations here
+            return false;
+        }
+        #endregion
     }
 }

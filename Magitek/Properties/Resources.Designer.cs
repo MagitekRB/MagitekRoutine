@@ -9914,6 +9914,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Auto-switch to Dancer for Quicker Step.
+        /// </summary>
+        public static string OccultCrescent_Content_Auto_switch_to_Dancer_for_Qui
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Auto_switch_to_Dancer_for_Qui", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Automatically switch phantom jobs for Knowledge Crystal buffs.
         /// </summary>
         public static string OccultCrescent_Content_Automatically_switch_phanto
@@ -10163,6 +10174,50 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Dokumori_when_enemy_bel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Dance.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Dance
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Dance", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Quickstep.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Quickstep
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Quickstep", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Steadfast Stance.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Steadfast_Stance
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Steadfast_Stance", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Mesmerize.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Mesmerize
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Mesmerize", resourceCulture);
             }
         }
 
@@ -11186,6 +11241,17 @@ namespace Magitek.Properties
             get
             {
                 return ResourceManager.GetString("OccultCrescent_Text_when_HP_below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to when target targeting us and HP below.
+        /// </summary>
+        public static string OccultCrescent_Text_when_target_targeting_us_and_HP_below
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Text_when_target_targeting_us_and_HP_below", resourceCulture);
             }
         }
 

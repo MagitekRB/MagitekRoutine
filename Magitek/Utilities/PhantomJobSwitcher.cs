@@ -53,6 +53,16 @@ namespace Magitek.Utilities
                     BuffName = "Fleetfooted",
                     JobName = "Monk"
                 }
+            },
+            // Dancer (ID=13) -> Quickstep -> Quicker Step aura
+            {
+                PhantomJobId.Dancer,
+                new KnowledgeCrystalBuff
+                {
+                    AuraId = OCAuras.QuickerStep, // 4799
+                    BuffName = "Quicker Step",
+                    JobName = "Dancer"
+                }
             }
         };
 
@@ -94,6 +104,7 @@ namespace Magitek.Utilities
                     PhantomJobId.Knight => OccultCrescentSettings.Instance.AutoSwitchToKnightForEnduringFortitude,
                     PhantomJobId.Bard => OccultCrescentSettings.Instance.AutoSwitchToBardForRomeosBallad,
                     PhantomJobId.Monk => OccultCrescentSettings.Instance.AutoSwitchToMonkForFleetfooted,
+                    PhantomJobId.Dancer => OccultCrescentSettings.Instance.AutoSwitchToDancerForQuickerStep,
                     _ => false
                 };
 
@@ -301,6 +312,7 @@ namespace Magitek.Utilities
                     PhantomJobId.Bard => await OCSpells.RomeosBallad.CastAura(Core.Me, OCAuras.RomeosBallad),
                     PhantomJobId.Knight => await OCSpells.Pray.CastAura(Core.Me, OCAuras.EnduringFortitude),
                     PhantomJobId.Monk => await OCSpells.Counterstance.CastAura(Core.Me, OCAuras.Fleetfooted),
+                    PhantomJobId.Dancer => await OCSpells.Quickstep.CastAura(Core.Me, OCAuras.QuickerStep),
                     _ => false
                 };
             }
@@ -346,6 +358,9 @@ namespace Magitek.Utilities
                 OccultCrescent.PhantomJob.Chemist => PhantomJobId.Chemist,
                 OccultCrescent.PhantomJob.Oracle => PhantomJobId.Oracle,
                 OccultCrescent.PhantomJob.PhantomThief => PhantomJobId.Thief,
+                OccultCrescent.PhantomJob.Dancer => PhantomJobId.Dancer,
+                OccultCrescent.PhantomJob.MysticKnight => PhantomJobId.MysticKnight,
+                OccultCrescent.PhantomJob.Gladiator => PhantomJobId.Gladiator,
                 _ => PhantomJobId.Freelancer // Default to Freelancer
             };
         }
@@ -372,6 +387,9 @@ namespace Magitek.Utilities
                 PhantomJobId.Chemist => "Chemist",
                 PhantomJobId.Oracle => "Oracle",
                 PhantomJobId.Thief => "Phantom Thief",
+                PhantomJobId.Dancer => "Dancer",
+                PhantomJobId.MysticKnight => "Mystic Knight",
+                PhantomJobId.Gladiator => "Gladiator",
                 _ => jobId.ToString()
             };
         }

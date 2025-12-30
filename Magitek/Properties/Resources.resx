@@ -1811,6 +1811,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Text_when_HP_below" xml:space="preserve">
     <value>when HP below</value>
   </data>
+  <data name="OccultCrescent_Text_when_target_targeting_us_and_HP_below" xml:space="preserve">
+    <value>when target targeting us and HP below</value>
+  </data>
   <data name="OccultCrescent_Text_Regen_when_HP_below" xml:space="preserve">
     <value>Regen when HP below</value>
   </data>
@@ -1966,6 +1969,18 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Kick" xml:space="preserve">
     <value>Use Phantom Kick</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Dance" xml:space="preserve">
+    <value>Use Dance</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Quickstep" xml:space="preserve">
+    <value>Use Quickstep</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Steadfast_Stance" xml:space="preserve">
+    <value>Use Steadfast Stance</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Mesmerize" xml:space="preserve">
+    <value>Use Mesmerize</value>
   </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
@@ -3685,6 +3700,9 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="OccultCrescent_Content_Auto_switch_to_Monk_for_Fle" xml:space="preserve">
     <value>Auto-switch to Monk for Fleetfooted</value>
+  </data>
+  <data name="OccultCrescent_Content_Auto_switch_to_Dancer_for_Qui" xml:space="preserve">
+    <value>Auto-switch to Dancer for Quicker Step</value>
   </data>
   <data name="OccultCrescent_Content_Only_cast_Comet_with_job_sp" xml:space="preserve">
     <value>Only cast Comet with job-specific cast time reduction buffs</value>
