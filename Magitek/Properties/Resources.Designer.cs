@@ -12972,6 +12972,17 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Harvest Moon Target HP.
+        /// </summary>
+        public static string Reaper_Content_Harvest_Moon_Target_HP
+        {
+            get
+            {
+                return ResourceManager.GetString("Reaper_Content_Harvest_Moon_Target_HP", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Hold Soul Guage for Gluttony cooldown within.
         /// </summary>
         public static string Reaper_Content_Hold_Soul_Guage_for_Gluttony_cooldo

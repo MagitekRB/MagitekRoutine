@@ -260,6 +260,18 @@ namespace Magitek.Models.Reaper
         public bool Pvp_HarvestMoon { get; set; }
 
         [Setting]
+        [DefaultValue(50.0f)]
+        public float Pvp_HarvestMoonTargetHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_HarvestMoonForKillsOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_HarvestMoonAnyTarget { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Pvp_VoidReapingNCrossReaping { get; set; }
 

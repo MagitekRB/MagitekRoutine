@@ -2505,6 +2505,9 @@
   <data name="Reaper_Content_Harvest_Moon" xml:space="preserve">
     <value>收获月</value>
   </data>
+  <data name="Reaper_Content_Harvest_Moon_Target_HP" xml:space="preserve">
+    <value>收获月目标血量</value>
+  </data>
   <data name="Reaper_Content_TenebraeLemurum_LB" xml:space="preserve">
     <value>暗夜游魂/ LB极限技</value>
   </data>

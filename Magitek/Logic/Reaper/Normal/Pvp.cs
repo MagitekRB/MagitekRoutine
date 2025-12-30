@@ -1,9 +1,13 @@
 ﻿using ff14bot;
+using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Reaper;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Reaper
 {
@@ -142,13 +146,58 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_HarvestMoon)
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
+            // Harvest Moon: 8,000 base potency, scales up to 12,000 at 50% HP or less
+            // Potency calculator function for scaling based on target HP
+            Func<GameObject, double> potencyCalculator = (target) =>
+            {
+                if (target.CurrentHealthPercent <= 50)
+                {
+                    return 12000; // Max potency at 50% HP or less
+                }
+                else
+                {
+                    // Linear scaling from 100% HP (8000) to 50% HP (12000)
+                    double hpPercent = target.CurrentHealthPercent;
+                    double scaleFactor = (100 - hpPercent) / 50.0; // 0 at 100% HP, 1 at 50% HP
+                    return 8000 + (scaleFactor * 4000); // Scale from 8000 to 12000
+                }
+            };
+
+            // Always prioritize "would kill" scenarios - use any available charge for kills
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                ReaperSettings.Instance,
+                8000, // Base potency (will be calculated per target)
+                25f, // Range: 25y
+                ignoreGuard: false,
+                checkGuard: true,
+                searchAllTargets: ReaperSettings.Instance.Pvp_HarvestMoonAnyTarget,
+                potencyCalculator: potencyCalculator);
+
+            if (killableTarget != null)
+            {
+                return await Spells.HarvestMoonPvp.Cast(killableTarget);
+            }
+
+            // HP threshold usage
+            // If "For Kills Only" is enabled: only use HP threshold if we have more than 1 charge
+            // This allows using 1 charge for HP threshold while keeping 1 charge reserved for kills
+            if (ReaperSettings.Instance.Pvp_HarvestMoonForKillsOnly && Spells.HarvestMoonPvp.Charges < 2.0f)
+                return false;
+
+            if (!Core.Me.HasTarget)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50 && Core.Me.HasAura(Auras.PvpSoulsow, true, 2000))
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
+                return false;
+
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > ReaperSettings.Instance.Pvp_HarvestMoonTargetHealthPercent)
+                return false;
+
+            // Don't use if target is above 50% HP and we have Soulsow with 2s+ remaining
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
                 return false;
 
             return await Spells.HarvestMoonPvp.Cast(Core.Me.CurrentTarget);
