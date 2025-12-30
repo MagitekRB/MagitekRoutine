@@ -10222,6 +10222,50 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Blazing Spellblade.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Blazing_Spellblade
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Blazing_Spellblade", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Holy Spellblade.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Holy_Spellblade
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Holy_Spellblade", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Magic Shell.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Magic_Shell
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Magic_Shell", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Sundering Spellblade.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Sundering_Spellblade
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Sundering_Spellblade", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Hasty Mirage (Increases movement speed by 20%).
         /// </summary>
         public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_

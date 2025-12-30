@@ -1080,7 +1080,50 @@
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
                                                    Text="Phantom Mystic Knight"/>
-                                        <!-- TODO: Add checkboxes and controls for Phantom Mystic Knight spells -->
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Magic_Shell}"
+                                                          IsChecked="{Binding UseMagicShell, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding MagicShellHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
+                                                          IsChecked="{Binding MagicShellCastOnAllies, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Sundering_Spellblade}"
+                                                          IsChecked="{Binding UseSunderingSpellblade, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Holy_Spellblade}"
+                                                          IsChecked="{Binding UseHolySpellblade, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Blazing_Spellblade}"
+                                                          IsChecked="{Binding UseBlazingSpellblade, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
                                 </StackPanel>
                         </controls:SettingsBlock>
 

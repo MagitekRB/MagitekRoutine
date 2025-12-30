@@ -523,5 +523,31 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseMesmerize { get; set; }
         #endregion
+
+        #region Phantom Mystic Knight
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMagicShell { get; set; }
+
+        [Setting]
+        [DefaultValue(75.0f)]
+        public float MagicShellHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool MagicShellCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSunderingSpellblade { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHolySpellblade { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBlazingSpellblade { get; set; }
+        #endregion
     }
 }
