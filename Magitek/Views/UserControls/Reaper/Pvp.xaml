@@ -40,11 +40,45 @@
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Death_Warrant}" IsChecked="{Binding ReaperSettings.Pvp_DeathWarrant, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Harvest_Moon}" IsChecked="{Binding ReaperSettings.Pvp_HarvestMoon, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_TenebraeLemurum_LB}" IsChecked="{Binding ReaperSettings.Pvp_TenebraeLemurum, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Communio_LB}" IsChecked="{Binding ReaperSettings.Pvp_Communio, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <TextBlock Style="{DynamicResource TextBlockSection}" 
+                           Text="{x:Static properties:Resources.Reaper_Content_Harvest_Moon}"
+                           Margin="5,10,5,5"/>
+                <StackPanel Margin="5">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Harvest_Moon}"
+                                  IsChecked="{Binding ReaperSettings.Pvp_HarvestMoon, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text="{x:Static properties:Resources.Reaper_Content_Harvest_Moon_Target_HP}"
+                                   Width="300"/>
+                        <controls:Numeric MaxValue="100"
+                                          MinValue="1"
+                                          Value="{Binding ReaperSettings.Pvp_HarvestMoonTargetHealthPercent, Mode=TwoWay}"/>
+                        <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                   Text="{x:Static properties:Resources.Generic_Health_Percent}"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Use_For_Kills_Only}"
+                                  IsChecked="{Binding ReaperSettings.Pvp_HarvestMoonForKillsOnly, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Any_Enemy_below_the_threshold}"
+                                  IsChecked="{Binding ReaperSettings.Pvp_HarvestMoonAnyTarget, Mode=TwoWay}"
+                                  Style="{DynamicResource CheckBoxFlat}"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

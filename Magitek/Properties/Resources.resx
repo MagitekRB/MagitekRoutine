@@ -2504,6 +2504,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Reaper_Content_Harvest_Moon" xml:space="preserve">
     <value>Harvest Moon</value>
   </data>
+  <data name="Reaper_Content_Harvest_Moon_Target_HP" xml:space="preserve">
+    <value>Harvest Moon Target HP</value>
+  </data>
   <data name="Reaper_Content_TenebraeLemurum_LB" xml:space="preserve">
     <value>TenebraeLemurum / LB</value>
   </data>

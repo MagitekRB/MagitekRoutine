@@ -16,6 +16,16 @@ namespace Magitek.Logic.Roles
 {
     internal class CommonPvp
     {
+        /// <summary>
+        /// PvP mode types based on party composition
+        /// </summary>
+        public enum PvpMode
+        {
+            CrystallineConflict,  // 5 players total (4 other allies) - no modifiers
+            HiddenGorgeRivalWings, // 4 players total (3 other allies) - uses Frontline modifiers for now
+            Frontline            // 8+ players (more than 4 other allies) - applies job-specific modifiers
+        }
+
         // Target tracking for shared high-impact abilities
         private static Dictionary<uint, int> TargetCounts { get; set; } = new Dictionary<uint, int>();
         private static DateTime LastTargetCountUpdate { get; set; } = DateTime.MinValue;
@@ -423,6 +433,105 @@ namespace Magitek.Logic.Roles
             return target.HasAura(Auras.MountedPvp);
         }
 
+        /// <summary>
+        /// Detects the current PvP mode based on party size.
+        /// </summary>
+        /// <returns>The detected PvP mode</returns>
+        public static PvpMode GetPvpMode()
+        {
+            // Count allies (excluding self)
+            int allyCount = (int)PartyManager.NumMembers - 1;
+
+            if (allyCount == 4)
+                return PvpMode.CrystallineConflict; // 5 players total (4 other allies)
+            else if (allyCount == 3)
+                return PvpMode.HiddenGorgeRivalWings; // 4 players total (3 other allies)
+            else if (allyCount > 4)
+                return PvpMode.Frontline; // 8+ players (more than 4 other allies)
+
+            return PvpMode.CrystallineConflict;
+        }
+
+        /// <summary>
+        /// Frontline job modifiers (Patch 7.4).
+        /// Damage Dealt: percentage modifier (e.g., -10% = 0.90 multiplier, 0% = 1.0 multiplier)
+        /// Damage Taken: percentage modifier (e.g., -50% = 0.50 multiplier, 0% = 1.0 multiplier)
+        /// Values are stored as multipliers (1.0 = no change, 0.90 = -10%, 0.50 = -50%)
+        /// </summary>
+        private static readonly Dictionary<ClassJobType, (double DamageDealtMultiplier, double DamageTakenMultiplier)> FrontlineJobModifiers = new Dictionary<ClassJobType, (double, double)>
+        {
+            // Tanks
+            { ClassJobType.Paladin, (1.00, 0.50) },      // 0% dealt, -50% taken
+            { ClassJobType.Warrior, (0.90, 0.50) },      // -10% dealt, -50% taken
+            { ClassJobType.DarkKnight, (0.85, 0.60) },  // -15% dealt, -40% taken
+            { ClassJobType.Gunbreaker, (1.00, 0.45) },  // 0% dealt, -55% taken
+
+            // Melee DPS
+            { ClassJobType.Monk, (1.00, 0.50) },        // 0% dealt, -50% taken
+            { ClassJobType.Dragoon, (0.85, 0.50) },      // -15% dealt, -50% taken
+            { ClassJobType.Ninja, (1.00, 0.55) },       // 0% dealt, -45% taken
+            { ClassJobType.Samurai, (0.90, 0.50) },     // -10% dealt, -50% taken
+            { ClassJobType.Reaper, (1.00, 0.50) },      // 0% dealt, -50% taken
+            { ClassJobType.Viper, (1.00, 0.40) },       // 0% dealt, -60% taken
+
+            // Ranged Physical DPS
+            { ClassJobType.Bard, (1.00, 0.70) },        // 0% dealt, -30% taken
+            { ClassJobType.Machinist, (1.00, 0.70) },   // 0% dealt, -30% taken
+            { ClassJobType.Dancer, (1.00, 0.65) },      // 0% dealt, -35% taken
+
+            // Ranged Magical DPS
+            { ClassJobType.BlackMage, (0.95, 0.70) },   // -5% dealt, -30% taken
+            { ClassJobType.Summoner, (0.90, 0.70) },    // -10% dealt, -30% taken
+            { ClassJobType.RedMage, (1.00, 0.62) },     // 0% dealt, -38% taken
+            { ClassJobType.Pictomancer, (0.90, 0.70) }, // -10% dealt, -30% taken
+
+            // Healers
+            { ClassJobType.WhiteMage, (0.90, 0.75) },   // -10% dealt, -25% taken
+            { ClassJobType.Scholar, (0.90, 0.70) },     // -10% dealt, -30% taken
+            { ClassJobType.Astrologian, (0.85, 0.75) }, // -15% dealt, -25% taken
+            { ClassJobType.Sage, (1.00, 0.65) },        // 0% dealt, -35% taken
+        };
+
+        /// <summary>
+        /// Rival Wings (Astragalos/Hidden Gorge) job modifiers (Patch 7.4).
+        /// Rival Wings only applies damage-taken modifiers; there are no per-job damage-dealt or limit-gauge adjustments.
+        /// Damage Taken: percentage modifier (e.g., -20% = 0.80 multiplier, -10% = 0.90 multiplier)
+        /// Values are stored as multipliers (1.0 = no change, 0.80 = -20%, 0.90 = -10%)
+        /// </summary>
+        private static readonly Dictionary<ClassJobType, double> RivalWingsJobModifiers = new Dictionary<ClassJobType, double>
+        {
+            // Tanks: -20% damage taken
+            { ClassJobType.Paladin, 0.80 },
+            { ClassJobType.Warrior, 0.80 },
+            { ClassJobType.DarkKnight, 0.80 },
+            { ClassJobType.Gunbreaker, 0.80 },
+
+            // Melee DPS: -20% damage taken
+            { ClassJobType.Monk, 0.80 },
+            { ClassJobType.Dragoon, 0.80 },
+            { ClassJobType.Ninja, 0.80 },
+            { ClassJobType.Samurai, 0.80 },
+            { ClassJobType.Reaper, 0.80 },
+            { ClassJobType.Viper, 0.80 },
+
+            // Ranged Physical DPS: -10% damage taken
+            { ClassJobType.Bard, 0.90 },
+            { ClassJobType.Machinist, 0.90 },
+            { ClassJobType.Dancer, 0.90 },
+
+            // Ranged Magical DPS: -10% damage taken
+            { ClassJobType.BlackMage, 0.90 },
+            { ClassJobType.Summoner, 0.90 },
+            { ClassJobType.RedMage, 0.90 },
+            { ClassJobType.Pictomancer, 0.90 },
+
+            // Healers: -10% damage taken
+            { ClassJobType.WhiteMage, 0.90 },
+            { ClassJobType.Scholar, 0.90 },
+            { ClassJobType.Astrologian, 0.90 },
+            { ClassJobType.Sage, 0.90 },
+        };
+
         // PvP Damage Modifiers
         // 
         // TANKS:
@@ -711,11 +820,41 @@ namespace Magitek.Logic.Roles
             }
             estimatedDamage = Math.Max(0, estimatedDamage - totalAbsorb);
 
-            // Tank damage reduction (20% reduction for tanks)
-            if (target.IsTank())
+            // Apply job modifiers based on PvP mode
+            PvpMode currentMode = GetPvpMode();
+
+            if (currentMode == PvpMode.Frontline)
             {
-                estimatedDamage *= 0.8;
+                // Frontline: Apply both damage dealt and damage taken modifiers
+                // Apply player's damage dealt modifier
+                if (FrontlineJobModifiers.TryGetValue(Core.Me.CurrentJob, out var playerModifiers))
+                {
+                    estimatedDamage *= playerModifiers.DamageDealtMultiplier;
+                }
+
+                // Apply target's damage taken modifier
+                if (target is BattleCharacter targetBc && FrontlineJobModifiers.TryGetValue(targetBc.CurrentJob, out var targetModifiers))
+                {
+                    estimatedDamage *= targetModifiers.DamageTakenMultiplier;
+                }
             }
+            else if (currentMode == PvpMode.HiddenGorgeRivalWings)
+            {
+                // Rival Wings: Only apply damage taken modifiers (no damage dealt modifiers)
+                // Apply target's damage taken modifier
+                if (target is BattleCharacter targetBc && RivalWingsJobModifiers.TryGetValue(targetBc.CurrentJob, out var damageTakenMultiplier))
+                {
+                    estimatedDamage *= damageTakenMultiplier;
+                }
+            }
+
+            // I dont' think there are any tank modifiers in CC anymore. 
+            // // Tank damage reduction (20% reduction for tanks) - only applies if not in Frontline mode
+            // // Frontline modifiers already account for tank damage reduction
+            // if (currentMode == PvpMode.CrystallineConflict && target.IsTank())
+            // {
+            //     estimatedDamage *= 0.8;
+            // }
 
             return target.CurrentHealth <= estimatedDamage;
         }
