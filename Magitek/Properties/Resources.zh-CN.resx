@@ -1986,6 +1986,18 @@
   <data name="OccultCrescent_Content_Use_Mesmerize" xml:space="preserve">
     <value>使用 魅惑</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Magic_Shell" xml:space="preserve">
+    <value>使用 魔法壳</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Sundering_Spellblade" xml:space="preserve">
+    <value>使用 断裂魔剑</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Holy_Spellblade" xml:space="preserve">
+    <value>使用 神圣魔剑</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Blazing_Spellblade" xml:space="preserve">
+    <value>使用 炽焰魔剑</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

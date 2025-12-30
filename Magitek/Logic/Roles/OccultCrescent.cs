@@ -52,7 +52,9 @@ namespace Magitek.Logic.Roles
             QuickerStep = 4799,
             SteadfastStance = 4800,
             Enamored = 4801,
-            Mesmerized = 4802;
+            Mesmerized = 4802,
+            MagicShell = 4788,
+            HonedSpellblade = 4789;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -156,8 +158,10 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData Mesmerize = DataManager.GetSpellData(46605);
 
         // Phantom Mystic Knight Spells (Job ID: 4803)
-        // TODO: Add spell definitions here
-        // public static readonly SpellData SpellName = DataManager.GetSpellData(SPELL_ID);
+        public static readonly SpellData MagicShell = DataManager.GetSpellData(46590);
+        public static readonly SpellData SunderingSpellblade = DataManager.GetSpellData(46591);
+        public static readonly SpellData HolySpellblade = DataManager.GetSpellData(46592);
+        public static readonly SpellData BlazingSpellblade = DataManager.GetSpellData(46593);
 
         // Phantom Gladiator Spells (Job ID: 4804)
         // TODO: Add spell definitions here
@@ -3291,12 +3295,164 @@ namespace Magitek.Logic.Roles
 
         #region Phantom Mystic Knight (Job ID: 4803)
         /// <summary>
+        /// Magic Shell - Creates a barrier absorbing damage equal to 20% of max HP for 60s
+        /// When depleted, grants Honed Spellblade for 30s
+        /// Can be cast on self or party members
+        /// </summary>
+        private static async Task<bool> MagicShell()
+        {
+            if (!OccultCrescentSettings.Instance.UseMagicShell)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.MagicShell.CanCast())
+                return false;
+
+            // Don't cast if we have Honed Spellblade (barrier was just depleted)
+            if (Core.Me.HasAura(OCAuras.HonedSpellblade))
+                return false;
+
+            GameObject shellTarget = null;
+
+            // Check if we should cast on allies
+            if (OccultCrescentSettings.Instance.MagicShellCastOnAllies)
+            {
+                // Prioritize tanks, then lowest HP party member who needs it
+                shellTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.HasAura(OCAuras.MagicShell) &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.MagicShellHealthPercent)
+                    .OrderByDescending(ally => ally.IsTank()) // Tanks first
+                    .ThenBy(ally => ally.CurrentHealthPercent) // Then lowest HP
+                    .FirstOrDefault();
+
+                // If no allies need it, check self if below HP threshold
+                if (shellTarget == null &&
+                    !Core.Me.HasAura(OCAuras.MagicShell) &&
+                    Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.MagicShellHealthPercent)
+                    shellTarget = Core.Me;
+            }
+            else
+            {
+                // Self-only mode: only check self if below HP threshold
+                if (!Core.Me.HasAura(OCAuras.MagicShell) &&
+                    Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.MagicShellHealthPercent)
+                    shellTarget = Core.Me;
+            }
+
+            if (shellTarget == null)
+                return false;
+
+            // Check if target is within spell range
+            if (!shellTarget.WithinSpellRange(OCSpells.MagicShell.Range))
+                return false;
+
+            return await OCSpells.MagicShell.Cast(shellTarget);
+        }
+
+        /// <summary>
+        /// Sundering Spellblade - Deals 200 potency (300 with Honed Spellblade)
+        /// 20% chance to Petrify target
+        /// </summary>
+        private static async Task<bool> SunderingSpellblade()
+        {
+            if (!OccultCrescentSettings.Instance.UseSunderingSpellblade)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.SunderingSpellblade.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.SunderingSpellblade.Range))
+                return false;
+
+            return await OCSpells.SunderingSpellblade.Cast(target);
+        }
+
+        /// <summary>
+        /// Holy Spellblade - Deals 300 potency (500 vs undead)
+        /// 400 potency (600 vs undead) with Honed Spellblade
+        /// </summary>
+        private static async Task<bool> HolySpellblade()
+        {
+            if (!OccultCrescentSettings.Instance.UseHolySpellblade)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.HolySpellblade.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.HolySpellblade.Range))
+                return false;
+
+            return await OCSpells.HolySpellblade.Cast(target);
+        }
+
+        /// <summary>
+        /// Blazing Spellblade - Deals 200 potency (300 with Honed Spellblade)
+        /// Increases target's damage taken by 5% and caster's damage dealt by 5% for 70s
+        /// </summary>
+        private static async Task<bool> BlazingSpellblade()
+        {
+            if (!OccultCrescentSettings.Instance.UseBlazingSpellblade)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.BlazingSpellblade.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.BlazingSpellblade.Range))
+                return false;
+
+            // Don't recast if target already has Vulnerability Up (70s duration)
+            if (target.HasAura(Auras.VulnerabilityUp))
+                return false;
+
+            return await OCSpells.BlazingSpellblade.Cast(target);
+        }
+
+        /// <summary>
         /// Execute Phantom Mystic Knight phantom job rotation
         /// </summary>
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteMysticKnightPhantomJob()
         {
-            // TODO: Add spell implementations here
+            // Magic Shell - defensive barrier, priority over offensive spells
+            if (await MagicShell())
+                return true;
+
+            // Blazing Spellblade - damage buff (5% damage dealt, 5% vulnerability), high priority
+            if (await BlazingSpellblade())
+                return true;
+
+            // Holy Spellblade - high potency, especially vs undead
+            if (await HolySpellblade())
+                return true;
+
+            // Sundering Spellblade - lower potency but has petrify chance
+            if (await SunderingSpellblade())
+                return true;
 
             return false;
         }

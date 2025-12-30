@@ -1982,6 +1982,18 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Mesmerize" xml:space="preserve">
     <value>Use Mesmerize</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Magic_Shell" xml:space="preserve">
+    <value>Use Magic Shell</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Sundering_Spellblade" xml:space="preserve">
+    <value>Use Sundering Spellblade</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Holy_Spellblade" xml:space="preserve">
+    <value>Use Holy Spellblade</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Blazing_Spellblade" xml:space="preserve">
+    <value>Use Blazing Spellblade</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>
