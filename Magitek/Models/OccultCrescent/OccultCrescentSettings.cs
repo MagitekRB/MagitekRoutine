@@ -549,5 +549,27 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseBlazingSpellblade { get; set; }
         #endregion
+
+        #region Phantom Gladiator
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDefend { get; set; }
+
+        [Setting]
+        [DefaultValue(75.0f)]
+        public float DefendHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseFinisher { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseLongReach { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBladeblitz { get; set; }
+        #endregion
     }
 }

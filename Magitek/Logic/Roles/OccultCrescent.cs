@@ -54,7 +54,9 @@ namespace Magitek.Logic.Roles
             Enamored = 4801,
             Mesmerized = 4802,
             MagicShell = 4788,
-            HonedSpellblade = 4789;
+            HonedSpellblade = 4789,
+            FinishingFervor = 4793,
+            Defend = 4792;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -164,8 +166,10 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData BlazingSpellblade = DataManager.GetSpellData(46593);
 
         // Phantom Gladiator Spells (Job ID: 4804)
-        // TODO: Add spell definitions here
-        // public static readonly SpellData SpellName = DataManager.GetSpellData(SPELL_ID);
+        public static readonly SpellData Finisher = DataManager.GetSpellData(46594);
+        public static readonly SpellData Defend = DataManager.GetSpellData(46595);
+        public static readonly SpellData LongReach = DataManager.GetSpellData(46596);
+        public static readonly SpellData Bladeblitz = DataManager.GetSpellData(46597);
     }
 
     internal class OccultCrescent
@@ -3460,12 +3464,134 @@ namespace Magitek.Logic.Roles
 
         #region Phantom Gladiator (Job ID: 4804)
         /// <summary>
+        /// Defend - Reduces damage taken by 50% for 5s
+        /// Grants Finishing Fervor stack when damage taken (max 4 stacks, 120s)
+        /// </summary>
+        private static async Task<bool> Defend()
+        {
+            if (!OccultCrescentSettings.Instance.UseDefend)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Defend.CanCast())
+                return false;
+
+            // Don't recast if Defend buff is already active
+            if (Core.Me.HasAura(OCAuras.Defend))
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit())
+                return false;
+
+            // Always cast if target is targeting us (to build Finishing Fervor stacks)
+            if (Core.Me.BeingTargetedBy(target))
+                return await OCSpells.Defend.Cast(Core.Me);
+
+            // Otherwise cast as defensive when below HP threshold
+            if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.DefendHealthPercent)
+                return await OCSpells.Defend.Cast(Core.Me);
+
+            return false;
+        }
+
+        /// <summary>
+        /// Finisher - Multi-outcome attack (600/1000 potency, 25% instakill chance)
+        /// Improved by Finishing Fervor stacks from Defend
+        /// </summary>
+        private static async Task<bool> Finisher()
+        {
+            if (!OccultCrescentSettings.Instance.UseFinisher)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Finisher.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.Finisher.Range))
+                return false;
+
+            return await OCSpells.Finisher.Cast(target);
+        }
+
+        /// <summary>
+        /// Long Reach - Long-range attack with 400 potency
+        /// </summary>
+        private static async Task<bool> LongReach()
+        {
+            if (!OccultCrescentSettings.Instance.UseLongReach)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.LongReach.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.LongReach.Range))
+                return false;
+
+            return await OCSpells.LongReach.Cast(target);
+        }
+
+        /// <summary>
+        /// Bladeblitz - Deals 600 potency damage to all nearby enemies (radius-based AoE)
+        /// </summary>
+        private static async Task<bool> Bladeblitz()
+        {
+            if (!OccultCrescentSettings.Instance.UseBladeblitz)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Bladeblitz.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.Bladeblitz.Radius))
+                return false;
+
+            return await OCSpells.Bladeblitz.Cast(Core.Me);
+        }
+
+        /// <summary>
         /// Execute Phantom Gladiator phantom job rotation
         /// </summary>
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteGladiatorPhantomJob()
         {
-            // TODO: Add spell implementations here
+            // Defend - defensive, builds Finishing Fervor stacks
+            if (await Defend())
+                return true;
+
+            // Bladeblitz - AoE attack (3+ enemies)
+            if (await Bladeblitz())
+                return true;
+
+            // Long Reach - filler/ranged attack
+            if (await LongReach())
+                return true;
+
+            // Finisher - main single-target (benefits from Finishing Fervor stacks)
+            if (await Finisher())
+                return true;
+
             return false;
         }
         #endregion

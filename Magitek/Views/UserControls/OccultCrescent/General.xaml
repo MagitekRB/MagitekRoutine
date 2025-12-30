@@ -1133,7 +1133,46 @@
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
                                                    Text="Phantom Gladiator"/>
-                                        <!-- TODO: Add checkboxes and controls for Phantom Gladiator spells -->
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Defend}"
+                                                          IsChecked="{Binding UseDefend, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_target_targeting_us_and_HP_below}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding DefendHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Finisher}"
+                                                          IsChecked="{Binding UseFinisher, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Long_Reach}"
+                                                          IsChecked="{Binding UseLongReach, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Bladeblitz}"
+                                                          IsChecked="{Binding UseBladeblitz, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
                                 </StackPanel>
                         </controls:SettingsBlock>
 

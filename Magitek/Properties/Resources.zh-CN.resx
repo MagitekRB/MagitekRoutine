@@ -1998,6 +1998,18 @@
   <data name="OccultCrescent_Content_Use_Blazing_Spellblade" xml:space="preserve">
     <value>使用 炽焰魔剑</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Defend" xml:space="preserve">
+    <value>使用 防御</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Finisher" xml:space="preserve">
+    <value>使用 终结技</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Long_Reach" xml:space="preserve">
+    <value>使用 长距离攻击</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Bladeblitz" xml:space="preserve">
+    <value>使用 剑刃闪电</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

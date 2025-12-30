@@ -10266,6 +10266,50 @@ namespace Magitek.Properties
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Bladeblitz.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Bladeblitz
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Bladeblitz", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Defend.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Defend
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Defend", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Finisher.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Finisher
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Finisher", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Long Reach.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Long_Reach
+        {
+            get
+            {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Long_Reach", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Hasty Mirage (Increases movement speed by 20%).
         /// </summary>
         public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_
