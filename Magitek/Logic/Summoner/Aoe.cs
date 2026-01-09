@@ -110,6 +110,9 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.CrimsonCyclone)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (Core.Me.ClassLevel < Spells.CrimsonCyclone.LevelAcquired)
                 return false;
 

@@ -32,7 +32,7 @@ namespace Magitek.Logic.Bard
             if (!BardSettings.Instance.RepellingShot)
                 return false;
 
-            if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
+            if (!Movement.CanUseGapCloser())
                 return false;
 
             if (BardSettings.Instance.RepellingShotOnlyWhenTargeted)

@@ -169,7 +169,7 @@ namespace Magitek.Logic.Viper
             if (Spells.HunterCoil.IsKnownAndReadyAndCastable() || Spells.SwiftskinCoil.IsKnownAndReadyAndCastable())
                 return false;
 
-            if(Spells.SerpentIre.IsKnownAndReady(30000))
+            if (Spells.SerpentIre.IsKnownAndReady(30000))
                 return false;
 
             if (!CanReawaken(Core.Me.CurrentTarget))
@@ -273,7 +273,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.FourthGeneration.IsKnownAndReadyAndCastable())
                 return false;
 
-            if(!Spells.FourthGeneration.CanCast())
+            if (!Spells.FourthGeneration.CanCast())
                 return false;
 
             if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(2))
@@ -291,10 +291,23 @@ namespace Magitek.Logic.Viper
             if (Core.Me.ClassLevel < Spells.Slither.LevelAcquired)
                 return false;
 
-            if (MovementManager.IsMoving)
+            if (!ViperSettings.Instance.UseSlither)
                 return false;
 
-            if (!ViperSettings.Instance.UseSlither)
+            if (!Movement.CanUseGapCloser())
+                return false;
+
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                return false;
+
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.Slither.Range))
+                return false;
+
+            // Only use Slither when out of melee range (opposite of dash logic)
+            if (Core.Me.CurrentTarget.WithinSpellRange(Spells.SteelFangs.Range))
+                return false;
+
+            if (MovementManager.IsMoving)
                 return false;
 
             return await Spells.Slither.Cast(Core.Me.CurrentTarget);

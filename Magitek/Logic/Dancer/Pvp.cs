@@ -20,6 +20,9 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.Pvp_UseEnAvant)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
