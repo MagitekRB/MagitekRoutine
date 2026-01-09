@@ -21,7 +21,7 @@ namespace Magitek.Logic.Dragoon
                     return false;
             }
 
-            if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
+            if (!Movement.CanUseGapCloser())
                 return false;
 
             if (DragoonRoutine.JumpsList.Contains(Casting.LastSpell))
@@ -41,9 +41,6 @@ namespace Magitek.Logic.Dragoon
 
 
             if (!CheckBeforeExecuteJumps())
-                return false;
-
-            if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
                 return false;
 
             //We separate HighJump from MirageDive in 2 different method. So don't want to launch it here.

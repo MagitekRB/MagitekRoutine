@@ -205,13 +205,13 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Pvp_UseCorpsACorps)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.CorpsacorpsPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -228,7 +228,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Pvp_UseDisplacement)
                 return false;
 
-            if (RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement))
+            if (!Movement.CanUseGapCloser())
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpGuard))

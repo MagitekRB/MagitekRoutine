@@ -172,6 +172,9 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.Pvp_Thunderclap)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ThunderclapPvp.Range))
                 return false;
 

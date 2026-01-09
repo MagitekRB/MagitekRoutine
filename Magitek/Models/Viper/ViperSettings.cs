@@ -92,7 +92,7 @@ namespace Magitek.Models.Viper
 
         #region Utility-Abilities
         [Setting]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool UseSlither { get; set; }
         #endregion
 

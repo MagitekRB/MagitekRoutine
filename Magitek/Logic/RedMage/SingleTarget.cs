@@ -399,6 +399,9 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.CorpsACorps)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (Core.Me.ClassLevel < Spells.CorpsACorps.LevelAcquired)
                 return false;
 
@@ -453,6 +456,9 @@ namespace Magitek.Logic.RedMage
         public static async Task<bool> Displacement()
         {
             if (!RedMageSettings.Instance.Displacement)
+                return false;
+
+            if (!Movement.CanUseGapCloser())
                 return false;
 
             if (RedMageSettings.Instance.Engagement)

@@ -137,6 +137,9 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.Pvp_Shukuchi)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ShukuchiPvp.Range))
                 return false;
 

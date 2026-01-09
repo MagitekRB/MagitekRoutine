@@ -229,6 +229,9 @@ namespace Magitek.Logic.Roles
             if (!useDash)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!dashSpell.IsKnown())
                 return false;
 

@@ -144,6 +144,9 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.UseHissatsuGyoten)
                 return false;
 
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!SamuraiRoutine.GlobalCooldown.CanWeave(1))
                 return false;
 
@@ -166,6 +169,9 @@ namespace Magitek.Logic.Samurai
         public static async Task<bool> HissatsuYaten() //dash backward - to use with 1GCD Filler - Should not be used with Routine to avoid dying in a wall
         {
             if (!SamuraiSettings.Instance.UseHissatsuYaten)
+                return false;
+
+            if (!Movement.CanUseGapCloser())
                 return false;
 
             if (!SamuraiRoutine.GlobalCooldown.CanWeave(1))

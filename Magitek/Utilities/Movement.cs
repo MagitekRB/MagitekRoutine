@@ -64,5 +64,22 @@ namespace Magitek.Utilities
 
             return true;
         }
+
+        /// <summary>
+        /// Checks if gap closer abilities can be used based on CapabilityManager flags.
+        /// Gap closers are disabled if either GapCloser or Movement flags are disallowed.
+        /// </summary>
+        public static bool CanUseGapCloser()
+        {
+            return !RoutineManager.IsAnyDisallowed(CapabilityFlags.GapCloser | CapabilityFlags.Movement);
+        }
+
+        /// <summary>
+        /// Checks if general movement is allowed based on CapabilityManager flags.
+        /// </summary>
+        public static bool CanUseMovement()
+        {
+            return !RoutineManager.IsAnyDisallowed(CapabilityFlags.Movement);
+        }
     }
 }
