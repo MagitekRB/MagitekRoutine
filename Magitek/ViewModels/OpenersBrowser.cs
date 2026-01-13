@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Magitek.ViewModels
@@ -123,10 +124,12 @@ namespace Magitek.ViewModels
             opener.Id = newId;
 
             // Add the downloaded opener to the list
-            OpenersViewModel.Instance.OpenerGroups.Add(opener);
-
-            // Reset the view source (to update the UI)
-            OpenersViewModel.Instance.ResetCollectionViewSource();
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                OpenersViewModel.Instance.OpenerGroups.Add(opener);
+                // Reset the view source (to update the UI)
+                OpenersViewModel.Instance.ResetCollectionViewSource();
+            });
         });
 
         #endregion

@@ -113,17 +113,20 @@ namespace Magitek.ViewModels
         {
             OnlyCurrentZone = false;
 
-            GambitGroups.Add(new GambitGroup
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                Name = $"Gambit Group",
-                Id = new Random().Next(int.MaxValue),
-                ZoneId = 1,
-                ZoneName = "Zone Name",
-                Job = SelectedJob,
-                Gambits = new ObservableCollection<Gambit>()
-            });
+                GambitGroups.Add(new GambitGroup
+                {
+                    Name = $"Gambit Group",
+                    Id = new Random().Next(int.MaxValue),
+                    ZoneId = 1,
+                    ZoneName = "Zone Name",
+                    Job = SelectedJob,
+                    Gambits = new ObservableCollection<Gambit>()
+                });
 
-            ResetCollectionViewSource();
+                ResetCollectionViewSource();
+            });
         });
 
         public ICommand SetGambitGroupCurrentZone => new DelegateCommand<GambitGroup>(group =>
@@ -137,18 +140,21 @@ namespace Magitek.ViewModels
             if (group == null)
                 return;
 
-            if (!GambitGroups.Contains(group))
-                return;
-
-            GambitGroups.Remove(group);
-
             // We also need to remove the file since we load from all files in the gambits folder
             var file = $@"{JsonSettings.CharacterSettingsDirectory}/Magitek/Gambits/{group.Id}.json";
 
-            if (!File.Exists(file))
-                return;
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
 
-            File.Delete(file);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                if (!GambitGroups.Contains(group))
+                    return;
+
+                GambitGroups.Remove(group);
+            });
         });
 
         public ICommand AddGambit => new DelegateCommand<GambitGroup>(group =>
@@ -174,7 +180,10 @@ namespace Magitek.ViewModels
                 Conditions = new ObservableCollection<IGambitCondition>()
             };
 
-            gambitGroup.Gambits.Add(newGambit);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                gambitGroup.Gambits.Add(newGambit);
+            });
         });
 
         public ICommand RemoveGambit => new DelegateCommand<Gambit>(gambit =>
@@ -182,13 +191,16 @@ namespace Magitek.ViewModels
             if (gambit == null)
                 return;
 
-            foreach (var group in GambitGroups)
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                if (group.Gambits.Any(currentGambit => currentGambit.Id == gambit.Id))
+                foreach (var group in GambitGroups)
                 {
-                    group.Gambits.Remove(gambit);
+                    if (group.Gambits.Any(currentGambit => currentGambit.Id == gambit.Id))
+                    {
+                        group.Gambits.Remove(gambit);
+                    }
                 }
-            }
+            });
         });
 
         public ICommand MoveGambitDownCommand => new DelegateCommand<Tuple<GambitGroup, Gambit>>(tuple =>
@@ -217,8 +229,11 @@ namespace Magitek.ViewModels
             tuple.Item2.Order = newOrder;
 
             // Refresh the Gambits List
-            var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
-            tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
+                tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            });
 
         });
 
@@ -245,8 +260,11 @@ namespace Magitek.ViewModels
             tuple.Item2.Order = newOrder;
 
             // Refresh the Gambits List
-            var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
-            tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
+                tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            });
 
         });
 
@@ -262,7 +280,10 @@ namespace Magitek.ViewModels
             if (condition == null)
                 return;
 
-            tuple.Item1.Conditions.Remove(condition);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                tuple.Item1.Conditions.Remove(condition);
+            });
         });
 
         public void ActionSelectionChange(Gambit gambit, GambitActionTypes selectedValue)
@@ -297,7 +318,11 @@ namespace Magitek.ViewModels
             newGambit.Job = group.Job;
             newGambit.Id = new Random().Next(int.MaxValue);
             newGambit.Order = group.Gambits.Count > 0 ? group.Gambits.Max(g => g.Order) + 1 : 1;
-            group.Gambits.Add(newGambit);
+            
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                group.Gambits.Add(newGambit);
+            });
         });
 
         public ICommand CopyGambitGroup => new DelegateCommand<GambitGroup>(group =>
@@ -327,9 +352,11 @@ namespace Magitek.ViewModels
                 gambit.Id = new Random().Next(int.MaxValue);
             }
 
-            GambitGroups.Add(newGambitGroup);
-
-            ResetCollectionViewSource();
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                GambitGroups.Add(newGambitGroup);
+                ResetCollectionViewSource();
+            });
         });
 
         public ICommand CopyGambitToClipboard => new DelegateCommand<Gambit>(gambit =>
@@ -382,6 +409,8 @@ namespace Magitek.ViewModels
                 var directory = new DirectoryInfo(_gambitsFolder);
                 var files = directory.GetFiles("*.json", SearchOption.TopDirectoryOnly);
 
+                var gambitGroupsToAdd = new List<GambitGroup>();
+
                 foreach (var file in files)
                 {
                     var gambitGroup = JsonConvert.DeserializeObject<GambitGroup>(File.ReadAllText(file.FullName));
@@ -389,8 +418,16 @@ namespace Magitek.ViewModels
                     if (gambitGroup == null)
                         continue;
 
-                    GambitGroups.Add(gambitGroup);
+                    gambitGroupsToAdd.Add(gambitGroup);
                 }
+
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    foreach (var gambitGroup in gambitGroupsToAdd)
+                    {
+                        GambitGroups.Add(gambitGroup);
+                    }
+                });
             }
             catch (Exception e)
             {
@@ -452,30 +489,33 @@ namespace Magitek.ViewModels
 
                 Logger.WriteInfo($"Trying To Recover {oldGambits.Count} Gambits");
 
-                foreach (var gambit in oldGambits)
+                Application.Current.Dispatcher.Invoke(delegate
                 {
-                    // If a recovery group doesn't exist, create one
-                    if (!GambitGroups.Any(r => r.Job == gambit.Job && r.Name == "Recovered Gambits"))
+                    foreach (var gambit in oldGambits)
                     {
-                        var newGambitGroup = new GambitGroup
+                        // If a recovery group doesn't exist, create one
+                        if (!GambitGroups.Any(r => r.Job == gambit.Job && r.Name == "Recovered Gambits"))
                         {
-                            Name = "Recovered Gambits",
-                            Id = new Random().Next(int.MaxValue),
-                            ZoneId = 1,
-                            ZoneName = "Zone Name",
-                            Job = gambit.Job,
-                            Gambits = new ObservableCollection<Gambit>()
-                        };
+                            var newGambitGroup = new GambitGroup
+                            {
+                                Name = "Recovered Gambits",
+                                Id = new Random().Next(int.MaxValue),
+                                ZoneId = 1,
+                                ZoneName = "Zone Name",
+                                Job = gambit.Job,
+                                Gambits = new ObservableCollection<Gambit>()
+                            };
 
-                        GambitGroups.Add(newGambitGroup);
+                            GambitGroups.Add(newGambitGroup);
+                        }
+
+                        // find the recovery group
+                        var gambitGroup = GambitGroups.FirstOrDefault(r => r.Job == gambit.Job && r.Name == "Recovered Gambits");
+
+                        // add the gambit to the group
+                        gambitGroup?.Gambits.Add(gambit);
                     }
-
-                    // find the recovery group
-                    var gambitGroup = GambitGroups.FirstOrDefault(r => r.Job == gambit.Job && r.Name == "Recovered Gambits");
-
-                    // add the gambit to the group
-                    gambitGroup?.Gambits.Add(gambit);
-                }
+                });
 
             }
             catch (Exception)
