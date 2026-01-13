@@ -32,6 +32,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -84,7 +85,10 @@ namespace Magitek.ViewModels
                 ToggleModifierKey = ModifierKeys.None
             };
 
-            SettingsToggles.Add(newToggle);
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
+                SettingsToggles.Add(newToggle);
+            });
         });
 
         public ICommand RemoveToggleCommand => new DelegateCommand<SettingsToggle>(settingsToggle =>
@@ -92,10 +96,13 @@ namespace Magitek.ViewModels
             if (settingsToggle == null)
                 return;
 
-            if (SettingsToggles.Remove(settingsToggle))
-                Logger.WriteInfo($@"[Toggles] Removed Toggle [{settingsToggle.ToggleText}]");
-            else
-                Logger.Error($@"[Toggles] Failed to Remove Toggle [{settingsToggle.ToggleText}]");
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
+                if (SettingsToggles.Remove(settingsToggle))
+                    Logger.WriteInfo($@"[Toggles] Removed Toggle [{settingsToggle.ToggleText}]");
+                else
+                    Logger.Error($@"[Toggles] Failed to Remove Toggle [{settingsToggle.ToggleText}]");
+            });
         });
 
         public ICommand MoveToggleUp => new DelegateCommand<SettingsToggle>(settingsToggle =>
@@ -103,12 +110,15 @@ namespace Magitek.ViewModels
             if (settingsToggle == null)
                 return;
 
-            var position = SettingsToggles.IndexOf(settingsToggle);
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
+                var position = SettingsToggles.IndexOf(settingsToggle);
 
-            if (position == 0)
-                return;
+                if (position == 0)
+                    return;
 
-            SettingsToggles.Move(position, position - 1);
+                SettingsToggles.Move(position, position - 1);
+            });
         });
 
         public ICommand MoveToggleDown => new DelegateCommand<SettingsToggle>(settingsToggle =>
@@ -116,12 +126,15 @@ namespace Magitek.ViewModels
             if (settingsToggle == null)
                 return;
 
-            var position = SettingsToggles.IndexOf(settingsToggle);
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
+                var position = SettingsToggles.IndexOf(settingsToggle);
 
-            if (position == SettingsToggles.Count - 1)
-                return;
+                if (position == SettingsToggles.Count - 1)
+                    return;
 
-            SettingsToggles.Move(position, position + 1);
+                SettingsToggles.Move(position, position + 1);
+            });
         });
 
         public ICommand RegisterTogglesCommand => new DelegateCommand(RegisterToggles);
@@ -182,12 +195,19 @@ namespace Magitek.ViewModels
                 if (!File.Exists(togglesFile))
                 {
                     // Create the new Toggle List here
-                    SettingsToggles = new ObservableCollection<SettingsToggle>();
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                    {
+                        SettingsToggles = new ObservableCollection<SettingsToggle>();
+                    });
                     Logger.WriteInfo("Toggles do not exist for the current job");
                     return;
                 }
 
-                SettingsToggles = new ObservableCollection<SettingsToggle>(JsonConvert.DeserializeObject<ObservableCollection<SettingsToggle>>(File.ReadAllText(togglesFile)));
+                var toggles = JsonConvert.DeserializeObject<ObservableCollection<SettingsToggle>>(File.ReadAllText(togglesFile));
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                {
+                    SettingsToggles = new ObservableCollection<SettingsToggle>(toggles);
+                });
             }
             catch (Exception e)
             {

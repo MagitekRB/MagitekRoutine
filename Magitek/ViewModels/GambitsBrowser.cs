@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Magitek.ViewModels
@@ -110,14 +111,17 @@ namespace Magitek.ViewModels
             if (gambitGroup?.Gambits == null)
                 return;
 
-            if (GambitsViewModel.Instance.GambitGroups.Any(r => r.Id == gambitGroup.Id))
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                var oldGambitGroup = GambitsViewModel.Instance.GambitGroups.FirstOrDefault(r => r.Id == gambitGroup.Id);
-                GambitsViewModel.Instance.GambitGroups.Remove(oldGambitGroup);
-            }
+                if (GambitsViewModel.Instance.GambitGroups.Any(r => r.Id == gambitGroup.Id))
+                {
+                    var oldGambitGroup = GambitsViewModel.Instance.GambitGroups.FirstOrDefault(r => r.Id == gambitGroup.Id);
+                    GambitsViewModel.Instance.GambitGroups.Remove(oldGambitGroup);
+                }
 
-            GambitsViewModel.Instance.GambitGroups.Add(gambitGroup);
-            GambitsViewModel.Instance.ResetCollectionViewSource();
+                GambitsViewModel.Instance.GambitGroups.Add(gambitGroup);
+                GambitsViewModel.Instance.ResetCollectionViewSource();
+            });
         });
 
         #endregion

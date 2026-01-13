@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Magitek.ViewModels
@@ -112,17 +113,20 @@ namespace Magitek.ViewModels
 
             OnlyCurrentZone = false;
 
-            OpenerGroups.Add(new OpenerGroup
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                Name = $"Opener",
-                Id = new Random().Next(int.MaxValue),
-                ZoneId = 1,
-                ZoneName = "Zone Name",
-                Job = SelectedJob,
-                Gambits = new ObservableCollection<Gambit>()
-            });
+                OpenerGroups.Add(new OpenerGroup
+                {
+                    Name = $"Opener",
+                    Id = new Random().Next(int.MaxValue),
+                    ZoneId = 1,
+                    ZoneName = "Zone Name",
+                    Job = SelectedJob,
+                    Gambits = new ObservableCollection<Gambit>()
+                });
 
-            ResetCollectionViewSource();
+                ResetCollectionViewSource();
+            });
 
         });
 
@@ -140,18 +144,21 @@ namespace Magitek.ViewModels
             if (group == null)
                 return;
 
-            if (!OpenerGroups.Contains(group))
-                return;
-
-            OpenerGroups.Remove(group);
-
             // We also need to remove the file since we load from all files in the gambits folder
             var file = $@"{JsonSettings.CharacterSettingsDirectory}/Magitek/Openers/{group.Id}.json";
 
-            if (!File.Exists(file))
-                return;
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
 
-            File.Delete(file);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                if (!OpenerGroups.Contains(group))
+                    return;
+
+                OpenerGroups.Remove(group);
+            });
 
         });
 
@@ -181,7 +188,10 @@ namespace Magitek.ViewModels
                 Conditions = new ObservableCollection<IGambitCondition>()
             };
 
-            openerGroup.Gambits.Add(newGambit);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                openerGroup.Gambits.Add(newGambit);
+            });
 
         });
 
@@ -191,13 +201,16 @@ namespace Magitek.ViewModels
             if (gambit == null)
                 return;
 
-            foreach (var group in OpenerGroups)
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                if (group.Gambits.Any(currentGambit => currentGambit.Id == gambit.Id))
+                foreach (var group in OpenerGroups)
                 {
-                    group.Gambits.Remove(gambit);
+                    if (group.Gambits.Any(currentGambit => currentGambit.Id == gambit.Id))
+                    {
+                        group.Gambits.Remove(gambit);
+                    }
                 }
-            }
+            });
 
         });
 
@@ -223,7 +236,10 @@ namespace Magitek.ViewModels
             if (condition == null)
                 return;
 
-            tuple.Item1.StartOpenerConditions.Remove(condition);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                tuple.Item1.StartOpenerConditions.Remove(condition);
+            });
 
         });
 
@@ -235,7 +251,10 @@ namespace Magitek.ViewModels
             if (condition == null)
                 return;
 
-            tuple.Item1.Conditions.Remove(condition);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                tuple.Item1.Conditions.Remove(condition);
+            });
 
         });
 
@@ -274,8 +293,11 @@ namespace Magitek.ViewModels
             tuple.Item2.Order = newOrder;
 
             // Refresh the Gambits List
-            var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
-            tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
+                tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            });
 
         });
 
@@ -302,8 +324,11 @@ namespace Magitek.ViewModels
             tuple.Item2.Order = newOrder;
 
             // Refresh the Gambits List
-            var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
-            tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                var orderedEnumerable = tuple.Item1.Gambits.OrderBy(r => r.Order);
+                tuple.Item1.Gambits = new ObservableCollection<Gambit>(orderedEnumerable);
+            });
 
         });
 
@@ -360,6 +385,8 @@ namespace Magitek.ViewModels
                 var directory = new DirectoryInfo(_openersFolder);
                 var files = directory.GetFiles("*.json", SearchOption.TopDirectoryOnly);
 
+                var openerGroupsToAdd = new List<OpenerGroup>();
+
                 foreach (var file in files)
                 {
                     var openerGroup = JsonConvert.DeserializeObject<OpenerGroup>(File.ReadAllText(file.FullName));
@@ -367,8 +394,16 @@ namespace Magitek.ViewModels
                     if (openerGroup == null)
                         continue;
 
-                    OpenerGroups.Add(openerGroup);
+                    openerGroupsToAdd.Add(openerGroup);
                 }
+
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    foreach (var openerGroup in openerGroupsToAdd)
+                    {
+                        OpenerGroups.Add(openerGroup);
+                    }
+                });
             }
             catch (Exception e)
             {

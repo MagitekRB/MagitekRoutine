@@ -204,10 +204,13 @@ namespace Magitek.ViewModels
                 x.InFightLogicBuilderKnockback = "[+] FightLogic KB";
             }
 
-            instance.FightLogicBuilderTB.Clear();
-            instance.FightLogicBuilderAOE.Clear();
-            instance.FightLogicBuilderLockOns.Clear();
-            instance.FightLogicBuilderKnockbacks.Clear();
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                instance.FightLogicBuilderTB.Clear();
+                instance.FightLogicBuilderAOE.Clear();
+                instance.FightLogicBuilderLockOns.Clear();
+                instance.FightLogicBuilderKnockbacks.Clear();
+            });
         }
 
         public ICommand ClearEnemySpellCastsCommand { get; } = new RelayCommand(ClearEnemySpellCasts);
@@ -219,10 +222,14 @@ namespace Magitek.ViewModels
 
             instance.EnemySpellCasts.Clear();
             instance.LockOnHistory.Clear();
-            instance.FightLogicBuilderTB.Clear();
-            instance.FightLogicBuilderAOE.Clear();
-            instance.FightLogicBuilderLockOns.Clear();
-            instance.FightLogicBuilderKnockbacks.Clear();
+
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                instance.FightLogicBuilderTB.Clear();
+                instance.FightLogicBuilderAOE.Clear();
+                instance.FightLogicBuilderLockOns.Clear();
+                instance.FightLogicBuilderKnockbacks.Clear();
+            });
             Logger.WriteInfo("[Debug] Cleared Enemy Spell Casts History");
         }
     }
