@@ -405,7 +405,8 @@ namespace Magitek.Logic.Machinist
                 (float)Spells.MarksmansSpitePvp.Range,
                 ignoreGuard: false,
                 checkGuard: true,
-                searchAllTargets: MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget);
+                searchAllTargets: MachinistSettings.Instance.Pvp_UseMarksmansSpiteAnyTarget,
+                maxAlliesTargetingLimit: MachinistSettings.Instance.Pvp_MaxAlliesTargetingLimit);
 
             if (killableTarget != null)
             {
@@ -430,6 +431,11 @@ namespace Magitek.Logic.Machinist
 
                 // Check Guard if enabled
                 if (CommonPvp.GuardCheck(MachinistSettings.Instance, Core.Me.CurrentTarget))
+                    return false;
+
+                // Check ally targeting limit if enabled
+                if (MachinistSettings.Instance.Pvp_MaxAlliesTargetingLimit > 0 &&
+                    CommonPvp.TooManyAlliesTargeting(MachinistSettings.Instance, Core.Me.CurrentTarget))
                     return false;
 
                 if (!Spells.MarksmansSpitePvp.CanCast(Core.Me.CurrentTarget))

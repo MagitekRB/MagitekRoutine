@@ -871,6 +871,7 @@ namespace Magitek.Logic.Roles
         /// <param name="checkGuard">If false, skips Guard check when filtering targets</param>
         /// <param name="searchAllTargets">If true, searches all enemies in range, not just current target</param>
         /// <param name="potencyCalculator">Optional function to calculate potency per target (for scaling potency)</param>
+        /// <param name="maxAlliesTargetingLimit">If set (value > 0), skips targets with more than this many allies targeting them. Defaults to 0 (disabled).</param>
         /// <returns>The killable target, or null if none found</returns>
         public static GameObject FindKillableTargetInRange<T>(
             T settings,
@@ -879,7 +880,8 @@ namespace Magitek.Logic.Roles
             bool ignoreGuard = false,
             bool checkGuard = true,
             bool searchAllTargets = false,
-            Func<GameObject, double> potencyCalculator = null) where T : JobSettings
+            Func<GameObject, double> potencyCalculator = null,
+            int maxAlliesTargetingLimit = 0) where T : JobSettings
         {
             // First check current target if valid
             if (Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.ValidAttackUnit() && Core.Me.CurrentTarget.InLineOfSight())
@@ -889,6 +891,10 @@ namespace Magitek.Logic.Roles
                     // Check Guard if required
                     if (checkGuard && GuardCheck(settings, Core.Me.CurrentTarget))
                         return null; // Skip guarded target
+
+                    // Check ally targeting limit if enabled
+                    if (maxAlliesTargetingLimit > 0 && TooManyAlliesTargeting(settings, Core.Me.CurrentTarget))
+                        return null; // Skip target with too many allies
 
                     double targetPotency = potencyCalculator != null ? potencyCalculator(Core.Me.CurrentTarget) : potency;
                     if (WouldKillWithPotency(targetPotency, Core.Me.CurrentTarget, ignoreGuard: ignoreGuard))
@@ -908,7 +914,8 @@ namespace Magitek.Logic.Roles
                         && e.ValidAttackUnit()
                         && e.InLineOfSight()
                         && !e.IsWarMachina()
-                        && (!checkGuard || !GuardCheck(settings, e)))
+                        && (!checkGuard || !GuardCheck(settings, e))
+                        && (maxAlliesTargetingLimit <= 0 || !TooManyAlliesTargeting(settings, e)))
                 .OrderBy(e => e.Distance(Core.Me));
 
             foreach (var target in nearby)

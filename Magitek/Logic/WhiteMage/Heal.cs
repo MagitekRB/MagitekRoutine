@@ -678,6 +678,9 @@ namespace Magitek.Logic.WhiteMage
 
         public static async Task<bool> DivineCaress()
         {
+            if (!WhiteMageSettings.Instance.UseDivineCaress)
+                return false;
+
             if (!Spells.DivineCaress.IsKnownAndReady())
                 return false;
 

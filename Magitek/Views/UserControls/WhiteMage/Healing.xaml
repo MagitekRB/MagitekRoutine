@@ -128,6 +128,9 @@
                     <TextBlock Grid.Column="2" Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                     <CheckBox Grid.Column="3" Margin="10,0" Content="{x:Static properties:Resources.Generic_On_Tank_Only}" IsChecked="{Binding WhiteMageSettings.BenedictionTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="0,5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Caress}" IsChecked="{Binding WhiteMageSettings.UseDivineCaress, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
