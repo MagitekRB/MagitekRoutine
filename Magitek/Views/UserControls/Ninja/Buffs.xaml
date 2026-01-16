@@ -13,7 +13,7 @@
         <Binding Source="{x:Static viewModels:BaseSettings.Instance}" />
     </UserControl.DataContext>
 
-        <UserControl.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
@@ -27,8 +27,53 @@
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10">        
-        
+        <StackPanel Margin="10">
+            <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.Generic_Use_Potion}" IsChecked="{Binding NinjaSettings.UsePotion, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Source={StaticResource PotionEnum}}" SelectedValue="{Binding NinjaSettings.PotionTypeAndGradeLevel, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}" />
+                </Grid>
+            </controls:SettingsBlock>
+
+            <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_Feint}" IsChecked="{Binding NinjaSettings.UseFeint, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Use_True_North}" IsChecked="{Binding NinjaSettings.UseTrueNorth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Kassatsu}" IsChecked="{Binding NinjaSettings.UseKassatsu, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Meisui}" IsChecked="{Binding NinjaSettings.UseMeisui, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Bunshin}" IsChecked="{Binding NinjaSettings.UseBunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Bloodbath_When_Below}" IsChecked="{Binding NinjaSettings.UseBloodbath, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.BloodbathHpPercent, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
+            </controls:SettingsBlock>
+
+            <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Generic_Second_Wind_When_Below}" IsChecked="{Binding NinjaSettings.UseSecondWind, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.SecondWindHpPercent, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
+            </controls:SettingsBlock>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

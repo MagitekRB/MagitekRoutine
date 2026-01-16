@@ -1,9 +1,12 @@
 using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Ninja;
 using Magitek.Logic.Roles;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
+using Magitek.Utilities.CombatMessages;
+using Magitek.Utilities.GamelogManager;
 using System;
 using System.Threading.Tasks;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
@@ -48,6 +51,10 @@ namespace Magitek.Rotations
 
             Utilities.Routines.Ninja.RefreshVars();
 
+            //Limit Break
+            if (SingleTarget.ForceLimitBreak())
+                return true;
+
             if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
             if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
@@ -56,19 +63,28 @@ namespace Magitek.Rotations
                 && DateTime.Now >= NinjaRoutine.oGCD)
             {
 
+                if (await PhysicalDps.Interrupt(NinjaSettings.Instance)) return true;
+                if (await PhysicalDps.SecondWind(NinjaSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(NinjaSettings.Instance)) return true;
+                if (await PhysicalDps.Feint(NinjaSettings.Instance)) return true;
+                if (await Buff.UsePotion()) return true;
+                if (await Buff.TrueNorth()) return true;
+
                 bool usedOGCD = false;
 
                 if (!usedOGCD && await Buff.Kassatsu()) usedOGCD = true;
                 if (!usedOGCD && await Cooldown.Mug()) usedOGCD = true;
                 if (!usedOGCD && await Cooldown.TrickAttack()) usedOGCD = true;
-                if (!usedOGCD && await Ninjutsu.TenChiJin()) usedOGCD = true;
-                if (!usedOGCD && await Cooldown.DreamWithinaDream()) usedOGCD = true;
-                if (!usedOGCD && await Buff.Meisui()) usedOGCD = true;
-                if (!usedOGCD && await SingleTarget.Bhavacakra()) usedOGCD = true;
-                if (!usedOGCD && await Aoe.HellfrogMedium()) usedOGCD = true;
-                if (!usedOGCD && await Cooldown.ZeshoMeppo()) usedOGCD = true;
-                if (!usedOGCD && await Cooldown.TenriJindo()) usedOGCD = true;
                 if (!usedOGCD && await Buff.Bunshin()) usedOGCD = true;
+                if (!usedOGCD && await Cooldown.Assassinate()) usedOGCD = true;
+                if (!usedOGCD && await Ninjutsu.TenChiJin()) usedOGCD = true;
+
+                if (!usedOGCD && await Buff.Meisui()) usedOGCD = true;
+                if (!usedOGCD && await Cooldown.ZeshoMeppo()) usedOGCD = true;
+                if (!usedOGCD && await Aoe.HellfrogMedium()) usedOGCD = true;
+                if (!usedOGCD && await SingleTarget.Bhavacakra()) usedOGCD = true;
+
+                if (!usedOGCD && await Cooldown.TenriJindo()) usedOGCD = true;
 
                 if (usedOGCD)
                 {
@@ -105,7 +121,39 @@ namespace Magitek.Rotations
             if (await SingleTarget.GustSlash()) return true;
             if (await SingleTarget.SpinningEdge()) return true;
 
+            if (await SingleTarget.ThrowingDagger()) return true;
+
             return false;
+
+        }
+
+        public static void RegisterCombatMessages()
+        {
+            //Highest priority: Don't show anything if we're not in combat
+            CombatMessageManager.RegisterMessageStrategy(
+                new CombatMessageStrategy(100,
+                                          "",
+                                          () => !Core.Me.InCombat || !Core.Me.HasTarget)
+                );
+
+            //Second priority: Don't show anything if positional requirements are Nulled
+            CombatMessageManager.RegisterMessageStrategy(
+                new CombatMessageStrategy(200,
+                                          "",
+                                          () => NinjaSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.HasAura(Auras.TenChiJin) || NinjaSettings.Instance.EnemyIsOmni)
+                );
+
+            CombatMessageManager.RegisterMessageStrategy(
+                new CombatMessageStrategy(300,
+                                          "Armor Crush: Side of Enemy", "/Magitek;component/Resources/Images/General/ArrowSidesHighlighted.png",
+                                          () => !NinjaSettings.Instance.HidePositionalMessage && ActionResourceManager.Ninja.Kazematoi == 0 && ActionManager.LastSpell == Spells.GustSlash)
+                );
+
+            CombatMessageManager.RegisterMessageStrategy(
+                new CombatMessageStrategy(300,
+                                          "Aeolian Edge: Back of Enemy", "/Magitek;component/Resources/Images/General/ArrowDownHighlighted.png",
+                                          () => !NinjaSettings.Instance.HidePositionalMessage && ActionResourceManager.Ninja.Kazematoi > 0 && ActionManager.LastSpell == Spells.GustSlash)
+                );
 
         }
 

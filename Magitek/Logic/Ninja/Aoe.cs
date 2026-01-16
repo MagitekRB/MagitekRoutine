@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System;
 using System.Linq;
@@ -14,7 +15,10 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> DeathBlossom()
         {
-            if (Core.Me.ClassLevel < 38)
+            if (Core.Me.ClassLevel < Spells.DeathBlossom.LevelAcquired)
+                return false;
+
+            if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
             if (!Spells.DeathBlossom.IsKnown())
@@ -31,7 +35,10 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HakkeMujinsatsu()
         {
-            if (Core.Me.ClassLevel < 52)
+            if (Core.Me.ClassLevel < Spells.HakkeMujinsatsu.LevelAcquired)
+                return false;
+
+            if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
             if (!Spells.HakkeMujinsatsu.IsKnown())
@@ -52,7 +59,13 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> HellfrogMedium()
         {
 
-            if (Core.Me.ClassLevel < 62)
+            if (Core.Me.ClassLevel < Spells.HellfrogMedium.LevelAcquired)
+                return false;
+
+            if (!NinjaSettings.Instance.UseAoe)
+                return false;
+
+            if (!NinjaSettings.Instance.UseHellfrogMedium)
                 return false;
 
             if (!Spells.HellfrogMedium.IsKnown())
@@ -77,7 +90,13 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> PhantomKamaitachi()
         {
 
-            if (Core.Me.ClassLevel < 82)
+            if (Core.Me.ClassLevel < Spells.PhantomKamaitachi.LevelAcquired)
+                return false;
+
+            if (!NinjaSettings.Instance.UseAoe)
+                return false;
+
+            if (!NinjaSettings.Instance.UsePhantomKamaitachi)
                 return false;
 
             if (!Spells.PhantomKamaitachi.IsKnown())
