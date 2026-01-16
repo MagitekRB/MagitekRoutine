@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System;
@@ -27,7 +28,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> GustSlash()
         {
 
-            if (Core.Me.ClassLevel < 4)
+            if (Core.Me.ClassLevel < Spells.GustSlash.LevelAcquired)
                 return false;
 
             if (ActionManager.LastSpell != Spells.SpinningEdge)
@@ -45,7 +46,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> ArmorCrush()
         {
 
-            if (Core.Me.ClassLevel < 54 || !Spells.ArmorCrush.IsKnown())
+            if (Core.Me.ClassLevel < Spells.ArmorCrush.LevelAcquired || !Spells.ArmorCrush.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.GustSlash)
@@ -65,7 +66,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> AeolianEdge()
         {
 
-            if (Core.Me.ClassLevel < 26)
+            if (Core.Me.ClassLevel < Spells.AeolianEdge.LevelAcquired)
                 return false;
 
             if (ActionManager.LastSpell != Spells.GustSlash)
@@ -84,10 +85,13 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Bhavacakra()
         {
 
-            if (Core.Me.ClassLevel < 68)
+            if (Core.Me.ClassLevel < Spells.Bhavacakra.LevelAcquired)
                 return false;
 
-            if (!Spells.Bhavacakra.IsKnown())
+            if (!NinjaSettings.Instance.UseBhavacakra)
+                return false;
+
+            if (!Spells.Bhavacakra.IsKnownAndReady())
                 return false;
 
             if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 45))
@@ -109,10 +113,13 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> FleetingRaiju()
         {
 
-            if (Core.Me.ClassLevel < 90)
+            if (Core.Me.ClassLevel < Spells.FleetingRaiju.LevelAcquired)
                 return false;
 
-            if (!Spells.FleetingRaiju.IsKnown())
+            if (!NinjaSettings.Instance.UseFleetingRaiju)
+                return false;
+
+            if (!Spells.FleetingRaiju.IsKnownAndReady())
                 return false;
 
             if (!Core.Me.HasMyAura(Auras.RaijuReady))
@@ -124,14 +131,13 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> ForkedRaiju()
         {
+            if (Core.Me.ClassLevel < Spells.ForkedRaiju.LevelAcquired)
+                return false;
 
             if (!NinjaSettings.Instance.UseForkedRaiju)
                 return false;
 
-            if (Core.Me.ClassLevel < 90)
-                return false;
-
-            if (!Spells.ForkedRaiju.IsKnown())
+            if (!Spells.ForkedRaiju.IsKnownAndReady())
                 return false;
 
             if (!Core.Me.HasMyAura(Auras.RaijuReady))
@@ -139,6 +145,36 @@ namespace Magitek.Logic.Ninja
 
             return await Spells.ForkedRaiju.Cast(Core.Me.CurrentTarget);
 
+        }
+
+        public static async Task<bool> ThrowingDagger()
+        {
+
+            if (!NinjaSettings.Instance.UseThrowingDagger)
+                return false;
+
+            if (Core.Me.ClassLevel < Spells.ThrowingDagger.LevelAcquired)
+                return false;
+
+            if (!Spells.ThrowingDagger.IsKnownAndReady())
+                return false;
+
+            if (NinjaRoutine.AoeEnemies6Yards > 0)
+                return false;
+
+            return await Spells.ThrowingDagger.Cast(Core.Me.CurrentTarget);
+
+        }
+
+        /**********************************************************************************************
+        *                              Limit Break
+        * ********************************************************************************************/
+        public static bool ForceLimitBreak()
+        {
+            if (!Core.Me.HasTarget)
+                return false;
+
+            return PhysicalDps.ForceLimitBreak(Spells.Braver, Spells.Bladedance, Spells.TheEnd, Spells.SpinningEdge);
         }
     }
 }

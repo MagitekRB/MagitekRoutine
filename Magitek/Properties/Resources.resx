@@ -1781,6 +1781,51 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Ninja_Content_Goka_Mekkyaku_when_there_is_at_least" xml:space="preserve">
     <value>Goka Mekkyaku when there is at least</value>
   </data>
+  <data name="Ninja_Content_Use_Kassatsu" xml:space="preserve">
+    <value>Kassatsu</value>
+  </data>
+  <data name="Ninja_Content_Use_Bunshin" xml:space="preserve">
+    <value>Bunshin</value>
+  </data>
+  <data name="Ninja_Content_Use_Meisui" xml:space="preserve">
+    <value>Meisui</value>
+  </data>
+  <data name="Ninja_Content_Use_TenChiJin" xml:space="preserve">
+    <value>Ten Chi Jin</value>
+  </data>
+  <data name="Ninja_Content_Use_Assassinate" xml:space="preserve">
+    <value>Assassinate / Dream Within A Dream</value>
+  </data>
+  <data name="Ninja_Content_Use_ThrowingDagger" xml:space="preserve">
+    <value>Throwing Dagger</value>
+  </data>
+  <data name="Ninja_Content_Use_Mug" xml:space="preserve">
+    <value>Mug / Dokumori</value>
+  </data>
+  <data name="Ninja_Content_Use_TrickAttack" xml:space="preserve">
+  <value>Trick Attack / Kunai Bane</value>
+  </data>
+  <data name="Ninja_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
+  <value>but do Not Use If Enemy Is Dying Within</value>
+  </data>
+  <data name="Ninja_Content_Use_HellfrogMedium" xml:space="preserve">
+    <value>Hellfrog Medium</value>
+  </data>
+	<data name="Ninja_Content_Use_DeathfrogMedium" xml:space="preserve">
+    <value>Deathfrog Medium</value>
+  </data>
+  <data name="Ninja_Content_Use_PhantomKamaitachi" xml:space="preserve">
+    <value>Phantom Kamaitachi</value>
+  </data>
+ <data name="Ninja_Content_Use_TenriJindo" xml:space="preserve">
+    <value>Tenri Jindo</value>
+  </data>
+	<data name="Ninja_Content_Use_Bhavacakra" xml:space="preserve">
+    <value>Bhavacakra</value>
+  </data>
+	<data name="Ninja_Content_Use_ZeshoMeppo" xml:space="preserve">
+    <value>Zesho Meppo</value>
+  </data>
   <data name="OccultCrescent_Text_Occult_Crescent_content_provid" xml:space="preserve">
     <value>Occult Crescent content provides temporary Phantom Jobs with unique abilities.</value>
   </data>
@@ -4908,10 +4953,10 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Ninja_Content_Dokumori" xml:space="preserve">
     <value>Dokumori</value>
   </data>
-  <data name="Ninja_Content_Bunshin" xml:space="preserve">
+	<data name="Ninja_Content_Bunshin" xml:space="preserve">
     <value>Bunshin</value>
   </data>
-  <data name="Ninja_Content_Shukuchi" xml:space="preserve">
+	<data name="Ninja_Content_Shukuchi" xml:space="preserve">
     <value>Shukuchi</value>
   </data>
   <data name="Paladin_Content_Provoke" xml:space="preserve">
