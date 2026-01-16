@@ -292,3 +292,4 @@ VsCodeWorkspace.code-workspace
 .cursor/
 .claude/
 AGENTS.md
+Plugins/LuminaReader/

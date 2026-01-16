@@ -29,7 +29,7 @@ namespace Magitek.Logic.RedMage
                 || Core.Me.HasAura(Auras.Acceleration))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.Embolden.LevelAcquired
+            if (Spells.Embolden.IsKnown()
                 && Spells.Embolden.Cooldown.TotalSeconds <= 10)
                 return false;
 
@@ -38,21 +38,20 @@ namespace Magitek.Logic.RedMage
 
             if (!Core.Me.HasAura(Auras.MagickedSwordplay))
             {
-                if (Core.Me.ClassLevel >= 50)
+                if (Spells.Redoublement.IsKnown())
                 {
                     if (BlackMana < 50 || WhiteMana < 50)
                         return false;
                 }
 
-                if (Core.Me.ClassLevel >= 35
-                    && Core.Me.ClassLevel < 50)
+                if (Spells.Zwerchhau.IsKnown())
                 {
                     if (BlackMana < 35
                         || WhiteMana < 35)
                         return false;
                 }
 
-                if (Core.Me.ClassLevel >= 10)
+                if (Spells.Riposte.IsKnown())
                 {
                     if (BlackMana < 20
                         || WhiteMana < 20)
@@ -67,7 +66,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseMelee)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Zwerchhau.LevelAcquired)
+            if (!Spells.Zwerchhau.IsKnown())
                 return false;
 
             if (InAoeCombo())
@@ -87,7 +86,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseMelee)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Redoublement.LevelAcquired)
+            if (!Spells.Redoublement.IsKnown())
                 return false;
 
             if (InAoeCombo())
@@ -107,7 +106,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseReprise)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Reprise.LevelAcquired)
+            if (!Spells.Reprise.IsKnown())
                 return false;
 
             if (!MovementManager.IsMoving)
@@ -134,17 +133,19 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Jolt()
         {
-            if (Core.Me.ClassLevel < Spells.Jolt.LevelAcquired)
+            if (!Spells.Jolt.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.Swiftcast))
                 return false;
 
+            // HARDCODED: Level 4 unlocks Dualcast trait; before that, Jolt requires standing still.
             if (Core.Me.ClassLevel < 4)
+            {
                 if (MovementManager.IsMoving && !Core.Me.HasAura(Auras.Dualcast))
                     return false;
-
-            if (Core.Me.ClassLevel >= 4 && (MovementManager.IsMoving || Core.Me.HasAura(Auras.Dualcast)))
+            }
+            else if (MovementManager.IsMoving || Core.Me.HasAura(Auras.Dualcast))
                 return false;
 
             if (Core.Me.HasAura(Auras.Acceleration))
@@ -160,7 +161,7 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> ScorchResolutionCombo()
         {
-            if (Core.Me.ClassLevel < 80)
+            if (!Spells.Scorch.IsKnown())
                 return false;
 
             if (Spells.Resolution.IsKnownAndReady() && RedMageRoutine.CanContinueComboAfter(Spells.Scorch))
@@ -174,7 +175,7 @@ namespace Magitek.Logic.RedMage
             if (Casting.SpellCastHistory.Take(6).Any(s => s.Spell == Spells.Verholy)
                 || Casting.SpellCastHistory.Take(6).Any(s => s.Spell == Spells.Verflare))
             {
-                if (Core.Me.ClassLevel >= 90)
+                if (Spells.Resolution.IsKnown())
                 {
                     if (Casting.SpellCastHistory.Take(6).Count(s => s.Spell == Spells.Scorch || s.Spell == Spells.Jolt || s.Spell == Spells.Resolution) < 2)
                         return await Spells.Scorch.Cast(Core.Me.CurrentTarget);
@@ -189,7 +190,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Fleche)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Fleche.LevelAcquired)
+            if (!Spells.Fleche.IsKnown())
                 return false;
 
             if (Spells.Fleche.Cooldown != TimeSpan.Zero)
@@ -200,7 +201,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> Verflare()
         {
-            if (Core.Me.ClassLevel < Spells.Verflare.LevelAcquired)
+            if (!Spells.Verflare.IsKnown())
                 return false;
 
 
@@ -211,7 +212,7 @@ namespace Magitek.Logic.RedMage
                 return false;
 
             if (BlackMana > WhiteMana
-                && Core.Me.ClassLevel >= Spells.Verholy.LevelAcquired)
+                && Spells.Verholy.IsKnown())
                 return false;
 
             return await Spells.Verflare.Cast(Core.Me.CurrentTarget);
@@ -219,7 +220,7 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Verholy()
         {
-            if (Core.Me.ClassLevel < Spells.Verholy.LevelAcquired)
+            if (!Spells.Verholy.IsKnown())
                 return false;
 
             if (!ActionManager.CanCast(Spells.Verholy, Core.Me.CurrentTarget))
@@ -237,7 +238,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> Prefulgence()
         {
-            if (Core.Me.ClassLevel < Spells.Prefulgence.LevelAcquired)
+            if (!Spells.Prefulgence.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.PrefulgenceReady))
@@ -251,7 +252,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> ViceofThorns()
         {
-            if (Core.Me.ClassLevel < Spells.ViceofThorns.LevelAcquired)
+            if (!Spells.ViceofThorns.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.ThornedFlourish))
@@ -266,7 +267,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> Verthunder()
         {
-            if (Core.Me.ClassLevel < Spells.Verthunder.LevelAcquired)
+            if (!Spells.Verthunder.IsKnown())
                 return false;
 
             if (InAoeCombo())
@@ -281,6 +282,7 @@ namespace Magitek.Logic.RedMage
                 else if (Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.VerstoneReady).TimespanLeft.TotalMilliseconds < Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.VerfireReady).TimespanLeft.TotalMilliseconds)
                     return false;
 
+            // HARDCODED: Level 10 unlocks the mana gauge logic used for balance checks.
             if (Core.Me.ClassLevel >= 10)
             {
                 if (WhiteMana <= BlackMana && !Core.Me.HasAura(Auras.VerstoneReady))
@@ -304,7 +306,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> Veraero()
         {
-            if (Core.Me.ClassLevel < Spells.Veraero.LevelAcquired)
+            if (!Spells.Veraero.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.VerstoneReady))
@@ -337,7 +339,7 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Verstone()
         {
-            if (Core.Me.ClassLevel < Spells.Verstone.LevelAcquired)
+            if (!Spells.Verstone.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.VerstoneReady))
@@ -366,7 +368,7 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Verfire()
         {
-            if (Core.Me.ClassLevel < Spells.Verfire.LevelAcquired)
+            if (!Spells.Verfire.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.VerfireReady))
@@ -402,7 +404,7 @@ namespace Magitek.Logic.RedMage
             if (!Movement.CanUseGapCloser())
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.CorpsACorps.LevelAcquired)
+            if (!Spells.CorpsACorps.IsKnown())
                 return false;
 
             if (Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.CorpsACorps || s.Spell == Spells.Displacement || s.Spell == Spells.Engagement))
@@ -415,21 +417,20 @@ namespace Magitek.Logic.RedMage
 
             if (!Core.Me.HasAura(Auras.MagickedSwordplay))
             {
-                if (Core.Me.ClassLevel >= 50)
+                if (Spells.Redoublement.IsKnown())
                 {
                     if (BlackMana < 50 || WhiteMana < 50)
                         return false;
                 }
 
-                if (Core.Me.ClassLevel >= 35
-                    && Core.Me.ClassLevel < 50)
+                if (Spells.Zwerchhau.IsKnown())
                 {
                     if (BlackMana < 35
                         || WhiteMana < 35)
                         return false;
                 }
 
-                if (Core.Me.ClassLevel >= 10)
+                if (Spells.Riposte.IsKnown())
                 {
                     if (BlackMana < 20
                         || WhiteMana < 20)
@@ -467,7 +468,7 @@ namespace Magitek.Logic.RedMage
             if (Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.CorpsACorps || s.Spell == Spells.Displacement || s.Spell == Spells.Engagement))
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Displacement.LevelAcquired)
+            if (!Spells.Displacement.IsKnown())
                 return false;
 
             if (Core.Me.CurrentTarget.Distance() > (3 + Core.Me.CurrentTarget.CombatReach))
@@ -496,7 +497,7 @@ namespace Magitek.Logic.RedMage
             if (Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.CorpsACorps || s.Spell == Spells.Displacement || s.Spell == Spells.Engagement))
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Engagement.LevelAcquired)
+            if (!Spells.Engagement.IsKnown())
                 return false;
 
             if (Core.Me.CurrentTarget.Distance() > (3 + Core.Me.CurrentTarget.CombatReach))

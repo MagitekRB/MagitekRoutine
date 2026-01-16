@@ -23,7 +23,7 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.StarfallDance)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.StarfallDance.LevelAcquired)
+            if (!Spells.StarfallDance.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.FlourishingStarfall))
@@ -46,7 +46,7 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.FanDance4)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.FanDanceIV.LevelAcquired)
+            if (!Spells.FanDanceIV.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
@@ -66,7 +66,7 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.FanDance3)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.FanDance3.LevelAcquired)
+            if (!Spells.FanDance3.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
@@ -83,7 +83,7 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.SaberDance)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.SaberDance.LevelAcquired)
+            if (!Spells.SaberDance.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
@@ -137,7 +137,7 @@ namespace Magitek.Logic.Dancer
 
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= Spells.FanDance2.Radius + r.CombatReach) < DancerSettings.Instance.FanDanceTwoEnemies) return false;
 
-            if (ActionResourceManager.Dancer.FourFoldFeathers < 4 && !Core.Me.HasAura(Auras.Devilment) && Core.Me.ClassLevel >= 62) return false;
+            if (ActionResourceManager.Dancer.FourFoldFeathers < 4 && !Core.Me.HasAura(Auras.Devilment) && Spells.Devilment.IsKnown()) return false;
 
             return await Spells.FanDance2.Cast(Core.Me);
         }

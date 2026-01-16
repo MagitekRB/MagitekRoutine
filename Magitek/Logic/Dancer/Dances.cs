@@ -27,7 +27,7 @@ namespace Magitek.Logic.Dancer
 
         public static async Task<bool> Tillana()
         {
-            if (Core.Me.ClassLevel < Spells.Tillana.LevelAcquired)
+            if (!Spells.Tillana.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.FlourishingFinish))

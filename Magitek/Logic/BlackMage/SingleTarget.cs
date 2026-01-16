@@ -16,11 +16,11 @@ namespace Magitek.Logic.BlackMage
     {
         public static async Task<bool> Xenoglossy()
         {
-            // If below Xenoglossy level, use Foul instead
-            if (Core.Me.ClassLevel < Spells.Xenoglossy.LevelAcquired)
+            // If Xenoglossy isn't unlocked, use Foul instead
+            if (!Spells.Xenoglossy.IsKnown())
             {
                 // Check if we can use Foul
-                if (Core.Me.ClassLevel >= Spells.Foul.LevelAcquired && PolyglotStatus)
+                if (Spells.Foul.IsKnown() && PolyglotStatus)
                     return await Aoe.Foul();
                 return false;
             }
@@ -57,7 +57,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Despair()
         {
-            if (Core.Me.ClassLevel < Spells.Despair.LevelAcquired)
+            if (!Spells.Despair.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.Despair)
@@ -89,10 +89,10 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Fire()
         {
 
-            if (Core.Me.ClassLevel < Spells.Fire.LevelAcquired)
+            if (!Spells.Fire.IsKnown())
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.Fire4.LevelAcquired)
+            if (Spells.Fire4.IsKnown())
                 return false;
 
             //If flarestar is ready, cast it
@@ -112,7 +112,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Fire4()
         {
-            if (Core.Me.ClassLevel < Spells.Fire4.LevelAcquired)
+            if (!Spells.Fire4.IsKnown())
                 return false;
 
             //only use in astral fire
@@ -125,7 +125,7 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Fire3()
         {
 
-            if (Core.Me.ClassLevel < Spells.Fire3.LevelAcquired)
+            if (!Spells.Fire3.IsKnown())
                 return false;
 
             //No stack, open with Fire3
@@ -168,7 +168,7 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Thunder3()
         {
 
-            if (Core.Me.ClassLevel < Spells.Thunder.LevelAcquired)
+            if (!Spells.Thunder.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.ThunderSingle)
@@ -188,7 +188,9 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Moved this up to see if it stops the doublecast
-            if (Casting.LastSpellWas(Spells.Thunder) || Casting.LastSpellWas(Spells.Thunder3) || Casting.LastSpellWas(Spells.HighThunder))
+            if (Casting.LastSpellWas(Spells.Thunder)
+                || Casting.LastSpellWas(Spells.Thunder3)
+                || Casting.LastSpellWas(Spells.HighThunder))
                 return false;
 
             // Try to keep from double-casting thunder
@@ -206,10 +208,10 @@ namespace Magitek.Logic.BlackMage
             if (BlackMageSettings.Instance.UseTTDForThunderSingle && Combat.CurrentTargetCombatTimeLeft <= BlackMageSettings.Instance.ThunderSingleTTDSeconds && !Core.Me.CurrentTarget.IsBoss())
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Thunder3.LevelAcquired)
+            if (!Spells.Thunder3.IsKnown())
                 return await Spells.Thunder.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < Spells.HighThunder.LevelAcquired)
+            if (!Spells.HighThunder.IsKnown())
                 return await Spells.Thunder3.Cast(Core.Me.CurrentTarget);
 
             return await Spells.HighThunder.Cast(Core.Me.CurrentTarget);
@@ -229,7 +231,7 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Blizzard4()
         {
 
-            if (Core.Me.ClassLevel < Spells.Blizzard4.LevelAcquired)
+            if (!Spells.Blizzard4.IsKnown())
                 return false;
 
             if (UmbralStacks != 3)
@@ -241,7 +243,7 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpellWas(Spells.Blizzard4))
                 return false;
 
-            if (Casting.LastSpell == Spells.Transpose)
+            if (Casting.LastSpellWas(Spells.Transpose))
                 return false;
 
             return await Spells.Blizzard4.Cast(Core.Me.CurrentTarget);
@@ -250,7 +252,7 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Blizzard3()
         {
 
-            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
+            if (!Spells.Blizzard3.IsKnown())
                 return false;
 
             if (Casting.LastSpellWas(Spells.Blizzard3)
@@ -283,9 +285,9 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Low level logic
-            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired)
+            if (!Spells.Blizzard3.IsKnown())
             {
-                if (Casting.LastSpell == Spells.Transpose && AstralStacks > 0)
+                if (Casting.LastSpellWas(Spells.Transpose) && AstralStacks > 0)
                     return false;
 
                 if (Core.Me.CurrentMana < 1600 || (AstralStacks == 0 && UmbralStacks >= 0))
@@ -305,7 +307,7 @@ namespace Magitek.Logic.BlackMage
         }
         public static async Task<bool> Paradox()
         {
-            if (Core.Me.ClassLevel < Spells.Paradox.LevelAcquired)
+            if (!Spells.Paradox.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.Paradox)

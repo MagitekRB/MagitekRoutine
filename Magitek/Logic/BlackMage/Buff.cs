@@ -15,7 +15,7 @@ namespace Magitek.Logic.BlackMage
     {
         public static async Task<bool> Triplecast()
         {
-            if (Core.Me.ClassLevel < Spells.Triplecast.LevelAcquired)
+            if (!Spells.Triplecast.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.TripleCast)
@@ -56,7 +56,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> LeyLines()
         {
-            if (Core.Me.ClassLevel < Spells.LeyLines.LevelAcquired)
+            if (!Spells.LeyLines.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.LeyLines)
@@ -89,14 +89,14 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // Do not Ley Lines if we don't have any umbral hearts (roundabout check to see if we're at the begining of astral)
-            if (Casting.LastSpell == Spells.Fire3
+            if (Casting.LastSpellWas(Spells.Fire3)
                 && (UmbralHearts == 3
                 || Core.Me.HasAura(Auras.Triplecast)))
                 // Fire 3 is always used at the start of Astral
                 return await Spells.LeyLines.Cast(Core.Me);
 
             //Use in AoE rotation as well
-            if (Casting.LastSpell == Spells.HighFireII
+            if (Casting.LastSpellWas(Spells.HighFireII)
                 && (UmbralHearts == 3
                 || Core.Me.HasAura(Auras.Triplecast)))
                 // High Fire II is always used at the start of Astral
@@ -117,7 +117,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Retrace()
         {
-            if (Core.Me.ClassLevel < Spells.Retrace.LevelAcquired)
+            if (!Spells.Retrace.IsKnown())
                 return false;
 
             if (!Spells.Retrace.IsKnownAndReady())
@@ -142,7 +142,7 @@ namespace Magitek.Logic.BlackMage
         }
         public static async Task<bool> UmbralSoul()
         {
-            if (Core.Me.ClassLevel < Spells.UmbralSoul.LevelAcquired)
+            if (!Spells.UmbralSoul.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.UmbralSoul)
@@ -169,7 +169,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> PreCombatUmbralSoul()
         {
-            if (Core.Me.ClassLevel < Spells.UmbralSoul.LevelAcquired)
+            if (!Spells.UmbralSoul.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.UmbralSoul)
@@ -195,7 +195,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> ManaFont()
         {
-            if (Core.Me.ClassLevel < Spells.ManaFont.LevelAcquired)
+            if (!Spells.ManaFont.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.ManaFont)
@@ -221,8 +221,8 @@ namespace Magitek.Logic.BlackMage
             //Moved this up as it should go off regardless of toggle
             //Swapped mana check to be first as this was going off before we had 0 mana
             if (Core.Me.CurrentMana == 0
-                && (Casting.LastSpell == Spells.Flare
-                || Casting.LastSpell == Spells.Foul))
+                && (Casting.LastSpellWas(Spells.Flare)
+                || Casting.LastSpellWas(Spells.Foul)))
             //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs                
             {
                 Logger.WriteInfo($@"[Debug] If we get to this point we should have cast flare and have 0 mana - actual last spell is {Casting.LastSpell} and we have {Core.Me.CurrentMana} mana.");
@@ -235,14 +235,14 @@ namespace Magitek.Logic.BlackMage
             Logger.WriteInfo($@"[Debug] If we get to this point we should have less than 7000 mana - actual current mana is {Core.Me.CurrentMana}.");
 
             if (Core.Me.CurrentMana == 0
-                && (Casting.LastSpell == Spells.Despair
-                || Casting.LastSpell == Spells.Xenoglossy))
+                && (Casting.LastSpellWas(Spells.Despair)
+                || Casting.LastSpellWas(Spells.Xenoglossy)))
             {
                 Logger.WriteInfo($@"[Debug] If we get to this point we should have cast xeno or despair - actual last spell is {Casting.LastSpell}.");
 
                 return await Spells.ManaFont.Cast(Core.Me);
             }
-            if (Casting.LastSpell == Spells.Fire3
+            if (Casting.LastSpellWas(Spells.Fire3)
                 //&& Spells.Fire.Cooldown.TotalMilliseconds > Globals.AnimationLockMs
                 && BlackMageSettings.Instance.ConvertAfterFire3
                 && Core.Me.CurrentMana < 7000)
@@ -262,7 +262,7 @@ namespace Magitek.Logic.BlackMage
         }
         public static async Task<bool> Transpose()
         {
-            if (Core.Me.ClassLevel < Spells.Transpose.LevelAcquired)
+            if (!Spells.Transpose.IsKnown())
                 return false;
 
             return await Spells.Transpose.Cast(Core.Me);
@@ -270,7 +270,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> PreCombatTranspose()
         {
-            if (Core.Me.ClassLevel < Spells.Transpose.LevelAcquired)
+            if (!Spells.Transpose.IsKnown())
                 return false;
 
             if (!Spells.Transpose.IsKnownAndReady())
@@ -292,7 +292,7 @@ namespace Magitek.Logic.BlackMage
         }
         public static async Task<bool> Amplifier()
         {
-            if (Core.Me.ClassLevel < Spells.Amplifier.LevelAcquired)
+            if (!Spells.Amplifier.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.Amplifier)

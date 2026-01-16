@@ -23,7 +23,7 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.AstralFlow.LevelAcquired)
+            if (!Spells.AstralFlow.IsKnown())
                 return false;
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut) return await Deathflare();
@@ -43,7 +43,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Deathflare)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Deathflare.LevelAcquired)
+            if (!Spells.Deathflare.IsKnown())
                 return false;
 
             if (!Spells.Deathflare.IsKnownAndReady())
@@ -65,7 +65,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Deathflare)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Sunflare.LevelAcquired)
+            if (!Spells.Sunflare.IsKnown())
                 return false;
 
             if (!Spells.Sunflare.IsKnownAndReady())
@@ -87,7 +87,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Rekindle)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Rekindle.LevelAcquired)
+            if (!Spells.Rekindle.IsKnown())
                 return false;
 
             if (!Spells.Rekindle.IsKnownAndReady())
@@ -113,7 +113,7 @@ namespace Magitek.Logic.Summoner
             if (!Movement.CanUseGapCloser())
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.CrimsonCyclone.LevelAcquired)
+            if (!Spells.CrimsonCyclone.IsKnown())
                 return false;
 
             if (!Spells.CrimsonCyclone.IsKnownAndReady())
@@ -138,7 +138,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.CrimsonStrike)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.CrimsonStrike.LevelAcquired)
+            if (!Spells.CrimsonStrike.IsKnown())
                 return false;
 
             //if (SmnResources.ActivePet != SmnResources.ActivePetType.Ifrit)
@@ -164,7 +164,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.MountainBuster)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.MountainBuster.LevelAcquired)
+            if (!Spells.MountainBuster.IsKnown())
                 return false;
 
             //if (!Spells.MountainBuster.IsKnownAndReady())
@@ -189,7 +189,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Slipstream)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Slipstream.LevelAcquired)
+            if (!Spells.Slipstream.IsKnown())
                 return false;
 
             if (!Spells.Slipstream.IsKnownAndReady())
@@ -213,7 +213,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.EnergySiphon)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.EnergySiphon.LevelAcquired)
+            if (!Spells.EnergySiphon.IsKnown())
                 return false;
 
             if (!Spells.EnergySiphon.IsKnownAndReady())
@@ -241,7 +241,7 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> SearingFlash()
         {
-            if (Core.Me.ClassLevel < Spells.SearingFlash.LevelAcquired)
+            if (!Spells.SearingFlash.IsKnown())
                 return false;
 
             if (!Spells.SearingFlash.IsKnownAndReady())
@@ -266,7 +266,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Outburst)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Outburst.LevelAcquired)
+            if (!Spells.Outburst.IsKnown())
                 return false;
 
             if (!Spells.Outburst.IsKnownAndReady())
@@ -317,7 +317,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Painflare)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Painflare.LevelAcquired)
+            if (!Spells.Painflare.IsKnown())
                 return false;
 
             if (!Spells.Painflare.IsKnownAndReady())
@@ -345,7 +345,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Ruin4)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Ruin4.LevelAcquired)
+            if (!Spells.Ruin4.IsKnown())
                 return false;
 
             if (!Spells.Ruin4.IsKnownAndReady())

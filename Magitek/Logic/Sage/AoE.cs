@@ -19,7 +19,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Phlegma.LevelAcquired)
+            if (!Spells.Phlegma.IsKnown())
                 return false;
 
             if (Core.Me.CurrentTarget == null)
@@ -29,15 +29,8 @@ namespace Magitek.Logic.Sage
             //if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Phlegma.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
             //    return false;
             var spell = Spells.PhlegmaIII;
-
-            if (Core.Me.ClassLevel < 82)
-            {
-                spell = Spells.PhlegmaII;
-            }
-            if (Core.Me.ClassLevel < 72)
-            {
-                spell = Spells.Phlegma;
-            }
+            if (!Spells.PhlegmaIII.IsKnown())
+                spell = Spells.PhlegmaII.IsKnown() ? Spells.PhlegmaII : Spells.Phlegma;
 
             if (spell.Charges == 0)
                 return false;
@@ -53,7 +46,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.AoE)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Dyskrasia.LevelAcquired)
+            if (!Spells.Dyskrasia.IsKnown())
                 return false;
 
             if (Core.Me.CurrentTarget == null)
@@ -62,12 +55,7 @@ namespace Magitek.Logic.Sage
             if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Dyskrasia.Radius)) < SageSettings.Instance.AoEEnemies)
                 return false;
 
-            var spell = Spells.DyskrasiaII;
-
-            if (Core.Me.ClassLevel < 82)
-            {
-                spell = Spells.Dyskrasia;
-            }
+            var spell = Spells.DyskrasiaII.IsKnown() ? Spells.DyskrasiaII : Spells.Dyskrasia;
             //Not cast on target, cast on self
             return await spell.Cast(Core.Me);
         }
@@ -134,7 +122,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.ToxiconWhileMoving && !SageSettings.Instance.AoE)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Toxikon.LevelAcquired)
+            if (!Spells.Toxikon.IsKnown())
                 return false;
 
             if (Core.Me.CurrentTarget == null)
@@ -161,12 +149,7 @@ namespace Magitek.Logic.Sage
 
             if (doToxicon)
             {
-                var spell = Spells.ToxikonII;
-
-                if (Core.Me.ClassLevel < 82)
-                {
-                    spell = Spells.Toxikon;
-                }
+                var spell = Spells.ToxikonII.IsKnown() ? Spells.ToxikonII : Spells.Toxikon;
                 return await spell.Cast(Core.Me.CurrentTarget);
             }
             else
@@ -185,7 +168,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Pneuma)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Pneuma.LevelAcquired)
+            if (!Spells.Pneuma.IsKnown())
                 return false;
 
             if (SageSettings.Instance.PneumaHealOnly)
@@ -214,7 +197,7 @@ namespace Magitek.Logic.Sage
             if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Psyche.Radius) < SageSettings.Instance.PsycheAoEEnemies)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Psyche.LevelAcquired)
+            if (!Spells.Psyche.IsKnown())
                 return false;
 
             return await Spells.Psyche.Cast(Core.Me.CurrentTarget);

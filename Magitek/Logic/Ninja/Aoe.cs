@@ -15,9 +15,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> DeathBlossom()
         {
-            if (Core.Me.ClassLevel < Spells.DeathBlossom.LevelAcquired)
-                return false;
-
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
@@ -35,9 +32,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HakkeMujinsatsu()
         {
-            if (Core.Me.ClassLevel < Spells.HakkeMujinsatsu.LevelAcquired)
-                return false;
-
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
@@ -58,10 +52,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HellfrogMedium()
         {
-
-            if (Core.Me.ClassLevel < Spells.HellfrogMedium.LevelAcquired)
-                return false;
-
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
@@ -89,10 +79,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> PhantomKamaitachi()
         {
-
-            if (Core.Me.ClassLevel < Spells.PhantomKamaitachi.LevelAcquired)
-                return false;
-
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 

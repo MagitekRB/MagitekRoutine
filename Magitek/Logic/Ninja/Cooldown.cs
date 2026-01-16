@@ -16,8 +16,7 @@ namespace Magitek.Logic.Ninja
     {
         public static async Task<bool> Mug()
         {
-
-            if (Core.Me.ClassLevel < Spells.Mug.LevelAcquired)
+            if (!Spells.Mug.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseMug || NinjaSettings.Instance.BurstLogicHoldBurst)
@@ -50,8 +49,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> TrickAttack()
         {
-
-            if (Core.Me.ClassLevel < Spells.TrickAttack.LevelAcquired)
+            if (!Spells.TrickAttack.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseTrickAttack || NinjaSettings.Instance.BurstLogicHoldBurst)
@@ -63,10 +61,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.Bunshin.LevelAcquired && Spells.Bunshin.Cooldown == new TimeSpan(0, 0, 0))
-                return false;
-
-            if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
+            if (Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
             if (Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 800)
@@ -93,10 +88,8 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> Assassinate()
         {
-
-            if (Core.Me.ClassLevel < Spells.Assassinate.LevelAcquired)
+            if (!Spells.Assassinate.IsKnown())
                 return false;
-
             if (!NinjaSettings.Instance.UseAssassinate || NinjaSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
@@ -114,8 +107,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> ZeshoMeppo()
         {
-
-            if (Core.Me.ClassLevel < Spells.ZeshoMeppo.LevelAcquired)
+            if (!Spells.ZeshoMeppo.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseZeshoMeppo)
@@ -136,8 +128,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> TenriJindo()
         {
-
-            if (Core.Me.ClassLevel < Spells.TenriJindo.LevelAcquired)
+            if (!Spells.TenriJindo.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseTenriJindo)

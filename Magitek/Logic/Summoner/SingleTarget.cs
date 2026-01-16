@@ -77,7 +77,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Fester)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Fester.LevelAcquired)
+            if (!Spells.Fester.IsKnown())
                 return false;
 
             if (!Spells.Fester.IsKnownAndReady())
@@ -100,7 +100,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.EnergyDrain)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.EnergyDrain.LevelAcquired)
+            if (!Spells.EnergyDrain.IsKnown())
                 return false;
 
             if (!Spells.EnergyDrain.IsKnownAndReady())
@@ -126,7 +126,7 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Enkindle.LevelAcquired)
+            if (!Spells.Enkindle.IsKnown())
                 return false;
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut) return await EnkindleBahamut();
@@ -141,7 +141,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.EnkindleBahamut)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.EnkindleBahamut.LevelAcquired)
+            if (!Spells.EnkindleBahamut.IsKnown())
                 return false;
 
             if (!Spells.EnkindleBahamut.IsKnownAndReady())
@@ -158,7 +158,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.EnkindleBahamut)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.EnkindleSolarBahamut.LevelAcquired)
+            if (!Spells.EnkindleSolarBahamut.IsKnown())
                 return false;
 
             if (!Spells.EnkindleSolarBahamut.IsKnownAndReady())
@@ -175,7 +175,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.EnkindlePhoenix)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.EnkindlePhoenix.LevelAcquired)
+            if (!Spells.EnkindlePhoenix.IsKnown())
                 return false;
 
             if (!Spells.EnkindlePhoenix.IsKnownAndReady())

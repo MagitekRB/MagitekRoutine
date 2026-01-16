@@ -115,7 +115,7 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> FatedBrand()
         {
-            if (Core.Me.ClassLevel < Spells.FatedBrand.LevelAcquired)
+            if (!Spells.FatedBrand.IsKnown())
                 return false;
 
             if (!GunbreakerSettings.Instance.UseAoe)

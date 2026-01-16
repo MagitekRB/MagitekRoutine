@@ -2,6 +2,7 @@
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Extensions;
 using System.Collections.Generic;
 
 
@@ -11,19 +12,19 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Dragoon, Spells.TrueThrust);
 
-        public static SpellData HighJump => Core.Me.ClassLevel < 74
-                                            ? Spells.Jump
-                                            : Spells.HighJump;
+        public static SpellData HighJump => Spells.HighJump.IsKnown()
+                                            ? Spells.HighJump
+                                            : Spells.Jump;
 
-        public static SpellData HeavensThrust => Core.Me.ClassLevel < 86
-                                            ? Spells.FullThrust
-                                            : Spells.HeavensThrust;
+        public static SpellData HeavensThrust => Spells.HeavensThrust.IsKnown()
+                                            ? Spells.HeavensThrust
+                                            : Spells.FullThrust;
 
-        public static SpellData ChaoticSpring => Core.Me.ClassLevel < 86
-                                            ? Spells.ChaosThrust
-                                            : Spells.ChaoticSpring;
+        public static SpellData ChaoticSpring => Spells.ChaoticSpring.IsKnown()
+                                            ? Spells.ChaoticSpring
+                                            : Spells.ChaosThrust;
 
-        public static SpellData Disembowel => Core.Me.ClassLevel < Spells.SpiralBlow.LevelAcquired
+        public static SpellData Disembowel => !Spells.SpiralBlow.IsKnown()
                                             ? Spells.Disembowel
                                             : Spells.SpiralBlow;
 

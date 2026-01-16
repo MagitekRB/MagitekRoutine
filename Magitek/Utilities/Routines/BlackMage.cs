@@ -36,6 +36,11 @@ namespace Magitek.Utilities.Routines
         {
             get
             {
+                // HARDCODED: These levels correspond to trait unlocks that increase max Polyglot count
+                // Level 70: First Polyglot trait
+                // Level 80: Second Polyglot trait  
+                // Level 98: Third Polyglot trait
+                // These are trait checks, not spell availability checks
                 if (Core.Me.ClassLevel >= 98)
                     return 3;
                 if (Core.Me.ClassLevel >= 80)

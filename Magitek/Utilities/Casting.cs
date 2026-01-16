@@ -312,14 +312,30 @@ namespace Magitek.Utilities
         }
 
         /// <summary>
-        /// Checks if the last spell cast was the specified spell, succeeded, and was cast within the specified time window.
+        /// Checks if the last spell cast was the specified spell and succeeded, without time window restriction.
+        /// Automatically checks if the spell is known before comparing.
         /// </summary>
         /// <param name="spell">The spell to check for</param>
-        /// <param name="withinMs">Time window in milliseconds. Defaults to 1 GCD (2500ms). Use -1 to ignore time check.</param>
-        /// <returns>True if last spell matches, succeeded, and was within the time window</returns>
-        public static bool LastSpellWas(SpellData spell, int withinMs = 3000)
+        /// <returns>True if spell is known, last spell matches, and succeeded</returns>
+        public static bool LastSpellWas(SpellData spell)
+        {
+            return LastSpellWas(spell, -1);
+        }
+
+        /// <summary>
+        /// Checks if the last spell cast was the specified spell, succeeded, and was cast within the specified time window.
+        /// Automatically checks if the spell is known before comparing.
+        /// </summary>
+        /// <param name="spell">The spell to check for</param>
+        /// <param name="withinMs">Time window in milliseconds. Defaults to 1 GCD (3000ms). Use -1 to ignore time check.</param>
+        /// <returns>True if spell is known, last spell matches, succeeded, and was within the time window</returns>
+        public static bool LastSpellWas(SpellData spell, int withinMs)
         {
             if (spell == null)
+                return false;
+
+            // Check if spell is known before comparing (prevents deadlocks when spells aren't unlocked)
+            if (!spell.IsKnown())
                 return false;
 
             if (LastSpell == null)

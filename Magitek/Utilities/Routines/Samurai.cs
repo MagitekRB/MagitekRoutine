@@ -16,9 +16,9 @@ namespace Magitek.Utilities.Routines
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Samurai, Spells.Hakaze, new List<SpellData>() { Spells.KaeshiGoken, Spells.KaeshiNamikiri, Spells.KaeshiSetsugekka, });
 
 
-        public static SpellData Fuko => Core.Me.ClassLevel < 86
-                                                    ? Spells.Fuga
-                                                    : Spells.Fuko;
+        public static SpellData Fuko => Spells.Fuko.IsKnown()
+                                                    ? Spells.Fuko
+                                                    : Spells.Fuga;
 
         public static bool CanContinueComboAfter(SpellData LastSpellExecuted)
         {

@@ -103,6 +103,7 @@ namespace Magitek.Logic.Dragoon
 
             if (Spells.Geirskogul.IsKnown() &&
                     (
+                        // HARDCODED: Level 78 trait changes Geirskogul timing for Nastrond usage.
                         (Core.Me.ClassLevel < 78 && Spells.Geirskogul.Cooldown.TotalMilliseconds < 10000)
                      || (Core.Me.ClassLevel >= 78 && Spells.Geirskogul.Cooldown.TotalMilliseconds == 0)
 

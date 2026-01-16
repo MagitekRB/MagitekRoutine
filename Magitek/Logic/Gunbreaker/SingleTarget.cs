@@ -292,7 +292,7 @@ namespace Magitek.Logic.Gunbreaker
             }
 
             //Cast BurstStrike after No Mercy window
-            if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)
+            if (Spells.Bloodfest.IsKnown())
             {
                 if (!Core.Me.HasAura(Auras.NoMercy)
                 && Cartridge >= 1
@@ -329,7 +329,7 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> ReignOfBeasts()
         {
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.ReignOfBeasts.IsKnown())
                 return false;
 
             if (!GunbreakerSettings.Instance.UseLionHeartCombo)
@@ -359,7 +359,7 @@ namespace Magitek.Logic.Gunbreaker
         public static async Task<bool> NobleBlood()
         {
 
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.NobleBlood.IsKnown())
                 return false;
 
             if (!GunbreakerSettings.Instance.UseLionHeartCombo)
@@ -370,7 +370,7 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> LionHeart()
         {
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.LionHeart.IsKnown())
                 return false;
 
             if (!GunbreakerSettings.Instance.UseLionHeartCombo)

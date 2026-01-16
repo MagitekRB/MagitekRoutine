@@ -15,7 +15,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Holy)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Holy.LevelAcquired)
+            if (!Spells.Holy.IsKnown())
                 return false;
 
             if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 8 + r.CombatReach) < WhiteMageSettings.Instance.HolyEnemies)
@@ -42,7 +42,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Assize)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Assize.LevelAcquired)
+            if (!Spells.Assize.IsKnown())
                 return false;
 
             if (Spells.Assize.Cooldown.TotalMilliseconds > 1)
@@ -63,7 +63,7 @@ namespace Magitek.Logic.WhiteMage
             if (Core.Me.CurrentTarget == null)
                 return false;
 
-            if (Core.Me.ClassLevel >= 72 && !Core.Me.CurrentTarget.HasAura(Auras.Dia, true, 6000))
+            if (Spells.Dia.IsKnown() && !Core.Me.CurrentTarget.HasAura(Auras.Dia, true, 6000))
                 return false;
 
             return await Spells.Assize.Cast(Core.Me);

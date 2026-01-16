@@ -17,8 +17,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> Kassatsu()
         {
-
-            if (Core.Me.ClassLevel < Spells.Kassatsu.LevelAcquired)
+            if (!Spells.Kassatsu.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseKassatsu)
@@ -36,8 +35,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> Bunshin()
         {
-
-            if (Core.Me.ClassLevel < Spells.Bunshin.LevelAcquired)
+            if (!Spells.Bunshin.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseBunshin)
@@ -55,11 +53,10 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> Meisui()
         {
-
-            if (Core.Me.ClassLevel < Spells.Meisui.LevelAcquired)
+            if (!Spells.Meisui.IsKnown())
                 return false;
 
-            if(!NinjaSettings.Instance.UseMeisui)
+            if (!NinjaSettings.Instance.UseMeisui)
                 return false;
 
             if (!Spells.Meisui.IsKnownAndReady())
@@ -86,7 +83,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaSettings.Instance.EnemyIsOmni || !NinjaSettings.Instance.UseTrueNorth)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= NinjaSettings.Instance.AoeEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= NinjaSettings.Instance.AoeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.TrueNorth))

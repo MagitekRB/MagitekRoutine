@@ -15,16 +15,18 @@ namespace Magitek.Logic.Sage
         {
             var spell = Spells.EukrasianDosisIII;
             var aura = Auras.EukrasianDosisIII;
-
-            if (Core.Me.ClassLevel < 82)
+            if (!Spells.EukrasianDosisIII.IsKnown())
             {
-                spell = Spells.EukrasianDosisII;
-                aura = Auras.EukrasianDosisII;
-            }
-            if (Core.Me.ClassLevel < 72)
-            {
-                spell = Spells.EukrasianDosis;
-                aura = Auras.EukrasianDosis;
+                if (Spells.EukrasianDosisII.IsKnown())
+                {
+                    spell = Spells.EukrasianDosisII;
+                    aura = Auras.EukrasianDosisII;
+                }
+                else
+                {
+                    spell = Spells.EukrasianDosis;
+                    aura = Auras.EukrasianDosis;
+                }
             }
 
             if (!await Heal.UseEukrasia(spell.Id, target))
@@ -47,15 +49,8 @@ namespace Magitek.Logic.Sage
                 return await UseEukrasianDosis(Core.Me.CurrentTarget);
 
             var spell = Spells.DosisIII;
-
-            if (Core.Me.ClassLevel < 82)
-            {
-                spell = Spells.DosisII;
-            }
-            if (Core.Me.ClassLevel < 72)
-            {
-                spell = Spells.Dosis;
-            }
+            if (!Spells.DosisIII.IsKnown())
+                spell = Spells.DosisII.IsKnown() ? Spells.DosisII : Spells.Dosis;
 
             return await spell.Cast(Core.Me.CurrentTarget);
         }

@@ -15,7 +15,7 @@ namespace Magitek.Logic.Reaper
         public static async Task<bool> Gluttony()
         {
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.Gluttony.LevelAcquired)
+            if (!Spells.Gluttony.IsKnown())
                 return false;
             if (!ReaperSettings.Instance.UseGluttony) return false;
             if (Core.Me.HasAura(Auras.SoulReaver)) return false;
@@ -37,7 +37,7 @@ namespace Magitek.Logic.Reaper
         public static async Task<bool> Enshroud()
         {
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.Enshroud.LevelAcquired)
+            if (!Spells.Enshroud.IsKnown())
                 return false;
             if (Core.Me.HasAura(Auras.SoulReaver))
                 return false;
@@ -53,7 +53,7 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> ArcaneCircle()
         {
-            if (!ReaperSettings.Instance.UseArcaneCircle || Core.Me.ClassLevel < Spells.ArcaneCircle.LevelAcquired)
+            if (!ReaperSettings.Instance.UseArcaneCircle || !Spells.ArcaneCircle.IsKnown())
                 return false;
 
             // Prevent blowing arcane circle before reaching target.

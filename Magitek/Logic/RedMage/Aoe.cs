@@ -22,7 +22,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Moulinet)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Moulinet.LevelAcquired)
+            if (!Spells.Moulinet.IsKnown())
                 return false;
 
             if (ManaStacks() == 3)
@@ -35,7 +35,7 @@ namespace Magitek.Logic.RedMage
 
             if (!InAoeCombo())
             {
-                if (Core.Me.ClassLevel >= Spells.Embolden.LevelAcquired
+                if (Spells.Embolden.IsKnown()
                     && Spells.Embolden.Cooldown.TotalSeconds <= 13)
                     return false;
 
@@ -61,7 +61,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseContreSixte)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.ContreSixte.LevelAcquired)
+            if (!Spells.ContreSixte.IsKnown())
                 return false;
 
             if (Spells.ContreSixte.Cooldown != TimeSpan.Zero)
@@ -74,7 +74,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Scatter)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Scatter.LevelAcquired)
+            if (!Spells.Scatter.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.Dualcast)
@@ -96,7 +96,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> GrandImpact()
         {
-            if (Core.Me.ClassLevel < Spells.GrandImpact.LevelAcquired)
+            if (!Spells.GrandImpact.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.GrandImpactReady))
@@ -116,7 +116,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Impact.LevelAcquired)
+            if (!Spells.Impact.IsKnown())
                 return false;
 
             if (InAoeCombo())
@@ -142,7 +142,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Ver2)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Verthunder2.LevelAcquired)
+            if (!Spells.Verthunder2.IsKnown())
                 return false;
 
             if (MovementManager.IsMoving)
@@ -169,7 +169,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Ver2)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Veraero2.LevelAcquired)
+            if (!Spells.Veraero2.IsKnown())
                 return false;
 
             if (MovementManager.IsMoving)

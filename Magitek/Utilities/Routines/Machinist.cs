@@ -12,32 +12,32 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Machinist, Spells.SplitShot, new List<SpellData>() { Spells.Flamethrower });
 
-        public static SpellData HeatedSplitShot => Core.Me.ClassLevel < 54
-                                                    ? Spells.SplitShot
-                                                    : Spells.HeatedSplitShot;
-        public static SpellData HeatedSlugShot => Core.Me.ClassLevel < 60
-                                                    ? Spells.SlugShot
-                                                    : Spells.HeatedSlugShot;
+        public static SpellData HeatedSplitShot => Spells.HeatedSplitShot.IsKnown()
+                                                    ? Spells.HeatedSplitShot
+                                                    : Spells.SplitShot;
+        public static SpellData HeatedSlugShot => Spells.HeatedSlugShot.IsKnown()
+                                                    ? Spells.HeatedSlugShot
+                                                    : Spells.SlugShot;
 
-        public static SpellData HeatedCleanShot => Core.Me.ClassLevel < 64
-                                                    ? Spells.CleanShot
-                                                    : Spells.HeatedCleanShot;
+        public static SpellData HeatedCleanShot => Spells.HeatedCleanShot.IsKnown()
+                                                    ? Spells.HeatedCleanShot
+                                                    : Spells.CleanShot;
 
-        public static SpellData HotAirAnchor => Core.Me.ClassLevel < 76
-                                                    ? Spells.HotShot
-                                                    : Spells.AirAnchor;
+        public static SpellData HotAirAnchor => Spells.AirAnchor.IsKnown()
+                                                    ? Spells.AirAnchor
+                                                    : Spells.HotShot;
 
-        public static SpellData RookQueenPet => Core.Me.ClassLevel < 80
-                                                    ? Spells.RookAutoturret
-                                                    : Spells.AutomationQueen;
+        public static SpellData RookQueenPet => Spells.AutomationQueen.IsKnown()
+                                                    ? Spells.AutomationQueen
+                                                    : Spells.RookAutoturret;
 
-        public static SpellData RookQueenOverdrive => Core.Me.ClassLevel < 80
-                                                    ? Spells.RookOverdrive
-                                                    : Spells.QueenOverdrive;
+        public static SpellData RookQueenOverdrive => Spells.QueenOverdrive.IsKnown()
+                                                    ? Spells.QueenOverdrive
+                                                    : Spells.RookOverdrive;
 
-        public static SpellData Scattergun => Core.Me.ClassLevel < 82
-                                                    ? Spells.SpreadShot
-                                                    : Spells.Scattergun;
+        public static SpellData Scattergun => Spells.Scattergun.IsKnown()
+                                                    ? Spells.Scattergun
+                                                    : Spells.SpreadShot;
 
         public static bool CanContinueComboAfter(SpellData LastSpellExecuted)
         {

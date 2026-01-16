@@ -453,6 +453,7 @@ namespace Magitek.Extensions
             if (c.IsDps() || c.IsBlueMageDps())
             {
                 var cha = c as Character;
+                // Intentionally use LevelAcquired for other characters; IsKnown only reflects Core.Me unlocks.
                 if (cha.CurrentJob == ClassJobType.RedMage && cha.ClassLevel >= Spells.Verraise.LevelAcquired)
                     return 80;
                 if (cha.CurrentJob == ClassJobType.Summoner && cha.ClassLevel >= Spells.Resurrection.LevelAcquired)

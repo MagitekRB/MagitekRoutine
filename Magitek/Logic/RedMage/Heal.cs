@@ -22,7 +22,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Vercure)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Vercure.LevelAcquired)
+            if (!Spells.Vercure.IsKnown())
                 return false;
 
             if (!RedMageSettings.Instance.VercureDualcast)
@@ -100,7 +100,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Verraise)
                 return false;
 
-            if (Core.Me.ClassLevel < 64)
+            if (!Spells.Verraise.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.Dualcast))

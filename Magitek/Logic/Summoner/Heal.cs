@@ -18,7 +18,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Physick)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Physick.LevelAcquired)
+            if (!Spells.Physick.IsKnown())
                 return false;
 
             if (!Spells.Physick.IsKnown())
@@ -38,7 +38,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.ForceResuSwift)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Resurrection.LevelAcquired)
+            if (!Spells.Resurrection.IsKnown())
                 return false;
 
             if (!ActionManager.HasSpell(Spells.Swiftcast.Id))
@@ -58,7 +58,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.ForceResu)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Resurrection.LevelAcquired)
+            if (!Spells.Resurrection.IsKnown())
                 return false;
 
             if (!await HardRaise()) return false;
@@ -69,7 +69,7 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> Resurrection()
         {
-            if (Core.Me.ClassLevel < Spells.Resurrection.LevelAcquired)
+            if (!Spells.Resurrection.IsKnown())
                 return false;
 
             return await Roles.Healer.Raise(
@@ -82,7 +82,7 @@ namespace Magitek.Logic.Summoner
         }
         public static async Task<bool> ForceRaiseLogic()
         {
-            if (Core.Me.ClassLevel < Spells.Resurrection.LevelAcquired)
+            if (!Spells.Resurrection.IsKnown())
                 return false;
 
             if (!Globals.InParty)
@@ -110,10 +110,7 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.InCombat || Globals.OnPvpMap)
             {
-                if (Core.Me.ClassLevel < 28)
-                    return false;
-
-                if (!ActionManager.HasSpell(Spells.Swiftcast.Id))
+                if (!Spells.Swiftcast.IsKnown())
                     return false;
 
                 if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)
@@ -137,7 +134,7 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> HardRaise()
         {
-            if (Core.Me.ClassLevel < Spells.Resurrection.LevelAcquired)
+            if (!Spells.Resurrection.IsKnown())
                 return false;
 
             if (!Globals.InParty)
@@ -194,7 +191,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.LuxSolaris)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.LuxSolaris.LevelAcquired)
+            if (!Spells.LuxSolaris.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.RefulgentLux))

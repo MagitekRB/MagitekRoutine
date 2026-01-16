@@ -91,7 +91,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.Fire3()) return true;
 
             // Low-level mana management: Transpose from Astral Fire to Umbral Ice when out of mana
-            if (Core.Me.ClassLevel < Spells.Blizzard3.LevelAcquired || !Spells.Blizzard3.IsKnown() || !Spells.Fire3.IsKnown())
+            if (!Spells.Blizzard3.IsKnown() || !Spells.Fire3.IsKnown())
             {
                 if (AstralStacks > 0 && Core.Me.CurrentMana < Spells.Fire.Cost && Spells.Transpose.IsKnownAndReady())
                 {

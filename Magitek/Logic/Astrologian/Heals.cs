@@ -110,7 +110,7 @@ namespace Magitek.Logic.Astrologian
             async Task<bool> CastBenefic(GameObject ally)
             {
                 if (AstrologianSettings.Instance.NoBeneficIfBenefic2Available)
-                    if (Core.Me.ClassLevel >= Spells.Benefic2.LevelAcquired && AstrologianSettings.Instance.Benefic2)
+                    if (Spells.Benefic2.IsKnown() && AstrologianSettings.Instance.Benefic2)
                         return await Spells.Benefic2.Heal(ally);
 
                 return await Spells.Benefic.Heal(ally);

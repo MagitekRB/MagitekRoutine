@@ -27,8 +27,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> GustSlash()
         {
-
-            if (Core.Me.ClassLevel < Spells.GustSlash.LevelAcquired)
+            if (!Spells.GustSlash.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.SpinningEdge)
@@ -45,8 +44,7 @@ namespace Magitek.Logic.Ninja
         //should be used over aeolian edge if no true north or not in rear
         public static async Task<bool> ArmorCrush()
         {
-
-            if (Core.Me.ClassLevel < Spells.ArmorCrush.LevelAcquired || !Spells.ArmorCrush.IsKnown())
+            if (!Spells.ArmorCrush.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.GustSlash)
@@ -65,8 +63,7 @@ namespace Magitek.Logic.Ninja
         //Rear Modifier
         public static async Task<bool> AeolianEdge()
         {
-
-            if (Core.Me.ClassLevel < Spells.AeolianEdge.LevelAcquired)
+            if (!Spells.AeolianEdge.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.GustSlash)
@@ -84,8 +81,7 @@ namespace Magitek.Logic.Ninja
         //Missing logic for st and mt
         public static async Task<bool> Bhavacakra()
         {
-
-            if (Core.Me.ClassLevel < Spells.Bhavacakra.LevelAcquired)
+            if (!Spells.Bhavacakra.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseBhavacakra)
@@ -112,8 +108,7 @@ namespace Magitek.Logic.Ninja
         //Missing range check
         public static async Task<bool> FleetingRaiju()
         {
-
-            if (Core.Me.ClassLevel < Spells.FleetingRaiju.LevelAcquired)
+            if (!Spells.FleetingRaiju.IsKnown())
                 return false;
 
             if (!NinjaSettings.Instance.UseFleetingRaiju)
@@ -131,10 +126,10 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> ForkedRaiju()
         {
-            if (Core.Me.ClassLevel < Spells.ForkedRaiju.LevelAcquired)
+            if (!NinjaSettings.Instance.UseForkedRaiju)
                 return false;
 
-            if (!NinjaSettings.Instance.UseForkedRaiju)
+            if (!Spells.ForkedRaiju.IsKnown())
                 return false;
 
             if (!Spells.ForkedRaiju.IsKnownAndReady())
@@ -153,7 +148,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.UseThrowingDagger)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.ThrowingDagger.LevelAcquired)
+            if (!Spells.ThrowingDagger.IsKnown())
                 return false;
 
             if (!Spells.ThrowingDagger.IsKnownAndReady())
