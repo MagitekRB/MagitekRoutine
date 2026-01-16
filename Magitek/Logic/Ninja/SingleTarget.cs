@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System;
@@ -26,7 +27,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> GustSlash()
         {
-
             if (!Spells.GustSlash.IsKnown())
                 return false;
 
@@ -44,7 +44,6 @@ namespace Magitek.Logic.Ninja
         //should be used over aeolian edge if no true north or not in rear
         public static async Task<bool> ArmorCrush()
         {
-
             if (!Spells.ArmorCrush.IsKnown())
                 return false;
 
@@ -64,7 +63,6 @@ namespace Magitek.Logic.Ninja
         //Rear Modifier
         public static async Task<bool> AeolianEdge()
         {
-
             if (!Spells.AeolianEdge.IsKnown())
                 return false;
 
@@ -83,8 +81,11 @@ namespace Magitek.Logic.Ninja
         //Missing logic for st and mt
         public static async Task<bool> Bhavacakra()
         {
-
             if (!Spells.Bhavacakra.IsKnown())
+            if (!NinjaSettings.Instance.UseBhavacakra)
+                return false;
+
+            if (!Spells.Bhavacakra.IsKnownAndReady())
                 return false;
 
             if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 45))
@@ -105,8 +106,11 @@ namespace Magitek.Logic.Ninja
         //Missing range check
         public static async Task<bool> FleetingRaiju()
         {
-
             if (!Spells.FleetingRaiju.IsKnown())
+            if (!NinjaSettings.Instance.UseFleetingRaiju)
+                return false;
+
+            if (!Spells.FleetingRaiju.IsKnownAndReady())
                 return false;
 
             if (!Core.Me.HasMyAura(Auras.RaijuReady))
@@ -118,14 +122,13 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> ForkedRaiju()
         {
-
             if (!NinjaSettings.Instance.UseForkedRaiju)
                 return false;
 
             if (!Spells.ForkedRaiju.IsKnown())
                 return false;
 
-            if (!Spells.ForkedRaiju.IsKnown())
+            if (!Spells.ForkedRaiju.IsKnownAndReady())
                 return false;
 
             if (!Core.Me.HasMyAura(Auras.RaijuReady))
@@ -133,6 +136,36 @@ namespace Magitek.Logic.Ninja
 
             return await Spells.ForkedRaiju.Cast(Core.Me.CurrentTarget);
 
+        }
+
+        public static async Task<bool> ThrowingDagger()
+        {
+
+            if (!NinjaSettings.Instance.UseThrowingDagger)
+                return false;
+
+            if (!Spells.ThrowingDagger.IsKnown())
+                return false;
+
+            if (!Spells.ThrowingDagger.IsKnownAndReady())
+                return false;
+
+            if (NinjaRoutine.AoeEnemies6Yards > 0)
+                return false;
+
+            return await Spells.ThrowingDagger.Cast(Core.Me.CurrentTarget);
+
+        }
+
+        /**********************************************************************************************
+        *                              Limit Break
+        * ********************************************************************************************/
+        public static bool ForceLimitBreak()
+        {
+            if (!Core.Me.HasTarget)
+                return false;
+
+            return PhysicalDps.ForceLimitBreak(Spells.Braver, Spells.Bladedance, Spells.TheEnd, Spells.SpinningEdge);
         }
     }
 }

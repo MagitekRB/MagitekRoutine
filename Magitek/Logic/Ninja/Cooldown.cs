@@ -1,6 +1,8 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
+using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Models.Ninja;
 using Magitek.Models.OccultCrescent;
 using Magitek.Utilities;
 using System;
@@ -14,8 +16,11 @@ namespace Magitek.Logic.Ninja
     {
         public static async Task<bool> Mug()
         {
-
             if (!Spells.Mug.IsKnown())
+            if (!NinjaSettings.Instance.UseMug || NinjaSettings.Instance.BurstLogicHoldBurst)
+                return false;
+
+            if (!Spells.Mug.IsKnownAndReady())
                 return false;
 
             // Don't use regular Mug in Occult Crescent content if Dokumori is enabled for gold farming
@@ -33,14 +38,20 @@ namespace Magitek.Logic.Ninja
             if (ActionResourceManager.Ninja.NinkiGauge + 40 > 100)
                 return false;
 
+            if (!CanMug(Core.Me.CurrentTarget))
+                return false;
+
             return await Spells.Mug.Cast(Core.Me.CurrentTarget);
 
         }
 
         public static async Task<bool> TrickAttack()
         {
-
             if (!Spells.TrickAttack.IsKnown())
+            if (!NinjaSettings.Instance.UseTrickAttack || NinjaSettings.Instance.BurstLogicHoldBurst)
+                return false;
+
+            if (!Spells.TrickAttack.IsKnownAndReady())
                 return false;
 
             if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
@@ -52,13 +63,33 @@ namespace Magitek.Logic.Ninja
             if (Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 800)
                 return false;
 
+            if (Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * (NinjaRoutine.OpenerBurstAfterGCD * 2) - 770)
+                return false;
+
+            if (!CanTrickAttack(Core.Me.CurrentTarget))
+                return false;
+
             return await Spells.TrickAttack.Cast(Core.Me.CurrentTarget);
         }
 
-        public static async Task<bool> DreamWithinaDream()
+        public static bool CanMug(GameObject unit)
         {
+            return unit.CombatTimeLeft() >= NinjaSettings.Instance.DontMugIfEnemyDyingWithinSeconds;
+        }
 
-            if (!Spells.DreamWithinaDream.IsKnown())
+        public static bool CanTrickAttack(GameObject unit)
+        {
+            return unit.CombatTimeLeft() >= NinjaSettings.Instance.DontTrickAttackIfEnemyDyingWithinSeconds;
+        }
+
+        public static async Task<bool> Assassinate()
+        {
+            if (!Spells.Assassinate.IsKnown())
+                return false;
+            if (!NinjaSettings.Instance.UseAssassinate || NinjaSettings.Instance.BurstLogicHoldBurst)
+                return false;
+
+            if (!Spells.Assassinate.IsKnownAndReady())
                 return false;
 
             if (Spells.TrickAttack.Cooldown == new TimeSpan(0, 0, 0))
@@ -67,12 +98,13 @@ namespace Magitek.Logic.Ninja
             if (Casting.SpellCastHistory.First().Spell == Spells.TrickAttack && Spells.SpinningEdge.Cooldown.TotalMilliseconds < 800)
                 return false;
 
-            return await Spells.DreamWithinaDream.Cast(Core.Me.CurrentTarget);
+            return await Spells.Assassinate.Cast(Core.Me.CurrentTarget);
         }
+
         public static async Task<bool> ZeshoMeppo()
         {
-
             if (!Spells.ZeshoMeppo.IsKnown())
+            if (!NinjaSettings.Instance.UseZeshoMeppo)
                 return false;
 
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))
@@ -90,8 +122,8 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> TenriJindo()
         {
-
             if (!Spells.TenriJindo.IsKnown())
+            if (!NinjaSettings.Instance.UseTenriJindo)
                 return false;
 
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))

@@ -104,6 +104,7 @@ namespace Magitek.Utilities.CombatMessages
 
                 case ClassJobType.Rogue:
                 case ClassJobType.Ninja:
+                    Rotations.Ninja.RegisterCombatMessages();
                     break;
 
                 case ClassJobType.Machinist:

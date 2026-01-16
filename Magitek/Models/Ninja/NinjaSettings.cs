@@ -20,7 +20,89 @@ namespace Magitek.Models.Ninja
         [DefaultValue(false)]
         public bool UseForkedRaiju { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseFleetingRaiju { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool HidePositionalMessage { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseThrowingDagger { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAoe { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int AoeEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMug { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHellfrogMedium { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDeathfrogMedium { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UsePhantomKamaitachi { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseTenriJindo { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBhavacakra { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseZeshoMeppo { get; set; }
+
+        [Setting]
+        [DefaultValue(8)]
+        public int DontMugIfEnemyDyingWithinSeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseTrickAttack { get; set; }
+
+        [Setting]
+        [DefaultValue(8)]
+        public int DontTrickAttackIfEnemyDyingWithinSeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseTenChiJin { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseKassatsu { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMeisui { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBunshin { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseAssassinate { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurst { get; set; }
 
         #region PVP
 

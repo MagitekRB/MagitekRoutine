@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using System;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> DeathBlossom()
         {
+            if (!NinjaSettings.Instance.UseAoe)
+                return false;
+
             if (!Spells.DeathBlossom.IsKnown())
                 return false;
 
@@ -28,6 +32,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HakkeMujinsatsu()
         {
+            if (!NinjaSettings.Instance.UseAoe)
+                return false;
+
             if (!Spells.HakkeMujinsatsu.IsKnown())
                 return false;
 
@@ -45,6 +52,11 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HellfrogMedium()
         {
+            if (!NinjaSettings.Instance.UseAoe)
+                return false;
+
+            if (!NinjaSettings.Instance.UseHellfrogMedium)
+                return false;
 
             if (!Spells.HellfrogMedium.IsKnown())
                 return false;
@@ -67,6 +79,11 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> PhantomKamaitachi()
         {
+            if (!NinjaSettings.Instance.UseAoe)
+                return false;
+
+            if (!NinjaSettings.Instance.UsePhantomKamaitachi)
+                return false;
 
             if (!Spells.PhantomKamaitachi.IsKnown())
                 return false;
