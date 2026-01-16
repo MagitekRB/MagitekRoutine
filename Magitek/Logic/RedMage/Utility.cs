@@ -16,17 +16,15 @@ namespace Magitek.Logic.RedMage
             if (ActionManager.ComboTimeLeft <= 0)
                 return false;
 
-            if (Core.Me.ClassLevel < 35)
+            if (!Spells.Riposte.IsKnown())
                 return false;
 
-            if (Core.Me.ClassLevel >= 35
-                && Core.Me.ClassLevel < 50)
+            if (!Spells.Zwerchhau.IsKnown())
             {
                 if (RedMageRoutine.CanContinueComboAfter(Spells.Riposte) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte))
                     return true;
             }
-
-            if (Core.Me.ClassLevel >= 50)
+            else
             {
                 if (RedMageRoutine.CanContinueComboAfter(Spells.Riposte) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte)
                 || RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedZwerchhau))
@@ -43,13 +41,13 @@ namespace Magitek.Logic.RedMage
         public static bool InAoeCombo()
         {
 
-            if (Core.Me.ClassLevel < Spells.Moulinet.LevelAcquired)
+            if (!Spells.Moulinet.IsKnown())
                 return false;
 
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
-            if (Core.Me.ClassLevel <= Spells.EnchantedMoulinet.LevelAcquired)
+            if (!Spells.EnchantedMoulinet.IsKnown())
                 return false;
 
             if (!RedMageRoutine.CanContinueComboAfter(Spells.EnchantedMoulinet)
@@ -65,10 +63,10 @@ namespace Magitek.Logic.RedMage
 
         public static bool InComboEnder()
         {
-            if (Core.Me.ClassLevel < 80)
+            if (!Spells.Scorch.IsKnown())
                 return false;
 
-            if (Core.Me.ClassLevel >= 80 && Core.Me.ClassLevel < 90)
+            if (!Spells.Resolution.IsKnown())
             {
                 if ((Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.Verholy)
                     || Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.Verflare))

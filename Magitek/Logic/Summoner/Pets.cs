@@ -21,7 +21,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.SummonCarbuncle)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.SummonCarbuncle.LevelAcquired)
+            if (!Spells.SummonCarbuncle.IsKnown())
                 return false;
 
             if (!Spells.SummonCarbuncle.IsKnown())
@@ -41,7 +41,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.SummonPhoenix)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.SummonPhoenix.LevelAcquired)
+            if (!Spells.SummonPhoenix.IsKnown())
                 return false;
 
             if (!Spells.SummonPhoenix.IsKnownAndReady())
@@ -75,7 +75,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.SummonBahamut)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.SummonBahamut.LevelAcquired)
+            if (!Spells.SummonBahamut.IsKnown())
                 return false;
 
             SpellData bahamutSpell;

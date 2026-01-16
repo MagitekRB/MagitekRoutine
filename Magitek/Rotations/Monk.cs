@@ -136,7 +136,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(400,
                                           "Pouncing Coeurl: Side of Enemy", "/Magitek;component/Resources/Images/General/ArrowSidesHighlighted.png",
-                                          () => Core.Me.ClassLevel >= Spells.PouncingCoeurl.LevelAcquired && Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 0 && !Core.Me.HasAura(Auras.PerfectBalance) && MonkRoutine.AoeEnemies5Yards < MonkSettings.Instance.AoeEnemies));
+                                          () => Spells.PouncingCoeurl.IsKnown() && Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 0 && !Core.Me.HasAura(Auras.PerfectBalance) && MonkRoutine.AoeEnemies5Yards < MonkSettings.Instance.AoeEnemies));
 
             //fourth priority (tie): Snap punch
             CombatMessageManager.RegisterMessageStrategy(

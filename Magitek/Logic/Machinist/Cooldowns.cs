@@ -41,7 +41,7 @@ namespace Magitek.Logic.Machinist
 
         public static async Task<bool> Hypercharge()
         {
-            if (Core.Me.ClassLevel < Spells.Hypercharge.LevelAcquired)
+            if (!Spells.Hypercharge.IsKnown())
                 return false;
 
             if (!MachinistSettings.Instance.UseHypercharge)
@@ -209,26 +209,30 @@ namespace Magitek.Logic.Machinist
             if (Spells.Reassemble.Charges == 0 && !Spells.Reassemble.IsReady())
                 return false;
 
-            if (Core.Me.ClassLevel < 58)
+            var hasDrill = Spells.Drill.IsKnown();
+            var hasAirAnchor = Spells.AirAnchor.IsKnown();
+            var hasChainSaw = Spells.ChainSaw.IsKnown();
+
+            if (!hasDrill)
             {
                 if (ActionManager.LastSpell == MachinistRoutine.HeatedSlugShot)
                     return false;
             }
 
-            if (Core.Me.ClassLevel >= 58 && Core.Me.ClassLevel < 76)
+            if (hasDrill && !hasAirAnchor)
             {
                 if (MachinistSettings.Instance.UseDrill && !Spells.Drill.IsKnownAndReady((int)MachinistRoutine.HeatedSplitShot.Cooldown.TotalMilliseconds - 100))
                     return false;
             }
 
-            if (Core.Me.ClassLevel >= 76 && Core.Me.ClassLevel < 90)
+            if (hasAirAnchor && !hasChainSaw)
             {
                 if ((MachinistSettings.Instance.UseDrill && !Spells.Drill.IsKnownAndReady((int)MachinistRoutine.HeatedSplitShot.Cooldown.TotalMilliseconds - 100))
                     && (MachinistSettings.Instance.UseHotAirAnchor && !Spells.AirAnchor.IsKnownAndReady((int)MachinistRoutine.HeatedSplitShot.Cooldown.TotalMilliseconds - 100)))
                     return false;
             }
 
-            if (Core.Me.ClassLevel >= 90)
+            if (hasChainSaw)
             {
                 if (Spells.Reassemble.Charges >= 1)
                 {

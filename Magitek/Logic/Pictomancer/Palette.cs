@@ -376,7 +376,7 @@ namespace Magitek.Logic.Pictomancer
 
             if (!PictomancerRoutine.UseSimplifiedRotation)
             {
-                if (Core.Me.ClassLevel >= Spells.StarryMuse.LevelAcquired)
+                if (Spells.StarryMuse.IsKnown())
                 {
                     if (PictomancerSettings.Instance.SaveStarryForHammers)
                     {

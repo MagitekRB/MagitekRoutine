@@ -171,10 +171,10 @@ namespace Magitek.Logic.Reaper
         public static async Task<bool> BloodStalk()
         {
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.BloodStalk.LevelAcquired)
+            if (!Spells.BloodStalk.IsKnown())
                 return false;
             if (!ReaperSettings.Instance.UseBloodStalk) return false;
-            if (Core.Me.ClassLevel >= Spells.Gluttony.LevelAcquired)
+            if (Spells.Gluttony.IsKnown())
             {
                 if (Spells.Gluttony.Cooldown.Ticks == 0)
                     return false;
@@ -192,7 +192,7 @@ namespace Magitek.Logic.Reaper
                 return false;
             if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon())
                 return false;
-            if (Core.Me.ClassLevel >= Spells.Gibbet.LevelAcquired)
+            if (Spells.Gibbet.IsKnown())
                 return await Spells.BloodStalk.CastAura(Core.Me.CurrentTarget, Auras.SoulReaver, auraTarget: Core.Me);
             else
                 return await Spells.BloodStalk.Cast(Core.Me.CurrentTarget);
@@ -221,7 +221,7 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> EnhancedHarpe()
         {
-            if (Core.Me.ClassLevel < 20)
+            if (!Spells.Harpe.IsKnown())
                 return false;
 
             if (!ReaperSettings.Instance.UseEnhancedHarpe)
@@ -244,7 +244,7 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> Harpe()
         {
-            if (Core.Me.ClassLevel < 15)
+            if (!Spells.Harpe.IsKnown())
                 return false;
 
             if (!ReaperSettings.Instance.UseEnhancedHarpe)

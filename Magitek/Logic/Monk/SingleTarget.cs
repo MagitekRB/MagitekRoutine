@@ -19,10 +19,10 @@ namespace Magitek.Logic.Monk
             if (Core.Me.HasAura(Auras.RaptorForm) || Core.Me.HasAura(Auras.CoeurlForm))
                 return false;
 
-            if (!Core.Me.HasAura(Auras.OpoOpoForm) && !Core.Me.HasAura(Auras.FormlessFist) && Core.Me.ClassLevel >= Spells.FormShift.LevelAcquired)
+            if (!Core.Me.HasAura(Auras.OpoOpoForm) && !Core.Me.HasAura(Auras.FormlessFist) && Spells.FormShift.IsKnown())
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.DragonKick.LevelAcquired && ActionResourceManager.Monk.OpoOpoFury == 0)
+            if (Spells.DragonKick.IsKnown() && ActionResourceManager.Monk.OpoOpoFury == 0)
                 return false;
 
             return await Spells.Bootshine.Cast(Core.Me.CurrentTarget);
@@ -50,13 +50,13 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> TrueStrike()
         {
-            if (Core.Me.ClassLevel < Spells.TrueStrike.LevelAcquired)
+            if (!Spells.TrueStrike.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.RaptorForm) && Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.TwinSnakes.LevelAcquired && ActionResourceManager.Monk.RaptorFury == 0)
+            if (Spells.TwinSnakes.IsKnown() && ActionResourceManager.Monk.RaptorFury == 0)
                 return false;
 
             return await Spells.TrueStrike.Cast(Core.Me.CurrentTarget);
@@ -64,13 +64,13 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> SnapPunch()
         {
-            if (Core.Me.ClassLevel < Spells.SnapPunch.LevelAcquired)
+            if (!Spells.SnapPunch.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.CoeurlForm) && Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.Demolish.LevelAcquired && ActionResourceManager.Monk.CoeurlFury == 0)
+            if (Spells.Demolish.IsKnown() && ActionResourceManager.Monk.CoeurlFury == 0)
                 return false;
 
             return await Spells.SnapPunch.Cast(Core.Me.CurrentTarget);
@@ -78,7 +78,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> DragonKick()
         {
-            if (Core.Me.ClassLevel < Spells.DragonKick.LevelAcquired)
+            if (!Spells.DragonKick.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.OpoOpoForm) && !Core.Me.HasAura(Auras.FormlessFist))
@@ -92,7 +92,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> TwinSnakes()
         {
-            if (Core.Me.ClassLevel < Spells.TwinSnakes.LevelAcquired)
+            if (!Spells.TwinSnakes.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.RaptorForm) && Core.Me.HasAura(Auras.FormlessFist))
@@ -108,7 +108,7 @@ namespace Magitek.Logic.Monk
         public static async Task<bool> Demolish()
         {
 
-            if (Core.Me.ClassLevel < Spells.Demolish.LevelAcquired)
+            if (!Spells.Demolish.IsKnown())
                 return false;
 
             if (!Core.Me.HasAura(Auras.CoeurlForm) && Core.Me.HasAura(Auras.FormlessFist))
@@ -122,7 +122,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> TheForbiddenChakra()
         {
-            if (Core.Me.ClassLevel < Spells.SteelPeak.LevelAcquired)
+            if (!Spells.SteelPeak.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseTheForbiddenChakra)
@@ -131,7 +131,7 @@ namespace Magitek.Logic.Monk
             if (ActionResourceManager.Monk.ChakraCount < 5)
                 return false;
 
-            if (!MonkSettings.Instance.BurstLogicHoldBurst && Core.Me.ClassLevel >= Spells.RiddleofFire.LevelAcquired && Spells.RiddleofFire.IsKnownAndReady())
+            if (!MonkSettings.Instance.BurstLogicHoldBurst && Spells.RiddleofFire.IsKnownAndReady())
                 return false;
 
             return await Spells.SteelPeak.Cast(Core.Me.CurrentTarget);
@@ -139,7 +139,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> PerfectBalance()
         {
-            if (Core.Me.ClassLevel < Spells.PerfectBalance.LevelAcquired)
+            if (!Spells.PerfectBalance.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UsePerfectBalance)

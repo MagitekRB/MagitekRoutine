@@ -171,7 +171,7 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UseFellCleave)
                 return false;
 
-            if (Core.Me.ClassLevel > 54)
+            if (Spells.FellCleave.IsKnown())
             {
 
                 if (Core.Me.HasAura(Auras.NascentChaos) && Spells.InnerChaos.IsKnown())

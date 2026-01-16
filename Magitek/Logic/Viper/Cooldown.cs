@@ -13,7 +13,7 @@ namespace Magitek.Logic.Viper
         public static async Task<bool> DeathRattle()
         {
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.DeathRattle.LevelAcquired)
+            if (!Spells.DeathRattle.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseDeathRattle)
@@ -31,7 +31,7 @@ namespace Magitek.Logic.Viper
         public static async Task<bool> LastLash()
         {
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.LastLash.LevelAcquired)
+            if (!Spells.LastLash.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseLastLash)
@@ -48,10 +48,10 @@ namespace Magitek.Logic.Viper
             if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.TwinfangBite.LevelAcquired && Core.Me.HasAura(Auras.HunterVenom, true))
+            if (Spells.TwinfangBite.IsKnown() && Core.Me.HasAura(Auras.HunterVenom, true))
                 return await Spells.TwinfangBite.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel >= Spells.TwinbloodBite.LevelAcquired && Core.Me.HasAura(Auras.SwiftskinVenom, true))
+            if (Spells.TwinbloodBite.IsKnown() && Core.Me.HasAura(Auras.SwiftskinVenom, true))
                 return await Spells.TwinbloodBite.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -62,10 +62,10 @@ namespace Magitek.Logic.Viper
             if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.TwinfangThresh.LevelAcquired && Core.Me.HasAura(Auras.FellhunterVenom, true))
+            if (Spells.TwinfangThresh.IsKnown() && Core.Me.HasAura(Auras.FellhunterVenom, true))
                 return await Spells.TwinfangThresh.Cast(Core.Me);
 
-            if (Core.Me.ClassLevel >= Spells.TwinbloodThresh.LevelAcquired && Core.Me.HasAura(Auras.FellskinVenom, true))
+            if (Spells.TwinbloodThresh.IsKnown() && Core.Me.HasAura(Auras.FellskinVenom, true))
                 return await Spells.TwinbloodThresh.Cast(Core.Me);
 
             return false;
@@ -74,10 +74,10 @@ namespace Magitek.Logic.Viper
         public static async Task<bool> UncoiledTwinCombo()
         {
 
-            if (Core.Me.ClassLevel >= Spells.UncoiledTwinfang.LevelAcquired && Core.Me.HasAura(Auras.PoisedforTwinfang, true))
+            if (Spells.UncoiledTwinfang.IsKnown() && Core.Me.HasAura(Auras.PoisedforTwinfang, true))
                 return await Spells.UncoiledTwinfang.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel >= Spells.UncoiledTwinblood.LevelAcquired && Core.Me.HasAura(Auras.PoisedforTwinblood, true))
+            if (Spells.UncoiledTwinblood.IsKnown() && Core.Me.HasAura(Auras.PoisedforTwinblood, true))
                 return await Spells.UncoiledTwinblood.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -85,7 +85,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> SerpentIre()
         {
-            if (Core.Me.ClassLevel < Spells.SerpentIre.LevelAcquired)
+            if (!Spells.SerpentIre.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseSerpentIre || ViperSettings.Instance.BurstLogicHoldBurst)
@@ -100,7 +100,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> FirstLegacy()
         {
-            if (Core.Me.ClassLevel < Spells.FirstLegacy.LevelAcquired)
+            if (!Spells.FirstLegacy.IsKnown())
                 return false;
 
             if (!Spells.FirstLegacy.CanCast())
@@ -112,7 +112,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> SecondLegacy()
         {
-            if (Core.Me.ClassLevel < Spells.SecondLegacy.LevelAcquired)
+            if (!Spells.SecondLegacy.IsKnown())
                 return false;
 
             if (!Spells.SecondLegacy.CanCast())
@@ -124,7 +124,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> ThirdLegacy()
         {
-            if (Core.Me.ClassLevel < Spells.ThirdLegacy.LevelAcquired)
+            if (!Spells.ThirdLegacy.IsKnown())
                 return false;
 
             if (!Spells.ThirdLegacy.CanCast())
@@ -136,7 +136,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> FourthLegacy()
         {
-            if (Core.Me.ClassLevel < Spells.FourthLegacy.LevelAcquired)
+            if (!Spells.FourthLegacy.IsKnown())
                 return false;
 
             if (!Spells.FourthLegacy.CanCast())

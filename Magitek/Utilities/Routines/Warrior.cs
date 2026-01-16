@@ -2,6 +2,7 @@
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Extensions;
 using System.Collections.Generic;
 
 namespace Magitek.Utilities.Routines
@@ -10,21 +11,21 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Warrior, Spells.HeavySwing);
 
-        public static SpellData FellCleave => Core.Me.ClassLevel < 54
-                                            ? Spells.InnerBeast
-                                            : Spells.FellCleave;
+        public static SpellData FellCleave => Spells.FellCleave.IsKnown()
+                                            ? Spells.FellCleave
+                                            : Spells.InnerBeast;
 
-        public static SpellData Decimate => Core.Me.ClassLevel < 60
-                                            ? Spells.SteelCyclone
-                                            : Spells.Decimate;
+        public static SpellData Decimate => Spells.Decimate.IsKnown()
+                                            ? Spells.Decimate
+                                            : Spells.SteelCyclone;
 
-        public static SpellData InnerRelease => Core.Me.ClassLevel < 70
-                                            ? Spells.Berserk
-                                            : Spells.InnerRelease;
+        public static SpellData InnerRelease => Spells.InnerRelease.IsKnown()
+                                            ? Spells.InnerRelease
+                                            : Spells.Berserk;
 
-        public static SpellData Bloodwhetting => Core.Me.ClassLevel < 82
-                                            ? Spells.RawIntuition
-                                            : Spells.Bloodwhetting;
+        public static SpellData Bloodwhetting => Spells.Bloodwhetting.IsKnown()
+                                            ? Spells.Bloodwhetting
+                                            : Spells.RawIntuition;
 
         public static bool CanContinueComboAfter(SpellData LastSpellExecuted)
         {

@@ -36,7 +36,7 @@ namespace Magitek.Logic.WhiteMage
         {
             if (!WhiteMageSettings.Instance.DoDamage)
                 return false;
-            if (Core.Me.ClassLevel < Spells.AfflatusMisery.LevelAcquired)
+            if (!Spells.AfflatusMisery.IsKnown())
                 return false;
             if (!WhiteMageSettings.Instance.UseAfflatusMisery)
                 return false;
@@ -134,7 +134,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Aero)
                 return false;
 
-            if (Core.Me.ClassLevel < 46)
+            if (!Spells.Aero2.IsKnown())
             {
                 if (Core.Me.CurrentTarget.HasAura(Auras.Aero, true, WhiteMageSettings.Instance.DotRefreshSeconds * 1000))
                     return false;
@@ -142,7 +142,7 @@ namespace Magitek.Logic.WhiteMage
                 return await Spells.Aero.CastAura(Core.Me.CurrentTarget, Auras.Aero, true, WhiteMageSettings.Instance.DotRefreshSeconds * 1000);
             }
 
-            if (Core.Me.ClassLevel < 72)
+            if (!Spells.Dia.IsKnown())
             {
                 if (Core.Me.CurrentTarget.HasAura(Auras.Aero2, true, WhiteMageSettings.Instance.DotRefreshSeconds * 1000))
                     return false;
@@ -154,7 +154,7 @@ namespace Magitek.Logic.WhiteMage
             {
                 if (Core.Me.CurrentTarget.HasAura(Auras.Dia, true, WhiteMageSettings.Instance.DotRefreshSeconds * 1000))
                     return false;
-                if (Core.Me.ClassLevel >= 72 && Spells.Assize.Cooldown.TotalMilliseconds < 4000 && Spells.Assize.Cooldown.TotalMilliseconds > 0)
+                if (Spells.Assize.Cooldown.TotalMilliseconds < 4000 && Spells.Assize.Cooldown.TotalMilliseconds > 0)
                     return false;
                 return await Spells.Dia.CastAura(Core.Me.CurrentTarget, Auras.Dia, true, WhiteMageSettings.Instance.DotRefreshSeconds * 1000);
             }

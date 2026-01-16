@@ -140,7 +140,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Soteria)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Soteria.LevelAcquired)
+            if (!Spells.Soteria.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -173,7 +173,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Rhizomata)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Rhizomata.LevelAcquired)
+            if (!Spells.Rhizomata.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -193,7 +193,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Krasis)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Krasis.LevelAcquired)
+            if (!Spells.Krasis.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -223,7 +223,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Philosophia)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Philosophia.LevelAcquired)
+            if (!Spells.Philosophia.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)

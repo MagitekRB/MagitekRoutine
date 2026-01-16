@@ -12,10 +12,10 @@ namespace Magitek.Logic.Reaper.Enshroud
     {
         public static async Task<bool> VoidReaping()
         {
-            if (!ReaperSettings.Instance.UseVoidReaping || Core.Me.ClassLevel < Spells.VoidReaping.LevelAcquired)
+            if (!ReaperSettings.Instance.UseVoidReaping || !Spells.VoidReaping.IsKnown())
                 return false;
 
-            if (ActionResourceManager.Reaper.LemureShroud < 2 && Core.Me.ClassLevel >= Spells.Communio.LevelAcquired)
+            if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.EnhancedCrossReaping))
@@ -37,10 +37,10 @@ namespace Magitek.Logic.Reaper.Enshroud
 
         public static async Task<bool> CrossReaping()
         {
-            if (!ReaperSettings.Instance.UseVoidReaping || Core.Me.ClassLevel < Spells.CrossReaping.LevelAcquired)
+            if (!ReaperSettings.Instance.UseVoidReaping || !Spells.CrossReaping.IsKnown())
                 return false;
 
-            if (ActionResourceManager.Reaper.LemureShroud < 2 && Core.Me.ClassLevel >= Spells.Communio.LevelAcquired)
+            if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.EnhancedVoidReaping))
@@ -63,7 +63,7 @@ namespace Magitek.Logic.Reaper.Enshroud
         public static async Task<bool> LemuresSlice()
         {
             //Add level check so it doesn't hang here
-            if (!ReaperSettings.Instance.UseLemuresSlice || Core.Me.ClassLevel < Spells.LemuresSlice.LevelAcquired)
+            if (!ReaperSettings.Instance.UseLemuresSlice || !Spells.LemuresSlice.IsKnown())
                 return false;
 
             if (ActionResourceManager.Reaper.VoidShroud < 2)
@@ -78,7 +78,7 @@ namespace Magitek.Logic.Reaper.Enshroud
         public static async Task<bool> LemuresSliceOfFWeave()
         {
             //Add level check so it doesn't hang here
-            if (!ReaperSettings.Instance.UseLemuresSlice || Core.Me.ClassLevel < Spells.LemuresSlice.LevelAcquired)
+            if (!ReaperSettings.Instance.UseLemuresSlice || !Spells.LemuresSlice.IsKnown())
                 return false;
 
             // Only use Lemures Slice off weave if resources are deadlocked

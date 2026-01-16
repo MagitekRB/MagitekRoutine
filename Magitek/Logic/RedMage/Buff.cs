@@ -19,7 +19,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Acceleration)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Acceleration.LevelAcquired)
+            if (!Spells.Acceleration.IsKnown())
                 return false;
 
             if (Spells.Acceleration.Cooldown != TimeSpan.Zero
@@ -53,7 +53,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Embolden)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Embolden.LevelAcquired)
+            if (!Spells.Embolden.IsKnown())
                 return false;
 
             if (Spells.Embolden.Cooldown != TimeSpan.Zero)
@@ -72,7 +72,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.Manafication)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Manafication.LevelAcquired)
+            if (!Spells.Manafication.IsKnown())
                 return false;
 
             if (Spells.Manafication.Cooldown != TimeSpan.Zero)
@@ -103,7 +103,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.MagickBarrier)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.MagickBarrier.LevelAcquired)
+            if (!Spells.MagickBarrier.IsKnown())
                 return false;
 
             if (Spells.MagickBarrier.Cooldown != TimeSpan.Zero)
@@ -133,7 +133,7 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.LucidDreaming)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.LucidDreaming.LevelAcquired)
+            if (!Spells.LucidDreaming.IsKnown())
                 return false;
 
             if (Core.Me.CurrentManaPercent > RedMageSettings.Instance.LucidDreamingManaPercent)
@@ -152,7 +152,7 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Swiftcast()
         {
-            if (Core.Me.ClassLevel < Spells.Swiftcast.LevelAcquired)
+            if (!Spells.Swiftcast.IsKnown())
                 return false;
 
             if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)

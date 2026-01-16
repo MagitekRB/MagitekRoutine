@@ -14,9 +14,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> DeathBlossom()
         {
-            if (Core.Me.ClassLevel < 38)
-                return false;
-
             if (!Spells.DeathBlossom.IsKnown())
                 return false;
 
@@ -31,9 +28,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HakkeMujinsatsu()
         {
-            if (Core.Me.ClassLevel < 52)
-                return false;
-
             if (!Spells.HakkeMujinsatsu.IsKnown())
                 return false;
 
@@ -51,9 +45,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HellfrogMedium()
         {
-
-            if (Core.Me.ClassLevel < 62)
-                return false;
 
             if (!Spells.HellfrogMedium.IsKnown())
                 return false;
@@ -76,9 +67,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> PhantomKamaitachi()
         {
-
-            if (Core.Me.ClassLevel < 82)
-                return false;
 
             if (!Spells.PhantomKamaitachi.IsKnown())
                 return false;

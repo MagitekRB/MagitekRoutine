@@ -22,21 +22,25 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             //Can't use whatcha don't have
-            if (Core.Me.ClassLevel < Spells.Foul.LevelAcquired)
+            if (!Spells.Foul.IsKnown())
                 return false;
 
             //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6 && Core.Me.ClassLevel >= Spells.FlareStar.LevelAcquired)
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                 return false;
 
             // If we're moving in combat
             if (MovementManager.IsMoving)
             {
+                // HARDCODED: Level 80 is when Foul becomes instant cast via trait
+                // This is a trait check, not a spell availability check
                 // If we have instant cast Foul (level 80+) and have Swiftcast/Triplecast,
                 // don't cast Foul - use procs on other spells instead
                 if (Core.Me.ClassLevel >= 80 && (Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Triplecast)))
                     return false;
 
+                // HARDCODED: Level 80 is when Foul becomes instant cast via trait
+                // This is a trait check, not a spell availability check
                 // If below level 80 (Foul has cast time) and we don't have Swiftcast/Triplecast,
                 // skip Foul - can't cast it while moving
                 if (Core.Me.ClassLevel < 80 && !Core.Me.HasAura(Auras.Swiftcast) && !Core.Me.HasAura(Auras.Triplecast))
@@ -61,12 +65,14 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Flare.LevelAcquired)
+            if (!Spells.Flare.IsKnown())
                 return false;
 
             // if (Core.Me.CurrentMana < 800)
             //     return false;
 
+            // HARDCODED: Level 100 has special Flare behavior (likely trait-based)
+            // This is a trait check, not a spell availability check
             if (Core.Me.ClassLevel == 100)
             {
                 if (AstralStacks > 0)
@@ -76,7 +82,7 @@ namespace Magitek.Logic.BlackMage
             //No longer worth casting two HighFire2
 
             //Force flare after manafont
-            if (Casting.LastSpell == Spells.ManaFont)
+            if (Casting.LastSpellWas(Spells.ManaFont))
                 return await Spells.Flare.Cast(Core.Me.CurrentTarget);
 
             return await Spells.Flare.Cast(Core.Me.CurrentTarget);
@@ -84,7 +90,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> FlareStar()
         {
-            if (Core.Me.ClassLevel < Spells.FlareStar.LevelAcquired)
+            if (!Spells.FlareStar.IsKnown())
                 return false;
 
             if (!Spells.FlareStar.IsKnownAndReadyAndCastableAtTarget())
@@ -99,7 +105,7 @@ namespace Magitek.Logic.BlackMage
         public static async Task<bool> Freeze()
         {
             //If we don't have Freeze, how can we cast it?
-            if (Core.Me.ClassLevel < Spells.Freeze.LevelAcquired)
+            if (!Spells.Freeze.IsKnown())
                 return false;
 
             if (Casting.LastSpellWas(Spells.Freeze))
@@ -121,7 +127,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Thunder4()
         {
-            if (Core.Me.ClassLevel < Spells.Thunder2.LevelAcquired)
+            if (!Spells.Thunder2.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.ThunderAoe)
@@ -146,10 +152,10 @@ namespace Magitek.Logic.BlackMage
             if (BlackMageSettings.Instance.UseTTDForThunderAoe && Combat.CurrentTargetCombatTimeLeft <= BlackMageSettings.Instance.ThunderAoeTTDSeconds && !Core.Me.CurrentTarget.IsBoss())
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Thunder4.LevelAcquired)
+            if (!Spells.Thunder4.IsKnown())
                 return await Spells.Thunder2.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < Spells.HighThunderII.LevelAcquired)
+            if (!Spells.HighThunderII.IsKnown())
                 return await Spells.Thunder4.Cast(Core.Me.CurrentTarget);
 
             return await Spells.HighThunderII.Cast(Core.Me.CurrentTarget);
@@ -157,7 +163,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Fire2()
         {
-            if (Core.Me.ClassLevel < Spells.Fire2.LevelAcquired)
+            if (!Spells.Fire2.IsKnown())
                 return false;
 
             //No stack, open with Fire3
@@ -180,6 +186,8 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.HasAura(Auras.Triplecast))
                 return false;
 
+            // HARDCODED: Level 58 is when Umbral Hearts trait unlocks (allows two Flares)
+            // This is a trait check, not a spell availability check
             // At level 58+, Umbral Hearts allow two Flares, so Fire2 is less valuable
             // Below level 58, we need Fire2 in Astral Fire (after Transpose from Umbral Ice)
             if (Core.Me.ClassLevel >= 58)
@@ -199,7 +207,7 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Blizzard2()
         {
-            if (Core.Me.ClassLevel < Spells.Blizzard2.LevelAcquired)
+            if (!Spells.Blizzard2.IsKnown())
                 return false;
 
             //If flarestar is ready, cast it

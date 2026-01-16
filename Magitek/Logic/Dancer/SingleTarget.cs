@@ -16,7 +16,7 @@ namespace Magitek.Logic.Dancer
             if (!DancerSettings.Instance.FanDance1)
                 return false;
 
-            if (ActionResourceManager.Dancer.FourFoldFeathers < 4 && !Core.Me.HasAura(Auras.Devilment) && Core.Me.ClassLevel >= 62)
+            if (ActionResourceManager.Dancer.FourFoldFeathers < 4 && !Core.Me.HasAura(Auras.Devilment) && Spells.Devilment.IsKnown())
                 return false;
 
             if (DancerSettings.Instance.UseRangeAndFacingChecks)

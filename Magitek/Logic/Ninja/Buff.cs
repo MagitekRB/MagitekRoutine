@@ -16,9 +16,6 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Kassatsu()
         {
 
-            if (Core.Me.ClassLevel < 50)
-                return false;
-
             if (!Spells.Kassatsu.IsKnown())
                 return false;
 
@@ -32,9 +29,6 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Bunshin()
         {
 
-            if (Core.Me.ClassLevel < 80)
-                return false;
-
             if (!Spells.Bunshin.IsKnown())
                 return false;
 
@@ -47,9 +41,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> Meisui()
         {
-
-            if (Core.Me.ClassLevel < 72)
-                return false;
 
             if (!Spells.Meisui.IsKnown())
                 return false;

@@ -12,12 +12,12 @@ namespace Magitek.Utilities.Routines
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Paladin, Spells.FastBlade);
         public static double GCDTimeMilliseconds = Spells.FastBlade.AdjustedCooldown.TotalMilliseconds;
 
-        public static SpellData RoyalAuthority => Core.Me.ClassLevel < 60
-                                                    ? Spells.RageofHalone
-                                                    : Spells.RoyalAuthority;
-        public static SpellData Expiacion => Core.Me.ClassLevel < 86
-                                            ? Spells.SpiritsWithin
-                                            : Spells.Expiacion;
+        public static SpellData RoyalAuthority => Spells.RoyalAuthority.IsKnown()
+                                                    ? Spells.RoyalAuthority
+                                                    : Spells.RageofHalone;
+        public static SpellData Expiacion => Spells.Expiacion.IsKnown()
+                                            ? Spells.Expiacion
+                                            : Spells.SpiritsWithin;
 
         public static readonly SpellData[] DefensiveFastSpells = new SpellData[]
         {

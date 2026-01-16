@@ -87,7 +87,7 @@ namespace Magitek.Logic.Sage
             }
 
             if (SageSettings.Instance.FightLogic_EukrasianPrognosis
-                && Core.Me.ClassLevel >= Spells.Eukrasia.LevelAcquired
+                && Spells.Eukrasia.IsKnown()
                 && Heal.IsEukrasiaReady())
             {
                 var targets = Group.CastableAlliesWithin20.Where(r => !r.HasAura(Auras.EukrasianDiagnosis)
@@ -153,7 +153,7 @@ namespace Magitek.Logic.Sage
             }
 
             if (SageSettings.Instance.FightLogic_EukrasianDiagnosis
-                && Core.Me.ClassLevel >= Spells.Eukrasia.LevelAcquired
+                && Spells.Eukrasia.IsKnown()
                 && !target.HasAura(Auras.EukrasianDiagnosis)
                 && !target.HasAura(Auras.Galvanize)
                 && !target.HasAura(Auras.EukrasianPrognosis)

@@ -106,7 +106,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.NightmareScythe.LevelAcquired)
+            if (!Spells.NightmareScythe.IsKnown())
                 return false;
             if (!ReaperSettings.Instance.UseNightmareScythe) return false;
             if (Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards < ReaperSettings.Instance.NightmareScytheTargetCount) return false;
@@ -145,10 +145,10 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.GrimSwathe.LevelAcquired)
+            if (!Spells.GrimSwathe.IsKnown())
                 return false;
             if (!ReaperSettings.Instance.UseGrimSwathe) return false;
-            if (Core.Me.ClassLevel >= Spells.Gluttony.LevelAcquired)
+            if (Spells.Gluttony.IsKnown())
             {
                 if (Spells.Gluttony.Cooldown.Ticks == 0)
                     return false;
@@ -167,7 +167,7 @@ namespace Magitek.Logic.Reaper
                 return false;
             if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon())
                 return false;
-            if (Core.Me.ClassLevel >= Spells.Gibbet.LevelAcquired)
+            if (Spells.Gibbet.IsKnown())
                 return await Spells.GrimSwathe.CastAura(Core.Me.CurrentTarget, Auras.SoulReaver, auraTarget: Core.Me);
             else
                 return await Spells.GrimSwathe.Cast(Core.Me.CurrentTarget);
@@ -182,7 +182,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             //Add level check so it doesn't hang here
-            if (Core.Me.ClassLevel < Spells.Guillotine.LevelAcquired)
+            if (!Spells.Guillotine.IsKnown())
                 return false;
             if (!ReaperSettings.Instance.UseGuillotine) return false;
             if (!Core.Me.HasAnyAura(new uint[] { Auras.Executioner, Auras.SoulReaver })) return false;
@@ -205,7 +205,7 @@ namespace Magitek.Logic.Reaper
         public static async Task<bool> Perfectio()
         {
             if (!ReaperSettings.Instance.UseCommunio) return false;
-            if (Core.Me.ClassLevel < Spells.Perfectio.LevelAcquired)
+            if (!Spells.Perfectio.IsKnown())
                 return false;
             if (!Core.Me.HasAura(Auras.PerfectioParata)) return false;
             return await Spells.Perfectio.Cast(Core.Me.CurrentTarget);
@@ -213,7 +213,7 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> PlentifulHarvest()
         {
-            if (!ReaperSettings.Instance.UsePlentifulHarvest || Core.Me.ClassLevel < Spells.PlentifulHarvest.LevelAcquired)
+            if (!ReaperSettings.Instance.UsePlentifulHarvest || !Spells.PlentifulHarvest.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.BloodsownCircle))

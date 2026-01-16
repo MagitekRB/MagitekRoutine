@@ -32,7 +32,7 @@ namespace Magitek.Logic.Bard
             if (!Core.Me.HasAura(Auras.HawksEye))
                 return false;
 
-            if (Core.Me.ClassLevel < 70 || !ActionManager.HasSpell(Spells.RefulgentArrow.Id))
+            if (!Spells.RefulgentArrow.IsKnown())
                 return await Spells.StraightShot.Cast(Core.Me.CurrentTarget);
 
             return await Spells.RefulgentArrow.Cast(Core.Me.CurrentTarget);
@@ -68,7 +68,7 @@ namespace Magitek.Logic.Bard
             if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= BardSettings.Instance.ShadowBiteAfterBarrageEnemies)
                 return false;
 
-            if (Core.Me.ClassLevel < 70 || !Spells.RefulgentArrow.IsKnown())
+            if (!Spells.RefulgentArrow.IsKnown())
                 if (await Spells.StraightShot.Cast(Core.Me.CurrentTarget))
                     return true;
 

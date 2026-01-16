@@ -261,7 +261,7 @@ namespace Magitek.Logic.Sage
                     if (targets.Any(r => r.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent))
                         await UseZoe(); // intentionally ignore failures
 
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.EukrasianPrognosisII.IsKnown())
             {
                 if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
                     return false;
@@ -284,7 +284,7 @@ namespace Magitek.Logic.Sage
             if (!IsEukrasiaReady())
                 return false;
 
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.EukrasianPrognosisII.IsKnown())
             {
                 if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
                     return false;
@@ -313,7 +313,7 @@ namespace Magitek.Logic.Sage
             var spell = Spells.PhysisII;
             uint aura = Auras.PhysisII;
 
-            if (Core.Me.ClassLevel < 60)
+            if (!Spells.PhysisII.IsKnown())
             {
                 spell = Spells.Physis;
                 aura = Auras.Physis;
@@ -797,7 +797,7 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Holos)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Holos.LevelAcquired)
+            if (!Spells.Holos.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)

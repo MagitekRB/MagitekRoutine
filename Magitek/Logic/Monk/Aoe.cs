@@ -16,7 +16,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Enlightenment()
         {
-            if (Core.Me.ClassLevel < Spells.Enlightenment.LevelAcquired)
+            if (!Spells.Enlightenment.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseEnlightenment)
@@ -31,7 +31,7 @@ namespace Magitek.Logic.Monk
             if (ActionResourceManager.Monk.ChakraCount < 5)
                 return false;
 
-            if (!MonkSettings.Instance.BurstLogicHoldBurst && Core.Me.ClassLevel >= Spells.RiddleofFire.LevelAcquired && Spells.RiddleofFire.IsKnownAndReady())
+            if (!MonkSettings.Instance.BurstLogicHoldBurst && Spells.RiddleofFire.IsKnownAndReady())
                 return false;
 
             return await Spells.HowlingFist.Cast(Core.Me.CurrentTarget);
@@ -39,7 +39,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> MasterfulBlitz()
         {
-            if (Core.Me.ClassLevel < Spells.MasterfulBlitz.LevelAcquired)
+            if (!Spells.MasterfulBlitz.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseMasterfulBlitz)
@@ -60,7 +60,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> PerfectBalance()
         {
-            if (Core.Me.ClassLevel < Spells.PerfectBalance.LevelAcquired)
+            if (!Spells.PerfectBalance.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UsePerfectBalance)
@@ -102,7 +102,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> WindReply()
         {
-            if (Core.Me.ClassLevel < Spells.WindReply.LevelAcquired)
+            if (!Spells.WindReply.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseWindReply)
@@ -120,7 +120,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> FireReply()
         {
-            if (Core.Me.ClassLevel < Spells.FireReply.LevelAcquired)
+            if (!Spells.FireReply.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseFireReply)
@@ -141,7 +141,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Rockbreaker()
         {
-            if (Core.Me.ClassLevel < Spells.Rockbreaker.LevelAcquired)
+            if (!Spells.Rockbreaker.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseAoe)
@@ -158,7 +158,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> FourPointStrike()
         {
-            if (Core.Me.ClassLevel < Spells.FourPointFury.LevelAcquired)
+            if (!Spells.FourPointFury.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseAoe)
@@ -175,7 +175,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> ArmOfDestroyer()
         {
-            if (Core.Me.ClassLevel < Spells.ArmOfTheDestroyer.LevelAcquired)
+            if (!Spells.ArmOfTheDestroyer.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseAoe)

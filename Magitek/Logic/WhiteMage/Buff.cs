@@ -31,7 +31,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.PresenceOfMind)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.PresenceofMind.LevelAcquired)
+            if (!Spells.PresenceofMind.IsKnown())
                 return false;
 
             if (Casting.LastSpell == Spells.Benediction)
@@ -85,7 +85,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Assize)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Assize.LevelAcquired)
+            if (!Spells.Assize.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -109,13 +109,10 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.InCombat)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.ThinAir.LevelAcquired)
+            if (!Spells.ThinAir.IsKnown())
                 return false;
 
             if (!WhiteMageSettings.Instance.ThinAir)
-                return false;
-
-            if (Core.Me.ClassLevel < 62)
                 return false;
 
             if (Core.Me.CurrentManaPercent < WhiteMageSettings.Instance.ThinAirManaPercent)
@@ -132,7 +129,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.DivineBenison)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.DivineBenison.LevelAcquired)
+            if (!Spells.DivineBenison.IsKnown())
                 return false;
 
             if (!Globals.PartyInCombat)
@@ -152,7 +149,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Temperance)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Temperance.LevelAcquired)
+            if (!Spells.Temperance.IsKnown())
                 return false;
 
             if (Casting.LastSpell == Spells.Medica)

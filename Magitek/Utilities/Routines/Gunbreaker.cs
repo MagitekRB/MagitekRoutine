@@ -35,15 +35,17 @@ namespace Magitek.Utilities.Routines
             Auras.HeartOfCorundum
         };
 
-        public static SpellData HeartOfCorundum => Core.Me.ClassLevel < 82
-                                            ? Spells.HeartofStone
-                                            : Spells.HeartOfCorundum;
+        public static SpellData HeartOfCorundum => Spells.HeartOfCorundum.IsKnown()
+                                            ? Spells.HeartOfCorundum
+                                            : Spells.HeartofStone;
 
-        public static SpellData BlastingZone => Core.Me.ClassLevel < 80
-                                            ? Spells.DangerZone
-                                            : Spells.BlastingZone;
+        public static SpellData BlastingZone => Spells.BlastingZone.IsKnown()
+                                            ? Spells.BlastingZone
+                                            : Spells.DangerZone;
 
+        // HARDCODED: Level 88 trait increases max cartridges and Bloodfest generation.
         public static int MaxCartridge => Core.Me.ClassLevel < 88 ? 2 : 3;
+        // HARDCODED: Level 88 trait increases max cartridges and Bloodfest generation.
         public static int AmountCartridgeFromBloodfest => Core.Me.ClassLevel < 88 ? 2 : 3;
         public static int RequiredCartridgeForGnashingFang => 1;
         public static int RequiredCartridgeForDoubleDown => 2;

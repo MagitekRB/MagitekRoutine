@@ -61,13 +61,10 @@ namespace Magitek.Logic.Scholar
             {
                 if (unit == null) return false;
 
-                if (Core.Me.ClassLevel < 26)
-                    return unit.HasAura(Auras.Bio, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
+                if (Spells.Biolysis.IsKnown())
+                    return unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
 
-                if (Core.Me.ClassLevel < 72)
-                    return unit.HasAura(Auras.Bio2, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
-
-                return unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
+                return unit.HasAura(Auras.Bio, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
             }
 
             bool NeedsBio(BattleCharacter unit)
@@ -75,13 +72,10 @@ namespace Magitek.Logic.Scholar
                 if (!CanBio(unit))
                     return false;
 
-                if (Core.Me.ClassLevel < 26)
-                    return !unit.HasAura(Auras.Bio, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
+                if (Spells.Biolysis.IsKnown())
+                    return !unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
 
-                if (Core.Me.ClassLevel < 72)
-                    return !unit.HasAura(Auras.Bio2, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
-
-                return !unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
+                return !unit.HasAura(Auras.Bio, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
             }
 
 

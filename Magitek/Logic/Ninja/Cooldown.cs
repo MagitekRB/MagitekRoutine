@@ -15,9 +15,6 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Mug()
         {
 
-            if (Core.Me.ClassLevel < 15)
-                return false;
-
             if (!Spells.Mug.IsKnown())
                 return false;
 
@@ -43,16 +40,13 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> TrickAttack()
         {
 
-            if (Core.Me.ClassLevel < 18)
-                return false;
-
             if (!Spells.TrickAttack.IsKnown())
                 return false;
 
             if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
-            if (Core.Me.ClassLevel >= 80 && Spells.Bunshin.Cooldown == new TimeSpan(0, 0, 0))
+            if (Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
             if (Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 800)
@@ -63,9 +57,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> DreamWithinaDream()
         {
-
-            if (Core.Me.ClassLevel < 56)
-                return false;
 
             if (!Spells.DreamWithinaDream.IsKnown())
                 return false;
@@ -81,7 +72,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> ZeshoMeppo()
         {
 
-            if (Core.Me.ClassLevel < 96)
+            if (!Spells.ZeshoMeppo.IsKnown())
                 return false;
 
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))
@@ -100,7 +91,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> TenriJindo()
         {
 
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.TenriJindo.IsKnown())
                 return false;
 
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))

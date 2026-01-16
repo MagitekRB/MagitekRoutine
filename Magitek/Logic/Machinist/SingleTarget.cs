@@ -177,7 +177,7 @@ namespace Magitek.Logic.Machinist
             if (Spells.Wildfire.IsKnownAndReady() && Spells.Hypercharge.IsKnownAndReady() && spell.Charges < 1.5f)
                 return false;
 
-            if (Core.Me.ClassLevel >= 45)
+            if (Spells.Ricochet.IsKnown())
             {
                 if (spell.Charges < 1.5f && Spells.Wildfire.IsKnownAndReady(2000))
                     return false;

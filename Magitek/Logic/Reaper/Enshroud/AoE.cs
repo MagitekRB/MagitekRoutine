@@ -15,10 +15,10 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
-            if (!ReaperSettings.Instance.UseGrimReaping || Core.Me.ClassLevel < Spells.GrimReaping.LevelAcquired)
+            if (!ReaperSettings.Instance.UseGrimReaping || !Spells.GrimReaping.IsKnown())
                 return false;
 
-            if (ActionResourceManager.Reaper.LemureShroud < 2 && Core.Me.ClassLevel >= Spells.Communio.LevelAcquired) return false;
+            if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown()) return false;
 
             if (ReaperSettings.Instance.EfficientAoEPotencyCalculation)
             {
@@ -48,10 +48,10 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
-            if (!ReaperSettings.Instance.UseLemuresScythe || Core.Me.ClassLevel < Spells.LemuresScythe.LevelAcquired)
+            if (!ReaperSettings.Instance.UseLemuresScythe || !Spells.LemuresScythe.IsKnown())
                 return false;
 
-            if (ActionResourceManager.Reaper.VoidShroud < 2 && Core.Me.ClassLevel >= Spells.Communio.LevelAcquired) return false;
+            if (ActionResourceManager.Reaper.VoidShroud < 2 && Spells.Communio.IsKnown()) return false;
 
             if (ReaperSettings.Instance.EfficientAoEPotencyCalculation)
             {
@@ -72,7 +72,7 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
-            if (!ReaperSettings.Instance.UseLemuresScythe || Core.Me.ClassLevel < Spells.LemuresScythe.LevelAcquired)
+            if (!ReaperSettings.Instance.UseLemuresScythe || !Spells.LemuresScythe.IsKnown())
                 return false;
 
 
@@ -90,7 +90,7 @@ namespace Magitek.Logic.Reaper.Enshroud
         //Logic for Smart targeting or burst sniping maybe
         public static async Task<bool> Communio()
         {
-            if (!ReaperSettings.Instance.UseCommunio || Core.Me.ClassLevel < Spells.Communio.LevelAcquired)
+            if (!ReaperSettings.Instance.UseCommunio || !Spells.Communio.IsKnown())
                 return false;
 
             var shroudEndingSoon = Core.Me.HasAura(Auras.Enshrouded) && !Core.Me.HasAura(Auras.Enshrouded, true, 3000);
@@ -108,7 +108,7 @@ namespace Magitek.Logic.Reaper.Enshroud
 
         public static async Task<bool> Sacrificium()
         {
-            if (!ReaperSettings.Instance.UseSacrificium || Core.Me.ClassLevel < Spells.Sacraficium.LevelAcquired)
+            if (!ReaperSettings.Instance.UseSacrificium || !Spells.Sacraficium.IsKnown())
                 return false;
 
             var shroudEndingSoon = Core.Me.HasAura(Auras.Enshrouded) && !Core.Me.HasAura(Auras.Enshrouded, true, 3000);

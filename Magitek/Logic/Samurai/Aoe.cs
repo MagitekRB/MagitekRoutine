@@ -21,10 +21,11 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.UseAoe)
                 return false;
 
-            if (Core.Me.ClassLevel < 86 && SamuraiRoutine.EnemiesInCone < SamuraiSettings.Instance.AoeEnemies) // Fuga (lvl < 86) is a cone based attack
+            // Fuga (pre-Fuko) is a cone attack; Fuko uses a point-blank radius.
+            if (!Spells.Fuko.IsKnown() && SamuraiRoutine.EnemiesInCone < SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
-            if (Core.Me.ClassLevel >= 86 && SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
+            if (Spells.Fuko.IsKnown() && SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
             if (Spells.TenkaGoken.CanCast())

@@ -96,7 +96,7 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             // Special Condition for opener when UseNoMercyMaxCartridge 
-            if (Core.Me.ClassLevel >= Spells.Bloodfest.LevelAcquired)
+            if (Spells.Bloodfest.IsKnown())
             {
                 if (GunbreakerSettings.Instance.UseNoMercyMaxCartridge
                     && Spells.GnashingFang.IsKnownAndReady()

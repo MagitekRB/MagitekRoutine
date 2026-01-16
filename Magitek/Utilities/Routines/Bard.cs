@@ -20,12 +20,12 @@ namespace Magitek.Utilities.Routines
         public static bool IsUnderBuffWindow = false;
         public static int SongMaxDuration = 45000;
 
-        public static SpellData LadonsBite => Core.Me.ClassLevel < 82 ? Spells.QuickNock : Spells.Ladonsbite;
-        public static SpellData Stormbite => Core.Me.ClassLevel < 64 ? Spells.Windbite : Spells.Stormbite;
-        public static SpellData CausticBite => Core.Me.ClassLevel < 64 ? Spells.VenomousBite : Spells.CausticBite;
-        public static SpellData BurstShot => Core.Me.ClassLevel < 76 ? Spells.HeavyShot : Spells.BurstShot;
-        public static uint StormbiteAura => (uint)(Core.Me.ClassLevel < 64 ? Auras.Windbite : Auras.Stormbite);
-        public static uint CausticBiteAura => (uint)(Core.Me.ClassLevel < 64 ? Auras.VenomousBite : Auras.CausticBite);
+        public static SpellData LadonsBite => Spells.Ladonsbite.IsKnown() ? Spells.Ladonsbite : Spells.QuickNock;
+        public static SpellData Stormbite => Spells.Stormbite.IsKnown() ? Spells.Stormbite : Spells.Windbite;
+        public static SpellData CausticBite => Spells.CausticBite.IsKnown() ? Spells.CausticBite : Spells.VenomousBite;
+        public static SpellData BurstShot => Spells.BurstShot.IsKnown() ? Spells.BurstShot : Spells.HeavyShot;
+        public static uint StormbiteAura => (uint)(Spells.Stormbite.IsKnown() ? Auras.Stormbite : Auras.Windbite);
+        public static uint CausticBiteAura => (uint)(Spells.CausticBite.IsKnown() ? Auras.CausticBite : Auras.VenomousBite);
 
         public static void RefreshVars()
         {

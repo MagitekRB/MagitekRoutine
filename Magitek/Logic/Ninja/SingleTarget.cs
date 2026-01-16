@@ -27,7 +27,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> GustSlash()
         {
 
-            if (Core.Me.ClassLevel < 4)
+            if (!Spells.GustSlash.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.SpinningEdge)
@@ -45,7 +45,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> ArmorCrush()
         {
 
-            if (Core.Me.ClassLevel < 54 || !Spells.ArmorCrush.IsKnown())
+            if (!Spells.ArmorCrush.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.GustSlash)
@@ -65,7 +65,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> AeolianEdge()
         {
 
-            if (Core.Me.ClassLevel < 26)
+            if (!Spells.AeolianEdge.IsKnown())
                 return false;
 
             if (ActionManager.LastSpell != Spells.GustSlash)
@@ -83,9 +83,6 @@ namespace Magitek.Logic.Ninja
         //Missing logic for st and mt
         public static async Task<bool> Bhavacakra()
         {
-
-            if (Core.Me.ClassLevel < 68)
-                return false;
 
             if (!Spells.Bhavacakra.IsKnown())
                 return false;
@@ -109,9 +106,6 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> FleetingRaiju()
         {
 
-            if (Core.Me.ClassLevel < 90)
-                return false;
-
             if (!Spells.FleetingRaiju.IsKnown())
                 return false;
 
@@ -128,7 +122,7 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.UseForkedRaiju)
                 return false;
 
-            if (Core.Me.ClassLevel < 90)
+            if (!Spells.ForkedRaiju.IsKnown())
                 return false;
 
             if (!Spells.ForkedRaiju.IsKnown())

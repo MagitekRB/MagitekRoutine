@@ -97,7 +97,7 @@ namespace Magitek.Logic.WhiteMage
                     return await Spells.Cure2.Heal(Core.Me);
                 }
 
-                if (Core.Me.ClassLevel >= 30 && WhiteMageSettings.Instance.Cure2 && Core.Me.CurrentHealthPercent <= WhiteMageSettings.Instance.Cure2HealthPercent)
+                if (Spells.Cure2.IsKnown() && WhiteMageSettings.Instance.Cure2 && Core.Me.CurrentHealthPercent <= WhiteMageSettings.Instance.Cure2HealthPercent)
                 {
                     return await Spells.Cure2.Heal(Core.Me);
                 }
@@ -116,7 +116,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Cure2)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Cure2.LevelAcquired)
+            if (!Spells.Cure2.IsKnown())
                 return false;
 
             if (WhiteMageSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
@@ -155,7 +155,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Cure3)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Cure3.LevelAcquired)
+            if (!Spells.Cure3.IsKnown())
                 return false;
 
             if (!Globals.InParty)
@@ -202,7 +202,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Benediction)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Benediction.LevelAcquired)
+            if (!Spells.Benediction.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -247,7 +247,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Tetragrammaton)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Tetragrammaton.LevelAcquired)
+            if (!Spells.Tetragrammaton.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -345,7 +345,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Asylum)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Asylum.LevelAcquired)
+            if (!Spells.Asylum.IsKnown())
                 return false;
 
             if (!Globals.InParty)
@@ -432,10 +432,10 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Medica2)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Medica2.LevelAcquired)
+            if (!Spells.Medica2.IsKnown())
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.Medica3.LevelAcquired)
+            if (Spells.Medica3.IsKnown())
                 return false;
 
             if (Casting.LastSpell == Spells.Medica2)
@@ -472,7 +472,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Medica3)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Medica3.LevelAcquired)
+            if (!Spells.Medica3.IsKnown())
                 return false;
 
             if (Casting.LastSpell == Spells.Medica3)
@@ -557,7 +557,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.Regen)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Regen.LevelAcquired)
+            if (!Spells.Regen.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -630,7 +630,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.AfflatusSolace)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.AfflatusSolace.LevelAcquired)
+            if (!Spells.AfflatusSolace.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -794,7 +794,7 @@ namespace Magitek.Logic.WhiteMage
             if (!WhiteMageSettings.Instance.AfflatusRapture)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.AfflatusRapture.LevelAcquired)
+            if (!Spells.AfflatusRapture.IsKnown())
                 return false;
 
             if (Casting.LastSpell == Spells.Medica)

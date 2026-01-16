@@ -17,7 +17,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Huton()
         {
 
-            if (Core.Me.ClassLevel < 45 || Core.Me.ClassLevel >= 60)
+            if (!Spells.Huton.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
@@ -42,7 +42,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Suiton()
         {
 
-            if (Core.Me.ClassLevel < 45)
+            if (!Spells.Suiton.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
@@ -69,7 +69,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> PrePullSuitonRamp()
         {
 
-            if (Core.Me.ClassLevel < 45)
+            if (!Spells.Suiton.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
@@ -90,7 +90,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> PrePullSuitonUse()
         {
 
-            if (Core.Me.ClassLevel < 45)
+            if (!Spells.Suiton.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
@@ -115,9 +115,6 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> TenChiJin()
         {
-
-            if (Core.Me.ClassLevel < 70)
-                return false;
 
             if (Core.Me.HasAura(Auras.TenriJindoReady))
                 return false;
@@ -183,7 +180,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> HyoshoRanryu()
         {
 
-            if (Core.Me.ClassLevel < 76)
+            if (!Spells.HyoshoRanryu.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
@@ -205,7 +202,7 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> GokaMekkyaku()
         {
 
-            if (Core.Me.ClassLevel < 76)
+            if (!Spells.GokaMekkyaku.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
@@ -229,13 +226,12 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Raiton()
         {
 
-            if (Core.Me.ClassLevel < 35)
+            if (!Spells.Raiton.IsKnown())
                 return false;
-
             if (!Spells.Chi.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Core.Me.ClassLevel >= 76)
+            if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
@@ -256,13 +252,12 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Katon()
         {
 
-            if (Core.Me.ClassLevel < 35)
+            if (!Spells.Katon.IsKnown())
                 return false;
-
             if (!Spells.Ten.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Core.Me.ClassLevel >= 76)
+            if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
@@ -270,6 +265,8 @@ namespace Magitek.Logic.Ninja
                 && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
                 return false;
 
+            // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
+            // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
             if (Core.Me.ClassLevel >= 90
                 && Spells.Mug.Cooldown >= new TimeSpan(0, 1, 40))
                 return false;
@@ -283,13 +280,13 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> Doton()
         {
-            if (Core.Me.ClassLevel < Spells.Doton.LevelAcquired)
+            if (!Spells.Doton.IsKnown())
                 return false;
 
             if (!Spells.Jin.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Core.Me.ClassLevel >= 76)
+            if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
@@ -316,10 +313,13 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> FumaShuriken()
         {
 
-            if (Core.Me.ClassLevel < 30 || Core.Me.ClassLevel > 34)
+            if (!Spells.FumaShuriken.IsKnown())
                 return false;
 
             if (!Spells.Ten.IsKnown())
+                return false;
+
+            if (Spells.Raiton.IsKnown())
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);

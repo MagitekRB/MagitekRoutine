@@ -17,7 +17,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> SteelOrReavingFangs()
         {
-            if (Core.Me.ClassLevel < Spells.SteelFangs.LevelAcquired)
+            if (!Spells.SteelFangs.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.HunterVenom, true) || Core.Me.HasAura(Auras.SwiftskinVenom, true))
@@ -29,7 +29,7 @@ namespace Magitek.Logic.Viper
             if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.ReavingFangs.LevelAcquired && Core.Me.HasAura(Auras.HonedReavers, true))
+            if (Spells.ReavingFangs.IsKnown() && Core.Me.HasAura(Auras.HonedReavers, true))
                 return await Spells.ReavingFangs.Cast(Core.Me.CurrentTarget);
 
             return await Spells.SteelFangs.Cast(Core.Me.CurrentTarget);
@@ -37,13 +37,13 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> HunterOrSwiftSkinSting()
         {
-            if (Core.Me.ClassLevel < Spells.HunterSting.LevelAcquired)
+            if (!Spells.HunterSting.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.SwiftskinSting.LevelAcquired)
+            if (!Spells.SwiftskinSting.IsKnown())
                 return await Spells.HunterSting.Cast(Core.Me.CurrentTarget);
 
             if (!Core.Me.HasAura(Auras.Swiftscaled, true))
@@ -62,7 +62,7 @@ namespace Magitek.Logic.Viper
         public static async Task<bool> FankstingOrFlankbane()
         {
 
-            if (Core.Me.ClassLevel < Spells.HindsbaneFang.LevelAcquired || Core.Me.ClassLevel < Spells.FankstingStrike.LevelAcquired)
+            if (!Spells.HindsbaneFang.IsKnown() || !Spells.FankstingStrike.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.Reawakened, true))
@@ -86,7 +86,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> Vicewinder()
         {
-            if (Core.Me.ClassLevel < Spells.Vicewinder.LevelAcquired)
+            if (!Spells.Vicewinder.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseVicewinder)
@@ -109,13 +109,13 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> HunterOrSwiftskinCoil()
         {
-            if (Core.Me.ClassLevel < Spells.SwiftskinCoil.LevelAcquired)
+            if (!Spells.SwiftskinCoil.IsKnown())
                 return false;
 
             if (Core.Me.HasAura(Auras.Reawakened, true))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.HunterCoil.LevelAcquired && Spells.HunterCoil.CanCast())
+            if (Spells.HunterCoil.IsKnown() && Spells.HunterCoil.CanCast())
                 return await Spells.HunterCoil.Cast(Core.Me.CurrentTarget);
 
             if (Core.Me.HasAura(Auras.SwiftskinVenom, true))
@@ -129,7 +129,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> UncoiledFury()
         {
-            if (Core.Me.ClassLevel < Spells.UncoiledFury.LevelAcquired)
+            if (!Spells.UncoiledFury.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseUncoiledFury)
@@ -154,7 +154,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> Reawaken()
         {
-            if (Core.Me.ClassLevel < Spells.Reawaken.LevelAcquired)
+            if (!Spells.Reawaken.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseReawaken || ViperSettings.Instance.BurstLogicHoldBurst)
@@ -189,7 +189,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> Ouroboros()
         {
-            if (Core.Me.ClassLevel < Spells.Ouroboros.LevelAcquired)
+            if (!Spells.Ouroboros.IsKnown())
                 return false;
 
             if (!Spells.Ouroboros.CanCast())
@@ -204,7 +204,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> FirstGeneration()
         {
-            if (Core.Me.ClassLevel < Spells.FirstGeneration.LevelAcquired)
+            if (!Spells.FirstGeneration.IsKnown())
                 return false;
 
             if (!Spells.FirstGeneration.IsKnownAndReadyAndCastable())
@@ -213,10 +213,12 @@ namespace Magitek.Logic.Viper
             if (!Spells.FirstGeneration.CanCast())
                 return false;
 
-            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(5))
+            // HARDCODED: Level 96 unlocks the Anguine Tribute trait that increases stack thresholds.
+            var hasAnguineTributeTrait = Core.Me.ClassLevel >= 96;
+            if (hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(5))
                 return await Spells.FirstGeneration.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(4))
+            if (!hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(4))
                 return await Spells.FirstGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -225,7 +227,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> SecondGeneration()
         {
-            if (Core.Me.ClassLevel < Spells.SecondGeneration.LevelAcquired)
+            if (!Spells.SecondGeneration.IsKnown())
                 return false;
 
             if (!Spells.SecondGeneration.IsKnownAndReadyAndCastable())
@@ -234,10 +236,12 @@ namespace Magitek.Logic.Viper
             if (!Spells.SecondGeneration.CanCast())
                 return false;
 
-            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(4))
+            // HARDCODED: Level 96 unlocks the Anguine Tribute trait that increases stack thresholds.
+            var hasAnguineTributeTrait = Core.Me.ClassLevel >= 96;
+            if (hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(4))
                 return await Spells.SecondGeneration.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(3))
+            if (!hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(3))
                 return await Spells.SecondGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -246,7 +250,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> ThirdGeneration()
         {
-            if (Core.Me.ClassLevel < Spells.ThirdGeneration.LevelAcquired)
+            if (!Spells.ThirdGeneration.IsKnown())
                 return false;
 
             if (!Spells.ThirdGeneration.IsKnownAndReadyAndCastable())
@@ -255,10 +259,12 @@ namespace Magitek.Logic.Viper
             if (!Spells.ThirdGeneration.CanCast())
                 return false;
 
-            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(3))
+            // HARDCODED: Level 96 unlocks the Anguine Tribute trait that increases stack thresholds.
+            var hasAnguineTributeTrait = Core.Me.ClassLevel >= 96;
+            if (hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(3))
                 return await Spells.ThirdGeneration.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(2))
+            if (!hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(2))
                 return await Spells.ThirdGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -267,7 +273,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> FourthGeneration()
         {
-            if (Core.Me.ClassLevel < Spells.FourthGeneration.LevelAcquired)
+            if (!Spells.FourthGeneration.IsKnown())
                 return false;
 
             if (!Spells.FourthGeneration.IsKnownAndReadyAndCastable())
@@ -276,10 +282,12 @@ namespace Magitek.Logic.Viper
             if (!Spells.FourthGeneration.CanCast())
                 return false;
 
-            if (Core.Me.ClassLevel >= 96 && ActionResourceManager.Viper.AnguineTribute.Equals(2))
+            // HARDCODED: Level 96 unlocks the Anguine Tribute trait that increases stack thresholds.
+            var hasAnguineTributeTrait = Core.Me.ClassLevel >= 96;
+            if (hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(2))
                 return await Spells.FourthGeneration.Cast(Core.Me.CurrentTarget);
 
-            if (Core.Me.ClassLevel < 96 && ActionResourceManager.Viper.AnguineTribute.Equals(1))
+            if (!hasAnguineTributeTrait && ActionResourceManager.Viper.AnguineTribute.Equals(1))
                 return await Spells.FourthGeneration.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -288,7 +296,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> Slither()
         {
-            if (Core.Me.ClassLevel < Spells.Slither.LevelAcquired)
+            if (!Spells.Slither.IsKnown())
                 return false;
 
             if (!ViperSettings.Instance.UseSlither)

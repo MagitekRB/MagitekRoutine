@@ -420,7 +420,7 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> Accession()
         {
-            if (Core.Me.ClassLevel < Spells.Accession.LevelAcquired)
+            if (!Spells.Accession.IsKnown())
                 return false;
 
             if (!ScholarSettings.Instance.Accession)
@@ -444,7 +444,7 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> Manifestation()
         {
-            if (Core.Me.ClassLevel < 100)
+            if (!Spells.Manifestation.IsKnown())
                 return false;
 
             if (!ScholarSettings.Instance.Manifestation)

@@ -38,7 +38,7 @@ namespace Magitek.Logic.Monk
                 return await Spells.TrueNorth.CastAura(Core.Me, Auras.TrueNorth);
             }
 
-            if (Core.Me.ClassLevel >= Spells.PouncingCoeurl.LevelAcquired && Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 0 && !Core.Me.HasAura(Auras.PerfectBalance))
+            if (Spells.PouncingCoeurl.IsKnown() && Core.Me.HasAura(Auras.CoeurlForm) && ActionResourceManager.Monk.CoeurlFury >= 0 && !Core.Me.HasAura(Auras.PerfectBalance))
             {
                 if (Core.Me.CurrentTarget.IsFlanking)
                     return false;
@@ -59,7 +59,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Meditate()
         {
-            if (Core.Me.ClassLevel < 15)
+            if (!Spells.SteeledMeditation.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseAutoMeditate)
@@ -79,7 +79,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> PerfectBalance()
         {
-            if (Core.Me.ClassLevel < Spells.PerfectBalance.LevelAcquired)
+            if (!Spells.PerfectBalance.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UsePerfectBalance || MonkSettings.Instance.BurstLogicHoldBurst)
@@ -88,13 +88,13 @@ namespace Magitek.Logic.Monk
             if (MonkSettings.Instance.UsePerfectBalanceOnlyAfterOpo && !Core.Me.HasAura(Auras.RaptorForm))
                 return false;
 
-            if (Core.Me.ClassLevel >= Spells.Brotherhood.LevelAcquired)
+            if (Spells.Brotherhood.IsKnown())
             {
                 if (Core.Me.HasAura(Auras.Brotherhood, true))
                     return await Spells.PerfectBalance.Cast(Core.Me);
             }
 
-            if (Core.Me.ClassLevel >= Spells.RiddleofFire.LevelAcquired)
+            if (Spells.RiddleofFire.IsKnown())
             {
                 if (!Spells.RiddleofFire.IsKnownAndReady())
                     return false;
@@ -105,7 +105,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> RiddleOfEarth()
         {
-            if (Core.Me.ClassLevel < Spells.RiddleofEarth.LevelAcquired)
+            if (!Spells.RiddleofEarth.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseRiddleOfEarth)
@@ -117,7 +117,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> RiddleOfFire()
         {
-            if (Core.Me.ClassLevel < Spells.RiddleofFire.LevelAcquired)
+            if (!Spells.RiddleofFire.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseRiddleOfFire || MonkSettings.Instance.BurstLogicHoldBurst)
@@ -131,7 +131,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> RiddleOfWind()
         {
-            if (Core.Me.ClassLevel < Spells.RiddleofWind.LevelAcquired)
+            if (!Spells.RiddleofWind.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseRiddleOfWind)
@@ -148,7 +148,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Brotherhood()
         {
-            if (Core.Me.ClassLevel < Spells.Brotherhood.LevelAcquired)
+            if (!Spells.Brotherhood.IsKnown())
                 return false;
 
             if (!MonkSettings.Instance.UseBrotherhood || MonkSettings.Instance.BurstLogicHoldBurst)
@@ -162,7 +162,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Mantra()
         {
-            if (Core.Me.ClassLevel < Spells.Mantra.LevelAcquired)
+            if (!Spells.Mantra.IsKnown())
                 return false;
 
             if (CustomOpenerLogic.InOpener)
@@ -185,7 +185,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> EarthReply()
         {
-            if (Core.Me.ClassLevel < Spells.EarthReply.LevelAcquired)
+            if (!Spells.EarthReply.IsKnown())
                 return false;
 
             if (CustomOpenerLogic.InOpener)
@@ -209,7 +209,7 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> FormShiftIC()
         {
-            if (Core.Me.ClassLevel < Spells.FormShift.LevelAcquired)
+            if (!Spells.FormShift.IsKnown())
                 return false;
 
             if (!Spells.FormShift.CanCast())

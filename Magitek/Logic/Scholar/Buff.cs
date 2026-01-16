@@ -263,7 +263,7 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> Aetherflow()
         {
-            if (Core.Me.ClassLevel < Spells.Aetherflow.LevelAcquired)
+            if (!Spells.Aetherflow.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -458,7 +458,7 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Expedient)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Expedient.LevelAcquired)
+            if (!Spells.Expedient.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -506,7 +506,7 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Protraction)
                 return false;
 
-            if (Core.Me.ClassLevel < Spells.Protraction.LevelAcquired)
+            if (!Spells.Protraction.IsKnown())
                 return false;
 
             if (!Core.Me.InCombat)
