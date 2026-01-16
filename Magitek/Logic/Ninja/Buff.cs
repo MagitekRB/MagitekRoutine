@@ -83,7 +83,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaSettings.Instance.EnemyIsOmni || !NinjaSettings.Instance.UseTrueNorth)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= NinjaSettings.Instance.AoeEnemies)
+            if (Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= NinjaSettings.Instance.AoeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.TrueNorth))
