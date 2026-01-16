@@ -82,6 +82,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Bhavacakra()
         {
             if (!Spells.Bhavacakra.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseBhavacakra)
                 return false;
 
@@ -107,6 +109,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> FleetingRaiju()
         {
             if (!Spells.FleetingRaiju.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseFleetingRaiju)
                 return false;
 

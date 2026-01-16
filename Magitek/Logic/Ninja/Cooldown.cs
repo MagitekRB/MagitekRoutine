@@ -17,6 +17,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Mug()
         {
             if (!Spells.Mug.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseMug || NinjaSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
@@ -48,6 +50,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> TrickAttack()
         {
             if (!Spells.TrickAttack.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseTrickAttack || NinjaSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
@@ -104,6 +108,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> ZeshoMeppo()
         {
             if (!Spells.ZeshoMeppo.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseZeshoMeppo)
                 return false;
 
@@ -123,6 +129,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> TenriJindo()
         {
             if (!Spells.TenriJindo.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseTenriJindo)
                 return false;
 

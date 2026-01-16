@@ -18,6 +18,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Kassatsu()
         {
             if (!Spells.Kassatsu.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseKassatsu)
                 return false;
 
@@ -34,6 +36,8 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Bunshin()
         {
             if (!Spells.Bunshin.IsKnown())
+                return false;
+
             if (!NinjaSettings.Instance.UseBunshin)
                 return false;
 
@@ -50,7 +54,9 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> Meisui()
         {
             if (!Spells.Meisui.IsKnown())
-            if(!NinjaSettings.Instance.UseMeisui)
+                return false;
+
+            if (!NinjaSettings.Instance.UseMeisui)
                 return false;
 
             if (!Spells.Meisui.IsKnownAndReady())
