@@ -59,6 +59,8 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
+            if (await Ninjutsu.PrePullSuitonUseCheck()) return true;
+
             if (NinjaRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 770
                 && DateTime.Now >= NinjaRoutine.oGCD)
             {

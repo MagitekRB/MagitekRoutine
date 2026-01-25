@@ -4950,6 +4950,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Monk_Content_Brotherhood" xml:space="preserve">
     <value>Brotherhood</value>
   </data>
+  <data name="Monk_Content_Brotherhood_Delay" xml:space="preserve">
+    <value>Seconds Initial Delay</value>
+  </data>
   <data name="Ninja_Content_Dokumori" xml:space="preserve">
     <value>Dokumori</value>
   </data>

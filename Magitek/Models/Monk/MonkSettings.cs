@@ -106,6 +106,10 @@ namespace Magitek.Models.Monk
         public bool UseBrotherhood { get; set; }
 
         [Setting]
+        [DefaultValue(5)]
+        public int UseBrotherhoodInitialDelay { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UsePerfectBalance { get; set; }
 

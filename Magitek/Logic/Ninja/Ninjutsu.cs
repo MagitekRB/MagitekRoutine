@@ -57,9 +57,6 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
-            if (NinjaRoutine.AoeEnemies5Yards > 2)
-                return false;
-
             return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
 
         }
@@ -106,6 +103,21 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
+
+        }
+
+        public static async Task<bool> PrePullSuitonUseCheck()
+        {
+            if (Combat.CombatTime.ElapsedMilliseconds > Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds - 770)
+                return false;
+
+            if (!Spells.Ninjutsu.IsKnown())
+                return false;
+
+            if (!Spells.Suiton.IsKnownAndReadyAndCastable())
+                return false;
+
+            return await Spells.Suiton.Cast(Core.Me.CurrentTarget);
 
         }
 
