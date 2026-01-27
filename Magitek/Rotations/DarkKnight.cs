@@ -109,7 +109,11 @@ namespace Magitek.Rotations
             return (await Pvp.HardSlashPvp());
         }
 
-        public static Task<bool> Rest() => Task.FromResult(false);
+        public static Task<bool> Rest()
+        {
+            var needRest = Core.Me.CurrentHealthPercent < DarkKnightSettings.Instance.RestHealthPercent;
+            return Task.FromResult(needRest);
+        }
         public static Task<bool> CombatBuff() => Task.FromResult(false);
     }
 }

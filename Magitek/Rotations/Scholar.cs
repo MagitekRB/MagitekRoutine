@@ -19,6 +19,9 @@ namespace Magitek.Rotations
                 if (Core.Me.CurrentHealthPercent > 70 || Core.Me.ClassLevel < 4)
                     return false;
 
+                if (Globals.InSanctuaryOrSafeZone)
+                    return false;
+
                 return await Spells.Physick.Heal(Core.Me);
             }
 

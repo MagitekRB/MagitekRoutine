@@ -12,6 +12,10 @@ namespace Magitek.Models.Pictomancer
 
         public static PictomancerSettings Instance { get; set; } = new PictomancerSettings();
 
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
         #region General-Stuff
         [Setting]
         [DefaultValue(false)]

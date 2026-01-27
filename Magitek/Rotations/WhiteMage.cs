@@ -18,15 +18,18 @@ namespace Magitek.Rotations
                 if (Core.Me.CurrentHealthPercent > 70 || Core.Me.ClassLevel < 2)
                     return false;
 
+                if (Globals.InSanctuaryOrSafeZone)
+                    return false;
+
                 return await Spells.Cure.Heal(Core.Me);
             }
 
             return false;
         }
 
-        public static async Task<bool> PreCombatBuff()
+        public static Task<bool> PreCombatBuff()
         {
-            return false;
+            return Task.FromResult(false);
         }
 
         public static async Task<bool> Pull()

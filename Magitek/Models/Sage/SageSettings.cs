@@ -12,6 +12,10 @@ namespace Magitek.Models.Sage
 
         public static SageSettings Instance { get; set; } = new SageSettings();
 
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
         #region ForcePowers
         [Setting]
         [DefaultValue(false)]

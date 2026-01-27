@@ -53,6 +53,10 @@ namespace Magitek.Models.Warrior
         public static WarriorSettings Instance { get; set; } = new WarriorSettings();
 
         [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseBeastGauge { get; set; }
 
