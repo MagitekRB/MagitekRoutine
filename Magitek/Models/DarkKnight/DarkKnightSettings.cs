@@ -52,6 +52,10 @@ namespace Magitek.Models.DarkKnight
 
         public static DarkKnightSettings Instance { get; set; } = new DarkKnightSettings();
 
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
         // Autonomous
         #region Autonomous
         [Setting]

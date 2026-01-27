@@ -12,15 +12,10 @@ namespace Magitek.Rotations
 {
     public static class Pictomancer
     {
-        public static async Task<bool> Rest()
+        public static Task<bool> Rest()
         {
-            if (Core.Me.CurrentHealthPercent > 70 || Core.Me.ClassLevel < 4)
-                return false;
-
-            if (Globals.InSanctuaryOrSafeZone)
-                return false;
-
-            return false;
+            var needRest = Core.Me.CurrentHealthPercent < PictomancerSettings.Instance.RestHealthPercent;
+            return Task.FromResult(needRest);
         }
 
         public static async Task<bool> PreCombatBuff()
@@ -40,9 +35,9 @@ namespace Magitek.Rotations
 
             return await Combat();
         }
-        public static async Task<bool> Heal()
+        public static Task<bool> Heal()
         {
-            return false;
+            return Task.FromResult(false);
         }
 
         public static Task<bool> CombatBuff()
@@ -133,7 +128,7 @@ namespace Magitek.Rotations
                     if (await Pvp.SubtractivePalette()) return true;
 
                     if (await Pvp.MogoftheAges()) return true;
-                    
+
                     if (await Pvp.PaintB()) return true;
                     if (await Pvp.PaintW()) return true;
 

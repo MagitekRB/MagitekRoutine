@@ -15,6 +15,14 @@ namespace Magitek.Models.BlueMage
         public static BlueMageSettings Instance { get; set; } = new BlueMageSettings();
 
         [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float RestManaPercent { get; set; }
+
+        [Setting]
         [DefaultValue(BlueMageOpenerStrategy.OpenerOnlyBosses)]
         public BlueMageOpenerStrategy OpenerStrategy { get; set; }
 

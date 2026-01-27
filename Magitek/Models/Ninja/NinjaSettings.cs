@@ -13,6 +13,10 @@ namespace Magitek.Models.Ninja
         public static NinjaSettings Instance { get; set; } = new NinjaSettings();
 
         [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool FightLogicShadeShift { get; set; }
 

@@ -14,6 +14,9 @@ namespace Magitek.Models.Monk
 
         public static MonkSettings Instance { get; set; } = new MonkSettings();
 
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(MonkOpenerStrategy.AlwaysUseOpener)]

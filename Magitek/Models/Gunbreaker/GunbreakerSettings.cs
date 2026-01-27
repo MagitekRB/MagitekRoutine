@@ -52,6 +52,10 @@ namespace Magitek.Models.Gunbreaker
 
         public static GunbreakerSettings Instance { get; set; } = new GunbreakerSettings();
 
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
         #region General
         [Setting]
         [DefaultValue(GunbreakerStrategy.FastGCD)]

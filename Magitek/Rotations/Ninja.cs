@@ -17,7 +17,8 @@ namespace Magitek.Rotations
     {
         public static Task<bool> Rest()
         {
-            return Task.FromResult(false);
+            var needRest = Core.Me.CurrentHealthPercent < NinjaSettings.Instance.RestHealthPercent;
+            return Task.FromResult(needRest);
         }
 
         public static async Task<bool> PreCombatBuff()

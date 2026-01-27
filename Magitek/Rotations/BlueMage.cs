@@ -16,7 +16,8 @@ namespace Magitek.Rotations
     {
         public static Task<bool> Rest()
         {
-            var needRest = Core.Me.CurrentHealthPercent < 75 || Core.Me.CurrentManaPercent < 50;
+            var needRest = Core.Me.CurrentHealthPercent < BlueMageSettings.Instance.RestHealthPercent || 
+                          Core.Me.CurrentManaPercent < BlueMageSettings.Instance.RestManaPercent;
             return Task.FromResult(needRest);
         }
 

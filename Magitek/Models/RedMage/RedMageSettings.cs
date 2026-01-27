@@ -15,6 +15,10 @@ namespace Magitek.Models.RedMage
         public static RedMageSettings Instance { get; set; } = new RedMageSettings();
 
         [Setting]
+        [DefaultValue(70.0f)]
+        public float RestHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool FightLogicMagickBarrier { get; set; }
 
