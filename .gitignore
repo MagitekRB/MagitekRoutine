@@ -291,5 +291,5 @@ VsCodeWorkspace.code-workspace
 .vscode/
 .cursor/
 .claude/
-AGENTS.md
+
 Plugins/LuminaReader/
