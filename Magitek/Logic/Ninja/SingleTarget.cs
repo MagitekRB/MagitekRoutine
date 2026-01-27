@@ -154,7 +154,11 @@ namespace Magitek.Logic.Ninja
             if (!Spells.ThrowingDagger.IsKnownAndReady())
                 return false;
 
-            if (NinjaRoutine.AoeEnemies6Yards > 0)
+            if (NinjaRoutine.AoeEnemies4Yards > 0)
+                return false;
+
+            // Do not start with throwing dagger
+            if (Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds - 770)
                 return false;
 
             return await Spells.ThrowingDagger.Cast(Core.Me.CurrentTarget);

@@ -66,7 +66,8 @@ namespace Magitek.Rotations
             if (await Buff.Meditate())
                 return true;
 
-            if (MonkRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.Bootshine.Cooldown.TotalMilliseconds > 750 + BaseSettings.Instance.UserLatencyOffset)
+            //if (MonkRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.Bootshine.Cooldown.TotalMilliseconds > 750 + BaseSettings.Instance.UserLatencyOffset)
+            if (MonkRoutine.GlobalCooldown.CanWeave())
             {
                 if (await PhysicalDps.Interrupt(MonkSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(MonkSettings.Instance)) return true;
@@ -75,6 +76,7 @@ namespace Magitek.Rotations
                 if (await Buff.UsePotion()) return true;
                 if (await Buff.TrueNorth()) return true;
 
+                if (await Buff.PerfectBalance()) return true;
                 if (await Buff.EarthReply()) return true;
                 if (await Buff.RiddleOfFire()) return true;
                 if (await Buff.Brotherhood()) return true;
@@ -82,13 +84,12 @@ namespace Magitek.Rotations
 
                 if (await Aoe.Enlightenment()) return true;
                 if (await SingleTarget.TheForbiddenChakra()) return true;
-                if (await Buff.PerfectBalance()) return true;
                 if (await Buff.Mantra()) return true;
             }
 
             if (await Aoe.MasterfulBlitz()) return true;
-            if (await Aoe.FireReply()) return true;
             if (await Aoe.WindReply()) return true;
+            if (await Aoe.FireReply()) return true;
             if (await Aoe.PerfectBalance()) return true;
             if (await Aoe.Rockbreaker()) return true;
             if (await Aoe.FourPointStrike()) return true;

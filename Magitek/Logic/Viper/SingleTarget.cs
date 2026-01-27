@@ -144,8 +144,7 @@ namespace Magitek.Logic.Viper
             if (!Spells.UncoiledFury.CanCast() || ActionResourceManager.Viper.RattlingCoils <= ViperSettings.Instance.UncoiledFurySaveChrages)
                 return false;
 
-
-            if (Spells.Vicewinder.IsKnownAndReadyAndCastable() || Spells.Reawaken.IsKnownAndReadyAndCastable() || Spells.HunterCoil.IsKnownAndReadyAndCastable() || Spells.SwiftskinCoil.IsKnownAndReadyAndCastable())
+            if (Spells.Reawaken.IsKnownAndReadyAndCastable(1000) || Spells.HunterCoil.IsKnownAndReadyAndCastable() || Spells.SwiftskinCoil.IsKnownAndReadyAndCastable())
                 return false;
 
             return await Spells.UncoiledFury.Cast(Core.Me.CurrentTarget);

@@ -132,7 +132,7 @@ namespace Magitek.Logic.Monk
             if (!Spells.FireReply.IsKnownAndReady())
                 return false;
 
-            if (MonkSettings.Instance.UseFireReplyOnlyAfterOpo && !Core.Me.HasAura(Auras.RaptorForm))
+            if (Core.Me.HasAura(Auras.PerfectBalance))
                 return false;
 
             return await Spells.FireReply.Cast(Core.Me.CurrentTarget);

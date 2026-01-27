@@ -7662,6 +7662,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seconds Initial Delay.
+        /// </summary>
+        public static string Monk_Content_Brotherhood_Delay {
+            get {
+                return ResourceManager.GetString("Monk_Content_Brotherhood_Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delay Riddle of Wind for Burst Window.
         /// </summary>
         public static string Monk_Content_Delay_Riddle_of_Wind_for_Burst_Window {

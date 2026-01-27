@@ -4950,6 +4950,9 @@
   <data name="Monk_Content_Brotherhood" xml:space="preserve">
     <value>义结金兰</value>
   </data>
+<data name="Monk_Content_Brotherhood_Delay" xml:space="preserve">
+    <value>初始延迟秒数</value>
+  </data>
   <data name="Ninja_Content_Dokumori" xml:space="preserve">
     <value>介毒之术</value>
   </data>

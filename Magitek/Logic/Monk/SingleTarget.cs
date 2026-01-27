@@ -81,6 +81,9 @@ namespace Magitek.Logic.Monk
             if (!Spells.DragonKick.IsKnown())
                 return false;
 
+            if(Core.Me.HasAura(Auras.FormlessFist))
+                return await Spells.DragonKick.Cast(Core.Me.CurrentTarget);
+
             if (!Core.Me.HasAura(Auras.OpoOpoForm) && !Core.Me.HasAura(Auras.FormlessFist))
                 return false;
 
@@ -132,6 +135,9 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (!MonkSettings.Instance.BurstLogicHoldBurst && Spells.RiddleofFire.IsKnownAndReady())
+                return false;
+
+            if (Core.Me.HasAura(Auras.PerfectBalance))
                 return false;
 
             return await Spells.SteelPeak.Cast(Core.Me.CurrentTarget);

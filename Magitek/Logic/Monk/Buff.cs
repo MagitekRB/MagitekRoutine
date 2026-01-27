@@ -5,6 +5,7 @@ using Magitek.Logic.Roles;
 using Magitek.Models.Account;
 using Magitek.Models.Monk;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MonkRoutine = Magitek.Utilities.Routines.Monk;
@@ -82,21 +83,27 @@ namespace Magitek.Logic.Monk
             if (!Spells.PerfectBalance.IsKnown())
                 return false;
 
+            if (Core.Me.HasAura(Auras.PerfectBalance))
+                return false;
+
             if (!MonkSettings.Instance.UsePerfectBalance || MonkSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
             if (MonkSettings.Instance.UsePerfectBalanceOnlyAfterOpo && !Core.Me.HasAura(Auras.RaptorForm))
                 return false;
 
-            if (Spells.Brotherhood.IsKnown())
-            {
-                if (Core.Me.HasAura(Auras.Brotherhood, true))
-                    return await Spells.PerfectBalance.Cast(Core.Me);
-            }
+            if (Spells.RiddleofFire.IsKnownAndReady() && Spells.Brotherhood.IsKnownAndReady())
+                return await Spells.PerfectBalance.Cast(Core.Me);
 
             if (Spells.RiddleofFire.IsKnown())
             {
-                if (!Spells.RiddleofFire.IsKnownAndReady())
+                if (!Core.Me.HasAura(Auras.RiddleOfFire))
+                    return false;
+            }
+
+            if (Spells.Brotherhood.IsKnown())
+            {
+                if (Spells.Brotherhood.Cooldown <= new TimeSpan(0, 0, 50))
                     return false;
             }
 
@@ -123,7 +130,7 @@ namespace Magitek.Logic.Monk
             if (!MonkSettings.Instance.UseRiddleOfFire || MonkSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
-            if (Spells.PerfectBalance.IsKnownAndReady() && !Core.Me.HasAura(Auras.PerfectBalance, true))
+            if (Spells.Brotherhood.IsKnownAndReady())
                 return false;
 
             return await Spells.RiddleofFire.Cast(Core.Me);
@@ -143,6 +150,9 @@ namespace Magitek.Logic.Monk
             if (MonkSettings.Instance.BurstLogicDelayWind && Spells.RiddleofFire.IsKnownAndReady(4000))
                 return false;
 
+            if (Spells.Brotherhood.IsKnownAndReady())
+                return false;
+
             return await Spells.RiddleofWind.Cast(Core.Me);
         }
 
@@ -156,6 +166,9 @@ namespace Magitek.Logic.Monk
 
             //if (Spells.PerfectBalance.IsKnownAndReady() && !Core.Me.HasAura(Auras.PerfectBalance, true))
             //    return false;
+
+            if (Combat.CombatTime.ElapsedMilliseconds < (MonkSettings.Instance.UseBrotherhoodInitialDelay * 1000)  - 770)
+                return false;
 
             return await Spells.Brotherhood.Cast(Core.Me);
         }

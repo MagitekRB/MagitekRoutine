@@ -13,6 +13,7 @@ namespace Magitek.Utilities.Routines
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Ninja, Spells.SpinningEdge, new List<SpellData>() { Spells.Ten, Spells.Jin, Spells.Chi, Spells.Ninjutsu });
 
+        public static int AoeEnemies4Yards;
         public static int AoeEnemies5Yards;
         public static int AoeEnemies6Yards;
 
@@ -186,6 +187,7 @@ namespace Magitek.Utilities.Routines
             if (Core.Me.HasAura(Auras.TenChiJin))
                 TenChiJin = true;
 
+            AoeEnemies4Yards = Core.Me.EnemiesNearby(4).Count();
             AoeEnemies5Yards = Core.Me.EnemiesNearby(5).Count();
             AoeEnemies6Yards = Core.Me.CurrentTarget.EnemiesNearby(6).Count();
 
