@@ -1,4 +1,4 @@
-﻿using Clio.Utilities.Collections;
+using Clio.Utilities.Collections;
 using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Helpers;
@@ -111,10 +111,10 @@ namespace Magitek.ViewModels
         public ICommand AddOpenerGroup => new DelegateCommand(() =>
         {
 
-            OnlyCurrentZone = false;
-
             Application.Current.Dispatcher.Invoke(delegate
             {
+                OnlyCurrentZone = false;
+
                 OpenerGroups.Add(new OpenerGroup
                 {
                     Name = $"Opener",
@@ -168,28 +168,28 @@ namespace Magitek.ViewModels
             if (group == null)
                 return;
 
-            var openerGroup = OpenerGroups.FirstOrDefault(r => r.Id == group.Id);
-
-            if (openerGroup == null)
-                return;
-
-            var newGambit = new Gambit
-            {
-                Title = "New Action",
-                Action = new CastSpellOnCurrentTargetAction(),
-                ActionType = GambitActionTypes.CastSpellOnCurrentTarget,
-                IsEnabled = true,
-                Order = openerGroup.Gambits.Count > 0 ? openerGroup.Gambits.Max(g => g.Order) + 1 : 1,
-                Job = SelectedJob,
-                Id = new Random().Next(int.MaxValue),
-                PreventSameActionForTheNextMilliseconds = 2000,
-                MaxTimeToWaitForAction = 3000,
-                AbandonOpenerIfActionFail = false,
-                Conditions = new ObservableCollection<IGambitCondition>()
-            };
-
             Application.Current.Dispatcher.Invoke(delegate
             {
+                var openerGroup = OpenerGroups.FirstOrDefault(r => r.Id == group.Id);
+
+                if (openerGroup == null)
+                    return;
+
+                var newGambit = new Gambit
+                {
+                    Title = "New Action",
+                    Action = new CastSpellOnCurrentTargetAction(),
+                    ActionType = GambitActionTypes.CastSpellOnCurrentTarget,
+                    IsEnabled = true,
+                    Order = openerGroup.Gambits.Count > 0 ? openerGroup.Gambits.Max(g => g.Order) + 1 : 1,
+                    Job = SelectedJob,
+                    Id = new Random().Next(int.MaxValue),
+                    PreventSameActionForTheNextMilliseconds = 2000,
+                    MaxTimeToWaitForAction = 3000,
+                    AbandonOpenerIfActionFail = false,
+                    Conditions = new ObservableCollection<IGambitCondition>()
+                };
+
                 openerGroup.Gambits.Add(newGambit);
             });
 
@@ -346,10 +346,21 @@ namespace Magitek.ViewModels
 
             try
             {
-                if (OpenerGroups == null || OpenerGroups.Count == 0)
+                List<OpenerGroup> openerGroupsCopy = null;
+
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    if (OpenerGroups == null || OpenerGroups.Count == 0)
+                        return;
+
+                    // Create a copy of the collection to avoid threading issues with ObservableCollection
+                    openerGroupsCopy = new List<OpenerGroup>(OpenerGroups);
+                });
+
+                if (openerGroupsCopy == null || openerGroupsCopy.Count == 0)
                     return;
 
-                Parallel.ForEach(OpenerGroups, group =>
+                Parallel.ForEach(openerGroupsCopy, group =>
                 {
                     var data = JsonConvert.SerializeObject(group, Formatting.Indented);
                     var filePath = _openersFolder + $"/{group.Id}.json";
@@ -357,15 +368,6 @@ namespace Magitek.ViewModels
                     file.Directory?.Create();
                     File.WriteAllText(filePath, data);
                 });
-
-                //foreach (var group in OpenerGroups)
-                //{
-                //    var data = JsonConvert.SerializeObject(group, Formatting.Indented);
-                //    var filePath = _openersFolder + $"/{group.Id}.json";
-                //    var file = new FileInfo(filePath);
-                //    file.Directory?.Create();
-                //    File.WriteAllText(filePath, data);
-                //}
             }
             catch (Exception e)
             {
@@ -421,16 +423,19 @@ namespace Magitek.ViewModels
         public void ApplyOpeners()
         {
 
-            if (OpenerGroups == null || OpenerGroups.Count == 0)
-                return;
-
             try
             {
-                var openers = OpenerGroups.Where(r =>
-                    r.Job == Core.Me.CurrentJob && (r.ZoneId == WorldManager.ZoneId || r.ZoneId == 1)).ToList();
-                CustomOpenerLogic.OpenerGroups = new List<OpenerGroup>(openers);
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    if (OpenerGroups == null || OpenerGroups.Count == 0)
+                        return;
 
-                Logger.WriteInfo($"Added {openers.Count} Openers For This Zone");
+                    var openers = OpenerGroups.Where(r =>
+                        r.Job == Core.Me.CurrentJob && (r.ZoneId == WorldManager.ZoneId || r.ZoneId == 1)).ToList();
+                    CustomOpenerLogic.OpenerGroups = new List<OpenerGroup>(openers);
+
+                    Logger.WriteInfo($"Added {openers.Count} Openers For This Zone");
+                });
             }
             catch (Exception e)
             {
