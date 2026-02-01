@@ -683,7 +683,7 @@ namespace Magitek.Utilities
         public static readonly SpellData MeikyoShisui = DataManager.GetSpellData(7499);
         //public static readonly SpellData HissatsuSeigan = DataManager.GetSpellData(7501);
         public static readonly SpellData Meditation = DataManager.GetSpellData(3546);
-        public static readonly SpellData ShohaII = DataManager.GetSpellData(25779);
+        //public static readonly SpellData ShohaII = DataManager.GetSpellData(25779);
         public static readonly SpellData Fuko = DataManager.GetSpellData(25780);
         public static readonly SpellData OgiNamikiri = DataManager.GetSpellData(25781);
         public static readonly SpellData KaeshiNamikiri = DataManager.GetSpellData(25782);

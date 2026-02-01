@@ -59,7 +59,21 @@
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Samurai_Content_Hagakure}" IsChecked="{Binding SamuraiSettings.UseHagakure, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
-            </StackPanel>
+                    <StackPanel Margin="5"  Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Use_Feint}" IsChecked="{Binding SamuraiSettings.UseFeint, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Use_True_North}" IsChecked="{Binding SamuraiSettings.UseTrueNorth, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    </StackPanel>
+                    <StackPanel Margin="3" Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Bloodbath_When_Below}" IsChecked="{Binding SamuraiSettings.UseBloodbath, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SamuraiSettings.BloodbathHpPercent, Mode=TwoWay}" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                    </StackPanel>
+                    <StackPanel Margin="3" Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Generic_Second_Wind_When_Below}" IsChecked="{Binding SamuraiSettings.UseSecondWind, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SamuraiSettings.SecondWindHpPercent, Mode=TwoWay}" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                    </StackPanel>
+                </StackPanel>
         </controls:SettingsBlock>        
 
         </StackPanel>

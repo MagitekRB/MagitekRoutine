@@ -14037,6 +14037,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to but do Not Use If Enemy Is Dying Within.
+        /// </summary>
+        public static string Text_but_do_Not_Use_If_Enemy_Is_Dying_Within {
+            get {
+                return ResourceManager.GetString("Text_but_do_Not_Use_If_Enemy_Is_Dying_Within", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active CR.
         /// </summary>
         public static string UserControls_Content_Active_CR {
@@ -14492,15 +14501,6 @@ namespace Magitek.Properties {
         public static string Viper_Text_and_save_at_least {
             get {
                 return ResourceManager.GetString("Viper_Text_and_save_at_least", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to but do Not Use If Enemy Is Dying Within.
-        /// </summary>
-        public static string Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within {
-            get {
-                return ResourceManager.GetString("Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within", resourceCulture);
             }
         }
         

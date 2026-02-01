@@ -31,6 +31,9 @@ namespace Magitek.Models.Samurai
         [DefaultValue(SamuraiFillerStrategy.TwoGCD)]
         public SamuraiFillerStrategy SamuraiFillerStrategy { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool BurstLogicHoldBurst { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -43,22 +46,6 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(true)]
         public bool UseHagakure { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool SecondWind { get; set; }
-
-        [Setting]
-        [DefaultValue(50.0f)]
-        public new float SecondWindHpPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Bloodbath { get; set; }
-
-        [Setting]
-        [DefaultValue(50.0f)]
-        public float BloodbathHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -151,6 +138,10 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(false)]
         public bool HiganbanaOnlyBoss { get; set; }
+
+        [Setting]
+        [DefaultValue(8)]
+        public int DontHiganbanaIfEnemyDyingWithinSeconds { get; set; }
 
         [Setting]
         [DefaultValue(true)]

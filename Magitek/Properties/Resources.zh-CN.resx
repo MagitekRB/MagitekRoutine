@@ -3411,7 +3411,7 @@
   <data name="Viper_Text_charges_when_out_of_range" xml:space="preserve">
     <value>当超出范围时[xx]层充能</value>
   </data>
-  <data name="Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
+  <data name="Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
     <value>但如果敌人在[xx]内即将死亡则不使用</value>
   </data>
   <data name="Viper_Content_Enable_Dreadwinder" xml:space="preserve">

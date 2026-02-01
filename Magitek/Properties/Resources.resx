@@ -3410,7 +3410,7 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Viper_Text_charges_when_out_of_range" xml:space="preserve">
     <value>charges when out of range</value>
   </data>
-  <data name="Viper_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
+  <data name="Text_but_do_Not_Use_If_Enemy_Is_Dying_Within" xml:space="preserve">
     <value>but do Not Use If Enemy Is Dying Within</value>
   </data>
   <data name="Viper_Content_Enable_Dreadwinder" xml:space="preserve">
