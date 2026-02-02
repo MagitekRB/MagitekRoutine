@@ -114,7 +114,7 @@ namespace Magitek.Logic.Samurai
             // -------------------------------------------------
             int missingSen = Math.Max(0, 3 - SamuraiRoutine.SenCount);
             TimeSpan need = TimeSpan.FromMilliseconds(gcd.TotalMilliseconds * missingSen);
-            TimeSpan buffer = TimeSpan.FromMilliseconds(770);
+            TimeSpan buffer = TimeSpan.FromMilliseconds(Globals.AnimationLockMs);
 
             bool shouldPrep = (missingSen > 0) && (timeToBurstStart <= need + buffer);
             if (shouldPrep)

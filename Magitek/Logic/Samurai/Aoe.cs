@@ -211,7 +211,7 @@ namespace Magitek.Logic.Samurai
 
             //Dun wait for Higanbana when there is enemies around you
             if (SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
-                await Spells.OgiNamikiri.Cast(Core.Me.CurrentTarget);
+                return await Spells.OgiNamikiri.Cast(Core.Me.CurrentTarget);
 
             if (SamuraiSettings.Instance.UseHiganbana && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 8000))
                 return false;

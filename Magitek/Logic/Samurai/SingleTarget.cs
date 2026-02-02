@@ -21,15 +21,8 @@ namespace Magitek.Logic.Samurai
             if (Spells.MidareSetsugekka.CanCast())
                 return false;
 
-            if (Spells.Higanbana.IsKnown() && Spells.Higanbana.CanCast() && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 4000) && Core.Me.HasAura(Auras.Jinpu) && Core.Me.HasAura(Auras.Shifu)) { 
-                if (!SamuraiSettings.Instance.HiganbanaOnlyBoss)
-                {
-                    return await Spells.Higanbana.Cast(Core.Me.CurrentTarget);
-                } 
-                else if (Core.Me.CurrentTarget.IsBoss())
-                {
-                    return await Spells.Higanbana.Cast(Core.Me.CurrentTarget);
-                }
+            if (Spells.Higanbana.IsKnown() && Spells.Higanbana.CanCast() && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 4000) && Core.Me.HasAura(Auras.Jinpu) && Core.Me.HasAura(Auras.Shifu) && CanHiganbana(Core.Me.CurrentTarget)) {
+                return await Spells.Higanbana.Cast(Core.Me.CurrentTarget);
             }
 
             if (Spells.Gyofu.IsKnown())
