@@ -1,6 +1,6 @@
 using ff14bot;
 using ff14bot.Managers;
-using Magitek.Enumerations;
+using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
 using Magitek.Models.Samurai;
@@ -21,14 +21,9 @@ namespace Magitek.Logic.Samurai
             if (Spells.MidareSetsugekka.CanCast())
                 return false;
 
-            if (Spells.Higanbana.CanCast() && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true))
-                if (SamuraiSettings.Instance.HiganbanaOnlyBoss)
-                {
-                    if (Core.Me.CurrentTarget.IsBoss())
-                        return false;
-                }
-                else
-                    return false;
+            if (Spells.Higanbana.IsKnown() && Spells.Higanbana.CanCast() && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 4000) && Core.Me.HasAura(Auras.Jinpu) && Core.Me.HasAura(Auras.Shifu) && CanHiganbana(Core.Me.CurrentTarget)) {
+                return await Spells.Higanbana.Cast(Core.Me.CurrentTarget);
+            }
 
             if (Spells.Gyofu.IsKnown())
                 return await Spells.Gyofu.Cast(Core.Me.CurrentTarget);
@@ -98,8 +93,8 @@ namespace Magitek.Logic.Samurai
                 && !Core.Me.HasAura(Auras.MeikyoShisui))
                 return false;
 
-            if (SamuraiRoutine.isReadyFillerRotation && SamuraiSettings.Instance.SamuraiFillerStrategy.Equals(SamuraiFillerStrategy.ThreeGCD))
-                return false;
+           // if (SamuraiRoutine.isReadyFillerRotation && SamuraiSettings.Instance.SamuraiFillerStrategy.Equals(SamuraiFillerStrategy.ThreeGCD))
+           //     return false;
 
             return await Spells.Yukikaze.Cast(Core.Me.CurrentTarget);
         }
@@ -203,12 +198,6 @@ namespace Magitek.Logic.Samurai
             if (ActionResourceManager.Samurai.Kenki < 25 + SamuraiSettings.Instance.ReservedKenki)
                 return false;
 
-            if (Core.Me.HasAura(Auras.ZanshinReady))
-                return false;
-
-            if (Casting.LastSpell != Spells.MidareSetsugekka)
-                return false;
-
             return await Spells.HissatsuSenei.Cast(Core.Me.CurrentTarget);
         }
 
@@ -226,10 +215,7 @@ namespace Magitek.Logic.Samurai
             if (Casting.LastSpell == Spells.HissatsuSenei)
                 return false;
 
-            if (SamuraiRoutine.SenCount == 3)
-                return false;
-
-            if (Spells.HissatsuSenei.IsKnownAndReady() || (Spells.HissatsuSenei.IsKnownAndReady(10000) && ActionResourceManager.Samurai.Kenki <= 85))
+            if (Spells.HissatsuSenei.IsKnownAndReady() || (Spells.HissatsuSenei.IsKnownAndReady(10000) && ActionResourceManager.Samurai.Kenki <  25 + SamuraiSettings.Instance.ReservedKenki))
                 return false;
 
             return await Spells.HissatsuShinten.Cast(Core.Me.CurrentTarget);
@@ -256,13 +242,13 @@ namespace Magitek.Logic.Samurai
             else
                 if (!await Spells.MidareSetsugekka.Cast(Core.Me.CurrentTarget))
                 return false;
-
+            /*
             if (SamuraiRoutine.prepareFillerRotation && (Spells.TsubameGaeshi.Charges < 1 || Spells.KaeshiSetsugekka.Charges < 1))
             {
                 SamuraiRoutine.InitializeFillerVar(false, true); // Execute Filler
                 Logger.WriteInfo($@"[Filler] Execute Filler: {SamuraiSettings.Instance.SamuraiFillerStrategy}");
             }
-
+            */
             return true;
         }
 
@@ -271,27 +257,36 @@ namespace Magitek.Logic.Samurai
             if (!SamuraiSettings.Instance.UseHiganbana)
                 return false;
 
-            if (SamuraiRoutine.SenCount != 1)
+            if (SamuraiRoutine.SenCount == 0 || SamuraiRoutine.SenCount == 3)
                 return false;
 
             if (Core.Me.CurrentTarget.Distance(Core.Me) > Core.Me.CurrentTarget.CombatReach + 6)
                 return false;
 
-            if (Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 8000))
+            if (Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 6000))
                 return false;
 
-            if (Spells.KaeshiGoken.CanCast() || Spells.KaeshiSetsugekka.CanCast())
+            if (!Core.Me.HasAura(Auras.Jinpu) || !Core.Me.HasAura(Auras.Shifu))
                 return false;
 
             if (SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
-            if (SamuraiSettings.Instance.HiganbanaOnlyBoss && !Core.Me.CurrentTarget.IsBoss())
+            if (!CanHiganbana(Core.Me.CurrentTarget))
                 return false;
 
-            await Spells.Higanbana.Cast(Core.Me.CurrentTarget);
+            return await Spells.Higanbana.Cast(Core.Me.CurrentTarget);
+        }
 
-            return true;
+        public static bool CanHiganbana(GameObject unit)
+        {
+            if (unit.IsBoss())
+                return true;
+
+            if (SamuraiSettings.Instance.HiganbanaOnlyBoss)
+                return false;
+
+            return unit.CombatTimeLeft() >= SamuraiSettings.Instance.DontHiganbanaIfEnemyDyingWithinSeconds;
         }
 
         /**********************************************************************************************
@@ -307,12 +302,11 @@ namespace Magitek.Logic.Samurai
             if (Spells.TendoKaeshiSetsugekka.IsKnownAndReadyAndCastable())
                 return await Spells.TendoKaeshiSetsugekka.Cast(Core.Me.CurrentTarget);
 
-            if (!await Spells.KaeshiSetsugekka.Cast(Core.Me.CurrentTarget))
+            if (SamuraiRoutine.SenCount != 3)
                 return false;
 
-            SamuraiRoutine.InitializeFillerVar(false, false); //No Filler if TsubameGaeshi is executed
+            return await Spells.KaeshiSetsugekka.Cast(Core.Me.CurrentTarget);
 
-            return true;
         }
 
         /**********************************************************************************************

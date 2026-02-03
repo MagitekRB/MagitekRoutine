@@ -1,6 +1,5 @@
 using ff14bot;
 using ff14bot.Managers;
-using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Samurai;
 using Magitek.Utilities;
@@ -142,27 +141,17 @@ namespace Magitek.Logic.Samurai
             if (!Core.Me.HasAura(Auras.ZanshinReady))
                 return false;
 
+            if (!Core.Me.HasAura(Auras.Jinpu) || !Core.Me.HasAura(Auras.Shifu))
+                return false;
+
+            if (SamuraiRoutine.SenCount >= 2)
+                return false;
+
+            if (Spells.KaeshiGoken.CanCast() || Spells.KaeshiSetsugekka.CanCast() ||  Spells.TendoKaeshiSetsugekka.CanCast())
+                return false;
+
             return await Spells.Zanshin.Cast(Core.Me.CurrentTarget);
         }
-
-
-        /**********************************************************************************************
-         *                                   oGCD
-         * ********************************************************************************************/
-        public static async Task<bool> ShohaII()
-        {
-            if (!SamuraiSettings.Instance.UseShohaII)
-                return false;
-
-            if (SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
-                return false;
-
-            if (ActionResourceManager.Samurai.Meditation < 3)
-                return false;
-
-            return await Spells.ShohaII.Cast(Core.Me.CurrentTarget);
-        }
-
 
         /**********************************************************************************************
         *                                    Iaijutsu
@@ -211,20 +200,30 @@ namespace Magitek.Logic.Samurai
             if (!Core.Me.HasAura(Auras.OgiReady))
                 return false;
 
-            var ogiReadyAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.OgiReady && x.CasterId == Core.Player.ObjectId);
-            if (ogiReadyAura != null && ogiReadyAura.TimespanLeft.TotalMilliseconds <= 2700)
+            if (!SamuraiSettings.Instance.UseAoe)
+                return false;
+
+            if (!Core.Me.CurrentTarget.InView())
+                return false;
+
+            if (Spells.TendoKaeshiGoken.IsKnownAndReadyAndCastable() || Spells.TendoSetsugekka.IsKnownAndReadyAndCastable())
+                return false;
+
+            //Dun wait for Higanbana when there is enemies around you
+            if (SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
                 return await Spells.OgiNamikiri.Cast(Core.Me.CurrentTarget);
 
-            if (!SamuraiSettings.Instance.UseAoe || SamuraiRoutine.AoeEnemies5Yards < SamuraiSettings.Instance.AoeEnemies)
-            {
-                if (!Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 20000))
-                    return false;
-            }
+            if (SamuraiSettings.Instance.UseHiganbana && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 8000))
+                return false;
 
+            return await Spells.OgiNamikiri.Cast(Core.Me.CurrentTarget);
+
+            /*
             if (await Spells.OgiNamikiri.Cast(Core.Me.CurrentTarget))
                 SamuraiRoutine.InitializeFillerVar(false, false); // Remove Filler after Even Minutes Burst
 
             return true;
+            */
         }
 
         public static async Task<bool> KaeshiNamikiri()

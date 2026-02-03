@@ -49,9 +49,6 @@ namespace Magitek.Rotations
             //LimitBreak
             if (SingleTarget.ForceLimitBreak()) return true;
 
-            //Buff for opener
-            if (await Buff.MeikyoShisuiNotInCombat()) return true;
-
             if (await CommonFightLogic.FightLogic_SelfShield(SamuraiSettings.Instance.FightLogicTengentsu, Spells.Tengentsu.IsKnown() ? Spells.Tengentsu : Spells.ThirdEye, castTimeRemainingMs: 2000)) return true;
             if (await CommonFightLogic.FightLogic_Debuff(SamuraiSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(SamuraiSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
@@ -60,7 +57,7 @@ namespace Magitek.Rotations
             if (await PhysicalDps.SecondWind(SamuraiSettings.Instance)) return true;
             if (await PhysicalDps.Bloodbath(SamuraiSettings.Instance)) return true;
 
-            if (SamuraiRoutine.GlobalCooldown.CanWeave())
+            if (SamuraiRoutine.GlobalCooldown.CanWeave(1))
             {
                 //Utility
                 if (await Utility.TrueNorth()) return true;
@@ -68,11 +65,10 @@ namespace Magitek.Rotations
                 if (await Buff.UsePotion()) return true;
 
                 //Buffs
-                if (await Buff.MeikyoShisui()) return true;
                 if (await Buff.Ikishoten()) return true;
+                if (await Buff.MeikyoShisui()) return true;
 
                 //oGCD Meditation
-                if (await Aoe.ShohaII()) return true;
                 if (await SingleTarget.Shoha()) return true;
 
                 //oGCD Kenki - AOE
@@ -83,13 +79,7 @@ namespace Magitek.Rotations
                 //oGCD Kenki - SingleTarget
                 if (await SingleTarget.HissatsuShinten()) return true;
                 if (await SingleTarget.HissatsuSenei()) return true; //share recast time with Guren
-                if (await SingleTarget.HissatsuGyoten()) return true; //dash forward
-                //if (await SingleTarget.HissatsuYaten()) return true; //dash backward
             }
-
-            //Namikiri
-            if (await Aoe.OgiNamikiri()) return true;
-            if (await Aoe.KaeshiNamikiri()) return true;
 
             //Tsubame Gaeshi
             if (await SingleTarget.KaeshiSetsugekka()) return true;
@@ -99,6 +89,10 @@ namespace Magitek.Rotations
             if (await SingleTarget.MidareSetsugekka()) return true;
             if (await Aoe.TenkaGoken()) return true;
             if (await SingleTarget.Higanbana()) return true;
+
+            //Namikiri
+            if (await Aoe.KaeshiNamikiri()) return true;
+            if (await Aoe.OgiNamikiri()) return true;
 
             //Combo AOE
             if (await Aoe.Mangetsu()) return true;

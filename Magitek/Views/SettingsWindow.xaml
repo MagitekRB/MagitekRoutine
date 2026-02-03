@@ -1149,10 +1149,6 @@
                                  Style="{DynamicResource MainTabBuffs}">
                             <ninja:Buffs/>
                         </TabItem>
-                        <TabItem Header="Ninjutsu"
-                                 Style="{DynamicResource MainTabBuffs}">
-                            <ninja:Ninjutsu/>
-                        </TabItem>
                         <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
                             <ninja:FightLogic/>
@@ -1186,10 +1182,6 @@
                         <TabItem Header="{x:Static properties:Resources.Generic_Buffs}"
                                  Style="{DynamicResource MainTabBuffs}">
                             <samurai:Buffs/>
-                        </TabItem>
-                        <TabItem Header="{x:Static properties:Resources.Generic_Utilities}"
-                                 Style="{DynamicResource MainTabUtilities}">
-                            <samurai:Utility/>
                         </TabItem>
                         <TabItem Header="{x:Static properties:Resources.Generic_FightLogic}"
                                  Style="{DynamicResource MainTabInterruptsAndStuns}">
