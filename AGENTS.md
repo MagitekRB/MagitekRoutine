@@ -1161,6 +1161,15 @@ Only hardcode values in these specific circumstances:
    const int AnimationLockBuffer = 100;
    ```
 
+5. **Buff Prerequisite Checks**: Checking for required self-buffs (e.g., damage buffs, speed buffs) before executing abilities is acceptable without config options
+   ```csharp
+   // Check for required buffs before spending resources
+   if (!Core.Me.HasAura(Auras.Jinpu) || !Core.Me.HasAura(Auras.Shifu))
+       return false; // Don't use expensive abilities without buffs active
+   ```
+
+**Note on Animation Lock Timing**: Always use `Globals.AnimationLockMs` instead of hardcoded values (e.g., 770). `Globals.AnimationLockMs` is user-configurable (610-770ms range) and ensures consistency across all rotations.
+
 **Anti-Pattern Examples:**
 
 ❌ **BAD**: Hardcoded threshold with no config option
@@ -1217,5 +1226,7 @@ return await Spells.HolyCircle.Cast(Core.Me);
 12. Modifying embedded JSON resources directly instead of using boss fight dictionaries.
 13. Using `Masked()` results without checking for null or storing in a variable for repeated checks.
 14. **Duplicating shared code** in Logic files instead of using `Utilities/Routines/<Job>.cs` for helper functions, cached variables, and calculations used by multiple Logic files (see "Job-Specific Shared Utilities" section).
+
+**Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented.
 
 ---

@@ -1,4 +1,4 @@
-﻿using ff14bot.Enums;
+using ff14bot.Enums;
 using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;
@@ -27,6 +27,7 @@ namespace Magitek.Models.Account
         {
             Instance.OverlayPosX = DefaultOverlayPosX;
             Instance.OverlayPosY = DefaultOverlayPosY;
+            Instance.OverlayScale = 1.0;
             Instance.CombatMessageOverlayWidth = DefaultCombatMessageOverlayWidth;
             Instance.CombatMessageOverlayHeight = DefaultCombatMessageOverlayHeight;
             Instance.CombatMessageOverlayPosX = DefaultCombatMessageOverlayPosX;
@@ -247,6 +248,10 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(176)]
         public int OverlayWidth { get; set; }
+
+        [Setting]
+        [DefaultValue(1.0)]
+        public double OverlayScale { get; set; }
 
         [Setting]
         [DefaultValue(true)]

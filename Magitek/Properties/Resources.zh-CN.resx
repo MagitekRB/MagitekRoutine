@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -452,6 +452,9 @@
   </data>
   <data name="Views_Text_Settings_Overlay_Size" xml:space="preserve">
     <value>设置悬浮窗大小：</value>
+  </data>
+  <data name="Views_Text_Settings_Overlay_Scale" xml:space="preserve">
+    <value>设置悬浮窗缩放：</value>
   </data>
   <data name="Views_Text_Font_Size" xml:space="preserve">
     <value>字体大小：</value>

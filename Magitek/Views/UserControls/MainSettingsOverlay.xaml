@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Magitek.Views.UserControls.MainSettingsOverlay"
+<UserControl x:Class="Magitek.Views.UserControls.MainSettingsOverlay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
@@ -15,7 +15,11 @@
         <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid RenderTransformOrigin="0,0">
+        <Grid.RenderTransform>
+            <ScaleTransform ScaleX="{Binding GeneralSettings.GeneralSettings.OverlayScale}"
+                            ScaleY="{Binding GeneralSettings.GeneralSettings.OverlayScale}" />
+        </Grid.RenderTransform>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBoolToVis" xmlns:converters="clr-namespace:Magitek.Converters" />
