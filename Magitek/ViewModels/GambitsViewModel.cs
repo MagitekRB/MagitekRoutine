@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using ff14bot.Enums;
 using ff14bot.Helpers;
 using ff14bot.Managers;
@@ -31,6 +31,8 @@ namespace Magitek.ViewModels
         private static GambitsViewModel _instance;
         public static GambitsViewModel Instance => _instance ?? (_instance = new GambitsViewModel());
 
+        private static readonly object _collectionLock = new object();
+
         public GambitsViewModel()
         {
             // Load from file
@@ -45,10 +47,15 @@ namespace Magitek.ViewModels
                 CanRecoverOldGambits = true;
             }
 
-            CollectionViewSource = System.Windows.Data.CollectionViewSource.GetDefaultView(GambitGroups);
-            CollectionViewSource.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
-
-            ResetCollectionViewSource();
+            // CollectionView must be created on the UI thread to avoid cross-thread
+            // exceptions when the singleton constructor runs on a background thread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                System.Windows.Data.BindingOperations.EnableCollectionSynchronization(GambitGroups, _collectionLock);
+                CollectionViewSource = System.Windows.Data.CollectionViewSource.GetDefaultView(GambitGroups);
+                CollectionViewSource.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
+                ResetCollectionViewSource();
+            });
         }
 
         public ICollectionView CollectionViewSource { get; set; }
@@ -69,24 +76,30 @@ namespace Magitek.ViewModels
 
         public void ResetCollectionViewSource()
         {
-            CollectionViewSource.Filter = r =>
+            if (CollectionViewSource == null)
+                return;
+
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                var gambitGroup = (GambitGroup)r;
-
-                if (gambitGroup == null)
-                    return false;
-
-                if (gambitGroup.Job != SelectedJob)
-                    return false;
-
-                if (OnlyCurrentZone)
+                CollectionViewSource.Filter = r =>
                 {
-                    if (gambitGroup.ZoneId != WorldManager.ZoneId)
-                        return false;
-                }
+                    var gambitGroup = (GambitGroup)r;
 
-                return true;
-            };
+                    if (gambitGroup == null)
+                        return false;
+
+                    if (gambitGroup.Job != SelectedJob)
+                        return false;
+
+                    if (OnlyCurrentZone)
+                    {
+                        if (gambitGroup.ZoneId != WorldManager.ZoneId)
+                            return false;
+                    }
+
+                    return true;
+                };
+            });
         }
 
         public ICommand ResetJobGambitGroupsCommand => new DelegateCommand(ResetCollectionViewSource);
@@ -381,10 +394,21 @@ namespace Magitek.ViewModels
         {
             try
             {
-                if (GambitGroups == null || GambitGroups.Count == 0)
+                List<GambitGroup> gambitGroupsCopy = null;
+
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    if (GambitGroups == null || GambitGroups.Count == 0)
+                        return;
+
+                    // Create a copy of the collection to avoid threading issues with ObservableCollection
+                    gambitGroupsCopy = new List<GambitGroup>(GambitGroups);
+                });
+
+                if (gambitGroupsCopy == null || gambitGroupsCopy.Count == 0)
                     return;
 
-                foreach (var group in GambitGroups)
+                foreach (var group in gambitGroupsCopy)
                 {
                     var data = JsonConvert.SerializeObject(group, Formatting.Indented);
                     var filePath = _gambitsFolder + $"/{group.Id}.json";

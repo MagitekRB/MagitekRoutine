@@ -33,6 +33,8 @@ namespace Magitek.ViewModels
         private static OpenersViewModel _instance;
         public static OpenersViewModel Instance => _instance ?? (_instance = new OpenersViewModel());
 
+        private static readonly object _collectionLock = new object();
+
         public OpenersViewModel()
         {
             // Load from file
@@ -41,10 +43,15 @@ namespace Magitek.ViewModels
             // Get current job for first load
             SelectedJob = RotationManager.CurrentRotation;
 
-            CollectionViewSource = System.Windows.Data.CollectionViewSource.GetDefaultView(OpenerGroups);
-            CollectionViewSource.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
-
-            ResetCollectionViewSource();
+            // CollectionView must be created on the UI thread to avoid cross-thread
+            // exceptions when the singleton constructor runs on a background thread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                System.Windows.Data.BindingOperations.EnableCollectionSynchronization(OpenerGroups, _collectionLock);
+                CollectionViewSource = System.Windows.Data.CollectionViewSource.GetDefaultView(OpenerGroups);
+                CollectionViewSource.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
+                ResetCollectionViewSource();
+            });
         }
 
         public Models.Account.BaseSettings GeneralSettings => Models.Account.BaseSettings.Instance;
@@ -66,24 +73,30 @@ namespace Magitek.ViewModels
 
         public void ResetCollectionViewSource()
         {
-            CollectionViewSource.Filter = r =>
+            if (CollectionViewSource == null)
+                return;
+
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                var openerGroup = (OpenerGroup)r;
-
-                if (openerGroup == null)
-                    return false;
-
-                if (openerGroup.Job != SelectedJob)
-                    return false;
-
-                if (OnlyCurrentZone)
+                CollectionViewSource.Filter = r =>
                 {
-                    if (openerGroup.ZoneId != WorldManager.ZoneId)
-                        return false;
-                }
+                    var openerGroup = (OpenerGroup)r;
 
-                return true;
-            };
+                    if (openerGroup == null)
+                        return false;
+
+                    if (openerGroup.Job != SelectedJob)
+                        return false;
+
+                    if (OnlyCurrentZone)
+                    {
+                        if (openerGroup.ZoneId != WorldManager.ZoneId)
+                            return false;
+                    }
+
+                    return true;
+                };
+            });
         }
 
         public ICommand ResetJobOpenerGroupsCommand => new DelegateCommand(ResetCollectionViewSource);
