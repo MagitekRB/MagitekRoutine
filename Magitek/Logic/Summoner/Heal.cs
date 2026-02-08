@@ -1,4 +1,4 @@
-﻿using Buddy.Coroutines;
+using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -18,10 +18,7 @@ namespace Magitek.Logic.Summoner
             if (!SummonerSettings.Instance.Physick)
                 return false;
 
-            if (!Spells.Physick.IsKnown())
-                return false;
-
-            if (!Spells.Physick.IsKnown())
+            if (!Spells.SmnPhysick.IsKnown())
                 return false;
 
             if (Globals.InParty)

@@ -43,7 +43,7 @@
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Summoner_Content_Physick_Solo_When_Below}" IsChecked="{Binding SummonerSettings.Physick, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.PhysickHpPercent, Mode=TwoWay}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.PhysickHPThreshold, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}" />
                 </StackPanel>
 

@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
@@ -11,6 +11,15 @@ namespace Magitek.Utilities.Routines
     internal static class Scholar
     {
         public static List<Character> AlliancePhysickOnly = new List<Character>();
+
+        private static readonly HashSet<uint> DamageSpells = new HashSet<uint>()
+        {
+            Spells.Ruin.Id,
+            Spells.Broil.Id,
+            Spells.Broil2.Id,
+            Spells.Broil3.Id,
+            Spells.BroilIV.Id,
+        };
 
         public static double SeraphTimeRemaining()
         {
@@ -44,17 +53,21 @@ namespace Magitek.Utilities.Routines
                 return true;
             }
 
-            if (ScholarSettings.Instance.StopCastingIfBelowHealthPercent && Globals.InParty)
+            if (ScholarSettings.Instance.StopCastingIfBelowHealthPercent && DamageSpells.Contains(Core.Me.CastingSpellId))
             {
-                if (Casting.CastingSpell == Spells.Broil ||
-                    Casting.CastingSpell == Spells.Broil2 ||
-                    Casting.CastingSpell == Spells.Broil3 ||
-                    Casting.CastingSpell == Spells.Ruin
-                    )
+                if (Globals.InParty)
                 {
                     if (Group.CastableAlliesWithin30.Any(c => c?.CurrentHealthPercent < ScholarSettings.Instance.DamageOnlyIfAboveHealthPercent && c.IsAlive))
                     {
                         Logger.Error($@"Stopped Cast: Ally below {ScholarSettings.Instance.DamageOnlyIfAboveHealthPercent}% Health");
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (Core.Me.CurrentHealthPercent < ScholarSettings.Instance.DamageOnlyIfAboveHealthPercent)
+                    {
+                        Logger.Error($@"Stopped Cast: Self below {ScholarSettings.Instance.DamageOnlyIfAboveHealthPercent}% Health");
                         return true;
                     }
                 }
