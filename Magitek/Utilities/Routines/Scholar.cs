@@ -14,7 +14,7 @@ namespace Magitek.Utilities.Routines
 
         private static readonly HashSet<uint> DamageSpells = new HashSet<uint>()
         {
-            Spells.Ruin.Id,
+            Spells.SchRuin.Id,
             Spells.Broil.Id,
             Spells.Broil2.Id,
             Spells.Broil3.Id,

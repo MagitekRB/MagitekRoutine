@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
@@ -61,10 +61,7 @@ namespace Magitek.Logic.Scholar
             {
                 if (unit == null) return false;
 
-                if (Spells.Biolysis.IsKnown())
-                    return unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
-
-                return unit.HasAura(Auras.Bio, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
+                return unit.HasAnyAura(BioAuras, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
             }
 
             bool NeedsBio(BattleCharacter unit)
@@ -72,10 +69,7 @@ namespace Magitek.Logic.Scholar
                 if (!CanBio(unit))
                     return false;
 
-                if (Spells.Biolysis.IsKnown())
-                    return !unit.HasAura(Auras.Biolysis, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
-
-                return !unit.HasAura(Auras.Bio, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
+                return !unit.HasAnyAura(BioAuras, true, ScholarSettings.Instance.BioRefreshSeconds * 1000);
             }
 
 
