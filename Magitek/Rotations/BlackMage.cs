@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using Magitek.Extensions;
 using Magitek.Logic.BlackMage;
 using Magitek.Logic.Roles;
@@ -90,13 +90,18 @@ namespace Magitek.Rotations
             if (await SingleTarget.Blizzard3()) return true;
             if (await SingleTarget.Fire3()) return true;
 
-            // Low-level mana management: Transpose from Astral Fire to Umbral Ice when out of mana
+            // Low-level mana management: Transpose between Astral Fire and Umbral Ice
             if (!Spells.Blizzard3.IsKnown() || !Spells.Fire3.IsKnown())
             {
-                if (AstralStacks > 0 && Core.Me.CurrentMana < Spells.Fire.Cost && Spells.Transpose.IsKnownAndReady())
+                // FFXIV MP costs (patch 7.x): Fire base cost 800, doubled to 1600 in Astral Fire.
+                // Spells.Fire.Cost is NOT reliably dynamic for AF stance; hardcode known game values.
+                // If SQEX changes Fire's MP cost in a future patch, update these constants.
+                // AF→UI: Transpose when MP too low for Fire (1600 in AF)
+                if (AstralStacks > 0 && Core.Me.CurrentMana < 1600 && Spells.Transpose.IsKnownAndReady())
                 {
                     if (await Buff.Transpose()) return true;
                 }
+                // UI→AF: Transpose when MP is full to start Fire phase
                 if (UmbralStacks > 0 && Core.Me.CurrentMana == Core.Me.MaxMana && Spells.Transpose.IsKnownAndReady())
                 {
                     if (await Buff.Transpose()) return true;

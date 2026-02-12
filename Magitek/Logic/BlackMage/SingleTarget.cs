@@ -1,4 +1,4 @@
-﻿using Buddy.Coroutines;
+using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -103,7 +103,13 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks > 0)
                 return false;
 
-            if (Core.Me.CurrentMana < 800)
+            // FFXIV MP costs (patch 7.x): Fire base cost 800 MP, doubled to 1600 in Astral Fire.
+            // Spells.Fire.Cost is NOT reliably dynamic for AF stance; hardcode known game values.
+            // If SQEX changes Fire's MP cost in a future patch, update these constants.
+            if (AstralStacks > 0 && Core.Me.CurrentMana < 1600)
+                return false;
+
+            if (AstralStacks == 0 && Core.Me.CurrentMana < 800)
                 return false;
 
             return await Spells.Fire.Cast(Core.Me.CurrentTarget);
@@ -280,20 +286,27 @@ namespace Magitek.Logic.BlackMage
         }
         public static async Task<bool> Blizzard()
         {
-
-            if (AstralStacks > 0)
-                return false;
-
-            //Low level logic
+            // Low level logic - when Blizzard3 isn't available, Blizzard handles AF/UI transitions
             if (!Spells.Blizzard3.IsKnown())
             {
+                // Don't cast right after Transpose if still in Astral Fire (edge case)
                 if (Casting.LastSpellWas(Spells.Transpose) && AstralStacks > 0)
                     return false;
 
-                if (Core.Me.CurrentMana < 1600 || (AstralStacks == 0 && UmbralStacks >= 0))
+                // FFXIV MP costs (patch 7.x): Fire base cost 800, doubled to 1600 in Astral Fire.
+                // Spells.Fire.Cost is NOT reliably dynamic for AF stance; hardcode known game values.
+                // If SQEX changes Fire's MP cost in a future patch, update these constants.
+
+                // In Astral Fire: switch to Umbral Ice when MP too low for Fire (1600 in AF)
+                if (AstralStacks > 0 && Core.Me.CurrentMana < 1600)
                     return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
 
-                if (Core.Me.CurrentMana < 1000 && AstralStacks == 0 && UmbralStacks > 0)
+                // In Umbral Ice: keep casting Blizzard while MP regens (maintains UI stacks)
+                if (UmbralStacks > 0 && Core.Me.CurrentMana < Core.Me.MaxMana)
+                    return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
+
+                // Neutral with low MP: enter Umbral Ice to start MP recovery
+                if (AstralStacks == 0 && UmbralStacks == 0 && Core.Me.CurrentMana < 1600)
                     return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
 
                 return false;
@@ -301,7 +314,6 @@ namespace Magitek.Logic.BlackMage
 
             if (Casting.LastSpellWas(Spells.Blizzard4))
                 return false;
-
 
             return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
         }
