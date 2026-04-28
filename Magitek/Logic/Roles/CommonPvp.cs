@@ -461,7 +461,7 @@ namespace Magitek.Logic.Roles
         private static readonly Dictionary<ClassJobType, (double DamageDealtMultiplier, double DamageTakenMultiplier)> FrontlineJobModifiers = new Dictionary<ClassJobType, (double, double)>
         {
             // Tanks
-            { ClassJobType.Paladin, (1.00, 0.50) },      // 0% dealt, -50% taken
+            { ClassJobType.Paladin, (1.00, 0.55) },      // 0% dealt, -45% taken (Patch 7.45: -50% -> -45%)
             { ClassJobType.Warrior, (0.90, 0.50) },      // -10% dealt, -50% taken
             { ClassJobType.DarkKnight, (0.85, 0.60) },  // -15% dealt, -40% taken
             { ClassJobType.Gunbreaker, (1.00, 0.45) },  // 0% dealt, -55% taken
@@ -470,7 +470,7 @@ namespace Magitek.Logic.Roles
             { ClassJobType.Monk, (1.00, 0.50) },        // 0% dealt, -50% taken
             { ClassJobType.Dragoon, (0.85, 0.50) },      // -15% dealt, -50% taken
             { ClassJobType.Ninja, (1.00, 0.55) },       // 0% dealt, -45% taken
-            { ClassJobType.Samurai, (0.90, 0.50) },     // -10% dealt, -50% taken
+            { ClassJobType.Samurai, (0.95, 0.50) },     // -5% dealt, -50% taken (Patch 7.45: -10% dealt -> -5%)
             { ClassJobType.Reaper, (1.00, 0.50) },      // 0% dealt, -50% taken
             { ClassJobType.Viper, (1.00, 0.40) },       // 0% dealt, -60% taken
 
@@ -482,7 +482,7 @@ namespace Magitek.Logic.Roles
             // Ranged Magical DPS
             { ClassJobType.BlackMage, (0.95, 0.70) },   // -5% dealt, -30% taken
             { ClassJobType.Summoner, (0.90, 0.70) },    // -10% dealt, -30% taken
-            { ClassJobType.RedMage, (1.00, 0.62) },     // 0% dealt, -38% taken
+            { ClassJobType.RedMage, (1.00, 0.55) },     // 0% dealt, -45% taken (Patch 7.45: -38% -> -45%)
             { ClassJobType.Pictomancer, (0.90, 0.70) }, // -10% dealt, -30% taken
 
             // Healers
@@ -629,7 +629,7 @@ namespace Magitek.Logic.Roles
         private static readonly Dictionary<uint, double> TargetAuras = new Dictionary<uint, double>
         {
             // Auras on target that increase damage they take (vulnerability debuffs)
-            { Auras.PvpGuard, 0.10 }, // Guard - reduces damage taken by 90%
+            { Auras.PvpGuard, 0.01 }, // Guard - reduces damage taken by 99% (Patch 7.5: was 90%)
             { Auras.PvpShieldSmite, 1.10 }, // PLD - increases damage taken by 10%
             { Auras.PvpOnslaught, 1.10 }, // WAR - increases damage taken by 10%
             { Auras.PvpRelentlessShrapnel, 1.05 }, // GNB - increases damage taken by 5%
@@ -639,7 +639,7 @@ namespace Magitek.Logic.Roles
             { Auras.PvpToxicon, 1.10 }, // SGE - increases damage taken by 10%
             { Auras.PvpChainSaw, 1.20 }, // MCH - increases damage taken by 20%
             { Auras.PvpPhantomDart, 1.25 }, // BLM - increases damage taken by 25%
-            { Auras.PvpMonomachy, 1.10 }, // RDM Corps-a-Corps - increases damage target receives from you by 10%
+            { Auras.PvpMonomachy, 1.15 }, // RDM Corps-a-Corps - increases damage target receives from you by 15% (Patch 7.5: was 10%)
             { Auras.PvpClawedMuse, 1.10 }, // PCT - increases damage taken by 10%
             
             // Auras on target that reduce damage they take (mitigation)
@@ -662,6 +662,7 @@ namespace Magitek.Logic.Roles
             { Auras.PvpRelentlessRush, 0.75 }, // GNB - reduces damage taken by 25%
             { Auras.PvpSaltedEarth, 0.80 }, // DRK - reduces damage taken by 20%
             { Auras.PvpLifeoftheDragon, 1.15 }, // DRG - increases damage dealt by 15% (when on target)
+            { Auras.PvpMountainBusterMit, 0.85 }, // SMN (Patch 7.5) - reduces damage taken by 15% for 5s after Mountain Buster
         };
 
         private static readonly Dictionary<uint, double> SelfAuras = new Dictionary<uint, double>
@@ -673,7 +674,7 @@ namespace Magitek.Logic.Roles
             { Auras.PvpDesperateMeasures, 1.10 }, // SCH - increases damage dealt by 10%
             { Auras.PvpFireResonance, 1.50 }, // MNK - increases damage dealt by next weaponskill by 50%
             { Auras.PvpLifeoftheDragon, 1.25 }, // DRG - increases damage dealt by 25% (on self)
-            { Auras.PvpBloodbath, 1.10 }, // Melee role - increases damage dealt by 10%
+            { Auras.PvpBloodbath, 1.25 }, // Melee role - increases damage dealt by 25% (Patch 7.5: was 10%)
             { Auras.PvpDisplacement, 1.15 }, // RDM - increases next spell's damage by 15%
             { Auras.PvpEmbolden, 1.08 }, // RDM - increases damage dealt by 8% (on self)
             { Auras.PvpPomMuse, 1.20 }, // PCT - increases damage dealt by 20%
@@ -704,13 +705,13 @@ namespace Magitek.Logic.Roles
             { Auras.PvpSeraphicVeil, 6000 }, // SCH - absorbs potency of 6000
             { Auras.PvpConsolation, 8000 }, // SCH - absorbs potency of 8000
             { Auras.PvpEpicycle, 6000 }, // AST - absorbs potency of 6000
-            { Auras.PvpNocturnalBenefic, 4000 }, // AST - absorbs potency of 4000
+            { Auras.PvpNocturnalBenefic, 6000 }, // AST Aspected/Nocturnal Benefic - absorbs potency of 6000 (Patch 7.45: was 4000)
             { Auras.PvpHaima, 4000 }, // SGE - absorbs potency of 4000
             { Auras.PvpStoneskin, 12000 }, // Healer role - absorbs potency of 12000
             { Auras.PvpThunderclap, 8000 }, // MNK - absorbs potency of 8000
             { Auras.PvpShadeShift, 8000 }, // NIN - absorbs potency of 8000
             { Auras.PvpHuton, 16000 }, // NIN - absorbs potency of 16000
-            { Auras.PvpKaeshiNamikiri, 10000 }, // SAM - absorbs potency of 10000
+            { Auras.PvpKaeshiNamikiri, 8000 }, // SAM - absorbs potency of 8000 (Patch 7.5: 10000 -> 8000; covers Ogi Namikiri and Kaeshi: Namikiri multi-target barrier)
             { Auras.PvpCrestOfTimeBorrowed, 12000 }, // RPR - absorbs potency of 12000
             { Auras.PvpArmoredScales, 4000 }, // VPR - absorbs potency of 4000
             { Auras.PvpAetherMortar, 7500 }, // MCH - absorbs potency of 7500
