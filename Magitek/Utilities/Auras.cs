@@ -649,7 +649,8 @@ namespace Magitek.Utilities
             PvpStemTheTide = 3031, // WAR - absorbs potency of 20% of 66000 (13200)
             PvpBlackestNight = 1308, // DRK - absorbs potency of 8000
             PvpSaltedEarth = 3037, // DRK - reduces damage taken by 20%
-            PvpSnowFort = 4965; // Environmental buff - shield from Worqor Chirteh
+            PvpSnowFort = 4965, // Environmental buff - shield from Worqor Chirteh
+            PvpMountainBusterMit = 5531; // SMN (Patch 7.5) - reduces damage taken by 15% for 5s after Mountain Buster
 
 
         #endregion
