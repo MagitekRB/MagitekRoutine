@@ -6426,9 +6426,57 @@ namespace Magitek.Utilities
                     },
                 }
             },
+            new Encounter {
+                ZoneId = 1345,
+                Name = "The Clyteum",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14758,
+                        Name = "Malphas",
+                        TankBusters = new List<uint> {
+                            50315, // Shadow Play
+                        },
+                        Aoes = new List<uint> {
+                            48920, // Rubbish Disposal
+                            48929, // Gluttonous Wire
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14716,
+                        Name = "Eye of the Scorpion",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            48896, // Eyes on Me
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14734,
+                        Name = "Chort",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            48884, // Ripples of Gloom
+                            48879, // Bodyweight Exorcism
+                            50417, // Evil Emission
+                            48886, // Profane Pressure
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
 
-
-            #endregion           
+            #endregion
 
             #region Dawntrail: Extreme Trials
             new Encounter {
