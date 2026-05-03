@@ -6604,6 +6604,29 @@ namespace Magitek.Utilities
                     },
                 }
             },
+            new Encounter {
+                ZoneId = 1361,
+                Name = "The Unmaking",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14749,
+                        Name = "Enuo",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            49971, // Meteorain
+                            49965, // Deep Freeze
+                            49967, // Shrouded Holy
+                            49928, // Almagest
+                            49969, // Dimension Zero
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
 
             #endregion
 
