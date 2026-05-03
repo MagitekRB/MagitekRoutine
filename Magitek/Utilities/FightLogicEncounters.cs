@@ -6936,6 +6936,114 @@ namespace Magitek.Utilities
                     },
                 }
             },
+            new Encounter {
+                ZoneId = 1368,
+                Name = "Windurst: The Third Walk",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14778,
+                        Name = "Shantotto the Demon",
+                        TankBusters = new List<uint> {
+                            50213, // Vidohunir
+                        },
+                        Aoes = new List<uint> {
+                            50215, // Flare Play
+                            50210, // Final Exam
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+            new Encounter {
+                ZoneId = 1368,
+                Name = "Windurst: The Third Walk",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14778,
+                        Name = "Shantotto the Demon",
+                        TankBusters = new List<uint> {
+                            50213, // Vidohunir
+                        },
+                        Aoes = new List<uint> {
+                            50215, // Flare Play
+                            50210, // Final Exam
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14529,
+                        Name = "Alexander Resurrected",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            50161, // Banishga IV
+                            50157, // Mega Holy
+                            50153, // Divine Judgment
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
+            new Encounter {
+                ZoneId = 1368,
+                Name = "Windurst: The Third Walk",
+                Expansion = FfxivExpansion.Dawntrail,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 14779,
+                        Name = "Promathia",
+                        TankBusters = new List<uint> {
+                            50337, // Comet
+                        },
+                        Aoes = new List<uint> {
+                            50317, // Empty Salvation
+                            50694, // Deadly Rebirth
+                            50334, // Infernal Deliverance
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14729,
+                        Name = "Shinryu Paradox",
+                        TankBusters = new List<uint> {
+                            49135, // Dark Nova
+                        },
+                        Aoes = null,
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14730,
+                        Name = "Hollow King",
+                        TankBusters = new List<uint> {
+                            49177, // Dark Nova
+                        },
+                        Aoes = new List<uint> {
+                            49152, // Left Swordscross
+                            49182, // Super Nova
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                }
+            },
             #endregion
 
             #region Dawntrail: Heavyweight Raids
