@@ -68,7 +68,7 @@ namespace Magitek.ViewModels
         public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderAOE { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
         public ObservableCollection<LockOnInfo> FightLogicBuilderLockOns { get; set; } = new ObservableCollection<LockOnInfo>();
         public ConcurrentObservableDictionary<Tuple<uint, uint, string>, LockOnInfo> LockOnHistory { get; set; } = new ConcurrentObservableDictionary<Tuple<uint, uint, string>, LockOnInfo>();
-        public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderKnockbacks { get; set; } = new AsyncObservableCollection<EnemySpellCastInfo>();
+        public ObservableCollection<EnemySpellCastInfo> FightLogicBuilderKnockbacks { get; set; } = new ObservableCollection<EnemySpellCastInfo>();
 
         public ICommand CopyFightLogicBuilderCommand { get; } = new RelayCommand(CopyFightLogicBuilder);
 
