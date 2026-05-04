@@ -84,7 +84,7 @@
                         <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_only_during_boss_fights}" IsChecked="{Binding PictomancerSettings.SaveHammerForMovementOnlyBoss, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Mog_Madeen}" IsChecked="{Binding PictomancerSettings.UseHammers, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Mog_Madeen}" IsChecked="{Binding PictomancerSettings.UseMogOfTheAges, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5" Content="{x:Static properties:Resources.Pictomancer_Content_Use_Star_Prism}" IsChecked="{Binding PictomancerSettings.UseStarPrism, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
