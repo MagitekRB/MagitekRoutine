@@ -236,17 +236,29 @@ namespace Magitek.Extensions
 
         public static IEnumerable<BattleCharacter> EnemiesNearby(this GameObject unit, float distance)
         {
-            return Combat.Enemies.Where(r => r.Distance(unit) <= distance + Core.Me.CombatReach + unit.CombatReach);
+            if (unit == null || Core.Me == null)
+                return Enumerable.Empty<BattleCharacter>();
+
+            var meCombatReach = Core.Me.CombatReach;
+            var unitCombatReach = unit.CombatReach;
+
+            return Combat.Enemies.Where(r => r != null && r.Distance(unit) <= distance + meCombatReach + unitCombatReach);
         }
 
         public static IEnumerable<BattleCharacter> EnemiesNearbyOoc(this GameObject unit, float distance)
         {
-            return GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(r => r.IsTargetable && r.CurrentHealth > 0 && r.CanAttack && r.Distance(unit) <= distance);
+            if (unit == null)
+                return Enumerable.Empty<BattleCharacter>();
+
+            return GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(r => r != null && r.IsTargetable && r.CurrentHealth > 0 && r.CanAttack && r.Distance(unit) <= distance);
         }
 
         public static IEnumerable<BattleCharacter> EnemiesNearbyWithMyAura(this GameObject unit, float distance, uint aura)
         {
-            return Combat.Enemies.Where(r => r.Distance(unit) <= distance && r.HasAura(aura, true));
+            if (unit == null)
+                return Enumerable.Empty<BattleCharacter>();
+
+            return Combat.Enemies.Where(r => r != null && r.Distance(unit) <= distance && r.HasAura(aura, true));
         }
 
         public static bool IsMelee(this GameObject unit)
