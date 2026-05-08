@@ -127,7 +127,7 @@ namespace Magitek.Utilities
                 return Core.Me.CurrentTarget == null ? null : (BattleCharacter)Core.Me.CurrentTarget;
 
             var bestTarget = Enemies.Where(x => x.WithinSpellRange(spell.Range))
-                .OrderBy(x => x.EnemiesNearby(spell.Radius).Count());
+                .OrderByDescending(x => x.EnemiesNearby(spell.Radius).Count());
 
             return bestTarget?.FirstOrDefault();
         }
