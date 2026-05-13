@@ -29,6 +29,11 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || NinjaRoutine.UsedMudras.Count() > 0)
                 return false;
 
+            // Hold Kassatsu until Trick Attack/Kunai's Bane is on cooldown so Hyosho lands inside the debuff window
+            if (NinjaSettings.Instance.UseTrickAttack && !NinjaSettings.Instance.BurstLogicHoldBurst
+                && Spells.TrickAttack.IsKnownAndReady())
+                return false;
+
             return await Spells.Kassatsu.Cast(Core.Me);
 
         }

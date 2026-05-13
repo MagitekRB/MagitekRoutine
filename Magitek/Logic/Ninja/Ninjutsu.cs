@@ -198,10 +198,7 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Jin.IsKnown())
                 return false;
 
-            if (!Core.Me.HasAura(Auras.Kassatsu) && (Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell != Spells.Kassatsu))
-                return false;
-
-            if (Spells.TrickAttack.Cooldown < new TimeSpan(0, 0, 45))
+            if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
             if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
@@ -220,10 +217,7 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Jin.IsKnown())
                 return false;
 
-            if (!Core.Me.HasAura(Auras.Kassatsu) && (Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell != Spells.Kassatsu))
-                return false;
-
-            if (Spells.TrickAttack.Cooldown < new TimeSpan(0, 0, 45))
+            if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
             if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
