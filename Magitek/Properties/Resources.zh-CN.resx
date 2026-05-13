@@ -1986,6 +1986,9 @@
   <data name="OccultCrescent_Content_Automatically_switch_phanto" xml:space="preserve">
     <value>为知见水晶增益自动切换幻影职业</value>
   </data>
+  <data name="OccultCrescent_Content_Prefer_Inquiring_Mind" xml:space="preserve">
+    <value>优先使用探究之心（自由职业者15级，一次施放所有增益）</value>
+  </data>
   <data name="OccultCrescent_Content_Restore_original_phantom_jo" xml:space="preserve">
     <value>自动增益后恢复原幻影职业</value>
   </data>

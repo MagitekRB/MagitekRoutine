@@ -1985,6 +1985,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Automatically_switch_phanto" xml:space="preserve">
     <value>Automatically switch phantom jobs for Knowledge Crystal buffs</value>
   </data>
+  <data name="OccultCrescent_Content_Prefer_Inquiring_Mind" xml:space="preserve">
+    <value>Prefer Inquiring Mind (Freelancer Lv15, all buffs in one cast)</value>
+  </data>
   <data name="OccultCrescent_Content_Restore_original_phantom_jo" xml:space="preserve">
     <value>Restore original phantom job after auto-buffing</value>
   </data>

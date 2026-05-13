@@ -123,6 +123,13 @@
                                         <StackPanel Margin="20,5,5,5">
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0,2">
+                                                        <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Prefer_Inquiring_Mind}"
+                                                                  IsChecked="{Binding PreferInquiringMind, Mode=TwoWay}"
+                                                                  Style="{DynamicResource CheckBoxFlat}"
+                                                                  IsEnabled="{Binding EnableAutomaticPhantomJobSwitching}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Margin="0,2">
                                                         <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Auto_switch_to_Knight_for_Enduring_Fortitude}"
                                                                   IsChecked="{Binding AutoSwitchToKnightForEnduringFortitude, Mode=TwoWay}"
                                                                   Style="{DynamicResource CheckBoxFlat}"

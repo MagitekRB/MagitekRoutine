@@ -8263,7 +8263,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Automatically_switch_phanto", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Prefer Inquiring Mind (Freelancer Lv15, all buffs in one cast).
+        /// </summary>
+        public static string OccultCrescent_Content_Prefer_Inquiring_Mind {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Prefer_Inquiring_Mind", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Occult Crescent Phantom Job System.
         /// </summary>
