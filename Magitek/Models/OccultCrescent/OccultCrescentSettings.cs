@@ -43,6 +43,10 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
+        public bool PreferInquiringMind { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool AutoSwitchToKnightForEnduringFortitude { get; set; }
 
         [Setting]

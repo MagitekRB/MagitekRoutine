@@ -159,6 +159,9 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData SteadfastStance = DataManager.GetSpellData(46604);
         public static readonly SpellData Mesmerize = DataManager.GetSpellData(46605);
 
+        // Freelancer Spells
+        public static readonly SpellData InquiringMind = DataManager.GetSpellData(46606);
+
         // Phantom Mystic Knight Spells (Job ID: 4803)
         public static readonly SpellData MagicShell = DataManager.GetSpellData(46590);
         public static readonly SpellData SunderingSpellblade = DataManager.GetSpellData(46591);

@@ -31,7 +31,8 @@ namespace Magitek.Utilities
                 {
                     AuraId = OCAuras.RomeosBallad, // 4244
                     BuffName = "Romeo's Ballad",
-                    JobName = "Bard"
+                    JobName = "Bard",
+                    RequiredJobLevel = 2
                 }
             },
             // Knight (ID=1) -> Pray -> Enduring Fortitude aura
@@ -41,7 +42,8 @@ namespace Magitek.Utilities
                 {
                     AuraId = OCAuras.EnduringFortitude, // 4233
                     BuffName = "Enduring Fortitude",
-                    JobName = "Knight"
+                    JobName = "Knight",
+                    RequiredJobLevel = 2
                 }
             },
             // Monk (ID=3) -> Counterstance -> Fleetfooted aura
@@ -51,24 +53,28 @@ namespace Magitek.Utilities
                 {
                     AuraId = OCAuras.Fleetfooted, // 4239
                     BuffName = "Fleetfooted",
-                    JobName = "Monk"
+                    JobName = "Monk",
+                    RequiredJobLevel = 3
                 }
             },
-            // Dancer (ID=13) -> Quickstep -> Quicker Step aura
+            // Dancer (ID=15) -> Quickstep -> Quicker Step aura
             {
                 PhantomJobId.Dancer,
                 new KnowledgeCrystalBuff
                 {
                     AuraId = OCAuras.QuickerStep, // 4799
                     BuffName = "Quicker Step",
-                    JobName = "Dancer"
+                    JobName = "Dancer",
+                    RequiredJobLevel = 2
                 }
             }
         };
 
         /// <summary>
-        /// Automatically switch phantom jobs and cast knowledge crystal buffs when near a crystal
-        /// Restores the original phantom job after completing all buffs
+        /// Automatically switch phantom jobs and cast knowledge crystal buffs when near a crystal.
+        /// If Freelancer is level 15 and Inquiring Mind is preferred, casts all buffs in one action.
+        /// Otherwise falls back to individual job switching, skipping jobs below required level.
+        /// Restores the original phantom job after completing all buffs.
         /// </summary>
         /// <returns>True if any action was taken</returns>
         public static async Task<bool> AutoSwitchForKnowledgeCrystalBuffs()
@@ -137,9 +143,73 @@ namespace Magitek.Utilities
             var successfulBuffs = new List<string>();
             bool anyActionTaken = false;
 
-            // Try to cast all needed buffs
+            // Fast path: try Inquiring Mind (Freelancer level 15) to get all buffs at once
+            if (OccultCrescentSettings.Instance.PreferInquiringMind)
+            {
+                byte freelancerLevel = OccultCrescentMemory.GetSupportJobLevel(PhantomJobId.Freelancer);
+
+                if (freelancerLevel >= 15)
+                {
+                    Logger.WriteInfo($"[PhantomJobSwitcher] Freelancer level {freelancerLevel} detected, using Inquiring Mind for all buffs");
+
+                    bool needsSwitch = GetCurrentPhantomJobId() != PhantomJobId.Freelancer;
+
+                    if (needsSwitch)
+                    {
+                        if (!await SwitchToPhantomJob(PhantomJobId.Freelancer))
+                        {
+                            Logger.WriteInfo("[PhantomJobSwitcher] Failed to switch to Freelancer, falling back to individual buffs");
+                            goto IndividualBuffs;
+                        }
+                        anyActionTaken = true;
+                        await Coroutine.Wait(500, () => false);
+                    }
+
+                    if (await OCSpells.InquiringMind.Cast(Core.Me))
+                    {
+                        Logger.WriteInfo("[PhantomJobSwitcher] Successfully cast Inquiring Mind");
+                        await Casting.CheckForSuccessfulCast();
+                        await Coroutine.Wait(500, () => false);
+
+                        // Check which buffs were applied
+                        foreach (var (_, buffInfo) in neededBuffs)
+                        {
+                            if (!NeedsBuff(buffInfo))
+                                successfulBuffs.Add(buffInfo.BuffName);
+                        }
+                        anyActionTaken = true;
+
+                        // If all needed buffs are now present, restore and return
+                        if (successfulBuffs.Count == neededBuffs.Count)
+                        {
+                            await RestoreOriginalJob(originalPhantomJobId, anyActionTaken);
+                            Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind applied all buffs: {string.Join(", ", successfulBuffs)}");
+                            return true;
+                        }
+
+                        // Rebuild neededBuffs to only include what's still missing
+                        neededBuffs.RemoveAll(x => !NeedsBuff(x.buffInfo));
+                        Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind applied some buffs, {neededBuffs.Count} remaining");
+                    }
+                    else
+                    {
+                        Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind cast failed, falling back to individual buffs");
+                    }
+                }
+            }
+
+            IndividualBuffs:
+            // Individual buff path: switch to each job that has sufficient level
             foreach (var (neededJobId, neededBuffInfo) in neededBuffs)
             {
+                // Check job level before switching to avoid wasted attempts
+                byte jobLevel = OccultCrescentMemory.GetSupportJobLevel(neededJobId);
+                if (OccultCrescentMemory.IsAvailable && jobLevel < neededBuffInfo.RequiredJobLevel)
+                {
+                    Logger.WriteInfo($"[PhantomJobSwitcher] Skipping {neededBuffInfo.JobName} (level {jobLevel}, need {neededBuffInfo.RequiredJobLevel})");
+                    continue;
+                }
+
                 // Check if we're already in the needed phantom job
                 var currentJob = GetCurrentPhantomJobId();
                 bool alreadyInCorrectJob = currentJob == neededJobId;
@@ -152,53 +222,33 @@ namespace Magitek.Utilities
                 {
                     Logger.WriteInfo($"[PhantomJobSwitcher] Switching to {neededBuffInfo.JobName} for {neededBuffInfo.BuffName}");
 
-                    // Try to switch to the needed job
                     if (!await SwitchToPhantomJob(neededJobId))
                     {
-                        Logger.WriteInfo($"[PhantomJobSwitcher] Failed to switch to {neededBuffInfo.JobName} (likely not unlocked), trying next job");
-                        continue; // Try next job
+                        Logger.WriteInfo($"[PhantomJobSwitcher] Failed to switch to {neededBuffInfo.JobName}, trying next job");
+                        continue;
                     }
 
                     Logger.WriteInfo($"[PhantomJobSwitcher] Successfully switched to {neededBuffInfo.JobName}");
                     anyActionTaken = true;
-                    await Coroutine.Wait(500, () => false); // Brief delay to ensure buffs are fully applied
+                    await Coroutine.Wait(500, () => false);
                 }
 
-                // Try to cast the buff - if it fails, that's okay (user has job but not required level)
                 if (await CastKnowledgeCrystalBuff(neededJobId))
                 {
                     Logger.WriteInfo($"[PhantomJobSwitcher] Successfully cast {neededBuffInfo.BuffName}");
                     successfulBuffs.Add(neededBuffInfo.BuffName);
                     anyActionTaken = true;
 
-                    // Wait for the spell to actually finish casting before switching jobs
                     await Casting.CheckForSuccessfulCast();
-                    await Coroutine.Wait(500, () => false); // Brief delay to ensure buffs are fully applied
+                    await Coroutine.Wait(500, () => false);
                 }
                 else
                 {
-                    Logger.WriteInfo($"[PhantomJobSwitcher] Failed to cast {neededBuffInfo.BuffName} (user may not have required level), continuing");
-                    // Continue to next buff - this is okay, user has job but not required level
+                    Logger.WriteInfo($"[PhantomJobSwitcher] Failed to cast {neededBuffInfo.BuffName}, continuing");
                 }
             }
 
-            // Restore original phantom job only once at the end if we took any action
-            if (anyActionTaken &&
-                OccultCrescentSettings.Instance.RestoreOriginalPhantomJobAfterAutoBuff &&
-                GetCurrentPhantomJobId() != originalPhantomJobId)
-            {
-                Logger.WriteInfo($"[PhantomJobSwitcher] Restoring to original phantom job: {GetPhantomJobName(originalPhantomJobId)}");
-                await Coroutine.Wait(500, () => false); // Brief delay to ensure buffs are fully applied
-
-                if (await SwitchToPhantomJob(originalPhantomJobId))
-                {
-                    Logger.WriteInfo($"[PhantomJobSwitcher] Successfully restored to {GetPhantomJobName(originalPhantomJobId)}");
-                }
-                else
-                {
-                    Logger.WriteWarning($"[PhantomJobSwitcher] Failed to restore to {GetPhantomJobName(originalPhantomJobId)}");
-                }
-            }
+            await RestoreOriginalJob(originalPhantomJobId, anyActionTaken);
 
             // Log summary
             if (successfulBuffs.Count > 0)
@@ -211,6 +261,29 @@ namespace Magitek.Utilities
             }
 
             return anyActionTaken;
+        }
+
+        /// <summary>
+        /// Restore the original phantom job after buffing
+        /// </summary>
+        private static async Task RestoreOriginalJob(PhantomJobId originalPhantomJobId, bool anyActionTaken)
+        {
+            if (anyActionTaken &&
+                OccultCrescentSettings.Instance.RestoreOriginalPhantomJobAfterAutoBuff &&
+                GetCurrentPhantomJobId() != originalPhantomJobId)
+            {
+                Logger.WriteInfo($"[PhantomJobSwitcher] Restoring to original phantom job: {GetPhantomJobName(originalPhantomJobId)}");
+                await Coroutine.Wait(500, () => false);
+
+                if (await SwitchToPhantomJob(originalPhantomJobId))
+                {
+                    Logger.WriteInfo($"[PhantomJobSwitcher] Successfully restored to {GetPhantomJobName(originalPhantomJobId)}");
+                }
+                else
+                {
+                    Logger.WriteWarning($"[PhantomJobSwitcher] Failed to restore to {GetPhantomJobName(originalPhantomJobId)}");
+                }
+            }
         }
 
         /// <summary>
@@ -402,6 +475,7 @@ namespace Magitek.Utilities
             public uint AuraId { get; set; }
             public string BuffName { get; set; }
             public string JobName { get; set; }
+            public byte RequiredJobLevel { get; set; }
         }
     }
 }
