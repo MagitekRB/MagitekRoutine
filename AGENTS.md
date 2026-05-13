@@ -21,6 +21,10 @@ Authoritative guidance for developers working on the Magitek routine.
 - Test changes via a normal RebornBuddy session (attach to FFXIV and let it load Magitek as the combat routine).
 - Settings are stored alongside RebornBuddy's normal character settings (via `JsonSettings.CharacterSettingsDirectory`) and can be adjusted through the in‑game Magitek Settings UI (`BaseSettings.Instance.ShowSettingsModal`).
 
+### Contributing
+
+- Follow `CONTRIBUTING.md` for branch names, commit messages, pull requests, and attribution rules.
+
 ---
 
 ## FFXIV Job Context
