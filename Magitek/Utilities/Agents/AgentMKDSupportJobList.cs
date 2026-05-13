@@ -22,7 +22,7 @@ namespace Magitek.Utilities.Agents
         /// NOTE: This changes with game builds - prefer vtable lookup below
         /// Can be found at: https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/UI/Agent/AgentMKDSupportJobList.cs
         /// </summary>
-        private const int AgentId = 468;
+        private const int AgentId = 482;
 
         /// <summary>
         /// Memory pattern for agent vtable lookup (primary method)
@@ -32,7 +32,7 @@ namespace Magitek.Utilities.Agents
         /// <summary>
         /// Memory pattern for ChangeSupportJob function
         /// </summary>
-        private const string ChangeSupportJobPattern = "Search 40 53 48 83 EC ? 0F B6 DA E8 ? ? ? ? 48 85 C0 74 ? 38 58";
+        private const string ChangeSupportJobPattern = "Search 40 53 48 83 EC ? 0F B6 DA E8 ? ? ? ? 48 85 C0 74 ? 38 98";
 
         // Cached values - initialized once and reused
         private static IntPtr _changeSupportJobFunc = IntPtr.Zero;
@@ -55,21 +55,18 @@ namespace Magitek.Utilities.Agents
 
                 try
                 {
-                    // Find agent ID via vtable lookup as recommended by dev
+                    // Find agent ID via vtable lookup as recommended by dev, fall back to hardcoded AgentId
                     using (var pf = new PatternFinder(Core.Memory))
                     {
                         var agentVtable = pf.FindSingle(AgentVtablePattern, true);
                         if (agentVtable != IntPtr.Zero)
                         {
                             _agentId = AgentModule.FindAgentIdByVtable(agentVtable);
-                            if (_agentId <= 0)
-                            {
-                                return;
-                            }
                         }
-                        else
+
+                        if (_agentId <= 0)
                         {
-                            return;
+                            _agentId = AgentId;
                         }
 
                         // Get and cache the agent pointer
