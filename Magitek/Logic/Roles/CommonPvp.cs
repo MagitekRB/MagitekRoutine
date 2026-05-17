@@ -911,12 +911,12 @@ namespace Magitek.Logic.Roles
 
             // Search for any killable target in range
             var nearby = Combat.Enemies
-                .Where(e => e.WithinSpellRange(range)
+                .Where(e => !e.IsWarMachina()
+                        && e.WithinSpellRange(range)
                         && e.ValidAttackUnit()
-                        && e.InLineOfSight()
-                        && !e.IsWarMachina()
                         && (!checkGuard || !GuardCheck(settings, e))
-                        && (maxAlliesTargetingLimit <= 0 || !TooManyAlliesTargeting(settings, e)))
+                        && (maxAlliesTargetingLimit <= 0 || !TooManyAlliesTargeting(settings, e))
+                        && e.InLineOfSight())
                 .OrderBy(e => e.Distance(Core.Me));
 
             foreach (var target in nearby)
