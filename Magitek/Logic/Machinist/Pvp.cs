@@ -179,9 +179,9 @@ namespace Magitek.Logic.Machinist
                 var nearby = Combat.Enemies
                     .Where(e => e.WithinSpellRange(Spells.ScattergunPvp.Range)
                             && e.ValidAttackUnit()
-                            && e.InLineOfSight()
                             && !e.IsWarMachina()
-                            && !CommonPvp.GuardCheck(MachinistSettings.Instance, e))
+                            && !CommonPvp.GuardCheck(MachinistSettings.Instance, e)
+                            && e.InLineOfSight())
                     .OrderBy(e => e.Distance(Core.Me));
                 var nearbyTarget = nearby.FirstOrDefault();
 
@@ -297,9 +297,9 @@ namespace Magitek.Logic.Machinist
                 var nearby = Combat.Enemies
                     .Where(e => e.WithinSpellRange(Spells.BioblasterPvp.Range)
                             && e.ValidAttackUnit()
-                            && e.InLineOfSight()
                             && !e.IsWarMachina()
-                            && !CommonPvp.GuardCheck(MachinistSettings.Instance, e))
+                            && !CommonPvp.GuardCheck(MachinistSettings.Instance, e)
+                            && e.InLineOfSight())
                     .OrderBy(e => e.Distance(Core.Me));
                 var nearbyTarget = nearby.FirstOrDefault();
 
