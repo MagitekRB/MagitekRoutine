@@ -200,6 +200,9 @@ namespace Magitek.Utilities.Managers
             if (await OccultCrescent.Execute())
                 return true;
 
+            if (await VariantDungeon.Execute())
+                return true;
+
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Pull");
         }
 
@@ -228,6 +231,9 @@ namespace Magitek.Utilities.Managers
                 return true;
 
             if (await OccultCrescent.Execute())
+                return true;
+
+            if (await VariantDungeon.Execute())
                 return true;
 
             if (Globals.InSanctuaryOrSafeZone)
@@ -283,6 +289,9 @@ namespace Magitek.Utilities.Managers
                 return true;
 
             if (await OccultCrescent.Execute())
+                return true;
+
+            if (await VariantDungeon.Execute())
                 return true;
 
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Combat");

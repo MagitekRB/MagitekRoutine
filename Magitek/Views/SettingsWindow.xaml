@@ -29,6 +29,7 @@
         xmlns:viper="clr-namespace:Magitek.Views.UserControls.Viper"
         xmlns:pictomancer="clr-namespace:Magitek.Views.UserControls.Pictomancer"
         xmlns:occultCrescent="clr-namespace:Magitek.Views.UserControls.OccultCrescent"
+        xmlns:variantDungeon="clr-namespace:Magitek.Views.UserControls.VariantDungeon"
         xmlns:globalPvp="clr-namespace:Magitek.Views.UserControls.GlobalPvp"
         Width="1000"
         Height="700"
@@ -435,6 +436,10 @@
                         <TabItem Header="Occult Crescent"
                                  Style="{DynamicResource MainTabOccultCrescent}">
                             <occultCrescent:General/>
+                        </TabItem>
+                        <TabItem Header="Variant Dungeon"
+                                 Style="{DynamicResource MainTabVariantDungeon}">
+                            <variantDungeon:General/>
                         </TabItem>
                     </TabControl>
                 </TabItem>

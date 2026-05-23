@@ -177,6 +177,16 @@ namespace Magitek.Logic.Roles
 
     internal class OccultCrescent
     {
+        private static readonly HashSet<ushort> OccultCrescentZoneIds = new()
+        {
+            1252,
+        };
+
+        public static bool IsInOccultCrescent()
+        {
+            return OccultCrescentZoneIds.Contains(WorldManager.ZoneId);
+        }
+
         private static readonly uint KnowledgeCrystal = 2007457;
 
         // Known Knowledge Crystal locations that never change
@@ -337,7 +347,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Check if we're in Occult Crescent content
-            if (!Core.Me.OnOccultCrescent())
+            if (!IsInOccultCrescent())
                 return false;
 
             // Get the current phantom job
@@ -394,7 +404,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Check if we're in Occult Crescent content
-            if (!Core.Me.OnOccultCrescent())
+            if (!IsInOccultCrescent())
                 return false;
 
             // Check if non-party resurrection is enabled

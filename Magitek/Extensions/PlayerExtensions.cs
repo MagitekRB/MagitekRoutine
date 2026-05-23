@@ -35,7 +35,12 @@ namespace Magitek.Extensions
 
         public static bool OnOccultCrescent(this LocalPlayer player)
         {
-            return WorldManager.ZoneId == 1252;
+            return Logic.Roles.OccultCrescent.IsInOccultCrescent();
+        }
+
+        public static bool InVariantDungeon(this LocalPlayer player)
+        {
+            return Logic.Roles.VariantDungeon.IsInVariantDungeon();
         }
 
         /// <summary>
