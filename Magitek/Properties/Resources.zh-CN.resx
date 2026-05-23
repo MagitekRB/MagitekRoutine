@@ -5520,4 +5520,70 @@
   <data name="Views_ToolTip_Check_to_move_and_resize_the_pvp_aggro_count_overlay" xml:space="preserve">
     <value>选中以移动和调整 PVP 仇恨计数器的大小</value>
   </data>
+  <data name="VariantDungeon_Content_Enable" xml:space="preserve">
+    <value>启用变体迷宫技能</value>
+  </data>
+  <data name="VariantDungeon_Text_Description" xml:space="preserve">
+    <value>变体迷宫提供特殊技能以弥补职能缺口。Magitek 自动检测你是否在变体迷宫中，并根据你的职能使用可用技能。</value>
+  </data>
+  <data name="VariantDungeon_Text_Healing" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantCure" xml:space="preserve">
+    <value>当 HP 低于以下百分比时使用变体治疗：</value>
+  </data>
+  <data name="VariantDungeon_Content_VariantCureOnAllies" xml:space="preserve">
+    <value>当队友 HP 低于以下百分比时也治疗：</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantCureDescription" xml:space="preserve">
+    <value>即时治疗附带持续恢复。坦克和 DPS 可用。目标有活性化状态时效果翻倍。</value>
+  </data>
+  <data name="VariantDungeon_Text_Aggro" xml:space="preserve">
+    <value>仇恨与控制</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantUltimatum" xml:space="preserve">
+    <value>使用变体挑衅（抢夺仇恨）</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantUltimatumDescription" xml:space="preserve">
+    <value>范围挑衅附带 4 秒眩晕。当附近敌人未攻击你时施放。</value>
+  </data>
+  <data name="VariantDungeon_Text_Resurrection" xml:space="preserve">
+    <value>复活</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantRaise" xml:space="preserve">
+    <value>使用变体复活</value>
+  </data>
+  <data name="VariantDungeon_Content_UseSwiftcastForRaise" xml:space="preserve">
+    <value>使用即刻咏唱配合变体复活</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantRaiseDescription" xml:space="preserve">
+    <value>复活倒下的队友。8 秒咏唱，30 秒冷却。坦克和 DPS 可用。</value>
+  </data>
+  <data name="VariantDungeon_Content_SlowcastVariantRaise" xml:space="preserve">
+    <value>战斗中慢读条变体复活</value>
+  </data>
+  <data name="VariantDungeon_Text_Damage" xml:space="preserve">
+    <value>伤害</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantSpiritDart" xml:space="preserve">
+    <value>使用变体毒箭（范围持续伤害）</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantSpiritDartDescription" xml:space="preserve">
+    <value>对目标及周围敌人施加持续伤害。30 秒持续时间。坦克和治疗可用。</value>
+  </data>
+  <data name="VariantDungeon_Text_Defense" xml:space="preserve">
+    <value>防御</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantRampart" xml:space="preserve">
+    <value>当 HP 低于以下百分比时使用变体铁壁：</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantRampartDescription" xml:space="preserve">
+    <value>减伤 20% 持续 60 秒 + 护盾持续 8 秒。15 秒冷却。治疗和 DPS 可用。</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantEagleEyeShot" xml:space="preserve">
+    <value>使用变体鹰眼射击</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
+    <value>远程攻击（25 码）。60 秒冷却。所有职能可用。</value>
+  </data>
 </root>
