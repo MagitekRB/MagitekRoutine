@@ -5292,4 +5292,70 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Views_ToolTip_Check_to_move_and_resize_the_pvp_aggro_count_overlay" xml:space="preserve">
     <value>Check to move and resize the PvP aggro count overlay</value>
   </data>
+  <data name="VariantDungeon_Content_Enable" xml:space="preserve">
+    <value>Enable Variant Dungeon Actions</value>
+  </data>
+  <data name="VariantDungeon_Text_Description" xml:space="preserve">
+    <value>Variant dungeons provide special actions that fill role gaps. Magitek automatically detects when you are in a variant dungeon and uses available actions based on your role.</value>
+  </data>
+  <data name="VariantDungeon_Text_Healing" xml:space="preserve">
+    <value>Healing</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantCure" xml:space="preserve">
+    <value>Use Variant Cure below HP%:</value>
+  </data>
+  <data name="VariantDungeon_Content_VariantCureOnAllies" xml:space="preserve">
+    <value>Also heal allies below HP%:</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantCureDescription" xml:space="preserve">
+    <value>Instant heal with regen. Available to Tanks and DPS. Potency doubles when target has Rehabilitation.</value>
+  </data>
+  <data name="VariantDungeon_Text_Aggro" xml:space="preserve">
+    <value>Aggro &amp; CC</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantUltimatum" xml:space="preserve">
+    <value>Use Variant Ultimatum (grab aggro)</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantUltimatumDescription" xml:space="preserve">
+    <value>AoE provoke with 4s stun. Casts when nearby enemies are not targeting you.</value>
+  </data>
+  <data name="VariantDungeon_Text_Resurrection" xml:space="preserve">
+    <value>Resurrection</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantRaise" xml:space="preserve">
+    <value>Use Variant Raise</value>
+  </data>
+  <data name="VariantDungeon_Content_UseSwiftcastForRaise" xml:space="preserve">
+    <value>Use Swiftcast for Variant Raise</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantRaiseDescription" xml:space="preserve">
+    <value>Resurrects a fallen party member. 8s cast, 30s cooldown. Available to Tanks and DPS.</value>
+  </data>
+  <data name="VariantDungeon_Content_SlowcastVariantRaise" xml:space="preserve">
+    <value>Slowcast Variant Raise in combat</value>
+  </data>
+  <data name="VariantDungeon_Text_Damage" xml:space="preserve">
+    <value>Damage</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantSpiritDart" xml:space="preserve">
+    <value>Use Variant Spirit Dart (AoE DoT)</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantSpiritDartDescription" xml:space="preserve">
+    <value>AoE DoT on target and nearby enemies. 30s duration. Available to Tanks and Healers.</value>
+  </data>
+  <data name="VariantDungeon_Text_Defense" xml:space="preserve">
+    <value>Defense</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantRampart" xml:space="preserve">
+    <value>Use Variant Rampart below HP%:</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantRampartDescription" xml:space="preserve">
+    <value>20% damage reduction for 60s + shield for 8s. 15s cooldown. Available to Healers and DPS.</value>
+  </data>
+  <data name="VariantDungeon_Content_UseVariantEagleEyeShot" xml:space="preserve">
+    <value>Use Variant Eagle Eye Shot</value>
+  </data>
+  <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
+    <value>Ranged attack (25y). 60s cooldown. Available to all roles.</value>
+  </data>
 </root>

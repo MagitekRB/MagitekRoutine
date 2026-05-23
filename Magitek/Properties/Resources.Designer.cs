@@ -14539,7 +14539,205 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Viper_Text_Uncoiled_Fury_ranged", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Variant Dungeon Actions.
+        /// </summary>
+        public static string VariantDungeon_Content_Enable {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_Enable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Variant Cure below HP%:.
+        /// </summary>
+        public static string VariantDungeon_Content_UseVariantCure {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseVariantCure", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Also heal allies below HP%:.
+        /// </summary>
+        public static string VariantDungeon_Content_VariantCureOnAllies {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_VariantCureOnAllies", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Variant Ultimatum (grab aggro).
+        /// </summary>
+        public static string VariantDungeon_Content_UseVariantUltimatum {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseVariantUltimatum", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Variant Raise.
+        /// </summary>
+        public static string VariantDungeon_Content_UseVariantRaise {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseVariantRaise", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Swiftcast for Variant Raise.
+        /// </summary>
+        public static string VariantDungeon_Content_UseSwiftcastForRaise {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseSwiftcastForRaise", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Variant Spirit Dart (AoE DoT).
+        /// </summary>
+        public static string VariantDungeon_Content_UseVariantSpiritDart {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseVariantSpiritDart", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Variant Rampart below HP%:.
+        /// </summary>
+        public static string VariantDungeon_Content_UseVariantRampart {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseVariantRampart", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Variant Eagle Eye Shot.
+        /// </summary>
+        public static string VariantDungeon_Content_UseVariantEagleEyeShot {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_UseVariantEagleEyeShot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Variant dungeons provide special actions....
+        /// </summary>
+        public static string VariantDungeon_Text_Description {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Healing.
+        /// </summary>
+        public static string VariantDungeon_Text_Healing {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_Healing", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Instant heal with regen....
+        /// </summary>
+        public static string VariantDungeon_Text_VariantCureDescription {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_VariantCureDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Aggro &amp; CC.
+        /// </summary>
+        public static string VariantDungeon_Text_Aggro {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_Aggro", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AoE provoke with 4s stun....
+        /// </summary>
+        public static string VariantDungeon_Text_VariantUltimatumDescription {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_VariantUltimatumDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Resurrection.
+        /// </summary>
+        public static string VariantDungeon_Text_Resurrection {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_Resurrection", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Resurrects a fallen party member....
+        /// </summary>
+        public static string VariantDungeon_Text_VariantRaiseDescription {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_VariantRaiseDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Slowcast Variant Raise in combat.
+        /// </summary>
+        public static string VariantDungeon_Content_SlowcastVariantRaise {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Content_SlowcastVariantRaise", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Damage.
+        /// </summary>
+        public static string VariantDungeon_Text_Damage {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_Damage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AoE DoT on target and nearby enemies....
+        /// </summary>
+        public static string VariantDungeon_Text_VariantSpiritDartDescription {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_VariantSpiritDartDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Defense.
+        /// </summary>
+        public static string VariantDungeon_Text_Defense {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_Defense", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 20% damage reduction for 60s + shield....
+        /// </summary>
+        public static string VariantDungeon_Text_VariantRampartDescription {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_VariantRampartDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ranged attack (25y)....
+        /// </summary>
+        public static string VariantDungeon_Text_VariantEagleEyeShotDescription {
+            get {
+                return ResourceManager.GetString("VariantDungeon_Text_VariantEagleEyeShotDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Bloodwhetting.
         /// </summary>

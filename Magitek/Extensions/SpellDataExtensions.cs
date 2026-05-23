@@ -181,7 +181,7 @@ namespace Magitek.Extensions
                     return false;
             }
 
-            if (!ActionManager.HasSpell(spell.Id) && !Core.Me.OnPvpMap() && !Core.Me.OnOccultCrescent())
+            if (!ActionManager.HasSpell(spell.Id) && !Core.Me.OnPvpMap() && !Core.Me.OnOccultCrescent() && !Core.Me.InVariantDungeon())
                 return false;
 
             if (!BaseSettings.Instance.UseCastOrQueue)
