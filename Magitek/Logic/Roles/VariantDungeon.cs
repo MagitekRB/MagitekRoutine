@@ -87,6 +87,9 @@ namespace Magitek.Logic.Roles
             if (!IsVariantSpellReady(VDSpells.VariantCure))
                 return false;
 
+            if (Core.Me.CurrentHealthPercent <= VariantDungeonSettings.Instance.VariantCureHealthPercent)
+                return await VDSpells.VariantCure.Cast(Core.Me);
+
             if (VariantDungeonSettings.Instance.VariantCureOnAllies && Globals.InParty)
             {
                 var allyTarget = Group.CastableAlliesWithin30
@@ -100,10 +103,7 @@ namespace Magitek.Logic.Roles
                     return await VDSpells.VariantCure.Cast(allyTarget);
             }
 
-            if (Core.Me.CurrentHealthPercent > VariantDungeonSettings.Instance.VariantCureHealthPercent)
-                return false;
-
-            return await VDSpells.VariantCure.Cast(Core.Me);
+            return false;
         }
 
         private static async Task<bool> VariantUltimatum()
