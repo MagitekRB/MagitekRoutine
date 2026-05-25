@@ -13,12 +13,18 @@ namespace Magitek.Logic.Roles
 {
     internal static class VDSpells
     {
+        // Dawntrail variant dungeon spell IDs (The Merchant's Tale and later)
         public static readonly SpellData VariantCure = DataManager.GetSpellData(46939);
         public static readonly SpellData VariantUltimatum = DataManager.GetSpellData(29730);
         public static readonly SpellData VariantRaise = DataManager.GetSpellData(29731);
         public static readonly SpellData VariantSpiritDart = DataManager.GetSpellData(46940);
         public static readonly SpellData VariantRampart = DataManager.GetSpellData(46941);
         public static readonly SpellData VariantEagleEyeShot = DataManager.GetSpellData(46942);
+
+        // Endwalker variant dungeon spell IDs (Sil'dihn, Rokkon, Aloalo)
+        public static readonly SpellData VariantCureOld = DataManager.GetSpellData(29729);
+        public static readonly SpellData VariantSpiritDartOld = DataManager.GetSpellData(29732);
+        public static readonly SpellData VariantRampartOld = DataManager.GetSpellData(29733);
     }
 
     internal static class VDAuras
@@ -38,6 +44,16 @@ namespace Magitek.Logic.Roles
                 return false;
 
             return ActionManager.CanCast(spell, target ?? Core.Me);
+        }
+
+        private static SpellData GetCastableVariant(SpellData primary, SpellData fallback, GameObject target = null)
+        {
+            var t = target ?? Core.Me;
+            if (primary != null && ActionManager.CanCast(primary, t))
+                return primary;
+            if (fallback != null && ActionManager.CanCast(fallback, t))
+                return fallback;
+            return null;
         }
 
         private static readonly HashSet<ushort> VariantDungeonZoneIds = new()
@@ -84,11 +100,12 @@ namespace Magitek.Logic.Roles
             if (!VariantDungeonSettings.Instance.UseVariantCure)
                 return false;
 
-            if (!IsVariantSpellReady(VDSpells.VariantCure))
-                return false;
-
             if (Core.Me.CurrentHealthPercent <= VariantDungeonSettings.Instance.VariantCureHealthPercent)
-                return await VDSpells.VariantCure.Cast(Core.Me);
+            {
+                var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld);
+                if (spell != null)
+                    return await spell.Cast(Core.Me);
+            }
 
             if (VariantDungeonSettings.Instance.VariantCureOnAllies && Globals.InParty)
             {
@@ -100,7 +117,11 @@ namespace Magitek.Logic.Roles
                     .FirstOrDefault();
 
                 if (allyTarget != null)
-                    return await VDSpells.VariantCure.Cast(allyTarget);
+                {
+                    var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld, allyTarget);
+                    if (spell != null)
+                        return await spell.Cast(allyTarget);
+                }
             }
 
             return false;
@@ -177,13 +198,14 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentTarget == null)
                 return false;
 
-            if (!IsVariantSpellReady(VDSpells.VariantSpiritDart, Core.Me.CurrentTarget))
-                return false;
-
             if (Core.Me.CurrentTarget.HasAura(VDAuras.VariantSpiritDart, true, 3000))
                 return false;
 
-            return await VDSpells.VariantSpiritDart.CastAura(Core.Me.CurrentTarget, (uint)VDAuras.VariantSpiritDart, true, 3000);
+            var spell = GetCastableVariant(VDSpells.VariantSpiritDart, VDSpells.VariantSpiritDartOld, Core.Me.CurrentTarget);
+            if (spell == null)
+                return false;
+
+            return await spell.CastAura(Core.Me.CurrentTarget, (uint)VDAuras.VariantSpiritDart, true, 3000);
         }
 
         private static async Task<bool> VariantRampart()
@@ -194,16 +216,17 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.InCombat)
                 return false;
 
-            if (!IsVariantSpellReady(VDSpells.VariantRampart))
-                return false;
-
             if (Core.Me.HasAura(VDAuras.VariantRampart))
                 return false;
 
             if (Core.Me.CurrentHealthPercent > VariantDungeonSettings.Instance.VariantRampartHealthPercent)
                 return false;
 
-            return await VDSpells.VariantRampart.Cast(Core.Me);
+            var spell = GetCastableVariant(VDSpells.VariantRampart, VDSpells.VariantRampartOld);
+            if (spell == null)
+                return false;
+
+            return await spell.Cast(Core.Me);
         }
 
         private static async Task<bool> VariantEagleEyeShot()
