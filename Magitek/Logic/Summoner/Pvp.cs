@@ -93,6 +93,7 @@ namespace Magitek.Logic.Summoner
 
         public static async Task<bool> RadiantAegisPvp()
         {
+            // Require a valid attack target so this self-shield only pops in real combat, not on incidental field damage.
             if (!Spells.RadiantAegisPvp.CanCast())
                 return false;
 

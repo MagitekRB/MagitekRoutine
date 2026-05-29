@@ -1,11 +1,14 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
+using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Samurai;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Magitek.Logic.Roles;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Samurai
 {
@@ -260,16 +263,58 @@ namespace Magitek.Logic.Samurai
             if (!Spells.ZantetsukenPvp.CanCast())
                 return false;
 
+            // Zantetsuken deals 24,000 potency, or 100% of the target's max HP when OUR Kuzushi is on them.
+            // Mitigation and ally damage buffs still scale it, so run the real number per-target through the potency
+            // calculator (same pattern as MCH Marksman's Spite / role Smite). Zantetsuken ignores Guard.
+            //
+            // When "only with Kuzushi" is enabled, returning 0 potency for non-Kuzushi targets makes them count as
+            // unkillable, so FindKillableTargetInRange skips them during the all-target search.
+            Func<GameObject, double> zantetsukenPotency = target =>
+            {
+                bool hasKuzushi = target.HasAura(Auras.PvpKuzushi, true);
+
+                if (SamuraiSettings.Instance.Pvp_ZantetsukenWithKuzushi && !hasKuzushi)
+                    return 0d;
+
+                return hasKuzushi ? target.MaxHealth : 24000d;
+            };
+
+            // Prefer a confirmed kill. Searches every enemy in range only when the user opted in; otherwise just the
+            // current target. Honors the ally-targeting cap the same way MCH does. Zantetsuken ignores Guard, so we
+            // skip the Guard filter on candidates.
+            var killableTarget = CommonPvp.FindKillableTargetInRange(
+                SamuraiSettings.Instance,
+                24000d, // base potency, overridden per-target by the calculator below
+                (float)Spells.ZantetsukenPvp.Range,
+                ignoreGuard: true,
+                checkGuard: false,
+                searchAllTargets: SamuraiSettings.Instance.Pvp_ZantetsukenAnyTarget,
+                potencyCalculator: zantetsukenPotency,
+                maxAlliesTargetingLimit: SamuraiSettings.Instance.Pvp_MaxAlliesTargetingLimit);
+
+            if (killableTarget != null)
+                return await Spells.ZantetsukenPvp.Cast(killableTarget);
+
+            // No confirmed kill found. Kills-only mode stops here.
+            if (SamuraiSettings.Instance.Pvp_ZantetsukenForKillsOnly)
+                return false;
+
+            // Fallback: spend it as limit-break pressure on the current target sitting below the configured HP
+            // threshold.
+            if (!Core.Me.HasTarget)
+                return false;
+
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ZantetsukenPvp.Range))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > SamuraiSettings.Instance.Pvp_ZantetsukenHealthPercent && !SamuraiSettings.Instance.Pvp_ZantetsukenWithKuzushi)
+            // "Only with Kuzushi" gate applies to the HP-threshold fallback too.
+            if (SamuraiSettings.Instance.Pvp_ZantetsukenWithKuzushi && !Core.Me.CurrentTarget.HasAura(Auras.PvpKuzushi, true))
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpKuzushi) && SamuraiSettings.Instance.Pvp_ZantetsukenWithKuzushi)
+            if (Core.Me.CurrentTarget.CurrentHealthPercent > SamuraiSettings.Instance.Pvp_ZantetsukenHealthPercent)
                 return false;
 
             // Check if too many allies are targeting the current target

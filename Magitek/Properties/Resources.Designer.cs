@@ -9514,7 +9514,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Paladin_Content_GoringBlade", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Guardian.
+        /// </summary>
+        public static string Paladin_Content_Guardian {
+            get {
+                return ResourceManager.GetString("Paladin_Content_Guardian", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Hallowed Ground (Invu).
         /// </summary>

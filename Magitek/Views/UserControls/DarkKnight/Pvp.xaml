@@ -31,9 +31,6 @@
                                            Text="{x:Static properties:Resources.Generic_General}"/>
                                 <StackPanel Margin="5"
                                             Orientation="Horizontal">
-                                        <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_BloodSpiller}"
-                                                  IsChecked="{Binding DarkKnightSettings.Pvp_Bloodspiller, Mode=TwoWay}"
-                                                  Style="{DynamicResource CheckBoxFlat}"/>
                                         <CheckBox Content="{x:Static properties:Resources.DarkKnight_Content_Impalement}"
                                                   IsChecked="{Binding DarkKnightSettings.Pvp_Impalement, Mode=TwoWay}"
                                                   Style="{DynamicResource CheckBoxFlat}"/>

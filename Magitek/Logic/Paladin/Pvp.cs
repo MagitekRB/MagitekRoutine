@@ -260,6 +260,29 @@ namespace Magitek.Logic.Paladin
             return await Spells.HolySheltronPvp.Cast(Core.Me);
         }
 
+        public static async Task<bool> GuardianPvp()
+        {
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            if (!Spells.GuardianPvp.CanCast())
+                return false;
+
+            if (!PaladinSettings.Instance.Pvp_Guardian)
+                return false;
+
+            // Protect the most-hurt nearby ally below the configured HP threshold (Pvp_GuardianHealthPercent).
+            var ally = Group.CastableAlliesWithin30
+                .Where(a => a.IsValid && a.IsAlive && !a.IsMe && a.CurrentHealthPercent <= PaladinSettings.Instance.Pvp_GuardianHealthPercent)
+                .OrderBy(a => a.CurrentHealthPercent)
+                .FirstOrDefault();
+
+            if (ally == null)
+                return false;
+
+            return await Spells.GuardianPvp.Cast(ally);
+        }
+
         public static async Task<bool> IntervenePvp()
         {
             if (Core.Me.HasAura(Auras.PvpGuard))
@@ -311,13 +334,13 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.BladeofFaithPvp.CanCast())
-                return false;
-
             if (!Core.Me.HasTarget)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.BladeofFaithPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.BladeofFaithPvp.Cast(Core.Me.CurrentTarget);
@@ -328,13 +351,13 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.BladeofTruthPvp.CanCast())
-                return false;
-
             if (!Core.Me.HasTarget)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.BladeofTruthPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.BladeofTruthPvp.Cast(Core.Me.CurrentTarget);
@@ -345,13 +368,13 @@ namespace Magitek.Logic.Paladin
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Spells.BladeofValorPvp.CanCast())
-                return false;
-
             if (!Core.Me.HasTarget)
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
+            if (!Spells.BladeofValorPvp.CanCast(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.BladeofValorPvp.Cast(Core.Me.CurrentTarget);

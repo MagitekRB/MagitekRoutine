@@ -110,14 +110,21 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(WarriorSettings.Instance)) return true;
 
-            // BURST CHECK: Wrap everything except basic combo
             if (CommonPvp.ShouldUseBurst())
             {
+                // Self-sustain — fires regardless of the target's Guard (self-cast heal/shield that also enables
+                // the Chaotic Cyclone follow-up).
+                if (await Pvp.BloodwhettingPvp()) return true;
+
+                // Don't dump the AoE burst into a Guarded primary target.
                 if (!CommonPvp.GuardCheck(WarriorSettings.Instance))
                 {
                     // Limit Break
                     if (await Pvp.PrimalScreamPvp()) return true;
                     if (await Pvp.PrimalWrathPvp()) return true;
+
+                    // Placed high so it actually fires
+                    if (await Pvp.FellCleavePvp()) return true;
 
                     // High Priority Abilities
                     if (await Pvp.PrimalRendPvp()) return true;
@@ -129,8 +136,7 @@ namespace Magitek.Rotations
                     if (await Pvp.OnslaughtPvp()) return true;
                     if (await Pvp.BlotaPvp()) return true;
 
-                    // Defensive and Healing
-                    if (await Pvp.BloodwhettingPvp()) return true;
+                    // Damage debuff
                     if (await Pvp.OrogenyPvp()) return true;
                 }
             }

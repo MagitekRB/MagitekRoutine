@@ -2363,6 +2363,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Paladin_Content_Phalanx_LB" xml:space="preserve">
     <value>Phalanx / LB</value>
   </data>
+  <data name="Paladin_Content_Guardian" xml:space="preserve">
+    <value>Guardian</value>
+  </data>
   <data name="Paladin_Content_Holy_Sheltron" xml:space="preserve">
     <value>Holy Sheltron</value>
   </data>

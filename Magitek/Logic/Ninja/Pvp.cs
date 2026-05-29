@@ -71,6 +71,9 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.AssassinatePvp.Range))
                 return false;
 
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             return await Spells.AssassinatePvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -279,7 +282,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) <= 5 + x.CombatReach) < NinjaSettings.Instance.Pvp_GokaMekkyakuMinEnemies)
+            if (Combat.Enemies.Count(x => x.Distance(Core.Me.CurrentTarget) < Spells.GokaMekkyakuPvp.Radius) < NinjaSettings.Instance.Pvp_GokaMekkyakuMinEnemies)
                 return false;
 
             return await Spells.GokaMekkyakuPvp.Cast(Core.Me.CurrentTarget);
@@ -426,6 +429,9 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ZeshoMeppoPvp.Range))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             return await Spells.ZeshoMeppoPvp.Cast(Core.Me.CurrentTarget);

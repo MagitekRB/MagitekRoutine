@@ -127,29 +127,39 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(PaladinSettings.Instance)) return true;
 
-            // BURST CHECK: Wrap everything except FastBlade combo (the basic attack fallback)
+            // Protect a low-HP ally (Guardian) — defensive, fires regardless of burst/Guard state.
+            if (await Pvp.GuardianPvp()) return true;
+
             if (CommonPvp.ShouldUseBurst())
             {
+                // Self-targeted defensives/utility — fine regardless of the target's Guard
                 if (await Pvp.PhalanxPvp()) return true;
-                if (await Pvp.BladeofValorPvp()) return true;
-                if (await Pvp.BladeofTruthPvp()) return true;
-                if (await Pvp.BladeofFaithPvp()) return true;
                 if (await Pvp.HolySheltronPvp()) return true;
 
+                // Shield Smite has its own Guard handling (Pvp_ShieldSmiteOnlyOnGuard)
                 if (await Pvp.ShieldSmitePvp()) return true;
-                if (await Pvp.HolySpiritPvp()) return true;
 
+                // Offensive burst — don't dump into a Guarded/invulnerable target (99% mitigated in 7.5)
                 if (!CommonPvp.GuardCheck(PaladinSettings.Instance))
                 {
+                    if (await Pvp.BladeofValorPvp()) return true;
+                    if (await Pvp.BladeofTruthPvp()) return true;
+                    if (await Pvp.BladeofFaithPvp()) return true;
+                    if (await Pvp.HolySpiritPvp()) return true;
                     if (await Pvp.ImperatorPvp()) return true;
                     if (await Pvp.IntervenePvp()) return true;
                 }
             }
 
-            if (await Pvp.AtonementPvp()) return true;
-            if (await Pvp.SupplicationPvp()) return true;
-            if (await Pvp.SepulchrePvp()) return true;
-            if (await Pvp.ConfiteorPvp()) return true;
+            // Combo follow-ups stay outside ShouldUseBurst so the chain completes once started (per design),
+            // but are still skipped against a Guarded target so we don't waste them into 99% mitigation.
+            if (!CommonPvp.GuardCheck(PaladinSettings.Instance))
+            {
+                if (await Pvp.AtonementPvp()) return true;
+                if (await Pvp.SupplicationPvp()) return true;
+                if (await Pvp.SepulchrePvp()) return true;
+                if (await Pvp.ConfiteorPvp()) return true;
+            }
 
             // Basic combo fallback (ONLY ungated abilities)
             if (await Pvp.RoyalAuthorityPvp()) return true;

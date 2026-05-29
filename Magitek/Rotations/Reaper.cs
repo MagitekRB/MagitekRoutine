@@ -126,14 +126,12 @@ namespace Magitek.Rotations
             // Defensive abilities
             if (await Pvp.ArcaneCrestPvp()) return true;
 
-            if (CommonPvp.ShouldUseBurst())
-            {
-                if (await Pvp.PerfectioPvp()) return true;
-                if (await Pvp.GuillotinePvp()) return true;
-            }
-
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(ReaperSettings.Instance))
             {
+                // Perfectio and Guillotine are normal damage — gate on target Guard so they aren't wasted into 99% mitigation
+                if (await Pvp.PerfectioPvp()) return true;
+                if (await Pvp.GuillotinePvp()) return true;
+
                 // Enshrouded abilities
                 if (await Pvp.TenebraeLemurumPvp()) return true;
                 if (await Pvp.LemureSlicePvp()) return true;

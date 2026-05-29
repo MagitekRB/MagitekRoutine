@@ -153,7 +153,10 @@ namespace Magitek.Rotations
 
             if (await CommonPvp.CommonTasks(MonkSettings.Instance)) return true;
 
-            // BURST CHECK: Wrap everything except basic combo
+            // Gap-closer — kept outside the burst/Guard gates so it can close distance regardless of Hold Burst or
+            // the target's Guard (it self-guards via CanUseGapCloser and its own range/settings checks).
+            if (await Pvp.ThunderclapPvp()) return true;
+
             if (CommonPvp.ShouldUseBurst())
             {
                 if (await Pvp.MeteodrivePvp()) return true;
@@ -166,10 +169,7 @@ namespace Magitek.Rotations
                     if (await Pvp.FlintsReplyPvp()) return true;
 
                     if (await Pvp.WindsReplyPvp()) return true;
-                    if (await Pvp.ThunderclapPvp()) return true;
                 }
-
-                // if (await Pvp.EnlightenmentPvp()) return true;
             }
 
             // Basic Combo (ungated) - reverse order for priority

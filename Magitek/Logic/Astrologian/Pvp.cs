@@ -16,6 +16,9 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.FallMaleficPvp.CanCast())
                 return false;
 
+            if (!AstrologianSettings.Instance.Pvp_FallMalefic)
+                return false;
+
             if (MovementManager.IsMoving)
                 return false;
 
@@ -98,6 +101,9 @@ namespace Magitek.Logic.Astrologian
             // Handle each possible masked spell type
             if (maskedSpell.Id == Spells.DoubleFallMaleficPvp.Id)
             {
+                if (!AstrologianSettings.Instance.Pvp_FallMalefic)
+                    return false;
+
                 if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                     return false;
 
@@ -105,6 +111,9 @@ namespace Magitek.Logic.Astrologian
             }
             else if (maskedSpell.Id == Spells.DoubleAspectedBeneficPvp.Id)
             {
+                if (!AstrologianSettings.Instance.Pvp_AspectedBenefic)
+                    return false;
+
                 if (Globals.HealTarget?.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent)
                 {
                     return await maskedSpell.Cast(Globals.HealTarget);
@@ -120,6 +129,9 @@ namespace Magitek.Logic.Astrologian
             }
             else if (maskedSpell.Id == Spells.DoubleGravityIIPvp.Id)
             {
+                if (!AstrologianSettings.Instance.Pvp_GravityII)
+                    return false;
+
                 if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                     return false;
 
@@ -154,6 +166,37 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             return await Spells.MacrocosmosPvp.Cast(Core.Me);
+        }
+
+        public static async Task<bool> MicrocosmosPvp()
+        {
+            if (!Spells.MicrocosmosPvp.CanCast())
+                return false;
+
+            if (!AstrologianSettings.Instance.Pvp_Microcosmos)
+                return false;
+
+            if (Core.Me.HasAura(Auras.PvpGuard))
+                return false;
+
+            // Microcosmos detonates the Macrocosmos buff early for its heal — only meaningful while it's active.
+            if (!Core.Me.HasAura(Auras.PvpMacrocosmos))
+                return false;
+
+            // Detonate early when an ally (or self) within range drops below the configured heal threshold,
+            // rather than waiting for the buff to expire on its own (the dev wanted that control).
+            var alliesNeedingHealing = Group.CastableAlliesWithin15.Count(x =>
+                x.IsValid &&
+                x.IsAlive &&
+                x.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_MicrocosmosHealthPercent);
+
+            if (Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_MicrocosmosHealthPercent)
+                alliesNeedingHealing++;
+
+            if (alliesNeedingHealing < 1)
+                return false;
+
+            return await Spells.MicrocosmosPvp.Cast(Core.Me);
         }
 
         public static async Task<bool> MinorArcanaPvp()

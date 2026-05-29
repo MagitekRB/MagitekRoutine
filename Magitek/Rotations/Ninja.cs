@@ -167,13 +167,16 @@ namespace Magitek.Rotations
             // BURST CHECK: Wrap everything except basic combo
             if (CommonPvp.ShouldUseBurst())
             {
+                // Seiton Tenchu ignores Guard and handles its own kill/target validation — it must NOT sit behind
+                // GuardCheck, or the guaranteed kill/incapacitate on a Guarded target (its best use) never fires.
+                if (await Pvp.SeitonTenchuPvp()) return true;
+
                 if (!CommonPvp.GuardCheck(NinjaSettings.Instance))
                 {
                     if (await Pvp.BunshinPvp()) return true;
                     if (await Pvp.ShukuchiPvp()) return true;
                     if (await Pvp.AssassinatePvp()) return true;
 
-                    if (await Pvp.SeitonTenchuPvp()) return true;
                     if (await Pvp.FleetingRaijuPvp()) return true;
                     if (await Pvp.DokumoriPvp()) return true;
                     if (await Pvp.ZeshoMeppoPvp()) return true;

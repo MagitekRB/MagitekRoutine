@@ -790,22 +790,20 @@ namespace Magitek.Logic.Roles
                 }
             }
 
-            // Special case: Debana (SAM) - only applies if we're SAM and we applied it
-            // Note: We can't easily verify if we applied it, so we check if we're SAM
-            if (target.HasAura(Auras.PvpDebana) && Core.Me.CurrentJob == ClassJobType.Samurai)
+            // Special case: Debana (SAM) - only applies if WE applied it (isMyAura) and we're SAM
+            if (target.HasAura(Auras.PvpDebana, true) && Core.Me.CurrentJob == ClassJobType.Samurai)
             {
                 estimatedDamage *= 1.15; // Increases damage dealt to target by 15%
             }
 
-            // Special case: Noxious Gnash (VPR) - only applies if we're VPR and we applied it
-            // Note: We can't easily verify if we applied it, so we check if we're VPR
-            if (target.HasAura(Auras.PvpNoxiousGnash) && Core.Me.CurrentJob == ClassJobType.Viper)
+            // Special case: Noxious Gnash (VPR) - only applies if WE applied it (isMyAura) and we're VPR
+            if (target.HasAura(Auras.PvpNoxiousGnash, true) && Core.Me.CurrentJob == ClassJobType.Viper)
             {
                 estimatedDamage *= 1.25; // Increases damage dealt to target by 25%
             }
 
             // Special case: Kuzushi (SAM) - increases damage dealt to target by 25% if we're SAM
-            if (target.HasAura(Auras.PvpKuzushi) && Core.Me.CurrentJob == ClassJobType.Samurai)
+            if (target.HasAura(Auras.PvpKuzushi, true) && Core.Me.CurrentJob == ClassJobType.Samurai)
             {
                 estimatedDamage *= 1.25; // Increases damage dealt to target by 25%
             }

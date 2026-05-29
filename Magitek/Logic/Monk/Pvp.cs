@@ -104,6 +104,9 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
                 return false;
 
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             return await spell.Cast(Core.Me.CurrentTarget);
         }
 
@@ -119,6 +122,9 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.WindsReplyPvp.Range))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             return await Spells.WindsReplyPvp.Cast(Core.Me.CurrentTarget);
@@ -178,6 +184,9 @@ namespace Magitek.Logic.Monk
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.ThunderclapPvp.Range))
                 return false;
 
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             return await Spells.ThunderclapPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -196,6 +205,10 @@ namespace Magitek.Logic.Monk
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpEarthResonance, true, 5555))
+                return false;
+
+            // Honor the configured HP threshold — hold Earth's Reply for emergencies instead of firing at full HP.
+            if (Core.Me.CurrentHealthPercent > MonkSettings.Instance.Pvp_EarthReplyHealthPercent)
                 return false;
 
             if (Combat.Enemies.Count(x => x.WithinSpellRange(6)) < 1)

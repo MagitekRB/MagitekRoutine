@@ -35,7 +35,6 @@
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Void_and_Cross_Reaping}" IsChecked="{Binding ReaperSettings.Pvp_VoidReapingNCrossReaping, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Soul_Slice}" IsChecked="{Binding ReaperSettings.Pvp_SoulSlice, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Content="{x:Static properties:Resources.Reaper_Content_Plentiful_Harvest}" IsChecked="{Binding ReaperSettings.Pvp_PlentifulHarvest, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">

@@ -107,7 +107,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.DetonatorPvp.CanCast())
                 return false;
 
-            if (WildfireTarget == null || !WildfireTarget.HasAura(Auras.PvpWildfire))
+            if (WildfireTarget == null || !WildfireTarget.HasAura(Auras.PvpWildfire, true))
             {
                 WildfireTarget = null;
                 WildfireStacks = 0;
@@ -146,7 +146,9 @@ namespace Magitek.Logic.Machinist
             if (!Spells.FullMetalFieldPvp.CanCast())
                 return false;
 
-            if (MachinistSettings.Instance.Pvp_SaveFullMetalForWildfire)
+            // Only hold Full Metal Field for a Wildfire combo if Wildfire is actually enabled — otherwise the hold
+            // would suppress Full Metal Field forever, waiting on a Wildfire that never fires.
+            if (MachinistSettings.Instance.Pvp_SaveFullMetalForWildfire && MachinistSettings.Instance.Pvp_Wildfire)
             {
                 var wildfireReady = Spells.WildfirePvp.Cooldown.TotalSeconds;
                 if (wildfireReady <= 8)
@@ -368,7 +370,8 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.BishopAutoturretPvp.Range))
                 return false;
 
-            // Count total enemies nearby (within 20 yalms)
+            // Flat 20y proximity (not WithinSpellRange): a wider awareness radius than the turret's range, to tell a
+            // 1v1 apart from a grouped fight.
             var nearbyEnemyCount = Combat.Enemies.Count(x => x.Distance(Core.Me) <= 20);
 
             // If only 1 enemy nearby (1v1 situation), always cast turret
