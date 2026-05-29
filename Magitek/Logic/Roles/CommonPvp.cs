@@ -977,10 +977,13 @@ namespace Magitek.Logic.Roles
             if (!settings.Pvp_UseRoleActions)
                 return false;
 
+            // Resolve Masked() BEFORE CanCast() — GetMaskedAction resolves the
+            // underlying action, which makes the subsequent CanCast check evaluate
+            // against the correct internal state for oGCD role actions like Smite.
+            var selectedAction = Spells.PvPRoleAction.Masked();
+
             if (!Spells.PvPRoleAction.CanCast())
                 return false;
-
-            var selectedAction = Spells.PvPRoleAction.Masked();
 
             // However ideally, most role actions would be better integrated into
             // the rotation logic, such as bravery being combined with chain saw.
@@ -1064,7 +1067,7 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastEagleEyeShot<T>(T settings) where T : JobSettings
         {
-            if (!Spells.PvPRoleAction.CanCast())
+            if (!Spells.RoleEageEyeShot.CanCast())
                 return false;
 
             // Eagle Eye Shot: 12,000 potency, ignores Guard, 40y range
@@ -1082,7 +1085,7 @@ namespace Magitek.Logic.Roles
 
             if (killableTarget != null)
             {
-                return await Spells.PvPRoleAction.Cast(killableTarget);
+                return await Spells.RoleEageEyeShot.Cast(killableTarget);
             }
 
             // Fallback to HP threshold if WouldKill is disabled or target not killable
@@ -1100,7 +1103,7 @@ namespace Magitek.Logic.Roles
                 if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_EagleEyeShotTargetHealthPercent)
                     return false;
 
-                return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
+                return await Spells.RoleEageEyeShot.Cast(Core.Me.CurrentTarget);
             }
 
             return false;
