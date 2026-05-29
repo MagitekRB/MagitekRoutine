@@ -977,10 +977,13 @@ namespace Magitek.Logic.Roles
             if (!settings.Pvp_UseRoleActions)
                 return false;
 
+            // Resolve Masked() BEFORE CanCast() — GetMaskedAction resolves the
+            // underlying action, which makes the subsequent CanCast check evaluate
+            // against the correct internal state for oGCD role actions like Smite.
+            var selectedAction = Spells.PvPRoleAction.Masked();
+
             if (!Spells.PvPRoleAction.CanCast())
                 return false;
-
-            var selectedAction = Spells.PvPRoleAction.Masked();
 
             // However ideally, most role actions would be better integrated into
             // the rotation logic, such as bravery being combined with chain saw.
