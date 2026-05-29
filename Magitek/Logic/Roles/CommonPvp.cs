@@ -1067,7 +1067,7 @@ namespace Magitek.Logic.Roles
 
         private static async Task<bool> CastEagleEyeShot<T>(T settings) where T : JobSettings
         {
-            if (!Spells.PvPRoleAction.CanCast())
+            if (!Spells.RoleEageEyeShot.CanCast())
                 return false;
 
             // Eagle Eye Shot: 12,000 potency, ignores Guard, 40y range
@@ -1085,7 +1085,7 @@ namespace Magitek.Logic.Roles
 
             if (killableTarget != null)
             {
-                return await Spells.PvPRoleAction.Cast(killableTarget);
+                return await Spells.RoleEageEyeShot.Cast(killableTarget);
             }
 
             // Fallback to HP threshold if WouldKill is disabled or target not killable
@@ -1103,7 +1103,7 @@ namespace Magitek.Logic.Roles
                 if (Core.Me.CurrentTarget.CurrentHealthPercent > Models.Account.BaseSettings.Instance.Pvp_EagleEyeShotTargetHealthPercent)
                     return false;
 
-                return await Spells.PvPRoleAction.Cast(Core.Me.CurrentTarget);
+                return await Spells.RoleEageEyeShot.Cast(Core.Me.CurrentTarget);
             }
 
             return false;
