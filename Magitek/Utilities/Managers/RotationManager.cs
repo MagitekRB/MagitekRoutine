@@ -310,7 +310,7 @@ namespace Magitek.Utilities.Managers
 
             if (await ExecuteRotationMethod(RotationManager.CurrentRotation, "PvP")) return true;
 
-            return BaseSettings.Instance.ActivePvpCombatRoutine;
+            return false;
         }
     }
 }
