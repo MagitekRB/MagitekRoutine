@@ -499,27 +499,27 @@ namespace Magitek
 
         public override Composite RestBehavior =>
             new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
-                new ActionRunCoroutine(_ => RotationManager.Rotation.Rest())));
+                new Decorator(_ => !WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.Rest()))));
 
         public override Composite PreCombatBuffBehavior =>
             new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
-                new ActionRunCoroutine(_ => RotationManager.Rotation.PreCombatBuff())));
+                new Decorator(_ => !WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.PreCombatBuff()))));
 
         public override Composite PullBehavior =>
             new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
-                new ActionRunCoroutine(_ => RotationManager.Rotation.Pull())));
+                new Decorator(_ => !WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.Pull()))));
 
         public override Composite HealBehavior =>
             new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
-                new ActionRunCoroutine(_ => RotationManager.Rotation.Heal())));
+                new Decorator(_ => !WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.Heal()))));
 
         public override Composite CombatBuffBehavior =>
             new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
-                new ActionRunCoroutine(_ => RotationManager.Rotation.CombatBuff())));
+                new Decorator(_ => !WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.CombatBuff()))));
 
         public override Composite CombatBehavior =>
             new Decorator(new PrioritySelector(new Decorator(_ => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine, new ActionRunCoroutine(_ => RotationManager.Rotation.PvP())),
-                new ActionRunCoroutine(_ => RotationManager.Rotation.Combat())));
+                new Decorator(_ => !WorldManager.InPvP, new ActionRunCoroutine(_ => RotationManager.Rotation.Combat()))));
 
         #endregion Behavior Composites
 
