@@ -66,17 +66,12 @@ namespace Magitek.Logic.RedMage
             if (!Spells.Scorch.IsKnown())
                 return false;
 
-            if (!Spells.Resolution.IsKnown())
-            {
-                if ((Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.Verholy)
-                    || Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.Verflare))
-                    && !Casting.SpellCastHistory.Take(3).Any(s => s.Spell == Spells.Scorch || s.Spell == Spells.Jolt || s.Spell == Spells.Resolution))
-                    return true;
-            }
+            // The magicked-combo finisher (Verholy/Verflare -> Scorch -> Resolution) is in progress
+            // only while a follow-up is actually castable.
+            if (Spells.Scorch.CanCast())
+                return true;
 
-            if ((Casting.SpellCastHistory.Take(6).Any(s => s.Spell == Spells.Verholy)
-                || Casting.SpellCastHistory.Take(6).Any(s => s.Spell == Spells.Verflare))
-                && (Casting.SpellCastHistory.Take(3).Count(s => s.Spell == Spells.Scorch || s.Spell == Spells.Jolt || s.Spell == Spells.Resolution) < 2))
+            if (Spells.Resolution.IsKnown() && RedMageRoutine.CanContinueComboAfter(Spells.Scorch))
                 return true;
 
             return false;
@@ -87,11 +82,18 @@ namespace Magitek.Logic.RedMage
             if (!Core.Me.HasTarget)
                 return false;
 
-            if (Core.Me.HasAura(Auras.MagickedSwordplay, true) || InAoeCombo() || InCombo() || !(WhiteMana < 50 || BlackMana < 50))
-                return (Core.Me.CurrentTarget.Distance() > (3 + Core.Me.CurrentTarget.CombatReach));
+            // Always close to avoid stranding an in-progress combo or a free Magicked Swordplay window.
+            bool inProgress = Core.Me.HasAura(Auras.MagickedSwordplay, true) || InAoeCombo() || InCombo();
+
+            // Starting the single-target melee combo from full mana respects the melee toggles.
+            bool canStartMeleeCombo = RedMageSettings.Instance.UseMelee
+                && (!RedMageSettings.Instance.MeleeComboBossesOnly || Combat.IsBoss())
+                && !(WhiteMana < 50 || BlackMana < 50);
+
+            if (inProgress || canStartMeleeCombo)
+                return Core.Me.CurrentTarget.Distance() > (3 + Core.Me.CurrentTarget.CombatReach);
 
             return false;
-
         }
     }
 }

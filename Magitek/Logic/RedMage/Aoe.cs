@@ -28,26 +28,22 @@ namespace Magitek.Logic.RedMage
             if (ManaStacks() == 3)
                 return false;
 
-            if (Casting.LastSpell == Spells.Moulinet
-                || Casting.LastSpell == Spells.EnchantedMoulinet
-                || Casting.LastSpell == Spells.EnchantedMoulinetDeux)
+            // Continue an in-progress AoE combo off live combo state (matches the melee combo); the
+            // enemy-count/mana gates below apply only when starting a fresh combo.
+            if (InAoeCombo())
                 return await Spells.Moulinet.Cast(Core.Me.CurrentTarget);
 
-            if (!InAoeCombo())
-            {
-                if (Spells.Embolden.IsKnown()
-                    && Spells.Embolden.Cooldown.TotalSeconds <= 13)
-                    return false;
+            // Starting a fresh AoE combo: honor the Embolden hold, the enemy-count threshold, and the
+            // 50/50 mana cost.
+            if (Spells.Embolden.IsKnown()
+                && Spells.Embolden.Cooldown.TotalSeconds > 0
+                && Spells.Embolden.Cooldown.TotalSeconds <= RedMageSettings.Instance.HoldAccelForEmboldenSeconds)
+                return false;
 
-                if (Core.Me.EnemiesInCone(8) < RedMageSettings.Instance.AoeEnemies)
-                    return false;
+            if (Core.Me.EnemiesInCone(8) < RedMageSettings.Instance.AoeEnemies)
+                return false;
 
-                //Combo is now 50 black and white mana not 60
-                if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 50 || BlackMana < 50))
-                    return false;
-            }
-
-            //Updated to 50 white or black mana as this is now a legit combo
+            //Combo is 50 black and white mana
             if (!Core.Me.HasAura(Auras.MagickedSwordplay) && (WhiteMana < 50 || BlackMana < 50))
                 return false;
 
@@ -197,7 +193,7 @@ namespace Magitek.Logic.RedMage
         * ********************************************************************************************/
         public static bool ForceLimitBreak()
         {
-            return MagicDps.ForceLimitBreak(Spells.Skyshard, Spells.Starstorm, Spells.Meteor, Spells.Blizzard);
+            return MagicDps.ForceLimitBreak(Spells.Skyshard, Spells.Starstorm, Spells.VermillionScourge, Spells.Jolt);
         }
     }
 }
