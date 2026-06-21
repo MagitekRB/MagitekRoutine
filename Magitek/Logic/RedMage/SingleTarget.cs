@@ -24,13 +24,19 @@ namespace Magitek.Logic.RedMage
             if (!RedMageSettings.Instance.UseMelee)
                 return false;
 
+            if (RedMageSettings.Instance.MeleeComboBossesOnly
+                && !Combat.IsBoss()
+                && !Core.Me.HasAura(Auras.MagickedSwordplay))
+                return false;
+
             if (Core.Me.HasAura(Auras.Swiftcast)
                 || Core.Me.HasAura(Auras.Dualcast)
                 || Core.Me.HasAura(Auras.Acceleration))
                 return false;
 
             if (Spells.Embolden.IsKnown()
-                && Spells.Embolden.Cooldown.TotalSeconds <= 10)
+                && Spells.Embolden.Cooldown.TotalSeconds > 0
+                && Spells.Embolden.Cooldown.TotalSeconds <= RedMageSettings.Instance.HoldAccelForEmboldenSeconds)
                 return false;
 
             if (InAoeCombo() || Core.Me.EnemiesInCone(8) >= RedMageSettings.Instance.AoeEnemies)
@@ -74,7 +80,8 @@ namespace Magitek.Logic.RedMage
 
             if ((BlackMana >= 15 && WhiteMana >= 15) || Core.Me.HasAura(Auras.MagickedSwordplay))
             {
-                if (RedMageRoutine.CanContinueComboAfter(Spells.Riposte))
+                if (RedMageRoutine.CanContinueComboAfter(Spells.Riposte)
+                    || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte))
                     return await Spells.Zwerchhau.Cast(Core.Me.CurrentTarget);
 
                 return false;
@@ -94,7 +101,8 @@ namespace Magitek.Logic.RedMage
 
             if ((BlackMana >= 15 && WhiteMana >= 15) || Core.Me.HasAura(Auras.MagickedSwordplay))
             {
-                if (RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau))
+                if (RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau)
+                    || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedZwerchhau))
                     return await Spells.Redoublement.Cast(Core.Me.CurrentTarget);
 
                 return false;
@@ -126,7 +134,9 @@ namespace Magitek.Logic.RedMage
             if (InCombo())
                 return false;
 
-            if (BlackMana < 65 || WhiteMana < 65)
+            // Enchanted Reprise spends 5/5 mana, so keep enough in reserve for the melee combo's 50/50
+            // (at 55/55 the 5/5 cost leaves exactly 50/50).
+            if (BlackMana < 55 || WhiteMana < 55)
                 return false;
 
             return await Spells.Reprise.Cast(Core.Me.CurrentTarget);
