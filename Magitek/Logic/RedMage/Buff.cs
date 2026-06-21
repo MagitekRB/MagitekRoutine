@@ -89,7 +89,10 @@ namespace Magitek.Logic.RedMage
             if (InComboEnder())
                 return false;
 
-            if (Spells.Embolden.Cooldown.TotalMilliseconds <= 13000) //trying a little more leeway
+            // Hold for the Embolden burst window only when Embolden is known and actually on cooldown.
+            if (Spells.Embolden.IsKnown()
+                && Spells.Embolden.Cooldown.TotalSeconds > 0
+                && Spells.Embolden.Cooldown.TotalSeconds <= RedMageSettings.Instance.HoldAccelForEmboldenSeconds)
                 return false;
 
             if (Spells.Manafication.IsKnownAndReady())
