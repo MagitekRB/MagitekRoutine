@@ -169,9 +169,7 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasAura(Auras.PvpBiolytic))
-                return false;
-
+            // Only act on OUR Biolytic (isMyAura) with enough duration left — the looser any-owner check was redundant.
             if (!Core.Me.CurrentTarget.HasAura(Auras.PvpBiolytic, true, 10500))
                 return false;
 
@@ -231,6 +229,9 @@ namespace Magitek.Logic.Scholar
             if (Group.CastableAlliesWithin20.Count(x => x.IsValid && x.IsAlive) < ScholarSettings.Instance.Pvp_SummonSeraphNearbyAllies)
                 return false;
 
+            // The "NearbyAllies" setting is reused as the enemy-count threshold (name is a misnomer). The Seraph
+            // follow-ups (Consolation, Seraphic Halo, Accession, Seraphic Veil) fire as masked upgrades of the basic
+            // heals while the fairy is active, so they aren't implemented separately.
             if (Combat.Enemies.Count(x => x.IsValid && x.IsAlive) < ScholarSettings.Instance.Pvp_SummonSeraphNearbyAllies)
                 return false;
 
@@ -261,6 +262,7 @@ namespace Magitek.Logic.Scholar
             if (Group.CastableAlliesWithin30.Count(x => x.IsValid && x.IsAlive) < ScholarSettings.Instance.Pvp_SeraphismNearbyAllies)
                 return false;
 
+            // "NearbyAllies" setting reused as the enemy-count threshold (name is a misnomer).
             if (Combat.Enemies.Count(x => x.IsValid && x.IsAlive) < ScholarSettings.Instance.Pvp_SeraphismNearbyAllies)
                 return false;
 

@@ -529,6 +529,8 @@ namespace Magitek.Utilities
             PvpBunshin = 2010,
             PvpFleetingRaijuReady = 3211,
             PvpZeshoMeppoReady = 4305,
+            PvpStarcrossReady = 4302,
+            PvpNastrondReady = 4404,
             PvpLifeoftheDragon = 3177,
             PvpOgiNamikiri = 3199,
             PvpMidare = 3203,

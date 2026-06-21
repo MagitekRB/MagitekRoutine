@@ -80,9 +80,6 @@ namespace Magitek.Logic.WhiteMage
             if (Core.Me.CurrentTarget.HasAura(Auras.PvpGuard))
                 return false;
 
-            if (!Core.Me.CurrentTarget.WithinSpellRange(15))
-                return false;
-
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 

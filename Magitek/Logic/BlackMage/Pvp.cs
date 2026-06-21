@@ -132,13 +132,17 @@ namespace Magitek.Logic.BlackMage
             if (CommonPvp.WouldKillWithPotency(potency, Core.Me.CurrentTarget))
                 return await Spells.XenoglossyPvp.Cast(Core.Me.CurrentTarget);
 
+            // Beyond securing a kill, don't sink Xenoglossy into a Guarded target (99% mitigated) as overcap/movement filler
+            if (CommonPvp.GuardCheck(BlackMageSettings.Instance, Core.Me.CurrentTarget))
+                return false;
+
             // If "Save for Kills" is enabled, skip overcap protection (would prevent us from ever using charges for movement/healing)
             if (!BlackMageSettings.Instance.Pvp_SaveXenoglossyForKills)
             {
-                // Calculate overcap threshold: GCD is 2.5s, charge time is 16s
+                // Calculate overcap threshold: GCD is 2.5s, charge time is 15s (Patch 7.5; was 16s)
                 // We need to cast if we'll get a charge within the next GCD window
                 const double PvpGcdSeconds = 2.5;
-                const double ChargeTimeSeconds = 16.0;
+                const double ChargeTimeSeconds = 15.0;
                 double overcapThreshold = Spells.XenoglossyPvp.MaxCharges - (PvpGcdSeconds / ChargeTimeSeconds);
 
                 // 2. Cast if about to overcap charges (prevent waste)

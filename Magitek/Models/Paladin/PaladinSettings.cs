@@ -373,6 +373,10 @@ namespace Magitek.Models.Paladin
         public bool Pvp_Guardian { get; set; }
 
         [Setting]
+        [DefaultValue(50.0f)]
+        public float Pvp_GuardianHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Pvp_HolySheltron { get; set; }
 

@@ -2364,6 +2364,9 @@
   <data name="Paladin_Content_Phalanx_LB" xml:space="preserve">
     <value>列阵 / LB 极限技</value>
   </data>
+  <data name="Paladin_Content_Guardian" xml:space="preserve">
+    <value>守护</value>
+  </data>
   <data name="Paladin_Content_Holy_Sheltron" xml:space="preserve">
     <value>圣盾阵</value>
   </data>

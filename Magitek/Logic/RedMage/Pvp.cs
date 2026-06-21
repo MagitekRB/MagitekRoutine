@@ -245,6 +245,7 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> ResolutionPvp()
         {
+            // Standalone HP-gated finisher, not a step of the Enchanted combo, so the HP gate can't stall the combo.
             if (!Spells.ResolutionPvp.CanCast())
                 return false;
 
@@ -287,7 +288,8 @@ namespace Magitek.Logic.RedMage
                 (float)Spells.SouthernCrossPvp.Range,
                 ignoreGuard: false,
                 checkGuard: true,
-                searchAllTargets: RedMageSettings.Instance.Pvp_SouthernCrossAnyTarget);
+                searchAllTargets: RedMageSettings.Instance.Pvp_SouthernCrossAnyTarget,
+                maxAlliesTargetingLimit: RedMageSettings.Instance.Pvp_MaxAlliesTargetingLimit);
 
             if (killableTarget != null)
             {
@@ -307,6 +309,10 @@ namespace Magitek.Logic.RedMage
                     return false;
 
                 if (Core.Me.CurrentTarget.CurrentHealthPercent > RedMageSettings.Instance.Pvp_SouthernCrossTargetHealthPercent)
+                    return false;
+
+                if (RedMageSettings.Instance.Pvp_MaxAlliesTargetingLimit > 0 &&
+                    CommonPvp.TooManyAlliesTargeting(RedMageSettings.Instance, Core.Me.CurrentTarget))
                     return false;
 
                 if (!Spells.SouthernCrossPvp.CanCast(Core.Me.CurrentTarget))

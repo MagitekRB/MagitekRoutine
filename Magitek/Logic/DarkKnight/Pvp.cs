@@ -154,6 +154,8 @@ namespace Magitek.Logic.DarkKnight
             if (Core.Me.CurrentHealthPercent > DarkKnightSettings.Instance.Pvp_EventideHealthPercent)
                 return false;
 
+            // Eventide is a tank-invuln line/rectangle AoE, not a gap-closer — require enemies nearby so it's used in
+            // a swarm rather than fired at a single stray target.
             if (Combat.Enemies.Count(x => x.WithinSpellRange(20)) < 1)
                 return false;
 

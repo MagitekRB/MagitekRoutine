@@ -273,10 +273,6 @@ namespace Magitek.Models.DarkKnight
         #region
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_Bloodspiller { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_Shadowbringer { get; set; }
 
         [Setting]

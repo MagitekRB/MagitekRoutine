@@ -86,12 +86,13 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(DarkKnightSettings.Instance)) return true;
 
-            // BURST CHECK: Wrap everything except basic combo
+            // Defensive shield (The Blackest Night) — fires regardless of the Hold Burst toggle; pure self-mitigation.
+            if (await Pvp.BlackestNightPvp()) return true;
+
             if (CommonPvp.ShouldUseBurst())
             {
                 if (await Pvp.EventidePvp()) return true;
                 if (await Pvp.SaltAndDarkness()) return true;
-                if (await Pvp.BlackestNightPvp()) return true;
                 if (await Pvp.SaltedEarthPvp()) return true;
 
                 if (!CommonPvp.GuardCheck(DarkKnightSettings.Instance))

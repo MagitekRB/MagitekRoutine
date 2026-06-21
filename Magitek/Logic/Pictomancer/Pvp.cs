@@ -120,6 +120,11 @@ namespace Magitek.Logic.Pictomancer
             if (!PictomancerSettings.Instance.Pvp_UsePaintBlack)
                 return false;
 
+            // Comet in Black is the black-paint cast under Subtractive Palette — honor its dedicated toggle too
+            // (previously dead: only Pvp_UsePaintBlack gated this cast).
+            if (!PictomancerSettings.Instance.Pvp_UseCometInBlack)
+                return false;
+
             if (!Core.Me.HasAura(Auras.PvpSubtractivePalette))
                 return false;
 
@@ -222,9 +227,9 @@ namespace Magitek.Logic.Pictomancer
             if (!spell.CanCast())
                 return false;
 
-            // Check if masked spell is Retribution of Madeen (ID 39783) or Mog of the Ages (ID 39782)
-            // Mog of the Ages: 14,000 potency, Retribution of Madeen: 16,000 potency
-            double potency = (spell.Id == Spells.RetributionOfMadeenPvp.Id) ? 16000 : 14000;
+            // Mog of the Ages and Retribution of the Madeen are both 14,000 potency as of Patch 7.5
+            // (7.5 reduced Retribution of the Madeen from 16,000 -> 14,000).
+            double potency = 14000;
 
             // Find killable target in range (handles target validation internally)
             var killableTarget = CommonPvp.FindKillableTargetInRange(
@@ -328,6 +333,7 @@ namespace Magitek.Logic.Pictomancer
             if (!spell.CanCast())
                 return false;
 
+            // Raw-distance count with a configurable yalm radius, intentionally wider than the spell's own radius.
             if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= PictomancerSettings.Instance.Pvp_AdventofChocobastionYalms + x.CombatReach) < PictomancerSettings.Instance.Pvp_AdventofChocobastionCount)
                 return false;
 

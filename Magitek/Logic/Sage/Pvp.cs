@@ -143,7 +143,7 @@ namespace Magitek.Logic.Sage
 
             var currentKardiaTarget = Group.CastableAlliesWithin30.Where(a => a.HasAura(Auras.PvpKardion, true)).FirstOrDefault();
 
-            // Only switch targets if current target is above 80% HP or if we don't have a target
+            // Only switch Kardia target if the current one is above 80% HP (hardcoded) or we don't have one.
             if (currentKardiaTarget != null && currentKardiaTarget.CurrentHealthPercent > 80 && currentKardiaTarget.WithinSpellRange(30))
             {
                 var kardiaTarget = Group.CastableAlliesWithin30
@@ -207,6 +207,9 @@ namespace Magitek.Logic.Sage
         public static async Task<bool> MesotesPvp()
         {
             if (!Spells.MesotesPvp.CanCast())
+                return false;
+
+            if (!SageSettings.Instance.Pvp_Mesotes)
                 return false;
 
             if (Core.Me.HasAura(Auras.PvpMesotes))

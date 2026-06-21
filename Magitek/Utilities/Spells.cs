@@ -1249,7 +1249,6 @@ namespace Magitek.Utilities
         public static readonly SpellData AdloquiumPvp = DataManager.GetSpellData(29232);
         public static readonly SpellData BiolysisPvp = DataManager.GetSpellData(29233);
         public static readonly SpellData DeploymentTacticsPvp = DataManager.GetSpellData(29234);
-        public static readonly SpellData MummificationPvp = DataManager.GetSpellData(29235);
         public static readonly SpellData ExpedientPvp = DataManager.GetSpellData(29236);
         public static readonly SpellData ConsolationPvp = DataManager.GetSpellData(29238);
         public static readonly SpellData SeraphicVeil = DataManager.GetSpellData(29240);
@@ -1337,8 +1336,6 @@ namespace Magitek.Utilities
         public static readonly SpellData DragonKickPvp = DataManager.GetSpellData(29475);
         public static readonly SpellData TwinSnakesPvp = DataManager.GetSpellData(29476);
         public static readonly SpellData DemolishPvp = DataManager.GetSpellData(29477);
-        public static readonly SpellData SixSidedStarPvp = DataManager.GetSpellData(29479);
-        public static readonly SpellData EnlightenmentPvp = DataManager.GetSpellData(29480);
         public static readonly SpellData RisingPhoenixPvp = DataManager.GetSpellData(29481);
         public static readonly SpellData RiddleofEarthPvp = DataManager.GetSpellData(29482);
         public static readonly SpellData EarthReplyPvp = DataManager.GetSpellData(29483);
@@ -1431,7 +1428,6 @@ namespace Magitek.Utilities
         public static readonly SpellData ArcaneCrestPvp = DataManager.GetSpellData(29552);
         public static readonly SpellData TenebraeLemurumPvp = DataManager.GetSpellData(29553);
         public static readonly SpellData CommunioPvp = DataManager.GetSpellData(29554);
-        public static readonly SpellData SoulSlicePvp = DataManager.GetSpellData(29566);
         public static readonly SpellData GuillotinePvp = DataManager.GetSpellData(41456);
         public static readonly SpellData PerfectioPvp = DataManager.GetSpellData(41458);
         public static readonly SpellData FateSealedPvp = DataManager.GetSpellData(41457);
@@ -1493,12 +1489,9 @@ namespace Magitek.Utilities
         public static readonly SpellData GnashingFangPvp = DataManager.GetSpellData(29102);
         public static readonly SpellData SavageClawPvp = DataManager.GetSpellData(29103);
         public static readonly SpellData WickedTalonPvp = DataManager.GetSpellData(29104);
-        public static readonly SpellData DoubleDownPvp = DataManager.GetSpellData(29105);
         public static readonly SpellData ContinuationPvp = DataManager.GetSpellData(29106);
         public static readonly SpellData HypervelocityPvp = DataManager.GetSpellData(29107);
         public static readonly SpellData RoughDividePvp = DataManager.GetSpellData(29123);
-        public static readonly SpellData DrawandJunctionPvp = DataManager.GetSpellData(29124);
-        public static readonly SpellData JunctionedPvp = DataManager.GetSpellData(29125);
         public static readonly SpellData NebulaPvp = DataManager.GetSpellData(29126);
         public static readonly SpellData BlastingZonePvp = DataManager.GetSpellData(29128);
         public static readonly SpellData AuroraPvp = DataManager.GetSpellData(29129);
@@ -1513,7 +1506,6 @@ namespace Magitek.Utilities
         public static readonly SpellData HardSlashPvp = DataManager.GetSpellData(29085);
         public static readonly SpellData SyphonStrikePvp = DataManager.GetSpellData(29086);
         public static readonly SpellData SouleaterPvp = DataManager.GetSpellData(29087);
-        public static readonly SpellData BloodspillerPvp = DataManager.GetSpellData(29088);
         public static readonly SpellData ShadowbringerPvp = DataManager.GetSpellData(29091);
         public static readonly SpellData PlungePvp = DataManager.GetSpellData(29092);
         public static readonly SpellData BlackestNightPvp = DataManager.GetSpellData(29093);

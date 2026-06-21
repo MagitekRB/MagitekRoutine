@@ -146,21 +146,21 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(DragoonSettings.Instance)) return true;
 
-            // BURST CHECK: Wrap everything except basic combo
             if (CommonPvp.ShouldUseBurst())
             {
+                // Starcross (self-centered AoE finisher) and Elusive Jump (mobility/escape) don't need the target-Guard gate
                 if (await Pvp.StarcrossPvp()) return true;
-                if (await Pvp.ChaoticSpringPvp()) return true;
-                if (await Pvp.HeavensThrustPvp()) return true;
-                if (await Pvp.WyrmwindThrustPvp()) return true;
-                if (await Pvp.NastrondPvp()) return true;
                 if (await Pvp.ElusiveJumpPvp()) return true;
 
+                // Damage abilities — don't dump them into a Guarded/invulnerable target (99% mitigated in 7.5)
                 if (!CommonPvp.GuardCheck(DragoonSettings.Instance))
                 {
+                    if (await Pvp.ChaoticSpringPvp()) return true;
+                    if (await Pvp.HeavensThrustPvp()) return true;
+                    if (await Pvp.WyrmwindThrustPvp()) return true;
+                    if (await Pvp.NastrondPvp()) return true;
                     if (await Pvp.SkyHighPvp()) return true;
                     if (await Pvp.GeirskogulPvp()) return true;
-
                     if (await Pvp.HighJumpPvp()) return true;
                     if (await Pvp.HorridRoarPvp()) return true;
                 }

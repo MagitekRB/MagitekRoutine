@@ -120,7 +120,8 @@ namespace Magitek.Rotations
 
             if (await CommonPvp.CommonTasks(BlackMageSettings.Instance)) return true;
 
-            // Limit Break
+            // Limit Break. The Soul Resonance follow-up (Flare/Frost Star) is held behind GuardCheck because its
+            // consumed-buff window outlasts Guard — better to wait Guard out than waste it into 99% mitigation.
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(BlackMageSettings.Instance))
             {
                 if (await Pvp.SoulResonancePvp()) return true;

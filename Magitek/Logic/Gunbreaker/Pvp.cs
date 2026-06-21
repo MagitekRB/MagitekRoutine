@@ -55,6 +55,9 @@ namespace Magitek.Logic.Gunbreaker
             if (!Spells.BurstStrikePvp.CanCast())
                 return false;
 
+            if (!GunbreakerSettings.Instance.Pvp_BurstStrike)
+                return false;
+
             return await Spells.BurstStrikePvp.CastPvpCombo(Spells.SolidBarrelPvpCombo, Core.Me.CurrentTarget);
         }
 
@@ -154,6 +157,9 @@ namespace Magitek.Logic.Gunbreaker
             if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
                 return false;
 
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+                return false;
+
             return await spell.Cast(Core.Me.CurrentTarget);
         }
 
@@ -245,6 +251,10 @@ namespace Magitek.Logic.Gunbreaker
                     return false;
 
                 if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
+                    return false;
+
+                // Blasting Zone is normal damage (not guard-ignoring) — don't waste it into a Guarded target.
+                if (CommonPvp.GuardCheck(GunbreakerSettings.Instance, Core.Me.CurrentTarget))
                     return false;
 
                 return await Spells.BlastingZonePvp.Cast(Core.Me.CurrentTarget);

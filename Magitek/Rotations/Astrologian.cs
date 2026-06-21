@@ -193,6 +193,7 @@ namespace Magitek.Rotations
 
             // Healing
             if (await Pvp.MacrocosmosPvp()) return true;
+            if (await Pvp.MicrocosmosPvp()) return true;
             if (await Pvp.AspectedBeneficPvp()) return true;
 
             // Special Actions

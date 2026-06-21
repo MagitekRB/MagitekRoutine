@@ -117,6 +117,13 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_Geirskogul)
                 return false;
 
+            // Starcross Ready and Nastrond Ready can be up simultaneously, but casting Nastrond CONSUMES Starcross
+            // Ready while casting Starcross leaves Nastrond Ready intact. So whenever Starcross is ready (and enabled),
+            // hold Nastrond and let Starcross fire first — otherwise we'd waste the queued Starcross. The aura (not
+            // CanCast) is used deliberately: it persists across GCDs/range gaps until Starcross is actually cast.
+            if (DragoonSettings.Instance.Pvp_Starcross && Core.Me.HasAura(Auras.PvpStarcrossReady))
+                return false;
+
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.NastrondPvp.Range))
                 return false;
 
@@ -232,7 +239,7 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.Pvp_Starcross)
                 return false;
 
-            if (Core.Me.CurrentTarget.WithinSpellRange(Spells.StarcrossPvp.Range))
+            if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.StarcrossPvp.Range))
                 return false;
 
             return await Spells.StarcrossPvp.Cast(Core.Me.CurrentTarget);
@@ -240,6 +247,8 @@ namespace Magitek.Logic.Dragoon
 
         public static async Task<bool> SkyShatterPvp()
         {
+            // Not wired into the rotation: Sky Shatter is the "land" payoff of Sky High, and a routine can't reliably
+            // time the dive (early dives waste it, and it's sometimes used purely to escape). Left for manual use.
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 

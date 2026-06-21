@@ -272,9 +272,9 @@ namespace Magitek.Logic.Dancer
 
             var cureTargets = Group.CastableParty.Count(x => x.IsValid && x.CurrentHealthPercent < DancerSettings.Instance.Pvp_CuringWaltzHP && x.Distance(Core.Me) < 5 + x.CombatReach);
 
-            if (Core.Me.HasAura(Auras.ClosedPosition))
+            if (Core.Me.HasAura(Auras.PvpClosedPosition))
             {
-                var DancePartner = Group.CastableParty.FirstOrDefault(x => x.HasMyAura(Auras.DancePartner));
+                var DancePartner = Group.CastableParty.FirstOrDefault(x => x.HasMyAura(Auras.PvpDancePartner));
 
                 if (DancePartner != null)
                     cureTargets += Group.CastableParty.Count(x => x.IsValid && x.CurrentHealthPercent < DancerSettings.Instance.Pvp_CuringWaltzHP && x.Distance(DancePartner) < 5 + x.CombatReach);
@@ -283,7 +283,8 @@ namespace Magitek.Logic.Dancer
             if (cureTargets < 1)
                 return false;
 
-            return await Spells.CuringWaltzPvp.Cast(Core.Me.CurrentTarget);
+            // Curing Waltz is a self-centered AoE heal — cast on self, not the enemy target (matches the PvE usage).
+            return await Spells.CuringWaltzPvp.Cast(Core.Me);
         }
 
         private static int GetWeight(Character c)

@@ -83,7 +83,7 @@ namespace Magitek.Logic.Viper
         {
             var spell = Spells.UncoiledFuryPvp;
 
-            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.WithinSpellRange(Spells.UncoiledFuryPvp.Radius))
+            if (Core.Me.HasAura(Auras.PvpReawakened, true) && Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.WithinSpellRange(Spells.UncoiledFuryPvp.Range))
                 return false;
 
             if (!spell.CanCast())
@@ -132,6 +132,8 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> Bloodcoil()
         {
+            // No kill-shot gating here: Sanguine Feast (the masked form) grants a shield the player spends manually,
+            // so unlike Uncoiled Fury it's cast on availability.
             var spell = Spells.BloodcoilPvp.Masked();
 
             if (spell.Charges < 1)

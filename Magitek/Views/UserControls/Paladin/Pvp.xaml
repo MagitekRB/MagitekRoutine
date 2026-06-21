@@ -66,6 +66,12 @@
             <StackPanel Margin="5">
                 <TextBlock Margin="0,0,0,5" Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.Generic_Buffs}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Guardian}" IsChecked="{Binding PaladinSettings.Pvp_Guardian, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Below}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding PaladinSettings.Pvp_GuardianHealthPercent, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Hp}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Paladin_Content_Holy_Sheltron}" IsChecked="{Binding PaladinSettings.Pvp_HolySheltron, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>

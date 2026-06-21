@@ -31,18 +31,6 @@
                            Text="{x:Static properties:Resources.Generic_General}"/>
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Monk_Content_Six_Sided_Star}"
-                              IsChecked="{Binding MonkSettings.Pvp_SixSidedStar, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5"
-                            Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Monk_Content_Enlightenment}"
-                              IsChecked="{Binding MonkSettings.Pvp_Enlightenment, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
-                </StackPanel>
-                <StackPanel Margin="5"
-                            Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Monk_Content_Thunderclap_After_Enlightenment}"
                               IsChecked="{Binding MonkSettings.Pvp_Thunderclap, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>
@@ -72,12 +60,6 @@
                                       Value="{Binding MonkSettings.Pvp_MaxAlliesTargetingLimit, Mode=TwoWay}"/>
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
                                Text="{x:Static properties:Resources.Generic_Allies_Targeting_It}"/>
-                </StackPanel>
-                <StackPanel Margin="5"
-                            Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Monk_Content_Meteodrive_LB_Only_After_Enlightenmen}"
-                              IsChecked="{Binding MonkSettings.Pvp_MeteodriveWithEnlightenment, Mode=TwoWay}"
-                              Style="{DynamicResource CheckBoxFlat}"/>
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

@@ -222,6 +222,8 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> FinalFantasiaPvp()
         {
+            // Self-buff + Encore of Light enabler with no range of its own. Only fire it on an attackable, in-range,
+            // low-HP target so the buff converts into a secured kill instead of being spent on a random full-HP enemy.
             if (!BardSettings.Instance.Pvp_UseFinalFantasia)
                 return false;
 
@@ -259,6 +261,14 @@ namespace Magitek.Logic.Bard
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(Spells.EncoreOfLightPvp.Range))
+                return false;
+
+            // Encore of Light is ~10k damage (not guard-ignoring) — don't waste it into a Guarded target (99% mitigated)
+            if (CommonPvp.GuardCheck(BardSettings.Instance, Core.Me.CurrentTarget))
+                return false;
+
+            // Encore of Light can't apply to Warmachina riders — don't waste it on a mounted target
+            if (CommonPvp.IsPvpMounted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.EncoreOfLightPvp.Cast(Core.Me.CurrentTarget);

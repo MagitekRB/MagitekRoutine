@@ -249,10 +249,6 @@ namespace Magitek.Models.Reaper
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_SoulSlice { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_DeathWarrant { get; set; }
 
         [Setting]

@@ -189,17 +189,14 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(WhiteMageSettings.Instance)) return true;
 
-            if (CommonPvp.ShouldUseBurst())
-            {
-                if (await Pvp.AfflatusPurgationPvp()) return true;
-            }
-
             if (await Pvp.CureIIIPvp()) return true;
             if (await Pvp.AquaveilPvp()) return true;
             if (await Pvp.CureIIPvp()) return true;
 
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(WhiteMageSettings.Instance))
             {
+                // Afflatus Purgation is a full-gauge ~18k damage LB — gate on target Guard so it isn't wasted into 99% mitigation
+                if (await Pvp.AfflatusPurgationPvp()) return true;
                 if (await Pvp.GlareIVPvp()) return true;
                 if (await Pvp.AfflatusMiseryPvp()) return true;
                 if (await Pvp.MiracleOfNaturePvp()) return true;

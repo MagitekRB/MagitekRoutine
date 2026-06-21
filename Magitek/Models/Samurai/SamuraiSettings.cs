@@ -212,6 +212,14 @@ namespace Magitek.Models.Samurai
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_ZantetsukenWithKuzushi { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_ZantetsukenForKillsOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool Pvp_ZantetsukenAnyTarget { get; set; }
         #endregion
 
     }

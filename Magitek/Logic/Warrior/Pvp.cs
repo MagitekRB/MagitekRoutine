@@ -115,6 +115,8 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.Pvp_Bloodwhetting)
                 return false;
 
+            // Uses Chaotic Cyclone's radius: Bloodwhetting grants the Chaotic Cyclone follow-up, so it's only worth
+            // using with an enemy in range to spend it on.
             if (Combat.Enemies.Count(x => x.WithinSpellRange(Spells.ChaoticCyclonePvp.Radius)) < 1)
                 return false;
 

@@ -120,7 +120,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.Pvp_DeathWarrant)
                 return false;
 
-            if (Core.Me.CurrentTarget.WithinSpellRange(7))
+            if (!Core.Me.CurrentTarget.WithinSpellRange(25))
                 return false;
 
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -196,10 +196,6 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.CurrentTarget.CurrentHealthPercent > ReaperSettings.Instance.Pvp_HarvestMoonTargetHealthPercent)
                 return false;
 
-            // Don't use if target is above 50% HP and we have Soulsow with 2s+ remaining
-            if (Core.Me.CurrentTarget.CurrentHealthPercent > 50)
-                return false;
-
             return await Spells.HarvestMoonPvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -241,6 +237,9 @@ namespace Magitek.Logic.Reaper
                 return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(8))
+                return false;
+
+            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             return await Spells.GuillotinePvp.Cast(Core.Me.CurrentTarget);

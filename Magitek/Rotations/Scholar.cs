@@ -207,13 +207,10 @@ namespace Magitek.Rotations
             if (await Pvp.AdloquiumPvp()) return true;
             if (await Pvp.ExpedientPvp()) return true;
 
-            if (CommonPvp.ShouldUseBurst())
-            {
-                if (await Pvp.ChainStratagemPvp()) return true;
-            }
-
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(ScholarSettings.Instance))
             {
+                // Chain Stratagem applies a damage-taken vuln — gate on target Guard so it isn't wasted into 99% mitigation (like Biolysis)
+                if (await Pvp.ChainStratagemPvp()) return true;
                 if (await Pvp.BiolysisPvp()) return true;
             }
 

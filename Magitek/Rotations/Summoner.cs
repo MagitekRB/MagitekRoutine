@@ -87,6 +87,7 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(SummonerSettings.Instance)) return true;
 
+            // The whole damage block is behind ShouldUseBurst: "Hold Burst" saves these abilities for the burst window.
             if (CommonPvp.ShouldUseBurst())
             {
                 if (await Pvp.RadiantAegisPvp()) return true;

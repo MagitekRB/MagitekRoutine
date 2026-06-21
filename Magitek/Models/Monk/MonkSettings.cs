@@ -176,15 +176,7 @@ namespace Magitek.Models.Monk
 
         [Setting]
         [DefaultValue(true)]
-        public bool Pvp_SixSidedStar { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Pvp_RisingPhoenix { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_Enlightenment { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -209,10 +201,6 @@ namespace Magitek.Models.Monk
         [Setting]
         [DefaultValue(50.0f)]
         public float Pvp_MeteodriveHealthPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool Pvp_MeteodriveWithEnlightenment { get; set; }
 
         [Setting]
         [DefaultValue(true)]
