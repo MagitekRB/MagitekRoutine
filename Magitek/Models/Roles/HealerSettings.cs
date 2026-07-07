@@ -11,7 +11,7 @@ namespace Magitek.Models.Roles
         protected HealerSettings(string path) : base(path) { }
 
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(100)]
         public int StopDamageWhenMoreThanEnemies { get; set; }
 
         [Setting]
