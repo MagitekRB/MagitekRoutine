@@ -126,9 +126,9 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
-            if (!Spells.Enkindle.IsKnown())
-                return false;
-
+            // No top-level Enkindle known-check: base action 184 is the removed Stormblood egi-command
+            // (no current job owns it), so IsKnown()/HasSpell is always false and would dead-gate this
+            // dispatcher. Each per-pet method guards on its real demi-enkindle (7429/16516/36998) below.
             if (Core.Me.SummonedPet() == SmnPets.Bahamut) return await EnkindleBahamut();
             if (Core.Me.SummonedPet() == SmnPets.SolarBahamut) return await EnkindleSolarBahamut();
             if (Core.Me.SummonedPet() == SmnPets.Phoenix) return await EnkindlePhoenix();
