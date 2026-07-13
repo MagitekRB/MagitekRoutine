@@ -64,7 +64,9 @@ namespace Magitek.Logic.Summoner
             if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
                 return false;
 
-            if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL && Combat.CombatTotalTimeLeft < 15)
+            if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL
+                && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
+                && Combat.CombatTotalTimeLeft < 15)
                 return false;
 
             return await Spells.SummonPhoenix.Cast(Core.Me.CurrentTarget);
@@ -107,7 +109,9 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
                 return false;
 
-            if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL && Combat.CombatTotalTimeLeft < 15)
+            if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL
+                && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
+                && Combat.CombatTotalTimeLeft < 15)
                 return false;
 
             if (!SummonerSettings.Instance.SearingLight)
@@ -139,7 +143,9 @@ namespace Magitek.Logic.Summoner
             if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
                 return false;
 
-            if (SummonerSettings.Instance.ThrottleEgiSummonsWithTTL && Combat.CombatTotalTimeLeft < 30)
+            if (SummonerSettings.Instance.ThrottleEgiSummonsWithTTL
+                && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
+                && Combat.CombatTotalTimeLeft < 30)
                 return false;
 
             if (SummonerSettings.Instance.SummonTopazTitan)

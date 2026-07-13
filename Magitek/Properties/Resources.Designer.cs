@@ -13844,7 +13844,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Summoner_Content_Throttle_Egi_Summons_with_TTL", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Summon Throttle Ignores Bosses.
+        /// </summary>
+        public static string Summoner_Content_Throttle_Ignore_Bosses {
+            get {
+                return ResourceManager.GetString("Summoner_Content_Throttle_Ignore_Bosses", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Throttle Trance Summons with TTL.
         /// </summary>

@@ -3327,6 +3327,9 @@
   <data name="Summoner_Content_Throttle_Egi_Summons_with_TTL" xml:space="preserve">
     <value>根据存活时间(TTL)限制宝宝召唤</value>
   </data>
+  <data name="Summoner_Content_Throttle_Ignore_Bosses" xml:space="preserve">
+    <value>召唤限制忽略Boss</value>
+  </data>
   <data name="Summoner_Content_Throttle_Trance_Summons_with_TTL" xml:space="preserve">
     <value>根据存活时间(TTL)限制附体召唤</value>
   </data>
