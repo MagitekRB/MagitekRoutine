@@ -23,7 +23,7 @@ namespace Magitek.Logic.Reaper
                 return false;
             if (Core.Me.HasAura(Auras.Executioner)) return false;
 
-            if (Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards >= ReaperSettings.Instance.WhorlOfDeathTargetCount)
+            if (AoeControl.Enabled && Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards >= ReaperSettings.Instance.WhorlOfDeathTargetCount)
                 return false;
 
             if (Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true) && Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true, (int)Spells.Slice.AdjustedCooldown.TotalMilliseconds))
@@ -45,7 +45,7 @@ namespace Magitek.Logic.Reaper
 
             if (Core.Me.HasAura(Auras.Executioner)) return false;
 
-            if (Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards >= ReaperSettings.Instance.WhorlOfDeathTargetCount)
+            if (AoeControl.Enabled && Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards >= ReaperSettings.Instance.WhorlOfDeathTargetCount)
                 return false;
 
             if (Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true) && Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true, 30000 - (int)Spells.Slice.AdjustedCooldown.TotalMilliseconds))
@@ -100,7 +100,7 @@ namespace Magitek.Logic.Reaper
         public static async Task<bool> SoulSlice()
         {
             if (!ReaperSettings.Instance.UseSoulSlice) return false;
-            if (ReaperSettings.Instance.UseSoulScythe &&
+            if (AoeControl.Enabled && ReaperSettings.Instance.UseSoulScythe &&
                 Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards >= ReaperSettings.Instance.SoulScytheTargetCount)
                 return false;
             if (Core.Me.HasAura(Auras.Executioner)) return false;

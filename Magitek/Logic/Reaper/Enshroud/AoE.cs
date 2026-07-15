@@ -12,6 +12,9 @@ namespace Magitek.Logic.Reaper.Enshroud
     {
         public static async Task<bool> GrimReaping()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
@@ -45,6 +48,9 @@ namespace Magitek.Logic.Reaper.Enshroud
 
         public static async Task<bool> LemuresScythe()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
@@ -69,6 +75,9 @@ namespace Magitek.Logic.Reaper.Enshroud
 
         public static async Task<bool> LemuresScytheOffWeave()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 

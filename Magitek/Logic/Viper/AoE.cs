@@ -12,6 +12,9 @@ namespace Magitek.Logic.Viper
     {
         public static async Task<bool> SteelReavingMaw()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.SteelMaw.IsKnown())
                 return false;
 
@@ -29,6 +32,9 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> HunterOrSwiftSkinBite()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.HunterBite.IsKnown())
                 return false;
 
@@ -47,6 +53,9 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> JaggedOrBloodiedMaw()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.JaggedMaw.IsKnown())
                 return false;
 
@@ -62,6 +71,9 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> Vicepit()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.Vicepit.IsKnown())
                 return false;
 
@@ -82,6 +94,9 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> HunterOrSwiftskinDen()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.HunterDen.IsKnown())
                 return false;
 

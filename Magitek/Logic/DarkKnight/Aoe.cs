@@ -13,6 +13,9 @@ namespace Magitek.Logic.DarkKnight
     {
         public static async Task<bool> AbyssalDrain()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DarkKnightSettings.Instance.UseAoe)
                 return false;
 
@@ -31,6 +34,9 @@ namespace Magitek.Logic.DarkKnight
 
         public static async Task<bool> SaltedEarth()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DarkKnightSettings.Instance.UseAoe)
                 return false;
 
@@ -49,6 +55,9 @@ namespace Magitek.Logic.DarkKnight
 
         public static async Task<bool> Unleash()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DarkKnightSettings.Instance.UseAoe)
                 return false;
 
@@ -67,6 +76,9 @@ namespace Magitek.Logic.DarkKnight
 
         public static async Task<bool> StalwartSoul()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DarkKnightSettings.Instance.UseAoe)
                 return false;
 
@@ -86,6 +98,9 @@ namespace Magitek.Logic.DarkKnight
         public static async Task<bool> Quietus()
         {
 
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DarkKnightSettings.Instance.UseAoe)
                 return false;
 
@@ -101,6 +116,9 @@ namespace Magitek.Logic.DarkKnight
 
         public static async Task<bool> FloodofDarknessShadow()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DarkKnightSettings.Instance.UseAoe)
                 return false;
 

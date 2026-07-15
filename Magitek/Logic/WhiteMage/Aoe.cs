@@ -18,7 +18,7 @@ namespace Magitek.Logic.WhiteMage
             if (!Spells.Holy.IsKnown())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me) <= 8 + r.CombatReach) < WhiteMageSettings.Instance.HolyEnemies)
+            if (!AoeControl.Enabled || Combat.Enemies.Count(r => r.Distance(Core.Me) <= 8 + r.CombatReach) < WhiteMageSettings.Instance.HolyEnemies)
                 return false;
 
             if (WhiteMageSettings.Instance.ThinAirBeforeHoly && await Buff.ThinAir(true))
@@ -39,6 +39,9 @@ namespace Magitek.Logic.WhiteMage
 
         public static async Task<bool> AssizeDamage()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WhiteMageSettings.Instance.Assize)
                 return false;
 

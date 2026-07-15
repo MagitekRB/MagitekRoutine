@@ -61,6 +61,9 @@ namespace Magitek.Logic.Astrologian
         }
         public static async Task<bool> Gravity()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!AstrologianSettings.Instance.Gravity)
                 return false;
 

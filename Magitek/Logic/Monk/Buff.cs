@@ -19,7 +19,7 @@ namespace Magitek.Logic.Monk
             if (MonkSettings.Instance.EnemyIsOmni || !MonkSettings.Instance.UseTrueNorth)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= MonkSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= MonkSettings.Instance.AoeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.TrueNorth))

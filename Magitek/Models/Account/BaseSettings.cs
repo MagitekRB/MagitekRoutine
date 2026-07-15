@@ -396,6 +396,10 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(false)]
         public bool ForceLimitBreak { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool EnableAoe { get; set; }
         #endregion
 
         #region PvP

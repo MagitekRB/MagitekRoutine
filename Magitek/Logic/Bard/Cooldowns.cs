@@ -81,7 +81,7 @@ namespace Magitek.Logic.Bard
                 return false;
 
             //Dont Barrage when whe have a proc up
-            if (BardSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(5).Count() > 3)
+            if (AoeControl.Enabled && BardSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(5).Count() > 3)
             {
                 if (Core.Me.HasAura(Auras.ShadowBiteReady))
                     return false;

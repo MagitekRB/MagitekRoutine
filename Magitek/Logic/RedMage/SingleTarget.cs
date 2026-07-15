@@ -39,7 +39,7 @@ namespace Magitek.Logic.RedMage
                 && Spells.Embolden.Cooldown.TotalSeconds <= RedMageSettings.Instance.HoldAccelForEmboldenSeconds)
                 return false;
 
-            if (InAoeCombo() || Core.Me.EnemiesInCone(8) >= RedMageSettings.Instance.AoeEnemies)
+            if (InAoeCombo() || (AoeControl.Enabled && Core.Me.EnemiesInCone(8) >= RedMageSettings.Instance.AoeEnemies))
                 return false;
 
             if (!Core.Me.HasAura(Auras.MagickedSwordplay))

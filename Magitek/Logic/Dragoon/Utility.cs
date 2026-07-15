@@ -24,7 +24,7 @@ namespace Magitek.Logic.Dragoon
             if (Core.Me.HasAura(Auras.TrueNorth))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= DragoonSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= DragoonSettings.Instance.AoeEnemies)
                 return false;
 
             if (Spells.TrueThrust.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)

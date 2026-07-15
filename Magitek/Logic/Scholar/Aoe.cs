@@ -11,6 +11,9 @@ namespace Magitek.Logic.Scholar
     {
         public static async Task<bool> ArtOfWar()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ScholarSettings.Instance.ArtOfWar)
                 return false;
 

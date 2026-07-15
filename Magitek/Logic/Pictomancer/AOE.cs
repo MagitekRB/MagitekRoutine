@@ -13,6 +13,9 @@ namespace Magitek.Logic.Pictomancer
     {
         public static async Task<bool> CometinBlack()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!PictomancerSettings.Instance.UseAOECometInBlack)
                 return false;
 
@@ -30,6 +33,9 @@ namespace Magitek.Logic.Pictomancer
 
         public static async Task<bool> HolyinWhite()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!PictomancerSettings.Instance.UseAOEHolyInWhite)
                 return false;
 
@@ -53,6 +59,9 @@ namespace Magitek.Logic.Pictomancer
 
         public static async Task<bool> Paint()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!PictomancerSettings.Instance.UseAOEPaint)
                 return false;
 

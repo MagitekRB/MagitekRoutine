@@ -27,6 +27,9 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> CombustMultipleTargets()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!AstrologianSettings.Instance.Combust)
                 return false;
 

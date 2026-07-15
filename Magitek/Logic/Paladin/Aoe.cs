@@ -36,6 +36,9 @@ namespace Magitek.Logic.Paladin
 
         public static async Task<bool> HolyCircle()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!PaladinSettings.Instance.UseAoe)
                 return false;
 
@@ -81,6 +84,9 @@ namespace Magitek.Logic.Paladin
          * ***********************************************************************************/
         public static async Task<bool> TotalEclipse()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!PaladinSettings.Instance.UseAoe)
                 return false;
 
@@ -98,6 +104,9 @@ namespace Magitek.Logic.Paladin
 
         public static async Task<bool> Prominence()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!PaladinSettings.Instance.UseAoe)
                 return false;
 

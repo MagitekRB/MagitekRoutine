@@ -16,6 +16,9 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Enlightenment()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.Enlightenment.IsKnown())
                 return false;
 
@@ -60,6 +63,9 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> PerfectBalance()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.PerfectBalance.IsKnown())
                 return false;
 
@@ -141,6 +147,9 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> Rockbreaker()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.Rockbreaker.IsKnown())
                 return false;
 
@@ -158,6 +167,9 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> FourPointStrike()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.FourPointFury.IsKnown())
                 return false;
 
@@ -175,6 +187,9 @@ namespace Magitek.Logic.Monk
 
         public static async Task<bool> ArmOfDestroyer()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.ArmOfTheDestroyer.IsKnown())
                 return false;
 

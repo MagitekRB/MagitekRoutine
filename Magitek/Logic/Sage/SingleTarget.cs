@@ -84,6 +84,9 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> DotMultipleTargets()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 

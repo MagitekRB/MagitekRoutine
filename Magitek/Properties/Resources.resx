@@ -540,6 +540,9 @@
   <data name="UserControls_Content_Reset_Custom_Opener" xml:space="preserve">
     <value>Reset Custom Opener</value>
   </data>
+  <data name="UserControls_Content_Use_Aoe" xml:space="preserve">
+    <value>Use AoE</value>
+  </data>
   <data name="UserControls_Content_Use_Chocobo" xml:space="preserve">
     <value>Use Chocobo</value>
   </data>

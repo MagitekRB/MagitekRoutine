@@ -13,6 +13,9 @@ namespace Magitek.Logic.Warrior
     {
         public static async Task<bool> ChaoticCyclone()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WarriorSettings.Instance.UseAoe)
                 return false;
 
@@ -37,6 +40,9 @@ namespace Magitek.Logic.Warrior
 
         public static async Task<bool> Decimate()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WarriorSettings.Instance.UseAoe)
                 return false;
 
@@ -61,6 +67,9 @@ namespace Magitek.Logic.Warrior
 
         public static async Task<bool> Overpower()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WarriorSettings.Instance.UseAoe)
                 return false;
 
@@ -72,6 +81,9 @@ namespace Magitek.Logic.Warrior
 
         public static async Task<bool> MythrilTempest()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WarriorSettings.Instance.UseAoe)
                 return false;
 
@@ -86,6 +98,9 @@ namespace Magitek.Logic.Warrior
 
         public static async Task<bool> Orogeny()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WarriorSettings.Instance.UseAoe)
                 return false;
 

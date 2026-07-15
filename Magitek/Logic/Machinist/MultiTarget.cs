@@ -15,6 +15,9 @@ namespace Magitek.Logic.Machinist
     {
         public static async Task<bool> Scattergun()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!MachinistSettings.Instance.UseScattergun)
                 return false;
 
@@ -32,6 +35,9 @@ namespace Magitek.Logic.Machinist
 
         public static async Task<bool> BioBlaster()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!MachinistSettings.Instance.UseBioBlaster)
                 return false;
 
@@ -49,6 +55,9 @@ namespace Magitek.Logic.Machinist
 
         public static async Task<bool> AutoCrossbow()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!MachinistSettings.Instance.UseAutoCrossbow)
                 return false;
 
@@ -66,6 +75,9 @@ namespace Magitek.Logic.Machinist
 
         public static async Task<bool> Flamethrower()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!MachinistSettings.Instance.UseFlamethrower)
                 return false;
 

@@ -269,7 +269,7 @@ namespace Magitek.Logic.Samurai
             if (!Core.Me.HasAura(Auras.Jinpu) || !Core.Me.HasAura(Auras.Shifu))
                 return false;
 
-            if (SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
             if (!CanHiganbana(Core.Me.CurrentTarget))

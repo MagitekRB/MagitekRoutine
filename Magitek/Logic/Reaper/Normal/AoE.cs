@@ -13,6 +13,9 @@ namespace Magitek.Logic.Reaper
     {
         public static async Task<bool> WhorlofDeath()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
@@ -38,6 +41,9 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> HarvestMoon()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
@@ -62,6 +68,9 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> WhorlofDeathIdle()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
 
@@ -89,6 +98,8 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> SpinningScythe()
         {
+            if (!AoeControl.Enabled)
+                return false;
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             if (!ReaperSettings.Instance.UseSpinningScythe) return false;
@@ -103,6 +114,8 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> NightmareScythe()
         {
+            if (!AoeControl.Enabled)
+                return false;
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             //Add level check so it doesn't hang here
@@ -122,6 +135,8 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> SoulScythe()
         {
+            if (!AoeControl.Enabled)
+                return false;
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             if (!ReaperSettings.Instance.UseSoulScythe) return false;
@@ -142,6 +157,8 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> GrimSwathe()
         {
+            if (!AoeControl.Enabled)
+                return false;
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             //Add level check so it doesn't hang here
@@ -179,6 +196,8 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> Guillotine()
         {
+            if (!AoeControl.Enabled)
+                return false;
             if (!ReaperSettings.Instance.UseAoe)
                 return false;
             //Add level check so it doesn't hang here

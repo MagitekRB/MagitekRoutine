@@ -540,6 +540,9 @@
   <data name="UserControls_Content_Reset_Custom_Opener" xml:space="preserve">
     <value>重置自定义开场技能</value>
   </data>
+  <data name="UserControls_Content_Use_Aoe" xml:space="preserve">
+    <value>使用AOE</value>
+  </data>
   <data name="UserControls_Content_Use_Chocobo" xml:space="preserve">
     <value>使用陆行鸟</value>
   </data>

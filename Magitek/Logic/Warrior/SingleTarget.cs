@@ -140,7 +140,7 @@ namespace Magitek.Logic.Warrior
             if (!Core.Me.HasAura(Auras.SurgingTempest))
                 return false;
 
-            if (WarriorSettings.Instance.UseAoe && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Orogeny.Radius)) >= WarriorSettings.Instance.OrogenyMinimumEnemies)
+            if (AoeControl.Enabled && WarriorSettings.Instance.UseAoe && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.Orogeny.Radius)) >= WarriorSettings.Instance.OrogenyMinimumEnemies)
                 return false;
 
             return await Spells.Upheaval.Cast(Core.Me.CurrentTarget);

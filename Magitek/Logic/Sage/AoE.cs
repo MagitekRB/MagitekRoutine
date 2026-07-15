@@ -16,6 +16,9 @@ namespace Magitek.Logic.Sage
     {
         public static async Task<bool> Phlegma()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
@@ -40,6 +43,9 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> Dyskrasia()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
@@ -62,6 +68,9 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> EukrasianDyskrasia()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
@@ -116,6 +125,9 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> Toxikon()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
