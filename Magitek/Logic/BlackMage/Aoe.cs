@@ -17,6 +17,9 @@ namespace Magitek.Logic.BlackMage
     {
         public static async Task<bool> Foul()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             //requires Polyglot
             if (!PolyglotStatus)
                 return false;
@@ -57,6 +60,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Flare()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             //Can't use in Umbral Ice anymore
             if (UmbralStacks > 0)
                 return false;
@@ -104,6 +110,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Freeze()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             //If we don't have Freeze, how can we cast it?
             if (!Spells.Freeze.IsKnown())
                 return false;
@@ -127,6 +136,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Thunder4()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.Thunder2.IsKnown())
                 return false;
 
@@ -163,6 +175,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Fire2()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.Fire2.IsKnown())
                 return false;
 
@@ -207,6 +222,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Blizzard2()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.Blizzard2.IsKnown())
                 return false;
 

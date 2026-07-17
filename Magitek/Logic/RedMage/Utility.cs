@@ -44,7 +44,7 @@ namespace Magitek.Logic.RedMage
             if (!Spells.Moulinet.IsKnown())
                 return false;
 
-            if (!RedMageSettings.Instance.UseAoe)
+            if (!AoeControl.Enabled || !RedMageSettings.Instance.UseAoe)
                 return false;
 
             if (!Spells.EnchantedMoulinet.IsKnown())

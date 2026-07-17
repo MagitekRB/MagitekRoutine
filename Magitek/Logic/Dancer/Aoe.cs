@@ -129,6 +129,8 @@ namespace Magitek.Logic.Dancer
          * ***********************************************************************************/
         public static async Task<bool> FanDance2()
         {
+            if (!AoeControl.Enabled) return false;
+
             if (!DancerSettings.Instance.UseAoe) return false;
 
             if (!DancerSettings.Instance.FanDanceTwo) return false;
@@ -144,6 +146,9 @@ namespace Magitek.Logic.Dancer
 
         public static async Task<bool> Bloodshower()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DancerSettings.Instance.UseAoe)
                 return false;
 
@@ -164,6 +169,9 @@ namespace Magitek.Logic.Dancer
 
         public static async Task<bool> RisingWindmill()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DancerSettings.Instance.UseAoe)
                 return false;
 
@@ -187,6 +195,9 @@ namespace Magitek.Logic.Dancer
 
         public static async Task<bool> Bladeshower()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DancerSettings.Instance.UseAoe)
                 return false;
 
@@ -207,6 +218,9 @@ namespace Magitek.Logic.Dancer
 
         public static async Task<bool> Windmill()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DancerSettings.Instance.UseAoe)
                 return false;
 

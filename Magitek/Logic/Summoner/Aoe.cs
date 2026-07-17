@@ -228,7 +228,7 @@ namespace Magitek.Logic.Summoner
             if (!GlobalCooldown.CanWeave())
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.EnergySiphon, SummonerSettings.Instance.SmartAoe);
@@ -272,7 +272,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Outburst.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
             BattleCharacter target;
@@ -326,7 +326,7 @@ namespace Magitek.Logic.Summoner
             if (SmnResources.Aetherflow + ArcResources.Aetherflow == 0)
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
             if (!GlobalCooldown.CanWeave())

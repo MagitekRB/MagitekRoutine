@@ -88,7 +88,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaSettings.Instance.EnemyIsOmni || !NinjaSettings.Instance.UseTrueNorth)
                 return false;
 
-            if (Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= NinjaSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= NinjaSettings.Instance.AoeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.TrueNorth))

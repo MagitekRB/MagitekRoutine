@@ -89,6 +89,9 @@ namespace Magitek.Logic.WhiteMage
         }
         public static async Task<bool> DotMultipleTargets()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!WhiteMageSettings.Instance.Aero)
                 return false;
 

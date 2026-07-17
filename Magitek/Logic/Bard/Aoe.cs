@@ -59,6 +59,9 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> RainOfDeathDuringMagesBallard()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BardSettings.Instance.UseAoe)
                 return false;
 
@@ -79,6 +82,9 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> RainOfDeath()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BardSettings.Instance.UseRainOfDeath)
                 return false;
 
@@ -93,6 +99,9 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> ShadowBite()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BardSettings.Instance.UseShadowBite)
                 return false;
 
@@ -107,6 +116,9 @@ namespace Magitek.Logic.Bard
 
         public static async Task<bool> LadonsBite()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BardSettings.Instance.UseQuickNock)
                 return false;
 

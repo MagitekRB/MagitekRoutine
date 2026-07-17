@@ -15,6 +15,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> DeathBlossom()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
@@ -32,6 +35,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HakkeMujinsatsu()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
@@ -52,6 +58,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> HellfrogMedium()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
@@ -79,6 +88,9 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> PhantomKamaitachi()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!NinjaSettings.Instance.UseAoe)
                 return false;
 

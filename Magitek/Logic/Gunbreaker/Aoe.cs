@@ -18,6 +18,9 @@ namespace Magitek.Logic.Gunbreaker
          * ***********************************************************************************/
         public static async Task<bool> DemonSlice()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
@@ -32,6 +35,9 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> DemonSlaughter()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
@@ -56,6 +62,9 @@ namespace Magitek.Logic.Gunbreaker
          * ***********************************************************************************/
         public static async Task<bool> FatedCircle()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!GunbreakerSettings.Instance.UseAoe)
                 return false;
 
@@ -115,6 +124,9 @@ namespace Magitek.Logic.Gunbreaker
 
         public static async Task<bool> FatedBrand()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!Spells.FatedBrand.IsKnown())
                 return false;
 
@@ -142,7 +154,7 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             if (Spells.GnashingFang.IsKnownAndReady(1000)
-            && Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies
+            && (!AoeControl.Enabled || Combat.Enemies.Count(r => r.WithinSpellRange(5)) < GunbreakerSettings.Instance.UseAoeEnemies)
             && Cartridge >= GunbreakerRoutine.MaxCartridge
             && GunbreakerRoutine.GnashingFangUsesThisBurst < 1)
                 return false;

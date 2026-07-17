@@ -14109,6 +14109,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use AoE.
+        /// </summary>
+        public static string UserControls_Content_Use_Aoe {
+            get {
+                return ResourceManager.GetString("UserControls_Content_Use_Aoe", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Chocobo.
         /// </summary>
         public static string UserControls_Content_Use_Chocobo {

@@ -36,6 +36,9 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> BioMultipleTargets()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!ScholarSettings.Instance.Bio)
                 return false;
 

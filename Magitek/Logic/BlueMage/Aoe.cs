@@ -13,6 +13,9 @@ namespace Magitek.Logic.BlueMage
         /************** PRIMAL SPELLS **************/
         public static async Task<bool> Surpanakha()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             //At least 1 ennemy in 16 yalms front
             if (Core.Me.EnemiesInCone(16) < 1)
                 return false;
@@ -28,6 +31,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> JKick()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BlueMageSettings.Instance.UsePrimalSkills)
                 return false;
 
@@ -45,6 +51,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> FeatherRain()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BlueMageSettings.Instance.UsePrimalSkills)
                 return false;
 
@@ -56,6 +65,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> Eruption()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BlueMageSettings.Instance.UsePrimalSkills)
                 return false;
 
@@ -78,6 +90,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> Quasar()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BlueMageSettings.Instance.UsePrimalSkills)
                 return false;
 
@@ -93,6 +108,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> GlassDance()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BlueMageSettings.Instance.UsePrimalSkills)
                 return false;
 
@@ -108,6 +126,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> MountainBuster()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!BlueMageSettings.Instance.UsePrimalSkills)
                 return false;
 
@@ -124,6 +145,9 @@ namespace Magitek.Logic.BlueMage
         /************** OTHER SPELLS **************/
         public static async Task<bool> NightBloomOrBothEnds()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (Utilities.Routines.BlueMage.IsMoonFluteTakenActivatedAndWindowReady && !Core.Me.HasAura(Auras.WaxingNocturne))
                 return false;
 
@@ -141,6 +165,9 @@ namespace Magitek.Logic.BlueMage
 
         public static async Task<bool> PhantomFlurry()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (Utilities.Routines.BlueMage.IsMoonFluteTakenActivatedAndWindowReady && !Core.Me.HasAura(Auras.WaxingNocturne))
                 return false;
 

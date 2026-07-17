@@ -32,7 +32,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
-            if (NinjaRoutine.AoeEnemies5Yards <= 2)
+            if (!AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards <= 2)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Huton, Core.Me);
@@ -201,7 +201,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
+            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
@@ -220,7 +220,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);
@@ -277,7 +277,7 @@ namespace Magitek.Logic.Ninja
                 && Spells.Mug.Cooldown >= new TimeSpan(0, 1, 40))
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Katon, Core.Me.CurrentTarget);
@@ -300,7 +300,7 @@ namespace Magitek.Logic.Ninja
                 && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
             if (MovementManager.IsMoving)

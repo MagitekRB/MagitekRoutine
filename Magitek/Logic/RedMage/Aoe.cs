@@ -16,6 +16,9 @@ namespace Magitek.Logic.RedMage
     {
         public static async Task<bool> Moulinet()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
@@ -51,6 +54,9 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> ContreSixte()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
@@ -67,6 +73,9 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Scatter()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!RedMageSettings.Instance.Scatter)
                 return false;
 
@@ -109,6 +118,9 @@ namespace Magitek.Logic.RedMage
 
         public static async Task<bool> Impact()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!RedMageSettings.Instance.UseAoe)
                 return false;
 
@@ -135,6 +147,9 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Verthunder2()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!RedMageSettings.Instance.Ver2)
                 return false;
 
@@ -162,6 +177,9 @@ namespace Magitek.Logic.RedMage
         }
         public static async Task<bool> Veraero2()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!RedMageSettings.Instance.Ver2)
                 return false;
 

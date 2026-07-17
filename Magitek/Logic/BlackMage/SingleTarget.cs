@@ -181,7 +181,8 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // Skip if we're in an AoE situation (use Thunder4 instead)
-            if (BlackMageSettings.Instance.UseAoe
+            if (AoeControl.Enabled
+                && BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
 
@@ -272,7 +273,8 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks < 3 || UmbralStacks == 3)
                 return false;
 
-            if (BlackMageSettings.Instance.UseAoe
+            if (AoeControl.Enabled
+                && BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
 

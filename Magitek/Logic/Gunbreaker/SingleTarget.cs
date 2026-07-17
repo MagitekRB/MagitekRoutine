@@ -130,7 +130,7 @@ namespace Magitek.Logic.Gunbreaker
             if (Cartridge < GunbreakerRoutine.RequiredCartridgeForGnashingFang)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.UseAoeEnemies)
+            if (AoeControl.Enabled && Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.UseAoeEnemies)
                 return false;
 
             if (Spells.NoMercy.IsKnownAndReady(GunbreakerSettings.Instance.HoldAmmoComboSeconds * 1000))
@@ -273,7 +273,7 @@ namespace Magitek.Logic.Gunbreaker
             if (GunbreakerRoutine.IsAurasForComboActive())
                 return false;
 
-            if (Spells.FatedCircle.IsKnown() && Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
+            if (AoeControl.Enabled && Spells.FatedCircle.IsKnown() && Combat.Enemies.Count(r => r.WithinSpellRange(5)) >= GunbreakerSettings.Instance.PrioritizeFatedCircleOverBurstStrikeEnemies)
                 return false;
 
             if (Core.Me.HasAura(Auras.ReadyToReign))
@@ -343,7 +343,7 @@ namespace Magitek.Logic.Gunbreaker
             int gnashingFangUses = GunbreakerRoutine.GnashingFangUsesThisBurst;
 
             if (gnashingFangReady
-            && enemyCount < GunbreakerSettings.Instance.UseAoeEnemies
+            && (!AoeControl.Enabled || enemyCount < GunbreakerSettings.Instance.UseAoeEnemies)
             && gnashingFangUses < 1)
                 return false;
 
@@ -398,7 +398,7 @@ namespace Magitek.Logic.Gunbreaker
 
             // In AoE situations, Gnashing Fang doesn't get used, so bypass the GF check
             int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
-            bool isAoeSituation = enemyCount >= GunbreakerSettings.Instance.UseAoeEnemies;
+            bool isAoeSituation = AoeControl.Enabled && enemyCount >= GunbreakerSettings.Instance.UseAoeEnemies;
 
             if (Core.Me.HasAura(Auras.NoMercy)
             && Spells.GnashingFang.IsKnownAndReady()

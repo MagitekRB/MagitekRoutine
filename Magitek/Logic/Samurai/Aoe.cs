@@ -17,6 +17,9 @@ namespace Magitek.Logic.Samurai
 
         public static async Task<bool> Fuko()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseAoe)
                 return false;
 
@@ -38,6 +41,9 @@ namespace Magitek.Logic.Samurai
          * ********************************************************************************************/
         public static async Task<bool> Oka()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseAoe)
                 return false;
 
@@ -66,6 +72,9 @@ namespace Magitek.Logic.Samurai
          * ********************************************************************************************/
         public static async Task<bool> Mangetsu()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseAoe)
                 return false;
 
@@ -92,6 +101,9 @@ namespace Magitek.Logic.Samurai
          * ********************************************************************************************/
         public static async Task<bool> HissatsuKyuten()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseHissatsuKyuten)
                 return false;
 
@@ -112,6 +124,9 @@ namespace Magitek.Logic.Samurai
 
         public static async Task<bool> HissatsuGuren()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseHissatsuGuren)
                 return false;
 
@@ -158,6 +173,9 @@ namespace Magitek.Logic.Samurai
         * ********************************************************************************************/
         public static async Task<bool> TenkaGoken()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseTenkaGoken)
                 return false;
 
@@ -179,6 +197,9 @@ namespace Magitek.Logic.Samurai
          * ********************************************************************************************/
         public static async Task<bool> KaeshiGoken()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SamuraiSettings.Instance.UseKaeshiGoken)
                 return false;
 
@@ -210,7 +231,7 @@ namespace Magitek.Logic.Samurai
                 return false;
 
             //Dun wait for Higanbana when there is enemies around you
-            if (SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && SamuraiRoutine.AoeEnemies5Yards >= SamuraiSettings.Instance.AoeEnemies)
                 return await Spells.OgiNamikiri.Cast(Core.Me.CurrentTarget);
 
             if (SamuraiSettings.Instance.UseHiganbana && !Core.Me.CurrentTarget.HasAura(Auras.Higanbana, true, 8000))

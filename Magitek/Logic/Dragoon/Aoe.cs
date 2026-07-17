@@ -12,6 +12,9 @@ namespace Magitek.Logic.Dragoon
     {
         public static async Task<bool> DoomSpike()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DragoonSettings.Instance.UseAoe)
                 return false;
 
@@ -26,6 +29,9 @@ namespace Magitek.Logic.Dragoon
 
         public static async Task<bool> DraconianFury()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DragoonSettings.Instance.UseAoe)
                 return false;
 
@@ -44,6 +50,9 @@ namespace Magitek.Logic.Dragoon
          * *************************************************************************/
         public static async Task<bool> SonicThrust()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DragoonSettings.Instance.UseAoe)
                 return false;
 
@@ -58,6 +67,9 @@ namespace Magitek.Logic.Dragoon
 
         public static async Task<bool> CoerthanTorment()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!DragoonSettings.Instance.UseAoe)
                 return false;
 

@@ -59,7 +59,7 @@ namespace Magitek.Logic.Samurai
             if (Core.Me.HasAura(Auras.TrueNorth))
                 return false;
 
-            if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= SamuraiSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= SamuraiSettings.Instance.AoeEnemies)
                 return false;
 
             if (Spells.TrueThrust.Cooldown.TotalMilliseconds > Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset + 100)
