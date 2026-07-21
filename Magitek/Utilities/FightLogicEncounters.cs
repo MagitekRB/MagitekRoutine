@@ -1942,7 +1942,7 @@ namespace Magitek.Utilities
                 }
             },
             new Encounter {
-                ZoneId = ZoneId.Emanation,
+                ZoneId = ZoneId.EmanationExtreme,
                 Name = "Trial: Emanation (Extreme)",
                 Expansion = FfxivExpansion.Stormblood,
                 Enemies = new List<Enemy> {
