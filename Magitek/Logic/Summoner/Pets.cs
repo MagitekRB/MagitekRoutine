@@ -66,7 +66,7 @@ namespace Magitek.Logic.Summoner
 
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL
                 && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
-                && Combat.CombatTotalTimeLeft < 15)
+                && Combat.CombatTotalTimeLeft < SummonerSettings.Instance.ThrottleTranceSummonsSeconds)
                 return false;
 
             return await Spells.SummonPhoenix.Cast(Core.Me.CurrentTarget);
@@ -111,7 +111,7 @@ namespace Magitek.Logic.Summoner
 
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL
                 && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
-                && Combat.CombatTotalTimeLeft < 15)
+                && Combat.CombatTotalTimeLeft < SummonerSettings.Instance.ThrottleTranceSummonsSeconds)
                 return false;
 
             if (!SummonerSettings.Instance.SearingLight)
@@ -145,7 +145,7 @@ namespace Magitek.Logic.Summoner
 
             if (SummonerSettings.Instance.ThrottleEgiSummonsWithTTL
                 && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
-                && Combat.CombatTotalTimeLeft < 30)
+                && Combat.CombatTotalTimeLeft < SummonerSettings.Instance.ThrottleEgiSummonsSeconds)
                 return false;
 
             if (SummonerSettings.Instance.SummonTopazTitan)
