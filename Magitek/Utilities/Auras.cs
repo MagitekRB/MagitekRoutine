@@ -629,7 +629,7 @@ namespace Magitek.Utilities
             PvpCrestOfTimeBorrowed = 2861, // RPR - absorbs potency of 12000
             PvpNoxiousGnash = 4099, // VPR - increases damage dealt to target by 25% (only if we applied it)
             PvpWardensGrace = 2178, // BRD - reduces damage taken by 25%
-            PvpAetherMortar = 3156, // MCH - absorbs potency of 7500
+            PvpAetherMortar = 3156, // MCH - absorbs potency of 8000
             PvpFanDance = 2052, // DNC - reduces damage taken by 20%
             PvpWreathOfIce = 4316, // BLM - reduces damage taken by 20%
             PvpBurst = 3221, // BLM - absorbs potency of 15000
@@ -643,13 +643,13 @@ namespace Magitek.Utilities
             PvpClawedMuse = 4111, // PCT - increases target damage taken by 10%
             PvpTemperaGrassa = 4115, // PCT - absorbs potency of 8000
             PvpPomMuse = 4109, // PCT - increases damage dealt by 20%
-            PvpStarPrism = 4119, // PCT - increases damage dealt by 15%
+            PvpStarPrism = 4119, // PCT - increases damage dealt by 10%
             PvpChocobastion = 4117, // PCT - reduces damage taken by 25%
             PvpBloodbath = 1982, // Melee role - increases damage dealt by 10%
             PvpLifeOfDragonOnTarget = 3177, // DRG - increases damage dealt by 15% (when on target, different from self)
             PvpHorridRoar = 3179, // DRG - reduces damage dealt by 50% (if target is dragoon)
             PvpStemTheTide = 3031, // WAR - absorbs potency of 20% of 66000 (13200)
-            PvpBlackestNight = 1308, // DRK - absorbs potency of 8000
+            PvpBlackestNight = 1308, // DRK - absorbs potency of 10000
             PvpSaltedEarth = 3037, // DRK - reduces damage taken by 20%
             PvpSnowFort = 4965, // Environmental buff - shield from Worqor Chirteh
             PvpMountainBusterMit = 5531; // SMN (Patch 7.5) - reduces damage taken by 15% for 5s after Mountain Buster

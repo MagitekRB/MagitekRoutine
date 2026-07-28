@@ -467,12 +467,12 @@ namespace Magitek.Logic.Roles
             { ClassJobType.Gunbreaker, (1.00, 0.45) },  // 0% dealt, -55% taken
 
             // Melee DPS
-            { ClassJobType.Monk, (1.00, 0.50) },        // 0% dealt, -50% taken
-            { ClassJobType.Dragoon, (0.85, 0.50) },      // -15% dealt, -50% taken
+            { ClassJobType.Monk, (1.00, 0.45) },        // 0% dealt, -55% taken (Patch 7.55: -50% taken -> -55%)
+            { ClassJobType.Dragoon, (0.90, 0.50) },      // -10% dealt, -50% taken (Patch 7.55: -15% dealt -> -10%)
             { ClassJobType.Ninja, (1.00, 0.55) },       // 0% dealt, -45% taken
-            { ClassJobType.Samurai, (0.95, 0.50) },     // -5% dealt, -50% taken (Patch 7.45: -10% dealt -> -5%)
+            { ClassJobType.Samurai, (0.95, 0.45) },     // -5% dealt, -55% taken (Patch 7.45: -10% dealt -> -5%; Patch 7.55: -50% taken -> -55%)
             { ClassJobType.Reaper, (1.00, 0.50) },      // 0% dealt, -50% taken
-            { ClassJobType.Viper, (1.00, 0.40) },       // 0% dealt, -60% taken
+            { ClassJobType.Viper, (0.95, 0.45) },       // -5% dealt, -55% taken (Patch 7.55: 0% dealt -> -5%, -60% taken -> -55%)
 
             // Ranged Physical DPS
             { ClassJobType.Bard, (1.00, 0.70) },        // 0% dealt, -30% taken
@@ -544,7 +544,7 @@ namespace Magitek.Logic.Roles
         // War - 3256 Orogeny: Damage dealth is reduced by 10%
         // War - 3031 Stem The Tide: aborbs potency of <20% of 66000 (20% of 66000 = 13200)>
         // DRK - 3037 Salted Earth reducer: reduces damage taken by 20%
-        // DRK - 1308 Blackest Night: absorbs potency of 8000
+        // DRK - 1308 Blackest Night: absorbs potency of 10000
         // GNB - 3052 Relentless Rush: reduces damage taken by 25%
         // GNB - 3053 Relentless Shrapnel: increases damage taken by 5% 
         // GNB - 4295 Heart of Corundum: reduces damage taken by 10%
@@ -555,7 +555,7 @@ namespace Magitek.Logic.Roles
         //
         // HEALERS:
         // WHM - 1415 Seraph Strike Protect: reduces damage taken by 10%
-        // WHM - 3086 Aquaveil: absorbs potency of 8000
+        // WHM - 3086 Aquaveil: absorbs potency of 10000
         // SCH - 3087 Galvanize: absorbs potency of 4000
         // SCH - 3088 Catalyze: reduces damage taken by 10%
         // SCH - 1406 Chain Strategem: increases damage taken by 10%
@@ -596,7 +596,7 @@ namespace Magitek.Logic.Roles
         // RANGED PHYSICAL DPS:
         // BRD - 2178 Warden's Grace: reduces damage taken by 25%
         // MCH - 3154 Chain Saw: increases damage taken by 20%
-        // MCH - 3156 Aether Mortar: absorbs potency of 7500
+        // MCH - 3156 Aether Mortar: absorbs potency of 8000
         // DNC - 2052 Fan Dance: reduces damage taken by 20%
         // RANGED PHYS ROLE - Bravery: increases damage dealt by 25%, reduces damage taken by 25%
         //
@@ -617,7 +617,7 @@ namespace Magitek.Logic.Roles
         // PCT - 4114 Tempera Coat: absorbs potency of 12000
         // PCT - 4115 Tempera Grassa: absorbs potency of 8000
         // PCT - 4109 Pom Muse:increases damage dealt by 20%
-        // PCT - 4119 Star Prism: increases damage dealt by 15%
+        // PCT - 4119 Star Prism: increases damage dealt by 10%
         // PCT - 4117 Chocobastion: reduces damage taken by 25%
         // RANGED ROLE - 4480 Rust: reduces damage dealt by 33%
 
@@ -678,7 +678,7 @@ namespace Magitek.Logic.Roles
             { Auras.PvpDisplacement, 1.15 }, // RDM - increases next spell's damage by 15%
             { Auras.PvpEmbolden, 1.08 }, // RDM - increases damage dealt by 8% (on self)
             { Auras.PvpPomMuse, 1.20 }, // PCT - increases damage dealt by 20%
-            { Auras.PvpStarPrism, 1.15 }, // PCT - increases damage dealt by 15%
+            { Auras.PvpStarPrism, 1.10 }, // PCT - increases damage dealt by 10% (Patch 7.55: was 15%)
             { Auras.PvpCelestialRiver, 1.30 }, // AST LB - increases damage dealt by 30%
             { Auras.PvpBattleHigh1, 1.10 }, // Battle High I - increases damage dealt and healing potency by 10%
             { Auras.PvpBattleHigh2, 1.20 }, // Battle High II - increases damage dealt and healing potency by 20%
@@ -698,9 +698,9 @@ namespace Magitek.Logic.Roles
         {
             { Auras.PvpHolySheltron, 8000 }, // PLD - absorbs potency of 8000
             { Auras.PvpStemTheTide, 13200 }, // WAR - absorbs potency of 13200 (20% of 66000)
-            { Auras.PvpBlackestNight, 8000 }, // DRK PvP - absorbs potency of 8000
+            { Auras.PvpBlackestNight, 10000 }, // DRK PvP - absorbs potency of 10000 (Patch 7.55: was 8000)
             { Auras.PvpNebula, 4000 }, // GNB - absorbs potency of 4000
-            { Auras.PvpAquaveil, 8000 }, // WHM - absorbs potency of 8000
+            { Auras.PvpAquaveil, 10000 }, // WHM - absorbs potency of 10000 (Patch 7.55: was 8000)
             { Auras.PvpGalvanize, 4000 }, // SCH - absorbs potency of 4000
             { Auras.PvpSeraphicVeil, 6000 }, // SCH - absorbs potency of 6000
             { Auras.PvpConsolation, 8000 }, // SCH - absorbs potency of 8000
@@ -714,7 +714,7 @@ namespace Magitek.Logic.Roles
             { Auras.PvpKaeshiNamikiri, 8000 }, // SAM - absorbs potency of 8000 (Patch 7.5: 10000 -> 8000; covers Ogi Namikiri and Kaeshi: Namikiri multi-target barrier)
             { Auras.PvpCrestOfTimeBorrowed, 12000 }, // RPR - absorbs potency of 12000
             { Auras.PvpArmoredScales, 4000 }, // VPR - absorbs potency of 4000
-            { Auras.PvpAetherMortar, 7500 }, // MCH - absorbs potency of 7500
+            { Auras.PvpAetherMortar, 8000 }, // MCH - absorbs potency of 8000 (Patch 7.55: was 7500)
             { Auras.PvpBurst, 15000 }, // BLM - absorbs potency of 15000
             { Auras.PvpRadiantAegis, 12000 }, // SMN - absorbs potency of 12000
             { Auras.PvpForte, 4000 }, // RDM - absorbs potency of 4000
