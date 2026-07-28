@@ -13949,6 +13949,15 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Heals:.
         /// </summary>
+        public static string Summoner_Text_Egi_Summon_Throttle_Seconds {
+            get {
+                return ResourceManager.GetString("Summoner_Text_Egi_Summon_Throttle_Seconds", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Heals.
+        /// </summary>
         public static string Summoner_Text_Heals {
             get {
                 return ResourceManager.GetString("Summoner_Text_Heals", resourceCulture);
@@ -14056,6 +14065,15 @@ namespace Magitek.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Trances:.
+        /// </summary>
+        public static string Summoner_Text_Trance_Summon_Throttle_Seconds {
+            get {
+                return ResourceManager.GetString("Summoner_Text_Trance_Summon_Throttle_Seconds", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Trances.
         /// </summary>
         public static string Summoner_Text_Trances {
             get {

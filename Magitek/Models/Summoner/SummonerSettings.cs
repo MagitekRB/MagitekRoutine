@@ -228,6 +228,14 @@ namespace Magitek.Models.Summoner
         [DefaultValue(false)]
         public bool SummonThrottleIgnoreBosses { get; set; }
 
+        [Setting]
+        [DefaultValue(10)]
+        public int ThrottleEgiSummonsSeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(15)]
+        public int ThrottleTranceSummonsSeconds { get; set; }
+
         #endregion
 
         #region PVP

@@ -3332,6 +3332,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Summoner_Content_Throttle_Egi_Summons_with_TTL" xml:space="preserve">
     <value>Throttle Egi Summons with TTL</value>
   </data>
+  <data name="Summoner_Text_Egi_Summon_Throttle_Seconds" xml:space="preserve">
+    <value>Stop summoning egis with this long left:</value>
+  </data>
+  <data name="Summoner_Text_Trance_Summon_Throttle_Seconds" xml:space="preserve">
+    <value>Stop summoning demis with this long left:</value>
+  </data>
   <data name="Summoner_Content_Throttle_Ignore_Bosses" xml:space="preserve">
     <value>Summon Throttle Ignores Bosses</value>
   </data>
