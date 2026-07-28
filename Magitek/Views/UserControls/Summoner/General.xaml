@@ -124,6 +124,7 @@
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Throttle_Egi_Summons_with_TTL}" IsChecked="{Binding SummonerSettings.ThrottleEgiSummonsWithTTL, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Throttle_Trance_Summons_with_TTL}" IsChecked="{Binding SummonerSettings.ThrottleTranceSummonsWithTTL, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Throttle_Ignore_Bosses}" IsChecked="{Binding SummonerSettings.SummonThrottleIgnoreBosses, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>        

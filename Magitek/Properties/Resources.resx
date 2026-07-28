@@ -3332,6 +3332,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Summoner_Content_Throttle_Egi_Summons_with_TTL" xml:space="preserve">
     <value>Throttle Egi Summons with TTL</value>
   </data>
+  <data name="Summoner_Content_Throttle_Ignore_Bosses" xml:space="preserve">
+    <value>Summon Throttle Ignores Bosses</value>
+  </data>
   <data name="Summoner_Content_Throttle_Trance_Summons_with_TTL" xml:space="preserve">
     <value>Throttle Trance Summons with TTL</value>
   </data>
