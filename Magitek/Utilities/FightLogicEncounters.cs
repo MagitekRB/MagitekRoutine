@@ -1409,6 +1409,22 @@ namespace Magitek.Utilities
                             10541 //Ultima Upsurge                            
                         },
                         BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 7132,
+                        Name = "Graven Image",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = null,
+                        BigAoes = null,
+                        // Kefka's statues alternate their demand, so the pair has to be catalogued
+                        // together — answering only one of them is worse than answering neither.
+                        LookAwayGazes = new List<uint> {
+                            10540, // Indolent Will
+                        },
+                        LookTowardGazes = new List<uint> {
+                            10539, // Ave Maria
+                        },
                     }
                 }
             },
@@ -1668,6 +1684,23 @@ namespace Magitek.Utilities
                         SharedTankBusters = null,
                         Aoes = null,
                         BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 7132,
+                        Name = "Graven Image",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = null,
+                        BigAoes = null,
+                        // Savage counterpart of the O8N pair above; same mechanic, different ids. The
+                        // statue casts these, not Kefka, and gaze logic resolves per casting unit — so
+                        // they belong on the statue's own entry or nothing ever matches them.
+                        LookAwayGazes = new List<uint> {
+                            10468, // Indolent Will
+                        },
+                        LookTowardGazes = new List<uint> {
+                            10467, // Ave Maria
+                        },
                     }
                 }
             },
