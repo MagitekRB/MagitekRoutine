@@ -476,7 +476,8 @@ namespace Magitek.Utilities
             Invincibility6 = 656,
             Invincibility7 = 529,
             Invincibility8 = 325,
-            Invincibility9 = 394;
+            Invincibility9 = 394,
+            Invincibility10 = 4410;
 
         public const int
 
@@ -668,7 +669,87 @@ namespace Magitek.Utilities
             Invincibility6,
             Invincibility7,
             Invincibility8,
-            Invincibility9
+            Invincibility9,
+            Invincibility10
         };
+
+        #region The Meso Terminal — Headsman "Cell Block" / "Guard on Duty" match mechanic
+        // Each of the four Headsmen carries a Guard on Duty α/β/γ/δ status and tethers one player,
+        // marking them with the matching Cell Block letter. While marked, that player can ONLY damage
+        // the Headsman whose Guard on Duty letter matches their Cell Block — "Attacks against other
+        // targets are nullified." MarkMatchDamageableEnemyAura maps the player's Cell Block mark to the
+        // Guard on Duty status an enemy must carry to be damageable by that player. Same-letter pairing;
+        // XIVAPI-confirmed status ids. Consumed by GameObjectExtensions.DamageableByMyMark().
+        public const int
+            CellBlockAlpha = 4542,
+            CellBlockBeta = 4543,
+            CellBlockGamma = 4544,
+            CellBlockDelta = 4545,
+            GuardOnDutyAlpha = 4546,
+            GuardOnDutyBeta = 4547,
+            GuardOnDutyGamma = 4548,
+            GuardOnDutyDelta = 4549;
+
+        public static readonly Dictionary<uint, uint> MarkMatchDamageableEnemyAura = new Dictionary<uint, uint>
+        {
+            { CellBlockAlpha, GuardOnDutyAlpha },
+            { CellBlockBeta, GuardOnDutyBeta },
+            { CellBlockGamma, GuardOnDutyGamma },
+            { CellBlockDelta, GuardOnDutyDelta },
+        };
+        #endregion
+
+        #region The Labyrinth of the Ancients — Astral Realignment gate
+        // Player buff whose tooltip reads "Existentially aligned to the astral realm. Damage dealt is
+        // reduced, but can attack ghostly beings." Without it, damage against Thanatos does nothing.
+        // Unlike the Ark Angels duel there is NO status on the target to key off, so the rule that
+        // consumes this (GameObjectExtensions.DamageableGivenMyBuffs) matches on zone + enemy name.
+        public const int AstralRealignment = 398;
+        #endregion
+
+        #region Jeuno: The First Walk — Ark Angels "Hero" / "Villain" duel
+        // Each Ark Angel can be dubbed a Villain, whose tooltip reads "Damage from those who have not been
+        // dubbed <X> Hero is nullified". This is the mirror of the Meso Terminal mark: there OUR mark chose
+        // which enemy we could hit, here the ENEMY's status dictates which players may hit it. Maps the
+        // Villain status an enemy carries to the Hero status a player needs to damage it.
+        //
+        // Note 4198 (Mighty Strikes) sits in the middle of this id range but is unrelated — it is an Ark
+        // Angel self-buff that crits its melee attacks, and must NOT be treated as a duel status.
+        public const int
+            EpicHero = 4192,
+            EpicVillain = 4193,
+            FatedHero = 4194,
+            FatedVillain = 4195,
+            VauntedHero = 4196,
+            VauntedVillain = 4197;
+
+        public static readonly Dictionary<uint, uint> DuelVillainRequiredHeroAura = new Dictionary<uint, uint>
+        {
+            { EpicVillain, EpicHero },
+            { FatedVillain, FatedHero },
+            { VauntedVillain, VauntedHero },
+        };
+        #endregion
+
+        #region Damage-type immunity (e.g. The Void Ark — Sawtooth / Irminsul)
+        // Some encounters hand a boss immunity to one damage type instead of full invulnerability, so
+        // whether we can hurt it depends on our job. In The Void Ark the pair take one each at random,
+        // which is why this keys off the status rather than the enemy.
+        //
+        // "Magic Resistance" — invulnerable to magic attacks: blocks healers and casters.
+        // "Ranged Resistance" — invulnerable to ranged attacks: blocks PHYSICAL ranged only. Magical
+        // ranged still lands, so casters must NOT be excluded by it.
+        // Consumed by GameObjectExtensions.DamageableByMyDamageType().
+        public static readonly uint[] MagicImmunity =
+        {
+            942,  // Magic Resistance
+            3621, // Magic Resistance (same status, reused by later content)
+        };
+
+        public static readonly uint[] RangedImmunity =
+        {
+            941, // Ranged Resistance
+        };
+        #endregion
     }
 }

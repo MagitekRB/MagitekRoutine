@@ -28,7 +28,9 @@ namespace Magitek.Extensions
                 return unit.Type != GameObjectType.Pc;
             }
 
-            return unit.CanAttack;
+            // DamageableByMyMark keeps single-target damage off enemies we can't hurt under a mark-match
+            // mechanic (Meso Terminal Cell Block); it's a no-op whenever we carry no such mark.
+            return unit.CanAttack && unit.DamageableByMyMark();
         }
 
         public static bool BeingTargeted(this GameObject unit)
@@ -179,7 +181,10 @@ namespace Magitek.Extensions
             if (unitAsCharacter == null || !unitAsCharacter.IsValid)
                 return false;
 
-            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable);
+            // A dispel only removes BENEFICIAL statuses, so ignore debuffs. Otherwise a dispel action
+            // (e.g. Occult Dispel) re-fires forever on an enemy that merely carries a dispellable
+            // debuff it can never remove — such as the Time Mage's own Slow / Occult Mage Masher.
+            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable && !r.IsDebuff);
         }
 
         public static bool HasAnyAura(this GameObject unit, List<uint> auras, bool isMyAura = false, int msLeft = 0)
@@ -229,9 +234,135 @@ namespace Magitek.Extensions
             return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0;
         }
 
+
         public static bool NotInvulnerable(this GameObject unit)
         {
-            return unit != null && !unit.HasAnyAura(Auras.Invincibility);
+            return unit != null
+                && !unit.HasAnyAura(Auras.Invincibility)
+                && unit.DamageableByMyMark()
+                && unit.DamageableByMyDuelRole()
+                && unit.DamageableByMyDamageType()
+                && unit.DamageableGivenMyBuffs();
+        }
+
+        // Enemies that can only be damaged while we hold a particular buff, where the target itself carries
+        // no status to key off — so it has to be matched by zone and name instead.
+        //
+        // Deliberately a tiny static table rather than fight-logic catalogue data: NotInvulnerable() runs
+        // for every enemy on every pulse, and scanning the catalogue per call would be far too expensive.
+        // A zone-id compare costs essentially nothing everywhere else.
+        private const ushort LabyrinthOfTheAncientsZoneId = 174;
+
+        private static readonly HashSet<string> RequiresAstralRealignment = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "Thanatos", // exact match keeps Eureka Orthos' "Orthos Thanatos" out of this
+        };
+
+        public static bool DamageableGivenMyBuffs(this GameObject unit)
+        {
+            if (unit == null)
+                return false;
+
+            if (WorldManager.ZoneId != LabyrinthOfTheAncientsZoneId)
+                return true; // cheap early-out: this only applies in one fight
+
+            var me = Core.Me;
+
+            if (me == null)
+                return true;
+
+            if (RequiresAstralRealignment.Contains(unit.EnglishName) && !me.HasAura(Auras.AstralRealignment))
+                return false;
+
+            return true;
+        }
+
+        // Jeuno's Ark Angels duel: a target dubbed a Villain nullifies damage from anyone not carrying the
+        // matching Hero status. This is the reverse of DamageableByMyMark — there our own mark selected the
+        // one enemy we could hit, here the enemy's own status decides whether we count. A target with no
+        // Villain status is damageable by anyone, so this stays inert outside that fight.
+        public static bool DamageableByMyDuelRole(this GameObject unit)
+        {
+            var target = unit as Character;
+
+            if (target == null)
+                return unit != null;
+
+            var me = Core.Me;
+
+            if (me == null)
+                return true;
+
+            uint requiredHeroAura = 0;
+
+            foreach (var aura in target.CharacterAuras)
+                if (Auras.DuelVillainRequiredHeroAura.TryGetValue(aura.Id, out requiredHeroAura))
+                    break;
+
+            if (requiredHeroAura == 0)
+                return true; // not duelling -> anyone can damage it (the common case)
+
+            return me.HasAura(requiredHeroAura);
+        }
+
+        // Damage-type immunity: the target is only invulnerable to *some* jobs, so this is answered from
+        // our own job rather than from the target alone. The Void Ark's Sawtooth and Irminsul each take one
+        // of these at random, which is why nothing here is keyed to an enemy name.
+        //
+        // Note the asymmetry: Magic Resistance blocks healers and casters, but Ranged Resistance blocks
+        // PHYSICAL ranged only — a caster's ranged attacks are magical and still land, so they must not be
+        // filtered out by it. Blue Mage appears in the physical-ranged list for role purposes but deals
+        // magic damage, so it is treated as a caster on both counts.
+        public static bool DamageableByMyDamageType(this GameObject unit)
+        {
+            if (unit == null)
+                return false;
+
+            var me = Core.Me;
+
+            if (me == null)
+                return true;
+
+            var job = me.CurrentJob;
+
+            if (MagicDamageJobs.Contains(job) && unit.HasAnyAura(Auras.MagicImmunity))
+                return false;
+
+            if (RangedPhysicalDps.Contains(job) && !MagicDamageJobs.Contains(job) && unit.HasAnyAura(Auras.RangedImmunity))
+                return false;
+
+            return true;
+        }
+
+        // The Meso Terminal Headsman pull tethers each player with a "Cell Block" mark; while marked, only
+        // the Headsman carrying the matching "Guard on Duty" letter takes that player's damage — every other
+        // target is immune ("Attacks against other targets are nullified"). Fast-outs to true whenever we
+        // carry no Cell Block mark (i.e. everywhere but that one mechanic), so the shared NotInvulnerable
+        // hot path stays a single cheap scan of our own aura list in the common case.
+        public static bool DamageableByMyMark(this GameObject unit)
+        {
+            if (unit == null)
+                return false;
+
+            var me = Core.Me;
+            if (me == null)
+                return true;
+
+            // If we carry a Cell Block mark, note the Guard on Duty status an enemy must have to be
+            // damageable by us. One pass over our own (small) aura list.
+            uint requiredEnemyAura = 0;
+            foreach (var aura in me.CharacterAuras)
+            {
+                if (Auras.MarkMatchDamageableEnemyAura.TryGetValue(aura.Id, out requiredEnemyAura))
+                    break;
+            }
+
+            // Not marked -> normal targeting (the overwhelmingly common case).
+            if (requiredEnemyAura == 0)
+                return true;
+
+            // Marked -> only the enemy with the matching Guard on Duty letter takes our damage.
+            return unit.HasAura(requiredEnemyAura);
         }
 
         public static IEnumerable<BattleCharacter> EnemiesNearby(this GameObject unit, float distance)
@@ -651,6 +782,24 @@ namespace Magitek.Extensions
             ClassJobType.Reaper,
             ClassJobType.Pictomancer,
             ClassJobType.Viper
+        };
+
+        // Jobs whose damage is magical — healers plus the casters. Used for damage-type immunity checks;
+        // Blue Mage is here (not with physical ranged) because its spells deal magic damage.
+        private static readonly List<ClassJobType> MagicDamageJobs = new List<ClassJobType>()
+        {
+            ClassJobType.Arcanist,
+            ClassJobType.Scholar,
+            ClassJobType.Conjurer,
+            ClassJobType.WhiteMage,
+            ClassJobType.Astrologian,
+            ClassJobType.Sage,
+            ClassJobType.Thaumaturge,
+            ClassJobType.BlackMage,
+            ClassJobType.Summoner,
+            ClassJobType.RedMage,
+            ClassJobType.Pictomancer,
+            ClassJobType.BlueMage,
         };
 
         private static readonly List<ClassJobType> RangedPhysicalDps = new List<ClassJobType>()
