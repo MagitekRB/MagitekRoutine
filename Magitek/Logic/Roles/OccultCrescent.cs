@@ -230,6 +230,7 @@ namespace Magitek.Logic.Roles
         // How long non-party revival stands aside for a dead party member before deciding the party
         // path is not coming.
         private static DateTime _partyRaiseYieldSince = DateTime.MinValue;
+        private static HashSet<uint> _partyRaiseYieldFor = new HashSet<uint>();
         private static readonly TimeSpan PartyRaiseGrace = TimeSpan.FromSeconds(15);
 
         private static readonly Vector3[] KnowledgeCrystalLocations = new[]
@@ -564,10 +565,17 @@ namespace Magitek.Logic.Roles
             // role the user excluded — then the corpse simply stays there and this would keep standing
             // aside forever, which is exactly how non-party revival ends up never happening. Give the
             // party path a fair window and then stop waiting on it.
-            if (Globals.InParty && HasRaisableDeadPartyMember())
+            var raisableParty = RaisableDeadPartyMemberIds();
+
+            if (Globals.InParty && raisableParty.Count > 0)
             {
-                if (_partyRaiseYieldSince == DateTime.MinValue)
+                // Anyone newly dead earns their own window. Timing from the first corpse alone would mean
+                // one nobody can raise burns the grace once and everybody who dies afterwards gets none.
+                if (!raisableParty.IsSubsetOf(_partyRaiseYieldFor))
+                {
+                    _partyRaiseYieldFor = raisableParty;
                     _partyRaiseYieldSince = DateTime.Now;
+                }
 
                 if ((DateTime.Now - _partyRaiseYieldSince) < PartyRaiseGrace)
                     return false;
@@ -575,6 +583,7 @@ namespace Magitek.Logic.Roles
             else
             {
                 _partyRaiseYieldSince = DateTime.MinValue;
+                _partyRaiseYieldFor.Clear();
             }
 
             // Update alliance to get dead players using optimized Group system
@@ -595,14 +604,16 @@ namespace Magitek.Logic.Roles
         /// True when a party member is dead and rezzable in principle by the standard raise path.
         /// Used to yield non-party resurrection so party members keep priority for instant-cast sources.
         /// </summary>
-        private static bool HasRaisableDeadPartyMember()
+        private static HashSet<uint> RaisableDeadPartyMemberIds()
         {
-            return Group.DeadAllies.Any(u => u.CurrentHealth == 0
-                && !u.HasAura(Auras.Raise)
-                && u.WithinSpellRange(30)
-                && u.IsVisible
-                && u.InLineOfSight()
-                && u.IsTargetable);
+            return new HashSet<uint>(Group.DeadAllies
+                .Where(u => u.CurrentHealth == 0
+                            && !u.HasAura(Auras.Raise)
+                            && u.WithinSpellRange(30)
+                            && u.IsVisible
+                            && u.InLineOfSight()
+                            && u.IsTargetable)
+                .Select(u => u.ObjectId));
         }
 
         /// <summary>
@@ -620,7 +631,12 @@ namespace Magitek.Logic.Roles
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
-                                                       u.Location.DistanceSqr(RespawnPoint) >= 900);
+                                                       // Skip anyone stood at the respawn point, since they have chosen to
+                                                       // return rather than wait. That point is a South Horn coordinate, so
+                                                       // the test only means anything there — applied in another Horn it
+                                                       // measures against unrelated ground and excludes people at random.
+                                                       (WorldManager.ZoneId != SouthHornZoneId
+                                                        || u.Location.DistanceSqr(RespawnPoint) >= 900));
 
             if (!deadNonPartyPlayers.Any())
                 return false;
@@ -675,8 +691,12 @@ namespace Magitek.Logic.Roles
                     // Re-validate the target each iteration: another player can rez/LoS-break the same
                     // corpse mid-loop, which would otherwise spin here (CastAura keeps failing without
                     // consuming Swiftcast) until the aura expires ~10s later, stalling the whole routine.
+                    // Being alive again is the case the other checks miss: someone else's raise can be
+                    // accepted mid-loop, leaving the target valid, targetable, in range and carrying no
+                    // pending Raise aura — so without this the loop spins until Swiftcast expires.
                     while (Core.Me.HasAura(Auras.Swiftcast)
                            && target != null && target.IsValid && target.IsTargetable
+                           && (target as Character)?.CurrentHealth == 0
                            && !target.HasAura(Auras.Raise)
                            && target.WithinSpellRange(30) && target.InLineOfSight())
                     {
@@ -718,8 +738,12 @@ namespace Magitek.Logic.Roles
                     // Re-validate the target each iteration: in the open field another player can
                     // rez/LoS-break the same corpse, which would otherwise spin here (CastAura keeps
                     // failing without consuming Swiftcast) until the aura expires ~10s later.
+                    // Being alive again is the case the other checks miss: someone else's raise can be
+                    // accepted mid-loop, leaving the target valid, targetable, in range and carrying no
+                    // pending Raise aura — so without this the loop spins until Swiftcast expires.
                     while (Core.Me.HasAura(Auras.Swiftcast)
                            && target != null && target.IsValid && target.IsTargetable
+                           && (target as Character)?.CurrentHealth == 0
                            && !target.HasAura(Auras.Raise)
                            && target.WithinSpellRange(30) && target.InLineOfSight())
                     {
