@@ -168,6 +168,12 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
+            if (await CommonFightLogic.FightLogic_ActionState())
+                return true;
+
+            if (await CommonFightLogic.FightLogic_Gaze(BaseSettings.Instance.FightLogicGaze))
+                return true;
+
             if (BotManager.Current.IsAutonomous)
             {
                 if (Core.Me.HasTarget)
@@ -211,6 +217,12 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
+            if (await CommonFightLogic.FightLogic_ActionState())
+                return true;
+
+            if (await CommonFightLogic.FightLogic_Gaze(BaseSettings.Instance.FightLogicGaze))
+                return true;
+
             if (Core.Me.IsMounted)
                 return true;
 
@@ -222,6 +234,16 @@ namespace Magitek.Utilities.Managers
             if (await Casting.TrackSpellCast()) return true;
             await Casting.CheckForSuccessfulCast();
             Casting.DoHealthChecks = false;
+
+            // Drain the spell queue here as well as in Combat(). Healer mitigation sequences are started
+            // from Heal(), and Heal() runs first in the pulse — without this the queue would sit untouched
+            // while the rest of the heal (and then the damage) rotation carried on casting around it.
+            if (!SpellQueueLogic.SpellQueue.Any())
+                SpellQueueLogic.InSpellQueue = false;
+
+            if (SpellQueueLogic.SpellQueue.Any())
+                if (await SpellQueueLogic.SpellQueueMethod())
+                    return true;
 
             if (await GambitLogic.Gambit())
                 return true;
@@ -247,6 +269,12 @@ namespace Magitek.Utilities.Managers
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
 
+            if (await CommonFightLogic.FightLogic_ActionState())
+                return true;
+
+            if (await CommonFightLogic.FightLogic_Gaze(BaseSettings.Instance.FightLogicGaze))
+                return true;
+
             return await ExecuteRotationMethod(RotationManager.CurrentRotation, "CombatBuff");
         }
 
@@ -254,6 +282,12 @@ namespace Magitek.Utilities.Managers
         {
             if (!BaseSettings.Instance.ActiveCombatRoutine)
                 return false;
+
+            if (await CommonFightLogic.FightLogic_ActionState())
+                return true;
+
+            if (await CommonFightLogic.FightLogic_Gaze(BaseSettings.Instance.FightLogicGaze))
+                return true;
 
             Group.UpdateAllies(GetGroupExtensionForJob(RotationManager.CurrentRotation));
             Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();

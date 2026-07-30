@@ -35,7 +35,10 @@ namespace Magitek.Extensions
             if (!GameSettingsManager.FaceTargetOnAction && BaseSettings.Instance.AssumeFaceTargetOnAction)
                 GameSettingsManager.FaceTargetOnAction = true;
 
-            if (BotManager.Current.IsAutonomous && !GameSettingsManager.FaceTargetOnAction && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing) && !MovementManager.IsMoving)
+            // FightLogic.GazeHoldActive: a gaze reaction is steering our facing, so don't snap back to the
+            // target. Note this auto-face only runs while stationary, which is why a gaze turn used to
+            // survive on the move and get undone standing still.
+            if (BotManager.Current.IsAutonomous && !GameSettingsManager.FaceTargetOnAction && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing) && !MovementManager.IsMoving && !FightLogic.GazeHoldActive)
                 Core.Me.Face(target);
 
             return await DoPvPCombo(spell, spellPvpCombo, target);
@@ -101,7 +104,10 @@ namespace Magitek.Extensions
             if (!GameSettingsManager.FaceTargetOnAction && BaseSettings.Instance.AssumeFaceTargetOnAction)
                 GameSettingsManager.FaceTargetOnAction = true;
 
-            if (BotManager.Current.IsAutonomous && !GameSettingsManager.FaceTargetOnAction && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing) && !MovementManager.IsMoving)
+            // FightLogic.GazeHoldActive: a gaze reaction is steering our facing, so don't snap back to the
+            // target. Note this auto-face only runs while stationary, which is why a gaze turn used to
+            // survive on the move and get undone standing still.
+            if (BotManager.Current.IsAutonomous && !GameSettingsManager.FaceTargetOnAction && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing) && !MovementManager.IsMoving && !FightLogic.GazeHoldActive)
                 Core.Me.Face(target);
 
             return await DoAction(spell, target, callback: callback);
@@ -125,7 +131,10 @@ namespace Magitek.Extensions
             if (!GameSettingsManager.FaceTargetOnAction && BaseSettings.Instance.AssumeFaceTargetOnAction)
                 GameSettingsManager.FaceTargetOnAction = true;
 
-            if (BotManager.Current.IsAutonomous && !GameSettingsManager.FaceTargetOnAction && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing) && !MovementManager.IsMoving)
+            // FightLogic.GazeHoldActive: a gaze reaction is steering our facing, so don't snap back to the
+            // target. Note this auto-face only runs while stationary, which is why a gaze turn used to
+            // survive on the move and get undone standing still.
+            if (BotManager.Current.IsAutonomous && !GameSettingsManager.FaceTargetOnAction && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing) && !MovementManager.IsMoving && !FightLogic.GazeHoldActive)
                 Core.Me.Face(target);
 
             return await DoAction(spell, target, aura, needAura, useRefreshTime, refreshTime, auraTarget: auraTarget, callback: callback);
@@ -237,7 +246,10 @@ namespace Magitek.Extensions
                 // https://github.com/Exmortem/MagitekRoutine/pull/396
             }
 
-            return Core.Me.HasAura(Auras.Swiftcast) || !MovementManager.IsMoving || spell.AdjustedCastTime <= TimeSpan.Zero;
+            // Dualcast (RDM) makes the next cast instant just like Swiftcast, so it's castable while
+            // moving. The gate historically only whitelisted Swiftcast, which silently blocked
+            // Dualcast-primed casts on the move (e.g. Heal.Vercure's own Dualcast-while-moving path).
+            return Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Dualcast) || !MovementManager.IsMoving || spell.AdjustedCastTime <= TimeSpan.Zero;
         }
 
         public static bool CanCast(this SpellData spell, GameObject target)

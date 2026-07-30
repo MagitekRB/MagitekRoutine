@@ -1,5 +1,7 @@
-﻿using Clio.Utilities;
+﻿using Clio.Common;
+using Clio.Utilities;
 using ff14bot;
+using ff14bot.Helpers;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using System;
@@ -46,6 +48,77 @@ namespace Magitek.Utilities
         /// </summary>
         public static string CommonAoeLockOnsDisplay => string.Join(", ", CommonAoeLockOns.OrderBy(x => x));
 
+        #region Action-punishing player debuffs (Pyretic / Acceleration Bomb)
+
+        // Some mechanics apply a debuff that detonates if you ACT or MOVE while it's on you. There's no
+        // enemy cast to react to, and they recur across many zones, so this is a flat watch on the
+        // player's own auras — deliberately NOT zone-gated like the enemy-cast catalogues. Several status
+        // IDs map to the same mechanic because each encounter defines its own copy; seed the ones we know
+        // and expand the set as the debug logger surfaces more.
+        public class ActionPunishMechanic
+        {
+            public string Name;
+            public bool PunishesActions;   // casting / weaponskills / abilities set it off (e.g. Pyretic)
+            public bool PunishesMovement;  // moving sets it off (e.g. Acceleration Bomb)
+            public bool ChecksOnExpiry;    // snapshots our state as it falls off rather than punishing all along
+        }
+
+        // Pyretic is the continuous kind: acting or moving at any point while it ticks hurts.
+        private static readonly ActionPunishMechanic Pyretic =
+            new ActionPunishMechanic { Name = "Pyretic", PunishesActions = true, PunishesMovement = true };
+
+        // Detonates on movement as it expires, so there's no reason to stand frozen for its whole duration.
+        private static readonly ActionPunishMechanic AccelerationBomb =
+            new ActionPunishMechanic { Name = "Acceleration Bomb", PunishesActions = false, PunishesMovement = true, ChecksOnExpiry = true };
+
+        // Occult Crescent, Trade Tortoise: "Ill-gotten Goods" (41518) hands the whole raid an 8s Buyer's
+        // Remorse and the state check lands when it falls off, not while it ticks — combat logs show players
+        // attacking straight through the full 8s at untouched HP. Only the Pyretic-flavoured variant (4342)
+        // is listed. The other two waves are deliberately left out because neither is answerable by holding
+        // still: 4343 is frost, which wants the opposite (keep moving), and 4344 is a forced forward march
+        // that's purely about where you're standing. Both are positioning the player owns, not the routine.
+        private static readonly ActionPunishMechanic BuyersRemorse =
+            new ActionPunishMechanic { Name = "Buyer's Remorse", PunishesActions = true, PunishesMovement = true, ChecksOnExpiry = true };
+
+        // The Clyteum: "Under motion-sensing surveillance." Continuous rather than snapshot-on-expiry —
+        // being seen at any point during it is what counts — so we sit still and quiet for the duration.
+        private static readonly ActionPunishMechanic MotionTracker =
+            new ActionPunishMechanic { Name = "Motion Tracker", PunishesActions = true, PunishesMovement = true };
+
+        private static readonly Dictionary<uint, ActionPunishMechanic> ActionPunishAuras = new Dictionary<uint, ActionPunishMechanic>
+        {
+            { 639, Pyretic }, { 960, Pyretic }, { 1049, Pyretic }, { 1133, Pyretic },
+            { 1072, AccelerationBomb }, { 1384, AccelerationBomb },
+            { 4342, BuyersRemorse },
+            { 5191, MotionTracker },
+        };
+
+        // The action-punishing mechanic currently on the player (plus how long it has left), or null if none.
+        // Cheap: one scan of the player's own auras. Intentionally NOT throttled by IsFlReady — we want to
+        // keep suppressing every pulse the debuff is present, not react a single time and move on.
+        public static ActionPunishMechanic PlayerActionPunishAura(out double msRemaining)
+        {
+            msRemaining = 0;
+
+            var me = Core.Me;
+
+            if (me == null)
+                return null;
+
+            foreach (var aura in me.CharacterAuras)
+            {
+                if (!ActionPunishAuras.TryGetValue(aura.Id, out var mechanic))
+                    continue;
+
+                msRemaining = aura.TimespanLeft.TotalMilliseconds;
+                return mechanic;
+            }
+
+            return null;
+        }
+
+        #endregion
+
         private static TimeSpan FlCooldown
         {
             get
@@ -66,16 +139,66 @@ namespace Magitek.Utilities
 
         private static (Encounter, Enemy, BattleCharacter) GetEnemyLogicAndEnemyCached { get; set; }
 
-        public static async Task<bool> DoAndBuffer(Task<bool> task)
+        private static uint _layeredCastId;
+        private static bool _layeredResponseUsed;
+
+        /// <summary>
+        /// Reserves the one extra response a single mechanic is allowed.
+        /// <para>
+        /// Normally reacting to a cast marks it handled and blocks anything further, so one mechanic gets
+        /// one answer. That is wrong for a heavy raidwide: instant mitigation is off the global cooldown
+        /// while barriers are on it, so a healer should lay one down and still raise the other. Callers
+        /// pass the result to <see cref="DoAndBuffer(Task{bool}, bool)"/> as <c>layered</c>.
+        /// </para>
+        /// <para>
+        /// Strictly one per cast. Without that cap a job with several instant mitigations — White Mage has
+        /// five — would answer one raidwide with all of them over successive pulses, which is the priority
+        /// dump the throttle exists to prevent.
+        /// </para>
+        /// </summary>
+        private static bool TryConsumeLayeredResponse(uint? castId)
+        {
+            if (!castId.HasValue || castId.Value == 0)
+                return false; // lock-on reactions have no cast to budget against
+
+            if (_layeredCastId != castId.Value)
+            {
+                _layeredCastId = castId.Value;
+                _layeredResponseUsed = false;
+            }
+
+            if (_layeredResponseUsed)
+                return false;
+
+            _layeredResponseUsed = true;
+            return true;
+        }
+
+        public static async Task<bool> DoAndBuffer(Task<bool> task, bool layered = false)
         {
             var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
-            if (enemy == null)
-                return false;
+            // Snapshot the cast we're reacting to BEFORE awaiting. The caller passes Spell.Cast(...),
+            // which eagerly starts the cast; awaiting it burns the ~0.6s animation lock, during which the
+            // enemy can move on to its NEXT catalogued cast. Reading enemy.CastingSpellId after the await
+            // would latch THAT next cast as "handled" and suppress its own mitigation.
+            var handledCastId = enemy?.CastingSpellId;
 
+            // Bailing on a null enemy here would NOT stop the action (the cast is already started) — it
+            // would only skip the FL throttle, letting a lock-on reaction (enemy == null) re-fire every
+            // pulse and dump the whole mitigation priority list. Await the cast, then start the 5s
+            // throttle on success regardless; only record the handled cast id when we had a casting enemy.
             if (!await task) return false;
 
-            FlHandledCastingSpellId.Add(enemy.CastingSpellId);
+            // A layered response deliberately leaves the mechanic open so the next pulse can follow up with
+            // the other half of the mitigation, neither marking the cast handled nor starting the throttle.
+            // The budget is only spent once the cast actually landed, and only one is granted per mechanic,
+            // so a second layered attempt falls through and closes the reaction as normal.
+            if (layered && TryConsumeLayeredResponse(handledCastId))
+                return true;
+
+            if (handledCastId.HasValue)
+                FlHandledCastingSpellId.Add(handledCastId.Value);
             FlStopwatch.Start();
             return true;
         }
@@ -98,9 +221,17 @@ namespace Magitek.Utilities
                 ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
                 : null;
 
+            // Solo: no party tank is the buster's target, but it's aimed at us so we eat it — react on
+            // ourselves. Scoped to out-of-party so an in-party aggro swap doesn't trigger a self-reaction.
+            if (output == null
+                && !Globals.InParty
+                && enemyLogic.TankBusters.Contains(enemy.CastingSpellId)
+                && enemy.TargetCharacter?.ObjectId == Core.Me.ObjectId)
+                output = Core.Me;
+
             if (output != null && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo(
-                    $"[TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name} on {output.CurrentJob} in our party.");
+                    $"[TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name} on {output.CurrentJob}{(Globals.InParty ? " in our party." : " (solo).")}");
 
             return output;
         }
@@ -123,9 +254,16 @@ namespace Magitek.Utilities
                 ? Group.CastableTanks.FirstOrDefault(x => x != enemy.TargetCharacter)
                 : null;
 
+            // Solo: no co-tank to share with, so if it's aimed at us we eat the whole thing — self-mitigate.
+            if (output == null
+                && !Globals.InParty
+                && enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
+                && enemy.TargetCharacter?.ObjectId == Core.Me.ObjectId)
+                output = Core.Me;
+
             if (output != null && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo(
-                    $"[Shared TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}. Handling for {output.CurrentJob} in our party.");
+                    $"[Shared TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}. Handling for {output.CurrentJob}{(Globals.InParty ? " in our party." : " (solo)")}.");
 
             return output;
 
@@ -260,12 +398,38 @@ namespace Magitek.Utilities
             return output;
         }
 
+        // Field Operations — Eureka, Bozja/Zadnor and the Occult Crescent — are instanced content whose
+        // bosses are worth mitigating exactly like duty bosses, but none of them register as a standard
+        // InActiveDuty (there's no duty-in-progress state), so the gates below would keep FightLogic
+        // dormant there. Admitting these zones is safe: reactions only ever fire on catalogued cast ids,
+        // so they cannot misfire on unmapped field trash. Delubrum Reginae is deliberately absent — it's
+        // a real instanced raid inside Bozja and already satisfies InActiveDuty.
+        private static readonly HashSet<ushort> FieldOperationZoneIds = new HashSet<ushort>
+        {
+            732,  // The Forbidden Land, Eureka Anemos
+            763,  // The Forbidden Land, Eureka Pagos
+            795,  // The Forbidden Land, Eureka Pyros
+            827,  // The Forbidden Land, Eureka Hydatos
+            920,  // The Bozjan Southern Front
+            975,  // Zadnor
+        };
+
+        // The Occult Crescent is deliberately absent from the list above: it owns its own zone detection
+        // (which also matches new Horns by name), so keeping it in one place stops the two drifting apart.
+        public static bool InFieldOperation()
+        {
+            return FieldOperationZoneIds.Contains(WorldManager.ZoneId)
+                || global::Magitek.Logic.Roles.OccultCrescent.IsInOccultCrescent();
+        }
+
         public static bool ZoneHasFightLogic()
         {
             if (!DebugSettings.Instance.UseFightLogic)
                 return false;
 
-            if (!Globals.InActiveDuty)
+            // Admit field operations alongside duties so catalogued reactions (incl. the healer
+            // HealFightLogic paths that gate on this) fire there. Mirrors GetEnemyLogicAndEnemy().
+            if (!Globals.InActiveDuty && !InFieldOperation())
                 return false;
 
             if (!Core.Me.InCombat)
@@ -318,6 +482,251 @@ namespace Magitek.Utilities
             return false;
         }
 
+        #region Gaze mechanics (look away / look toward)
+
+        public enum GazeDirection { None, Away, Toward }
+
+        private static GameObject _gazeSource;
+        private static GazeDirection _gazeDirection;
+        private static DateTime _gazeHoldUntil = DateTime.MinValue;
+
+        /// <summary>
+        /// True while a gaze reaction owns our facing. Cast paths check this before force-facing the
+        /// current target: that auto-face only runs while stationary, which is exactly why turning away
+        /// used to work on the move and fail standing still — the next cast snapped us back at the boss.
+        /// </summary>
+        public static bool GazeHoldActive => DateTime.Now < _gazeHoldUntil;
+
+        /// <summary>
+        /// Latch a gaze hold. Kept alive for a short grace after the gaze stops being detected, because the
+        /// snapshot lands as the cast completes — releasing on the exact frame it ends lets a queued GCD fire
+        /// and re-face us into the gaze before it resolves.
+        /// </summary>
+        public static void LatchGazeHold(GazeDirection direction, GameObject source, int graceMs)
+        {
+            _gazeDirection = direction;
+            _gazeSource = source;
+            _gazeHoldUntil = DateTime.Now.AddMilliseconds(graceMs);
+        }
+
+        /// <summary>
+        /// Re-assert the latched facing during the post-gaze grace window. False once it lapses.
+        /// </summary>
+        public static bool ReassertGazeHold()
+        {
+            if (!GazeHoldActive || _gazeSource == null || !_gazeSource.IsValid)
+                return false;
+
+            FaceForGaze(_gazeDirection, _gazeSource);
+            return true;
+        }
+
+        // The current zone's encounter, but only if something in it actually has catalogued gaze data.
+        // Returning null lets the caller skip the object-manager scan entirely in every other zone.
+        private static Encounter GazeEncounter()
+        {
+            if (!ZoneHasFightLogic())
+                return null;
+
+            var encounter = FightLogicEncounters.Encounters.FirstOrDefault(x => x.ZoneId == WorldManager.RawZoneId);
+
+            if (encounter?.Enemies == null)
+                return null;
+
+            return encounter.Enemies.Any(x => x.LookAwayGazes != null || x.LookTowardGazes != null
+                    || x.LookAwayLockOns != null || x.LookTowardLockOns != null || x.LookAwayFromMarkedLockOns != null)
+                ? encounter
+                : null;
+        }
+
+        // The live object matching a catalogued enemy, used to orient against when the gaze is signalled
+        // by a head marker rather than by that enemy's own cast.
+        private static BattleCharacter FindCataloguedEnemy(Enemy logic)
+        {
+            return GameObjectManager.GetObjectsOfType<BattleCharacter>()
+                .FirstOrDefault(x => x != null && x.IsValid
+                    && (logic.Id == x.NpcId || logic.Name == x.EnglishName)
+                    && Core.Me.Distance(x) <= 50);
+        }
+
+        // Gazes flagged by a head marker instead of a cast (e.g. Shinryu's Cataclysmic Vortex). RB surfaces
+        // these through VfxContainer.LockOns — the same source the AoE lock-on checks read. There's no cast
+        // bar to time against here, so the caller simply holds for as long as the marker is up.
+        private static uint _seenMarkerId;
+        private static DateTime _seenMarkerSince = DateTime.MinValue;
+        private static DateTime _seenMarkerLastPolled = DateTime.MinValue;
+
+        // A marker is polled every pulse while it is up, so a gap means it went away and came back.
+        private const double MarkerGoneAfterMs = 1000;
+
+        /// <summary>
+        /// How long the gaze marker we are currently reacting to has been on us. Markers carry no visible
+        /// timer, unlike a cast bar, so this is the only way to turn late rather than surrendering the
+        /// marker's entire lifetime. Resets whenever a different marker appears.
+        /// </summary>
+        public static double GazeMarkerAgeMs(uint markerId)
+        {
+            var now = DateTime.Now;
+
+            // Watching the id alone is not enough. The same gaze comes round again every cycle, and
+            // without noticing the gap between one and the next the second would be timed from the first,
+            // count as long overdue, and turn instantly for the marker's whole life instead of waiting.
+            if (_seenMarkerId != markerId
+                || (now - _seenMarkerLastPolled).TotalMilliseconds > MarkerGoneAfterMs)
+            {
+                _seenMarkerId = markerId;
+                _seenMarkerSince = now;
+            }
+
+            _seenMarkerLastPolled = now;
+
+            return (now - _seenMarkerSince).TotalMilliseconds;
+        }
+
+        public static GazeDirection GazeLockOnActive(out GameObject source, out uint markerId)
+        {
+            source = null;
+            markerId = 0;
+
+            var encounter = GazeEncounter();
+            var me = Core.Me;
+
+            if (encounter == null || me == null)
+                return GazeDirection.None;
+
+            foreach (var logic in encounter.Enemies)
+            {
+                var away = logic.LookAwayLockOns == null
+                    ? null
+                    : me.VfxContainer.LockOns.FirstOrDefault(l => logic.LookAwayLockOns.Contains(l.Id));
+
+                if (away != null)
+                {
+                    source = FindCataloguedEnemy(logic);
+                    if (source != null)
+                    {
+                        markerId = away.Id;
+                        return GazeDirection.Away;
+                    }
+                }
+
+                var toward = logic.LookTowardLockOns == null
+                    ? null
+                    : me.VfxContainer.LockOns.FirstOrDefault(l => logic.LookTowardLockOns.Contains(l.Id));
+
+                if (toward != null)
+                {
+                    source = FindCataloguedEnemy(logic);
+                    if (source != null)
+                    {
+                        markerId = toward.Id;
+                        return GazeDirection.Toward;
+                    }
+                }
+
+                // Marker sits on somebody else and the rest of the party looks away from THEM. If we're the
+                // marked one there's nothing to turn away from, so we leave our facing alone.
+                if (logic.LookAwayFromMarkedLockOns == null)
+                    continue;
+
+                foreach (var ally in Group.CastableAlliesWithin50)
+                {
+                    if (ally == null || !ally.IsValid || ally.ObjectId == me.ObjectId)
+                        continue;
+
+                    var onAlly = ally.VfxContainer.LockOns.FirstOrDefault(l => logic.LookAwayFromMarkedLockOns.Contains(l.Id));
+
+                    if (onAlly == null)
+                        continue;
+
+                    source = ally;
+                    markerId = onAlly.Id;
+                    return GazeDirection.Away;
+                }
+            }
+
+            return GazeDirection.None;
+        }
+
+        public static bool EnemyHasAnyGazeLogic() => GazeEncounter() != null;
+
+        // Which gaze is being cast right now, and by whom.
+        //
+        // Deliberately scans GameObjectManager instead of Combat.Enemies: the directional gaze is cast by
+        // untargetable mechanic actors (the Gilded Headstone "eye" copies), and Combat.Enemies filters
+        // those out via ValidAttackUnit/IsTargetable — so the cast would never be seen there. Also NOT
+        // throttled by IsFlReady/FlHandledCastingSpellId: facing has to be re-asserted every pulse for the
+        // whole cast rather than reacted to once.
+        public static GazeDirection EnemyIsCastingGaze(out BattleCharacter source)
+        {
+            source = null;
+
+            var encounter = GazeEncounter();
+
+            if (encounter == null)
+                return GazeDirection.None;
+
+            var direction = GazeDirection.None;
+            var soonest = double.MaxValue;
+
+            foreach (var unit in GameObjectManager.GetObjectsOfType<BattleCharacter>())
+            {
+                if (unit == null || !unit.IsValid || !unit.IsCasting)
+                    continue;
+
+                if (Core.Me.Distance(unit) > 50)
+                    continue;
+
+                var logic = encounter.Enemies.FirstOrDefault(x => x.Id == unit.NpcId || x.Name == unit.EnglishName);
+
+                if (logic == null)
+                    continue;
+
+                GazeDirection casting;
+
+                if (logic.LookAwayGazes != null && logic.LookAwayGazes.Contains(unit.CastingSpellId))
+                    casting = GazeDirection.Away;
+                else if (logic.LookTowardGazes != null && logic.LookTowardGazes.Contains(unit.CastingSpellId))
+                    casting = GazeDirection.Toward;
+                else
+                    continue;
+
+                // These come in overlapping waves — copies start ~2s apart with ~4.7s casts, so an avert
+                // and a face gaze are routinely in flight together demanding opposite headings. Obey the
+                // one resolving first; once it lands the next becomes soonest and we flip for that.
+                var remaining = unit.SpellCastInfo.RemainingCastTime.TotalMilliseconds;
+
+                if (remaining >= soonest)
+                    continue;
+
+                soonest = remaining;
+                direction = casting;
+                source = unit;
+            }
+
+            return direction;
+        }
+
+        // Orient relative to the gaze source. Mind the codebase convention: MathHelper.CalculateHeading
+        // returns the heading pointing AWAY from the destination — facing it is that value + PI (see the
+        // InView/RadiansFromPlayerHeading math in GameObjectExtensions). So Away uses the raw heading and
+        // Toward adds PI. SetFacing is instantaneous, so even a late turn lands; it only holds while
+        // stationary, though — if a botbase is driving movement, movement direction wins.
+        public static void FaceForGaze(GazeDirection direction, GameObject source)
+        {
+            if (source == null || direction == GazeDirection.None)
+                return;
+
+            var heading = MathHelper.CalculateHeading(Core.Me.Location, source.Location);
+
+            if (direction == GazeDirection.Toward)
+                heading = MathEx.NormalizeRadian(heading + (float)Math.PI);
+
+            Core.Me.SetFacing(heading);
+        }
+
+        #endregion
+
         public static bool HodlCastTimeRemaining(int hodlTillCastInMs = 0, double hodlTillDurationInPct = 0.0)
         {
             if (hodlTillCastInMs == 0 && hodlTillDurationInPct == 0)
@@ -364,7 +773,9 @@ namespace Magitek.Utilities
             if (!DebugSettings.Instance.UseFightLogic)
                 return SetAndReturn();
 
-            if (!Globals.InActiveDuty)
+            // Admit field operations alongside duties (see FieldOperationZoneIds) so the catalogue load
+            // below runs there rather than leaving FightLogic dormant.
+            if (!Globals.InActiveDuty && !InFieldOperation())
                 return SetAndReturn();
 
             if (!Core.Me.InCombat)
@@ -392,7 +803,19 @@ namespace Magitek.Utilities
                         $"\nYou are currently in {WorldManager.CurrentZoneName} ({WorldManager.RawZoneId})";
                     var currentTarget = Core.Me.CurrentTarget == null ? "No Target" : Core.Me.CurrentTarget.Name;
                     var npcId = Core.Me.CurrentTarget?.NpcId == null ? 0 : Core.Me.CurrentTarget.NpcId;
-                    Debug.Instance.FightLogicData += $"\nCurrent Target: {currentTarget} ({npcId})\n\n\n";
+                    Debug.Instance.FightLogicData += $"\nCurrent Target: {currentTarget} ({npcId})\n";
+
+                    // Live cast discovery: every nearby enemy currently casting, with the raw action id.
+                    // This is how you capture uncatalogued mechanic ids (gazes, etc.) to add to the catalogue —
+                    // read the id off the boss's cast bar here, then it can be catalogued by enemy name.
+                    var castingNow = Combat.Enemies.Where(y => y.IsCasting).ToList();
+                    Debug.Instance.FightLogicData += "\nCasting now:\n";
+                    if (castingNow.Count == 0)
+                        Debug.Instance.FightLogicData += "\t(nothing casting)\n";
+                    else
+                        castingNow.ForEach(y => Debug.Instance.FightLogicData +=
+                            $"\t{y.EnglishName} ({y.NpcId}): {y.SpellCastInfo.Name} ({y.CastingSpellId})\n");
+                    Debug.Instance.FightLogicData += "\n\n";
 
                     if (encounter == null && enemyLogic == null && enemy == null)
                         Debug.Instance.FightLogicData += $"There is no Fight Logic for this zone - {WorldManager.CurrentZoneName} ({WorldManager.RawZoneId}). \n";
@@ -426,6 +849,18 @@ namespace Magitek.Utilities
                                 Debug.Instance.FightLogicData +=
                                     $"\tAoe Lock Ons:\n{string.Join("", element.AoeLockOns.Select(aoeLockOn => $"\t\t({aoeLockOn})\n"))}";
 
+                            if (element.Knockbacks != null)
+                                Debug.Instance.FightLogicData +=
+                                    $"\tKnockbacks:\n{string.Join("", element.Knockbacks.Select(kb => $"\t\t{DataManager.GetSpellData(kb).Name} ({kb})\n"))}";
+
+                            if (element.LookAwayGazes != null)
+                                Debug.Instance.FightLogicData +=
+                                    $"\tLook-Away Gazes:\n{string.Join("", element.LookAwayGazes.Select(g => $"\t\t{DataManager.GetSpellData(g).Name} ({g})\n"))}";
+
+                            if (element.LookTowardGazes != null)
+                                Debug.Instance.FightLogicData +=
+                                    $"\tLook-Toward Gazes:\n{string.Join("", element.LookTowardGazes.Select(g => $"\t\t{DataManager.GetSpellData(g).Name} ({g})\n"))}";
+
                             Debug.Instance.FightLogicData += $"\n";
                         });
                     }
@@ -450,6 +885,14 @@ namespace Magitek.Utilities
         internal List<uint> BigAoes { get; set; }
         internal List<uint> Knockbacks { get; set; }
         internal List<uint> AoeLockOns { get; set; }
+        internal List<uint> LookAwayGazes { get; set; }
+        internal List<uint> LookTowardGazes { get; set; }
+        // Some fights signal the gaze with a head marker on players instead of an enemy cast. The first
+        // two are markers on US and orient against the enemy; the third marks somebody ELSE and everyone
+        // looks away from that player instead of from the boss.
+        internal List<uint> LookAwayLockOns { get; set; }
+        internal List<uint> LookTowardLockOns { get; set; }
+        internal List<uint> LookAwayFromMarkedLockOns { get; set; }
     }
 
     internal class Encounter

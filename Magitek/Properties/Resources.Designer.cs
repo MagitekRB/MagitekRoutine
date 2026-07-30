@@ -4782,6 +4782,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause for action/movement mechanics (Pyretic, Acceleration Bomb).
+        /// </summary>
+        public static string Generic_FightLogic_ActionAwareness {
+            get {
+                return ResourceManager.GetString("Generic_FightLogic_ActionAwareness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn away from / toward gaze attacks.
+        /// </summary>
+        public static string Generic_FightLogic_Gaze {
+            get {
+                return ResourceManager.GetString("Generic_FightLogic_Gaze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fight Logic.
         /// </summary>
         public static string Generic_Fight_Logic {

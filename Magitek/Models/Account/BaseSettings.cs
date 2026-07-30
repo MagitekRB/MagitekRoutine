@@ -140,6 +140,14 @@ namespace Magitek.Models.Account
         public bool UseFightLogic { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool FightLogicActionAwareness { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool FightLogicGaze { get; set; }
+
+        [Setting]
         [DefaultValue(20.0f)]
         public float FightLogicResponseDelay { get; set; }
 
@@ -400,6 +408,9 @@ namespace Magitek.Models.Account
         [Setting]
         [DefaultValue(true)]
         public bool EnableAoe { get; set; }
+
+
+
         #endregion
 
         #region PvP

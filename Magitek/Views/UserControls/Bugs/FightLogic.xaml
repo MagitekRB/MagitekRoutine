@@ -25,6 +25,10 @@
             <StackPanel Orientation="Horizontal" Margin="5">
                 <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.Generic_Fight_Logic_Include_Common_Aoe_Lock_Ons}" IsChecked="{Binding Settings.FightLogicIncludeCommonAoeLockOnsTest, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <CheckBox Margin="0,0,10,0" Content="{x:Static properties:Resources.Generic_FightLogic_ActionAwareness}" IsChecked="{Binding Settings.FightLogicActionAwareness, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="0,0,0,0" Content="{x:Static properties:Resources.Generic_FightLogic_Gaze}" IsChecked="{Binding Settings.FightLogicGaze, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            </StackPanel>
             <StackPanel Margin="5,0,5,5">
                 <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" TextWrapping="Wrap" FontSize="9">
                     <Run Text="Common AoE Lock-On IDs: "/>
