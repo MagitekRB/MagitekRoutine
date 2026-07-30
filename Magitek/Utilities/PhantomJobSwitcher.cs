@@ -25,6 +25,8 @@ namespace Magitek.Utilities
         /// </summary>
         private static DateTime _inquiringMindRetryAfter = DateTime.MinValue;
         private static readonly TimeSpan InquiringMindRetryCooldown = TimeSpan.FromMinutes(5);
+        private static int _inquiringMindFailures;
+        private const int InquiringMindFailuresBeforeBackoff = 3;
 
         /// <summary>
         /// Maps phantom jobs to their corresponding knowledge crystal buff auras
@@ -185,6 +187,7 @@ namespace Magitek.Utilities
                         await Casting.CheckForSuccessfulCast();
                         anyActionTaken = true;
                         _inquiringMindRetryAfter = DateTime.MinValue; // it works -> clear any back-off
+                        _inquiringMindFailures = 0;
 
                         // Wait for the buffs to actually register before deciding on any individual
                         // fallback. Inquiring Mind's auras take a beat to land; checking NeedsBuff too
@@ -214,10 +217,24 @@ namespace Magitek.Utilities
                     }
                     else
                     {
-                        // On Freelancer but the cast didn't fire -> this character lacks Inquiring Mind
-                        // (Freelancer < 15). Back off so we don't keep flipping to Freelancer every crystal.
-                        _inquiringMindRetryAfter = now.Add(InquiringMindRetryCooldown);
-                        Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind unavailable; backing off, falling back to individual buffs");
+                        // A failed cast is not proof the character lacks Inquiring Mind. Cast() also
+                        // returns false for passing reasons — most often the animation lock from the job
+                        // swap we just did, which this only waits 500ms for. Treating the first failure
+                        // as "Freelancer below 15" silenced the fast path for five minutes over what was
+                        // usually a momentary blip, and with the individual swaps turned off that left no
+                        // buffing at all. Only back off once it has failed repeatedly, which a genuine
+                        // absence does and a blip does not.
+                        _inquiringMindFailures++;
+
+                        if (_inquiringMindFailures >= InquiringMindFailuresBeforeBackoff)
+                        {
+                            _inquiringMindRetryAfter = now.Add(InquiringMindRetryCooldown);
+                            Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind unavailable; backing off, falling back to individual buffs");
+                        }
+                        else
+                        {
+                            Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind didn't fire (attempt {_inquiringMindFailures}); will retry");
+                        }
                     }
                 }
             }

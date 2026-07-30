@@ -227,6 +227,11 @@ namespace Magitek.Logic.Roles
         // Horns, so the aetheryte beside it serves the same purpose without needing the zone mapped first.
         private const float AetheryteProximity = 7.0f;
 
+        // How long non-party revival stands aside for a dead party member before deciding the party
+        // path is not coming.
+        private static DateTime _partyRaiseYieldSince = DateTime.MinValue;
+        private static readonly TimeSpan PartyRaiseGrace = TimeSpan.FromSeconds(15);
+
         private static readonly Vector3[] KnowledgeCrystalLocations = new[]
         {
             new Vector3(835.9902f, 75.12211f, -709.3925f),
@@ -554,8 +559,23 @@ namespace Magitek.Logic.Roles
             // party rez) spends any Dualcast/Swiftcast on them instead of a non-party random. Only
             // yields when actually grouped with an eligible corpse, so it won't strand a party
             // member the standard path wouldn't cover anyway.
+            // Yielding is only worth it while the party path is actually going to act. If it cannot —
+            // the job has no raise, it is switched off, it is out of resources, or the dead player is a
+            // role the user excluded — then the corpse simply stays there and this would keep standing
+            // aside forever, which is exactly how non-party revival ends up never happening. Give the
+            // party path a fair window and then stop waiting on it.
             if (Globals.InParty && HasRaisableDeadPartyMember())
-                return false;
+            {
+                if (_partyRaiseYieldSince == DateTime.MinValue)
+                    _partyRaiseYieldSince = DateTime.Now;
+
+                if ((DateTime.Now - _partyRaiseYieldSince) < PartyRaiseGrace)
+                    return false;
+            }
+            else
+            {
+                _partyRaiseYieldSince = DateTime.MinValue;
+            }
 
             // Update alliance to get dead players using optimized Group system
             Group.UpdateAlliance(
