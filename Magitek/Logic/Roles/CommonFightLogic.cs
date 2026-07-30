@@ -192,8 +192,16 @@ namespace Magitek.Logic.Roles
 
             // Halt routine-driven movement — the usual killer for movement-punish mechanics like
             // Acceleration Bomb. Best-effort: a botbase actively pathing may re-issue movement next tick.
-            if (mechanic.PunishesMovement && MovementManager.IsMoving)
-                Navigator.PlayerMover.MoveStop();
+            if (mechanic.PunishesMovement)
+            {
+                if (MovementManager.IsMoving)
+                    Navigator.PlayerMover.MoveStop();
+
+                // Stopping alone is not enough: the rest of the pulse would navigate straight back out
+                // again. Park navigation for a moment so standing still actually sticks. Refreshed every
+                // pulse the mechanic is up, so it lapses on its own the instant it is not.
+                FightLogic.HoldMovement(1000);
+            }
 
             // A mechanic that only objects to movement has no quarrel with casting, so there is nothing
             // to gain by going quiet for it. Acceleration Bomb is the common case: stop moving, then let

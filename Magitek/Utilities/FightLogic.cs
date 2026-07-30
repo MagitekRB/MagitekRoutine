@@ -552,6 +552,16 @@ namespace Magitek.Utilities
         // Gazes flagged by a head marker instead of a cast (e.g. Shinryu's Cataclysmic Vortex). RB surfaces
         // these through VfxContainer.LockOns — the same source the AoE lock-on checks read. There's no cast
         // bar to time against here, so the caller simply holds for as long as the marker is up.
+        // Some mechanics punish movement but not casting. Those must not consume the pulse — that
+        // would throw away every action in the window — but the rotation re-issues navigation later
+        // in the same pulse, which would undo the MoveStop. This latch lets the rotation keep casting
+        // while navigation stays parked. Short-lived and refreshed each pulse, so it cannot stick on.
+        private static DateTime _movementHeldUntil = DateTime.MinValue;
+
+        public static bool MovementHeld => DateTime.Now < _movementHeldUntil;
+
+        public static void HoldMovement(int ms) => _movementHeldUntil = DateTime.Now.AddMilliseconds(ms);
+
         private static uint _seenMarkerId;
         private static DateTime _seenMarkerSince = DateTime.MinValue;
         private static DateTime _seenMarkerLastPolled = DateTime.MinValue;

@@ -174,7 +174,7 @@ namespace Magitek.Utilities.Managers
             if (await CommonFightLogic.FightLogic_Gaze(BaseSettings.Instance.FightLogicGaze))
                 return true;
 
-            if (BotManager.Current.IsAutonomous)
+            if (BotManager.Current.IsAutonomous && !FightLogic.MovementHeld)
             {
                 if (Core.Me.HasTarget)
                     Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 0) + Core.Me.CurrentTarget.CombatReach);
@@ -293,7 +293,7 @@ namespace Magitek.Utilities.Managers
             Globals.HealTarget = Group.CastableAlliesWithin30.FirstOrDefault();
             await Chocobo.HandleChocobo();
 
-            if (BotManager.Current.IsAutonomous)
+            if (BotManager.Current.IsAutonomous && !FightLogic.MovementHeld)
             {
                 if (Core.Me.HasTarget)
                     Movement.NavigateToUnitLos(Core.Me.CurrentTarget, (Core.Me.IsRanged() ? 20 : 2) + Core.Me.CurrentTarget.CombatReach);
