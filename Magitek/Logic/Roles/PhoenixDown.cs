@@ -1,3 +1,4 @@
+using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -79,6 +80,13 @@ namespace Magitek.Logic.Roles
 
             Logger.WriteInfo($"[Phoenix Down] Reviving {target.Name} ({target.CurrentJob})");
             item.UseItem(target);
+
+            // Starting the item cast is not the same as finishing it. Left untracked, the very next pulse
+            // sees nothing in progress and carries on to the movement step, which walks and cancels the
+            // revive. Hold here until the cast actually ends so the rest of the pulse cannot interrupt it.
+            await Coroutine.Wait(1000, () => Core.Me.IsCasting);
+            await Coroutine.Wait(10000, () => !Core.Me.IsCasting);
+
             return true;
         }
 
