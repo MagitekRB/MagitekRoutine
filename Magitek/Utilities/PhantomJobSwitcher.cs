@@ -5,6 +5,7 @@ using ff14bot;
 using ff14bot.Managers;
 using Buddy.Coroutines;
 using Magitek.Extensions;
+using Magitek.Models.Account;
 using Magitek.Models.OccultCrescent;
 using Magitek.Utilities.Agents;
 using Magitek.Logic.Roles;
@@ -170,7 +171,9 @@ namespace Magitek.Utilities
                     if (await SwitchToPhantomJob(PhantomJobId.Freelancer))
                     {
                         anyActionTaken = true;
-                        await Coroutine.Wait(500, () => false);
+                        // Sit out the swap's animation lock before casting. A flat 500ms was shorter than
+                        // the configured lock, so on this path the cast below failed every single time.
+                        await Coroutine.Sleep(Globals.AnimationLockMs + BaseSettings.Instance.UserLatencyOffset);
                     }
                     else
                     {
@@ -217,13 +220,12 @@ namespace Magitek.Utilities
                     }
                     else
                     {
-                        // A failed cast is not proof the character lacks Inquiring Mind. Cast() also
-                        // returns false for passing reasons — most often the animation lock from the job
-                        // swap we just did, which this only waits 500ms for. Treating the first failure
-                        // as "Freelancer below 15" silenced the fast path for five minutes over what was
-                        // usually a momentary blip, and with the individual swaps turned off that left no
-                        // buffing at all. Only back off once it has failed repeatedly, which a genuine
-                        // absence does and a blip does not.
+                        // A failed cast is not proof the character lacks Inquiring Mind — Cast() also
+                        // returns false for passing reasons. Treating the first failure as "Freelancer
+                        // below 15" silenced the fast path for five minutes over what was usually a
+                        // momentary blip, and with the individual swaps turned off that left no buffing
+                        // at all. Only back off once it has failed repeatedly, which a genuine absence
+                        // does and a blip does not.
                         _inquiringMindFailures++;
 
                         if (_inquiringMindFailures >= InquiringMindFailuresBeforeBackoff)

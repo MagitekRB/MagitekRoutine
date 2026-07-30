@@ -267,6 +267,11 @@ namespace Magitek.Logic.Roles
         // normal. Keyed by mob type, self-healing, bounded by the number of distinct OC mob types.
         private static readonly Dictionary<uint, (int Fails, DateTime LastCast)> _slowBackoff = new();
 
+        // How long to watch for Slow to appear before calling the cast a miss. Long enough to cover
+        // server round-trip on the aura, short enough not to stall the rotation; returns as soon as
+        // the aura lands, so the normal case costs nothing near this.
+        private const int SlowConfirmWindowMs = 1500;
+
         // Oracle prediction tracking
         private static bool _predictCasted = false;
         private static DateTime _predictCastTime = DateTime.MinValue;
@@ -2254,11 +2259,21 @@ namespace Magitek.Logic.Roles
             if (!await OCSpells.OccultSlowga.Cast(castTarget))
                 return false;
 
-            // Escalate this type's backoff; a Slow that actually lands clears it via the HasAura path.
+            // Only count a miss once Slow is confirmed absent. Recording one straight after the cast
+            // scored successful casts as failures whenever the target died before a later pulse could
+            // observe the aura, quietly muting a perfectly slowable type for up to five minutes.
             if (castTarget is BattleCharacter casted)
             {
-                var fails = _slowBackoff.TryGetValue(casted.NpcId, out var prev) ? prev.Fails + 1 : 1;
-                _slowBackoff[casted.NpcId] = (fails, DateTime.Now);
+                if (await Coroutine.Wait(SlowConfirmWindowMs, () => casted.HasAura(OCAuras.Slow)))
+                {
+                    _slowBackoff.Remove(casted.NpcId);
+                }
+                else if (casted.IsValid && casted.IsAlive)
+                {
+                    // Still standing and still unslowed — that is a genuine resist.
+                    var fails = _slowBackoff.TryGetValue(casted.NpcId, out var prev) ? prev.Fails + 1 : 1;
+                    _slowBackoff[casted.NpcId] = (fails, DateTime.Now);
+                }
             }
             return true;
         }
