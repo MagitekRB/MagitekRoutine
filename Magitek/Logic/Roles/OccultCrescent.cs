@@ -569,13 +569,15 @@ namespace Magitek.Logic.Roles
 
             if (Globals.InParty && raisableParty.Count > 0)
             {
-                // Anyone newly dead earns their own window. Timing from the first corpse alone would mean
-                // one nobody can raise burns the grace once and everybody who dies afterwards gets none.
-                if (!raisableParty.IsSubsetOf(_partyRaiseYieldFor))
-                {
-                    _partyRaiseYieldFor = raisableParty;
+                // Anyone newly down earns their own window. Timing from the first corpse alone would mean
+                // one nobody can raise burns the grace once and everybody who falls afterwards gets none.
+                if (raisableParty.Except(_partyRaiseYieldFor).Any())
                     _partyRaiseYieldSince = DateTime.Now;
-                }
+
+                // Always take the current set, so anyone raised drops out of it. Letting it only grow
+                // meant somebody who died, was raised and died again still counted as already seen, and
+                // so was handed no window at all the second time.
+                _partyRaiseYieldFor = raisableParty;
 
                 if ((DateTime.Now - _partyRaiseYieldSince) < PartyRaiseGrace)
                     return false;
