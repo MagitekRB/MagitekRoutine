@@ -58,6 +58,17 @@
                                 <controls:Numeric MaxValue="5000" MinValue="0" Value="{Binding GeneralSettings.UserLatencyOffset, Mode=TwoWay}" />
                                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_NoClippyXivAlexander_simulate_a_10ms_pi}" />
                             </StackPanel>
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <CheckBox Content="{x:Static properties:Resources.Views_Content_Use_Phoenix_Down}" IsChecked="{Binding GeneralSettings.UsePhoenixDown, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                            </StackPanel>
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_Phoenix_Down_Delay}" />
+                                <controls:Numeric MaxValue="300" MinValue="0" Value="{Binding GeneralSettings.PhoenixDownDelaySeconds, Mode=TwoWay}" />
+                            </StackPanel>
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Views_Text_Phoenix_Down_Reserve}" />
+                                <controls:Numeric MaxValue="99" MinValue="0" Value="{Binding GeneralSettings.PhoenixDownReserve, Mode=TwoWay}" />
+                            </StackPanel>
                         </StackPanel>
                     </controls:SettingsBlock>
                     
