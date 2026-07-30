@@ -28,9 +28,11 @@ namespace Magitek.Extensions
                 return unit.Type != GameObjectType.Pc;
             }
 
-            // DamageableByMyMark keeps single-target damage off enemies we can't hurt under a mark-match
-            // mechanic (Meso Terminal Cell Block); it's a no-op whenever we carry no such mark.
-            return unit.CanAttack && unit.DamageableByMyMark();
+            // Rotations guard on this and then cast straight at CurrentTarget, so every immunity rule has
+            // to apply here, not just the mark one. NotInvulnerable() chains them all, so a boss immune to
+            // our damage type, dubbed against us, or unreachable without a buff stops the rotation instead
+            // of letting it pour damage into something it cannot hurt.
+            return unit.CanAttack && unit.NotInvulnerable();
         }
 
         public static bool BeingTargeted(this GameObject unit)
