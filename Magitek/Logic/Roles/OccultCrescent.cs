@@ -179,17 +179,54 @@ namespace Magitek.Logic.Roles
     {
         private static readonly HashSet<ushort> OccultCrescentZoneIds = new()
         {
-            1252,
+            1252, // The Occult Crescent: South Horn
+            1346, // The Occult Crescent: Northern Horn
         };
 
+        private const string OccultCrescentZoneNamePart = "Occult Crescent";
+
+        private static int _lastZoneChecked = -1;
+        private static bool _lastZoneWasOccultCrescent;
+
+        /// <summary>
+        /// Known zone ids first, then a fallback on the zone name so a newly released Horn works the day
+        /// it ships instead of silently disabling everything Occult Crescent specific until its id is
+        /// added here — which is exactly what happened when Northern Horn arrived.
+        /// <para>
+        /// Name matching is safe across clients: WorldManager.CurrentZoneName is the non-localized name
+        /// (CurrentLocalizedZoneName is the one shown to the player). The result is cached per zone so the
+        /// string comparison happens once on zone change rather than on every call.
+        /// </para>
+        /// </summary>
         public static bool IsInOccultCrescent()
         {
-            return OccultCrescentZoneIds.Contains(WorldManager.ZoneId);
+            var zoneId = WorldManager.ZoneId;
+
+            if (zoneId == _lastZoneChecked)
+                return _lastZoneWasOccultCrescent;
+
+            var zoneName = WorldManager.CurrentZoneName;
+
+            _lastZoneChecked = zoneId;
+            _lastZoneWasOccultCrescent = OccultCrescentZoneIds.Contains(zoneId)
+                || (!string.IsNullOrEmpty(zoneName)
+                    && zoneName.IndexOf(OccultCrescentZoneNamePart, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            return _lastZoneWasOccultCrescent;
         }
 
         private static readonly uint KnowledgeCrystal = 2007457;
 
-        // Known Knowledge Crystal locations that never change
+        // Known Knowledge Crystal locations that never change. SOUTH HORN ONLY — these are raw map
+        // coordinates, and each Horn has its own coordinate space, so the same numbers point at unrelated
+        // ground elsewhere. Always check the zone before trusting them.
+        private const ushort SouthHornZoneId = 1252;
+
+        // How close a Knowledge Crystal stands to its Occult Aetheryte. South Horn proves the crystal
+        // out by checking it sits on one of a handful of known positions; no such list exists for newer
+        // Horns, so the aetheryte beside it serves the same purpose without needing the zone mapped first.
+        private const float AetheryteProximity = 7.0f;
+
         private static readonly Vector3[] KnowledgeCrystalLocations = new[]
         {
             new Vector3(835.9902f, 75.12211f, -709.3925f),
@@ -214,6 +251,16 @@ namespace Magitek.Logic.Roles
         // Cannoneer alternating cannon tracking
         private static bool _lastUsedShockCannon = false;
 
+        // OccultSlowga recast backoff. Slowga spammed on Slow-immune enemies (their Slow never lands,
+        // so the "target doesn't have Slow" guard stays true and it re-casts every pulse). Rather than
+        // permanently blacklisting a type — fragile, because an interrupted cast, a Slow that expired
+        // while the mob was untargeted, or a mid-cast target switch can all look like a resist and
+        // wrongly kill a slowable type for the session — we simply back off: each consecutive cast on
+        // a type that doesn't result in Slow pushes the next attempt further out (to a 5-minute cap),
+        // so immune mobs go near-silent, while a Slow that actually lands clears the type back to
+        // normal. Keyed by mob type, self-healing, bounded by the number of distinct OC mob types.
+        private static readonly Dictionary<uint, (int Fails, DateTime LastCast)> _slowBackoff = new();
+
         // Oracle prediction tracking
         private static bool _predictCasted = false;
         private static DateTime _predictCastTime = DateTime.MinValue;
@@ -236,7 +283,17 @@ namespace Magitek.Logic.Roles
             { 4364, PhantomJob.Geomancer },
             { 4805, PhantomJob.Dancer },
             { 4803, PhantomJob.MysticKnight },
-            { 4804, PhantomJob.Gladiator }
+            { 4804, PhantomJob.Gladiator },
+            // Added with Northern Horn. Without these the current job reads as None and every Occult
+            // Crescent feature bails out, which is why nothing worked while playing one of them.
+            { 5328, PhantomJob.Ninja },
+            { 5329, PhantomJob.WhiteMage },
+            { 5330, PhantomJob.BlackMage },
+            { 5331, PhantomJob.Dragoon },
+            { 5332, PhantomJob.Summoner },
+            { 5333, PhantomJob.BlueMage },
+            { 5334, PhantomJob.RedMage },
+            { 5335, PhantomJob.Necromancer }
         };
 
         public enum PhantomJob
@@ -256,7 +313,15 @@ namespace Magitek.Logic.Roles
             Geomancer,
             Dancer,
             MysticKnight,
-            Gladiator
+            Gladiator,
+            Ninja,
+            WhiteMage,
+            BlackMage,
+            Dragoon,
+            Summoner,
+            BlueMage,
+            RedMage,
+            Necromancer
         }
 
         /// <summary>
@@ -286,15 +351,67 @@ namespace Magitek.Logic.Roles
         /// <returns>True if near a valid crystal</returns>
         private static bool PerformCrystalCheck(float maxDistance)
         {
-            // Simply check if player is near any known crystal location
-            // No need for expensive NPC searches since crystal locations are fixed
             var loc = Core.Me.Location;
-            foreach (var crystalLocation in KnowledgeCrystalLocations)
+
+            // Fast path: the known crystal spots, no object scan needed. Gated to South Horn, because the
+            // coordinates only mean anything there — used zone-wide they resolve to arbitrary ground in
+            // Northern Horn, where they read as "standing at a crystal" in places that plainly aren't, and
+            // swap phantom jobs on arrival at a critical engagement.
+            if (WorldManager.ZoneId == SouthHornZoneId)
             {
-                if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
-                    return true;
+                foreach (var crystalLocation in KnowledgeCrystalLocations)
+                {
+                    if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
+                    {
+                        Logger.WriteInfo($"[KnowledgeCrystal] Matched a known South Horn position at {loc}.");
+                        return true;
+                    }
+                }
             }
-            return false;
+
+            // Otherwise look for the crystal itself. The coordinates above only cover South Horn, so
+            // relying on them alone silently disabled phantom job switching everywhere else the moment
+            // Northern Horn arrived. Finding the object works in any Horn without needing its layout.
+            // The caller throttles this check, so the scan is bounded.
+            var nearby = GameObjectManager.GetObjectsByNPCId<GameObject>(KnowledgeCrystal)
+                .Where(crystal => crystal != null && crystal.IsValid)
+                .Select(crystal => new { Crystal = crystal, Distance = loc.Distance(crystal.Location) })
+                .Where(x => x.Distance <= maxDistance)
+                .OrderBy(x => x.Distance)
+                .ToList();
+
+            if (nearby.Count == 0)
+                return false;
+
+            // The marker that lights up where a critical engagement is about to spawn carries the SAME
+            // object id as a Knowledge Crystal, which is what was swapping phantom jobs out in the field.
+            // The two cannot be told apart by the object alone — crystals are not targetable either — but
+            // a real crystal always stands beside an Occult Aetheryte, and an engagement marker does not.
+            var aetherytes = GameObjectManager.GameObjects
+                .Where(o => o != null && o.IsValid && o.EnglishName != null
+                            && o.EnglishName.IndexOf("Aetheryte", StringComparison.OrdinalIgnoreCase) >= 0)
+                .ToList();
+
+            var match = nearby.FirstOrDefault(x =>
+                aetherytes.Any(a => a.Location.Distance(x.Crystal.Location) <= AetheryteProximity));
+
+            if (match == null)
+            {
+                // Log what WAS beside the candidate, so a wrong assumption here shows up immediately
+                // rather than silently disabling phantom buffs.
+                var nearest = nearby[0];
+                var closestAetheryte = aetherytes
+                    .OrderBy(a => a.Location.Distance(nearest.Crystal.Location))
+                    .FirstOrDefault();
+                var how = closestAetheryte == null
+                    ? "no aetheryte found in the zone at all"
+                    : $"nearest aetheryte is {closestAetheryte.Location.Distance(nearest.Crystal.Location):F1}y from it";
+                Logger.WriteInfo($"[KnowledgeCrystal] Ignoring {nearby.Count} candidate(s) with no aetheryte beside them — closest is {nearest.Distance:F1}y away at {nearest.Crystal.Location}; {how}.");
+                return false;
+            }
+
+            Logger.WriteInfo($"[KnowledgeCrystal] Found a crystal {match.Distance:F1}y away at {match.Crystal.Location} (zone {WorldManager.ZoneId}).");
+            return true;
 
             /* OLD APPROACH - NPC LOOKUP METHOD (preserved for reference)
              * This was the original implementation that verified actual NPC existence
@@ -432,6 +549,14 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyOutOfCombat)
                 return false;
 
+            // Party-priority: if a raise-eligible party member is down, yield this pulse so the
+            // standard Heal()/Verraise() path (which runs later in the same pulse chain and owns
+            // party rez) spends any Dualcast/Swiftcast on them instead of a non-party random. Only
+            // yields when actually grouped with an eligible corpse, so it won't strand a party
+            // member the standard path wouldn't cover anyway.
+            if (Globals.InParty && HasRaisableDeadPartyMember())
+                return false;
+
             // Update alliance to get dead players using optimized Group system
             Group.UpdateAlliance(
                 IgnoreAlliance: false,
@@ -447,6 +572,20 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
+        /// True when a party member is dead and rezzable in principle by the standard raise path.
+        /// Used to yield non-party resurrection so party members keep priority for instant-cast sources.
+        /// </summary>
+        private static bool HasRaisableDeadPartyMember()
+        {
+            return Group.DeadAllies.Any(u => u.CurrentHealth == 0
+                && !u.HasAura(Auras.Raise)
+                && u.WithinSpellRange(30)
+                && u.IsVisible
+                && u.InLineOfSight()
+                && u.IsTargetable);
+        }
+
+        /// <summary>
         /// Attempts to raise a non-party player using the appropriate resurrection spell for current job
         /// Handles swiftcast/slowcast preferences and special cases like RDM dualcast
         /// </summary>
@@ -457,7 +596,7 @@ namespace Magitek.Logic.Roles
             // Filter out party members since CastableAlliance includes everyone
             var deadNonPartyPlayers = Group.CastableAlliance.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
-                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.WithinSpellRange(30) &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
@@ -513,7 +652,13 @@ namespace Magitek.Logic.Roles
             {
                 if (await Healer.Swiftcast())
                 {
-                    while (Core.Me.HasAura(Auras.Swiftcast))
+                    // Re-validate the target each iteration: another player can rez/LoS-break the same
+                    // corpse mid-loop, which would otherwise spin here (CastAura keeps failing without
+                    // consuming Swiftcast) until the aura expires ~10s later, stalling the whole routine.
+                    while (Core.Me.HasAura(Auras.Swiftcast)
+                           && target != null && target.IsValid && target.IsTargetable
+                           && !target.HasAura(Auras.Raise)
+                           && target.WithinSpellRange(30) && target.InLineOfSight())
                     {
                         if (await resurrectionSpell.CastAura(target, Auras.Raise))
                             return true;
@@ -541,14 +686,58 @@ namespace Magitek.Logic.Roles
             if (!Spells.Verraise.CanCast())
                 return false;
 
-            // First check for dualcast (best option for RDM)
-            if (Core.Me.HasAura(Auras.Dualcast))
+            // Dualcast or Swiftcast already up: instant Verraise (best case).
+            if (Core.Me.HasAura(Auras.Dualcast) || Core.Me.HasAura(Auras.Swiftcast))
+                return await Spells.Verraise.Cast(target);
+
+            // Swiftcast off cooldown: pop it for an instant Verraise.
+            if (Spells.Swiftcast.IsKnownAndReady())
             {
+                if (await Healer.Swiftcast())
+                {
+                    // Re-validate the target each iteration: in the open field another player can
+                    // rez/LoS-break the same corpse, which would otherwise spin here (CastAura keeps
+                    // failing without consuming Swiftcast) until the aura expires ~10s later.
+                    while (Core.Me.HasAura(Auras.Swiftcast)
+                           && target != null && target.IsValid && target.IsTargetable
+                           && !target.HasAura(Auras.Raise)
+                           && target.WithinSpellRange(30) && target.InLineOfSight())
+                    {
+                        if (await Spells.Verraise.CastAura(target, Auras.Raise))
+                            return true;
+                        await Coroutine.Yield();
+                    }
+                }
+            }
+
+            // If the loop above exited with Swiftcast still up (the corpse got invalidated mid-loop),
+            // don't fall into the priming/hardcast paths — an instant Vercure would burn the Swiftcast
+            // without proc'ing Dualcast. Bail and re-pulse; the next pass spends the still-up Swiftcast on
+            // an instant Verraise against a freshly-selected valid corpse (handled at the top of this method).
+            if (Core.Me.HasAura(Auras.Swiftcast))
+                return false;
+
+            // Out of combat with no instant-cast source: prime Dualcast with a quick self-Vercure
+            // (~2s) instead of hard-casting Verraise (~10s). The next pulse consumes the Dualcast
+            // for an instant Verraise. Mirrors RedMage VerraisePrime() for the field-op rez path,
+            // which never sees these non-party allies (they aren't in Group.DeadAllies).
+            if (!Core.Me.InCombat)
+            {
+                // Moving: can neither prime (Vercure must stand still) nor hardcast (the cast-time
+                // gate rejects a moving cast with no instant-cast source). Bail and retry next pulse;
+                // the prime runs once stopped.
+                if (MovementManager.IsMoving)
+                    return false;
+
+                if (Spells.Vercure.IsKnown() && await Spells.Vercure.Cast(Core.Me))
+                    return true;
+
+                // Vercure unavailable or failed: hard-cast Verraise so the rez still lands.
                 return await Spells.Verraise.Cast(target);
             }
 
-            // No dualcast, use regular swiftcast/slowcast logic
-            return await RaiseWithSwiftcastOptions(Spells.Verraise, target);
+            // In combat with no instant-cast source: don't clip the fight with a ~10s hardcast.
+            return false;
         }
 
         /// <summary>
@@ -1886,7 +2075,7 @@ namespace Magitek.Logic.Roles
             // Find dead allies using the same logic as Healer.Raise
             var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
-                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.WithinSpellRange(30) &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
@@ -1967,13 +2156,36 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            // Don't cast if target already has slow debuff
+            // Already slowed — nothing to do; clear this type's backoff (it's proven slowable).
             if (Core.Me.CurrentTarget.HasAura(OCAuras.Slow))
+            {
+                if (Core.Me.CurrentTarget is BattleCharacter slowed)
+                    _slowBackoff.Remove(slowed.NpcId);
                 return false;
+            }
 
             // Check if target is a BattleCharacter for additional checks
             if (Core.Me.CurrentTarget is BattleCharacter battleTarget)
             {
+                // Back off from types whose recent Slowga casts never produced Slow (immune/resisting).
+                // The delay escalates with consecutive misses so an immune type effectively goes quiet,
+                // while the HasAura clear above keeps genuinely slowable types responsive. This only
+                // delays and never permanently disables, so a mis-detection self-corrects on the next
+                // landed Slow.
+                if (_slowBackoff.TryGetValue(battleTarget.NpcId, out var bo))
+                {
+                    var delay = bo.Fails switch
+                    {
+                        <= 1 => TimeSpan.FromSeconds(15),
+                        2 => TimeSpan.FromSeconds(30),
+                        3 => TimeSpan.FromSeconds(60),
+                        4 => TimeSpan.FromSeconds(120),
+                        _ => TimeSpan.FromSeconds(300),
+                    };
+                    if (DateTime.Now - bo.LastCast < delay)
+                        return false;
+                }
+
                 // Check difficulty - high difficulty enemies are often immune to CC
                 if (battleTarget.RawDifficulty >= 2)
                     return false;
@@ -1990,7 +2202,19 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultSlowga.Range))
                 return false;
 
-            return await OCSpells.OccultSlowga.Cast(Core.Me.CurrentTarget);
+            // Capture the target before the (cast-time) await so the backoff record can't be mis-keyed
+            // to a different enemy if CurrentTarget switches while the cast is in flight.
+            var castTarget = Core.Me.CurrentTarget;
+            if (!await OCSpells.OccultSlowga.Cast(castTarget))
+                return false;
+
+            // Escalate this type's backoff; a Slow that actually lands clears it via the HasAura path.
+            if (castTarget is BattleCharacter casted)
+            {
+                var fails = _slowBackoff.TryGetValue(casted.NpcId, out var prev) ? prev.Fails + 1 : 1;
+                _slowBackoff[casted.NpcId] = (fails, DateTime.Now);
+            }
+            return true;
         }
 
         /// <summary>
@@ -2160,9 +2384,6 @@ namespace Magitek.Logic.Roles
 
             if (!Core.Me.CurrentTarget.HasDispellableAura())
                 return false;
-
-            // if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
-            //     return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultDispel.Range))
                 return false;

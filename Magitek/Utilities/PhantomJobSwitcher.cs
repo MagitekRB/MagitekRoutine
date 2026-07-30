@@ -20,6 +20,13 @@ namespace Magitek.Utilities
         private static readonly TimeSpan AttemptCooldown = TimeSpan.FromSeconds(30);
 
         /// <summary>
+        /// Back-off latch so a character that genuinely lacks Inquiring Mind (Freelancer &lt; 15) isn't
+        /// repeatedly flipped to Freelancer: set after a failed cast, cleared after a successful one.
+        /// </summary>
+        private static DateTime _inquiringMindRetryAfter = DateTime.MinValue;
+        private static readonly TimeSpan InquiringMindRetryCooldown = TimeSpan.FromMinutes(5);
+
+        /// <summary>
         /// Maps phantom jobs to their corresponding knowledge crystal buff auras
         /// </summary>
         private static readonly Dictionary<PhantomJobId, KnowledgeCrystalBuff> KnowledgeCrystalBuffs = new()
@@ -96,16 +103,23 @@ namespace Magitek.Utilities
             if (now - _lastAttemptTime < AttemptCooldown)
                 return false;
 
-            // Build list of needed buffs (cheap aura checks)
-            var neededBuffs = new List<(PhantomJobId jobId, KnowledgeCrystalBuff buffInfo)>();
+            bool preferInquiring = OccultCrescentSettings.Instance.PreferInquiringMind;
+
+            // All four crystal buffs we're currently missing. Inquiring Mind (Freelancer) grants them
+            // together, so it is driven by the FULL missing set, decoupled from the per-job AutoSwitch
+            // settings — those only gate the individual-swap fallback. This lets a player run Inquiring
+            // Mind alone (all four individual swaps turned off) and still get buffed.
+            var missingBuffs = new List<(PhantomJobId jobId, KnowledgeCrystalBuff buffInfo)>();
+            var individualCandidates = new List<(PhantomJobId jobId, KnowledgeCrystalBuff buffInfo)>();
 
             foreach (var kvp in KnowledgeCrystalBuffs)
             {
-                var phantomJobId = kvp.Key;
-                var buffInfo = kvp.Value;
+                if (!NeedsBuff(kvp.Value))
+                    continue;
 
-                // Check if this specific job switching is enabled
-                bool jobSwitchEnabled = phantomJobId switch
+                missingBuffs.Add((kvp.Key, kvp.Value));
+
+                bool jobSwitchEnabled = kvp.Key switch
                 {
                     PhantomJobId.Knight => OccultCrescentSettings.Instance.AutoSwitchToKnightForEnduringFortitude,
                     PhantomJobId.Bard => OccultCrescentSettings.Instance.AutoSwitchToBardForRomeosBallad,
@@ -114,19 +128,15 @@ namespace Magitek.Utilities
                     _ => false
                 };
 
-                // Skip if this job switching is disabled
-                if (!jobSwitchEnabled)
-                    continue;
-
-                // Check if we need this buff
-                if (NeedsBuff(buffInfo))
-                {
-                    neededBuffs.Add((phantomJobId, buffInfo));
-                }
+                if (jobSwitchEnabled)
+                    individualCandidates.Add((kvp.Key, kvp.Value));
             }
 
-            // If we don't need any buffs, no point checking crystal location
-            if (neededBuffs.Count == 0)
+            // Nothing missing -> done. With Inquiring Mind off we can only act on the enabled individual
+            // jobs, so bail if none are enabled.
+            if (missingBuffs.Count == 0)
+                return false;
+            if (!preferInquiring && individualCandidates.Count == 0)
                 return false;
 
             // Only now check if we're near a knowledge crystal (more expensive check)
@@ -143,64 +153,77 @@ namespace Magitek.Utilities
             var successfulBuffs = new List<string>();
             bool anyActionTaken = false;
 
-            // Fast path: try Inquiring Mind (Freelancer level 15) to get all buffs at once
-            if (OccultCrescentSettings.Instance.PreferInquiringMind)
+            // Fast path: Inquiring Mind (Freelancer) applies all four buffs at once. We do NOT hard-gate
+            // on the phantom-job level memory read — it has proven unreliable (it can report a wrong
+            // level even for a level-15 Freelancer that clearly has Inquiring Mind), which would silently
+            // force the slow 4-job swap. Instead we attempt it and let the cast be the authority; a
+            // genuine "can't cast" latches the fast path off briefly (see _inquiringMindRetryAfter).
+            if (preferInquiring && now >= _inquiringMindRetryAfter)
             {
-                byte freelancerLevel = OccultCrescentMemory.GetSupportJobLevel(PhantomJobId.Freelancer);
+                Logger.WriteInfo("[PhantomJobSwitcher] Trying Inquiring Mind (Freelancer) for all buffs");
 
-                if (freelancerLevel >= 15)
+                bool onFreelancer = true;
+                if (GetCurrentPhantomJobId() != PhantomJobId.Freelancer)
                 {
-                    Logger.WriteInfo($"[PhantomJobSwitcher] Freelancer level {freelancerLevel} detected, using Inquiring Mind for all buffs");
-
-                    bool needsSwitch = GetCurrentPhantomJobId() != PhantomJobId.Freelancer;
-
-                    if (needsSwitch)
+                    if (await SwitchToPhantomJob(PhantomJobId.Freelancer))
                     {
-                        if (!await SwitchToPhantomJob(PhantomJobId.Freelancer))
-                        {
-                            Logger.WriteInfo("[PhantomJobSwitcher] Failed to switch to Freelancer, falling back to individual buffs");
-                            goto IndividualBuffs;
-                        }
                         anyActionTaken = true;
                         await Coroutine.Wait(500, () => false);
                     }
+                    else
+                    {
+                        Logger.WriteInfo("[PhantomJobSwitcher] Failed to switch to Freelancer, falling back to individual buffs");
+                        onFreelancer = false;
+                    }
+                }
 
+                if (onFreelancer)
+                {
                     if (await OCSpells.InquiringMind.Cast(Core.Me))
                     {
                         Logger.WriteInfo("[PhantomJobSwitcher] Successfully cast Inquiring Mind");
                         await Casting.CheckForSuccessfulCast();
-                        await Coroutine.Wait(500, () => false);
+                        anyActionTaken = true;
+                        _inquiringMindRetryAfter = DateTime.MinValue; // it works -> clear any back-off
 
-                        // Check which buffs were applied
-                        foreach (var (_, buffInfo) in neededBuffs)
+                        // Wait for the buffs to actually register before deciding on any individual
+                        // fallback. Inquiring Mind's auras take a beat to land; checking NeedsBuff too
+                        // early reports them still missing and we re-swap through all four jobs to
+                        // re-apply what we already have. Returns as soon as every buff lands (all jobs
+                        // levelled), or times out only for a buff it genuinely can't grant (unlevelled).
+                        await Coroutine.Wait(3000, () => !missingBuffs.Exists(x => NeedsBuff(x.buffInfo)));
+
+                        foreach (var (_, buffInfo) in missingBuffs)
                         {
                             if (!NeedsBuff(buffInfo))
                                 successfulBuffs.Add(buffInfo.BuffName);
                         }
-                        anyActionTaken = true;
 
-                        // If all needed buffs are now present, restore and return
-                        if (successfulBuffs.Count == neededBuffs.Count)
+                        // Everything we could still be missing is now handled -> done.
+                        if (!missingBuffs.Exists(x => NeedsBuff(x.buffInfo)))
                         {
                             await RestoreOriginalJob(originalPhantomJobId, anyActionTaken);
                             Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind applied all buffs: {string.Join(", ", successfulBuffs)}");
                             return true;
                         }
 
-                        // Rebuild neededBuffs to only include what's still missing
-                        neededBuffs.RemoveAll(x => !NeedsBuff(x.buffInfo));
-                        Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind applied some buffs, {neededBuffs.Count} remaining");
+                        // Inquiring Mind can't grant buffs for jobs the player hasn't levelled; let the
+                        // enabled individual fallback cover whatever is still missing.
+                        individualCandidates.RemoveAll(x => !NeedsBuff(x.buffInfo));
+                        Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind applied some buffs; {individualCandidates.Count} to try individually");
                     }
                     else
                     {
-                        Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind cast failed, falling back to individual buffs");
+                        // On Freelancer but the cast didn't fire -> this character lacks Inquiring Mind
+                        // (Freelancer < 15). Back off so we don't keep flipping to Freelancer every crystal.
+                        _inquiringMindRetryAfter = now.Add(InquiringMindRetryCooldown);
+                        Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind unavailable; backing off, falling back to individual buffs");
                     }
                 }
             }
 
-            IndividualBuffs:
-            // Individual buff path: switch to each job that has sufficient level
-            foreach (var (neededJobId, neededBuffInfo) in neededBuffs)
+            // Individual buff path: switch to each enabled job that still needs its buff.
+            foreach (var (neededJobId, neededBuffInfo) in individualCandidates)
             {
                 // Check job level before switching to avoid wasted attempts
                 byte jobLevel = OccultCrescentMemory.GetSupportJobLevel(neededJobId);
@@ -434,6 +457,14 @@ namespace Magitek.Utilities
                 OccultCrescent.PhantomJob.Dancer => PhantomJobId.Dancer,
                 OccultCrescent.PhantomJob.MysticKnight => PhantomJobId.MysticKnight,
                 OccultCrescent.PhantomJob.Gladiator => PhantomJobId.Gladiator,
+                OccultCrescent.PhantomJob.Ninja => PhantomJobId.Ninja,
+                OccultCrescent.PhantomJob.WhiteMage => PhantomJobId.WhiteMage,
+                OccultCrescent.PhantomJob.BlackMage => PhantomJobId.BlackMage,
+                OccultCrescent.PhantomJob.Dragoon => PhantomJobId.Dragoon,
+                OccultCrescent.PhantomJob.Summoner => PhantomJobId.Summoner,
+                OccultCrescent.PhantomJob.BlueMage => PhantomJobId.BlueMage,
+                OccultCrescent.PhantomJob.RedMage => PhantomJobId.RedMage,
+                OccultCrescent.PhantomJob.Necromancer => PhantomJobId.Necromancer,
                 _ => PhantomJobId.Freelancer // Default to Freelancer
             };
         }
