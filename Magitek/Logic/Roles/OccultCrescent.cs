@@ -271,7 +271,7 @@ namespace Magitek.Logic.Roles
         // nothing conclusive about the Slow is knowable at the point of casting. Each cast is recorded
         // here instead and judged on a later pulse, once the aura has had time to appear. Keyed by the
         // individual enemy, since two of the same type can be slowed independently.
-        private static readonly Dictionary<uint, (uint NpcId, DateTime JudgeAt)> _slowPending = new();
+        private static readonly Dictionary<uint, (uint NpcId, DateTime CastEndsAt, DateTime JudgeAt)> _slowPending = new();
 
         // Grace on top of the cast time before a missing Slow is treated as a resist.
         private const int SlowConfirmGraceMs = 1000;
@@ -2189,6 +2189,11 @@ namespace Magitek.Logic.Roles
             return await OCSpells.OccultElixir.Cast(Core.Me);
         }
 
+        private static bool IsCastingSlowga()
+        {
+            return Core.Me.IsCasting && Core.Me.CastingSpellId == OCSpells.OccultSlowga.Id;
+        }
+
         /// <summary>
         /// Judges Slowga casts whose Slow has had time to land. An enemy that is gone by then — killed
         /// during the cast, despawned, out of range — proves nothing either way and is simply dropped,
@@ -2205,7 +2210,15 @@ namespace Magitek.Logic.Roles
             foreach (var (objectId, pending) in _slowPending)
             {
                 if (now < pending.JudgeAt)
+                {
+                    // A cast that stops before it was due to finish was interrupted — movement, a stun,
+                    // the target dying mid-cast. Nothing was applied, so it is no evidence of immunity
+                    // and gets dropped rather than judged.
+                    if (now < pending.CastEndsAt && !IsCastingSlowga())
+                        judged.Add(objectId);
+
                     continue;
+                }
 
                 judged.Add(objectId);
 
@@ -2311,9 +2324,8 @@ namespace Magitek.Logic.Roles
             // Hand the result off to be judged later; the cast has only just begun here.
             if (castTarget is BattleCharacter casted)
             {
-                var judgeAt = DateTime.Now.AddMilliseconds(
-                    OCSpells.OccultSlowga.AdjustedCastTime.TotalMilliseconds + SlowConfirmGraceMs);
-                _slowPending[casted.ObjectId] = (casted.NpcId, judgeAt);
+                var castEndsAt = DateTime.Now.AddMilliseconds(OCSpells.OccultSlowga.AdjustedCastTime.TotalMilliseconds);
+                _slowPending[casted.ObjectId] = (casted.NpcId, castEndsAt, castEndsAt.AddMilliseconds(SlowConfirmGraceMs));
             }
             return true;
         }
