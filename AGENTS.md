@@ -547,6 +547,46 @@ namespace Magitek.Logic.BlackMage
 - **Test at multiple levels**: Consider how the logic behaves at the spell's acquisition level, below it, and in level-synced content.
 - See "Level Sync and Spell Dependencies" section for comprehensive patterns and examples.
 
+### Cast Completion: You Cannot Observe Your Own Cast
+
+**`Cast()` returns when the cast STARTS, not when it lands.** `SpellDataExtensions.DoAction` waits only for `Core.Me.IsCasting` to become *true*, then returns. Anything written after `await spell.Cast(target)` runs while the cast is still in flight — the spell has not resolved, and no aura, damage, or debuff it applies exists yet.
+
+**Logic files get no pulse during a cast.** `RotationManager.Combat` and `PreCombatBuff` both return early on `if (Core.Me.IsCasting)`. Code under `Logic/` is therefore only ever reached while *not* casting.
+
+Together these mean **a `Logic/` method can never see its own cast in progress**. An `IsCasting` or `CastingSpellId` check written inside a Logic file is dead code — it can only observe the not-casting state. Interruption detection by polling is impossible from there.
+
+❌ **BAD**: assuming the cast has resolved
+```csharp
+await Spells.SomeDebuff.Cast(target);
+if (!target.HasAura(Auras.SomeDebuff))   // always false — the cast has not finished
+    MarkTargetImmune(target);            // records every successful cast as a failure
+```
+
+❌ **BAD**: blocking to wait for the result
+```csharp
+await Spells.SomeDebuff.Cast(target);
+// Stalls the rotation for the whole cast, and if the window is shorter than the
+// cast time it expires before the aura can possibly land.
+var landed = await Coroutine.Wait(1500, () => target.HasAura(Auras.SomeDebuff));
+```
+
+✅ **GOOD**: record the attempt, judge it on a later pulse
+```csharp
+// Deadline = cast time + grace for the server round-trip.
+var judgeAt = DateTime.Now.AddMilliseconds(
+    Spells.SomeDebuff.AdjustedCastTime.TotalMilliseconds + ConfirmGraceMs);
+_pending[target.ObjectId] = (target.NpcId, judgeAt);
+
+// ...on a later pulse, judge against observable world state:
+// target gone or dead  -> inconclusive, discard (a kill is not proof of immunity)
+// aura present         -> landed
+// alive and still bare -> genuine miss
+```
+
+Key the record by **both** `ObjectId` and `NpcId` — the game reuses object ids, so an entry that lingers can otherwise be judged against whatever later spawns into the same slot.
+
+**Verify cast times from game data, not assumption.** `Resources/ActionList.json` carries only icon/id/name and omits newer action ids entirely. Read `AdjustedCastTime` at runtime, or check the action sheet directly when writing timing constants.
+
 ### Extension Methods and Utilities
 
 **CRITICAL:** Before implementing custom logic or manually accessing game objects, **always check extension methods** in the `Extensions/` folder. Many common operations have optimized, tested helper methods that handle edge cases and follow Magitek patterns.
@@ -1230,6 +1270,7 @@ return await Spells.HolyCircle.Cast(Core.Me);
 12. Modifying embedded JSON resources directly instead of using boss fight dictionaries.
 13. Using `Masked()` results without checking for null or storing in a variable for repeated checks.
 14. **Duplicating shared code** in Logic files instead of using `Utilities/Routines/<Job>.cs` for helper functions, cached variables, and calculations used by multiple Logic files (see "Job-Specific Shared Utilities" section).
+15. **Reading the result of a cast immediately after awaiting it.** `Cast()` returns when the cast starts, and Logic files never pulse during a cast, so the spell's aura/effect cannot be observed there and `IsCasting` checks inside Logic are dead code (see "Cast Completion: You Cannot Observe Your Own Cast").
 
 **Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented.
 
