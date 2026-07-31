@@ -267,10 +267,14 @@ namespace Magitek.Logic.Roles
         // normal. Keyed by mob type, self-healing, bounded by the number of distinct OC mob types.
         private static readonly Dictionary<uint, (int Fails, DateTime LastCast)> _slowBackoff = new();
 
-        // How long to watch for Slow to appear before calling the cast a miss. Long enough to cover
-        // server round-trip on the aura, short enough not to stall the rotation; returns as soon as
-        // the aura lands, so the normal case costs nothing near this.
-        private const int SlowConfirmWindowMs = 1500;
+        // Slowga is a cast, and a cast reports back the moment it starts rather than when it lands, so
+        // nothing conclusive about the Slow is knowable at the point of casting. Each cast is recorded
+        // here instead and judged on a later pulse, once the aura has had time to appear. Keyed by the
+        // individual enemy, since two of the same type can be slowed independently.
+        private static readonly Dictionary<uint, (uint NpcId, DateTime JudgeAt)> _slowPending = new();
+
+        // Grace on top of the cast time before a missing Slow is treated as a resist.
+        private const int SlowConfirmGraceMs = 1000;
 
         // Oracle prediction tracking
         private static bool _predictCasted = false;
@@ -2188,11 +2192,53 @@ namespace Magitek.Logic.Roles
         /// <summary>
         /// Cast OccultSlowga - afflicts target with Slow (aura 3493)
         /// </summary>
+        /// <summary>
+        /// Judges Slowga casts whose Slow has had time to land. An enemy that is gone by then — killed
+        /// during the cast, despawned, out of range — proves nothing either way and is simply dropped,
+        /// which is what stops a kill from being recorded as an immunity and muting a slowable type.
+        /// </summary>
+        private static void ResolveSlowgaCasts()
+        {
+            if (_slowPending.Count == 0)
+                return;
+
+            var now = DateTime.Now;
+            var judged = new List<uint>();
+
+            foreach (var (objectId, pending) in _slowPending)
+            {
+                if (now < pending.JudgeAt)
+                    continue;
+
+                judged.Add(objectId);
+
+                var target = Combat.Enemies.FirstOrDefault(x => x.ObjectId == objectId);
+                if (target == null || !target.IsValid || !target.IsAlive)
+                    continue;
+
+                if (target.HasAura(OCAuras.Slow))
+                {
+                    _slowBackoff.Remove(pending.NpcId);
+                }
+                else
+                {
+                    // Alive, in view, and still unslowed well after the cast — a genuine resist.
+                    var fails = _slowBackoff.TryGetValue(pending.NpcId, out var prev) ? prev.Fails + 1 : 1;
+                    _slowBackoff[pending.NpcId] = (fails, now);
+                }
+            }
+
+            foreach (var objectId in judged)
+                _slowPending.Remove(objectId);
+        }
+
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> OccultSlowga()
         {
             if (!OccultCrescentSettings.Instance.UseOccultSlowga)
                 return false;
+
+            ResolveSlowgaCasts();
 
             if (!Core.Me.InCombat)
                 return false;
@@ -2259,21 +2305,12 @@ namespace Magitek.Logic.Roles
             if (!await OCSpells.OccultSlowga.Cast(castTarget))
                 return false;
 
-            // Only count a miss once Slow is confirmed absent. Recording one straight after the cast
-            // scored successful casts as failures whenever the target died before a later pulse could
-            // observe the aura, quietly muting a perfectly slowable type for up to five minutes.
+            // Hand the result off to be judged later; the cast has only just begun here.
             if (castTarget is BattleCharacter casted)
             {
-                if (await Coroutine.Wait(SlowConfirmWindowMs, () => casted.HasAura(OCAuras.Slow)))
-                {
-                    _slowBackoff.Remove(casted.NpcId);
-                }
-                else if (casted.IsValid && casted.IsAlive)
-                {
-                    // Still standing and still unslowed — that is a genuine resist.
-                    var fails = _slowBackoff.TryGetValue(casted.NpcId, out var prev) ? prev.Fails + 1 : 1;
-                    _slowBackoff[casted.NpcId] = (fails, DateTime.Now);
-                }
+                var judgeAt = DateTime.Now.AddMilliseconds(
+                    OCSpells.OccultSlowga.AdjustedCastTime.TotalMilliseconds + SlowConfirmGraceMs);
+                _slowPending[casted.ObjectId] = (casted.NpcId, judgeAt);
             }
             return true;
         }
