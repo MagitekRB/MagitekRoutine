@@ -257,25 +257,6 @@ namespace Magitek.Logic.Roles
         // Cannoneer alternating cannon tracking
         private static bool _lastUsedShockCannon = false;
 
-        // OccultSlowga recast backoff. Slowga spammed on Slow-immune enemies (their Slow never lands,
-        // so the "target doesn't have Slow" guard stays true and it re-casts every pulse). Rather than
-        // permanently blacklisting a type — fragile, because an interrupted cast, a Slow that expired
-        // while the mob was untargeted, or a mid-cast target switch can all look like a resist and
-        // wrongly kill a slowable type for the session — we simply back off: each consecutive cast on
-        // a type that doesn't result in Slow pushes the next attempt further out (to a 5-minute cap),
-        // so immune mobs go near-silent, while a Slow that actually lands clears the type back to
-        // normal. Keyed by mob type, self-healing, bounded by the number of distinct OC mob types.
-        private static readonly Dictionary<uint, (int Fails, DateTime LastCast)> _slowBackoff = new();
-
-        // Slowga is a cast, and a cast reports back the moment it starts rather than when it lands, so
-        // nothing conclusive about the Slow is knowable at the point of casting. Each cast is recorded
-        // here instead and judged on a later pulse, once the aura has had time to appear. Keyed by the
-        // individual enemy, since two of the same type can be slowed independently.
-        private static readonly Dictionary<uint, (uint NpcId, DateTime CastEndsAt, DateTime JudgeAt)> _slowPending = new();
-
-        // Grace on top of the cast time before a missing Slow is treated as a resist.
-        private const int SlowConfirmGraceMs = 1000;
-
         // Oracle prediction tracking
         private static bool _predictCasted = false;
         private static DateTime _predictCastTime = DateTime.MinValue;
@@ -2189,70 +2170,12 @@ namespace Magitek.Logic.Roles
             return await OCSpells.OccultElixir.Cast(Core.Me);
         }
 
-        private static bool IsCastingSlowga()
-        {
-            return Core.Me.IsCasting && Core.Me.CastingSpellId == OCSpells.OccultSlowga.Id;
-        }
-
-        /// <summary>
-        /// Judges Slowga casts whose Slow has had time to land. An enemy that is gone by then — killed
-        /// during the cast, despawned, out of range — proves nothing either way and is simply dropped,
-        /// which is what stops a kill from being recorded as an immunity and muting a slowable type.
-        /// </summary>
-        private static void ResolveSlowgaCasts()
-        {
-            if (_slowPending.Count == 0)
-                return;
-
-            var now = DateTime.Now;
-            var judged = new List<uint>();
-
-            foreach (var (objectId, pending) in _slowPending)
-            {
-                if (now < pending.JudgeAt)
-                {
-                    // A cast that stops before it was due to finish was interrupted — movement, a stun,
-                    // the target dying mid-cast. Nothing was applied, so it is no evidence of immunity
-                    // and gets dropped rather than judged.
-                    if (now < pending.CastEndsAt && !IsCastingSlowga())
-                        judged.Add(objectId);
-
-                    continue;
-                }
-
-                judged.Add(objectId);
-
-                // Match the type as well as the object: the game reuses object ids, so an entry that
-                // sat around could otherwise be judged against whatever spawned into the same slot.
-                var target = Combat.Enemies.FirstOrDefault(x => x.ObjectId == objectId && x.NpcId == pending.NpcId);
-                if (target == null || !target.IsValid || !target.IsAlive)
-                    continue;
-
-                if (target.HasAura(OCAuras.Slow))
-                {
-                    _slowBackoff.Remove(pending.NpcId);
-                }
-                else
-                {
-                    // Alive, in view, and still unslowed well after the cast — a genuine resist.
-                    var fails = _slowBackoff.TryGetValue(pending.NpcId, out var prev) ? prev.Fails + 1 : 1;
-                    _slowBackoff[pending.NpcId] = (fails, now);
-                }
-            }
-
-            foreach (var objectId in judged)
-                _slowPending.Remove(objectId);
-        }
-
         /// <summary>
         /// Cast OccultSlowga - afflicts target with Slow (aura 3493)
         /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> OccultSlowga()
         {
-            // Ahead of the settings gate so turning Slowga off mid-fight still clears what is pending.
-            ResolveSlowgaCasts();
-
             if (!OccultCrescentSettings.Instance.UseOccultSlowga)
                 return false;
 
@@ -2269,36 +2192,13 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            // Already slowed — nothing to do; clear this type's backoff (it's proven slowable).
+            // Already slowed — nothing to do.
             if (Core.Me.CurrentTarget.HasAura(OCAuras.Slow))
-            {
-                if (Core.Me.CurrentTarget is BattleCharacter slowed)
-                    _slowBackoff.Remove(slowed.NpcId);
                 return false;
-            }
 
             // Check if target is a BattleCharacter for additional checks
             if (Core.Me.CurrentTarget is BattleCharacter battleTarget)
             {
-                // Back off from types whose recent Slowga casts never produced Slow (immune/resisting).
-                // The delay escalates with consecutive misses so an immune type effectively goes quiet,
-                // while the HasAura clear above keeps genuinely slowable types responsive. This only
-                // delays and never permanently disables, so a mis-detection self-corrects on the next
-                // landed Slow.
-                if (_slowBackoff.TryGetValue(battleTarget.NpcId, out var bo))
-                {
-                    var delay = bo.Fails switch
-                    {
-                        <= 1 => TimeSpan.FromSeconds(15),
-                        2 => TimeSpan.FromSeconds(30),
-                        3 => TimeSpan.FromSeconds(60),
-                        4 => TimeSpan.FromSeconds(120),
-                        _ => TimeSpan.FromSeconds(300),
-                    };
-                    if (DateTime.Now - bo.LastCast < delay)
-                        return false;
-                }
-
                 // Check difficulty - high difficulty enemies are often immune to CC
                 if (battleTarget.RawDifficulty >= 2)
                     return false;
@@ -2315,19 +2215,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultSlowga.Range))
                 return false;
 
-            // Capture the target before the (cast-time) await so the backoff record can't be mis-keyed
-            // to a different enemy if CurrentTarget switches while the cast is in flight.
-            var castTarget = Core.Me.CurrentTarget;
-            if (!await OCSpells.OccultSlowga.Cast(castTarget))
-                return false;
-
-            // Hand the result off to be judged later; the cast has only just begun here.
-            if (castTarget is BattleCharacter casted)
-            {
-                var castEndsAt = DateTime.Now.AddMilliseconds(OCSpells.OccultSlowga.AdjustedCastTime.TotalMilliseconds);
-                _slowPending[casted.ObjectId] = (casted.NpcId, castEndsAt, castEndsAt.AddMilliseconds(SlowConfirmGraceMs));
-            }
-            return true;
+            return await OCSpells.OccultSlowga.Cast(Core.Me.CurrentTarget);
         }
 
         /// <summary>
