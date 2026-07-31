@@ -2190,9 +2190,6 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Cast OccultSlowga - afflicts target with Slow (aura 3493)
-        /// </summary>
-        /// <summary>
         /// Judges Slowga casts whose Slow has had time to land. An enemy that is gone by then — killed
         /// during the cast, despawned, out of range — proves nothing either way and is simply dropped,
         /// which is what stops a kill from being recorded as an immunity and muting a slowable type.
@@ -2212,7 +2209,9 @@ namespace Magitek.Logic.Roles
 
                 judged.Add(objectId);
 
-                var target = Combat.Enemies.FirstOrDefault(x => x.ObjectId == objectId);
+                // Match the type as well as the object: the game reuses object ids, so an entry that
+                // sat around could otherwise be judged against whatever spawned into the same slot.
+                var target = Combat.Enemies.FirstOrDefault(x => x.ObjectId == objectId && x.NpcId == pending.NpcId);
                 if (target == null || !target.IsValid || !target.IsAlive)
                     continue;
 
@@ -2232,13 +2231,17 @@ namespace Magitek.Logic.Roles
                 _slowPending.Remove(objectId);
         }
 
+        /// <summary>
+        /// Cast OccultSlowga - afflicts target with Slow (aura 3493)
+        /// </summary>
         /// <returns>True if spell was cast, false otherwise</returns>
         private static async Task<bool> OccultSlowga()
         {
+            // Ahead of the settings gate so turning Slowga off mid-fight still clears what is pending.
+            ResolveSlowgaCasts();
+
             if (!OccultCrescentSettings.Instance.UseOccultSlowga)
                 return false;
-
-            ResolveSlowgaCasts();
 
             if (!Core.Me.InCombat)
                 return false;
