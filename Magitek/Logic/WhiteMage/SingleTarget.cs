@@ -42,10 +42,13 @@ namespace Magitek.Logic.WhiteMage
                 return false;
             if (ActionResourceManager.WhiteMage.BloodLily < 3)
                 return false;
-            if (!BotManager.Current.IsAutonomous && !MovementManager.IsMoving
-                && Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= 5 + r.CombatReach) < WhiteMageSettings.Instance.AfflatusMiseryEnemies)
+            var target = Core.Me.CurrentTarget;
+            if (target == null)
                 return false;
-            return await Spells.AfflatusMisery.Cast(Core.Me.CurrentTarget);
+            if (!BotManager.Current.IsAutonomous && !MovementManager.IsMoving
+                && Combat.Enemies.Count(r => r.Distance(target) <= 5 + r.CombatReach) < WhiteMageSettings.Instance.AfflatusMiseryEnemies)
+                return false;
+            return await Spells.AfflatusMisery.Cast(target);
         }
 
         public static async Task<bool> ForceAfflatusMisery()
