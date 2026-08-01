@@ -119,8 +119,18 @@ namespace Magitek.Utilities
                 return null;
             FlHandledCastingSpellId.Clear();
 
+            // Every tank stacks for a shared buster, so every tank takes a share and every tank wants
+            // covering. Healers pass this result straight to a cast, so it has to name a tank they can
+            // actually reach — CastableTanks is our own party, not the alliance.
+            //
+            // Prefer the tank being aimed at when they are in our party. In an alliance raid the target is
+            // usually in a different party, and the tank we can reach is ours, stacking in to share the
+            // damage — so fall back to them rather than returning nothing. Returning the target alone left
+            // a healer in another party doing nothing while their tank ate a share; returning a non-target
+            // alone shielded the co-tank while the tank being hit went uncovered.
             var output = enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
-                ? Group.CastableTanks.FirstOrDefault(x => x != enemy.TargetCharacter)
+                ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                  ?? Group.CastableTanks.FirstOrDefault()
                 : null;
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
