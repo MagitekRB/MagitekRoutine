@@ -56,8 +56,14 @@ namespace Magitek.Logic.Roles
             // actually allow the use on them (item.CanUse -> real range / line-of-sight / duty rules) so
             // an unusable higher-priority body can't starve a reachable one. Honour the per-target
             // throttle. GetResurrectionWeight orders healers first, then tanks, then DPS.
+            // u.IsValid short-circuits before every read below. Each of those touches game memory, so a
+            // corpse whose object was freed mid-iteration throws ReadWriteMemoryException from inside the
+            // predicate and takes down the whole Heal pulse — the same guard Healer.ResurrectionLogic
+            // already carries for this list.
             var target = Group.DeadAllies
-                .Where(u => u.CurrentHealth == 0
+                .Where(u => u != null
+                            && u.IsValid
+                            && u.CurrentHealth == 0
                             && !u.HasAura(Auras.Raise)
                             && u.IsVisible
                             && u.IsTargetable
