@@ -4557,6 +4557,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             25170 //Flames of Decay
                         },
+                        Knockbacks = new List<uint> {
+                            25169 // Cosmic Kiss
+                        },
                         BigAoes = null
                     }
                 }
@@ -4796,7 +4799,7 @@ namespace Magitek.Utilities
                 Expansion = FfxivExpansion.Endwalker,
                 Enemies = new List<Enemy> {
                     new Enemy {
-                        Id = 0, // Assuming an ID for Dark Elf
+                        Id = 12500,
                         Name = "Dark Elf",
                         TankBusters = new List<uint>() {
                             0x8984, // Staff Smite
@@ -4815,7 +4818,7 @@ namespace Magitek.Utilities
                         }
                     },
                     new Enemy {
-                        Id = 0, // Assuming an ID for Damcyan Antlion
+                        Id = 12484,
                         Name = "Damcyan Antlion",
                         TankBusters = new List<uint>() {
                             // No tank busters mentioned in the TypeScript data
@@ -6219,7 +6222,9 @@ namespace Magitek.Utilities
                             37392, // barbed bellow
                         },
                         AoeLockOns = null,
-                        Knockbacks = null,
+                        Knockbacks = new List<uint> {
+                            37390, // Barrel Breaker
+                        },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -6255,7 +6260,11 @@ namespace Magitek.Utilities
                             543,
                             542,
                         },
-                        Knockbacks = null,
+                        Knockbacks = new List<uint> {
+                            36742, // Greatest Flood — two castable actions share this name; recorded
+                                   // data can't tell which the server fires, so both are listed
+                            36756, // Greatest Flood
+                        },
                         SharedTankBusters = null,
                         BigAoes = null
                     },
@@ -7249,6 +7258,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             43327, // Earthquake
                             43331, // Thunder II
+                            // Ray of Lightning is a line stack: this id marks a single player, then the
+                            // damage lands on everyone stacked with them. Only the marker is castable,
+                            // so it is what fight logic can react to.
                             44825, // Ray of Lightning
                         },
                         AoeLockOns = null,
