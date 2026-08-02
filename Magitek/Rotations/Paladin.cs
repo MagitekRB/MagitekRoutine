@@ -41,6 +41,13 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            // Ahead of everything, defensives included: Passage of Arms is a held channel that ANY other
+            // action ends, which is what the check further down guards against. The routine never casts it —
+            // the player does — so this is purely "stay out of the way". It reads only Core.Me, so it is
+            // safe above the target guard. Same reasoning as Machinist's Flamethrower.
+            if (Core.Me.HasAura(Auras.PassageOfArms))
+                return false;
+
             if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveFastSpells, PaladinRoutine.Defensives, castTimeRemainingMs: 3000)) return true;
             if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveSpells, PaladinRoutine.Defensives)) return true;
             if (await CommonFightLogic.FightLogic_PartyShield(PaladinSettings.Instance.FightLogicPartyShield, Spells.DivineVeil, true, aura: Auras.DivineVeil)) return true;

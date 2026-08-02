@@ -47,9 +47,18 @@ namespace Magitek.Rotations
         }
         public static async Task<bool> Combat()
         {
-            if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+            // A mudra chain and Ten Chi Jin are both destroyed by ANY non-mudra action, and the chain is
+            // built one mudra per pulse — so a Shade Shift, Feint or Arm's Length landing between mudras
+            // throws away the charges already spent, and one landing inside Ten Chi Jin discards the rest of
+            // a two-minute cooldown. Unlike Machinist and Paladin the answer is not to bail out — the
+            // ninjutsu below still wants to finish — so hold just the reactions until the window closes.
+            // It lasts a couple of GCDs at most.
+            if (!Core.Me.HasAura(Auras.Mudra) && !Core.Me.HasAura(Auras.TenChiJin))
+            {
+                if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
+                if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+                if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+            }
 
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
