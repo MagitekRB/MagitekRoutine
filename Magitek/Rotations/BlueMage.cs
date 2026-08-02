@@ -66,6 +66,17 @@ namespace Magitek.Rotations
             if (Core.Me.HasAura(Auras.WaningNocturne, true, 1000))
                 return false;
 
+            // Magic Resistance nullifies almost everything Blue Mage has, but not all of it: Sharpened Knife
+            // is slashing and Triple Trident piercing, and both still land. ThoroughCanAttack deliberately
+            // lets Blue Mage through for that reason, so go straight to the two that work rather than
+            // spending the window offering the target spells it ignores.
+            if (Core.Me.CurrentTarget.HasAnyAura(Auras.MagicImmunity))
+            {
+                if (await SingleTarget.TripleTrident()) return true;
+
+                return await SingleTarget.SharpKnife();
+            }
+
             //Interrupt
             if (await MagicDps.Interrupt(BlueMageSettings.Instance)) return true;
 
