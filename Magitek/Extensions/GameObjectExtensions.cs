@@ -231,9 +231,18 @@ namespace Magitek.Extensions
                 : unitAsCharacter.CharacterAuras.Where(x => (x.TimespanLeft.TotalMilliseconds >= msLeft || x.TimespanLeft.TotalMilliseconds < 0)).Select(r => r.Id).ToList().Intersect(auras).Count() == auras.Count;
         }
 
+        // A unit worth attacking is one we can actually hurt, so the immunity rules belong here rather than
+        // being repeated by every caller. This is what closes the gap for paths that never reach
+        // ThoroughCanAttack — most notably the Occult Crescent phantom-job actions, which run from
+        // RotationManager before the job rotation's own check.
+        //
+        // Cheap enough to sit in this hot path: every predicate NotInvulnerable chains early-outs to true
+        // outside its own encounter — a zone-id compare, two aura lookups, and one pass each over our own
+        // and the target's (short) aura lists. Nothing here scans the object table.
         public static bool ValidAttackUnit(this GameObject unit)
         {
-            return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0;
+            return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0
+                   && unit.NotInvulnerable();
         }
 
 
