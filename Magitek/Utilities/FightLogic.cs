@@ -506,14 +506,24 @@ namespace Magitek.Utilities
                 : null;
         }
 
+        // Units a gaze can come from, refreshed once per frame. Four rotation entry points reach the gaze
+        // checks every pulse, and each was walking the whole object table on its own.
+        //
+        // This cannot reuse Group's cached collections or Combat.Enemies: those keep only what we could
+        // attack, and gaze emitters are routinely things we cannot — the Occult Crescent's Accursed Orbs
+        // and O8N/O8S's Graven Image statues are untargetable, and they are exactly what we need to find.
+        // So it filters on validity and range only.
+        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _gazeCandidates =
+            new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>()
+                .Where(x => x != null && x.IsValid && Core.Me.Distance(x) <= 50)
+                .ToList());
+
         // The live object matching a catalogued enemy, used to orient against when the gaze is signalled
         // by a head marker rather than by that enemy's own cast.
         private static BattleCharacter FindCataloguedEnemy(Enemy logic)
         {
-            return GameObjectManager.GetObjectsOfType<BattleCharacter>()
-                .FirstOrDefault(x => x != null && x.IsValid
-                    && (logic.Id == x.NpcId || logic.Name == x.EnglishName)
-                    && Core.Me.Distance(x) <= 50);
+            return _gazeCandidates.Value
+                .FirstOrDefault(x => logic.Id == x.NpcId || logic.Name == x.EnglishName);
         }
 
         // Gazes flagged by a head marker instead of a cast (e.g. Shinryu's Cataclysmic Vortex). RB surfaces
@@ -646,12 +656,9 @@ namespace Magitek.Utilities
             var direction = GazeDirection.None;
             var soonest = double.MaxValue;
 
-            foreach (var unit in GameObjectManager.GetObjectsOfType<BattleCharacter>())
+            foreach (var unit in _gazeCandidates.Value)
             {
-                if (unit == null || !unit.IsValid || !unit.IsCasting)
-                    continue;
-
-                if (Core.Me.Distance(unit) > 50)
+                if (!unit.IsCasting)
                     continue;
 
                 var logic = encounter.Enemies.FirstOrDefault(x => x.Id == unit.NpcId || x.Name == unit.EnglishName);
