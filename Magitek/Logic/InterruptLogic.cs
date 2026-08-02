@@ -40,26 +40,30 @@ namespace Magitek.Logic
         {
             IEnumerable<BattleCharacter> castingEnemies;
 
+            // Combat.Threats, not Combat.Enemies: an interrupt stops a cast whether or not our damage
+            // can reach the caster, and Enemies drops anything we are immune-locked out of hurting —
+            // which would silently disable Interject, Head Graze, Leg Sweep and Flying Sardine against
+            // exactly the bosses whose mechanics we most need stopped.
             switch (strategy)
             {
                 case InterruptStrategy.Never:
                     castingEnemies = new List<BattleCharacter>();
                     break;
                 case InterruptStrategy.BossesOnly:
-                    castingEnemies = Combat.Enemies;
+                    castingEnemies = Combat.Threats;
                     castingEnemies = castingEnemies.Where(e => e.IsBoss());
                     break;
                 case InterruptStrategy.ExceptBoss:
-                    castingEnemies = Combat.Enemies;
+                    castingEnemies = Combat.Threats;
                     castingEnemies = castingEnemies.Where(r => r.InView() && r.IsCasting && !r.IsBoss())
                         .OrderBy(r => r.SpellCastInfo.RemainingCastTime);
                     break;
                 case InterruptStrategy.CurrentTargetOnly:
-                    castingEnemies = Combat.Enemies;
+                    castingEnemies = Combat.Threats;
                     castingEnemies = castingEnemies.Where(e => e == Core.Me.CurrentTarget);
                     break;
                 case InterruptStrategy.AnyEnemy:
-                    castingEnemies = Combat.Enemies;
+                    castingEnemies = Combat.Threats;
                     castingEnemies = castingEnemies.Where(r => r.InView() && r.IsCasting)
                         .OrderBy(r => r.SpellCastInfo.RemainingCastTime);
                     break;
