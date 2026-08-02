@@ -42,6 +42,11 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            // Ahead of the defensives, for the same reason Machinist keeps Flamethrower first: a dance is a
+            // sequence, and any other action spends the window without advancing it. Shield Samba or Arm's
+            // Length firing here would consume the animation lock and drop the steps.
+            if (await Dances.DanceStep()) return true;
+
             if (await CommonFightLogic.FightLogic_PartyShield(DancerSettings.Instance.FightLogicShieldSamba, Spells.ShieldSamba, true, PhysicalDps.partyShieldAuras)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(DancerSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
@@ -55,7 +60,6 @@ namespace Magitek.Rotations
             if (await Buff.DancePartner()) return true;
 
             // Dance
-            if (await Dances.DanceStep()) return true;
             if (await Dances.StandardStep()) return true;
             if (await Dances.TechnicalStep()) return true;
 

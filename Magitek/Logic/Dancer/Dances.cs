@@ -160,7 +160,12 @@ namespace Magitek.Logic.Dancer
                 switch (ActionResourceManager.Dancer.CurrentStep)
                 {
                     case ActionResourceManager.Dancer.DanceStep.Finish:
-                        if (DancerSettings.Instance.OnlyFinishStepInRange && Core.Me.CurrentTarget.Distance(Core.Me) > 15 + Core.Me.CurrentTarget.CombatReach)
+                        // No target counts as out of range rather than throwing: a dance outlives the enemy
+                        // that started it, and this runs ahead of the rotation's own target guard so the
+                        // steps are not lost to a fight-logic reaction.
+                        if (DancerSettings.Instance.OnlyFinishStepInRange
+                            && (Core.Me.CurrentTarget == null
+                                || Core.Me.CurrentTarget.Distance(Core.Me) > 15 + Core.Me.CurrentTarget.CombatReach))
                             return false;
 
                         if (Core.Me.HasAura(Auras.StandardStep))
