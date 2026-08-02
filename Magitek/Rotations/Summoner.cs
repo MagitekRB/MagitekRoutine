@@ -51,7 +51,12 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (Core.Me.CurrentTarget.HasAura(Auras.MagicResistance))
+            // Every other job opens Combat() with this; Summoner instead hand-checked Magic Resistance alone,
+            // which is only one of the ways a target can be immune to us. ThoroughCanAttack covers that same
+            // status (942 is in Auras.MagicImmunity) plus the mark, duel and damage-type rules, so this is
+            // strictly wider than what it replaces — and without it Summoner keeps casting into, say, an
+            // Occult Villain it cannot damage.
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
             //Fix issue with level 1 SMN and/or PotD
