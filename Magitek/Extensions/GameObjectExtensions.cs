@@ -176,16 +176,18 @@ namespace Magitek.Extensions
 
         }
 
-        public static bool HasDispellableAura(this GameObject unit)
+        // Named for what it actually asks. A dispel strips BENEFICIAL statuses from an enemy, so a helper
+        // used to decide whether to dispel must ignore debuffs — otherwise a dispel action re-fires forever
+        // on an enemy that merely carries a dispellable debuff it can never remove, such as the Time Mage's
+        // own Slow / Occult Mage Masher. Calling that "HasDispellableAura" read as the opposite of what it
+        // did; healers' Esuna path is a separate concern and uses NeedsDispel/HasAnyDispellableAura.
+        public static bool HasDispellableBuff(this GameObject unit)
         {
             var unitAsCharacter = unit as Character;
 
             if (unitAsCharacter == null || !unitAsCharacter.IsValid)
                 return false;
 
-            // A dispel only removes BENEFICIAL statuses, so ignore debuffs. Otherwise a dispel action
-            // (e.g. Occult Dispel) re-fires forever on an enemy that merely carries a dispellable
-            // debuff it can never remove — such as the Time Mage's own Slow / Occult Mage Masher.
             return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable && !r.IsDebuff);
         }
 

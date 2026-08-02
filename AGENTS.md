@@ -560,7 +560,7 @@ namespace Magitek.Logic.BlackMage
   - `HasAnyAura(uint[]/List<uint> auras, bool isMyAura = false, int msLeft = 0)`: Check if unit has any of the specified auras
   - `HasAllAuras(List<uint> auras, bool areMyAuras = false, int msLeft = 0)`: Check if unit has all specified auras
   - `CountAuras(List<uint> auras, bool isMyAura = false, int msLeft = 0)`: Count matching auras on unit
-  - `HasDispellableAura()`: Check if unit has a dispellable debuff
+  - `HasDispellableBuff()`: Check if an enemy carries a dispellable beneficial status (what a dispel can actually strip)
 - **Range and Distance:**
   - `WithinSpellRange(float/double range)`: Edge-to-edge distance check accounting for CombatReach (use for ALL range checks)
   - `EnemiesNearby(float distance)`: Get enemies within radius (uses cached Combat.Enemies)
