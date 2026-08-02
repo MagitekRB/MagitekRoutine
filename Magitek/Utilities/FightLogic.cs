@@ -87,8 +87,16 @@ namespace Magitek.Utilities
 
         private static readonly Dictionary<uint, ActionPunishMechanic> ActionPunishAuras = new Dictionary<uint, ActionPunishMechanic>
         {
+            // Every id below was taken from the game's own Status sheet by name, not from encounters we
+            // happened to meet — each Pyretic row reads "Fire-aspected damage is taken with every action" and
+            // each Acceleration Bomb row "any movement when effect wears off will result in detonation", so
+            // the whole set is the same two mechanics. Waiting for the debug logger to surface them would
+            // have left the newer copies — which is most current content — silently unhandled.
             { 639, Pyretic }, { 960, Pyretic }, { 1049, Pyretic }, { 1133, Pyretic },
-            { 1072, AccelerationBomb }, { 1384, AccelerationBomb },
+            { 1599, Pyretic }, { 3522, Pyretic },
+            { 1072, AccelerationBomb }, { 1384, AccelerationBomb }, { 2657, AccelerationBomb },
+            { 3793, AccelerationBomb }, { 3802, AccelerationBomb }, { 4144, AccelerationBomb },
+            { 5546, AccelerationBomb },
             { 4342, BuyersRemorse },
             { 5191, MotionTracker },
         };
