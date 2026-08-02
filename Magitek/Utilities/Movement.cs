@@ -30,6 +30,13 @@ namespace Magitek.Utilities
             if (AvoidanceManager.IsRunningOutOfAvoid)
                 return;
 
+            // A movement-punishing mechanic (Acceleration Bomb, Pyretic) has parked navigation. This belongs
+            // here rather than at the callers: six of the eight navigation sites are job rotations that never
+            // consulted the latch, so stopping in the fight-logic handler was immediately undone by whichever
+            // rotation navigated next in the same pulse.
+            if (FightLogic.MovementHeld)
+                return;
+
             //if (!MovementManager.IsMoving && !unit.InView() && !RoutineManager.IsAnyDisallowed(CapabilityFlags.Facing))
             //   Core.Me.Face(Core.Me.CurrentTarget);
 
