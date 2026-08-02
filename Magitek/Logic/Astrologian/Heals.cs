@@ -219,7 +219,7 @@ namespace Magitek.Logic.Astrologian
             {
                 var celestialIntersectionTank = Group.CastableTanks.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontCelestialIntersection.Contains(r.Name)
                 && r.CurrentHealthPercent <= AstrologianSettings.Instance.CelestialIntersectionHealthPercent
-                && Combat.Enemies.Any(x => x.TargetCharacter == r)
+                && Combat.Threats.Any(x => x.TargetCharacter == r)   // is anything hitting them, damageable or not
                 && !r.HasAura(Auras.CelestialIntersection)
                 && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
