@@ -707,7 +707,7 @@ namespace Magitek.Utilities
         public const int AstralRealignment = 398;
         #endregion
 
-        #region Jeuno: The First Walk — Ark Angels "Hero" / "Villain" duel
+        #region "Hero" / "Villain" duels — Jeuno's Ark Angels and the Occult Crescent
         // Each Ark Angel can be dubbed a Villain, whose tooltip reads "Damage from those who have not been
         // dubbed <X> Hero is nullified". This is the mirror of the Meso Terminal mark: there OUR mark chose
         // which enemy we could hit, here the ENEMY's status dictates which players may hit it. Maps the
@@ -723,11 +723,20 @@ namespace Magitek.Utilities
             VauntedHero = 4196,
             VauntedVillain = 4197;
 
+        // The Occult Crescent's Blue Head and Green Head run the same duel, but the game gives that
+        // encounter its own copies of the Villain statuses while reusing the very same Hero statuses above.
+        // Only two exist because there are only two heads — there is no second Vaunted Villain.
+        public const int
+            EpicVillainOccult = 5400,
+            FatedVillainOccult = 5401;
+
         public static readonly Dictionary<uint, uint> DuelVillainRequiredHeroAura = new Dictionary<uint, uint>
         {
             { EpicVillain, EpicHero },
             { FatedVillain, FatedHero },
             { VauntedVillain, VauntedHero },
+            { EpicVillainOccult, EpicHero },
+            { FatedVillainOccult, FatedHero },
         };
         #endregion
 
