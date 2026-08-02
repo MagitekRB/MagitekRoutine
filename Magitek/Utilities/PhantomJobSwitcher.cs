@@ -163,6 +163,17 @@ namespace Magitek.Utilities
             // genuine "can't cast" latches the fast path off briefly (see _inquiringMindRetryAfter).
             if (preferInquiring && now >= _inquiringMindRetryAfter)
             {
+                // A lapsed back-off earns the fast path its three strikes back. The counter is a static that
+                // otherwise only clears on a successful cast, so once it reached the threshold it stayed
+                // there for the life of the process and the very next transient failure re-armed another
+                // five minutes — making the grace period something you get once per session instead of once
+                // per back-off, which is the whole reason the counter was added.
+                if (_inquiringMindRetryAfter != DateTime.MinValue)
+                {
+                    _inquiringMindRetryAfter = DateTime.MinValue;
+                    _inquiringMindFailures = 0;
+                }
+
                 Logger.WriteInfo("[PhantomJobSwitcher] Trying Inquiring Mind (Freelancer) for all buffs");
 
                 bool onFreelancer = true;
