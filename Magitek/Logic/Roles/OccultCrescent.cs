@@ -530,21 +530,6 @@ namespace Magitek.Logic.Roles
                 return false;
             _lastNonPartyResCheck = now;
 
-            // Check if we're Phantom Chemist (free resurrection) or need MP check for regular jobs
-            var phantomJob = GetCurrentPhantomJob();
-            bool isPhantomChemist = phantomJob == PhantomJob.Chemist;
-
-            // Only check MP for non-Chemist resurrections (Chemist Revive doesn't cost MP)
-            if (!isPhantomChemist && Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
-                return false;
-
-            // Check combat preferences
-            if (Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyInCombat)
-                return false;
-
-            if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyOutOfCombat)
-                return false;
-
             // Party-priority: if a raise-eligible party member is down, yield this pulse so the
             // standard Heal()/Verraise() path (which runs later in the same pulse chain and owns
             // party rez) spends any Dualcast/Swiftcast on them instead of a non-party random. Only
@@ -555,6 +540,12 @@ namespace Magitek.Logic.Roles
             // role the user excluded — then the corpse simply stays there and this would keep standing
             // aside forever, which is exactly how non-party revival ends up never happening. Give the
             // party path a fair window and then stop waiting on it.
+            //
+            // This has to run BEFORE the mana and combat-preference gates below. Those gates decide
+            // whether we may raise a stranger; they say nothing about who is down. Tracked underneath
+            // them, the set and the timer simply froze for as long as mana sat under the threshold — so a
+            // member who died, was raised and died again during that stretch came back to an unchanged
+            // set and a timestamp minutes old, and had their grace window treated as already spent.
             var raisableParty = RaisableDeadPartyMemberIds();
 
             if (Globals.InParty && raisableParty.Count > 0)
@@ -577,6 +568,21 @@ namespace Magitek.Logic.Roles
                 _partyRaiseYieldSince = DateTime.MinValue;
                 _partyRaiseYieldFor.Clear();
             }
+
+            // Check if we're Phantom Chemist (free resurrection) or need MP check for regular jobs
+            var phantomJob = GetCurrentPhantomJob();
+            bool isPhantomChemist = phantomJob == PhantomJob.Chemist;
+
+            // Only check MP for non-Chemist resurrections (Chemist Revive doesn't cost MP)
+            if (!isPhantomChemist && Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
+                return false;
+
+            // Check combat preferences
+            if (Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyInCombat)
+                return false;
+
+            if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.ReviveNonPartyOutOfCombat)
+                return false;
 
             // Update alliance to get dead players using optimized Group system
             Group.UpdateAlliance(
