@@ -721,7 +721,11 @@ namespace Magitek.Logic.Roles
         /// </summary>
         private static async Task<bool> RaiseRedMage(GameObject target)
         {
-            if (!Spells.Verraise.CanCast())
+            // Check against the corpse, not the parameterless overload — that one substitutes Core.Me, so
+            // a raise is asked whether it can be cast on someone who is alive. The generic raise path above
+            // and Healer.ResurrectionLogic both pass the dead target; this was the only raise call site
+            // that did not.
+            if (!Spells.Verraise.CanCast(target))
                 return false;
 
             // Dualcast or Swiftcast already up: instant Verraise (best case).
