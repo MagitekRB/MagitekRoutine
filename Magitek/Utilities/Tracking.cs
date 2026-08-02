@@ -145,12 +145,9 @@ namespace Magitek.Utilities
                 // mitigate becomes invisible precisely because we are locked out of hurting its caster.
                 Combat.Threats.Add(unit);
 
-                if (!unit.NotInvulnerable())
-                    continue;
-
-                if (!unit.IsTargetable)
-                    continue;
-
+                // Recorded for every live threat, before the filters below. These are diagnostic
+                // histories, not targeting: an enemy we cannot damage is exactly the one a user
+                // debugging a fight wants a cast and aura trail for.
                 if (BaseSettings.Instance.EnemySpellCastHistory)
                 {
                     UpdateEnemyCastedSpells(unit);
@@ -165,6 +162,12 @@ namespace Magitek.Utilities
                 {
                     UpdateEnemyTargetHistory(unit);
                 }
+
+                if (!unit.NotInvulnerable())
+                    continue;
+
+                if (!unit.IsTargetable)
+                    continue;
 
                 Combat.Enemies.Add(unit);
 
