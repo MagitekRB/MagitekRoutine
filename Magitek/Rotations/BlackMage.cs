@@ -1,4 +1,4 @@
-using ff14bot;
+﻿using ff14bot;
 using Magitek.Extensions;
 using Magitek.Logic.BlackMage;
 using Magitek.Logic.Roles;
@@ -46,15 +46,16 @@ namespace Magitek.Rotations
         }
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_SelfShield(BlackMageSettings.Instance.FightLogicManaward, Spells.Manaward, castTimeRemainingMs: 19000)) return true;
+            if (await MagicDps.FightLogic_Addle(BlackMageSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(BlackMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
 
-            if (await CommonFightLogic.FightLogic_SelfShield(BlackMageSettings.Instance.FightLogicManaward, Spells.Manaward, castTimeRemainingMs: 19000)) return true;
-            if (await MagicDps.FightLogic_Addle(BlackMageSettings.Instance)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(BlackMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (await Aoe.FlareStar()) return true;
 

@@ -47,15 +47,15 @@ namespace Magitek.Rotations
         {
             ReaperRoutine.RefreshVars();
 
+            if (await CommonFightLogic.FightLogic_SelfShield(ReaperSettings.Instance.FightLogicArcaneCrest, Spells.ArcaneCrest, false, castTimeRemainingMs: 3000)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(ReaperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(ReaperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
             {
                 if (await Utility.Soulsow()) return true;
                 return false;
             }
-
-            if (await CommonFightLogic.FightLogic_SelfShield(ReaperSettings.Instance.FightLogicArcaneCrest, Spells.ArcaneCrest, false, castTimeRemainingMs: 3000)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(ReaperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(ReaperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             if (SingleTarget.ForceLimitBreak()) return true;
 

@@ -51,6 +51,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
             // Every other job opens Combat() with this; Summoner instead hand-checked Magic Resistance alone,
             // which is only one of the ways a target can be immune to us. ThoroughCanAttack covers that same
             // status (942 is in Auras.MagicImmunity) plus the mark, duel and damage-type rules, so this is
@@ -68,9 +72,6 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
 
-            if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
-            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (await Aoe.CrimsonStrike()) return true;
             if (await Buff.LucidDreaming()) return true;

@@ -41,6 +41,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_SelfShield(SamuraiSettings.Instance.FightLogicTengentsu, Spells.Tengentsu.IsKnown() ? Spells.Tengentsu : Spells.ThirdEye, castTimeRemainingMs: 2000)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(SamuraiSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(SamuraiSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -49,9 +53,6 @@ namespace Magitek.Rotations
             //LimitBreak
             if (SingleTarget.ForceLimitBreak()) return true;
 
-            if (await CommonFightLogic.FightLogic_SelfShield(SamuraiSettings.Instance.FightLogicTengentsu, Spells.Tengentsu.IsKnown() ? Spells.Tengentsu : Spells.ThirdEye, castTimeRemainingMs: 2000)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(SamuraiSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(SamuraiSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
             //Utility
             if (await PhysicalDps.Interrupt(SamuraiSettings.Instance)) return true;
             if (await PhysicalDps.SecondWind(SamuraiSettings.Instance)) return true;

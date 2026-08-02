@@ -28,16 +28,17 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_TankDefensive(DarkKnightSettings.Instance.FightLogicDefensives, DarkKnightRoutine.DefensiveSpells, DarkKnightRoutine.Defensives)) return true;
+            if (await CommonFightLogic.FightLogic_PartyShield(DarkKnightSettings.Instance.FightLogicPartyShield, Spells.DarkMissionary, true, aura: Auras.DarkMissionary)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(DarkKnightSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(DarkKnightSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
             //LimitBreak
             if (Defensive.ForceLimitBreak()) return true;
 
-            if (await CommonFightLogic.FightLogic_TankDefensive(DarkKnightSettings.Instance.FightLogicDefensives, DarkKnightRoutine.DefensiveSpells, DarkKnightRoutine.Defensives)) return true;
-            if (await CommonFightLogic.FightLogic_PartyShield(DarkKnightSettings.Instance.FightLogicPartyShield, Spells.DarkMissionary, true, aura: Auras.DarkMissionary)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(DarkKnightSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(DarkKnightSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             //Utility
             if (await Buff.Grit()) return true;

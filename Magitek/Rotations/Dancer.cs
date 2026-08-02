@@ -42,6 +42,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_PartyShield(DancerSettings.Instance.FightLogicShieldSamba, Spells.ShieldSamba, true, PhysicalDps.partyShieldAuras)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(DancerSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -59,8 +62,6 @@ namespace Magitek.Rotations
             if (Core.Me.HasAura(Auras.StandardStep) || Core.Me.HasAura(Auras.TechnicalStep))
                 return false;
 
-            if (await CommonFightLogic.FightLogic_PartyShield(DancerSettings.Instance.FightLogicShieldSamba, Spells.ShieldSamba, true, PhysicalDps.partyShieldAuras)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(DancerSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             if ((DancerRoutine.GlobalCooldown.CanWeave() && !Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish))
                 || (DancerRoutine.GlobalCooldown.CanWeave(1) && Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish)))

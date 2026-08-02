@@ -1,4 +1,4 @@
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.Ninja;
@@ -47,6 +47,10 @@ namespace Magitek.Rotations
         }
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -56,9 +60,6 @@ namespace Magitek.Rotations
             if (SingleTarget.ForceLimitBreak())
                 return true;
 
-            if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             if (await Ninjutsu.PrePullSuitonUseCheck()) return true;
 

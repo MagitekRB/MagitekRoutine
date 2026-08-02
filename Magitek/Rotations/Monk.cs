@@ -48,6 +48,10 @@ namespace Magitek.Rotations
         {
             MonkRoutine.RefreshVars();
 
+            if (await CommonFightLogic.FightLogic_PartyShield(MonkSettings.Instance.FightLogicMantra, Spells.Mantra, true, aura: Auras.Mantra)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(MonkSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(MonkSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
             {
                 if (await Buff.Meditate())
@@ -59,9 +63,6 @@ namespace Magitek.Rotations
             if (SingleTarget.ForceLimitBreak())
                 return true;
 
-            if (await CommonFightLogic.FightLogic_PartyShield(MonkSettings.Instance.FightLogicMantra, Spells.Mantra, true, aura: Auras.Mantra)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(MonkSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(MonkSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, Auras.ArmsLength)) return true;
 
             //Buff
             if (await Buff.Meditate())

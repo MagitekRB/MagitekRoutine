@@ -40,6 +40,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_Debuff(MachinistSettings.Instance.FightLogicDismantle, Spells.Dismantle, true, Auras.Dismantled)) return true;
+            if (await CommonFightLogic.FightLogic_PartyShield(MachinistSettings.Instance.FightLogicTactician, Spells.Tactician, true, PhysicalDps.partyShieldAuras)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(MachinistSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -59,9 +63,6 @@ namespace Magitek.Rotations
             //LimitBreak
             if (MultiTarget.ForceLimitBreak()) return true;
 
-            if (await CommonFightLogic.FightLogic_Debuff(MachinistSettings.Instance.FightLogicDismantle, Spells.Dismantle, true, Auras.Dismantled)) return true;
-            if (await CommonFightLogic.FightLogic_PartyShield(MachinistSettings.Instance.FightLogicTactician, Spells.Tactician, true, PhysicalDps.partyShieldAuras)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(MachinistSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
             if (ActionResourceManager.Machinist.OverheatRemaining != TimeSpan.Zero)
             {

@@ -1,4 +1,4 @@
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.RedMage;
@@ -59,6 +59,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            if (await CommonFightLogic.FightLogic_PartyShield(RedMageSettings.Instance.FightLogicMagickBarrier, Spells.MagickBarrier, castTimeRemainingMs: 4500)) return true;
+            if (await MagicDps.FightLogic_Addle(RedMageSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(RedMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -80,9 +84,6 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
 
-            if (await CommonFightLogic.FightLogic_PartyShield(RedMageSettings.Instance.FightLogicMagickBarrier, Spells.MagickBarrier, castTimeRemainingMs: 4500)) return true;
-            if (await MagicDps.FightLogic_Addle(RedMageSettings.Instance)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(RedMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (RedMageRoutine.GlobalCooldown.CanWeave())
             {
