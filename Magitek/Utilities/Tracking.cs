@@ -252,7 +252,7 @@ namespace Magitek.Utilities
 
             Debug.Instance.Enemies = new ObservableCollection<EnemyInfo>(EnemyInfos);
 
-            StunTracker.Update(Combat.Enemies);
+            StunTracker.Update(Combat.Threats);
 
             if (Core.Me.InCombat) mWasInCombat = true;
             if (!Core.Me.InCombat && mWasInCombat)
