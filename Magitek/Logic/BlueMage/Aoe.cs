@@ -40,6 +40,11 @@ namespace Magitek.Logic.BlueMage
             if (!BlueMageSettings.Instance.UseJKick)
                 return false;
 
+            // J Kick leaps to the target — Quasar, which shares its recast, does not. Gate the one that
+            // actually moves us.
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (Utilities.Routines.BlueMage.IsSurpanakhaInProgress)
                 return false;
 

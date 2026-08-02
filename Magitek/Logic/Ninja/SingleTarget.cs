@@ -129,6 +129,11 @@ namespace Magitek.Logic.Ninja
             if (!NinjaSettings.Instance.UseForkedRaiju)
                 return false;
 
+            // Forked Raiju rushes the target from up to 20y; Fleeting Raiju is the stationary half of the
+            // pair. Only this one needs the movement gate.
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!Spells.ForkedRaiju.IsKnown())
                 return false;
 

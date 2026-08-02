@@ -121,6 +121,13 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UsePrimalRend)
                 return false;
 
+            // Primal Rend jumps to the target, so it is a gap closer in everything but name and has to
+            // answer to the same gate — otherwise a movement-punishing mechanic parks navigation and this
+            // moves the character anyway. UsePrimalRendWhenNotMoving below is a separate, opt-in DPS
+            // preference reading MovementManager; it is not a substitute for this.
+            if (!Movement.CanUseGapCloser())
+                return false;
+
             if (!Core.Me.HasAura(Auras.PrimalRendReady))
                 return false;
 
