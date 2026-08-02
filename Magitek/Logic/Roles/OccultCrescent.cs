@@ -2155,7 +2155,10 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.OccultDispel.CanCast())
                 return false;
 
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            // ValidThreatUnit, not ValidAttackUnit: a dispel deals no damage, so being immune to ours is no
+            // reason to withhold it — and stripping a buff off an enemy we cannot currently hurt is often
+            // exactly the point.
+            if (!Core.Me.CurrentTarget.ValidThreatUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             if (!Core.Me.CurrentTarget.HasDispellableBuff())
