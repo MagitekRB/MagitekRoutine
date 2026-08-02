@@ -139,42 +139,8 @@ namespace Magitek.Utilities
 
         private static (Encounter, Enemy, BattleCharacter) GetEnemyLogicAndEnemyCached { get; set; }
 
-        private static uint _layeredCastId;
-        private static bool _layeredResponseUsed;
 
-        /// <summary>
-        /// Reserves the one extra response a single mechanic is allowed.
-        /// <para>
-        /// Normally reacting to a cast marks it handled and blocks anything further, so one mechanic gets
-        /// one answer. That is wrong for a heavy raidwide: instant mitigation is off the global cooldown
-        /// while barriers are on it, so a healer should lay one down and still raise the other. Callers
-        /// pass the result to <see cref="DoAndBuffer(Task{bool}, bool)"/> as <c>layered</c>.
-        /// </para>
-        /// <para>
-        /// Strictly one per cast. Without that cap a job with several instant mitigations — White Mage has
-        /// five — would answer one raidwide with all of them over successive pulses, which is the priority
-        /// dump the throttle exists to prevent.
-        /// </para>
-        /// </summary>
-        private static bool TryConsumeLayeredResponse(uint? castId)
-        {
-            if (!castId.HasValue || castId.Value == 0)
-                return false; // lock-on reactions have no cast to budget against
-
-            if (_layeredCastId != castId.Value)
-            {
-                _layeredCastId = castId.Value;
-                _layeredResponseUsed = false;
-            }
-
-            if (_layeredResponseUsed)
-                return false;
-
-            _layeredResponseUsed = true;
-            return true;
-        }
-
-        public static async Task<bool> DoAndBuffer(Task<bool> task, bool layered = false)
+        public static async Task<bool> DoAndBuffer(Task<bool> task)
         {
             var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
@@ -189,13 +155,6 @@ namespace Magitek.Utilities
             // pulse and dump the whole mitigation priority list. Await the cast, then start the 5s
             // throttle on success regardless; only record the handled cast id when we had a casting enemy.
             if (!await task) return false;
-
-            // A layered response deliberately leaves the mechanic open so the next pulse can follow up with
-            // the other half of the mitigation, neither marking the cast handled nor starting the throttle.
-            // The budget is only spent once the cast actually landed, and only one is granted per mechanic,
-            // so a second layered attempt falls through and closes the reaction as normal.
-            if (layered && TryConsumeLayeredResponse(handledCastId))
-                return true;
 
             if (handledCastId.HasValue)
                 FlHandledCastingSpellId.Add(handledCastId.Value);
