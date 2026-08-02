@@ -11,6 +11,12 @@ namespace Magitek.Utilities
     internal static class Combat
     {
         public static readonly List<BattleCharacter> Enemies = new List<BattleCharacter>();
+
+        // Everything hostile and alive nearby, including what we cannot currently damage — a Villain we lack
+        // the matching Hero buff for, a boss immune to our damage type. Enemies is the list to attack;
+        // this is the list to defend against, and fight logic reads it so a mechanic still gets answered
+        // when the caster happens to be one we are locked out of hurting.
+        public static readonly List<BattleCharacter> Threats = new List<BattleCharacter>();
         public static readonly Stopwatch CombatTime = new Stopwatch();
         public static readonly Stopwatch OutOfCombatTime = new Stopwatch();
         public static readonly Stopwatch MovingInCombatTime = new Stopwatch();

@@ -231,6 +231,15 @@ namespace Magitek.Extensions
                 : unitAsCharacter.CharacterAuras.Where(x => (x.TimespanLeft.TotalMilliseconds >= msLeft || x.TimespanLeft.TotalMilliseconds < 0)).Select(r => r.Id).ToList().Intersect(auras).Count() == auras.Count;
         }
 
+        // A live hostile unit, without asking whether our damage can reach it. Kept separate from
+        // ValidAttackUnit because the two answer different questions: this one is "does it threaten us",
+        // which is what fight logic needs — an enemy we are immune-locked out of damaging still casts, and
+        // its tank buster still lands on the party.
+        public static bool ValidThreatUnit(this GameObject unit)
+        {
+            return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0;
+        }
+
         // A unit worth attacking is one we can actually hurt, so the immunity rules belong here rather than
         // being repeated by every caller. This is what closes the gap for paths that never reach
         // ThoroughCanAttack — most notably the Occult Crescent phantom-job actions, which run from
@@ -241,8 +250,7 @@ namespace Magitek.Extensions
         // and the target's (short) aura lists. Nothing here scans the object table.
         public static bool ValidAttackUnit(this GameObject unit)
         {
-            return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0
-                   && unit.NotInvulnerable();
+            return unit.ValidThreatUnit() && unit.NotInvulnerable();
         }
 
 

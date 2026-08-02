@@ -375,9 +375,11 @@ namespace Magitek.Utilities
             if (encounter == null)
                 return SetAndReturn();
 
-            enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Enemies.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
+            // Combat.Threats, not Combat.Enemies: the latter drops anything our damage cannot reach, and a
+            // boss we are immune-locked out of hurting still casts tank busters and raidwides at us.
+            enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Threats.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
 
-            enemy = Combat.Enemies.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Enemies.FirstOrDefault());
+            enemy = Combat.Threats.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Threats.FirstOrDefault());
 
             if (enemy != null && enemy.IsCasting && !FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
                 FlHandledCastingSpellId.Clear();
