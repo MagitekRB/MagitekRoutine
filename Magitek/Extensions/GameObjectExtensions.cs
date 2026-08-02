@@ -336,7 +336,13 @@ namespace Magitek.Extensions
 
             var job = me.CurrentJob;
 
-            if (MagicDamageJobs.Contains(job) && unit.HasAnyAura(Auras.MagicImmunity))
+            // Blue Mage is the exception on both counts, which is why it cannot simply be moved between the
+            // two lists. It belongs in MagicDamageJobs so Ranged Resistance below does not filter it out —
+            // its ranged attacks are magical — but it is also the one job carrying genuinely physical
+            // attacks: Sharpened Knife is slashing and Triple Trident piercing, and both land through Magic
+            // Resistance. Blanket-blocking it would shut down the whole rotation over the spells it cannot
+            // use while discarding the ones it can.
+            if (MagicDamageJobs.Contains(job) && job != ClassJobType.BlueMage && unit.HasAnyAura(Auras.MagicImmunity))
                 return false;
 
             if (RangedPhysicalDps.Contains(job) && !MagicDamageJobs.Contains(job) && unit.HasAnyAura(Auras.RangedImmunity))
