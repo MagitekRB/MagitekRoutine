@@ -47,6 +47,16 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            // Ahead of the attack check: an enemy we cannot damage still hits the party, so mitigation must
+            // not depend on being able to hurt it. The Starry Muse condition is carried up unchanged, so
+            // burst behaviour is exactly as before — only the damage-immunity gating is removed.
+            if (!Core.Me.HasAura(Auras.StarryMuse, true))
+            {
+                if (await Buff.FightLogic_TemperaGrassa()) return true;
+                if (await Buff.FightLogic_TemperaCoat()) return true;
+                if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
+            }
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
             {
                 // Paint up the palettes during "downtime".
@@ -61,12 +71,6 @@ namespace Magitek.Rotations
 
             PictomancerRoutine.DetectSmudge();
 
-            if (!Core.Me.HasAura(Auras.StarryMuse, true))
-            {
-                if (await Buff.FightLogic_TemperaGrassa()) return true;
-                if (await Buff.FightLogic_TemperaCoat()) return true;
-                if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
-            }
 
             if (await CommonFightLogic.FightLogic_Knockback(PictomancerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 

@@ -40,6 +40,16 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            // Ahead of the attack check: an enemy we cannot damage still hits the party, so mitigation must
+            // not depend on being able to hurt it. Still weave-gated, so the GCD is no more at risk than
+            // before — these two simply moved out from under the damage-immunity check, leaving the rest of
+            // the weave window (Interrupt, Second Wind, Bloodbath) where it was.
+            if (ViperRoutine.GlobalCooldown.CanWeave(1))
+            {
+                if (await CommonFightLogic.FightLogic_Debuff(ViperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+                if (await CommonFightLogic.FightLogic_Knockback(ViperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+            }
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -49,8 +59,6 @@ namespace Magitek.Rotations
 
             if (ViperRoutine.GlobalCooldown.CanWeave(1))
             {
-                if (await CommonFightLogic.FightLogic_Debuff(ViperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-                if (await CommonFightLogic.FightLogic_Knockback(ViperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
                 if (await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.Bloodbath(ViperSettings.Instance)) return true;
