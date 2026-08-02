@@ -45,11 +45,16 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(WarriorSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(WarriorSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
+            // Above the attack check: a tank limit break is party mitigation, aimed at Core.Me rather
+            // than the target (Tank.ForceLimitBreak), so an enemy we cannot damage is no reason to
+            // withhold it. The DPS limit breaks stay below the guard — those are damage, and they
+            // resolve at the target's location.
+            //LimitBreak
+            if (Defensive.ForceLimitBreak()) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
-            //LimitBreak
-            if (Defensive.ForceLimitBreak()) return true;
 
 
             //Utility
