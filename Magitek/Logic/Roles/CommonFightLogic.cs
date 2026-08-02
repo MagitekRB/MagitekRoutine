@@ -211,6 +211,14 @@ namespace Magitek.Logic.Roles
 
             StopInFlightCast();
 
+            // Consuming the pulse stops the routine ISSUING actions, but auto-attacks keep swinging on their
+            // own — and Pyretic is "damage is taken with every action", weapon swings included. RebornBuddy
+            // exposes no way to stop auto-attack directly, so turn away instead: the game only swings at what
+            // we are facing. Preferred over dropping the target, which would leave the rotation with nothing
+            // to resume on. Re-asserted every pulse the debuff is up, and normal combat re-faces once it ends.
+            if (Core.Me.HasTarget && Core.Me.CurrentTarget.CanAttack)
+                FightLogic.FaceForGaze(FightLogic.GazeDirection.Away, Core.Me.CurrentTarget);
+
             if (BaseSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo($"[ActionAware] Holding — {mechanic.Name} is up; not casting until it expires.");
 
