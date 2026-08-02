@@ -57,6 +57,11 @@ namespace Magitek.Rotations
                 if (await MagicDps.FightLogic_Addle(PictomancerSettings.Instance)) return true;
             }
 
+            // Anti-knockback belongs with the other defensives, not below the attack check — a knockback
+            // from an enemy we cannot damage still moves us. Outside the Starry Muse block because, unlike
+            // Tempera, Surecast costs nothing worth protecting during burst.
+            if (await CommonFightLogic.FightLogic_Knockback(PictomancerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
             {
                 // Paint up the palettes during "downtime".
@@ -71,8 +76,6 @@ namespace Magitek.Rotations
 
             PictomancerRoutine.DetectSmudge();
 
-
-            if (await CommonFightLogic.FightLogic_Knockback(PictomancerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (PictomancerRoutine.GlobalCooldown.CanWeave())
             {

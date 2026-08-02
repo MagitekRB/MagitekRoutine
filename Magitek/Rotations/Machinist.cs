@@ -40,13 +40,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (await CommonFightLogic.FightLogic_Debuff(MachinistSettings.Instance.FightLogicDismantle, Spells.Dismantle, true, Auras.Dismantled)) return true;
-            if (await CommonFightLogic.FightLogic_PartyShield(MachinistSettings.Instance.FightLogicTactician, Spells.Tactician, true, PhysicalDps.partyShieldAuras)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(MachinistSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
-
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
+            // Ahead of everything, defensives included: Flamethrower is a channel and ANY other action ends
+            // it, so a reaction firing here throws the channel away. It reads only Core.Me, so it is safe
+            // above the target guard. This is the order the rotation had before the defensives were hoisted.
             if (MachinistSettings.Instance.UseFlamethrower && Core.Me.HasAura(Auras.Flamethrower))
             {
                 // First check movement otherwise Flamethrower can be executed whereas you are moving
@@ -59,6 +55,13 @@ namespace Magitek.Rotations
                 if (Core.Me.EnemiesInCone(8) >= MachinistSettings.Instance.FlamethrowerEnemyCount)
                     return true;
             }
+
+            if (await CommonFightLogic.FightLogic_Debuff(MachinistSettings.Instance.FightLogicDismantle, Spells.Dismantle, true, Auras.Dismantled)) return true;
+            if (await CommonFightLogic.FightLogic_PartyShield(MachinistSettings.Instance.FightLogicTactician, Spells.Tactician, true, PhysicalDps.partyShieldAuras)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(MachinistSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                return false;
 
             //LimitBreak
             if (MultiTarget.ForceLimitBreak()) return true;
