@@ -128,9 +128,16 @@ namespace Magitek.Utilities
             // damage — so fall back to them rather than returning nothing. Returning the target alone left
             // a healer in another party doing nothing while their tank ate a share; returning a non-target
             // alone shielded the co-tank while the tank being hit went uncovered.
+            //
+            // CastableTanks is built before Group applies any distance filter, so it can name a tank well
+            // outside heal range. Naming one satisfies the preferred-target branch, skips the fallback and
+            // then fails the caller's own CanCast — no mitigation at all. Restrict both branches to tanks
+            // inside standard heal range so the fallback can still find the co-tank we can reach.
+            var reachableTanks = Group.CastableTanks.Where(Group.CastableAlliesWithin30.Contains).ToList();
+
             var output = enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
-                ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
-                  ?? Group.CastableTanks.FirstOrDefault()
+                ? reachableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                  ?? reachableTanks.FirstOrDefault()
                 : null;
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
