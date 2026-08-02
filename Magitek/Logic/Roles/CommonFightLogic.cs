@@ -253,6 +253,24 @@ namespace Magitek.Logic.Roles
                 if (remaining > castTimeRemainingMs)
                     return Task.FromResult(false);
 
+                // A gaze's snapshot lands a moment AFTER its cast bar ends — that gap is what the grace
+                // window exists to cover. Kefka's statues alternate their demand and their casts overlap, so
+                // the instant the first one ends the second is already detected, wanting the opposite
+                // heading. Obeying it straight away turns us into the first gaze's snapshot and eats it.
+                // Sit out the remainder of the latch instead; the new gaze still has its own cast left to
+                // run and SetFacing is instant, so the later turn lands just as well.
+                if (FightLogic.GazeHoldDirection != FightLogic.GazeDirection.None
+                    && FightLogic.GazeHoldDirection != direction)
+                {
+                    if (FightLogic.ReassertGazeHold())
+                    {
+                        if (BaseSettings.Instance.DebugFightLogic)
+                            Logger.WriteInfo($"[Gaze Hold] Keeping {FightLogic.GazeHoldDirection} through its grace window; {caster.Name} wants {direction}.");
+
+                        return Task.FromResult(true);
+                    }
+                }
+
                 return Hold(direction, caster, "cast", graceMs);
             }
 

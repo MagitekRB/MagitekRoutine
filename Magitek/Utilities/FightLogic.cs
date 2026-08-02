@@ -506,6 +506,12 @@ namespace Magitek.Utilities
         public static bool GazeHoldActive => DateTime.Now < _gazeHoldUntil;
 
         /// <summary>
+        /// The heading the active latch is holding, or None once it lapses. Lets a caller tell an overlapping
+        /// gaze that agrees with the current hold from one that wants the opposite way round.
+        /// </summary>
+        public static GazeDirection GazeHoldDirection => GazeHoldActive ? _gazeDirection : GazeDirection.None;
+
+        /// <summary>
         /// Latch a gaze hold. Kept alive for a short grace after the gaze stops being detected, because the
         /// snapshot lands as the cast completes — releasing on the exact frame it ends lets a queued GCD fire
         /// and re-face us into the gaze before it resolves.
