@@ -275,8 +275,16 @@ namespace Magitek.Logic.Roles
         /// </summary>
         private static void StopInFlightCast()
         {
-            if (Core.Me.IsCasting)
-                ActionManager.StopCasting();
+            if (!Core.Me.IsCasting)
+                return;
+
+            ActionManager.StopCasting();
+
+            // Casting.CancelCast stops the stopwatch alongside StopCasting, and for good reason:
+            // CheckForSuccessfulCast branches on CastingTime.IsRunning. Leaving it running means the cast we
+            // just cancelled is later measured as though it had completed, and its elapsed time compared
+            // against the expected duration of a cast that never landed.
+            Casting.CastingTime.Stop();
         }
 
         private static Task<bool> Hold(FightLogic.GazeDirection direction, GameObject source, string via, int graceMs)
