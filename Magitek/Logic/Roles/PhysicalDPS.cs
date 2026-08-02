@@ -138,6 +138,11 @@ namespace Magitek.Logic.Roles
             if (!BaseSettings.Instance.ForceLimitBreak)
                 return false;
 
+            // A DPS limit break resolves at the target, so there has to be one. Cheap here, and it lets the
+            // rotations run this above their attack guard without risking a null dereference.
+            if (Core.Me.CurrentTarget == null)
+                return false;
+
             //LB 3
             if (PartyManager.NumMembers == 8
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak3Spell)
