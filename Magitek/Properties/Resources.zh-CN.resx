@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -4548,6 +4548,12 @@
   <data name="Generic_FightLogic" xml:space="preserve">
     <value>战斗逻辑</value>
   </data>
+  <data name="Generic_FightLogic_ActionAwareness" xml:space="preserve">
+    <value>行动/移动惩罚机制时暂停（热病、加速度炸弹）</value>
+  </data>
+  <data name="Generic_FightLogic_Gaze" xml:space="preserve">
+    <value>视线攻击时转身背对/面向</value>
+  </data>
   <data name="Generic_Pvp" xml:space="preserve">
     <value>PVP</value>
   </data>
@@ -5600,11 +5606,5 @@
   </data>
   <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
     <value>远程攻击（25 码）。60 秒冷却。所有职能可用。</value>
-  </data>
-  <data name="Generic_FightLogic_ActionAwareness" xml:space="preserve">
-    <value>行动/移动惩罚机制时暂停（热病、加速度炸弹）</value>
-  </data>
-  <data name="Generic_FightLogic_Gaze" xml:space="preserve">
-    <value>视线攻击时转身背对/面向</value>
   </data>
 </root>

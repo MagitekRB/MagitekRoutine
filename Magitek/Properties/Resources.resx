@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -4548,6 +4548,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_FightLogic" xml:space="preserve">
     <value>FightLogic</value>
   </data>
+  <data name="Generic_FightLogic_ActionAwareness" xml:space="preserve">
+    <value>Pause for action/movement mechanics (Pyretic, Acceleration Bomb)</value>
+  </data>
+  <data name="Generic_FightLogic_Gaze" xml:space="preserve">
+    <value>Turn away from / toward gaze attacks</value>
+  </data>
   <data name="Generic_Pvp" xml:space="preserve">
     <value>Pvp</value>
   </data>
@@ -5372,11 +5378,5 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
     <value>Ranged attack (25y). 60s cooldown. Available to all roles.</value>
-  </data>
-  <data name="Generic_FightLogic_ActionAwareness" xml:space="preserve">
-    <value>Pause for action/movement mechanics (Pyretic, Acceleration Bomb)</value>
-  </data>
-  <data name="Generic_FightLogic_Gaze" xml:space="preserve">
-    <value>Turn away from / toward gaze attacks</value>
   </data>
 </root>
