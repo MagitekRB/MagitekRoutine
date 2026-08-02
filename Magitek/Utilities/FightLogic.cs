@@ -306,6 +306,21 @@ namespace Magitek.Utilities
             return false;
         }
 
+        /// <summary>
+        /// The catalogued enemy whose cast the detectors matched, while it is still casting — or null.
+        /// <para>
+        /// Reactions that debuff the CASTER (Feint, Addle, Dismantle, Reprisal) need this rather than
+        /// Core.Me.CurrentTarget: the two are frequently different enemies, and a mitigation debuff applied
+        /// to whatever we happen to be hitting does nothing about the mechanic we are reacting to.
+        /// </para>
+        /// </summary>
+        public static BattleCharacter DetectedCaster()
+        {
+            var (_, _, enemy) = GetEnemyLogicAndEnemy();
+
+            return enemy != null && enemy.IsValid && enemy.IsCasting ? enemy : null;
+        }
+
         public static bool EnemyHasAnyKnockbackLogic()
         {
             if (ZoneHasFightLogic())
