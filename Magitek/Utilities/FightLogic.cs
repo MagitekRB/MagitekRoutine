@@ -2,6 +2,7 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -133,7 +134,11 @@ namespace Magitek.Utilities
             // outside heal range. Naming one satisfies the preferred-target branch, skips the fallback and
             // then fails the caller's own CanCast — no mitigation at all. Restrict both branches to tanks
             // inside standard heal range so the fallback can still find the co-tank we can reach.
-            var reachableTanks = Group.CastableTanks.Where(Group.CastableAlliesWithin30.Contains).ToList();
+            //
+            // WithinSpellRange, not the CastableAlliesWithin30 list: that list is built from raw
+            // centre-to-centre distance, so a large tank whose edge is well inside 30y can fall out of it
+            // and be passed over for a co-tank while the game would have allowed the cast.
+            var reachableTanks = Group.CastableTanks.Where(x => x.WithinSpellRange(30)).ToList();
 
             var output = enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
                 ? reachableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
