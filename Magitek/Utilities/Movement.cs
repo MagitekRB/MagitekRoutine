@@ -74,10 +74,17 @@ namespace Magitek.Utilities
 
         /// <summary>
         /// Checks if gap closer abilities can be used based on CapabilityManager flags.
-        /// Gap closers are disabled if either GapCloser or Movement flags are disallowed.
+        /// Gap closers are disabled if either GapCloser or Movement flags are disallowed, or while a
+        /// movement-punishing mechanic has movement parked.
         /// </summary>
         public static bool CanUseGapCloser()
         {
+            // Acceleration Bomb only objects to movement, so the routine deliberately keeps acting through
+            // it — but a gap closer IS movement wearing an action's clothing, and it moves the character
+            // just as surely as the navigator would. Parked here rather than at the fourteen call sites.
+            if (FightLogic.MovementHeld)
+                return false;
+
             return !RoutineManager.IsAnyDisallowed(CapabilityFlags.GapCloser | CapabilityFlags.Movement);
         }
 
