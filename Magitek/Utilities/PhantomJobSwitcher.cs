@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ff14bot;
 using ff14bot.Managers;
@@ -26,6 +27,14 @@ namespace Magitek.Utilities
         /// </summary>
         private static DateTime _inquiringMindRetryAfter = DateTime.MinValue;
         private static readonly TimeSpan InquiringMindRetryCooldown = TimeSpan.FromMinutes(5);
+        /// <summary>
+        /// Buffs Inquiring Mind has demonstrably failed to grant. It cannot buff a phantom job the character
+        /// has not levelled, and that does not change until they level it — so without this the routine
+        /// re-swaps to Freelancer and re-casts at every crystal chasing a buff it can never get.
+        /// Self-healing: an entry is dropped the moment that buff is observed present.
+        /// </summary>
+        private static readonly HashSet<PhantomJobId> _inquiringMindCannotGrant = new HashSet<PhantomJobId>();
+
         private static int _inquiringMindFailures;
         private const int InquiringMindFailuresBeforeBackoff = 3;
 
@@ -118,7 +127,10 @@ namespace Magitek.Utilities
             foreach (var kvp in KnowledgeCrystalBuffs)
             {
                 if (!NeedsBuff(kvp.Value))
+                {
+                    _inquiringMindCannotGrant.Remove(kvp.Key);   // we have it, so it is obtainable after all
                     continue;
+                }
 
                 missingBuffs.Add((kvp.Key, kvp.Value));
 
@@ -161,7 +173,10 @@ namespace Magitek.Utilities
             // level even for a level-15 Freelancer that clearly has Inquiring Mind), which would silently
             // force the slow 4-job swap. Instead we attempt it and let the cast be the authority; a
             // genuine "can't cast" latches the fast path off briefly (see _inquiringMindRetryAfter).
-            if (preferInquiring && now >= _inquiringMindRetryAfter)
+            // Worth the swap only if Inquiring Mind can still grant at least one of the missing buffs.
+            bool inquiringMindCanHelp = missingBuffs.Any(x => !_inquiringMindCannotGrant.Contains(x.jobId));
+
+            if (preferInquiring && inquiringMindCanHelp && now >= _inquiringMindRetryAfter)
             {
                 // A lapsed back-off earns the fast path its three strikes back. The counter is a static that
                 // otherwise only clears on a successful cast, so once it reached the threshold it stayed
@@ -239,8 +254,15 @@ namespace Magitek.Utilities
                             return true;
                         }
 
-                        // Inquiring Mind can't grant buffs for jobs the player hasn't levelled; let the
-                        // enabled individual fallback cover whatever is still missing.
+                        // Inquiring Mind can't grant buffs for jobs the player hasn't levelled. Remember
+                        // which, so the next crystal does not repeat the swap for them, then let the enabled
+                        // individual fallback cover whatever is still missing.
+                        foreach (var (jobId, buffInfo) in missingBuffs)
+                        {
+                            if (NeedsBuff(buffInfo))
+                                _inquiringMindCannotGrant.Add(jobId);
+                        }
+
                         individualCandidates.RemoveAll(x => !NeedsBuff(x.buffInfo));
                         Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind applied some buffs; {individualCandidates.Count} to try individually");
                     }
