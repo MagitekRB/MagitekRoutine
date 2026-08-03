@@ -178,28 +178,28 @@ namespace Magitek.Utilities
                 if (GetCurrentPhantomJobId() != PhantomJobId.Freelancer)
                 {
                     if (await SwitchToPhantomJob(PhantomJobId.Freelancer))
-                    {
                         anyActionTaken = true;
-
-                        // Wait for Inquiring Mind to actually become usable rather than sleeping a fixed
-                        // interval and hoping. A phantom job swap is a server round-trip, not just an
-                        // animation lock, so any constant is a race: 500ms lost it every time, and the
-                        // animation lock (~770ms) still lost it perhaps a third of the time — the same
-                        // character at Freelancer 19 would buff at one crystal and fail at the next.
-                        // Waiting on the action's own castability is the precondition we actually need,
-                        // and it also sidesteps GetCurrentPhantomJobId() reporting Freelancer for a job it
-                        // simply does not recognise.
-                        if (!await Coroutine.Wait(3000, () => OCSpells.InquiringMind.CanCast()))
-                        {
-                            Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind never became castable, falling back to individual buffs");
-                            onFreelancer = false;
-                        }
-                    }
                     else
                     {
                         Logger.WriteInfo("[PhantomJobSwitcher] Failed to switch to Freelancer, falling back to individual buffs");
                         onFreelancer = false;
                     }
+                }
+
+                // Wait for Inquiring Mind to actually become usable rather than sleeping a fixed
+                // interval and hoping. A phantom job swap is a server round-trip, not just an
+                // animation lock, so any constant is a race: 500ms lost it every time, and the
+                // animation lock (~770ms) still lost it perhaps a third of the time — the same
+                // character at Freelancer 19 would buff at one crystal and fail at the next.
+                // Waiting on the action's own castability is the precondition we actually need,
+                // and it also sidesteps GetCurrentPhantomJobId() reporting Freelancer for a job it
+                // simply does not recognise. This applies on the already-Freelancer path too: a
+                // player who swapped manually a moment ago carries the same lock we didn't create,
+                // and casting into it would fail and burn the 30-second attempt throttle.
+                if (onFreelancer && !await Coroutine.Wait(3000, () => OCSpells.InquiringMind.CanCast()))
+                {
+                    Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind never became castable, falling back to individual buffs");
+                    onFreelancer = false;
                 }
 
                 if (onFreelancer)
