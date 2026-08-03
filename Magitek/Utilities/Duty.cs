@@ -1,7 +1,6 @@
 ﻿using ff14bot;
 using ff14bot.Directors;
 using ff14bot.Managers;
-using Magitek.Logic.Roles;
 using System.Collections.Generic;
 
 namespace Magitek.Utilities
@@ -45,11 +44,8 @@ namespace Magitek.Utilities
         {
             if (Core.Me.InCombat) return States.InProgress; //If we're in Combat, don't even continue, it doesn't matter if we're in a duty or not, just unblock our actions and tell us we're in Progress
 
-            // In Public Duty. The Occult Crescent check runs alongside the id list because it also matches
-            // on zone name, so a newly released Horn counts as an active duty the day it ships rather than
-            // waiting for its id to be added here — the id list on its own left alliance revival and the
-            // pull gate switched off in exactly that situation.
-            if (PublicZones.Contains(WorldManager.ZoneId) || OccultCrescent.IsInOccultCrescent()) return States.InProgress;
+            // In Public Duty
+            if (PublicZones.Contains(WorldManager.ZoneId)) return States.InProgress;
 
             if (DirectorManager.ActiveDirector == null) return States.NotInDuty;
 
