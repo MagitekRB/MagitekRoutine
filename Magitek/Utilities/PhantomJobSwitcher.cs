@@ -58,6 +58,33 @@ namespace Magitek.Utilities
         private const int InquiringMindFailuresBeforeBackoff = 3;
 
         /// <summary>
+        /// Which character the state above belongs to. RebornBuddy can change characters without reloading
+        /// the routine, and every latch here is process-static: the attempt throttle, the Freelancer back-off,
+        /// the failure count and the exclusions. Carried across a character change they describe someone
+        /// else's phantom job levels — most visibly, exclusions learned from an alt with unlevelled jobs
+        /// would suppress buffs on a character who has them.
+        /// </summary>
+        private static string _stateOwner;
+
+        private static void ResetStateIfCharacterChanged()
+        {
+            var owner = Core.Me?.Name;
+            if (string.IsNullOrEmpty(owner) || owner == _stateOwner)
+                return;
+
+            if (_stateOwner != null)   // null on the first pulse — nothing learned yet, nothing to clear
+            {
+                _lastAttemptTime = DateTime.MinValue;
+                _inquiringMindRetryAfter = DateTime.MinValue;
+                _inquiringMindFailures = 0;
+                _inquiringMindCannotGrant.Clear();
+                Logger.WriteInfo("[PhantomJobSwitcher] Character changed, relearning which phantom job buffs are available");
+            }
+
+            _stateOwner = owner;
+        }
+
+        /// <summary>
         /// Maps phantom jobs to their corresponding knowledge crystal buff auras
         /// </summary>
         private static readonly Dictionary<PhantomJobId, KnowledgeCrystalBuff> KnowledgeCrystalBuffs = new()
@@ -128,6 +155,8 @@ namespace Magitek.Utilities
             // Must be out of combat
             if (Core.Me.InCombat)
                 return false;
+
+            ResetStateIfCharacterChanged();
 
             // Throttle attempts to prevent rapid ping-ponging when spells fail
             var now = DateTime.Now;
