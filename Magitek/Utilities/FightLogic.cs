@@ -420,14 +420,13 @@ namespace Magitek.Utilities
             827,  // The Forbidden Land, Eureka Hydatos
             920,  // The Bozjan Southern Front
             975,  // Zadnor
+            1252, // Occult Crescent: South Horn
+            1346, // Occult Crescent: Northern Horn
         };
 
-        // The Occult Crescent is deliberately absent from the list above: it owns its own zone detection
-        // (which also matches new Horns by name), so keeping it in one place stops the two drifting apart.
         public static bool InFieldOperation()
         {
-            return FieldOperationZoneIds.Contains(WorldManager.ZoneId)
-                || global::Magitek.Logic.Roles.OccultCrescent.IsInOccultCrescent();
+            return FieldOperationZoneIds.Contains(WorldManager.ZoneId);
         }
 
         public static bool ZoneHasFightLogic()
