@@ -49,7 +49,7 @@ namespace Magitek.Utilities
             {
                 if (MovementManager.IsMoving)
                 {
-                    Navigator.PlayerMover.MoveStop();
+                    Navigator.PlayerMover?.MoveStop();
                 }
             }
             else

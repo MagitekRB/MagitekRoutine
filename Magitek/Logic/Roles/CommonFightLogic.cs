@@ -194,7 +194,7 @@ namespace Magitek.Logic.Roles
             // Acceleration Bomb. Best-effort: a botbase actively pathing may re-issue movement next tick.
             if (mechanic.PunishesMovement)
             {
-                if (MovementManager.IsMoving)
+                if (MovementManager.IsMoving && Navigator.PlayerMover != null)
                     Navigator.PlayerMover.MoveStop();
 
                 // Stopping alone is not enough: the rest of the pulse would navigate straight back out
@@ -315,9 +315,15 @@ namespace Magitek.Logic.Roles
 
         private static Task<bool> Hold(FightLogic.GazeDirection direction, GameObject source, string via, int graceMs)
         {
+            if (source == null || !source.IsValid || Core.Me == null)
+                return Task.FromResult(false);
+
             // Movement beats SetFacing, so a navigator still driving us towards something would undo the
             // turn every frame and leave us looking the wrong way for the whole gaze. Stop it first.
-            if (MovementManager.IsMoving)
+            //
+            // PlayerMover is null whenever RebornBuddy has no navigation provider loaded — which happens in
+            // the Occult Crescent, and threw a NullReferenceException on every single gaze there.
+            if (MovementManager.IsMoving && Navigator.PlayerMover != null)
                 Navigator.PlayerMover.MoveStop();
 
             StopInFlightCast();

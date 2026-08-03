@@ -745,7 +745,7 @@ namespace Magitek.Utilities
         // stationary, though — if a botbase is driving movement, movement direction wins.
         public static void FaceForGaze(GazeDirection direction, GameObject source)
         {
-            if (source == null || direction == GazeDirection.None)
+            if (source == null || !source.IsValid || direction == GazeDirection.None || Core.Me == null)
                 return;
 
             var heading = MathHelper.CalculateHeading(Core.Me.Location, source.Location);
