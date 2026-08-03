@@ -215,29 +215,44 @@ namespace Magitek.Logic.Roles
             return _lastZoneWasOccultCrescent;
         }
 
-        private static readonly uint KnowledgeCrystal = 2007457;
-
-        // Known Knowledge Crystal locations that never change. SOUTH HORN ONLY — these are raw map
-        // coordinates, and each Horn has its own coordinate space, so the same numbers point at unrelated
-        // ground elsewhere. Always check the zone before trusting them.
         private const ushort SouthHornZoneId = 1252;
+        private const ushort NorthHornZoneId = 1346;
 
-        // How close a Knowledge Crystal stands to its Occult Aetheryte. South Horn proves the crystal
-        // out by checking it sits on one of a handful of known positions; no such list exists for newer
-        // Horns, so the aetheryte beside it serves the same purpose without needing the zone mapped first.
-        private const float AetheryteProximity = 7.0f;
-
-        private static readonly Vector3[] KnowledgeCrystalLocations = new[]
+        // Known Knowledge Crystal locations per zone. These never change, and each Horn has its own
+        // coordinate space, so the lists are keyed by zone id.
+        private static readonly Dictionary<ushort, Vector3[]> KnowledgeCrystalLocations = new()
         {
-            new Vector3(835.9902f, 75.12211f, -709.3925f),
-            new Vector3(-165.9937f, 8.5f, -616.4979f),
-            new Vector3(-347.2297f, 102.3273f, -124.1305f),
-            new Vector3(-393.0761f, 99.51316f, 278.7158f),
-            new Vector3(302.5914f, 105f, 313.6591f)
+            [SouthHornZoneId] = new[]
+            {
+                new Vector3(835.9902f, 75.12211f, -709.3925f),
+                new Vector3(-165.9937f, 8.5f, -616.4979f),
+                new Vector3(-347.2297f, 102.3273f, -124.1305f),
+                new Vector3(-393.0761f, 99.51316f, 278.7158f),
+                new Vector3(302.5914f, 105f, 313.6591f)
+            },
+            [NorthHornZoneId] = new[]
+            {
+                new Vector3(884.896f, 259.5558f, 875.1169f),    // base camp
+                new Vector3(-542.5715f, 68.6256f, 598.2891f),
+                new Vector3(-390f, 67.99994f, 700f),
+                new Vector3(-893f, -984.7401f, 780f),           // Forked Tower
+                new Vector3(-900f, -986.1f, 782.2488f),
+                new Vector3(-900.0712f, -983f, 839.275f),
+                new Vector3(103f, -706.7383f, 678f),
+                new Vector3(0f, -722.6936f, -367f),
+                new Vector3(603.5453f, -672.6606f, 640.6041f),
+                new Vector3(600f, -673.8f, 624f),
+                new Vector3(603.7968f, -670.6514f, -125.1157f),
+                new Vector3(600f, -672f, -142f)
+            }
         };
 
-        // Respawn point location
-        private static readonly Vector3 RespawnPoint = new Vector3(851.87665f, 73.13358f, -704.79004f);
+        // Respawn point location per zone
+        private static readonly Dictionary<ushort, Vector3> RespawnPoints = new()
+        {
+            [SouthHornZoneId] = new Vector3(851.87665f, 73.13358f, -704.79004f),
+            [NorthHornZoneId] = new Vector3(905.57f, 259.88f, 905.97f)
+        };
 
         // Throttling for knowledge crystal checks
         private static DateTime _lastCrystalCheck = DateTime.MinValue;
@@ -341,67 +356,19 @@ namespace Magitek.Logic.Roles
         /// <returns>True if near a valid crystal</returns>
         private static bool PerformCrystalCheck(float maxDistance)
         {
+            // Simply check if player is near any known crystal location
+            // No need for expensive NPC searches since crystal locations are fixed
             var loc = Core.Me.Location;
-
-            // Fast path: the known crystal spots, no object scan needed. Gated to South Horn, because the
-            // coordinates only mean anything there — used zone-wide they resolve to arbitrary ground in
-            // Northern Horn, where they read as "standing at a crystal" in places that plainly aren't, and
-            // swap phantom jobs on arrival at a critical engagement.
-            if (WorldManager.ZoneId == SouthHornZoneId)
-            {
-                foreach (var crystalLocation in KnowledgeCrystalLocations)
-                {
-                    if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
-                    {
-                        Logger.WriteInfo($"[KnowledgeCrystal] Matched a known South Horn position at {loc}.");
-                        return true;
-                    }
-                }
-            }
-
-            // Otherwise look for the crystal itself. The coordinates above only cover South Horn, so
-            // relying on them alone silently disabled phantom job switching everywhere else the moment
-            // Northern Horn arrived. Finding the object works in any Horn without needing its layout.
-            // The caller throttles this check, so the scan is bounded.
-            var nearby = GameObjectManager.GetObjectsByNPCId<GameObject>(KnowledgeCrystal)
-                .Where(crystal => crystal != null && crystal.IsValid)
-                .Select(crystal => new { Crystal = crystal, Distance = loc.Distance(crystal.Location) })
-                .Where(x => x.Distance <= maxDistance)
-                .OrderBy(x => x.Distance)
-                .ToList();
-
-            if (nearby.Count == 0)
+            if (!KnowledgeCrystalLocations.TryGetValue(WorldManager.ZoneId, out var crystalLocations))
                 return false;
 
-            // The marker that lights up where a critical engagement is about to spawn carries the SAME
-            // object id as a Knowledge Crystal, which is what was swapping phantom jobs out in the field.
-            // The two cannot be told apart by the object alone — crystals are not targetable either — but
-            // a real crystal always stands beside an Occult Aetheryte, and an engagement marker does not.
-            var aetherytes = GameObjectManager.GameObjects
-                .Where(o => o != null && o.IsValid && o.EnglishName != null
-                            && o.EnglishName.IndexOf("Aetheryte", StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-
-            var match = nearby.FirstOrDefault(x =>
-                aetherytes.Any(a => a.Location.Distance(x.Crystal.Location) <= AetheryteProximity));
-
-            if (match == null)
+            foreach (var crystalLocation in crystalLocations)
             {
-                // Log what WAS beside the candidate, so a wrong assumption here shows up immediately
-                // rather than silently disabling phantom buffs.
-                var nearest = nearby[0];
-                var closestAetheryte = aetherytes
-                    .OrderBy(a => a.Location.Distance(nearest.Crystal.Location))
-                    .FirstOrDefault();
-                var how = closestAetheryte == null
-                    ? "no aetheryte found in the zone at all"
-                    : $"nearest aetheryte is {closestAetheryte.Location.Distance(nearest.Crystal.Location):F1}y from it";
-                Logger.WriteInfo($"[KnowledgeCrystal] Ignoring {nearby.Count} candidate(s) with no aetheryte beside them — closest is {nearest.Distance:F1}y away at {nearest.Crystal.Location}; {how}.");
-                return false;
+                if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
+                    return true;
             }
 
-            Logger.WriteInfo($"[KnowledgeCrystal] Found a crystal {match.Distance:F1}y away at {match.Crystal.Location} (zone {WorldManager.ZoneId}).");
-            return true;
+            return false;
 
             /* OLD APPROACH - NPC LOOKUP METHOD (preserved for reference)
              * This was the original implementation that verified actual NPC existence
@@ -573,12 +540,10 @@ namespace Magitek.Logic.Roles
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
-                                                       // Skip anyone stood at the respawn point, since they have chosen to
-                                                       // return rather than wait. That point is a South Horn coordinate, so
-                                                       // the test only means anything there — applied in another Horn it
-                                                       // measures against unrelated ground and excludes people at random.
-                                                       (WorldManager.ZoneId != SouthHornZoneId
-                                                        || u.Location.DistanceSqr(RespawnPoint) >= 900));
+                                                       // Skip anyone stood at the zone's respawn point, since they have
+                                                       // chosen to return rather than wait for a raise.
+                                                       (!RespawnPoints.TryGetValue(WorldManager.ZoneId, out var respawnPoint)
+                                                        || u.Location.DistanceSqr(respawnPoint) >= 900));
 
             if (!deadNonPartyPlayers.Any())
                 return false;
