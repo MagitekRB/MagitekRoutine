@@ -586,6 +586,13 @@ namespace Magitek.Utilities
 
         public static void HoldMovement(int ms) => _movementHeldUntil = DateTime.Now.AddMilliseconds(ms);
 
+        /// <summary>
+        /// Drop the hold immediately. The latch is re-armed for a full second on every pulse the mechanic is
+        /// up, so when it finally ends there is up to a second of stale hold left over — long enough to keep
+        /// navigation and gap closers parked after the thing that justified them has gone.
+        /// </summary>
+        public static void ReleaseMovementHold() => _movementHeldUntil = DateTime.MinValue;
+
         private static uint _seenMarkerId;
         private static DateTime _seenMarkerSince = DateTime.MinValue;
         private static DateTime _seenMarkerLastPolled = DateTime.MinValue;

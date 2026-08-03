@@ -182,7 +182,12 @@ namespace Magitek.Logic.Roles
 
             var mechanic = FightLogic.PlayerActionPunishAura(out var msRemaining);
             if (mechanic == null)
+            {
+                // Nothing punishing us any more — drop the hold rather than letting the last pulse's
+                // one-second re-arm keep navigation and gap closers parked after the fact.
+                FightLogic.ReleaseMovementHold();
                 return Task.FromResult(false);
+            }
 
             // Snapshot mechanics only care what we're doing at the moment they fall off, so keep playing
             // until the window closes instead of surrendering the debuff's whole duration — Buyer's Remorse
