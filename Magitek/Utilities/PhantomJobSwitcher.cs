@@ -28,12 +28,31 @@ namespace Magitek.Utilities
         private static DateTime _inquiringMindRetryAfter = DateTime.MinValue;
         private static readonly TimeSpan InquiringMindRetryCooldown = TimeSpan.FromMinutes(5);
         /// <summary>
-        /// Buffs Inquiring Mind has demonstrably failed to grant. It cannot buff a phantom job the character
-        /// has not levelled, and that does not change until they level it — so without this the routine
-        /// re-swaps to Freelancer and re-casts at every crystal chasing a buff it can never get.
-        /// Self-healing: an entry is dropped the moment that buff is observed present.
+        /// Buffs Inquiring Mind has demonstrably failed to grant, and when we learned that. It cannot buff a
+        /// phantom job the character has not levelled, so without this the routine re-swaps to Freelancer and
+        /// re-casts at every crystal chasing a buff it can never get.
+        /// <para>
+        /// Exclusions EXPIRE rather than being permanent. Levelling the job mid-session makes the buff
+        /// obtainable again, and "drop it once we see the buff land" is not enough on its own: with the
+        /// individual swaps turned off nothing else can apply it, so it would never be seen, and the
+        /// exclusion would lock out the very path that could now grant it. Re-checking costs one swap per
+        /// job per window.
+        /// </para>
         /// </summary>
-        private static readonly HashSet<PhantomJobId> _inquiringMindCannotGrant = new HashSet<PhantomJobId>();
+        private static readonly Dictionary<PhantomJobId, DateTime> _inquiringMindCannotGrant = new Dictionary<PhantomJobId, DateTime>();
+        private static readonly TimeSpan InquiringMindExclusionRecheck = TimeSpan.FromMinutes(10);
+
+        private static bool CannotBeGrantedByInquiringMind(PhantomJobId jobId, DateTime now)
+        {
+            if (!_inquiringMindCannotGrant.TryGetValue(jobId, out var since))
+                return false;
+
+            if (now - since < InquiringMindExclusionRecheck)
+                return true;
+
+            _inquiringMindCannotGrant.Remove(jobId);   // window lapsed — give it another go
+            return false;
+        }
 
         private static int _inquiringMindFailures;
         private const int InquiringMindFailuresBeforeBackoff = 3;
@@ -174,7 +193,7 @@ namespace Magitek.Utilities
             // force the slow 4-job swap. Instead we attempt it and let the cast be the authority; a
             // genuine "can't cast" latches the fast path off briefly (see _inquiringMindRetryAfter).
             // Worth the swap only if Inquiring Mind can still grant at least one of the missing buffs.
-            bool inquiringMindCanHelp = missingBuffs.Any(x => !_inquiringMindCannotGrant.Contains(x.jobId));
+            bool inquiringMindCanHelp = missingBuffs.Any(x => !CannotBeGrantedByInquiringMind(x.jobId, now));
 
             if (preferInquiring && inquiringMindCanHelp && now >= _inquiringMindRetryAfter)
             {
@@ -260,7 +279,7 @@ namespace Magitek.Utilities
                         foreach (var (jobId, buffInfo) in missingBuffs)
                         {
                             if (NeedsBuff(buffInfo))
-                                _inquiringMindCannotGrant.Add(jobId);
+                                _inquiringMindCannotGrant[jobId] = now;
                         }
 
                         individualCandidates.RemoveAll(x => !NeedsBuff(x.buffInfo));
