@@ -424,14 +424,17 @@ namespace Magitek.Logic.Roles
             if (!IsInOccultCrescent())
                 return false;
 
+            // First, try automatic phantom job switching for knowledge crystal buffs. This runs before
+            // the phantom-job guard below because Freelancer grants no phantom job aura, so a player
+            // standing at a crystal as Freelancer reads as None — and they are exactly who the
+            // Inquiring Mind path serves. The switcher carries its own gating.
+            if (await PhantomJobSwitcher.AutoSwitchForKnowledgeCrystalBuffs())
+                return true;
+
             // Get the current phantom job
             var phantomJob = GetCurrentPhantomJob();
             if (phantomJob == PhantomJob.None)
                 return false;
-
-            // First, try automatic phantom job switching for knowledge crystal buffs
-            if (await PhantomJobSwitcher.AutoSwitchForKnowledgeCrystalBuffs())
-                return true;
 
             // Execute phantom job specific logic
             var phantomJobResult = phantomJob switch
