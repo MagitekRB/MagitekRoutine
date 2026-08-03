@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ff14bot;
@@ -193,7 +193,11 @@ namespace Magitek.Utilities
                         // simply does not recognise.
                         if (!await Coroutine.Wait(3000, () => OCSpells.InquiringMind.CanCast()))
                         {
-                            Logger.WriteInfo("[PhantomJobSwitcher] Swapped to Freelancer but Inquiring Mind never became castable; falling back to individual buffs");
+                            // Counts toward the same back-off. A readiness timeout and a failed cast mean
+                            // the same thing — Inquiring Mind did not happen — and a character that simply
+                            // lacks it would otherwise swap to Freelancer and wait three seconds at every
+                            // crystal forever, which is precisely what the back-off exists to stop.
+                            RecordInquiringMindFailure(now, "never became castable");
                             onFreelancer = false;
                         }
                     }
@@ -242,23 +246,7 @@ namespace Magitek.Utilities
                     }
                     else
                     {
-                        // A failed cast is not proof the character lacks Inquiring Mind — Cast() also
-                        // returns false for passing reasons. Treating the first failure as "Freelancer
-                        // below 15" silenced the fast path for five minutes over what was usually a
-                        // momentary blip, and with the individual swaps turned off that left no buffing
-                        // at all. Only back off once it has failed repeatedly, which a genuine absence
-                        // does and a blip does not.
-                        _inquiringMindFailures++;
-
-                        if (_inquiringMindFailures >= InquiringMindFailuresBeforeBackoff)
-                        {
-                            _inquiringMindRetryAfter = now.Add(InquiringMindRetryCooldown);
-                            Logger.WriteInfo("[PhantomJobSwitcher] Inquiring Mind unavailable; backing off, falling back to individual buffs");
-                        }
-                        else
-                        {
-                            Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind didn't fire (attempt {_inquiringMindFailures}); will retry");
-                        }
+                        RecordInquiringMindFailure(now, "didn't fire");
                     }
                 }
             }
@@ -466,6 +454,26 @@ namespace Magitek.Utilities
         /// Get the current phantom job ID by reusing OccultCrescent logic
         /// </summary>
         /// <returns>The current phantom job ID, or None if no phantom job is active</returns>
+        /// <summary>
+        /// One attempt at Inquiring Mind did not produce buffs. Neither a failed cast nor a readiness
+        /// timeout proves the character lacks the action — both also happen for passing reasons — so back
+        /// off only once it has failed repeatedly, which a genuine absence does and a blip does not.
+        /// </summary>
+        private static void RecordInquiringMindFailure(DateTime now, string reason)
+        {
+            _inquiringMindFailures++;
+
+            if (_inquiringMindFailures >= InquiringMindFailuresBeforeBackoff)
+            {
+                _inquiringMindRetryAfter = now.Add(InquiringMindRetryCooldown);
+                Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind unavailable ({reason}); backing off, falling back to individual buffs");
+            }
+            else
+            {
+                Logger.WriteInfo($"[PhantomJobSwitcher] Inquiring Mind {reason} (attempt {_inquiringMindFailures}); will retry");
+            }
+        }
+
         private static PhantomJobId GetCurrentPhantomJobId()
         {
             // Reuse existing OccultCrescent logic instead of duplicating
