@@ -237,7 +237,7 @@ namespace Magitek.Utilities.Agents
         MysticKnight = 13,
         Gladiator = 14,
         Dancer = 15,
-        // Added with Northern Horn. Indices taken from MKDSupportJob.csv, not inferred.
+        // Added with North Horn. Indices taken from MKDSupportJob.csv, not inferred.
         Ninja = 16,
         WhiteMage = 17,
         BlackMage = 18,

@@ -180,7 +180,7 @@ namespace Magitek.Logic.Roles
         private static readonly HashSet<ushort> OccultCrescentZoneIds = new()
         {
             1252, // The Occult Crescent: South Horn
-            1346, // The Occult Crescent: Northern Horn
+            1346, // The Occult Crescent: North Horn
         };
 
         private const string OccultCrescentZoneNamePart = "Occult Crescent";
@@ -191,7 +191,7 @@ namespace Magitek.Logic.Roles
         /// <summary>
         /// Known zone ids first, then a fallback on the zone name so a newly released Horn works the day
         /// it ships instead of silently disabling everything Occult Crescent specific until its id is
-        /// added here — which is exactly what happened when Northern Horn arrived.
+        /// added here — which is exactly what happened when North Horn arrived.
         /// <para>
         /// Name matching is safe across clients: WorldManager.CurrentZoneName is the non-localized name
         /// (CurrentLocalizedZoneName is the one shown to the player). The result is cached per zone so the
@@ -289,7 +289,7 @@ namespace Magitek.Logic.Roles
             { 4805, PhantomJob.Dancer },
             { 4803, PhantomJob.MysticKnight },
             { 4804, PhantomJob.Gladiator },
-            // Added with Northern Horn. Without these the current job reads as None and every Occult
+            // Added with North Horn. Without these the current job reads as None and every Occult
             // Crescent feature bails out, which is why nothing worked while playing one of them.
             { 5328, PhantomJob.Ninja },
             { 5329, PhantomJob.WhiteMage },
