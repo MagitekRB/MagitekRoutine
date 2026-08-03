@@ -40,7 +40,9 @@ namespace Magitek.Extensions
             if (unit == null)
                 return false;
 
-            return Combat.Enemies.Any(x => x.TargetCharacter == unit);
+            // Combat.Threats, not Combat.Enemies: "is something attacking this unit" is a defensive
+            // question, and an enemy our damage cannot reach still hits the person it has targeted.
+            return Combat.Threats.Any(x => x.TargetCharacter == unit);
         }
 
         public static bool BeingTargetedBy(this GameObject unit, GameObject other)
