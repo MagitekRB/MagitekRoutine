@@ -846,7 +846,13 @@ namespace Magitek.Utilities
                     // Live cast discovery: every nearby enemy currently casting, with the raw action id.
                     // This is how you capture uncatalogued mechanic ids (gazes, etc.) to add to the catalogue —
                     // read the id off the boss's cast bar here, then it can be catalogued by enemy name.
-                    var castingNow = Combat.Enemies.Where(y => y.IsCasting).ToList();
+                    //
+                    // Deliberately the same source the gaze detector uses, NOT Combat.Enemies. That list keeps
+                    // only what we can target and damage, and the casters most worth discovering are neither:
+                    // the Occult Crescent's Accursed Orbs and O8N/O8S's Graven Image statues are untargetable
+                    // emitters. Reading from Combat.Enemies made this blind to exactly the enemies it exists
+                    // to catalogue.
+                    var castingNow = _gazeCandidates.Value.Where(y => y.IsCasting).ToList();
                     Debug.Instance.FightLogicData += "\nCasting now:\n";
                     if (castingNow.Count == 0)
                         Debug.Instance.FightLogicData += "\t(nothing casting)\n";
