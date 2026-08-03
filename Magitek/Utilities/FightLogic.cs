@@ -421,7 +421,7 @@ namespace Magitek.Utilities
             920,  // The Bozjan Southern Front
             975,  // Zadnor
             1252, // Occult Crescent: South Horn
-            1346, // Occult Crescent: Northern Horn
+            1346, // Occult Crescent: North Horn
         };
 
         public static bool InFieldOperation()
