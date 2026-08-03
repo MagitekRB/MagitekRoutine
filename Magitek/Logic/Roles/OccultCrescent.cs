@@ -189,9 +189,12 @@ namespace Magitek.Logic.Roles
         private static bool _lastZoneWasOccultCrescent;
 
         /// <summary>
-        /// Known zone ids first, then a fallback on the zone name so a newly released Horn works the day
-        /// it ships instead of silently disabling everything Occult Crescent specific until its id is
-        /// added here — which is exactly what happened when North Horn arrived.
+        /// Known zone ids first, then a fallback on the zone name so a newly released Horn keeps the
+        /// general Occult Crescent logic running the day it ships instead of silently disabling all of it
+        /// until its id is added here — which is exactly what happened when North Horn arrived. Features
+        /// built on per-zone coordinates are the exception: knowledge crystal buffing and the
+        /// respawn-point corpse exclusion stay off in a new Horn until its locations are gathered and
+        /// added to KnowledgeCrystalLocations/RespawnPoints, by design.
         /// <para>
         /// Name matching is safe across clients: WorldManager.CurrentZoneName is the non-localized name
         /// (CurrentLocalizedZoneName is the one shown to the player). The result is cached per zone so the
