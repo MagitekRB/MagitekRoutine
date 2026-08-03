@@ -227,12 +227,6 @@ namespace Magitek.Logic.Roles
         // Horns, so the aetheryte beside it serves the same purpose without needing the zone mapped first.
         private const float AetheryteProximity = 7.0f;
 
-        // How long non-party revival stands aside for a dead party member before deciding the party
-        // path is not coming.
-        private static DateTime _partyRaiseYieldSince = DateTime.MinValue;
-        private static HashSet<uint> _partyRaiseYieldFor = new HashSet<uint>();
-        private static readonly TimeSpan PartyRaiseGrace = TimeSpan.FromSeconds(15);
-
         private static readonly Vector3[] KnowledgeCrystalLocations = new[]
         {
             new Vector3(835.9902f, 75.12211f, -709.3925f),
@@ -530,44 +524,10 @@ namespace Magitek.Logic.Roles
                 return false;
             _lastNonPartyResCheck = now;
 
-            // Party-priority: if a raise-eligible party member is down, yield this pulse so the
-            // standard Heal()/Verraise() path (which runs later in the same pulse chain and owns
-            // party rez) spends any Dualcast/Swiftcast on them instead of a non-party random. Only
-            // yields when actually grouped with an eligible corpse, so it won't strand a party
-            // member the standard path wouldn't cover anyway.
-            // Yielding is only worth it while the party path is actually going to act. If it cannot —
-            // the job has no raise, it is switched off, it is out of resources, or the dead player is a
-            // role the user excluded — then the corpse simply stays there and this would keep standing
-            // aside forever, which is exactly how non-party revival ends up never happening. Give the
-            // party path a fair window and then stop waiting on it.
-            //
-            // This has to run BEFORE the mana and combat-preference gates below. Those gates decide
-            // whether we may raise a stranger; they say nothing about who is down. Tracked underneath
-            // them, the set and the timer simply froze for as long as mana sat under the threshold — so a
-            // member who died, was raised and died again during that stretch came back to an unchanged
-            // set and a timestamp minutes old, and had their grace window treated as already spent.
-            var raisableParty = RaisableDeadPartyMemberIds();
-
-            if (Globals.InParty && raisableParty.Count > 0)
-            {
-                // Anyone newly down earns their own window. Timing from the first corpse alone would mean
-                // one nobody can raise burns the grace once and everybody who falls afterwards gets none.
-                if (raisableParty.Except(_partyRaiseYieldFor).Any())
-                    _partyRaiseYieldSince = DateTime.Now;
-
-                // Always take the current set, so anyone raised drops out of it. Letting it only grow
-                // meant somebody who died, was raised and died again still counted as already seen, and
-                // so was handed no window at all the second time.
-                _partyRaiseYieldFor = raisableParty;
-
-                if ((DateTime.Now - _partyRaiseYieldSince) < PartyRaiseGrace)
-                    return false;
-            }
-            else
-            {
-                _partyRaiseYieldSince = DateTime.MinValue;
-                _partyRaiseYieldFor.Clear();
-            }
+            // Don't resurrect someone outside the party while a party member is down — the standard
+            // raise path owns party rez and gets priority for any instant-cast sources.
+            if (Group.DeadAllies.Any())
+                return false;
 
             // Check if we're Phantom Chemist (free resurrection) or need MP check for regular jobs
             var phantomJob = GetCurrentPhantomJob();
@@ -596,22 +556,6 @@ namespace Magitek.Logic.Roles
             );
 
             return await RaiseNonPartyPlayer();
-        }
-
-        /// <summary>
-        /// True when a party member is dead and rezzable in principle by the standard raise path.
-        /// Used to yield non-party resurrection so party members keep priority for instant-cast sources.
-        /// </summary>
-        private static HashSet<uint> RaisableDeadPartyMemberIds()
-        {
-            return new HashSet<uint>(Group.DeadAllies
-                .Where(u => u.CurrentHealth == 0
-                            && !u.HasAura(Auras.Raise)
-                            && u.WithinSpellRange(30)
-                            && u.IsVisible
-                            && u.InLineOfSight()
-                            && u.IsTargetable)
-                .Select(u => u.ObjectId));
         }
 
         /// <summary>
@@ -721,69 +665,17 @@ namespace Magitek.Logic.Roles
         /// </summary>
         private static async Task<bool> RaiseRedMage(GameObject target)
         {
-            // Check against the corpse, not the parameterless overload — that one substitutes Core.Me, so
-            // a raise is asked whether it can be cast on someone who is alive. The generic raise path above
-            // and Healer.ResurrectionLogic both pass the dead target; this was the only raise call site
-            // that did not.
-            if (!Spells.Verraise.CanCast(target))
+            if (!Spells.Verraise.CanCast())
                 return false;
 
-            // Dualcast or Swiftcast already up: instant Verraise (best case).
-            if (Core.Me.HasAura(Auras.Dualcast) || Core.Me.HasAura(Auras.Swiftcast))
-                return await Spells.Verraise.Cast(target);
-
-            // Swiftcast off cooldown: pop it for an instant Verraise.
-            if (Spells.Swiftcast.IsKnownAndReady())
+            // First check for dualcast (best option for RDM)
+            if (Core.Me.HasAura(Auras.Dualcast))
             {
-                if (await Healer.Swiftcast())
-                {
-                    // Re-validate the target each iteration: in the open field another player can
-                    // rez/LoS-break the same corpse, which would otherwise spin here (CastAura keeps
-                    // failing without consuming Swiftcast) until the aura expires ~10s later.
-                    // Being alive again is the case the other checks miss: someone else's raise can be
-                    // accepted mid-loop, leaving the target valid, targetable, in range and carrying no
-                    // pending Raise aura — so without this the loop spins until Swiftcast expires.
-                    while (Core.Me.HasAura(Auras.Swiftcast)
-                           && target != null && target.IsValid && target.IsTargetable
-                           && (target as Character)?.CurrentHealth == 0
-                           && !target.HasAura(Auras.Raise)
-                           && target.WithinSpellRange(30) && target.InLineOfSight())
-                    {
-                        if (await Spells.Verraise.CastAura(target, Auras.Raise))
-                            return true;
-                        await Coroutine.Yield();
-                    }
-                }
-            }
-
-            // If the loop above exited with Swiftcast still up (the corpse got invalidated mid-loop),
-            // don't fall into the priming/hardcast paths — an instant Vercure would burn the Swiftcast
-            // without proc'ing Dualcast. Bail and re-pulse; the next pass spends the still-up Swiftcast on
-            // an instant Verraise against a freshly-selected valid corpse (handled at the top of this method).
-            if (Core.Me.HasAura(Auras.Swiftcast))
-                return false;
-
-            // Out of combat with no instant-cast source: prime Dualcast with a quick self-Vercure
-            // (~2s) instead of hard-casting Verraise (~10s). The next pulse consumes the Dualcast
-            // for an instant Verraise. Mirrors RedMage VerraisePrime() for the field-op rez path,
-            // which never sees these non-party allies (they aren't in Group.DeadAllies).
-            if (!Core.Me.InCombat)
-            {
-                // Moving: can neither prime (Vercure must stand still) nor hardcast (the cast-time
-                // gate rejects a moving cast with no instant-cast source). Bail and retry next pulse;
-                // the prime runs once stopped.
-                if (MovementManager.IsMoving)
-                    return false;
-
-                if (Spells.Vercure.IsKnown() && await Spells.Vercure.Cast(Core.Me))
-                    return true;
-
-                // Vercure unavailable or failed: hard-cast Verraise so the rez still lands.
                 return await Spells.Verraise.Cast(target);
             }
 
-            // In combat with no instant-cast source: don't clip the fight with a ~10s hardcast.
-            return false;
+            // No dualcast, use regular swiftcast/slowcast logic
+            return await RaiseWithSwiftcastOptions(Spells.Verraise, target);
         }
 
         /// <summary>
@@ -2202,7 +2094,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            // Already slowed — nothing to do.
+            // Don't cast if target already has slow debuff
             if (Core.Me.CurrentTarget.HasAura(OCAuras.Slow))
                 return false;
 
@@ -2395,6 +2287,9 @@ namespace Magitek.Logic.Roles
 
             if (!Core.Me.CurrentTarget.HasDispellableAura())
                 return false;
+
+            // if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
+            //     return false;
 
             if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultDispel.Range))
                 return false;
