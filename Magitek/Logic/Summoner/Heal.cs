@@ -177,7 +177,10 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.CurrentHealthPercent >= SummonerSettings.Instance.RadiantAegisHPThreshold)
                 return false;
 
-            if (!Combat.Enemies.All(x => x.TargetCharacter == Core.Me && x.IsCasting))
+            // Threats, not Enemies: this asks "is everything attacking me", and an enemy our damage
+            // cannot touch still attacks us. Enemies filters those out, which can leave it empty and
+            // make the All() vacuously true — spending the shield against nothing that qualifies.
+            if (!Combat.Threats.All(x => x.TargetCharacter == Core.Me && x.IsCasting))
                 return false;
 
             return await Spells.RadiantAegis.CastAura(Core.Me, Auras.RadiantAegis);

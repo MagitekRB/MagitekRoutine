@@ -764,7 +764,10 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (enemyCount > PartyManager.NumMembers)
-                if (Combat.Enemies.All(x => x.WithinSpellRange(Spells.Macrocosmos.Radius) && Group.CastableAlliesWithin20.Count() == PartyManager.NumMembers))
+                // Threats, not Enemies: "is every enemy close enough" is about what can hurt the party,
+                // and an enemy immune to OUR damage still hurts them; filtered-out enemies would also
+                // leave the list empty and the All() vacuously true.
+                if (Combat.Threats.All(x => x.WithinSpellRange(Spells.Macrocosmos.Radius) && Group.CastableAlliesWithin20.Count() == PartyManager.NumMembers))
                     return await Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos);
 
             var isThereABoss = Combat.Enemies.Any(x => x.IsBoss());
