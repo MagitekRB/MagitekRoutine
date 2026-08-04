@@ -238,15 +238,14 @@ namespace Magitek.Logic.Roles
                 new Vector3(884.896f, 259.5558f, 875.1169f),    // base camp
                 new Vector3(-542.5715f, 68.6256f, 598.2891f),
                 new Vector3(-390f, 67.99994f, 700f),
+                new Vector3(-384.2f, 40f, -441.6f),
+                new Vector3(597.8f, -700f, 927f),               // Forked Tower entrance
                 new Vector3(-893f, -984.7401f, 780f),           // Forked Tower
                 new Vector3(-900f, -986.1f, 782.2488f),
-                new Vector3(-900.0712f, -983f, 839.275f),
                 new Vector3(103f, -706.7383f, 678f),
                 new Vector3(0f, -722.6936f, -367f),
                 new Vector3(603.5453f, -672.6606f, 640.6041f),
-                new Vector3(600f, -673.8f, 624f),
-                new Vector3(603.7968f, -670.6514f, -125.1157f),
-                new Vector3(600f, -672f, -142f)
+                new Vector3(603.7968f, -670.6514f, -125.1157f)
             }
         };
 
