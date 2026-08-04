@@ -392,9 +392,44 @@ namespace Magitek.Utilities
 
             // Combat.Threats, not Combat.Enemies: the latter drops anything our damage cannot reach, and a
             // boss we are immune-locked out of hurting still casts tank busters and raidwides at us.
-            enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Threats.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
+            //
+            // Prefer a catalogued enemy that is CASTING one of its own catalogued mechanics right now.
+            // With several catalogued enemies alive at once (Jeuno's Ark Angel phase), binding the first
+            // list entry made every other boss's mechanics invisible for the whole fight.
+            foreach (var candidateLogic in encounter.Enemies)
+            {
+                foreach (var threat in Combat.Threats)
+                {
+                    if (candidateLogic.Id != threat.NpcId && candidateLogic.Name != threat.EnglishName)
+                        continue;
 
-            enemy = Combat.Threats.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Threats.FirstOrDefault());
+                    if (!threat.IsCasting || FlHandledCastingSpellId.Contains(threat.CastingSpellId))
+                        continue;
+
+                    var castId = threat.CastingSpellId;
+                    if ((candidateLogic.TankBusters != null && candidateLogic.TankBusters.Contains(castId))
+                        || (candidateLogic.SharedTankBusters != null && candidateLogic.SharedTankBusters.Contains(castId))
+                        || (candidateLogic.Aoes != null && candidateLogic.Aoes.Contains(castId))
+                        || (candidateLogic.BigAoes != null && candidateLogic.BigAoes.Contains(castId))
+                        || (candidateLogic.Knockbacks != null && candidateLogic.Knockbacks.Contains(castId)))
+                    {
+                        enemyLogic = candidateLogic;
+                        enemy = threat;
+                        break;
+                    }
+                }
+
+                if (enemy != null)
+                    break;
+            }
+
+            // Nothing catalogued is being cast right now: fall back to the original selection.
+            if (enemy == null)
+            {
+                enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Threats.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
+
+                enemy = Combat.Threats.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Threats.FirstOrDefault());
+            }
 
             if (enemy != null && enemy.IsCasting && !FlHandledCastingSpellId.Contains(enemy.CastingSpellId))
                 FlHandledCastingSpellId.Clear();
