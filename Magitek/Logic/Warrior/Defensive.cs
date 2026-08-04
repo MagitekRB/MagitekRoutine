@@ -50,7 +50,9 @@ namespace Magitek.Logic.Warrior
             if (!WarriorSettings.Instance.UseReprisal)
                 return false;
 
-            if (!UseDefensives() && Combat.Enemies.Count < 3)
+            // Threats, not Enemies: pull size is about how many enemies are hitting us, and an
+            // enemy our damage cannot reach still hurts.
+            if (!UseDefensives() && Combat.Threats.Count < 3)
                 return false;
 
             if (Core.Me.CurrentHealthPercent > WarriorSettings.Instance.ReprisalHealthPercent)

@@ -76,7 +76,9 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentHealthPercent > settings.ArmsLengthPercentage)
                 return false;
 
-            if (!(Combat.Enemies.Count(r => r.TargetGameObject == Core.Me) >= settings.ArmsLengthEnemies))
+            // Threats, not Enemies: this counts ATTACKERS, and an enemy our damage cannot reach
+            // still swings at us — same reasoning as BeingTargeted().
+            if (!(Combat.Threats.Count(r => r.TargetGameObject == Core.Me) >= settings.ArmsLengthEnemies))
                 return false;
 
             return await Spells.ArmsLength.Cast(Core.Me);

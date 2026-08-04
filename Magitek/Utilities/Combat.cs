@@ -27,7 +27,10 @@ namespace Magitek.Utilities
 
         public static bool IsBoss()
         {
-            return Core.Me.CurrentTarget.IsBoss() || (Globals.InActiveDuty && Enemies.Count == 1);
+            // Threats, not Enemies, for the single-enemy fallback: "alone with one enemy in a duty"
+            // is about what is ALIVE, not what we can currently damage. Counting the damageable
+            // subset made the one matching Headsman in a Cell Block pull read as a boss.
+            return Core.Me.CurrentTarget.IsBoss() || (Globals.InActiveDuty && Threats.Count == 1);
         }
 
         public static bool IsMoving(GameObject target)
