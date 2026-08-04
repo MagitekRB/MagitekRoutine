@@ -60,7 +60,19 @@ namespace Magitek.Rotations
                 if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
             }
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            // Gated on Mudra/Ten Chi Jin like the fight-logic block above: ANY action mid-chain
+            // destroys it. The attack-mode gate is Ninja's own oGCD window, kept verbatim.
+            if (!Core.Me.HasAura(Auras.Mudra) && !Core.Me.HasAura(Auras.TenChiJin)
+                && (!canAttack || (NinjaRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 770 && DateTime.Now >= NinjaRoutine.oGCD))
+                && await PhysicalDps.Interrupt(NinjaSettings.Instance)) return true;
+
+            if (!canAttack)
                 return false;
 
             Utilities.Routines.Ninja.RefreshVars();
@@ -76,7 +88,6 @@ namespace Magitek.Rotations
                 && DateTime.Now >= NinjaRoutine.oGCD)
             {
 
-                if (await PhysicalDps.Interrupt(NinjaSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(NinjaSettings.Instance)) return true;
                 if (await PhysicalDps.Bloodbath(NinjaSettings.Instance)) return true;
                 if (await PhysicalDps.Feint(NinjaSettings.Instance)) return true;

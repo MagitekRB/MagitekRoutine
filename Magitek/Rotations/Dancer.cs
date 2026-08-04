@@ -50,7 +50,15 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_PartyShield(DancerSettings.Instance.FightLogicShieldSamba, Spells.ShieldSamba, true, PhysicalDps.partyShieldAuras)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(DancerSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            if ((!canAttack || DancerRoutine.GlobalCooldown.CanWeave()) && await PhysicalDps.Interrupt(DancerSettings.Instance)) return true;
+
+            if (!canAttack)
                 return false;
 
             //LimitBreak
@@ -71,7 +79,6 @@ namespace Magitek.Rotations
                 || (DancerRoutine.GlobalCooldown.CanWeave(1) && Casting.SpellCastHistory.Take(2).Any(s => s.Spell == Spells.Tillana || s.Spell == Spells.DoubleStandardFinish || s.Spell == Spells.QuadrupleTechnicalFinish)))
             {
                 //utility
-                if (await PhysicalDps.Interrupt(DancerSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(DancerSettings.Instance)) return true;
 
                 //Buff

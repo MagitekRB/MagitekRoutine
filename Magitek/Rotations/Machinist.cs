@@ -60,7 +60,15 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_PartyShield(MachinistSettings.Instance.FightLogicTactician, Spells.Tactician, true, PhysicalDps.partyShieldAuras)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(MachinistSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            if ((!canAttack || MachinistRoutine.GlobalCooldown.CanWeave(1)) && await PhysicalDps.Interrupt(MachinistSettings.Instance)) return true;
+
+            if (!canAttack)
                 return false;
 
             //LimitBreak
@@ -79,7 +87,6 @@ namespace Magitek.Rotations
                 {
                     //Utility
                     if (await PhysicalDps.ArmsLength(MachinistSettings.Instance)) return true;
-                    if (await PhysicalDps.Interrupt(MachinistSettings.Instance)) return true;
 
                     //Pets
                     if (await Pet.RookQueen()) return true;
@@ -101,7 +108,6 @@ namespace Magitek.Rotations
                     if (await Utility.Tactician()) return true;
                     if (await Utility.Dismantle()) return true;
                     if (await PhysicalDps.SecondWind(MachinistSettings.Instance)) return true;
-                    if (await PhysicalDps.Interrupt(MachinistSettings.Instance)) return true;
                     if (await Cooldowns.UsePotion()) return true;
 
                     //Pets

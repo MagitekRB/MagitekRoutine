@@ -52,7 +52,15 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(MonkSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(MonkSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            if ((!canAttack || MonkRoutine.GlobalCooldown.CanWeave()) && await PhysicalDps.Interrupt(MonkSettings.Instance)) return true;
+
+            if (!canAttack)
             {
                 if (await Buff.Meditate())
                     return true;
@@ -71,7 +79,6 @@ namespace Magitek.Rotations
             //if (MonkRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.Bootshine.Cooldown.TotalMilliseconds > 750 + BaseSettings.Instance.UserLatencyOffset)
             if (MonkRoutine.GlobalCooldown.CanWeave())
             {
-                if (await PhysicalDps.Interrupt(MonkSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(MonkSettings.Instance)) return true;
                 if (await PhysicalDps.Bloodbath(MonkSettings.Instance)) return true;
                 if (await PhysicalDps.Feint(MonkSettings.Instance)) return true;

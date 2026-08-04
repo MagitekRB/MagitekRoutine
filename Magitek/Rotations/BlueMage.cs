@@ -58,16 +58,17 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            // Can't attack, so just exit
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
-
-            // Can't attack, so just exit
+            // Waning Nocturne means we cannot act at all, so it stays ahead of everything.
             if (Core.Me.HasAura(Auras.WaningNocturne, true, 1000))
                 return false;
 
-            //Interrupt
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason.
             if (await MagicDps.Interrupt(BlueMageSettings.Instance)) return true;
+
+            // Can't attack, so just exit
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+                return false;
 
             // Magic Resistance nullifies almost everything Blue Mage has, but not all of it: Sharpened Knife
             // is slashing and Triple Trident piercing, and both still land. ThoroughCanAttack deliberately

@@ -51,7 +51,15 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(ReaperSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(ReaperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            if ((!canAttack || ReaperRoutine.GlobalCooldown.CanWeave()) && await PhysicalDps.Interrupt(ReaperSettings.Instance)) return true;
+
+            if (!canAttack)
             {
                 if (await Utility.Soulsow()) return true;
                 return false;
@@ -80,7 +88,6 @@ namespace Magitek.Rotations
                 if (ReaperRoutine.GlobalCooldown.CanWeave())
                 {
                     if (await Utility.UsePotion()) return true;
-                    if (await PhysicalDps.Interrupt(ReaperSettings.Instance)) return true;
                     if (await PhysicalDps.SecondWind(ReaperSettings.Instance)) return true;
                     if (await PhysicalDps.Bloodbath(ReaperSettings.Instance)) return true;
 

@@ -50,7 +50,15 @@ namespace Magitek.Rotations
                 if (await CommonFightLogic.FightLogic_Knockback(ViperSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
             }
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            if ((!canAttack || ViperRoutine.GlobalCooldown.CanWeave(1)) && await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
+
+            if (!canAttack)
                 return false;
 
             ViperRoutine.RefreshVars();
@@ -59,7 +67,6 @@ namespace Magitek.Rotations
 
             if (ViperRoutine.GlobalCooldown.CanWeave(1))
             {
-                if (await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(ViperSettings.Instance)) return true;
                 if (await PhysicalDps.Bloodbath(ViperSettings.Instance)) return true;
 

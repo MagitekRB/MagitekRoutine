@@ -51,6 +51,10 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(DragoonSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(DragoonSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason.
+            if (await PhysicalDps.Interrupt(DragoonSettings.Instance)) return true;
+
             if (!Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -86,7 +90,6 @@ namespace Magitek.Rotations
             if (SingleTarget.ForceLimitBreak()) return true;
 
             //Utility
-            if (await PhysicalDps.Interrupt(DragoonSettings.Instance)) return true;
             if (await PhysicalDps.SecondWind(DragoonSettings.Instance)) return true;
             if (await PhysicalDps.Bloodbath(DragoonSettings.Instance)) return true;
 

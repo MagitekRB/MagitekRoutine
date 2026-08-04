@@ -47,7 +47,15 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_PartyShield(BardSettings.Instance.FightLogicNaturesMinne, Spells.NaturesMinne, true, aura: Auras.NaturesMinne)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(BardSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
+
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason. Weave
+            // discipline still applies while attacking; with no attackable target the GCD is idle, so
+            // the weave check alone would be false exactly when the interrupt is needed most.
+            if ((!canAttack || BardRoutine.GlobalCooldown.CanWeave()) && await PhysicalDps.Interrupt(BardSettings.Instance)) return true;
+
+            if (!canAttack)
                 return false;
 
             //LimitBreak
@@ -63,7 +71,6 @@ namespace Magitek.Rotations
                 if (await Utility.Troubadour()) return true;
                 if (await PhysicalDps.ArmsLength(BardSettings.Instance)) return true;
                 if (await PhysicalDps.SecondWind(BardSettings.Instance)) return true;
-                if (await PhysicalDps.Interrupt(BardSettings.Instance)) return true;
                 if (await Cooldowns.UsePotion()) return true;
 
                 // Damage

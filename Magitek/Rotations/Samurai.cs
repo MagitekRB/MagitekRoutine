@@ -45,6 +45,10 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(SamuraiSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(SamuraiSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and the interrupt scan reads Combat.Threats for exactly that reason.
+            if (await PhysicalDps.Interrupt(SamuraiSettings.Instance)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
@@ -54,7 +58,6 @@ namespace Magitek.Rotations
             if (SingleTarget.ForceLimitBreak()) return true;
 
             //Utility
-            if (await PhysicalDps.Interrupt(SamuraiSettings.Instance)) return true;
             if (await PhysicalDps.SecondWind(SamuraiSettings.Instance)) return true;
             if (await PhysicalDps.Bloodbath(SamuraiSettings.Instance)) return true;
 
