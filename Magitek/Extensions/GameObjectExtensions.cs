@@ -269,10 +269,11 @@ namespace Magitek.Extensions
                 && unit.NotAnIgnoredMechanicAdd();
         }
 
-        // Adds that exist to be NOT attacked: hitting them is the mechanic failure. Same tiny
+        // Adds the routine should never spend actions on: the game NULLIFIES damage against them
+        // (combat logs: 153 player hits across multiple pulls, 151 dealt zero, no Page ever died),
+        // so attacking one is pure waste, and stray AoE splash onto them is harmless. Same tiny
         // zone-and-name table shape as RequiresAstralRealignment below, for the same per-pulse
-        // cost reason. Arbatel (the Forked Tower) spawns numbered Pages the routine must never
-        // attack — all four are ignored.
+        // cost reason. Arbatel (the Forked Tower) spawns numbered Pages; all four are ignored.
         private const ushort OccultCrescentNorthHornZoneId = 1346;
 
         private static readonly HashSet<string> ArbatelIgnoredPages = new HashSet<string>(StringComparer.Ordinal)
