@@ -40,24 +40,35 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(DarkKnightSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(DarkKnightSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
 
-
-            //Utility
-            if (await Buff.Grit()) return true;
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and still hurts the party — so interrupts and mitigation run before the
+            // guard. Weave discipline still applies while attacking; with no attackable target the GCD
+            // is idle, so the weave check alone would be false exactly when these are needed most.
+            // Internal order of the mitigation block is unchanged; it now simply precedes the Potion
+            // and damage oGCDs instead of sharing their weave block.
             if (await Tank.Interrupt(DarkKnightSettings.Instance)) return true;
 
-            if (DarkKnightRoutine.GlobalCooldown.CanWeave())
+            if (!canAttack || DarkKnightRoutine.GlobalCooldown.CanWeave())
             {
-                //Potion
-                if (await Buff.UsePotion()) return true;
-
                 //Defensive Buff
                 if (await Defensive.Execute()) return true;
                 if (await Defensive.Oblation(true)) return true;
                 if (await Defensive.Reprisal()) return true;
                 if (await Tank.ArmsLength(DarkKnightSettings.Instance)) return true;
+            }
+
+            if (!canAttack)
+                return false;
+
+            //Utility
+            if (await Buff.Grit()) return true;
+
+            if (DarkKnightRoutine.GlobalCooldown.CanWeave())
+            {
+                //Potion
+                if (await Buff.UsePotion()) return true;
 
                 if (await SingleTarget.CarveAndSpit()) return true;
                 if (await Aoe.SaltedEarth()) return true;

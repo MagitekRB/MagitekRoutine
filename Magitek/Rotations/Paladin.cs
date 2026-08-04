@@ -61,33 +61,45 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Debuff(PaladinSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(PaladinSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
 
-            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                return false;
+            var canAttack = Core.Me.HasTarget && Core.Me.CurrentTarget.ThoroughCanAttack();
 
+            // Above the attack guard: an enemy our damage cannot reach can still be casting something
+            // interruptible, and still hurts the party — so interrupts and mitigation run before the
+            // guard. Weave discipline still applies while attacking; with no attackable target the GCD
+            // is idle, so the weave check alone would be false exactly when these are needed most.
+            // Internal order of the mitigation block is unchanged; it now simply precedes the Potion
+            // and damage oGCDs instead of sharing their weave block. (The top-level Passage of Arms
+            // bail already protects everything here.)
+            if (await SingleTarget.Interrupt()) return true;
+
+            if (!canAttack || PaladinRoutine.GlobalCooldown.CanWeave())
+            {
+                //Defensive Buff
+                if (await Defensive.HallowedGround()) return true;
+                if (await Defensive.Sentinel()) return true;
+                if (await Defensive.Rampart()) return true;
+                if (await Defensive.Reprisal()) return true;
+                if (await Defensive.Sheltron()) return true;
+                if (await Defensive.DivineVeil()) return true;
+                if (await Tank.ArmsLength(PaladinSettings.Instance)) return true;
+
+                //Cover
+                if (await Defensive.Intervention()) return true;
+                if (await Defensive.Cover()) return true;
+            }
+
+            if (!canAttack)
+                return false;
 
             if (!Core.Me.HasAura(Auras.PassageOfArms))
             {
                 //Utility
-                if (await SingleTarget.Interrupt()) return true;
                 if (await Buff.IronWill()) return true;
 
                 if (PaladinRoutine.GlobalCooldown.CanWeave())
                 {
                     //Potion
                     if (await Buff.UsePotion()) return true;
-
-                    //Defensive Buff
-                    if (await Defensive.HallowedGround()) return true;
-                    if (await Defensive.Sentinel()) return true;
-                    if (await Defensive.Rampart()) return true;
-                    if (await Defensive.Reprisal()) return true;
-                    if (await Defensive.Sheltron()) return true;
-                    if (await Defensive.DivineVeil()) return true;
-                    if (await Tank.ArmsLength(PaladinSettings.Instance)) return true;
-
-                    //Cover
-                    if (await Defensive.Intervention()) return true;
-                    if (await Defensive.Cover()) return true;
 
                     //Damage Buff
                     if (await Buff.FightOrFlight()) return true;
