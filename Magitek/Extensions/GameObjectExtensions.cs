@@ -271,13 +271,14 @@ namespace Magitek.Extensions
 
         // Adds that exist to be NOT attacked: hitting them is the mechanic failure. Same tiny
         // zone-and-name table shape as RequiresAstralRealignment below, for the same per-pulse
-        // cost reason. Arbatel (the Forked Tower) spawns four numbered Pages and only the correct
-        // one may be attacked — Page 64 is deliberately absent from this list.
+        // cost reason. Arbatel (the Forked Tower) spawns numbered Pages the routine must never
+        // attack — all four are ignored.
         private const ushort OccultCrescentNorthHornZoneId = 1346;
 
         private static readonly HashSet<string> ArbatelIgnoredPages = new HashSet<string>(StringComparer.Ordinal)
         {
             "Page 512",
+            "Page 64",
             "Page 16",
             "Page 8",
         };
