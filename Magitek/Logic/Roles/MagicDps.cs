@@ -36,8 +36,9 @@ namespace Magitek.Logic.Roles
             if (!BaseSettings.Instance.ForceLimitBreak)
                 return false;
 
-            // A DPS limit break resolves at the target, so there has to be one. Cheap here, and it lets the
-            // rotations run this above their attack guard without risking a null dereference.
+            // A DPS limit break resolves at the target, so there has to be one. The rotations call this
+            // below their attack guard — deliberately, so a forced damage LB is never poured into a
+            // target the routine cannot damage — but the check is cheap protection either way.
             if (Core.Me.CurrentTarget == null)
                 return false;
 
@@ -46,7 +47,12 @@ namespace Magitek.Logic.Roles
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak3Spell)
                 && gcd.Cooldown.TotalMilliseconds < 500)
             {
-                ActionManager.DoActionLocation(limitBreak3Spell.Id, Core.Me.CurrentTarget.Location);
+                // Only clear the toggle when the action actually fired. DoAction can fail for passing
+                // reasons (animation lock from an oGCD the pulse before), and clearing on failure
+                // silently discards a limit break the user explicitly asked for.
+                if (!ActionManager.DoActionLocation(limitBreak3Spell.Id, Core.Me.CurrentTarget.Location))
+                    return false;
+
                 BaseSettings.Instance.ForceLimitBreak = false;
                 TogglesManager.ResetToggles();
                 return true;
@@ -58,8 +64,9 @@ namespace Magitek.Logic.Roles
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak2Spell)
                 && gcd.Cooldown.TotalMilliseconds < 500)
             {
-                if (!ActionManager.DoActionLocation(limitBreak2Spell.Id, Core.Me.CurrentTarget.Location))
-                    ActionManager.DoActionLocation(limitBreak1Spell.Id, Core.Me.CurrentTarget.Location); ;
+                if (!ActionManager.DoActionLocation(limitBreak2Spell.Id, Core.Me.CurrentTarget.Location)
+                    && !ActionManager.DoActionLocation(limitBreak1Spell.Id, Core.Me.CurrentTarget.Location))
+                    return false;
 
                 BaseSettings.Instance.ForceLimitBreak = false;
                 TogglesManager.ResetToggles();
