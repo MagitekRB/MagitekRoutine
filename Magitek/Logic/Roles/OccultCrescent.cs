@@ -250,11 +250,17 @@ namespace Magitek.Logic.Roles
             }
         };
 
-        // Respawn point location per zone
-        private static readonly Dictionary<ushort, Vector3> RespawnPoints = new()
+        // Respawn point locations per zone. North Horn has more than one: the open field returns
+        // players to base camp, while the Forked Tower returns them to its own entrance points.
+        private static readonly Dictionary<ushort, Vector3[]> RespawnPoints = new()
         {
-            [SouthHornZoneId] = new Vector3(851.87665f, 73.13358f, -704.79004f),
-            [NorthHornZoneId] = new Vector3(905.57f, 259.88f, 905.97f)
+            [SouthHornZoneId] = new[] { new Vector3(851.87665f, 73.13358f, -704.79004f) },
+            [NorthHornZoneId] = new[]
+            {
+                new Vector3(905.57f, 259.88f, 905.97f),   // base camp
+                new Vector3(600.2f, -700f, 975f),         // Forked Tower
+                new Vector3(706f, -709.8f, 184f)          // Forked Tower
+            }
         };
 
         // Throttling for knowledge crystal checks
@@ -546,10 +552,10 @@ namespace Magitek.Logic.Roles
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
-                                                       // Skip anyone stood at the zone's respawn point, since they have
-                                                       // chosen to return rather than wait for a raise.
-                                                       (!RespawnPoints.TryGetValue(WorldManager.ZoneId, out var respawnPoint)
-                                                        || u.Location.DistanceSqr(respawnPoint) >= 900));
+                                                       // Skip anyone stood at one of the zone's respawn points, since
+                                                       // they have chosen to return rather than wait for a raise.
+                                                       (!RespawnPoints.TryGetValue(WorldManager.ZoneId, out var respawnPoints)
+                                                        || respawnPoints.All(p => u.Location.DistanceSqr(p) >= 900)));
 
             if (!deadNonPartyPlayers.Any())
                 return false;
