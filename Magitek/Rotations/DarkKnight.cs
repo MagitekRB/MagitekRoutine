@@ -28,11 +28,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (await CommonFightLogic.FightLogic_TankDefensive(DarkKnightSettings.Instance.FightLogicDefensives, DarkKnightRoutine.DefensiveSpells, DarkKnightRoutine.Defensives)) return true;
-            if (await CommonFightLogic.FightLogic_PartyShield(DarkKnightSettings.Instance.FightLogicPartyShield, Spells.DarkMissionary, true, aura: Auras.DarkMissionary)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(DarkKnightSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(DarkKnightSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
-
             // Above the attack check: a tank limit break is party mitigation, aimed at Core.Me rather
             // than the target (Tank.ForceLimitBreak), so an enemy we cannot damage is no reason to
             // withhold it. The DPS limit breaks stay below the guard — those are damage, and they
@@ -40,9 +35,13 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Defensive.ForceLimitBreak()) return true;
 
+            if (await CommonFightLogic.FightLogic_TankDefensive(DarkKnightSettings.Instance.FightLogicDefensives, DarkKnightRoutine.DefensiveSpells, DarkKnightRoutine.Defensives)) return true;
+            if (await CommonFightLogic.FightLogic_PartyShield(DarkKnightSettings.Instance.FightLogicPartyShield, Spells.DarkMissionary, true, aura: Auras.DarkMissionary)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(DarkKnightSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(DarkKnightSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
 
 
             //Utility

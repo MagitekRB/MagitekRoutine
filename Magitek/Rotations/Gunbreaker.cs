@@ -41,11 +41,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
-            if (await CommonFightLogic.FightLogic_TankDefensive(GunbreakerSettings.Instance.FightLogicDefensives, GunbreakerRoutine.DefensiveSpells, GunbreakerRoutine.Defensives)) return true;
-            if (await CommonFightLogic.FightLogic_PartyShield(GunbreakerSettings.Instance.FightLogicPartyShield, Spells.HeartofLight, true, aura: Auras.HeartofLight)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(GunbreakerSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(GunbreakerSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
-
             // Above the attack check: a tank limit break is party mitigation, aimed at Core.Me rather
             // than the target (Tank.ForceLimitBreak), so an enemy we cannot damage is no reason to
             // withhold it. The DPS limit breaks stay below the guard — those are damage, and they
@@ -53,13 +48,16 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Defensive.ForceLimitBreak()) return true;
 
+            if (await CommonFightLogic.FightLogic_TankDefensive(GunbreakerSettings.Instance.FightLogicDefensives, GunbreakerRoutine.DefensiveSpells, GunbreakerRoutine.Defensives)) return true;
+            if (await CommonFightLogic.FightLogic_PartyShield(GunbreakerSettings.Instance.FightLogicPartyShield, Spells.HeartofLight, true, aura: Auras.HeartofLight)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(GunbreakerSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(GunbreakerSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
-
             //Force Burst Strike
             if (await SingleTarget.ForceBurstStrike()) return true;
-
 
             //Utility
             if (await Buff.RoyalGuard()) return true;

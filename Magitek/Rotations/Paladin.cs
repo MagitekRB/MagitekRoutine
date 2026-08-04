@@ -48,12 +48,6 @@ namespace Magitek.Rotations
             if (Core.Me.HasAura(Auras.PassageOfArms))
                 return false;
 
-            if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveFastSpells, PaladinRoutine.Defensives, castTimeRemainingMs: 3000)) return true;
-            if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveSpells, PaladinRoutine.Defensives)) return true;
-            if (await CommonFightLogic.FightLogic_PartyShield(PaladinSettings.Instance.FightLogicPartyShield, Spells.DivineVeil, true, aura: Auras.DivineVeil)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(PaladinSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(PaladinSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
-
             // Above the attack check: a tank limit break is party mitigation, aimed at Core.Me rather
             // than the target (Tank.ForceLimitBreak), so an enemy we cannot damage is no reason to
             // withhold it. The DPS limit breaks stay below the guard — those are damage, and they
@@ -61,9 +55,14 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Defensive.ForceLimitBreak()) return true;
 
+            if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveFastSpells, PaladinRoutine.Defensives, castTimeRemainingMs: 3000)) return true;
+            if (await CommonFightLogic.FightLogic_TankDefensive(PaladinSettings.Instance.FightLogicDefensives, PaladinRoutine.DefensiveSpells, PaladinRoutine.Defensives)) return true;
+            if (await CommonFightLogic.FightLogic_PartyShield(PaladinSettings.Instance.FightLogicPartyShield, Spells.DivineVeil, true, aura: Auras.DivineVeil)) return true;
+            if (await CommonFightLogic.FightLogic_Debuff(PaladinSettings.Instance.FightLogicReprisal, Spells.Reprisal, true, aura: Auras.Reprisal, range: Spells.Reprisal.Radius)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(PaladinSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
-
 
 
             if (!Core.Me.HasAura(Auras.PassageOfArms))
