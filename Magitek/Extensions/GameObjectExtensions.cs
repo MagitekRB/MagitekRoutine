@@ -265,7 +265,32 @@ namespace Magitek.Extensions
                 && unit.DamageableByMyMark()
                 && unit.DamageableByMyDuelRole()
                 && unit.DamageableByMyDamageType()
-                && unit.DamageableGivenMyBuffs();
+                && unit.DamageableGivenMyBuffs()
+                && unit.NotAnIgnoredMechanicAdd();
+        }
+
+        // Adds that exist to be NOT attacked: hitting them is the mechanic failure. Same tiny
+        // zone-and-name table shape as RequiresAstralRealignment below, for the same per-pulse
+        // cost reason. Arbatel (the Forked Tower) spawns four numbered Pages and only the correct
+        // one may be attacked — Page 64 is deliberately absent from this list.
+        private const ushort OccultCrescentNorthHornZoneId = 1346;
+
+        private static readonly HashSet<string> ArbatelIgnoredPages = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "Page 512",
+            "Page 16",
+            "Page 8",
+        };
+
+        public static bool NotAnIgnoredMechanicAdd(this GameObject unit)
+        {
+            if (unit == null)
+                return false;
+
+            if (WorldManager.ZoneId != OccultCrescentNorthHornZoneId)
+                return true; // cheap early-out: this only applies in one fight
+
+            return !ArbatelIgnoredPages.Contains(unit.EnglishName);
         }
 
         // Enemies that can only be damaged while we hold a particular buff, where the target itself carries
