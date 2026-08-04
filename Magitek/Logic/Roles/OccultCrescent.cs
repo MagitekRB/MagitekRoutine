@@ -258,7 +258,10 @@ namespace Magitek.Logic.Roles
             {
                 new Vector3(905.57f, 259.88f, 905.97f),   // base camp
                 new Vector3(600.2f, -700f, 975f),         // Forked Tower
-                new Vector3(706f, -709.8f, 184f)          // Forked Tower
+                new Vector3(706f, -709.8f, 184f),
+                new Vector3(800.2f, -600f, -677.6f),
+                new Vector3(100.1f, -691.5f, 496.9f),
+                new Vector3(600.2f, -674f, 703.1f)
             }
         };
 
