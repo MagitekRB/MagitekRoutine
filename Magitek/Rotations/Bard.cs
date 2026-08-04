@@ -56,7 +56,14 @@ namespace Magitek.Rotations
             if ((!canAttack || BardRoutine.GlobalCooldown.CanWeave()) && await PhysicalDps.Interrupt(BardSettings.Instance)) return true;
 
             if (!canAttack)
+            {
+                // Aimed at us, not the target: a forced Arm's Length and the Second Wind self-heal stay
+                // available while the enemy can't be damaged. Attack-mode priorities are unchanged —
+                // these still run from their usual weave slot below.
+                if (await PhysicalDps.ArmsLength(BardSettings.Instance)) return true;
+                if (await PhysicalDps.SecondWind(BardSettings.Instance)) return true;
                 return false;
+            }
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;

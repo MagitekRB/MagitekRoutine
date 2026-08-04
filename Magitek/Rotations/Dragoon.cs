@@ -56,7 +56,12 @@ namespace Magitek.Rotations
             if (await PhysicalDps.Interrupt(DragoonSettings.Instance)) return true;
 
             if (!Core.Me.CurrentTarget.ThoroughCanAttack())
+            {
+                // Self-heals target us, not the enemy — still available while it can't be damaged.
+                if (await PhysicalDps.SecondWind(DragoonSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(DragoonSettings.Instance)) return true;
                 return false;
+            }
 
             #region Off GCD debugging
             if (DragoonRoutine.JumpsList.Contains(Casting.LastSpell))

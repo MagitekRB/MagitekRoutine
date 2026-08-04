@@ -50,7 +50,12 @@ namespace Magitek.Rotations
             if (await PhysicalDps.Interrupt(SamuraiSettings.Instance)) return true;
 
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
+            {
+                // Self-heals target us, not the enemy — still available while it can't be damaged.
+                if (await PhysicalDps.SecondWind(SamuraiSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(SamuraiSettings.Instance)) return true;
                 return false;
+            }
 
             SamuraiRoutine.RefreshVars();
 

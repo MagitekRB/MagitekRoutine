@@ -69,7 +69,16 @@ namespace Magitek.Rotations
             if ((!canAttack || MachinistRoutine.GlobalCooldown.CanWeave(1)) && await PhysicalDps.Interrupt(MachinistSettings.Instance)) return true;
 
             if (!canAttack)
+            {
+                // Aimed at us, not the target — still available while the enemy can't be damaged.
+                // Never during Flamethrower: any action ends the channel.
+                if (!Core.Me.HasAura(Auras.Flamethrower))
+                {
+                    if (await PhysicalDps.ArmsLength(MachinistSettings.Instance)) return true;
+                    if (await PhysicalDps.SecondWind(MachinistSettings.Instance)) return true;
+                }
                 return false;
+            }
 
             //LimitBreak
             if (MultiTarget.ForceLimitBreak()) return true;

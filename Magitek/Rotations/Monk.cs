@@ -62,6 +62,9 @@ namespace Magitek.Rotations
 
             if (!canAttack)
             {
+                // Self-heals target us, not the enemy — still available while it can't be damaged.
+                if (await PhysicalDps.SecondWind(MonkSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(MonkSettings.Instance)) return true;
                 if (await Buff.Meditate())
                     return true;
                 return false;

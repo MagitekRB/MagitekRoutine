@@ -59,7 +59,13 @@ namespace Magitek.Rotations
             if ((!canAttack || DancerRoutine.GlobalCooldown.CanWeave()) && await PhysicalDps.Interrupt(DancerSettings.Instance)) return true;
 
             if (!canAttack)
+            {
+                // Second Wind targets us, not the enemy — keep it available while the target can't be
+                // damaged. Never mid-dance: any action breaks the step sequence.
+                if (!Core.Me.HasAura(Auras.StandardStep) && !Core.Me.HasAura(Auras.TechnicalStep)
+                    && await PhysicalDps.SecondWind(DancerSettings.Instance)) return true;
                 return false;
+            }
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;

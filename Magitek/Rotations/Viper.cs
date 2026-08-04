@@ -59,7 +59,12 @@ namespace Magitek.Rotations
             if ((!canAttack || ViperRoutine.GlobalCooldown.CanWeave(1)) && await PhysicalDps.Interrupt(ViperSettings.Instance)) return true;
 
             if (!canAttack)
+            {
+                // Self-heals target us, not the enemy — still available while it can't be damaged.
+                if (await PhysicalDps.SecondWind(ViperSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(ViperSettings.Instance)) return true;
                 return false;
+            }
 
             ViperRoutine.RefreshVars();
 

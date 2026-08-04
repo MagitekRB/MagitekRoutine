@@ -61,6 +61,10 @@ namespace Magitek.Rotations
 
             if (!canAttack)
             {
+                // Self-heals target us, not the enemy — still available while it can't be damaged.
+                // No Enshroud gate: unlike a mudra chain, Enshroud is not broken by other actions.
+                if (await PhysicalDps.SecondWind(ReaperSettings.Instance)) return true;
+                if (await PhysicalDps.Bloodbath(ReaperSettings.Instance)) return true;
                 if (await Utility.Soulsow()) return true;
                 return false;
             }

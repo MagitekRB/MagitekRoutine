@@ -73,7 +73,16 @@ namespace Magitek.Rotations
                 && await PhysicalDps.Interrupt(NinjaSettings.Instance)) return true;
 
             if (!canAttack)
+            {
+                // Self-heals target us, not the enemy — still available while it can't be damaged.
+                // Same Mudra/Ten Chi Jin gate as above: ANY action mid-chain destroys the chain.
+                if (!Core.Me.HasAura(Auras.Mudra) && !Core.Me.HasAura(Auras.TenChiJin))
+                {
+                    if (await PhysicalDps.SecondWind(NinjaSettings.Instance)) return true;
+                    if (await PhysicalDps.Bloodbath(NinjaSettings.Instance)) return true;
+                }
                 return false;
+            }
 
             Utilities.Routines.Ninja.RefreshVars();
 
