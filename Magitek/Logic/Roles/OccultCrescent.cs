@@ -247,6 +247,7 @@ namespace Magitek.Logic.Roles
                 new Vector3(103f, -706.7383f, 678f),
                 new Vector3(0f, -722.6936f, -367f),
                 new Vector3(603.5453f, -672.6606f, 640.6041f),
+                new Vector3(599.4f, -700.0f, 927.8f),      // Forked Tower, Lower Vestibule (surveyed live 2026-08-07)
                 new Vector3(603.7968f, -670.6514f, -125.1157f)
             }
         };
