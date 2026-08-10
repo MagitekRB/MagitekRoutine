@@ -577,7 +577,7 @@
     <value>Seconds Left in Combat.</value>
   </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
-    <value>Card Priority (First to Last)</value>
+    <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
   </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>MNK:</value>
@@ -645,11 +645,8 @@
   <data name="Astrologian_Text_VPR" xml:space="preserve">
     <value>VPR:</value>
   </data>
-  <data name="Astrologian_Content_Use_Astral_Draw" xml:space="preserve">
-    <value>Use Astral Draw</value>
-  </data>
-  <data name="Astrologian_Content_Use_Umbral_Draw" xml:space="preserve">
-    <value>Use Umbral Draw</value>
+  <data name="Astrologian_Content_Draw_Cards" xml:space="preserve">
+    <value>Draw cards automatically (Astral and Umbral alternate)</value>
   </data>
   <data name="Astrologian_Content_Lord_Of_Crowns_at_least" xml:space="preserve">
     <value>Lord Of Crowns at least</value>

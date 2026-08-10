@@ -489,11 +489,7 @@ namespace Magitek.Models.Astrologian
 
         [Setting]
         [DefaultValue(true)]
-        public bool AstralDraw { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool UmbralDraw { get; set; }
+        public bool DrawCards { get; set; }
 
         [Setting]
         [DefaultValue(true)]

@@ -109,7 +109,9 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> Draw()
         {
-            if (!Core.Me.InCombat)
+            // Cards persist out of combat, so drawing before the pull keeps the opener from
+            // being cardless. Sanctuaries block it so we don't shuffle cards standing in town.
+            if (!Core.Me.InCombat && Globals.InSanctuaryOrSafeZone)
                 return false;
 
             foreach (var card in CurrentCards)
@@ -117,6 +119,12 @@ namespace Magitek.Logic.Astrologian
                 if (card != AstrologianCard.None)
                     return false;
             }
+
+            // The two draws are one alternating button under the hood (shared recast, and the
+            // client swaps the base action to whichever draw is active), so they cannot be
+            // toggled separately — one setting governs drawing as a whole.
+            if (!AstrologianSettings.Instance.DrawCards)
+                return false;
 
             if (Spells.AstralDraw.IsKnownAndReady())
                 return await Spells.AstralDraw.Cast(Core.Me);
@@ -143,15 +151,17 @@ namespace Magitek.Logic.Astrologian
         }
 
         private static GameObject MeleeDpsOrTank()
-        {            
+        {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(GetWeight);
+            // The Balance gives melee DPS and tanks the full 6%, but a DPS converts the buff
+            // into far more damage than a tank, so DPS sort ahead of tanks inside the bracket.
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
@@ -161,12 +171,14 @@ namespace Magitek.Logic.Astrologian
         {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(GetWeight);
+            // The Spear gives ranged DPS and healers the full 6%; same reasoning as The Balance,
+            // a DPS makes more of the buff than a healer, so DPS sort ahead inside the bracket.
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
