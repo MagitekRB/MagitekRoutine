@@ -124,7 +124,7 @@ namespace Magitek.Utilities
                 Logger.WriteInfo($"PartyManager: {String.Join(", ",PartyManager.AllMembers.Select(x => x.Name))}");
             }*/
 
-            foreach (var ally in CastableParty.OrderBy(a => a.GetHealingWeight()))
+            foreach (var ally in CastableParty.Where(a => a != null && a.IsValid).OrderBy(a => a.GetHealingWeight()))
             {
 
                 AddAllyToCastable(ally);
@@ -190,7 +190,10 @@ namespace Magitek.Utilities
         {
             ClearCastable();
 
-            foreach (var ally in CastableAlliance.OrderBy(a => a.GetHealingWeight()))
+            // An alliance member can despawn between the list refresh and this sort; the weight
+            // comparer reads their job from game memory, which throws on a freed object and kills
+            // the healer's whole pulse. Skip anything no longer valid.
+            foreach (var ally in CastableAlliance.Where(a => a != null && a.IsValid).OrderBy(a => a.GetHealingWeight()))
             {
                 AddAllyToCastable(ally);
             }
@@ -200,7 +203,7 @@ namespace Magitek.Utilities
         {
             ClearCastable();
 
-            foreach (var ally in CastableParty.OrderBy(a => a.GetHealingWeight()))
+            foreach (var ally in CastableParty.Where(a => a != null && a.IsValid).OrderBy(a => a.GetHealingWeight()))
             {
                 AddAllyToCastable(ally);
             }

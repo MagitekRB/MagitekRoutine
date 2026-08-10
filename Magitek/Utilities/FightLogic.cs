@@ -355,7 +355,13 @@ namespace Magitek.Utilities
         private static (Encounter, Enemy, BattleCharacter) GetEnemyLogicAndEnemy()
         {
             if (GetEnemyLogicAndEnemyCacheAge.IsRunning && GetEnemyLogicAndEnemyCacheAge.ElapsedMilliseconds < 1000)
-                return GetEnemyLogicAndEnemyCached;
+            {
+                // The enemy can despawn while it sits in this cache, and every selector reads game
+                // memory off it (CastingSpellId etc.) — on a freed object that read throws and kills
+                // the whole combat pulse. A dead entry falls through and recomputes instead.
+                if (GetEnemyLogicAndEnemyCached.Item3 == null || GetEnemyLogicAndEnemyCached.Item3.IsValid)
+                    return GetEnemyLogicAndEnemyCached;
+            }
 
             Encounter encounter = null;
             Enemy enemyLogic = null;
