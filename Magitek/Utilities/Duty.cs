@@ -19,7 +19,8 @@ namespace Magitek.Utilities
 
         public static HashSet<ushort> PublicZones = new HashSet<ushort>()
         {
-            1252, // Occult Crescent
+            1252, // Occult Crescent: South Horn
+            1346, // Occult Crescent: North Horn
             // eureka zones
             732,  // The Forbidden Land, Eureka Anemos
             763,  // The Forbidden Land, Eureka Pagos  

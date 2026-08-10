@@ -195,6 +195,9 @@ Understanding FFXIV-specific combat mechanics is essential for writing effective
 - **NEVER use manual calculations** like `r.Distance(Core.Me) <= 5 + r.CombatReach`
 - Use radius/cone checks for specialized AoE targeting
 - Never use raw `Distance` for spell range checks
+- **Exception — resurrection.** Raise target filters use raw `Distance(Core.Me) <= 30` on
+  purpose; a corpse has no usable `CombatReach`. Do not "correct" these to `WithinSpellRange`.
+  Each such call site carries a comment explaining why.
 
 ---
 
@@ -1231,6 +1234,8 @@ return await Spells.HolyCircle.Cast(Core.Me);
 13. Using `Masked()` results without checking for null or storing in a variable for repeated checks.
 14. **Duplicating shared code** in Logic files instead of using `Utilities/Routines/<Job>.cs` for helper functions, cached variables, and calculations used by multiple Logic files (see "Job-Specific Shared Utilities" section).
 
-**Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented.
+**Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented. Do not remove commented-out code you did not write — it may be kept deliberately.
+
+**Note on Existing Comments**: Do not change existing comments unless they are actually wrong and need a factual update. Rewording a correct comment is a meaningless diff change that pollutes review.
 
 ---

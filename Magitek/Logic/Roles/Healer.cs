@@ -65,6 +65,12 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentMana < spell.Cost)
                 return false;
 
+            // Raise range is a raw 3D distance on purpose, and is the exception to the
+            // "always use WithinSpellRange" rule in AGENTS.md. A corpse has no usable
+            // CombatReach for the game to measure against, so raise range is centre to
+            // centre. WithinSpellRange would subtract both hitboxes and, because it uses
+            // Distance2D, ignore height entirely — calling a body far below us in range.
+            // Leave this as Distance.
             var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
                                                        u.Distance(Core.Me) <= 30 &&

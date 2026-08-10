@@ -46,6 +46,9 @@ namespace Magitek.Logic.BlueMage
             if (Core.Me.CurrentMana < Spells.AngelWhisper.Cost)
                 return false;
 
+            // Raw 3D distance is deliberate here — see the resurrection range exception in
+            // AGENTS.md. A corpse has no usable CombatReach, and WithinSpellRange is built on
+            // Distance2D so it would ignore height. Leave this as Distance.
             var deadList = Group.DeadAllies.Where(u => !u.HasAura(Auras.Raise) &&
                                                        u.Distance(Core.Me) <= 30 &&
                                                        u.InLineOfSight() &&

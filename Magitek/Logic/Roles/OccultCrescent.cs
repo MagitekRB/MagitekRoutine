@@ -177,30 +177,74 @@ namespace Magitek.Logic.Roles
 
     internal class OccultCrescent
     {
+        private const ushort SouthHornZoneId = 1252;
+        private const ushort NorthHornZoneId = 1346;
+
         private static readonly HashSet<ushort> OccultCrescentZoneIds = new()
         {
-            1252,
+            SouthHornZoneId,
+            NorthHornZoneId
         };
 
+        /// <summary>
+        /// Each Horn must be added here by zone id when it ships. Matching on the zone name instead is
+        /// not an option: WorldManager.CurrentZoneName returns the map's own name ("South Horn",
+        /// "North Horn") and never contains "Occult Crescent", so a name check can never match.
+        /// </summary>
         public static bool IsInOccultCrescent()
         {
             return OccultCrescentZoneIds.Contains(WorldManager.ZoneId);
         }
 
-        private static readonly uint KnowledgeCrystal = 2007457;
-
-        // Known Knowledge Crystal locations that never change
-        private static readonly Vector3[] KnowledgeCrystalLocations = new[]
+        // Known Knowledge Crystal locations per zone. These never change, and each Horn has its own
+        // coordinate space, so the lists are keyed by zone id.
+        private static readonly Dictionary<ushort, Vector3[]> KnowledgeCrystalLocations = new()
         {
-            new Vector3(835.9902f, 75.12211f, -709.3925f),
-            new Vector3(-165.9937f, 8.5f, -616.4979f),
-            new Vector3(-347.2297f, 102.3273f, -124.1305f),
-            new Vector3(-393.0761f, 99.51316f, 278.7158f),
-            new Vector3(302.5914f, 105f, 313.6591f)
+            [SouthHornZoneId] = new[]
+            {
+                new Vector3(835.9902f, 75.12211f, -709.3925f),
+                new Vector3(-165.9937f, 8.5f, -616.4979f),
+                new Vector3(-347.2297f, 102.3273f, -124.1305f),
+                new Vector3(-393.0761f, 99.51316f, 278.7158f),
+                new Vector3(302.5914f, 105f, 313.6591f)
+            },
+            [NorthHornZoneId] = new[]
+            {
+                // Overworld crystals, each read off the live crystal object in game.
+                new Vector3(884.896f, 259.5558f, 875.1169f),    // base camp
+                new Vector3(-542.5715f, 68.6256f, 598.2891f),
+                new Vector3(-382.6042f, 41.22726f, -442.7764f),
+                new Vector3(456.5246f, 71.46682f, 524.4749f),
+                new Vector3(350.6741f, 46.45173f, -558.5289f),
+                new Vector3(-18.32449f, 3.79342f, -37.40308f),
+                // Forked Tower shares this zone id but sits far below the overworld. These came from
+                // session logs rather than a live reading, so they are approximate and unconfirmed.
+                new Vector3(597.8f, -700f, 927f),               // Forked Tower entrance
+                new Vector3(-893f, -984.7401f, 780f),           // Forked Tower
+                new Vector3(-900f, -986.1f, 782.2488f),
+                new Vector3(103f, -706.7383f, 678f),
+                new Vector3(0f, -722.6936f, -367f),
+                new Vector3(603.5453f, -672.6606f, 640.6041f),
+                new Vector3(599.4f, -700.0f, 927.8f),           // Forked Tower, Lower Vestibule
+                new Vector3(603.7968f, -670.6514f, -125.1157f)
+            }
         };
 
-        // Respawn point location
-        private static readonly Vector3 RespawnPoint = new Vector3(851.87665f, 73.13358f, -704.79004f);
+        // Respawn point locations per zone. North Horn has more than one: the open field returns
+        // players to base camp, while the Forked Tower returns them to its own entrance points.
+        private static readonly Dictionary<ushort, Vector3[]> RespawnPoints = new()
+        {
+            [SouthHornZoneId] = new[] { new Vector3(851.87665f, 73.13358f, -704.79004f) },
+            [NorthHornZoneId] = new[]
+            {
+                new Vector3(905.57f, 259.88f, 905.97f),   // base camp
+                new Vector3(600.2f, -700f, 975f),         // Forked Tower
+                new Vector3(706f, -709.8f, 184f),
+                new Vector3(800.2f, -600f, -677.6f),
+                new Vector3(100.1f, -691.5f, 496.9f),
+                new Vector3(600.2f, -674f, 703.1f)
+            }
+        };
 
         // Throttling for knowledge crystal checks
         private static DateTime _lastCrystalCheck = DateTime.MinValue;
@@ -236,7 +280,17 @@ namespace Magitek.Logic.Roles
             { 4364, PhantomJob.Geomancer },
             { 4805, PhantomJob.Dancer },
             { 4803, PhantomJob.MysticKnight },
-            { 4804, PhantomJob.Gladiator }
+            { 4804, PhantomJob.Gladiator },
+            // Added with North Horn. Without these the current job reads as None and every Occult
+            // Crescent feature bails out, which is why nothing worked while playing one of them.
+            { 5328, PhantomJob.Ninja },
+            { 5329, PhantomJob.WhiteMage },
+            { 5330, PhantomJob.BlackMage },
+            { 5331, PhantomJob.Dragoon },
+            { 5332, PhantomJob.Summoner },
+            { 5333, PhantomJob.BlueMage },
+            { 5334, PhantomJob.RedMage },
+            { 5335, PhantomJob.Necromancer }
         };
 
         public enum PhantomJob
@@ -256,7 +310,15 @@ namespace Magitek.Logic.Roles
             Geomancer,
             Dancer,
             MysticKnight,
-            Gladiator
+            Gladiator,
+            Ninja,
+            WhiteMage,
+            BlackMage,
+            Dragoon,
+            Summoner,
+            BlueMage,
+            RedMage,
+            Necromancer
         }
 
         /// <summary>
@@ -289,11 +351,15 @@ namespace Magitek.Logic.Roles
             // Simply check if player is near any known crystal location
             // No need for expensive NPC searches since crystal locations are fixed
             var loc = Core.Me.Location;
-            foreach (var crystalLocation in KnowledgeCrystalLocations)
+            if (!KnowledgeCrystalLocations.TryGetValue(WorldManager.ZoneId, out var crystalLocations))
+                return false;
+
+            foreach (var crystalLocation in crystalLocations)
             {
                 if (loc.DistanceSqr(crystalLocation) <= maxDistance * maxDistance)
                     return true;
             }
+
             return false;
 
             /* OLD APPROACH - NPC LOOKUP METHOD (preserved for reference)
@@ -350,14 +416,17 @@ namespace Magitek.Logic.Roles
             if (!IsInOccultCrescent())
                 return false;
 
+            // First, try automatic phantom job switching for knowledge crystal buffs. This runs before
+            // the phantom-job guard below because Freelancer grants no phantom job aura, so a player
+            // standing at a crystal as Freelancer reads as None — and they are exactly who the
+            // Inquiring Mind path serves. The switcher carries its own gating.
+            if (await PhantomJobSwitcher.AutoSwitchForKnowledgeCrystalBuffs())
+                return true;
+
             // Get the current phantom job
             var phantomJob = GetCurrentPhantomJob();
             if (phantomJob == PhantomJob.None)
                 return false;
-
-            // First, try automatic phantom job switching for knowledge crystal buffs
-            if (await PhantomJobSwitcher.AutoSwitchForKnowledgeCrystalBuffs())
-                return true;
 
             // Execute phantom job specific logic
             var phantomJobResult = phantomJob switch
@@ -417,6 +486,11 @@ namespace Magitek.Logic.Roles
                 return false;
             _lastNonPartyResCheck = now;
 
+            // Don't resurrect someone outside the party while a party member is down — the standard
+            // raise path owns party rez and gets priority for any instant-cast sources.
+            if (Group.DeadAllies.Any())
+                return false;
+
             // Check if we're Phantom Chemist (free resurrection) or need MP check for regular jobs
             var phantomJob = GetCurrentPhantomJob();
             bool isPhantomChemist = phantomJob == PhantomJob.Chemist;
@@ -455,13 +529,24 @@ namespace Magitek.Logic.Roles
         {
             // Get dead non-party players from the optimized Group.CastableAlliance
             // Filter out party members since CastableAlliance includes everyone
+            //
+            // Raise range is a raw 3D distance on purpose, and is the exception to the
+            // "always use WithinSpellRange" rule in AGENTS.md. A corpse has no usable
+            // CombatReach for the game to measure against, so raise range is centre to
+            // centre. WithinSpellRange would subtract both hitboxes and, because it uses
+            // Distance2D, ignore height entirely — which matters a lot here, where the
+            // Forked Tower sits roughly a thousand yalms below the overworld in the same
+            // zone. Leave this as Distance.
             var deadNonPartyPlayers = Group.CastableAlliance.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
                                                        u.Distance(Core.Me) <= 30 &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
-                                                       u.Location.DistanceSqr(RespawnPoint) >= 900);
+                                                       // Skip anyone stood at one of the zone's respawn points, since
+                                                       // they have chosen to return rather than wait for a raise.
+                                                       (!RespawnPoints.TryGetValue(WorldManager.ZoneId, out var respawnPoints)
+                                                        || respawnPoints.All(p => u.Location.DistanceSqr(p) >= 900)));
 
             if (!deadNonPartyPlayers.Any())
                 return false;
@@ -513,7 +598,17 @@ namespace Magitek.Logic.Roles
             {
                 if (await Healer.Swiftcast())
                 {
-                    while (Core.Me.HasAura(Auras.Swiftcast))
+                    // Re-validate the target each iteration: another player can rez/LoS-break the same
+                    // corpse mid-loop, which would otherwise spin here (CastAura keeps failing without
+                    // consuming Swiftcast) until the aura expires ~10s later, stalling the whole routine.
+                    // Being alive again is the case the other checks miss: someone else's raise can be
+                    // accepted mid-loop, leaving the target valid, targetable, in range and carrying no
+                    // pending Raise aura — so without this the loop spins until Swiftcast expires.
+                    while (Core.Me.HasAura(Auras.Swiftcast)
+                           && target != null && target.IsValid && target.IsTargetable
+                           && (target as Character)?.CurrentHealth == 0
+                           && !target.HasAura(Auras.Raise)
+                           && target.WithinSpellRange(30) && target.InLineOfSight())
                     {
                         if (await resurrectionSpell.CastAura(target, Auras.Raise))
                             return true;
@@ -1883,7 +1978,11 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRevive)
                 return false;
 
-            // Find dead allies using the same logic as Healer.Raise
+            // Find dead allies using the same logic as Healer.Raise — including the raw 3D
+            // distance, which is deliberate there and must stay deliberate here. It is the
+            // exception to the "always use WithinSpellRange" rule in AGENTS.md: a corpse has
+            // no usable CombatReach, so raise range is centre to centre, and WithinSpellRange
+            // uses Distance2D so it would ignore height entirely. Leave this as Distance.
             var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
                                                        u.Distance(Core.Me) <= 30 &&

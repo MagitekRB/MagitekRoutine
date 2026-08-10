@@ -13,7 +13,7 @@ namespace Magitek.Utilities.Agents
     /// https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/UI/Agent/AgentMKDSupportJobList.cs
     /// 
     /// Job ID Data Source (update PhantomJobId enum from this table):
-    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/MKDSupportJob.csv
+    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/MKDSupportJob.csv
     /// </summary>
     internal static class AgentMKDSupportJobList
     {
@@ -210,12 +210,14 @@ namespace Magitek.Utilities.Agents
     /// Phantom job IDs based on MKDSupportJob.csv data
     /// 
     /// Data Source (MUST be kept in sync with this table):
-    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/MKDSupportJob.csv
+    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/MKDSupportJob.csv
     /// 
-    /// Correct job mapping from CSV (0-15):
+    /// Correct job mapping from CSV (0-23):
     /// 0=Freelancer, 1=Knight, 2=Berserker, 3=Monk, 4=Ranger, 5=Samurai,
     /// 6=Bard, 7=Geomancer, 8=TimeMage, 9=Cannoneer, 10=Chemist, 11=Oracle, 12=Thief,
-    /// 13=MysticKnight, 14=Gladiator, 15=Dancer
+    /// 13=MysticKnight, 14=Gladiator, 15=Dancer,
+    /// 16=Ninja, 17=WhiteMage, 18=BlackMage, 19=Dragoon, 20=Summoner, 21=BlueMage,
+    /// 22=RedMage, 23=Necromancer
     /// </summary>
     public enum PhantomJobId : byte
     {
@@ -234,6 +236,15 @@ namespace Magitek.Utilities.Agents
         Thief = 12,
         MysticKnight = 13,
         Gladiator = 14,
-        Dancer = 15
+        Dancer = 15,
+        // Added with North Horn. Indices taken from MKDSupportJob.csv, not inferred.
+        Ninja = 16,
+        WhiteMage = 17,
+        BlackMage = 18,
+        Dragoon = 19,
+        Summoner = 20,
+        BlueMage = 21,
+        RedMage = 22,
+        Necromancer = 23
     }
 }
