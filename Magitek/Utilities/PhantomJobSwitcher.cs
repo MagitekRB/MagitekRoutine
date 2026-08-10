@@ -71,7 +71,8 @@ namespace Magitek.Utilities
                     AuraId = OCAuras.Fleetfooted, // 4239
                     BuffName = "Fleetfooted",
                     JobName = "Monk",
-                    RequiredJobLevel = 3
+                    RequiredJobLevel = 2 // Counterstance unlocks at Phantom Monk 2, same as the
+                                         // other three crystal-buff actions (game support-job data)
                 }
             },
             // Dancer (ID=15) -> Quickstep -> Quicker Step aura
