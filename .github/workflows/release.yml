@@ -353,14 +353,18 @@ jobs:
         }
       shell: pwsh
 
+    # Created as a draft so the contributor credits below can be corrected before anyone
+    # sees them. Publishing the draft is what fires the release event, so the in-app news
+    # feed and the Discord notification both receive the corrected text.
     - name: Create Release
+      id: create_release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ needs.setup.outputs.version }}
         name: v${{ needs.setup.outputs.version }}
         body: ${{ env.RELEASE_BODY }}
         generate_release_notes: true
-        draft: false
+        draft: true
         token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
         files: |
           ./artifacts/global-build/Magitek.zip
@@ -369,3 +373,98 @@ jobs:
           ./artifacts/cn-build/Version-CN.txt
           ./artifacts/tc-build/Magitek-TC.zip
           ./artifacts/tc-build/Version-TC.txt
+
+    # GitHub credits only the person who opened the pull request, so anyone who committed
+    # to it afterwards goes unnamed. Rewrite each entry to list every account that committed
+    # to that pull request, opener first.
+    #
+    # Best effort by design: any failure here leaves the notes exactly as GitHub wrote them,
+    # and the publish step still runs, so a bad credit never blocks a release.
+    - name: Credit everyone who committed to each pull request
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        # gh writes UTF-8, but pwsh decodes captured native output using the console code
+        # page, which is not UTF-8 on a Windows runner. Without this, a release note holding
+        # any non-ASCII character — a zh-CN pull request title, an em dash, a curly quote —
+        # is read back as mojibake and then written straight back, replacing good notes with
+        # corrupted ones on the release page, in Discord and in the news feed.
+        [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+        $repo = $env:GITHUB_REPOSITORY
+        $releaseId = '${{ steps.create_release.outputs.id }}'
+        if (-not $releaseId) { Write-Host 'No release id available; leaving notes unchanged.'; exit 0 }
+
+        $body = gh api "repos/$repo/releases/$releaseId" --jq '.body'
+        if (-not $body) { Write-Host 'Release body is empty; nothing to credit.'; exit 0 }
+
+        # Matches GitHub's generated form: "* <title> by @<login> in <pull request url>"
+        $pattern = '^\* (?<title>.+) by @(?<author>[\w.-]+) in (?<url>https://github\.com/\S+/pull/(?<num>\d+))\s*$'
+        $out = New-Object System.Collections.Generic.List[string]
+
+        foreach ($line in ($body -split "`r?`n")) {
+          $m = [regex]::Match($line, $pattern)
+          if (-not $m.Success) { $out.Add($line); continue }
+
+          $title  = $m.Groups['title'].Value
+          $author = $m.Groups['author'].Value
+          $url    = $m.Groups['url'].Value
+          $num    = $m.Groups['num'].Value
+
+          $jq = '[.[].author | select(. != null) | .login] | unique | .[]'
+          $raw = gh api "repos/$repo/pulls/$num/commits" --paginate --jq $jq
+
+          $logins = @()
+          if ($LASTEXITCODE -eq 0 -and $raw) { $logins = @($raw -split "`r?`n") }
+          else { Write-Host "PR #${num}: could not read commit authors; keeping GitHub's credit." }
+
+          # Opener stays first; bots never get credited.
+          $extra = $logins |
+            Where-Object { $_ -and $_ -ne $author -and $_ -notmatch '\[bot\]$' } |
+            Select-Object -Unique
+
+          $credit = ((@($author) + @($extra)) | ForEach-Object { "@$_" }) -join ', '
+          $out.Add("* $title by $credit in $url")
+
+          if ($extra) { Write-Host "PR #${num}: credited $credit" }
+        }
+
+        # Via a file rather than stdin so non-ASCII pull request titles survive the round trip.
+        $payloadFile = Join-Path $env:RUNNER_TEMP 'release-body.json'
+        @{ body = ($out -join "`n") } | ConvertTo-Json -Depth 3 -Compress |
+          Out-File -FilePath $payloadFile -Encoding utf8 -NoNewline
+
+        gh api "repos/$repo/releases/$releaseId" -X PATCH --input $payloadFile | Out-Null
+        Write-Host 'Release notes updated.'
+      shell: pwsh
+
+    # Deliberately not always(): that would also publish during a cancelled run, defeating
+    # the point of the draft window. The credit step is continue-on-error, so it cannot fail
+    # the job, and this step still runs after it fails.
+    #
+    # Retried, because leaving the release a draft is the worst outcome available — no tag
+    # moves, releases/latest keeps pointing at the previous version, MagitekLoader never
+    # auto-updates, and nothing posts anywhere until a human notices and re-runs.
+    - name: Publish Release
+      if: ${{ !cancelled() && steps.create_release.outputs.id != '' }}
+      env:
+        GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $repo = $env:GITHUB_REPOSITORY
+        $releaseId = '${{ steps.create_release.outputs.id }}'
+
+        for ($attempt = 1; $attempt -le 3; $attempt++) {
+          gh api "repos/$repo/releases/$releaseId" -X PATCH -F draft=false | Out-Null
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Published release $releaseId."
+            exit 0
+          }
+          if ($attempt -lt 3) {
+            Write-Host "Publish attempt $attempt failed; retrying in 15s."
+            Start-Sleep -Seconds 15
+          }
+        }
+
+        throw "Could not publish release $releaseId after 3 attempts; it is still a draft."
+      shell: pwsh
