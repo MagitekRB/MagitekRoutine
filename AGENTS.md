@@ -195,6 +195,9 @@ Understanding FFXIV-specific combat mechanics is essential for writing effective
 - **NEVER use manual calculations** like `r.Distance(Core.Me) <= 5 + r.CombatReach`
 - Use radius/cone checks for specialized AoE targeting
 - Never use raw `Distance` for spell range checks
+- **Exception — resurrection.** Raise target filters use raw `Distance(Core.Me) <= 30` on
+  purpose; a corpse has no usable `CombatReach`. Do not "correct" these to `WithinSpellRange`.
+  Each such call site carries a comment explaining why.
 
 ---
 

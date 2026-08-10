@@ -529,6 +529,14 @@ namespace Magitek.Logic.Roles
         {
             // Get dead non-party players from the optimized Group.CastableAlliance
             // Filter out party members since CastableAlliance includes everyone
+            //
+            // Raise range is a raw 3D distance on purpose, and is the exception to the
+            // "always use WithinSpellRange" rule in AGENTS.md. A corpse has no usable
+            // CombatReach for the game to measure against, so raise range is centre to
+            // centre. WithinSpellRange would subtract both hitboxes and, because it uses
+            // Distance2D, ignore height entirely — which matters a lot here, where the
+            // Forked Tower sits roughly a thousand yalms below the overworld in the same
+            // zone. Leave this as Distance.
             var deadNonPartyPlayers = Group.CastableAlliance.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
                                                        u.Distance(Core.Me) <= 30 &&
@@ -1970,7 +1978,11 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRevive)
                 return false;
 
-            // Find dead allies using the same logic as Healer.Raise
+            // Find dead allies using the same logic as Healer.Raise — including the raw 3D
+            // distance, which is deliberate there and must stay deliberate here. It is the
+            // exception to the "always use WithinSpellRange" rule in AGENTS.md: a corpse has
+            // no usable CombatReach, so raise range is centre to centre, and WithinSpellRange
+            // uses Distance2D so it would ignore height entirely. Leave this as Distance.
             var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
                                                        u.Distance(Core.Me) <= 30 &&

@@ -154,6 +154,9 @@ namespace Magitek.Logic.Roles
             if (!Globals.InParty)
                 return false;
 
+            // Raw 3D distance is deliberate here — see the resurrection range exception in
+            // AGENTS.md. A corpse has no usable CombatReach, and WithinSpellRange is built on
+            // Distance2D so it would ignore height. Leave this as Distance.
             var deadTarget = Group.DeadAllies
                 .Where(u => u.CurrentHealth == 0
                             && !u.HasAura(Auras.Raise)
