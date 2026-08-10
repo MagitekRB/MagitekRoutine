@@ -642,9 +642,6 @@ namespace Magitek.Logic.Astrologian
         #region Delayed Heals
         public static async Task<bool> EarthlyStar()
         {
-            if (!Spells.EarthlyStar.IsKnownAndReady())
-                return false;
-
             if (!Core.Me.InCombat)
                 return false;
 
@@ -653,7 +650,24 @@ namespace Magitek.Logic.Astrologian
 
             var earthlyStarTargets = PartyManager.VisibleMembers.Select(r => r.BattleCharacter).ToList();
 
+            // The pop checks gate on Stellar Detonation's own action: the base Earthly Star
+            // action sits on its 60s recast for the star's whole deployment, so putting these
+            // behind EarthlyStar.IsKnownAndReady() made them unreachable.
+
+            // Pop a cooking star just before the pull ends so the damage half still lands —
+            // auto-detonation after everything is dead whiffs it. A star that will still reach
+            // Giant Dominance before the pull ends is left to mature for the full explosion.
+            if (AstrologianSettings.Instance.StellarDetonation
+                && Spells.StellarDetonation.IsKnownAndReady()
+                && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
+                && Utilities.Combat.CombatTotalTimeLeft > 0
+                && Utilities.Combat.CombatTotalTimeLeft <= AstrologianSettings.Instance.StellarDetonationPullEndingSeconds
+                && (Core.Me.HasAura(Auras.GiantDominance)
+                    || Core.Me.HasAura(Auras.EarthlyDominance, false, Utilities.Combat.CombatTotalTimeLeft * 1000)))
+                return await Spells.StellarDetonation.Heal(Core.Me);
+
             if (Core.Me.HasAura(Auras.EarthlyDominance)
+                && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
@@ -663,6 +677,7 @@ namespace Magitek.Logic.Astrologian
             }
 
             if (Core.Me.HasAura(Auras.GiantDominance)
+                && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
@@ -671,6 +686,9 @@ namespace Magitek.Logic.Astrologian
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
 
+            if (!Spells.EarthlyStar.IsKnownAndReady())
+                return false;
+
             if (!AstrologianSettings.Instance.EarthlyStar)
                 return false;
 
@@ -678,29 +696,29 @@ namespace Magitek.Logic.Astrologian
             if (!Core.Me.HasTarget)
                 return false;
 
-            switch (Globals.InParty)
-            {
-                case true:
-                    if (Core.Target.EnemiesNearby(30).Count() > AstrologianSettings.Instance.EarthlyStarEnemiesNearTarget
-                        && earthlyStarTargets.Count(r => r.Distance(Core.Target) <= 30
-                        && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyStarPartyMembersNearTargetHealthPercent) > AstrologianSettings.Instance.EarthlyStarPartyMembersNearTarget)
-                        if (await Spells.EarthlyStar.Cast(Core.Target))
-                        {
-                            Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
-                            return true;
-                        }
-                    break;
-                default:
-                    if (Core.Target.EnemiesNearby(30).Count() > AstrologianSettings.Instance.EarthlyStarEnemiesNearTarget
-                        && Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyStarPartyMembersNearTargetHealthPercent
-                        && Core.Target.WithinSpellRange(30))
-                        if (await Spells.EarthlyStar.Cast(Core.Target))
-                        {
-                            Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
-                            return true;
-                        }
-                    break;
-            }
+            // The plant anchors to the hard target's position, so it must be an enemy —
+            // with an ally targeted the star would land at their feet on cooldown.
+            if (!Core.Target.ThoroughCanAttack())
+                return false;
+
+            // Hold the plant until the pull's time-to-death is computable: freshly tracked
+            // enemies report zero and enemies that have not taken damage yet saturate the
+            // total to int.MaxValue (float-to-int conversion saturates on .NET Core), so a
+            // pull still being gathered reads as one or the other — and a star planted
+            // mid-gather lands where the party will not be.
+            if (Utilities.Combat.CombatTotalTimeLeft <= 0 || Utilities.Combat.CombatTotalTimeLeft >= int.MaxValue)
+                return false;
+
+            // Plant proactively: an unpopped star detonates on its own at the end of Giant
+            // Dominance with the full damage + heal, so holding the plant until allies are
+            // hurt only delays it. Heal-need gating lives in the Stellar Detonation checks above.
+            if (Core.Target.EnemiesNearby(30).Count() >= AstrologianSettings.Instance.EarthlyStarEnemiesNearTarget
+                && Core.Target.WithinSpellRange(30))
+                if (await Spells.EarthlyStar.Cast(Core.Target))
+                {
+                    Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
+                    return true;
+                }
             return false;
         }
 

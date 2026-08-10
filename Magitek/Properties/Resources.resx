@@ -666,9 +666,6 @@
   <data name="Astrologian_Content_Interrupt_Damage_to_Heal" xml:space="preserve">
     <value>Interrupt Damage to Heal</value>
   </data>
-  <data name="Astrologian_Content_Aggro_Ast_Mode" xml:space="preserve">
-    <value>Aggro Ast Mode</value>
-  </data>
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
     <value>Use Time Till Death For Damage Over Time Spells</value>
   </data>
@@ -677,9 +674,6 @@
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>Gravity When There Are</value>
-  </data>
-  <data name="Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an" xml:space="preserve">
-    <value>Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful).</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
     <value>Ally Health Percent</value>
@@ -4004,6 +3998,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
     <value>Dont Use DoT if Enemy Dying Within 10 Seconds</value>
   </data>
+  <data name="Astrologian_Text_Detonate_Early_When_Pull_Ends_Within" xml:space="preserve">
+    <value>Detonate Earthly Star Early When The Pull Ends Within</value>
+  </data>
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
     <value>Dispel Only If Nearby Players Health Is Above</value>
   </data>
@@ -4015,9 +4012,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
     <value>Prevent Usage of Swiftcast Alone</value>
-  </data>
-  <data name="Astrologian_Text_Party_Members_Near_Target_That_Are_Below" xml:space="preserve">
-    <value>Party Members Near Target That Are Below</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>Party Members Near Earthly Star Are Below</value>
