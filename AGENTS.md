@@ -202,12 +202,16 @@ Understanding FFXIV-specific combat mechanics is essential for writing effective
 
 Magitek maintains **performance-critical cached collections** that are refreshed each frame. **Always use these instead of reimplementing**:
 
-### Combat.Enemies (`Utilities/Combat.cs`)
-- **`Combat.Enemies`**: Cached list of valid combat targets (refreshed each frame).
+### Combat.Enemies and Combat.Threats (`Utilities/Combat.cs`)
+- **`Combat.Enemies`**: Cached list of valid combat targets (refreshed each frame) — enemies our
+  damage can actually reach. Use it for anything that attacks.
   ```csharp
   var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(5));
   ```
-- **Never** query `GameObjectManager` directly for enemies; use `Combat.Enemies`.
+- **`Combat.Threats`**: Cached list of enemies engaged with us regardless of whether our damage can
+  reach them. Use it for defensive decisions — mitigation, interrupts, stuns, incoming-attack
+  checks — which must keep working against enemies we cannot hurt.
+- **Never** query `GameObjectManager` directly for enemies; use these collections.
 
 ### Combat Timers
 - **`Combat.CombatTime`**: Stopwatch tracking time in combat.
