@@ -98,6 +98,19 @@ gh pr create --title "<commit message>" --body " "
 gh pr merge <number> --auto --merge
 ```
 
+### PR Scope
+
+One PR does one thing. A reviewer must be able to hold the whole change in their head and say what breaks if it is wrong.
+
+- **One behavior change per PR.** If the description needs a bulleted list of unrelated effects, it is that many PRs.
+- **Separate mechanical from behavioral.** Renames, moves, and formatting go in their own PR, never bundled with logic.
+- **Introduce, then migrate.** Adding a shared helper, extension, or cached collection is one PR. Converting call sites to it is another, split by role or job.
+- **`AGENTS.md` and `CONTRIBUTING.md` changes are their own PR.** A change may not rewrite the rules it is judged against.
+
+PRs over roughly 300 changed lines, or touching more than about 10 files, will be asked to split before review. This is not a judgment on the code. Reviewer time is the project's scarcest resource, and large changes hide omissions that reading cannot catch: a migration that missed one call site out of forty is invisible in a diff and only surfaces mid-fight.
+
+Refactors that genuinely must land atomically are the exception. Say so in the PR body and explain why it cannot be staged.
+
 ### Standard Steps
 
 1. Run `git status` and inspect the diff.
