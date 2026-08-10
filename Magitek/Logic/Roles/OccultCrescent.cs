@@ -3209,7 +3209,9 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit())
+            // Threat check, not attack check: this casts on ourselves in answer to being hit, so an
+            // enemy immune to our damage must still count.
+            if (target == null || !target.ValidThreatUnit())
                 return false;
 
             // Check if target is targeting us
@@ -3499,7 +3501,9 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit())
+            // Threat check, not attack check: this casts on ourselves in answer to being hit, so an
+            // enemy immune to our damage must still count.
+            if (target == null || !target.ValidThreatUnit())
                 return false;
 
             // Always cast if target is targeting us (to build Finishing Fervor stacks)
