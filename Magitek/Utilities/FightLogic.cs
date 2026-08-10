@@ -2,6 +2,7 @@
 using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using Magitek.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -119,8 +120,29 @@ namespace Magitek.Utilities
                 return null;
             FlHandledCastingSpellId.Clear();
 
+            // Every tank stacks for a shared buster, so every tank takes a share and every tank wants
+            // covering. Healers pass this result straight to a cast, so it has to name a tank they can
+            // actually reach — CastableTanks is our own party, not the alliance.
+            //
+            // Prefer the tank being aimed at when they are in our party. In an alliance raid the target is
+            // usually in a different party, and the tank we can reach is ours, stacking in to share the
+            // damage — so fall back to them rather than returning nothing. Returning the target alone left
+            // a healer in another party doing nothing while their tank ate a share; returning a non-target
+            // alone shielded the co-tank while the tank being hit went uncovered.
+            //
+            // CastableTanks is built before Group applies any distance filter, so it can name a tank well
+            // outside heal range. Naming one satisfies the preferred-target branch, skips the fallback and
+            // then fails the caller's own CanCast — no mitigation at all. Restrict both branches to tanks
+            // inside standard heal range so the fallback can still find the co-tank we can reach.
+            //
+            // WithinSpellRange, not the CastableAlliesWithin30 list: that list is built from raw
+            // centre-to-centre distance, so a large tank whose edge is well inside 30y can fall out of it
+            // and be passed over for a co-tank while the game would have allowed the cast.
+            var reachableTanks = Group.CastableTanks.Where(x => x.WithinSpellRange(30)).ToList();
+
             var output = enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
-                ? Group.CastableTanks.FirstOrDefault(x => x != enemy.TargetCharacter)
+                ? reachableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                  ?? reachableTanks.FirstOrDefault()
                 : null;
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
