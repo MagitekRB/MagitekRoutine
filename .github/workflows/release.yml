@@ -33,13 +33,21 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         $releases = Invoke-RestMethod -Headers @{Authorization = "token $env:GITHUB_TOKEN"} -Uri "https://api.github.com/repos/${{ github.repository }}/releases"
-        $latestVersion = $releases | Where-Object { -not $_.prerelease } | Select-Object -First 1
+        # Drafts are excluded: a draft left behind by a failed run never shipped, and counting
+        # it would base the next version on a release that does not exist. Deriving the same
+        # number again is safe — the release step finds the existing draft by tag and updates
+        # it instead of stacking a second one.
+        $latestVersion = $releases | Where-Object { -not $_.prerelease -and -not $_.draft } | Select-Object -First 1
         if ($latestVersion) {
-          $version = $latestVersion.tag_name -replace 'v', ''
-          $parts = $version.Split('.')
-          $major = $parts[0]
-          $minor = $parts[1]
-          $patch = [int]$parts[2] + 1
+          # Fail loudly on a malformed tag (e.g. the untagged-<sha> placeholder a mispublished
+          # draft carries). Deriving from it would misname this release AND every one after it,
+          # since each release's version comes from the previous release's tag.
+          if ($latestVersion.tag_name -notmatch '^v(\d+)\.(\d+)\.(\d+)$') {
+            throw "Latest release tag '$($latestVersion.tag_name)' is not vMAJOR.MINOR.PATCH; refusing to derive the next version from it. Fix the latest release's tag, then re-run."
+          }
+          $major = $Matches[1]
+          $minor = $Matches[2]
+          $patch = [int]$Matches[3] + 1
           echo "version=$major.$minor.$patch" >> $env:GITHUB_OUTPUT
           echo "VERSION=$major.$minor.$patch" >> $env:GITHUB_ENV
         } else {
@@ -453,11 +461,20 @@ jobs:
       run: |
         $repo = $env:GITHUB_REPOSITORY
         $releaseId = '${{ steps.create_release.outputs.id }}'
+        $tag = 'v${{ needs.setup.outputs.version }}'
+        $sha = $env:GITHUB_SHA
 
+        # tag_name and target_commitish must be sent here, not just draft=false. A draft
+        # release has no git tag yet, so GitHub holds it under an "untagged-<sha>"
+        # placeholder; publishing without restating the tag keeps that placeholder as the
+        # release's tag_name and never creates the tag. That breaks the compare link, and
+        # worse, the setup job derives the next version by splitting the latest release's
+        # tag_name on "." — an untagged placeholder yields a garbage version number.
         for ($attempt = 1; $attempt -le 3; $attempt++) {
-          gh api "repos/$repo/releases/$releaseId" -X PATCH -F draft=false | Out-Null
+          gh api "repos/$repo/releases/$releaseId" -X PATCH `
+            -F draft=false -f tag_name="$tag" -f target_commitish="$sha" | Out-Null
           if ($LASTEXITCODE -eq 0) {
-            Write-Host "Published release $releaseId."
+            Write-Host "Published release $releaseId as $tag."
             exit 0
           }
           if ($attempt -lt 3) {
@@ -467,4 +484,35 @@ jobs:
         }
 
         throw "Could not publish release $releaseId after 3 attempts; it is still a draft."
+      shell: pwsh
+
+    # The tag is the thing that broke last time and it fails silently, so assert it rather
+    # than trusting the publish call's exit code.
+    - name: Verify the release is tagged
+      if: ${{ !cancelled() && steps.create_release.outputs.id != '' }}
+      env:
+        GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $repo = $env:GITHUB_REPOSITORY
+        $releaseId = '${{ steps.create_release.outputs.id }}'
+        $expected = 'v${{ needs.setup.outputs.version }}'
+
+        $release = gh api "repos/$repo/releases/$releaseId" | ConvertFrom-Json
+        if ($LASTEXITCODE -ne 0 -or -not $release) {
+          throw "Could not read release $releaseId to verify it."
+        }
+        if ($release.draft) {
+          throw "Release $releaseId is still a draft. No tag exists, releases/latest still points at the previous version, and MagitekLoader will not auto-update."
+        }
+        if ($release.tag_name -ne $expected) {
+          throw "Release $releaseId published as tag '$($release.tag_name)', expected '$expected'. The next release's version number is derived from this and will be wrong."
+        }
+
+        # git/ref (singular) is an exact-match lookup and 404s when the tag is missing. The
+        # plural git/refs form prefix-matches: it can return 200 with an array of OTHER tags
+        # even when this one does not exist, which would make this check pass vacuously.
+        gh api "repos/$repo/git/ref/tags/$expected" | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw "Release tag $expected does not exist as a git ref." }
+
+        Write-Host "Release is correctly tagged $expected."
       shell: pwsh
