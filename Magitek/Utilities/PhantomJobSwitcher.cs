@@ -108,6 +108,11 @@ namespace Magitek.Utilities
             if (Core.Me.InCombat)
                 return false;
 
+            // Dead or mid-revival, every action is uncastable: the attempt would time out its
+            // readiness waits and read as a capability failure it then backs off from.
+            if (!Core.Me.IsAlive)
+                return false;
+
             // Throttle attempts to prevent rapid ping-ponging when spells fail
             var now = DateTime.Now;
             if (now - _lastAttemptTime < AttemptCooldown)
@@ -211,11 +216,12 @@ namespace Magitek.Utilities
                         anyActionTaken = true;
 
                         // Wait for the buffs to actually register before deciding on any individual
-                        // fallback. Inquiring Mind's auras take a beat to land; checking NeedsBuff too
-                        // early reports them still missing and we re-swap through all four jobs to
-                        // re-apply what we already have. Returns as soon as every buff lands (all jobs
-                        // levelled), or times out only for a buff it genuinely can't grant (unlevelled).
-                        await Coroutine.Wait(3000, () => !missingBuffs.Exists(x => NeedsBuff(x.buffInfo)));
+                        // fallback. Inquiring Mind's grants land noticeably late under load — measured
+                        // around eight seconds after the cast in a full field op — and checking
+                        // NeedsBuff too early reports them still missing, re-swapping through all four
+                        // jobs to re-apply what we already have. Returns as soon as every buff lands;
+                        // the timeout is only for buffs it genuinely can't grant (unlevelled jobs).
+                        await Coroutine.Wait(10000, () => !missingBuffs.Exists(x => NeedsBuff(x.buffInfo)));
 
                         foreach (var (_, buffInfo) in missingBuffs)
                         {
@@ -445,11 +451,6 @@ namespace Magitek.Utilities
         /// Get the current phantom job ID by reusing OccultCrescent logic
         /// </summary>
         /// <returns>The current phantom job ID, or None if no phantom job is active</returns>
-        /// <summary>
-        /// One attempt at Inquiring Mind did not produce buffs. Neither a failed cast nor a readiness
-        /// timeout proves the character lacks the action — both also happen for passing reasons — so back
-        /// off only once it has failed repeatedly, which a genuine absence does and a blip does not.
-        /// </summary>
         private static PhantomJobId GetCurrentPhantomJobId()
         {
             // Reuse existing OccultCrescent logic instead of duplicating
