@@ -1,4 +1,4 @@
-﻿using ff14bot;
+using ff14bot;
 using Magitek.Extensions;
 using Magitek.Logic.BlackMage;
 using Magitek.Logic.Roles;
