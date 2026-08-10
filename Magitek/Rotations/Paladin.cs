@@ -88,13 +88,16 @@ namespace Magitek.Rotations
                 if (await Defensive.Cover()) return true;
             }
 
+            // Stance first: an enemy immune to our damage still attacks and builds enmity pressure,
+            // so a missing tank stance must be restorable before the attack guard.
+            if (!Core.Me.HasAura(Auras.PassageOfArms) && await Buff.IronWill()) return true;
+
             if (!canAttack)
                 return false;
 
             if (!Core.Me.HasAura(Auras.PassageOfArms))
             {
                 //Utility
-                if (await Buff.IronWill()) return true;
 
                 if (PaladinRoutine.GlobalCooldown.CanWeave())
                 {

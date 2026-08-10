@@ -59,11 +59,12 @@ namespace Magitek.Rotations
                 if (await Tank.ArmsLength(DarkKnightSettings.Instance)) return true;
             }
 
+            // Stance first: an enemy immune to our damage still attacks and builds enmity pressure,
+            // so a missing tank stance must be restorable before the attack guard.
+            if (await Buff.Grit()) return true;
+
             if (!canAttack)
                 return false;
-
-            //Utility
-            if (await Buff.Grit()) return true;
 
             if (DarkKnightRoutine.GlobalCooldown.CanWeave())
             {

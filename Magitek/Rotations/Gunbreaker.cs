@@ -77,14 +77,15 @@ namespace Magitek.Rotations
                 if (await Tank.ArmsLength(GunbreakerSettings.Instance)) return true;
             }
 
+            // Stance first: an enemy immune to our damage still attacks and builds enmity pressure,
+            // so a missing tank stance must be restorable before the attack guard.
+            if (await Buff.RoyalGuard()) return true;
+
             if (!canAttack)
                 return false;
 
             //Force Burst Strike
             if (await SingleTarget.ForceBurstStrike()) return true;
-
-            //Utility
-            if (await Buff.RoyalGuard()) return true;
 
             if (GunbreakerRoutine.GlobalCooldown.CanWeave())
             {
