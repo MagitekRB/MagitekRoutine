@@ -219,9 +219,15 @@ namespace Magitek.Utilities
                         // fallback. Inquiring Mind's grants land noticeably late under load — measured
                         // around eight seconds after the cast in a full field op — and checking
                         // NeedsBuff too early reports them still missing, re-swapping through all four
-                        // jobs to re-apply what we already have. Returns as soon as every buff lands;
-                        // the timeout is only for buffs it genuinely can't grant (unlevelled jobs).
-                        await Coroutine.Wait(10000, () => !missingBuffs.Exists(x => NeedsBuff(x.buffInfo)));
+                        // jobs to re-apply what we already have. Only buffs from levelled jobs are
+                        // waited on: an unlevelled job's buff can never land, and holding the full
+                        // timeout for it would stall this pulse for nothing. Combat starting or dying
+                        // mid-wait aborts immediately — this wait runs inside the rotation's pulse, so
+                        // holding it while an enemy engages keeps combat logic from running at all.
+                        var grantable = missingBuffs.FindAll(x => JobLevelledFor(x.jobId, x.buffInfo.RequiredJobLevel));
+                        await Coroutine.Wait(10000, () => Core.Me.InCombat
+                            || !Core.Me.IsAlive
+                            || !grantable.Exists(x => NeedsBuff(x.buffInfo)));
 
                         foreach (var (_, buffInfo) in missingBuffs)
                         {
