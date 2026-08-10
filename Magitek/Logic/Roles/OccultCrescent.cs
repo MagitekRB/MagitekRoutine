@@ -177,49 +177,24 @@ namespace Magitek.Logic.Roles
 
     internal class OccultCrescent
     {
+        private const ushort SouthHornZoneId = 1252;
+        private const ushort NorthHornZoneId = 1346;
+
         private static readonly HashSet<ushort> OccultCrescentZoneIds = new()
         {
-            1252, // The Occult Crescent: South Horn
-            1346, // The Occult Crescent: North Horn
+            SouthHornZoneId,
+            NorthHornZoneId
         };
 
-        private const string OccultCrescentZoneNamePart = "Occult Crescent";
-
-        private static int _lastZoneChecked = -1;
-        private static bool _lastZoneWasOccultCrescent;
-
         /// <summary>
-        /// Known zone ids first, then a fallback on the zone name so a newly released Horn keeps the
-        /// general Occult Crescent logic running the day it ships instead of silently disabling all of it
-        /// until its id is added here — which is exactly what happened when North Horn arrived. Features
-        /// built on per-zone coordinates are the exception: knowledge crystal buffing and the
-        /// respawn-point corpse exclusion stay off in a new Horn until its locations are gathered and
-        /// added to KnowledgeCrystalLocations/RespawnPoints, by design.
-        /// <para>
-        /// Name matching is safe across clients: WorldManager.CurrentZoneName is the non-localized name
-        /// (CurrentLocalizedZoneName is the one shown to the player). The result is cached per zone so the
-        /// string comparison happens once on zone change rather than on every call.
-        /// </para>
+        /// Each Horn must be added here by zone id when it ships. Matching on the zone name instead is
+        /// not an option: WorldManager.CurrentZoneName returns the map's own name ("South Horn",
+        /// "North Horn") and never contains "Occult Crescent", so a name check can never match.
         /// </summary>
         public static bool IsInOccultCrescent()
         {
-            var zoneId = WorldManager.ZoneId;
-
-            if (zoneId == _lastZoneChecked)
-                return _lastZoneWasOccultCrescent;
-
-            var zoneName = WorldManager.CurrentZoneName;
-
-            _lastZoneChecked = zoneId;
-            _lastZoneWasOccultCrescent = OccultCrescentZoneIds.Contains(zoneId)
-                || (!string.IsNullOrEmpty(zoneName)
-                    && zoneName.IndexOf(OccultCrescentZoneNamePart, StringComparison.OrdinalIgnoreCase) >= 0);
-
-            return _lastZoneWasOccultCrescent;
+            return OccultCrescentZoneIds.Contains(WorldManager.ZoneId);
         }
-
-        private const ushort SouthHornZoneId = 1252;
-        private const ushort NorthHornZoneId = 1346;
 
         // Known Knowledge Crystal locations per zone. These never change, and each Horn has its own
         // coordinate space, so the lists are keyed by zone id.
@@ -235,19 +210,22 @@ namespace Magitek.Logic.Roles
             },
             [NorthHornZoneId] = new[]
             {
+                // Overworld crystals, each read off the live crystal object in game.
                 new Vector3(884.896f, 259.5558f, 875.1169f),    // base camp
                 new Vector3(-542.5715f, 68.6256f, 598.2891f),
-                new Vector3(-384.2f, 40f, -441.6f),
-                new Vector3(458.4f, 70.4f, 524.8f),
-                new Vector3(351.5f, 45.2f, -560.2f),
-                new Vector3(-19.8f, 2.4f, -38.6f),
+                new Vector3(-382.6042f, 41.22726f, -442.7764f),
+                new Vector3(456.5246f, 71.46682f, 524.4749f),
+                new Vector3(350.6741f, 46.45173f, -558.5289f),
+                new Vector3(-18.32449f, 3.79342f, -37.40308f),
+                // Forked Tower shares this zone id but sits far below the overworld. These came from
+                // session logs rather than a live reading, so they are approximate and unconfirmed.
                 new Vector3(597.8f, -700f, 927f),               // Forked Tower entrance
                 new Vector3(-893f, -984.7401f, 780f),           // Forked Tower
                 new Vector3(-900f, -986.1f, 782.2488f),
                 new Vector3(103f, -706.7383f, 678f),
                 new Vector3(0f, -722.6936f, -367f),
                 new Vector3(603.5453f, -672.6606f, 640.6041f),
-                new Vector3(599.4f, -700.0f, 927.8f),      // Forked Tower, Lower Vestibule (surveyed live 2026-08-07)
+                new Vector3(599.4f, -700.0f, 927.8f),           // Forked Tower, Lower Vestibule
                 new Vector3(603.7968f, -670.6514f, -125.1157f)
             }
         };
@@ -551,9 +529,17 @@ namespace Magitek.Logic.Roles
         {
             // Get dead non-party players from the optimized Group.CastableAlliance
             // Filter out party members since CastableAlliance includes everyone
+            //
+            // Raise range is a raw 3D distance on purpose, and is the exception to the
+            // "always use WithinSpellRange" rule in AGENTS.md. A corpse has no usable
+            // CombatReach for the game to measure against, so raise range is centre to
+            // centre. WithinSpellRange would subtract both hitboxes and, because it uses
+            // Distance2D, ignore height entirely — which matters a lot here, where the
+            // Forked Tower sits roughly a thousand yalms below the overworld in the same
+            // zone. Leave this as Distance.
             var deadNonPartyPlayers = Group.CastableAlliance.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
-                                                       u.WithinSpellRange(30) &&
+                                                       u.Distance(Core.Me) <= 30 &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&
@@ -1992,10 +1978,14 @@ namespace Magitek.Logic.Roles
             if (!OccultCrescentSettings.Instance.UseRevive)
                 return false;
 
-            // Find dead allies using the same logic as Healer.Raise
+            // Find dead allies using the same logic as Healer.Raise — including the raw 3D
+            // distance, which is deliberate there and must stay deliberate here. It is the
+            // exception to the "always use WithinSpellRange" rule in AGENTS.md: a corpse has
+            // no usable CombatReach, so raise range is centre to centre, and WithinSpellRange
+            // uses Distance2D so it would ignore height entirely. Leave this as Distance.
             var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
                                                        !u.HasAura(Auras.Raise) &&
-                                                       u.WithinSpellRange(30) &&
+                                                       u.Distance(Core.Me) <= 30 &&
                                                        u.IsVisible &&
                                                        u.InLineOfSight() &&
                                                        u.IsTargetable &&

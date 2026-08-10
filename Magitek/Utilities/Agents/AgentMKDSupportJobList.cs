@@ -13,7 +13,7 @@ namespace Magitek.Utilities.Agents
     /// https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/UI/Agent/AgentMKDSupportJobList.cs
     /// 
     /// Job ID Data Source (update PhantomJobId enum from this table):
-    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/MKDSupportJob.csv
+    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/MKDSupportJob.csv
     /// </summary>
     internal static class AgentMKDSupportJobList
     {
@@ -210,7 +210,7 @@ namespace Magitek.Utilities.Agents
     /// Phantom job IDs based on MKDSupportJob.csv data
     /// 
     /// Data Source (MUST be kept in sync with this table):
-    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/MKDSupportJob.csv
+    /// https://github.com/xivapi/ffxiv-datamining/blob/master/csv/en/MKDSupportJob.csv
     /// 
     /// Correct job mapping from CSV (0-23):
     /// 0=Freelancer, 1=Knight, 2=Berserker, 3=Monk, 4=Ranger, 5=Samurai,
