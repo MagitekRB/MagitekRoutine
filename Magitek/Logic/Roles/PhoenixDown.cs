@@ -22,8 +22,9 @@ namespace Magitek.Logic.Roles
 
         // Per-target throttle. After a Phoenix Down is used the revive takes a server round-trip to land,
         // during which the target still reads CurrentHealth==0 — skip it briefly so we don't fire a
-        // second one before the first registers. Kept well under the death delay so it can never block a
-        // legitimate re-revive (that needs a fresh death plus the full delay again).
+        // second one before the first registers. With the default death delay a legitimate re-revive
+        // needs a fresh death plus the full delay again, which outlasts this window; at very low
+        // user-set delays a rapid re-death may wait out the remainder of the 10s before a second down.
         private static readonly Dictionary<uint, DateTime> _recentUses = new();
         private static readonly TimeSpan UseThrottle = TimeSpan.FromSeconds(10);
 
