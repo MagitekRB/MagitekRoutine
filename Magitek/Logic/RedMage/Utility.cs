@@ -19,17 +19,19 @@ namespace Magitek.Logic.RedMage
             if (!Spells.Riposte.IsKnown())
                 return false;
 
-            if (!Spells.Zwerchhau.IsKnown())
-            {
-                if (RedMageRoutine.CanContinueComboAfter(Spells.Riposte) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte))
-                    return true;
-            }
-            else
-            {
-                if (RedMageRoutine.CanContinueComboAfter(Spells.Riposte) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte)
-                || RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedZwerchhau))
-                    return true;
-            }
+            // Hold GCDs for the melee combo only when the NEXT link actually exists at this level.
+            // Under level sync (deep dungeons go as low as 1) the game still arms the 30s combo
+            // window after Riposte, but with Zwerchhau/Redoublement unlearned there is nothing to
+            // continue with — holding for a continuation that can't exist idles the routine for the
+            // whole window, over and over. At 50+ this is behavior-identical to the old check.
+            if (Spells.Zwerchhau.IsKnown()
+                && (RedMageRoutine.CanContinueComboAfter(Spells.Riposte) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte)))
+                return true;
+
+            if (Spells.Redoublement.IsKnown()
+                && (RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau) || RedMageRoutine.CanContinueComboAfter(Spells.EnchantedZwerchhau)))
+                return true;
+
             return false;
         }
         public static int ManaStacks()
