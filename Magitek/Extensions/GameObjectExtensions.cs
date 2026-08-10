@@ -536,8 +536,12 @@ namespace Magitek.Extensions
         public static float RadiansFromPlayerHeading(this GameObject target)
         {
             var playerLocation = Core.Me.Location;
-            var playerHeading = GameSettingsManager.FaceTargetOnAction && BaseSettings.Instance.UseAutoFaceChecks ?
-                MathEx.NormalizeRadian(MathHelper.CalculateHeading(playerLocation, Core.Me.CurrentTarget.Location) + (float)Math.PI)
+            // Snapshot the current target: this helper runs inside stun/interrupt candidate scans, which is
+            // exactly when enemies are dying — the target can clear between the caller's null check and this
+            // read. With no target to auto-face, the player's actual heading is the truth anyway.
+            var facingTarget = Core.Me.CurrentTarget;
+            var playerHeading = GameSettingsManager.FaceTargetOnAction && BaseSettings.Instance.UseAutoFaceChecks && facingTarget != null ?
+                MathEx.NormalizeRadian(MathHelper.CalculateHeading(playerLocation, facingTarget.Location) + (float)Math.PI)
                 :
                 Core.Me.Heading;
             var targetLocation = target.Location;

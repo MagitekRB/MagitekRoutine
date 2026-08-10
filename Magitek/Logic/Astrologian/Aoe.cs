@@ -106,13 +106,21 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.Oracle.IsKnownAndReady())
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Oracle.Radius) < AstrologianSettings.Instance.OracleEnemies)
+            // Snapshot the target rather than reading it repeatedly. The game can clear it at any point,
+            // including partway through the Count below, and a null reaching Distance() inside the
+            // predicate throws out of the whole rotation instead of just declining this one action.
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
+                return false;
+
+            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Oracle.Radius) < AstrologianSettings.Instance.OracleEnemies)
                 return false;
 
             if (!Core.Me.HasAura(Auras.Divining, true))
                 return false;
 
-            return await Spells.Oracle.Cast(Core.Me.CurrentTarget);
+            return await Spells.Oracle.Cast(target);
 
         }
 

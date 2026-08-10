@@ -22,14 +22,16 @@ namespace Magitek.Logic.DarkKnight
             if (!DarkKnightSettings.Instance.UseAbyssalDrain)
                 return false;
 
-            if (Core.Me.CurrentTarget == null)
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
                 return false;
 
-            var enemyCount = Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= 5);
+            var enemyCount = Combat.Enemies.Count(r => r.Distance(target) <= 5);
             if (enemyCount < DarkKnightSettings.Instance.AbyssalDrainEnemies)
                 return false;
 
-            return await Spells.AbyssalDrain.Cast(Core.Me.CurrentTarget);
+            return await Spells.AbyssalDrain.Cast(target);
         }
 
         public static async Task<bool> SaltedEarth()
@@ -125,10 +127,12 @@ namespace Magitek.Logic.DarkKnight
             if (!DarkKnightSettings.Instance.UseFloodDarknessShadow)
                 return false;
 
-            if (Core.Me.CurrentTarget == null)
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
                 return false;
 
-            var enemyCount = Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= 10 + r.CombatReach);
+            var enemyCount = Combat.Enemies.Count(r => r.Distance(target) <= 10 + r.CombatReach);
             if (enemyCount < DarkKnightSettings.Instance.FloodEnemies)
                 return false;
 
@@ -138,7 +142,7 @@ namespace Magitek.Logic.DarkKnight
             if (Core.Me.CurrentMana < DarkKnightSettings.Instance.SaveXMana + 3000)
                 return false;
 
-            return await Spells.FloodofDarkness.Cast(Core.Me.CurrentTarget);
+            return await Spells.FloodofDarkness.Cast(target);
         }
     }
 }

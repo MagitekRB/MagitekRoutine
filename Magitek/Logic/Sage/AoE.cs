@@ -25,11 +25,13 @@ namespace Magitek.Logic.Sage
             if (!Spells.Phlegma.IsKnown())
                 return false;
 
-            if (Core.Me.CurrentTarget == null)
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
                 return false;
 
             // Phlegma is a great 550 potency single target attack.
-            //if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Phlegma.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
+            //if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Phlegma.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
             //    return false;
             var spell = Spells.PhlegmaIII;
             if (!Spells.PhlegmaIII.IsKnown())
@@ -38,7 +40,7 @@ namespace Magitek.Logic.Sage
             if (spell.Charges == 0)
                 return false;
 
-            return await spell.Cast(Core.Me.CurrentTarget);
+            return await spell.Cast(target);
         }
 
         public static async Task<bool> Dyskrasia()
@@ -137,7 +139,9 @@ namespace Magitek.Logic.Sage
             if (!Spells.Toxikon.IsKnown())
                 return false;
 
-            if (Core.Me.CurrentTarget == null)
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
                 return false;
 
             if (Addersting == 0)
@@ -151,7 +155,7 @@ namespace Magitek.Logic.Sage
             }
             else
             {
-                var enemyCountCheck = SageSettings.Instance.AoE && Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
+                var enemyCountCheck = SageSettings.Instance.AoE && Combat.Enemies.Count(r => r.Distance(target) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
                 var adderstingCheck = SageSettings.Instance.ToxiconOnFullAddersting && Addersting == 3;
                 var lowManaCheck = SageSettings.Instance.ToxiconOnLowMana && Core.Me.CurrentManaPercent < SageSettings.Instance.MinimumManaPercentToDoDamage;
 
@@ -162,7 +166,7 @@ namespace Magitek.Logic.Sage
             if (doToxicon)
             {
                 var spell = Spells.ToxikonII.IsKnown() ? Spells.ToxikonII : Spells.Toxikon;
-                return await spell.Cast(Core.Me.CurrentTarget);
+                return await spell.Cast(target);
             }
             else
             {
@@ -186,16 +190,18 @@ namespace Magitek.Logic.Sage
             if (SageSettings.Instance.PneumaHealOnly)
                 return false;
 
-            if (Core.Me.CurrentTarget == null)
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Pneuma.Radius) < SageSettings.Instance.AoEEnemies)
+            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Pneuma.Radius) < SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (Spells.Pneuma.Cooldown != TimeSpan.Zero)
                 return false;
 
-            return await Spells.Pneuma.Cast(Core.Me.CurrentTarget);
+            return await Spells.Pneuma.Cast(target);
         }
 
         public static async Task<bool> Psyche()
@@ -206,13 +212,18 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.UsedPsyche)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(Core.Me.CurrentTarget) <= Spells.Psyche.Radius) < SageSettings.Instance.PsycheAoEEnemies)
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null)
+                return false;
+
+            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) < SageSettings.Instance.PsycheAoEEnemies)
                 return false;
 
             if (!Spells.Psyche.IsKnown())
                 return false;
 
-            return await Spells.Psyche.Cast(Core.Me.CurrentTarget);
+            return await Spells.Psyche.Cast(target);
         }
     }
 }
