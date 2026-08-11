@@ -2060,6 +2060,21 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Bladeblitz" xml:space="preserve">
     <value>Use Bladeblitz</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Cure_II" xml:space="preserve">
+    <value>Use Occult Cure II</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Libra" xml:space="preserve">
+    <value>Use Occult Libra</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Fire_II" xml:space="preserve">
+    <value>Use Occult Fire II</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blizzard_II" xml:space="preserve">
+    <value>Use Occult Blizzard II</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Thunder_II" xml:space="preserve">
+    <value>Use Occult Thunder II</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>

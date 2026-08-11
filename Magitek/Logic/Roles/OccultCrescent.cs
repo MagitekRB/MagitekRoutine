@@ -56,7 +56,13 @@ namespace Magitek.Logic.Roles
             MagicShell = 4788,
             HonedSpellblade = 4789,
             FinishingFervor = 4793,
-            Defend = 4792;
+            Defend = 4792,
+            // Elemental weaknesses revealed on an enemy by Occult Libra (North Horn). A matching
+            // elemental attack casts at bonus potency while the aura is up.
+            FireWeakness = 5322,
+            IceWeakness = 5323,
+            LightningWeakness = 5324,
+            WindWeakness = 5325;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -173,6 +179,16 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData Defend = DataManager.GetSpellData(46595);
         public static readonly SpellData LongReach = DataManager.GetSpellData(46596);
         public static readonly SpellData Bladeblitz = DataManager.GetSpellData(46597);
+
+        // Phantom Red Mage Spells (Job ID: 5334)
+        // The three nukes share a single 30s recast timer.
+        public static readonly SpellData OccultFireII = DataManager.GetSpellData(49092);
+        // Phantom White Mage has its own, different "Occult Cure II" action (49067), so this
+        // field carries the job name to keep the two apart.
+        public static readonly SpellData RedMageOccultCureII = DataManager.GetSpellData(49093);
+        public static readonly SpellData OccultLibra = DataManager.GetSpellData(49094);
+        public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
+        public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
     }
 
     internal class OccultCrescent
@@ -446,6 +462,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Dancer => await ExecuteDancerPhantomJob(),
                 PhantomJob.MysticKnight => await ExecuteMysticKnightPhantomJob(),
                 PhantomJob.Gladiator => await ExecuteGladiatorPhantomJob(),
+                PhantomJob.RedMage => await ExecuteRedMagePhantomJob(),
                 _ => false
             };
 
@@ -3702,6 +3719,170 @@ namespace Magitek.Logic.Roles
 
             // Finisher - main single-target (benefits from Finishing Fervor stacks)
             if (await Finisher())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Red Mage (Job ID: 5334)
+        /// <summary>
+        /// Occult Cure II - Restores target's HP (cure potency 40,000), 1.5s cast, 2.5s recast
+        /// Costs 1,500 MP; note this is a different action from Phantom White Mage's Occult Cure II
+        /// </summary>
+        private static async Task<bool> RedMageOccultCureII()
+        {
+            if (!OccultCrescentSettings.Instance.UseRedMageOccultCureII)
+                return false;
+
+            if (!OCSpells.RedMageOccultCureII.CanCast())
+                return false;
+
+            // Same MP floor as Occult Heal: keep enough MP for the real job's own spells
+            if (Core.Me.CurrentManaPercent < 65)
+                return false;
+
+            GameObject healTarget = null;
+
+            if (OccultCrescentSettings.Instance.RedMageOccultCureIICastOnAllies)
+            {
+                healTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.RedMageOccultCureIIHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                if (healTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.RedMageOccultCureIIHealthPercent)
+                    healTarget = Core.Me;
+            }
+            else
+            {
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.RedMageOccultCureIIHealthPercent)
+                    healTarget = Core.Me;
+            }
+
+            if (healTarget == null)
+                return false;
+
+            return await OCSpells.RedMageOccultCureII.Cast(healTarget);
+        }
+
+        /// <summary>
+        /// Occult Libra - Instant, 5s recast. Reveals the target's elemental affinity for 120s,
+        /// increasing the potency of elemental attacks that exploit its weakness (for everyone,
+        /// not just the caster). The revealed weakness shows up as one of the *Weakness auras.
+        /// </summary>
+        private static async Task<bool> OccultLibra()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultLibra)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultLibra.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultLibra.Range))
+                return false;
+
+            // Already revealed - the weakness aura lasts 120s, no point recasting
+            if (target.HasAnyAura(WeaknessAuras))
+                return false;
+
+            return await OCSpells.OccultLibra.Cast(target);
+        }
+
+        private static readonly uint[] WeaknessAuras =
+        {
+            OCAuras.FireWeakness,
+            OCAuras.IceWeakness,
+            OCAuras.LightningWeakness,
+            OCAuras.WindWeakness
+        };
+
+        /// <summary>
+        /// Casts one of the three elemental nukes (Occult Fire II / Blizzard II / Thunder II).
+        /// All three share a single 30s recast timer, so each window picks exactly one.
+        /// 300 potency splash (5y), or 390 when the element matches the target's revealed weakness.
+        /// </summary>
+        private static async Task<bool> ElementalNukes()
+        {
+            if (!Core.Me.InCombat)
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            var spell = PickElementalNuke(target);
+            if (spell == null)
+                return false;
+
+            if (!target.WithinSpellRange(spell.Range))
+                return false;
+
+            return await spell.Cast(target);
+        }
+
+        /// <summary>
+        /// Decides which elemental nuke to spend this shared 30s recast window on, or null to
+        /// hold the window. Respect the three Use toggles (UseOccultFireII / UseOccultBlizzardII /
+        /// UseOccultThunderII). The target's weakness, if revealed by Occult Libra, is one of
+        /// OCAuras.FireWeakness / IceWeakness / LightningWeakness / WindWeakness - a matching
+        /// element casts at 390 potency instead of 300. Wind has no matching Red Mage spell.
+        /// </summary>
+        private static SpellData PickElementalNuke(GameObject target)
+        {
+            // CanCast covers both "learned at this phantom job level" (Fire II unlocks at 1,
+            // Blizzard II at 4, Thunder II at 5) and the shared recast timer. Picking a spell
+            // the player has not learned yet would silently cast nothing at low phantom levels.
+            var useFire = OccultCrescentSettings.Instance.UseOccultFireII && OCSpells.OccultFireII.CanCast();
+            var useBlizzard = OccultCrescentSettings.Instance.UseOccultBlizzardII && OCSpells.OccultBlizzardII.CanCast();
+            var useThunder = OccultCrescentSettings.Instance.UseOccultThunderII && OCSpells.OccultThunderII.CanCast();
+
+            // A weakness revealed by any Red Mage's Occult Libra casts at 390 potency instead
+            // of 300, so a matched element wins - but the user's toggles always veto.
+            if (useFire && target.HasAura(OCAuras.FireWeakness))
+                return OCSpells.OccultFireII;
+            if (useBlizzard && target.HasAura(OCAuras.IceWeakness))
+                return OCSpells.OccultBlizzardII;
+            if (useThunder && target.HasAura(OCAuras.LightningWeakness))
+                return OCSpells.OccultThunderII;
+
+            // No exploitable weakness (not yet revealed, Wind, or the matched element is toggled
+            // off): don't hold the shared window - cast the first enabled nuke.
+            if (useThunder)
+                return OCSpells.OccultThunderII;
+            if (useBlizzard)
+                return OCSpells.OccultBlizzardII;
+            if (useFire)
+                return OCSpells.OccultFireII;
+
+            return null;
+        }
+
+        /// <summary>
+        /// Execute Phantom Red Mage phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteRedMagePhantomJob()
+        {
+            // Occult Cure II - keep ourselves and allies healthy first
+            if (await RedMageOccultCureII())
+                return true;
+
+            // Occult Libra - reveal the weakness before spending the shared nuke window
+            if (await OccultLibra())
+                return true;
+
+            // Fire II / Blizzard II / Thunder II - one shared 30s recast window
+            if (await ElementalNukes())
                 return true;
 
             return false;
