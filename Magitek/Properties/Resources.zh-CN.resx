@@ -2061,6 +2061,21 @@
   <data name="OccultCrescent_Content_Use_Bladeblitz" xml:space="preserve">
     <value>使用 剑刃闪电</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Cure_II" xml:space="preserve">
+    <value>使用 魔救疗</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Libra" xml:space="preserve">
+    <value>使用 魔天秤</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Fire_II" xml:space="preserve">
+    <value>使用 魔烈炎</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blizzard_II" xml:space="preserve">
+    <value>使用 魔冰冻</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Thunder_II" xml:space="preserve">
+    <value>使用 魔震雷</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

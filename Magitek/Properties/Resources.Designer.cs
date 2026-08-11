@@ -8625,6 +8625,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Blizzard II.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Blizzard_II {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Blizzard_II", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Comet (AoE damage - 8s cast time).
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Comet_AoE_damage {
@@ -8632,7 +8641,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Comet_AoE_damage", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Cure II.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Cure_II {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Cure_II", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Dispel (Removes beneficial effects from enemies).
         /// </summary>
@@ -8670,6 +8688,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Fire II.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Fire_II {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Fire_II", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Heal below.
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Heal_below {
@@ -8677,7 +8704,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Heal_below", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Libra.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Libra {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Libra", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Mage Masher (Reduces enemy magic attack power).
         /// </summary>
@@ -8723,6 +8759,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Thunder II.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Thunder_II {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Thunder_II", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Unicorn below.
         /// </summary>

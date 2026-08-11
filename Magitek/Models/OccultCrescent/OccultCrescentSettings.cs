@@ -575,5 +575,35 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseBladeblitz { get; set; }
         #endregion
+
+        #region Phantom Red Mage
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultFireII { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultBlizzardII { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultThunderII { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultLibra { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseRedMageOccultCureII { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float RedMageOccultCureIIHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool RedMageOccultCureIICastOnAllies { get; set; }
+        #endregion
     }
 }
