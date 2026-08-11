@@ -2114,6 +2114,12 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Image" xml:space="preserve">
     <value>Use Image (nullifies physical attacks)</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Jump" xml:space="preserve">
+    <value>Use Occult Jump (moves you to the target)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Lance" xml:space="preserve">
+    <value>Use Lance</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>
