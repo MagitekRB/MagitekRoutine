@@ -1352,6 +1352,59 @@
                                 </StackPanel>
                         </controls:SettingsBlock>
 
+                        <!-- Phantom Ninja Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Ninja"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Fuma_Shuriken}"
+                                                          IsChecked="{Binding UseFumaShuriken, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Smoke}"
+                                                          IsChecked="{Binding UseSmoke, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Lightning_Scroll}"
+                                                          IsChecked="{Binding UseLightningScroll, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Flame_Scroll}"
+                                                          IsChecked="{Binding UseFlameScroll, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Image}"
+                                                          IsChecked="{Binding UseImage, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"
+                                                           Margin="20,0,0,0"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding ImageHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                        </StackPanel>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
                 </StackPanel>
         </ScrollViewer>
 </UserControl>

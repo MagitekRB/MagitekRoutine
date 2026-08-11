@@ -657,5 +657,31 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseOccultHoly { get; set; }
         #endregion
+
+        #region Phantom Ninja
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseFumaShuriken { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSmoke { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseLightningScroll { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseFlameScroll { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseImage { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float ImageHealthPercent { get; set; }
+        #endregion
     }
 }

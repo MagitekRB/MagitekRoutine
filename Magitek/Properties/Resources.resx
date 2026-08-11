@@ -2099,6 +2099,21 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
     <value>and at least this many hurt</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Fuma_Shuriken" xml:space="preserve">
+    <value>Use Fuma Shuriken</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Smoke" xml:space="preserve">
+    <value>Use Smoke (increases evasion)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Lightning_Scroll" xml:space="preserve">
+    <value>Use Lightning Scroll</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Flame_Scroll" xml:space="preserve">
+    <value>Use Flame Scroll</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Image" xml:space="preserve">
+    <value>Use Image (nullifies physical attacks)</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>
