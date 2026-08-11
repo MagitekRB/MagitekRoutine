@@ -2090,6 +2090,15 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Occult_Toad" xml:space="preserve">
     <value>Use Occult Toad (learns which enemies are immune)</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Cure_III" xml:space="preserve">
+    <value>Use Occult Cure III</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
+    <value>Use Occult Holy</value>
+  </data>
+  <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
+    <value>and at least this many hurt</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>

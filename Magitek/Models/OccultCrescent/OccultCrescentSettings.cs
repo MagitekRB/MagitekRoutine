@@ -627,5 +627,35 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseOccultToad { get; set; }
         #endregion
+
+        #region Phantom White Mage
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseWhiteMageOccultCureII { get; set; }
+
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float WhiteMageOccultCureIIHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool WhiteMageOccultCureIICastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseWhiteMageOccultCureIII { get; set; }
+
+        [Setting]
+        [DefaultValue(65.0f)]
+        public float WhiteMageOccultCureIIIHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int WhiteMageOccultCureIIIAllyCount { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultHoly { get; set; }
+        #endregion
     }
 }

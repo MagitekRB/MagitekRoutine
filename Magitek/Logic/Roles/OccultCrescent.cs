@@ -194,6 +194,16 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
 
+        // Phantom White Mage Spells (Job ID: 5329)
+        // Phantom Red Mage has its own, different "Occult Cure II" action (49093), so both carry
+        // their job name. Occult Blink (49069) is deliberately not defined - it grants one
+        // magic-damage immunity and is only useful against specific scripted mechanics, which
+        // the routine has no way to anticipate.
+        public static readonly SpellData WhiteMageOccultCureII = DataManager.GetSpellData(49067);
+        public static readonly SpellData WhiteMageOccultCureIII = DataManager.GetSpellData(49068);
+        public static readonly SpellData OccultRaise = DataManager.GetSpellData(49070);
+        public static readonly SpellData OccultHoly = DataManager.GetSpellData(49071);
+
         // Phantom Black Mage Spells (Job ID: 5330)
         // Fire III / Blizzard III / Thunder III share a single 40s recast timer, the same way
         // Red Mage's II-tier nukes share a 30s one.
@@ -482,6 +492,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Gladiator => await ExecuteGladiatorPhantomJob(),
                 PhantomJob.RedMage => await ExecuteRedMagePhantomJob(),
                 PhantomJob.BlackMage => await ExecuteBlackMagePhantomJob(),
+                PhantomJob.WhiteMage => await ExecuteWhiteMagePhantomJob(),
                 _ => false
             };
 
@@ -595,15 +606,24 @@ namespace Magitek.Logic.Roles
             if (resurrectTarget == null)
                 return false;
 
-            // Get the current phantom job first
+            // Get the current phantom job first.
+            //
+            // Both phantom raises are instant, so they need no Swiftcast handling, and Occult
+            // Raise additionally works on targets flagged Resurrection Restricted - so prefer
+            // them when they are actually available.
+            //
+            // These must FALL THROUGH rather than return false when the phantom raise cannot be
+            // cast. Phantom abilities unlock by phantom job level (Occult Raise at 4), so a real
+            // White Mage running phantom White Mage below that level would otherwise lose their
+            // own Raise entirely: the branch matches, CanCast fails, and the real-job switch below
+            // is never reached. The same applies while the phantom raise sits on its short recast.
             var phantomJob = GetCurrentPhantomJob();
-            if (phantomJob == PhantomJob.Chemist)
-            {
-                // Phantom Chemist: Instant resurrection
-                if (!OCSpells.Revive.CanCast(resurrectTarget))
-                    return false;
+
+            if (phantomJob == PhantomJob.Chemist && OCSpells.Revive.CanCast(resurrectTarget))
                 return await OCSpells.Revive.CastAura(resurrectTarget, Auras.Raise);
-            }
+
+            if (phantomJob == PhantomJob.WhiteMage && OCSpells.OccultRaise.CanCast(resurrectTarget))
+                return await OCSpells.OccultRaise.CastAura(resurrectTarget, Auras.Raise);
 
             // Handle regular job resurrections
             return Core.Me.CurrentJob switch
@@ -4038,6 +4058,142 @@ namespace Magitek.Logic.Roles
 
             // Fire III / Blizzard III / Thunder III - one shared 40s recast window
             if (await BlackMageElementalNukes())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom White Mage (Job ID: 5329)
+        /// <summary>
+        /// Occult Cure II - Restores target's HP (cure potency 40,000), 1.5s cast, 2.5s recast.
+        /// Costs 1,500 MP; note this is a different action from Phantom Red Mage's Occult Cure II.
+        /// </summary>
+        private static async Task<bool> WhiteMageOccultCureII()
+        {
+            if (!OccultCrescentSettings.Instance.UseWhiteMageOccultCureII)
+                return false;
+
+            if (!OCSpells.WhiteMageOccultCureII.CanCast())
+                return false;
+
+            // Same MP floor as Occult Heal: keep enough MP for the real job's own spells
+            if (Core.Me.CurrentManaPercent < 65)
+                return false;
+
+            GameObject healTarget = null;
+
+            if (OccultCrescentSettings.Instance.WhiteMageOccultCureIICastOnAllies)
+            {
+                healTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.WhiteMageOccultCureIIHealthPercent)
+                    .OrderBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                if (healTarget == null && Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.WhiteMageOccultCureIIHealthPercent)
+                    healTarget = Core.Me;
+            }
+            else
+            {
+                if (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.WhiteMageOccultCureIIHealthPercent)
+                    healTarget = Core.Me;
+            }
+
+            if (healTarget == null)
+                return false;
+
+            return await OCSpells.WhiteMageOccultCureII.Cast(healTarget);
+        }
+
+        /// <summary>
+        /// Occult Cure III - Restores 30,000 HP to the target and every party member within 15y
+        /// of THE TARGET (not of us), 2.3s cast, 2.5s recast, 3,000 MP.
+        /// </summary>
+        private static async Task<bool> WhiteMageOccultCureIII()
+        {
+            if (!OccultCrescentSettings.Instance.UseWhiteMageOccultCureIII)
+                return false;
+
+            if (!OCSpells.WhiteMageOccultCureIII.CanCast())
+                return false;
+
+            // Same MP floor as Occult Heal: keep enough MP for the real job's own spells
+            if (Core.Me.CurrentManaPercent < 65)
+                return false;
+
+            var threshold = OccultCrescentSettings.Instance.WhiteMageOccultCureIIIHealthPercent;
+
+            var injured = Group.CastableAlliesWithin30
+                .Where(ally => ally.IsValid && ally.IsAlive && ally.CurrentHealthPercent <= threshold)
+                .ToList();
+
+            if (Core.Me.CurrentHealthPercent <= threshold)
+                injured.Add(Core.Me);
+
+            if (injured.Count == 0)
+                return false;
+
+            // The heal circle is centred on whoever we target, so pick the casualty with the most
+            // other casualties around them rather than simply the lowest HP - covering the group
+            // is the only reason to spend 3,000 MP here instead of Cure II's 1,500.
+            var healTarget = injured
+                .OrderByDescending(ally => injured.Count(other => other.Location.Distance(ally.Location) <= OCSpells.WhiteMageOccultCureIII.Radius))
+                .ThenBy(ally => ally.CurrentHealthPercent)
+                .First();
+
+            var covered = injured.Count(other => other.Location.Distance(healTarget.Location) <= OCSpells.WhiteMageOccultCureIII.Radius);
+            if (covered < OccultCrescentSettings.Instance.WhiteMageOccultCureIIIAllyCount)
+                return false;
+
+            return await OCSpells.WhiteMageOccultCureIII.Cast(healTarget);
+        }
+
+        /// <summary>
+        /// Occult Holy - 2.3s cast, 60s recast. 500 potency of unaspected damage to the target and
+        /// everything within 8y of it, rising to 750 against undead.
+        /// </summary>
+        private static async Task<bool> OccultHoly()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultHoly)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultHoly.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultHoly.Range))
+                return false;
+
+            return await OCSpells.OccultHoly.Cast(target);
+        }
+
+        /// <summary>
+        /// Execute Phantom White Mage phantom job rotation
+        ///
+        /// Occult Raise is not called from here - it is instant, so it slots into the existing
+        /// resurrection path beside Phantom Chemist's Revive (see RaiseNonPartyPlayer).
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteWhiteMagePhantomJob()
+        {
+            // Occult Cure III - group heal first, so a raid-wide hit is answered in one cast
+            if (await WhiteMageOccultCureIII())
+                return true;
+
+            // Occult Cure II - single target top-up
+            if (await WhiteMageOccultCureII())
+                return true;
+
+            // Occult Holy - 60s recast, the job's only damage
+            if (await OccultHoly())
                 return true;
 
             return false;

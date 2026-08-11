@@ -1287,6 +1287,71 @@
                                 </StackPanel>
                         </controls:SettingsBlock>
 
+                        <!-- Phantom White Mage Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom White Mage"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Cure_II}"
+                                                          IsChecked="{Binding UseWhiteMageOccultCureII, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding WhiteMageOccultCureIIHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
+                                                          IsChecked="{Binding WhiteMageOccultCureIICastOnAllies, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Cure_III}"
+                                                          IsChecked="{Binding UseWhiteMageOccultCureIII, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding WhiteMageOccultCureIIIHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_and_at_least_this_many_hurt}"
+                                                           Margin="20,0,0,0"/>
+                                                <controls:Numeric MaxValue="8"
+                                                                  MinValue="1"
+                                                                  Value="{Binding WhiteMageOccultCureIIIAllyCount, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Holy}"
+                                                          IsChecked="{Binding UseOccultHoly, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
                 </StackPanel>
         </ScrollViewer>
 </UserControl>
