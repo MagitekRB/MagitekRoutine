@@ -2100,6 +2100,21 @@
   <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
     <value>且受伤人数至少为</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Fuma_Shuriken" xml:space="preserve">
+    <value>使用 风魔手里剑</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Smoke" xml:space="preserve">
+    <value>使用 烟幕 (提高闪避)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Lightning_Scroll" xml:space="preserve">
+    <value>使用 雷之卷轴</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Flame_Scroll" xml:space="preserve">
+    <value>使用 火之卷轴</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Image" xml:space="preserve">
+    <value>使用 分身 (无效化物理攻击)</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

@@ -66,7 +66,12 @@ namespace Magitek.Logic.Roles
             // Occult Toad (Phantom Black Mage). 20s; the target's damage dealt drops by 99% and
             // it cannot use any action but its auto-attack. Plenty of enemies are flatly immune -
             // OccultDebuffImmunityTracker learns which ones.
-            OccultToad = 5317;
+            OccultToad = 5317,
+            // Phantom Ninja. Smoke is +20% evasion for 90s.
+            Smoke = 5327,
+            // Image grants three stacks, each nullifying one physical attack, for 30s. Confirmed
+            // in game; note it sits outside the 5316-5335 band the rest of North Horn uses.
+            Image = 4873;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -193,6 +198,15 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultLibra = DataManager.GetSpellData(49094);
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
+
+        // Phantom Ninja Spells (Job ID: 5328)
+        // Lightning Scroll and Flame Scroll share a single 60s recast timer. Level 5 is the
+        // First Strike trait, which is passive and needs no rotation code.
+        public static readonly SpellData FumaShuriken = DataManager.GetSpellData(49062);
+        public static readonly SpellData Smoke = DataManager.GetSpellData(49063);
+        public static readonly SpellData LightningScroll = DataManager.GetSpellData(49064);
+        public static readonly SpellData FlameScroll = DataManager.GetSpellData(49065);
+        public static readonly SpellData Image = DataManager.GetSpellData(49066);
 
         // Phantom White Mage Spells (Job ID: 5329)
         // Phantom Red Mage has its own, different "Occult Cure II" action (49093), so both carry
@@ -493,6 +507,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.RedMage => await ExecuteRedMagePhantomJob(),
                 PhantomJob.BlackMage => await ExecuteBlackMagePhantomJob(),
                 PhantomJob.WhiteMage => await ExecuteWhiteMagePhantomJob(),
+                PhantomJob.Ninja => await ExecuteNinjaPhantomJob(),
                 _ => false
             };
 
@@ -3771,14 +3786,11 @@ namespace Magitek.Logic.Roles
 
         #region Shared phantom job helpers
         /// <summary>
-        /// Casts one of three elemental nukes that share a single recast timer. Phantom Red Mage
-        /// and Phantom Black Mage both work this way and differ only in spell tier, so the caller
-        /// supplies its own three (spell, is the toggle on) pairs.
+        /// Casts one of a set of elemental attacks that share a single recast timer. Phantom Red
+        /// Mage, Black Mage and Ninja all work this way, differing only in tier and in how many
+        /// elements they cover, so each caller passes its own candidates.
         /// </summary>
-        private static async Task<bool> SharedRecastElementalNukes(
-            (SpellData Spell, bool Enabled) fire,
-            (SpellData Spell, bool Enabled) blizzard,
-            (SpellData Spell, bool Enabled) thunder)
+        private static async Task<bool> SharedRecastElementalNukes(params (SpellData Spell, bool Enabled, uint WeaknessAura)[] candidates)
         {
             if (!Core.Me.InCombat)
                 return false;
@@ -3787,7 +3799,7 @@ namespace Magitek.Logic.Roles
             if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
                 return false;
 
-            var spell = PickElementalNuke(target, fire, blizzard, thunder);
+            var spell = PickElementalNuke(target, candidates);
             if (spell == null)
                 return false;
 
@@ -3798,42 +3810,27 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
-        /// Decides which elemental nuke to spend the shared recast window on, or null to hold it.
+        /// Decides which elemental attack to spend the shared recast window on, or null to hold it.
         /// A weakness revealed on the target by anyone's Occult Libra shows up as one of
         /// OCAuras.FireWeakness / IceWeakness / LightningWeakness / WindWeakness, and the matching
-        /// element casts at bonus potency - so a matched element wins, but the user's toggles
-        /// always veto. No phantom job has a Wind spell.
+        /// element hits for bonus potency - so a matched element wins, but the user's toggles
+        /// always veto. Failing a match, the first usable candidate wins, so callers list theirs
+        /// in fallback preference order. No phantom job has a Wind attack.
         /// </summary>
-        private static SpellData PickElementalNuke(
-            GameObject target,
-            (SpellData Spell, bool Enabled) fire,
-            (SpellData Spell, bool Enabled) blizzard,
-            (SpellData Spell, bool Enabled) thunder)
+        private static SpellData PickElementalNuke(GameObject target, (SpellData Spell, bool Enabled, uint WeaknessAura)[] candidates)
         {
             // CanCast covers both "learned at this phantom job level" and the shared recast timer.
             // Picking a spell the player has not learned yet would silently cast nothing at low
             // phantom levels.
-            var useFire = fire.Enabled && fire.Spell.CanCast();
-            var useBlizzard = blizzard.Enabled && blizzard.Spell.CanCast();
-            var useThunder = thunder.Enabled && thunder.Spell.CanCast();
+            var usable = candidates.Where(c => c.Enabled && c.Spell.CanCast()).ToList();
 
-            if (useFire && target.HasAura(OCAuras.FireWeakness))
-                return fire.Spell;
-            if (useBlizzard && target.HasAura(OCAuras.IceWeakness))
-                return blizzard.Spell;
-            if (useThunder && target.HasAura(OCAuras.LightningWeakness))
-                return thunder.Spell;
+            var matched = usable.FirstOrDefault(c => target.HasAura(c.WeaknessAura));
+            if (matched.Spell != null)
+                return matched.Spell;
 
             // No exploitable weakness (not yet revealed, Wind, or the matched element is toggled
-            // off): don't hold the shared window - cast the first enabled nuke.
-            if (useThunder)
-                return thunder.Spell;
-            if (useBlizzard)
-                return blizzard.Spell;
-            if (useFire)
-                return fire.Spell;
-
-            return null;
+            // off): don't hold the shared window - cast the first usable candidate.
+            return usable.FirstOrDefault().Spell;
         }
         #endregion
 
@@ -3928,10 +3925,12 @@ namespace Magitek.Logic.Roles
         {
             var settings = OccultCrescentSettings.Instance;
 
+            // Listed highest-unlock first, which is the order the fallback has always used when
+            // no weakness is revealed. All three hit for the same potency, so it only tie-breaks.
             return SharedRecastElementalNukes(
-                (OCSpells.OccultFireII, settings.UseOccultFireII),
-                (OCSpells.OccultBlizzardII, settings.UseOccultBlizzardII),
-                (OCSpells.OccultThunderII, settings.UseOccultThunderII));
+                (OCSpells.OccultThunderII, settings.UseOccultThunderII, OCAuras.LightningWeakness),
+                (OCSpells.OccultBlizzardII, settings.UseOccultBlizzardII, OCAuras.IceWeakness),
+                (OCSpells.OccultFireII, settings.UseOccultFireII, OCAuras.FireWeakness));
         }
 
         /// <summary>
@@ -4036,9 +4035,9 @@ namespace Magitek.Logic.Roles
             var settings = OccultCrescentSettings.Instance;
 
             return SharedRecastElementalNukes(
-                (OCSpells.OccultFireIII, settings.UseOccultFireIII),
-                (OCSpells.OccultBlizzardIII, settings.UseOccultBlizzardIII),
-                (OCSpells.OccultThunderIII, settings.UseOccultThunderIII));
+                (OCSpells.OccultThunderIII, settings.UseOccultThunderIII, OCAuras.LightningWeakness),
+                (OCSpells.OccultBlizzardIII, settings.UseOccultBlizzardIII, OCAuras.IceWeakness),
+                (OCSpells.OccultFireIII, settings.UseOccultFireIII, OCAuras.FireWeakness));
         }
 
         /// <summary>
@@ -4194,6 +4193,122 @@ namespace Magitek.Logic.Roles
 
             // Occult Holy - 60s recast, the job's only damage
             if (await OccultHoly())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Ninja (Job ID: 5328)
+        /// <summary>
+        /// Fuma Shuriken - instant, 60s recast. 230 potency to a single target, on its own timer
+        /// rather than the scrolls' shared one.
+        /// </summary>
+        private static async Task<bool> FumaShuriken()
+        {
+            if (!OccultCrescentSettings.Instance.UseFumaShuriken)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.FumaShuriken.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.FumaShuriken.Range))
+                return false;
+
+            return await OCSpells.FumaShuriken.Cast(target);
+        }
+
+        /// <summary>
+        /// Smoke - instant, 5s recast, raises our evasion by 20% for 90s. Long duration against a
+        /// short recast, so this is pure upkeep: cast it whenever it has fallen off in combat.
+        /// </summary>
+        private static async Task<bool> Smoke()
+        {
+            if (!OccultCrescentSettings.Instance.UseSmoke)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Smoke.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(OCAuras.Smoke))
+                return false;
+
+            return await OCSpells.Smoke.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Image - instant, 120s recast. Three stacks, each nullifying one physical attack, for
+        /// 30s. Defensive, so it waits for a health threshold rather than being spent on cooldown.
+        /// </summary>
+        private static async Task<bool> Image()
+        {
+            if (!OccultCrescentSettings.Instance.UseImage)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Image.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(OCAuras.Image))
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.ImageHealthPercent)
+                return false;
+
+            return await OCSpells.Image.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Lightning Scroll / Flame Scroll - one shared 60s recast window, so each window spends
+        /// exactly one of them. 150 potency splash (5y), or 195 when the element matches the
+        /// target's revealed weakness. Phantom Ninja has no Occult Libra of its own, but the
+        /// weakness auras are readable whoever revealed them. Both hit for the same potency, so
+        /// the fallback order below only tie-breaks. Lightning unlocks at phantom job level 3,
+        /// Flame at 4.
+        /// </summary>
+        private static Task<bool> NinjaElementalScrolls()
+        {
+            var settings = OccultCrescentSettings.Instance;
+
+            return SharedRecastElementalNukes(
+                (OCSpells.FlameScroll, settings.UseFlameScroll, OCAuras.FireWeakness),
+                (OCSpells.LightningScroll, settings.UseLightningScroll, OCAuras.LightningWeakness));
+        }
+
+        /// <summary>
+        /// Execute Phantom Ninja phantom job rotation
+        ///
+        /// Level 5 is the First Strike trait - passive, so there is nothing to call for it.
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteNinjaPhantomJob()
+        {
+            // Image - physical damage nullification, held for when we are actually hurt
+            if (await Image())
+                return true;
+
+            // Smoke - cheap evasion upkeep
+            if (await Smoke())
+                return true;
+
+            // Fuma Shuriken - 230 potency single target on its own 60s timer
+            if (await FumaShuriken())
+                return true;
+
+            // Lightning Scroll / Flame Scroll - one shared 60s recast window
+            if (await NinjaElementalScrolls())
                 return true;
 
             return false;

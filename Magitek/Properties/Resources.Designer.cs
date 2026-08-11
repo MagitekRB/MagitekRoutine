@@ -8517,6 +8517,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Flame Scroll.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Flame_Scroll {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Flame_Scroll", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Fuma Shuriken.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Fuma_Shuriken {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Fuma_Shuriken", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Hasty Mirage (Increases movement speed by 20%).
         /// </summary>
         public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_ {
@@ -8562,6 +8580,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Image (nullifies physical attacks).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Image {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Image", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Invulnerability below.
         /// </summary>
         public static string OccultCrescent_Content_Use_Invulnerability_below {
@@ -8570,6 +8597,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Lightning Scroll.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Lightning_Scroll {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Lightning_Scroll", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Long Reach.
         /// </summary>
@@ -9029,6 +9065,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Smoke (increases evasion).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Smoke {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Smoke", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Starfall when above.
         /// </summary>
