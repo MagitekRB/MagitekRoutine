@@ -723,5 +723,39 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(70.0f)]
         public float EarthenWallHealthPercent { get; set; }
         #endregion
+
+        #region Phantom Blue Mage
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultAero { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultMissile { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultAquaBreath { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultMightyGuard { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float OccultMightyGuardHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultWhiteWind { get; set; }
+
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float OccultWhiteWindHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float OccultWhiteWindMinimumOwnHealthPercent { get; set; }
+        #endregion
     }
 }

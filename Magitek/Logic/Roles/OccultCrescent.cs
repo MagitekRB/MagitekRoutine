@@ -67,6 +67,8 @@ namespace Magitek.Logic.Roles
             // it cannot use any action but its auto-attack. Plenty of enemies are flatly immune -
             // OccultDebuffImmunityTracker learns which ones.
             OccultToad = 5317,
+            // Phantom Blue Mage. Occult Mighty Guard is -20% damage taken for 15s.
+            OccultMightyGuard = 5321,
             // Phantom Ninja. Smoke is +20% evasion for 90s.
             Smoke = 5327,
             // Image grants three stacks, each nullifying one physical attack, for 30s. Confirmed
@@ -198,6 +200,24 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultLibra = DataManager.GetSpellData(49094);
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
+
+        // Phantom Blue Mage Spells (Job ID: 5333)
+        // Every action except Occult Aero has to be LEARNED from a specific enemy, gated behind
+        // the Occult Learning I/II/III traits, so CanCast does the real work here - a freshly
+        // unlocked Blue Mage knows nothing but Aero. The Aero line is an upgrade chain: each
+        // replaces the previous on learning, and all three share one 30s recast.
+        //
+        // The client also carries enemy-cast twins of four of these (50570, 50611, 50627, 50628).
+        // Verified live: those have Range 0 and a 1.5s recast, they are what the monsters cast for
+        // Blue Mage to learn from, and GetMaskedAction never resolves a player action to one.
+        // Do not use them.
+        public static readonly SpellData OccultAero = DataManager.GetSpellData(49085);
+        public static readonly SpellData OccultMissile = DataManager.GetSpellData(49086);
+        public static readonly SpellData OccultAquaBreath = DataManager.GetSpellData(49087);
+        public static readonly SpellData OccultMightyGuard = DataManager.GetSpellData(49088);
+        public static readonly SpellData OccultAeroII = DataManager.GetSpellData(49089);
+        public static readonly SpellData OccultWhiteWind = DataManager.GetSpellData(49090);
+        public static readonly SpellData OccultAeroIII = DataManager.GetSpellData(49091);
 
         // Phantom Summoner Spells (Job ID: 5332)
         // Hellfire, Judgment Bolt and Thunderstorm share a single 60s recast timer. Thunderstorm
@@ -526,6 +546,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Ninja => await ExecuteNinjaPhantomJob(),
                 PhantomJob.Dragoon => await ExecuteDragoonPhantomJob(),
                 PhantomJob.Summoner => await ExecuteSummonerPhantomJob(),
+                PhantomJob.BlueMage => await ExecuteBlueMagePhantomJob(),
                 _ => false
             };
 
@@ -4529,6 +4550,202 @@ namespace Magitek.Logic.Roles
 
             // Hellfire / Judgment Bolt / Thunderstorm - one shared 60s recast window
             if (await SummonerElementalNukes())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Blue Mage (Job ID: 5333)
+        /// <summary>
+        /// Occult White Wind - 1.5s cast, 150s recast. Heals us and every party member within 15y
+        /// by an amount equal to OUR CURRENT HP.
+        ///
+        /// That last part drives the gating: at 20% health it heals for almost nothing, so it is
+        /// held until we are healthy enough for it to be worth its 150s recast, even though the
+        /// people it is saving are the hurt ones.
+        /// </summary>
+        private static async Task<bool> OccultWhiteWind()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultWhiteWind)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultWhiteWind.CanCast())
+                return false;
+
+            // The heal is our current HP, so casting it while we are low wastes the whole recast.
+            if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.OccultWhiteWindMinimumOwnHealthPercent)
+                return false;
+
+            var threshold = OccultCrescentSettings.Instance.OccultWhiteWindHealthPercent;
+
+            var anyoneHurt = Core.Me.CurrentHealthPercent <= threshold
+                             || Group.CastableAlliesWithin30.Any(ally => ally.IsValid
+                                                                         && ally.IsAlive
+                                                                         && ally.CurrentHealthPercent <= threshold
+                                                                         && ally.Distance(Core.Me) <= OCSpells.OccultWhiteWind.Radius);
+
+            if (!anyoneHurt)
+                return false;
+
+            return await OCSpells.OccultWhiteWind.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Occult Mighty Guard - instant, 120s recast. Cuts damage taken by 20% for us and party
+        /// members within 20y, for 15s.
+        /// </summary>
+        private static async Task<bool> OccultMightyGuard()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultMightyGuard)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultMightyGuard.CanCast())
+                return false;
+
+            if (Core.Me.HasAura(OCAuras.OccultMightyGuard))
+                return false;
+
+            if (Core.Me.CurrentHealthPercent > OccultCrescentSettings.Instance.OccultMightyGuardHealthPercent)
+                return false;
+
+            return await OCSpells.OccultMightyGuard.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Occult Missile - 1.5s cast, 30s recast. A flat 35% chance to deal 75% of the target's
+        /// current HP, "with some exceptions". Nothing to time or hold: on anything it works
+        /// against it is worth casting the moment it is up.
+        ///
+        /// Those exceptions are the catch. They are almost certainly what Occult Slowga and
+        /// Occult Toad run into - bosses and other high difficulty enemies ignore effects of this
+        /// shape - and unlike Toad there is no aura to watch, so OccultDebuffImmunityTracker
+        /// cannot learn this one. A difficulty check is the best available guess.
+        /// </summary>
+        private static async Task<bool> OccultMissile()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultMissile)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultMissile.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            // Skip the enemies the effect is expected to do nothing to. Note this deliberately
+            // does NOT exclude every FATE enemy the way Occult Slowga does: in Occult Crescent
+            // that would rule out most of the content, and FATE trash is exactly where a 35%
+            // chance at 75% of current HP pays off.
+            if (Combat.IsBoss())
+                return false;
+
+            if (target is BattleCharacter missileTarget && missileTarget.RawDifficulty >= 2)
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultMissile.Range))
+                return false;
+
+            return await OCSpells.OccultMissile.Cast(target);
+        }
+
+        /// <summary>
+        /// Occult Aqua Breath - 1.5s cast, 60s recast. 300 potency of unaspected damage to the
+        /// target and everything within 5y of it.
+        /// </summary>
+        private static async Task<bool> OccultAquaBreath()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultAquaBreath)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultAquaBreath.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultAquaBreath.Range))
+                return false;
+
+            return await OCSpells.OccultAquaBreath.Cast(target);
+        }
+
+        /// <summary>
+        /// Occult Aero / Aero II / Aero III - an upgrade chain sharing one 30s recast. Learning the
+        /// next one replaces the last, so at most one is ever castable and there is nothing to
+        /// choose between: take the best we have. 150/200/250 potency, or 195/260/325 against a
+        /// wind-weak target. Aero III also splashes 5y, where the first two are single target.
+        ///
+        /// This is the only Blue Mage action available on a freshly unlocked job.
+        /// </summary>
+        private static async Task<bool> OccultAero()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultAero)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            var spell = OCSpells.OccultAeroIII.CanCast() ? OCSpells.OccultAeroIII
+                      : OCSpells.OccultAeroII.CanCast() ? OCSpells.OccultAeroII
+                      : OCSpells.OccultAero.CanCast() ? OCSpells.OccultAero
+                      : null;
+
+            if (spell == null)
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(spell.Range))
+                return false;
+
+            return await spell.Cast(target);
+        }
+
+        /// <summary>
+        /// Execute Phantom Blue Mage phantom job rotation
+        ///
+        /// Occult Learning I/II/III are traits and need no code. Every action but Occult Aero has
+        /// to be learned from a particular enemy first, so on a newly unlocked Blue Mage only the
+        /// Aero line will fire - the rest stay silent until they are learned, which is correct.
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteBlueMagePhantomJob()
+        {
+            // Occult White Wind - the big party heal
+            if (await OccultWhiteWind())
+                return true;
+
+            // Occult Mighty Guard - party mitigation
+            if (await OccultMightyGuard())
+                return true;
+
+            // Occult Missile - the execute gamble, on its own 30s timer
+            if (await OccultMissile())
+                return true;
+
+            // Occult Aqua Breath - 300 potency splash on 60s
+            if (await OccultAquaBreath())
+                return true;
+
+            // Occult Aero line - the job's bread and butter, one shared 30s recast
+            if (await OccultAero())
                 return true;
 
             return false;
