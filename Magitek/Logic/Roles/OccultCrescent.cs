@@ -69,9 +69,8 @@ namespace Magitek.Logic.Roles
             OccultToad = 5317,
             // Phantom Ninja. Smoke is +20% evasion for 90s.
             Smoke = 5327,
-            // Image grants three stacks, each nullifying one physical attack, for 30s. This is the
-            // only "Image" in the client's status table, but it sits outside the 5316-5335 band the
-            // rest of North Horn uses - worth confirming in game before trusting it.
+            // Image grants three stacks, each nullifying one physical attack, for 30s. Confirmed
+            // in game; note it sits outside the 5316-5335 band the rest of North Horn uses.
             Image = 4873;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
