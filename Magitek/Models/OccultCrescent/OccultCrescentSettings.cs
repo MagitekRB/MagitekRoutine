@@ -690,7 +690,7 @@ namespace Magitek.Models.OccultCrescent
         public bool UseOccultJump { get; set; }
 
         [Setting]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool OccultJumpMeleeRangeOnly { get; set; }
 
         [Setting]

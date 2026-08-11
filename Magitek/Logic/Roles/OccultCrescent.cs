@@ -4330,8 +4330,8 @@ namespace Magitek.Logic.Roles
         /// on landing.
         ///
         /// This is a gap closer - it moves the character to the target - so it has to respect the
-        /// bot's movement capability flags, and by default it is held until we are already in
-        /// melee range so an automated jump cannot drag us off a ledge or into a second pack.
+        /// bot's movement capability flags. Beyond that it jumps freely by default; anyone who
+        /// would rather not be pulled out of ranged position can turn on OccultJumpMeleeRangeOnly.
         /// </summary>
         private static async Task<bool> OccultJump()
         {
