@@ -8661,6 +8661,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Cure III.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Cure_III {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Cure_III", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Dispel (Removes beneficial effects from enemies).
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Dispel_Removes_b {
@@ -8729,6 +8738,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Occult_Heal_below {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Heal_below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Holy.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Holy {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Holy", resourceCulture);
             }
         }
 
@@ -9218,6 +9236,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to and at least this many hurt.
+        /// </summary>
+        public static string OccultCrescent_Text_and_at_least_this_many_hurt {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_and_at_least_this_many_hurt", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to percent HP.
         /// </summary>
