@@ -8508,6 +8508,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Earthen Wall (party barrier).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Earthen_Wall {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Earthen_Wall", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Finisher.
         /// </summary>
         public static string OccultCrescent_Content_Use_Finisher {
@@ -8543,6 +8552,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Hellfire (fire).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Hellfire {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Hellfire", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Hero&apos;s Rime (Party damage/healing +10% - 120s cooldown).
         /// </summary>
@@ -8598,6 +8616,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Judgment Bolt (lightning).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Judgment_Bolt {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Judgment_Bolt", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Lance.
         /// </summary>
         public static string OccultCrescent_Content_Use_Lance {
@@ -8633,6 +8660,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Megaflare.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Megaflare {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Megaflare", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Mesmerize.
         /// </summary>
@@ -9146,6 +9182,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Thunderstorm (wind, cone in front of you).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Thunderstorm {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Thunderstorm", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Vigilance within.
         /// </summary>
