@@ -757,5 +757,46 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(70.0f)]
         public float OccultWhiteWindMinimumOwnHealthPercent { get; set; }
         #endregion
+
+        #region Phantom Necromancer
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDrainTouch { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseNecromancerDoomRecovery { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDeepFreeze { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHellWind { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseChaosDrive { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDoomsday { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int DoomsdayEnemyCount { get; set; }
+
+        // The self-Doom kills outright at expiry unless the caster reaches FULL HP within 10s -
+        // clearability, not surviving the 10% cost, is what this threshold protects. Starting
+        // the bargain near full means one heal tick clears it; from 70% it is a coin flip.
+        [Setting]
+        [DefaultValue(95.0f)]
+        public float NecromancerSpellHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool NecromancerDoomSpellsSolo { get; set; }
+        #endregion
     }
 }

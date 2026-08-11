@@ -2154,6 +2154,36 @@
   <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
     <value>且自身血量不低于</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
+    <value>使用 吸收之触（吸血自愈，强化下一个咒文）</value>
+  </data>
+  <data name="OccultCrescent_Content_Necromancer_Doom_Recovery" xml:space="preserve">
+    <value>使用主职业自愈技能解除自身死宣</value>
+  </data>
+  <data name="OccultCrescent_Text_enemies" xml:space="preserve">
+    <value>个敌人</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
+    <value>使用 混沌驱动（雷）</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hell_Wind" xml:space="preserve">
+    <value>使用 地狱之风（风）</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
+    <value>使用 深度冻结（冰）</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Doomsday" xml:space="preserve">
+    <value>使用 末日（范围攻击，附加同样的死宣）</value>
+  </data>
+  <data name="OccultCrescent_Text_with_at_least" xml:space="preserve">
+    <value>且周围至少有</value>
+  </data>
+  <data name="OccultCrescent_Text_Doom_spells_HP_at_least" xml:space="preserve">
+    <value>仅在自身血量不低于此值时使用死宣咒文</value>
+  </data>
+  <data name="OccultCrescent_Content_Necromancer_Allow_Solo" xml:space="preserve">
+    <value>允许单人时使用死宣咒文（无队伍将你治疗回满）</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

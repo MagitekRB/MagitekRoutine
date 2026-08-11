@@ -6,6 +6,7 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models;
 using Magitek.Models.OccultCrescent;
+using Magitek.Models.QueueSpell;
 using Magitek.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,6 +72,14 @@ namespace Magitek.Logic.Roles
             OccultMightyGuard = 5321,
             // Phantom Ninja. Smoke is +20% evasion for 90s.
             Smoke = 5327,
+            // Phantom Necromancer. Drain Touch is a 6s self-buff: the caster's next Necromancer
+            // spell is empowered while it lasts.
+            DrainTouch = 5326,
+            // Phantom Necromancer's self-Doom: 10 seconds, kills at expiry regardless of HP, and
+            // only reaching FULL HP removes it. Same status the game uses for classic heal-to-full
+            // Dooms (Utilities Auras.Doom, 1769) - aliased here so the Necromancer block reads
+            // against one aura class.
+            Doom = 1769,
             // Image grants three stacks, each nullifying one physical attack, for 30s. Confirmed
             // in game; note it sits outside the 5316-5335 band the rest of North Horn uses.
             Image = 4873;
@@ -201,6 +210,18 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
 
+        // Phantom Necromancer Spells (Job ID: 5335)
+        // Deep Freeze, Hell Wind and Chaos Drive share a single 40s recast timer, cost 10% of max
+        // HP to cast, and mark the caster with a 10s self-Doom that only reaching full HP removes
+        // (see the Phantom Necromancer region for how that bargain is managed). Drain Touch is
+        // instant, heals the caster for part of its damage and empowers the next Necromancer
+        // spell for 6s. Doomsday is a long-recast AoE that carries the same self-Doom.
+        public static readonly SpellData DrainTouch = DataManager.GetSpellData(49097);
+        public static readonly SpellData DeepFreeze = DataManager.GetSpellData(49098);
+        public static readonly SpellData HellWind = DataManager.GetSpellData(49099);
+        public static readonly SpellData ChaosDrive = DataManager.GetSpellData(49100);
+        public static readonly SpellData Doomsday = DataManager.GetSpellData(49101);
+
         // Phantom Blue Mage Spells (Job ID: 5333)
         // Every action except Occult Aero has to be LEARNED from a specific enemy, gated behind
         // the Occult Learning I/II/III traits, so CanCast does the real work here - a freshly
@@ -221,7 +242,8 @@ namespace Magitek.Logic.Roles
 
         // Phantom Summoner Spells (Job ID: 5332)
         // Hellfire, Judgment Bolt and Thunderstorm share a single 60s recast timer. Thunderstorm
-        // is the only Wind attack any implemented phantom job has. No traits on this job.
+        // and Necromancer's Hell Wind are the only Wind attacks the implemented phantom jobs
+        // have. No traits on this job.
         public static readonly SpellData Hellfire = DataManager.GetSpellData(49080);
         public static readonly SpellData JudgmentBolt = DataManager.GetSpellData(49081);
         public static readonly SpellData EarthenWall = DataManager.GetSpellData(49082);
@@ -547,6 +569,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Dragoon => await ExecuteDragoonPhantomJob(),
                 PhantomJob.Summoner => await ExecuteSummonerPhantomJob(),
                 PhantomJob.BlueMage => await ExecuteBlueMagePhantomJob(),
+                PhantomJob.Necromancer => await ExecuteNecromancerPhantomJob(),
                 _ => false
             };
 
@@ -3854,8 +3877,8 @@ namespace Magitek.Logic.Roles
         /// OCAuras.FireWeakness / IceWeakness / LightningWeakness / WindWeakness, and the matching
         /// element hits for bonus potency - so a matched element wins, but the user's toggles
         /// always veto. Failing a match, the first usable candidate wins, so callers list theirs
-        /// in fallback preference order. Wind is covered only by Phantom Summoner's Thunderstorm
-        /// (and Blue Mage's Aero line, once that job is implemented).
+        /// in fallback preference order. Wind is covered by Phantom Summoner's Thunderstorm,
+        /// Necromancer's Hell Wind and Blue Mage's Aero line.
         /// </summary>
         private static SpellData PickElementalNuke(GameObject target, (SpellData Spell, bool Enabled, uint WeaknessAura)[] candidates)
         {
@@ -4515,7 +4538,8 @@ namespace Magitek.Logic.Roles
         /// revealed weakness. Hellfire unlocks at phantom job level 1, Judgment Bolt at 2,
         /// Thunderstorm at 4.
         ///
-        /// Thunderstorm is this routine's only way to exploit Wind Weakness.
+        /// Thunderstorm and Phantom Necromancer's Hell Wind are this routine's only ways to
+        /// exploit Wind Weakness.
         /// </summary>
         private static Task<bool> SummonerElementalNukes()
         {
@@ -4750,6 +4774,298 @@ namespace Magitek.Logic.Roles
 
             return false;
         }
+        #endregion
+
+        #region Phantom Necromancer (Job ID: 5335)
+
+        /// <summary>
+        /// Every Necromancer nuke is a bargain with death: 10% of max HP up front and a 10-second
+        /// self-Doom that only reaching full HP dispels (the Doom also takes an instant, unlogged
+        /// cut of 10% max HP on application, so being full when it lands does not clear it). The
+        /// Doom is not a malfunction to route around - it is the job's rhythm: cast, get healed to
+        /// full, cast again. These gates enforce that rhythm: healthy enough that one heal can
+        /// clear it, the previous Doom gone before the next cast, and a party around to do the
+        /// clearing unless the user explicitly accepts the solo risk.
+        /// </summary>
+        private static bool NecromancerCanAffordDoomSpell()
+        {
+            if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.NecromancerSpellHealthPercent)
+                return false;
+
+            if (Core.Me.HasAura(OCAuras.Doom))
+                return false;
+
+            if (!Globals.InParty && !OccultCrescentSettings.Instance.NecromancerDoomSpellsSolo)
+                return false;
+
+            // While a telegraphed raidwide is incoming the healers are about to owe the whole
+            // party, not just us - starting a personal death timer into that window is how the
+            // bargain gets lost.
+            if (FightLogic.EnemyIsCastingBigAoe() || FightLogic.EnemyIsCastingAoe())
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// The self-Doom kills at expiry no matter how much HP remains - reaching FULL HP is the
+        /// only cleanse, so while it ticks, every self-heal the current job can offer outranks
+        /// every damage action. Fired from the Necromancer pipeline because that is the only
+        /// phantom source of this Doom; IsKnownAndReady quietly skips the entries the current job
+        /// lacks. Thrill of Battle is deliberately absent: it RAISES max HP, moving the finish
+        /// line. No InCombat gate - the Doom does not care whether combat has ended.
+        /// </summary>
+        private static async Task<bool> NecromancerDoomRecovery()
+        {
+            if (!OccultCrescentSettings.Instance.UseNecromancerDoomRecovery)
+                return false;
+
+            if (!Core.Me.HasAura(OCAuras.Doom))
+                return false;
+
+            if (Core.Me.CurrentHealth >= Core.Me.MaxHealth)
+                return false;
+
+            if (Spells.Equilibrium.IsKnownAndReady() && await Spells.Equilibrium.Cast(Core.Me))
+                return true;
+
+            if (Spells.Aurora.IsKnownAndReady() && await Spells.Aurora.Cast(Core.Me))
+                return true;
+
+            if (Spells.SecondWind.IsKnownAndReady() && await Spells.SecondWind.Cast(Core.Me))
+                return true;
+
+            if (Spells.Bloodbath.IsKnownAndReady() && await Spells.Bloodbath.Cast(Core.Me))
+                return true;
+
+            // Dark Knight's only real HP restorer - its shields cannot cleanse a Doom that
+            // demands the bar actually reach full. Needs a target in range to drain from.
+            if (Spells.AbyssalDrain.IsKnownAndReady()
+                && Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.ValidAttackUnit()
+                && Core.Me.CurrentTarget.WithinSpellRange(Spells.AbyssalDrain.Range)
+                && await Spells.AbyssalDrain.Cast(Core.Me.CurrentTarget))
+                return true;
+
+            // Drain Touch heals for part of its damage - the one Necromancer tool that is
+            // always on the Doom clock's side.
+            return await DrainTouch(doomRecovery: true);
+        }
+
+        /// <summary>
+        /// Drain Touch - instant line attack that heals the caster for part of its damage
+        /// (measured at roughly a third of the HP bar at tank scale) and empowers the next
+        /// Necromancer spell for 6 seconds. Standalone cast for when the elemental nukes are on
+        /// recast or gated - its damage and self-heal stand on their own. As a Doom-recovery
+        /// rung it must stay available after combat drops - the Doom does not.
+        /// </summary>
+        private static async Task<bool> DrainTouch(bool doomRecovery = false)
+        {
+            if (!OccultCrescentSettings.Instance.UseDrainTouch)
+                return false;
+
+            if (!doomRecovery && !Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.DrainTouch.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.DrainTouch.Range))
+                return false;
+
+            return await OCSpells.DrainTouch.Cast(target);
+        }
+
+        /// <summary>
+        /// The elemental candidates for PickElementalNuke, in fallback preference order for when
+        /// no weakness is revealed: Chaos Drive first - its Drain Touch rider is an 18s Paralysis,
+        /// the strongest of the three. Necromancer cannot cast Occult Libra, so with no Red or
+        /// Black Mage around a revealed weakness may simply never exist - holding the shared
+        /// recast for one would waste every 6s empowerment window (observed live: four
+        /// empowerments, zero nukes, one weakness reveal in five minutes).
+        /// </summary>
+        private static (SpellData Spell, bool Enabled, uint WeaknessAura)[] NecromancerElementalCandidates()
+        {
+            var settings = OccultCrescentSettings.Instance;
+
+            return new[]
+            {
+                (OCSpells.ChaosDrive, settings.UseChaosDrive, (uint)OCAuras.LightningWeakness),
+                (OCSpells.HellWind, settings.UseHellWind, (uint)OCAuras.WindWeakness),
+                (OCSpells.DeepFreeze, settings.UseDeepFreeze, (uint)OCAuras.IceWeakness),
+            };
+        }
+
+        /// <summary>
+        /// Enqueues Drain Touch and an elemental nuke as one unbreakable unit. The 6s empowerment
+        /// loses a race against the main job's rotation when the nuke is left for a later
+        /// pulse - the job grabs the next slot every time (observed live: a Dosis 0.2s after
+        /// every Drain Touch, empowerments expiring unused). The spell queue drains ahead of
+        /// everything else in the pulse, so nothing can wedge between empowerment and spender.
+        /// Every gate the two spells carry individually is checked up front, because the queue
+        /// will fire them without asking.
+        /// </summary>
+        private static bool QueueEmpoweredElementalNuke()
+        {
+            if (!OccultCrescentSettings.Instance.UseDrainTouch)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            // One pair at a time: with a queue already pending, re-queuing from a hook that runs
+            // before the drain would restart the queue timer every pulse and nothing would ever
+            // cast. SpellQueue.Any() is the pending check - InSpellQueue only turns true after
+            // the first drain runs.
+            if (SpellQueueLogic.SpellQueue.Any())
+                return false;
+
+            if (!OCSpells.DrainTouch.CanCast())
+                return false;
+
+            if (!NecromancerCanAffordDoomSpell())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.DrainTouch.Range))
+                return false;
+
+            var nuke = PickElementalNuke(target, NecromancerElementalCandidates());
+
+            if (nuke == null || !target.WithinSpellRange(nuke.Range))
+                return false;
+
+            // Cancel on combat drop as well as timeout: with the target dead, firing the queued
+            // nuke would open the NEXT pull with a self-Doom under gates up to 8s stale.
+            SpellQueueLogic.SpellQueueReset(() => SpellQueueLogic.Timeout.ElapsedMilliseconds > 8000 || !Core.Me.InCombat);
+
+            SpellQueueLogic.SpellQueue.Enqueue(new QueueSpell
+            {
+                Spell = OCSpells.DrainTouch
+            });
+            SpellQueueLogic.SpellQueue.Enqueue(new QueueSpell
+            {
+                Spell = nuke,
+                // Re-checked at drain time: if the target died between the pair's two casts, a
+                // failed check dequeues immediately - without it a null target parks the queue
+                // (and with it the whole Heal pulse) until the timeout.
+                Checks = new List<QueueSpellCheck>
+                {
+                    new QueueSpellCheck
+                    {
+                        Name = "Line spell target still valid",
+                        Check = () => Core.Me.InCombat
+                                      && Core.Me.CurrentTarget != null
+                                      && Core.Me.CurrentTarget.ValidAttackUnit()
+                    }
+                },
+                Wait = new QueueSpellWait
+                {
+                    Name = "Drain Touch empowerment to apply",
+                    WaitTime = 1500,
+                    Check = () => Core.Me.HasAura(OCAuras.DrainTouch)
+                }
+            });
+
+            return true;
+        }
+
+        /// <summary>
+        /// Deep Freeze / Hell Wind / Chaos Drive - one shared 40s recast, 1.5s casts. This
+        /// non-queued path remains for empowerments already in flight (a standalone Drain Touch
+        /// that landed before the pair could be queued) and for the UseDrainTouch=false waiver -
+        /// empowered-only otherwise, because the self-Doom costs the same either way.
+        /// </summary>
+        private static Task<bool> NecromancerElementalNukes()
+        {
+            if (OccultCrescentSettings.Instance.UseDrainTouch && !Core.Me.HasAura(OCAuras.DrainTouch))
+                return Task.FromResult(false);
+
+            if (!NecromancerCanAffordDoomSpell())
+                return Task.FromResult(false);
+
+            if (MovementManager.IsMoving)
+                return Task.FromResult(false);
+
+            return SharedRecastElementalNukes(NecromancerElementalCandidates());
+        }
+
+        /// <summary>
+        /// Doomsday - AoE nuke on its own long recast, carrying the same 10s self-Doom.
+        /// Empowered-only under the same waiver logic as the nukes, and held for a
+        /// worthwhile enemy count.
+        /// </summary>
+        private static async Task<bool> Doomsday()
+        {
+            if (!OccultCrescentSettings.Instance.UseDoomsday)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Doomsday.CanCast())
+                return false;
+
+            if (OccultCrescentSettings.Instance.UseDrainTouch && !Core.Me.HasAura(OCAuras.DrainTouch))
+                return false;
+
+            if (!NecromancerCanAffordDoomSpell())
+                return false;
+
+            if (MovementManager.IsMoving)
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.Doomsday.Range))
+                return false;
+
+            if (Combat.Enemies.Count(e => e.WithinSpellRange(OCSpells.Doomsday.Range)) < OccultCrescentSettings.Instance.DoomsdayEnemyCount)
+                return false;
+
+            return await OCSpells.Doomsday.Cast(target);
+        }
+
+        /// <summary>
+        /// Execute Phantom Necromancer phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteNecromancerPhantomJob()
+        {
+            // The self-Doom is a 10-second race to full HP before anything else matters
+            if (await NecromancerDoomRecovery())
+                return true;
+
+            // Drain Touch + elemental nuke as one unbreakable pair
+            if (QueueEmpoweredElementalNuke())
+                return true;
+
+            // Standalone Drain Touch - damage and self-heal on its own merits
+            if (await DrainTouch())
+                return true;
+
+            // Doomsday - the AoE form of the bargain
+            if (await Doomsday())
+                return true;
+
+            // Line spells for empowerments already in flight, or the no-Drain-Touch waiver
+            if (await NecromancerElementalNukes())
+                return true;
+
+            return false;
+        }
+
         #endregion
     }
 }

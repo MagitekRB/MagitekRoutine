@@ -1556,6 +1556,85 @@
                                 </StackPanel>
                         </controls:SettingsBlock>
 
+                        <!-- Phantom Necromancer Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Necromancer"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Drain_Touch}"
+                                                          IsChecked="{Binding UseDrainTouch, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Necromancer_Doom_Recovery}"
+                                                          IsChecked="{Binding UseNecromancerDoomRecovery, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Chaos_Drive}"
+                                                          IsChecked="{Binding UseChaosDrive, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Hell_Wind}"
+                                                          IsChecked="{Binding UseHellWind, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Deep_Freeze}"
+                                                          IsChecked="{Binding UseDeepFreeze, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Doomsday}"
+                                                          IsChecked="{Binding UseDoomsday, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_with_at_least}"
+                                                           Margin="20,0,0,0"/>
+                                                <controls:Numeric MaxValue="30"
+                                                                  MinValue="1"
+                                                                  Value="{Binding DoomsdayEnemyCount, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_enemies}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Doom_spells_HP_at_least}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding NecromancerSpellHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Necromancer_Allow_Solo}"
+                                                          IsChecked="{Binding NecromancerDoomSpellsSolo, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
                 </StackPanel>
         </ScrollViewer>
 </UserControl>

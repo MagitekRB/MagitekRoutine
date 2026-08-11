@@ -223,6 +223,17 @@ namespace Magitek.Utilities.Managers
             await Casting.CheckForSuccessfulCast();
             Casting.DoHealthChecks = false;
 
+            // Drain the spell queue here too: Heal runs before Combat every in-combat pulse and
+            // also reaches OccultCrescent.Execute, which can start a queue (the Necromancer's
+            // Drain Touch pair). Without a drain above that call, a pending queue would be
+            // re-entered before Combat's drain ever runs.
+            if (!SpellQueueLogic.SpellQueue.Any())
+                SpellQueueLogic.InSpellQueue = false;
+
+            if (SpellQueueLogic.SpellQueue.Any())
+                if (await SpellQueueLogic.SpellQueueMethod())
+                    return true;
+
             if (await GambitLogic.Gambit())
                 return true;
             // Heal is pulsed even when not in combat.

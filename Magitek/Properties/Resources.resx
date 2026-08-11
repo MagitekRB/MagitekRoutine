@@ -2153,6 +2153,36 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
     <value>and our own HP at least</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
+    <value>Use Drain Touch (self-heal, empowers the next spell)</value>
+  </data>
+  <data name="OccultCrescent_Content_Necromancer_Doom_Recovery" xml:space="preserve">
+    <value>Use main job self-heals to recover from the self-Doom</value>
+  </data>
+  <data name="OccultCrescent_Text_enemies" xml:space="preserve">
+    <value>enemies</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
+    <value>Use Chaos Drive (lightning)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hell_Wind" xml:space="preserve">
+    <value>Use Hell Wind (wind)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
+    <value>Use Deep Freeze (ice)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Doomsday" xml:space="preserve">
+    <value>Use Doomsday (AoE, same self-Doom)</value>
+  </data>
+  <data name="OccultCrescent_Text_with_at_least" xml:space="preserve">
+    <value>with at least</value>
+  </data>
+  <data name="OccultCrescent_Text_Doom_spells_HP_at_least" xml:space="preserve">
+    <value>Cast Doom spells only with our own HP at least</value>
+  </data>
+  <data name="OccultCrescent_Content_Necromancer_Allow_Solo" xml:space="preserve">
+    <value>Allow Doom spells while solo (no party to heal you to full)</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>

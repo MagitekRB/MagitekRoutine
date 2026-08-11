@@ -8292,6 +8292,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow Doom spells while solo (no party to heal you to full).
+        /// </summary>
+        public static string OccultCrescent_Content_Necromancer_Allow_Solo {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Necromancer_Allow_Solo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use main job self-heals to recover from the self-Doom.
+        /// </summary>
+        public static string OccultCrescent_Content_Necromancer_Doom_Recovery {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Necromancer_Doom_Recovery", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to On Allies.
         /// </summary>
         public static string OccultCrescent_Content_On_Allies {
@@ -8436,6 +8454,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Chaos Drive (lightning).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Chaos_Drive {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Chaos_Drive", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Cleansing when party above.
         /// </summary>
         public static string OccultCrescent_Content_Use_Cleansing_when_party_ab {
@@ -8490,6 +8517,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Deep Freeze (ice).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Deep_Freeze {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Deep_Freeze", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Defend.
         /// </summary>
         public static string OccultCrescent_Content_Use_Defend {
@@ -8507,6 +8543,24 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Doomsday (AoE, same self-Doom).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Doomsday {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Doomsday", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Drain Touch (self-heal, empowers the next spell).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Drain_Touch {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Drain_Touch", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Earthen Wall (party barrier).
         /// </summary>
@@ -8552,6 +8606,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Hell Wind (wind).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Hell_Wind {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Hell_Wind", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Hellfire (fire).
         /// </summary>
@@ -9300,11 +9363,29 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cast Doom spells only with our own HP at least.
+        /// </summary>
+        public static string OccultCrescent_Text_Doom_spells_HP_at_least {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_Doom_spells_HP_at_least", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to (Emergency protection).
         /// </summary>
         public static string OccultCrescent_Text_Emergency_protection {
             get {
                 return ResourceManager.GetString("OccultCrescent_Text_Emergency_protection", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to enemies.
+        /// </summary>
+        public static string OccultCrescent_Text_enemies {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_enemies", resourceCulture);
             }
         }
         
@@ -9710,6 +9791,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Text_when_target_targeting_us_and_HP_below {
             get {
                 return ResourceManager.GetString("OccultCrescent_Text_when_target_targeting_us_and_HP_below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to with at least.
+        /// </summary>
+        public static string OccultCrescent_Text_with_at_least {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_with_at_least", resourceCulture);
             }
         }
         
