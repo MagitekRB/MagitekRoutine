@@ -41,6 +41,7 @@
     <EmbeddedResource Include="Resources\ActionList.json" />
     <EmbeddedResource Include="Resources\StatusList.json" />
     <EmbeddedResource Include="Resources\BossDictionary.json" />
+    <EmbeddedResource Include="Resources\OccultDebuffImmunity.json" />
 	<EmbeddedResource Include="Resources\BossNames.json" />
     <EmbeddedResource Include="Resources\Toggles\BardToggles.json" />
     <EmbeddedResource Include="Resources\Toggles\DancerToggles.json" />

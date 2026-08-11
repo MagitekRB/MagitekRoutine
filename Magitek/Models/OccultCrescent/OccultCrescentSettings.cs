@@ -605,5 +605,27 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool RedMageOccultCureIICastOnAllies { get; set; }
         #endregion
+
+        #region Phantom Black Mage
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultFireIII { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultBlizzardIII { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultThunderIII { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultFlare { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultToad { get; set; }
+        #endregion
     }
 }

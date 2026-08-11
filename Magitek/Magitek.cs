@@ -359,6 +359,7 @@ namespace Magitek
                 BaseSettings.Instance.Save();
                 TogglesViewModel.Instance.SaveToggles();
                 StunTracker.Save();
+                OccultDebuffImmunityTracker.Save();
                 _saveFormTime = time.AddSeconds(60);
             }
 
@@ -418,6 +419,7 @@ namespace Magitek
             InterruptsAndStuns.Instance.Save();
             TogglesViewModel.Instance.SaveToggles();
             StunTracker.Save();
+            OccultDebuffImmunityTracker.Save();
 
             UnregisterAllMagitekHotkeys();
         }

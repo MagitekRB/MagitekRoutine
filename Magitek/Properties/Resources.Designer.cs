@@ -8634,6 +8634,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Blizzard III.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Blizzard_III {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Blizzard_III", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Comet (AoE damage - 8s cast time).
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Comet_AoE_damage {
@@ -8693,6 +8702,24 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Occult_Fire_II {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Fire_II", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Fire III.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Fire_III {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Fire_III", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Flare.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Flare {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Flare", resourceCulture);
             }
         }
 
@@ -8765,6 +8792,24 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Occult_Thunder_II {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Thunder_II", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Thunder III.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Thunder_III {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Thunder_III", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Toad (learns which enemies are immune).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Toad {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Toad", resourceCulture);
             }
         }
 
