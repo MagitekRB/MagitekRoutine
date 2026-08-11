@@ -121,10 +121,13 @@ namespace Magitek.Logic.WhiteMage
 
             // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
             // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
+            // healthChecks: false because the carrier is usually ABOVE the heal-interrupt
+            // threshold - the whole point is to top off a nearly-full target, and the interruptor
+            // would otherwise cancel the cast every time and let the Doom expire.
             var doomed = FightLogic.DoomedHealTarget();
 
             if (doomed != null)
-                return await Spells.Cure2.Heal(doomed);
+                return await Spells.Cure2.Heal(doomed, false);
 
             if (WhiteMageSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
