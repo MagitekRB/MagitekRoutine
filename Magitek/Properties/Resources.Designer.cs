@@ -9642,6 +9642,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phantom Necromancer.
+        /// </summary>
+        public static string OccultCrescent_Text_Phantom_Necromancer {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_Phantom_Necromancer", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Phantom Oracle.
         /// </summary>
         public static string OccultCrescent_Text_Phantom_Oracle {

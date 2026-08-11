@@ -4924,6 +4924,11 @@ namespace Magitek.Logic.Roles
             if (SpellQueueLogic.SpellQueue.Any())
                 return false;
 
+            // The nuke has a cast time, and a queued cast that cannot start keeps the queue
+            // non-empty - which stalls the whole pulse. Do not open the pair on the move.
+            if (MovementManager.IsMoving && !Core.Me.HasAura(Auras.Swiftcast))
+                return false;
+
             if (!OCSpells.DrainTouch.CanCast())
                 return false;
 
@@ -4961,10 +4966,19 @@ namespace Magitek.Logic.Roles
                 {
                     new QueueSpellCheck
                     {
-                        Name = "Line spell target still valid",
+                        Name = "Nuke target still valid",
                         Check = () => Core.Me.InCombat
                                       && Core.Me.CurrentTarget != null
                                       && Core.Me.CurrentTarget.ValidAttackUnit()
+                    },
+                    // If movement starts after the pair is queued the cast cannot begin, and a
+                    // queued spell that never casts holds the queue - and the pulse with it -
+                    // until the timeout. Drop it instead: the 6s empowerment outlives this, so
+                    // the standalone path spends it as soon as we are standing still again.
+                    new QueueSpellCheck
+                    {
+                        Name = "Standing still for the cast",
+                        Check = () => !MovementManager.IsMoving || Core.Me.HasAura(Auras.Swiftcast)
                     }
                 },
                 Wait = new QueueSpellWait
@@ -5031,7 +5045,10 @@ namespace Magitek.Logic.Roles
             if (!target.WithinSpellRange(OCSpells.Doomsday.Range))
                 return false;
 
-            if (Combat.Enemies.Count(e => e.WithinSpellRange(OCSpells.Doomsday.Range)) < OccultCrescentSettings.Instance.DoomsdayEnemyCount)
+            // Count the cluster around the TARGET, not everything inside casting range: Doomsday
+            // lands as a circle on the target, so a range-wide count spends the recast and the
+            // self-Doom on enemies scattered well outside the blast.
+            if (target.EnemiesNearby(OCSpells.Doomsday.Radius).Count() < OccultCrescentSettings.Instance.DoomsdayEnemyCount)
                 return false;
 
             return await OCSpells.Doomsday.Cast(target);

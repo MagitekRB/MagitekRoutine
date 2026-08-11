@@ -1561,7 +1561,7 @@
                                                 Background="{DynamicResource ClassSelectorBackground}">
                                 <StackPanel Margin="5">
                                         <TextBlock Style="{DynamicResource TextBlockSection}"
-                                                   Text="Phantom Necromancer"/>
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Phantom_Necromancer}"/>
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
