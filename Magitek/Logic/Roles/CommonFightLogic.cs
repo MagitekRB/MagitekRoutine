@@ -165,5 +165,32 @@ namespace Magitek.Logic.Roles
             }
             return false;
         }
+
+        /// <summary>
+        /// Tops off an ally carrying a heal-to-full Doom. This Doom kills at expiry unless the
+        /// target reaches FULL HP first and Esuna does not touch it, so it has to be answered
+        /// ahead of discretionary healing rather than inside it - a carrier with seconds left
+        /// loses to any other wounded ally if this waits its turn in the priority list.
+        /// The heal is cast with health checks off: the carrier is usually near full, which is
+        /// exactly where each job's heal-interrupt threshold would otherwise cancel the cast.
+        /// </summary>
+        public static async Task<bool> FightLogic_Doom(bool useHeal, SpellData heal)
+        {
+            if (!useHeal)
+                return false;
+
+            if (!heal.IsKnownAndReady())
+                return false;
+
+            var doomed = FightLogic.DoomedHealTarget();
+
+            if (doomed == null)
+                return false;
+
+            if (BaseSettings.Instance.DebugFightLogic)
+                Logger.WriteInfo($"[Doom Response] Cast {heal.Name} on {doomed.Name}");
+
+            return await heal.Heal(doomed, false);
+        }
     }
 }

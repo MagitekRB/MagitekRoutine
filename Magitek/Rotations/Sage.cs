@@ -55,6 +55,7 @@ namespace Magitek.Rotations
             if (await Logic.Sage.HealFightLogic.Aoe()) return true;
             if (await Logic.Sage.HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(SageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+            if (await CommonFightLogic.FightLogic_Doom(SageSettings.Instance.Diagnosis, Spells.Diagnosis)) return true;
 
             if (SageRoutine.CanWeave())
             {

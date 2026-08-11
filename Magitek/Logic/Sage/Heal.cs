@@ -111,16 +111,6 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Diagnosis)
                 return false;
 
-            // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
-            // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
-            // healthChecks: false because the carrier is usually ABOVE the heal-interrupt
-            // threshold - the whole point is to top off a nearly-full target, and the interruptor
-            // would otherwise cancel the cast every time and let the Doom expire.
-            var doomed = FightLogic.DoomedHealTarget();
-
-            if (doomed != null)
-                return await Spells.Diagnosis.Heal(doomed, false);
-
             if (SageSettings.Instance.DiagnosisOnlyBelowXAddersgall && Addersgall > SageSettings.Instance.DiagnosisOnlyAddersgallValue)
                 return false;
 
