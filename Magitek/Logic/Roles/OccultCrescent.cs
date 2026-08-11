@@ -606,25 +606,24 @@ namespace Magitek.Logic.Roles
             if (resurrectTarget == null)
                 return false;
 
-            // Get the current phantom job first
+            // Get the current phantom job first.
+            //
+            // Both phantom raises are instant, so they need no Swiftcast handling, and Occult
+            // Raise additionally works on targets flagged Resurrection Restricted - so prefer
+            // them when they are actually available.
+            //
+            // These must FALL THROUGH rather than return false when the phantom raise cannot be
+            // cast. Phantom abilities unlock by phantom job level (Occult Raise at 4), so a real
+            // White Mage running phantom White Mage below that level would otherwise lose their
+            // own Raise entirely: the branch matches, CanCast fails, and the real-job switch below
+            // is never reached. The same applies while the phantom raise sits on its short recast.
             var phantomJob = GetCurrentPhantomJob();
-            if (phantomJob == PhantomJob.Chemist)
-            {
-                // Phantom Chemist: Instant resurrection
-                if (!OCSpells.Revive.CanCast(resurrectTarget))
-                    return false;
-                return await OCSpells.Revive.CastAura(resurrectTarget, Auras.Raise);
-            }
 
-            if (phantomJob == PhantomJob.WhiteMage)
-            {
-                // Phantom White Mage: also instant, so it needs no Swiftcast handling. Unlike any
-                // real raise it works on targets flagged Resurrection Restricted, which is why it
-                // is preferred over the real job's own raise below.
-                if (!OCSpells.OccultRaise.CanCast(resurrectTarget))
-                    return false;
+            if (phantomJob == PhantomJob.Chemist && OCSpells.Revive.CanCast(resurrectTarget))
+                return await OCSpells.Revive.CastAura(resurrectTarget, Auras.Raise);
+
+            if (phantomJob == PhantomJob.WhiteMage && OCSpells.OccultRaise.CanCast(resurrectTarget))
                 return await OCSpells.OccultRaise.CastAura(resurrectTarget, Auras.Raise);
-            }
 
             // Handle regular job resurrections
             return Core.Me.CurrentJob switch
