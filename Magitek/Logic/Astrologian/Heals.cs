@@ -125,6 +125,13 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.Benefic2.IsKnownAndReady())
                 return false;
 
+            // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
+            // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
+            var doomed = FightLogic.DoomedHealTarget();
+
+            if (doomed != null)
+                return await Spells.Benefic2.Heal(doomed);
+
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 

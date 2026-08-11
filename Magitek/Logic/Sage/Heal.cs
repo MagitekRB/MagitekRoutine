@@ -111,6 +111,13 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Diagnosis)
                 return false;
 
+            // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
+            // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
+            var doomed = FightLogic.DoomedHealTarget();
+
+            if (doomed != null)
+                return await Spells.Diagnosis.Heal(doomed);
+
             if (SageSettings.Instance.DiagnosisOnlyBelowXAddersgall && Addersgall > SageSettings.Instance.DiagnosisOnlyAddersgallValue)
                 return false;
 
@@ -119,7 +126,7 @@ namespace Magitek.Logic.Sage
 
             if (Globals.InParty)
             {
-                var DiagnosisTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent < SageSettings.Instance.DiagnosisHpPercent || r.HasAura(Auras.Doom));
+                var DiagnosisTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent < SageSettings.Instance.DiagnosisHpPercent);
 
                 if (DiagnosisTarget == null)
                     return false;
