@@ -2136,6 +2136,24 @@
   <data name="OccultCrescent_Content_Use_Earthen_Wall" xml:space="preserve">
     <value>使用 大地之壁 (小队护盾)</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Aero" xml:space="preserve">
+    <value>使用 魔疾风系 (风，随学习自动升级)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Missile" xml:space="preserve">
+    <value>使用 魔导弹 (35%几率造成目标当前血量75%的伤害)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Aqua_Breath" xml:space="preserve">
+    <value>使用 魔水炮</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Mighty_Guard" xml:space="preserve">
+    <value>使用 魔强力防御 (小队减伤20%)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_White_Wind" xml:space="preserve">
+    <value>使用 魔白风 (治疗量等于自身当前血量)</value>
+  </data>
+  <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
+    <value>且自身血量不低于</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

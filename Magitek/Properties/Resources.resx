@@ -2135,6 +2135,24 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Earthen_Wall" xml:space="preserve">
     <value>Use Earthen Wall (party barrier)</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Aero" xml:space="preserve">
+    <value>Use Occult Aero line (wind, upgrades as you learn it)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Missile" xml:space="preserve">
+    <value>Use Occult Missile (35% chance to deal 75% of target HP)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Aqua_Breath" xml:space="preserve">
+    <value>Use Occult Aqua Breath</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Mighty_Guard" xml:space="preserve">
+    <value>Use Occult Mighty Guard (party -20% damage taken)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_White_Wind" xml:space="preserve">
+    <value>Use Occult White Wind (heals for your current HP)</value>
+  </data>
+  <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
+    <value>and our own HP at least</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>

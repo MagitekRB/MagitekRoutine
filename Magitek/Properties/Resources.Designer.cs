@@ -8706,6 +8706,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Aero line (wind, upgrades as you learn it).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Aero {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Aero", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Aqua Breath.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Aqua_Breath {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Aqua_Breath", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Blizzard II.
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Blizzard_II {
@@ -8859,6 +8877,24 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Mighty Guard (party -20% damage taken).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Mighty_Guard {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Mighty_Guard", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Missile (35% chance to deal 75% of target HP).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Missile {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Missile", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Potion below.
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Potion_below {
@@ -8930,6 +8966,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult White Wind (heals for your current HP).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_White_Wind {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_White_Wind", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use OccultChakra below.
         /// </summary>
@@ -9350,6 +9395,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Text_and_at_least_this_many_hurt {
             get {
                 return ResourceManager.GetString("OccultCrescent_Text_and_at_least_this_many_hurt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to and our own HP at least.
+        /// </summary>
+        public static string OccultCrescent_Text_and_our_own_HP_at_least {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_and_our_own_HP_at_least", resourceCulture);
             }
         }
 
