@@ -1623,7 +1623,7 @@
                                                                   Value="{Binding NecromancerSpellHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
-                                                           Text="percent"/>
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_percent}"/>
                                         </StackPanel>
 
                                         <StackPanel Margin="5"

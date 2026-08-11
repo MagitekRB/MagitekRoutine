@@ -2166,6 +2166,9 @@
   <data name="OccultCrescent_Text_Phantom_Necromancer" xml:space="preserve">
     <value>辅助死灵法师</value>
   </data>
+  <data name="OccultCrescent_Text_percent" xml:space="preserve">
+    <value>百分比</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
     <value>使用 混沌驱动（雷）</value>
   </data>

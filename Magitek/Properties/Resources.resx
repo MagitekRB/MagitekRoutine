@@ -2165,6 +2165,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Text_Phantom_Necromancer" xml:space="preserve">
     <value>Phantom Necromancer</value>
   </data>
+  <data name="OccultCrescent_Text_percent" xml:space="preserve">
+    <value>percent</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
     <value>Use Chaos Drive (lightning)</value>
   </data>

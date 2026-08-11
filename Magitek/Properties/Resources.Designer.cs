@@ -9381,15 +9381,6 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to enemies.
-        /// </summary>
-        public static string OccultCrescent_Text_enemies {
-            get {
-                return ResourceManager.GetString("OccultCrescent_Text_enemies", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Grouped abilities share restrictions as noted..
         /// </summary>
         public static string OccultCrescent_Text_Grouped_abilities_share_restri {
@@ -9485,6 +9476,24 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Text_and_our_own_HP_at_least {
             get {
                 return ResourceManager.GetString("OccultCrescent_Text_and_our_own_HP_at_least", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to enemies.
+        /// </summary>
+        public static string OccultCrescent_Text_enemies {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_enemies", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to percent.
+        /// </summary>
+        public static string OccultCrescent_Text_percent {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_percent", resourceCulture);
             }
         }
 
