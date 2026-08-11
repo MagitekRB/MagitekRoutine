@@ -4924,11 +4924,6 @@ namespace Magitek.Logic.Roles
             if (SpellQueueLogic.SpellQueue.Any())
                 return false;
 
-            // The nuke has a cast time, and a queued cast that cannot start keeps the queue
-            // non-empty - which stalls the whole pulse. Do not open the pair on the move.
-            if (MovementManager.IsMoving && !Core.Me.HasAura(Auras.Swiftcast))
-                return false;
-
             if (!OCSpells.DrainTouch.CanCast())
                 return false;
 
@@ -4978,7 +4973,7 @@ namespace Magitek.Logic.Roles
                     new QueueSpellCheck
                     {
                         Name = "Standing still for the cast",
-                        Check = () => !MovementManager.IsMoving || Core.Me.HasAura(Auras.Swiftcast)
+                        Check = () => !MovementManager.IsMoving
                     }
                 },
                 Wait = new QueueSpellWait
@@ -5045,10 +5040,7 @@ namespace Magitek.Logic.Roles
             if (!target.WithinSpellRange(OCSpells.Doomsday.Range))
                 return false;
 
-            // Count the cluster around the TARGET, not everything inside casting range: Doomsday
-            // lands as a circle on the target, so a range-wide count spends the recast and the
-            // self-Doom on enemies scattered well outside the blast.
-            if (target.EnemiesNearby(OCSpells.Doomsday.Radius).Count() < OccultCrescentSettings.Instance.DoomsdayEnemyCount)
+            if (Combat.Enemies.Count(e => e.WithinSpellRange(OCSpells.Doomsday.Range)) < OccultCrescentSettings.Instance.DoomsdayEnemyCount)
                 return false;
 
             return await OCSpells.Doomsday.Cast(target);
