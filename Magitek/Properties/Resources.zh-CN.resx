@@ -2115,6 +2115,12 @@
   <data name="OccultCrescent_Content_Use_Image" xml:space="preserve">
     <value>使用 分身 (无效化物理攻击)</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Jump" xml:space="preserve">
+    <value>使用 魔跳跃 (会移动到目标身边)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Lance" xml:space="preserve">
+    <value>使用 长枪</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

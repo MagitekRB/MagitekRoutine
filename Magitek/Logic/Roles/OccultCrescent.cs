@@ -199,6 +199,13 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
 
+        // Phantom Dragoon Spells (Job ID: 5331)
+        // Step Forth (49078) is deliberately not defined - it is a pure positioning dash
+        // (ground-targeted, 10 yalms in a chosen direction) with no combat value the routine can
+        // judge. Level 4 is the Enhanced Occult Jump trait, which is passive.
+        public static readonly SpellData OccultJump = DataManager.GetSpellData(49077);
+        public static readonly SpellData Lance = DataManager.GetSpellData(49079);
+
         // Phantom Ninja Spells (Job ID: 5328)
         // Lightning Scroll and Flame Scroll share a single 60s recast timer. Level 5 is the
         // First Strike trait, which is passive and needs no rotation code.
@@ -508,6 +515,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.BlackMage => await ExecuteBlackMagePhantomJob(),
                 PhantomJob.WhiteMage => await ExecuteWhiteMagePhantomJob(),
                 PhantomJob.Ninja => await ExecuteNinjaPhantomJob(),
+                PhantomJob.Dragoon => await ExecuteDragoonPhantomJob(),
                 _ => false
             };
 
@@ -4309,6 +4317,93 @@ namespace Magitek.Logic.Roles
 
             // Lightning Scroll / Flame Scroll - one shared 60s recast window
             if (await NinjaElementalScrolls())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Dragoon (Job ID: 5331)
+        /// <summary>
+        /// Occult Jump - instant, 60s recast, 30y. 400 potency, rising to 500 with the level 4
+        /// Enhanced Occult Jump trait, and cuts damage taken by 60% (90% with the trait) for 2s
+        /// on landing.
+        ///
+        /// This is a gap closer - it moves the character to the target - so it has to respect the
+        /// bot's movement capability flags. Beyond that it jumps freely by default; anyone who
+        /// would rather not be pulled out of ranged position can turn on OccultJumpMeleeRangeOnly.
+        /// </summary>
+        private static async Task<bool> OccultJump()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultJump)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultJump.CanCast())
+                return false;
+
+            // The bot base or another plugin can forbid repositioning - cutscenes, mechanics,
+            // fates that punish moving. CanUseGapCloser covers the GapCloser and Movement flags
+            // together, which is exactly what a jump needs.
+            if (!Movement.CanUseGapCloser())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            // Check melee range restriction if enabled
+            if (OccultCrescentSettings.Instance.OccultJumpMeleeRangeOnly && !target.WithinSpellRange(3.0f))
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultJump.Range))
+                return false;
+
+            return await OCSpells.OccultJump.Cast(target);
+        }
+
+        /// <summary>
+        /// Lance - instant, 30s recast, 30y. 300 potency, and the damage dealt is absorbed back as
+        /// HP; anything over our maximum becomes a barrier lasting 60s. No movement involved, so
+        /// unlike Occult Jump this needs no capability or range gating beyond the usual.
+        /// </summary>
+        private static async Task<bool> Lance()
+        {
+            if (!OccultCrescentSettings.Instance.UseLance)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Lance.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.Lance.Range))
+                return false;
+
+            return await OCSpells.Lance.Cast(target);
+        }
+
+        /// <summary>
+        /// Execute Phantom Dragoon phantom job rotation
+        ///
+        /// Step Forth is not implemented - it is pure repositioning. Level 4 is a passive trait.
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteDragoonPhantomJob()
+        {
+            // Occult Jump - the bigger hit, and the 2s damage cut on landing
+            if (await OccultJump())
+                return true;
+
+            // Lance - 300 potency that comes back as HP, and a barrier with the overflow
+            if (await Lance())
                 return true;
 
             return false;

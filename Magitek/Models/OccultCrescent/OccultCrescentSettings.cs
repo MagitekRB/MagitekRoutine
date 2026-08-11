@@ -683,5 +683,19 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(50.0f)]
         public float ImageHealthPercent { get; set; }
         #endregion
+
+        #region Phantom Dragoon
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultJump { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool OccultJumpMeleeRangeOnly { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseLance { get; set; }
+        #endregion
     }
 }

@@ -8598,6 +8598,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Lance.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Lance {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Lance", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Lightning Scroll.
         /// </summary>
         public static string OccultCrescent_Content_Use_Lightning_Scroll {
@@ -8783,6 +8792,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Occult_Holy {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Holy", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Jump (moves you to the target).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Jump {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Jump", resourceCulture);
             }
         }
 
