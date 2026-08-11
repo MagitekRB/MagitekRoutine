@@ -199,6 +199,15 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
 
+        // Phantom Summoner Spells (Job ID: 5332)
+        // Hellfire, Judgment Bolt and Thunderstorm share a single 60s recast timer. Thunderstorm
+        // is the only Wind attack any implemented phantom job has. No traits on this job.
+        public static readonly SpellData Hellfire = DataManager.GetSpellData(49080);
+        public static readonly SpellData JudgmentBolt = DataManager.GetSpellData(49081);
+        public static readonly SpellData EarthenWall = DataManager.GetSpellData(49082);
+        public static readonly SpellData Thunderstorm = DataManager.GetSpellData(49083);
+        public static readonly SpellData Megaflare = DataManager.GetSpellData(49084);
+
         // Phantom Dragoon Spells (Job ID: 5331)
         // Step Forth (49078) is deliberately not defined - it is a pure positioning dash
         // (ground-targeted, 10 yalms in a chosen direction) with no combat value the routine can
@@ -516,6 +525,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.WhiteMage => await ExecuteWhiteMagePhantomJob(),
                 PhantomJob.Ninja => await ExecuteNinjaPhantomJob(),
                 PhantomJob.Dragoon => await ExecuteDragoonPhantomJob(),
+                PhantomJob.Summoner => await ExecuteSummonerPhantomJob(),
                 _ => false
             };
 
@@ -3823,7 +3833,8 @@ namespace Magitek.Logic.Roles
         /// OCAuras.FireWeakness / IceWeakness / LightningWeakness / WindWeakness, and the matching
         /// element hits for bonus potency - so a matched element wins, but the user's toggles
         /// always veto. Failing a match, the first usable candidate wins, so callers list theirs
-        /// in fallback preference order. No phantom job has a Wind attack.
+        /// in fallback preference order. Wind is covered only by Phantom Summoner's Thunderstorm
+        /// (and Blue Mage's Aero line, once that job is implemented).
         /// </summary>
         private static SpellData PickElementalNuke(GameObject target, (SpellData Spell, bool Enabled, uint WeaknessAura)[] candidates)
         {
@@ -4404,6 +4415,120 @@ namespace Magitek.Logic.Roles
 
             // Lance - 300 potency that comes back as HP, and a barrier with the overflow
             if (await Lance())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Summoner (Job ID: 5332)
+        /// <summary>
+        /// Earthen Wall - 2.5s cast, 120s recast. Barriers us and every party member within 20y
+        /// for the equivalent of a 40,000 potency heal, lasting 10s.
+        ///
+        /// The barrier is really meant to be pre-cast into a raidwide, which the routine cannot
+        /// see coming, so it fires reactively once someone has actually been hurt.
+        /// </summary>
+        private static async Task<bool> EarthenWall()
+        {
+            if (!OccultCrescentSettings.Instance.UseEarthenWall)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.EarthenWall.CanCast())
+                return false;
+
+            // A 2.5s cast breaks the moment we move, so do not bother starting it.
+            if (MovementManager.IsMoving)
+                return false;
+
+            var threshold = OccultCrescentSettings.Instance.EarthenWallHealthPercent;
+
+            var anyoneHurt = Core.Me.CurrentHealthPercent <= threshold
+                             || Group.CastableAlliesWithin30.Any(ally => ally.IsValid
+                                                                         && ally.IsAlive
+                                                                         && ally.CurrentHealthPercent <= threshold
+                                                                         && ally.Distance(Core.Me) <= OCSpells.EarthenWall.Radius);
+
+            if (!anyoneHurt)
+                return false;
+
+            return await OCSpells.EarthenWall.Cast(Core.Me);
+        }
+
+        /// <summary>
+        /// Megaflare - 6s cast, 90s recast. 1,000 potency of unaspected damage to the target and
+        /// everything within 15y. Unaspected, so elemental weaknesses do not apply, and it sits on
+        /// its own timer rather than the shared elemental one.
+        /// </summary>
+        private static async Task<bool> Megaflare()
+        {
+            if (!OccultCrescentSettings.Instance.UseMegaflare)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Megaflare.CanCast())
+                return false;
+
+            // The longest cast in Occult Crescent bar Occult Comet - never start it on the move.
+            if (MovementManager.IsMoving)
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.Megaflare.Range))
+                return false;
+
+            return await OCSpells.Megaflare.Cast(target);
+        }
+
+        /// <summary>
+        /// Hellfire / Judgment Bolt / Thunderstorm - one shared 60s recast window, so each window
+        /// spends exactly one of them. 600 potency, or 780 when the element matches the target's
+        /// revealed weakness. Hellfire unlocks at phantom job level 1, Judgment Bolt at 2,
+        /// Thunderstorm at 4.
+        ///
+        /// Thunderstorm is this routine's only way to exploit Wind Weakness.
+        /// </summary>
+        private static Task<bool> SummonerElementalNukes()
+        {
+            // All three are 4s casts, so moving means the cast simply breaks.
+            if (MovementManager.IsMoving)
+                return Task.FromResult(false);
+
+            var settings = OccultCrescentSettings.Instance;
+
+            // Listed highest-unlock first, matching the other shared-recast jobs. Thunderstorm
+            // being a cone rather than a circle needs no special handling: it still reaches 30y
+            // and we cast facing the target, so the helper's usual range check covers it.
+            return SharedRecastElementalNukes(
+                (OCSpells.Thunderstorm, settings.UseThunderstorm, OCAuras.WindWeakness),
+                (OCSpells.JudgmentBolt, settings.UseJudgmentBolt, OCAuras.LightningWeakness),
+                (OCSpells.Hellfire, settings.UseHellfire, OCAuras.FireWeakness));
+        }
+
+        /// <summary>
+        /// Execute Phantom Summoner phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteSummonerPhantomJob()
+        {
+            // Earthen Wall - party barrier first
+            if (await EarthenWall())
+                return true;
+
+            // Megaflare - 1,000 potency on its own 90s timer
+            if (await Megaflare())
+                return true;
+
+            // Hellfire / Judgment Bolt / Thunderstorm - one shared 60s recast window
+            if (await SummonerElementalNukes())
                 return true;
 
             return false;

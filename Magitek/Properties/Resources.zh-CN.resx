@@ -2121,6 +2121,21 @@
   <data name="OccultCrescent_Content_Use_Lance" xml:space="preserve">
     <value>使用 长枪</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Hellfire" xml:space="preserve">
+    <value>使用 地狱之火炎 (火)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Judgment_Bolt" xml:space="preserve">
+    <value>使用 审判之雷 (雷)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Thunderstorm" xml:space="preserve">
+    <value>使用 雷暴 (风，身前扇形范围)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Megaflare" xml:space="preserve">
+    <value>使用 百万核爆</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Earthen_Wall" xml:space="preserve">
+    <value>使用 大地之壁 (小队护盾)</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

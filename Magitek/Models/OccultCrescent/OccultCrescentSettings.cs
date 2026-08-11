@@ -697,5 +697,31 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseLance { get; set; }
         #endregion
+
+        #region Phantom Summoner
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHellfire { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseJudgmentBolt { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseThunderstorm { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseMegaflare { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseEarthenWall { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float EarthenWallHealthPercent { get; set; }
+        #endregion
     }
 }
