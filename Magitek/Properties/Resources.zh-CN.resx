@@ -2076,6 +2076,21 @@
   <data name="OccultCrescent_Content_Use_Occult_Thunder_II" xml:space="preserve">
     <value>使用 魔震雷</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Fire_III" xml:space="preserve">
+    <value>使用 魔爆炎</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blizzard_III" xml:space="preserve">
+    <value>使用 魔玄冰</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Thunder_III" xml:space="preserve">
+    <value>使用 魔暴雷</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Flare" xml:space="preserve">
+    <value>使用 魔核爆</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Toad" xml:space="preserve">
+    <value>使用 魔青蛙 (自动学习哪些敌人免疫)</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

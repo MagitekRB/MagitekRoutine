@@ -62,7 +62,11 @@ namespace Magitek.Logic.Roles
             FireWeakness = 5322,
             IceWeakness = 5323,
             LightningWeakness = 5324,
-            WindWeakness = 5325;
+            WindWeakness = 5325,
+            // Occult Toad (Phantom Black Mage). 20s; the target's damage dealt drops by 99% and
+            // it cannot use any action but its auto-attack. Plenty of enemies are flatly immune -
+            // OccultDebuffImmunityTracker learns which ones.
+            OccultToad = 5317;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -189,6 +193,15 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultLibra = DataManager.GetSpellData(49094);
         public static readonly SpellData OccultBlizzardII = DataManager.GetSpellData(49095);
         public static readonly SpellData OccultThunderII = DataManager.GetSpellData(49096);
+
+        // Phantom Black Mage Spells (Job ID: 5330)
+        // Fire III / Blizzard III / Thunder III share a single 40s recast timer, the same way
+        // Red Mage's II-tier nukes share a 30s one.
+        public static readonly SpellData OccultFireIII = DataManager.GetSpellData(49072);
+        public static readonly SpellData OccultBlizzardIII = DataManager.GetSpellData(49073);
+        public static readonly SpellData OccultThunderIII = DataManager.GetSpellData(49074);
+        public static readonly SpellData OccultToad = DataManager.GetSpellData(49075);
+        public static readonly SpellData OccultFlare = DataManager.GetSpellData(49076);
     }
 
     internal class OccultCrescent
@@ -432,6 +445,11 @@ namespace Magitek.Logic.Roles
             if (!IsInOccultCrescent())
                 return false;
 
+            // Adjudicate any debuff we cast on a previous pulse. This sits above every path that
+            // can return true, so a pending Occult Toad or Slowga still gets a verdict on the
+            // pulses where an ability fires.
+            OccultDebuffImmunityTracker.Update();
+
             // First, try automatic phantom job switching for knowledge crystal buffs. This runs before
             // the phantom-job guard below because Freelancer grants no phantom job aura, so a player
             // standing at a crystal as Freelancer reads as None — and they are exactly who the
@@ -463,6 +481,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.MysticKnight => await ExecuteMysticKnightPhantomJob(),
                 PhantomJob.Gladiator => await ExecuteGladiatorPhantomJob(),
                 PhantomJob.RedMage => await ExecuteRedMagePhantomJob(),
+                PhantomJob.BlackMage => await ExecuteBlackMagePhantomJob(),
                 _ => false
             };
 
@@ -2079,34 +2098,39 @@ namespace Magitek.Logic.Roles
             if (!OCSpells.OccultSlowga.CanCast())
                 return false;
 
-            // Need a valid attackable target that doesn't already have slow
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            // Need a valid attackable target
+            if (Core.Me.CurrentTarget is not BattleCharacter battleTarget)
                 return false;
 
-            // Don't cast if target already has slow debuff
-            if (Core.Me.CurrentTarget.HasAura(OCAuras.Slow))
+            if (!battleTarget.ValidAttackUnit() || !battleTarget.InLineOfSight())
                 return false;
 
-            // Check if target is a BattleCharacter for additional checks
-            if (Core.Me.CurrentTarget is BattleCharacter battleTarget)
-            {
-                // Check difficulty - high difficulty enemies are often immune to CC
-                if (battleTarget.RawDifficulty >= 2)
-                    return false;
+            // Check difficulty - high difficulty enemies are often immune to CC
+            if (battleTarget.RawDifficulty >= 2)
+                return false;
 
-                if (battleTarget.DifficultyEstimate != DifficultyEstimate.Normal)
-                    return false;
+            if (battleTarget.DifficultyEstimate != DifficultyEstimate.Normal)
+                return false;
 
-                // FATE enemies might have different immunity rules
-                if (battleTarget.IsFate)
-                    return false;
-            }
+            // FATE enemies might have different immunity rules
+            if (battleTarget.IsFate)
+                return false;
 
             // Check if target is within spell range
-            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultSlowga.Range))
+            if (!battleTarget.WithinSpellRange(OCSpells.OccultSlowga.Range))
                 return false;
 
-            return await OCSpells.OccultSlowga.Cast(Core.Me.CurrentTarget);
+            // Slow shares an immunity set with Occult Toad as far as we can tell, so an enemy
+            // that has already refused either one is skipped here too. This also covers the
+            // "target is already slowed" case.
+            if (!OccultDebuffImmunityTracker.IsWorthAttempting(battleTarget, OCAuras.Slow))
+                return false;
+
+            if (!await OCSpells.OccultSlowga.Cast(battleTarget))
+                return false;
+
+            OccultDebuffImmunityTracker.RecordAttempt(battleTarget, OCAuras.Slow, OCSpells.OccultSlowga.AdjustedCastTime);
+            return true;
         }
 
         /// <summary>
@@ -3725,6 +3749,74 @@ namespace Magitek.Logic.Roles
         }
         #endregion
 
+        #region Shared phantom job helpers
+        /// <summary>
+        /// Casts one of three elemental nukes that share a single recast timer. Phantom Red Mage
+        /// and Phantom Black Mage both work this way and differ only in spell tier, so the caller
+        /// supplies its own three (spell, is the toggle on) pairs.
+        /// </summary>
+        private static async Task<bool> SharedRecastElementalNukes(
+            (SpellData Spell, bool Enabled) fire,
+            (SpellData Spell, bool Enabled) blizzard,
+            (SpellData Spell, bool Enabled) thunder)
+        {
+            if (!Core.Me.InCombat)
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            var spell = PickElementalNuke(target, fire, blizzard, thunder);
+            if (spell == null)
+                return false;
+
+            if (!target.WithinSpellRange(spell.Range))
+                return false;
+
+            return await spell.Cast(target);
+        }
+
+        /// <summary>
+        /// Decides which elemental nuke to spend the shared recast window on, or null to hold it.
+        /// A weakness revealed on the target by anyone's Occult Libra shows up as one of
+        /// OCAuras.FireWeakness / IceWeakness / LightningWeakness / WindWeakness, and the matching
+        /// element casts at bonus potency - so a matched element wins, but the user's toggles
+        /// always veto. No phantom job has a Wind spell.
+        /// </summary>
+        private static SpellData PickElementalNuke(
+            GameObject target,
+            (SpellData Spell, bool Enabled) fire,
+            (SpellData Spell, bool Enabled) blizzard,
+            (SpellData Spell, bool Enabled) thunder)
+        {
+            // CanCast covers both "learned at this phantom job level" and the shared recast timer.
+            // Picking a spell the player has not learned yet would silently cast nothing at low
+            // phantom levels.
+            var useFire = fire.Enabled && fire.Spell.CanCast();
+            var useBlizzard = blizzard.Enabled && blizzard.Spell.CanCast();
+            var useThunder = thunder.Enabled && thunder.Spell.CanCast();
+
+            if (useFire && target.HasAura(OCAuras.FireWeakness))
+                return fire.Spell;
+            if (useBlizzard && target.HasAura(OCAuras.IceWeakness))
+                return blizzard.Spell;
+            if (useThunder && target.HasAura(OCAuras.LightningWeakness))
+                return thunder.Spell;
+
+            // No exploitable weakness (not yet revealed, Wind, or the matched element is toggled
+            // off): don't hold the shared window - cast the first enabled nuke.
+            if (useThunder)
+                return thunder.Spell;
+            if (useBlizzard)
+                return blizzard.Spell;
+            if (useFire)
+                return fire.Spell;
+
+            return null;
+        }
+        #endregion
+
         #region Phantom Red Mage (Job ID: 5334)
         /// <summary>
         /// Occult Cure II - Restores target's HP (cure potency 40,000), 1.5s cast, 2.5s recast
@@ -3807,64 +3899,19 @@ namespace Magitek.Logic.Roles
         };
 
         /// <summary>
-        /// Casts one of the three elemental nukes (Occult Fire II / Blizzard II / Thunder II).
-        /// All three share a single 30s recast timer, so each window picks exactly one.
-        /// 300 potency splash (5y), or 390 when the element matches the target's revealed weakness.
+        /// Occult Fire II / Blizzard II / Thunder II - one shared 30s recast window, so each
+        /// window spends exactly one of them. 300 potency splash (5y), or 390 when the element
+        /// matches the target's revealed weakness. Wind has no matching Red Mage spell.
+        /// Fire II unlocks at phantom job level 1, Blizzard II at 4, Thunder II at 5.
         /// </summary>
-        private static async Task<bool> ElementalNukes()
+        private static Task<bool> RedMageElementalNukes()
         {
-            if (!Core.Me.InCombat)
-                return false;
+            var settings = OccultCrescentSettings.Instance;
 
-            var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
-                return false;
-
-            var spell = PickElementalNuke(target);
-            if (spell == null)
-                return false;
-
-            if (!target.WithinSpellRange(spell.Range))
-                return false;
-
-            return await spell.Cast(target);
-        }
-
-        /// <summary>
-        /// Decides which elemental nuke to spend this shared 30s recast window on, or null to
-        /// hold the window. Respect the three Use toggles (UseOccultFireII / UseOccultBlizzardII /
-        /// UseOccultThunderII). The target's weakness, if revealed by Occult Libra, is one of
-        /// OCAuras.FireWeakness / IceWeakness / LightningWeakness / WindWeakness - a matching
-        /// element casts at 390 potency instead of 300. Wind has no matching Red Mage spell.
-        /// </summary>
-        private static SpellData PickElementalNuke(GameObject target)
-        {
-            // CanCast covers both "learned at this phantom job level" (Fire II unlocks at 1,
-            // Blizzard II at 4, Thunder II at 5) and the shared recast timer. Picking a spell
-            // the player has not learned yet would silently cast nothing at low phantom levels.
-            var useFire = OccultCrescentSettings.Instance.UseOccultFireII && OCSpells.OccultFireII.CanCast();
-            var useBlizzard = OccultCrescentSettings.Instance.UseOccultBlizzardII && OCSpells.OccultBlizzardII.CanCast();
-            var useThunder = OccultCrescentSettings.Instance.UseOccultThunderII && OCSpells.OccultThunderII.CanCast();
-
-            // A weakness revealed by any Red Mage's Occult Libra casts at 390 potency instead
-            // of 300, so a matched element wins - but the user's toggles always veto.
-            if (useFire && target.HasAura(OCAuras.FireWeakness))
-                return OCSpells.OccultFireII;
-            if (useBlizzard && target.HasAura(OCAuras.IceWeakness))
-                return OCSpells.OccultBlizzardII;
-            if (useThunder && target.HasAura(OCAuras.LightningWeakness))
-                return OCSpells.OccultThunderII;
-
-            // No exploitable weakness (not yet revealed, Wind, or the matched element is toggled
-            // off): don't hold the shared window - cast the first enabled nuke.
-            if (useThunder)
-                return OCSpells.OccultThunderII;
-            if (useBlizzard)
-                return OCSpells.OccultBlizzardII;
-            if (useFire)
-                return OCSpells.OccultFireII;
-
-            return null;
+            return SharedRecastElementalNukes(
+                (OCSpells.OccultFireII, settings.UseOccultFireII),
+                (OCSpells.OccultBlizzardII, settings.UseOccultBlizzardII),
+                (OCSpells.OccultThunderII, settings.UseOccultThunderII));
         }
 
         /// <summary>
@@ -3882,7 +3929,115 @@ namespace Magitek.Logic.Roles
                 return true;
 
             // Fire II / Blizzard II / Thunder II - one shared 30s recast window
-            if (await ElementalNukes())
+            if (await RedMageElementalNukes())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Black Mage (Job ID: 5330)
+        /// <summary>
+        /// Occult Toad - 1.5s cast, 2.5s recast. Applies Occult Toad for 20s: the target's damage
+        /// dealt drops by 99% and it cannot use any action other than its auto-attack.
+        ///
+        /// A lot of enemies are simply immune. Rather than guess from difficulty flags, we cast
+        /// once and let OccultDebuffImmunityTracker watch whether the aura lands, so the routine stops
+        /// wasting casts on enemy types that have already refused it.
+        /// </summary>
+        private static async Task<bool> OccultToad()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultToad)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultToad.CanCast())
+                return false;
+
+            if (Core.Me.CurrentTarget is not BattleCharacter target)
+                return false;
+
+            if (!target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultToad.Range))
+                return false;
+
+            // Covers "already toaded", "an attempt is still in flight" and "this enemy type has
+            // refused it before".
+            if (!OccultDebuffImmunityTracker.IsWorthAttempting(target, OCAuras.OccultToad))
+                return false;
+
+            if (!await OCSpells.OccultToad.Cast(target))
+                return false;
+
+            // Cast() returns once casting has STARTED, so the tracker is told the cast time and
+            // works out for itself when the aura should have appeared by.
+            OccultDebuffImmunityTracker.RecordAttempt(target, OCAuras.OccultToad, OCSpells.OccultToad.AdjustedCastTime);
+            return true;
+        }
+
+        /// <summary>
+        /// Occult Flare - 2.3s cast, 60s recast. 500 potency of unaspected damage to the target
+        /// and everything within 8y of it. Unaspected, so elemental weaknesses do not apply.
+        /// </summary>
+        private static async Task<bool> OccultFlare()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultFlare)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultFlare.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.OccultFlare.Range))
+                return false;
+
+            return await OCSpells.OccultFlare.Cast(target);
+        }
+
+        /// <summary>
+        /// Occult Fire III / Blizzard III / Thunder III - one shared 40s recast window, so each
+        /// window spends exactly one of them. 400 potency splash (5y), or 520 when the element
+        /// matches the target's revealed weakness. Phantom Black Mage has no Occult Libra of its
+        /// own, but the weakness auras are readable whoever revealed them. Wind has no Black Mage
+        /// spell. Fire III unlocks at phantom job level 1, Blizzard III at 2, Thunder III at 3.
+        /// </summary>
+        private static Task<bool> BlackMageElementalNukes()
+        {
+            var settings = OccultCrescentSettings.Instance;
+
+            return SharedRecastElementalNukes(
+                (OCSpells.OccultFireIII, settings.UseOccultFireIII),
+                (OCSpells.OccultBlizzardIII, settings.UseOccultBlizzardIII),
+                (OCSpells.OccultThunderIII, settings.UseOccultThunderIII));
+        }
+
+        /// <summary>
+        /// Execute Phantom Black Mage phantom job rotation
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteBlackMagePhantomJob()
+        {
+            // Occult Toad - neutralise the target first; it lasts 20s so this is roughly one cast
+            // per target, not per GCD
+            if (await OccultToad())
+                return true;
+
+            // Occult Flare - 60s recast, biggest single hit
+            if (await OccultFlare())
+                return true;
+
+            // Fire III / Blizzard III / Thunder III - one shared 40s recast window
+            if (await BlackMageElementalNukes())
                 return true;
 
             return false;

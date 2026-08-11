@@ -1243,6 +1243,50 @@
                                 </StackPanel>
                         </controls:SettingsBlock>
 
+                        <!-- Phantom Black Mage Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Black Mage"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Fire_III}"
+                                                          IsChecked="{Binding UseOccultFireIII, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Blizzard_III}"
+                                                          IsChecked="{Binding UseOccultBlizzardIII, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Thunder_III}"
+                                                          IsChecked="{Binding UseOccultThunderIII, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Toad}"
+                                                          IsChecked="{Binding UseOccultToad, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Flare}"
+                                                          IsChecked="{Binding UseOccultFlare, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
                 </StackPanel>
         </ScrollViewer>
-</UserControl> 
+</UserControl>
