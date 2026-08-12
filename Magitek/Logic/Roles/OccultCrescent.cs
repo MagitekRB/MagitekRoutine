@@ -4841,7 +4841,7 @@ namespace Magitek.Logic.Roles
             // Dark Knight's only real HP restorer - its shields cannot cleanse a Doom that
             // demands the bar actually reach full. Needs a target in range to drain from.
             if (Spells.AbyssalDrain.IsKnownAndReady()
-                && Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.ValidAttackUnit()
+                && Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.ValidDamageTarget()
                 && Core.Me.CurrentTarget.WithinSpellRange(Spells.AbyssalDrain.Range)
                 && await Spells.AbyssalDrain.Cast(Core.Me.CurrentTarget))
                 return true;
@@ -4871,7 +4871,7 @@ namespace Magitek.Logic.Roles
 
             var target = Core.Me.CurrentTarget;
 
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.DrainTouch.Range))
@@ -4932,7 +4932,7 @@ namespace Magitek.Logic.Roles
 
             var target = Core.Me.CurrentTarget;
 
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.DrainTouch.Range))
@@ -4964,7 +4964,7 @@ namespace Magitek.Logic.Roles
                         Name = "Nuke target still valid",
                         Check = () => Core.Me.InCombat
                                       && Core.Me.CurrentTarget != null
-                                      && Core.Me.CurrentTarget.ValidAttackUnit()
+                                      && Core.Me.CurrentTarget.ValidDamageTarget()
                     },
                     // If movement starts after the pair is queued the cast cannot begin, and a
                     // queued spell that never casts holds the queue - and the pulse with it -
@@ -5034,7 +5034,7 @@ namespace Magitek.Logic.Roles
 
             var target = Core.Me.CurrentTarget;
 
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Doomsday.Range))
