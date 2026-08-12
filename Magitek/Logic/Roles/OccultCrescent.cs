@@ -4947,9 +4947,24 @@ namespace Magitek.Logic.Roles
             // nuke would open the NEXT pull with a self-Doom under gates up to 8s stale.
             SpellQueueLogic.SpellQueueReset(() => SpellQueueLogic.Timeout.ElapsedMilliseconds > 8000 || !Core.Me.InCombat);
 
+            // Everything either entry needs to still be true when the queue actually drains. A queued
+            // spell whose Cast fails is the one SpellQueueMethod exit that neither dequeues nor cancels,
+            // so it would sit at the head holding the pulse until the 8s timeout. A failed Check dequeues
+            // immediately, so every condition that can change between enqueue and execution belongs here.
+            QueueSpellCheck TargetStillCastable(SpellData spell) => new QueueSpellCheck
+            {
+                Name = $"{spell.Name} target still castable",
+                Check = () => Core.Me.InCombat
+                              && Core.Me.CurrentTarget != null
+                              && Core.Me.CurrentTarget.ValidDamageTarget()
+                              && Core.Me.CurrentTarget.InLineOfSight()
+                              && Core.Me.CurrentTarget.WithinSpellRange(spell.Range)
+            };
+
             SpellQueueLogic.SpellQueue.Enqueue(new QueueSpell
             {
-                Spell = OCSpells.DrainTouch
+                Spell = OCSpells.DrainTouch,
+                Checks = new List<QueueSpellCheck> { TargetStillCastable(OCSpells.DrainTouch) }
             });
             SpellQueueLogic.SpellQueue.Enqueue(new QueueSpell
             {
@@ -4959,12 +4974,15 @@ namespace Magitek.Logic.Roles
                 // (and with it the whole Heal pulse) until the timeout.
                 Checks = new List<QueueSpellCheck>
                 {
+                    TargetStillCastable(nuke),
+                    // The bargain has to still be one we would take. The queue can wait on the Drain
+                    // Touch aura and then on the GCD, and in that window our HP can fall below the
+                    // clearability threshold or a raidwide can start — either of which means we should
+                    // not be starting a 10s death timer we may not be able to clear.
                     new QueueSpellCheck
                     {
-                        Name = "Nuke target still valid",
-                        Check = () => Core.Me.InCombat
-                                      && Core.Me.CurrentTarget != null
-                                      && Core.Me.CurrentTarget.ValidDamageTarget()
+                        Name = "Self-Doom still affordable",
+                        Check = NecromancerCanAffordDoomSpell
                     },
                     // If movement starts after the pair is queued the cast cannot begin, and a
                     // queued spell that never casts holds the queue - and the pulse with it -
