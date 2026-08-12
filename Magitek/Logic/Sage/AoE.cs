@@ -103,7 +103,8 @@ namespace Magitek.Logic.Sage
                                          && x.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)))
                 return false;
 
-            return await UseEukrasianDyskrasia(Core.Me.CurrentTarget);
+            // Dawntrail Fix: Eukrasian Dyskrasia is a self-centered AoE. Passing an enemy target causes CanCast to fail.
+            return await UseEukrasianDyskrasia(Core.Me);
         }
 
         private static readonly uint[] DotAuras =
@@ -217,10 +218,14 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) < SageSettings.Instance.PsycheAoEEnemies)
+            if (!Spells.Psyche.IsKnownAndReady())
                 return false;
 
-            if (!Spells.Psyche.IsKnown())
+            // Dawntrail Fix: Psyche is a pure DPS gain. Use it on cooldown against bosses, or respect AoE thresholds for trash.
+            bool isBoss = target.IsBoss();
+            bool meetsAoeThreshold = Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) >= SageSettings.Instance.PsycheAoEEnemies;
+
+            if (!isBoss && !meetsAoeThreshold)
                 return false;
 
             return await Spells.Psyche.Cast(target);

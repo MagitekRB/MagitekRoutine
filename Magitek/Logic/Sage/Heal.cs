@@ -448,10 +448,13 @@ namespace Magitek.Logic.Sage
 
             if (needPrognosis)
             {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
+                // Dawntrail Fix: Dynamically upgrade spell ID to prevent Pepsis hanging at Lv. 96+
+                var spell = Spells.EukrasianPrognosisII.IsKnown() ? Spells.EukrasianPrognosisII : Spells.EukrasianPrognosis;
+
+                if (!await UseEukrasia(spell.Id))
                     return false;
 
-                if (!await Spells.EukrasianPrognosis.Cast(Core.Me))
+                if (!await spell.Cast(Core.Me))
                     return false;
 
                 if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EukrasianPrognosis, true)))

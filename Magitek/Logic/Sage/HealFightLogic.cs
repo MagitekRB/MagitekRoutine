@@ -101,8 +101,12 @@ namespace Magitek.Logic.Sage
                 {
                     if (BaseSettings.Instance.DebugFightLogic)
                         Logger.WriteInfo($"[AOE Response] Cast Eukrasian Prognosis");
-                    if (await Heal.UseEukrasia(Spells.EukrasianPrognosis.Id))
-                        return await FightLogic.DoAndBuffer(Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis));
+                        
+                    // Dawntrail Fix: Dynamically upgrade spell ID for fight logic
+                    var spell = Spells.EukrasianPrognosisII.IsKnown() ? Spells.EukrasianPrognosisII : Spells.EukrasianPrognosis;
+
+                    if (await Heal.UseEukrasia(spell.Id))
+                        return await FightLogic.DoAndBuffer(spell.HealAura(Core.Me, Auras.EukrasianPrognosis));
                 }
 
             }

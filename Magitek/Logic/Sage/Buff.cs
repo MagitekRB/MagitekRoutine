@@ -235,8 +235,12 @@ namespace Magitek.Logic.Sage
             if (Spells.Philosophia.Cooldown != TimeSpan.Zero)
                 return false;
 
-            var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.PhilosophiaHealthPercent
-                                                                  && !r.HasAura(Auras.Eudaimonia));
+            // Dawntrail Fix: Philosophia (Eudaimonia) applies to the Sage, not the party members.
+            if (Core.Me.HasAura(Auras.Eudaimonia))
+                return false;
+
+            var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.PhilosophiaHealthPercent);
+            
             var philosophiaTarget = targets.FirstOrDefault();
 
             if (philosophiaTarget == null)
