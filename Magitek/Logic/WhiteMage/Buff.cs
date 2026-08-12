@@ -43,9 +43,12 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.InCombat)
                 return false;
 
+            // Dawntrail Fix: Do not use IsKnownAndReady() on Glare IV here. 
+            // Glare IV requires the Sacred Sight aura to be "Ready", which PoM grants. 
+            // Using IsKnownAndReady() creates a deadlock where PoM never fires.
             if (WhiteMageSettings.Instance.PresenceOfMindForGlareIV
                 && Spells.PresenceofMind.IsKnownAndReady()
-                && Spells.GlareIV.IsKnownAndReady())
+                && Spells.GlareIV.IsKnown())
             {
                 return await Spells.PresenceofMind.Cast(Core.Me);
             }
@@ -74,7 +77,6 @@ namespace Magitek.Logic.WhiteMage
             {
                 if (Core.Me.CurrentHealthPercent > WhiteMageSettings.Instance.PresenceOfMindHealthPercent)
                     return false;
-
 
                 return await Spells.PresenceofMind.Cast(Core.Me);
             }
