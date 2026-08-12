@@ -779,6 +779,7 @@ namespace Magitek.Utilities
         public static readonly SpellData Seraphism = DataManager.GetSpellData(37014);
         public static readonly SpellData Manifestation = DataManager.GetSpellData(37015);
         public static readonly SpellData Accession = DataManager.GetSpellData(37016);
+        public static readonly SpellData Concitation = DataManager.GetSpellData(37013);
         #endregion
 
         // SMN

@@ -31,7 +31,11 @@ namespace Magitek.Logic.Scholar
             if (!Core.Me.HasAura(Auras.ImpactImminent))
                 return false;
 
-            return await Spells.BanefulImpaction.Cast(Core.Me.CurrentTarget);
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.CanAttack)
+                return false;
+
+            return await Spells.BanefulImpaction.Cast(target);
         }
     }
 }

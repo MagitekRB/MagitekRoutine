@@ -252,13 +252,10 @@ namespace Magitek.Logic.Scholar
             if (!await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics))
                 return false;
 
-            return await Coroutine.Wait(1500, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
+            // Dawntrail Fix: Check for Manifestation if under Seraphism so the coroutine doesn't hang
+            var adloCheck = Core.Me.HasAura(Auras.Seraphism) && Spells.Manifestation.IsKnown() ? Spells.Manifestation.Id : Spells.Adloquium.Id;
 
-            //if (await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics)) {
-            //    return await Coroutine.Wait(1700, () => Core.Me.HasAura(Auras.EmergencyTactics, true));
-            //}
-
-            //return false;
+            return await Coroutine.Wait(1500, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(adloCheck, Core.Me));
         }
 
         public static async Task<bool> Aetherflow()

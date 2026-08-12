@@ -111,12 +111,14 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.ForceSuccor)
                 return false;
 
-            if (!await Spells.Succor.Cast(Core.Me)) return false;
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown()) succorSpell = Spells.Accession;
+
+            if (!await succorSpell.Cast(Core.Me)) return false;
             ScholarSettings.Instance.ForceSuccor = false;
             TogglesManager.ResetToggles();
             return true;
         }
-
         public static async Task<bool> ForceEmergencySuccor()
         {
             if (!ScholarSettings.Instance.ForceEmergencySuccor)
@@ -128,7 +130,10 @@ namespace Magitek.Logic.Scholar
             if (!await UsedEmergencyTactics())
                 return false;
 
-            if (!await Spells.Succor.Cast(Core.Me)) return false;
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown()) succorSpell = Spells.Accession;
+
+            if (!await succorSpell.Cast(Core.Me)) return false;
             ScholarSettings.Instance.ForceEmergencySuccor = false;
             TogglesManager.ResetToggles();
             return true;
@@ -177,14 +182,21 @@ namespace Magitek.Logic.Scholar
                 return false;
             if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics)))
                 return false;
-            return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Succor.Id, Core.Me));
+
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            var accessionCheck = Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown() ? Spells.Accession.Id : succorSpell.Id;
+
+            return await Coroutine.Wait(1000, () => ActionManager.CanCast(accessionCheck, Core.Me));
         }
 
         private static async Task<bool> UsedAdloquium()
         {
             if (Core.Me.HasAura(Auras.Galvanize))
                 return true;
-            if (!await Spells.Adloquium.Cast(Core.Me))
+
+            var adloSpell = Core.Me.HasAura(Auras.Seraphism) && Spells.Manifestation.IsKnown() ? Spells.Manifestation : Spells.Adloquium;
+
+            if (!await adloSpell.Cast(Core.Me))
                 return false;
             if (!await Coroutine.Wait(2000, () => Core.Me.HasAura(Auras.Galvanize)))
                 return false;
@@ -195,7 +207,11 @@ namespace Magitek.Logic.Scholar
         {
             if (Core.Me.HasAura(Auras.Galvanize))
                 return true;
-            if (!await Spells.Succor.Cast(Core.Me))
+
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown()) succorSpell = Spells.Accession;
+
+            if (!await succorSpell.Cast(Core.Me))
                 return false;
             return await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Galvanize));
         }
@@ -352,19 +368,18 @@ namespace Magitek.Logic.Scholar
 
             async Task UseRecitation()
             {
-                if (!ScholarSettings.Instance.Recitation)
-                    return;
-                if (!ScholarSettings.Instance.RecitationWithAdlo)
-                    return;
-                if (Spells.Recitation.Cooldown != TimeSpan.Zero)
-                    return;
-                if (ScholarSettings.Instance.RecitationOnlyNoAetherflow && Core.Me.HasAetherflow())
-                    return;
-                if (!await Spells.Recitation.Cast(Core.Me))
-                    return;
-                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
-                    return;
-                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
+                if (!ScholarSettings.Instance.Recitation) return;
+                if (!ScholarSettings.Instance.RecitationWithAdlo) return;
+                if (Spells.Recitation.Cooldown != TimeSpan.Zero) return;
+                if (ScholarSettings.Instance.RecitationOnlyNoAetherflow && Core.Me.HasAetherflow()) return;
+
+                if (!await Spells.Recitation.Cast(Core.Me)) return;
+
+                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation))) return;
+
+                // Dawntrail Fix: Check for Manifestation to prevent Recitation hanging under Seraphism
+                var adloCheck = Core.Me.HasAura(Auras.Seraphism) && Spells.Manifestation.IsKnown() ? Spells.Manifestation.Id : Spells.Adloquium.Id;
+                await Coroutine.Wait(1000, () => ActionManager.CanCast(adloCheck, Core.Me));
             }
         }
 
@@ -386,8 +401,11 @@ namespace Magitek.Logic.Scholar
             if (!await Buff.EmergencyTactics())
                 return false;
 
-            if (await Spells.Succor.Heal(Core.Me))
-                return await Coroutine.Wait(2500, () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown()) succorSpell = Spells.Accession;
+
+            if (await succorSpell.Heal(Core.Me))
+                return await Coroutine.Wait(2500, () => Casting.LastSpell == succorSpell || MovementManager.IsMoving);
 
             return false;
         }
@@ -397,12 +415,6 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Succor)
                 return false;
 
-            //if (Casting.LastSpell == Spells.Indomitability)
-            //    return false;
-
-            //if (Casting.LastSpell == Spells.Succor)
-            //    return false;
-
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
                                                                      !r.HasAura(Auras.Galvanize)) >= AoeNeedHealing;
@@ -410,9 +422,12 @@ namespace Magitek.Logic.Scholar
             if (!needSuccor)
                 return false;
 
-            if (await Spells.Succor.Heal(Core.Me))
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown()) succorSpell = Spells.Accession;
+
+            if (await succorSpell.Heal(Core.Me))
             {
-                return await Coroutine.Wait(2500, () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
+                return await Coroutine.Wait(2500, () => Casting.LastSpell == succorSpell || MovementManager.IsMoving);
             }
 
             return false;

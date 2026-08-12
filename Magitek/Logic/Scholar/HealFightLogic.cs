@@ -39,12 +39,18 @@ namespace Magitek.Logic.Scholar
 
         private static async Task<bool> BigAoe()
         {
-            if (!Spells.Succor.IsKnownAndReady())
+            // Dawntrail Fix: Dynamic Succor scaling
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown())
+                succorSpell = Spells.Accession;
+
+            if (!succorSpell.IsKnownAndReady())
                 return false;
 
             var enemyTarget = (Character)Core.Me.CurrentTarget;
             var castTimeRemaining = (int)enemyTarget.SpellCastInfo.RemainingCastTime.TotalMilliseconds;
-            if (enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime)
+
+            if (enemyTarget.SpellCastInfo.RemainingCastTime <= succorSpell.AdjustedCastTime)
                 return false;
 
             if (ScholarSettings.Instance.FightLogicAdloDeployBigAoe &&
@@ -67,7 +73,9 @@ namespace Magitek.Logic.Scholar
                             await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Recitation, true));
                     }
 
-                    if (!await Spells.Adloquium.Cast(target))
+                    var adloSpell = Core.Me.HasAura(Auras.Seraphism) && Spells.Manifestation.IsKnown() ? Spells.Manifestation : Spells.Adloquium;
+
+                    if (!await adloSpell.Cast(target))
                         return false;
                 }
 
@@ -88,7 +96,7 @@ namespace Magitek.Logic.Scholar
                         await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Recitation, true));
                 }
 
-                return await FightLogic.DoAndBuffer(Spells.Succor.Cast(Core.Me));
+                return await FightLogic.DoAndBuffer(succorSpell.Cast(Core.Me));
             }
 
             if (ScholarSettings.Instance.FightLogicSoilBigAoe &&
@@ -113,13 +121,13 @@ namespace Magitek.Logic.Scholar
             }
 
             if (ScholarSettings.Instance.FightLogicSuccorAoe &&
-                Spells.Succor.IsKnownAndReady() &&
+                succorSpell.IsKnownAndReady() &&
                 Group.CastableParty.Count(x => x.HasAura(Auras.Galvanize)) < AoeThreshold)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
                     Logger.WriteInfo($"[AOE Response] Cast Succor");
 
-                return await FightLogic.DoAndBuffer(Spells.Succor.Cast(Core.Me));
+                return await FightLogic.DoAndBuffer(succorSpell.Cast(Core.Me));
             }
             return false;
         }
@@ -128,22 +136,25 @@ namespace Magitek.Logic.Scholar
         {
             if (!ScholarSettings.Instance.FightLogicSuccorAoe) return false;
 
-            if (!Spells.Succor.IsKnownAndReady())
+            var succorSpell = Spells.Concitation.IsKnown() ? Spells.Concitation : Spells.Succor;
+            if (Core.Me.HasAura(Auras.Seraphism) && Spells.Accession.IsKnown())
+                succorSpell = Spells.Accession;
+
+            if (!succorSpell.IsKnownAndReady())
                 return false;
 
             var enemyTarget = (Character)Core.Me.CurrentTarget;
-            if (enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime)
+            if (enemyTarget.SpellCastInfo.RemainingCastTime <= succorSpell.AdjustedCastTime)
             {
-                Logger.WriteInfo($"Enemy Target: {enemyTarget}\t Remaining Cast Time {enemyTarget.SpellCastInfo.RemainingCastTime}\t Succor Cast Time {Spells.Succor.AdjustedCastTime}\t Logic Challenge: {enemyTarget.SpellCastInfo.RemainingCastTime <= Spells.Succor.AdjustedCastTime}");
                 return false;
             }
 
             if (Core.Me.HasAura(Auras.EmergencyTactics))
                 return false;
 
-            if (await FightLogic.DoAndBuffer(Spells.Succor.Heal(Core.Me)))
+            if (await FightLogic.DoAndBuffer(succorSpell.Heal(Core.Me)))
                 return await Coroutine.Wait(2500,
-                    () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
+                    () => Casting.LastSpell == succorSpell || MovementManager.IsMoving);
 
             return false;
         }
@@ -168,8 +179,9 @@ namespace Magitek.Logic.Scholar
             {
                 while (Group.CastableTanks.Any(r => !r.HasAura(Auras.Galvanize)))
                 {
+                    var adloSpell = Core.Me.HasAura(Auras.Seraphism) && Spells.Manifestation.IsKnown() ? Spells.Manifestation : Spells.Adloquium;
                     await FightLogic.DoAndBuffer(
-                        Spells.Adloquium.Heal(Group.CastableTanks.FirstOrDefault(r => !r.HasAura(Auras.Galvanize))));
+                        adloSpell.Heal(Group.CastableTanks.FirstOrDefault(r => !r.HasAura(Auras.Galvanize))));
 
                     await Coroutine.Yield();
                 }
@@ -177,18 +189,18 @@ namespace Magitek.Logic.Scholar
                 return true;
             }
 
-
             if (ScholarSettings.Instance.FightLogicExcogTank &&
                 Spells.Excogitation.IsKnownAndReady() &&
                 Core.Me.HasAetherflow() &&
                 !target.HasAura(Auras.Excogitation))
                 return await FightLogic.DoAndBuffer(Spells.Excogitation.CastAura(target, Auras.Excogitation));
 
+            var singleTargetShield = Core.Me.HasAura(Auras.Seraphism) && Spells.Manifestation.IsKnown() ? Spells.Manifestation : Spells.Adloquium;
 
             if (ScholarSettings.Instance.FightLogicAdloTank &&
-                Spells.Adloquium.IsKnownAndReady() &&
+                singleTargetShield.IsKnownAndReady() &&
                 !target.HasAura(Auras.Galvanize))
-                return await FightLogic.DoAndBuffer(Spells.Adloquium.HealAura(target, Auras.Galvanize));
+                return await FightLogic.DoAndBuffer(singleTargetShield.HealAura(target, Auras.Galvanize));
 
             return false;
         }
