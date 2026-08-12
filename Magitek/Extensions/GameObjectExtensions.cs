@@ -28,7 +28,11 @@ namespace Magitek.Extensions
                 return unit.Type != GameObjectType.Pc;
             }
 
-            return unit.CanAttack;
+            // Every rotation guards on this and then casts straight at CurrentTarget, so gating the
+            // damage rules here covers all 22 of them in one place. Combat.Enemies is deliberately left
+            // alone: the enemy stays visible to Provoke, interrupts and the rest of the defensive paths,
+            // it just stops being something we pour damage into.
+            return unit.CanAttack && unit.CanBeDamagedByMe();
         }
 
         public static bool BeingTargeted(this GameObject unit)
@@ -233,6 +237,27 @@ namespace Magitek.Extensions
         {
             return unit != null && !unit.HasAnyAura(Auras.Invincibility);
         }
+
+        // A unit we can actually hurt. Kept separate from ValidAttackUnit (which stays a pure
+        // "is it a live hostile", used by defensive Occult Crescent paths) and from NotInvulnerable
+        // (which stays aura-only, because Tracking.Update builds Combat.Enemies from it — widening it
+        // would silently refilter that collection under all ~200 of its readers).
+        //
+        // Use this at offensive call sites that cast at CurrentTarget without passing through
+        // ThoroughCanAttack, which in practice means the Occult Crescent phantom-job actions.
+        public static bool ValidDamageTarget(this GameObject unit)
+        {
+            return unit.ValidAttackUnit() && unit.CanBeDamagedByMe();
+        }
+
+        // Whether our damage can reach this unit at all right now. The rules live in
+        // Utilities/ImmunityLogic.cs with their encounter data in Utilities/ImmunityEncounters.cs —
+        // fight-specific knowledge does not belong in a generic extension file.
+        public static bool CanBeDamagedByMe(this GameObject unit)
+        {
+            return ImmunityLogic.CanBeDamagedBy(unit, Core.Me);
+        }
+
 
         public static IEnumerable<BattleCharacter> EnemiesNearby(this GameObject unit, float distance)
         {

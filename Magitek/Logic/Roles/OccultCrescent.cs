@@ -1640,7 +1640,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
                 return false;
 
             // Check melee range restriction if enabled
@@ -1674,7 +1674,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1816,7 +1816,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1846,7 +1846,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target that's not casting
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
                 return false;
 
             // Check melee range restriction if enabled
@@ -1879,7 +1879,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1908,7 +1908,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1938,7 +1938,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1968,7 +1968,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1998,7 +1998,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Don't cast if target has Silver Sickness unless it expires in 20 seconds or less
@@ -2251,7 +2251,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -2493,7 +2493,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -2736,7 +2736,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -2766,7 +2766,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -3623,7 +3623,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.SunderingSpellblade.Range))
@@ -3648,7 +3648,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.HolySpellblade.Range))
@@ -3673,7 +3673,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.BlazingSpellblade.Range))
@@ -3763,7 +3763,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Finisher.Range))
@@ -3787,7 +3787,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.LongReach.Range))
@@ -3811,7 +3811,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Bladeblitz.Radius))
@@ -3858,7 +3858,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             var spell = PickElementalNuke(target, candidates);
@@ -4077,7 +4077,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.OccultFlare.Range))
@@ -4228,7 +4228,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.OccultHoly.Range))
@@ -4279,7 +4279,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.FumaShuriken.Range))
@@ -4406,7 +4406,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             // Check melee range restriction if enabled
@@ -4436,7 +4436,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Lance.Range))
@@ -4523,7 +4523,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Megaflare.Range))
@@ -4664,7 +4664,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             // Skip the enemies the effect is expected to do nothing to. Note this deliberately
@@ -4699,7 +4699,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.OccultAquaBreath.Range))
@@ -4733,7 +4733,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(spell.Range))
