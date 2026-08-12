@@ -335,12 +335,29 @@ namespace Magitek.Utilities
         /// Core.Me.CurrentTarget: the two are frequently different enemies, and a mitigation debuff applied
         /// to whatever we happen to be hitting does nothing about the mechanic we are reacting to.
         /// </para>
+        /// <para>
+        /// The cast id has to be one this enemy is catalogued for. An AoE can also be detected from a
+        /// lock-on on the party, with no cast involved at all — and this enemy may still be mid-cast on
+        /// something unrelated. Returning it then would aim the debuff using a cast no detector matched,
+        /// so the id check keeps those reactions on the current-target fallback where they belong.
+        /// </para>
         /// </summary>
         public static BattleCharacter DetectedCaster()
         {
-            var (_, _, enemy) = GetEnemyLogicAndEnemy();
+            var (_, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
 
-            return enemy != null && enemy.IsValid && enemy.IsCasting ? enemy : null;
+            if (enemyLogic == null || enemy == null || !enemy.IsValid || !enemy.IsCasting)
+                return null;
+
+            var castId = enemy.CastingSpellId;
+
+            var matched = (enemyLogic.TankBusters?.Contains(castId) ?? false)
+                          || (enemyLogic.SharedTankBusters?.Contains(castId) ?? false)
+                          || (enemyLogic.Aoes?.Contains(castId) ?? false)
+                          || (enemyLogic.BigAoes?.Contains(castId) ?? false)
+                          || (enemyLogic.Knockbacks?.Contains(castId) ?? false);
+
+            return matched ? enemy : null;
         }
 
         public static bool EnemyHasAnyKnockbackLogic()
