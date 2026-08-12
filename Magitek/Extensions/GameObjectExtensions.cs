@@ -176,14 +176,19 @@ namespace Magitek.Extensions
 
         }
 
-        public static bool HasDispellableAura(this GameObject unit)
+        // A dispel strips a BENEFICIAL status from an enemy, so a helper used to decide whether to
+        // dispel has to ignore debuffs. Named for what it actually asks: the old name read as the
+        // opposite of what it did, and let a dispel re-fire forever on an enemy that merely carries a
+        // dispellable debuff no dispel can remove. Cleansing an ally is a separate concern, served by
+        // HasAnyDispellableAura on CharacterExtensions.
+        public static bool HasDispellableBuff(this GameObject unit)
         {
             var unitAsCharacter = unit as Character;
 
             if (unitAsCharacter == null || !unitAsCharacter.IsValid)
                 return false;
 
-            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable);
+            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable && !r.IsDebuff);
         }
 
         public static bool HasAnyAura(this GameObject unit, List<uint> auras, bool isMyAura = false, int msLeft = 0)
