@@ -42,6 +42,10 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Logic.Sage.Heal.ForceLimitBreak()) return true;
 
+            // Ahead of the raise: a raise is an ~8s cast with Slowcast Res, and the Doom carrier is
+            // alive with under ten seconds left. The dead ally does not get worse while we save them.
+            if (await CommonFightLogic.FightLogic_Doom(SageSettings.Instance.Diagnosis, Spells.Diagnosis)) return true;
+
             if (await Logic.Sage.Heal.Egeiro()) return true;
             if (await Dispel.Execute()) return true;
 
@@ -55,7 +59,6 @@ namespace Magitek.Rotations
             if (await Logic.Sage.HealFightLogic.Aoe()) return true;
             if (await Logic.Sage.HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(SageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
-            if (await CommonFightLogic.FightLogic_Doom(SageSettings.Instance.Diagnosis, Spells.Diagnosis)) return true;
 
             if (SageRoutine.CanWeave())
             {
