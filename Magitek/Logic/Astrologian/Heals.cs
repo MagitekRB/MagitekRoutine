@@ -453,26 +453,26 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
-            if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
+            var spell = Spells.HeliosConjunction.IsKnown() ? Spells.HeliosConjunction : Spells.AspectedHelios;
+            uint aura = Spells.HeliosConjunction.IsKnown() ? (uint)Auras.HeliosConjunction : (uint)Auras.AspectedHelios;
+
+            if (Casting.LastSpell == spell)
                 return false;
 
-            // Add check to ensure we don't double cast
-            if (Casting.LastSpell == Spells.AspectedHelios)
-                return false;
-
-            if (!Spells.AspectedHelios.IsKnown())
+            if (!spell.IsKnown())
                 return false;
 
             var alliesNeedingRegen = Group.CastableAlliesWithin15.Where(r => !Utilities.Routines.Astrologian.DontDiurnalBenefic.Contains(r.Name)
                 && r.CurrentHealth > 0
                 && !r.HasMyAura(Auras.AspectedBenefic)
                 && !r.HasMyAura(Auras.AspectedHelios)
+                && !r.HasMyAura(Auras.HeliosConjunction)
                 && r.CurrentHealthPercent <= AstrologianSettings.Instance.DiurnalBeneficHealthPercent).ToList();
 
             if (alliesNeedingRegen.Count() <= AoeThreshold)
                 return false;
 
-            return await Spells.AspectedHelios.HealAura(Core.Me, Auras.AspectedHelios);
+            return await spell.HealAura(Core.Me, aura);
         }
 
         private static async Task<bool> AspectedBeneficHealers()
@@ -537,16 +537,20 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.DiurnalHelios)
                 return false;
 
-            if (!Spells.AspectedHelios.IsKnownAndReady())
+            // Dawntrail Update: Dynamic mapping for Helios Conjunction with explicit uint casting
+            var spell = Spells.HeliosConjunction.IsKnown() ? Spells.HeliosConjunction : Spells.AspectedHelios;
+            uint aura = Spells.HeliosConjunction.IsKnown() ? (uint)Auras.HeliosConjunction : (uint)Auras.AspectedHelios;
+
+            if (!spell.IsKnownAndReady())
                 return false;
 
             if (Core.Me.HasAura(Auras.NeutralSect) &&
                 Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield))
                 return MovementManager.IsMoving
                     ? await SwiftCastAspectedHelios()
-                    : await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
+                    : await spell.HealAura(Core.Me, (uint)Auras.NeutralSectShield, false);
 
-            if (Casting.LastSpell == Spells.AspectedHelios)
+            if (Casting.LastSpell == spell)
                 return false;
 
             if (Core.Me.CurrentManaPercent <= AstrologianSettings.Instance.DiurnalHeliosMinManaPercent)
@@ -554,7 +558,7 @@ namespace Magitek.Logic.Astrologian
 
             var diurnalHeliosCount =
                 PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r => r.CurrentHealth > 0 &&
-                                                        r.WithinSpellRange(Spells.AspectedHelios.Radius) &&
+                                                        r.WithinSpellRange(spell.Radius) &&
                                                         r.CurrentHealthPercent <=
                                                         AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
                                                         !r.HasAura(Auras.AspectedHelios, true) && !r.HasAura(Auras.HeliosConjunction, true));
@@ -564,7 +568,7 @@ namespace Magitek.Logic.Astrologian
                 if (await SwiftCastAspectedHelios())
                     return true;
 
-                return await Spells.AspectedHelios.HealAura(Core.Me, Auras.AspectedHelios);
+                return await spell.HealAura(Core.Me, aura);
             }
             return false;
         }
@@ -580,9 +584,12 @@ namespace Magitek.Logic.Astrologian
             if (!await Buff.Swiftcast())
                 return false;
 
+            var spell = Spells.HeliosConjunction.IsKnown() ? Spells.HeliosConjunction : Spells.AspectedHelios;
+            uint aura = Spells.HeliosConjunction.IsKnown() ? (uint)Auras.HeliosConjunction : (uint)Auras.AspectedHelios;
+
             while (Core.Me.HasAura(Auras.Swiftcast))
             {
-                if (await Spells.AspectedHelios.HealAura(Core.Me, Auras.AspectedHelios, false))
+                if (await spell.HealAura(Core.Me, aura, false))
                     return true;
 
                 await Coroutine.Yield();
