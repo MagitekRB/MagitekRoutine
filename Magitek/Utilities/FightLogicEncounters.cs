@@ -7026,32 +7026,12 @@ namespace Magitek.Utilities
                         Name = "Shantotto the Demon",
                         TankBusters = new List<uint> {
                             50213, // Vidohunir
+                            50214, // Vidohunir
                         },
                         Aoes = new List<uint> {
                             50215, // Flare Play
                             50210, // Final Exam
-                        },
-                        AoeLockOns = null,
-                        Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
-                    },
-                }
-            },
-            new Encounter {
-                ZoneId = 1368,
-                Name = "Windurst: The Third Walk",
-                Expansion = FfxivExpansion.Dawntrail,
-                Enemies = new List<Enemy> {
-                    new Enemy {
-                        Id = 14778,
-                        Name = "Shantotto the Demon",
-                        TankBusters = new List<uint> {
-                            50213, // Vidohunir
-                        },
-                        Aoes = new List<uint> {
-                            50215, // Flare Play
-                            50210, // Final Exam
+                            50211, // Final Exam
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
@@ -7064,7 +7044,9 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         Aoes = new List<uint> {
                             50161, // Banishga IV
+                            50163, // Banishga IV
                             50157, // Mega Holy
+                            50158, // Mega Holy
                             50153, // Divine Judgment
                         },
                         AoeLockOns = null,
@@ -7072,23 +7054,20 @@ namespace Magitek.Utilities
                         SharedTankBusters = null,
                         BigAoes = null
                     },
-                }
-            },
-            new Encounter {
-                ZoneId = 1368,
-                Name = "Windurst: The Third Walk",
-                Expansion = FfxivExpansion.Dawntrail,
-                Enemies = new List<Enemy> {
                     new Enemy {
                         Id = 14779,
                         Name = "Promathia",
                         TankBusters = new List<uint> {
                             50337, // Comet
+                            50338, // Comet
                         },
                         Aoes = new List<uint> {
                             50317, // Empty Salvation
                             50694, // Deadly Rebirth
+                            50347, // Deadly Rebirth
                             50334, // Infernal Deliverance
+                            50335, // Infernal Deliverance
+                            50565, // Infernal Deliverance
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
