@@ -16,6 +16,9 @@ namespace Magitek.Logic.Warrior
 {
     internal static class Buff
     {
+        //Beast Gauge cost of Inner Beast / Fell Cleave
+        private const int InnerBeastBeastGaugeCost = 50;
+
         public static async Task<bool> Defiance()
         {
             if (WarriorSettings.Instance.ManuallyControlTankStance)
@@ -46,15 +49,61 @@ namespace Magitek.Logic.Warrior
             if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.HeavySwing.Range)) < 1)
                 return false;
 
-            //Added level check as this skill is available as berserk at lvl 6 and AoE combo isnt until lvl 40
-            if (!Core.Me.HasAura(Auras.SurgingTempest, true, 12000)
-                && Spells.MythrilTempest.IsKnown())
+            //Surging Tempest only comes from Storm's Eye (50) or the Mythril Tempest combo (40), so only
+            //demand it when the rotation we're actually running can apply it. Below Storm's Eye the single
+            //target combo never grants it, which left Berserk unused from 40 to 49 outside of AoE.
+            if (Spells.StormsEye.IsKnown() || RunningMythrilTempestCombo())
+            {
+                if (!Core.Me.HasAura(Auras.SurgingTempest, true, 12000))
+                    return false;
+            }
+            else if (!BerserkStacksAreWorthSpending())
+            {
                 return false;
+            }
 
             if (Core.Me.HasAura(Auras.NascentChaos))
                 return false;
 
             return await WarriorRoutine.InnerRelease.Cast(Core.Me);
+        }
+
+        //Mirrors Aoe.MythrilTempest: is the Overpower combo the rotation we're running? That combo is the
+        //only source of Surging Tempest before Storm's Eye unlocks.
+        private static bool RunningMythrilTempestCombo()
+        {
+            if (!AoeControl.Enabled)
+                return false;
+
+            if (!WarriorSettings.Instance.UseAoe)
+                return false;
+
+            if (!Spells.MythrilTempest.IsKnown())
+                return false;
+
+            return Combat.Enemies.Count(r => r.WithinSpellRange(Spells.MythrilTempest.Radius)) >= WarriorSettings.Instance.MythrilTempestMinimumEnemies;
+        }
+
+        //Without Surging Tempest to protect, Berserk is only worth timing around its three guaranteed crit
+        //direct hits. Any three consecutive combo GCDs come out to the same potency, so the only placement
+        //that gains anything is one where a Beast Gauge spender displaces a Heavy Swing inside the window.
+        private static bool BerserkStacksAreWorthSpending()
+        {
+            //With no Beast Gauge spender the combo is a flat three GCD cycle, so any three consecutive
+            //weaponskills are worth the same and holding Berserk only delays the next use.
+            if (!WarriorSettings.Instance.UseFellCleave || !WarriorRoutine.FellCleave.IsKnown())
+                return true;
+
+            //Enough gauge for Inner Beast to eat one of the stacks.
+            if (ActionResourceManager.Warrior.BeastGauge >= InnerBeastBeastGaugeCost)
+                return true;
+
+            //Combo isn't running, so we're at the head of a fresh combo and the window covers all of it.
+            if (ActionManager.ComboTimeLeft <= 0)
+                return true;
+
+            //Storm's Path is the next GCD, and the 20 gauge it grants can still buy an Inner Beast in time.
+            return WarriorRoutine.CanContinueComboAfter(Spells.Maim);
         }
 
         public static async Task<bool> Infuriate()
