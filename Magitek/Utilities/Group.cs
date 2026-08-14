@@ -16,10 +16,10 @@ namespace Magitek.Utilities
 {
     public static class Group
     {
-        private static readonly FrameCachedObject<IEnumerable<Character>> _allianceMembers = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid).Where(r => r.Type == GameObjectType.Pc && r.IsTargetable && r.InLineOfSight()));
-        private static readonly FrameCachedObject<IEnumerable<Character>> _pets = new(() => GameObjectManager.GetObjectsByNPCIds<GameObject>(PetIds).Where(i => i != null && i.IsValid).Where(r => r.IsTargetable && r.InLineOfSight() && r.Distance(Core.Me) <= 30).OfType<Character>().Where(i => i.IsValid));
-        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _allies = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid).Where(r => r.CanAttack && r.InLineOfSight()));
-        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _battleCharacters = new(() => PartyManager.RawMembers.Select(r => r?.BattleCharacter).Where(i => i != null && i.IsValid).Where(i => i.InLineOfSight()));
+        private static readonly FrameCachedObject<IEnumerable<Character>> _allianceMembers = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid && i.Type == GameObjectType.Pc && i.IsTargetable && i.InLineOfSight()).Cast<Character>().ToList());
+        private static readonly FrameCachedObject<IEnumerable<Character>> _pets = new(() => GameObjectManager.GetObjectsByNPCIds<GameObject>(PetIds).Where(i => i != null && i.IsValid && i.IsTargetable && i.InLineOfSight() && i.Distance(Core.Me) <= 30).OfType<Character>().Where(i => i.IsValid).ToList());
+        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _allies = new(() => GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(i => i != null && i.IsValid && i.CanAttack && i.InLineOfSight()).ToList());
+        private static readonly FrameCachedObject<IEnumerable<BattleCharacter>> _battleCharacters = new(() => PartyManager.RawMembers.Select(r => r?.BattleCharacter).Where(i => i != null && i.IsValid && i.InLineOfSight()).ToList());
 
         private class PartyMemberState
         {

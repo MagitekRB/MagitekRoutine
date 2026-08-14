@@ -123,13 +123,15 @@ namespace Magitek.Utilities
             else
             {
                 // Track the attacker list combined with every aggro'd Fate Mob
-                var _fateEnemyCache = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(r =>
+                var battleCharacters = GameObjectManager.GetObjectsOfType<BattleCharacter>().ToList();
+                var npcObjectIds = new HashSet<ulong>(battleCharacters.Where(x => x.IsNpc).Select(x => (ulong)x.ObjectId));
+                var fateEnemyCache = battleCharacters.Where(r =>
                     r.HasTarget
                     && r.IsFate
                     && Core.Me.Distance(r) < 50
-                    && !GameObjectManager.GetObjectsOfType<BattleCharacter>().Any(x => x.IsNpc && x.ObjectId == r.TaggerObjectId)
+                    && !npcObjectIds.Contains(r.TaggerObjectId)
                 );
-                _enemyCache = GameObjectManager.Attackers.Union(_fateEnemyCache).ToList();
+                _enemyCache = GameObjectManager.Attackers.Union(fateEnemyCache).ToList();
             }
 
             Combat.Enemies.Clear();
@@ -244,7 +246,10 @@ namespace Magitek.Utilities
                 }
             }
 
-            Debug.Instance.Enemies = new ObservableCollection<EnemyInfo>(EnemyInfos);
+            if (BaseSettings.Instance.DebugEnemyInfo)
+            {
+                Debug.Instance.Enemies = new ObservableCollection<EnemyInfo>(EnemyInfos);
+            }
 
             StunTracker.Update(Combat.Enemies);
 
