@@ -2389,7 +2389,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasDispellableAura())
+            if (!Core.Me.CurrentTarget.HasDispellableBuff())
                 return false;
 
             // if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
