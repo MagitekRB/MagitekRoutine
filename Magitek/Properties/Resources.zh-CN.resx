@@ -2154,6 +2154,24 @@
   <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
     <value>且自身血量不低于</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
+    <value>使用 吸血之触 (治疗自身并强化其他技能)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
+    <value>使用 深度冻结 (冰)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hell_Wind" xml:space="preserve">
+    <value>使用 地狱之风 (风)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
+    <value>使用 混沌驱动 (雷)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Doomsday" xml:space="preserve">
+    <value>使用 末日</value>
+  </data>
+  <data name="OccultCrescent_Text_Attacks_cost_HP_only_use_above" xml:space="preserve">
+    <value>攻击消耗10%最大血量 - 仅在血量高于</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
   </data>

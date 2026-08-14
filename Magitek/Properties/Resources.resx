@@ -2153,6 +2153,24 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
     <value>and our own HP at least</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
+    <value>Use Drain Touch (heals us, and powers up the other attacks)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
+    <value>Use Deep Freeze (ice)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hell_Wind" xml:space="preserve">
+    <value>Use Hell Wind (wind)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
+    <value>Use Chaos Drive (lightning)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Doomsday" xml:space="preserve">
+    <value>Use Doomsday</value>
+  </data>
+  <data name="OccultCrescent_Text_Attacks_cost_HP_only_use_above" xml:space="preserve">
+    <value>Attacks cost 10% of max HP - only use them above</value>
+  </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
   </data>
