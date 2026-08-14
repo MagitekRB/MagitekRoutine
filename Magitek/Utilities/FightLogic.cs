@@ -328,6 +328,44 @@ namespace Magitek.Utilities
             return false;
         }
 
+        /// <summary>
+        /// The catalogued enemy whose cast the detectors matched, while it is still casting — or null.
+        /// <para>
+        /// Reactions that debuff the CASTER (Feint, Addle, Dismantle, Reprisal) need this rather than
+        /// Core.Me.CurrentTarget: the two are frequently different enemies, and a mitigation debuff applied
+        /// to whatever we happen to be hitting does nothing about the mechanic we are reacting to.
+        /// </para>
+        /// <para>
+        /// The cast id has to be one this enemy is catalogued for, in a category the debuff reactions
+        /// actually answer. An AoE can also be detected from a lock-on on the party, with no cast
+        /// involved at all — and this enemy may still be mid-cast on something unrelated. Returning it
+        /// then would aim the debuff using a cast no detector matched, so the id check keeps those
+        /// reactions on the current-target fallback where they belong.
+        /// </para>
+        /// <para>
+        /// Knockbacks are deliberately NOT counted. FightLogic_Debuff never calls
+        /// EnemyIsCastingKnockback, so a knockback cast cannot be what it is reacting to — and several
+        /// catalogued encounters carry both AoeLockOns and Knockbacks, where counting them would let a
+        /// lock-on detection hand back an enemy that is merely mid-knockback.
+        /// </para>
+        /// </summary>
+        public static BattleCharacter DetectedCaster()
+        {
+            var (_, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+            if (enemyLogic == null || enemy == null || !enemy.IsValid || !enemy.IsCasting)
+                return null;
+
+            var castId = enemy.CastingSpellId;
+
+            var matched = (enemyLogic.TankBusters?.Contains(castId) ?? false)
+                          || (enemyLogic.SharedTankBusters?.Contains(castId) ?? false)
+                          || (enemyLogic.Aoes?.Contains(castId) ?? false)
+                          || (enemyLogic.BigAoes?.Contains(castId) ?? false);
+
+            return matched ? enemy : null;
+        }
+
         public static bool EnemyHasAnyKnockbackLogic()
         {
             if (ZoneHasFightLogic())

@@ -116,24 +116,31 @@ namespace Magitek.Logic.Roles
                 if (!spell.IsKnownAndReady())
                     return false;
 
-                if (Core.Me.CurrentTarget == null)
+                // Debuff the enemy we are REACTING to, not whatever we happen to be hitting — they are
+                // frequently different, and Feint or Addle landing on the wrong one does nothing about the
+                // mechanic. Reprisal is self-centred, so measuring range to the caster is right there too:
+                // if the caster is out of its radius, Reprisal genuinely cannot mitigate this cast.
+                // Falls back to the current target when nothing is mid-cast (lock-on reactions have no caster).
+                var debuffTarget = (GameObject)FightLogic.DetectedCaster() ?? Core.Me.CurrentTarget;
+
+                if (debuffTarget == null)
                     return false;
 
-                // For range-based debuffs (e.g., Reprisal), check if current target is within range
-                if (range > 0f && !Core.Me.CurrentTarget.WithinSpellRange(range))
+                // For range-based debuffs (e.g., Reprisal), check the caster is within range
+                if (range > 0f && !debuffTarget.WithinSpellRange(range))
                     return false;
 
                 // For target-based debuffs, check target aura
-                if (targetAuraCheck && Core.Me.CurrentTarget.HasAura(aura))
+                if (targetAuraCheck && debuffTarget.HasAura(aura))
                     return false;
 
                 if (!FightLogic.HodlCastTimeRemaining(castTimeRemainingMs, BaseSettings.Instance.FightLogicResponseDelay))
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[Debuff Response] Cast {spell.Name} on {Core.Me.CurrentTarget.Name}");
+                    Logger.WriteInfo($"[Debuff Response] Cast {spell.Name} on {debuffTarget.Name}");
 
-                return await FightLogic.DoAndBuffer(spell.Cast(Core.Me.CurrentTarget));
+                return await FightLogic.DoAndBuffer(spell.Cast(debuffTarget));
             }
 
             return false;
