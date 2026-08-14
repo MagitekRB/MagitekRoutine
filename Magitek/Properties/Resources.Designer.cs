@@ -8290,7 +8290,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Allies.
         /// </summary>
@@ -8434,6 +8434,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Blessing_when_party_bel", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Chaos Drive (lightning).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Chaos_Drive {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Chaos_Drive", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Use Cleansing when party above.
@@ -8488,6 +8497,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Deadly_Blow_High_damage", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Deep Freeze (ice).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Deep_Freeze {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Deep_Freeze", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Use Defend.
@@ -8504,6 +8522,24 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Dokumori_when_enemy_bel {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Dokumori_when_enemy_bel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Doomsday.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Doomsday {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Doomsday", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Drain Touch (heals us, and powers up the other attacks).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Drain_Touch {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Drain_Touch", resourceCulture);
             }
         }
         
@@ -8549,6 +8585,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_ {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Hasty_Mirage_Increases_", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Hell Wind (wind).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Hell_Wind {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Hell_Wind", resourceCulture);
             }
         }
         
@@ -8704,7 +8749,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Misty_Mirage_Increases_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Aero line (wind, upgrades as you learn it).
         /// </summary>
@@ -9280,6 +9325,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Text_300k_gilcast", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Attacks cost 10% of max HP - only use them above.
+        /// </summary>
+        public static string OccultCrescent_Text_Attacks_cost_HP_only_use_above {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_Attacks_cost_HP_only_use_above", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Battle Bell prioritizes tanks first (who take most damage), then self, then other party members. Only cast in combat..
@@ -9703,7 +9757,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Text_When_near_Knowledge_Crystals_a", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to when target targeting us and HP below.
         /// </summary>
