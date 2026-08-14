@@ -307,14 +307,35 @@ namespace Magitek.Extensions
             return gameObject != null && Tanks.Contains(gameObject.CurrentJob);
         }
 
+        // "Main tank" is only answerable from a positive signal: this tank is holding what we are pointed
+        // at, or whatever it is fighting is pointed back at it. When no tank we can reach gives that
+        // signal we cannot tell them apart, and then every tank counts rather than none of them — a
+        // party-wide mitigation that never fires is worse than one that fires for the wrong tank.
+        //
+        // The old tie-break was "the party contains exactly one tank", which answers false for BOTH tanks
+        // of a two-tank party. An Occult Crescent critical encounter proved the cost: the boss is held by
+        // someone outside the party, so neither tank ever produced a signal, and Kerachole, Panhaima and
+        // Aquaveil stayed locked off for the whole fight while the ungated barriers kept firing.
+        //
+        // The roster is the castable tanks in heal range, not the raw party list, for the reason spelled
+        // out at FightLogic.SharedTankBuster: a tank we cannot reach must not get a vote on who the
+        // reachable tank is. It also keeps both sides of the comparison in one population, since the
+        // castable lists follow the alliance while we heal it and the raw party list does not.
         public static bool IsMainTank(this GameObject unit)
         {
             var gameObject = unit as Character;
-            return gameObject != null
-                && Tanks.Contains(gameObject.CurrentJob)
-                && (gameObject.BeingTargetedBy(Core.Me.CurrentTarget)
-                    || gameObject.BeingTargetedBy(gameObject.TargetGameObject)
-                    || PartyManager.RawMembers.Where(r => r != null).Select(r => r.BattleCharacter).Count(r => r != null && Tanks.Contains(r.CurrentJob)) == 1);
+
+            if (gameObject == null || !Tanks.Contains(gameObject.CurrentJob))
+                return false;
+
+            if (gameObject.BeingTargetedBy(Core.Me.CurrentTarget)
+                || gameObject.BeingTargetedBy(gameObject.TargetGameObject))
+                return true;
+
+            return !Group.CastableTanks.Any(r => r.ObjectId != gameObject.ObjectId
+                                              && r.WithinSpellRange(30)
+                                              && (r.BeingTargetedBy(Core.Me.CurrentTarget)
+                                                  || r.BeingTargetedBy(r.TargetGameObject)));
         }
 
         public static bool IsTank(this GameObject unit, bool mainTank)
