@@ -1,0 +1,21 @@
+<Project>
+
+  <PropertyGroup>
+    <!--
+      Defect classes that must fail the build instead of scrolling past as warnings.
+
+      These catch code that provably cannot run, which review reliably misses because the
+      build still says "succeeded":
+
+        CS0162  Unreachable code detected      (e.g. a second return after the first)
+        CS0642  Possible mistaken empty statement  (e.g. `if (cond);` - the guard does nothing)
+        CS0219  Variable assigned but never used
+
+      All three were at zero occurrences when this was added, so it breaks nothing that
+      already builds. The rest of the warning baseline (CA1416, CS0618, nullable warnings)
+      is deliberately left as warnings.
+    -->
+    <WarningsAsErrors>CS0162;CS0642;CS0219</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>

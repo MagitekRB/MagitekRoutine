@@ -23,7 +23,34 @@ Authoritative guidance for developers working on the Magitek routine.
 
 ### Contributing
 
-- Follow `CONTRIBUTING.md` for branch names, commit messages, pull requests, and attribution rules.
+- Follow `CONTRIBUTING.md` for branch names, commit messages, and pull requests. Commit
+  messages are user-facing patch notes, and PR bodies for logic changes need a
+  Tested / Sources / Removals block — see the `commit-and-pr` skill.
+
+### Skills
+
+Detailed procedures live in `.agents/skills/` as [Agent Skills](https://agentskills.dev) — a
+tool-neutral format. Each is a directory with a `SKILL.md`. They load on demand rather than
+sitting in context, so this file stays focused on what is always true and the skills carry the
+step-by-step work.
+
+| Skill | Use it when |
+|---|---|
+| `commit-and-pr` | Committing, branching, or opening a PR |
+| `extension-methods` | About to write any aura, range, enemy-count, or targeting check — an existing helper probably covers it |
+| `fightlogic` | Adding or changing a boss or dungeon encounter (`FightLogicEncounters.cs`) |
+| `ffxiv-id-lookup` | Finding action, status, or item IDs from datamining sources |
+| `job-routines` | Writing a helper, cached variable, or level-based calculation for a job's rotation logic |
+| `wouldkill-calculator` | Touching PvP damage prediction or auditing PvP patch notes |
+| `xaml-ui` | Creating or modifying any UI, setting, or user-visible text |
+
+They are plain markdown — if your tool does not support skills, read
+`.agents/skills/<name>/SKILL.md` directly.
+
+Claude Code only discovers skills under `.claude/skills/`, which holds a symlink to each one.
+On Windows those symlinks need Developer Mode or `git config core.symlinks true` at clone time;
+without it they arrive as plain text files and Claude Code skips them, so read
+`.agents/skills/` directly instead.
 
 ---
 
@@ -138,7 +165,7 @@ Understanding FFXIV-specific combat mechanics is essential for writing effective
 #### Tankbusters and Defensive Cooldowns
 - **Tankbuster:** Heavy single-target attack on the tank requiring mitigation.
 - **Raidwide AoE:** Damage to entire party requiring shields/healing.
-- Boss-specific logic lives in `BossDictionary.json` with fight phases and mechanic timings.
+- Encounter logic lives in `Magitek/Utilities/FightLogicEncounters.cs` — per-boss lists of tankbuster, AoE, and knockback action IDs. See the `fightlogic` skill.
 - Defensive cooldowns are orchestrated via `CommonFightLogic` to avoid stacking inefficiently.
 
 #### Enmity (Aggro) and Tank Stance
@@ -249,6 +276,11 @@ Combat state flags (computed properties, very cheap):
 
 - Run `dotnet build` before handing work over; the solution does not currently ship automated tests.
 - Exercise the routine in-game (training dummy + dungeon) when touching rotations or fight logic.
+  If you cannot test in game, say so in the PR body — "Not tested in game" is an accepted answer.
+- Any claim about game behavior used to justify a change — what an ability costs, when it
+  unlocks, what it masks into — needs a source or a first-hand in-game observation. See
+  "Claims About the Game" in `CONTRIBUTING.md`. In review, the stated rationale turns out
+  wrong more often than the code does, and wrong rationale usually means wrong code.
 - For UI-only work, open the relevant `UserControl` in the XAML designer to confirm layout.
 
 ---
@@ -289,166 +321,25 @@ The `MagitekLoader` project is a lightweight RebornBuddy addon (`IAddonProxy<Com
 
 ### Job-Specific Shared Utilities (Utilities/Routines/<Job>.cs)
 
-**CRITICAL:** When you need shared code that multiple Logic files will use, **DO NOT** put it at the top of a Logic file or duplicate it across files. Instead, use `Utilities/Routines/<Job>.cs`.
+Job-specific shared code — cached enemy counts, level-based property calculations
+(`MaxPolyglotCount`, `MaxCartridge`), refresh methods, helper calculations used by more than
+one Logic file — lives in `Utilities/Routines/<Job>.cs`, accessed via a namespace alias:
 
-#### Purpose
-
-`Utilities/Routines/<Job>.cs` contains **shared utility functions, cached variables, and helper calculations** that are used across multiple Logic files (`SingleTarget.cs`, `AoE.cs`, `Buff.cs`, etc.) and Rotations. This prevents code duplication and provides a centralized location for job-specific utilities.
-
-#### What Belongs in Utilities/Routines/<Job>.cs
-
-✅ **DO put these in Utilities/Routines/<Job>.cs:**
-- **Cached variables** that need periodic refresh (e.g., `AoeEnemies5Yards`, `AoeEnemies30Yards`)
-- **Helper calculation methods** that don't cast spells (e.g., `WillOvercapPolyglot()`, `MaxPolyglotCount`, `IsAurasForComboActive()`)
-- **Static collections/arrays** used by multiple Logic files (e.g., `DefensiveSpells[]`, `Defensives[]`)
-- **Level-based property calculations** (e.g., `MaxCartridge`, `HeartOfCorundum` based on level)
-- **Shared state objects** (e.g., `GlobalCooldown` WeaveWindow instances)
-- **Constants** specific to the job (e.g., item IDs like `Ether`, `HiEther`)
-- **Refresh methods** for cached variables (e.g., `RefreshVars()`)
-
-❌ **DO NOT put these in Utilities/Routines/<Job>.cs:**
-- Spell-casting logic (belongs in `Logic/<Job>/`)
-- Methods that return `Task<bool>` and actually cast spells
-- Settings checks or spell availability checks (these belong in Logic files)
-
-#### Usage Pattern
-
-**1. Access via namespace alias in Logic files:**
 ```csharp
 using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
-
-namespace Magitek.Logic.BlackMage
-{
-    internal static class SingleTarget
-    {
-        public static async Task<bool> Xenoglossy()
-        {
-            // Use the shared utility
-            if (BlackMageRoutine.WillOvercapPolyglot())
-                return await Spells.Xenoglossy.Cast(Core.Me.CurrentTarget);
-            
-            // ... rest of logic
-        }
-    }
-}
+// ...
+if (BlackMageRoutine.WillOvercapPolyglot())
+    return await Spells.Xenoglossy.Cast(Core.Me.CurrentTarget);
 ```
 
-**2. Access directly in Rotations:**
-```csharp
-using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
+**Before writing any calculation or helper inside a Logic file, check whether
+`Utilities/Routines/<Job>.cs` already has it.** Reimplementing an existing helper (a real PR
+defect: a private copy of `BlackMageRoutine.MaxPolyglotCount`) is a guaranteed review
+rejection, and so is parking shared code at the top of a Logic file. Spell-casting logic and
+settings checks stay in `Logic/<Job>/` — the Routines file never casts.
 
-namespace Magitek.Rotations
-{
-    public static class BlackMage
-    {
-        public static async Task<bool> PvP()
-        {
-            // Refresh cached variables before use
-            BlackMageRoutine.RefreshVars();
-            
-            // ... rest of rotation
-        }
-    }
-}
-```
-
-#### Example Structure
-
-```csharp
-namespace Magitek.Utilities.Routines
-{
-    internal static class BlackMage
-    {
-        // Cached variables (refreshed periodically)
-        public static int AoeEnemies5Yards;
-        public static int AoeEnemies30Yards;
-        
-        // Refresh method for cached variables
-        public static void RefreshVars()
-        {
-            AoeEnemies5Yards = Combat.Enemies.Count(x => x.WithinSpellRange(5) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
-            AoeEnemies30Yards = Combat.Enemies.Count(x => x.WithinSpellRange(30) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
-        }
-        
-        // Helper calculation methods
-        public static bool WillOvercapPolyglot()
-        {
-            if (PolyglotCount >= MaxPolyglotCount)
-                return true;
-            // ... calculation logic
-        }
-        
-        // Level-based properties
-        public static int MaxPolyglotCount
-        {
-            get
-            {
-                if (Core.Me.ClassLevel >= 98) return 3;
-                if (Core.Me.ClassLevel >= 80) return 2;
-                if (Core.Me.ClassLevel >= 70) return 1;
-                return 0;
-            }
-        }
-        
-        // Constants
-        public static readonly uint Ether = 4555;
-        public static readonly uint HiEther = 4556;
-    }
-}
-```
-
-#### Common Mistakes to Avoid
-
-❌ **BAD**: Duplicating helper code at the top of a Logic file
-```csharp
-namespace Magitek.Logic.BlackMage
-{
-    internal static class SingleTarget
-    {
-        // ❌ DON'T DO THIS - belongs in Utilities/Routines/BlackMage.cs
-        private static int MaxPolyglotCount
-        {
-            get
-            {
-                if (Core.Me.ClassLevel >= 98) return 3;
-                // ...
-            }
-        }
-        
-        public static async Task<bool> Xenoglossy()
-        {
-            // ...
-        }
-    }
-}
-```
-
-✅ **GOOD**: Using the shared utility from Utilities/Routines
-```csharp
-using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
-
-namespace Magitek.Logic.BlackMage
-{
-    internal static class SingleTarget
-    {
-        public static async Task<bool> Xenoglossy()
-        {
-            // ✅ Use the shared utility
-            if (BlackMageRoutine.WillOvercapPolyglot())
-                return await Spells.Xenoglossy.Cast(Core.Me.CurrentTarget);
-            // ...
-        }
-    }
-}
-```
-
-#### When to Create or Update Utilities/Routines/<Job>.cs
-
-- **Creating new shared utilities**: If you find yourself writing the same calculation or helper in multiple Logic files, move it to `Utilities/Routines/<Job>.cs`.
-- **Adding cached variables**: If multiple Logic files need the same enemy count or state calculation, cache it in `Utilities/Routines/<Job>.cs` and refresh it in the Rotation's `PvP()` method or via a frame update.
-- **Level-based calculations**: If you have level-dependent properties or spell selection logic, centralize it in `Utilities/Routines/<Job>.cs`.
-
-**Summary:** `Utilities/Routines/<Job>.cs` is the **shared utilities layer** for job-specific code that multiple Logic files need. Always check if a utility already exists before duplicating code in Logic files.
+The `job-routines` skill (`.agents/skills/job-routines/SKILL.md`) has the full rules: what
+belongs there, the alias pattern, and `RefreshVars()` caching.
 
 ### Spells (Utilities/Spells.cs)
 - All spell definitions are centralized in `Magitek.Utilities.Spells` as `public static readonly SpellData` fields.
@@ -469,10 +360,10 @@ namespace Magitek.Logic.BlackMage
 ### Embedded Resources (Resources/*/)
 - The project embeds several JSON resources as `EmbeddedResource` entries in the csproj:
   - `ActionList.json`, `StatusList.json`: Spell/action and status effect data.
-  - `BossDictionary.json`, `BossNames.json`: Boss fight metadata for encounter-specific logic.
+  - `BossDictionary.json`, `BossNames.json`: flat `npcId -> name` / name lists backing `IsBoss()`. They contain no mechanics.
   - `Toggles/*Toggles.json`: Job-specific toggle configurations (Bard, Dancer, Machinist, Dragoon, Reaper, Sage, Warrior, Pictomancer).
 - These resources are loaded at runtime and should not be modified during normal development.
-- When adding boss-specific logic, consult `BossDictionary.json` for boss IDs and fight phases.
+- Encounter mechanics are **not** in these JSON files. They live in `Magitek/Utilities/FightLogicEncounters.cs`; `BossDictionary.json` only answers "is this npcId a boss?" for `IsBoss()` (`Extensions/GameObjectExtensions.cs`).
 
 ---
 
@@ -487,48 +378,16 @@ namespace Magitek.Logic.BlackMage
 
 ## XAML & UI Rules
 
-- All job views live under `Magitek/Views/UserControls/<Job>/`.
-- Pattern:
-  ```xml
-  <UserControl.DataContext>
-      <Binding Source="{x:Static viewModels:BaseSettings.Instance}"/>
-  </UserControl.DataContext>
-  ```
-  - `BaseSettings` is the root ViewModel that exposes all job-specific settings (e.g., `WhiteMageSettings`, `SageSettings`).
-  - Bind to job settings via `{Binding WhiteMageSettings.PropertyName, Mode=TwoWay}`.
-  
-  ```xml
-  <UserControl.Resources>
-      <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
-  </UserControl.Resources>
-  <ScrollViewer VerticalScrollBarVisibility="Auto">
-      <StackPanel Margin="10">
-          <controls:SettingsBlock ...>
-              <!-- StackPanel content -->
-          </controls:SettingsBlock>
-      </StackPanel>
-  </ScrollViewer>
-  ```
-- Use `controls:SettingsBlock` to group related options.
-- **CRITICAL**: Default spacing uses StackPanels with `Margin="5"` wrapping each control. Use horizontal StackPanels (`Orientation="Horizontal"`) for checkbox + numeric pairs. See `.cursor/rules/xaml-spacing.mdc` for detailed examples.
-- Grid layouts are legacy technical debt. Only use Grids when complex multi-column alignment is absolutely necessary; keep parent StackPanel margins and limit Grid scope to the specific complex row. Prefer StackPanels for all new settings blocks.
+**Read the `xaml-ui` skill before creating or modifying any UI.** It is the complete
+procedure — view layout, StackPanel spacing, the backing setting property, localized strings,
+and shared components.
 
-### Internationalization
+The rules that are always true:
 
-- Never hardcode text. Reference strings via `{x:Static properties:Resources.ResourceName}`.
-- When adding text, update both `Magitek/Properties/Resources.resx` (English) and `Resources.zh-CN.resx` (Chinese).
-- The `Resources.Designer.cs` file is only auto-generated when run in visual studio, but when run in cursor/claude it needs to be manually added else the build fails with "Cannot find the static member" errors after adding resources:
-  1. Open `Properties/Resources.Designer.cs`.
-  2. Manually add the property in alphabetical order following the existing pattern.
-  3. Rebuild to verify.
-- Use `Generic_` prefixes for shared text; use `[JobName]_Content_` / `[JobName]_Text_` for job-specific phrases.
-
----
-
-## Resource & Shared Component Management
-
-- Follow `.cursor/rules/resource-management.mdc` for step-by-step localization updates.
-- Shared UI (e.g., PvP utilities) belongs under `Views/UserControls/Common/` and should accept settings via binding or dependency properties. See `.cursor/rules/shared-components.mdc` for patterns.
+- Job views live under `Magitek/Views/UserControls/<Job>/`; shared UI under `Common/`.
+- Wrap every setting in a `StackPanel` with `Margin="5"`. Grid layouts are legacy technical debt — prefer StackPanels for all new settings blocks.
+- Never hardcode display text. Reference strings via `{x:Static properties:Resources.ResourceName}` and add them to **both** `Resources.resx` and `Resources.zh-CN.resx`.
+- One user-facing option means four edits: the setting property, the XAML control, and both resource files. Missing one is the most common defect in UI pull requests.
 
 ---
 
@@ -552,110 +411,27 @@ namespace Magitek.Logic.BlackMage
 
 ### Extension Methods and Utilities
 
-**CRITICAL:** Before implementing custom logic or manually accessing game objects, **always check extension methods** in the `Extensions/` folder. Many common operations have optimized, tested helper methods that handle edge cases and follow Magitek patterns.
+**Before manually accessing game objects — aura lookups, distance math, target validation,
+readiness checks — check `Magitek/Extensions/` for an existing helper.** Nearly every common
+operation already has one, and the helpers handle edge cases and caching the manual version
+will miss. The ones most often missed:
 
-#### Available Extension Namespaces
+- `HasAura(aura, isMyAura, msLeft)` — the `msLeft` parameter replaces manual
+  `TimespanLeft` math ("has the buff with at least N ms remaining"):
+  ```csharp
+  // Instead of walking CharacterAuras and dividing TimespanLeft yourself:
+  int minTimeFor4Gcds = (int)(Spells.KeenEdge.AdjustedCooldown.TotalMilliseconds * 4);
+  if (Core.Me.HasAura(Auras.NoMercy, false, minTimeFor4Gcds))
+      return false; // Has 4+ GCDs remaining
+  ```
+- `WithinSpellRange(range)` — replaces every manual `Distance`/`CombatReach` calculation.
+- `IsKnownAndReady()` / `IsKnown()` on `SpellData` — the only sanctioned readiness checks.
+- `Masked()` — see "Masked Actions" below.
 
-**`Magitek.Extensions.GameObjectExtensions`** - Extensions on `GameObject` and `Character`:
-- **Aura Checks:**
-  - `HasAura(uint spell, bool isMyAura = false, int msLeft = 0)`: Check if unit has aura with optional minimum time remaining
-  - `HasAuraCharge(uint spell, bool isMyAura = false)`: Check if unit has aura with charge value
-  - `HasAnyAura(uint[]/List<uint> auras, bool isMyAura = false, int msLeft = 0)`: Check if unit has any of the specified auras
-  - `HasAllAuras(List<uint> auras, bool areMyAuras = false, int msLeft = 0)`: Check if unit has all specified auras
-  - `CountAuras(List<uint> auras, bool isMyAura = false, int msLeft = 0)`: Count matching auras on unit
-  - `HasDispellableBuff()`: Check if an enemy carries a dispellable beneficial status (what a dispel can actually strip)
-- **Range and Distance:**
-  - `WithinSpellRange(float/double range)`: Edge-to-edge distance check accounting for CombatReach (use for ALL range checks)
-  - `EnemiesNearby(float distance)`: Get enemies within radius (uses cached Combat.Enemies)
-  - `EnemiesNearbyOoc(float distance)`: Get enemies within radius (out of combat, uses GameObjectManager)
-  - `EnemiesNearbyWithMyAura(float distance, uint aura)`: Get nearby enemies with your aura
-- **Targeting and Validation:**
-  - `ValidAttackUnit()`: Check if unit is a valid attack target
-  - `NotInvulnerable()`: Check if unit is not invulnerable
-  - `ThoroughCanAttack()`: Comprehensive attack validity check
-  - `BeingTargeted()`: Check if unit is being targeted
-  - `BeingTargetedBy(GameObject other)`: Check if unit is targeted by specific unit
-- **Role Checks:**
-  - `IsTank(bool mainTank = false)`: Check if unit is a tank
-  - `IsMainTank()`: Check if unit is main tank
-  - `IsHealer()`: Check if unit is a healer
-  - `IsDps()`: Check if unit is DPS
-  - `IsRangedPhysicalDps()`: Check if unit is ranged physical DPS
-  - `IsMelee()`: Check if unit is melee
-  - `IsRanged()`: Check if unit is ranged
-- **Combat Timing:**
-  - `TimeInCombat()`: Get time unit has been in combat
-  - `CombatTimeLeft()`: Get remaining combat time for target dummy
-- **Items:**
-  - `UseItem(uint itemId, bool lookForMedicated = false)`: Use item on unit
-
-**`Magitek.Extensions.SpellDataExtensions`** - Extensions on `SpellData`:
-- `IsKnownAndReady(int ms = 0)`: Check if spell is known and ready (with optional time window)
-- `Cast(GameObject target)`: Cast spell with proper error handling
-- `CastAura(GameObject target, uint auraId)`: Cast spell and wait for aura application
-- `Masked()`: Get actual ability that will execute (for combo/state-based abilities)
-- `CooldownToNextCharge()`: Calculate time until next charge is available
-
-**`Magitek.Extensions.CharacterExtensions`** - Extensions on `Character`:
-- Character-specific helpers for targeting and validation
-
-**`Magitek.Extensions.PlayerExtensions`** - Extensions on player character:
-- Player-specific utilities and state checks
-
-**`Magitek.Extensions.CollectionExtensions`** - Extensions on collections:
-- Collection manipulation and filtering helpers
-
-**`Magitek.Extensions.JobHelperExtensions`** - Job-specific helpers:
-- Job-specific utility methods
-
-**`Magitek.Extensions.PetSpellDataExtensions`** - Extensions for pet spells:
-- Pet spell casting and validation helpers
-
-**`Magitek.Extensions.XivDbItemExtensions`** - Extensions for FFXIV database items:
-- Item data access and validation
-
-#### Pattern: Check Extensions Before Manual Implementation
-
-**❌ BAD**: Manually accessing auras and calculating time
-```csharp
-var noMercyAura = Core.Me.CharacterAuras.FirstOrDefault(r => r.Id == Auras.NoMercy);
-if (noMercyAura != null)
-{
-    double timeRemaining = noMercyAura.TimespanLeft.TotalMilliseconds;
-    double gcdsRemaining = timeRemaining / gcdDurationMs;
-    if (gcdsRemaining >= 4)
-        return false;
-}
-```
-
-**✅ GOOD**: Using extension method with built-in time check
-```csharp
-double gcdDurationMs = Spells.KeenEdge.AdjustedCooldown.TotalMilliseconds;
-int minTimeFor4Gcds = (int)(gcdDurationMs * 4);
-if (Core.Me.HasAura(Auras.NoMercy, false, minTimeFor4Gcds))
-    return false; // Has 4+ GCDs remaining
-```
-
-#### When to Check Extensions
-
-**Always check extension methods when:**
-- Checking for auras/buffs/debuffs (use `HasAura` with `msLeft` parameter)
-- Validating spell readiness (use `IsKnownAndReady`)
-- Checking distances/ranges (use `WithinSpellRange`, `EnemiesNearby`, `EnemiesInCone`)
-- Accessing character auras or properties
-- Performing common game object operations
-
-**How to Find Extensions:**
-1. Look in `Magitek/Extensions/` folder for relevant extension files
-2. Check method signatures for overloads with additional parameters (e.g., `HasAura` with `msLeft`)
-3. Review existing code in similar logic files for extension usage patterns
-4. When in doubt, search the codebase for similar operations to see what extensions are used
-
-**Benefits:**
-- **Consistency**: All code uses the same helpers, reducing bugs
-- **Performance**: Extensions often use cached collections or optimized queries
-- **Maintainability**: Changes to game APIs only need updates in one place
-- **Edge Cases**: Extensions handle null checks, validation, and edge cases automatically
+The `extension-methods` skill (`.agents/skills/extension-methods/SKILL.md`) is the full
+catalog by namespace (`GameObjectExtensions`, `SpellDataExtensions`, `PlayerExtensions`, and
+the rest). Load it before writing any manual game-object access; when in doubt, search
+existing Logic files for the same operation to see which helper they use.
 
 ### Level Sync and Spell Dependencies
 
@@ -673,115 +449,47 @@ if (Core.Me.HasAura(Auras.NoMercy, false, minTimeFor4Gcds))
 - **Spell Availability**: Only spells that are actually known at the synced level are usable (use `IsKnown()`).
 - **Job Gauge Changes**: Max resources, ability upgrades, and combo paths change based on synced level.
 
-#### When to Check IsKnown vs LevelAcquired
+#### The two directions this goes wrong
 
-**MANDATORY: Check spell availability in these scenarios:**
+**Trap 1 — holding for a spell that does not exist.** Logic that waits on a higher-level
+spell deadlocks when sync removes it:
 
-1. **Spell logic depends on another spell existing:**
-   ```csharp
-   // BAD: Assumes DoubleDown exists
-   if (Cartridge < 2) // Need 2 for Gnashing Fang + Double Down
-       return false;
-   
-   // GOOD: Checks if DoubleDown is available
-   bool hasDoubleDown = Spells.DoubleDown.IsKnown();
-   int requiredCartridges = hasDoubleDown ? 2 : 1; // Adjust requirement
-   ```
-
-2. **Rotation priority relies on spell combinations:**
-   ```csharp
-   // BAD: Holds GCD for a spell that might not exist
-   if (Spells.HighLevelSpell.IsKnownAndReady())
-       return false; // Deadlock at low levels!
-   
-   // GOOD: Only holds if spell is actually available
-   bool hasHighLevelSpell = Spells.HighLevelSpell.IsKnown();
-   if (hasHighLevelSpell && Spells.HighLevelSpell.IsKnownAndReady())
-       return false;
-   ```
-
-3. **Resource spending depends on available spenders:**
-   ```csharp
-   // BAD: Prevents combo completion waiting for unavailable AoE spender
-   if (Cartridge >= MaxCartridge) // Can't finish combo - deadlock!
-       return false;
-   
-   // GOOD: Allow combo if AoE spender doesn't exist
-   bool hasFatedCircle = Spells.FatedCircle.IsKnown();
-   if (Cartridge >= MaxCartridge && hasFatedCircle)
-       return false; // Only block if we have the spender
-   ```
-
-4. **Auras from higher-level spells:**
-   ```csharp
-   // BAD: Checks for aura from spell that doesn't exist
-   if (Core.Me.HasAura(Auras.HighLevelBuff))
-       return await SomeAction();
-   
-   // GOOD: Check level first
-   if (Spells.HighLevelBuff.IsKnown() && 
-       Core.Me.HasAura(Auras.HighLevelBuff))
-       return await SomeAction();
-   ```
-
-#### Common Patterns
-
-**Pattern 1: Ability Upgrade Chains**
 ```csharp
-// Gunbreaker: DoubleDown (90) requires Gnashing Fang (60)
-// If we have DoubleDown, we by definition have Gnashing Fang
-bool hasDoubleDown = Spells.DoubleDown.IsKnown();
-bool hasGnashingFang = Spells.GnashingFang.IsKnown();
+// BAD: Holds GCD for a spell that might not exist
+if (Spells.HighLevelSpell.IsKnownAndReady())
+    return false; // Deadlock at low levels!
 
-if (hasDoubleDown)
-    requiredCartridges = 2; // Have both
-else if (hasGnashingFang)
-    requiredCartridges = 1; // Only Gnashing Fang
-else
-    requiredCartridges = 0; // Neither available
+// GOOD: Only holds if spell is actually available
+bool hasHighLevelSpell = Spells.HighLevelSpell.IsKnown();
+if (hasHighLevelSpell && Spells.HighLevelSpell.IsKnownAndReady())
+    return false;
 ```
 
-**Pattern 2: AoE vs Single-Target Split**
+The same shape applies to resources and auras:
+
 ```csharp
-// Only prefer AoE spender if it exists
-int enemyCount = Combat.Enemies.Count(r => r.WithinSpellRange(5));
-bool hasAoeSpender = Spells.AoeSpender.IsKnown();
+// BAD: Prevents combo completion waiting for unavailable AoE spender
+if (Cartridge >= MaxCartridge) // Can't finish combo - deadlock!
+    return false;
 
-// If AoE spender exists, skip single-target spender in AoE
-if (enemyCount >= AoeThreshold && hasAoeSpender)
-    return false; // Use AoE spender instead
-
-// Otherwise allow single-target spender in AoE (fallback)
-return await Spells.SingleTargetSpender.Cast(target);
+// GOOD: At max resources, block ONLY if a spender exists to use them
+bool hasFatedCircle = Spells.FatedCircle.IsKnown();
+if (Cartridge >= MaxCartridge && hasFatedCircle)
+    return false;
 ```
 
-**Pattern 3: Resource Cap Prevention**
-```csharp
-// Don't block combo if resource spender doesn't exist
-bool hasResourceSpender = Spells.ResourceSpender.IsKnown();
+Never gate on an aura applied by a higher-level spell without first checking that spell's
+`IsKnown()`, and always leave a fallback action path when a dependency is unavailable
+(`if (hasUpgrade) ... else return await Spells.BasicAbility.Cast(target);`).
 
-// At max resources, prevent overcapping ONLY if spender exists
-if (Resource >= MaxResource && hasResourceSpender)
-    return false; // Let spender use resources first
-
-// Otherwise allow combo to complete (prevents deadlock)
-return await Spells.ComboFinisher.Cast(target);
-```
-
-**Pattern 4: Conditional Ability Availability**
-```csharp
-// Use level-appropriate spell variant
-public static SpellData GetBestDefensive()
-{
-    // Return highest-level version available
-      if (Spells.UpgradedDefensive.IsKnown())
-          return Spells.UpgradedDefensive;
-      else if (Spells.BasicDefensive.IsKnown())
-          return Spells.BasicDefensive;
-    else
-        return null; // No defensive available
-}
-```
+**Trap 2 — the reverse: assuming a trait upgrade makes the base spell unknown.** It does
+not. When a trait upgrades an action (e.g., Medica II → Medica III at Lv96), the base action
+keeps `ActionManager.HasSpell == true` — so `IsKnown()` on the base stays true — and the
+upgrade expresses through **action masking**: `Spells.MedicaII.Masked()` returns Medica III.
+Never write `!Spells.BaseSpell.IsKnown()` to detect an upgrade; check the upgrade's own
+`IsKnown()`, or use `Masked()` (see "Masked Actions" below). Confident claims of the form
+"spell X is unknown at level Y" have repeatedly turned out false in review — verify in game
+or against the official job guide before building logic on them.
 
 #### Real-World Example: Gunbreaker No Mercy
 
@@ -819,23 +527,6 @@ if (Cartridge < requiredCartridges)
     return false;
 ```
 
-#### Testing Level Sync
-
-**Manual Testing:**
-- Test rotations in level-synced content (low-level dungeons/trials)
-- Verify no deadlocks at:
-  - Job start level (30 for most jobs, 60/70 for expansion jobs)
-  - Major ability unlock levels (50, 60, 70, 80, 90, 100)
-  - Between major ability unlocks
-
-**Common Deadlock Scenarios:**
-- Holding GCD for spell that doesn't exist
-- Blocking resource generation when resource spender unavailable
-- Requiring resources for non-existent abilities
-- Checking auras from spells above current level
-
-**Summary:** Always use `IsKnown()` (or `IsKnownAndReady()`) checks when implementing spell dependencies. Provide fallback logic for lower levels to prevent rotation deadlocks in level-synced content. Use `LevelAcquired` only for trait/level gating or forced sync simulation.
-
 #### Checklist for New Spell Implementations
 
 When adding a new spell or modifying spell logic, verify:
@@ -845,22 +536,7 @@ When adding a new spell or modifying spell logic, verify:
 - [ ] **Resource calculations**: If calculating resource requirements based on available abilities, check each ability's `IsKnown()`
 - [ ] **Priority logic**: If rotation priority changes based on spell availability, check `IsKnown()` before making decisions
 - [ ] **Fallback paths**: Ensure there's always a valid action path even when dependencies are unavailable
-- [ ] **Level boundaries**: Test logic at key level boundaries (spell acquisition level, level sync points)
-
-**Example Implementation Checklist:**
-```csharp
-// ✅ GOOD: Checks dependency before using
-bool hasUpgrade = Spells.UpgradedAbility.IsKnown();
-if (hasUpgrade && Spells.UpgradedAbility.IsKnownAndReady())
-    return await Spells.UpgradedAbility.Cast(target);
-else
-    return await Spells.BasicAbility.Cast(target); // Fallback
-
-// ❌ BAD: Assumes upgrade exists
-if (Spells.UpgradedAbility.IsKnownAndReady())
-    return await Spells.UpgradedAbility.Cast(target);
-// No fallback - deadlock if upgrade unavailable!
-```
+- [ ] **Level boundaries**: Consider behavior at the job start level, at each major unlock (50/60/70/80/90/100), and in level-synced content — that is where the deadlocks live
 
 ### Masked Actions (Combo and State-Based Abilities)
 
@@ -902,11 +578,16 @@ public static SpellData Masked(this SpellData spell)
        return false; // Blota is replaced, don't use
    ```
 
+5. **Trait upgrades**: A trait upgrade (e.g., Medica II → Medica III at Lv96) does **not**
+   make the base action unknown — the base keeps `IsKnown() == true` and masks to the
+   upgrade. Read `Spells.BaseSpell.Masked()` to act on the upgraded form; never probe
+   `!IsKnown()` on the base to detect it.
+
 **Pattern:** Use `Masked()` when you need to know which ability will **actually execute** when the button is pressed, not just which button ID is being checked. Store the result in a variable if checking it multiple times.
 
 ### SpellData Timing Properties (Cooldown, AdjustedCooldown, AdjustedCastTime)
 
-SpellData exposes several timing-related properties that serve different purposes. Understanding when to use each is critical for accurate rotation logic:
+SpellData exposes several timing-related properties whose names do not reveal the difference: **`Cooldown` is the time remaining right now; `AdjustedCooldown` is the total cooldown duration.** Using one where the other is meant compiles fine and produces timing logic that is silently wrong. The same applies to `Charges`, where the decimal portion is progress toward the next charge, not a count.
 
 #### Cooldown (TimeSpan)
 **Purpose:** The **remaining time** until the spell is available to cast again.
@@ -1095,49 +776,19 @@ Hardcoded numbers **MUST** become config options unless there are very specific 
    - Movement and positioning behavior
    - Smart-casting options
 
-**Implementation Pattern:**
+**Implementation:** a configurable value means four edits — the `[Setting]`/`[DefaultValue]`
+property in the settings model, the XAML control, and the localized string in **both**
+`Resources.resx` and `Resources.zh-CN.resx`. The `xaml-ui` skill
+(`.agents/skills/xaml-ui/SKILL.md`) is the full step-by-step procedure; load it before
+adding any setting. In logic, gate on the setting first:
 
-When adding a configurable value, you must:
+```csharp
+if (!JobSettings.Instance.UseSomeAbility)
+    return false;
 
-1. **Add to Settings Model** with `[Setting]` and `[DefaultValue]` attributes:
-   ```csharp
-   [Setting]
-   [DefaultValue(75f)]
-   public float SomeAbilityHealthPercent { get; set; }
-   ```
-
-2. **Add UI Controls** in the appropriate XAML view using StackPanel spacing:
-   ```xml
-   <StackPanel Orientation="Horizontal" Margin="5">
-       <CheckBox Content="{x:Static properties:Resources.Job_UseSomeAbility}"
-                 IsChecked="{Binding JobSettings.UseSomeAbility, Mode=TwoWay}"
-                 Margin="5"/>
-       <controls:Numeric Value="{Binding JobSettings.SomeAbilityHealthPercent, Mode=TwoWay}"
-                        Margin="5" MaxValue="100" MinValue="1" />
-   </StackPanel>
-   ```
-
-3. **Add Localized Strings** to both `Resources.resx` and `Resources.zh-CN.resx`:
-   ```xml
-   <!-- Resources.resx -->
-   <data name="Job_UseSomeAbility" xml:space="preserve">
-     <value>Use Some Ability Below HP%:</value>
-   </data>
-   
-   <!-- Resources.zh-CN.resx -->
-   <data name="Job_UseSomeAbility" xml:space="preserve">
-     <value>在血量低于 HP% 时使用某技能：</value>
-   </data>
-   ```
-
-4. **Use in Logic** with clear setting checks:
-   ```csharp
-   if (!JobSettings.Instance.UseSomeAbility)
-       return false;
-       
-   if (target.CurrentHealthPercent > JobSettings.Instance.SomeAbilityHealthPercent)
-       return false;
-   ```
+if (target.CurrentHealthPercent > JobSettings.Instance.SomeAbilityHealthPercent)
+    return false;
+```
 
 ### When Hardcoding is Acceptable
 
@@ -1230,12 +881,15 @@ return await Spells.HolyCircle.Cast(Core.Me);
 9. Using `{ get; }` instead of `{ get; set; }` for ViewModel job settings properties (breaks PropertyChanged.Fody two-way binding).
 10. Forgetting `[Setting]` attribute on serialized Settings properties (required alongside `[DefaultValue]`).
 11. Using C# 11+ features (project targets C# 10).
-12. Modifying embedded JSON resources directly instead of using boss fight dictionaries.
+12. Modifying embedded JSON resources directly — encounter mechanics belong in `Utilities/FightLogicEncounters.cs` (see the `fightlogic` skill).
 13. Using `Masked()` results without checking for null or storing in a variable for repeated checks.
-14. **Duplicating shared code** in Logic files instead of using `Utilities/Routines/<Job>.cs` for helper functions, cached variables, and calculations used by multiple Logic files (see "Job-Specific Shared Utilities" section).
+14. **Duplicating shared code** in Logic files instead of using `Utilities/Routines/<Job>.cs` for helper functions, cached variables, and calculations used by multiple Logic files (see "Job-Specific Shared Utilities" section) — including reimplementing a helper that already exists there.
+15. **Asserting game behavior without a source.** "Spell X requires buff Y" or "spell X is unknown at level Y" must come from the tooltip, the official job guide, or an in-game observation — not from what sounds plausible (see "Claims About the Game" in `CONTRIBUTING.md`).
 
 **Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented. Do not remove commented-out code you did not write — it may be kept deliberately.
 
 **Note on Existing Comments**: Do not change existing comments unless they are actually wrong and need a factual update. Rewording a correct comment is a meaningless diff change that pollutes review.
+
+**Note on Existing Guards**: The same caution applies to code. Guard conditions, aura checks, and resource gates in existing rotations are usually there because something went wrong without them, and the reason is rarely written down. If a change removes one, say so in the PR body and explain what makes it safe to drop. Removing a condition so a rotation fires more often is the most common way a fix turns into a regression.
 
 ---
