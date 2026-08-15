@@ -5484,4 +5484,13 @@ Does not work if Lightspeed is disabled.</value>
   <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
     <value>Ranged attack (25y). 60s cooldown. Available to all roles.</value>
   </data>
+  <data name="Views_Content_Use_Phoenix_Down" xml:space="preserve">
+    <value>Use Phoenix Downs to revive fallen allies (duties only)</value>
+  </data>
+  <data name="Views_Text_Phoenix_Down_Delay" xml:space="preserve">
+    <value>Seconds to wait after a death before using one:</value>
+  </data>
+  <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
+    <value>Keep at least this many in reserve:</value>
+  </data>
 </root>

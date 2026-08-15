@@ -14550,6 +14550,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Phoenix Downs to revive fallen allies (duties only).
+        /// </summary>
+        public static string Views_Content_Use_Phoenix_Down {
+            get {
+                return ResourceManager.GetString("Views_Content_Use_Phoenix_Down", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use PvP Aggro Count Overlay.
         /// </summary>
         public static string Views_Content_Use_Pvp_Aggro_Count_Overlay {
@@ -14744,6 +14753,24 @@ namespace Magitek.Properties {
         public static string Views_Text_Overlay_Settings {
             get {
                 return ResourceManager.GetString("Views_Text_Overlay_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seconds to wait after a death before using one:.
+        /// </summary>
+        public static string Views_Text_Phoenix_Down_Delay {
+            get {
+                return ResourceManager.GetString("Views_Text_Phoenix_Down_Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep at least this many in reserve:.
+        /// </summary>
+        public static string Views_Text_Phoenix_Down_Reserve {
+            get {
+                return ResourceManager.GetString("Views_Text_Phoenix_Down_Reserve", resourceCulture);
             }
         }
         

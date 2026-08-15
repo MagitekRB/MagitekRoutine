@@ -582,5 +582,17 @@ namespace Magitek.Models.Account
         [DefaultValue(true)]
         public bool MagitekMovement { get; set; }
 
+        [Setting]
+        [DefaultValue(false)]
+        public bool UsePhoenixDown { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int PhoenixDownDelaySeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int PhoenixDownReserve { get; set; }
+
     }
 }
