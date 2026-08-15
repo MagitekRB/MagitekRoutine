@@ -337,6 +337,7 @@ namespace Magitek.Utilities
             ChaoticSpring = 2719,
             ChaosThrust = 118,
             LanceCharge = 1864,
+            LifeSurge = 116,
             Equilibrium = 2681,
             Oblation = 2682,
             RaijuReady = 2690,

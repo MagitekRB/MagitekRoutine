@@ -4046,6 +4046,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies" xml:space="preserve">
     <value>Use AOE Rotation Where There Are Enemies</value>
   </data>
+  <data name="BlackMage_Content_Use_Ethers_In_AOE" xml:space="preserve">
+    <value>Use Ethers in AoE (extra Flare when out of MP)</value>
+  </data>
   <data name="BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat" xml:space="preserve">
     <value>Use TransposeUmbral Soul Out of Combat</value>
   </data>

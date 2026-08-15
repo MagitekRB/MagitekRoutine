@@ -16,10 +16,16 @@ namespace Magitek.Utilities
             var etherItem = InventoryManager.FilledSlots.FirstOrDefault(s => s.RawItemId == etherItemId);
 
             if (etherItem == null)
+            {
+                Logger.WriteInfo($"[BLM-AoE-Ether] Ether item not found: {etherItemId}");
                 return false;
+            }
 
             if (!etherItem.CanUse(Core.Me))
+            {
+                Logger.WriteInfo($"[BLM-AoE-Ether] Cannot use item: {etherItem.Name}");
                 return false;
+            }
 
             while (etherItem.CanUse())
             {

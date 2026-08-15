@@ -16,6 +16,10 @@ namespace Magitek.Logic.BlackMage
     {
         public static async Task<bool> Xenoglossy()
         {
+            // 2-Target optimization: Foul is a gain over Xenoglossy on 2+ targets
+            if (Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= 2 && Spells.Foul.IsKnown() && PolyglotStatus)
+                return await Aoe.Foul();
+
             if (!Spells.Xenoglossy.IsKnown())
             {
                 if (Spells.Foul.IsKnown() && PolyglotStatus)
@@ -88,9 +92,9 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Fire.IsKnown())
                 return false;
 
-            if (Spells.Fire4.IsKnown())
+            // When Paradox is known (Lv 90+), Paradox replaces Fire 1 for Astral Fire refreshes
+            if (Spells.Paradox.IsKnown())
                 return false;
-
             if (AstralSoulStacks == 6)
                 return false;
 
@@ -140,8 +144,16 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks == 3 || UmbralStacks < 3)
                 return false;
 
-            if (UmbralStacks > 0 && Core.Me.CurrentMana != Core.Me.MaxMana)
+            // In Umbral Ice III: transition to Astral Fire after Blizzard 4 (or when we have 3 Umbral Hearts / enough MP)
+            if (Spells.Blizzard4.IsKnown())
+            {
+                if (UmbralHearts < 3 && !Casting.LastSpellWas(Spells.Blizzard4))
+                    return false;
+            }
+            else if (Core.Me.CurrentMana < 7200)
+            {
                 return false;
+            }
 
             return await Spells.Fire3.Cast(Core.Me.CurrentTarget);
         }
@@ -167,11 +179,6 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
-
-            if (Casting.LastSpellWas(Spells.Thunder)
-                || Casting.LastSpellWas(Spells.Thunder3)
-                || Casting.LastSpellWas(Spells.HighThunder))
                 return false;
 
             if (Casting.LastSpellWas(Spells.Thunder)
@@ -289,6 +296,12 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Paradox)
                 return false;
 
+            // Skip single-target Paradox during AoE
+            if (AoeControl.Enabled
+                && BlackMageSettings.Instance.UseAoe
+                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+                return false;
+
             if (Casting.LastSpellWas(Spells.Fire3))
                 return false;
 
@@ -302,7 +315,11 @@ namespace Magitek.Logic.BlackMage
             if (Spells.ManaFont.IsKnownAndReady())
                 return false;
 
-            if (Spells.Fire4.IsKnownAndReadyAndCastableAtTarget() && Spells.ManaFont.Cooldown.TotalMilliseconds >= 70000)
+            // In Astral Fire, cast Paradox after 3x Fire 4 (AstralSoulStacks >= 3) or when moving
+            if (MovementManager.IsMoving)
+                return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
+
+            if (AstralSoulStacks < 3 && Spells.Fire4.IsKnown())
                 return false;
 
             return await Spells.Paradox.Cast(Core.Me.CurrentTarget);

@@ -123,11 +123,13 @@ namespace Magitek.Logic.BlackMage
 
             if (Spells.UmbralSoul.Cooldown != TimeSpan.Zero)
                 return false;
-
-            if (UmbralStacks == 0)
+            // Do not use in combat if we have a target (use Aoe.Freeze instead)
+            if (Core.Me.InCombat && Core.Me.HasTarget)
                 return false;
 
-            if (UmbralStacks < 3 && UmbralStacks > 1)
+            if (UmbralStacks == 0)
+
+            if (UmbralStacks < 3 || UmbralHearts < 3)
                 return await Spells.UmbralSoul.Cast(Core.Me);
 
             return false;
@@ -150,10 +152,10 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks == 0)
                 return false;
 
-            if (Core.Me.CurrentMana >= Core.Me.MaxMana)
-                return false;
+            if (UmbralStacks < 3 || UmbralHearts < 3 || Core.Me.CurrentMana < Core.Me.MaxMana)
+                return await Spells.UmbralSoul.Cast(Core.Me);
 
-            return await Spells.UmbralSoul.Cast(Core.Me);
+            return false;
         }
 
         public static async Task<bool> ManaFont()

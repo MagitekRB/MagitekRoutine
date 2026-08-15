@@ -40,7 +40,73 @@ namespace Magitek.Logic.BlackMage
             if (BlackMageRoutine.WillOvercapPolyglot())
                 return await Spells.Foul.Cast(Core.Me.CurrentTarget);
 
-            return await Spells.Foul.Cast(Core.Me.CurrentTarget);
+            // In AoE: use Foul as instant filler in Umbral Ice to weave Transpose or when moving
+            if (UmbralStacks > 0 && UmbralHearts == 3)
+                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
+
+            if (MovementManager.IsMoving)
+                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
+
+            return false;
+        }
+
+        public static async Task<bool> AoeTranspose()
+        {
+            if (!Spells.Transpose.IsKnownAndReady())
+                return false;
+
+            // In Astral Fire with low MP (after Flare / Flare Star) and Manafont is not ready -> Transpose to Umbral Ice
+            if (AstralStacks > 0 && Core.Me.CurrentMana < 800)
+            {
+                if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                    return false;
+
+                if (Spells.ManaFont.IsKnownAndReady())
+                    return false;
+
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
+            // In Umbral Ice with 3 Umbral Hearts -> Transpose to Astral Fire
+            if (UmbralStacks > 0 && UmbralHearts == 3)
+            {
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> UseAoeEther()
+        {
+            if (!BlackMageSettings.Instance.UseEtherInAoe)
+                return false;
+
+            // Log checks
+            // Logger.WriteInfo($"[BLM-AoE-Ether] AstralStacks: {AstralStacks}, Mana: {Core.Me.CurrentMana}, ManaFont: {Spells.ManaFont.IsKnownAndReady()}");
+
+
+            // Diagnostic log
+            // Logger.WriteInfo($"[BLM-AoE-Ether] Checking: Stacks={AstralStacks}, Mana={Core.Me.CurrentMana}, MF={Spells.ManaFont.IsKnownAndReady()}");
+
+                return false;
+
+            if (Core.Me.CurrentMana >= 800)
+                return false;
+
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                return false;
+
+            if (Spells.ManaFont.IsKnownAndReady())
+                return false;
+
+            // Try each ether from best to worst; any granting 800+ MP enables an extra Flare
+            foreach (var etherId in BlackMageRoutine.AoeEthers)
+            {
+                if (await Ether.UseEther((int)etherId))
+                    return true;
+            }
+
+            return false;
         }
 
         public static async Task<bool> Flare()
@@ -51,20 +117,18 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks > 0)
                 return false;
 
-            if (AstralSoulStacks == 6)
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                 return false;
 
             if (!Spells.Flare.IsKnown())
                 return false;
 
-            if (Core.Me.ClassLevel == 100)
-            {
-                if (AstralStacks > 0)
-                    return await Spells.Flare.Cast(Core.Me.CurrentTarget);
-            }
+            // Must have Astral Fire active or enough MP
+            if (AstralStacks == 0 && Core.Me.CurrentMana < 800)
+                return false;
 
-            if (Casting.LastSpellWas(Spells.ManaFont))
-                return await Spells.Flare.Cast(Core.Me.CurrentTarget);
+            if (Core.Me.CurrentMana < 800 && UmbralHearts == 0)
+                return false;
 
             return await Spells.Flare.Cast(Core.Me.CurrentTarget);
         }
@@ -97,7 +161,7 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (UmbralStacks != 3)
+            if (UmbralStacks == 0)
                 return false;
 
             if (UmbralHearts == 3)

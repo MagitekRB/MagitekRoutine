@@ -40,9 +40,12 @@ namespace Magitek.Rotations
         {
             return false;
         }
-        public static Task<bool> CombatBuff()
+        public static async Task<bool> CombatBuff()
         {
-            return Task.FromResult(false);
+            // Use Potion on Bosses
+            if (global::Magitek.Utilities.Combat.IsBoss() && await MagicDps.UsePotion(BlackMageSettings.Instance)) return true;
+
+            return false;
         }
         public static async Task<bool> Combat()
         {
@@ -62,8 +65,9 @@ namespace Magitek.Rotations
             if (await Buff.Triplecast()) return true;
             if (await Buff.LeyLines()) return true;
             if (await Buff.Retrace()) return true;
+            if (await CombatBuff()) return true;
+
             if (await Buff.ManaFont()) return true;
-            if (await Buff.UmbralSoul()) return true;
 
             if (await SingleTarget.Thunder3()) return true;
             if (await SingleTarget.Paradox()) return true;
@@ -72,16 +76,20 @@ namespace Magitek.Rotations
             //AoE Section
             if (BlackMageSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
             {
-                //Either
+                // Use ether for extra Flare when in AF with no MP and ManaFont on cooldown
+                if (await Aoe.UseAoeEther()) return true;
+                if (await Aoe.AoeTranspose()) return true;
                 if (await Aoe.Thunder4()) return true;
                 if (await Aoe.Foul()) return true;
 
-                if (await Aoe.Blizzard2()) return true;
-                if (await Aoe.Fire2()) return true;
-
-                if (await Aoe.Flare()) return true;
                 if (await Aoe.Freeze()) return true;
+                if (await Aoe.Flare()) return true;
+
+                // Fallback for lower levels or when Transpose is on cooldown
+                if (await Aoe.Fire2()) return true;
+                if (await Aoe.Blizzard2()) return true;
             }
+            if (await Buff.UmbralSoul()) return true;
 
             if (await SingleTarget.Xenoglossy()) return true;
             if (await SingleTarget.Blizzard4()) return true;

@@ -1983,6 +1983,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Ethers in AoE (extra Flare when out of MP).
+        /// </summary>
+        public static string BlackMage_Content_Use_Ethers_In_AOE {
+            get {
+                return ResourceManager.GetString("BlackMage_Content_Use_Ethers_In_AOE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Elemental Weave.
         /// </summary>
         public static string BlackMage_Content_Use_Elemental_Weave {

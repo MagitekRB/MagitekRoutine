@@ -70,8 +70,12 @@ namespace Magitek.Utilities.Routines
 
         public static readonly uint Ether = 4555;
         public static readonly uint HiEther = 4556;
+        public static readonly uint MegaEther = 4557;
         public static readonly uint XEther = 4558;
-        public static readonly uint MegaEther = 13638;
+        public static readonly uint MaxEther = 13638;
         public static readonly uint SuperEther = 23168;
+
+        // Ethers ordered best to worst for AoE usage (highest MP restore first)
+        public static readonly uint[] AoeEthers = { 23168, 13638, 4558, 4557, 4556, 4555 };
     }
 }

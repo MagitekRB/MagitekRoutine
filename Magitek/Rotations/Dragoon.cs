@@ -108,7 +108,8 @@ namespace Magitek.Rotations
                 if (await Aoe.Nastrond()) return true; //used in Single Target Rotation
 
                 //Jumps SingleWeave
-                if (DragoonRoutine.GlobalCooldown.CanWeave(1))
+                //Jump SingleWeave
+                if (DragoonRoutine.CanWeaveJump())
                 {
                     if (await Jumps.HighJump()) return true;  //SingleWeave
                     if (await Jumps.DragonfireDive()) return true; //SingleWeave

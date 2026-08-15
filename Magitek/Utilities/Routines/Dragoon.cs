@@ -4,6 +4,8 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using System.Collections.Generic;
+using Magitek.Models.Account;
+using ff14bot.Managers;
 
 
 namespace Magitek.Utilities.Routines
@@ -28,6 +30,9 @@ namespace Magitek.Utilities.Routines
                                             ? Spells.Disembowel
                                             : Spells.SpiralBlow;
 
+        public static SpellData VorpalThrust => !Spells.LanceBarrage.IsKnown()
+                                            ? Spells.VorpalThrust
+                                            : Spells.LanceBarrage;
         public static bool CanContinueComboAfter(SpellData LastSpellExecuted)
         {
             if (ActionManager.ComboTimeLeft <= 0)
@@ -41,7 +46,8 @@ namespace Magitek.Utilities.Routines
 
         public static List<SpellData> JumpsList = new List<SpellData>()
         {
-            HighJump,
+            Spells.Jump,
+            Spells.HighJump,
             Spells.DragonfireDive,
             Spells.MirageDive,
             Spells.Stardiver
@@ -49,9 +55,18 @@ namespace Magitek.Utilities.Routines
 
         public static List<SpellData> SingleWeaveJumpsList = new List<SpellData>()
         {
-            HighJump,
+            Spells.Jump,
+            Spells.HighJump,
             Spells.DragonfireDive,
             Spells.Stardiver
         };
+        public static bool CanWeaveJump()
+        {
+            // Jumps have a longer animation lock than generic oGCDs.
+            // Add 150ms buffer to the standard animation lock check.
+            return GlobalCooldown.CanWeave() &&
+                   Spells.TrueThrust.Cooldown.TotalMilliseconds > 
+                   (Globals.AnimationLockMs + 150 + BaseSettings.Instance.UserLatencyOffset);
+        }
     }
 }

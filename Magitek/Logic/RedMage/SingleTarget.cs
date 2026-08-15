@@ -64,6 +64,15 @@ namespace Magitek.Logic.RedMage
                         return false;
                 }
             }
+            else
+            {
+                // If MagickedSwordplay is active (via combo), ensure we actually have the required level to execute the next steps
+                if (Spells.Redoublement.IsKnown() && !RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau) && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedZwerchhau))
+                    return false;
+
+                if (Spells.Zwerchhau.IsKnown() && !RedMageRoutine.CanContinueComboAfter(Spells.Riposte) && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte))
+                    return false;
+            }
 
             return await Spells.Riposte.Cast(Core.Me.CurrentTarget);
         }

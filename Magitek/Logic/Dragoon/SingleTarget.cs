@@ -64,7 +64,8 @@ namespace Magitek.Logic.Dragoon
 
         public static async Task<bool> WheelingThrust()
         {
-            if (!DragoonRoutine.CanContinueComboAfter(DragoonRoutine.ChaoticSpring))
+            if (!DragoonRoutine.CanContinueComboAfter(DragoonRoutine.ChaoticSpring) &&
+                (Spells.Drakesbane.IsKnown() || !DragoonRoutine.CanContinueComboAfter(Spells.FangAndClaw)))
                 return false;
 
             return await Spells.WheelingThrust.Cast(Core.Me.CurrentTarget);
@@ -123,7 +124,8 @@ namespace Magitek.Logic.Dragoon
 
         public static async Task<bool> FangAndClaw()
         {
-            if (!DragoonRoutine.CanContinueComboAfter(DragoonRoutine.HeavensThrust))
+            if (!DragoonRoutine.CanContinueComboAfter(DragoonRoutine.HeavensThrust) &&
+                (Spells.Drakesbane.IsKnown() || !DragoonRoutine.CanContinueComboAfter(Spells.WheelingThrust)))
                 return false;
 
             return await Spells.FangAndClaw.Cast(Core.Me.CurrentTarget);

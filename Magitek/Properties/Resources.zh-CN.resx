@@ -4047,6 +4047,9 @@
   <data name="BlackMage_Content_Use_AOE_Rotation_Where_There_Are_Enemies" xml:space="preserve">
     <value>当有[xx]敌人时使用AOE循环</value>
   </data>
+  <data name="BlackMage_Content_Use_Ethers_In_AOE" xml:space="preserve">
+    <value>在AoE中使用以太药（MP不足时额外释放核爆）</value>
+  </data>
   <data name="BlackMage_Content_Use_TransposeUmbral_Soul_Out_of_Combat" xml:space="preserve">
     <value>使用 星灵移位 灵极魂 脱离战斗</value>
   </data>
