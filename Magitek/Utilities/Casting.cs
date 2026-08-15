@@ -22,6 +22,11 @@ namespace Magitek.Utilities
     {
         #region Variables
         public static bool CastingHeal;
+        // True while the tracked cast is a revive (Phoenix Down). The healer NeedToInterruptCast
+        // checks cancel any cast whose target is dead unless it is that job's own raise spell —
+        // and a revive's target is dead by definition, so they need this to tell the two apart.
+        // Cleared wherever CastingTime stops, so it is true exactly while the revive is tracked.
+        public static bool CastingRevive;
         public static SpellData CastingSpell;
         public static SpellData LastSpell;
         public static bool LastSpellSucceeded;
@@ -101,6 +106,15 @@ namespace Magitek.Utilities
                 await CancelCast();
                 return true;
             }
+
+            // A revive (Phoenix Down) targets a body that is dead by definition, and the job checks
+            // below cancel any cast on a dead target unless it is that job's own raise spell — so every
+            // one of them would kill the revive on its first tracked pulse. None of their other cancels
+            // can apply either (each is keyed to the job's own spells), so exempt the revive here once
+            // rather than carving an exception into all seven jobs. The target-validity checks above
+            // still run: a despawned corpse still cancels.
+            if (CastingRevive)
+                return true;
 
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (RotationManager.CurrentRotation)
@@ -195,6 +209,7 @@ namespace Magitek.Utilities
                     Logger.Error(msg);
 
                 CastingTime.Stop();
+                CastingRevive = false;
             }
             catch (Exception)
             {
@@ -215,6 +230,7 @@ namespace Magitek.Utilities
                 UseRefreshTime = false;
                 DoHealthChecks = false;
                 CastingHeal = false;
+                CastingRevive = false;
                 CastingGambit = false;
                 Callback = null;
                 return;
@@ -225,8 +241,12 @@ namespace Magitek.Utilities
             //This is to ensure that the instant Action we just tried to use
             //was indeed used and not rejected from the server.
             //Logic behind this is, that every Action will trigger some kind of cooldown
+            // !CastingRevive: Phoenix Down's BackingAction reports AdjustedCastTime 0 despite the real
+            // 8s cast bar, so without the exemption this shortcut returns with the timer still running
+            // and the revive flag latched. The revive must fall through to the buffer maths below, which
+            // its literal SpellCastTime was set up for.
             if (BaseSettings.Instance.UseAdvancedSpellHistory2)
-                if (CastingSpell.AdjustedCastTime.TotalMilliseconds == 0 && CastingSpell.Cooldown.TotalMilliseconds == 0)
+                if (CastingSpell.AdjustedCastTime.TotalMilliseconds == 0 && CastingSpell.Cooldown.TotalMilliseconds == 0 && !CastingRevive)
                     return;
 
             // Compare Times
@@ -235,6 +255,7 @@ namespace Magitek.Utilities
 
             // Stop Timer
             CastingTime.Stop();
+            CastingRevive = false;
 
             // Did we successfully cast?
             if (buffer > 800)
