@@ -25,7 +25,10 @@ namespace Magitek.Utilities
         // True while the tracked cast is a revive (Phoenix Down). The healer NeedToInterruptCast
         // checks cancel any cast whose target is dead unless it is that job's own raise spell —
         // and a revive's target is dead by definition, so they need this to tell the two apart.
-        // Cleared wherever CastingTime stops, so it is true exactly while the revive is tracked.
+        // Cleared wherever CastingTime stops AND at every ordinary-cast registration (the three
+        // CastingTime.Restart sites in SpellDataExtensions, beside their CastingHeal writes) — a
+        // stop is not guaranteed to run if the routine halts or the zone changes mid-revive, and a
+        // latched flag would hand the next cast the revive exemption.
         public static bool CastingRevive;
         public static SpellData CastingSpell;
         public static SpellData LastSpell;
