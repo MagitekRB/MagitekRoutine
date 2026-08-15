@@ -109,12 +109,19 @@ namespace Magitek.Utilities
 
             // A revive (Phoenix Down) targets a body that is dead by definition, and the job checks
             // below cancel any cast on a dead target unless it is that job's own raise spell — so every
-            // one of them would kill the revive on its first tracked pulse. None of their other cancels
-            // can apply either (each is keyed to the job's own spells), so exempt the revive here once
-            // rather than carving an exception into all seven jobs. The target-validity checks above
-            // still run: a despawned corpse still cancels.
+            // one of them would kill the revive on its first tracked pulse. Exempt the revive here once
+            // rather than carving an exception into all seven jobs, but keep the ONE cancel that is
+            // meaningful for it, the same one every healer applies to its own raise: someone else's
+            // raise landed first, so finishing the cast would spend a Phoenix Down on a claimed corpse.
+            // The target-validity checks above still run: a despawned corpse still cancels.
             if (CastingRevive)
+            {
+                if (SpellTarget is Character corpse
+                    && (corpse.CurrentHealth > 0 || corpse.HasAura(Auras.Raise)))
+                    await CancelCast("Revive target was already raised");
+
                 return true;
+            }
 
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (RotationManager.CurrentRotation)
