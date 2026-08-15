@@ -65,7 +65,6 @@ namespace Magitek.Rotations
             if (await Buff.Triplecast()) return true;
             if (await Buff.LeyLines()) return true;
             if (await Buff.Retrace()) return true;
-            if (await CombatBuff()) return true;
 
             if (await Buff.ManaFont()) return true;
 

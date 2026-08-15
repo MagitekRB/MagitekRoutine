@@ -144,6 +144,9 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks == 3 || UmbralStacks < 3)
                 return false;
 
+            // FFXIV MP costs (patch 7.x): Fire base cost 800 MP, doubled to 1600 in Astral Fire.
+            // Spells.Fire.Cost is NOT reliably dynamic for AF stance; hardcode known game values.
+            // If SQEX changes Fire's MP cost in a future patch, update these constants.
             // In Umbral Ice III: transition to Astral Fire after Blizzard 4 (or when we have 3 Umbral Hearts / enough MP)
             if (Spells.Blizzard4.IsKnown())
             {
@@ -309,7 +312,8 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // Dawntrail check: Paradox is strictly available in Astral Fire
-            if (AstralStacks < 3)
+            // Paradox is available in both Astral Fire and Umbral Ice
+            if (AstralStacks == 0 && UmbralStacks == 0)
                 return false;
 
             if (Spells.ManaFont.IsKnownAndReady())

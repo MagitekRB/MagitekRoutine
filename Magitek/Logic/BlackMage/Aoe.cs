@@ -30,6 +30,9 @@ namespace Magitek.Logic.BlackMage
 
             if (MovementManager.IsMoving)
             {
+                // This is a trait check, not a spell availability check
+                // If we have instant cast Foul (level 80+) and have Swiftcast/Triplecast,
+                // don't cast Foul - use procs on other spells instead
                 if (Core.Me.ClassLevel >= 80 && (Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Triplecast)))
                     return false;
 
@@ -81,13 +84,8 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.UseEtherInAoe)
                 return false;
 
-            // Log checks
-            // Logger.WriteInfo($"[BLM-AoE-Ether] AstralStacks: {AstralStacks}, Mana: {Core.Me.CurrentMana}, ManaFont: {Spells.ManaFont.IsKnownAndReady()}");
-
-
-            // Diagnostic log
-            // Logger.WriteInfo($"[BLM-AoE-Ether] Checking: Stacks={AstralStacks}, Mana={Core.Me.CurrentMana}, MF={Spells.ManaFont.IsKnownAndReady()}");
-
+            // Only use ethers in Astral Fire when out of MP and ManaFont is on cooldown
+            if (AstralStacks == 0)
                 return false;
 
             if (Core.Me.CurrentMana >= 800)

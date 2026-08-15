@@ -4059,6 +4059,12 @@
   <data name="BlackMage_Content_Use_Thunder_Spells_Single_Target_Only" xml:space="preserve">
     <value>仅对单体目标使用雷系魔法</value>
   </data>
+  <data name="Astrologian_Content_PlayDefensiveCardHealthPercent" xml:space="preserve">
+    <value>当目标HP百分比低于[xx]时播放防御卡牌</value>
+  </data>
+  <data name="Astrologian_Content_AoEHealThreshold" xml:space="preserve">
+    <value>AOE治疗阈值百分比</value>
+  </data>
   <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
     <value>在范围攻击时使用雷系魔法</value>
   </data>

@@ -2001,6 +2001,25 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Play defensive cards when target HP percent is below.
+        /// </summary>
+        public static string Astrologian_Content_PlayDefensiveCardHealthPercent {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_PlayDefensiveCardHealthPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AoE Heal threshold percent.
+        /// </summary>
+        public static string Astrologian_Content_AoEHealThreshold {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_AoEHealThreshold", resourceCulture);
+            }
+        }
+
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Lethargy.
         /// </summary>
         public static string BlackMage_Content_Use_Lethargy {

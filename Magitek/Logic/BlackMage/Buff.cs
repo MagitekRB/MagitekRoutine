@@ -128,6 +128,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (UmbralStacks == 0)
+                return false;
 
             if (UmbralStacks < 3 || UmbralHearts < 3)
                 return await Spells.UmbralSoul.Cast(Core.Me);
