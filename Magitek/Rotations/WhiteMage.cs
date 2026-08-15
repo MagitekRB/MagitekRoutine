@@ -59,6 +59,11 @@ namespace Magitek.Rotations
             if (await Logic.WhiteMage.Heal.ForceCureIII()) return true;
             if (await Logic.WhiteMage.Heal.ForceTetra()) return true;
             if (await SingleTarget.ForceAfflatusMisery()) return true;
+
+            // Ahead of the raise: a raise is an ~8s cast with Slowcast Res, and the Doom carrier is
+            // alive with under ten seconds left. The dead ally does not get worse while we save them.
+            if (await CommonFightLogic.FightLogic_Doom(WhiteMageSettings.Instance.Cure2, Spells.Cure2)) return true;
+
             if (await Logic.WhiteMage.Heal.Raise()) return true;
 
             if (await HealFightLogic.Aoe()) return true;

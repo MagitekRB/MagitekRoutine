@@ -119,7 +119,7 @@ namespace Magitek.Logic.Sage
 
             if (Globals.InParty)
             {
-                var DiagnosisTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent < SageSettings.Instance.DiagnosisHpPercent || r.HasAura(Auras.Doom));
+                var DiagnosisTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent < SageSettings.Instance.DiagnosisHpPercent);
 
                 if (DiagnosisTarget == null)
                     return false;

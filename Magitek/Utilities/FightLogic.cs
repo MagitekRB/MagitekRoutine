@@ -47,6 +47,24 @@ namespace Magitek.Utilities
         /// </summary>
         public static string CommonAoeLockOnsDisplay => string.Join(", ", CommonAoeLockOns.OrderBy(x => x));
 
+        /// <summary>
+        /// The ally (or ourselves when solo) carrying a heal-to-full Doom, or null. This Doom
+        /// recurs across content - dungeon bosses apply it as well as the Occult Crescent
+        /// Necromancer's self-Doom - and it kills at expiry unless the target reaches full HP
+        /// first, so healers treat the carrier as the top-priority heal target. Deliberately
+        /// not zone-gated, unlike the enemy-cast catalogues.
+        /// </summary>
+        public static Character DoomedHealTarget()
+        {
+            // The below-full check matters: full HP is what removes the aura, so a carrier
+            // sitting at full is already cleansing (removal latency) and healing them again
+            // only wastes the GCD.
+            if (Globals.InParty)
+                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth);
+
+            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth ? Core.Me : null;
+        }
+
         private static TimeSpan FlCooldown
         {
             get
