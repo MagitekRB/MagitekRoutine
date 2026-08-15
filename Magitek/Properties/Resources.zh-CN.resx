@@ -2097,6 +2097,9 @@
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>使用 魔神圣</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
+    <value>使用 魔分身 (无效化一次魔法攻击)</value>
+  </data>
   <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
     <value>且受伤人数至少为</value>
   </data>
