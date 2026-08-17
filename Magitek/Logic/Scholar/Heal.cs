@@ -181,6 +181,12 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
                 return false;
 
+            // Same master opt-out as Buff.EmergencyTactics, in the same position: this helper is
+            // reachable from Accession/Manifestation barrier branches without any settings check
+            // in between, and disabling the feature must disable every automatic ET.
+            if (!ScholarSettings.Instance.EmergencyTactics)
+                return false;
+
             if (Core.Me.HasAura(Auras.EmergencyTactics))
                 return true;
 
