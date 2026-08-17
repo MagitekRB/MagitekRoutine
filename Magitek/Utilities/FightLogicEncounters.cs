@@ -7391,10 +7391,11 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 14785,
                         Name = "Cresceregina",
-                        Aoes = new List<uint> {
-                            // 49494/49495 Regal Fulguration REMOVED 2026-08-07 (user ruling): it is a
-                            // DIRECTIONAL attack, not a raidwide — dodge it, don't mitigate it.
-                        },
+                        // 49494/49495 Regal Fulguration REMOVED 2026-08-07 (user ruling): it is a
+                        // DIRECTIONAL attack, not a raidwide — dodge it, don't mitigate it.
+                        // Null, not an empty list: the engine reads any non-null list as "this boss
+                        // has answerable logic" and suppresses normal healing fallbacks for it.
+                        Aoes = null,
                     },
                     new Enemy {
                         Id = 14764,
