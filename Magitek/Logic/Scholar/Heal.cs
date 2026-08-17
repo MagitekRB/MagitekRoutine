@@ -822,16 +822,18 @@ namespace Magitek.Logic.Scholar
 
             // Rank candidates by how many of the wounded their circle would actually cover — a
             // centrality pick can still leave a triggering ally outside the radius when they are
-            // spread out, and coverage is what the trigger promised. The caster is a candidate too:
-            // every triggering ally is in range of us by construction, so when the wounded stand on
-            // opposite sides and no ally-centered circle reaches them all, the self-centered one does.
+            // spread out, and coverage is what the trigger promised. Coverage is scored with the
+            // same edge-to-edge model the trigger uses (WithinSpellRange anchored on the candidate
+            // instead of the caster — no shared helper takes a non-self anchor), so trigger and
+            // placement agree: the caster, also a candidate, covers the full triggering set by
+            // definition and is the guaranteed fallback when the wounded stand on opposite sides.
             // Ties break by centrality over the SAME wounded set, not by distance to us — a zero
             // self-distance tie-break would hand every tie to the caster and reduce CenterParty to a
             // self-cast; the caster only wins when it genuinely covers more, or is itself most central.
             var soilTarget = wounded
                 .Concat(new Character[] { Core.Me })
-                .OrderByDescending(r => wounded.Count(ot => r.Distance(ot.Location) <= Spells.SacredSoil.Radius))
-                .ThenBy(r => wounded.Sum(ot => r.Distance(ot.Location)))
+                .OrderByDescending(r => wounded.Count(ot => r.Distance2D(ot) - r.CombatReach - ot.CombatReach <= Spells.SacredSoil.Radius))
+                .ThenBy(r => wounded.Sum(ot => r.Distance2D(ot)))
                 .First();
 
             return await Spells.SacredSoil.Cast(soilTarget);
