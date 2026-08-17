@@ -7017,7 +7017,7 @@ namespace Magitek.Utilities
                 }
             },
             new Encounter {
-                ZoneId = ZoneId.WindurstTheThirdWalk,
+                ZoneId = 1368,
                 Name = "Windurst: The Third Walk",
                 Expansion = FfxivExpansion.Dawntrail,
                 Enemies = new List<Enemy> {
@@ -8015,7 +8015,6 @@ namespace Magitek.Utilities
             WorqorLarDorExtreme = 1196,
             WorqorZormor = 1193,
             WorthyOfHisBack = 1014,
-            WindurstTheThirdWalk = 1368,
             Xelphatol = 1113,
             Xelphatol62 = 572,
             YakTel = 1189,
