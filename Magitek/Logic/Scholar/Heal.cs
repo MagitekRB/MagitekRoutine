@@ -252,8 +252,11 @@ namespace Magitek.Logic.Scholar
             // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
             var doomed = FightLogic.DoomedHealTarget();
 
+            // Health checks OFF, same as the routine-wide Doom response: the carrier is usually
+            // near full — exactly where the heal-interrupt threshold would cancel the cast — and
+            // this Doom only clears at FULL HP.
             if (doomed != null)
-                return await Spells.Physick.Heal(doomed);
+                return await Spells.Physick.Heal(doomed, false);
 
             if (ScholarSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
