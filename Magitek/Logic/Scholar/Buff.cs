@@ -304,9 +304,14 @@ namespace Magitek.Logic.Scholar
                 return false;
             if (Spells.DeploymentTactics.Cooldown.TotalMilliseconds > 1500)
                 return false;
+            // Deployment Tactics copies the barrier with only the time left on the original, and does not
+            // refresh it, so spreading one that is about to lapse spends a two minute cooldown on a shield
+            // that vanishes moments later. Require enough left on it to be worth the cooldown.
+            var minimumShieldMs = ScholarSettings.Instance.DeploymentTacticsMinimumShieldSeconds * 1000;
+
             // Find someone who has the right amount of allies around them based on the users settings
             var deploymentTacticsTarget = Group.CastableAlliesWithin30.FirstOrDefault(r =>
-                r.HasAura(Auras.Galvanize, true)
+                r.HasAura(Auras.Galvanize, true, minimumShieldMs)
                 && r.HasAura(Auras.Catalyze, true)
                 //Range now 30y
                 && Group.CastableAlliesWithin30.Count(x => x.Distance(r) <= 30 + x.CombatReach) >= ScholarSettings.Instance.DeploymentTacticsAllyInRange);

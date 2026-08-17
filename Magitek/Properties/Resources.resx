@@ -3176,6 +3176,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Scholar_Content_Deployment_Tactics_Crit_Adlo_When" xml:space="preserve">
     <value>Deployment Tactics Crit Adlo When</value>
   </data>
+  <data name="Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds" xml:space="preserve">
+    <value>Only spread a shield with at least this many seconds left:</value>
+  </data>
   <data name="Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe" xml:space="preserve">
     <value>Only When We Do Not Have Any Aetherflow</value>
   </data>

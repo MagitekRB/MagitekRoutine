@@ -33,10 +33,16 @@
         <StackPanel Margin="10">
 
         <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Deployment_Tactics_Crit_Adlo_When}" IsChecked="{Binding ScholarSettings.DeploymentTactics, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding ScholarSettings.DeploymentTacticsAllyInRange, Mode=TwoWay}" />
-                <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Players_Are_In_Range_For_Buff}" />
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Deployment_Tactics_Crit_Adlo_When}" IsChecked="{Binding ScholarSettings.DeploymentTactics, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding ScholarSettings.DeploymentTacticsAllyInRange, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Players_Are_In_Range_For_Buff}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds}" />
+                    <controls:Numeric MaxValue="30" MinValue="0" Value="{Binding ScholarSettings.DeploymentTacticsMinimumShieldSeconds, Mode=TwoWay}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

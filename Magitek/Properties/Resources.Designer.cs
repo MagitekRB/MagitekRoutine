@@ -12963,6 +12963,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only spread a shield with at least this many seconds left:.
+        /// </summary>
+        public static string Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds {
+            get {
+                return ResourceManager.GetString("Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Deployment Tactics Crit Adlo When.
         /// </summary>
         public static string Scholar_Content_Deployment_Tactics_Crit_Adlo_When {
