@@ -825,10 +825,13 @@ namespace Magitek.Logic.Scholar
             // spread out, and coverage is what the trigger promised. The caster is a candidate too:
             // every triggering ally is in range of us by construction, so when the wounded stand on
             // opposite sides and no ally-centered circle reaches them all, the self-centered one does.
+            // Ties break by centrality over the SAME wounded set, not by distance to us — a zero
+            // self-distance tie-break would hand every tie to the caster and reduce CenterParty to a
+            // self-cast; the caster only wins when it genuinely covers more, or is itself most central.
             var soilTarget = wounded
                 .Concat(new Character[] { Core.Me })
                 .OrderByDescending(r => wounded.Count(ot => r.Distance(ot.Location) <= Spells.SacredSoil.Radius))
-                .ThenBy(t => Core.Me.Distance(t.Location))
+                .ThenBy(r => wounded.Sum(ot => r.Distance(ot.Location)))
                 .First();
 
             return await Spells.SacredSoil.Cast(soilTarget);
