@@ -1585,6 +1585,13 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Drain_Touch_Priming}"
+                                                          IsChecked="{Binding NecromancerDrainTouchPriming, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
                                                 <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Deep_Freeze}"
                                                           IsChecked="{Binding UseDeepFreeze, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>

@@ -4814,6 +4814,12 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.NecromancerMinimumHealthPercent)
                 return false;
 
+            // Priming mode (opt-in): attacks fire ONLY inside the Drain Touch window — that's the
+            // 400/520 empowered casts — and every one Dooms us; the user chose to own the
+            // heal-to-full. Never start a second Doom cycle while one is still running.
+            if (OccultCrescentSettings.Instance.NecromancerDrainTouchPriming)
+                return Core.Me.HasAura(OCAuras.DrainTouch) && !Core.Me.HasAura(Auras.Doom);
+
             // Drain Touch is up, so this attack would Doom us.
             return !Core.Me.HasAura(OCAuras.DrainTouch);
         }
@@ -4825,7 +4831,9 @@ namespace Magitek.Logic.Roles
         ///
         /// Free damage and free healing, so it goes out on cooldown for every job. It is ordered
         /// after the attacks in ExecuteNecromancerPhantomJob rather than gated here, so the buff it
-        /// leaves behind never catches one of them and turns it into a Doom.
+        /// leaves behind never catches one of them and turns it into a Doom. (Under the opt-in
+        /// NecromancerDrainTouchPriming toggle that ordering deliberately inverts: it leads, and
+        /// the attacks fire inside its window.)
         /// </summary>
         private static async Task<bool> DrainTouch()
         {
@@ -4912,6 +4920,36 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
+        /// Priming mode wants a spender ready before Drain Touch opens a window: a window that
+        /// closes unspent wastes the 40s Drain Touch recast and buys nothing, and every window
+        /// invites the cast-bar traps that come with it. The attacks are 1.5s casts, so while we
+        /// are moving nothing could spend the window either. The health floor mirrors
+        /// NecromancerCanSpendHealth so a window is not opened that the spend gate would then
+        /// refuse. Range and line-of-sight stay with each spender's own guards.
+        /// </summary>
+        private static bool NecromancerSpenderAvailable()
+        {
+            if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.NecromancerMinimumHealthPercent)
+                return false;
+
+            if (MovementManager.IsMoving)
+                return false;
+
+            var settings = OccultCrescentSettings.Instance;
+
+            if (settings.UseDoomsday && OCSpells.Doomsday.CanCast())
+                return true;
+
+            if (settings.UseChaosDrive && OCSpells.ChaosDrive.CanCast())
+                return true;
+
+            if (settings.UseHellWind && OCSpells.HellWind.CanCast())
+                return true;
+
+            return settings.UseDeepFreeze && OCSpells.DeepFreeze.CanCast();
+        }
+
+        /// <summary>
         /// Execute Phantom Necromancer phantom job rotation
         ///
         /// The whole shape of this job comes from one fact confirmed in game: the HP-cost attacks
@@ -4930,6 +4968,23 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteNecromancerPhantomJob()
         {
+            // Priming mode (opt-in): Drain Touch leads, and the attacks fire inside its 6s window
+            // for the empowered potencies — each one Dooming us. NecromancerCanSpendHealth inverts
+            // to REQUIRE the buff (and no live Doom), so between windows the attacks simply wait
+            // for the next Drain Touch: the strict alternation the top field players run.
+            if (OccultCrescentSettings.Instance.NecromancerDrainTouchPriming)
+            {
+                // Only open a window there is something ready to spend inside. The default
+                // order below still uses Drain Touch freely as the heal that repays a cost.
+                if (NecromancerSpenderAvailable() && await DrainTouch())
+                    return true;
+
+                if (await Doomsday())
+                    return true;
+
+                return await NecromancerElementalNukes();
+            }
+
             // Attack unbuffed and let Drain Touch follow as the heal that repays the cost. Both
             // attacks refuse to fire while Drain Touch is up.
             if (await Doomsday())
