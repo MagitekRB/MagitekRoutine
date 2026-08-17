@@ -174,14 +174,15 @@ namespace Magitek.Logic.Scholar
 
         private static async Task<bool> UsedEmergencyTactics()
         {
-            if (Core.Me.HasAura(Auras.EmergencyTactics))
-                return true;
-
-            // Same guards as Buff.EmergencyTactics: never convert a Recitation crit, never fire into
-            // an armed fight-logic queue. This was the second, unguarded ET site — reachable every
-            // pulse while a queue was live, which is exactly the wedge the guards exist to prevent.
+            // Same guards as Buff.EmergencyTactics, and they must run BEFORE the armed short-circuit:
+            // with Emergency Tactics and Recitation both up, accepting the armed aura would let the
+            // caller's shield heal convert the Recitation-guaranteed crit — the exact theft these
+            // guards exist to prevent. This was the second, unguarded ET site.
             if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
                 return false;
+
+            if (Core.Me.HasAura(Auras.EmergencyTactics))
+                return true;
 
             // Non-blocking: fire Emergency Tactics and return; the caller re-checks next pulse and casts its
             // shield heal once the aura is up. ET goes on cooldown after casting, so this won't double-fire.

@@ -250,14 +250,16 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
                 return false;
 
+            // The master opt-out outranks the armed short-circuit: a manually applied Emergency
+            // Tactics must not be auto-consumed by the conversion callers while the feature is off.
+            if (!ScholarSettings.Instance.EmergencyTactics)
+                return false;
+
             // Already armed and unconsumed: the objective is met, don't burn a second charge. A live
             // run re-cast ET three times inside one Seraphism window because the conversion callers
             // below had no awareness the aura was already up.
             if (Core.Me.HasAura(Auras.EmergencyTactics))
                 return true;
-
-            if (!ScholarSettings.Instance.EmergencyTactics)
-                return false;
 
             if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
