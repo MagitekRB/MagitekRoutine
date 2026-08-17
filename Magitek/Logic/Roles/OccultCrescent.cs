@@ -63,6 +63,9 @@ namespace Magitek.Logic.Roles
             IceWeakness = 5323,
             LightningWeakness = 5324,
             WindWeakness = 5325,
+            // Phantom White Mage. Occult Blink nullifies one instance of magic damage for 30s.
+            // Not dispellable, and it carries no stack count - one charge is one charge.
+            OccultBlink = 5316,
             // Occult Toad (Phantom Black Mage). 20s; the target's damage dealt drops by 99% and
             // it cannot use any action but its auto-attack. Plenty of enemies are flatly immune -
             // OccultDebuffImmunityTracker learns which ones.
@@ -252,11 +255,11 @@ namespace Magitek.Logic.Roles
 
         // Phantom White Mage Spells (Job ID: 5329)
         // Phantom Red Mage has its own, different "Occult Cure II" action (49093), so both carry
-        // their job name. Occult Blink (49069) is deliberately not defined - it grants one
-        // magic-damage immunity and is only useful against specific scripted mechanics, which
-        // the routine has no way to anticipate.
+        // their job name. Occult Blink is 30y single target rather than self-only, so it can be
+        // spent on whoever is taking the magic damage instead of only on us.
         public static readonly SpellData WhiteMageOccultCureII = DataManager.GetSpellData(49067);
         public static readonly SpellData WhiteMageOccultCureIII = DataManager.GetSpellData(49068);
+        public static readonly SpellData OccultBlink = DataManager.GetSpellData(49069);
         public static readonly SpellData OccultRaise = DataManager.GetSpellData(49070);
         public static readonly SpellData OccultHoly = DataManager.GetSpellData(49071);
 
@@ -4207,6 +4210,63 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
+        /// Occult Blink - instant, 90s recast, no MP. Renders the target impervious to one instance
+        /// of magic damage for 30s.
+        ///
+        /// 30y single target rather than self-only, so unlike Phantom Ninja's Image this can be
+        /// spent on an ally, and it takes Magic Shell's tanks-then-lowest priority. Which magic
+        /// attack it eats is not something the routine gets to choose - the first one to land
+        /// consumes it - so it waits on a health threshold the way the other reactive defensives
+        /// here do rather than being fired on cooldown.
+        /// </summary>
+        private static async Task<bool> OccultBlink()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultBlink)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultBlink.CanCast())
+                return false;
+
+            var threshold = OccultCrescentSettings.Instance.OccultBlinkHealthPercent;
+
+            GameObject blinkTarget = null;
+
+            if (OccultCrescentSettings.Instance.OccultBlinkCastOnAllies)
+            {
+                blinkTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.HasAura(OCAuras.OccultBlink) &&
+                    ally.CurrentHealthPercent <= threshold)
+                    .OrderByDescending(ally => ally.IsTank())
+                    .ThenBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                if (blinkTarget == null &&
+                    !Core.Me.HasAura(OCAuras.OccultBlink) &&
+                    Core.Me.CurrentHealthPercent <= threshold)
+                    blinkTarget = Core.Me;
+            }
+            else
+            {
+                if (!Core.Me.HasAura(OCAuras.OccultBlink) &&
+                    Core.Me.CurrentHealthPercent <= threshold)
+                    blinkTarget = Core.Me;
+            }
+
+            if (blinkTarget == null)
+                return false;
+
+            if (!blinkTarget.WithinSpellRange(OCSpells.OccultBlink.Range))
+                return false;
+
+            return await OCSpells.OccultBlink.Cast(blinkTarget);
+        }
+
+        /// <summary>
         /// Occult Holy - 2.3s cast, 60s recast. 500 potency of unaspected damage to the target and
         /// everything within 8y of it, rising to 750 against undead.
         /// </summary>
@@ -4240,6 +4300,11 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteWhiteMagePhantomJob()
         {
+            // Occult Blink - instant, so it costs nothing to check first, and a nullified hit is
+            // worth more than healing the same hit back afterwards
+            if (await OccultBlink())
+                return true;
+
             // Occult Cure III - group heal first, so a raid-wide hit is answered in one cast
             if (await WhiteMageOccultCureIII())
                 return true;

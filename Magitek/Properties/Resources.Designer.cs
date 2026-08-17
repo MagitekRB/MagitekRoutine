@@ -8769,6 +8769,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use Occult Blink (nullifies one magic attack).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Blink {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Blink", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Occult Blizzard II.
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Blizzard_II {

@@ -2096,6 +2096,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>Use Occult Holy</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
+    <value>Use Occult Blink (nullifies one magic attack)</value>
+  </data>
   <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
     <value>and at least this many hurt</value>
   </data>

@@ -655,6 +655,18 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
+        public bool UseOccultBlink { get; set; }
+
+        [Setting]
+        [DefaultValue(75.0f)]
+        public float OccultBlinkHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultBlinkCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool UseOccultHoly { get; set; }
         #endregion
 
