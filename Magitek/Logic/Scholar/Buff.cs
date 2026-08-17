@@ -243,22 +243,28 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> EmergencyTactics()
         {
+            // Never convert a Recitation crit, and never fire into an armed fight-logic queue: a live
+            // run showed ET landing 0.8s after a queued Recitation>Succor armed, eating the crit the
+            // queue had just paid for. These outrank the already-armed short-circuit below, or ET's
+            // ~200ms application tail could greenlight the same theft.
+            if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
+                return false;
+
+            // Already armed and unconsumed: the objective is met, don't burn a second charge. A live
+            // run re-cast ET three times inside one Seraphism window because the conversion callers
+            // below had no awareness the aura was already up.
+            if (Core.Me.HasAura(Auras.EmergencyTactics))
+                return true;
+
             if (!ScholarSettings.Instance.EmergencyTactics)
                 return false;
 
             if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
 
-            if (!await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics))
-                return false;
-
-            return await Coroutine.Wait(1500, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
-
-            //if (await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics)) {
-            //    return await Coroutine.Wait(1700, () => Core.Me.HasAura(Auras.EmergencyTactics, true));
-            //}
-
-            //return false;
+            // Emergency Tactics is an instant oGCD; its aura lands ~200ms later, well before the paired
+            // ~2s shield heal resolves, so the buff still converts. The old Wait(1500) just stalled the pulse.
+            return await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics);
         }
 
         public static async Task<bool> Aetherflow()

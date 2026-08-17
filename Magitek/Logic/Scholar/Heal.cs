@@ -173,11 +173,17 @@ namespace Magitek.Logic.Scholar
         {
             if (Core.Me.HasAura(Auras.EmergencyTactics))
                 return true;
-            if (!await Spells.EmergencyTactics.Cast(Core.Me))
+
+            // Same guards as Buff.EmergencyTactics: never convert a Recitation crit, never fire into
+            // an armed fight-logic queue. This was the second, unguarded ET site — reachable every
+            // pulse while a queue was live, which is exactly the wedge the guards exist to prevent.
+            if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
                 return false;
-            if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics)))
-                return false;
-            return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Succor.Id, Core.Me));
+
+            // Non-blocking: fire Emergency Tactics and return; the caller re-checks next pulse and casts its
+            // shield heal once the aura is up. ET goes on cooldown after casting, so this won't double-fire.
+            await Spells.EmergencyTactics.Cast(Core.Me);
+            return false;
         }
 
         private static async Task<bool> UsedAdloquium()
