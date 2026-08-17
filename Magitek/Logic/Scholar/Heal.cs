@@ -808,7 +808,8 @@ namespace Magitek.Logic.Scholar
             // circle on the medoid of the SAME wounded set — centering on the whole party would pull the
             // placement toward a healthy remote cluster when the party is split.
             var wounded = PartyManager.VisibleMembers.Select(x => x.BattleCharacter)
-                .Where(x => x.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
+                .Where(x => x.IsAlive
+                    && x.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
                     && x.WithinSpellRange(Spells.SacredSoil.Radius))
                 .ToList();
 
@@ -818,8 +819,12 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.SacredSoilCenterParty)
                 return await Spells.SacredSoil.Cast(Core.Me);
 
+            // Rank candidates by how many of the wounded their circle would actually cover — a
+            // centrality pick can still leave a triggering ally outside the radius when they are
+            // spread out, and coverage is what the trigger promised. IsAlive above matters here
+            // too: a corpse sits at 0% and would otherwise inflate the count and win placement.
             var soilTarget = wounded
-                .OrderBy(r => wounded.Sum(ot => r.Distance(ot.Location)))
+                .OrderByDescending(r => wounded.Count(ot => r.Distance(ot.Location) <= Spells.SacredSoil.Radius))
                 .ThenBy(t => Core.Me.Distance(t.Location))
                 .FirstOrDefault();
 
