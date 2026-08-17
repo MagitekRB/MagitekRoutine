@@ -657,13 +657,16 @@ namespace Magitek.Logic.Astrologian
             // Pop a cooking star just before the pull ends so the damage half still lands —
             // auto-detonation after everything is dead whiffs it. A star that will still reach
             // Giant Dominance before the pull ends is left to mature for the full explosion.
+            // Wall-clock, not the summed estimate: the pull ends when the last enemy dies, and
+            // in multi-target pulls the sum overstates that badly (four mobs at 3s each sum to
+            // 12s), so a summed check never trips and the star expires after combat unspent.
             if (AstrologianSettings.Instance.StellarDetonation
                 && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
-                && Utilities.Combat.CombatTotalTimeLeft > 0
-                && Utilities.Combat.CombatTotalTimeLeft <= AstrologianSettings.Instance.StellarDetonationPullEndingSeconds
+                && Utilities.Combat.CombatWallClockTimeLeft > 0
+                && Utilities.Combat.CombatWallClockTimeLeft <= AstrologianSettings.Instance.StellarDetonationPullEndingSeconds
                 && (Core.Me.HasAura(Auras.GiantDominance)
-                    || Core.Me.HasAura(Auras.EarthlyDominance, false, Utilities.Combat.CombatTotalTimeLeft * 1000)))
+                    || Core.Me.HasAura(Auras.EarthlyDominance, false, Utilities.Combat.CombatWallClockTimeLeft * 1000)))
                 return await Spells.StellarDetonation.Heal(Core.Me);
 
             if (Core.Me.HasAura(Auras.EarthlyDominance)
