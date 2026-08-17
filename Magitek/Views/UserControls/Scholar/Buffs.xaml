@@ -41,7 +41,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds}" />
-                    <controls:Numeric MaxValue="30" MinValue="0" Value="{Binding ScholarSettings.DeploymentTacticsMinimumShieldSeconds, Mode=TwoWay}" />
+                    <controls:Numeric MaxValue="25" MinValue="0" Value="{Binding ScholarSettings.DeploymentTacticsMinimumShieldSeconds, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
