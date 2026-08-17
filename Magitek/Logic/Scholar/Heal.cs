@@ -174,6 +174,23 @@ namespace Magitek.Logic.Scholar
             return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
         }
 
+        /// <summary>
+        /// True when the AUTOMATIC Emergency Tactics conversion could run right now — the same
+        /// gate set UsedEmergencyTactics enforces (Recitation/queue crit protection, the master
+        /// opt-out, ready-or-armed). Target selection consults this so it never picks an ally
+        /// that only the conversion could serve while the conversion itself would refuse.
+        /// </summary>
+        private static bool EmergencyTacticsConvertible()
+        {
+            if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
+                return false;
+
+            if (!ScholarSettings.Instance.EmergencyTactics)
+                return false;
+
+            return Spells.EmergencyTactics.IsKnownAndReady() || Core.Me.HasAura(Auras.EmergencyTactics);
+        }
+
         private static async Task<bool> UsedEmergencyTactics(bool forced = false)
         {
             // Same guards as Buff.EmergencyTactics, and they must run BEFORE the armed short-circuit:
@@ -494,8 +511,7 @@ namespace Magitek.Logic.Scholar
                 // Tactics conversion. When that path cannot run, skip barriered allies in the
                 // pick — otherwise the first barriered ally latches this method every pulse
                 // while a shieldable ally further down the weight order goes without.
-                var etConvertible = ScholarSettings.Instance.EmergencyTactics
-                    && (Spells.EmergencyTactics.IsKnownAndReady() || Core.Me.HasAura(Auras.EmergencyTactics));
+                var etConvertible = EmergencyTacticsConvertible();
 
                 var ManifestationTarget = etConvertible
                     ? Group.CastableAlliesWithin30.FirstOrDefault(CanLustrate)
