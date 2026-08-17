@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using ScholarRoutine = Magitek.Utilities.Routines.Scholar;
 
 namespace Magitek.Logic.Scholar
 {
@@ -46,6 +47,12 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceAdlo()
         {
+            // Deferred under Seraphism rather than substituted: the masked instants change the
+            // timing this toggle was tuned for, and the Recitation-crit interaction with
+            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
+            if (Core.Me.HasAura(Auras.Seraphism))
+                return false;
+
             if (!ScholarSettings.Instance.ForceAdlo)
                 return false;
 
@@ -54,7 +61,7 @@ namespace Magitek.Logic.Scholar
             if (target == null)
                 target = Core.Me;
 
-            if (!await Spells.Adloquium.Heal(target, false)) return false;
+            if (!await ScholarRoutine.AdloquiumSpell.Heal(target, false)) return false;
             ScholarSettings.Instance.ForceAdlo = false;
             TogglesManager.ResetToggles();
             return true;
@@ -110,10 +117,16 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceSuccor()
         {
+            // Deferred under Seraphism rather than substituted: the masked instants change the
+            // timing this toggle was tuned for, and the Recitation-crit interaction with
+            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
+            if (Core.Me.HasAura(Auras.Seraphism))
+                return false;
+
             if (!ScholarSettings.Instance.ForceSuccor)
                 return false;
 
-            if (!await Spells.Succor.Cast(Core.Me)) return false;
+            if (!await ScholarRoutine.SuccorSpell.Cast(Core.Me)) return false;
             ScholarSettings.Instance.ForceSuccor = false;
             TogglesManager.ResetToggles();
             return true;
@@ -121,6 +134,12 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceEmergencySuccor()
         {
+            // Deferred under Seraphism rather than substituted: the masked instants change the
+            // timing this toggle was tuned for, and the Recitation-crit interaction with
+            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
+            if (Core.Me.HasAura(Auras.Seraphism))
+                return false;
+
             if (!ScholarSettings.Instance.ForceEmergencySuccor)
                 return false;
 
@@ -133,7 +152,7 @@ namespace Magitek.Logic.Scholar
             if (!await UsedEmergencyTactics(forced: true))
                 return false;
 
-            if (!await Spells.Succor.Cast(Core.Me)) return false;
+            if (!await ScholarRoutine.SuccorSpell.Cast(Core.Me)) return false;
             ScholarSettings.Instance.ForceEmergencySuccor = false;
             TogglesManager.ResetToggles();
             return true;
@@ -141,6 +160,12 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceDeployAdloWithRecitation()
         {
+            // Deferred under Seraphism rather than substituted: the masked instants change the
+            // timing this toggle was tuned for, and the Recitation-crit interaction with
+            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
+            if (Core.Me.HasAura(Auras.Seraphism))
+                return false;
+
             if (!ScholarSettings.Instance.ForceDeployAdloWithRecitation)
                 return false;
 
@@ -225,7 +250,7 @@ namespace Magitek.Logic.Scholar
         {
             if (Core.Me.HasAura(Auras.Galvanize))
                 return true;
-            if (!await Spells.Adloquium.Cast(Core.Me))
+            if (!await ScholarRoutine.AdloquiumSpell.Cast(Core.Me))
                 return false;
             if (!await Coroutine.Wait(2000, () => Core.Me.HasAura(Auras.Galvanize)))
                 return false;
@@ -236,7 +261,7 @@ namespace Magitek.Logic.Scholar
         {
             if (Core.Me.HasAura(Auras.Galvanize))
                 return true;
-            if (!await Spells.Succor.Cast(Core.Me))
+            if (!await ScholarRoutine.SuccorSpell.Cast(Core.Me))
                 return false;
             return await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Galvanize));
         }
@@ -319,7 +344,7 @@ namespace Magitek.Logic.Scholar
                 if (!await Buff.EmergencyTactics())
                     return false;
 
-                return await Spells.Adloquium.Heal(adloTarget, false);
+                return await ScholarRoutine.AdloquiumSpell.Heal(adloTarget, false);
             }
 
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.EmergencyTacticsAdloquiumHealthPercent)
@@ -328,7 +353,7 @@ namespace Magitek.Logic.Scholar
             if (!await Buff.EmergencyTactics())
                 return false;
 
-            return await Spells.Adloquium.Heal(Core.Me, false);
+            return await ScholarRoutine.AdloquiumSpell.Heal(Core.Me, false);
 
             bool CanAdlo(Character unit)
             {
@@ -375,7 +400,7 @@ namespace Magitek.Logic.Scholar
 
                     await UseRecitation();
 
-                    return await Spells.Adloquium.HealAura(tankAdloTarget, Auras.Galvanize, false);
+                    return await ScholarRoutine.AdloquiumSpell.HealAura(tankAdloTarget, Auras.Galvanize, false);
                 }
 
                 var adloTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanAdlo);
@@ -385,7 +410,7 @@ namespace Magitek.Logic.Scholar
 
                 await UseRecitation();
 
-                return await Spells.Adloquium.HealAura(adloTarget, Auras.Galvanize);
+                return await ScholarRoutine.AdloquiumSpell.HealAura(adloTarget, Auras.Galvanize);
 
                 bool CanAdlo(Character unit)
                 {
@@ -414,7 +439,7 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasMagicBarrier())
                 return false;
 
-            return await Spells.Adloquium.HealAura(Core.Me, Auras.Galvanize);
+            return await ScholarRoutine.AdloquiumSpell.HealAura(Core.Me, Auras.Galvanize);
 
             async Task UseRecitation()
             {
@@ -461,7 +486,7 @@ namespace Magitek.Logic.Scholar
 
             // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to
             // block here confirming LastSpell.
-            return await Spells.Succor.Heal(Core.Me);
+            return await ScholarRoutine.SuccorSpell.Heal(Core.Me);
         }
 
         public static async Task<bool> Succor()
@@ -484,7 +509,7 @@ namespace Magitek.Logic.Scholar
 
             // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to
             // block here confirming LastSpell.
-            return await Spells.Succor.Heal(Core.Me);
+            return await ScholarRoutine.SuccorSpell.Heal(Core.Me);
         }
 
         public static async Task<bool> Accession()

@@ -92,6 +92,18 @@ namespace Magitek.Utilities.Routines
             );
         }
 
+        // Seraphism masks Adloquium -> Manifestation (37015) and Succor -> Accession (37016), BOTH
+        // INSTANT. Casting the base id while masked still resolves (DoAction proxies), but every
+        // wait on the base cast BAR burns its full timeout: a live run measured 3.0s of dead air per
+        // attempt at two independent call sites, because IsCasting never flips for an instant
+        // masked action. Cast the resolved spell instead so the framework's timing data matches
+        // what actually executes. HasAura(Seraphism) is one aura scan - cheap enough for cast sites.
+        public static SpellData AdloquiumSpell =>
+            Core.Me.HasAura(Utilities.Auras.Seraphism) ? Spells.Manifestation : Spells.Adloquium;
+
+        public static SpellData SuccorSpell =>
+            Core.Me.HasAura(Utilities.Auras.Seraphism) ? Spells.Accession : Spells.Succor;
+
         public static int EnemiesInCone;
 
         public static void RefreshVars()

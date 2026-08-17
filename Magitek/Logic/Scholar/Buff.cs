@@ -110,6 +110,13 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Seraphism)
                 return false;
 
+            // Never land Seraphism into an armed fight-logic queue: the queue's enqueued Adloquium/
+            // Succor are base ids, and the stance masking them to instants mid-queue re-creates the
+            // 3s cast-confirm wedge on a mechanic already latched as handled — the trigger state
+            // for this cast (party hurt) is exactly the state that armed the queue.
+            if (SpellQueueLogic.SpellQueue.Any())
+                return false;
+
             if (Core.Me.Pet == null)
                 return false;
 
