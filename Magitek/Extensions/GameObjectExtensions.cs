@@ -28,7 +28,11 @@ namespace Magitek.Extensions
                 return unit.Type != GameObjectType.Pc;
             }
 
-            return unit.CanAttack;
+            // Every rotation guards on this and then casts straight at CurrentTarget, so gating the
+            // damage rules here covers all 22 of them in one place. Combat.Enemies is deliberately left
+            // alone: the enemy stays visible to Provoke, interrupts and the rest of the defensive paths,
+            // it just stops being something we pour damage into.
+            return unit.CanAttack && unit.CanBeDamagedByMe();
         }
 
         public static bool BeingTargeted(this GameObject unit)
@@ -172,14 +176,19 @@ namespace Magitek.Extensions
 
         }
 
-        public static bool HasDispellableAura(this GameObject unit)
+        // A dispel strips a BENEFICIAL status from an enemy, so a helper used to decide whether to
+        // dispel has to ignore debuffs. Named for what it actually asks: the old name read as the
+        // opposite of what it did, and let a dispel re-fire forever on an enemy that merely carries a
+        // dispellable debuff no dispel can remove. Cleansing an ally is a separate concern, served by
+        // HasAnyDispellableAura on CharacterExtensions.
+        public static bool HasDispellableBuff(this GameObject unit)
         {
             var unitAsCharacter = unit as Character;
 
             if (unitAsCharacter == null || !unitAsCharacter.IsValid)
                 return false;
 
-            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable);
+            return unitAsCharacter.CharacterAuras.Any(r => r.TimespanLeft.TotalMilliseconds >= 0 && r.IsDispellable && !r.IsDebuff);
         }
 
         public static bool HasAnyAura(this GameObject unit, List<uint> auras, bool isMyAura = false, int msLeft = 0)
@@ -234,6 +243,27 @@ namespace Magitek.Extensions
             return unit != null && !unit.HasAnyAura(Auras.Invincibility);
         }
 
+        // A unit we can actually hurt. Kept separate from ValidAttackUnit (which stays a pure
+        // "is it a live hostile", used by defensive Occult Crescent paths) and from NotInvulnerable
+        // (which stays aura-only, because Tracking.Update builds Combat.Enemies from it — widening it
+        // would silently refilter that collection under all ~200 of its readers).
+        //
+        // Use this at offensive call sites that cast at CurrentTarget without passing through
+        // ThoroughCanAttack, which in practice means the Occult Crescent phantom-job actions.
+        public static bool ValidDamageTarget(this GameObject unit)
+        {
+            return unit.ValidAttackUnit() && unit.CanBeDamagedByMe();
+        }
+
+        // Whether our damage can reach this unit at all right now. The rules live in
+        // Utilities/ImmunityLogic.cs with their encounter data in Utilities/ImmunityEncounters.cs —
+        // fight-specific knowledge does not belong in a generic extension file.
+        public static bool CanBeDamagedByMe(this GameObject unit)
+        {
+            return ImmunityLogic.CanBeDamagedBy(unit, Core.Me);
+        }
+
+
         public static IEnumerable<BattleCharacter> EnemiesNearby(this GameObject unit, float distance)
         {
             if (unit == null || Core.Me == null)
@@ -277,14 +307,35 @@ namespace Magitek.Extensions
             return gameObject != null && Tanks.Contains(gameObject.CurrentJob);
         }
 
+        // "Main tank" is only answerable from a positive signal: this tank is holding what we are pointed
+        // at, or whatever it is fighting is pointed back at it. When no tank we can reach gives that
+        // signal we cannot tell them apart, and then every tank counts rather than none of them — a
+        // party-wide mitigation that never fires is worse than one that fires for the wrong tank.
+        //
+        // The old tie-break was "the party contains exactly one tank", which answers false for BOTH tanks
+        // of a two-tank party. An Occult Crescent critical encounter proved the cost: the boss is held by
+        // someone outside the party, so neither tank ever produced a signal, and Kerachole, Panhaima and
+        // Aquaveil stayed locked off for the whole fight while the ungated barriers kept firing.
+        //
+        // The roster is the castable tanks in heal range, not the raw party list, for the reason spelled
+        // out at FightLogic.SharedTankBuster: a tank we cannot reach must not get a vote on who the
+        // reachable tank is. It also keeps both sides of the comparison in one population, since the
+        // castable lists follow the alliance while we heal it and the raw party list does not.
         public static bool IsMainTank(this GameObject unit)
         {
             var gameObject = unit as Character;
-            return gameObject != null
-                && Tanks.Contains(gameObject.CurrentJob)
-                && (gameObject.BeingTargetedBy(Core.Me.CurrentTarget)
-                    || gameObject.BeingTargetedBy(gameObject.TargetGameObject)
-                    || PartyManager.RawMembers.Where(r => r != null).Select(r => r.BattleCharacter).Count(r => r != null && Tanks.Contains(r.CurrentJob)) == 1);
+
+            if (gameObject == null || !Tanks.Contains(gameObject.CurrentJob))
+                return false;
+
+            if (gameObject.BeingTargetedBy(Core.Me.CurrentTarget)
+                || gameObject.BeingTargetedBy(gameObject.TargetGameObject))
+                return true;
+
+            return !Group.CastableTanks.Any(r => r.ObjectId != gameObject.ObjectId
+                                              && r.WithinSpellRange(30)
+                                              && (r.BeingTargetedBy(Core.Me.CurrentTarget)
+                                                  || r.BeingTargetedBy(r.TargetGameObject)));
         }
 
         public static bool IsTank(this GameObject unit, bool mainTank)

@@ -477,7 +477,8 @@ namespace Magitek.Utilities
             Invincibility6 = 656,
             Invincibility7 = 529,
             Invincibility8 = 325,
-            Invincibility9 = 394;
+            Invincibility9 = 394,
+            Invincibility10 = 4410;
 
         public const int
 
@@ -669,7 +670,8 @@ namespace Magitek.Utilities
             Invincibility6,
             Invincibility7,
             Invincibility8,
-            Invincibility9
+            Invincibility9,
+            Invincibility10
         };
     }
 }

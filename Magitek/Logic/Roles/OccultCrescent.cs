@@ -63,6 +63,9 @@ namespace Magitek.Logic.Roles
             IceWeakness = 5323,
             LightningWeakness = 5324,
             WindWeakness = 5325,
+            // Phantom White Mage. Occult Blink nullifies one instance of magic damage for 30s.
+            // Not dispellable, and it carries no stack count - one charge is one charge.
+            OccultBlink = 5316,
             // Occult Toad (Phantom Black Mage). 20s; the target's damage dealt drops by 99% and
             // it cannot use any action but its auto-attack. Plenty of enemies are flatly immune -
             // OccultDebuffImmunityTracker learns which ones.
@@ -73,7 +76,13 @@ namespace Magitek.Logic.Roles
             Smoke = 5327,
             // Image grants three stacks, each nullifying one physical attack, for 30s. Confirmed
             // in game; note it sits outside the 5316-5335 band the rest of North Horn uses.
-            Image = 4873;
+            Image = 4873,
+            // Phantom Necromancer. Drain Touch lasts 6s, floors our HP at 1, and raises every
+            // other Necromancer action from 300 to 400 potency. It is also the switch that decides
+            // whether an attack Dooms us, so the rotation reads it as a safety gate, not just a buff.
+            // Necromancer's self-Doom needs no constant here: it is the game's ordinary Doom,
+            // already declared as Auras.Doom (1769).
+            DrainTouch = 5326;
 
         // Dispellable enemy auras - add known beneficial enemy auras here
         public static readonly uint[] DispellableAuras = new uint[]
@@ -128,7 +137,6 @@ namespace Magitek.Logic.Roles
 
         // Ranger Spells
         public static readonly SpellData PhantomAim = DataManager.GetSpellData(41599);
-        public static readonly SpellData OccultFalcon = DataManager.GetSpellData(41601);
         public static readonly SpellData OccultUnicorn = DataManager.GetSpellData(41602);
 
         // Phantom Thief Spells
@@ -246,11 +254,11 @@ namespace Magitek.Logic.Roles
 
         // Phantom White Mage Spells (Job ID: 5329)
         // Phantom Red Mage has its own, different "Occult Cure II" action (49093), so both carry
-        // their job name. Occult Blink (49069) is deliberately not defined - it grants one
-        // magic-damage immunity and is only useful against specific scripted mechanics, which
-        // the routine has no way to anticipate.
+        // their job name. Occult Blink is 30y single target rather than self-only, so it can be
+        // spent on whoever is taking the magic damage instead of only on us.
         public static readonly SpellData WhiteMageOccultCureII = DataManager.GetSpellData(49067);
         public static readonly SpellData WhiteMageOccultCureIII = DataManager.GetSpellData(49068);
+        public static readonly SpellData OccultBlink = DataManager.GetSpellData(49069);
         public static readonly SpellData OccultRaise = DataManager.GetSpellData(49070);
         public static readonly SpellData OccultHoly = DataManager.GetSpellData(49071);
 
@@ -262,6 +270,16 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData OccultThunderIII = DataManager.GetSpellData(49074);
         public static readonly SpellData OccultToad = DataManager.GetSpellData(49075);
         public static readonly SpellData OccultFlare = DataManager.GetSpellData(49076);
+
+        // Phantom Necromancer Spells (Job ID: 5335)
+        // Deep Freeze / Hell Wind / Chaos Drive share a single 40s recast. Doomsday has its own
+        // 120s timer, which is why it needs the Drain Touch guard separately rather than inheriting
+        // it from the shared window. All four cost 10% of maximum HP; Drain Touch costs none.
+        public static readonly SpellData DrainTouch = DataManager.GetSpellData(49097);
+        public static readonly SpellData DeepFreeze = DataManager.GetSpellData(49098);
+        public static readonly SpellData HellWind = DataManager.GetSpellData(49099);
+        public static readonly SpellData ChaosDrive = DataManager.GetSpellData(49100);
+        public static readonly SpellData Doomsday = DataManager.GetSpellData(49101);
     }
 
     internal class OccultCrescent
@@ -547,6 +565,7 @@ namespace Magitek.Logic.Roles
                 PhantomJob.Dragoon => await ExecuteDragoonPhantomJob(),
                 PhantomJob.Summoner => await ExecuteSummonerPhantomJob(),
                 PhantomJob.BlueMage => await ExecuteBlueMagePhantomJob(),
+                PhantomJob.Necromancer => await ExecuteNecromancerPhantomJob(),
                 _ => false
             };
 
@@ -1015,10 +1034,6 @@ namespace Magitek.Logic.Roles
 
             // Phantom Aim - damage buff (120s cooldown, use on cooldown)
             if (await PhantomAim())
-                return true;
-
-            // Occult Falcon - area attack
-            if (await OccultFalcon())
                 return true;
 
             return false;
@@ -1617,7 +1632,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
                 return false;
 
             // Check melee range restriction if enabled
@@ -1651,7 +1666,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1793,7 +1808,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1823,7 +1838,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target that's not casting
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight() || (Core.Me.CurrentTarget as BattleCharacter)?.IsCasting == true)
                 return false;
 
             // Check melee range restriction if enabled
@@ -1856,7 +1871,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1885,7 +1900,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1915,7 +1930,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1945,7 +1960,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -1975,7 +1990,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Don't cast if target has Silver Sickness unless it expires in 20 seconds or less
@@ -2228,7 +2243,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -2372,7 +2387,7 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
-            if (!Core.Me.CurrentTarget.HasDispellableAura())
+            if (!Core.Me.CurrentTarget.HasDispellableBuff())
                 return false;
 
             // if (!Core.Me.CurrentTarget.HasAnyAura(OCAuras.DispellableAuras))
@@ -2446,38 +2461,6 @@ namespace Magitek.Logic.Roles
 
             // Cast on cooldown in combat for damage boost
             return await OCSpells.PhantomAim.Cast(Core.Me);
-        }
-
-        /// <summary>
-        /// Cast Occult Falcon - area attack that also triggers traps
-        /// </summary>
-        /// <returns>True if spell was cast, false otherwise</returns>
-        private static async Task<bool> OccultFalcon()
-        {
-            // I don't know what a trap is, so disable this ability for now. 
-            return false;
-
-            if (!OccultCrescentSettings.Instance.UseOccultFalcon)
-                return false;
-
-            if (!Core.Me.InCombat)
-                return false;
-
-            if (!Core.Me.HasTarget)
-                return false;
-
-            if (!OCSpells.OccultFalcon.CanCast())
-                return false;
-
-            // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            // Check if target is within spell range
-            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultFalcon.Range))
-                return false;
-
-            return await OCSpells.OccultFalcon.Cast(Core.Me.CurrentTarget);
         }
 
         /// <summary>
@@ -2713,7 +2696,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -2743,7 +2726,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
+            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
             // Check if target is within spell range
@@ -3600,7 +3583,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.SunderingSpellblade.Range))
@@ -3625,7 +3608,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.HolySpellblade.Range))
@@ -3650,7 +3633,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.BlazingSpellblade.Range))
@@ -3740,7 +3723,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Finisher.Range))
@@ -3764,7 +3747,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.LongReach.Range))
@@ -3788,7 +3771,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Bladeblitz.Radius))
@@ -3835,7 +3818,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             var spell = PickElementalNuke(target, candidates);
@@ -4054,7 +4037,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.OccultFlare.Range))
@@ -4190,6 +4173,63 @@ namespace Magitek.Logic.Roles
         }
 
         /// <summary>
+        /// Occult Blink - instant, 90s recast, no MP. Renders the target impervious to one instance
+        /// of magic damage for 30s.
+        ///
+        /// 30y single target rather than self-only, so unlike Phantom Ninja's Image this can be
+        /// spent on an ally, and it takes Magic Shell's tanks-then-lowest priority. Which magic
+        /// attack it eats is not something the routine gets to choose - the first one to land
+        /// consumes it - so it waits on a health threshold the way the other reactive defensives
+        /// here do rather than being fired on cooldown.
+        /// </summary>
+        private static async Task<bool> OccultBlink()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultBlink)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.OccultBlink.CanCast())
+                return false;
+
+            var threshold = OccultCrescentSettings.Instance.OccultBlinkHealthPercent;
+
+            GameObject blinkTarget = null;
+
+            if (OccultCrescentSettings.Instance.OccultBlinkCastOnAllies)
+            {
+                blinkTarget = Group.CastableAlliesWithin30.Where(ally =>
+                    ally.IsValid &&
+                    ally.IsAlive &&
+                    !ally.HasAura(OCAuras.OccultBlink) &&
+                    ally.CurrentHealthPercent <= threshold)
+                    .OrderByDescending(ally => ally.IsTank())
+                    .ThenBy(ally => ally.CurrentHealthPercent)
+                    .FirstOrDefault();
+
+                if (blinkTarget == null &&
+                    !Core.Me.HasAura(OCAuras.OccultBlink) &&
+                    Core.Me.CurrentHealthPercent <= threshold)
+                    blinkTarget = Core.Me;
+            }
+            else
+            {
+                if (!Core.Me.HasAura(OCAuras.OccultBlink) &&
+                    Core.Me.CurrentHealthPercent <= threshold)
+                    blinkTarget = Core.Me;
+            }
+
+            if (blinkTarget == null)
+                return false;
+
+            if (!blinkTarget.WithinSpellRange(OCSpells.OccultBlink.Range))
+                return false;
+
+            return await OCSpells.OccultBlink.Cast(blinkTarget);
+        }
+
+        /// <summary>
         /// Occult Holy - 2.3s cast, 60s recast. 500 potency of unaspected damage to the target and
         /// everything within 8y of it, rising to 750 against undead.
         /// </summary>
@@ -4205,7 +4245,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.OccultHoly.Range))
@@ -4223,6 +4263,11 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteWhiteMagePhantomJob()
         {
+            // Occult Blink - instant, so it costs nothing to check first, and a nullified hit is
+            // worth more than healing the same hit back afterwards
+            if (await OccultBlink())
+                return true;
+
             // Occult Cure III - group heal first, so a raid-wide hit is answered in one cast
             if (await WhiteMageOccultCureIII())
                 return true;
@@ -4256,7 +4301,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.FumaShuriken.Range))
@@ -4383,7 +4428,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             // Check melee range restriction if enabled
@@ -4413,7 +4458,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Lance.Range))
@@ -4500,7 +4545,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.Megaflare.Range))
@@ -4640,7 +4685,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             // Skip the enemies the effect is expected to do nothing to. Note this deliberately
@@ -4675,7 +4720,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(OCSpells.OccultAquaBreath.Range))
@@ -4709,7 +4754,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            if (target == null || !target.ValidAttackUnit() || !target.InLineOfSight())
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
                 return false;
 
             if (!target.WithinSpellRange(spell.Range))
@@ -4746,6 +4791,154 @@ namespace Magitek.Logic.Roles
 
             // Occult Aero line - the job's bread and butter, one shared 30s recast
             if (await OccultAero())
+                return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Phantom Necromancer (Job ID: 5335)
+        /// <summary>
+        /// Whether we are willing to pay the HP for an attack right now.
+        ///
+        /// Every Necromancer attack except Drain Touch costs 10% of our maximum HP, and that cost
+        /// is unconditional - unlike Doom, it applies whether or not Drain Touch is up. The floor
+        /// stops the rotation chipping us to death over a long fight.
+        ///
+        /// Doom, by contrast, only lands while Drain Touch is up (confirmed in game). Nothing in
+        /// Magitek can promise a return to full HP inside its 10s, so the rotation never attacks
+        /// through the buff at all - this is the gate that guarantees it.
+        /// </summary>
+        private static bool NecromancerCanSpendHealth()
+        {
+            if (Core.Me.CurrentHealthPercent < OccultCrescentSettings.Instance.NecromancerMinimumHealthPercent)
+                return false;
+
+            // Drain Touch is up, so this attack would Doom us.
+            return !Core.Me.HasAura(OCAuras.DrainTouch);
+        }
+
+        /// <summary>
+        /// Drain Touch - 150 potency, instant, 40s recast. Costs no HP and never Dooms us. Absorbs
+        /// the damage dealt back as HP (~32,000 against a 109,000 pool in testing, comfortably more
+        /// than the 10% an attack costs) and leaves the 6s buff behind.
+        ///
+        /// Free damage and free healing, so it goes out on cooldown for every job. It is ordered
+        /// after the attacks in ExecuteNecromancerPhantomJob rather than gated here, so the buff it
+        /// leaves behind never catches one of them and turns it into a Doom.
+        /// </summary>
+        private static async Task<bool> DrainTouch()
+        {
+            if (!OccultCrescentSettings.Instance.UseDrainTouch)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.DrainTouch.CanCast())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.DrainTouch.Range))
+                return false;
+
+            return await OCSpells.DrainTouch.Cast(target);
+        }
+
+        /// <summary>
+        /// Deep Freeze / Hell Wind / Chaos Drive - one shared 40s recast, so each window spends
+        /// exactly one of them. Ice / Wind / Lightning, 300 potency or 390 on a matched weakness,
+        /// rising to 400 / 520 under Drain Touch. Each costs 10% of our maximum HP.
+        ///
+        /// This is the routine's second source of Wind damage after Phantom Summoner's Thunderstorm.
+        /// Deep Freeze unlocks at phantom job level 2, Hell Wind at 3, Chaos Drive at 4, so
+        /// PickElementalNuke's CanCast filter is what stops a low-level Necromancer holding the
+        /// shared window for something it has not learned.
+        /// </summary>
+        private static Task<bool> NecromancerElementalNukes()
+        {
+            if (!NecromancerCanSpendHealth())
+                return Task.FromResult(false);
+
+            // 1.5s casts - do not start one we are only going to break by moving.
+            if (MovementManager.IsMoving)
+                return Task.FromResult(false);
+
+            var settings = OccultCrescentSettings.Instance;
+
+            // Listed highest-unlock first, matching the other shared-recast jobs.
+            return SharedRecastElementalNukes(
+                (OCSpells.ChaosDrive, settings.UseChaosDrive, OCAuras.LightningWeakness),
+                (OCSpells.HellWind, settings.UseHellWind, OCAuras.WindWeakness),
+                (OCSpells.DeepFreeze, settings.UseDeepFreeze, OCAuras.IceWeakness));
+        }
+
+        /// <summary>
+        /// Doomsday - 1.5s cast, 120s recast, 30y line. 350 potency, or 500 under Drain Touch where
+        /// it also strips one beneficial status off the target. Costs 10% of our maximum HP.
+        ///
+        /// It sits on its own timer rather than the elemental one, which is exactly why it needs
+        /// the health check of its own: it can come up inside the 6s buff window left behind by a
+        /// Drain Touch we cast as a heal, and would Doom us for it.
+        /// </summary>
+        private static async Task<bool> Doomsday()
+        {
+            if (!OccultCrescentSettings.Instance.UseDoomsday)
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            if (!OCSpells.Doomsday.CanCast())
+                return false;
+
+            if (!NecromancerCanSpendHealth())
+                return false;
+
+            if (MovementManager.IsMoving)
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.ValidDamageTarget() || !target.InLineOfSight())
+                return false;
+
+            if (!target.WithinSpellRange(OCSpells.Doomsday.Range))
+                return false;
+
+            return await OCSpells.Doomsday.Cast(target);
+        }
+
+        /// <summary>
+        /// Execute Phantom Necromancer phantom job rotation
+        ///
+        /// The whole shape of this job comes from one fact confirmed in game: the HP-cost attacks
+        /// Doom us only while Drain Touch is up. Doom runs 10s, clears only at full HP, and cannot
+        /// be dispelled - so we attack first and use Drain Touch afterwards purely as the heal that
+        /// pays back the 10%, and are never Doomed at all. This ordering is what produces that; the
+        /// Drain Touch check inside NecromancerCanSpendHealth is what keeps it safe when the timers
+        /// drift and the ordering alone would not.
+        ///
+        /// It also leaves the buff unspent - 300/390 potency where attacking through it would give
+        /// 400/520. Taking that trade needs a heal that can reliably reach full HP inside 10s,
+        /// which is not a Necromancer problem: Doom is an ordinary game mechanic that any job can
+        /// be hit with in any content. It waits on the routine-wide Doom response rather than being
+        /// solved once, here, for this job.
+        /// </summary>
+        /// <returns>True if an action was executed, false otherwise</returns>
+        private static async Task<bool> ExecuteNecromancerPhantomJob()
+        {
+            // Attack unbuffed and let Drain Touch follow as the heal that repays the cost. Both
+            // attacks refuse to fire while Drain Touch is up.
+            if (await Doomsday())
+                return true;
+
+            if (await NecromancerElementalNukes())
+                return true;
+
+            if (await DrainTouch())
                 return true;
 
             return false;

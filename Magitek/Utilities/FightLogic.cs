@@ -47,6 +47,24 @@ namespace Magitek.Utilities
         /// </summary>
         public static string CommonAoeLockOnsDisplay => string.Join(", ", CommonAoeLockOns.OrderBy(x => x));
 
+        /// <summary>
+        /// The ally (or ourselves when solo) carrying a heal-to-full Doom, or null. This Doom
+        /// recurs across content - dungeon bosses apply it as well as the Occult Crescent
+        /// Necromancer's self-Doom - and it kills at expiry unless the target reaches full HP
+        /// first, so healers treat the carrier as the top-priority heal target. Deliberately
+        /// not zone-gated, unlike the enemy-cast catalogues.
+        /// </summary>
+        public static Character DoomedHealTarget()
+        {
+            // The below-full check matters: full HP is what removes the aura, so a carrier
+            // sitting at full is already cleansing (removal latency) and healing them again
+            // only wastes the GCD.
+            if (Globals.InParty)
+                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth);
+
+            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth ? Core.Me : null;
+        }
+
         private static TimeSpan FlCooldown
         {
             get
@@ -326,6 +344,44 @@ namespace Magitek.Utilities
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// The catalogued enemy whose cast the detectors matched, while it is still casting — or null.
+        /// <para>
+        /// Reactions that debuff the CASTER (Feint, Addle, Dismantle, Reprisal) need this rather than
+        /// Core.Me.CurrentTarget: the two are frequently different enemies, and a mitigation debuff applied
+        /// to whatever we happen to be hitting does nothing about the mechanic we are reacting to.
+        /// </para>
+        /// <para>
+        /// The cast id has to be one this enemy is catalogued for, in a category the debuff reactions
+        /// actually answer. An AoE can also be detected from a lock-on on the party, with no cast
+        /// involved at all — and this enemy may still be mid-cast on something unrelated. Returning it
+        /// then would aim the debuff using a cast no detector matched, so the id check keeps those
+        /// reactions on the current-target fallback where they belong.
+        /// </para>
+        /// <para>
+        /// Knockbacks are deliberately NOT counted. FightLogic_Debuff never calls
+        /// EnemyIsCastingKnockback, so a knockback cast cannot be what it is reacting to — and several
+        /// catalogued encounters carry both AoeLockOns and Knockbacks, where counting them would let a
+        /// lock-on detection hand back an enemy that is merely mid-knockback.
+        /// </para>
+        /// </summary>
+        public static BattleCharacter DetectedCaster()
+        {
+            var (_, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+            if (enemyLogic == null || enemy == null || !enemy.IsValid || !enemy.IsCasting)
+                return null;
+
+            var castId = enemy.CastingSpellId;
+
+            var matched = (enemyLogic.TankBusters?.Contains(castId) ?? false)
+                          || (enemyLogic.SharedTankBusters?.Contains(castId) ?? false)
+                          || (enemyLogic.Aoes?.Contains(castId) ?? false)
+                          || (enemyLogic.BigAoes?.Contains(castId) ?? false);
+
+            return matched ? enemy : null;
         }
 
         public static bool EnemyHasAnyKnockbackLogic()

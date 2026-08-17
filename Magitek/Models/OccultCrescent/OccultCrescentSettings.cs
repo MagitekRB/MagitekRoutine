@@ -289,10 +289,6 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseOccultFalcon { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool UseOccultUnicorn { get; set; }
 
         [Setting]
@@ -655,6 +651,18 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
+        public bool UseOccultBlink { get; set; }
+
+        [Setting]
+        [DefaultValue(75.0f)]
+        public float OccultBlinkHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultBlinkCastOnAllies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool UseOccultHoly { get; set; }
         #endregion
 
@@ -756,6 +764,33 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(70.0f)]
         public float OccultWhiteWindMinimumOwnHealthPercent { get; set; }
+        #endregion
+
+        #region Phantom Necromancer
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDrainTouch { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDeepFreeze { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHellWind { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseChaosDrive { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDoomsday { get; set; }
+
+        // Every Necromancer attack bar Drain Touch costs 10% of maximum HP, unconditionally.
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float NecromancerMinimumHealthPercent { get; set; }
         #endregion
     }
 }

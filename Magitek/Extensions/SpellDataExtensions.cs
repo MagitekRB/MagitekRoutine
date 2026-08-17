@@ -69,6 +69,7 @@ namespace Magitek.Extensions
             Casting.CastingSpell = spell;
             Casting.SpellCastTime = spell.AdjustedCastTime;
             Casting.CastingHeal = false;
+            Casting.CastingRevive = false;
             Casting.SpellTarget = target;
             Casting.CastingTime.Restart();
 
@@ -311,6 +312,7 @@ namespace Magitek.Extensions
             Casting.CastingSpell = spell;
             Casting.SpellCastTime = spell.AdjustedCastTime;
             Casting.CastingHeal = false;
+            Casting.CastingRevive = false;
             Casting.SpellTarget = target;
             Casting.NeedAura = needAura;
             Casting.Aura = aura;
@@ -358,6 +360,7 @@ namespace Magitek.Extensions
             }
 
             Casting.CastingHeal = true;
+            Casting.CastingRevive = false;
             Casting.CastingSpell = spell;
             Casting.SpellCastTime = spell.AdjustedCastTime;
             Casting.SpellTarget = target;

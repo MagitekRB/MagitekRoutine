@@ -2097,6 +2097,9 @@
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>使用 魔神圣</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
+    <value>使用 魔分身 (无效化一次魔法攻击)</value>
+  </data>
   <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
     <value>且受伤人数至少为</value>
   </data>
@@ -2153,6 +2156,24 @@
   </data>
   <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
     <value>且自身血量不低于</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
+    <value>使用 吸血之触 (治疗自身并强化其他技能)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
+    <value>使用 深度冻结 (冰)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hell_Wind" xml:space="preserve">
+    <value>使用 地狱之风 (风)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
+    <value>使用 混沌驱动 (雷)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Doomsday" xml:space="preserve">
+    <value>使用 末日</value>
+  </data>
+  <data name="OccultCrescent_Text_Attacks_cost_HP_only_use_above" xml:space="preserve">
+    <value>攻击消耗10%最大血量 - 仅在血量高于</value>
   </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>仅在近战距离内使用</value>
@@ -2222,9 +2243,6 @@
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Aim_Damage_buff" xml:space="preserve">
     <value>使用 狙击 (伤害增益 - 120秒冷却)</value>
-  </data>
-  <data name="OccultCrescent_Content_Use_Occult_Falcon_Area_atta" xml:space="preserve">
-    <value>使用 魔猎鹰 (范围攻击)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Unicorn_below" xml:space="preserve">
     <value>在[xx]以下使用 魔独角兽</value>
@@ -5702,5 +5720,14 @@
   </data>
   <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
     <value>远程攻击（25 码）。60 秒冷却。所有职能可用。</value>
+  </data>
+  <data name="Views_Content_Use_Phoenix_Down" xml:space="preserve">
+    <value>使用凤凰尾复活阵亡的队友（仅副本内）</value>
+  </data>
+  <data name="Views_Text_Phoenix_Down_Delay" xml:space="preserve">
+    <value>队友阵亡后等待多少秒再使用：</value>
+  </data>
+  <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
+    <value>至少保留的数量：</value>
   </data>
 </root>

@@ -2096,6 +2096,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>Use Occult Holy</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
+    <value>Use Occult Blink (nullifies one magic attack)</value>
+  </data>
   <data name="OccultCrescent_Text_and_at_least_this_many_hurt" xml:space="preserve">
     <value>and at least this many hurt</value>
   </data>
@@ -2152,6 +2155,24 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="OccultCrescent_Text_and_our_own_HP_at_least" xml:space="preserve">
     <value>and our own HP at least</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
+    <value>Use Drain Touch (heals us, and powers up the other attacks)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
+    <value>Use Deep Freeze (ice)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Hell_Wind" xml:space="preserve">
+    <value>Use Hell Wind (wind)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Chaos_Drive" xml:space="preserve">
+    <value>Use Chaos Drive (lightning)</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Doomsday" xml:space="preserve">
+    <value>Use Doomsday</value>
+  </data>
+  <data name="OccultCrescent_Text_Attacks_cost_HP_only_use_above" xml:space="preserve">
+    <value>Attacks cost 10% of max HP - only use them above</value>
   </data>
   <data name="OccultCrescent_Content_Only_use_in_melee_range" xml:space="preserve">
     <value>Only use in melee range</value>
@@ -2221,9 +2242,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="OccultCrescent_Content_Use_Phantom_Aim_Damage_buff" xml:space="preserve">
     <value>Use Phantom Aim (Damage buff - 120s cooldown)</value>
-  </data>
-  <data name="OccultCrescent_Content_Use_Occult_Falcon_Area_atta" xml:space="preserve">
-    <value>Use Occult Falcon (Area attack)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Unicorn_below" xml:space="preserve">
     <value>Use Occult Unicorn below</value>
@@ -5474,5 +5492,14 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="VariantDungeon_Text_VariantEagleEyeShotDescription" xml:space="preserve">
     <value>Ranged attack (25y). 60s cooldown. Available to all roles.</value>
+  </data>
+  <data name="Views_Content_Use_Phoenix_Down" xml:space="preserve">
+    <value>Use Phoenix Downs to revive fallen allies (duties only)</value>
+  </data>
+  <data name="Views_Text_Phoenix_Down_Delay" xml:space="preserve">
+    <value>Seconds to wait after a death before using one:</value>
+  </data>
+  <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
+    <value>Keep at least this many in reserve:</value>
   </data>
 </root>
