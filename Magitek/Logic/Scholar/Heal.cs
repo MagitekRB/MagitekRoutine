@@ -822,17 +822,21 @@ namespace Magitek.Logic.Scholar
 
             // Rank candidates by how many of the wounded their circle would actually cover — a
             // centrality pick can still leave a triggering ally outside the radius when they are
-            // spread out, and coverage is what the trigger promised. Coverage is scored with the
-            // same edge-to-edge model the trigger uses (WithinSpellRange anchored on the candidate
-            // instead of the caster — no shared helper takes a non-self anchor), so trigger and
-            // placement agree: the caster, also a candidate, covers the full triggering set by
-            // definition and is the guaranteed fallback when the wounded stand on opposite sides.
+            // spread out, and coverage is what the trigger promised. Coverage is pure point
+            // geometry: the spell is ground-placed at the candidate's location with a fixed
+            // radius, so the candidate's own hitbox cannot enlarge the circle, and whether the
+            // server reach-expands the allies it tests is not knowable from the client — center
+            // distance against the radius is the only assumption-free model. The trigger keeps
+            // the caster-anchored spell-range check it has always used; the two predicates answer
+            // different questions (who counts as wounded near me vs who stands inside this circle),
+            // and the disagreement band between them is narrower than the distance players drift
+            // between the pulse that scores and the circle landing.
             // Ties break by centrality over the SAME wounded set, not by distance to us — a zero
             // self-distance tie-break would hand every tie to the caster and reduce CenterParty to a
             // self-cast; the caster only wins when it genuinely covers more, or is itself most central.
             var soilTarget = wounded
                 .Concat(new Character[] { Core.Me })
-                .OrderByDescending(r => wounded.Count(ot => r.Distance2D(ot) - r.CombatReach - ot.CombatReach <= Spells.SacredSoil.Radius))
+                .OrderByDescending(r => wounded.Count(ot => r.Distance2D(ot) <= Spells.SacredSoil.Radius))
                 .ThenBy(r => wounded.Sum(ot => r.Distance2D(ot)))
                 .First();
 
