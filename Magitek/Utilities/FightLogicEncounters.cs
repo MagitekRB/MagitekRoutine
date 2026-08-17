@@ -7126,7 +7126,7 @@ namespace Magitek.Utilities
             },
 
             new Encounter {
-                ZoneId = ZoneId.TheOccultCrescentNorthHorn,
+                ZoneId = 1346,
                 Name = "The Occult Crescent: North Horn (field Critical Encounters)",
                 Expansion = FfxivExpansion.Dawntrail,
                 // Derived from a recorded run rather than a trigger database — cactbot's file for this zone
@@ -7288,15 +7288,6 @@ namespace Magitek.Utilities
                     },
                     new Enemy {
                         Id = 0, // matched by name (OC pattern); id pending an AddCombatant capture
-                        Name = "Patient Kuribu",
-                        Aoes = new List<uint> {
-                            49908, // Aero III (20 corpus casts, 3.7s castbar)
-                            50072, // Aero III (29 corpus casts, 4.2s castbar, hit up to 16 players —
-                                   // same user ruling as the Greater Fan's variant)
-                        },
-                    },
-                    new Enemy {
-                        Id = 0, // matched by name (OC pattern); id pending an AddCombatant capture
                         Name = "Arch Kelpie",
                         Aoes = new List<uint> {
                             47386, // Water IV — user-confirmed needs AoE mitigation 2026-08-08; id
@@ -7330,22 +7321,6 @@ namespace Magitek.Utilities
                         Name = "Dancing Sword",
                         Aoes = new List<uint> {
                             49616, // Rush (1,016 observed casts, hit up to 14 players — ACT 2026-08-07)
-                        },
-                    },
-                    new Enemy {
-                        Id = 0, // matched by name (OC pattern); id pending an AddCombatant capture
-                        Name = "Algol",
-                        Aoes = new List<uint> {
-                            48111, // Rotten Tomato (median 3 / max 13 players hit)
-                            48112, // Rotten Onion (median 2 / max 12 players hit)
-                        },
-                    },
-                    new Enemy {
-                        Id = 0, // matched by name (OC pattern)
-                        Name = "Elm Gigas",
-                        Aoes = new List<uint> {
-                            48041, // Ancient Aero III (user-confirmed raidwide; id from ACT 261 memory
-                                   // lines — persisted across 3 ticks at the exact castbar second)
                         },
                     },
                     new Enemy {
@@ -7425,6 +7400,9 @@ namespace Magitek.Utilities
                         Id = 14764,
                         Name = "Patient Kuribu",
                         Aoes = new List<uint> {
+                            49908, // Aero III (20 corpus casts, 3.7s castbar)
+                            50072, // Aero III (29 corpus casts, 4.2s castbar, hit up to 16 players —
+                                   // same user ruling as the Greater Fan's variant)
                             50118, // Shortsword and Sorcery
                         },
                     },
@@ -7475,6 +7453,8 @@ namespace Magitek.Utilities
                         Name = "Algol",
                         Aoes = new List<uint> {
                             48100, // Cursed Screech — 8 players, 14%
+                            48111, // Rotten Tomato (median 3 / max 13 players hit)
+                            48112, // Rotten Onion (median 2 / max 12 players hit)
                             48971, // Cursed Screech — 7 players, 20%
                             50426, // Shrill Peal — 8 players, 26%
                             50427, // Shrill Peal — 6 players, 26%
@@ -8188,7 +8168,6 @@ namespace Magitek.Utilities
             TheNavelExtreme = 296,
             TheNavelHard = 293,
             TheNavelUnreal = 953,
-            TheOccultCrescentNorthHorn = 1346,
             TheOmegaProtocolUltimate = 1122,
             TheOrbonneMonastery = 826,
             TheOrphansAndTheBrokenBlade = 715,
