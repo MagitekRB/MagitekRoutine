@@ -805,11 +805,12 @@ namespace Magitek.Logic.Scholar
             // The count is "wounded allies within Soil's radius of me" — it never depended on the lambda
             // parameter, so the old FirstOrDefault picked an arbitrary first party member and could drop
             // the circle away from the very cluster it counted. Trigger on the count, then place the
-            // circle on the medoid of the SAME wounded set — centering on the whole party would pull the
-            // placement toward a healthy remote cluster when the party is split.
-            var wounded = PartyManager.VisibleMembers.Select(x => x.BattleCharacter)
-                .Where(x => x.IsAlive
-                    && x.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
+            // circle by coverage of the SAME wounded set — centering on the whole party would pull the
+            // placement toward a healthy remote cluster when the party is split. The frame-cached ally
+            // list already excludes dead and despawned members, so a corpse at 0% can neither trigger
+            // the count nor win placement.
+            var wounded = Group.CastableAlliesWithin30
+                .Where(x => x.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
                     && x.WithinSpellRange(Spells.SacredSoil.Radius))
                 .ToList();
 
@@ -821,14 +822,16 @@ namespace Magitek.Logic.Scholar
 
             // Rank candidates by how many of the wounded their circle would actually cover — a
             // centrality pick can still leave a triggering ally outside the radius when they are
-            // spread out, and coverage is what the trigger promised. IsAlive above matters here
-            // too: a corpse sits at 0% and would otherwise inflate the count and win placement.
+            // spread out, and coverage is what the trigger promised. The caster is a candidate too:
+            // every triggering ally is in range of us by construction, so when the wounded stand on
+            // opposite sides and no ally-centered circle reaches them all, the self-centered one does.
             var soilTarget = wounded
+                .Concat(new Character[] { Core.Me })
                 .OrderByDescending(r => wounded.Count(ot => r.Distance(ot.Location) <= Spells.SacredSoil.Radius))
                 .ThenBy(t => Core.Me.Distance(t.Location))
-                .FirstOrDefault();
+                .First();
 
-            return await Spells.SacredSoil.Cast(soilTarget ?? (GameObject)Core.Me);
+            return await Spells.SacredSoil.Cast(soilTarget);
         }
 
         public static async Task<bool> Resurrection()
