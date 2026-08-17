@@ -490,7 +490,16 @@ namespace Magitek.Logic.Scholar
 
             if (Globals.InParty)
             {
-                var ManifestationTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanLustrate);
+                // A target already carrying a barrier is only actionable through the Emergency
+                // Tactics conversion. When that path cannot run, skip barriered allies in the
+                // pick — otherwise the first barriered ally latches this method every pulse
+                // while a shieldable ally further down the weight order goes without.
+                var etConvertible = ScholarSettings.Instance.EmergencyTactics
+                    && (Spells.EmergencyTactics.IsKnownAndReady() || Core.Me.HasAura(Auras.EmergencyTactics));
+
+                var ManifestationTarget = etConvertible
+                    ? Group.CastableAlliesWithin30.FirstOrDefault(CanLustrate)
+                    : Group.CastableAlliesWithin30.FirstOrDefault(r => CanLustrate(r) && !r.HasMagicBarrier());
 
                 if (ManifestationTarget == null)
                     return false;
