@@ -588,13 +588,6 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Falcon_Area_atta}"
-                                                          IsChecked="{Binding UseOccultFalcon, Mode=TwoWay}"
-                                                          Style="{DynamicResource CheckBoxFlat}"/>
-                                        </StackPanel>
-
-                                        <StackPanel Margin="5"
-                                                    Orientation="Horizontal">
                                                 <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Unicorn_below}"
                                                           IsChecked="{Binding UseOccultUnicorn, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>

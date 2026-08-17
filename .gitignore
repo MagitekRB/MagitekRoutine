@@ -290,6 +290,14 @@ VsCodeWorkspace.code-workspace
 
 .vscode/
 .cursor/
-.claude/
+
+# Anything local-only — notes, plans, scratch, archives. If it should not be shared,
+# put it in here rather than adding a new ignore rule.
+.local/
+
+# Claude Code's own local state. .claude/skills/ is the one exception: it holds symlinks
+# into the shared, tool-neutral .agents/skills/ so Claude Code can discover them.
+.claude/*
+!.claude/skills/
 
 Plugins/LuminaReader/

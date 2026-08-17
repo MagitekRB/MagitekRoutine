@@ -1,0 +1,25 @@
+<Project>
+
+  <PropertyGroup>
+    <!--
+      Defect classes that must fail the build instead of scrolling past as warnings.
+
+      These catch code that provably cannot run, which review reliably misses because the
+      build still says "succeeded":
+
+        CS0162  Unreachable code detected      (e.g. a second return after the first)
+        CS0642  Possible mistaken empty statement  (e.g. `if (cond);` - the guard does nothing)
+        CS0219  Variable assigned but never used
+
+      The rest of the warning baseline (CA1416, CS0618, nullable warnings) is deliberately
+      left as warnings.
+
+      Do not add any of these three to a <NoWarn> list. NoWarn suppresses a diagnostic
+      before WarningsAsErrors can promote it, so listing a code in both silently disables
+      the gate for that configuration - which is how a real CS0162 in OccultCrescent.cs
+      sat unreported in every Release build until this was added.
+    -->
+    <WarningsAsErrors>CS0162;CS0642;CS0219</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>

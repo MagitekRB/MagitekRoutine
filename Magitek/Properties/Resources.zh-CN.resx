@@ -2244,9 +2244,6 @@
   <data name="OccultCrescent_Content_Use_Phantom_Aim_Damage_buff" xml:space="preserve">
     <value>使用 狙击 (伤害增益 - 120秒冷却)</value>
   </data>
-  <data name="OccultCrescent_Content_Use_Occult_Falcon_Area_atta" xml:space="preserve">
-    <value>使用 魔猎鹰 (范围攻击)</value>
-  </data>
   <data name="OccultCrescent_Content_Use_Occult_Unicorn_below" xml:space="preserve">
     <value>在[xx]以下使用 魔独角兽</value>
   </data>

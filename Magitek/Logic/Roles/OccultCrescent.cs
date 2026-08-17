@@ -137,7 +137,6 @@ namespace Magitek.Logic.Roles
 
         // Ranger Spells
         public static readonly SpellData PhantomAim = DataManager.GetSpellData(41599);
-        public static readonly SpellData OccultFalcon = DataManager.GetSpellData(41601);
         public static readonly SpellData OccultUnicorn = DataManager.GetSpellData(41602);
 
         // Phantom Thief Spells
@@ -1035,10 +1034,6 @@ namespace Magitek.Logic.Roles
 
             // Phantom Aim - damage buff (120s cooldown, use on cooldown)
             if (await PhantomAim())
-                return true;
-
-            // Occult Falcon - area attack
-            if (await OccultFalcon())
                 return true;
 
             return false;
@@ -2466,38 +2461,6 @@ namespace Magitek.Logic.Roles
 
             // Cast on cooldown in combat for damage boost
             return await OCSpells.PhantomAim.Cast(Core.Me);
-        }
-
-        /// <summary>
-        /// Cast Occult Falcon - area attack that also triggers traps
-        /// </summary>
-        /// <returns>True if spell was cast, false otherwise</returns>
-        private static async Task<bool> OccultFalcon()
-        {
-            // I don't know what a trap is, so disable this ability for now. 
-            return false;
-
-            if (!OccultCrescentSettings.Instance.UseOccultFalcon)
-                return false;
-
-            if (!Core.Me.InCombat)
-                return false;
-
-            if (!Core.Me.HasTarget)
-                return false;
-
-            if (!OCSpells.OccultFalcon.CanCast())
-                return false;
-
-            // Need a valid attackable target
-            if (!Core.Me.CurrentTarget.ValidDamageTarget() || !Core.Me.CurrentTarget.InLineOfSight())
-                return false;
-
-            // Check if target is within spell range
-            if (!Core.Me.CurrentTarget.WithinSpellRange(OCSpells.OccultFalcon.Range))
-                return false;
-
-            return await OCSpells.OccultFalcon.Cast(Core.Me.CurrentTarget);
         }
 
         /// <summary>
