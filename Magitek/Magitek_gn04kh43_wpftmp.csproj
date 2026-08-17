@@ -1,0 +1,535 @@
+<Project>
+  <PropertyGroup>
+    <AssemblyName>Magitek</AssemblyName>
+    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\</MSBuildProjectExtensionsPath>
+    <_TargetAssemblyProjectName>Magitek</_TargetAssemblyProjectName>
+    <RootNamespace>Magitek</RootNamespace>
+  </PropertyGroup>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows8.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <RestorePackages>true</RestorePackages>
+    <LangVersion>10</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowedReferenceRelatedFileExtensions>".pdb".=""</AllowedReferenceRelatedFileExtensions>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <NoWarn>1701;1702;CA1416;CS1998;CS0168;CS0414;CS0162;CS8603;</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
+    <OutputPath>bin\deploy\</OutputPath>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActionList.json" />
+    <EmbeddedResource Include="Resources\StatusList.json" />
+    <EmbeddedResource Include="Resources\BossDictionary.json" />
+    <EmbeddedResource Include="Resources\OccultDebuffImmunity.json" />
+    <EmbeddedResource Include="Resources\BossNames.json" />
+    <EmbeddedResource Include="Resources\Toggles\BardToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\DancerToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\DarkKnightToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\DragoonToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\GunbreakerToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\MachinistToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\PaladinToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\ReaperToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\SageToggles.json" />
+    <EmbeddedResource Include="Resources\Toggles\WarriorToggles.json" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\Monk\" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ConfigureAwait.Fody">
+      <Version>3.3.2</Version>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Costura.Fody">
+      <Version>6.0.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Fody">
+      <Version>6.9.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>4.1.0</Version>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.803" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\MagitekLoginInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.zh-CN.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\Accessibility.dll" />
+    <ReferencePath Include="C:\Users\castl\.nuget\packages\configureawait.fody\3.3.2\lib\netstandard2.1\ConfigureAwait.dll" />
+    <ReferencePath Include="C:\Users\castl\.nuget\packages\costura.fody\6.0.0\lib\netstandard2.0\Costura.dll" />
+    <ReferencePath Include="C:\Users\castl\.nuget\packages\rebornbuddy.referenceassemblies\1.0.803\lib\net8.0-windows\GreyMagic.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\Microsoft.VisualBasic.Core.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\Microsoft.VisualBasic.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\Microsoft.VisualBasic.Forms.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\Microsoft.Win32.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\Microsoft.Win32.Registry.AccessControl.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\Microsoft.Win32.Registry.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\Microsoft.Win32.SystemEvents.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\mscorlib.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\netstandard.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.Aero.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.Aero2.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.AeroLite.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.Classic.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.Luna.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationFramework.Royale.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\PresentationUI.dll" />
+    <ReferencePath Include="C:\Users\castl\.nuget\packages\propertychanged.fody\4.1.0\lib\netstandard2.1\PropertyChanged.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\ReachFramework.dll" />
+    <ReferencePath Include="C:\Users\castl\.nuget\packages\rebornbuddy.referenceassemblies\1.0.803\lib\net8.0-windows\RebornBuddy.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.AppContext.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Buffers.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.CodeDom.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Collections.Concurrent.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Collections.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Collections.Immutable.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Collections.NonGeneric.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Collections.Specialized.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ComponentModel.Annotations.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ComponentModel.DataAnnotations.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ComponentModel.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ComponentModel.EventBasedAsync.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ComponentModel.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ComponentModel.TypeConverter.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Configuration.ConfigurationManager.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Configuration.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Console.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Data.Common.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Design.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.Contracts.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.Debug.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.DiagnosticSource.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.EventLog.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.FileVersionInfo.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.PerformanceCounter.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.Process.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.StackTrace.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.TextWriterTraceListener.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.Tools.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.TraceSource.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Diagnostics.Tracing.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.DirectoryServices.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Drawing.Common.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Drawing.Design.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Drawing.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Dynamic.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Formats.Asn1.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Formats.Tar.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Globalization.Calendars.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Globalization.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Globalization.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.Compression.Brotli.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.Compression.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.Compression.FileSystem.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.Compression.ZipFile.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.FileSystem.AccessControl.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.FileSystem.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.FileSystem.DriveInfo.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.FileSystem.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.FileSystem.Watcher.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.IsolatedStorage.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.MemoryMappedFiles.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.IO.Packaging.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.Pipes.AccessControl.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.Pipes.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.IO.UnmanagedMemoryStream.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Linq.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Linq.Expressions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Linq.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Linq.Queryable.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Memory.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Http.Json.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.HttpListener.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Mail.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.NameResolution.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.NetworkInformation.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Ping.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Quic.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Requests.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Security.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.ServicePoint.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.Sockets.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.WebClient.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.WebHeaderCollection.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.WebProxy.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.WebSockets.Client.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Net.WebSockets.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Numerics.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Numerics.Vectors.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ObjectModel.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Printing.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.DispatchProxy.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.Emit.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.Emit.ILGeneration.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.Emit.Lightweight.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.Metadata.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Reflection.TypeExtensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Resources.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Resources.Reader.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Resources.ResourceManager.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Resources.Writer.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.CompilerServices.VisualC.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Handles.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.InteropServices.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.InteropServices.JavaScript.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Intrinsics.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Loader.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Numerics.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Serialization.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Serialization.Formatters.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Serialization.Json.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Serialization.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Runtime.Serialization.Xml.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.AccessControl.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Claims.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Algorithms.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Cng.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Csp.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.OpenSsl.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Pkcs.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.ProtectedData.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.X509Certificates.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Security.Cryptography.Xml.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Security.Permissions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Principal.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.Principal.Windows.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Security.SecureString.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ServiceModel.Web.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ServiceProcess.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Text.Encoding.CodePages.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Text.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Text.Encoding.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Text.Encodings.Web.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Text.Json.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Text.RegularExpressions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Threading.AccessControl.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Channels.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Overlapped.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Tasks.Dataflow.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Tasks.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Tasks.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Tasks.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Thread.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.ThreadPool.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Threading.Timer.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Transactions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Transactions.Local.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.ValueTuple.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Web.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Web.HttpUtility.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Controls.Ribbon.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Windows.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Forms.Design.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Forms.Design.Editors.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Forms.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Input.Manipulations.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Windows.Presentation.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.Linq.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.ReaderWriter.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.Serialization.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.XDocument.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.XmlDocument.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.XmlSerializer.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.XPath.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\ref\net8.0\System.Xml.XPath.XDocument.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\UIAutomationClient.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\UIAutomationClientSideProviders.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\UIAutomationProvider.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\UIAutomationTypes.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\WindowsBase.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\ref\net8.0\WindowsFormsIntegration.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\CurrentNews.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\Decimal.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\GambitBrowser.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\GambitsControl.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\Hotkey.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\HotkeyToggles.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\Numeric.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\NumericSmall.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\OpenersBrowser.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\OpenersControl.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\SettingsBlock.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\SwirlSpinner.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Controls\TogglesSettings.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\SettingsModal.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\SettingsWindow.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\Alliance.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\Cards.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\DispelOptions.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\DiurnalHealing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\NocturnalHealing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Astrologian\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\Cooldowns.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\DamageOverTime.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\Songs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bard\Utilities.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlackMage\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlackMage\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlackMage\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlackMage\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlackMage\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlueMage\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlueMage\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlueMage\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\BlueMage\Utilities.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\Debug.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\EnemyAuras.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\EnemySpellCasts.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\EnemyTargets.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\Enmity.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\HealingLists.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\HealingPriority.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\PartyMemberAuras.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Bugs\SpellCastHistory.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\CombatMessageOverlay.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Common\PvpUtilities.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dancer\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dancer\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dancer\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dancer\General.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dancer\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dancer\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\DarkKnight\Aggro.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\DarkKnight\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\DarkKnight\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\DarkKnight\Defensives.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\DarkKnight\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\DarkKnight\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\Defensives.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\Jumps.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Dragoon\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\GlobalPvp\General.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Gunbreaker\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Gunbreaker\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Gunbreaker\Defensives.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Gunbreaker\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Gunbreaker\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Gunbreaker\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Lists\Dispelling.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Lists\InterruptsAndStuns.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\Turrets.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Machinist\Utilities.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\MainSettingsOverlay.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Monk\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Monk\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Monk\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Monk\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Monk\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Ninja\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Ninja\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Ninja\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Ninja\Ninjutsu.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Ninja\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Ninja\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\OccultCrescent\General.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\Aggro.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\Defensives.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Paladin\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Pictomancer\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Pictomancer\Paint.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Pictomancer\Palettes.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Pictomancer\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Pictomancer\Utility.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\PvpAggroCountOverlay.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Reaper\AoE.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Reaper\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Reaper\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Reaper\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Reaper\Utility.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\RedMage\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\RedMage\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\RedMage\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\RedMage\Heal.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\RedMage\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\RedMage\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\Alliance.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\DispelOptions.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\HealingOptions.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Sage\Shield.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Samurai\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Samurai\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Samurai\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Samurai\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Samurai\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Samurai\Utility.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Aetherpact.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Alliance.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\DispelOptions.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\DOTs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Pets.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Scholar\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\Aoe.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\General.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\Pets.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Summoner\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\VariantDungeon\General.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Viper\AoE.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Viper\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Viper\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Viper\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Viper\SingleTarget.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Viper\Utility.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\Aggro.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\Buff.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\Defensives.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\Warrior\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Alliance.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Assize.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Buffs.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Combat.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\DispelOptions.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\FightLogic.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Healing.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Pvp.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\Views\UserControls\WhiteMage\Regen.g.cs" />
+    <Compile Include="C:\Users\castl\Downloads\aibuddy\Magitek\Magitek\obj\Debug\GeneratedInternalTypeHelper.g.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files\dotnet\sdk\10.0.200\Sdks\Microsoft.NET.Sdk\targets\..\analyzers\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\sdk\10.0.200\Sdks\Microsoft.NET.Sdk\targets\..\analyzers\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+    <Analyzer Include="C:\Users\castl\.nuget\packages\propertychanged.fody\4.1.0\analyzers\dotnet\cs\PropertyChanged.Fody.Analyzer.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\analyzers/dotnet/cs/Microsoft.Interop.ComInterfaceGenerator.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\analyzers/dotnet/cs/Microsoft.Interop.JavaScript.JSImportGenerator.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\analyzers/dotnet/cs/Microsoft.Interop.LibraryImportGenerator.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\analyzers/dotnet/cs/Microsoft.Interop.SourceGeneration.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\analyzers/dotnet/cs/System.Text.Json.SourceGeneration.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.25\analyzers/dotnet/cs/System.Text.RegularExpressions.Generator.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\analyzers/dotnet/System.Windows.Forms.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\8.0.25\analyzers/dotnet/cs/System.Windows.Forms.Analyzers.CSharp.dll" />
+  </ItemGroup>
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

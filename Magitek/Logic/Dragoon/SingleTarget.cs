@@ -82,6 +82,7 @@ namespace Magitek.Logic.Dragoon
             if (Spells.Disembowel.IsKnown() && !Core.Me.HasAura(Auras.PowerSurge))
                 return false;
 
+            // Do not advance combo if Power Surge will fall off in the next 6 seconds
             Aura PowerSurgeAura = (Core.Me as Character).Auras.FirstOrDefault(x => x.Id == Auras.PowerSurge);
             if (Spells.Disembowel.IsKnown() && Core.Me.HasAura(Auras.PowerSurge) && PowerSurgeAura.TimespanLeft.TotalMilliseconds <= 6000)
                 return false;

@@ -218,14 +218,12 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            if (!Spells.Psyche.IsKnownAndReady())
+            if (!Spells.Psyche.IsKnown())
                 return false;
 
-            // Dawntrail Fix: Psyche is a pure DPS gain. Use it on cooldown against bosses, or respect AoE thresholds for trash.
-            bool isBoss = target.IsBoss();
             bool meetsAoeThreshold = Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) >= SageSettings.Instance.PsycheAoEEnemies;
 
-            if (!isBoss && !meetsAoeThreshold)
+            if (!meetsAoeThreshold)
                 return false;
 
             return await Spells.Psyche.Cast(target);

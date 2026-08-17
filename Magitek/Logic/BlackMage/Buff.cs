@@ -24,22 +24,53 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
+            if (Spells.Triplecast.Cooldown != TimeSpan.Zero && Spells.Triplecast.Charges == 0)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Triplecast) || Core.Me.HasAura(Auras.Swiftcast))
+                return false;
+
+            // Restrict Triplecast entirely to Astral Fire
+            if (AstralStacks == 0)
+                return false;
+
+            if (Core.Me.CurrentMana < 4800 && !MovementManager.IsMoving)
+                return false;
+
             if ((MovementManager.IsMoving && AstralStacks == 3))
                 return await Spells.Triplecast.Cast(Core.Me);
 
             if (BlackMageSettings.Instance.TripleCastWhileMoving && Spells.Triplecast.Charges <= 1)
                 return false;
 
-            if (Spells.Triplecast.Cooldown != TimeSpan.Zero && Spells.Triplecast.Charges == 0)
-                return false;
-
-            if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
-
-            if (UmbralStacks > 0)
-                return false;
-
             return await Spells.Triplecast.Cast(Core.Me);
+        }
+
+        public static async Task<bool> Swiftcast()
+        {
+            if (!Spells.Swiftcast.IsKnownAndReady())
+                return false;
+
+            if (Core.Me.HasAura(Auras.Triplecast) || Core.Me.HasAura(Auras.Swiftcast))
+                return false;
+
+            // Restrict Swiftcast strictly to Astral Fire
+            if (AstralStacks == 0)
+                return false;
+
+            // Never pop Swiftcast if out of MP; next action will be Blizzard III (Ice transition)
+            if (Core.Me.CurrentMana < 1600 && !MovementManager.IsMoving)
+                return false;
+
+            // Use Swiftcast for Movement
+            if (MovementManager.IsMoving)
+                return await Spells.Swiftcast.Cast(Core.Me);
+
+            // Use Swiftcast for high-cost spells at the end of the Fire phase (like Despair)
+            if (Core.Me.CurrentMana > 800 && Core.Me.CurrentMana <= 2400)
+                return await Spells.Swiftcast.Cast(Core.Me);
+
+            return false;
         }
 
         public static async Task<bool> LeyLines()
@@ -123,8 +154,10 @@ namespace Magitek.Logic.BlackMage
 
             if (Spells.UmbralSoul.Cooldown != TimeSpan.Zero)
                 return false;
-            // Do not use in combat if we have a target (use Aoe.Freeze instead)
-            if (Core.Me.InCombat && Core.Me.HasTarget)
+
+            // Allow Umbral Soul in combat IF moving to recover mana on the run
+            // if (Core.Me.InCombat && Core.Me.HasTarget)
+            if (Core.Me.InCombat && Core.Me.HasTarget && !MovementManager.IsMoving)
                 return false;
 
             if (UmbralStacks == 0)

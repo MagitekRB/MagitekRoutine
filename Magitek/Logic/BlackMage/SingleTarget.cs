@@ -68,7 +68,9 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpellWas(Spells.Despair))
                 return false;
 
-            if (AstralSoulStacks == 6)
+            // Allow 0 MP drop if Flare Star is queued right after
+            // if (AstralSoulStacks == 6)
+            if (AstralSoulStacks == 6 && !Spells.FlareStar.IsKnown())
                 return false;
 
             if (UmbralStacks > 0)
@@ -118,6 +120,10 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks != 3)
                 return false;
 
+            int cost = UmbralHearts > 0 ? 800 : 1600;
+            if (Core.Me.CurrentMana < cost)
+                return false;
+
             return await Spells.Fire4.Cast(Core.Me.CurrentTarget);
         }
 
@@ -144,10 +150,6 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks == 3 || UmbralStacks < 3)
                 return false;
 
-            // FFXIV MP costs (patch 7.x): Fire base cost 800 MP, doubled to 1600 in Astral Fire.
-            // Spells.Fire.Cost is NOT reliably dynamic for AF stance; hardcode known game values.
-            // If SQEX changes Fire's MP cost in a future patch, update these constants.
-            // In Umbral Ice III: transition to Astral Fire after Blizzard 4 (or when we have 3 Umbral Hearts / enough MP)
             if (Spells.Blizzard4.IsKnown())
             {
                 if (UmbralHearts < 3 && !Casting.LastSpellWas(Spells.Blizzard4))
@@ -169,7 +171,6 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.ThunderSingle)
                 return false;
 
-            // Dawntrail check: Thunder requires the Thunderhead buff
             if (!Core.Me.HasAura(Auras.Thunderhead))
                 return false;
 
@@ -225,7 +226,6 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks != 3)
                 return false;
 
-            // Do not skip Blizzard4 at max mana; check Umbral Hearts instead
             if (UmbralHearts == 3)
                 return false;
 
@@ -257,10 +257,8 @@ namespace Magitek.Logic.BlackMage
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
                 return false;
 
+            // Allow Blizzard 3 immediately if our mana drops below 1600 (catching 400 MP states cleanly)
             if (Core.Me.CurrentMana >= 1600)
-                return false;
-
-            if (Spells.ManaFont.IsKnownAndReady())
                 return false;
 
             return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
@@ -268,6 +266,9 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Blizzard()
         {
+            if (Spells.Blizzard4.IsKnown())
+                return false;
+
             if (!Spells.Blizzard3.IsKnown())
             {
                 if (Casting.LastSpellWas(Spells.Transpose) && AstralStacks > 0)
@@ -299,7 +300,12 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Paradox)
                 return false;
 
-            // Skip single-target Paradox during AoE
+            // FFXIV MP costs (patch 7.x): Fire base cost 800 MP, doubled to 1600 in Astral Fire.
+            // Spells.Fire.Cost is NOT reliably dynamic for AF stance; hardcode known game values.
+            // If SQEX changes Fire's MP cost in a future patch, update these constants.
+            if (AstralStacks > 0 && Core.Me.CurrentMana < 1600)
+                return false;
+
             if (AoeControl.Enabled
                 && BlackMageSettings.Instance.UseAoe
                 && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
@@ -310,16 +316,11 @@ namespace Magitek.Logic.BlackMage
 
             if (Casting.LastSpellWas(Spells.Blizzard3))
                 return false;
-
-            // Dawntrail check: Paradox is strictly available in Astral Fire
-            // Paradox is available in both Astral Fire and Umbral Ice
-            if (AstralStacks == 0 && UmbralStacks == 0)
+                
+            // Dawntrail check: Paradox is strictly available in Astral Fire III and Umbral Ice III
+            if (AstralStacks != 3 && UmbralStacks != 3)
                 return false;
 
-            if (Spells.ManaFont.IsKnownAndReady())
-                return false;
-
-            // In Astral Fire, cast Paradox after 3x Fire 4 (AstralSoulStacks >= 3) or when moving
             if (MovementManager.IsMoving)
                 return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
 

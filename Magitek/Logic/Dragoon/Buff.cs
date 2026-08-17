@@ -68,7 +68,8 @@ namespace Magitek.Logic.Dragoon
                     // With 2 charges (lv88+), spend a charge if nearing overcap or LanceCharge is far off
                     if (Spells.LifeSurge.MaxCharges >= 2)
                     {
-                        if (Spells.LifeSurge.Charges < DragoonSettings.Instance.LifeSurgeChargeThreshold && Spells.LanceCharge.Cooldown.TotalMilliseconds <= 15000)
+                        // 1.5 threshold ensures we don't overcap charges before the next Lance Charge window
+                        if (Spells.LifeSurge.Charges < 1.5 && Spells.LanceCharge.Cooldown.TotalMilliseconds <= 15000)
                             return false;
                     }
                     else

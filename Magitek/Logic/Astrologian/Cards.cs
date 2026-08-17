@@ -23,53 +23,29 @@ namespace Magitek.Logic.Astrologian
             if (!cards.Any(c => c != AstrologianCard.None))
                 return false;
 
-            // Dump cards if next draw is within 5 seconds so we don't overcap
-            // Astral and Umbral share a recast timer
-            bool forceDump = false;
-            if (Core.Me.InCombat)
-            {
-                if (Spells.AstralDraw.IsKnown() && Spells.AstralDraw.Cooldown.TotalSeconds < 5) forceDump = true;
-                if (Spells.UmbralDraw.IsKnown() && Spells.UmbralDraw.Cooldown.TotalSeconds < 5) forceDump = true;
-            }
-
             if (Globals.InParty && Core.Me.InCombat)
             {
-                // PLAY I - Damage Cards (Always use immediately in combat)
                 if (cards.Contains(AstrologianCard.Balance))
                     return await Spells.PlayI.Masked().Cast(MeleeDpsOrTank());
                 if (cards.Contains(AstrologianCard.Spear))
                     return await Spells.PlayI.Masked().Cast(RangedDpsOrHealer());
 
-                // PLAY II & PLAY III - Defensive Cards
-                // Only use if a tank is missing health, or if we need to force dump before next draw
-                var defensiveTarget = Group.CastableTanks.FirstOrDefault(t => t.CurrentHealthPercent <= 80) 
-                                      ?? (forceDump ? Tank() : null);
+                if (cards.Contains(AstrologianCard.Arrow) || cards.Contains(AstrologianCard.Bole))
+                    return await Spells.PlayII.Masked().Cast(Tank());
 
-                if (defensiveTarget != null)
-                {
-                    if (cards.Contains(AstrologianCard.Arrow) || cards.Contains(AstrologianCard.Bole))
-                        return await Spells.PlayII.Masked().Cast(defensiveTarget);
-
-                    if (cards.Contains(AstrologianCard.Spire) || cards.Contains(AstrologianCard.Ewer))
-                        return await Spells.PlayIII.Masked().Cast(defensiveTarget);
-                }
+                if (cards.Contains(AstrologianCard.Spire) || cards.Contains(AstrologianCard.Ewer))
+                    return await Spells.PlayIII.Masked().Cast(Tank());
             }
             else if (!Globals.InParty && Core.Me.InCombat)
             {
-                // Solo Play - Dump on self
-                bool selfNeedsDef = Core.Me.CurrentHealthPercent <= 80 || forceDump;
-                
                 if (cards.Contains(AstrologianCard.Balance) || cards.Contains(AstrologianCard.Spear))
                     return await Spells.PlayI.Masked().Cast(Core.Me);
 
-                if (selfNeedsDef)
-                {
-                    if (cards.Contains(AstrologianCard.Arrow) || cards.Contains(AstrologianCard.Bole))
-                        return await Spells.PlayII.Masked().Cast(Core.Me);
+                if (cards.Contains(AstrologianCard.Arrow) || cards.Contains(AstrologianCard.Bole))
+                    return await Spells.PlayII.Masked().Cast(Core.Me);
 
-                    if (cards.Contains(AstrologianCard.Spire) || cards.Contains(AstrologianCard.Ewer))
-                        return await Spells.PlayIII.Masked().Cast(Core.Me);
-                }
+                if (cards.Contains(AstrologianCard.Spire) || cards.Contains(AstrologianCard.Ewer))
+                    return await Spells.PlayIII.Masked().Cast(Core.Me);
             }
 
             return false;
@@ -94,10 +70,11 @@ namespace Magitek.Logic.Astrologian
 
             return false;
         }
-
-        private static GameObject Tank()
+            private static GameObject Tank()
         {
+            //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
+            //If in light party, allow ally to have more than one card aura.
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetWeight);
 
             if (partySize <= 4)
@@ -110,7 +87,9 @@ namespace Magitek.Logic.Astrologian
 
         private static GameObject MeleeDpsOrTank()
         {            
+            //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
+            //If in light party, allow ally to have more than one card aura.
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(GetWeight);
 
             if (partySize <= 4)
@@ -123,7 +102,9 @@ namespace Magitek.Logic.Astrologian
 
         private static GameObject RangedDpsOrHealer()
         {
+            //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
+            //If in light party, allow ally to have more than one card aura.
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(GetWeight);
 
             if (partySize <= 4)

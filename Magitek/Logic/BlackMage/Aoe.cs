@@ -38,16 +38,20 @@ namespace Magitek.Logic.BlackMage
 
                 if (Core.Me.ClassLevel < 80 && !Core.Me.HasAura(Auras.Swiftcast) && !Core.Me.HasAura(Auras.Triplecast))
                     return false;
+
+                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
             }
 
+            // Always prevent overcapping regardless of settings
             if (BlackMageRoutine.WillOvercapPolyglot())
                 return await Spells.Foul.Cast(Core.Me.CurrentTarget);
 
-            // In AoE: use Foul as instant filler in Umbral Ice to weave Transpose or when moving
-            if (UmbralStacks > 0 && UmbralHearts == 3)
-                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
+            // Respect the user's saved charges setting before using Foul as stationary filler
+            if (PolyglotCount <= BlackMageSettings.Instance.SaveXenoglossyCharges)
+                return false;
 
-            if (MovementManager.IsMoving)
+            // In AoE: use Foul as instant filler in Umbral Ice to weave Transpose (only when above saved charge threshold)
+            if (UmbralStacks > 0 && UmbralHearts == 3)
                 return await Spells.Foul.Cast(Core.Me.CurrentTarget);
 
             return false;
@@ -55,30 +59,26 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> AoeTranspose()
         {
-            if (!Spells.Transpose.IsKnownAndReady())
+            if (!Spells.Transpose.IsKnown())
                 return false;
 
-            // In Astral Fire with low MP (after Flare / Flare Star) and Manafont is not ready -> Transpose to Umbral Ice
-            if (AstralStacks > 0 && Core.Me.CurrentMana < 800)
-            {
-                if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
-                    return false;
-
-                if (Spells.ManaFont.IsKnownAndReady())
-                    return false;
-
-                return await Spells.Transpose.Cast(Core.Me);
-            }
-
-            // In Umbral Ice with 3 Umbral Hearts -> Transpose to Astral Fire
+            // In Umbral Ice with 3 Umbral Hearts -> Transpose back to Astral Fire
             if (UmbralStacks > 0 && UmbralHearts == 3)
             {
                 return await Spells.Transpose.Cast(Core.Me);
             }
 
+            // In Astral Fire with low MP -> Transpose to Umbral Ice
+            if (AstralStacks > 0 && Core.Me.CurrentMana < 800)
+            {
+                if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                    return false;
+
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
             return false;
         }
-
         public static async Task<bool> UseAoeEther()
         {
             if (!BlackMageSettings.Instance.UseEtherInAoe)
@@ -94,7 +94,8 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                 return false;
 
-            if (Spells.ManaFont.IsKnownAndReady())
+            // Respect settings: Only block Ether if Manafont is actually permitted to be used
+            if (BlackMageSettings.Instance.ManaFont && Spells.ManaFont.IsKnownAndReady())
                 return false;
 
             // Try each ether from best to worst; any granting 800+ MP enables an extra Flare
@@ -179,20 +180,17 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.ThunderAoe)
                 return false;
 
-            if (!Core.Me.HasAura(Auras.Thunderhead))
-                return false;
-
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (Casting.LastSpellWas(Spells.Triplecast))
-                return false;
+            // Consume Thunderhead proc immediately in rotation weave slots without waiting for DoT expiration
+            bool hasThunderhead = Core.Me.HasAura(Auras.Thunderhead);
 
-            if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
-
-            if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
-                return false;
+            if (!hasThunderhead)
+            {
+                if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
+                    return false;
+            }
 
             if (BlackMageSettings.Instance.UseTTDForThunderAoe && Combat.CurrentTargetCombatTimeLeft <= BlackMageSettings.Instance.ThunderAoeTTDSeconds && !Core.Me.CurrentTarget.IsBoss())
                 return false;
@@ -214,8 +212,19 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Fire2.IsKnown())
                 return false;
 
-            if (AstralStacks < 3 && UmbralStacks == 0)
+            // Immediate priority: If we have 3 Umbral Hearts in Umbral Ice, transition back to AF right now.
+            if (UmbralStacks > 0 && UmbralHearts == 3)
+            {
+                if (Spells.HighFireII.IsKnown()) 
+                    return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
                 return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
+            }
+
+            if (AstralStacks < 3 && UmbralStacks == 0)
+            {
+                if (Spells.HighFireII.IsKnown()) return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
+                return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
+            }
 
             if (AstralSoulStacks == 6)
                 return false;
@@ -229,6 +238,7 @@ namespace Magitek.Logic.BlackMage
                     return false;
             }
 
+            if (Spells.HighFireII.IsKnown()) return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
             return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
         }
 
@@ -254,9 +264,7 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.CurrentMana >= 1600)
                 return false;
 
-            if (Spells.ManaFont.IsKnownAndReady())
-                return false;
-
+            if (Spells.HighBlizzardII.IsKnown()) return await Spells.HighBlizzardII.Cast(Core.Me.CurrentTarget);
             return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
         }
 

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows8.0</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
     <SccProjectName></SccProjectName>
     <SccLocalPath></SccLocalPath>
@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowedReferenceRelatedFileExtensions>".pdb".=""</AllowedReferenceRelatedFileExtensions>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<NoWarn>1701;1702;CA1416;CS1998;CS0168;CS0414;CS0162;CS8603;</NoWarn>
+    <NoWarn>1701;1702;CA1416;CS1998;CS0168;CS0414;CS0162;CS8603;</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>bin\deploy\</OutputPath>
@@ -42,7 +42,7 @@
     <EmbeddedResource Include="Resources\StatusList.json" />
     <EmbeddedResource Include="Resources\BossDictionary.json" />
     <EmbeddedResource Include="Resources\OccultDebuffImmunity.json" />
-	<EmbeddedResource Include="Resources\BossNames.json" />
+    <EmbeddedResource Include="Resources\BossNames.json" />
     <EmbeddedResource Include="Resources\Toggles\BardToggles.json" />
     <EmbeddedResource Include="Resources\Toggles\DancerToggles.json" />
     <EmbeddedResource Include="Resources\Toggles\DarkKnightToggles.json" />
@@ -87,7 +87,7 @@
       <Version>4.1.0</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.803" />
+    <PackageReference Include="RebornBuddy.ReferenceAssemblies" Version="1.0.894" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />

@@ -43,9 +43,9 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.InCombat)
                 return false;
 
-            // Dawntrail Fix: Do not use IsKnownAndReady() on Glare IV here. 
-            // Glare IV requires the Sacred Sight aura to be "Ready", which PoM grants. 
-            // Using IsKnownAndReady() creates a deadlock where PoM never fires.
+            // Reason: Glare IV is a GCD, so its cooldown is the GCD timer. 
+            // Presence of Mind is an oGCD we want to weave while the GCD is rolling, 
+            // which is exactly when GlareIV.IsKnownAndReady() evaluates to false.
             if (WhiteMageSettings.Instance.PresenceOfMindForGlareIV
                 && Spells.PresenceofMind.IsKnownAndReady()
                 && Spells.GlareIV.IsKnown())

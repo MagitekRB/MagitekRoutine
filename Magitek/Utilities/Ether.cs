@@ -3,6 +3,7 @@ using ff14bot;
 using ff14bot.Managers;
 using System.Linq;
 using System.Threading.Tasks;
+using Magitek.Models.Account;
 
 namespace Magitek.Utilities
 {
@@ -11,8 +12,10 @@ namespace Magitek.Utilities
         public static async Task<bool> UseEther(int etherItemId)
         {
             if (etherItemId == 0)
-                return false;
-
+                if (BaseSettings.Instance.DebugFightLogic)
+                {
+                    Logger.WriteInfo($"[BLM-AoE-Ether] Ether item not found: {etherItemId}");
+                }
             var etherItem = InventoryManager.FilledSlots.FirstOrDefault(s => s.RawItemId == etherItemId);
 
             if (etherItem == null)
