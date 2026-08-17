@@ -184,10 +184,13 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.HasAura(Auras.EmergencyTactics))
                 return true;
 
-            // Non-blocking: fire Emergency Tactics and return; the caller re-checks next pulse and casts its
-            // shield heal once the aura is up. ET goes on cooldown after casting, so this won't double-fire.
-            await Spells.EmergencyTactics.Cast(Core.Me);
-            return false;
+            if (!await Spells.EmergencyTactics.Cast(Core.Me))
+                return false;
+
+            // Keep the arm→heal pair atomic (see Buff.EmergencyTactics): a bounded wait for the
+            // aura and the paired heal's castability, so the conversion cannot drift to another
+            // target or caller between pulses.
+            return await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Succor.Id, Core.Me));
         }
 
         private static async Task<bool> UsedAdloquium()

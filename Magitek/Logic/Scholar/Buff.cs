@@ -264,9 +264,15 @@ namespace Magitek.Logic.Scholar
             if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
 
-            // Emergency Tactics is an instant oGCD; its aura lands ~200ms later, well before the paired
-            // ~2s shield heal resolves, so the buff still converts. The old Wait(1500) just stalled the pulse.
-            return await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics);
+            if (!await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics))
+                return false;
+
+            // Keep the arm→heal pair atomic: Emergency Tactics is instant (aura ~200ms), and the
+            // paired shield heal must clear its animation lock. One bounded wait per 15s cooldown
+            // is cheaper than the pairing drifting between pulses — a retarget, a co-healer
+            // top-off, or a higher-priority heal could otherwise waste or misdirect the armed
+            // conversion.
+            return await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
         }
 
         public static async Task<bool> Aetherflow()
