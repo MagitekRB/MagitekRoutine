@@ -380,15 +380,20 @@ namespace Magitek.Logic.Scholar
                     return;
                 if (!ScholarSettings.Instance.RecitationWithAdlo)
                     return;
+                // An armed Emergency Tactics would convert the crit shield this Recitation exists
+                // to guarantee — never arm the pair while a deferred conversion is still live.
+                if (Core.Me.HasAura(Auras.EmergencyTactics))
+                    return;
                 if (Spells.Recitation.Cooldown != TimeSpan.Zero)
                     return;
                 if (ScholarSettings.Instance.RecitationOnlyNoAetherflow && Core.Me.HasAetherflow())
                     return;
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
-                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
-                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
-                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
+                // Recitation is instant, but the paired heal must also clear its animation lock —
+                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
+                // guaranteed-crit pairing on this pulse.
+                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
             }
         }
 
@@ -597,9 +602,10 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
-                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
-                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
+                // Recitation is instant, but the paired heal must also clear its animation lock —
+                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
+                // guaranteed-crit pairing on this pulse.
+                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Excogitation.Id, Core.Me));
             }
         }
 
@@ -685,9 +691,10 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
-                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
-                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
+                // Recitation is instant, but the paired heal must also clear its animation lock —
+                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
+                // guaranteed-crit pairing on this pulse.
+                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Lustrate.Id, Core.Me));
             }
         }
 
@@ -723,9 +730,10 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
-                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
-                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
+                // Recitation is instant, but the paired heal must also clear its animation lock —
+                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
+                // guaranteed-crit pairing on this pulse.
+                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Indomitability.Id, Core.Me));
             }
         }
 
