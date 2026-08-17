@@ -96,12 +96,14 @@ namespace Magitek.Utilities
                 if (!SpellTarget.IsTargetable)
                 {
                     await CancelCast("Target is no Longer Targetable");
+                    return true;
                 }
             }
             catch
             {
                 // Object is invalid in memory (e.g., player died, entity despawned)
                 await CancelCast("Target is no Longer Valid");
+                return true;
             }
 
             if (await GambitLogic.InterruptCast())
@@ -110,25 +112,26 @@ namespace Magitek.Utilities
                 return true;
             }
 
-            // The validity checks above go stale before the reads below run: CancelCast and the
-            // gambit check both await across frames, and the untargetable branch above cancels
-            // without returning — so these checks can run against a target that despawned and
-            // was freed mid-pulse. A freed target keeps a non-null reference: the null checks
-            // pass and the first field read through the stale pointer throws, killing the whole
-            // combat pulse (seen live: "Target is no Longer Targetable", then a crash in the
-            // job interrupt checks 59ms later). Skip the reads once the cast is no longer
-            // tracked, re-check validity, and treat an unreadable target like an invalid one.
+            // The validity checks above go stale before the reads below run: the gambit check
+            // yields across frames, so the target can despawn between those checks and these
+            // reads. A freed target keeps a non-null reference — the null checks pass and the
+            // first field read through the stale pointer throws, killing the whole combat
+            // pulse (seen live: a nuke target died mid-cast between the checks and the job
+            // interrupt switch). Skip the reads once the cast is no longer tracked, then keep
+            // everything that touches the target inside the try: even the IsValid re-check
+            // reads a liveness stamp through the object's pointer and can throw once the
+            // target's memory is unmapped. An unreadable target is treated like an invalid one.
             if (!CastingTime.IsRunning)
                 return true;
 
-            if (SpellTarget == null || !SpellTarget.IsValid)
-            {
-                await CancelCast("Target is no Longer Valid");
-                return true;
-            }
-
             try
             {
+                if (SpellTarget == null || !SpellTarget.IsValid)
+                {
+                    await CancelCast("Target vanished before the interrupt checks");
+                    return true;
+                }
+
                 // A revive (Phoenix Down) targets a body that is dead by definition, and the job checks
                 // below cancel any cast on a dead target unless it is that job's own raise spell — so every
                 // one of them would kill the revive on its first tracked pulse. Exempt the revive here once
@@ -222,10 +225,13 @@ namespace Magitek.Utilities
                         }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Object is invalid in memory (e.g., player died, entity despawned)
-                await CancelCast("Target is no Longer Valid");
+                // Object is invalid in memory (e.g., player died, entity despawned) — but any
+                // exception thrown by a job's interrupt checks lands here too, so put the real
+                // reason in the log instead of silently blaming the target.
+                Logger.WriteInfo($"[Casting] Interrupt checks failed, cancelling cast: {ex.Message}");
+                await CancelCast("Target is no Longer Readable");
             }
 
             #endregion
@@ -242,13 +248,17 @@ namespace Magitek.Utilities
 
                 if (msg != null)
                     Logger.Error(msg);
-
-                CastingTime.Stop();
-                CastingRevive = false;
             }
             catch (Exception)
             {
                 //Ignore on Purpose
+            }
+            finally
+            {
+                // The IsRunning guard in TrackSpellCast depends on this timer stopping even
+                // when StopCasting or the wait throws mid-transition.
+                CastingTime.Stop();
+                CastingRevive = false;
             }
         }
 
