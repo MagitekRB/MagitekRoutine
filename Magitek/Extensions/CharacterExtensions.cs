@@ -75,7 +75,7 @@ namespace Magitek.Extensions
                 Auras.HeliosConjunction,
                 Auras.Kerakeia,
                 Auras.PhysisII,
-                Auras.Seraphism,
+                Auras.SeraphismReceiver,
                 Auras.CrestOfTimeReturned,
                 Auras.Opposition,
                 Auras.WheelOfFortune,
