@@ -86,7 +86,7 @@ namespace Magitek.Logic.Scholar
             if (target == null)
                 target = Core.Me;
 
-            if (target.HasAura(Auras.Galvanize))
+            if (target.HasMagicBarrier())
                 return false;
 
             if (!await Spells.Excogitation.Cast(target)) return false;
@@ -326,7 +326,7 @@ namespace Magitek.Logic.Scholar
                 if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                 {
                     // Pick any tank who doesn't have Galvanize on them
-                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasAura(Auras.Galvanize));
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasMagicBarrier());
 
                     if (tankAdloTarget == null)
                         return false;
@@ -353,7 +353,7 @@ namespace Magitek.Logic.Scholar
                     if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                         return false;
 
-                    if (unit.HasAura(Auras.Galvanize))
+                    if (unit.HasMagicBarrier())
                         return false;
 
                     if (unit.HasAura(Auras.Excogitation))
@@ -369,7 +369,7 @@ namespace Magitek.Logic.Scholar
                 }
             }
 
-            if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasAura(Auras.Galvanize))
+            if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasMagicBarrier())
                 return false;
 
             return await Spells.Adloquium.HealAura(Core.Me, Auras.Galvanize);
@@ -435,7 +435,7 @@ namespace Magitek.Logic.Scholar
 
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                     !r.HasAura(Auras.Galvanize)) >= AoeNeedHealing;
+                                                                     !r.HasMagicBarrier()) >= AoeNeedHealing;
 
             if (!needSuccor)
                 return false;
@@ -457,7 +457,7 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             var needAccession = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent) >= AoeNeedHealing;
-            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasAura(Auras.Galvanize)) > 0;
+            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasMagicBarrier()) > 0;
 
             if (!needAccession)
                 return false;
@@ -493,7 +493,7 @@ namespace Magitek.Logic.Scholar
                 if (ManifestationTarget == null)
                     return false;
 
-                var needsShields = !ManifestationTarget.HasAura(Auras.Galvanize);
+                var needsShields = !ManifestationTarget.HasMagicBarrier();
 
                 if (!needsShields && !await UsedEmergencyTactics())
                     return false;
@@ -507,7 +507,7 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.ManifestationHpPercent)
                 return false;
 
-            var needsShieldsMe = !Core.Me.HasAura(Auras.Galvanize);
+            var needsShieldsMe = !Core.Me.HasMagicBarrier();
 
             if (!needsShieldsMe && !await UsedEmergencyTactics())
                 return false;

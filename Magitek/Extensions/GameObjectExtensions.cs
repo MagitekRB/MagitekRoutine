@@ -176,6 +176,26 @@ namespace Magitek.Extensions
 
         }
 
+        /// <summary>
+        /// Whether the unit already carries a magical barrier that another one would waste.
+        /// <para>
+        /// Adloquium and Succor state that the effect "cannot be stacked with certain sage barrier
+        /// effects", so Galvanize and the Eukrasian barriers are mutually exclusive — re-shielding someone
+        /// who has either throws the cast away. Catalyze is deliberately excluded: it sits alongside
+        /// Galvanize rather than replacing it, so its presence says nothing about whether a fresh barrier
+        /// would land.
+        /// </para>
+        /// </summary>
+        /// <param name="msLeft">Only count a barrier with at least this long remaining, so one about to
+        /// lapse doesn't block a replacement.</param>
+        public static bool HasMagicBarrier(this GameObject unit, int msLeft = 0)
+        {
+            return unit != null
+                && (unit.HasAura(Auras.Galvanize, false, msLeft)
+                    || unit.HasAura(Auras.EukrasianPrognosis, false, msLeft)
+                    || unit.HasAura(Auras.EukrasianDiagnosis, false, msLeft));
+        }
+
         // A dispel strips a BENEFICIAL status from an enemy, so a helper used to decide whether to
         // dispel has to ignore debuffs. Named for what it actually asks: the old name read as the
         // opposite of what it did, and let a dispel re-fire forever on an enemy that merely carries a

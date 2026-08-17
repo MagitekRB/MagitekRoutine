@@ -169,7 +169,7 @@ namespace Magitek.Logic.Scholar
                 // Check if tank needs Adloquium for buff
                 if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                 {
-                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasAura(Auras.Galvanize));
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasMagicBarrier());
                     if (tankAdloTarget != null)
                         return true;
                 }
@@ -187,7 +187,7 @@ namespace Magitek.Logic.Scholar
                     if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                         return false;
 
-                    if (unit.HasAura(Auras.Galvanize))
+                    if (unit.HasMagicBarrier())
                         return false;
 
                     if (unit.HasAura(Auras.Excogitation))
@@ -204,7 +204,7 @@ namespace Magitek.Logic.Scholar
             }
 
             // Solo check
-            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasAura(Auras.Galvanize))
+            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasMagicBarrier())
                 return true;
 
             return false;
@@ -218,7 +218,7 @@ namespace Magitek.Logic.Scholar
             var aoeNeedHealing = Heal.AoeNeedHealing;
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                     !r.HasAura(Auras.Galvanize)) >= aoeNeedHealing;
+                                                                     !r.HasMagicBarrier()) >= aoeNeedHealing;
 
             return needSuccor;
         }
