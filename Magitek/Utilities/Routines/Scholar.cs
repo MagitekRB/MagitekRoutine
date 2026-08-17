@@ -26,6 +26,18 @@ namespace Magitek.Utilities.Routines
             return ActionResourceManager.Scholar.Timer.TotalSeconds;
         }
 
+        public static Character SacredSoilTarget()
+        {
+            if (!ScholarSettings.Instance.SacredSoilCenterParty)
+                return Core.Me;
+
+            var targets = Group.CastableAlliesWithin30.OrderBy(r =>
+                Group.CastableAlliesWithin30.Sum(ot => r.Distance(ot.Location))
+            ).ThenBy(t => Core.Me.Distance(t.Location));
+
+            return targets.FirstOrDefault(Core.Me);
+        }
+
         public static bool NeedToInterruptCast()
         {
             if (Casting.CastingSpell != Spells.Resurrection && Casting.SpellTarget?.CurrentHealth < 1)
