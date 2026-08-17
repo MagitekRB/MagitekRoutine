@@ -138,6 +138,11 @@ namespace Magitek.Rotations
 
             async Task<bool> DoHeal()
             {
+                // The routine-wide Doom response runs against the party collections before the
+                // alliance switch, so a doomed alliance member is only reachable here — and the
+                // death timer outranks resurrection: a slowcast raise can outlive the Doom.
+                if (await Logic.Scholar.Heal.PhysickDoom()) return true;
+
                 if (await Logic.Scholar.Heal.Resurrection()) return true;
 
                 if (ScholarSettings.Instance.HealAllianceOnlyPhysick)
