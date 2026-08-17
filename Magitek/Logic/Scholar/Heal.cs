@@ -248,6 +248,13 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Physick)
                 return false;
 
+            // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
+            // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
+            var doomed = FightLogic.DoomedHealTarget();
+
+            if (doomed != null)
+                return await Spells.Physick.Heal(doomed);
+
             if (ScholarSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
