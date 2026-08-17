@@ -7017,95 +7017,144 @@ namespace Magitek.Utilities
                 }
             },
             new Encounter {
-                ZoneId = 1368,
+                ZoneId = ZoneId.WindurstTheThirdWalk,
                 Name = "Windurst: The Third Walk",
                 Expansion = FfxivExpansion.Dawntrail,
                 Enemies = new List<Enemy> {
                     new Enemy {
                         Id = 14778,
                         Name = "Shantotto the Demon",
-                        TankBusters = new List<uint> {
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
                             50213, // Vidohunir
+                            50214, // Vidohunir
                         },
                         Aoes = new List<uint> {
                             50215, // Flare Play
                             50210, // Final Exam
+                            50211, // Final Exam
+                            50193, // Superior Stone II
+                            50187, // Shockwave
+                            50204, // Thunder and Error
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
-                    },
-                }
-            },
-            new Encounter {
-                ZoneId = 1368,
-                Name = "Windurst: The Third Walk",
-                Expansion = FfxivExpansion.Dawntrail,
-                Enemies = new List<Enemy> {
-                    new Enemy {
-                        Id = 14778,
-                        Name = "Shantotto the Demon",
-                        TankBusters = new List<uint> {
-                            50213, // Vidohunir
-                        },
-                        Aoes = new List<uint> {
-                            50215, // Flare Play
-                            50210, // Final Exam
-                        },
-                        AoeLockOns = null,
-                        Knockbacks = null,
-                        SharedTankBusters = null,
                         BigAoes = null
                     },
                     new Enemy {
                         Id = 14529,
                         Name = "Alexander Resurrected",
-                        TankBusters = null,
+                        TankBusters = new List<uint> {
+                            50160, // Divine Bolt
+                        },
                         Aoes = new List<uint> {
                             50161, // Banishga IV
+                            50163, // Banishga IV
                             50157, // Mega Holy
+                            50158, // Mega Holy
+                        },
+                        BigAoes = new List<uint> {
                             50153, // Divine Judgment
                         },
-                        AoeLockOns = null,
+                        AoeLockOns = new List<uint> {
+                            215, // lock-on that precedes Banishga IV (target-independent raidwide tell)
+                        },
                         Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
+                        SharedTankBusters = null
                     },
-                }
-            },
-            new Encounter {
-                ZoneId = 1368,
-                Name = "Windurst: The Third Walk",
-                Expansion = FfxivExpansion.Dawntrail,
-                Enemies = new List<Enemy> {
                     new Enemy {
                         Id = 14779,
                         Name = "Promathia",
-                        TankBusters = new List<uint> {
-                            50337, // Comet
+                        // SharedTankBusters, not TankBusters: both busters are SELF-TARGETED 4.2s
+                        // casts, and the strict path matches enemy.TargetCharacter against our tanks —
+                        // null for a self-cast, silent return, and a non-null TankBusters list blocks
+                        // fall-through. A tank ate Comet for 229k with the ids "catalogued" this way.
+                        // The shared path's reachable-tanks fallback handles self-targeted casts.
+                        // 50338/50340/50341 are 0.2s helper damage twins with no reactable castbar.
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            50337, // Comet (self-targeted castbar)
+                            50339, // Meteor (self-targeted castbar)
                         },
                         Aoes = new List<uint> {
                             50317, // Empty Salvation
-                            50694, // Deadly Rebirth
                             50334, // Infernal Deliverance
+                            50335, // Infernal Deliverance
+                            50565, // Infernal Deliverance
+                            50343, // False Genesis (boss castbar; 50344 is the 0.2s helper damage twin)
                         },
-                        AoeLockOns = null,
-                        Knockbacks = null,
+                        BigAoes = new List<uint> {
+                            50694, // Deadly Rebirth
+                            50347, // Deadly Rebirth
+                        },
+                        AoeLockOns = new List<uint> {
+                            466, // per-player Meteor rain tell — the 50341 damage casts carry only a 0.2s
+                                 // bar (nothing to detect against), and the marker leads the hit by ~5s
+                        },
+                        Knockbacks = null
+                    },
+                    new Enemy {
+                        // Empty Seed was filed under Promathia, but the add casts it, so the entry could
+                        // never match. Id 0 + name, same as the other adds in this zone.
+                        Id = 0,
+                        Name = "Memory Receptacle",
+                        TankBusters = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        Aoes = null,
+                        BigAoes = null,
+                        Knockbacks = new List<uint> {
+                            50349, // Empty Seed
+                        },
+                    },
+                    new Enemy {
+                        Id = 0,
+                        Name = "Aw'aern",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            50485, // Impact Stream (cast id on the real boss — routine keys on this)
+                            50486, // Impact Stream (damage twin, untargetable helper)
+                            50501, // Auroral Wind (parent castbar)
+                            50502, // Auroral Wind (per-player 4.7s helper castbars; 30-46k raid spread hit 21 players in one observed wave)
+                        },
+                        BigAoes = null,
+                        Knockbacks = null,
                     },
                     new Enemy {
                         Id = 14729,
                         Name = "Shinryu Paradox",
-                        TankBusters = new List<uint> {
-                            49135, // Dark Nova
+                        // SharedTankBusters, not TankBusters: 49134/49135 are TWO COPIES'
+                        // self-targeted 4.7s castbars (the damage id is 49136, one instant hit per
+                        // alliance tank from separate helpers). A self-targeted cast nulls the strict
+                        // path's TargetCharacter match — three tanks ate 195k/167k/109k with the ids
+                        // listed under TankBusters.
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            49134, // Dark Nova (first copy's self-targeted castbar)
+                            49135, // Dark Nova (second copy's self-targeted castbar)
                         },
-                        Aoes = null,
+                        // Cast ids only, every copy of a kept family; never damage-only ids
+                        // (49115/49116/49136 have no castbars). Excluded on purpose: Cosmic Tail
+                        // (1 hit), Atomic Tail (avoidable kill-hit), Gyre Charge (0.2s bar, no lead),
+                        // Cataclysmic Vortex (marker-keyed by design, see below). The Starflare copies
+                        // 49126/49127 come from HP-44 clone actors and need the untargetable-caster
+                        // fallback scan to be seen at all.
+                        Aoes = new List<uint> {
+                            49105, // Cosmic Breath
+                            49106, // Cosmic Breath
+                            49107, // Cosmic Breath
+                            49111, // Cloak of Twilight
+                            49112, // Cloak of Twilight
+                            49113, // Twilight Nebula
+                            49114, // Twilight Nebula
+                            49124, // Starflare
+                            49125, // Starflare
+                            49126, // Starflare (clone-cast)
+                            49127, // Starflare (clone-cast)
+                        },
                         AoeLockOns = null,
                         Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = null,
                     },
                     new Enemy {
                         Id = 14730,
@@ -7114,13 +7163,41 @@ namespace Magitek.Utilities
                             49177, // Dark Nova
                         },
                         Aoes = new List<uint> {
-                            49152, // Left Swordscross
+                            49179, // Empty Proclamation
                             49182, // Super Nova
+                            // Celestial Trail family 49139-49144/49147: only 49140 has a castbar
+                            // (7.7s, from HP-44 helper copies sharing the boss's NpcId); the rest are
+                            // echoes and damage ids — do not catalogue them. Needs the
+                            // untargetable-caster fallback scan to be seen.
+                            49140, // Celestial Trail (castbar)
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 0,
+                        Name = "Medusa Swarmsinger",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            50100,
+                            50103,
+                        },
+                        BigAoes = null,
+                        Knockbacks = null,
+                    },
+                    new Enemy {
+                        Id = 0,
+                        Name = "Nemean Lion",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            50092,
+                        },
+                        BigAoes = null,
+                        Knockbacks = null,
                     },
                 }
             },
@@ -7938,6 +8015,7 @@ namespace Magitek.Utilities
             WorqorLarDorExtreme = 1196,
             WorqorZormor = 1193,
             WorthyOfHisBack = 1014,
+            WindurstTheThirdWalk = 1368,
             Xelphatol = 1113,
             Xelphatol62 = 572,
             YakTel = 1189,
