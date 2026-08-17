@@ -386,9 +386,9 @@ namespace Magitek.Logic.Scholar
                     return;
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
-                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
-                    return;
-                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
+                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
+                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
+                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
             }
         }
 
@@ -412,10 +412,9 @@ namespace Magitek.Logic.Scholar
             if (!await Buff.EmergencyTactics())
                 return false;
 
-            if (await Spells.Succor.Heal(Core.Me))
-                return await Coroutine.Wait(2500, () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
-
-            return false;
+            // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to
+            // block here confirming LastSpell.
+            return await Spells.Succor.Heal(Core.Me);
         }
 
         public static async Task<bool> Succor()
@@ -436,12 +435,9 @@ namespace Magitek.Logic.Scholar
             if (!needSuccor)
                 return false;
 
-            if (await Spells.Succor.Heal(Core.Me))
-            {
-                return await Coroutine.Wait(2500, () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
-            }
-
-            return false;
+            // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to
+            // block here confirming LastSpell.
+            return await Spells.Succor.Heal(Core.Me);
         }
 
         public static async Task<bool> Accession()
@@ -601,10 +597,9 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
-                    return;
-
-                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Excogitation.Id, Core.Me));
+                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
+                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
+                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
             }
         }
 
@@ -690,10 +685,9 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
-                    return;
-
-                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Lustrate.Id, Core.Me));
+                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
+                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
+                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
             }
         }
 
@@ -729,10 +723,9 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
-                    return;
-
-                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Indomitability.Id, Core.Me));
+                // Recitation is instant (aura lands ~200ms); brief cap keeps the guaranteed-crit combo
+                // without the old ~2s stall. The paired heal's own CanCast gate handles GCD timing.
+                await Coroutine.Wait(400, () => Core.Me.HasAura(Auras.Recitation));
             }
         }
 

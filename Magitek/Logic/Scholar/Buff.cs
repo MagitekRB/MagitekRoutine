@@ -62,7 +62,9 @@ namespace Magitek.Logic.Scholar
                     return false;
             }
 
-            return await Coroutine.Wait(5000, () => Core.Me.Pet != null);
+            // Summon fired; FairySummonCooldown (10s) + the Pet != null guard at the top prevent a
+            // double-summon, so there's no need to block the pulse waiting for the pet to materialize.
+            return true;
         }
 
         public static async Task<bool> SummonSeraph()
@@ -223,12 +225,10 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> Swiftcast()
         {
-            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
-            {
-                return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
-            }
-
-            return false;
+            // NOTE: this Scholar-local Swiftcast is unused — the live rez path uses Roles.Healer.Swiftcast.
+            // CastAura sends the cast; nothing here reads the aura afterward, so no blocking wait is needed
+            // (the old Wait(15000, ...) could freeze the routine for up to 15s).
+            return await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast);
         }
         public static async Task<bool> ForceSeraph()
         {
