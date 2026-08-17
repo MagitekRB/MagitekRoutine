@@ -648,7 +648,14 @@ namespace Magitek.Logic.Astrologian
 
             var earthlyStarLocation = Utilities.Routines.Astrologian.EarthlyStarLocation;
 
-            var earthlyStarTargets = PartyManager.VisibleMembers.Select(r => r.BattleCharacter).ToList();
+            // Lazy on purpose: this method runs on every heal pulse, but the only consumers of
+            // the party list are the two dominance-gated pop checks below, which fail their
+            // aura gates on the overwhelming majority of pulses. PartyManager (rather than the
+            // caster-centred cached Group collections) is required here because the star heals
+            // around ITS placement — allies inside the star's radius can be outside the
+            // caster's 30y, and a cached caster-centred list would miss them.
+            List<BattleCharacter> EarthlyStarTargets() =>
+                PartyManager.VisibleMembers.Select(r => r.BattleCharacter).ToList();
 
             // The pop checks gate on Stellar Detonation's own action: the base Earthly Star
             // action sits on its 60s recast for the star's whole deployment, so putting these
@@ -674,7 +681,7 @@ namespace Magitek.Logic.Astrologian
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
-                if (earthlyStarTargets.Count(r => r.Distance(earthlyStarLocation) <= 30
+                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= 30
                 && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyDominanceHealthPercent) > AstrologianSettings.Instance.EarthlyDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
@@ -684,7 +691,7 @@ namespace Magitek.Logic.Astrologian
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
-                if (earthlyStarTargets.Count(r => r.Distance(earthlyStarLocation) <= 30
+                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= 30
                 && r.CurrentHealthPercent <= AstrologianSettings.Instance.GiantDominanceHealthPercent) > AstrologianSettings.Instance.GiantDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
