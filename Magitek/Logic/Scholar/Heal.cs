@@ -86,7 +86,9 @@ namespace Magitek.Logic.Scholar
             if (target == null)
                 target = Core.Me;
 
-            if (target.HasMagicBarrier())
+            // Deliberately NOT HasMagicBarrier(): Excogitation is a delayed heal, not a barrier, so
+            // the Adloquium/Succor non-stacking rule does not apply. This keeps the original check.
+            if (target.HasAura(Auras.Galvanize))
                 return false;
 
             if (!await Spells.Excogitation.Cast(target)) return false;
