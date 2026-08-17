@@ -804,15 +804,26 @@ namespace Magitek.Logic.Scholar
 
             // The count is "wounded allies within Soil's radius of me" — it never depended on the lambda
             // parameter, so the old FirstOrDefault picked an arbitrary first party member and could drop
-            // the circle away from the very cluster it counted. Trigger on the count, then place the Soil
-            // deliberately: on ourselves, or centered on the party per the placement setting.
-            var needSacredSoil = PartyManager.VisibleMembers.Count(x => x.BattleCharacter.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
-                    && x.BattleCharacter.WithinSpellRange(Spells.SacredSoil.Radius)) >= AoeNeedHealing;
+            // the circle away from the very cluster it counted. Trigger on the count, then place the
+            // circle on the medoid of the SAME wounded set — centering on the whole party would pull the
+            // placement toward a healthy remote cluster when the party is split.
+            var wounded = PartyManager.VisibleMembers.Select(x => x.BattleCharacter)
+                .Where(x => x.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
+                    && x.WithinSpellRange(Spells.SacredSoil.Radius))
+                .ToList();
 
-            if (!needSacredSoil)
+            if (wounded.Count < AoeNeedHealing)
                 return false;
 
-            return await Spells.SacredSoil.Cast(Utilities.Routines.Scholar.SacredSoilTarget());
+            if (!ScholarSettings.Instance.SacredSoilCenterParty)
+                return await Spells.SacredSoil.Cast(Core.Me);
+
+            var soilTarget = wounded
+                .OrderBy(r => wounded.Sum(ot => r.Distance(ot.Location)))
+                .ThenBy(t => Core.Me.Distance(t.Location))
+                .FirstOrDefault();
+
+            return await Spells.SacredSoil.Cast(soilTarget ?? (GameObject)Core.Me);
         }
 
         public static async Task<bool> Resurrection()
