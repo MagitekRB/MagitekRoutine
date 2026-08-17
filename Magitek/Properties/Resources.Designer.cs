@@ -8841,15 +8841,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Occult Falcon (Area attack).
-        /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Falcon_Area_atta {
-            get {
-                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Falcon_Area_atta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use Occult Fire II.
         /// </summary>
         public static string OccultCrescent_Content_Use_Occult_Fire_II {

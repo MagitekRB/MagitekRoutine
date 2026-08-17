@@ -289,10 +289,6 @@ namespace Magitek.Models.OccultCrescent
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseOccultFalcon { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool UseOccultUnicorn { get; set; }
 
         [Setting]
