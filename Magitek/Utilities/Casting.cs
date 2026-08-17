@@ -112,6 +112,13 @@ namespace Magitek.Utilities
                 return true;
             }
 
+            // A cast that finished while the gambit check was yielding is a success, not a
+            // cancellation: bow out the way the entry check does, so the caller still runs
+            // the success bookkeeping (LastSpell, SpellCastHistory) instead of this method
+            // cancelling a cast that no longer exists.
+            if (!Core.Me.IsCasting)
+                return false;
+
             // The validity checks above go stale before the reads below run: the gambit check
             // yields across frames, so the target can despawn between those checks and these
             // reads. A freed target keeps a non-null reference — the null checks pass and the
