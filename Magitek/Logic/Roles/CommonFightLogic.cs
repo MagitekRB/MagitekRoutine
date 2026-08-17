@@ -189,6 +189,13 @@ namespace Magitek.Logic.Roles
             if (!heal.IsKnownAndReady())
                 return false;
 
+            // A heal with a cast bar fails instantly while moving, and this check runs ahead of
+            // discretionary healing on every pulse — without this guard a Doom carried while
+            // moving re-fires the failed cast every pulse (~25/s, seen live) until movement
+            // stops. Swiftcast makes the cast instant, so it is exempt.
+            if (ff14bot.Managers.MovementManager.IsMoving && heal.AdjustedCastTime > System.TimeSpan.Zero && !Core.Me.HasAura(Utilities.Auras.Swiftcast))
+                return false;
+
             var doomed = FightLogic.DoomedHealTarget();
 
             if (doomed == null)
