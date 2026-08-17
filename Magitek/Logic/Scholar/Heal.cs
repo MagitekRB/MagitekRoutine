@@ -128,7 +128,7 @@ namespace Magitek.Logic.Scholar
             if (!Spells.EmergencyTactics.IsKnownAndReady() && !Core.Me.HasAura(Auras.EmergencyTactics))
                 return false;
 
-            if (!await UsedEmergencyTactics())
+            if (!await UsedEmergencyTactics(forced: true))
                 return false;
 
             if (!await Spells.Succor.Cast(Core.Me)) return false;
@@ -172,19 +172,22 @@ namespace Magitek.Logic.Scholar
             return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
         }
 
-        private static async Task<bool> UsedEmergencyTactics()
+        private static async Task<bool> UsedEmergencyTactics(bool forced = false)
         {
             // Same guards as Buff.EmergencyTactics, and they must run BEFORE the armed short-circuit:
             // with Emergency Tactics and Recitation both up, accepting the armed aura would let the
             // caller's shield heal convert the Recitation-guaranteed crit — the exact theft these
-            // guards exist to prevent. This was the second, unguarded ET site.
+            // guards exist to prevent. This was the second, unguarded ET site. They apply to the
+            // forced path too — Recitation expires or is consumed, so this delays a forced cast,
+            // never latches it.
             if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
                 return false;
 
             // Same master opt-out as Buff.EmergencyTactics, in the same position: this helper is
             // reachable from Accession/Manifestation barrier branches without any settings check
-            // in between, and disabling the feature must disable every automatic ET.
-            if (!ScholarSettings.Instance.EmergencyTactics)
+            // in between, and disabling the feature must disable every automatic ET. The explicit
+            // force toggle is user intent, not automation, so it bypasses only this check.
+            if (!forced && !ScholarSettings.Instance.EmergencyTactics)
                 return false;
 
             if (Core.Me.HasAura(Auras.EmergencyTactics))
