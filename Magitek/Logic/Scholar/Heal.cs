@@ -122,7 +122,10 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.ForceEmergencySuccor)
                 return false;
 
-            if (!Spells.EmergencyTactics.IsKnownAndReady())
+            // Ready OR already armed: the helper below fires Emergency Tactics on one pulse and the
+            // follow-up heal consumes the aura on a later one, so "on cooldown but armed" must pass
+            // this gate or the forced Succor and the toggle reset become unreachable.
+            if (!Spells.EmergencyTactics.IsKnownAndReady() && !Core.Me.HasAura(Auras.EmergencyTactics))
                 return false;
 
             if (!await UsedEmergencyTactics())
@@ -246,7 +249,9 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Adloquium || !ScholarSettings.Instance.EmergencyTacticsAdloquium)
                 return false;
 
-            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
+            // On cooldown but ARMED still proceeds: the cast and the converted heal now happen on
+            // different pulses, and this gate runs before the aura branch can consume the buff.
+            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero && !Core.Me.HasAura(Auras.EmergencyTactics))
                 return false;
 
             if (Globals.InParty)
@@ -380,7 +385,9 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Succor || !ScholarSettings.Instance.EmergencyTactics || !ScholarSettings.Instance.EmergencyTacticsSuccor)
                 return false;
 
-            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
+            // On cooldown but ARMED still proceeds: the cast and the converted heal now happen on
+            // different pulses, and this gate runs before the aura branch can consume the buff.
+            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero && !Core.Me.HasAura(Auras.EmergencyTactics))
                 return false;
 
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
