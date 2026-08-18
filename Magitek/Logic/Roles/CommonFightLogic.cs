@@ -189,6 +189,19 @@ namespace Magitek.Logic.Roles
             if (!heal.IsKnownAndReady())
                 return false;
 
+            // A heal with a cast bar fails instantly while moving, and this check runs ahead of
+            // discretionary healing on every pulse — without this guard a Doom carried while
+            // moving re-fires the failed cast every pulse (~25/s, seen live) until movement
+            // stops. Swiftcast and Dualcast both make the cast instant, so both are exempt —
+            // the same pair the shared cast gate whitelists. Dualcast is not RedMage-only:
+            // Occult Crescent's Phantom Red Mage grants the same status on any job, so a
+            // Scholar in the field ops carries it through most of a fight (observed in game).
+            if (ff14bot.Managers.MovementManager.IsMoving
+                && heal.AdjustedCastTime > System.TimeSpan.Zero
+                && !Core.Me.HasAura(Utilities.Auras.Swiftcast)
+                && !Core.Me.HasAura(Utilities.Auras.Dualcast))
+                return false;
+
             var doomed = FightLogic.DoomedHealTarget();
 
             if (doomed == null)
