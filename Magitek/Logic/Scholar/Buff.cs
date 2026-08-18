@@ -19,6 +19,16 @@ namespace Magitek.Logic.Scholar
         // Prevents double summoning of fairy
         public static DateTime FairySummonCooldown = DateTime.Now;
 
+        // Aetherpact is a toggle, so a second cast inside the latency window after one lands can
+        // re-establish the pact that was just released. Debounced on time rather than on
+        // Casting.LastSpell: with damage disabled, or no attack target, the Scholar can go a long
+        // while casting nothing else, and LastSpell would then sit on Aetherpact indefinitely and
+        // latch both paths off — the break permanently, which is the failure this file is fixing.
+        private static DateTime AetherpactToggle = DateTime.MinValue;
+
+        private static bool AetherpactToggledRecently =>
+            (DateTime.Now - AetherpactToggle).TotalMilliseconds < 1500;
+
         public static async Task<bool> SummonPet()
         {
             if (Core.Me.Pet != null)
@@ -375,7 +385,7 @@ namespace Magitek.Logic.Scholar
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Casting.LastSpell == Spells.Aetherpact)
+            if (AetherpactToggledRecently)
                 return false;
 
             if (!ActionManager.HasSpell(Spells.Aetherpact.Id))
@@ -399,7 +409,11 @@ namespace Magitek.Logic.Scholar
             //if (Casting.LastSpell != Spells.Biolysis || Casting.LastSpell != Spells.ArtOfWar || Casting.LastSpell != Spells.Adloquium || Casting.LastSpell != Spells.Succor)
             //    if (await Spells.Ruin2.Cast(Core.Me.CurrentTarget))
             //        return true;
-            return await Spells.Aetherpact.Cast(aetherpactTarget);
+            if (!await Spells.Aetherpact.Cast(aetherpactTarget))
+                return false;
+
+            AetherpactToggle = DateTime.Now;
+            return true;
 
             bool CanAetherpact(GameObject unit)
             {
@@ -429,10 +443,9 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             // Aetherpact is a toggle: cast at a unit that already has Fey Union it ends the channel,
-            // cast again it starts a new one. The aura does not clear the instant the break lands, so
-            // without this the next pulse can re-establish the pact it just released. The same guard
-            // sits on the start path; it only matters here now that this method can actually fire.
-            if (Casting.LastSpell == Spells.Aetherpact)
+            // cast again it starts a new one. The aura does not clear the instant the break lands,
+            // so without a debounce the next pulse can re-establish the pact it just released.
+            if (AetherpactToggledRecently)
                 return false;
 
             if (!Group.CastableAlliesWithin30.Any(r => r.HasAura(Auras.FeyUnion) || r.HasAura(Auras.FeyUnion2)))
@@ -443,7 +456,11 @@ namespace Magitek.Logic.Scholar
             if (aetherpactTarget == null)
                 return false;
 
-            return await Spells.Aetherpact.Cast(aetherpactTarget);
+            if (!await Spells.Aetherpact.Cast(aetherpactTarget))
+                return false;
+
+            AetherpactToggle = DateTime.Now;
+            return true;
 
             bool CanDeAetherpact(GameObject unit)
             {
