@@ -11,6 +11,11 @@ namespace Magitek.Utilities
     internal static class Combat
     {
         public static readonly List<BattleCharacter> Enemies = new List<BattleCharacter>();
+
+        // Every live hostile, including ones we currently cannot damage. Enemies drops those, which
+        // is right for targeting and wrong for reacting: a boss behind a damage-type immunity still
+        // casts the mechanics we need to mitigate.
+        public static readonly List<BattleCharacter> Threats = new List<BattleCharacter>();
         public static readonly Stopwatch CombatTime = new Stopwatch();
         public static readonly Stopwatch OutOfCombatTime = new Stopwatch();
         public static readonly Stopwatch MovingInCombatTime = new Stopwatch();
@@ -21,7 +26,9 @@ namespace Magitek.Utilities
 
         public static bool IsBoss()
         {
-            return Core.Me.CurrentTarget.IsBoss() || (Globals.InActiveDuty && Enemies.Count == 1);
+            // Threats, not Enemies, for the single-enemy fallback: "alone with one enemy in a duty"
+            // has to stay true while that enemy is temporarily immune to us.
+            return Core.Me.CurrentTarget.IsBoss() || (Globals.InActiveDuty && Threats.Count == 1);
         }
 
         public static bool IsMoving(GameObject target)

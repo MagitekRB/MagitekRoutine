@@ -233,6 +233,13 @@ namespace Magitek.Extensions
                 : unitAsCharacter.CharacterAuras.Where(x => (x.TimespanLeft.TotalMilliseconds >= msLeft || x.TimespanLeft.TotalMilliseconds < 0)).Select(r => r.Id).ToList().Intersect(auras).Count() == auras.Count;
         }
 
+        // Live and hostile, with no view on whether we can currently damage it. Fight logic reacts to
+        // what an enemy CASTS, so it has to keep seeing a boss we are locked out of hurting.
+        public static bool ValidThreatUnit(this GameObject unit)
+        {
+            return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0;
+        }
+
         public static bool ValidAttackUnit(this GameObject unit)
         {
             return unit != null && unit.IsValid && unit.IsTargetable && unit.CanAttack && unit.CurrentHealth > 0;
