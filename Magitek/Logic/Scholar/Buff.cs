@@ -464,6 +464,14 @@ namespace Magitek.Logic.Scholar
 
             bool CanDeAetherpact(GameObject unit)
             {
+                // The pact is only ever placed on a tank (see CanAetherpact), so the unit whose health
+                // and surroundings decide whether to release it has to be that tank. Excluding
+                // ourselves matters because the two Fey Union ids may not both sit on the recipient:
+                // if one of them lands on the Scholar, we would otherwise weigh OUR health and OUR
+                // nearby enemies and release a pact on a tank who is still hurt.
+                if (unit == null || unit == Core.Me || !unit.IsTank())
+                    return false;
+
                 if (unit.EnemiesNearby(6).Count() > ScholarSettings.Instance.AetherpactEnemies)
                     return false;
 
