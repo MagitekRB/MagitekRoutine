@@ -8265,6 +8265,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Attack inside Drain Touch (stronger casts, but every attack Dooms us).
+        /// </summary>
+        public static string OccultCrescent_Content_Drain_Touch_Priming {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Drain_Touch_Priming", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Prefer Inquiring Mind (Freelancer Lv15, all buffs in one cast).
         /// </summary>
         public static string OccultCrescent_Content_Prefer_Inquiring_Mind {

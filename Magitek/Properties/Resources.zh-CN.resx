@@ -2160,6 +2160,9 @@
   <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
     <value>使用 吸血之触 (治疗自身并强化其他技能)</value>
   </data>
+  <data name="OccultCrescent_Content_Drain_Touch_Priming" xml:space="preserve">
+    <value>在 吸血之触 期间攻击 (伤害更高, 但每次攻击附加死宣)</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
     <value>使用 深度冻结 (冰)</value>
   </data>

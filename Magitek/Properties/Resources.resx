@@ -2159,6 +2159,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
     <value>Use Drain Touch (heals us, and powers up the other attacks)</value>
   </data>
+  <data name="OccultCrescent_Content_Drain_Touch_Priming" xml:space="preserve">
+    <value>Attack inside Drain Touch (stronger casts, but every attack Dooms us)</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
     <value>Use Deep Freeze (ice)</value>
   </data>
