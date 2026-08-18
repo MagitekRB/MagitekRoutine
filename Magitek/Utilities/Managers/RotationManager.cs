@@ -150,6 +150,7 @@ namespace Magitek.Utilities.Managers
 
             await Casting.CheckForSuccessfulCast();
             SpellQueueLogic.SpellQueue.Clear();
+            FightLogic.ResetLockOnStates();
 
             if (Globals.InSanctuaryOrSafeZone)
                 return false;
