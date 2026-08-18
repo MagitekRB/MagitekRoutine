@@ -428,6 +428,13 @@ namespace Magitek.Logic.Scholar
             if (!ActionManager.HasSpell(Spells.Aetherpact.Id))
                 return false;
 
+            // Aetherpact is a toggle: cast at a unit that already has Fey Union it ends the channel,
+            // cast again it starts a new one. The aura does not clear the instant the break lands, so
+            // without this the next pulse can re-establish the pact it just released. The same guard
+            // sits on the start path; it only matters here now that this method can actually fire.
+            if (Casting.LastSpell == Spells.Aetherpact)
+                return false;
+
             if (!Group.CastableAlliesWithin30.Any(r => r.HasAura(Auras.FeyUnion) || r.HasAura(Auras.FeyUnion2)))
                 return false;
 
@@ -443,10 +450,19 @@ namespace Magitek.Logic.Scholar
                 if (unit.EnemiesNearby(6).Count() > ScholarSettings.Instance.AetherpactEnemies)
                     return false;
 
-                if (unit.CurrentHealthPercent >= ScholarSettings.Instance.BreakAetherpactHp)
+                // Break once the tank is topped up, which is what the option says on the tin
+                // ("Break Aetherpact If Tank Is Full HP Only With N enemies") and what the 100%
+                // default describes. The comparison was the other way round, so the pact was held
+                // exactly while the tank no longer needed it and released only while they were
+                // still hurt — the opposite of the setting, and a straight waste of Fairy Gauge.
+                if (unit.CurrentHealthPercent < ScholarSettings.Instance.BreakAetherpactHp)
                     return false;
 
-                if (!unit.HasAura(Auras.FeyUnion) || !unit.HasAura(Auras.FeyUnion2))
+                // Fey Union applies as one of two ids (1222 / 1223), never both at once, so
+                // requiring both here could never be satisfied and this method could never return
+                // a target. Reject only a unit carrying neither. The three other Fey Union checks
+                // in this file already test them as alternatives.
+                if (!unit.HasAura(Auras.FeyUnion) && !unit.HasAura(Auras.FeyUnion2))
                     return false;
 
                 return true;
