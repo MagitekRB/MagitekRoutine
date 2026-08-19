@@ -4560,6 +4560,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             25324 //Shocking Force
                         },
+                        AoeLockOns = new List<uint> {
+                            62 //Shocking Force stacks the party on one marked player ~5s ahead
+                        },
                         BigAoes = null
                     },
                     new Enemy {
