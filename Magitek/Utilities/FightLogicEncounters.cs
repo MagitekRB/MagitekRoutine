@@ -7674,8 +7674,23 @@ namespace Magitek.Utilities
                             46228, // The Fixer
                             47552, // Splattershed
                             48096, // Splattershed
+                            46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
+                                   // across all eight at up to 62.2% of a health bar.
+                            46209, // Grotesquerie — inflicts Burning Grotesquerie on all players,
+                                   // which resolves as a marked AoE when it expires. The damage lands
+                                   // ~18s later under a different name (Dramatic Lysis, measured 73.6%
+                                   // on all eight) and has no cast line of its own, so this cast is the
+                                   // only thing that can be reacted to.
                         },
-                        AoeLockOns = null,
+                        AoeLockOns = new List<uint> {
+                            93,    // Stack marker -> Fourth-wall Fusion, which measured 317.9% of a
+                                   // health bar across six players. Catalogued by marker because the
+                                   // mechanic has NO cast line at all; its only antecedent is Ravenous
+                                   // Reach 11-12s earlier, which is a positional cleave and would
+                                   // mis-time. Marker 93 is the stack marker: it precedes Fourth-wall
+                                   // Fusion here, and lands in the same millisecond as Mog Stone IV in
+                                   // Thornmarch, single-target both times.
+                        },
                         Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
