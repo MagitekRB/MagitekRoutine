@@ -7768,8 +7768,20 @@ namespace Magitek.Utilities
                             46228, // The Fixer
                             47552, // Splattershed
                             48096, // Splattershed
+                            46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
+                                   // across all eight at up to 62.2% of a health bar, and its damage
+                                   // lands 5.0s after the cast, so mitigation applied on the cast is
+                                   // still up when the hit arrives.
                         },
-                        AoeLockOns = null,
+                        AoeLockOns = new List<uint> {
+                            93,    // Stack marker -> Fourth-wall Fusion, which measured 317.9% of a
+                                   // health bar across six players. Catalogued by marker because the
+                                   // mechanic has NO cast line at all; its only antecedent is Ravenous
+                                   // Reach 11-12s earlier, which is a positional cleave and would
+                                   // mis-time. Marker 93 is the stack marker: it precedes Fourth-wall
+                                   // Fusion here, and lands in the same millisecond as Mog Stone IV in
+                                   // Thornmarch, single-target both times.
+                        },
                         Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
