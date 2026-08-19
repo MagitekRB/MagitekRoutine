@@ -88,10 +88,6 @@ namespace Magitek.Models.Astrologian
 
         [Setting]
         [DefaultValue(false)]
-        public bool AggroAst { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
         public bool Oracle { get; set; }
 
         [Setting]
@@ -363,16 +359,12 @@ namespace Magitek.Models.Astrologian
         public int EarthlyStarEnemiesNearTarget { get; set; }
 
         [Setting]
-        [DefaultValue(2)]
-        public int EarthlyStarPartyMembersNearTarget { get; set; }
-
-        [Setting]
-        [DefaultValue(95f)]
-        public float EarthlyStarPartyMembersNearTargetHealthPercent { get; set; }
-
-        [Setting]
         [DefaultValue(true)]
         public bool StellarDetonation { get; set; }
+
+        [Setting]
+        [DefaultValue(5)]
+        public int StellarDetonationPullEndingSeconds { get; set; }
 
         [Setting]
         [DefaultValue(4)]

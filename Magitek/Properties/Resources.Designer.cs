@@ -61,15 +61,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aggro Ast Mode.
-        /// </summary>
-        public static string Astrologian_Content_Aggro_Ast_Mode {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Aggro_Ast_Mode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Always With Enhanced Benefic.
         /// </summary>
         public static string Astrologian_Content_Always_With_Enhanced_Benefic {
@@ -772,6 +763,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detonate Earthly Star Early When The Pull Ends Within.
+        /// </summary>
+        public static string Astrologian_Text_Detonate_Early_When_Pull_Ends_Within {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Detonate_Early_When_Pull_Ends_Within", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to DNC:.
         /// </summary>
         public static string Astrologian_Text_DNC {
@@ -1006,15 +1006,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Party Members Near Target That Are Below.
-        /// </summary>
-        public static string Astrologian_Text_Party_Members_Near_Target_That_Are_Below {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Party_Members_Near_Target_That_Are_Below", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PCT:.
         /// </summary>
         public static string Astrologian_Text_PCT {
@@ -1173,15 +1164,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Text_WHM {
             get {
                 return ResourceManager.GetString("Astrologian_Text_WHM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful)..
-        /// </summary>
-        public static string Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an", resourceCulture);
             }
         }
         

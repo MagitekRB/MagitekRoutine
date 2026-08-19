@@ -666,9 +666,6 @@
   <data name="Astrologian_Content_Interrupt_Damage_to_Heal" xml:space="preserve">
     <value>停手专心治疗</value>
   </data>
-  <data name="Astrologian_Content_Aggro_Ast_Mode" xml:space="preserve">
-    <value>占星术士仇恨模式</value>
-  </data>
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
     <value>根据目标血量决定DOT的使用</value>
   </data>
@@ -677,9 +674,6 @@
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>当有   时使用重力</value>
-  </data>
-  <data name="Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an" xml:space="preserve">
-    <value>“光速”、“地星”、“小宇宙”好了就用（非常浪费）.</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
     <value>队友HP%百分比</value>
@@ -4008,6 +4002,9 @@
   <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
     <value>如果敌人在10秒内即将死亡，则不使用DoT</value>
   </data>
+  <data name="Astrologian_Text_Detonate_Early_When_Pull_Ends_Within" xml:space="preserve">
+    <value>战斗剩余时间少于以下秒数时提前引爆地星</value>
+  </data>
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
     <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
@@ -4019,9 +4016,6 @@
   </data>
   <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
     <value>防止单独使用即刻咏唱</value>
-  </data>
-  <data name="Astrologian_Text_Party_Members_Near_Target_That_Are_Below" xml:space="preserve">
-    <value>目标附近的队友血量低于</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>地星范围内的队友血量低于</value>
