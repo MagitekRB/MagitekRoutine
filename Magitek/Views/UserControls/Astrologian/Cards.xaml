@@ -23,8 +23,7 @@
 
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Orientation="Horizontal">
-                <CheckBox Margin="5" Content="{x:Static properties:Resources.Astrologian_Content_Use_Astral_Draw}" IsChecked="{Binding AstrologianSettings.AstralDraw, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <CheckBox Margin="5" Content="{x:Static properties:Resources.Astrologian_Content_Use_Umbral_Draw}" IsChecked="{Binding AstrologianSettings.UmbralDraw, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <CheckBox Margin="5" Content="{x:Static properties:Resources.Astrologian_Content_Draw_Cards}" IsChecked="{Binding AstrologianSettings.DrawCards, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
             </StackPanel>
         </controls:SettingsBlock>
 

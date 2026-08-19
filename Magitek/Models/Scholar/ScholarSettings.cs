@@ -525,6 +525,10 @@ namespace Magitek.Models.Scholar
         public float AetherpactHealthPercent { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool BreakAetherpact { get; set; }
+
+        [Setting]
         [DefaultValue(100.0f)]
         public float BreakAetherpactHp { get; set; }
 

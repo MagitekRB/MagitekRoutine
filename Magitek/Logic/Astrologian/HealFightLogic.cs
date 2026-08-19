@@ -37,7 +37,11 @@ namespace Magitek.Logic.Astrologian
                 return await FightLogic.DoAndBuffer(Spells.NeutralSect.Cast(Core.Me));
             }
 
+            // Only pop a matured star: during Earthly Dominance the burst is the weak version,
+            // and with proactive planting a fresh star would otherwise be spent at reduced
+            // potency the moment any raidwide is detected.
             if (AstrologianSettings.Instance.FightLogicEarthlyStar
+                && Core.Me.HasAura(Auras.GiantDominance)
                 && Spells.StellarDetonation.IsKnownAndReady()
                 && Spells.StellarDetonation.CanCast())
             {
@@ -58,26 +62,18 @@ namespace Magitek.Logic.Astrologian
                 return await FightLogic.DoAndBuffer(Spells.StellarDetonation.Cast(target));
             }
 
+            // When Collective Unconscious declines, fall through to the later responses —
+            // an early return here starves Horoscope and Aspected Helios of the mechanic.
             if (AstrologianSettings.Instance.FightLogicCollectiveUnconscious
                 && Spells.CollectiveUnconscious.IsKnownAndReady()
-                && Spells.CollectiveUnconscious.CanCast())
+                && Spells.CollectiveUnconscious.CanCast()
+                && AstrologianSettings.Instance.CollectiveUnconsciousCenterParty
+                && Group.CastableAlliesWithin30.Count() >= AstrologianSettings.Instance.CollectiveUnconsciousAllies)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
                     Logger.WriteInfo($"[AOE Response] Cast Collective Unconscious");
 
-                Character target = Core.Me;
-
-                if (AstrologianSettings.Instance.CollectiveUnconsciousCenterParty)
-                {
-                    var targets = Group.CastableAlliesWithin30.Count();
-
-                    if ( targets >= AstrologianSettings.Instance.CollectiveUnconsciousAllies)
-                    {
-                        return await FightLogic.DoAndBuffer(Spells.CollectiveUnconscious.Cast(Core.Me));
-                    }
-                }
-                return false;
-                
+                return await FightLogic.DoAndBuffer(Spells.CollectiveUnconscious.Cast(Core.Me));
             }
 
             if (AstrologianSettings.Instance.FightLogicHoroscope

@@ -177,7 +177,6 @@ namespace Magitek.Rotations
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
-            if (await Aoe.AggroAst()) return true;
             //if (await Aoe.LordOfCrown()) return true;
             if (await Aoe.Gravity()) return true;
             if (await SingleTarget.Combust()) return true;

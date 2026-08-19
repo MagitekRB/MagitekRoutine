@@ -227,10 +227,14 @@ namespace Magitek.Utilities
             if (!EnemyInfos.Any())
             {
                 Combat.CombatTotalTimeLeft = 0;
+                Combat.CombatWallClockTimeLeft = 0;
             }
             else
             {
                 Combat.CombatTotalTimeLeft = (int)Math.Max(0, EnemyInfos.Select(r => r.CombatTimeLeft).Sum());
+                // The pull ends when the LAST enemy dies, not after the serial sum of every
+                // enemy's estimate — under concurrent damage the max is the honest wall clock.
+                Combat.CombatWallClockTimeLeft = (int)Math.Max(0, EnemyInfos.Select(r => r.CombatTimeLeft).Max());
             }
 
 

@@ -96,12 +96,14 @@ namespace Magitek.Utilities
                 if (!SpellTarget.IsTargetable)
                 {
                     await CancelCast("Target is no Longer Targetable");
+                    return true;
                 }
             }
             catch
             {
                 // Object is invalid in memory (e.g., player died, entity despawned)
                 await CancelCast("Target is no Longer Valid");
+                return true;
             }
 
             if (await GambitLogic.InterruptCast())
@@ -110,97 +112,133 @@ namespace Magitek.Utilities
                 return true;
             }
 
-            // A revive (Phoenix Down) targets a body that is dead by definition, and the job checks
-            // below cancel any cast on a dead target unless it is that job's own raise spell — so every
-            // one of them would kill the revive on its first tracked pulse. Exempt the revive here once
-            // rather than carving an exception into all seven jobs, but keep the ONE cancel that is
-            // meaningful for it, the same one every healer applies to its own raise: someone else's
-            // raise landed first, so finishing the cast would spend a Phoenix Down on a claimed corpse.
-            // The target-validity checks above still run: a despawned corpse still cancels.
-            if (CastingRevive)
-            {
-                if (SpellTarget is Character corpse
-                    && (corpse.CurrentHealth > 0 || corpse.HasAura(Auras.Raise)))
-                    await CancelCast("Revive target was already raised");
+            // A cast that finished while the gambit check was yielding is a success, not a
+            // cancellation: bow out the way the entry check does, so the caller still runs
+            // the success bookkeeping (LastSpell, SpellCastHistory) instead of this method
+            // cancelling a cast that no longer exists.
+            if (!Core.Me.IsCasting)
+                return false;
 
+            // The validity checks above go stale before the reads below run: the gambit check
+            // yields across frames, so the target can despawn between those checks and these
+            // reads. A freed target keeps a non-null reference — the null checks pass and the
+            // first field read through the stale pointer throws, killing the whole combat
+            // pulse (seen live: a nuke target died mid-cast between the checks and the job
+            // interrupt switch). Skip the reads once the cast is no longer tracked, then keep
+            // everything that touches the target inside the try: even the IsValid re-check
+            // reads a liveness stamp through the object's pointer and can throw once the
+            // target's memory is unmapped. An unreadable target is treated like an invalid one.
+            if (!CastingTime.IsRunning)
                 return true;
-            }
 
-            // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (RotationManager.CurrentRotation)
+            try
             {
-                case ClassJobType.BlueMage:
-                    {
-                        if (BlueMage.NeedToInterruptCast())
+                if (SpellTarget == null || !SpellTarget.IsValid)
+                {
+                    await CancelCast("Target vanished before the interrupt checks");
+                    return true;
+                }
+
+                // A revive (Phoenix Down) targets a body that is dead by definition, and the job checks
+                // below cancel any cast on a dead target unless it is that job's own raise spell — so every
+                // one of them would kill the revive on its first tracked pulse. Exempt the revive here once
+                // rather than carving an exception into all seven jobs, but keep the ONE cancel that is
+                // meaningful for it, the same one every healer applies to its own raise: someone else's
+                // raise landed first, so finishing the cast would spend a Phoenix Down on a claimed corpse.
+                // The target-validity checks above still run: a despawned corpse still cancels.
+                if (CastingRevive)
+                {
+                    if (SpellTarget is Character corpse
+                        && (corpse.CurrentHealth > 0 || corpse.HasAura(Auras.Raise)))
+                        await CancelCast("Revive target was already raised");
+
+                    return true;
+                }
+
+                // ReSharper disable once SwitchStatementMissingSomeCases
+                switch (RotationManager.CurrentRotation)
+                {
+                    case ClassJobType.BlueMage:
                         {
-                            await CancelCast();
+                            if (BlueMage.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.Scholar:
-                    {
-                        if (Scholar.NeedToInterruptCast())
+                    case ClassJobType.Scholar:
                         {
-                            await CancelCast();
+                            if (Scholar.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.Arcanist:
-                    {
-                        if (Scholar.NeedToInterruptCast())
+                    case ClassJobType.Arcanist:
                         {
-                            await CancelCast();
+                            if (Scholar.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.WhiteMage:
-                    {
-                        if (WhiteMage.NeedToInterruptCast())
+                    case ClassJobType.WhiteMage:
                         {
-                            await CancelCast();
+                            if (WhiteMage.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.Conjurer:
-                    {
-                        if (WhiteMage.NeedToInterruptCast())
+                    case ClassJobType.Conjurer:
                         {
-                            await CancelCast();
+                            if (WhiteMage.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.Astrologian:
-                    {
-                        if (Astrologian.NeedToInterruptCast())
+                    case ClassJobType.Astrologian:
                         {
-                            await CancelCast();
+                            if (Astrologian.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.Summoner:
-                    {
-                        if (Summoner.NeedToInterruptCast())
+                    case ClassJobType.Summoner:
                         {
-                            await CancelCast();
+                            if (Summoner.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.BlackMage:
-                    {
-                        if (BlackMage.NeedToInterruptCast())
+                    case ClassJobType.BlackMage:
                         {
-                            await CancelCast();
+                            if (BlackMage.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case ClassJobType.Sage:
-                    {
-                        if (Sage.NeedToInterruptCast())
+                    case ClassJobType.Sage:
                         {
-                            await CancelCast();
+                            if (Sage.NeedToInterruptCast())
+                            {
+                                await CancelCast();
+                            }
+                            break;
                         }
-                        break;
-                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Object is invalid in memory (e.g., player died, entity despawned) — but any
+                // exception thrown by a job's interrupt checks lands here too, so put the real
+                // reason in the log instead of silently blaming the target.
+                Logger.WriteInfo($"[Casting] Interrupt checks failed, cancelling cast: {ex.Message}");
+                await CancelCast("Target is no Longer Readable");
             }
 
             #endregion
@@ -217,13 +255,17 @@ namespace Magitek.Utilities
 
                 if (msg != null)
                     Logger.Error(msg);
-
-                CastingTime.Stop();
-                CastingRevive = false;
             }
             catch (Exception)
             {
                 //Ignore on Purpose
+            }
+            finally
+            {
+                // The IsRunning guard in TrackSpellCast depends on this timer stopping even
+                // when StopCasting or the wait throws mid-transition.
+                CastingTime.Stop();
+                CastingRevive = false;
             }
         }
 
