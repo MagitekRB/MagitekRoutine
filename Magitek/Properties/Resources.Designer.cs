@@ -241,6 +241,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Draw cards automatically (Astral and Umbral alternate).
+        /// </summary>
+        public static string Astrologian_Content_Draw_Cards {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Draw_Cards", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Earthly Star.
         /// </summary>
         public static string Astrologian_Content_Earthly_Star {
@@ -592,15 +601,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Astral Draw.
-        /// </summary>
-        public static string Astrologian_Content_Use_Astral_Draw {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Use_Astral_Draw", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use Divination at least.
         /// </summary>
         public static string Astrologian_Content_Use_Divination_at_least {
@@ -642,15 +642,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Use_Time_Till_Death_For_Damage {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Use_Time_Till_Death_For_Damage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Umbral Draw.
-        /// </summary>
-        public static string Astrologian_Content_Use_Umbral_Draw {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Use_Umbral_Draw", resourceCulture);
             }
         }
         
