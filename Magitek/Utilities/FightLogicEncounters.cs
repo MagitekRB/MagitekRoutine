@@ -66,6 +66,20 @@ namespace Magitek.Utilities
                         },
                         BigAoes = null
                     },
+                    // Order matters. GetEnemyLogicAndEnemy takes the FIRST entry with a live actor
+                    // and only that entry's casts are examined, so when two catalogued moogles are up
+                    // together the later one is unreachable. Pukna Pako and Pukla Puki spawn as a
+                    // pair, so the tank buster goes first as the more urgent of the two.
+                    new Enemy {
+                        Id = 724,
+                        Name = "Pukna Pako the Tailturner",
+                        TankBusters = new List<uint> {
+                            29214, // Moogle Thrust
+                        },
+                        SharedTankBusters = null,
+                        Aoes = null,
+                        BigAoes = null
+                    },
                     new Enemy {
                         Id = 722,
                         Name = "Pukla Puki the Pomburner",
@@ -85,16 +99,6 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             29211, // Pom Holy
                         },
-                        BigAoes = null
-                    },
-                    new Enemy {
-                        Id = 724,
-                        Name = "Pukna Pako the Tailturner",
-                        TankBusters = new List<uint> {
-                            29214, // Moogle Thrust
-                        },
-                        SharedTankBusters = null,
-                        Aoes = null,
                         BigAoes = null
                     },
                 }
