@@ -2865,7 +2865,13 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18851 //Immortal Anathema
+                            18851, //Immortal Anathema
+                            18285, // Dark Well — AoE marker on every player, immediately after Dark
+                                   // Pulse. Measured 12 casts hitting all four for up to 48% of a
+                                   // health bar each; it was the hardest hit in the fight and drew
+                                   // no response at all.
+                            18282, // Dark Pulse — stack marker; the party groups to split it, so
+                                   // everyone takes a share. Measured 8 hits across all four.
                         },
                         BigAoes = null
                     },
@@ -2877,7 +2883,10 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18204 //Ode to Lost Love
+                            18204, //Ode to Lost Love
+                            18210, // Ode to Far Winds — AoE marker on every player alongside ground
+                                   // circles. Damage not measured this run, so catalogued on the
+                                   // mechanic description rather than a magnitude.
                         },
                         BigAoes = null
                     },
@@ -2889,7 +2898,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18277 //Culling Blade
+                            18277, //Culling Blade
+                            18267, // Otherworldly Heat — red marker on every player, each becoming a
+                            18268, // cross that explodes. Two cast ids (4.7s and 2.2s).
                         },
                         BigAoes = null
                     }
