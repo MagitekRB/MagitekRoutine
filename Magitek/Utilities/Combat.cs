@@ -16,6 +16,11 @@ namespace Magitek.Utilities
         public static readonly Stopwatch MovingInCombatTime = new Stopwatch();
         public static readonly Stopwatch NotMovingInCombatTime = new Stopwatch();
         public static int CombatTotalTimeLeft;
+        // Wall-clock estimate of when the PULL ends: the longest single enemy time-to-die.
+        // CombatTotalTimeLeft sums every enemy's estimate, which overstates the pull's real
+        // duration whenever enemies die concurrently (four mobs at 3s each sum to 12s) — use
+        // this for "is the fight about to end" checks and the sum for total-effort checks.
+        public static int CombatWallClockTimeLeft;
         public static readonly Stopwatch DutyTime = new Stopwatch();
         public static double CurrentTargetCombatTimeLeft;
 

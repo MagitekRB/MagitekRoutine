@@ -4,6 +4,15 @@ on:
   release:
     types: [published]
 
+# Consecutive merges publish their releases back to back, and without a queue the
+# notification runs race each other: the right messages arrive in the wrong order, which
+# reads like the changelog is broken even though every post is correct. queue: max holds
+# them in release order instead of cancelling the pending one.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+  queue: max
+
 jobs:
   github-releases-to-discord:
     runs-on: ubuntu-latest

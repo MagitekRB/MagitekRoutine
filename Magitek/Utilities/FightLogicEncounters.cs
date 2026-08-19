@@ -29,6 +29,83 @@ namespace Magitek.Utilities
 
             #endregion
 
+            #region A Realm Reborn: Trials
+
+            new Encounter {
+                ZoneId = 1067,
+                Name = "Trial: Thornmarch (Hard) - Good King Moggle Mog XII",
+                Expansion = FfxivExpansion.ARealmReborn,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 725,
+                        Name = "Good King Moggle Mog XII",
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            29205, // Twin Pom Meteor — tank stack marker, both tanks share it.
+                            29206, // Second cast id for the same mechanic.
+                        },
+                        Aoes = new List<uint> {
+                            29217, // Memento Moogle — the unavoidable phase-transition raidwide.
+                                   // Measured 38.2% of a health bar on all eight.
+                            29203, // Mog Stone IV — stack marker; measured 38.8% on seven, because
+                                   // the party is stacked and takes it together.
+                            29210, // Pom Holy — measured 21.1% across all eight.
+                            29192, // Mograin of Death — marker on every player. The King casts the
+                                   // same id the Mooglesguard use.
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 721,
+                        Name = "Woolywart Kupqu Kogi",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29191, // Mograin of Death — 2.7s variant.
+                            29192, // Mograin of Death — 5.7s variant. Both occur.
+                        },
+                        BigAoes = null
+                    },
+                    // Order matters. GetEnemyLogicAndEnemy takes the FIRST entry with a live actor
+                    // and only that entry's casts are examined, so when two catalogued moogles are up
+                    // together the later one is unreachable. Pukna Pako and Pukla Puki spawn as a
+                    // pair, so the tank buster goes first as the more urgent of the two.
+                    new Enemy {
+                        Id = 724,
+                        Name = "Pukna Pako the Tailturner",
+                        TankBusters = new List<uint> {
+                            29214, // Moogle Thrust
+                        },
+                        SharedTankBusters = null,
+                        Aoes = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 722,
+                        Name = "Pukla Puki the Pomburner",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29204, // Mog Stone IV — her cast id for the stack the King also throws.
+                            29192, // Mograin of Death
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 720,
+                        Name = "Furryfoot Kupli Kipp",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29211, // Pom Holy
+                        },
+                        BigAoes = null
+                    },
+                }
+            },
+
+            #endregion
+
             #region Heavensward: Alliance Raids
 
             new Encounter {
@@ -2788,7 +2865,13 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18851 //Immortal Anathema
+                            18851, //Immortal Anathema
+                            18285, // Dark Well — AoE marker on every player, immediately after Dark
+                                   // Pulse. Measured 12 casts hitting all four for up to 48% of a
+                                   // health bar each; it was the hardest hit in the fight and drew
+                                   // no response at all.
+                            18282, // Dark Pulse — stack marker; the party groups to split it, so
+                                   // everyone takes a share. Measured 8 hits across all four.
                         },
                         BigAoes = null
                     },
@@ -2800,7 +2883,10 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18204 //Ode to Lost Love
+                            18204, //Ode to Lost Love
+                            18210, // Ode to Far Winds — AoE marker on every player alongside ground
+                                   // circles. Damage not measured this run, so catalogued on the
+                                   // mechanic description rather than a magnitude.
                         },
                         BigAoes = null
                     },
@@ -2812,7 +2898,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18277 //Culling Blade
+                            18277, //Culling Blade
+                            18267, // Otherworldly Heat — red marker on every player, each becoming a
+                            18268, // cross that explodes. Two cast ids (4.7s and 2.2s).
                         },
                         BigAoes = null
                     }
@@ -6448,7 +6536,10 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint> {
                             48920, // Rubbish Disposal
+                            48928, // Wrathful Wire — marked AoE on every party member, the same shape as
+                                   // Chort's Evil Emission below. Was missing entirely.
                             48929, // Gluttonous Wire
+                            48930, // Gluttonous Wire — second cast id (4.7s; 48929 is the 3.7s variant)
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
@@ -6474,6 +6565,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             48884, // Ripples of Gloom
                             48879, // Bodyweight Exorcism
+                            48885, // Evil Emission — second cast id (4.7s; 50417 is the 4.2s variant).
+                                   // Both occur in a single run, so listing only one left half the
+                                   // occurrences unanswered.
                             50417, // Evil Emission
                             48886, // Profane Pressure
                         },
@@ -7674,8 +7768,20 @@ namespace Magitek.Utilities
                             46228, // The Fixer
                             47552, // Splattershed
                             48096, // Splattershed
+                            46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
+                                   // across all eight at up to 62.2% of a health bar, and its damage
+                                   // lands 5.0s after the cast, so mitigation applied on the cast is
+                                   // still up when the hit arrives.
                         },
-                        AoeLockOns = null,
+                        AoeLockOns = new List<uint> {
+                            93,    // Stack marker -> Fourth-wall Fusion, which measured 317.9% of a
+                                   // health bar across six players. Catalogued by marker because the
+                                   // mechanic has NO cast line at all; its only antecedent is Ravenous
+                                   // Reach 11-12s earlier, which is a positional cleave and would
+                                   // mis-time. Marker 93 is the stack marker: it precedes Fourth-wall
+                                   // Fusion here, and lands in the same millisecond as Mog Stone IV in
+                                   // Thornmarch, single-target both times.
+                        },
                         Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null

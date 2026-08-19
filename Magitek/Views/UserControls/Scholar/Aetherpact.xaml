@@ -32,8 +32,18 @@
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
 
+                <StackPanel Margin="5">
+                    <CheckBox Content="{x:Static properties:Resources.Scholar_Content_Break_Aetherpact}" IsChecked="{Binding ScholarSettings.BreakAetherpact, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
+
                 <StackPanel Margin="0,3" Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_Once_The_Tank_Reaches}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.BreakAetherpactHp, Mode=TwoWay}" />
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
+
+                <StackPanel Margin="0,3" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_And_There_Are}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding ScholarSettings.AetherpactEnemies, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Scholar_Text_or_less_Enemies}" />
                 </StackPanel>

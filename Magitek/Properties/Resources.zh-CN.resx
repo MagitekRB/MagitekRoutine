@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -577,7 +577,7 @@
     <value>倒计时.</value>
   </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
-    <value>卡片优先级（从第一张到最后一张）</value>
+    <value>卡片权重（数值越低越优先）。攻击卡优先给DPS，其次坦克/治疗；权重用于同类之间排序。</value>
   </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>武僧：</value>
@@ -645,11 +645,8 @@
   <data name="Astrologian_Text_VPR" xml:space="preserve">
     <value>蝰蛇剑士：</value>
   </data>
-  <data name="Astrologian_Content_Use_Astral_Draw" xml:space="preserve">
-    <value>使用星极抽卡</value>
-  </data>
-  <data name="Astrologian_Content_Use_Umbral_Draw" xml:space="preserve">
-    <value>使用灵极抽卡</value>
+  <data name="Astrologian_Content_Draw_Cards" xml:space="preserve">
+    <value>自动抽卡（星极与灵极交替）</value>
   </data>
   <data name="Astrologian_Content_Lord_Of_Crowns_at_least" xml:space="preserve">
     <value>至少使用一次王冠之领主</value>
@@ -666,9 +663,6 @@
   <data name="Astrologian_Content_Interrupt_Damage_to_Heal" xml:space="preserve">
     <value>停手专心治疗</value>
   </data>
-  <data name="Astrologian_Content_Aggro_Ast_Mode" xml:space="preserve">
-    <value>占星术士仇恨模式</value>
-  </data>
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
     <value>根据目标血量决定DOT的使用</value>
   </data>
@@ -677,9 +671,6 @@
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>当有   时使用重力</value>
-  </data>
-  <data name="Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an" xml:space="preserve">
-    <value>“光速”、“地星”、“小宇宙”好了就用（非常浪费）.</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
     <value>队友HP%百分比</value>
@@ -3159,6 +3150,15 @@
   <data name="Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O" xml:space="preserve">
     <value>如果坦克满血则中断 以太契约</value>
   </data>
+  <data name="Scholar_Content_Break_Aetherpact" xml:space="preserve">
+    <value>中断以太契约</value>
+  </data>
+  <data name="Scholar_Text_Once_The_Tank_Reaches" xml:space="preserve">
+    <value>当坦克血量达到[xx]</value>
+  </data>
+  <data name="Scholar_Text_And_There_Are" xml:space="preserve">
+    <value>且敌人数量为</value>
+  </data>
   <data name="Scholar_Text_or_less_Enemies" xml:space="preserve">
     <value>仅在有[xx]或更少敌人时</value>
   </data>
@@ -4008,6 +4008,9 @@
   <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
     <value>如果敌人在10秒内即将死亡，则不使用DoT</value>
   </data>
+  <data name="Astrologian_Text_Detonate_Early_When_Pull_Ends_Within" xml:space="preserve">
+    <value>战斗剩余时间少于以下秒数时提前引爆地星</value>
+  </data>
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
     <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
@@ -4019,9 +4022,6 @@
   </data>
   <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
     <value>防止单独使用即刻咏唱</value>
-  </data>
-  <data name="Astrologian_Text_Party_Members_Near_Target_That_Are_Below" xml:space="preserve">
-    <value>目标附近的队友血量低于</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>地星范围内的队友血量低于</value>

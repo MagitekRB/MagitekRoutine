@@ -9,9 +9,15 @@ on:
 permissions:
   contents: write
 
+# queue: max is what makes consecutive merges each get their own release. Without it a
+# concurrency group holds at most ONE pending run, so merging three pull requests in a row
+# silently cancels the middle one: three merges, two builds. Do not drop this back to the
+# default. cancel-in-progress must stay false; combining it with queue: max is a validation
+# error and would fail the workflow before it starts.
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
+  queue: max
 
 jobs:
   setup:
@@ -20,6 +26,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/heads/master')
     outputs:
       version: ${{ steps.get_version.outputs.version }}
+      previous_tag: ${{ steps.get_version.outputs.previous_tag }}
+      previous_sha: ${{ steps.get_version.outputs.previous_sha }}
       cn_tag: ${{ steps.read_manifest.outputs.cn_tag }}
       cn_version: ${{ steps.read_manifest.outputs.cn_version }}
       tc_tag: ${{ steps.read_manifest.outputs.tc_tag }}
@@ -50,6 +58,13 @@ jobs:
           $patch = [int]$Matches[3] + 1
           echo "version=$major.$minor.$patch" >> $env:GITHUB_OUTPUT
           echo "VERSION=$major.$minor.$patch" >> $env:GITHUB_ENV
+
+          # Both ends of the release-notes range are pinned from this one release so the
+          # notes describe exactly this merge. previous_tag is the last PUBLISHED release,
+          # so if a release ever fails to publish, its pull requests roll forward into the
+          # next set of notes instead of going unannounced.
+          echo "previous_tag=$($latestVersion.tag_name)" >> $env:GITHUB_OUTPUT
+          echo "previous_sha=$($latestVersion.target_commitish)" >> $env:GITHUB_OUTPUT
         } else {
           $buildNumber = ${{ github.run_number }}
           $newVersion = 50 + $buildNumber
@@ -57,6 +72,34 @@ jobs:
           echo "VERSION=1.0.$newVersion" >> $env:GITHUB_ENV
         }
         Write-Host "Next version will be: $env:VERSION"
+      shell: pwsh
+
+    # Releases are serialized by the concurrency queue above, so this should never fire.
+    # It is here because the failure it catches is silent: if a release ever published out
+    # of order, releases/latest would point at a commit that predates the previous release
+    # and every auto-updating MagitekLoader would quietly pull an older Magitek.dll, with a
+    # green check on the run. Compared through the API rather than git so the build keeps
+    # its shallow checkout.
+    - name: Verify this commit is ahead of the last release
+      env:
+        GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $prev = '${{ steps.get_version.outputs.previous_sha }}'
+        if (-not $prev) {
+          Write-Host "No previous release to compare against; nothing to verify."
+          exit 0
+        }
+
+        $compare = gh api "repos/$env:GITHUB_REPOSITORY/compare/$prev...$env:GITHUB_SHA" | ConvertFrom-Json
+        if ($LASTEXITCODE -ne 0 -or -not $compare) {
+          throw "Could not compare $prev...$env:GITHUB_SHA to verify release ordering."
+        }
+
+        if ($compare.status -ne 'ahead') {
+          throw "This commit is '$($compare.status)' relative to the last release ($prev), not 'ahead'. Publishing would move releases/latest onto code that does not contain the previous release. Refusing to build."
+        }
+
+        Write-Host "Commit is $($compare.ahead_by) commit(s) ahead of the last release."
       shell: pwsh
 
     - name: Read regional manifest
@@ -371,6 +414,14 @@ jobs:
         tag_name: v${{ needs.setup.outputs.version }}
         name: v${{ needs.setup.outputs.version }}
         body: ${{ env.RELEASE_BODY }}
+        # Both ends of the range are pinned deliberately. The release is created as a draft,
+        # so its tag does not exist yet, and target_commitish defaults to the DEFAULT BRANCH
+        # rather than this run's commit. Left unset, a build that was queued behind other
+        # merges generates its notes against whatever master has since become, so the release
+        # lists pull requests its Magitek.dll does not contain and the Discord post is wrong.
+        # Patching target_commitish at publish time does not fix it: the body is frozen here.
+        target_commitish: ${{ github.sha }}
+        previous_tag: ${{ needs.setup.outputs.previous_tag }}
         generate_release_notes: true
         draft: true
         token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
