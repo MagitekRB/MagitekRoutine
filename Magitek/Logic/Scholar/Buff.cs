@@ -110,13 +110,6 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Seraphism)
                 return false;
 
-            // Never land Seraphism into an armed fight-logic queue: the queue's enqueued Adloquium/
-            // Succor are base ids, and the stance masking them to instants mid-queue re-creates the
-            // 3s cast-confirm wedge on a mechanic already latched as handled — the trigger state
-            // for this cast (party hurt) is exactly the state that armed the queue.
-            if (SpellQueueLogic.SpellQueue.Any())
-                return false;
-
             if (Core.Me.Pet == null)
                 return false;
 
@@ -250,13 +243,6 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> EmergencyTactics()
         {
-            // Never convert a Recitation crit, and never fire into an armed fight-logic queue: a live
-            // run showed ET landing 0.8s after a queued Recitation>Succor armed, eating the crit the
-            // queue had just paid for. These outrank the already-armed short-circuit below, or ET's
-            // ~200ms application tail could greenlight the same theft.
-            if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
-                return false;
-
             // The master opt-out outranks the armed short-circuit: a manually applied Emergency
             // Tactics must not be auto-consumed by the conversion callers while the feature is off.
             if (!ScholarSettings.Instance.EmergencyTactics)

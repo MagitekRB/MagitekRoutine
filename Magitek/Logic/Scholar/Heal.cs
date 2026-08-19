@@ -177,18 +177,12 @@ namespace Magitek.Logic.Scholar
 
         /// <summary>
         /// True when the AUTOMATIC Emergency Tactics conversion could run right now — the same
-        /// gate set UsedEmergencyTactics enforces (Recitation/queue crit protection, the master
-        /// opt-out, ready-or-armed). Target selection consults this so it never picks an ally
-        /// that only the conversion could serve while the conversion itself would refuse.
+        /// gate set UsedEmergencyTactics enforces (the master opt-out, ready-or-armed). Target
+        /// selection consults this so it never picks an ally that only the conversion could
+        /// serve while the conversion itself would refuse.
         /// </summary>
         private static bool EmergencyTacticsConvertible()
         {
-            // Only an in-flight multi-step combo blocks this. Recitation does NOT: a Recitation'd
-            // Emergency Tactics heal is a guaranteed crit heal, which is a legitimate and strong
-            // play rather than something to protect against.
-            if (SpellQueueLogic.SpellQueue.Any())
-                return false;
-
             if (!ScholarSettings.Instance.EmergencyTactics)
                 return false;
 
@@ -197,14 +191,6 @@ namespace Magitek.Logic.Scholar
 
         private static async Task<bool> UsedEmergencyTactics(bool forced = false)
         {
-            // Runs BEFORE the armed short-circuit so an already-armed aura cannot bypass it. Only
-            // an in-flight combo blocks: those steps were queued expecting a shield, and converting
-            // it mid-sequence leaves the later steps with nothing to work on. Recitation alone is
-            // not a blocker - pairing it with Emergency Tactics is a guaranteed crit heal and a
-            // reasonable thing to want.
-            if (SpellQueueLogic.SpellQueue.Any())
-                return false;
-
             // Same master opt-out as Buff.EmergencyTactics, in the same position: this helper is
             // reachable from Accession/Manifestation barrier branches without any settings check
             // in between, and disabling the feature must disable every automatic ET. The explicit
