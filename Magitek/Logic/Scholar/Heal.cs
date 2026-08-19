@@ -397,7 +397,9 @@ namespace Magitek.Logic.Scholar
                     return;
                 // Recitation is instant, but the paired heal must also clear its animation lock —
                 // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse.
+                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
+                // if the wait times out the pulse ends between the two casts, and the damage
+                // rotation can spend a GCD before the heal lands, wasting the Recitation.
                 await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
             }
         }
@@ -617,7 +619,9 @@ namespace Magitek.Logic.Scholar
 
                 // Recitation is instant, but the paired heal must also clear its animation lock —
                 // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse.
+                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
+                // if the wait times out the pulse ends between the two casts, and the damage
+                // rotation can spend a GCD before the heal lands, wasting the Recitation.
                 await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Excogitation.Id, Core.Me));
             }
         }
@@ -706,7 +710,9 @@ namespace Magitek.Logic.Scholar
 
                 // Recitation is instant, but the paired heal must also clear its animation lock —
                 // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse.
+                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
+                // if the wait times out the pulse ends between the two casts, and the damage
+                // rotation can spend a GCD before the heal lands, wasting the Recitation.
                 await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Lustrate.Id, Core.Me));
             }
         }
@@ -745,7 +751,9 @@ namespace Magitek.Logic.Scholar
 
                 // Recitation is instant, but the paired heal must also clear its animation lock —
                 // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse.
+                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
+                // if the wait times out the pulse ends between the two casts, and the damage
+                // rotation can spend a GCD before the heal lands, wasting the Recitation.
                 await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Indomitability.Id, Core.Me));
             }
         }
