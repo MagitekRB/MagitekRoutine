@@ -6521,6 +6521,59 @@ namespace Magitek.Utilities
                         SharedTankBusters = null,
                         BigAoes = null
                     },
+                    new Enemy {
+                        Id = 14049,
+                        Name = "Pale Headsman",
+                        TankBusters = new List<uint> {
+                            43589, // Relentless Torment - the tank's duel mechanic. Follows Will
+                                   // Breaker (44856), which is the interruptible half. Four hits in
+                                   // 1.8s totalling 55.9% of a health bar.
+                        },
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14048,
+                        Name = "Ravenous Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14050,
+                        Name = "Pestilent Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14239,
+                        Name = "Hooded Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43579, // Head-splitting Roar - this one casts the sibling id, and it is
+                                   // the half that lands the damage: 25.3% on all four.
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
                 }
             },
             new Encounter {
