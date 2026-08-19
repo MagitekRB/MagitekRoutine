@@ -7675,12 +7675,9 @@ namespace Magitek.Utilities
                             47552, // Splattershed
                             48096, // Splattershed
                             46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
-                                   // across all eight at up to 62.2% of a health bar.
-                            46209, // Grotesquerie — inflicts Burning Grotesquerie on all players,
-                                   // which resolves as a marked AoE when it expires. The damage lands
-                                   // ~18s later under a different name (Dramatic Lysis, measured 73.6%
-                                   // on all eight) and has no cast line of its own, so this cast is the
-                                   // only thing that can be reacted to.
+                                   // across all eight at up to 62.2% of a health bar, and its damage
+                                   // lands 5.0s after the cast, so mitigation applied on the cast is
+                                   // still up when the hit arrives.
                         },
                         AoeLockOns = new List<uint> {
                             93,    // Stack marker -> Fourth-wall Fusion, which measured 317.9% of a
