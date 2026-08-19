@@ -244,33 +244,11 @@ namespace Magitek.Logic.Scholar
 
         #endregion
 
-        public static async Task<bool> PhysickDoom()
-        {
-            if (!ScholarSettings.Instance.Physick)
-                return false;
-
-            var doomed = FightLogic.DoomedHealTarget();
-
-            if (doomed == null)
-                return false;
-
-            // Health checks OFF, same as the routine-wide Doom response: the carrier is usually
-            // near full — exactly where the heal-interrupt threshold would cancel the cast — and
-            // this Doom only clears at FULL HP.
-            return await Spells.Physick.Heal(doomed, false);
-        }
 
         public static async Task<bool> Physick()
         {
             if (!ScholarSettings.Instance.Physick)
                 return false;
-
-            // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
-            // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
-            // This is the only way into PhysickDoom. It follows the collections, so it covers the
-            // party here and an alliance carrier once HealAlliance has switched them in.
-            if (FightLogic.DoomedHealTarget() != null)
-                return await PhysickDoom();
 
             if (ScholarSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
