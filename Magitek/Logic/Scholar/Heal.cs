@@ -440,11 +440,23 @@ namespace Magitek.Logic.Scholar
             //if (Casting.LastSpell == Spells.Succor)
             //    return false;
 
+            // How many need HEALING decides whether to cast; whether anyone still needs a SHIELD
+            // is a separate question. Folding the shield check into the count let a co-healer's
+            // barriers push the wounded total under the threshold and skip Succor altogether, even
+            // though its direct heal still lands on everyone. Same split as Accession below.
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
-                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                     !r.HasPrimaryShield()) >= AoeNeedHealing;
+                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent) >= AoeNeedHealing;
+            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
+                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
+                                                                      !r.HasPrimaryShield()) > 0;
 
             if (!needSuccor)
+                return false;
+
+            // Everyone who needs healing is already shielded: the barrier would be overwritten for
+            // nothing. EmergencyTacticsSuccor runs before this and converts the barrier to a pure
+            // heal, which is the path that covers this case.
+            if (!needShields)
                 return false;
 
             // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to

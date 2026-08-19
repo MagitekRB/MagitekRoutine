@@ -215,12 +215,17 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Succor)
                 return false;
 
+            // Mirrors the gate in Heal.Succor so this stays a truthful prediction of whether Succor
+            // would actually fire: health decides the threshold, shields only decide whether the
+            // barrier is worth anything.
             var aoeNeedHealing = Heal.AoeNeedHealing;
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
-                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                     !r.HasPrimaryShield()) >= aoeNeedHealing;
+                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent) >= aoeNeedHealing;
+            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
+                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
+                                                                      !r.HasPrimaryShield()) > 0;
 
-            return needSuccor;
+            return needSuccor && needShields;
         }
 
         public static async Task<bool> Swiftcast()
