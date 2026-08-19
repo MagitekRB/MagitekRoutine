@@ -47,12 +47,6 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceAdlo()
         {
-            // Deferred under Seraphism rather than substituted: the masked instants change the
-            // timing this toggle was tuned for, and the Recitation-crit interaction with
-            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
-            if (Core.Me.HasAura(Auras.Seraphism))
-                return false;
-
             if (!ScholarSettings.Instance.ForceAdlo)
                 return false;
 
@@ -117,12 +111,6 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceSuccor()
         {
-            // Deferred under Seraphism rather than substituted: the masked instants change the
-            // timing this toggle was tuned for, and the Recitation-crit interaction with
-            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
-            if (Core.Me.HasAura(Auras.Seraphism))
-                return false;
-
             if (!ScholarSettings.Instance.ForceSuccor)
                 return false;
 
@@ -134,12 +122,6 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceEmergencySuccor()
         {
-            // Deferred under Seraphism rather than substituted: the masked instants change the
-            // timing this toggle was tuned for, and the Recitation-crit interaction with
-            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
-            if (Core.Me.HasAura(Auras.Seraphism))
-                return false;
-
             if (!ScholarSettings.Instance.ForceEmergencySuccor)
                 return false;
 
@@ -160,12 +142,6 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> ForceDeployAdloWithRecitation()
         {
-            // Deferred under Seraphism rather than substituted: the masked instants change the
-            // timing this toggle was tuned for, and the Recitation-crit interaction with
-            // Manifestation is unverified. The toggle stays lit and fires when the stance drops.
-            if (Core.Me.HasAura(Auras.Seraphism))
-                return false;
-
             if (!ScholarSettings.Instance.ForceDeployAdloWithRecitation)
                 return false;
 
