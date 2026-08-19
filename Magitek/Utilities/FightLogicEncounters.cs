@@ -29,6 +29,83 @@ namespace Magitek.Utilities
 
             #endregion
 
+            #region A Realm Reborn: Trials
+
+            new Encounter {
+                ZoneId = 1067,
+                Name = "Trial: Thornmarch (Hard) - Good King Moggle Mog XII",
+                Expansion = FfxivExpansion.ARealmReborn,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 725,
+                        Name = "Good King Moggle Mog XII",
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            29205, // Twin Pom Meteor — tank stack marker, both tanks share it.
+                            29206, // Second cast id for the same mechanic.
+                        },
+                        Aoes = new List<uint> {
+                            29217, // Memento Moogle — the unavoidable phase-transition raidwide.
+                                   // Measured 38.2% of a health bar on all eight.
+                            29203, // Mog Stone IV — stack marker; measured 38.8% on seven, because
+                                   // the party is stacked and takes it together.
+                            29210, // Pom Holy — measured 21.1% across all eight.
+                            29192, // Mograin of Death — marker on every player. The King casts the
+                                   // same id the Mooglesguard use.
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 721,
+                        Name = "Woolywart Kupqu Kogi",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29191, // Mograin of Death — 2.7s variant.
+                            29192, // Mograin of Death — 5.7s variant. Both occur.
+                        },
+                        BigAoes = null
+                    },
+                    // Order matters. GetEnemyLogicAndEnemy takes the FIRST entry with a live actor
+                    // and only that entry's casts are examined, so when two catalogued moogles are up
+                    // together the later one is unreachable. Pukna Pako and Pukla Puki spawn as a
+                    // pair, so the tank buster goes first as the more urgent of the two.
+                    new Enemy {
+                        Id = 724,
+                        Name = "Pukna Pako the Tailturner",
+                        TankBusters = new List<uint> {
+                            29214, // Moogle Thrust
+                        },
+                        SharedTankBusters = null,
+                        Aoes = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 722,
+                        Name = "Pukla Puki the Pomburner",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29204, // Mog Stone IV — her cast id for the stack the King also throws.
+                            29192, // Mograin of Death
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 720,
+                        Name = "Furryfoot Kupli Kipp",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29211, // Pom Holy
+                        },
+                        BigAoes = null
+                    },
+                }
+            },
+
+            #endregion
+
             #region Heavensward: Alliance Raids
 
             new Encounter {
@@ -2788,7 +2865,13 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18851 //Immortal Anathema
+                            18851, //Immortal Anathema
+                            18285, // Dark Well — AoE marker on every player, immediately after Dark
+                                   // Pulse. Measured 12 casts hitting all four for up to 48% of a
+                                   // health bar each; it was the hardest hit in the fight and drew
+                                   // no response at all.
+                            18282, // Dark Pulse — stack marker; the party groups to split it, so
+                                   // everyone takes a share. Measured 8 hits across all four.
                         },
                         BigAoes = null
                     },
@@ -2800,7 +2883,10 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18204 //Ode to Lost Love
+                            18204, //Ode to Lost Love
+                            18210, // Ode to Far Winds — AoE marker on every player alongside ground
+                                   // circles. Damage not measured this run, so catalogued on the
+                                   // mechanic description rather than a magnitude.
                         },
                         BigAoes = null
                     },
@@ -2812,7 +2898,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            18277 //Culling Blade
+                            18277, //Culling Blade
+                            18267, // Otherworldly Heat — red marker on every player, each becoming a
+                            18268, // cross that explodes. Two cast ids (4.7s and 2.2s).
                         },
                         BigAoes = null
                     }
@@ -6448,7 +6536,10 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint> {
                             48920, // Rubbish Disposal
+                            48928, // Wrathful Wire — marked AoE on every party member, the same shape as
+                                   // Chort's Evil Emission below. Was missing entirely.
                             48929, // Gluttonous Wire
+                            48930, // Gluttonous Wire — second cast id (4.7s; 48929 is the 3.7s variant)
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
@@ -6474,6 +6565,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             48884, // Ripples of Gloom
                             48879, // Bodyweight Exorcism
+                            48885, // Evil Emission — second cast id (4.7s; 50417 is the 4.2s variant).
+                                   // Both occur in a single run, so listing only one left half the
+                                   // occurrences unanswered.
                             50417, // Evil Emission
                             48886, // Profane Pressure
                         },
@@ -7024,88 +7118,137 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 14778,
                         Name = "Shantotto the Demon",
-                        TankBusters = new List<uint> {
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
                             50213, // Vidohunir
+                            50214, // Vidohunir
                         },
                         Aoes = new List<uint> {
                             50215, // Flare Play
                             50210, // Final Exam
+                            50211, // Final Exam
+                            50193, // Superior Stone II
+                            50187, // Shockwave
+                            50204, // Thunder and Error
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
-                    },
-                }
-            },
-            new Encounter {
-                ZoneId = 1368,
-                Name = "Windurst: The Third Walk",
-                Expansion = FfxivExpansion.Dawntrail,
-                Enemies = new List<Enemy> {
-                    new Enemy {
-                        Id = 14778,
-                        Name = "Shantotto the Demon",
-                        TankBusters = new List<uint> {
-                            50213, // Vidohunir
-                        },
-                        Aoes = new List<uint> {
-                            50215, // Flare Play
-                            50210, // Final Exam
-                        },
-                        AoeLockOns = null,
-                        Knockbacks = null,
-                        SharedTankBusters = null,
                         BigAoes = null
                     },
                     new Enemy {
                         Id = 14529,
                         Name = "Alexander Resurrected",
-                        TankBusters = null,
+                        TankBusters = new List<uint> {
+                            50160, // Divine Bolt
+                        },
                         Aoes = new List<uint> {
                             50161, // Banishga IV
+                            50163, // Banishga IV
                             50157, // Mega Holy
+                            50158, // Mega Holy
+                        },
+                        BigAoes = new List<uint> {
                             50153, // Divine Judgment
                         },
-                        AoeLockOns = null,
+                        AoeLockOns = new List<uint> {
+                            215, // lock-on that precedes Banishga IV (target-independent raidwide tell)
+                        },
                         Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
+                        SharedTankBusters = null
                     },
-                }
-            },
-            new Encounter {
-                ZoneId = 1368,
-                Name = "Windurst: The Third Walk",
-                Expansion = FfxivExpansion.Dawntrail,
-                Enemies = new List<Enemy> {
                     new Enemy {
                         Id = 14779,
                         Name = "Promathia",
-                        TankBusters = new List<uint> {
-                            50337, // Comet
+                        // SharedTankBusters, not TankBusters: both busters are SELF-TARGETED 4.2s
+                        // casts, and the strict path matches enemy.TargetCharacter against our tanks —
+                        // null for a self-cast, silent return, and a non-null TankBusters list blocks
+                        // fall-through. A tank ate Comet for 229k with the ids "catalogued" this way.
+                        // The shared path's reachable-tanks fallback handles self-targeted casts.
+                        // 50338/50340/50341 are 0.2s helper damage twins with no reactable castbar.
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            50337, // Comet (self-targeted castbar)
+                            50339, // Meteor (self-targeted castbar)
                         },
                         Aoes = new List<uint> {
                             50317, // Empty Salvation
-                            50694, // Deadly Rebirth
                             50334, // Infernal Deliverance
+                            50335, // Infernal Deliverance
+                            50565, // Infernal Deliverance
+                            50343, // False Genesis (boss castbar; 50344 is the 0.2s helper damage twin)
                         },
-                        AoeLockOns = null,
-                        Knockbacks = null,
+                        BigAoes = new List<uint> {
+                            50694, // Deadly Rebirth
+                            50347, // Deadly Rebirth
+                        },
+                        AoeLockOns = new List<uint> {
+                            466, // per-player Meteor rain tell — the 50341 damage casts carry only a 0.2s
+                                 // bar (nothing to detect against), and the marker leads the hit by ~5s
+                        },
+                        Knockbacks = null
+                    },
+                    new Enemy {
+                        // Empty Seed was filed under Promathia, but the add casts it, so the entry could
+                        // never match. Id 0 + name, same as the other adds in this zone.
+                        Id = 0,
+                        Name = "Memory Receptacle",
+                        TankBusters = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        Aoes = null,
+                        BigAoes = null,
+                        Knockbacks = new List<uint> {
+                            50349, // Empty Seed
+                        },
+                    },
+                    new Enemy {
+                        Id = 0,
+                        Name = "Aw'aern",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            50485, // Impact Stream (cast id on the real boss — routine keys on this)
+                            50486, // Impact Stream (damage twin, untargetable helper)
+                            50501, // Auroral Wind (parent castbar)
+                            50502, // Auroral Wind (per-player 4.7s helper castbars; 30-46k raid spread hit 21 players in one observed wave)
+                        },
+                        BigAoes = null,
+                        Knockbacks = null,
                     },
                     new Enemy {
                         Id = 14729,
                         Name = "Shinryu Paradox",
-                        TankBusters = new List<uint> {
-                            49135, // Dark Nova
+                        // SharedTankBusters, not TankBusters: 49134/49135 are TWO COPIES'
+                        // self-targeted 4.7s castbars (the damage id is 49136, one instant hit per
+                        // alliance tank from separate helpers). A self-targeted cast nulls the strict
+                        // path's TargetCharacter match — three tanks ate 195k/167k/109k with the ids
+                        // listed under TankBusters.
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            49134, // Dark Nova (first copy's self-targeted castbar)
+                            49135, // Dark Nova (second copy's self-targeted castbar)
                         },
-                        Aoes = null,
+                        // Cast ids only, every copy of a kept family; never damage-only ids
+                        // (49115/49116/49136 have no castbars). Excluded on purpose: Cosmic Tail
+                        // (1 hit), Atomic Tail (avoidable kill-hit), Gyre Charge (0.2s bar, no lead),
+                        // Cataclysmic Vortex (marker-keyed by design, see below). The Starflare copies
+                        // 49126/49127 come from HP-44 clone actors and need the untargetable-caster
+                        // fallback scan to be seen at all.
+                        Aoes = new List<uint> {
+                            49105, // Cosmic Breath
+                            49106, // Cosmic Breath
+                            49107, // Cosmic Breath
+                            49111, // Cloak of Twilight
+                            49112, // Cloak of Twilight
+                            49113, // Twilight Nebula
+                            49114, // Twilight Nebula
+                            49124, // Starflare
+                            49125, // Starflare
+                            49126, // Starflare (clone-cast)
+                            49127, // Starflare (clone-cast)
+                        },
                         AoeLockOns = null,
                         Knockbacks = null,
-                        SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = null,
                     },
                     new Enemy {
                         Id = 14730,
@@ -7114,13 +7257,403 @@ namespace Magitek.Utilities
                             49177, // Dark Nova
                         },
                         Aoes = new List<uint> {
-                            49152, // Left Swordscross
+                            49179, // Empty Proclamation
                             49182, // Super Nova
+                            // Celestial Trail family 49139-49144/49147: only 49140 has a castbar
+                            // (7.7s, from HP-44 helper copies sharing the boss's NpcId); the rest are
+                            // echoes and damage ids — do not catalogue them. Needs the
+                            // untargetable-caster fallback scan to be seen.
+                            49140, // Celestial Trail (castbar)
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 0,
+                        Name = "Medusa Swarmsinger",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            50100,
+                            50103,
+                        },
+                        BigAoes = null,
+                        Knockbacks = null,
+                    },
+                    new Enemy {
+                        Id = 0,
+                        Name = "Nemean Lion",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            50092,
+                        },
+                        BigAoes = null,
+                        Knockbacks = null,
+                    },
+                }
+            },
+
+            new Encounter {
+                ZoneId = 1346,
+                Name = "The Occult Crescent: North Horn (field Critical Encounters)",
+                Expansion = FfxivExpansion.Dawntrail,
+                // Derived from a recorded run rather than a trigger database — cactbot's file for this zone
+                // is still an empty stub. Coverage is therefore partial: roughly half the critical
+                // engagements, and none of Forked Tower.
+                //
+                // Several bosses cast a mechanic TWICE at once, under two ids: one from the boss and one
+                // from an untargetable 44 HP helper that carries the actual damage. Combat.Enemies drops
+                // untargetable actors, so only the boss-side id can ever be seen — but which id belongs to
+                // which is not certain from a log alone. Both are listed. An id the routine never observes
+                // costs nothing; the wrong single choice kills the mechanic silently.
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 19295,
+                        Name = "Index",
+                        Aoes = new List<uint> {
+                            48418, // All-knowing Flames — unavoidable spread-and-eat (user ruling
+                                   // 2026-08-08); everyone takes a personal hit, so party mitigation
+                                   // earns its keep. Id captured live via Enemy Spell Casts.
+                        },
+                        Knockbacks = new List<uint> {
+                            48406, // Shockwave — a zero-damage punt that killed a player off the
+                                   // platform (confirmed 2026-08-11); 6 castbars / 39 hits that run,
+                                   // castbar and effect share the one id. Previously misfiled in Aoes.
+                                   // No longer inert: the id-keyed untargetable-caster scan sees the
+                                   // Index copies — live 2026-08-16, six simultaneous bars detected
+                                   // and answered with Arm's Length in-window.
+                            48447, // Shockwave — corpus-recorded variant, never seen live; kept per
+                                   // the both-ids policy.
+                        },
+                        BigAoes = new List<uint> {
+                            48394, // Omni-elements
+                            48395, // Omni-elements
+                            48401, // Elementary Chemistry
+                            48402, // Elementary Chemistry
+                            48415, // Flare
+                            48416, // Flare
+                            48417, // Flare
+                            48427, // Omni-elements
+                            48456, // Flare
+                        },
+                    },
+                    new Enemy {
+                        Id = 14505,
+                        Name = "Abductor",
+                        BigAoes = new List<uint> {
+                            47449, // Cyclonic Ring — hit up to 18 players for 117% max HP
+                            47448, // Skydive — hit all 32 players for ~70% max HP
+                            47436, // Hurricane — 55 players hit, every cast
+                            48120, // Hurricane (the id the damage actually lands under)
+                        },
+                        Knockbacks = new List<uint> {
+                            48250, // Buffet
+                            47440, // Buffet (the id the 2026-07-30 corpus recorded — 49 casts; both
+                                   // listed, same both-ids policy as Hurricane above)
+                        },
+                    },
+                    new Enemy {
+                        Id = 19482,
+                        Name = "Blue Head",
+                        TankBusters = new List<uint> {
+                            47745, // Archaeofury — the id cast live (Enemy Spell Casts capture
+                                   // 2026-08-08); the recorded-run ids below never fired
+                            47749, // Archaeofury
+                            47751, // Archaeofury
+                            47752, // Archaeofury
+                        },
+                        BigAoes = new List<uint> {
+                            47735, // Thunderfrost Tempest (observed live 2026-08-07 — variant missing from the recorded run)
+                            47736, // Thunderfrost Tempest (observed live 2026-08-07 — 4.7s cast confirmed via 261 lines)
+                            47737, // Thunderfrost Tempest
+                            47738, // Thunderfrost Tempest
+                            47739, // Thunderfrost Tempest
+                            47740, // Thunderfrost Tempest
+                            47741, // Thunderfrost Tempest
+                        },
+                        // Deliberately absent (player-confirmed 2026-08-11): Two Terrors
+                        // (50655/50658) and Buffet (49726) are dodged, and Hissing Reprise (49722)
+                        // is a forced one-direction knockback that anti-knockback does not help —
+                        // none of them are mitigation problems. This Buffet shares only a NAME with
+                        // the Abductor knockback (47440/48250); ids differ and so does the answer.
+                    },
+                    new Enemy {
+                        Id = 19481,
+                        Name = "Green Head",
+                        TankBusters = new List<uint> {
+                            47745, // Archaeofury — the id cast live (Enemy Spell Casts capture
+                                   // 2026-08-08); the recorded-run ids below never fired
+                            47749, // Archaeofury
+                            47751, // Archaeofury
+                            47752, // Archaeofury
+                        },
+                        BigAoes = new List<uint> {
+                            47735, // Thunderfrost Tempest (observed live 2026-08-07 — variant missing from the recorded run)
+                            47736, // Thunderfrost Tempest (observed live 2026-08-07 — 4.7s cast confirmed via 261 lines)
+                            47737, // Thunderfrost Tempest
+                            47738, // Thunderfrost Tempest
+                            47739, // Thunderfrost Tempest
+                            47740, // Thunderfrost Tempest
+                            47741, // Thunderfrost Tempest
+                            // Thunderfrost user-ruled 2026-08-16: raidwide, MUST be mitigated — the
+                            // wave-1 zero-damage cluster was spread positioning, not a safe-spot
+                            // mechanic; late waves hit ~95% of the raid. Stays in BigAoes.
+                        },
+                        Knockbacks = new List<uint> {
+                            47613, // Storm's Breath — Green Head 7.7s castbar. Damage is noise (~155);
+                                   // the PUNT kills: 3 environment deaths followed one observed wave.
+                                   // Raid-wide warning marker 585/0x249 leads by ~1.4s. User-ruled
+                                   // knockback-prevention candidate 2026-08-16.
+                            47614, // Storm's Breath — parent-director 6.9s mirror bar (both-ids policy)
+                        },
+                    },
+                    new Enemy {
+                        Id = 19431,
+                        Name = "Necrophobia",
+                        TankBusters = new List<uint> {
+                            47459, // Corpse Mangler
+                            47505, // Corpse Mangler
+                        },
+                        Aoes = new List<uint> {
+                            47452, // Hail of Hellflares (raidwide, ~5s self-targeted cast — id from ACT 2026-08-03)
+                            // Dark Current (47476-47478) and Severed Dark Current (47479) are deliberately
+                            // absent: the sweep is dodged, not mitigated (player-confirmed 2026-08-10).
+                            // Ancient Thunder III (47457/47458, twin simultaneous casters — often from the
+                            // untargetable Severing Heads) is also deliberately absent: avoidable
+                            // (player-confirmed 2026-08-11), it just punishes hard when missed (~75k).
+                        },
+                        BigAoes = new List<uint> {
+                            47514, // Fertile Ground
+                            48960, // Fertile Ground
+                        },
+                    },
+                    new Enemy {
+                        Id = 19838,
+                        Name = "Sword Dancer",
+                        BigAoes = new List<uint> {
+                            49617, // Sword Storm — the id cast live (captured twice 2026-08-07 via the
+                                   // Enemy Spell Casts history); the recorded-run ids below never fired
+                            49675, // Sword Storm
+                            49686, // Sword Storm
+                            49609, // Sword Dance — user-confirmed "needs mitigation"; id captured live
+                                   // twice 2026-08-07, kills on both occasions
+                            49610, // Sword Dance — castbar sibling, 2026-08-11 census (the mechanic
+                                   // casts under a five-id family; 49614 was the DOMINANT bar at 8
+                                   // of 11 casts and carried a 96.6k killing resolution)
+                            49612, // Sword Dance — zero-damage marker resolution
+                            49613, // Sword Dance — resolution sibling (20k hits)
+                            49614, // Sword Dance — dominant castbar + heavy resolution
+                        },
+                    },
+                    new Enemy {
+                        Id = 0, // matched by name (OC pattern); id pending an AddCombatant capture
+                        Name = "Greater Fan",
+                        Aoes = new List<uint> {
+                            50223, // Aero III — user-confirmed needs AoE mitigation 2026-08-08; id
+                                   // double-sourced (live Enemy Spell Casts capture + 28 corpus casts,
+                                   // 5.7s castbar)
+                        },
+                    },
+                    new Enemy {
+                        Id = 0, // matched by name (OC pattern); id pending an AddCombatant capture
+                        Name = "Arch Kelpie",
+                        Aoes = new List<uint> {
+                            47386, // Water IV — user-confirmed needs AoE mitigation 2026-08-08; id
+                                   // double-sourced (live Enemy Spell Casts capture + 29 corpus casts,
+                                   // 5.2s castbar)
+                        },
+                    },
+                    new Enemy {
+                        Id = 14512, // BNpcName row (XIVAPI) — same id space as Abductor 14505, which
+                                    // was observed detecting live 2026-08-07
+                        Name = "Phantom Necromancer",
+                        BigAoes = new List<uint> {
+                            47182, // Dark Flare — the id cast LIVE (Enemy Spell Casts capture
+                                   // 2026-08-08, during three deaths in 90s); corpus id below never
+                                   // fired, both listed per the both-ids policy
+                            47183, // Dark Flare (user-confirmed raidwide 2026-08-07; 53 observed
+                                   // casts in the 2026-07-30 corpus — Forked Tower)
+                        },
+                    },
+                    new Enemy {
+                        Id = 14523, // BNpcName row (XIVAPI) — same id space as Abductor 14505, which
+                                    // was observed detecting live 2026-08-07
+                        Name = "Phantom Hydra",
+                        Aoes = new List<uint> {
+                            47210, // Discordance (user-confirmed AoE 2026-08-07; 53 observed casts
+                                   // in the 2026-07-30 corpus — Forked Tower)
+                        },
+                    },
+                    new Enemy {
+                        Id = 0, // matched by name (OC pattern); id pending an AddCombatant capture
+                        Name = "Dancing Sword",
+                        Aoes = new List<uint> {
+                            49616, // Rush (1,016 observed casts, hit up to 14 players — ACT 2026-08-07)
+                        },
+                    },
+                    new Enemy {
+                        Id = 0, // matched by name (OC pattern)
+                        Name = "Tiny Mage",
+                        Aoes = new List<uint> {
+                            48329, // Tiny Thunder III (user-confirmed raidwide; id from ACT 261 memory
+                                   // lines matched to all three castbars 2026-08-07 — network lines were
+                                   // down for the patch's opcode outage)
+                        },
+                    },
+                    new Enemy {
+                        Id = 14507,
+                        Name = "Abductor's Plume",
+                        Aoes = new List<uint> {
+                            47443, // Splinter
+                        },
+                    },
+                    new Enemy {
+                        Id = 14517,
+                        Name = "Conjured Calofisteri",
+                        Aoes = new List<uint> {
+                            47075, // Hair Shears
+                            47076, // Hair Shears
+                            47077, // Hair Shears
+                        },
+                        BigAoes = new List<uint> {
+                            47058, // Dual Cut
+                            47059, // Dual Cut
+                            50691, // Dual Cut — up to 132% max HP
+                            50692, // Dual Cut — up to 109% max HP
+                            47079, // Aura Burst — 58 players hit, the largest raidwide in the zone
+                            47080, // Aura Burst (the id the damage actually lands under)
+                        },
+                    },
+                    new Enemy {
+                        Id = 14518,
+                        Name = "Entanglement",
+                        Knockbacks = new List<uint> {
+                            47072, // Malicious Weave — a draw-in, but the same immunities answer it
+                        },
+                    },
+                    new Enemy {
+                        Id = 14714,
+                        Name = "Pallmagia",
+                        Aoes = new List<uint> {
+                            // 50492/49779 Plaincracker removed — not an AoE to mitigate, dodge it
+                            // (user-confirmed in the field 2026-08-08).
+                        },
+                        BigAoes = new List<uint> {
+                            49798, // Great Whirlwind — the one unavoidable raidwide here, every player, every cast
+                            50450, // Great Whirlwind
+                        },
+                    },
+                    new Enemy {
+                        Id = 14738,
+                        Name = "Sensual Sandy",
+                        Aoes = new List<uint> {
+                            // 48945 Wild Wild Breath and 48946 Wild Wild Wild Wild Wild Breath removed —
+                            // both are the same dodgeable breath (the longer one adds dodgeable poison
+                            // puddles), not raidwides (user-confirmed in the field 2026-08-07); don't
+                            // spend mitigation on either.
+                        },
+                        BigAoes = new List<uint> {
+                            48947, // Extensible Tendrils
+                        },
+                    },
+                    new Enemy {
+                        Id = 14785,
+                        Name = "Cresceregina",
+                        // 49494/49495 Regal Fulguration REMOVED 2026-08-07 (user ruling): it is a
+                        // DIRECTIONAL attack, not a raidwide — dodge it, don't mitigate it.
+                        // Null, not an empty list: the engine reads any non-null list as "this boss
+                        // has answerable logic" and suppresses normal healing fallbacks for it.
+                        Aoes = null,
+                    },
+                    new Enemy {
+                        Id = 14764,
+                        Name = "Patient Kuribu",
+                        Aoes = new List<uint> {
+                            49908, // Aero III (20 corpus casts, 3.7s castbar)
+                            50072, // Aero III (29 corpus casts, 4.2s castbar, hit up to 16 players —
+                                   // same user ruling as the Greater Fan's variant)
+                            50118, // Shortsword and Sorcery
+                        },
+                    },
+                    new Enemy {
+                        Id = 14767,
+                        Name = "Regnant Chimera",
+                        // The Ram's/Dragon's Voice family (48633/48634 boss bars, 48635/48636 orb
+                        // carriers) is deliberately ABSENT: user-ruled 2026-08-16 — up to 8 scattered
+                        // orbs cast crossing point-source/donut AoEs with one safe spot; overlap
+                        // victims take 2-3 simultaneous hits exceeding max HP. A live run watched the
+                        // catalogued ids detect, burn Sacred Soil, and save nobody. Dodge, never
+                        // mitigate; ledger holds the 'rejected' entry.
+                        Aoes = null,
+                    },
+                    new Enemy {
+                        Id = 14736,
+                        Name = "Demi-Medusa",
+                        Aoes = new List<uint> {
+                            48254, // Lamian Lesion
+                        },
+                    },
+                    // Critical engagement bosses from a second recorded run. Each ability below was
+                    // measured rather than assumed: the damage was matched to its cast by timestamp, and
+                    // only things that struck a real share of the raid for meaningful damage are listed.
+                    // Victim counts are medians across repeated casts.
+                    new Enemy {
+                        Id = 14801,
+                        Name = "Metamorph",
+                        Aoes = new List<uint> {
+                            48360, // Shapeshifting Supercell — 12 players, 23% max HP
+                        },
+                        BigAoes = new List<uint> {
+                            48341, // Tongue of Flame — 21 players for 52% max HP
+                        },
+                    },
+                    new Enemy {
+                        Id = 14791,
+                        Name = "Atlas Carbuncle",
+                        Aoes = new List<uint> {
+                            48284, // Ruby Glow — 13 players, 21%
+                            48291, // Spinebreaking Stampede — 13 players
+                            48294, // Claw to Tail — 12 players, 39%
+                            48298, // Sonic Howl — 13 players, 30%
+                        },
+                    },
+                    new Enemy {
+                        Id = 14790,
+                        Name = "Algol",
+                        Aoes = new List<uint> {
+                            48100, // Cursed Screech — 8 players, 14%
+                            48111, // Rotten Tomato (median 3 / max 13 players hit)
+                            48112, // Rotten Onion (median 2 / max 12 players hit)
+                            48971, // Cursed Screech — 7 players, 20%
+                            50426, // Shrill Peal — 8 players, 26%
+                            50427, // Shrill Peal — 6 players, 26%
+                        },
+                    },
+                    new Enemy {
+                        Id = 14508,
+                        Name = "Elm Gigas",
+                        Aoes = new List<uint> {
+                            47541, // Spinning Sweep — 5 players, 35%
+                            48041, // Ancient Aero III — 19 players, 20%, seen 18 times
+                        },
+                    },
+                    new Enemy {
+                        Id = 14520,
+                        Name = "Arbatel",
+                        Aoes = new List<uint> {
+                            47296, // Knowledge Level Correction — 32 players
+                            47327, // Marginalia — 15 players, seen 21 times
+                        },
+                    },
+                    new Enemy {
+                        Id = 14509,
+                        Name = "Alabaster Blade",
+                        Aoes = new List<uint> {
+                            47167, // Left-Right Combination — 17 players, 20%
+                        },
                     },
                 }
             },
@@ -7235,8 +7768,20 @@ namespace Magitek.Utilities
                             46228, // The Fixer
                             47552, // Splattershed
                             48096, // Splattershed
+                            46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
+                                   // across all eight at up to 62.2% of a health bar, and its damage
+                                   // lands 5.0s after the cast, so mitigation applied on the cast is
+                                   // still up when the hit arrives.
                         },
-                        AoeLockOns = null,
+                        AoeLockOns = new List<uint> {
+                            93,    // Stack marker -> Fourth-wall Fusion, which measured 317.9% of a
+                                   // health bar across six players. Catalogued by marker because the
+                                   // mechanic has NO cast line at all; its only antecedent is Ravenous
+                                   // Reach 11-12s earlier, which is a positional cleave and would
+                                   // mis-time. Marker 93 is the stack marker: it precedes Fourth-wall
+                                   // Fusion here, and lands in the same millisecond as Mog Stone IV in
+                                   // Thornmarch, single-target both times.
+                        },
                         Knockbacks = null,
                         SharedTankBusters = null,
                         BigAoes = null

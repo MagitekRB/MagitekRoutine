@@ -771,6 +771,14 @@ namespace Magitek.Models.OccultCrescent
         [DefaultValue(true)]
         public bool UseDrainTouch { get; set; }
 
+        // Opt-in danger: lead with Drain Touch and attack INSIDE its 6s window for the empowered
+        // potencies (400/520) and riders — accepting the self-Doom every empowered attack applies
+        // (heal to full within 10s or die; the routine cannot promise that heal). Off = the safe
+        // attack-first ordering that never Dooms.
+        [Setting]
+        [DefaultValue(false)]
+        public bool NecromancerDrainTouchPriming { get; set; }
+
         [Setting]
         [DefaultValue(true)]
         public bool UseDeepFreeze { get; set; }

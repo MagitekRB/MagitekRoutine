@@ -19,6 +19,16 @@ namespace Magitek.Logic.Scholar
         // Prevents double summoning of fairy
         public static DateTime FairySummonCooldown = DateTime.Now;
 
+        // Aetherpact is a toggle, so a second cast inside the latency window after one lands can
+        // re-establish the pact that was just released. Debounced on time rather than on
+        // Casting.LastSpell: with damage disabled, or no attack target, the Scholar can go a long
+        // while casting nothing else, and LastSpell would then sit on Aetherpact indefinitely and
+        // latch both paths off — the break permanently, which is the failure this file is fixing.
+        private static DateTime AetherpactToggle = DateTime.MinValue;
+
+        private static bool AetherpactToggledRecently =>
+            (DateTime.Now - AetherpactToggle).TotalMilliseconds < 1500;
+
         public static async Task<bool> SummonPet()
         {
             if (Core.Me.Pet != null)
@@ -392,7 +402,7 @@ namespace Magitek.Logic.Scholar
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Casting.LastSpell == Spells.Aetherpact)
+            if (AetherpactToggledRecently)
                 return false;
 
             if (!ActionManager.HasSpell(Spells.Aetherpact.Id))
@@ -416,7 +426,11 @@ namespace Magitek.Logic.Scholar
             //if (Casting.LastSpell != Spells.Biolysis || Casting.LastSpell != Spells.ArtOfWar || Casting.LastSpell != Spells.Adloquium || Casting.LastSpell != Spells.Succor)
             //    if (await Spells.Ruin2.Cast(Core.Me.CurrentTarget))
             //        return true;
-            return await Spells.Aetherpact.Cast(aetherpactTarget);
+            if (!await Spells.Aetherpact.Cast(aetherpactTarget))
+                return false;
+
+            AetherpactToggle = DateTime.Now;
+            return true;
 
             bool CanAetherpact(GameObject unit)
             {
@@ -445,6 +459,12 @@ namespace Magitek.Logic.Scholar
             if (!ActionManager.HasSpell(Spells.Aetherpact.Id))
                 return false;
 
+            // Aetherpact is a toggle: cast at a unit that already has Fey Union it ends the channel,
+            // cast again it starts a new one. The aura does not clear the instant the break lands,
+            // so without a debounce the next pulse can re-establish the pact it just released.
+            if (AetherpactToggledRecently)
+                return false;
+
             if (!Group.CastableAlliesWithin30.Any(r => r.HasAura(Auras.FeyUnion) || r.HasAura(Auras.FeyUnion2)))
                 return false;
 
@@ -453,17 +473,53 @@ namespace Magitek.Logic.Scholar
             if (aetherpactTarget == null)
                 return false;
 
-            return await Spells.Aetherpact.Cast(aetherpactTarget);
+            if (!await Spells.Aetherpact.Cast(aetherpactTarget))
+                return false;
+
+            AetherpactToggle = DateTime.Now;
+            return true;
 
             bool CanDeAetherpact(GameObject unit)
             {
+                // Releasing at all is opt-out: some Scholars run the pact as a sustained regen on the
+                // tank and would rather it never drop, which the HP threshold alone cannot express -
+                // there is no value of it that means "never".
+                if (!ScholarSettings.Instance.BreakAetherpact)
+                    return false;
+
+                // The pact is only ever placed on a tank (see CanAetherpact), so the unit whose health
+                // and surroundings decide whether to release it has to be that tank. Excluding
+                // ourselves matters because the two Fey Union ids may not both sit on the recipient:
+                // if one of them lands on the Scholar, we would otherwise weigh OUR health and OUR
+                // nearby enemies and release a pact on a tank who is still hurt.
+                if (unit == null || unit == Core.Me || !unit.IsTank())
+                    return false;
+
                 if (unit.EnemiesNearby(6).Count() > ScholarSettings.Instance.AetherpactEnemies)
                     return false;
 
-                if (unit.CurrentHealthPercent >= ScholarSettings.Instance.BreakAetherpactHp)
+                // Break once the tank is topped up, which is what the option says on the tin
+                // ("Break Aetherpact If Tank Is Full HP Only With N enemies") and what the 100%
+                // default describes. The comparison was the other way round, so the pact was held
+                // exactly while the tank no longer needed it and released only while they were
+                // still hurt — the opposite of the setting, and a straight waste of Fairy Gauge.
+                if (unit.CurrentHealthPercent < ScholarSettings.Instance.BreakAetherpactHp)
                     return false;
 
-                if (!unit.HasAura(Auras.FeyUnion) || !unit.HasAura(Auras.FeyUnion2))
+                // Both thresholds accept 1-100 independently, so a release threshold at or below the
+                // engage threshold would release a tank who immediately qualifies to be re-pacted, and
+                // the pair would alternate until the tank climbed past the engage value - burning
+                // gauge and an oGCD slot each cycle. Requiring the tank to be above the ENGAGE
+                // threshold too makes the two settings coherent whatever they are set to, without
+                // rejecting or silently rewriting the user's numbers.
+                if (unit.CurrentHealthPercent < ScholarSettings.Instance.AetherpactHealthPercent)
+                    return false;
+
+                // Fey Union applies as one of two ids (1222 / 1223), never both at once, so
+                // requiring both here could never be satisfied and this method could never return
+                // a target. Reject only a unit carrying neither. The three other Fey Union checks
+                // in this file already test them as alternatives.
+                if (!unit.HasAura(Auras.FeyUnion) && !unit.HasAura(Auras.FeyUnion2))
                     return false;
 
                 return true;

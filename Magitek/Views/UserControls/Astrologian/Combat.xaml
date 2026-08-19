@@ -40,7 +40,6 @@
                     <controls:Numeric Margin="2,0,2,0" Increment="1" MaxValue="60" MinValue="1" Value="{Binding AstrologianSettings.DoDamageIfTimeLeftLessThan, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
                 </StackPanel>
-                <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Aggro_Ast_Mode}" IsChecked="{Binding AstrologianSettings.AggroAst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an}"/>
             </StackPanel>
         </controls:SettingsBlock>
 

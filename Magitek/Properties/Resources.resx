@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -577,7 +577,7 @@
     <value>Seconds Left in Combat.</value>
   </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
-    <value>Card Priority (First to Last)</value>
+    <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
   </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>MNK:</value>
@@ -645,11 +645,8 @@
   <data name="Astrologian_Text_VPR" xml:space="preserve">
     <value>VPR:</value>
   </data>
-  <data name="Astrologian_Content_Use_Astral_Draw" xml:space="preserve">
-    <value>Use Astral Draw</value>
-  </data>
-  <data name="Astrologian_Content_Use_Umbral_Draw" xml:space="preserve">
-    <value>Use Umbral Draw</value>
+  <data name="Astrologian_Content_Draw_Cards" xml:space="preserve">
+    <value>Draw cards automatically (Astral and Umbral alternate)</value>
   </data>
   <data name="Astrologian_Content_Lord_Of_Crowns_at_least" xml:space="preserve">
     <value>Lord Of Crowns at least</value>
@@ -666,9 +663,6 @@
   <data name="Astrologian_Content_Interrupt_Damage_to_Heal" xml:space="preserve">
     <value>Interrupt Damage to Heal</value>
   </data>
-  <data name="Astrologian_Content_Aggro_Ast_Mode" xml:space="preserve">
-    <value>Aggro Ast Mode</value>
-  </data>
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
     <value>Use Time Till Death For Damage Over Time Spells</value>
   </data>
@@ -677,9 +671,6 @@
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>Gravity When There Are</value>
-  </data>
-  <data name="Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an" xml:space="preserve">
-    <value>Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful).</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
     <value>Ally Health Percent</value>
@@ -2159,6 +2150,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Drain_Touch" xml:space="preserve">
     <value>Use Drain Touch (heals us, and powers up the other attacks)</value>
   </data>
+  <data name="OccultCrescent_Content_Drain_Touch_Priming" xml:space="preserve">
+    <value>Attack inside Drain Touch (stronger casts, but every attack Dooms us)</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Deep_Freeze" xml:space="preserve">
     <value>Use Deep Freeze (ice)</value>
   </data>
@@ -3155,6 +3149,15 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O" xml:space="preserve">
     <value>Break Aetherpact If Tank Is Full HP Only With</value>
   </data>
+  <data name="Scholar_Content_Break_Aetherpact" xml:space="preserve">
+    <value>Break Aetherpact</value>
+  </data>
+  <data name="Scholar_Text_Once_The_Tank_Reaches" xml:space="preserve">
+    <value>Once The Tank Reaches</value>
+  </data>
+  <data name="Scholar_Text_And_There_Are" xml:space="preserve">
+    <value>And There Are</value>
+  </data>
   <data name="Scholar_Text_or_less_Enemies" xml:space="preserve">
     <value>or less Enemies</value>
   </data>
@@ -4007,6 +4010,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
     <value>Dont Use DoT if Enemy Dying Within 10 Seconds</value>
   </data>
+  <data name="Astrologian_Text_Detonate_Early_When_Pull_Ends_Within" xml:space="preserve">
+    <value>Detonate Earthly Star Early When The Pull Ends Within</value>
+  </data>
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
     <value>Dispel Only If Nearby Players Health Is Above</value>
   </data>
@@ -4018,9 +4024,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
     <value>Prevent Usage of Swiftcast Alone</value>
-  </data>
-  <data name="Astrologian_Text_Party_Members_Near_Target_That_Are_Below" xml:space="preserve">
-    <value>Party Members Near Target That Are Below</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>Party Members Near Earthly Star Are Below</value>
