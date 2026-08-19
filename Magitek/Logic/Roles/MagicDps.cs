@@ -41,7 +41,11 @@ namespace Magitek.Logic.Roles
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak3Spell)
                 && gcd.Cooldown.TotalMilliseconds < 500)
             {
-                ActionManager.DoActionLocation(limitBreak3Spell.Id, Core.Me.CurrentTarget.Location);
+                // Only clear the toggle when the action actually fired. Clearing it on a failed
+                // attempt silently discards a limit break the user explicitly asked for.
+                if (!ActionManager.DoActionLocation(limitBreak3Spell.Id, Core.Me.CurrentTarget.Location))
+                    return false;
+
                 BaseSettings.Instance.ForceLimitBreak = false;
                 TogglesManager.ResetToggles();
                 return true;
@@ -53,8 +57,9 @@ namespace Magitek.Logic.Roles
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak2Spell)
                 && gcd.Cooldown.TotalMilliseconds < 500)
             {
-                if (!ActionManager.DoActionLocation(limitBreak2Spell.Id, Core.Me.CurrentTarget.Location))
-                    ActionManager.DoActionLocation(limitBreak1Spell.Id, Core.Me.CurrentTarget.Location); ;
+                if (!ActionManager.DoActionLocation(limitBreak2Spell.Id, Core.Me.CurrentTarget.Location)
+                    && !ActionManager.DoActionLocation(limitBreak1Spell.Id, Core.Me.CurrentTarget.Location))
+                    return false;
 
                 BaseSettings.Instance.ForceLimitBreak = false;
                 TogglesManager.ResetToggles();

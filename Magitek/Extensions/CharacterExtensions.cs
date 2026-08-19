@@ -25,17 +25,14 @@ namespace Magitek.Extensions
 
         public static bool HasAnyCardAura(this Character unit)
         {
+            // The six arcana are the only card auras an ally can carry; Lord and Lady of
+            // Crowns apply no aura to party members.
             return unit.HasAnyAura(new uint[] { Auras.TheBalance,
-                                                        Auras.TheBalance,
                                                         Auras.TheBole,
                                                         Auras.TheArrow,
                                                         Auras.TheSpear,
                                                         Auras.TheEwer,
-                                                        Auras.TheSpire,
-                                                        Auras.LordofCrowns,
-                                                        Auras.LordofCrowns2,
-                                                        Auras.LadyofCrowns,
-                                                        Auras.LadyofCrowns2
+                                                        Auras.TheSpire
             });
         }
 
@@ -75,7 +72,7 @@ namespace Magitek.Extensions
                 Auras.HeliosConjunction,
                 Auras.Kerakeia,
                 Auras.PhysisII,
-                Auras.Seraphism,
+                Auras.SeraphismReceiver,
                 Auras.CrestOfTimeReturned,
                 Auras.Opposition,
                 Auras.WheelOfFortune,

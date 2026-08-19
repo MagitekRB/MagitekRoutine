@@ -160,7 +160,12 @@ namespace Magitek.Logic.Dancer
                 switch (ActionResourceManager.Dancer.CurrentStep)
                 {
                     case ActionResourceManager.Dancer.DanceStep.Finish:
-                        if (DancerSettings.Instance.OnlyFinishStepInRange && Core.Me.CurrentTarget.Distance(Core.Me) > 15 + Core.Me.CurrentTarget.CombatReach)
+                        // The finish is cast on ourselves, so it can still be reached with no target:
+                        // gambits and openers call in here ahead of the rotation's own target guard.
+                        // Treat "no target" as out of range instead of throwing into the catch below.
+                        if (DancerSettings.Instance.OnlyFinishStepInRange
+                            && (Core.Me.CurrentTarget == null
+                                || Core.Me.CurrentTarget.Distance(Core.Me) > 15 + Core.Me.CurrentTarget.CombatReach))
                             return false;
 
                         if (Core.Me.HasAura(Auras.StandardStep))

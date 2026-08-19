@@ -61,15 +61,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aggro Ast Mode.
-        /// </summary>
-        public static string Astrologian_Content_Aggro_Ast_Mode {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Aggro_Ast_Mode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Always With Enhanced Benefic.
         /// </summary>
         public static string Astrologian_Content_Always_With_Enhanced_Benefic {
@@ -249,6 +240,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Draw cards automatically (Astral and Umbral alternate).
+        /// </summary>
+        public static string Astrologian_Content_Draw_Cards {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Draw_Cards", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Earthly Star.
         /// </summary>
@@ -601,15 +601,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Astral Draw.
-        /// </summary>
-        public static string Astrologian_Content_Use_Astral_Draw {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Use_Astral_Draw", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use Divination at least.
         /// </summary>
         public static string Astrologian_Content_Use_Divination_at_least {
@@ -651,15 +642,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Use_Time_Till_Death_For_Damage {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Use_Time_Till_Death_For_Damage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Umbral Draw.
-        /// </summary>
-        public static string Astrologian_Content_Use_Umbral_Draw {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Use_Umbral_Draw", resourceCulture);
             }
         }
         
@@ -771,6 +753,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Detonate Earthly Star Early When The Pull Ends Within.
+        /// </summary>
+        public static string Astrologian_Text_Detonate_Early_When_Pull_Ends_Within {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Detonate_Early_When_Pull_Ends_Within", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to DNC:.
         /// </summary>
@@ -1006,15 +997,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Party Members Near Target That Are Below.
-        /// </summary>
-        public static string Astrologian_Text_Party_Members_Near_Target_That_Are_Below {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Party_Members_Near_Target_That_Are_Below", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PCT:.
         /// </summary>
         public static string Astrologian_Text_PCT {
@@ -1173,15 +1155,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Text_WHM {
             get {
                 return ResourceManager.GetString("Astrologian_Text_WHM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Causes Lightspeed, Earthstar, and Macrocosmos to be used on cooldown in most cases for additional DPS (generally super wasteful)..
-        /// </summary>
-        public static string Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_Causes_Lightspeed_Earthstar_an", resourceCulture);
             }
         }
         
@@ -8293,6 +8266,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Attack inside Drain Touch (stronger casts, but every attack Dooms us).
+        /// </summary>
+        public static string OccultCrescent_Content_Drain_Touch_Priming {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Drain_Touch_Priming", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Prefer Inquiring Mind (Freelancer Lv15, all buffs in one cast).
         /// </summary>
         public static string OccultCrescent_Content_Prefer_Inquiring_Mind {
@@ -8318,7 +8300,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_In_Combat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On Allies.
         /// </summary>
@@ -8462,6 +8444,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Blessing_when_party_bel", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Chaos Drive (lightning).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Chaos_Drive {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Chaos_Drive", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Use Cleansing when party above.
@@ -8516,6 +8507,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Deadly_Blow_High_damage", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Deep Freeze (ice).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Deep_Freeze {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Deep_Freeze", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Use Defend.
@@ -8532,6 +8532,24 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Dokumori_when_enemy_bel {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Dokumori_when_enemy_bel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Doomsday.
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Doomsday {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Doomsday", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Drain Touch (heals us, and powers up the other attacks).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Drain_Touch {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Drain_Touch", resourceCulture);
             }
         }
         
@@ -8577,6 +8595,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Hasty_Mirage_Increases_ {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Hasty_Mirage_Increases_", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Hell Wind (wind).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Hell_Wind {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Hell_Wind", resourceCulture);
             }
         }
         
@@ -8732,7 +8759,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Misty_Mirage_Increases_", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Aero line (wind, upgrades as you learn it).
         /// </summary>
@@ -8748,6 +8775,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Occult_Aqua_Breath {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Aqua_Breath", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Blink (nullifies one magic attack).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Blink {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Blink", resourceCulture);
             }
         }
 
@@ -8820,15 +8856,6 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Content_Use_Occult_Ether_below {
             get {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Ether_below", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Occult Falcon (Area attack).
-        /// </summary>
-        public static string OccultCrescent_Content_Use_Occult_Falcon_Area_atta {
-            get {
-                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Falcon_Area_atta", resourceCulture);
             }
         }
         
@@ -9308,6 +9335,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Text_300k_gilcast", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Attacks cost 10% of max HP - only use them above.
+        /// </summary>
+        public static string OccultCrescent_Text_Attacks_cost_HP_only_use_above {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_Attacks_cost_HP_only_use_above", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Battle Bell prioritizes tanks first (who take most damage), then self, then other party members. Only cast in combat..
@@ -9731,7 +9767,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Text_When_near_Knowledge_Crystals_a", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to when target targeting us and HP below.
         /// </summary>
@@ -13495,6 +13531,33 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break Aetherpact.
+        /// </summary>
+        public static string Scholar_Content_Break_Aetherpact {
+            get {
+                return ResourceManager.GetString("Scholar_Content_Break_Aetherpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once The Tank Reaches.
+        /// </summary>
+        public static string Scholar_Text_Once_The_Tank_Reaches {
+            get {
+                return ResourceManager.GetString("Scholar_Text_Once_The_Tank_Reaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to And There Are.
+        /// </summary>
+        public static string Scholar_Text_And_There_Are {
+            get {
+                return ResourceManager.GetString("Scholar_Text_And_There_Are", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or less Enemies.
         /// </summary>
         public static string Scholar_Text_or_less_Enemies {
@@ -14524,6 +14587,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Phoenix Downs to revive fallen allies (duties only).
+        /// </summary>
+        public static string Views_Content_Use_Phoenix_Down {
+            get {
+                return ResourceManager.GetString("Views_Content_Use_Phoenix_Down", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use PvP Aggro Count Overlay.
         /// </summary>
         public static string Views_Content_Use_Pvp_Aggro_Count_Overlay {
@@ -14718,6 +14790,24 @@ namespace Magitek.Properties {
         public static string Views_Text_Overlay_Settings {
             get {
                 return ResourceManager.GetString("Views_Text_Overlay_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seconds to wait after a death before using one:.
+        /// </summary>
+        public static string Views_Text_Phoenix_Down_Delay {
+            get {
+                return ResourceManager.GetString("Views_Text_Phoenix_Down_Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep at least this many in reserve:.
+        /// </summary>
+        public static string Views_Text_Phoenix_Down_Reserve {
+            get {
+                return ResourceManager.GetString("Views_Text_Phoenix_Down_Reserve", resourceCulture);
             }
         }
         

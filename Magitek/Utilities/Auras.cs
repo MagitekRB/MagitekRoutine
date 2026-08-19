@@ -438,7 +438,12 @@ namespace Magitek.Utilities
             DragonsFlight = 3845,
 
             //SCH
-            Seraphism = 3885,
+            // Two statuses share the name: 3884 is the caster's 20s STANCE (the Manifestation/
+            // Accession action-mask window, strictly self); 3885 is a 5s satellite regen the stance
+            // re-sprays on self AND nearby allies every ~3s — it appears ~3-4s late, outlives the
+            // stance by up to 5s, and lands from OTHER Scholars. Stance gates key on 3884.
+            Seraphism = 3884,
+            SeraphismReceiver = 3885,
 
             //NIN
             ShadowWalker = 3848,
@@ -477,7 +482,8 @@ namespace Magitek.Utilities
             Invincibility6 = 656,
             Invincibility7 = 529,
             Invincibility8 = 325,
-            Invincibility9 = 394;
+            Invincibility9 = 394,
+            Invincibility10 = 4410;
 
         public const int
 
@@ -669,7 +675,8 @@ namespace Magitek.Utilities
             Invincibility6,
             Invincibility7,
             Invincibility8,
-            Invincibility9
+            Invincibility9,
+            Invincibility10
         };
     }
 }

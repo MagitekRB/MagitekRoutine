@@ -116,24 +116,31 @@ namespace Magitek.Logic.Roles
                 if (!spell.IsKnownAndReady())
                     return false;
 
-                if (Core.Me.CurrentTarget == null)
+                // Debuff the enemy we are REACTING to, not whatever we happen to be hitting — they are
+                // frequently different, and Feint or Addle landing on the wrong one does nothing about the
+                // mechanic. Reprisal is self-centred, so measuring range to the caster is right there too:
+                // if the caster is out of its radius, Reprisal genuinely cannot mitigate this cast.
+                // Falls back to the current target when nothing is mid-cast (lock-on reactions have no caster).
+                var debuffTarget = (GameObject)FightLogic.DetectedCaster() ?? Core.Me.CurrentTarget;
+
+                if (debuffTarget == null)
                     return false;
 
-                // For range-based debuffs (e.g., Reprisal), check if current target is within range
-                if (range > 0f && !Core.Me.CurrentTarget.WithinSpellRange(range))
+                // For range-based debuffs (e.g., Reprisal), check the caster is within range
+                if (range > 0f && !debuffTarget.WithinSpellRange(range))
                     return false;
 
                 // For target-based debuffs, check target aura
-                if (targetAuraCheck && Core.Me.CurrentTarget.HasAura(aura))
+                if (targetAuraCheck && debuffTarget.HasAura(aura))
                     return false;
 
                 if (!FightLogic.HodlCastTimeRemaining(castTimeRemainingMs, BaseSettings.Instance.FightLogicResponseDelay))
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[Debuff Response] Cast {spell.Name} on {Core.Me.CurrentTarget.Name}");
+                    Logger.WriteInfo($"[Debuff Response] Cast {spell.Name} on {debuffTarget.Name}");
 
-                return await FightLogic.DoAndBuffer(spell.Cast(Core.Me.CurrentTarget));
+                return await FightLogic.DoAndBuffer(spell.Cast(debuffTarget));
             }
 
             return false;
@@ -164,6 +171,46 @@ namespace Magitek.Logic.Roles
                 return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
             return false;
+        }
+
+        /// <summary>
+        /// Tops off an ally carrying a heal-to-full Doom. This Doom kills at expiry unless the
+        /// target reaches FULL HP first and Esuna does not touch it, so it has to be answered
+        /// ahead of discretionary healing rather than inside it - a carrier with seconds left
+        /// loses to any other wounded ally if this waits its turn in the priority list.
+        /// The heal is cast with health checks off: the carrier is usually near full, which is
+        /// exactly where each job's heal-interrupt threshold would otherwise cancel the cast.
+        /// </summary>
+        public static async Task<bool> FightLogic_Doom(bool useHeal, SpellData heal)
+        {
+            if (!useHeal)
+                return false;
+
+            if (!heal.IsKnownAndReady())
+                return false;
+
+            // A heal with a cast bar fails instantly while moving, and this check runs ahead of
+            // discretionary healing on every pulse — without this guard a Doom carried while
+            // moving re-fires the failed cast every pulse (~25/s, seen live) until movement
+            // stops. Swiftcast and Dualcast both make the cast instant, so both are exempt —
+            // the same pair the shared cast gate whitelists. Dualcast is not RedMage-only:
+            // Occult Crescent's Phantom Red Mage grants the same status on any job, so a
+            // Scholar in the field ops carries it through most of a fight (observed in game).
+            if (ff14bot.Managers.MovementManager.IsMoving
+                && heal.AdjustedCastTime > System.TimeSpan.Zero
+                && !Core.Me.HasAura(Utilities.Auras.Swiftcast)
+                && !Core.Me.HasAura(Utilities.Auras.Dualcast))
+                return false;
+
+            var doomed = FightLogic.DoomedHealTarget();
+
+            if (doomed == null)
+                return false;
+
+            if (BaseSettings.Instance.DebugFightLogic)
+                Logger.WriteInfo($"[Doom Response] Cast {heal.Name} on {doomed.Name}");
+
+            return await heal.Heal(doomed, false);
         }
     }
 }

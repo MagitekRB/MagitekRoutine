@@ -239,7 +239,12 @@ namespace Magitek.Utilities.Managers
             if (Globals.InSanctuaryOrSafeZone)
                 return false;
 
-            return await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal");
+            // Phoenix Down is a last resort: run the job's own heal and raise first so free raises
+            // and emergency heals of the living always take priority over spending a consumable.
+            if (await ExecuteRotationMethod(RotationManager.CurrentRotation, "Heal"))
+                return true;
+
+            return await PhoenixDown.Execute();
         }
 
         public override async Task<bool> CombatBuff()

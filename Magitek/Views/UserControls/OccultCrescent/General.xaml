@@ -588,13 +588,6 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
-                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Falcon_Area_atta}"
-                                                          IsChecked="{Binding UseOccultFalcon, Mode=TwoWay}"
-                                                          Style="{DynamicResource CheckBoxFlat}"/>
-                                        </StackPanel>
-
-                                        <StackPanel Margin="5"
-                                                    Orientation="Horizontal">
                                                 <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Unicorn_below}"
                                                           IsChecked="{Binding UseOccultUnicorn, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
@@ -1345,6 +1338,26 @@
 
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Blink}"
+                                                          IsChecked="{Binding UseOccultBlink, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_when_HP_below}"
+                                                           Margin="20,0,0,0"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding OccultBlinkHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_On_Allies}"
+                                                          IsChecked="{Binding OccultBlinkCastOnAllies, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"
+                                                          Margin="20,0,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
                                                 <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Occult_Holy}"
                                                           IsChecked="{Binding UseOccultHoly, Mode=TwoWay}"
                                                           Style="{DynamicResource CheckBoxFlat}"/>
@@ -1549,6 +1562,69 @@
                                                 <controls:Numeric MaxValue="100"
                                                                   MinValue="1"
                                                                   Value="{Binding OccultWhiteWindMinimumOwnHealthPercent, Mode=TwoWay}"
+                                                                  Margin="5,0,0,0"/>
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="percent"/>
+                                        </StackPanel>
+                                </StackPanel>
+                        </controls:SettingsBlock>
+
+                        <!-- Phantom Necromancer Settings -->
+                        <controls:SettingsBlock Margin="0,5"
+                                                Background="{DynamicResource ClassSelectorBackground}">
+                                <StackPanel Margin="5">
+                                        <TextBlock Style="{DynamicResource TextBlockSection}"
+                                                   Text="Phantom Necromancer"/>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Drain_Touch}"
+                                                          IsChecked="{Binding UseDrainTouch, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Drain_Touch_Priming}"
+                                                          IsChecked="{Binding NecromancerDrainTouchPriming, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Deep_Freeze}"
+                                                          IsChecked="{Binding UseDeepFreeze, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Hell_Wind}"
+                                                          IsChecked="{Binding UseHellWind, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Chaos_Drive}"
+                                                          IsChecked="{Binding UseChaosDrive, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Use_Doomsday}"
+                                                          IsChecked="{Binding UseDoomsday, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                                                           Text="{x:Static properties:Resources.OccultCrescent_Text_Attacks_cost_HP_only_use_above}"/>
+                                                <controls:Numeric MaxValue="100"
+                                                                  MinValue="1"
+                                                                  Value="{Binding NecromancerMinimumHealthPercent, Mode=TwoWay}"
                                                                   Margin="5,0,0,0"/>
                                                 <TextBlock Style="{DynamicResource TextBlockDefault}"
                                                            Text="percent"/>
