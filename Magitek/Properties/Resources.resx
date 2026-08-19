@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -3148,6 +3148,15 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Scholar_Text_Break_Aetherpact_If_Tank_Is_Full_HP_O" xml:space="preserve">
     <value>Break Aetherpact If Tank Is Full HP Only With</value>
+  </data>
+  <data name="Scholar_Content_Break_Aetherpact" xml:space="preserve">
+    <value>Break Aetherpact</value>
+  </data>
+  <data name="Scholar_Text_Once_The_Tank_Reaches" xml:space="preserve">
+    <value>Once The Tank Reaches</value>
+  </data>
+  <data name="Scholar_Text_And_There_Are" xml:space="preserve">
+    <value>And There Are</value>
   </data>
   <data name="Scholar_Text_or_less_Enemies" xml:space="preserve">
     <value>or less Enemies</value>
