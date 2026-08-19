@@ -2514,9 +2514,10 @@ namespace Magitek.Utilities
                             19296 //Open Hearth - 4 hits from one cast, all four players, 33.1%
                         },
                         AoeLockOns = new List<uint>() {
+                            62, //Open Hearth's stack marker
                             96 //Wanderer's Pyre marks three players in the same millisecond as
-                               //its cast. On the global common-marker set, which is inert unless
-                               //the enemy declares it.
+                               //its cast. Both of these are on the global common-marker set,
+                               //which is inert unless the enemy declares it.
                         },
                         BigAoes = null
                     },
@@ -2528,7 +2529,10 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19325, //Falling Water - hits TWO players at once (damage id 19326),
+                            19323, //Seabed Ceremony - hits the whole party, and it is the most
+                                   //frequent damage in the fight: 7 casts in one clear, up to
+                                   //41.7%. Damage id is 19324.
+                            19325, //Falling Water - marks TWO players at once (damage id 19326),
                                    //and not the tanks, so the party answer is the right one.
                             19327 //Flying Fount - stack (damage id 19328), up to 52.1%
                         },
