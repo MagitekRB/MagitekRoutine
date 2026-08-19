@@ -464,6 +464,12 @@ namespace Magitek.Logic.Scholar
 
             bool CanDeAetherpact(GameObject unit)
             {
+                // Releasing at all is opt-out: some Scholars run the pact as a sustained regen on the
+                // tank and would rather it never drop, which the HP threshold alone cannot express -
+                // there is no value of it that means "never".
+                if (!ScholarSettings.Instance.BreakAetherpact)
+                    return false;
+
                 // The pact is only ever placed on a tank (see CanAetherpact), so the unit whose health
                 // and surroundings decide whether to release it has to be that tank. Excluding
                 // ourselves matters because the two Fey Union ids may not both sit on the recipient:

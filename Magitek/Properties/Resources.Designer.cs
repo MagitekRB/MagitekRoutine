@@ -13530,6 +13530,33 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break Aetherpact.
+        /// </summary>
+        public static string Scholar_Content_Break_Aetherpact {
+            get {
+                return ResourceManager.GetString("Scholar_Content_Break_Aetherpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once The Tank Reaches.
+        /// </summary>
+        public static string Scholar_Text_Once_The_Tank_Reaches {
+            get {
+                return ResourceManager.GetString("Scholar_Text_Once_The_Tank_Reaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to And There Are.
+        /// </summary>
+        public static string Scholar_Text_And_There_Are {
+            get {
+                return ResourceManager.GetString("Scholar_Text_And_There_Are", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or less Enemies.
         /// </summary>
         public static string Scholar_Text_or_less_Enemies {
