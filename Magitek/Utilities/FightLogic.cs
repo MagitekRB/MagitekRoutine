@@ -833,15 +833,12 @@ namespace Magitek.Utilities
             if (encounter == null)
                 return SetAndReturn();
 
-            // Combat.Threats, not Combat.Enemies: the latter drops anything our damage cannot reach, and a
-            // boss we are immune-locked out of hurting still casts tank busters and raidwides at us.
-            //
             // Prefer a catalogued enemy that is CASTING one of its own catalogued mechanics right now.
             // With several catalogued enemies alive at once (Jeuno's Ark Angel phase), binding the first
             // list entry made every other boss's mechanics invisible for the whole fight.
             foreach (var candidateLogic in encounter.Enemies)
             {
-                foreach (var threat in Combat.Threats)
+                foreach (var threat in Combat.Enemies)
                 {
                     if (candidateLogic.Id != threat.NpcId && candidateLogic.Name != threat.EnglishName)
                         continue;
@@ -868,10 +865,10 @@ namespace Magitek.Utilities
 
             // Untargetable-caster fallback. Windurst proved bosses run whole kits through level-1,
             // HP-44 helper copies sharing the boss's name and NpcId — untargetable, attacking nobody,
-            // so they never enter Combat.Threats and six catalogued casts were structurally invisible
+            // so they never enter Combat.Enemies and six catalogued casts were structurally invisible
             // in one zone. Scan the object table for any hostile NPC mid-cast on a catalogued id.
             // Deliberately NO targetability/CanAttack gate: the whole point is that these casters fail
-            // ValidThreatUnit (the Shockwave caster took zero player hits all night). The handled-id
+            // ValidAttackUnit (the Shockwave caster took zero player hits all night). The handled-id
             // skip is mandatory — main and helper start different catalogued sibling ids 0.09–0.22s
             // apart, and without it the second sibling re-fires the reaction the first already spent.
             // Same workaround shape the gaze scan below already uses for the same reason.
@@ -915,9 +912,9 @@ namespace Magitek.Utilities
             // Nothing catalogued is being cast right now: fall back to the original selection.
             if (enemy == null)
             {
-                enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Threats.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
+                enemyLogic = encounter.Enemies.FirstOrDefault(x => Combat.Enemies.Any(y => x.Id == y.NpcId || x.Name == y.EnglishName), encounter.Enemies.FirstOrDefault());
 
-                enemy = Combat.Threats.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Threats.FirstOrDefault());
+                enemy = Combat.Enemies.FirstOrDefault(y => enemyLogic.Id == y.NpcId || enemyLogic.Name == y.EnglishName, Combat.Enemies.FirstOrDefault());
             }
 
             if (enemy != null && enemy.IsCasting && !FlHandledCastingSpellId.Contains(enemy.CastingSpellId))

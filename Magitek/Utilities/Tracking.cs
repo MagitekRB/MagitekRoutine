@@ -133,17 +133,11 @@ namespace Magitek.Utilities
             }
 
             Combat.Enemies.Clear();
-            Combat.Threats.Clear();
 
             foreach (var unit in _enemyCache)
             {
-                if (!unit.ValidThreatUnit())
+                if (!unit.ValidAttackUnit())
                     continue;
-
-                // Recorded before the immunity filter below. Fight logic reacts to what an enemy CASTS,
-                // so it has to keep seeing a boss we cannot damage — otherwise the one mechanic we most
-                // need to mitigate becomes invisible precisely because we are locked out of its caster.
-                Combat.Threats.Add(unit);
 
                 if (!unit.NotInvulnerable())
                     continue;
