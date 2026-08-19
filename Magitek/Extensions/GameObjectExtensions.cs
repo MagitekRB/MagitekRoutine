@@ -188,14 +188,6 @@ namespace Magitek.Extensions
         /// </summary>
         /// <param name="msLeft">Only count a barrier with at least this long remaining, so one about to
         /// lapse doesn't block a replacement.</param>
-        public static bool HasMagicBarrier(this GameObject unit, int msLeft = 0)
-        {
-            return unit != null
-                && (unit.HasAura(Auras.Galvanize, false, msLeft)
-                    || unit.HasAura(Auras.EukrasianPrognosis, false, msLeft)
-                    || unit.HasAura(Auras.EukrasianDiagnosis, false, msLeft));
-        }
-
         // A dispel strips a BENEFICIAL status from an enemy, so a helper used to decide whether to
         // dispel has to ignore debuffs. Named for what it actually asks: the old name read as the
         // opposite of what it did, and let a dispel re-fire forever on an enemy that merely carries a

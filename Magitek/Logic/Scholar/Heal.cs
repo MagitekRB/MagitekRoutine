@@ -93,7 +93,7 @@ namespace Magitek.Logic.Scholar
             if (target == null)
                 target = Core.Me;
 
-            // Deliberately NOT HasMagicBarrier(): Excogitation is a delayed heal, not a barrier, so
+            // Deliberately NOT HasPrimaryShield(): Excogitation is a delayed heal, not a barrier, so
             // the Adloquium/Succor non-stacking rule does not apply. This keeps the original check.
             if (target.HasAura(Auras.Galvanize))
                 return false;
@@ -393,7 +393,7 @@ namespace Magitek.Logic.Scholar
                 if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                 {
                     // Pick any tank who doesn't have Galvanize on them
-                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasMagicBarrier());
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasPrimaryShield());
 
                     if (tankAdloTarget == null)
                         return false;
@@ -420,7 +420,7 @@ namespace Magitek.Logic.Scholar
                     if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                         return false;
 
-                    if (unit.HasMagicBarrier())
+                    if (unit.HasPrimaryShield())
                         return false;
 
                     if (unit.HasAura(Auras.Excogitation))
@@ -436,7 +436,7 @@ namespace Magitek.Logic.Scholar
                 }
             }
 
-            if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasMagicBarrier())
+            if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasPrimaryShield())
                 return false;
 
             return await ScholarRoutine.AdloquiumSpell.HealAura(Core.Me, Auras.Galvanize);
@@ -502,7 +502,7 @@ namespace Magitek.Logic.Scholar
 
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                     !r.HasMagicBarrier()) >= AoeNeedHealing;
+                                                                     !r.HasPrimaryShield()) >= AoeNeedHealing;
 
             if (!needSuccor)
                 return false;
@@ -524,7 +524,7 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             var needAccession = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent) >= AoeNeedHealing;
-            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasMagicBarrier()) > 0;
+            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasPrimaryShield()) > 0;
 
             if (!needAccession)
                 return false;
@@ -563,12 +563,12 @@ namespace Magitek.Logic.Scholar
 
                 var ManifestationTarget = etConvertible
                     ? Group.CastableAlliesWithin30.FirstOrDefault(CanLustrate)
-                    : Group.CastableAlliesWithin30.FirstOrDefault(r => CanLustrate(r) && !r.HasMagicBarrier());
+                    : Group.CastableAlliesWithin30.FirstOrDefault(r => CanLustrate(r) && !r.HasPrimaryShield());
 
                 if (ManifestationTarget == null)
                     return false;
 
-                var needsShields = !ManifestationTarget.HasMagicBarrier();
+                var needsShields = !ManifestationTarget.HasPrimaryShield();
 
                 if (!needsShields && !await UsedEmergencyTactics())
                     return false;
@@ -582,7 +582,7 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.ManifestationHpPercent)
                 return false;
 
-            var needsShieldsMe = !Core.Me.HasMagicBarrier();
+            var needsShieldsMe = !Core.Me.HasPrimaryShield();
 
             if (!needsShieldsMe && !await UsedEmergencyTactics())
                 return false;

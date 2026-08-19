@@ -176,7 +176,7 @@ namespace Magitek.Logic.Scholar
                 // Check if tank needs Adloquium for buff
                 if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                 {
-                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasMagicBarrier());
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasPrimaryShield());
                     if (tankAdloTarget != null)
                         return true;
                 }
@@ -194,7 +194,7 @@ namespace Magitek.Logic.Scholar
                     if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                         return false;
 
-                    if (unit.HasMagicBarrier())
+                    if (unit.HasPrimaryShield())
                         return false;
 
                     if (unit.HasAura(Auras.Excogitation))
@@ -211,7 +211,7 @@ namespace Magitek.Logic.Scholar
             }
 
             // Solo check
-            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasMagicBarrier())
+            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasPrimaryShield())
                 return true;
 
             return false;
@@ -225,7 +225,7 @@ namespace Magitek.Logic.Scholar
             var aoeNeedHealing = Heal.AoeNeedHealing;
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                     !r.HasMagicBarrier()) >= aoeNeedHealing;
+                                                                     !r.HasPrimaryShield()) >= aoeNeedHealing;
 
             return needSuccor;
         }
