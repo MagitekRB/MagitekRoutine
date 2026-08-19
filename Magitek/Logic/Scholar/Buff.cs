@@ -489,6 +489,15 @@ namespace Magitek.Logic.Scholar
                 if (unit.CurrentHealthPercent < ScholarSettings.Instance.BreakAetherpactHp)
                     return false;
 
+                // Both thresholds accept 1-100 independently, so a release threshold at or below the
+                // engage threshold would release a tank who immediately qualifies to be re-pacted, and
+                // the pair would alternate until the tank climbed past the engage value - burning
+                // gauge and an oGCD slot each cycle. Requiring the tank to be above the ENGAGE
+                // threshold too makes the two settings coherent whatever they are set to, without
+                // rejecting or silently rewriting the user's numbers.
+                if (unit.CurrentHealthPercent < ScholarSettings.Instance.AetherpactHealthPercent)
+                    return false;
+
                 // Fey Union applies as one of two ids (1222 / 1223), never both at once, so
                 // requiring both here could never be satisfied and this method could never return
                 // a target. Reject only a unit carrying neither. The three other Fey Union checks
