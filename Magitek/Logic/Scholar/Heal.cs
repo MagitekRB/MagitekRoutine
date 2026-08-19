@@ -267,8 +267,8 @@ namespace Magitek.Logic.Scholar
 
             // A heal-to-full Doom outranks the discretionary gates below: it is a death timer
             // cleansed only by reaching FULL HP, so the holds must not silence the heal racing it.
-            // The alliance leg also calls PhysickDoom directly at its head — the routine-wide Doom
-            // response runs before the collections switch, so it never sees an alliance carrier.
+            // This is the only way into PhysickDoom. It follows the collections, so it covers the
+            // party here and an alliance carrier once HealAlliance has switched them in.
             if (FightLogic.DoomedHealTarget() != null)
                 return await PhysickDoom();
 
