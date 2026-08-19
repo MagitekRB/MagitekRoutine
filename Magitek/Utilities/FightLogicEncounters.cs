@@ -29,6 +29,79 @@ namespace Magitek.Utilities
 
             #endregion
 
+            #region A Realm Reborn: Trials
+
+            new Encounter {
+                ZoneId = ZoneId.ThornmarchHard,
+                Name = "Trial: Thornmarch (Hard) - Good King Moggle Mog XII",
+                Expansion = FfxivExpansion.ARealmReborn,
+                Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 725,
+                        Name = "Good King Moggle Mog XII",
+                        TankBusters = null,
+                        SharedTankBusters = new List<uint> {
+                            29205, // Twin Pom Meteor — tank stack marker, both tanks share it.
+                            29206, // Second cast id for the same mechanic.
+                        },
+                        Aoes = new List<uint> {
+                            29217, // Memento Moogle — the unavoidable phase-transition raidwide.
+                                   // Measured 38.2% of a health bar on all eight.
+                            29203, // Mog Stone IV — stack marker; measured 38.8% on seven, because
+                                   // the party is stacked and takes it together.
+                            29210, // Pom Holy — measured 21.1% across all eight.
+                            29192, // Mograin of Death — marker on every player. The King casts the
+                                   // same id the Mooglesguard use.
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 721,
+                        Name = "Woolywart Kupqu Kogi",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29191, // Mograin of Death — 2.7s variant.
+                            29192, // Mograin of Death — 5.7s variant. Both occur.
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 722,
+                        Name = "Pukla Puki the Pomburner",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29204, // Mog Stone IV — her cast id for the stack the King also throws.
+                            29192, // Mograin of Death
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 720,
+                        Name = "Furryfoot Kupli Kipp",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            29211, // Pom Holy
+                        },
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 724,
+                        Name = "Pukna Pako the Tailturner",
+                        TankBusters = new List<uint> {
+                            29214, // Moogle Thrust
+                        },
+                        SharedTankBusters = null,
+                        Aoes = null,
+                        BigAoes = null
+                    },
+                }
+            },
+
+            #endregion
+
             #region Heavensward: Alliance Raids
 
             new Encounter {
