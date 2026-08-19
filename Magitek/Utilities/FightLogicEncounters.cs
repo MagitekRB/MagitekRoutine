@@ -32,7 +32,7 @@ namespace Magitek.Utilities
             #region A Realm Reborn: Trials
 
             new Encounter {
-                ZoneId = ZoneId.ThornmarchHard,
+                ZoneId = 1067,
                 Name = "Trial: Thornmarch (Hard) - Good King Moggle Mog XII",
                 Expansion = FfxivExpansion.ARealmReborn,
                 Enemies = new List<Enemy> {
