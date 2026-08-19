@@ -6448,7 +6448,10 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint> {
                             48920, // Rubbish Disposal
+                            48928, // Wrathful Wire — marked AoE on every party member, the same shape as
+                                   // Chort's Evil Emission below. Was missing entirely.
                             48929, // Gluttonous Wire
+                            48930, // Gluttonous Wire — second cast id (4.7s; 48929 is the 3.7s variant)
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
@@ -6474,6 +6477,9 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             48884, // Ripples of Gloom
                             48879, // Bodyweight Exorcism
+                            48885, // Evil Emission — second cast id (4.7s; 50417 is the 4.2s variant).
+                                   // Both occur in a single run, so listing only one left half the
+                                   // occurrences unanswered.
                             50417, // Evil Emission
                             48886, // Profane Pressure
                         },
