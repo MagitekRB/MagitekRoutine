@@ -2483,7 +2483,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19306 //Inscrutability
+                            19306, //Inscrutability
+                            19322 //Ectoplasmic Ray - stack. Damage lands as 19320 on all four
+                                  //players 5.25s after this cast, up to 30.4% of a health bar.
                         },
                         BigAoes = null
                     },
@@ -2496,7 +2498,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19306 //Inscrutability
+                            19306, //Inscrutability
+                            19322 //Ectoplasmic Ray - stack. Damage lands as 19320 on all four
+                                  //players 5.25s after this cast, up to 30.4% of a health bar.
                         },
                         BigAoes = null
                     },
@@ -2506,7 +2510,13 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19288 //The Final Verse
+                            19288, //The Final Verse
+                            19296 //Open Hearth - 4 hits from one cast, all four players, 33.1%
+                        },
+                        AoeLockOns = new List<uint>() {
+                            96 //Wanderer's Pyre marks three players in the same millisecond as
+                               //its cast. On the global common-marker set, which is inert unless
+                               //the enemy declares it.
                         },
                         BigAoes = null
                     },
@@ -2517,7 +2527,14 @@ namespace Magitek.Utilities
                             19340 //Bonebreaker
                         },
                         SharedTankBusters = null,
-                        Aoes = null,
+                        Aoes = new List<uint>() {
+                            19325, //Falling Water - hits TWO players at once (damage id 19326),
+                                   //and not the tanks, so the party answer is the right one.
+                            19327 //Flying Fount - stack (damage id 19328), up to 52.1%
+                        },
+                        AoeLockOns = new List<uint>() {
+                            62 //Flying Fount's stack marker
+                        },
                         BigAoes = null
                     }
                 }
