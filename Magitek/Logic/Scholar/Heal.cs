@@ -183,7 +183,10 @@ namespace Magitek.Logic.Scholar
         /// </summary>
         private static bool EmergencyTacticsConvertible()
         {
-            if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
+            // Only an in-flight multi-step combo blocks this. Recitation does NOT: a Recitation'd
+            // Emergency Tactics heal is a guaranteed crit heal, which is a legitimate and strong
+            // play rather than something to protect against.
+            if (SpellQueueLogic.SpellQueue.Any())
                 return false;
 
             if (!ScholarSettings.Instance.EmergencyTactics)
@@ -194,13 +197,12 @@ namespace Magitek.Logic.Scholar
 
         private static async Task<bool> UsedEmergencyTactics(bool forced = false)
         {
-            // Same guards as Buff.EmergencyTactics, and they must run BEFORE the armed short-circuit:
-            // with Emergency Tactics and Recitation both up, accepting the armed aura would let the
-            // caller's shield heal convert the Recitation-guaranteed crit — the exact theft these
-            // guards exist to prevent. This was the second, unguarded ET site. They apply to the
-            // forced path too — Recitation expires or is consumed, so this delays a forced cast,
-            // never latches it.
-            if (Core.Me.HasAura(Auras.Recitation) || SpellQueueLogic.SpellQueue.Any())
+            // Runs BEFORE the armed short-circuit so an already-armed aura cannot bypass it. Only
+            // an in-flight combo blocks: those steps were queued expecting a shield, and converting
+            // it mid-sequence leaves the later steps with nothing to work on. Recitation alone is
+            // not a blocker - pairing it with Emergency Tactics is a guaranteed crit heal and a
+            // reasonable thing to want.
+            if (SpellQueueLogic.SpellQueue.Any())
                 return false;
 
             // Same master opt-out as Buff.EmergencyTactics, in the same position: this helper is
@@ -400,10 +402,6 @@ namespace Magitek.Logic.Scholar
                 if (!ScholarSettings.Instance.Recitation)
                     return;
                 if (!ScholarSettings.Instance.RecitationWithAdlo)
-                    return;
-                // An armed Emergency Tactics would convert the crit shield this Recitation exists
-                // to guarantee — never arm the pair while a deferred conversion is still live.
-                if (Core.Me.HasAura(Auras.EmergencyTactics))
                     return;
                 if (Spells.Recitation.Cooldown != TimeSpan.Zero)
                     return;
