@@ -75,8 +75,9 @@ namespace Magitek.Logic.BlackMage
                 return await Spells.Transpose.Cast(Core.Me);
             }
 
-            // Finisher Transition: In Astral Fire, if MP is depleted (<800), Transpose to Umbral Ice
-            if (AstralStacks > 0 && Core.Me.CurrentMana < 800)
+            // Finisher Transition: In Astral Fire, Transpose to Umbral Ice when out of filler MP
+            int minAoeMp = Spells.Flare.IsKnown() ? 800 : 3000;
+            if (AstralStacks > 0 && Core.Me.CurrentMana < minAoeMp)
             {
                 // Safety check: Do not Transpose yet if we still need to execute our Flare Star finisher
                 if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
@@ -87,7 +88,7 @@ namespace Magitek.Logic.BlackMage
 
             return false;
         }
-        
+
         public static async Task<bool> UseAoeEther()
         {
             // Verify user has opted into using Ethers for AoE
@@ -110,8 +111,21 @@ namespace Magitek.Logic.BlackMage
             if (BlackMageSettings.Instance.ManaFont && Spells.ManaFont.IsKnownAndReady())
                 return false;
 
+            // Define common high-tier Ether item IDs (HQ and NQ) that grant sufficient MP
+
             // Try each ether from best to worst; any granting 800+ MP enables an extra Flare
-            foreach (var etherId in BlackMageRoutine.AoeEthers)
+            foreach (var etherId in new uint[] {
+                36257,
+                36256, // Super Ether (HQ / NQ)
+                31854,
+                31853, // Max-Ether (HQ / NQ)
+                27999,
+                27998, // Mega-Ether (HQ / NQ)
+                23172,
+                23171, // X-Ether (HQ / NQ)
+                19845,
+                19844  // Hi-Ether (HQ / NQ)
+            })
             {
                 if (await Ether.UseEther((int)etherId))
                     return true;
@@ -250,7 +264,7 @@ namespace Magitek.Logic.BlackMage
             // Immediate priority: If we have 3 Umbral Hearts in Umbral Ice, transition back to AF right now.
             if (UmbralStacks > 0 && UmbralHearts == 3)
             {
-                if (Spells.HighFireII.IsKnown()) 
+                if (Spells.HighFireII.IsKnown())
                     return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
                 return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
             }

@@ -59,18 +59,18 @@ namespace Magitek.Rotations
             // 1. Universal / Survival: Evaluated every tick regardless of stance
             // Execute Limit Break if forced by user settings
             if (Aoe.ForceLimitBreak()) return true;
-            
+
             // Automatically pop defensive cooldowns (Manaward, Addle, Surecast) based on incoming boss mechanics
             if (await CommonFightLogic.FightLogic_SelfShield(BlackMageSettings.Instance.FightLogicManaward, Spells.Manaward, castTimeRemainingMs: 19000)) return true;
             if (await MagicDps.FightLogic_Addle(BlackMageSettings.Instance)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(BlackMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             // 2. Dynamic Target & Stance Evaluation: Determine AoE vs Single-Target and current elemental stance
-            bool isAoe = BlackMageSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies;
+            bool isAoe = AoeControl.Enabled && BlackMageSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies;
             bool inAstralFire = AstralStacks > 0;
             bool inUmbralIce = UmbralStacks > 0;
             bool isNeutral = !inAstralFire && !inUmbralIce;
-            
+
             // 3. Movement Safety: Check if we have instant cast buffs active to allow casting on the run
             bool hasInstantCastBuff = Core.Me.HasAura(Auras.Triplecast) || Core.Me.HasAura(Auras.Swiftcast);
 
@@ -89,23 +89,24 @@ namespace Magitek.Rotations
                     if (await SingleTarget.Xenoglossy()) return true;
                     if (await SingleTarget.Paradox()) return true;
                     if (await SingleTarget.Thunder3()) return true;
-                    
+
                     // Consume Firestarter proc if we have one
                     if (Core.Me.HasAura(Auras.FireStarter) && await SingleTarget.Fire3()) return true;
                 }
 
                 // If no instant spells are available, try to pop a movement buff
-                if (Spells.Triplecast.IsKnownAndReady()) return await Spells.Triplecast.Cast(Core.Me);
+                // If no instant spells are available, try to pop a movement buff
+                if (BlackMageSettings.Instance.TripleCast && Spells.Triplecast.IsKnownAndReady()) return await Spells.Triplecast.Cast(Core.Me);
                 if (Spells.Swiftcast.IsKnownAndReady()) return await Spells.Swiftcast.Cast(Core.Me);
-                
+
                 // Safely yield the tick so the bot's navigation system can move the character
-                return false; 
+                return false;
             }
 
             // 4. Off-Global Cooldowns: Use buffs and oGCDs independently of our current elemental stance
             if (await Buff.Amplifier()) return true;
             if (await Buff.Triplecast()) return true;
-            if (await Buff.Swiftcast()) return true; 
+            if (await Buff.Swiftcast()) return true;
             if (await Buff.LeyLines()) return true;
             if (await Buff.Retrace()) return true;
             if (await Buff.ManaFont()) return true;
@@ -132,17 +133,17 @@ namespace Magitek.Rotations
                     {
                         // Use Flare if known and we meet the MP/Heart requirements
                         if (await Aoe.Flare()) return true;
-                        if (Spells.Flare.IsKnownAndReady() && (Core.Me.CurrentMana >= 800 || UmbralHearts > 0)) 
+                        if (Spells.Flare.IsKnownAndReady() && (Core.Me.CurrentMana >= 800 || UmbralHearts > 0))
                             return await Spells.Flare.Cast(Core.Me.CurrentTarget);
 
                         // Fallback to Fire 2 / High Fire 2 if Flare isn't known
                         if (await Aoe.Fire2()) return true;
                         if (Spells.Fire2.IsKnownAndReady()) return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
-                        
-                        return false; 
+
+                        return false;
                     }
                     // AoE Finisher Phase: MP is depleted. Execute finishers, weave, and swap to ice.
-                    else 
+                    else
                     {
                         // 1. Flare Star: Dump 6 Astral Soul stacks if we have them
                         if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
@@ -192,23 +193,22 @@ namespace Magitek.Rotations
                         if (Spells.Fire4.IsKnownAndReady()) return await Spells.Fire4.Cast(Core.Me.CurrentTarget);
 
                         // Consume Firestarter procs if generated
-                        if (await SingleTarget.Fire3()) return true; 
+                        if (await SingleTarget.Fire3()) return true;
 
                         // Fallback to basic Fire if Fire IV isn't known yet
                         if (await SingleTarget.Fire()) return true;
                         if (Spells.Fire.IsKnownAndReady()) return await Spells.Fire.Cast(Core.Me.CurrentTarget);
-                        
-                        return false; 
+
+                        return false;
                     }
                     // Single-Target Finisher Phase: MP is too low for Fire IV. Dump remaining MP and transition.
-                    else 
+                    else
                     {
                         // 1. Despair: Consumes all remaining MP (Minimum 800 MP required)
-                        if (Spells.Despair.IsKnown() && Core.Me.CurrentMana >= 800)
+                        if (BlackMageSettings.Instance.Despair && Spells.Despair.IsKnown() && Core.Me.CurrentMana >= 800)
                         {
                             if (await SingleTarget.Despair()) return true;
                             if (Spells.Despair.IsKnownAndReady()) return await Spells.Despair.Cast(Core.Me.CurrentTarget);
-                            return true; // HOLD TICK FOR DESPAIR
                         }
 
                         // 2. Flare Star: Cast for 0 MP, Consumes 6 Astral Soul Stacks
@@ -222,9 +222,9 @@ namespace Magitek.Rotations
                         // 3. Blizzard III Transition: Costs 0 MP under Astral Fire III to swap to Umbral Ice
                         if (await SingleTarget.Blizzard3()) return true;
                         if (Spells.Blizzard3.IsKnownAndReady()) return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
-                        
+
                         // Low-level fallback if Blizzard III isn't known
-                        if (!Spells.Blizzard3.IsKnown() && Spells.Transpose.IsKnownAndReady()) 
+                        if (!Spells.Blizzard3.IsKnown() && Spells.Transpose.IsKnownAndReady())
                             return await Spells.Transpose.Cast(Core.Me);
 
                         return true; // HOLD TICK FOR TRANSITION
@@ -266,7 +266,7 @@ namespace Magitek.Rotations
                         if (await Aoe.Blizzard2()) return true;
                         if (Spells.Blizzard2.IsKnownAndReady()) return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
                     }
-                    
+
                     return true; // Hold tick to prevent dropping combat
                 }
                 else
@@ -286,7 +286,7 @@ namespace Magitek.Rotations
                         if (Spells.Blizzard4.IsKnownAndReady()) return await Spells.Blizzard4.Cast(Core.Me.CurrentTarget);
                         return true; // HOLD TICK: Wait for B4 travel time! Never fall through.
                     }
-                    
+
                     // Main Ice Spells & Procs: Refresh Thunder DoT, dump Xenoglossy, and cast Paradox
                     if (await SingleTarget.Thunder3()) return true;
                     if (await SingleTarget.Xenoglossy()) return true;
@@ -306,7 +306,7 @@ namespace Magitek.Rotations
                         if (await SingleTarget.Blizzard()) return true;
                         if (Spells.Blizzard.IsKnownAndReady()) return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
                     }
-                    
+
                     return true; // Hold tick to prevent dropping combat
                 }
             }
@@ -317,6 +317,16 @@ namespace Magitek.Rotations
             {
                 if (isAoe)
                 {
+                    // Start with Blizzard II / High Blizzard II if we have zero stacks
+                    if (AstralStacks == 0 && UmbralStacks == 0)
+                    {
+                        if (await Aoe.Blizzard2()) return true;
+                        if (Spells.Blizzard2.IsKnownAndReady()) return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
+                    }
+
+                    if (Spells.Transpose.IsKnownAndReady() && await Spells.Transpose.Cast(Core.Me)) return true;
+                    if (await Aoe.Freeze()) return true;
+                    if (Spells.Freeze.IsKnownAndReady()) return await Spells.Freeze.Cast(Core.Me.CurrentTarget);
                     // AoE Neutral Recovery: Apply Thunder and cast Freeze to enter Umbral Ice
                     if (await Aoe.Thunder4()) return true;
                     if (Spells.Transpose.IsKnownAndReady() && await Spells.Transpose.Cast(Core.Me)) return true;
@@ -328,7 +338,7 @@ namespace Magitek.Rotations
                     // Single-Target Neutral Recovery: Cast Blizzard 3 or Fire 3 to immediately enter a stance
                     if (await SingleTarget.Blizzard3()) return true;
                     if (Spells.Blizzard3.IsKnownAndReady()) return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
-                    
+
                     if (await SingleTarget.Fire3()) return true;
                     if (await SingleTarget.Blizzard()) return true;
                     if (await SingleTarget.Fire()) return true;
