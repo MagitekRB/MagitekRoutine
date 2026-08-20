@@ -109,7 +109,7 @@ namespace Magitek.Rotations
 
                 //Jumps SingleWeave
                 //Jump SingleWeave
-                if (DragoonRoutine.CanWeaveJump())
+                if (CanWeaveJump())
                 {
                     if (await Jumps.HighJump()) return true;  //SingleWeave
                     if (await Jumps.DragonfireDive()) return true; //SingleWeave
@@ -142,7 +142,18 @@ namespace Magitek.Rotations
 
             return await SingleTarget.TrueThrust();
         }
+        internal static bool CanWeaveJump()
+        {
+            // If the user disabled Safe Jumping in the UI, always allow the jump to fire immediately
+            if (!DragoonSettings.Instance.SafeJumpLogic)
+                return true;
 
+            // Prevent jumping if the character is currently casting
+            if (Core.Me.IsCasting)
+                return false;
+
+            return true;
+        }
         public static async Task<bool> PvP()
         {
             if (await CommonPvp.CommonTasks(DragoonSettings.Instance)) return true;
