@@ -22,7 +22,7 @@ namespace Magitek.Logic.Warrior
         {
             if (WarriorSettings.Instance.UseTomahawkToPullExtraEnemies)
             {
-                var pullTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit() && !r.Tapped
+                var pullTarget = Combat.Enemies.FirstOrDefault(r => r.ValidDamageTarget() && !r.Tapped
                                                         && r.WithinSpellRange(Spells.Tomahawk.Range)
                                                         && !r.WithinSpellRange(Spells.HeavySwing.Range)
                                                         && r.TargetGameObject != Core.Me);
@@ -58,7 +58,8 @@ namespace Magitek.Logic.Warrior
             //    return false;
 
             var tomahawkTarget = Combat.Enemies.FirstOrDefault(r =>
-                !r.WithinSpellRange(Spells.HeavySwing.Range)
+                r.CanBeDamagedByMe()
+                && !r.WithinSpellRange(Spells.HeavySwing.Range)
                 && r.WithinSpellRange(Spells.Tomahawk.Range)
                 && r.TargetGameObject != Core.Me);
 

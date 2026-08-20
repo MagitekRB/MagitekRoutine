@@ -52,7 +52,7 @@ namespace Magitek.Logic.Gunbreaker
                 return false;
 
             //find target already pulled on which I lose aggro
-            var lightningShotTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit()
+            var lightningShotTarget = Combat.Enemies.FirstOrDefault(r => r.ValidDamageTarget()
                                                                     && r.NotInvulnerable()
                                                                     && r.Distance(Core.Me) >= Core.Me.CombatReach + r.CombatReach + GunbreakerSettings.Instance.LightningShotMinDistance
                                                                     && r.WithinSpellRange(20)

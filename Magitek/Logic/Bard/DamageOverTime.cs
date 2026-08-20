@@ -139,6 +139,12 @@ namespace Magitek.Logic.Bard
             if (unit == Core.Me.CurrentTarget)
                 return false;
 
+            // A target our damage cannot reach never takes the DoT, so it stays missing the aura and
+            // is re-picked on the very next pulse. The multi-DoT search does not pass through
+            // ThoroughCanAttack, so the damageable check has to happen here.
+            if (!unit.CanBeDamagedByMe())
+                return false;
+
             if (!unit.InLineOfSight())
                 return false;
 
@@ -220,6 +226,11 @@ namespace Magitek.Logic.Bard
             bool IsValidIronJawsTarget(BattleCharacter unit)
             {
                 if (unit == Core.Me.CurrentTarget)
+                    return false;
+
+                // Same reasoning as IsValidTargetToApplyDoT: an undamageable target never takes the
+                // refresh, so it would be re-picked every pulse.
+                if (!unit.CanBeDamagedByMe())
                     return false;
 
                 if (!unit.InLineOfSight())

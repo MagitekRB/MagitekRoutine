@@ -129,6 +129,12 @@ namespace Magitek.Logic.WhiteMage
 
             bool CanDot(GameObject unit)
             {
+                // A target our damage cannot reach never takes the DoT, so it stays missing the aura
+                // and is re-picked on the very next pulse. This search does not pass through
+                // ThoroughCanAttack, so the damageable check has to happen here.
+                if (!unit.CanBeDamagedByMe())
+                    return false;
+
                 if (!WhiteMageSettings.Instance.UseTTDForDot)
                     return true;
 

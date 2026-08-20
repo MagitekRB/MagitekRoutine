@@ -158,7 +158,7 @@ namespace Magitek.Logic.DarkKnight
                 : Core.Me.CombatReach + DarkKnightSettings.Instance.UnmendMinDistance;
 
             //find target already pulled on which I lose aggro
-            var unmendTarget = Combat.Enemies.FirstOrDefault(r => r.ValidAttackUnit()
+            var unmendTarget = Combat.Enemies.FirstOrDefault(r => r.ValidDamageTarget()
                                                                     && r.NotInvulnerable()
                                                                     && !r.WithinSpellRange(calculatedCombatReach)
                                                                     && r.WithinSpellRange(Spells.Unmend.Range)
