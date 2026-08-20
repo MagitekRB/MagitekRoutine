@@ -54,6 +54,16 @@
             </StackPanel>
         </controls:SettingsBlock>
 
+        <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,7,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Content_PlayDefensiveCardHealthPercent}" />
+                    <controls:Numeric Increment="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PlayDefensiveCardHealthPercent, Mode=TwoWay}" />
+                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
         <controls:SettingsBlock Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="2,5">
                 <TextBlock Style="{DynamicResource TextBlockDefault}" HorizontalAlignment="Left" Text="{x:Static properties:Resources.Astrologian_Text_Card_Priority_First_to_Last}" />
