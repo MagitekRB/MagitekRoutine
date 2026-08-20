@@ -42,7 +42,23 @@ namespace Magitek.Logic.RedMage
             if (InAoeCombo() || (AoeControl.Enabled && Core.Me.EnemiesInCone(8) >= RedMageSettings.Instance.AoeEnemies))
                 return false;
 
-            if (!Core.Me.HasAura(Auras.MagickedSwordplay))
+            // If Magicked Swordplay is active, ensure we actually want to spend it, 
+            // or verify we are in a valid state to execute the combo steps.
+            if (Core.Me.HasAura(Auras.MagickedSwordplay))
+            {
+                // If we are holding for Embolden, do not accidentally blow Magicked Swordplay early
+                if (Spells.Embolden.IsKnown()
+                    && Spells.Embolden.Cooldown.TotalSeconds > 0
+                    && Spells.Embolden.Cooldown.TotalSeconds <= RedMageSettings.Instance.HoldAccelForEmboldenSeconds)
+                    return false;
+
+                if (Spells.Redoublement.IsKnown() && !RedMageRoutine.CanContinueComboAfter(Spells.Zwerchhau) && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedZwerchhau))
+                    return false;
+
+                if (Spells.Zwerchhau.IsKnown() && !RedMageRoutine.CanContinueComboAfter(Spells.Riposte) && !RedMageRoutine.CanContinueComboAfter(Spells.EnchantedRiposte))
+                    return false;
+            }
+            else
             {
                 if (Spells.Redoublement.IsKnown())
                 {
