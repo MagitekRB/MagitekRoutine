@@ -58,7 +58,7 @@ namespace Magitek.Rotations
 
             // 1. Universal / Survival: Evaluated every tick regardless of stance
             if (Aoe.ForceLimitBreak()) return true;
-            
+
             if (await CommonFightLogic.FightLogic_SelfShield(BlackMageSettings.Instance.FightLogicManaward, Spells.Manaward, castTimeRemainingMs: 19000)) return true;
             if (await MagicDps.FightLogic_Addle(BlackMageSettings.Instance)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(BlackMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
@@ -68,7 +68,7 @@ namespace Magitek.Rotations
             bool inAstralFire = AstralStacks > 0;
             bool inUmbralIce = UmbralStacks > 0;
             bool isNeutral = !inAstralFire && !inUmbralIce;
-            
+
             // 3. Movement Safety: Check if we have instant cast buffs active to allow casting on the run
             bool hasInstantCastBuff = Core.Me.HasAura(Auras.Triplecast) || Core.Me.HasAura(Auras.Swiftcast);
 
@@ -89,14 +89,14 @@ namespace Magitek.Rotations
 
                 if (await Buff.Triplecast()) return true;
                 if (await Buff.Swiftcast()) return true;
-                
-                return false; 
+
+                return false;
             }
 
             // 4. Off-Global Cooldowns
             if (await Buff.Amplifier()) return true;
             if (await Buff.Triplecast()) return true;
-            if (await Buff.Swiftcast()) return true; 
+            if (await Buff.Swiftcast()) return true;
             if (await Buff.LeyLines()) return true;
             if (await Buff.Retrace()) return true;
             if (await Buff.ManaFont()) return true;
@@ -121,17 +121,19 @@ namespace Magitek.Rotations
                     {
                         if (await Aoe.Flare()) return true;
                         if (await Aoe.Fire2()) return true;
-                        
-                        return false; 
+
+                        return false;
                     }
                     // AoE Finisher Phase
-                    else 
+                    else
                     {
                         // 1. Flare Star
                         if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                         {
-                            if (await Aoe.FlareStar()) return true;
-                            return true; 
+                            // If it successfully casts or attempts to cast, handle it. 
+                            // If conditions fail, let it fall through to the rest of the rotation instead of trapping the loop!
+                            if (await Aoe.FlareStar())
+                                return true;
                         }
 
                         // Use Ether helper
@@ -143,7 +145,7 @@ namespace Magitek.Rotations
 
                         // 3. Transpose helper
                         if (await Aoe.AoeTranspose()) return true;
-                        return true; 
+                        return true;
                     }
                 }
                 else
@@ -165,35 +167,35 @@ namespace Magitek.Rotations
                         if (await SingleTarget.Thunder3()) return true;
                         if (await SingleTarget.Xenoglossy()) return true;
                         if (await SingleTarget.Fire4()) return true;
-                        if (await SingleTarget.Fire3()) return true; 
+                        if (await SingleTarget.Fire3()) return true;
                         if (await SingleTarget.Fire()) return true;
-                        
-                        return false; 
+
+                        return false;
                     }
                     // Single-Target Finisher Phase
-                    else 
+                    else
                     {
                         // 1. Despair (Calls helper which properly respects user settings)
                         if (Spells.Despair.IsKnown() && Core.Me.CurrentMana >= 800)
                         {
                             if (await SingleTarget.Despair()) return true;
-                            return true; 
+                            return true;
                         }
 
                         // 2. Flare Star
                         if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                         {
                             if (await Aoe.FlareStar()) return true;
-                            return true; 
+                            return true;
                         }
 
                         // 3. Blizzard III Transition
                         if (await SingleTarget.Blizzard3()) return true;
-                        
-                        if (!Spells.Blizzard3.IsKnown() && await Buff.Transpose()) 
+
+                        if (!Spells.Blizzard3.IsKnown() && await Buff.Transpose())
                             return true;
 
-                        return true; 
+                        return true;
                     }
                 }
             }
@@ -211,7 +213,7 @@ namespace Magitek.Rotations
                         {
                             if (await Aoe.Freeze()) return true;
                         }
-                        return true; 
+                        return true;
                     }
 
                     if (UmbralHearts == 3 || Core.Me.CurrentMana >= 10000 || Core.Me.CurrentMana == Core.Me.MaxMana)
@@ -220,7 +222,7 @@ namespace Magitek.Rotations
                         if (await Aoe.Foul()) return true;
 
                         if (await Aoe.AoeTranspose()) return true;
-                        return true; 
+                        return true;
                     }
 
                     if (!Spells.Freeze.IsKnown())
@@ -228,23 +230,23 @@ namespace Magitek.Rotations
                         if (await Buff.UmbralSoul()) return true;
                         if (await Aoe.Blizzard2()) return true;
                     }
-                    
-                    return true; 
+
+                    return true;
                 }
                 else
                 {
                     if (UmbralStacks < 3)
                     {
                         if (await SingleTarget.Blizzard3()) return true;
-                        return true; 
+                        return true;
                     }
 
                     if (Spells.Blizzard4.IsKnown() && UmbralHearts < 3 && (!MovementManager.IsMoving || hasInstantCastBuff))
                     {
                         if (await SingleTarget.Blizzard4()) return true;
-                        return true; 
+                        return true;
                     }
-                    
+
                     if (await SingleTarget.Thunder3()) return true;
                     if (await SingleTarget.Xenoglossy()) return true;
                     if (await SingleTarget.Paradox()) return true;
@@ -252,15 +254,15 @@ namespace Magitek.Rotations
                     if (UmbralHearts == 3 || Core.Me.CurrentMana >= 10000 || Core.Me.CurrentMana == Core.Me.MaxMana)
                     {
                         if (await SingleTarget.Fire3()) return true;
-                        return true; 
+                        return true;
                     }
 
                     if (!Spells.Blizzard4.IsKnown())
                     {
                         if (await SingleTarget.Blizzard()) return true;
                     }
-                    
-                    return true; 
+
+                    return true;
                 }
             }
             // =========================================================
