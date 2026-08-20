@@ -23,29 +23,37 @@ namespace Magitek.Logic.Astrologian
             if (!cards.Any(c => c != AstrologianCard.None))
                 return false;
 
-            if (Globals.InParty && Core.Me.InCombat)
+            if (Globals.InParty && Core.Me.InCombat && AstrologianSettings.Instance.Play)
             {
+                // --- PLAY I (Damage Buffs) ---
                 if (cards.Contains(AstrologianCard.Balance))
+                {
                     return await Spells.PlayI.Masked().Cast(MeleeDpsOrTank());
+                }
                 if (cards.Contains(AstrologianCard.Spear))
+                {
                     return await Spells.PlayI.Masked().Cast(RangedDpsOrHealer());
+                }
 
-                if (cards.Contains(AstrologianCard.Arrow) || cards.Contains(AstrologianCard.Bole))
-                    return await Spells.PlayII.Masked().Cast(Tank());
+                // --- PLAY II (Defensives: Bole / Arrow) ---
+                if (cards.Contains(AstrologianCard.Bole) || cards.Contains(AstrologianCard.Arrow))
+                {
+                    var defensiveTarget = Tank();
+                    if (defensiveTarget != null && defensiveTarget.CurrentHealthPercent <= AstrologianSettings.Instance.PlayDefensiveCardHealthPercent)
+                    {
+                        return await Spells.PlayII.Masked().Cast(defensiveTarget);
+                    }
+                }
 
-                if (cards.Contains(AstrologianCard.Spire) || cards.Contains(AstrologianCard.Ewer))
-                    return await Spells.PlayIII.Masked().Cast(Tank());
-            }
-            else if (!Globals.InParty && Core.Me.InCombat)
-            {
-                if (cards.Contains(AstrologianCard.Balance) || cards.Contains(AstrologianCard.Spear))
-                    return await Spells.PlayI.Masked().Cast(Core.Me);
-
-                if (cards.Contains(AstrologianCard.Arrow) || cards.Contains(AstrologianCard.Bole))
-                    return await Spells.PlayII.Masked().Cast(Core.Me);
-
-                if (cards.Contains(AstrologianCard.Spire) || cards.Contains(AstrologianCard.Ewer))
-                    return await Spells.PlayIII.Masked().Cast(Core.Me);
+                // --- PLAY III (Utility: Ewer / Spire) ---
+                if (cards.Contains(AstrologianCard.Ewer) || cards.Contains(AstrologianCard.Spire))
+                {
+                    var utilityTarget = Tank();
+                    if (utilityTarget != null && utilityTarget.CurrentHealthPercent <= AstrologianSettings.Instance.PlayDefensiveCardHealthPercent)
+                    {
+                        return await Spells.PlayIII.Masked().Cast(utilityTarget);
+                    }
+                }
             }
 
             return false;
@@ -78,7 +86,7 @@ namespace Magitek.Logic.Astrologian
 
             return false;
         }
-            private static GameObject Tank()
+        private static GameObject Tank()
         {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
