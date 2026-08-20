@@ -2053,7 +2053,14 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BlackMage_Text_Use_Soul_Resonance_when_target_HP_below", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Ethers in AoE.
+        /// </summary>
+        public static string BlackMage_Content_Use_Ethers_In_AOE {
+            get {
+                return ResourceManager.GetString("BlackMage_Content_Use_Ethers_In_AOE", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to Add Interrupt/Stun.
         /// </summary>
