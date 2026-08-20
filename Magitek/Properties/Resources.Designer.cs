@@ -1207,7 +1207,23 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_N", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Play Defensive Card Health %.
+        /// </summary>
+        public static string Astrologian_Content_PlayDefensiveCardHealthPercent {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_PlayDefensiveCardHealthPercent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AoE Heal Health Threshold %.
+        /// </summary>
+        public static string Astrologian_Content_AoEHealThreshold {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_AoEHealThreshold", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to Apex Arrow.
         /// </summary>
