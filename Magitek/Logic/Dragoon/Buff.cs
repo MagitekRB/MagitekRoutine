@@ -68,8 +68,8 @@ namespace Magitek.Logic.Dragoon
                     // With 2 charges (lv88+), spend a charge if nearing overcap or LanceCharge is far off
                     if (Spells.LifeSurge.MaxCharges >= 2)
                     {
-                        // 1.5 threshold ensures we don't overcap charges before the next Lance Charge window
-                        if (Spells.LifeSurge.Charges < 1.5 && Spells.LanceCharge.Cooldown.TotalMilliseconds <= 15000)
+                        // Use the user-configured threshold to ensure we don't overcap charges before the next Lance Charge window
+                        if (Spells.LifeSurge.Charges < DragoonSettings.Instance.LifeSurgeChargeThreshold && Spells.LanceCharge.Cooldown.TotalMilliseconds <= 15000)
                             return false;
                     }
                     else
@@ -107,9 +107,15 @@ namespace Magitek.Logic.Dragoon
                 return await Spells.LifeSurge.Cast(Core.Me);
 
             // AoE: Draconian Fury
-            if (Core.Me.HasAura(Auras.DraconianFire, true) && AoeControl.Enabled && Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= DragoonSettings.Instance.AoeEnemies)
+            if (Core.Me.HasAura(Auras.DraconianFire, true)
+                && AoeControl.Enabled
+                && DragoonSettings.Instance.UseAoe
+                && Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= DragoonSettings.Instance.AoeEnemies)
+            {
                 return await Spells.LifeSurge.Cast(Core.Me);
+            }
 
+            // Fallback: If no conditions are met, do not cast Life Surge
             return false;
         }
 
