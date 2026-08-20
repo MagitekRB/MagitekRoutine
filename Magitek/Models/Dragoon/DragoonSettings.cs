@@ -75,6 +75,11 @@ namespace Magitek.Models.Dragoon
         [DefaultValue(true)]
         public bool UseLifeSurge { get; set; }
 
+
+        [Setting]
+        [DefaultValue(1.5f)]
+        public float LifeSurgeChargeThreshold { get; set; }
+
         #endregion
 
         #region Aoe
