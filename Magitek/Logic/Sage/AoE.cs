@@ -103,7 +103,8 @@ namespace Magitek.Logic.Sage
                                          && x.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)))
                 return false;
 
-            return await UseEukrasianDyskrasia(Core.Me.CurrentTarget);
+            // Dawntrail Fix: Eukrasian Dyskrasia is a self-centered AoE. Passing an enemy target causes CanCast to fail.
+            return await UseEukrasianDyskrasia(Core.Me);
         }
 
         private static readonly uint[] DotAuras =
@@ -217,10 +218,12 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) < SageSettings.Instance.PsycheAoEEnemies)
+            if (!Spells.Psyche.IsKnown())
                 return false;
 
-            if (!Spells.Psyche.IsKnown())
+            bool meetsAoeThreshold = Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) >= SageSettings.Instance.PsycheAoEEnemies;
+
+            if (!meetsAoeThreshold)
                 return false;
 
             return await Spells.Psyche.Cast(target);
