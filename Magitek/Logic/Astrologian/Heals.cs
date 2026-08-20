@@ -22,7 +22,7 @@ namespace Magitek.Logic.Astrologian
 
         public static bool NeedAoEHealing()
         {
-            var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.AoEHealHealthPercent);
+            var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.AoEHealThreshold);
 
             var needAoEHealing = targets.Count() >= AoeThreshold;
 

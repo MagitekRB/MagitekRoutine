@@ -23,16 +23,25 @@ namespace Magitek.Logic.Astrologian
             if (!cards.Any(c => c != AstrologianCard.None))
                 return false;
 
-            if (Globals.InParty && Core.Me.InCombat && AstrologianSettings.Instance.Play)
+            // Removed Globals.InParty check so the Astrologian can buff themselves during solo combat
+            if (Core.Me.InCombat)
             {
                 // --- PLAY I (Damage Buffs) ---
                 if (cards.Contains(AstrologianCard.Balance))
                 {
-                    return await Spells.PlayI.Masked().Cast(MeleeDpsOrTank());
+                    var target = MeleeDpsOrTank();
+                    if (target != null)
+                    {
+                        return await Spells.PlayI.Masked().Cast(target);
+                    }
                 }
                 if (cards.Contains(AstrologianCard.Spear))
                 {
-                    return await Spells.PlayI.Masked().Cast(RangedDpsOrHealer());
+                    var target = RangedDpsOrHealer();
+                    if (target != null)
+                    {
+                        return await Spells.PlayI.Masked().Cast(target);
+                    }
                 }
 
                 // --- PLAY II (Defensives: Bole / Arrow) ---
@@ -86,10 +95,12 @@ namespace Magitek.Logic.Astrologian
 
             return false;
         }
+
         private static GameObject Tank()
         {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
+            
             //If in light party, allow ally to have more than one card aura.
             var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetWeight);
 
@@ -105,6 +116,7 @@ namespace Magitek.Logic.Astrologian
         {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
+            
             // The Balance gives melee DPS and tanks the full 6%, but a DPS converts the buff
             // into far more damage than a tank, so DPS sort ahead of tanks inside the bracket.
             // The pool boundary IS the potency bracket, deliberately: off-role recipients get
@@ -124,6 +136,7 @@ namespace Magitek.Logic.Astrologian
         {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
+            
             // The Spear gives ranged DPS and healers the full 6%; same reasoning as The Balance,
             // a DPS makes more of the buff than a healer, so DPS sort ahead inside the bracket.
             // Same deliberate pool boundary as The Balance: a half-potency melee DPS does not

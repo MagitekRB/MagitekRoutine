@@ -438,7 +438,6 @@ namespace Magitek.Models.Astrologian
         [DefaultValue(true)]
         public bool AutomaticallyDispelAnythingThatsDispellable { get; set; }
 
-
         #endregion
 
         #region AlliancesAndPets
@@ -494,10 +493,10 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(25)]
         public int DontPlayWhenCombatTimeIsLessThan { get; set; }
+
         [Setting]
         [DefaultValue(50.0f)]
         public float PlayDefensiveCardHealthPercent { get; set; }
-
 
         [Setting]
         [DefaultValue(true)]
@@ -518,105 +517,179 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(1)]
         public int LordOfCrownsEnemies { get; set; }
-        #endregion
-        [Setting]
-        [DefaultValue(70.0f)]
-        public float AoEHealThreshold { get; set; }
 
+        #endregion
 
         #region Card Weights
 
         #region Tanks
         [Setting]
-        [DefaultValue(1)]
-        public int PldCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(2)]
-        public int WarCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(3)]
-        public int DrkCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(4)]
-        public int GnbCardWeight { get; set; }
-
-        #endregion
-
-        #region heals
-        [Setting]
-        [DefaultValue(5)]
-        public int WhmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(6)]
-        public int SchCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(7)]
-        public int AstCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(8)]
-        public int SgeCardWeight { get; set; }
-
-        #endregion
-
-        #region meleeDPS
-        [Setting]
-        [DefaultValue(9)]
-        public int MnkCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(10)]
-        public int DrgCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(11)]
-        public int NinCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(12)]
-        public int SamCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(13)]
-        public int RprCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(14)]
-        public int VprCardWeight { get; set; }
-
-        #endregion
-
-        #region physicalRangeDPS
-        [Setting]
-        [DefaultValue(15)]
-        public int BrdCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(16)]
-        public int MchCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(17)]
-        public int DncCardWeight { get; set; }
-
-
-        #endregion
-
-        #region magicalRangeDPS
-        [Setting]
-        [DefaultValue(18)]
-        public int BlmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(19)]
-        public int SmnCardWeight { get; set; }
+        [DefaultValue(70)]
+        public int PldBalanceWeight { get; set; }
         [Setting]
         [DefaultValue(20)]
-        public int RdmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(21)]
-        public int PctCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(22)]
-        public int BluCardWeight { get; set; }
+        public int PldSpearWeight { get; set; }
 
+        [Setting]
+        [DefaultValue(70)]
+        public int WarBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(20)]
+        public int WarSpearWeight { get; set; }
 
+        [Setting]
+        [DefaultValue(70)]
+        public int DrkBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(20)]
+        public int DrkSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(70)]
+        public int GnbBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(20)]
+        public int GnbSpearWeight { get; set; }
+        #endregion
+
+        #region Healers
+        [Setting]
+        [DefaultValue(20)]
+        public int WhmBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(70)]
+        public int WhmSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(20)]
+        public int SchBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(70)]
+        public int SchSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(20)]
+        public int AstBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(70)]
+        public int AstSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(20)]
+        public int SgeBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(70)]
+        public int SgeSpearWeight { get; set; }
+        #endregion
+
+        #region Melee DPS
+        [Setting]
+        [DefaultValue(100)]
+        public int MnkBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(30)]
+        public int MnkSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(100)]
+        public int DrgBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(30)]
+        public int DrgSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(100)]
+        public int NinBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(30)]
+        public int NinSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(100)]
+        public int SamBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(30)]
+        public int SamSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(100)]
+        public int RprBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(30)]
+        public int RprSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(100)]
+        public int VprBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(30)]
+        public int VprSpearWeight { get; set; }
+        #endregion
+
+        #region Physical Ranged DPS
+        [Setting]
+        [DefaultValue(30)]
+        public int BrdBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int BrdSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int MchBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int MchSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int DncBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int DncSpearWeight { get; set; }
+        #endregion
+
+        #region Magical Ranged DPS
+        [Setting]
+        [DefaultValue(30)]
+        public int BlmBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int BlmSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int SmnBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int SmnSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int RdmBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int RdmSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int PctBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int PctSpearWeight { get; set; }
+
+        [Setting]
+        [DefaultValue(30)]
+        public int BluBalanceWeight { get; set; }
+        [Setting]
+        [DefaultValue(100)]
+        public int BluSpearWeight { get; set; }
         #endregion
 
         #endregion
 
         #region FightLogic
+
         [Setting]
         [DefaultValue(true)]
         public bool FightLogicNeutralSect { get; set; }
@@ -652,9 +725,11 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(true)]
         public bool FightLogicExaltation { get; set; }
+
         #endregion
 
         #region PVP
+
         [Setting]
         [DefaultValue(true)]
         public bool Pvp_FallMalefic { get; set; }
@@ -718,7 +793,7 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(2)]
         public int Pvp_LordOfCrownsEnemies { get; set; }
-        #endregion
 
+        #endregion
     }
 }
