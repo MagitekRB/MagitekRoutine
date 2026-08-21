@@ -59,7 +59,7 @@ namespace Magitek.Utilities.Routines
 
             if (Casting.CastingSpell != Spells.Egeiro && Casting.SpellTarget?.CurrentHealth < 1)
             {
-                Logger.Error($@"Stopped cast: Unit Died");
+                Logger.Error($@"Stopped Cast: Unit Died");
                 return true;
             }
 
