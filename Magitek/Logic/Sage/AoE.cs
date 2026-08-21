@@ -103,7 +103,8 @@ namespace Magitek.Logic.Sage
                                          && x.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)))
                 return false;
 
-            return await UseEukrasianDyskrasia(Core.Me.CurrentTarget);
+            // Dawntrail Fix: Eukrasian Dyskrasia is a self-centered AoE. Passing an enemy target causes CanCast to fail.
+            return await UseEukrasianDyskrasia(Core.Me, Core.Me.CurrentTarget);
         }
 
         private static readonly uint[] DotAuras =
@@ -114,15 +115,15 @@ namespace Magitek.Logic.Sage
             Auras.EukrasianDyskrasia
         };
 
-        private static async Task<bool> UseEukrasianDyskrasia(GameObject target)
+        private static async Task<bool> UseEukrasianDyskrasia(GameObject castTarget, GameObject auraTarget)
         {
             var spell = Spells.EukrasianDyskrasia;
-            var aura = Auras.EukrasianDyskrasia;
-
-            if (!await Heal.UseEukrasia(spell.Id, target))
+            uint aura = Auras.EukrasianDyskrasia;
+            if (!await Heal.UseEukrasia(spell.Id, auraTarget))
                 return false;
 
-            return await spell.CastAura(target, (uint)aura);
+            // Cast on yourself, but check the enemy for the aura, abide by the DotRefreshMSeconds setting to avoid refreshing too early.
+            return await Spells.EukrasianDyskrasia.CastAura(auraTarget, aura, false, SageSettings.Instance.DontDotIfEnemyDyingWithin, true, castTarget);
         }
 
         public static async Task<bool> Toxikon()
@@ -217,10 +218,12 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) < SageSettings.Instance.PsycheAoEEnemies)
+            if (!Spells.Psyche.IsKnown())
                 return false;
 
-            if (!Spells.Psyche.IsKnown())
+            bool meetsAoeThreshold = Combat.Enemies.Count(r => r.Distance(target) <= Spells.Psyche.Radius) >= SageSettings.Instance.PsycheAoEEnemies;
+
+            if (!meetsAoeThreshold)
                 return false;
 
             return await Spells.Psyche.Cast(target);
