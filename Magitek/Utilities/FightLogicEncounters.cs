@@ -4579,11 +4579,37 @@ namespace Magitek.Utilities
                     }
                 }
             },
+            // Anima's Oblivion (cast id 25359) is left out on purpose. Measured 2026-08-19:
+            // the cast bar runs ~6.0s, then 23697 ticks 15 times across all four players at
+            // ~10.6% of a health bar each over the next 4.3s, and only then does 23872 land for
+            // 49.1% - 13.1s after the cast starts. Reacting on the cast puts a barrier up in time
+            // for the chip damage, which consumes it, so it is gone before the hit that matters;
+            // Sacred Soil's 15s survives but with under 2s to spare.
+            //
+            // What would make it catalogueable is a per-mechanic reaction delay. HodlCastTimeRemaining
+            // already resolves (encounter, enemyLogic, enemy) and every job reaches it - the four
+            // healer HealFightLogic files and CommonFightLogic alike - so a hold keyed on
+            // enemy.CastingSpellId would let this one entry react at cast-end instead of cast-start
+            // without touching any other reaction. Flagging rather than building it: the shape of
+            // that (data on the mechanic vs a lookup in FightLogic) is your call.
             new Encounter {
                 ZoneId = ZoneId.TheTowerOfBabil,
                 Name = "Dungeon: The Tower of Babil",
                 Expansion = FfxivExpansion.Endwalker,
                 Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 10279,
+                        Name = "Barnabas",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            25324 //Shocking Force
+                        },
+                        AoeLockOns = new List<uint> {
+                            62 //Shocking Force stacks the party on one marked player ~5s ahead
+                        },
+                        BigAoes = null
+                    },
                     new Enemy {
                         Id = 10281,
                         Name = "Lugae",
@@ -4610,8 +4636,15 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
-                            25344 //Mega Graviton
+                            25344, //Mega Graviton
+                            25352, //Erupting Pain
+                            25351, //Erupting Pain (second cast id)
+                            25347  //Boundless Pain - casts as 25347, lands as 25348
                         },
+                        AoeLockOns = new List<uint> {
+                            139 //Erupting Pain marks every player ~5s before the hit
+                        },
+                        // 25359, //Oblivion - deliberately NOT catalogued; see the note above this encounter
                         BigAoes = null
                     },
                     new Enemy {
@@ -4620,8 +4653,15 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
-                            25344 //Mega Graviton
+                            25344, //Mega Graviton
+                            25352, //Erupting Pain
+                            25351, //Erupting Pain (second cast id)
+                            25347  //Boundless Pain - casts as 25347, lands as 25348
                         },
+                        AoeLockOns = new List<uint> {
+                            139 //Erupting Pain marks every player ~5s before the hit
+                        },
+                        // 25359, //Oblivion - deliberately NOT catalogued; see the note above this encounter
                         BigAoes = null
                     }
                 }
