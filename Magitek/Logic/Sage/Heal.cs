@@ -260,8 +260,10 @@ namespace Magitek.Logic.Sage
                     || SageSettings.Instance.ZoeTank && targets.Any(r => r.IsTank(SageSettings.Instance.ZoeMainTank)))
                     if (targets.Any(r => r.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent))
                         await UseZoe(); // intentionally ignore failures
+            // Resolve the masked spell once so it automatically handles the level 96+ Eukrasian Prognosis II upgrade
+            var progSpell = Spells.EukrasianPrognosis.Masked();
 
-            if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
+            if (!await UseEukrasia(progSpell.Id))
                 return false;
 
             return await Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis);
