@@ -113,9 +113,7 @@ namespace Magitek.Utilities
                 return null;
             FlHandledCastingSpellId.Clear();
 
-            var output = enemyLogic.TankBusters.Contains(enemy.CastingSpellId)
-                ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
-                : null;
+            var output = MatchTankBuster(enemyLogic, enemy);
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo(
@@ -138,30 +136,7 @@ namespace Magitek.Utilities
                 return null;
             FlHandledCastingSpellId.Clear();
 
-            // Every tank stacks for a shared buster, so every tank takes a share and every tank wants
-            // covering. Healers pass this result straight to a cast, so it has to name a tank they can
-            // actually reach — CastableTanks is our own party, not the alliance.
-            //
-            // Prefer the tank being aimed at when they are in our party. In an alliance raid the target is
-            // usually in a different party, and the tank we can reach is ours, stacking in to share the
-            // damage — so fall back to them rather than returning nothing. Returning the target alone left
-            // a healer in another party doing nothing while their tank ate a share; returning a non-target
-            // alone shielded the co-tank while the tank being hit went uncovered.
-            //
-            // CastableTanks is built before Group applies any distance filter, so it can name a tank well
-            // outside heal range. Naming one satisfies the preferred-target branch, skips the fallback and
-            // then fails the caller's own CanCast — no mitigation at all. Restrict both branches to tanks
-            // inside standard heal range so the fallback can still find the co-tank we can reach.
-            //
-            // WithinSpellRange, not the CastableAlliesWithin30 list: that list is built from raw
-            // centre-to-centre distance, so a large tank whose edge is well inside 30y can fall out of it
-            // and be passed over for a co-tank while the game would have allowed the cast.
-            var reachableTanks = Group.CastableTanks.Where(x => x.WithinSpellRange(30)).ToList();
-
-            var output = enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
-                ? reachableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
-                  ?? reachableTanks.FirstOrDefault()
-                : null;
+            var output = MatchSharedTankBuster(enemyLogic, enemy);
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo(
@@ -212,7 +187,7 @@ namespace Magitek.Utilities
                     return false;
                 FlHandledCastingSpellId.Clear();
 
-                var output = enemyLogic.Aoes.Contains(enemy.CastingSpellId);
+                var output = MatchAoe(enemyLogic, enemy);
 
                 if (output && DebugSettings.Instance.DebugFightLogic)
                     Logger.WriteInfo($"[AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
@@ -269,7 +244,7 @@ namespace Magitek.Utilities
                 return false;
             FlHandledCastingSpellId.Clear();
 
-            var output = enemyLogic.BigAoes.Contains(enemy.CastingSpellId);
+            var output = MatchBigAoe(enemyLogic, enemy);
 
             if (output && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo(
@@ -292,12 +267,185 @@ namespace Magitek.Utilities
                 return false;
             FlHandledCastingSpellId.Clear();
 
-            var output = enemyLogic.Knockbacks.Contains(enemy.CastingSpellId);
+            var output = MatchKnockback(enemyLogic, enemy);
 
             if (output && DebugSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo($"[Knockback Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
 
             return output;
+        }
+
+        // Single source of truth for what each detection category matches. The responder methods
+        // above layer their gates (IsFlReady, the answered-once ledger, debug logging) on top of
+        // these, and Peek below exposes them without any of that — keep the matching itself here
+        // so the two surfaces can never drift apart.
+
+        private static Character MatchTankBuster(Enemy enemyLogic, BattleCharacter enemy)
+        {
+            return enemyLogic.TankBusters.Contains(enemy.CastingSpellId)
+                ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                : null;
+        }
+
+        private static Character MatchSharedTankBuster(Enemy enemyLogic, BattleCharacter enemy)
+        {
+            // Every tank stacks for a shared buster, so every tank takes a share and every tank wants
+            // covering. Healers pass this result straight to a cast, so it has to name a tank they can
+            // actually reach — CastableTanks is our own party, not the alliance.
+            //
+            // Prefer the tank being aimed at when they are in our party. In an alliance raid the target is
+            // usually in a different party, and the tank we can reach is ours, stacking in to share the
+            // damage — so fall back to them rather than returning nothing. Returning the target alone left
+            // a healer in another party doing nothing while their tank ate a share; returning a non-target
+            // alone shielded the co-tank while the tank being hit went uncovered.
+            //
+            // CastableTanks is built before Group applies any distance filter, so it can name a tank well
+            // outside heal range. Naming one satisfies the preferred-target branch, skips the fallback and
+            // then fails the caller's own CanCast — no mitigation at all. Restrict both branches to tanks
+            // inside standard heal range so the fallback can still find the co-tank we can reach.
+            //
+            // WithinSpellRange, not the CastableAlliesWithin30 list: that list is built from raw
+            // centre-to-centre distance, so a large tank whose edge is well inside 30y can fall out of it
+            // and be passed over for a co-tank while the game would have allowed the cast.
+            var reachableTanks = Group.CastableTanks.Where(x => x.WithinSpellRange(30)).ToList();
+
+            return enemyLogic.SharedTankBusters.Contains(enemy.CastingSpellId)
+                ? reachableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                  ?? reachableTanks.FirstOrDefault()
+                : null;
+        }
+
+        private static bool MatchAoe(Enemy enemyLogic, BattleCharacter enemy)
+        {
+            return enemyLogic.Aoes.Contains(enemy.CastingSpellId);
+        }
+
+        private static bool MatchBigAoe(Enemy enemyLogic, BattleCharacter enemy)
+        {
+            return enemyLogic.BigAoes.Contains(enemy.CastingSpellId);
+        }
+
+        private static bool MatchKnockback(Enemy enemyLogic, BattleCharacter enemy)
+        {
+            return enemyLogic.Knockbacks.Contains(enemy.CastingSpellId);
+        }
+
+        /// <summary>
+        /// Read-only queries over the same detection matching the responder methods above use. A peek
+        /// answers "is a mechanic incoming that it is time to react to", not "is a cast bar up".
+        /// <para>
+        /// Every peek waits out the configured fight logic response delay before answering, exactly as
+        /// the responder call sites do through <see cref="HodlCastTimeRemaining"/> — so nothing acting
+        /// on a peek can react to a mechanic faster than a real response would. The delay is baked in
+        /// here rather than left to the call site precisely so a caller cannot forget it.
+        /// </para>
+        /// <para>
+        /// Nothing in here touches the answered-once ledger, gates on <see cref="IsFlReady"/>, or
+        /// starts the response stopwatch — asking a question never changes whether a responder still
+        /// answers. A peek also keeps reporting a mechanic the responders have already answered, on
+        /// purpose: peek callers are ADDITIVE, riding alongside the real response (aiming a card at
+        /// the tank about to be hit while mitigation also fires), so going blind the moment a
+        /// responder answers — which is what honoring <see cref="IsFlReady"/> would do — would defeat
+        /// them exactly when they matter.
+        /// </para>
+        /// <para>
+        /// Use these from job logic for targeting and priority hints only — choosing where to aim
+        /// something that is being cast anyway. Anything cast BECAUSE a mechanic is incoming is a
+        /// response and belongs in the responder methods via <see cref="DoAndBuffer"/>, so the
+        /// answer-once bookkeeping and response pacing still apply to it.
+        /// </para>
+        /// </summary>
+        public static class Peek
+        {
+            /// <summary>
+            /// The same human-plausibility pacing every responder call site applies before acting.
+            /// Measuring the CACHED enemy's cast progress matches responder behaviour for lock-on
+            /// detections too: an unrelated cast early in its bar holds those back at the responder
+            /// call sites, so it holds the peek back the same way.
+            /// </summary>
+            private static bool ResponseDelayElapsed()
+            {
+                return HodlCastTimeRemaining(hodlTillDurationInPct: DebugSettings.Instance.FightLogicResponseDelay);
+            }
+
+            /// <summary>The tank about to be hit by a catalogued tankbuster (falling back to shared busters), or null.</summary>
+            public static Character EnemyIsCastingTankBuster()
+            {
+                if (!ResponseDelayElapsed())
+                    return null;
+
+                var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                if (enemyLogic?.TankBusters == null || enemy == null || encounter == null)
+                    return EnemyIsCastingSharedTankBuster();
+
+                return MatchTankBuster(enemyLogic, enemy);
+            }
+
+            /// <summary>The reachable tank taking a catalogued shared tankbuster, or null.</summary>
+            public static Character EnemyIsCastingSharedTankBuster()
+            {
+                if (!ResponseDelayElapsed())
+                    return null;
+
+                var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                if (enemyLogic?.SharedTankBusters == null || enemy == null || encounter == null)
+                    return null;
+
+                return MatchSharedTankBuster(enemyLogic, enemy);
+            }
+
+            /// <summary>Whether a catalogued AoE is incoming — a matching cast, an encounter AoE lock-on, or (when enabled) a common lock-on.</summary>
+            public static bool EnemyIsCastingAoe()
+            {
+                if (!ResponseDelayElapsed())
+                    return false;
+
+                var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                if (enemy != null && enemyLogic?.Aoes != null && encounter != null && MatchAoe(enemyLogic, enemy))
+                    return true;
+
+                if (enemyLogic?.AoeLockOns != null && CheckAoeLockOns(enemyLogic.AoeLockOns).found)
+                    return true;
+
+                if (DebugSettings.Instance.FightLogicIncludeCommonAoeLockOnsTest && CheckAoeLockOns(CommonAoeLockOns).found)
+                    return true;
+
+                return false;
+            }
+
+            /// <summary>Whether a catalogued big AoE is incoming (falling back to <see cref="EnemyIsCastingAoe"/> for enemies with no big-AoE list).</summary>
+            public static bool EnemyIsCastingBigAoe()
+            {
+                if (!ResponseDelayElapsed())
+                    return false;
+
+                var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                if (enemyLogic == null || enemy == null || encounter == null)
+                    return false;
+
+                if (enemyLogic.BigAoes == null)
+                    return EnemyIsCastingAoe();
+
+                return MatchBigAoe(enemyLogic, enemy);
+            }
+
+            /// <summary>Whether a catalogued knockback is incoming.</summary>
+            public static bool EnemyIsCastingKnockback()
+            {
+                if (!ResponseDelayElapsed())
+                    return false;
+
+                var (encounter, enemyLogic, enemy) = GetEnemyLogicAndEnemy();
+
+                if (enemyLogic?.Knockbacks == null || enemy == null || encounter == null)
+                    return false;
+
+                return MatchKnockback(enemyLogic, enemy);
+            }
         }
 
         public static bool ZoneHasFightLogic()
