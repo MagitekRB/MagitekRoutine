@@ -2483,7 +2483,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19306 //Inscrutability
+                            19306, //Inscrutability
+                            19322 //Ectoplasmic Ray - stack. Damage lands as 19320 on all four
+                                  //players 5.25s after this cast, up to 30.4% of a health bar.
                         },
                         BigAoes = null
                     },
@@ -2496,7 +2498,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19306 //Inscrutability
+                            19306, //Inscrutability
+                            19322 //Ectoplasmic Ray - stack. Damage lands as 19320 on all four
+                                  //players 5.25s after this cast, up to 30.4% of a health bar.
                         },
                         BigAoes = null
                     },
@@ -2506,7 +2510,14 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19288 //The Final Verse
+                            19288, //The Final Verse
+                            19296 //Open Hearth - 4 hits from one cast, all four players, 33.1%
+                        },
+                        AoeLockOns = new List<uint>() {
+                            62, //Open Hearth's stack marker
+                            96 //Wanderer's Pyre marks three players in the same millisecond as
+                               //its cast. Both of these are on the global common-marker set,
+                               //which is inert unless the enemy declares it.
                         },
                         BigAoes = null
                     },
@@ -2515,6 +2526,40 @@ namespace Magitek.Utilities
                         Name = "Rukshs Dheem",
                         TankBusters = new List<uint>() {
                             19340 //Bonebreaker
+                        },
+                        SharedTankBusters = null,
+                        Aoes = new List<uint>() {
+                            //Each of these fires as a PAIR sharing one cast time: a self-targeted
+                            //id with EffectRange 0, and the id that carries the geometry and the
+                            //damage. Both show a cast bar, so both are listed - which one the
+                            //client reports as the enemy's current cast is not something we can
+                            //tell from a log, and an id that never matches is simply inert.
+                            //Measured 2026-08-20: the r0 half dealt zero damage every time.
+                            19323, //Seabed Ceremony - the most frequent damage in the fight,
+                                   //7 casts in one clear, up to 41.7%. This half is single r0.
+                            19324, //Seabed Ceremony - circle r60, carries the damage (7/7 hits)
+                            19325, //Falling Water - marks TWO players at once, and not the tanks,
+                                   //so the party answer is the right one. This half is single r0.
+                            19326, //Falling Water - circle r8, carries the damage
+                            19327, //Flying Fount - stack, up to 52.1%. This half is single r0.
+                            19328 //Flying Fount - circle r6, carries the damage
+                        },
+                        AoeLockOns = new List<uint>() {
+                            62 //Flying Fount's stack marker
+                        },
+                        BigAoes = null
+                    },
+                    //Trash, not a boss - the only such entry here. Included on a player ruling:
+                    //Barreling Smash is a lock-on charge along a line at whoever it picks, and it
+                    //is worth a single-target barrier on that player. Filed under TankBusters
+                    //because that is the path that shields the named target; the victim is not
+                    //necessarily a tank. No head marker precedes it (checked type-27 lines in the
+                    //8s before each cast), so the 5.0s cast bar is the only signal we get.
+                    new Enemy {
+                        Id = 9280,
+                        Name = "Io Ousia",
+                        TankBusters = new List<uint>() {
+                            20004 //Barreling Smash - line charge, 30.5% on its single victim
                         },
                         SharedTankBusters = null,
                         Aoes = null,
