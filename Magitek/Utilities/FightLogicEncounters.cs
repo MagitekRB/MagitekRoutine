@@ -7842,11 +7842,20 @@ namespace Magitek.Utilities
                             46470, // Alley-oop Inferno
                             46466, // Divers' Dare
                             46472, // Pyrotation
+                            46474, // Hot Aerial — tower soak; the tower damage is unavoidable by design
+                            46478, // Cutback Blaze — marked spread cones, every cast dealt party damage
+                            46497, // Xtreme Spectacular — tag-team multi-hit raidwide chain
+                            47251, // Insane Air — intro cast for the baited-cone rounds
+                            47253, // Insane Air — per-round baited cones, rolling party damage
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = new List<uint> {
+                            // Fires simultaneously with Deep Blue's Watersnaking; together they cover
+                            // all eight players in one instant with most hits above half a health bar.
+                            46462, // Firesnaking
+                        }
                     },
                     new Enemy {
                         Id = 14369,
@@ -7856,11 +7865,16 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint> {
                             46467, // Divers' Dare
+                            46498, // Xtreme Spectacular — Deep Blue's castbar for the shared chain
+                            47252, // Insane Air — intro cast
+                            47254, // Insane Air — per-round baited cones
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = new List<uint> {
+                            46463, // Watersnaking — simultaneous half of Firesnaking, same coverage
+                        }
                     },
                 }
             },
@@ -7883,11 +7897,18 @@ namespace Magitek.Utilities
                             46016, // Raw Steel
                             46043, // One and Only
                             46079, // Heartbreak Kick
+                            46024, // Void Stardust — unavoidable spread on every player, comet rain follows
+                            46056, // Flatliner — the damage rides a hidden twin that hits all eight ~6s later
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = new List<uint> {
+                            // Sets every player to 1 HP (the log shows set-HP effects, not damage, which
+                            // is why it reads as zero damage). Shields do nothing against it — the value
+                            // of the response is the heal-back after it lands.
+                            46039, // Charybdistopia
+                        }
                     },
                 }
             },
