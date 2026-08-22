@@ -223,10 +223,6 @@ namespace Magitek.Models.Astrologian
         public float DiurnalHeliosMinManaPercent { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool DiurnalHeliosNoSwiftcast { get; set; }
-
-        [Setting]
         [DefaultValue(true)]
         public bool Horoscope { get; set; }
 

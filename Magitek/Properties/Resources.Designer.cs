@@ -529,15 +529,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevent Usage of Swiftcast Alone.
-        /// </summary>
-        public static string Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Purify (remove debuffs).
         /// </summary>
         public static string Astrologian_Content_Purify_remove_debuffs {

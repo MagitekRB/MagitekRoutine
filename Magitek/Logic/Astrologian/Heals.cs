@@ -543,9 +543,11 @@ namespace Magitek.Logic.Astrologian
 
             if (Core.Me.HasAura(Auras.NeutralSect) &&
                 Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield))
-                return MovementManager.IsMoving
-                    ? await SwiftCastAspectedHelios()
-                    : await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
+                // Swiftcast stays reserved for Ascend. While moving, the Lightspeed pairing
+                // with Neutral Sect (on by default) is what makes this castable; without it
+                // the shield waits for the next standstill.
+                return !MovementManager.IsMoving
+                    && await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
 
             if (Casting.LastSpell == Spells.AspectedHelios)
                 return false;
@@ -562,38 +564,11 @@ namespace Magitek.Logic.Astrologian
 
             if (diurnalHeliosCount >= AoeThreshold)
             {
-                if (await SwiftCastAspectedHelios())
-                    return true;
-
                 // RB masks the spell to Helios Conjunction at 96+, but not the aura it applies.
                 var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
 
                 return await Spells.AspectedHelios.HealAura(Core.Me, heliosAura);
             }
-            return false;
-        }
-
-        private static async Task<bool> SwiftCastAspectedHelios()
-        {
-            if (!Spells.Swiftcast.IsKnownAndReady())
-                return false;
-
-            if (AstrologianSettings.Instance.DiurnalHeliosNoSwiftcast)
-                return false;
-
-            if (!await Buff.Swiftcast())
-                return false;
-
-            var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
-
-            while (Core.Me.HasAura(Auras.Swiftcast))
-            {
-                if (await Spells.AspectedHelios.HealAura(Core.Me, heliosAura, false))
-                    return true;
-
-                await Coroutine.Yield();
-            }
-
             return false;
         }
 

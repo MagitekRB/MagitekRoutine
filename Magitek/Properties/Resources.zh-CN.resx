@@ -4029,9 +4029,6 @@
   <data name="Astrologian_Content_Use_Aspected_Benefic_While_Moving" xml:space="preserve">
     <value>移动时使用 吉星相位</value>
   </data>
-  <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
-    <value>防止单独使用即刻咏唱</value>
-  </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>地星范围内的队友血量低于</value>
   </data>
