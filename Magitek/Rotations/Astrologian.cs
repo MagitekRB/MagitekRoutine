@@ -59,6 +59,16 @@ namespace Magitek.Rotations
                 if (await Cards.PlayCards()) return true;
             }
 
+            // Cards double-weave while Divination is up so the Balance shares its window
+            // instead of waiting a full GCD behind it.
+            if (AstrologianSettings.Instance.WeaveOGCDHeals
+                && Core.Me.HasAura(Auras.Divination, true)
+                && GlobalCooldown.CanWeave(2)
+                && !GlobalCooldown.IsLateWeaveWindow())
+            {
+                if (await Cards.PlayCards()) return true;
+            }
+
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
                 if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
@@ -131,6 +141,16 @@ namespace Magitek.Rotations
                 if (await Cards.PlayCards()) return true;
 
 
+            }
+
+            // Cards double-weave while Divination is up so the Balance shares its window
+            // instead of waiting a full GCD behind it.
+            if (AstrologianSettings.Instance.WeaveOGCDHeals
+                && Core.Me.HasAura(Auras.Divination, true)
+                && GlobalCooldown.CanWeave(2)
+                && !GlobalCooldown.IsLateWeaveWindow())
+            {
+                if (await Cards.PlayCards()) return true;
             }
 
             if (Globals.InActiveDuty || Core.Me.InCombat)

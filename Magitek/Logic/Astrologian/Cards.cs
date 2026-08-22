@@ -4,105 +4,148 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Astrologian;
+using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Logic.Astrologian
 {
     internal static class Cards
     {
+        // The next draw overwrites the hand, so play out anything held this close to it.
+        private const int DrawDumpWindowSeconds = 10;
 
-        public static AstrologianCard GetDrawnCard()
+        // Failsafe: a play condition stuck false used to wedge the draw permanently.
+        private const int DrawStallBreakSeconds = 15;
+
+        // Divination will wait at most this long for a draw to put a damage card in hand.
+        private const int HoldDivinationForDrawSeconds = 10;
+
+        private static DateTime _readyDrawBlockedSince = DateTime.MinValue;
+
+        // Mirror of the Play I hold: no damage card in hand and a draw about to land means
+        // waiting puts the fresh Balance or Spear inside the window.
+        public static bool HoldDivinationForDraw()
         {
-            var drawnCards = CurrentCards;
-
-            foreach (var card in drawnCards)
-            {
-                if (card == AstrologianCard.None)
-                    continue;
-
-                return card;
-            }
-
-            return AstrologianCard.None;
-        }
-        public static async Task<bool> PlayCards()
-        {
-            var drawnCard = GetDrawnCard();
-
-            var cardDrawn = drawnCard != AstrologianCard.None;
-
-            /*
-            Looks like Arcana is now filled with either the Crown Draw, Or the Arcana Draw with Arcana Draw taking priority.
-            
-            The Card ID's have changed... but there's some goof with Reborn where whether or not you have Lord, Lady, or nothing, the Card ID drawn changes:
-                None = 0, 112, 128
-                Balance = 1, 113, 129.
-                Bole = 2, 114, 130.
-                Arrow = 3, 115, 131.
-                Spear = 4, 116, 132.
-                Ewer = 5, 117, 133.
-                Spire = 6, 118, 134.
-
-            There's some temporary workarounds above until reborn has this fixed.
-
-            */
-
-            //if (ActionManager.CanCast(Spells.Draw, Core.Me)
-            //    && AstrologianSettings.Instance.UseDraw
-            //    && !cardDrawn)
-            //     if (await Spells.Draw.Cast(Core.Me))
-            //       await Coroutine.Wait(700, () => GetDrawnCard() != AstrologianCard.None);
-
-            if (!cardDrawn)
+            if (!AstrologianSettings.Instance.AlignCardsWithDivination)
                 return false;
 
-            //if (Core.Me.InCombat && Spells.MinorArcana.IsKnownAndReady() && AstrologianSettings.Instance.UseMinorArcana)
-            //    if (!Core.Me.HasAnyAura(new uint[] { Auras.LadyOfCrownsDrawn, Auras.LordOfCrownsDrawn }))
-            //        return await Spells.MinorArcana.Cast(Core.Me);
+            if (CurrentCards.Any(card => card == AstrologianCard.Balance || card == AstrologianCard.Spear))
+                return false;
 
-            //if (Combat.CombatTotalTimeLeft <= AstrologianSettings.Instance.DontPlayWhenCombatTimeIsLessThan)
-            //    return false;
+            var drawCooldown = DrawCooldownRemainingSeconds();
 
-            //if (await RedrawOrDrawAgain(drawnCard))
-            //    return true;
+            return drawCooldown != null && drawCooldown <= HoldDivinationForDrawSeconds;
+        }
 
-            if (Globals.InParty && Core.Me.InCombat && AstrologianSettings.Instance.Play)
-            {
-                switch (drawnCard)
-                {
-                    case AstrologianCard.Balance:
-                        return await Spells.PlayI.Masked().Cast(MeleeDpsOrTank());
-                    case AstrologianCard.Spear:
-                        return await Spells.PlayI.Masked().Cast(RangedDpsOrHealer());
-                    case AstrologianCard.Bole:
-                        return await Spells.PlayII.Masked().Cast(Tank());
-                    case AstrologianCard.Arrow:
-                        return await Spells.PlayII.Masked().Cast(Tank());
-                    case AstrologianCard.Ewer:
-                        return await Spells.PlayIII.Masked().Cast(Tank());
-                    case AstrologianCard.Spire:
-                        return await Spells.PlayIII.Masked().Cast(Tank());
-                }
-            }
-
+        public static async Task<bool> PlayCards()
+        {
             if (!AstrologianSettings.Instance.Play)
                 return false;
 
-            if (!Globals.InParty && Core.Me.InCombat)
-                switch (drawnCard)
+            if (!Core.Me.InCombat)
+                return false;
+
+            // A card's identity tells us its slot.
+            var playICard = AstrologianCard.None;
+            var playIICard = AstrologianCard.None;
+            var playIIICard = AstrologianCard.None;
+
+            foreach (var card in CurrentCards)
+            {
+                switch (card)
                 {
                     case AstrologianCard.Balance:
                     case AstrologianCard.Spear:
-                        return await Spells.PlayI.Masked().Cast(Core.Me);
+                        playICard = card;
+                        break;
+
                     case AstrologianCard.Bole:
                     case AstrologianCard.Arrow:
-                        return await Spells.PlayII.Masked().Cast(Core.Me);
+                        playIICard = card;
+                        break;
+
                     case AstrologianCard.Ewer:
                     case AstrologianCard.Spire:
-                        return await Spells.PlayIII.Masked().Cast(Core.Me);
+                        playIIICard = card;
+                        break;
                 }
+            }
+
+            if (playICard == AstrologianCard.None
+                && playIICard == AstrologianCard.None
+                && playIIICard == AstrologianCard.None)
+                return false;
+
+            var drawCooldown = DrawCooldownRemainingSeconds();
+
+            // No draw known (deep sync) means nothing can overwrite the hand, so never dump.
+            var dumping = drawCooldown != null && drawCooldown <= DrawDumpWindowSeconds;
+
+            // Damage card first: once its Divination hold releases, every weave window it
+            // spends behind Arrow or Spire is burst window lost. While held it returns
+            // false and the utility cards get the windows anyway.
+            if (playICard != AstrologianCard.None)
+            {
+                // Compared against the draw cooldown, not a constant: holding only when
+                // Divination lands first is what stops the hold from ever delaying a draw.
+                var holdForDivination = AstrologianSettings.Instance.AlignCardsWithDivination
+                                        && AstrologianSettings.Instance.Divination
+                                        && Spells.Divination.IsKnown()
+                                        && !Core.Me.HasAura(Auras.Divination, true)
+                                        && drawCooldown != null
+                                        && Spells.Divination.Cooldown.TotalSeconds <= drawCooldown
+                                        && !dumping;
+
+                if (!holdForDivination)
+                {
+                    var target = playICard == AstrologianCard.Balance ? MeleeDpsOrTank() : RangedDpsOrHealer();
+
+                    if (await Spells.PlayI.Masked().Cast(target))
+                        return true;
+                }
+            }
+
+            // Peek, not the responder: a card is additive and must not consume the mechanic.
+            if (playIICard != AstrologianCard.None)
+            {
+                var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
+                var target = (GameObject)busterTarget ?? MainTankOrFallback();
+
+                if (dumping
+                    || busterTarget != null
+                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    if (await Spells.PlayII.Masked().Cast(target))
+                        return true;
+            }
+
+            if (playIIICard == AstrologianCard.Spire)
+            {
+                var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
+                var target = (GameObject)busterTarget ?? MainTankOrFallback();
+
+                if (dumping
+                    || busterTarget != null
+                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    if (await Spells.PlayIII.Masked().Cast(target))
+                        return true;
+            }
+
+            if (playIIICard == AstrologianCard.Ewer)
+            {
+                var target = (GameObject)Group.CastableAlliesWithin30
+                                 .Where(a => a.CurrentHealth > 0)
+                                 .OrderBy(a => a.CurrentHealthPercent)
+                                 .FirstOrDefault()
+                             ?? MainTankOrFallback();
+
+                if (dumping
+                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    if (await Spells.PlayIII.Masked().Cast(target))
+                        return true;
+            }
 
             return false;
         }
@@ -114,25 +157,84 @@ namespace Magitek.Logic.Astrologian
             if (!Core.Me.InCombat && Globals.InSanctuaryOrSafeZone)
                 return false;
 
-            foreach (var card in CurrentCards)
-            {
-                if (card != AstrologianCard.None)
-                    return false;
-            }
-
             // The two draws are one alternating button under the hood (shared recast, and the
             // client swaps the base action to whichever draw is active), so they cannot be
             // toggled separately — one setting governs drawing as a whole.
             if (!AstrologianSettings.Instance.DrawCards)
                 return false;
 
-            if (Spells.AstralDraw.IsKnownAndReady())
-                return await Spells.AstralDraw.Cast(Core.Me);
+            var readyDraw = Spells.AstralDraw.IsKnownAndReady() ? Spells.AstralDraw
+                : Spells.UmbralDraw.IsKnownAndReady() ? Spells.UmbralDraw
+                : null;
 
-            if (Spells.UmbralDraw.IsKnownAndReady())
-                return await Spells.UmbralDraw.Cast(Core.Me);
+            var handEmpty = CurrentCards.All(card => card == AstrologianCard.None);
 
-            return false;
+            if (handEmpty)
+            {
+                _readyDrawBlockedSince = DateTime.MinValue;
+
+                if (readyDraw == null)
+                    return false;
+
+                return await readyDraw.Cast(Core.Me);
+            }
+
+            // Out of combat nothing can wedge — plays are combat-gated — so a held hand just waits for the pull.
+            if (readyDraw == null || !Core.Me.InCombat)
+            {
+                _readyDrawBlockedSince = DateTime.MinValue;
+                return false;
+            }
+
+            // Stall-breaker: a ready draw blocked by a non-empty hand for this long means
+            // the play conditions have wedged, so draw anyway and accept the overwrite —
+            // the draw's MP restore and fresh cards beat whatever is being held.
+            if (_readyDrawBlockedSince == DateTime.MinValue)
+            {
+                _readyDrawBlockedSince = DateTime.Now;
+                return false;
+            }
+
+            if (DateTime.Now - _readyDrawBlockedSince <= TimeSpan.FromSeconds(DrawStallBreakSeconds))
+                return false;
+
+            if (!await readyDraw.Cast(Core.Me))
+                return false;
+
+            _readyDrawBlockedSince = DateTime.MinValue;
+            return true;
+        }
+
+        // Remaining time on the shared draw recast, or null when no draw is known. The two
+        // draws alternate as one button and share the recast, so whichever reports as known
+        // carries the real remaining time; taking the minimum over the known ones covers
+        // either of them (or both) being known without caring which is active.
+        private static double? DrawCooldownRemainingSeconds()
+        {
+            double? remaining = null;
+
+            if (Spells.AstralDraw.IsKnown())
+                remaining = Spells.AstralDraw.Cooldown.TotalSeconds;
+
+            if (Spells.UmbralDraw.IsKnown())
+            {
+                var umbral = Spells.UmbralDraw.Cooldown.TotalSeconds;
+
+                if (remaining == null || umbral < remaining)
+                    remaining = umbral;
+            }
+
+            return remaining;
+        }
+
+        private static GameObject MainTankOrFallback()
+        {
+            var mainTank = Group.CastableAlliesWithin30.FirstOrDefault(a => a.CurrentHealth > 0 && a.IsTank(mainTank: true));
+
+            if (mainTank != null)
+                return mainTank;
+
+            return Tank();
         }
 
         private static GameObject Tank()
@@ -159,12 +261,12 @@ namespace Magitek.Logic.Astrologian
             // The pool boundary IS the potency bracket, deliberately: off-role recipients get
             // only 3%, and a full-potency tank (~two-thirds of a DPS's output at 6%) out-gains
             // a half-potency ranged DPS — so with no melee DPS alive the tank is the right call.
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
@@ -178,12 +280,12 @@ namespace Magitek.Logic.Astrologian
             // a DPS makes more of the buff than a healer, so DPS sort ahead inside the bracket.
             // Same deliberate pool boundary as The Balance: a half-potency melee DPS does not
             // out-gain a full-potency healer's-bracket recipient, so off-role DPS stay excluded.
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
