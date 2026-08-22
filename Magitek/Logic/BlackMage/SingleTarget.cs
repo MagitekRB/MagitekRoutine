@@ -63,6 +63,13 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Despair)
                 return false;
 
+            // In the AoE rotation Flare owns the fire-phase finisher - Despair firing first
+            // dumps the MP that two more Flares and Flare Star were going to convert
+            if (AoeControl.Enabled
+                && BlackMageSettings.Instance.UseAoe
+                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+                return false;
+
             if (Casting.LastSpellWas(Spells.Despair))
                 return false;
 
