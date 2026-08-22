@@ -1006,6 +1006,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don't recast the Neutral Sect shield while your own Helios regen still has at least this many seconds left:.
+        /// </summary>
+        public static string Astrologian_Text_Neutral_Sect_No_Reshield {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Neutral_Sect_No_Reshield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PCT:.
         /// </summary>
         public static string Astrologian_Text_PCT {

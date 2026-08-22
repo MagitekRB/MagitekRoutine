@@ -702,6 +702,9 @@
   <data name="Astrologian_Content_Aspected_Helios" xml:space="preserve">
     <value>阳星相位</value>
   </data>
+  <data name="Astrologian_Text_Neutral_Sect_No_Reshield" xml:space="preserve">
+    <value>自身的阳星相位回复效果至少还剩这些秒数时，不重新施放中间学派护盾：</value>
+  </data>
   <data name="Astrologian_Content_Celestial_Opposition" xml:space="preserve">
     <value>天星冲日</value>
   </data>

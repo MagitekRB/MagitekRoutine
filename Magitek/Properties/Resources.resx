@@ -702,6 +702,9 @@
   <data name="Astrologian_Content_Aspected_Helios" xml:space="preserve">
     <value>Aspected Helios</value>
   </data>
+  <data name="Astrologian_Text_Neutral_Sect_No_Reshield" xml:space="preserve">
+    <value>Don't recast the Neutral Sect shield while your own Helios regen still has at least this many seconds left:</value>
+  </data>
   <data name="Astrologian_Content_Celestial_Opposition" xml:space="preserve">
     <value>Celestial Opposition</value>
   </data>

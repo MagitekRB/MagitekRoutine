@@ -541,8 +541,16 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.AspectedHelios.IsKnownAndReady())
                 return false;
 
+            // RB masks the spell to Helios Conjunction at 96+, but not the aura it applies.
+            var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
+
+            // A raidwide consuming the shields re-qualifies this branch a GCD later, so without the
+            // regen check it recast after every hit, overwriting a regen that was still mostly fresh.
+            // A fresh self-regen means we just cast this; once it ages past the threshold the branch
+            // may fire again so the party can be re-shielded before the next hit.
             if (Core.Me.HasAura(Auras.NeutralSect) &&
-                Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield))
+                Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield)
+                && !Core.Me.HasAura(heliosAura, true, AstrologianSettings.Instance.DiurnalHeliosReshieldRegenSecondsLeft * 1000))
                 return MovementManager.IsMoving
                     ? await SwiftCastAspectedHelios()
                     : await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
@@ -564,9 +572,6 @@ namespace Magitek.Logic.Astrologian
             {
                 if (await SwiftCastAspectedHelios())
                     return true;
-
-                // RB masks the spell to Helios Conjunction at 96+, but not the aura it applies.
-                var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
 
                 return await Spells.AspectedHelios.HealAura(Core.Me, heliosAura);
             }
