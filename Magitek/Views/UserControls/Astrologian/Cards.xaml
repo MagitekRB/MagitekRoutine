@@ -46,11 +46,6 @@
         <controls:SettingsBlock Margin="0,2" Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5,0">
                 <CheckBox Margin="0,5" Content="{x:Static properties:Resources.Astrologian_Content_Play_Cards}" IsChecked="{Binding AstrologianSettings.Play, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,7,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds}" />
-                    <controls:Numeric Increment="1" MaxValue="60" MinValue="1" Value="{Binding AstrologianSettings.DontPlayWhenCombatTimeIsLessThan, Mode=TwoWay}" />
-                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Seconds_Left_in_Combat}" />
-                </StackPanel>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Align_Cards_With_Divination}" IsChecked="{Binding AstrologianSettings.AlignCardsWithDivination, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>

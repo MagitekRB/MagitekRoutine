@@ -906,14 +906,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Dont Play Cards When There is Less Than 30 Seconds.
-        /// </summary>
-        public static string Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Dont Use DoT if Enemy Dying Within 10 Seconds.
@@ -1204,14 +1196,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Seconds Left in Combat..
-        /// </summary>
-        public static string Astrologian_Text_Seconds_Left_in_Combat {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Seconds_Left_in_Combat", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to SGE:.

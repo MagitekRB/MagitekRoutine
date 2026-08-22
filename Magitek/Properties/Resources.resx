@@ -573,9 +573,6 @@
   <data name="Astrologian_Content_Use_Oracle_at_least" xml:space="preserve">
     <value>Use Oracle at least</value>
   </data>
-  <data name="Astrologian_Text_Seconds_Left_in_Combat" xml:space="preserve">
-    <value>Seconds Left in Combat.</value>
-  </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
   </data>
@@ -4013,9 +4010,6 @@
   </data>
   <data name="Astrologian_Content_Only_Heal_Alliance_Members_With_Regen" xml:space="preserve">
     <value>Only Heal Alliance Members With Regen</value>
-  </data>
-  <data name="Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds" xml:space="preserve">
-    <value>Dont Play Cards When There is Less Than 30 Seconds</value>
   </data>
   <data name="Astrologian_Content_Play_The_Arrow_At_Or_Below" xml:space="preserve">
     <value>Play the Arrow (boosts healing received) on the most wounded ally at or below</value>

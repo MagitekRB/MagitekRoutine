@@ -38,6 +38,10 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.LordOfCrowns)
                 return false;
 
+            // Lord is a damage oGCD - the master damage switch applies to it like everything else.
+            if (!AstrologianSettings.Instance.DoDamage)
+                return false;
+
             if (!Spells.LordofCrowns.IsKnownAndReady())
                 return false;
 
@@ -51,6 +55,10 @@ namespace Magitek.Logic.Astrologian
         public static async Task<bool> Oracle()
         {
             if (!AstrologianSettings.Instance.Oracle)
+                return false;
+
+            // Oracle is a damage oGCD - the master damage switch applies to it like everything else.
+            if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
             if (!Spells.Oracle.IsKnownAndReady())

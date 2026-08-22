@@ -325,10 +325,6 @@ namespace Magitek.Models.Astrologian
         public bool Benefic2 { get; set; }
 
         [Setting]
-        [DefaultValue(true)]
-        public bool NoBeneficIfBenefic2Available { get; set; }
-
-        [Setting]
         [DefaultValue(60.0f)]
         public float Benefic2HealthPercent { get; set; }
 
@@ -484,10 +480,6 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(true)]
         public bool Play { get; set; }
-
-        [Setting]
-        [DefaultValue(25)]
-        public int DontPlayWhenCombatTimeIsLessThan { get; set; }
 
         [Setting]
         [DefaultValue(true)]

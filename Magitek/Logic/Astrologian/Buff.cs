@@ -46,7 +46,7 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.LightspeedWithDivination && Core.Me.HasAura(Auras.Divination, true))
                 return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
 
-            if (AstrologianSettings.Instance.LightspeedWithDivination && Core.Me.HasAura(Auras.NeutralSect, true))
+            if (AstrologianSettings.Instance.LightspeedWithNeutralSect && Core.Me.HasAura(Auras.NeutralSect, true))
                 return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
 
             if (Globals.InParty)

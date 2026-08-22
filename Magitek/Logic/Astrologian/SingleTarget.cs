@@ -64,6 +64,11 @@ namespace Magitek.Logic.Astrologian
                 if (!AstrologianSettings.Instance.UseTTDForCombust)
                     return true;
 
+                // Same rule as the single-target path: bosses are always worth the dot - their
+                // time-to-death estimate is unreliable and they exempt there too.
+                if (unit.IsBoss())
+                    return true;
+
                 return unit.CombatTimeLeft() >= AstrologianSettings.Instance.DontCombustIfEnemyDyingWithin;
             }
         }

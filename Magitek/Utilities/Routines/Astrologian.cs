@@ -81,14 +81,20 @@ namespace Magitek.Utilities.Routines
             if (AstrologianSettings.Instance.InterruptHealing && Casting.DoHealthChecks &&
                 Casting.SpellTarget?.CurrentHealthPercent >= AstrologianSettings.Instance.InterruptHealingHealthPercent)
             {
-                if (Casting.CastingSpell == Spells.Helios && PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
-                        r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Helios.Radius) && r.CurrentHealthPercent <=
-                        AstrologianSettings.Instance.HeliosHealthPercent) < AoeThreshold)
+                // Exhaustive chain: each AoE heal is judged by its own party count, and only
+                // single-target casts fall to the target-health rule. The old shape let a
+                // still-needed Helios fall into the single-target else and get cancelled.
+                if (Casting.CastingSpell == Spells.Helios)
                 {
-                    Logger.Error($@"Stopped Healing: Party's Health Too High");
-                    return true;
+                    if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
+                            r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Helios.Radius) && r.CurrentHealthPercent <=
+                            AstrologianSettings.Instance.HeliosHealthPercent) < AoeThreshold)
+                    {
+                        Logger.Error($@"Stopped Healing: Party's Health Too High");
+                        return true;
+                    }
                 }
-                if (Casting.CastingSpell == Spells.AspectedHelios)
+                else if (Casting.CastingSpell == Spells.AspectedHelios)
                 {
                     if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
                             r.CurrentHealth > 0 &&

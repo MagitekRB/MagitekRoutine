@@ -8,7 +8,7 @@ namespace Magitek.Models.Astrologian
     [AddINotifyPropertyChangedInterface]
     public class AstrologianZoneSettings : JsonSettings
     {
-        public AstrologianZoneSettings() : base(CharacterSettingsDirectory + "/Magitek/Scholar/AstrologianZoneSettings.json") { }
+        public AstrologianZoneSettings() : base(CharacterSettingsDirectory + "/Magitek/Astrologian/AstrologianZoneSettings.json") { }
         public static AstrologianZoneSettings Instance { get; set; } = new AstrologianZoneSettings();
 
         [Setting]

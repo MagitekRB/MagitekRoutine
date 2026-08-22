@@ -39,6 +39,12 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Benefic)
                 return false;
 
+            // Benefic II fully replaces Benefic once learned. Historically this method
+            // silently redirected every cast to Benefic II; now it honestly steps aside,
+            // and only casts plain Benefic under deep level sync or with Benefic II disabled.
+            if (Spells.Benefic2.IsKnown() && AstrologianSettings.Instance.Benefic2)
+                return false;
+
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
@@ -49,77 +55,21 @@ namespace Magitek.Logic.Astrologian
 
             if (Globals.InParty)
             {
-                foreach (var ally in Group.CastableAlliesWithin30)
-                {
-                    if (Utilities.Routines.Astrologian.DontBenefic.Contains(ally.Name))
-                        continue;
+                var beneficTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontBenefic.Contains(r.Name)
+                    && r.CurrentHealth > 0
+                    && r.CurrentHealthPercent <= beneficThreshold
+                    && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
-                    if (ally.CheckTankImmunity() == TankImmunityCheck.DontHealThem)
-                        continue;
-
-                    if (ally.CurrentHealthPercent > beneficThreshold
-                        || ally.CurrentHealth <= 0)
-                        continue;
-
-                    if (!ally.HasAura(Auras.AspectedBenefic))
-                        return await CastBenefic(ally);
-
-                    if (!AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderDps
-                        && ally.IsDps())
-                        return await CastBenefic(ally);
-
-                    if (!AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderHealer
-                        && ally.IsHealer())
-                        return await CastBenefic(ally);
-
-                    if (!AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderTank
-                        && ally.IsTank())
-                        return await CastBenefic(ally);
-
-                    if (AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderDps
-                        && ally.IsDps()
-                        && ally.CurrentHealthPercent < AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderHealth)
-                        return await CastBenefic(ally);
-
-                    if (AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderHealer && ally.IsHealer()
-                        && ally.CurrentHealthPercent < AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderHealth)
-                        return await CastBenefic(ally);
-
-                    if (AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderTank && ally.IsTank()
-                        && ally.CurrentHealthPercent < AstrologianSettings.Instance.DiurnalBeneficDontBeneficUnlessUnderHealth)
-                        return await CastBenefic(ally);
-                }
-
-                return false;
-            }
-            else
-            {
-                if (Core.Me.CurrentHealthPercent > beneficThreshold)
+                if (beneficTarget == null)
                     return false;
 
-                if (Spells.Benefic2.IsKnownAndReady())
-                {
-                    if (Core.Me.HasAura(Auras.EnhancedBenefic2)
-                        && AstrologianSettings.Instance.Benefic2AlwaysWithEnhancedBenefic2
-                        && Core.Me.CurrentManaPercent >= Spells.Benefic2.Cost)
-                        return await Spells.Benefic2.Heal(Core.Me);
-
-                    if (Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.Benefic2HealthPercent
-                        && Core.Me.CurrentManaPercent >= Spells.Benefic2.Cost)
-                        return await Spells.Benefic2.Heal(Core.Me);
-                }
-
-                return await Spells.Benefic.Heal(Core.Me);
+                return await Spells.Benefic.Heal(beneficTarget);
             }
 
-            async Task<bool> CastBenefic(GameObject ally)
-            {
-                if (AstrologianSettings.Instance.NoBeneficIfBenefic2Available)
-                    if (Spells.Benefic2.IsKnown() && AstrologianSettings.Instance.Benefic2)
-                        return await Spells.Benefic2.Heal(ally);
+            if (Core.Me.CurrentHealthPercent > beneficThreshold)
+                return false;
 
-                return await Spells.Benefic.Heal(ally);
-            }
+            return await Spells.Benefic.Heal(Core.Me);
         }
 
         public static async Task<bool> Benefic2()
