@@ -791,15 +791,6 @@ Does not work if Neutral Sect is disabled.</value>
     <value>This will automatically cast Lightspeed for Big AOEs if Macrocosmos and Neutral Sect FightLogic are enabled but unavailable.
 Does not work if Lightspeed is disabled.</value>
   </data>
-  <data name="Astrologian_Content_Nocturnal_Benefic" xml:space="preserve">
-    <value>Nocturnal Benefic</value>
-  </data>
-  <data name="Astrologian_Content_Use_Nocturnal_Benefic_While_Mo" xml:space="preserve">
-    <value>Use Nocturnal Benefic While Moving If Mana Is Above</value>
-  </data>
-  <data name="Astrologian_Content_Nocturnal_Helios" xml:space="preserve">
-    <value>Nocturnal Helios</value>
-  </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>Gravity II with at least</value>
   </data>

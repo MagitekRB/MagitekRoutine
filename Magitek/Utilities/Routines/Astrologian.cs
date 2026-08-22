@@ -17,7 +17,6 @@ namespace Magitek.Utilities.Routines
         public static HashSet<string> DontBenefic = new HashSet<string>();
         public static HashSet<string> DontBenefic2 = new HashSet<string>();
         public static HashSet<string> DontDiurnalBenefic = new HashSet<string>();
-        public static HashSet<string> DontNocturnalBenefic = new HashSet<string>();
         public static HashSet<string> DontEssentialDignity = new HashSet<string>();
         public static HashSet<string> DontCelestialIntersection = new HashSet<string>();
 

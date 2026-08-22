@@ -485,10 +485,6 @@ namespace Magitek.Models.Astrologian
 
         [Setting]
         [DefaultValue(true)]
-        public bool UseMinorArcana { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Play { get; set; }
 
         [Setting]
@@ -502,10 +498,6 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(80)]
         public int PlayUtilityCardHealthPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool CardRuleDefaultToMinorArcana { get; set; }
 
         [Setting]
         [DefaultValue(true)]

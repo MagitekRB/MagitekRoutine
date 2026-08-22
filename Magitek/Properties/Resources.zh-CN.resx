@@ -786,15 +786,6 @@
   <data name="Astrologian_ToolTip_This_will_automatically_cast_L" xml:space="preserve">
     <value>若 “大宇宙战斗逻辑” 及“中间学派战斗逻辑”已启用但无法释放时，面对超大AOE会尝试使用 “光速”。如果“光速”禁用则无效.</value>
   </data>
-  <data name="Astrologian_Content_Nocturnal_Benefic" xml:space="preserve">
-    <value>吉星相位</value>
-  </data>
-  <data name="Astrologian_Content_Use_Nocturnal_Benefic_While_Mo" xml:space="preserve">
-    <value>移动时使用“吉星相位” 如果MP高于</value>
-  </data>
-  <data name="Astrologian_Content_Nocturnal_Helios" xml:space="preserve">
-    <value>夜星阳星</value>
-  </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>使用中重力至少</value>
   </data>
