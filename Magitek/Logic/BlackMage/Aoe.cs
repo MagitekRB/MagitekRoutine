@@ -151,8 +151,9 @@ namespace Magitek.Logic.BlackMage
             if (!AoeControl.Enabled)
                 return false;
 
-            // The Transpose AoE loop starts at Freeze (level 40); below that the hardcast cycle stands
-            if (!Spells.Freeze.IsKnown())
+            // The Transpose AoE loop starts at Blizzard II (level 12); Freeze (40) and Umbral
+            // Hearts (58) refine the ice phase but the stance cycle itself is the same
+            if (!Spells.Blizzard2.IsKnown())
                 return false;
 
             if (!Spells.Transpose.IsKnownAndReady())
@@ -165,9 +166,11 @@ namespace Magitek.Logic.BlackMage
                 if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                     return false;
 
-                // FFXIV MP costs (patch 7.x): Flare fires down to its 800 MP minimum; without
-                // Flare the AoE fire spender is Fire II at 1500 MP, doubled to 3000 in Astral Fire.
-                if (Core.Me.CurrentMana >= (Spells.Flare.IsKnown() ? 800 : 3000))
+                // FFXIV MP costs (patch 7.x): Flare fires down to its 800 MP minimum; without it
+                // the fire spender is Fire II (1500 MP, doubled to 3000 in Astral Fire), and below
+                // that base Fire (800 MP, doubled to 1600).
+                var fireFloor = Spells.Flare.IsKnown() ? 800 : Spells.Fire2.IsKnown() ? 3000 : 1600;
+                if (Core.Me.CurrentMana >= fireFloor)
                     return false;
 
                 return await Spells.Transpose.Cast(Core.Me);
@@ -257,14 +260,25 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (UmbralStacks == 3 && UmbralHearts != 3)
-                return false;
-
-            // The Transpose loop (Freeze and up) enters ice at Umbral Ice 1; don't cast Fire II
-            // back into Astral Fire before Freeze has granted full hearts. Below the Umbral Heart
-            // trait the ice phase exits with Transpose or Fire III instead, never Fire II.
-            if (Spells.Freeze.IsKnown() && UmbralStacks > 0 && UmbralHearts != 3)
-                return false;
+            // In Umbral Ice, Fire II is only the exit cast back into fire, and only once the ice
+            // phase is done - never mid-refill, which flips the stance with no MP restored
+            if (UmbralStacks > 0)
+            {
+                // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
+                // This is a trait check, not a spell availability check
+                if (Core.Me.ClassLevel >= 58)
+                {
+                    // The ice phase is done once Freeze has granted full hearts
+                    if (UmbralHearts != 3)
+                        return false;
+                }
+                else
+                {
+                    // Below the trait the ice phase ends at full MP (Transpose exits first when ready)
+                    if (Core.Me.CurrentMana < Core.Me.MaxMana)
+                        return false;
+                }
+            }
 
             //Try and keep from doublecasting or using after manafont
             // if (Casting.LastSpell == Spells.Fire2
@@ -310,6 +324,16 @@ namespace Magitek.Logic.BlackMage
                 || Casting.LastSpellWas(Spells.HighBlizzardII)
                 || Casting.LastSpellWas(Spells.ManaFont))
                 return false;
+
+            // Below Freeze, Blizzard II is the ice phase itself: castable at any Umbral Ice stack
+            // count, it grants Umbral Ice III and carries the MP refill until full
+            if (!Spells.Freeze.IsKnown() && UmbralStacks > 0)
+            {
+                if (Core.Me.CurrentMana == Core.Me.MaxMana)
+                    return false;
+
+                return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
+            }
 
             if (AstralStacks < 3 || UmbralStacks == 3)
                 return false;
