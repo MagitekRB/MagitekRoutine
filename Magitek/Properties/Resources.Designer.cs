@@ -484,24 +484,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nocturnal Benefic.
-        /// </summary>
-        public static string Astrologian_Content_Nocturnal_Benefic {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Nocturnal_Benefic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nocturnal Helios.
-        /// </summary>
-        public static string Astrologian_Content_Nocturnal_Helios {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Nocturnal_Helios", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Regen.
         /// </summary>
         public static string Astrologian_Content_Only_Heal_Alliance_Members_With_Regen {
@@ -615,15 +597,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Use_Divination_at_least {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Use_Divination_at_least", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Nocturnal Benefic While Moving If Mana Is Above.
-        /// </summary>
-        public static string Astrologian_Content_Use_Nocturnal_Benefic_While_Mo {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Use_Nocturnal_Benefic_While_Mo", resourceCulture);
             }
         }
         
