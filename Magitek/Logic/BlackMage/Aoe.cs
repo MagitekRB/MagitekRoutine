@@ -1,4 +1,4 @@
-﻿using Buddy.Coroutines;
+using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -10,98 +10,170 @@ using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.BlackMage;
 using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
 
-
 namespace Magitek.Logic.BlackMage
 {
     internal static class Aoe
     {
         public static async Task<bool> Foul()
         {
+            // Do not cast if AoE is disabled globally
             if (!AoeControl.Enabled)
                 return false;
 
-            //requires Polyglot
+            // Do not cast if we do not have a Polyglot stack available
             if (!PolyglotStatus)
                 return false;
 
-            //Can't use whatcha don't have
+            // Do not cast if Foul is not unlocked yet
             if (!Spells.Foul.IsKnown())
                 return false;
 
-            //If flarestar is ready, cast it
+            // Priority: Do not waste a GCD on Foul if Flare Star is fully stacked and ready to fire
             if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                 return false;
 
-            // If we're moving in combat
+            // Movement logic: Handle casting while on the run
             if (MovementManager.IsMoving)
             {
-                // HARDCODED: Level 80 is when Foul becomes instant cast via trait
                 // This is a trait check, not a spell availability check
                 // If we have instant cast Foul (level 80+) and have Swiftcast/Triplecast,
                 // don't cast Foul - use procs on other spells instead
                 if (Core.Me.ClassLevel >= 80 && (Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Triplecast)))
                     return false;
 
-                // HARDCODED: Level 80 is when Foul becomes instant cast via trait
-                // This is a trait check, not a spell availability check
-                // If below level 80 (Foul has cast time) and we don't have Swiftcast/Triplecast,
-                // skip Foul - can't cast it while moving
+                // If under level 80 (Foul has a cast time) and we lack instant-cast buffs, we cannot cast while moving
                 if (Core.Me.ClassLevel < 80 && !Core.Me.HasAura(Auras.Swiftcast) && !Core.Me.HasAura(Auras.Triplecast))
                     return false;
+
+                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
             }
 
-            // Always cast if we're about to overcap Polyglot (prevent waste)
+            // Always prevent overcapping Polyglot stacks regardless of user settings
             if (BlackMageRoutine.WillOvercapPolyglot())
                 return await Spells.Foul.Cast(Core.Me.CurrentTarget);
 
-            // In AoE, don't save charges - use them for more damage
-            return await Spells.Foul.Cast(Core.Me.CurrentTarget);
+            // Respect the user's saved charges setting before using Foul as a stationary filler
+            if (PolyglotCount <= BlackMageSettings.Instance.SaveXenoglossyCharges)
+                return false;
+
+            // Standard use: Use Foul as instant filler in Umbral Ice to safely weave Transpose (only when above saved charge threshold)
+            if (UmbralStacks > 0 && UmbralHearts == 3)
+                return await Spells.Foul.Cast(Core.Me.CurrentTarget);
+
+            return false;
+        }
+
+        public static async Task<bool> AoeTranspose()
+        {
+            // Transpose must be unlocked
+            if (!Spells.Transpose.IsKnown())
+                return false;
+
+            // Dawntrail AoE Loop: In Umbral Ice, once we secure 3 Umbral Hearts, Transpose back to Astral Fire
+            if (UmbralStacks > 0 && UmbralHearts == 3)
+            {
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
+            // Finisher Transition: In Astral Fire, Transpose to Umbral Ice when out of filler MP
+            int minAoeMp = Spells.Flare.IsKnown() ? 800 : 3000;
+            if (AstralStacks > 0 && Core.Me.CurrentMana < minAoeMp)
+            {
+                // Safety check: Do not Transpose yet if we still need to execute our Flare Star finisher
+                if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                    return false;
+
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> UseAoeEther()
+        {
+            // Verify user has opted into using Ethers for AoE
+            if (!BlackMageSettings.Instance.UseEtherInAoe)
+                return false;
+
+            // Only use ethers to extend the Astral Fire phase
+            if (AstralStacks == 0)
+                return false;
+
+            // Do not pop an ether if we already have enough MP to cast Flare
+            if (Core.Me.CurrentMana >= 800)
+                return false;
+
+            // Hold ether until after Flare Star is consumed
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                return false;
+
+            // Respect settings: Only block Ether if Manafont is actually permitted to be used
+            if (BlackMageSettings.Instance.ManaFont && Spells.ManaFont.IsKnownAndReady())
+                return false;
+
+            // Define common high-tier Ether item IDs (HQ and NQ) that grant sufficient MP
+
+            // Try each ether from best to worst; any granting 800+ MP enables an extra Flare
+            foreach (var etherId in new uint[] {
+                36257,
+                36256, // Super Ether (HQ / NQ)
+                31854,
+                31853, // Max-Ether (HQ / NQ)
+                27999,
+                27998, // Mega-Ether (HQ / NQ)
+                23172,
+                23171, // X-Ether (HQ / NQ)
+                19845,
+                19844  // Hi-Ether (HQ / NQ)
+            })
+            {
+                if (await Ether.UseEther((int)etherId))
+                    return true;
+            }
+
+            return false;
         }
 
         public static async Task<bool> Flare()
         {
+            // Do not cast if AoE is disabled globally
             if (!AoeControl.Enabled)
                 return false;
 
-            //Can't use in Umbral Ice anymore
+            // Flare is strictly an Astral Fire ability
             if (UmbralStacks > 0)
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            // Priority: Execute Flare Star if fully stacked before casting another Flare
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
                 return false;
 
+            // Spell must be unlocked
             if (!Spells.Flare.IsKnown())
                 return false;
 
-            // if (Core.Me.CurrentMana < 800)
-            //     return false;
+            // Must have Astral Fire active or enough MP to initiate it (800 MP is Flare's base cost)
+            if (AstralStacks == 0 && Core.Me.CurrentMana < 800)
+                return false;
 
-            // HARDCODED: Level 100 has special Flare behavior (likely trait-based)
-            // This is a trait check, not a spell availability check
-            if (Core.Me.ClassLevel == 100)
-            {
-                if (AstralStacks > 0)
-                    return await Spells.Flare.Cast(Core.Me.CurrentTarget);
-            }
-
-            //No longer worth casting two HighFire2
-
-            //Force flare after manafont
-            if (Casting.LastSpellWas(Spells.ManaFont))
-                return await Spells.Flare.Cast(Core.Me.CurrentTarget);
+            // If we are below the base MP cost (800) and lack Umbral Hearts to reduce the AF penalty, we cannot cast Flare
+            if (Core.Me.CurrentMana < 800 && UmbralHearts == 0)
+                return false;
 
             return await Spells.Flare.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> FlareStar()
         {
+            // Spell must be unlocked
             if (!Spells.FlareStar.IsKnown())
                 return false;
 
+            // Target must be valid and ability ready
             if (!Spells.FlareStar.IsKnownAndReadyAndCastableAtTarget())
                 return false;
 
+            // Prevent casting Flare Star immediately after a transition spell to avoid breaking sequences
             if (Casting.LastSpellWas(Spells.Fire3) || Casting.LastSpellWas(Spells.Blizzard3))
                 return false;
 
@@ -110,25 +182,28 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Freeze()
         {
+            // Do not cast if AoE is disabled globally
             if (!AoeControl.Enabled)
                 return false;
 
-            //If we don't have Freeze, how can we cast it?
+            // Spell must be unlocked
             if (!Spells.Freeze.IsKnown())
                 return false;
 
+            // Prevent double-casting Freeze
             if (Casting.LastSpellWas(Spells.Freeze))
                 return false;
 
-            //If flarestar is ready, cast it
+            // Priority: Never execute Freeze if we are holding a Flare Star proc
             if (AstralSoulStacks == 6)
                 return false;
 
-            //Can only use in Umbral Ice
-            if (UmbralStacks != 3)
+            // Freeze is strictly an Umbral Ice ability
+            if (UmbralStacks == 0)
                 return false;
 
-            if (Core.Me.CurrentMana == 10000)
+            // Do not cast Freeze if we already have max Umbral Hearts
+            if (UmbralHearts == 3)
                 return false;
 
             return await Spells.Freeze.Cast(Core.Me.CurrentTarget);
@@ -136,34 +211,37 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Thunder4()
         {
+            // Do not cast if AoE is disabled globally
             if (!AoeControl.Enabled)
                 return false;
 
+            // Base Thunder II must be unlocked
             if (!Spells.Thunder2.IsKnown())
                 return false;
 
+            // Respect user settings for AoE Thunder
             if (!BlackMageSettings.Instance.ThunderAoe)
                 return false;
 
-            //If flarestar is ready, cast it
+            // Priority: Do not waste a GCD on Thunder if Flare Star is ready
             if (AstralSoulStacks == 6)
                 return false;
 
-            // If the last spell we cast is triple cast, stop
-            if (Casting.LastSpellWas(Spells.Triplecast))
-                return false;
+            // Consume Thunderhead proc immediately in rotation weave slots without waiting for DoT expiration
+            bool hasThunderhead = Core.Me.HasAura(Auras.Thunderhead);
 
-            // If we have the triplecast aura, stop
-            if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
+            if (!hasThunderhead)
+            {
+                // Do not clip Thunder if the target already has the DoT with plenty of time remaining
+                if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
+                    return false;
+            }
 
-            //If we don't need to refresh Thunder, skip
-            if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
-                return false;
-
+            // Time To Die (TTD) check: Don't cast DoTs on trash mobs that are about to die anyway
             if (BlackMageSettings.Instance.UseTTDForThunderAoe && Combat.CurrentTargetCombatTimeLeft <= BlackMageSettings.Instance.ThunderAoeTTDSeconds && !Core.Me.CurrentTarget.IsBoss())
                 return false;
 
+            // Spell Upgrade Fallbacks
             if (!Spells.Thunder4.IsKnown())
                 return await Spells.Thunder2.Cast(Core.Me.CurrentTarget);
 
@@ -175,79 +253,82 @@ namespace Magitek.Logic.BlackMage
 
         public static async Task<bool> Fire2()
         {
+            // Do not cast if AoE is disabled globally
             if (!AoeControl.Enabled)
                 return false;
 
+            // Spell must be unlocked
             if (!Spells.Fire2.IsKnown())
                 return false;
 
-            //No stack, open with Fire3
-            if (AstralStacks < 3 && UmbralStacks == 0)
+            // Immediate priority: If we have 3 Umbral Hearts in Umbral Ice, transition back to AF right now.
+            if (UmbralStacks > 0 && UmbralHearts == 3)
+            {
+                if (Spells.HighFireII.IsKnown())
+                    return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
                 return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
+            }
 
-            //If flarestar is ready, cast it
+            // Neutral/Dropped Stance Recovery: Cast Fire 2 to enter Astral Fire
+            if (AstralStacks < 3 && UmbralStacks == 0)
+            {
+                if (Spells.HighFireII.IsKnown()) return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
+                return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
+            }
+
+            // Priority: Stop casting fillers if Flare Star is fully stacked and ready
             if (AstralSoulStacks == 6)
                 return false;
 
+            // In Umbral Ice, do not cast Fire 2 if we still need to secure Umbral Hearts
             if (UmbralStacks == 3 && UmbralHearts != 3)
                 return false;
 
-            //Try and keep from doublecasting or using after manafont
-            // if (Casting.LastSpell == Spells.Fire2
-            //     || Casting.LastSpell == Spells.HighFireII
-            //     || Casting.LastSpell == Spells.ManaFont)
-            //     return false;
-
-            if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
-
-            // HARDCODED: Level 58 is when Umbral Hearts trait unlocks (allows two Flares)
-            // This is a trait check, not a spell availability check
-            // At level 58+, Umbral Hearts allow two Flares, so Fire2 is less valuable
-            // Below level 58, we need Fire2 in Astral Fire (after Transpose from Umbral Ice)
+            // Standard Rotation Rule (Lv 58+): Only use Fire 2 during UI -> AF transitions or if we dropped AF3
             if (Core.Me.ClassLevel >= 58)
             {
                 if (AstralStacks == 3 || UmbralStacks < 3)
                     return false;
             }
-            else
-            {
-                // // Below level 58, need to be in Astral Fire to cast Fire2
-                // if (AstralStacks >= 1)
-                //     return false;
-            }
 
+            // Spell Upgrade Fallbacks
+            if (Spells.HighFireII.IsKnown()) return await Spells.HighFireII.Cast(Core.Me.CurrentTarget);
             return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> Blizzard2()
         {
+            // Do not cast if AoE is disabled globally
             if (!AoeControl.Enabled)
                 return false;
 
+            // Spell must be unlocked
             if (!Spells.Blizzard2.IsKnown())
                 return false;
 
-            //If flarestar is ready, cast it
+            // Priority: Stop casting fillers if Flare Star is fully stacked and ready
             if (AstralSoulStacks == 6)
                 return false;
 
+            // Prevent double-casting or breaking Manafont timing
             if (Casting.LastSpellWas(Spells.Blizzard2)
                 || Casting.LastSpellWas(Spells.HighBlizzardII)
                 || Casting.LastSpellWas(Spells.ManaFont))
                 return false;
 
+            // Do not cast if we are trying to build Astral Fire or if we are already in max Umbral Ice
             if (AstralStacks < 3 || UmbralStacks == 3)
                 return false;
 
+            // Skip low-level filler if we already have the MP to re-enter Astral Fire
             if (Core.Me.CurrentMana >= 1600)
                 return false;
 
-            if (Spells.ManaFont.IsKnownAndReady())
-                return false;
-
+            // Spell Upgrade Fallbacks
+            if (Spells.HighBlizzardII.IsKnown()) return await Spells.HighBlizzardII.Cast(Core.Me.CurrentTarget);
             return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
         }
+
         private static readonly uint[] ThunderAuras =
         {
             Auras.Thunder,
@@ -258,14 +339,9 @@ namespace Magitek.Logic.BlackMage
             Auras.HighThunder2
         };
 
-        /**********************************************************************************************
-        *                              Limit Break
-        * ********************************************************************************************/
         public static bool ForceLimitBreak()
         {
             return MagicDps.ForceLimitBreak(Spells.Skyshard, Spells.Starstorm, Spells.Meteor, Spells.Blizzard);
         }
     }
 }
-
-
