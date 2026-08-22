@@ -1,4 +1,4 @@
-using Buddy.Coroutines;
+﻿using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -315,6 +315,11 @@ namespace Magitek.Logic.BlackMage
             }
 
             if (Casting.LastSpellWas(Spells.Blizzard4))
+                return false;
+
+            // In the modern ice phase (Blizzard IV known) the sequence is B3 -> B4 -> Paradox -> F3;
+            // base Blizzard only burned a GCD while the Umbral Ice MP refill tick landed
+            if (Spells.Blizzard4.IsKnown() && UmbralStacks == 3)
                 return false;
 
             return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
