@@ -282,8 +282,12 @@ namespace Magitek.Utilities
 
         private static Character MatchTankBuster(Enemy enemyLogic, BattleCharacter enemy)
         {
+            // The victim is whoever the cast is aimed at - usually a tank, but not always: a dead
+            // main tank retargets the buster onto whoever has aggro, and some catalogued busters
+            // (Io Ousia's Barreling Smash) pick an arbitrary player. Match any castable ally so the
+            // response follows the hit; filtering to tanks went silent in exactly those cases.
             return enemyLogic.TankBusters.Contains(enemy.CastingSpellId)
-                ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                ? Group.CastableAlliesWithin30.FirstOrDefault(x => x == enemy.TargetCharacter)
                 : null;
         }
 
