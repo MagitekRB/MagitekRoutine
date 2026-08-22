@@ -579,6 +579,12 @@
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
   </data>
+  <data name="Astrologian_Text_Astral_Card_Weights" xml:space="preserve">
+    <value>Astral hand - the Balance (melee DPS and tanks get the full 6%)</value>
+  </data>
+  <data name="Astrologian_Text_Umbral_Card_Weights" xml:space="preserve">
+    <value>Umbral hand - the Spear (ranged DPS and healers get the full 6%)</value>
+  </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>MNK:</value>
   </data>
@@ -3992,8 +3998,14 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds" xml:space="preserve">
     <value>Dont Play Cards When There is Less Than 30 Seconds</value>
   </data>
-  <data name="Astrologian_Text_Play_Utility_Cards_Below" xml:space="preserve">
-    <value>Play utility cards (Bole, Arrow, Ewer, Spire) at or below</value>
+  <data name="Astrologian_Content_Play_The_Arrow_At_Or_Below" xml:space="preserve">
+    <value>Play the Arrow (boosts healing received) on the most wounded ally at or below</value>
+  </data>
+  <data name="Astrologian_Content_Play_The_Ewer_At_Or_Below" xml:space="preserve">
+    <value>Play the Ewer (regen) on the most wounded ally at or below</value>
+  </data>
+  <data name="Astrologian_Text_Bole_Spire_Fight_Logic" xml:space="preserve">
+    <value>The Bole and the Spire are held for incoming tankbusters and played by fight logic.</value>
   </data>
   <data name="Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than" xml:space="preserve">
     <value>Always Do Damage If Target Time Till Death Is Less Than</value>

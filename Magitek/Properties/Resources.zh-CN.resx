@@ -579,6 +579,12 @@
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>卡片权重（数值越低越优先）。攻击卡优先给DPS，其次坦克/治疗；权重用于同类之间排序。</value>
   </data>
+  <data name="Astrologian_Text_Astral_Card_Weights" xml:space="preserve">
+    <value>星极手牌 - 太阳神之衡（近战DPS与坦克获得全额6%）</value>
+  </data>
+  <data name="Astrologian_Text_Umbral_Card_Weights" xml:space="preserve">
+    <value>灵极手牌 - 战争神之枪（远程DPS与治疗获得全额6%）</value>
+  </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>武僧：</value>
   </data>
@@ -3993,8 +3999,14 @@
   <data name="Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds" xml:space="preserve">
     <value>当剩余时间少于30秒时不发卡</value>
   </data>
-  <data name="Astrologian_Text_Play_Utility_Cards_Below" xml:space="preserve">
-    <value>当血量低于或等于以下值时打出辅助卡（干、箭、瓶、塔）</value>
+  <data name="Astrologian_Content_Play_The_Arrow_At_Or_Below" xml:space="preserve">
+    <value>对生命值不高于以下百分比的最受伤队友打出“放浪神之箭”（提高受到的治疗）</value>
+  </data>
+  <data name="Astrologian_Content_Play_The_Ewer_At_Or_Below" xml:space="preserve">
+    <value>对生命值不高于以下百分比的最受伤队友打出“河流神之瓶”（持续回复）</value>
+  </data>
+  <data name="Astrologian_Text_Bole_Spire_Fight_Logic" xml:space="preserve">
+    <value>“世界树之干”与“建筑神之塔”将保留至坦克死刑，由战斗逻辑自动打出。</value>
   </data>
   <data name="Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than" xml:space="preserve">
     <value>如果目标的死亡倒计时少于[xx]则总是造成伤害</value>

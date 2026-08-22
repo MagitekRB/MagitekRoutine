@@ -495,9 +495,23 @@ namespace Magitek.Models.Astrologian
         [DefaultValue(true)]
         public bool AlignCardsWithDivination { get; set; }
 
+        // The reactive cards carry their own controls; the anticipatory cards (the Bole and
+        // the Spire) are played by fight logic at incoming tankbusters and have no threshold.
+        [Setting]
+        [DefaultValue(true)]
+        public bool PlayArrow { get; set; }
+
         [Setting]
         [DefaultValue(80)]
-        public int PlayUtilityCardHealthPercent { get; set; }
+        public int ArrowHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool PlayEwer { get; set; }
+
+        [Setting]
+        [DefaultValue(80)]
+        public int EwerHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -518,91 +532,84 @@ namespace Magitek.Models.Astrologian
 
         #region Card Weights
 
-        #region Tanks
-        [Setting]
-        [DefaultValue(1)]
-        public int PldCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(2)]
-        public int WarCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(3)]
-        public int DrkCardWeight { get; set; }
+        // Two tables, one per hand: the Balance gives its full 6% to melee DPS and tanks, the
+        // Spear to ranged DPS and healers, so each card ranks the half of the party it empowers.
+        // Blue Mage counts as every role in game data, so it appears in both tables.
+
+        #region AstralCardWeights
         [Setting]
         [DefaultValue(4)]
-        public int GnbCardWeight { get; set; }
-
-        #endregion
-
-        #region heals
+        public int MnkAstralCardWeight { get; set; }
         [Setting]
         [DefaultValue(5)]
-        public int WhmCardWeight { get; set; }
+        public int DrgAstralCardWeight { get; set; }
         [Setting]
         [DefaultValue(6)]
-        public int SchCardWeight { get; set; }
+        public int NinAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(7)]
-        public int AstCardWeight { get; set; }
+        [DefaultValue(1)]
+        public int SamAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(8)]
-        public int SgeCardWeight { get; set; }
-
-        #endregion
-
-        #region meleeDPS
+        [DefaultValue(3)]
+        public int RprAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(9)]
-        public int MnkCardWeight { get; set; }
+        [DefaultValue(2)]
+        public int VprAstralCardWeight { get; set; }
         [Setting]
         [DefaultValue(10)]
-        public int DrgCardWeight { get; set; }
+        public int PldAstralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(9)]
+        public int WarAstralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(7)]
+        public int DrkAstralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(8)]
+        public int GnbAstralCardWeight { get; set; }
         [Setting]
         [DefaultValue(11)]
-        public int NinCardWeight { get; set; }
+        public int BluAstralCardWeight { get; set; }
+
+        #endregion
+
+        #region UmbralCardWeights
+        [Setting]
+        [DefaultValue(6)]
+        public int BrdUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(4)]
+        public int MchUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(7)]
+        public int DncUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(2)]
+        public int BlmUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(3)]
+        public int SmnUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(5)]
+        public int RdmUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(1)]
+        public int PctUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(11)]
+        public int WhmUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(10)]
+        public int SchUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(8)]
+        public int AstUmbralCardWeight { get; set; }
+        [Setting]
+        [DefaultValue(9)]
+        public int SgeUmbralCardWeight { get; set; }
         [Setting]
         [DefaultValue(12)]
-        public int SamCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(13)]
-        public int RprCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(14)]
-        public int VprCardWeight { get; set; }
-
-        #endregion
-
-        #region physicalRangeDPS
-        [Setting]
-        [DefaultValue(15)]
-        public int BrdCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(16)]
-        public int MchCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(17)]
-        public int DncCardWeight { get; set; }
-
-
-        #endregion
-
-        #region magicalRangeDPS
-        [Setting]
-        [DefaultValue(18)]
-        public int BlmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(19)]
-        public int SmnCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(20)]
-        public int RdmCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(21)]
-        public int PctCardWeight { get; set; }
-        [Setting]
-        [DefaultValue(22)]
-        public int BluCardWeight { get; set; }
-
+        public int BluUmbralCardWeight { get; set; }
 
         #endregion
 
