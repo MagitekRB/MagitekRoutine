@@ -579,6 +579,42 @@
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>卡片权重（数值越低越优先）。攻击卡优先给DPS，其次坦克/治疗；权重用于同类之间排序。</value>
   </data>
+  <data name="Astrologian_Content_FL_Exaltation" xml:space="preserve">
+    <value>擢升 - 对已收录的坦克死刑做出反应（收录战斗中为其保留）</value>
+  </data>
+  <data name="Astrologian_Content_FL_Celestial_Intersection" xml:space="preserve">
+    <value>天星交错 - 对已收录的坦克死刑做出反应</value>
+  </data>
+  <data name="Astrologian_Content_FL_Neutral_Sect" xml:space="preserve">
+    <value>中间学派 - 大宇宙不可用时应对已收录的超大AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Earthly_Star" xml:space="preserve">
+    <value>地星 - 在已收录的AoE来临时引爆成熟的地星</value>
+  </data>
+  <data name="Astrologian_Content_FL_Earthly_Star_Center" xml:space="preserve">
+    <value>在最接近队伍中心的队友处引爆</value>
+  </data>
+  <data name="Astrologian_Content_FL_Collective_Unconscious" xml:space="preserve">
+    <value>命运之轮 - 应对已收录的AoE，需至少</value>
+  </data>
+  <data name="Astrologian_Text_FL_Allies_In_Range" xml:space="preserve">
+    <value>名队友在范围内</value>
+  </data>
+  <data name="Astrologian_Content_FL_Horoscope" xml:space="preserve">
+    <value>天宫图 - 应对已收录的AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Aspected_Helios" xml:space="preserve">
+    <value>阳星相位 - 以护盾应对已收录的AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Macrocosmos" xml:space="preserve">
+    <value>大宇宙 - 应对已收录的超大AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Lightspeed" xml:space="preserve">
+    <value>光速 - 中间学派与大宇宙不可用时，用于在超大AoE期间保持瞬发</value>
+  </data>
+  <data name="Astrologian_Content_FL_Knockback" xml:space="preserve">
+    <value>沉稳咏唱 - 应对已收录的击退</value>
+  </data>
   <data name="Astrologian_Text_Astral_Card_Weights" xml:space="preserve">
     <value>星极手牌 - 太阳神之衡（近战DPS与坦克获得全额6%）</value>
   </data>
@@ -753,9 +789,6 @@
   <data name="Astrologian_Text_Stellar_Explosion_If" xml:space="preserve">
     <value>星体爆炸 如果</value>
   </data>
-  <data name="Astrologian_Text_Fight_Logic" xml:space="preserve">
-    <value>战斗逻辑：</value>
-  </data>
   <data name="Astrologian_Content_Swiftcast_Ascend" xml:space="preserve">
     <value>即刻复活</value>
   </data>
@@ -782,21 +815,6 @@
   </data>
   <data name="Astrologian_Content_Weave_OGCD_Heals" xml:space="preserve">
     <value>插入治疗能力技</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_f" xml:space="preserve">
-    <value>自动对坦克职业使用。如果“擢升”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_C" xml:space="preserve">
-    <value>AOE时尝试使用“命运之轮”。如果“光速”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_M" xml:space="preserve">
-    <value>超大AOE时尝试使用“大宇宙”。如果“光速”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_N" xml:space="preserve">
-    <value>若 “大宇宙战斗逻辑” 已启用但无法释放时，面对超大AOE会尝试使用 “中间学派” 与 “阳星相位”。如果“中间学派”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_L" xml:space="preserve">
-    <value>若 “大宇宙战斗逻辑” 及“中间学派战斗逻辑”已启用但无法释放时，面对超大AOE会尝试使用 “光速”。如果“光速”禁用则无效.</value>
   </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>使用中重力至少</value>

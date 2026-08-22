@@ -410,19 +410,7 @@ namespace Magitek.Models.Astrologian
 
         [Setting]
         [DefaultValue(true)]
-        public bool FightLogic_NeutralSectAspectedHelios { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool FightLogic_Exaltation { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool FightLogic_Macrocosmos { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool FightLogic_CollectiveUnconscious { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -642,9 +630,6 @@ namespace Magitek.Models.Astrologian
         [DefaultValue(true)]
         public bool FightLogicCollectiveUnconscious { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool CollectiveUnconsciousCenterParty { get; set; }
 
         [Setting]
         [DefaultValue(true)]

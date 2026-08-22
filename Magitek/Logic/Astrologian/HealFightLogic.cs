@@ -67,7 +67,6 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.FightLogicCollectiveUnconscious
                 && Spells.CollectiveUnconscious.IsKnownAndReady()
                 && Spells.CollectiveUnconscious.CanCast()
-                && AstrologianSettings.Instance.CollectiveUnconsciousCenterParty
                 && Group.CastableAlliesWithin30.Count() >= AstrologianSettings.Instance.CollectiveUnconsciousAllies)
             {
                 if (BaseSettings.Instance.DebugFightLogic)

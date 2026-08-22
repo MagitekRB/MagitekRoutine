@@ -322,7 +322,7 @@ namespace Magitek.Logic.Astrologian
             // Fight-logic mode reserves Exaltation for catalogued busters. When the enemies
             // we are fighting have none catalogued, fall through to the threshold path
             // instead of never firing at all.
-            if (AstrologianSettings.Instance.FightLogic_Exaltation && FightLogic.EnemyHasAnyTankbusterLogic())
+            if (AstrologianSettings.Instance.FightLogicExaltation && FightLogic.EnemyHasAnyTankbusterLogic())
             {
 
                 var tankBusterOnPartyMember = FightLogic.EnemyIsCastingTankBuster();
@@ -634,7 +634,7 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.CollectiveUnconscious.IsKnownAndReady())
                 return false;
 
-            if (AstrologianSettings.Instance.FightLogic_CollectiveUnconscious && FightLogic.EnemyIsCastingAoe() &&
+            if (AstrologianSettings.Instance.FightLogicCollectiveUnconscious && FightLogic.EnemyIsCastingAoe() &&
                 Group.CastableAlliesWithin30.Count(x => x.WithinSpellRange(Spells.CollectiveUnconscious.Radius)) >= AoeThreshold)
                 return await FightLogic.DoAndBuffer(
                     Spells.CollectiveUnconscious.HealAura(Core.Me, Auras.CollectiveUnconsciousMitigation));

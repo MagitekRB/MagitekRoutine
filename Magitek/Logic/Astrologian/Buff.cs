@@ -132,7 +132,10 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.NeutralSect.IsKnownAndReady())
                 return false;
 
-            if (AstrologianSettings.Instance.FightLogic_NeutralSectAspectedHelios && FightLogic.EnemyIsCastingBigAoe() && (AstrologianSettings.Instance.FightLogic_Macrocosmos && !Spells.Macrocosmos.IsKnownAndReady()) && !Core.Me.HasAnyAura(AstroUtils.ScholarAndSageShieldsNotToOverwrite))
+            // One fight-logic family: the responder tab's toggle rules this, and the Macrocosmos
+            // check is READINESS - Neutral Sect steps in when Macrocosmos cannot, regardless of
+            // whether the user enabled Macrocosmos reactions.
+            if (AstrologianSettings.Instance.FightLogicNeutralSect && FightLogic.EnemyIsCastingBigAoe() && !Spells.Macrocosmos.IsKnownAndReady() && !Core.Me.HasAnyAura(AstroUtils.ScholarAndSageShieldsNotToOverwrite))
                 return await FightLogic.DoAndBuffer(Spells.NeutralSect.CastAura(Core.Me, Auras.NeutralSect));
 
             var neutral = Group.CastableAlliesWithin15.Count(r => r.CurrentHealth > 0

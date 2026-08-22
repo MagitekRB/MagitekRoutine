@@ -38,7 +38,7 @@ namespace Magitek.Utilities.Routines
             // Exaltation only counts while its threshold path is live - in fight-logic mode
             // against catalogued busters it is reserved for the buster, not for upkeep.
             if (s.Exaltation && Spells.Exaltation.IsKnownAndReady()
-                && (!s.FightLogic_Exaltation || !FightLogic.EnemyHasAnyTankbusterLogic()))
+                && (!s.FightLogicExaltation || !FightLogic.EnemyHasAnyTankbusterLogic()))
                 return true;
 
             return false;

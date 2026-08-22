@@ -263,15 +263,6 @@
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Weave_OGCD_Heals}" IsChecked="{Binding AstrologianSettings.WeaveOGCDHeals, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Fight_Logic}" />
-                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Exaltation}" IsChecked="{Binding AstrologianSettings.FightLogic_Exaltation, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_f}"/>
-                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Collective_Unconscious}" IsChecked="{Binding AstrologianSettings.FightLogic_CollectiveUnconscious, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_C}"/>
-                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Macrocosmos}" IsChecked="{Binding AstrologianSettings.FightLogic_Macrocosmos, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_M}"/>
-                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Neutral_Sect}" IsChecked="{Binding AstrologianSettings.FightLogic_NeutralSectAspectedHelios, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_N}"/>
-                    <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Lightspeed}" IsChecked="{Binding AstrologianSettings.FightLogic_Lightspeed, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" ToolTip="{x:Static properties:Resources.Astrologian_ToolTip_This_will_automatically_cast_L}"/>
-
-                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
         </StackPanel>

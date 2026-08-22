@@ -579,6 +579,42 @@
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
   </data>
+  <data name="Astrologian_Content_FL_Exaltation" xml:space="preserve">
+    <value>Exaltation - react to catalogued tankbusters (held for them in catalogued fights)</value>
+  </data>
+  <data name="Astrologian_Content_FL_Celestial_Intersection" xml:space="preserve">
+    <value>Celestial Intersection - react to catalogued tankbusters</value>
+  </data>
+  <data name="Astrologian_Content_FL_Neutral_Sect" xml:space="preserve">
+    <value>Neutral Sect - react to catalogued big raidwides when Macrocosmos is unavailable</value>
+  </data>
+  <data name="Astrologian_Content_FL_Earthly_Star" xml:space="preserve">
+    <value>Earthly Star - detonate a matured Star at a catalogued raidwide</value>
+  </data>
+  <data name="Astrologian_Content_FL_Earthly_Star_Center" xml:space="preserve">
+    <value>Detonate at the ally nearest the party's center</value>
+  </data>
+  <data name="Astrologian_Content_FL_Collective_Unconscious" xml:space="preserve">
+    <value>Collective Unconscious - react to catalogued raidwides when at least</value>
+  </data>
+  <data name="Astrologian_Text_FL_Allies_In_Range" xml:space="preserve">
+    <value>allies are in range</value>
+  </data>
+  <data name="Astrologian_Content_FL_Horoscope" xml:space="preserve">
+    <value>Horoscope - react to catalogued raidwides</value>
+  </data>
+  <data name="Astrologian_Content_FL_Aspected_Helios" xml:space="preserve">
+    <value>Aspected Helios - shield against catalogued raidwides</value>
+  </data>
+  <data name="Astrologian_Content_FL_Macrocosmos" xml:space="preserve">
+    <value>Macrocosmos - react to catalogued big raidwides</value>
+  </data>
+  <data name="Astrologian_Content_FL_Lightspeed" xml:space="preserve">
+    <value>Lightspeed - stay instant through catalogued big raidwides when Neutral Sect and Macrocosmos are unavailable</value>
+  </data>
+  <data name="Astrologian_Content_FL_Knockback" xml:space="preserve">
+    <value>Surecast - react to catalogued knockbacks</value>
+  </data>
   <data name="Astrologian_Text_Astral_Card_Weights" xml:space="preserve">
     <value>Astral hand - the Balance (melee DPS and tanks get the full 6%)</value>
   </data>
@@ -753,9 +789,6 @@
   <data name="Astrologian_Text_Stellar_Explosion_If" xml:space="preserve">
     <value>Stellar Explosion If</value>
   </data>
-  <data name="Astrologian_Text_Fight_Logic" xml:space="preserve">
-    <value>Fight Logic:</value>
-  </data>
   <data name="Astrologian_Content_Swiftcast_Ascend" xml:space="preserve">
     <value>Swiftcast Ascend</value>
   </data>
@@ -782,26 +815,6 @@
   </data>
   <data name="Astrologian_Content_Weave_OGCD_Heals" xml:space="preserve">
     <value>Weave OGCD Heals</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_f" xml:space="preserve">
-    <value>This will automatically cast for Tankbusters.
-Does not work if Exaltation is disabled.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_C" xml:space="preserve">
-    <value>This will automatically cast Collective Unconscious for AOEs.
-Does not work if Lightspeed is disabled.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_M" xml:space="preserve">
-    <value>This will automatically cast Macrocosmos for Big AOEs.
-Does not work if Lightspeed is disabled.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_N" xml:space="preserve">
-    <value>This will automatically cast Neutral Sect and Aspected Helios for Big AOEs if Macrocosmos Fight Logic is enabled but unavailable.
-Does not work if Neutral Sect is disabled.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_L" xml:space="preserve">
-    <value>This will automatically cast Lightspeed for Big AOEs if Macrocosmos and Neutral Sect FightLogic are enabled but unavailable.
-Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>Gravity II with at least</value>
