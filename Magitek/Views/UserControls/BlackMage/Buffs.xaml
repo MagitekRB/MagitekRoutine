@@ -46,6 +46,10 @@
                           Content="{x:Static properties:Resources.BlackMage_Content_Save_1_Charges_For_Moving}"
                           IsChecked="{Binding BlackMageSettings.TripleCastWhileMoving, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
+                <CheckBox Margin="5"
+                          Content="{x:Static properties:Resources.BlackMage_Content_Use_Swiftcast}"
+                          IsChecked="{Binding BlackMageSettings.UseSwiftcast, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
             </StackPanel>
         </controls:SettingsBlock>
 

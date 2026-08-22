@@ -1,4 +1,4 @@
-using Magitek.Enumerations;
+﻿using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -88,6 +88,10 @@ namespace Magitek.Models.BlackMage
         [Setting]
         [DefaultValue(false)]
         public bool TripleCastWhileMoving { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSwiftcast { get; set; }
 
         [Setting]
         [DefaultValue(true)]

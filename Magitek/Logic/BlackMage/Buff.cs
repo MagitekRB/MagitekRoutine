@@ -260,6 +260,27 @@ namespace Magitek.Logic.BlackMage
 
             return await Spells.ManaFont.Cast(Core.Me);
         }
+        public static async Task<bool> Swiftcast()
+        {
+            if (!BlackMageSettings.Instance.UseSwiftcast)
+                return false;
+
+            if (!Spells.Swiftcast.IsKnownAndReady())
+                return false;
+
+            if (!Core.Me.InCombat)
+                return false;
+
+            // Only to keep casting while moving, and only when no instant-cast buff is already up
+            if (!MovementManager.IsMoving)
+                return false;
+
+            if (Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Triplecast))
+                return false;
+
+            return await Spells.Swiftcast.Cast(Core.Me);
+        }
+
         public static async Task<bool> Transpose()
         {
             if (!Spells.Transpose.IsKnown())

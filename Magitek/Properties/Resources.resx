@@ -4974,6 +4974,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="BlackMage_Content_Amplifier" xml:space="preserve">
     <value>Amplifier</value>
   </data>
+  <data name="BlackMage_Content_Use_Swiftcast" xml:space="preserve">
+    <value>Use Swiftcast</value>
+  </data>
   <data name="BlackMage_Content_UmbralSoul" xml:space="preserve">
     <value>UmbralSoul</value>
   </data>

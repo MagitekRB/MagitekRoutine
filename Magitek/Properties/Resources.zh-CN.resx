@@ -4974,6 +4974,9 @@
   <data name="BlackMage_Content_Amplifier" xml:space="preserve">
     <value>详述</value>
   </data>
+  <data name="BlackMage_Content_Use_Swiftcast" xml:space="preserve">
+    <value>使用即刻咏唱</value>
+  </data>
   <data name="BlackMage_Content_UmbralSoul" xml:space="preserve">
     <value>灵极魂</value>
   </data>
