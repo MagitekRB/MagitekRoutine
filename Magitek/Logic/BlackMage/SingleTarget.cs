@@ -79,8 +79,13 @@ namespace Magitek.Logic.BlackMage
             if (Spells.ManaFont.IsKnownAndReadyAndCastable())
                 return false;
 
-            // If our mana is more then 1600
-            if (Core.Me.CurrentMana >= 1600 || Core.Me.CurrentMana == 0)
+            // FFXIV MP costs (patch 7.x): Despair consumes all MP and needs at least 800 to fire
+            if (Core.Me.CurrentMana < 800)
+                return false;
+
+            // Fire IV costs 800 MP with an Umbral Heart, 1600 without - keep casting Fire IV
+            // while another Fire IV plus a Despair still fit in the mana we have
+            if (Core.Me.CurrentMana >= (UmbralHearts > 0 ? 800 : 1600) + 800)
                 return false;
 
             return await Spells.Despair.Cast(Core.Me.CurrentTarget);
@@ -123,6 +128,10 @@ namespace Magitek.Logic.BlackMage
 
             //only use in astral fire
             if (AstralStacks != 3)
+                return false;
+
+            // FFXIV MP costs (patch 7.x): Fire IV costs 800 MP with an Umbral Heart, 1600 without
+            if (Core.Me.CurrentMana < (UmbralHearts > 0 ? 800 : 1600))
                 return false;
 
             return await Spells.Fire4.Cast(Core.Me.CurrentTarget);
