@@ -7927,6 +7927,8 @@ namespace Magitek.Utilities
                             46228, // The Fixer
                             47552, // Splattershed
                             48096, // Splattershed
+                            47549, // Splattershed — third castbar of the same family; its damage hit
+                                   // every living player ~5.5s after the bar starts
                             46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
                                    // across all eight at up to 62.2% of a health bar, and its damage
                                    // lands 5.0s after the cast, so mitigation applied on the cast is
