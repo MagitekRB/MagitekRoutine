@@ -96,6 +96,27 @@ namespace Magitek.Extensions
             Auras.TheSpire,
         };
 
+        // The subset of HealerShields that OVERWRITE one another rather than stacking, so a target
+        // carrying any one of them cannot usefully be given another. Confirmed in game: our own
+        // Galvanize was replaced in the same millisecond a Sage's Eukrasian Prognosis landed, with
+        // 29s still on it. Cross-class, which is why this cannot be a per-job list.
+        public static uint[] PrimaryShields = new uint[]
+        {
+            Auras.Galvanize,
+            Auras.EukrasianDiagnosis,
+            Auras.EukrasianPrognosis,
+        };
+
+        /// <summary>
+        /// True when the unit already carries a primary shield from ANY healer, ours or another's.
+        /// Deliberately not own-aura only: these overwrite each other, so someone else's shield
+        /// still makes ours redundant.
+        /// </summary>
+        public static bool HasPrimaryShield(this Character unit, int msLeft = 0)
+        {
+            return unit != null && unit.HasAnyAura(PrimaryShields, false, msLeft);
+        }
+
         public static uint[] BuffIgnore = new uint[]
         {
             Auras.DancePartner,

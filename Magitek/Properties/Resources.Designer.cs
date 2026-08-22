@@ -61,6 +61,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Align damage cards (Balance, Spear) with Divination.
+        /// </summary>
+        public static string Astrologian_Content_Align_Cards_With_Divination {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Align_Cards_With_Divination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always With Enhanced Benefic.
         /// </summary>
         public static string Astrologian_Content_Always_With_Enhanced_Benefic {
@@ -1002,6 +1011,15 @@ namespace Magitek.Properties {
         public static string Astrologian_Text_PCT {
             get {
                 return ResourceManager.GetString("Astrologian_Text_PCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play utility cards (Bole, Arrow, Ewer, Spire) at or below.
+        /// </summary>
+        public static string Astrologian_Text_Play_Utility_Cards_Below {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Play_Utility_Cards_Below", resourceCulture);
             }
         }
         
@@ -2053,14 +2071,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BlackMage_Text_Use_Soul_Resonance_when_target_HP_below", resourceCulture);
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to Use Ethers in AoE.
-        /// </summary>
-        public static string BlackMage_Content_Use_Ethers_In_AOE {
-            get {
-                return ResourceManager.GetString("BlackMage_Content_Use_Ethers_In_AOE", resourceCulture);
-            }
-        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Add Interrupt/Stun.
         /// </summary>
@@ -12951,6 +12962,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Only spread a shield with at least this many seconds left:.
+        /// </summary>
+        public static string Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds {
+            get {
+                return ResourceManager.GetString("Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Deployment Tactics Crit Adlo When.
         /// </summary>

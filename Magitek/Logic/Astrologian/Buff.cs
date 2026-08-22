@@ -91,6 +91,9 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.Divination.IsKnownAndReady())
                 return false;
 
+            if (Cards.HoldDivinationForDraw())
+                return false;
+
             // Added check to see if more than configured allies are around
             var divinationTargets = Group.CastableAlliesWithin30.Count(r => r.IsAlive);
 

@@ -130,8 +130,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
 #endif
     private static readonly Color LogColor = Colors.CornflowerBlue;
 
-    private static readonly string GreyMagicAssembly = Path.Combine(Environment.CurrentDirectory, @"GreyMagic.dll");
-
     private string _currentDirectory = string.Empty;
     private string _projectAssembly = string.Empty;
     private string _versionPath = string.Empty;
@@ -188,7 +186,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
     private void RedirectAssembly()
     {
         AppDomain.CurrentDomain.AssemblyResolve += Handler;
-        AppDomain.CurrentDomain.AssemblyResolve += GreyMagicHandler;
     }
 
     Assembly? Handler(object sender, ResolveEventArgs args)
@@ -196,12 +193,6 @@ public class CombatRoutineLoader : IAddonProxy<CombatRoutine>
         var name = Assembly.GetEntryAssembly()?.GetName().Name;
         var requestedAssembly = new AssemblyName(args.Name);
         return requestedAssembly.Name != name ? null : Assembly.GetEntryAssembly();
-    }
-
-    Assembly? GreyMagicHandler(object sender, ResolveEventArgs args)
-    {
-        var requestedAssembly = new AssemblyName(args.Name);
-        return requestedAssembly.Name != "GreyMagic" ? null : Assembly.LoadFrom(GreyMagicAssembly);
     }
 
     private static Assembly? LoadAssembly(string path, MagitekLoadContext context)

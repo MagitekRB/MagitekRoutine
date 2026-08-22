@@ -51,6 +51,12 @@
                     <controls:Numeric Increment="1" MaxValue="60" MinValue="1" Value="{Binding AstrologianSettings.DontPlayWhenCombatTimeIsLessThan, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Seconds_Left_in_Combat}" />
                 </StackPanel>
+                <CheckBox Margin="0,5" Content="{x:Static properties:Resources.Astrologian_Content_Align_Cards_With_Divination}" IsChecked="{Binding AstrologianSettings.AlignCardsWithDivination, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,7,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Play_Utility_Cards_Below}" />
+                    <controls:Numeric Increment="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PlayUtilityCardHealthPercent, Mode=TwoWay}" />
+                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

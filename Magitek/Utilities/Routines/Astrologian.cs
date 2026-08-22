@@ -34,7 +34,7 @@ namespace Magitek.Utilities.Routines
 
             if (Casting.CastingSpell != Spells.Ascend && Casting.SpellTarget?.CurrentHealth < 1)
             {
-                Logger.Error($@"Stopped Resurrection: Unit Died");
+                Logger.Error($@"Stopped Cast: Unit Died");
                 return true;
             }
 

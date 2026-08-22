@@ -138,6 +138,12 @@ namespace Magitek.Rotations
 
             async Task<bool> DoHeal()
             {
+                // Doom kills on expiry unless the carrier is healed to full, so it outranks
+                // everything else we could do for an alliance member. This is the same shared
+                // handler the party path uses; the castable collection has already been switched
+                // to the alliance above, so it scans them without any alliance-specific logic.
+                if (await CommonFightLogic.FightLogic_Doom(ScholarSettings.Instance.Physick, Spells.Physick)) return true;
+
                 if (await Logic.Scholar.Heal.Resurrection()) return true;
 
                 if (ScholarSettings.Instance.HealAllianceOnlyPhysick)

@@ -170,10 +170,10 @@ namespace Magitek.Logic.Sage
                     if (unit.CurrentHealthPercent > SageSettings.Instance.EukrasianDiagnosisHpPercent)
                         return false;
 
-                    if (unit.HasAura(Auras.EukrasianDiagnosis))
-                        return false;
-
-                    if (unit.HasAura(Auras.Galvanize))
+                    // Any primary shield, ours or another healer's. This previously checked
+                    // Eukrasian Diagnosis and Galvanize but not Eukrasian Prognosis, so a target
+                    // already carrying Prognosis could have it overwritten by Diagnosis.
+                    if (unit.HasPrimaryShield())
                         return false;
 
                     if (!SageSettings.Instance.EukrasianDiagnosisOnlyHealer && !SageSettings.Instance.EukrasianDiagnosisOnlyTank)
@@ -243,9 +243,7 @@ namespace Magitek.Logic.Sage
                 return false;
 
             var targets = Group.CastableAlliesWithin20.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.EukrasianPrognosisHealthPercent &&
-                                                                !r.HasAura(Auras.EukrasianDiagnosis) &&
-                                                                !r.HasAura(Auras.EukrasianPrognosis) &&
-                                                                !r.HasAura(Auras.Galvanize));
+                                                                !r.HasPrimaryShield());
 
             var needEukrasianPrognosis = targets.Count() >= AoeNeedHealing;
 

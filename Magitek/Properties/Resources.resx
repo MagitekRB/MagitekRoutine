@@ -657,6 +657,9 @@
   <data name="Astrologian_Content_Play_Cards" xml:space="preserve">
     <value>Play Cards</value>
   </data>
+  <data name="Astrologian_Content_Align_Cards_With_Divination" xml:space="preserve">
+    <value>Align damage cards (Balance, Spear) with Divination</value>
+  </data>
   <data name="Astrologian_Text_Milliseconds_Left" xml:space="preserve">
     <value>Milliseconds Left</value>
   </data>
@@ -3179,6 +3182,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Scholar_Content_Deployment_Tactics_Crit_Adlo_When" xml:space="preserve">
     <value>Deployment Tactics Crit Adlo When</value>
   </data>
+  <data name="Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds" xml:space="preserve">
+    <value>Only spread a shield with at least this many seconds left:</value>
+  </data>
   <data name="Scholar_Content_Only_When_We_Do_Not_Have_Any_Aethe" xml:space="preserve">
     <value>Only When We Do Not Have Any Aetherflow</value>
   </data>
@@ -3994,6 +4000,9 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds" xml:space="preserve">
     <value>Dont Play Cards When There is Less Than 30 Seconds</value>
+  </data>
+  <data name="Astrologian_Text_Play_Utility_Cards_Below" xml:space="preserve">
+    <value>Play utility cards (Bole, Arrow, Ewer, Spire) at or below</value>
   </data>
   <data name="Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than" xml:space="preserve">
     <value>Always Do Damage If Target Time Till Death Is Less Than</value>
