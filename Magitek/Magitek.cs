@@ -111,9 +111,23 @@ namespace Magitek
                 // Set the current zone
                 CurrentZone = WorldManager.ZoneId;
 
-                // Run the shit we need to
-                GambitsViewModel.Instance.ApplyGambits();
-                OpenersViewModel.Instance.ApplyOpeners();
+                // Run the shit we need to.
+                // InvokeAsync, never Invoke, same as the other zone/job handlers below: this
+                // fires on the bot pulse thread, which must not block on the dispatcher while
+                // it holds the frame lock. Exceptions are caught inside the delegate because
+                // InvokeAsync surfaces them nowhere.
+                Application.Current.Dispatcher.InvokeAsync(delegate
+                {
+                    try
+                    {
+                        GambitsViewModel.Instance.ApplyGambits();
+                        OpenersViewModel.Instance.ApplyOpeners();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"Zone refresh after level up failed: {ex.Message}");
+                    }
+                });
             }
 
             #endregion
@@ -128,21 +142,35 @@ namespace Magitek
                 CurrentJob = Core.Me.CurrentJob;
                 Logger.WriteInfo("Job Changed");
 
-                // Run the shit we need to
-                Application.Current.Dispatcher.Invoke(delegate
+                // Run the shit we need to.
+                // InvokeAsync, never Invoke: this handler runs on the bot pulse thread, which
+                // holds the frame lock, and the delegate reads frame-cached game state on the
+                // UI thread, which takes that same lock. Blocking here while the UI thread
+                // waits on the lock deadlocked the whole client - a thread dump of a wedged RB
+                // caught the two threads waiting on each other. Nothing below depends on this
+                // finishing first, and exceptions are caught inside the delegate because
+                // InvokeAsync surfaces them nowhere.
+                Application.Current.Dispatcher.InvokeAsync(delegate
                 {
-                    GambitsViewModel.Instance.ApplyGambits();
-                    OpenersViewModel.Instance.ApplyOpeners();
-                    // First unregister all existing Magitek hotkeys
-                    UnregisterAllMagitekHotkeys();
-                    // Then load the toggles for the current job
-                    TogglesManager.LoadTogglesForCurrentJob();
-                    // Register opener hotkey
-                    RegisterOpenerHotkey();
-                    // Register reset opener hotkey
-                    RegisterResetOpenerHotkey();
-                    // Register hold PvP burst hotkey
-                    RegisterHoldPvpBurstHotkey();
+                    try
+                    {
+                        GambitsViewModel.Instance.ApplyGambits();
+                        OpenersViewModel.Instance.ApplyOpeners();
+                        // First unregister all existing Magitek hotkeys
+                        UnregisterAllMagitekHotkeys();
+                        // Then load the toggles for the current job
+                        TogglesManager.LoadTogglesForCurrentJob();
+                        // Register opener hotkey
+                        RegisterOpenerHotkey();
+                        // Register reset opener hotkey
+                        RegisterResetOpenerHotkey();
+                        // Register hold PvP burst hotkey
+                        RegisterHoldPvpBurstHotkey();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"Job change refresh failed: {ex.Message}");
+                    }
                 });
 
                 HookBehaviors();
@@ -162,20 +190,30 @@ namespace Magitek
                 // Set the current zone
                 CurrentZone = WorldManager.ZoneId;
 
-                Application.Current.Dispatcher.Invoke(delegate
+                // InvokeAsync for the same reason as the class-changed handler above: blocking the
+                // pulse thread here wedged the bot on every zone transition, which is far more
+                // common than a job change.
+                Application.Current.Dispatcher.InvokeAsync(delegate
                 {
-                    GambitsViewModel.Instance.ApplyGambits();
-                    OpenersViewModel.Instance.ApplyOpeners();
-                    // First unregister all existing Magitek hotkeys
-                    UnregisterAllMagitekHotkeys();
-                    // Then load the toggles for the current job
-                    TogglesManager.LoadTogglesForCurrentJob();
-                    // Register opener hotkey
-                    RegisterOpenerHotkey();
-                    // Register reset opener hotkey
-                    RegisterResetOpenerHotkey();
-                    // Register hold PvP burst hotkey
-                    RegisterHoldPvpBurstHotkey();
+                    try
+                    {
+                        GambitsViewModel.Instance.ApplyGambits();
+                        OpenersViewModel.Instance.ApplyOpeners();
+                        // First unregister all existing Magitek hotkeys
+                        UnregisterAllMagitekHotkeys();
+                        // Then load the toggles for the current job
+                        TogglesManager.LoadTogglesForCurrentJob();
+                        // Register opener hotkey
+                        RegisterOpenerHotkey();
+                        // Register reset opener hotkey
+                        RegisterResetOpenerHotkey();
+                        // Register hold PvP burst hotkey
+                        RegisterHoldPvpBurstHotkey();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"Zone change refresh failed: {ex.Message}");
+                    }
                 });
             }
 
@@ -323,28 +361,46 @@ namespace Magitek
             {
                 Logger.WriteInfo("Entering PVP Zone. Switching to PvP CombatRoutine.");
                 BaseSettings.Instance.ActivePvpCombatRoutine = true;
-                Application.Current.Dispatcher.Invoke(delegate
+                // InvokeAsync: same block as the class-changed and map-changed handlers, and the same
+                // deadlock - the delegate reads game state on the UI thread, which contends the frame
+                // lock against the pulse thread.
+                Application.Current.Dispatcher.InvokeAsync(delegate
                 {
-                    GambitsViewModel.Instance.ApplyGambits();
-                    OpenersViewModel.Instance.ApplyOpeners();
-                    TogglesManager.LoadTogglesForCurrentJob();
+                    try
+                    {
+                        GambitsViewModel.Instance.ApplyGambits();
+                        OpenersViewModel.Instance.ApplyOpeners();
+                        TogglesManager.LoadTogglesForCurrentJob();
 
-                    // Start PvP aggro count overlay when entering PvP
-                    OverlayManager.StartPvpAggroCountOverlay();
+                        // Start PvP aggro count overlay when entering PvP
+                        OverlayManager.StartPvpAggroCountOverlay();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"PvP routine switch failed: {ex.Message}");
+                    }
                 });
             }
             else if (!WorldManager.InPvP && BaseSettings.Instance.ActivePvpCombatRoutine)
             {
                 Logger.WriteInfo("Leaving PVP Zone. Switching to PvE CombatRoutine.");
                 BaseSettings.Instance.ActivePvpCombatRoutine = false;
-                Application.Current.Dispatcher.Invoke(delegate
+                // InvokeAsync, as above - fourth copy of this same block.
+                Application.Current.Dispatcher.InvokeAsync(delegate
                 {
-                    GambitsViewModel.Instance.ApplyGambits();
-                    OpenersViewModel.Instance.ApplyOpeners();
-                    TogglesManager.LoadTogglesForCurrentJob();
+                    try
+                    {
+                        GambitsViewModel.Instance.ApplyGambits();
+                        OpenersViewModel.Instance.ApplyOpeners();
+                        TogglesManager.LoadTogglesForCurrentJob();
 
-                    // Stop PvP aggro count overlay when leaving PvP
-                    OverlayManager.StopPvpAggroCountOverlay();
+                        // Stop PvP aggro count overlay when leaving PvP
+                        OverlayManager.StopPvpAggroCountOverlay();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"PvE routine switch failed: {ex.Message}");
+                    }
                 });
             }
 
