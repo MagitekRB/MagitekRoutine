@@ -519,9 +519,6 @@
   <data name="Views_Header_General_Healing" xml:space="preserve">
     <value>General Healing</value>
   </data>
-  <data name="Views_Header_Aspected_Healing" xml:space="preserve">
-    <value>Aspected Healing</value>
-  </data>
   <data name="Views_Header_Healing_Options" xml:space="preserve">
     <value>Healing Options</value>
   </data>
@@ -565,16 +562,55 @@
     <value>Lightspeed with Neutral Sect</value>
   </data>
   <data name="Astrologian_Content_Neutral_Sect_at" xml:space="preserve">
-    <value>Neutral Sect at</value>
+    <value>Neutral Sect when allies are at or below</value>
   </data>
   <data name="Astrologian_Content_Use_Divination_at_least" xml:space="preserve">
-    <value>Use Divination at least</value>
+    <value>Divination when at least</value>
   </data>
   <data name="Astrologian_Content_Use_Oracle_at_least" xml:space="preserve">
-    <value>Use Oracle at least</value>
+    <value>Oracle when at least</value>
   </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
+  </data>
+  <data name="Generic_Apply_This_Rule_On" xml:space="preserve">
+    <value>Apply This Rule On</value>
+  </data>
+  <data name="Astrologian_Text_Free_Single_Target_Heals" xml:space="preserve">
+    <value>Free single-target heals (no cast, no global cooldown) - these answer first</value>
+  </data>
+  <data name="Astrologian_Text_Free_AoE_Heals" xml:space="preserve">
+    <value>Free AoE heals</value>
+  </data>
+  <data name="Astrologian_Text_Regens" xml:space="preserve">
+    <value>Regens</value>
+  </data>
+  <data name="Astrologian_Text_Hardcast_Heals" xml:space="preserve">
+    <value>Hardcast heals - used when the free tools cannot answer</value>
+  </data>
+  <data name="Astrologian_Content_Dont_Let_The_DRK_Die" xml:space="preserve">
+    <value>Keep a Dark Knight in Walking Dead topped up with Benefic II</value>
+  </data>
+  <data name="Astrologian_Content_Benefic_Fallback" xml:space="preserve">
+    <value>Benefic (only without Benefic II) at or below</value>
+  </data>
+  <data name="Astrologian_Content_Cast_Damage_Abilities" xml:space="preserve">
+    <value>Cast damage abilities</value>
+  </data>
+  <data name="Astrologian_Text_Hold_Damage_Below_Mana" xml:space="preserve">
+    <value>In a party, hold damage while mana is below</value>
+  </data>
+  <data name="Astrologian_Text_Unless_Target_Dies_Within" xml:space="preserve">
+    <value>% - unless the target is expected to die within</value>
+  </data>
+  <data name="Astrologian_Text_Seconds_Bosses_Exempt" xml:space="preserve">
+    <value>seconds (bosses exempt)</value>
+  </data>
+  <data name="Astrologian_Content_Combust_All_Enemies" xml:space="preserve">
+    <value>Keep Combust on every enemy, not just your target (requires the AoE toggle)</value>
+  </data>
+  <data name="Astrologian_Text_Enemies_In_Gravity_Circle" xml:space="preserve">
+    <value>enemies inside its circle</value>
   </data>
   <data name="Astrologian_Content_FL_Exaltation" xml:space="preserve">
     <value>Exaltation - react to catalogued tankbusters (held for them in catalogued fights)</value>
@@ -694,7 +730,7 @@
     <value>Draw cards automatically (Astral and Umbral alternate)</value>
   </data>
   <data name="Astrologian_Content_Lord_Of_Crowns_at_least" xml:space="preserve">
-    <value>Lord Of Crowns at least</value>
+    <value>Lord of Crowns when at least</value>
   </data>
   <data name="Astrologian_Content_Lady_Of_Crowns" xml:space="preserve">
     <value>Lady Of Crowns</value>
@@ -712,19 +748,16 @@
     <value>Interrupt Damage to Heal</value>
   </data>
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
-    <value>Use Time Till Death For Damage Over Time Spells</value>
+    <value>Don't Combust an enemy expected to die within</value>
   </data>
   <data name="Astrologian_Content_Dont_Dot_if_more_than" xml:space="preserve">
-    <value>Don't Dot if more than</value>
+    <value>Don't Combust at all when more than</value>
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
-    <value>Gravity When There Are</value>
+    <value>Gravity when at least</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
     <value>Ally Health Percent</value>
-  </data>
-  <data name="Astrologian_Text_Tank_Only_at" xml:space="preserve">
-    <value>Tank Only at</value>
   </data>
   <data name="Astrologian_Text_Health_Percent_and" xml:space="preserve">
     <value>Health Percent and</value>
@@ -798,11 +831,8 @@
   <data name="Astrologian_Content_Essential_Dignity" xml:space="preserve">
     <value>Essential Dignity</value>
   </data>
-  <data name="Astrologian_Content_Collective_Unco" xml:space="preserve">
-    <value>Collective Unco.</value>
-  </data>
   <data name="Astrologian_Content_Synastry_When" xml:space="preserve">
-    <value>Synastry When</value>
+    <value>Synastry when</value>
   </data>
   <data name="Astrologian_Content_Horoscope_When" xml:space="preserve">
     <value>Horoscope When</value>
@@ -4009,7 +4039,7 @@
     <value>GCD - Other</value>
   </data>
   <data name="Astrologian_Content_Only_Heal_Alliance_Members_With_Regen" xml:space="preserve">
-    <value>Only Heal Alliance Members With Regen</value>
+    <value>Only heal alliance members with Benefic</value>
   </data>
   <data name="Astrologian_Content_Play_The_Arrow_At_Or_Below" xml:space="preserve">
     <value>Play the Arrow (boosts healing received) on the most wounded ally at or below</value>
@@ -4027,7 +4057,7 @@
     <value>Dont Do Damage If There Are More Than 3 Enemies</value>
   </data>
   <data name="Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds" xml:space="preserve">
-    <value>Refresh When Combust Has Less Than 3 Seconds</value>
+    <value>Refresh Combust when it has less than</value>
   </data>
   <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
     <value>Dont Use DoT if Enemy Dying Within 10 Seconds</value>
@@ -4037,9 +4067,6 @@
   </data>
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
     <value>Dispel Only If Nearby Players Health Is Above</value>
-  </data>
-  <data name="Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen" xml:space="preserve">
-    <value>Do Not Aspected Benefic Someone With Regen</value>
   </data>
   <data name="Astrologian_Content_Use_Aspected_Benefic_While_Moving" xml:space="preserve">
     <value>Use Aspected Benefic While Moving</value>
@@ -4277,9 +4304,6 @@
   </data>
   <data name="Generic_Use_Esuna_To_Dispel" xml:space="preserve">
     <value>Use Esuna To Dispel</value>
-  </data>
-  <data name="Generic_Apply_This_Rule_On" xml:space="preserve">
-    <value>Apply This Rule On</value>
   </data>
   <data name="Generic_On_Tank_Only" xml:space="preserve">
     <value>On Tank Only</value>
@@ -4943,10 +4967,10 @@
     <value>SEN</value>
   </data>
   <data name="Astrologian_Content_Lightspeed" xml:space="preserve">
-    <value>Lightspeed</value>
+    <value>Lightspeed when allies are at or below</value>
   </data>
   <data name="Astrologian_Content_SunSign" xml:space="preserve">
-    <value>SunSign</value>
+    <value>Sun Sign (after Neutral Sect)</value>
   </data>
   <data name="Astrologian_Content_Malefic" xml:space="preserve">
     <value>Malefic</value>

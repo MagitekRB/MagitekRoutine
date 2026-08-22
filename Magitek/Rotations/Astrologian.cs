@@ -121,7 +121,7 @@ namespace Magitek.Rotations
 
                 if (AstrologianSettings.Instance.HealAllianceOnlyBenefic)
                 {
-                    return await Heals.Benefic();
+                    return await Heals.Benefic(ignoreBenefic2: true);
                 }
 
                 if (await Heals.EssentialDignity()) return true;

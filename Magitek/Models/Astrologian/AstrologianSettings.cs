@@ -297,22 +297,6 @@ namespace Magitek.Models.Astrologian
         public float DiurnalBeneficWhileMovingMinMana { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool DiurnalBeneficDontBeneficUnlessUnderTank { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool DiurnalBeneficDontBeneficUnlessUnderHealer { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool DiurnalBeneficDontBeneficUnlessUnderDps { get; set; }
-
-        [Setting]
-        [DefaultValue(60.0f)]
-        public float DiurnalBeneficDontBeneficUnlessUnderHealth { get; set; }
-
-        [Setting]
         [DefaultValue(true)]
         public bool Benefic { get; set; }
 

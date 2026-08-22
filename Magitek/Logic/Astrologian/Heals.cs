@@ -34,7 +34,7 @@ namespace Magitek.Logic.Astrologian
 
 
         #region Single Target No Regen Heals
-        public static async Task<bool> Benefic()
+        public static async Task<bool> Benefic(bool ignoreBenefic2 = false)
         {
             if (!AstrologianSettings.Instance.Benefic)
                 return false;
@@ -42,7 +42,9 @@ namespace Magitek.Logic.Astrologian
             // Benefic II fully replaces Benefic once learned. Historically this method
             // silently redirected every cast to Benefic II; now it honestly steps aside,
             // and only casts plain Benefic under deep level sync or with Benefic II disabled.
-            if (Spells.Benefic2.IsKnown() && AstrologianSettings.Instance.Benefic2)
+            // The alliance-only-Benefic mode bypasses this - spamming the cheap heal on the
+            // alliance is that mode's entire point.
+            if (!ignoreBenefic2 && Spells.Benefic2.IsKnown() && AstrologianSettings.Instance.Benefic2)
                 return false;
 
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
