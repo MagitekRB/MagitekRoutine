@@ -585,6 +585,12 @@
   <data name="Astrologian_Text_Umbral_Card_Weights" xml:space="preserve">
     <value>灵极手牌 - 战争神之枪（远程DPS与治疗获得全额6%）</value>
   </data>
+  <data name="Astrologian_Content_Prefer_Ogcd_Heals" xml:space="preserve">
+    <value>优先使用免费的能力技治疗 - 仅在生命值不高于以下百分比时读条治疗</value>
+  </data>
+  <data name="Astrologian_Text_Essential_Dignity_At_Cap" xml:space="preserve">
+    <value>“先天禀赋”充能满层时，对生命值不高于以下百分比的目标使用一层</value>
+  </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>武僧：</value>
   </data>
@@ -4031,9 +4037,6 @@
   </data>
   <data name="Astrologian_Content_Use_Aspected_Benefic_While_Moving" xml:space="preserve">
     <value>移动时使用 吉星相位</value>
-  </data>
-  <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
-    <value>防止单独使用即刻咏唱</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>地星范围内的队友血量低于</value>

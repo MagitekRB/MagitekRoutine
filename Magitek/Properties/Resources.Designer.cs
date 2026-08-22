@@ -500,6 +500,24 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Astrologian_Content_Oracle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Prefer free (oGCD) heals - hardcast GCD heals only at or below.
+        /// </summary>
+        public static string Astrologian_Content_Prefer_Ogcd_Heals {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Prefer_Ogcd_Heals", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to At full Essential Dignity charges, spend one at or below.
+        /// </summary>
+        public static string Astrologian_Text_Essential_Dignity_At_Cap {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Essential_Dignity_At_Cap", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Play Cards.
@@ -507,15 +525,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Play_Cards {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Play_Cards", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prevent Usage of Swiftcast Alone.
-        /// </summary>
-        public static string Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone", resourceCulture);
             }
         }
         

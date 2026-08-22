@@ -17,22 +17,6 @@ namespace Magitek.Logic.Astrologian
     {
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? AstrologianSettings.Instance.AoeNeedHealingFullParty : AstrologianSettings.Instance.AoeNeedHealingLightParty;
 
-        public static async Task<bool> Swiftcast()
-        {
-            if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)
-                return false;
-
-            if (Core.Me.HasAura(Auras.Lightspeed, true))
-                return false;
-
-            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
-            {
-                return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
-            }
-
-            return false;
-        }
-
         public static async Task<bool> LucidDreaming()
         {
             return await Roles.Healer.LucidDreaming(AstrologianSettings.Instance.LucidDreaming, AstrologianSettings.Instance.LucidDreamingManaPercent);

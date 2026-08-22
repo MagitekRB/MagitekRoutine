@@ -585,6 +585,12 @@
   <data name="Astrologian_Text_Umbral_Card_Weights" xml:space="preserve">
     <value>Umbral hand - the Spear (ranged DPS and healers get the full 6%)</value>
   </data>
+  <data name="Astrologian_Content_Prefer_Ogcd_Heals" xml:space="preserve">
+    <value>Prefer free (oGCD) heals - hardcast GCD heals only at or below</value>
+  </data>
+  <data name="Astrologian_Text_Essential_Dignity_At_Cap" xml:space="preserve">
+    <value>At full Essential Dignity charges, spend one at or below</value>
+  </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>MNK:</value>
   </data>
@@ -4030,9 +4036,6 @@ Does not work if Lightspeed is disabled.</value>
   </data>
   <data name="Astrologian_Content_Use_Aspected_Benefic_While_Moving" xml:space="preserve">
     <value>Use Aspected Benefic While Moving</value>
-  </data>
-  <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
-    <value>Prevent Usage of Swiftcast Alone</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>Party Members Near Earthly Star Are Below</value>

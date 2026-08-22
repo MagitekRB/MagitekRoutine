@@ -195,8 +195,22 @@ namespace Magitek.Models.Astrologian
         public bool EssentialDignityTankOnly { get; set; }
 
         [Setting]
-        [DefaultValue(40.0f)]
+        [DefaultValue(55.0f)]
         public float EssentialDignityHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(85.0f)]
+        public float EssentialDignityCappedHealthPercent { get; set; }
+
+        // oGCD-first: while a free heal is ready, hardcast GCD heals only fire at or below
+        // the emergency threshold and Malefic keeps the GCD instead.
+        [Setting]
+        [DefaultValue(true)]
+        public bool PreferOgcdHeals { get; set; }
+
+        [Setting]
+        [DefaultValue(45.0f)]
+        public float GcdHealOnlyBelowHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -221,10 +235,6 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(30.0f)]
         public float DiurnalHeliosMinManaPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool DiurnalHeliosNoSwiftcast { get; set; }
 
         [Setting]
         [DefaultValue(true)]

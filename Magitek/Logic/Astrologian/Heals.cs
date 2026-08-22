@@ -42,6 +42,11 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
+            // oGCD-first, same rule as Benefic II below.
+            var beneficThreshold = AstrologianSettings.Instance.BeneficHealthPercent;
+            if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.SingleTargetOgcdHealReady())
+                beneficThreshold = System.Math.Min(beneficThreshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+
             if (Globals.InParty)
             {
                 foreach (var ally in Group.CastableAlliesWithin30)
@@ -52,7 +57,7 @@ namespace Magitek.Logic.Astrologian
                     if (ally.CheckTankImmunity() == TankImmunityCheck.DontHealThem)
                         continue;
 
-                    if (ally.CurrentHealthPercent > AstrologianSettings.Instance.BeneficHealthPercent
+                    if (ally.CurrentHealthPercent > beneficThreshold
                         || ally.CurrentHealth <= 0)
                         continue;
 
@@ -89,7 +94,7 @@ namespace Magitek.Logic.Astrologian
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.BeneficHealthPercent)
+                if (Core.Me.CurrentHealthPercent > beneficThreshold)
                     return false;
 
                 if (Spells.Benefic2.IsKnownAndReady())
@@ -128,6 +133,12 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
+            // oGCD-first: while a free single-target tool is ready, only hardcast for real
+            // emergencies - the weave window answers everything above that line.
+            var benefic2Threshold = AstrologianSettings.Instance.Benefic2HealthPercent;
+            if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.SingleTargetOgcdHealReady())
+                benefic2Threshold = System.Math.Min(benefic2Threshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+
             var shouldBenefic2WithEnhancedBenefic2 = AstrologianSettings.Instance.Benefic2AlwaysWithEnhancedBenefic2
                 && Core.Me.CurrentManaPercent >= Spells.Benefic2.Cost;
 
@@ -147,12 +158,12 @@ namespace Magitek.Logic.Astrologian
                     }
                 }
 
-                if (Core.Me.CurrentHealthPercent < AstrologianSettings.Instance.Benefic2HealthPercent)
+                if (Core.Me.CurrentHealthPercent < benefic2Threshold)
                     return await Spells.Benefic2.Heal(Core.Me);
 
                 var benefic2Target = Group.CastableAlliesWithin30.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontBenefic2.Contains(r.Name)
                 && r.CurrentHealth > 0
-                && r.CurrentHealthPercent <= AstrologianSettings.Instance.Benefic2HealthPercent
+                && r.CurrentHealthPercent <= benefic2Threshold
                 && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
                 if (benefic2Target == null)
@@ -169,7 +180,7 @@ namespace Magitek.Logic.Astrologian
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.Benefic2HealthPercent)
+                if (Core.Me.CurrentHealthPercent > benefic2Threshold)
                     return false;
 
                 return await Spells.Benefic2.Heal(Core.Me);
@@ -251,13 +262,19 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
+            // At full charges every tick of recharge is wasted free healing, so spend one
+            // far more liberally than the normal threshold.
+            var edThreshold = AstrologianSettings.Instance.EssentialDignityHealthPercent;
+            if (Spells.EssentialDignity.Charges >= Spells.EssentialDignity.MaxCharges)
+                edThreshold = System.Math.Max(edThreshold, AstrologianSettings.Instance.EssentialDignityCappedHealthPercent);
+
             if (Globals.InParty)
             {
                 if (AstrologianSettings.Instance.EssentialDignityTankOnly)
                 {
                     var tar = Group.CastableTanks.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontEssentialDignity.Contains(r.Name)
                     && r.IsAlive
-                    && r.CurrentHealthPercent <= AstrologianSettings.Instance.EssentialDignityHealthPercent
+                    && r.CurrentHealthPercent <= edThreshold
                     && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
                     if (tar == null)
@@ -266,12 +283,12 @@ namespace Magitek.Logic.Astrologian
                     return await Spells.EssentialDignity.Heal(tar, false);
                 }
 
-                if (Core.Me.CurrentHealthPercent < AstrologianSettings.Instance.EssentialDignityHealthPercent)
+                if (Core.Me.CurrentHealthPercent < edThreshold)
                     return await Spells.EssentialDignity.Heal(Core.Me, false);
 
                 var essentialDignityTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontEssentialDignity.Contains(r.Name)
                 && r.CurrentHealth > 0
-                && r.CurrentHealthPercent <= AstrologianSettings.Instance.EssentialDignityHealthPercent
+                && r.CurrentHealthPercent <= edThreshold
                 && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
                 if (essentialDignityTarget == null)
@@ -281,7 +298,7 @@ namespace Magitek.Logic.Astrologian
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent > AstrologianSettings.Instance.EssentialDignityHealthPercent)
+                if (Core.Me.CurrentHealthPercent > edThreshold)
                     return false;
 
                 return await Spells.EssentialDignity.Heal(Core.Me, false);
@@ -302,7 +319,10 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
-            if (AstrologianSettings.Instance.FightLogic_Exaltation)
+            // Fight-logic mode reserves Exaltation for catalogued busters. When the enemies
+            // we are fighting have none catalogued, fall through to the threshold path
+            // instead of never firing at all.
+            if (AstrologianSettings.Instance.FightLogic_Exaltation && FightLogic.EnemyHasAnyTankbusterLogic())
             {
 
                 var tankBusterOnPartyMember = FightLogic.EnemyIsCastingTankBuster();
@@ -336,9 +356,14 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.CurrentManaPercent <= AstrologianSettings.Instance.HeliosMinManaPercent)
                 return false;
 
+            // oGCD-first, same rule as Aspected Helios below.
+            var heliosThreshold = AstrologianSettings.Instance.HeliosHealthPercent;
+            if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.AoeOgcdHealReady())
+                heliosThreshold = System.Math.Min(heliosThreshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+
             var heliosCount = PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r => r.CurrentHealth > 0
             && r.WithinSpellRange(Spells.Helios.Radius)
-            && r.CurrentHealthPercent <= r.AdjustHealthThresholdByRegen(AstrologianSettings.Instance.HeliosHealthPercent));
+            && r.CurrentHealthPercent <= r.AdjustHealthThresholdByRegen(heliosThreshold));
 
             //if (heliosCount < AstrologianSettings.Instance.HeliosAllies)
             if (heliosCount <= AoeThreshold)
@@ -543,9 +568,11 @@ namespace Magitek.Logic.Astrologian
 
             if (Core.Me.HasAura(Auras.NeutralSect) &&
                 Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield))
-                return MovementManager.IsMoving
-                    ? await SwiftCastAspectedHelios()
-                    : await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
+                // Swiftcast stays reserved for Ascend. While moving, the Lightspeed pairing
+                // with Neutral Sect (on by default) is what makes this castable; without it
+                // the shield waits for the next standstill.
+                return !MovementManager.IsMoving
+                    && await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
 
             if (Casting.LastSpell == Spells.AspectedHelios)
                 return false;
@@ -553,47 +580,26 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.CurrentManaPercent <= AstrologianSettings.Instance.DiurnalHeliosMinManaPercent)
                 return false;
 
+            // oGCD-first: while a free AoE tool is ready, group healing belongs to the weave
+            // window unless someone is genuinely low.
+            var aspectedHeliosThreshold = AstrologianSettings.Instance.DiurnalHeliosHealthPercent;
+            if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.AoeOgcdHealReady())
+                aspectedHeliosThreshold = System.Math.Min(aspectedHeliosThreshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+
             var diurnalHeliosCount =
                 PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r => r.CurrentHealth > 0 &&
                                                         r.WithinSpellRange(Spells.AspectedHelios.Radius) &&
                                                         r.CurrentHealthPercent <=
-                                                        AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
+                                                        aspectedHeliosThreshold &&
                                                         !r.HasAura(Auras.AspectedHelios, true) && !r.HasAura(Auras.HeliosConjunction, true));
 
             if (diurnalHeliosCount >= AoeThreshold)
             {
-                if (await SwiftCastAspectedHelios())
-                    return true;
-
                 // RB masks the spell to Helios Conjunction at 96+, but not the aura it applies.
                 var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
 
                 return await Spells.AspectedHelios.HealAura(Core.Me, heliosAura);
             }
-            return false;
-        }
-
-        private static async Task<bool> SwiftCastAspectedHelios()
-        {
-            if (!Spells.Swiftcast.IsKnownAndReady())
-                return false;
-
-            if (AstrologianSettings.Instance.DiurnalHeliosNoSwiftcast)
-                return false;
-
-            if (!await Buff.Swiftcast())
-                return false;
-
-            var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
-
-            while (Core.Me.HasAura(Auras.Swiftcast))
-            {
-                if (await Spells.AspectedHelios.HealAura(Core.Me, heliosAura, false))
-                    return true;
-
-                await Coroutine.Yield();
-            }
-
             return false;
         }
 

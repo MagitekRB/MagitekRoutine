@@ -22,6 +22,41 @@ namespace Magitek.Utilities.Routines
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Astrologian, Spells.Malefic);
 
+        // Modern AST heals oGCD-first: a hardcast GCD heal is justified only when the free
+        // tools cannot answer, so the GCD heals shrink to their emergency threshold while
+        // one of these is ready and the weave window handles everything above it.
+        public static bool SingleTargetOgcdHealReady()
+        {
+            var s = Models.Astrologian.AstrologianSettings.Instance;
+
+            if (s.EssentialDignity && Spells.EssentialDignity.IsKnownAndReady())
+                return true;
+
+            if (s.CelestialIntersection && Spells.CelestialIntersection.IsKnownAndReady())
+                return true;
+
+            // Exaltation only counts while its threshold path is live - in fight-logic mode
+            // against catalogued busters it is reserved for the buster, not for upkeep.
+            if (s.Exaltation && Spells.Exaltation.IsKnownAndReady()
+                && (!s.FightLogic_Exaltation || !FightLogic.EnemyHasAnyTankbusterLogic()))
+                return true;
+
+            return false;
+        }
+
+        public static bool AoeOgcdHealReady()
+        {
+            var s = Models.Astrologian.AstrologianSettings.Instance;
+
+            if (s.CelestialOpposition && Spells.CelestialOpposition.IsKnownAndReady())
+                return true;
+
+            if (s.CollectiveUnconscious && Spells.CollectiveUnconscious.IsKnownAndReady())
+                return true;
+
+            return false;
+        }
+
         public static List<Character> AllianceBeneficOnly = new List<Character>();
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? AstrologianSettings.Instance.AoeNeedHealingFullParty : AstrologianSettings.Instance.AoeNeedHealingLightParty;
 
