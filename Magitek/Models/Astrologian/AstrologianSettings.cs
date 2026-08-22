@@ -494,10 +494,6 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(25)]
         public int DontPlayWhenCombatTimeIsLessThan { get; set; }
-        [Setting]
-        [DefaultValue(50.0f)]
-        public float PlayDefensiveCardHealthPercent { get; set; }
-
 
         [Setting]
         [DefaultValue(true)]
@@ -519,10 +515,6 @@ namespace Magitek.Models.Astrologian
         [DefaultValue(1)]
         public int LordOfCrownsEnemies { get; set; }
         #endregion
-        [Setting]
-        [DefaultValue(70.0f)]
-        public float AoEHealThreshold { get; set; }
-
 
         #region Card Weights
 

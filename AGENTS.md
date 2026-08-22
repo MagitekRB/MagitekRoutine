@@ -11,7 +11,7 @@ Authoritative guidance for developers working on the Magitek routine.
 - Build: `dotnet build Magitek\Magitek.sln`
   - **Note:** The solution file is in the `Magitek` subdirectory, not the workspace root.
   - On Windows PowerShell, use semicolon separators: `cd Magitek; dotnet build Magitek.sln`
-- Magitek targets **.NET 8.0 (net8.0-windows8.0)** and is loaded inside RebornBuddy.
+- Magitek targets **.NET 10.0 (net10.0-windows8.0)** and is loaded inside RebornBuddy (1.0.900 and later run on .NET 10).
 - C# Language Version: **C# 10** (enforced via `<LangVersion>10</LangVersion>` in Magitek.csproj).
 - Preferred IDE: Visual Studio 2022 or JetBrains Rider with the Windows workload.
 

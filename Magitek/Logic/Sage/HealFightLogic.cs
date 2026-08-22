@@ -90,9 +90,7 @@ namespace Magitek.Logic.Sage
                 && Spells.Eukrasia.IsKnown()
                 && Heal.IsEukrasiaReady())
             {
-                var targets = Group.CastableAlliesWithin20.Where(r => !r.HasAura(Auras.EukrasianDiagnosis)
-                                                                && !r.HasAura(Auras.EukrasianPrognosis)
-                                                                && !r.HasAura(Auras.Galvanize));
+                var targets = Group.CastableAlliesWithin20.Where(r => !r.HasPrimaryShield());
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || targets.Any(r => r.IsTank());
 
@@ -154,9 +152,7 @@ namespace Magitek.Logic.Sage
 
             if (SageSettings.Instance.FightLogic_EukrasianDiagnosis
                 && Spells.Eukrasia.IsKnown()
-                && !target.HasAura(Auras.EukrasianDiagnosis)
-                && !target.HasAura(Auras.Galvanize)
-                && !target.HasAura(Auras.EukrasianPrognosis)
+                && !target.HasPrimaryShield()
                 && Heal.IsEukrasiaReady())
             {
                 if (BaseSettings.Instance.DebugFightLogic)

@@ -2483,7 +2483,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19306 //Inscrutability
+                            19306, //Inscrutability
+                            19322 //Ectoplasmic Ray - stack. Damage lands as 19320 on all four
+                                  //players 5.25s after this cast, up to 30.4% of a health bar.
                         },
                         BigAoes = null
                     },
@@ -2496,7 +2498,9 @@ namespace Magitek.Utilities
                         },
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19306 //Inscrutability
+                            19306, //Inscrutability
+                            19322 //Ectoplasmic Ray - stack. Damage lands as 19320 on all four
+                                  //players 5.25s after this cast, up to 30.4% of a health bar.
                         },
                         BigAoes = null
                     },
@@ -2506,7 +2510,14 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint>() {
-                            19288 //The Final Verse
+                            19288, //The Final Verse
+                            19296 //Open Hearth - 4 hits from one cast, all four players, 33.1%
+                        },
+                        AoeLockOns = new List<uint>() {
+                            62, //Open Hearth's stack marker
+                            96 //Wanderer's Pyre marks three players in the same millisecond as
+                               //its cast. Both of these are on the global common-marker set,
+                               //which is inert unless the enemy declares it.
                         },
                         BigAoes = null
                     },
@@ -2515,6 +2526,40 @@ namespace Magitek.Utilities
                         Name = "Rukshs Dheem",
                         TankBusters = new List<uint>() {
                             19340 //Bonebreaker
+                        },
+                        SharedTankBusters = null,
+                        Aoes = new List<uint>() {
+                            //Each of these fires as a PAIR sharing one cast time: a self-targeted
+                            //id with EffectRange 0, and the id that carries the geometry and the
+                            //damage. Both show a cast bar, so both are listed - which one the
+                            //client reports as the enemy's current cast is not something we can
+                            //tell from a log, and an id that never matches is simply inert.
+                            //Measured 2026-08-20: the r0 half dealt zero damage every time.
+                            19323, //Seabed Ceremony - the most frequent damage in the fight,
+                                   //7 casts in one clear, up to 41.7%. This half is single r0.
+                            19324, //Seabed Ceremony - circle r60, carries the damage (7/7 hits)
+                            19325, //Falling Water - marks TWO players at once, and not the tanks,
+                                   //so the party answer is the right one. This half is single r0.
+                            19326, //Falling Water - circle r8, carries the damage
+                            19327, //Flying Fount - stack, up to 52.1%. This half is single r0.
+                            19328 //Flying Fount - circle r6, carries the damage
+                        },
+                        AoeLockOns = new List<uint>() {
+                            62 //Flying Fount's stack marker
+                        },
+                        BigAoes = null
+                    },
+                    //Trash, not a boss - the only such entry here. Included on a player ruling:
+                    //Barreling Smash is a lock-on charge along a line at whoever it picks, and it
+                    //is worth a single-target barrier on that player. Filed under TankBusters
+                    //because that is the path that shields the named target; the victim is not
+                    //necessarily a tank. No head marker precedes it (checked type-27 lines in the
+                    //8s before each cast), so the 5.0s cast bar is the only signal we get.
+                    new Enemy {
+                        Id = 9280,
+                        Name = "Io Ousia",
+                        TankBusters = new List<uint>() {
+                            20004 //Barreling Smash - line charge, 30.5% on its single victim
                         },
                         SharedTankBusters = null,
                         Aoes = null,
@@ -4534,11 +4579,37 @@ namespace Magitek.Utilities
                     }
                 }
             },
+            // Anima's Oblivion (cast id 25359) is left out on purpose. Measured 2026-08-19:
+            // the cast bar runs ~6.0s, then 23697 ticks 15 times across all four players at
+            // ~10.6% of a health bar each over the next 4.3s, and only then does 23872 land for
+            // 49.1% - 13.1s after the cast starts. Reacting on the cast puts a barrier up in time
+            // for the chip damage, which consumes it, so it is gone before the hit that matters;
+            // Sacred Soil's 15s survives but with under 2s to spare.
+            //
+            // What would make it catalogueable is a per-mechanic reaction delay. HodlCastTimeRemaining
+            // already resolves (encounter, enemyLogic, enemy) and every job reaches it - the four
+            // healer HealFightLogic files and CommonFightLogic alike - so a hold keyed on
+            // enemy.CastingSpellId would let this one entry react at cast-end instead of cast-start
+            // without touching any other reaction. Flagging rather than building it: the shape of
+            // that (data on the mechanic vs a lookup in FightLogic) is your call.
             new Encounter {
                 ZoneId = ZoneId.TheTowerOfBabil,
                 Name = "Dungeon: The Tower of Babil",
                 Expansion = FfxivExpansion.Endwalker,
                 Enemies = new List<Enemy> {
+                    new Enemy {
+                        Id = 10279,
+                        Name = "Barnabas",
+                        TankBusters = null,
+                        SharedTankBusters = null,
+                        Aoes = new List<uint> {
+                            25324 //Shocking Force
+                        },
+                        AoeLockOns = new List<uint> {
+                            62 //Shocking Force stacks the party on one marked player ~5s ahead
+                        },
+                        BigAoes = null
+                    },
                     new Enemy {
                         Id = 10281,
                         Name = "Lugae",
@@ -4565,8 +4636,15 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
-                            25344 //Mega Graviton
+                            25344, //Mega Graviton
+                            25352, //Erupting Pain
+                            25351, //Erupting Pain (second cast id)
+                            25347  //Boundless Pain - casts as 25347, lands as 25348
                         },
+                        AoeLockOns = new List<uint> {
+                            139 //Erupting Pain marks every player ~5s before the hit
+                        },
+                        // 25359, //Oblivion - deliberately NOT catalogued; see the note above this encounter
                         BigAoes = null
                     },
                     new Enemy {
@@ -4575,8 +4653,15 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
-                            25344 //Mega Graviton
+                            25344, //Mega Graviton
+                            25352, //Erupting Pain
+                            25351, //Erupting Pain (second cast id)
+                            25347  //Boundless Pain - casts as 25347, lands as 25348
                         },
+                        AoeLockOns = new List<uint> {
+                            139 //Erupting Pain marks every player ~5s before the hit
+                        },
+                        // 25359, //Oblivion - deliberately NOT catalogued; see the note above this encounter
                         BigAoes = null
                     }
                 }
@@ -6515,6 +6600,59 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         Aoes = new List<uint> {
                             43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14049,
+                        Name = "Pale Headsman",
+                        TankBusters = new List<uint> {
+                            43589, // Relentless Torment - the tank's duel mechanic. Follows Will
+                                   // Breaker (44856), which is the interruptible half. Four hits in
+                                   // 1.8s totalling 55.9% of a health bar.
+                        },
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14048,
+                        Name = "Ravenous Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14050,
+                        Name = "Pestilent Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43578, // Head-splitting Roar
+                        },
+                        AoeLockOns = null,
+                        Knockbacks = null,
+                        SharedTankBusters = null,
+                        BigAoes = null
+                    },
+                    new Enemy {
+                        Id = 14239,
+                        Name = "Hooded Headsman",
+                        TankBusters = null,
+                        Aoes = new List<uint> {
+                            43579, // Head-splitting Roar - this one casts the sibling id, and it is
+                                   // the half that lands the damage: 25.3% on all four.
                         },
                         AoeLockOns = null,
                         Knockbacks = null,

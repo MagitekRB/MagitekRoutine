@@ -248,6 +248,10 @@ namespace Magitek.Models.Scholar
         public int DeploymentTacticsAllyInRange { get; set; }
 
         [Setting]
+        [DefaultValue(15)]
+        public int DeploymentTacticsMinimumShieldSeconds { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Excogitation { get; set; }
 

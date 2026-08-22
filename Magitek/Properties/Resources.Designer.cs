@@ -1207,23 +1207,7 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_N", resourceCulture);
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to Play Defensive Card Health %.
-        /// </summary>
-        public static string Astrologian_Content_PlayDefensiveCardHealthPercent {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_PlayDefensiveCardHealthPercent", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to AoE Heal Health Threshold %.
-        /// </summary>
-        public static string Astrologian_Content_AoEHealThreshold {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_AoEHealThreshold", resourceCulture);
-            }
-        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Apex Arrow.
         /// </summary>
@@ -12960,6 +12944,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Only spread a shield with at least this many seconds left:.
+        /// </summary>
+        public static string Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds {
+            get {
+                return ResourceManager.GetString("Scholar_Text_Deployment_Tactics_Minimum_Shield_Seconds", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Deployment Tactics Crit Adlo When.
         /// </summary>
