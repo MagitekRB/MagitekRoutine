@@ -532,34 +532,34 @@ namespace Magitek.Models.Astrologian
 
         #region AstralCardWeights
         [Setting]
-        [DefaultValue(1)]
+        [DefaultValue(4)]
         public int MnkAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(2)]
+        [DefaultValue(5)]
         public int DrgAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(6)]
         public int NinAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(4)]
+        [DefaultValue(1)]
         public int SamAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(5)]
+        [DefaultValue(3)]
         public int RprAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(6)]
+        [DefaultValue(2)]
         public int VprAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(7)]
+        [DefaultValue(10)]
         public int PldAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(8)]
+        [DefaultValue(9)]
         public int WarAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(9)]
+        [DefaultValue(7)]
         public int DrkAstralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(10)]
+        [DefaultValue(8)]
         public int GnbAstralCardWeight { get; set; }
         [Setting]
         [DefaultValue(11)]
@@ -569,37 +569,37 @@ namespace Magitek.Models.Astrologian
 
         #region UmbralCardWeights
         [Setting]
-        [DefaultValue(1)]
+        [DefaultValue(6)]
         public int BrdUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(2)]
+        [DefaultValue(4)]
         public int MchUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(7)]
         public int DncUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(4)]
+        [DefaultValue(2)]
         public int BlmUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(5)]
+        [DefaultValue(3)]
         public int SmnUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(6)]
+        [DefaultValue(5)]
         public int RdmUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(7)]
+        [DefaultValue(1)]
         public int PctUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(8)]
+        [DefaultValue(11)]
         public int WhmUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(9)]
+        [DefaultValue(10)]
         public int SchUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(10)]
+        [DefaultValue(8)]
         public int AstUmbralCardWeight { get; set; }
         [Setting]
-        [DefaultValue(11)]
+        [DefaultValue(9)]
         public int SgeUmbralCardWeight { get; set; }
         [Setting]
         [DefaultValue(12)]
