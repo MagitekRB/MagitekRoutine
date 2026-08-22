@@ -55,9 +55,17 @@
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Align_Cards_With_Divination}" IsChecked="{Binding AstrologianSettings.AlignCardsWithDivination, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,7,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Play_Utility_Cards_Below}" />
-                    <controls:Numeric Increment="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PlayUtilityCardHealthPercent, Mode=TwoWay}" />
+                    <CheckBox Margin="0,0,4,0" Content="{x:Static properties:Resources.Astrologian_Content_Play_The_Arrow_At_Or_Below}" IsChecked="{Binding AstrologianSettings.PlayArrow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric Increment="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.ArrowHealthPercent, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <CheckBox Margin="0,0,4,0" Content="{x:Static properties:Resources.Astrologian_Content_Play_The_Ewer_At_Or_Below}" IsChecked="{Binding AstrologianSettings.PlayEwer, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric Increment="1" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.EwerHealthPercent, Mode=TwoWay}" />
+                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Bole_Spire_Fight_Logic}" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>

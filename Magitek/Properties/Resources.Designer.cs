@@ -1033,11 +1033,29 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play utility cards (Bole, Arrow, Ewer, Spire) at or below.
+        ///   Looks up a localized string similar to Play the Arrow (boosts healing received) on the most wounded ally at or below.
         /// </summary>
-        public static string Astrologian_Text_Play_Utility_Cards_Below {
+        public static string Astrologian_Content_Play_The_Arrow_At_Or_Below {
             get {
-                return ResourceManager.GetString("Astrologian_Text_Play_Utility_Cards_Below", resourceCulture);
+                return ResourceManager.GetString("Astrologian_Content_Play_The_Arrow_At_Or_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Play the Ewer (regen) on the most wounded ally at or below.
+        /// </summary>
+        public static string Astrologian_Content_Play_The_Ewer_At_Or_Below {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Play_The_Ewer_At_Or_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Bole and the Spire are held for incoming tankbusters and played by fight logic.
+        /// </summary>
+        public static string Astrologian_Text_Bole_Spire_Fight_Logic {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Bole_Spire_Fight_Logic", resourceCulture);
             }
         }
         

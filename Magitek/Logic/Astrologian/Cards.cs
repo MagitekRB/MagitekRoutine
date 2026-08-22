@@ -109,14 +109,37 @@ namespace Magitek.Logic.Astrologian
             }
 
             // Peek, not the responder: a card is additive and must not consume the mechanic.
-            if (playIICard != AstrologianCard.None)
+            // The utility cards split by function. The Bole (10% damage taken cut) and the
+            // Spire (400-potency barrier) are anticipatory: fight logic plays them at an
+            // incoming tankbuster and otherwise they are HELD - the dump window before each
+            // draw flushes whatever was never needed, so a held card cannot rot. The Arrow
+            // and the Ewer respond to damage already taken and carry their own controls.
+            // The dump ignores every toggle so a disabled card can never wedge the draw.
+            if (playIICard == AstrologianCard.Bole)
             {
                 var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
                 var target = (GameObject)busterTarget ?? MainTankOrFallback();
 
+                if (dumping || busterTarget != null)
+                    if (await Spells.PlayII.Masked().Cast(target))
+                        return true;
+            }
+
+            if (playIICard == AstrologianCard.Arrow)
+            {
+                // The Arrow raises healing RECEIVED by 10%: the buster victim is about to eat
+                // a hit and the heals that follow it; failing that, the most wounded ally
+                // below the Arrow's threshold is where the healing is already going.
+                var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
+                var wounded = Group.CastableAlliesWithin30
+                    .Where(a => a.CurrentHealth > 0
+                        && a.CurrentHealthPercent <= AstrologianSettings.Instance.ArrowHealthPercent)
+                    .OrderBy(a => a.CurrentHealthPercent)
+                    .FirstOrDefault();
+                var target = (GameObject)busterTarget ?? wounded ?? MainTankOrFallback();
+
                 if (dumping
-                    || busterTarget != null
-                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    || (AstrologianSettings.Instance.PlayArrow && (busterTarget != null || wounded != null)))
                     if (await Spells.PlayII.Masked().Cast(target))
                         return true;
             }
@@ -126,9 +149,7 @@ namespace Magitek.Logic.Astrologian
                 var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
                 var target = (GameObject)busterTarget ?? MainTankOrFallback();
 
-                if (dumping
-                    || busterTarget != null
-                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                if (dumping || busterTarget != null)
                     if (await Spells.PlayIII.Masked().Cast(target))
                         return true;
             }
@@ -142,7 +163,8 @@ namespace Magitek.Logic.Astrologian
                              ?? MainTankOrFallback();
 
                 if (dumping
-                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    || (AstrologianSettings.Instance.PlayEwer
+                        && target.CurrentHealthPercent <= AstrologianSettings.Instance.EwerHealthPercent))
                     if (await Spells.PlayIII.Masked().Cast(target))
                         return true;
             }

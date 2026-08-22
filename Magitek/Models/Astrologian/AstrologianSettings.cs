@@ -499,9 +499,23 @@ namespace Magitek.Models.Astrologian
         [DefaultValue(true)]
         public bool AlignCardsWithDivination { get; set; }
 
+        // The reactive cards carry their own controls; the anticipatory cards (the Bole and
+        // the Spire) are played by fight logic at incoming tankbusters and have no threshold.
+        [Setting]
+        [DefaultValue(true)]
+        public bool PlayArrow { get; set; }
+
         [Setting]
         [DefaultValue(80)]
-        public int PlayUtilityCardHealthPercent { get; set; }
+        public int ArrowHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool PlayEwer { get; set; }
+
+        [Setting]
+        [DefaultValue(80)]
+        public int EwerHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(true)]
