@@ -579,6 +579,12 @@
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>Card weights (lower = first). Damage cards go to DPS before tanks/healers; weights break ties.</value>
   </data>
+  <data name="Astrologian_Content_Prefer_Ogcd_Heals" xml:space="preserve">
+    <value>Prefer free (oGCD) heals - hardcast GCD heals only at or below</value>
+  </data>
+  <data name="Astrologian_Text_Essential_Dignity_At_Cap" xml:space="preserve">
+    <value>At full Essential Dignity charges, spend one at or below</value>
+  </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>MNK:</value>
   </data>

@@ -579,6 +579,12 @@
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>卡片权重（数值越低越优先）。攻击卡优先给DPS，其次坦克/治疗；权重用于同类之间排序。</value>
   </data>
+  <data name="Astrologian_Content_Prefer_Ogcd_Heals" xml:space="preserve">
+    <value>优先使用免费的能力技治疗 - 仅在生命值不高于以下百分比时读条治疗</value>
+  </data>
+  <data name="Astrologian_Text_Essential_Dignity_At_Cap" xml:space="preserve">
+    <value>“先天禀赋”充能满层时，对生命值不高于以下百分比的目标使用一层</value>
+  </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>武僧：</value>
   </data>
