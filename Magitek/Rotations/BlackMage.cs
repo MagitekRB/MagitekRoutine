@@ -1,4 +1,4 @@
-using ff14bot;
+﻿using ff14bot;
 using Magitek.Extensions;
 using Magitek.Logic.BlackMage;
 using Magitek.Logic.Roles;
@@ -75,6 +75,8 @@ namespace Magitek.Rotations
                 //Either
                 if (await Aoe.Thunder4()) return true;
                 if (await Aoe.Foul()) return true;
+
+                if (await Aoe.AoeTranspose()) return true;
 
                 if (await Aoe.Blizzard2()) return true;
                 if (await Aoe.Fire2()) return true;

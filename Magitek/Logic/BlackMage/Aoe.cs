@@ -124,14 +124,77 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            //Can only use in Umbral Ice
-            if (UmbralStacks != 3)
+            //Can only use in Umbral Ice - the Transpose loop enters ice at Umbral Ice 1
+            if (UmbralStacks == 0)
                 return false;
 
-            if (Core.Me.CurrentMana == 10000)
-                return false;
+            // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
+            // This is a trait check, not a spell availability check
+            if (Core.Me.ClassLevel >= 58)
+            {
+                // The ice phase is done once Freeze has granted full hearts
+                if (UmbralHearts == 3)
+                    return false;
+            }
+            else
+            {
+                // Below the trait there are no hearts; the ice phase only needs MP
+                if (Core.Me.CurrentMana == Core.Me.MaxMana)
+                    return false;
+            }
 
             return await Spells.Freeze.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> AoeTranspose()
+        {
+            if (!AoeControl.Enabled)
+                return false;
+
+            // The Transpose AoE loop starts at Freeze (level 40); below that the hardcast cycle stands
+            if (!Spells.Freeze.IsKnown())
+                return false;
+
+            if (!Spells.Transpose.IsKnownAndReady())
+                return false;
+
+            // Astral Fire -> Umbral Ice: swap once MP can no longer support the fire phase
+            if (AstralStacks > 0)
+            {
+                // Never strand a ready Flare Star
+                if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                    return false;
+
+                // FFXIV MP costs (patch 7.x): Flare fires down to its 800 MP minimum; without
+                // Flare the AoE fire spender is Fire II at 1500 MP, doubled to 3000 in Astral Fire.
+                if (Core.Me.CurrentMana >= (Spells.Flare.IsKnown() ? 800 : 3000))
+                    return false;
+
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
+            // Umbral Ice -> Astral Fire: swap once the ice phase has done its job
+            if (UmbralStacks > 0)
+            {
+                // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
+                // This is a trait check, not a spell availability check
+                if (Core.Me.ClassLevel >= 58)
+                {
+                    // Freeze granted full hearts and Flare's 800 MP floor is covered
+                    if (UmbralHearts == 3 && Core.Me.CurrentMana >= 800)
+                        return await Spells.Transpose.Cast(Core.Me);
+
+                    return false;
+                }
+
+                // Below the trait there are no hearts; the ice phase ends at full MP
+                if (Core.Me.CurrentMana == Core.Me.MaxMana)
+                    return await Spells.Transpose.Cast(Core.Me);
+
+                return false;
+            }
+
+            return false;
         }
 
         public static async Task<bool> Thunder4()
@@ -181,6 +244,11 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Fire2.IsKnown())
                 return false;
 
+            // In Astral Fire with Flare known the AoE fire phase belongs to Flare - don't hardcast
+            // Fire II over it. Fire II stays the Umbral Ice exit hardcast and the sub-50 fire spender.
+            if (AstralStacks > 0 && Spells.Flare.IsKnown())
+                return false;
+
             //No stack, open with Fire3
             if (AstralStacks < 3 && UmbralStacks == 0)
                 return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
@@ -190,6 +258,12 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (UmbralStacks == 3 && UmbralHearts != 3)
+                return false;
+
+            // The Transpose loop (Freeze and up) enters ice at Umbral Ice 1; don't cast Fire II
+            // back into Astral Fire before Freeze has granted full hearts. Below the Umbral Heart
+            // trait the ice phase exits with Transpose or Fire III instead, never Fire II.
+            if (Spells.Freeze.IsKnown() && UmbralStacks > 0 && UmbralHearts != 3)
                 return false;
 
             //Try and keep from doublecasting or using after manafont
@@ -238,6 +312,10 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             if (AstralStacks < 3 || UmbralStacks == 3)
+                return false;
+
+            // Flare keeps the fire phase going down to its 800 MP floor - don't hardcast into ice while it still can
+            if (Spells.Flare.IsKnown() && Core.Me.CurrentMana >= 800)
                 return false;
 
             if (Core.Me.CurrentMana >= 1600)
