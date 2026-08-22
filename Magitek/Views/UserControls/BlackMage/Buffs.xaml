@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
+             xmlns:enums="clr-namespace:Magitek.Enumerations"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels">
 
     <UserControl.DataContext>
@@ -10,7 +12,18 @@
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="PotionEnum"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="enums:PotionEnum"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -82,6 +95,24 @@
                     <TextBlock Style="{DynamicResource TextBlockDefault}"
                                Text="{x:Static properties:Resources.Generic_Mana_Percent}"/>
                 </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5"
+                        Orientation="Horizontal">
+                <CheckBox Margin="5"
+                          Content="{x:Static properties:Resources.Generic_Use_Potion}"
+                          IsChecked="{Binding BlackMageSettings.UsePotion, Mode=TwoWay}"
+                          Style="{DynamicResource CheckBoxFlat}"/>
+                <ComboBox Width="120"
+                          ItemsSource="{Binding Source={StaticResource PotionEnum}}"
+                          SelectedValue="{Binding BlackMageSettings.PotionTypeAndGradeLevel, Mode=TwoWay}"
+                          Style="{DynamicResource ComboBox}"/>
+                <TextBlock Margin="5"
+                           Style="{DynamicResource TextBlockDefault}"
+                           Text="{x:Static properties:Resources.Generic_Item_Potion_Selected_Should_Be_In_You}"/>
             </StackPanel>
         </controls:SettingsBlock>
 

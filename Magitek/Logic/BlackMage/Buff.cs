@@ -2,6 +2,7 @@
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.BlackMage;
 using Magitek.Utilities;
 using System;
@@ -311,6 +312,15 @@ namespace Magitek.Logic.BlackMage
 
             return await Spells.Transpose.Cast(Core.Me);
         }
+        public static async Task<bool> UsePotion()
+        {
+            // Bosses only - the Use Potion and grade settings themselves live in MagicDps.UsePotion
+            if (!Combat.IsBoss())
+                return false;
+
+            return await MagicDps.UsePotion(BlackMageSettings.Instance);
+        }
+
         public static async Task<bool> Amplifier()
         {
             if (!Spells.Amplifier.IsKnown())

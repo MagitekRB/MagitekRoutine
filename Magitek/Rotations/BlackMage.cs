@@ -76,6 +76,8 @@ namespace Magitek.Rotations
 
             if (await Aoe.FlareStar()) return true;
 
+            if (await Buff.UsePotion()) return true;
+
             if (await Buff.Amplifier()) return true;
             if (await Buff.Triplecast()) return true;
             if (await Buff.LeyLines()) return true;
