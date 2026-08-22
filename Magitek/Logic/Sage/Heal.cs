@@ -318,6 +318,27 @@ namespace Magitek.Logic.Sage
 
             return await spell.HealAura(Core.Me, aura);
         }
+        public static async Task<bool> BurnAddersgallForMP()
+        {
+            // If we aren't capped on stacks, or our MP is fine, do nothing
+            if (Addersgall < 3 || Core.Me.CurrentManaPercent > 85)
+                return false;
+
+            if (!Spells.Druochole.IsKnownAndReady())
+                return false;
+
+            // Find the person missing the most HP (prioritizing tanks implicitly by HP threshold)
+            var target = Group.CastableAlliesWithin30
+                .Where(r => r.CurrentHealthPercent < 95)
+                .OrderBy(x => x.CurrentHealthPercent)
+                .FirstOrDefault();
+
+            // If everyone is literally at 100%, just burn it on the tank to keep the MP flowing
+            if (target == null)
+                target = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank()) ?? Core.Me;
+
+            return await Spells.Druochole.Heal(target);
+        }
         public static async Task<bool> Druochole()
         {
             if (!SageSettings.Instance.Druochole)
@@ -740,7 +761,11 @@ namespace Magitek.Logic.Sage
             {
                 var targets = Group.CastableAlliesWithin30.Where(CanKerachole).ToList();
 
-                if (targets.Count < AoeNeedHealing)
+                // Balance Guide Optimization: Kerachole is incredibly efficient for single-target tank maintenance
+                bool tankNeedsMitigation = targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank) && r.CurrentHealthPercent <= 85);
+
+                // Only abort if we don't meet the AoE threshold AND the tank doesn't need it
+                if (targets.Count < AoeNeedHealing && !tankNeedsMitigation)
                     return false;
 
                 if (SageSettings.Instance.KeracholeOnlyWithTank && !Group.CastableAlliesWithin30.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank)))

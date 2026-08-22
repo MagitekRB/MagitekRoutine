@@ -30,17 +30,21 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            // Phlegma is a great 550 potency single target attack.
-            //if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Phlegma.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
-            //    return false;
-            var spell = Spells.PhlegmaIII;
-            if (!Spells.PhlegmaIII.IsKnown())
-                spell = Spells.PhlegmaII.IsKnown() ? Spells.PhlegmaII : Spells.Phlegma;
+            var spell = Spells.PhlegmaIII.IsKnown() ? Spells.PhlegmaIII : (Spells.PhlegmaII.IsKnown() ? Spells.PhlegmaII : Spells.Phlegma);
 
             if (spell.Charges == 0)
                 return false;
 
-            return await spell.Cast(target);
+            // Balance Guide Optimization: Always try to hold 1 charge for movement or the 2-minute burst window.
+            // Burn it if: We are going to overcap, we are actively moving, or the fight is ending soon.
+            if (spell.Charges == spell.MaxCharges 
+                || ff14bot.Managers.MovementManager.IsMoving 
+                || Combat.CurrentTargetCombatTimeLeft <= 15)
+            {
+                return await spell.Cast(target);
+            }
+
+            return false;
         }
 
         public static async Task<bool> Dyskrasia()

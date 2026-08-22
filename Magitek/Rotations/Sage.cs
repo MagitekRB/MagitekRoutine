@@ -65,6 +65,7 @@ namespace Magitek.Rotations
                 if (await Buff.LucidDreaming()) return true;
                 if (await Buff.Rhizomata()) return true;
                 if (await Buff.Krasis()) return true;
+                if (await Logic.Sage.Heal.BurnAddersgallForMP()) return true; // <-- ADD THIS HERE
             }
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
