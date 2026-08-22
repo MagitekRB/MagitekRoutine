@@ -61,6 +61,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Align damage cards (Balance, Spear) with Divination.
+        /// </summary>
+        public static string Astrologian_Content_Align_Cards_With_Divination {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Align_Cards_With_Divination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always With Enhanced Benefic.
         /// </summary>
         public static string Astrologian_Content_Always_With_Enhanced_Benefic {
@@ -1002,6 +1011,15 @@ namespace Magitek.Properties {
         public static string Astrologian_Text_PCT {
             get {
                 return ResourceManager.GetString("Astrologian_Text_PCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play utility cards (Bole, Arrow, Ewer, Spire) at or below.
+        /// </summary>
+        public static string Astrologian_Text_Play_Utility_Cards_Below {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Play_Utility_Cards_Below", resourceCulture);
             }
         }
         
