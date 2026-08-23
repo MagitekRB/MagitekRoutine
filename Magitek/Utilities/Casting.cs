@@ -58,7 +58,15 @@ namespace Magitek.Utilities
                 SpellCastHistory.Remove(SpellCastHistory.Last());
 
                 if (BaseSettings.Instance.DebugSpellCastHistory)
-                    Application.Current.Dispatcher.Invoke(delegate { Debug.Instance.SpellCastHistory = new List<SpellCastHistoryItem>(SpellCastHistory); });
+                {
+                    // Copy the list on this thread, then hand the finished snapshot to the UI:
+                    // the rotation keeps mutating SpellCastHistory, so a copy taken later on the
+                    // dispatcher can tear or throw. InvokeAsync for the same reason as the twin
+                    // call in CheckForSuccessfulCast below - the rotation must never block on
+                    // the dispatcher.
+                    var snapshot = new List<SpellCastHistoryItem>(SpellCastHistory);
+                    _ = Application.Current.Dispatcher.InvokeAsync(delegate { Debug.Instance.SpellCastHistory = snapshot; });
+                }
             }
 
             // If we're not casting we can return false to keep going down the tree
@@ -346,7 +354,16 @@ namespace Magitek.Utilities
             });
 
             if (BaseSettings.Instance.DebugSpellCastHistory)
-                Application.Current.Dispatcher.Invoke(delegate { Debug.Instance.SpellCastHistory = new List<SpellCastHistoryItem>(SpellCastHistory); });
+            {
+                // InvokeAsync, never Invoke: this runs on the pulse thread while it holds the
+                // frame lock, so blocking here deadlocks the whole client. A thread dump of a
+                // wedged RB caught this exact call - the pulse thread waiting on the dispatcher,
+                // the UI thread sitting in Monitor.Enter reading frame-cached game state for a
+                // job handler. Neither side could finish. The list is copied on this thread
+                // because the rotation keeps mutating it; nothing reads the result back.
+                var snapshot = new List<SpellCastHistoryItem>(SpellCastHistory);
+                _ = Application.Current.Dispatcher.InvokeAsync(delegate { Debug.Instance.SpellCastHistory = snapshot; });
+            }
 
             #endregion
 

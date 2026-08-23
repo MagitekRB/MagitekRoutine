@@ -438,16 +438,33 @@ namespace Magitek.ViewModels
 
             try
             {
-                Application.Current.Dispatcher.Invoke(delegate
+                // Read the frame-cached values on the calling thread, not in the delegate:
+                // Core.Me.CurrentJob and WorldManager.ZoneId take the frame lock, and a
+                // UI-thread frame-lock wait while a bot-thread caller blocks on the dispatcher
+                // is the deadlock a thread dump caught here. InvokeAsync plus these locals
+                // keeps this method safe from any thread. OpenerGroups itself stays on the
+                // dispatcher - the UI mutates it there. The catch moves inside the delegate
+                // because InvokeAsync surfaces exceptions nowhere.
+                var currentJob = Core.Me.CurrentJob;
+                var currentZone = WorldManager.ZoneId;
+
+                Application.Current.Dispatcher.InvokeAsync(delegate
                 {
-                    if (OpenerGroups == null || OpenerGroups.Count == 0)
-                        return;
+                    try
+                    {
+                        if (OpenerGroups == null || OpenerGroups.Count == 0)
+                            return;
 
-                    var openers = OpenerGroups.Where(r =>
-                        r.Job == Core.Me.CurrentJob && (r.ZoneId == WorldManager.ZoneId || r.ZoneId == 1)).ToList();
-                    CustomOpenerLogic.OpenerGroups = new List<OpenerGroup>(openers);
+                        var openers = OpenerGroups.Where(r =>
+                            r.Job == currentJob && (r.ZoneId == currentZone || r.ZoneId == 1)).ToList();
+                        CustomOpenerLogic.OpenerGroups = new List<OpenerGroup>(openers);
 
-                    Logger.WriteInfo($"Added {openers.Count} Openers For This Zone");
+                        Logger.WriteInfo($"Added {openers.Count} Openers For This Zone");
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex.Message);
+                    }
                 });
             }
             catch (Exception e)
