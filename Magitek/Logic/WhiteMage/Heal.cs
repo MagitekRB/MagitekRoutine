@@ -687,6 +687,16 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.HasAura(Auras.DivineGrace))
                 return false;
 
+            // Hold Divine Caress if Temperance is active so we can chain the mitigation/shields, 
+            // unless the Grace buff is expiring.
+            bool temperanceActive = Core.Me.HasAura(Auras.Temperance);
+
+            // If we DO NOT have the aura with at least 5 seconds left, it is expiring.
+            bool graceExpiring = !Core.Me.HasAura(Auras.DivineGrace, true, 5000);
+
+            if (temperanceActive && !graceExpiring)
+                return false;
+
             return await Spells.DivineCaress.Cast(Core.Me);
         }
 

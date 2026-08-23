@@ -43,9 +43,12 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.InCombat)
                 return false;
 
+            // Reason: Glare IV is a GCD, so its cooldown is the GCD timer. 
+            // Presence of Mind is an oGCD we want to weave while the GCD is rolling, 
+            // which is exactly when GlareIV.IsKnownAndReady() evaluates to false.
             if (WhiteMageSettings.Instance.PresenceOfMindForGlareIV
                 && Spells.PresenceofMind.IsKnownAndReady()
-                && Spells.GlareIV.IsKnownAndReady())
+                && Spells.GlareIV.IsKnown())
             {
                 return await Spells.PresenceofMind.Cast(Core.Me);
             }
@@ -74,7 +77,6 @@ namespace Magitek.Logic.WhiteMage
             {
                 if (Core.Me.CurrentHealthPercent > WhiteMageSettings.Instance.PresenceOfMindHealthPercent)
                     return false;
-
 
                 return await Spells.PresenceofMind.Cast(Core.Me);
             }
