@@ -119,19 +119,28 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.EnergyDrain)
                 return false;
 
-            if (Core.Me.CurrentManaPercent > ScholarSettings.Instance.EnergyDrainManaPercent)
-                return false;
-
             if (!Core.Me.HasAetherflow())
                 return false;
 
-            if (ActionResourceManager.Scholar.Aetherflow == 3 && Spells.Aetherflow.Cooldown.TotalMilliseconds > 9000)
+            if (!Spells.EnergyDrain2.IsKnownAndReady())
                 return false;
-            if (ActionResourceManager.Scholar.Aetherflow == 2 && Spells.Aetherflow.Cooldown.TotalMilliseconds > 6000)
+
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !target.CanAttack)
                 return false;
-            if (ActionResourceManager.Scholar.Aetherflow == 1 && Spells.Aetherflow.Cooldown.TotalMilliseconds > 3000)
-                return false;
-            return await Spells.EnergyDrain2.Cast(Core.Me.CurrentTarget);
+
+            // Balance Optimization: Dump Energy Drain if Aetherflow is coming off CD soon to prevent drifting,
+            // or if the target has Chain Stratagem for burst damage, bypassing the restrictive MP checks.
+            bool isBurstWindow = target.HasAura(Auras.ChainStratagem);
+            bool aetherflowAlmostReady = Spells.Aetherflow.Cooldown.TotalMilliseconds <= 15000;
+            bool needsMp = Core.Me.CurrentManaPercent <= ScholarSettings.Instance.EnergyDrainManaPercent;
+
+            if (isBurstWindow || aetherflowAlmostReady || needsMp)
+            {
+                return await Spells.EnergyDrain2.Cast(target);
+            }
+
+            return false;
         }
     }
 }

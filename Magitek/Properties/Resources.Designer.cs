@@ -13654,7 +13654,14 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Scholar_Text_Whispering_Dawn_When", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to SwiftcastAdloWhileMoving When.
+        /// </summary>
+        public static string SwiftcastAdloWhileMoving {
+            get {
+                return ResourceManager.GetString("SwiftcastAdloWhileMoving", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to Summon Chocobo.
         /// </summary>

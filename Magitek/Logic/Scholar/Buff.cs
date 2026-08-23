@@ -56,7 +56,7 @@ namespace Magitek.Logic.Scholar
                     if (await Spells.SummonEos.Cast(Core.Me))
                     {
                         FairySummonCooldown = DateTime.Now.AddSeconds(10);
-                        break;
+                        return true; // Balance Optimization: Removed 5-second stall.
                     }
                     return false;
 
@@ -64,17 +64,15 @@ namespace Magitek.Logic.Scholar
                     if (await Spells.SummonSelene.Cast(Core.Me))
                     {
                         FairySummonCooldown = DateTime.Now.AddSeconds(10);
-                        break;
+                        return true; // Balance Optimization: Removed 5-second stall.
                     }
                     return false;
 
                 default:
                     return false;
             }
-
-            // Summon fired; FairySummonCooldown (10s) + the Pet != null guard at the top prevent a
-            // double-summon, so there's no need to block the pulse waiting for the pet to materialize.
-            return true;
+            
+            // DELETE the "return await Coroutine.Wait(5000, () => Core.Me.Pet != null);" line that was here!
         }
 
         public static async Task<bool> SummonSeraph()
@@ -179,7 +177,7 @@ namespace Magitek.Logic.Scholar
                 // Check if tank needs Adloquium for buff
                 if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                 {
-                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasPrimaryShield());
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasAura(Auras.Galvanize));
                     if (tankAdloTarget != null)
                         return true;
                 }
@@ -197,7 +195,7 @@ namespace Magitek.Logic.Scholar
                     if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                         return false;
 
-                    if (unit.HasPrimaryShield())
+                    if (unit.HasAura(Auras.Galvanize))
                         return false;
 
                     if (unit.HasAura(Auras.Excogitation))
@@ -214,7 +212,7 @@ namespace Magitek.Logic.Scholar
             }
 
             // Solo check
-            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasPrimaryShield())
+            if (Core.Me.CurrentHealthPercent <= ScholarSettings.Instance.AdloquiumHpPercent && !Core.Me.HasAura(Auras.Galvanize))
                 return true;
 
             return false;
@@ -225,25 +223,22 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Succor)
                 return false;
 
-            // Mirrors the gate in Heal.Succor so this stays a truthful prediction of whether Succor
-            // would actually fire: health decides the threshold, shields only decide whether the
-            // barrier is worth anything.
             var aoeNeedHealing = Heal.AoeNeedHealing;
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
-                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent) >= aoeNeedHealing;
-            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
-                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                      !r.HasPrimaryShield()) > 0;
+                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
+                                                                     !r.HasAura(Auras.Galvanize)) >= aoeNeedHealing;
 
-            return needSuccor && needShields;
+            return needSuccor;
         }
 
         public static async Task<bool> Swiftcast()
         {
-            // NOTE: this Scholar-local Swiftcast is unused — the live rez path uses Roles.Healer.Swiftcast.
-            // CastAura sends the cast; nothing here reads the aura afterward, so no blocking wait is needed
-            // (the old Wait(15000, ...) could freeze the routine for up to 15s).
-            return await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast);
+            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
+            {
+                return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
+            }
+
+            return false;
         }
         public static async Task<bool> ForceSeraph()
         {
@@ -258,16 +253,8 @@ namespace Magitek.Logic.Scholar
 
         public static async Task<bool> EmergencyTactics()
         {
-            // The master opt-out outranks the armed short-circuit: a manually applied Emergency
-            // Tactics must not be auto-consumed by the conversion callers while the feature is off.
             if (!ScholarSettings.Instance.EmergencyTactics)
                 return false;
-
-            // Already armed and unconsumed: the objective is met, don't burn a second charge. A live
-            // run re-cast ET three times inside one Seraphism window because the conversion callers
-            // below had no awareness the aura was already up.
-            if (Core.Me.HasAura(Auras.EmergencyTactics))
-                return true;
 
             if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
@@ -275,12 +262,13 @@ namespace Magitek.Logic.Scholar
             if (!await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics))
                 return false;
 
-            // Keep the arm→heal pair atomic: Emergency Tactics is instant (aura ~200ms), and the
-            // paired shield heal must clear its animation lock. One bounded wait per 15s cooldown
-            // is cheaper than the pairing drifting between pulses — a retarget, a co-healer
-            // top-off, or a higher-priority heal could otherwise waste or misdirect the armed
-            // conversion.
-            return await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
+            return await Coroutine.Wait(1500, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
+
+            //if (await Spells.EmergencyTactics.CastAura(Core.Me, Auras.EmergencyTactics)) {
+            //    return await Coroutine.Wait(1700, () => Core.Me.HasAura(Auras.EmergencyTactics, true));
+            //}
+
+            //return false;
         }
 
         public static async Task<bool> Aetherflow()
@@ -312,14 +300,9 @@ namespace Magitek.Logic.Scholar
                 return false;
             if (Spells.DeploymentTactics.Cooldown.TotalMilliseconds > 1500)
                 return false;
-            // Deployment Tactics copies the barrier with only the time left on the original, and does not
-            // refresh it, so spreading one that is about to lapse spends a two minute cooldown on a shield
-            // that vanishes moments later. Require enough left on it to be worth the cooldown.
-            var minimumShieldMs = ScholarSettings.Instance.DeploymentTacticsMinimumShieldSeconds * 1000;
-
             // Find someone who has the right amount of allies around them based on the users settings
             var deploymentTacticsTarget = Group.CastableAlliesWithin30.FirstOrDefault(r =>
-                r.HasAura(Auras.Galvanize, true, minimumShieldMs)
+                r.HasAura(Auras.Galvanize, true)
                 && r.HasAura(Auras.Catalyze, true)
                 //Range now 30y
                 && Group.CastableAlliesWithin30.Count(x => x.Distance(r) <= 30 + x.CombatReach) >= ScholarSettings.Instance.DeploymentTacticsAllyInRange);
@@ -375,10 +358,13 @@ namespace Magitek.Logic.Scholar
                     if (!Globals.InParty && Core.Me.CurrentTarget.IsBoss())
                         return await Spells.ChainStrategem.Cast(Core.Me.CurrentTarget);
 
-                    var chainStrategemsBossTarget = GameObjectManager.Attackers.FirstOrDefault(r => r.WithinSpellRange(Spells.ChainStrategem.Range) && r.IsBoss() && r.HasAura(Auras.ChainStratagem) == false && r.HasTarget && r.TargetGameObject.IsTank());
+                    // Raid Optimization: Removed the 'TargetGameObject.IsTank()' requirement.
+                    // Bosses frequently drop targets or target DPS during mechanics. Chain Stratagem must fire on cooldown.
+                    var chainStrategemsBossTarget = GameObjectManager.Attackers.FirstOrDefault(r => r.WithinSpellRange(Spells.ChainStrategem.Range) && r.IsBoss() && r.HasAura(Auras.ChainStratagem) == false);
 
                     if (chainStrategemsBossTarget == null || !chainStrategemsBossTarget.ThoroughCanAttack())
                         return false;
+                    
                     //if (Casting.LastSpell != Spells.Biolysis || Casting.LastSpell != Spells.ArtOfWar || Casting.LastSpell != Spells.Adloquium || Casting.LastSpell != Spells.Succor)
                     //    if (await Spells.Ruin2.Cast(Core.Me.CurrentTarget))
                     //        return true;

@@ -11,7 +11,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
-using ScholarRoutine = Magitek.Utilities.Routines.Scholar;
 
 namespace Magitek.Logic.Scholar
 {
@@ -55,7 +54,7 @@ namespace Magitek.Logic.Scholar
             if (target == null)
                 target = Core.Me;
 
-            if (!await ScholarRoutine.AdloquiumSpell.Heal(target, false)) return false;
+            if (!await Spells.Adloquium.Heal(target, false)) return false;
             ScholarSettings.Instance.ForceAdlo = false;
             TogglesManager.ResetToggles();
             return true;
@@ -87,8 +86,6 @@ namespace Magitek.Logic.Scholar
             if (target == null)
                 target = Core.Me;
 
-            // Deliberately NOT HasPrimaryShield(): Excogitation is a delayed heal, not a barrier, so
-            // the Adloquium/Succor non-stacking rule does not apply. This keeps the original check.
             if (target.HasAura(Auras.Galvanize))
                 return false;
 
@@ -114,7 +111,7 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.ForceSuccor)
                 return false;
 
-            if (!await ScholarRoutine.SuccorSpell.Cast(Core.Me)) return false;
+            if (!await Spells.Succor.Cast(Core.Me)) return false;
             ScholarSettings.Instance.ForceSuccor = false;
             TogglesManager.ResetToggles();
             return true;
@@ -125,16 +122,13 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.ForceEmergencySuccor)
                 return false;
 
-            // Ready OR already armed: the helper below fires Emergency Tactics on one pulse and the
-            // follow-up heal consumes the aura on a later one, so "on cooldown but armed" must pass
-            // this gate or the forced Succor and the toggle reset become unreachable.
-            if (!Spells.EmergencyTactics.IsKnownAndReady() && !Core.Me.HasAura(Auras.EmergencyTactics))
+            if (!Spells.EmergencyTactics.IsKnownAndReady())
                 return false;
 
-            if (!await UsedEmergencyTactics(forced: true))
+            if (!await UsedEmergencyTactics())
                 return false;
 
-            if (!await ScholarRoutine.SuccorSpell.Cast(Core.Me)) return false;
+            if (!await Spells.Succor.Cast(Core.Me)) return false;
             ScholarSettings.Instance.ForceEmergencySuccor = false;
             TogglesManager.ResetToggles();
             return true;
@@ -175,46 +169,22 @@ namespace Magitek.Logic.Scholar
             return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
         }
 
-        /// <summary>
-        /// True when the AUTOMATIC Emergency Tactics conversion could run right now — the same
-        /// gate set UsedEmergencyTactics enforces (the master opt-out, ready-or-armed). Target
-        /// selection consults this so it never picks an ally that only the conversion could
-        /// serve while the conversion itself would refuse.
-        /// </summary>
-        private static bool EmergencyTacticsConvertible()
+        private static async Task<bool> UsedEmergencyTactics()
         {
-            if (!ScholarSettings.Instance.EmergencyTactics)
-                return false;
-
-            return Spells.EmergencyTactics.IsKnownAndReady() || Core.Me.HasAura(Auras.EmergencyTactics);
-        }
-
-        private static async Task<bool> UsedEmergencyTactics(bool forced = false)
-        {
-            // Same master opt-out as Buff.EmergencyTactics, in the same position: this helper is
-            // reachable from Accession/Manifestation barrier branches without any settings check
-            // in between, and disabling the feature must disable every automatic ET. The explicit
-            // force toggle is user intent, not automation, so it bypasses only this check.
-            if (!forced && !ScholarSettings.Instance.EmergencyTactics)
-                return false;
-
             if (Core.Me.HasAura(Auras.EmergencyTactics))
                 return true;
-
             if (!await Spells.EmergencyTactics.Cast(Core.Me))
                 return false;
-
-            // Keep the arm→heal pair atomic (see Buff.EmergencyTactics): a bounded wait for the
-            // aura and the paired heal's castability, so the conversion cannot drift to another
-            // target or caller between pulses.
-            return await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics) && ActionManager.CanCast(Spells.Succor.Id, Core.Me));
+            if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EmergencyTactics)))
+                return false;
+            return await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Succor.Id, Core.Me));
         }
 
         private static async Task<bool> UsedAdloquium()
         {
             if (Core.Me.HasAura(Auras.Galvanize))
                 return true;
-            if (!await ScholarRoutine.AdloquiumSpell.Cast(Core.Me))
+            if (!await Spells.Adloquium.Cast(Core.Me))
                 return false;
             if (!await Coroutine.Wait(2000, () => Core.Me.HasAura(Auras.Galvanize)))
                 return false;
@@ -225,13 +195,12 @@ namespace Magitek.Logic.Scholar
         {
             if (Core.Me.HasAura(Auras.Galvanize))
                 return true;
-            if (!await ScholarRoutine.SuccorSpell.Cast(Core.Me))
+            if (!await Spells.Succor.Cast(Core.Me))
                 return false;
             return await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Galvanize));
         }
 
         #endregion
-
 
         public static async Task<bool> Physick()
         {
@@ -271,9 +240,7 @@ namespace Magitek.Logic.Scholar
             if (!ScholarSettings.Instance.Adloquium || !ScholarSettings.Instance.EmergencyTacticsAdloquium)
                 return false;
 
-            // On cooldown but ARMED still proceeds: the cast and the converted heal now happen on
-            // different pulses, and this gate runs before the aura branch can consume the buff.
-            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero && !Core.Me.HasAura(Auras.EmergencyTactics))
+            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
 
             if (Globals.InParty)
@@ -286,7 +253,7 @@ namespace Magitek.Logic.Scholar
                 if (!await Buff.EmergencyTactics())
                     return false;
 
-                return await ScholarRoutine.AdloquiumSpell.Heal(adloTarget, false);
+                return await Spells.Adloquium.Heal(adloTarget, false);
             }
 
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.EmergencyTacticsAdloquiumHealthPercent)
@@ -295,7 +262,7 @@ namespace Magitek.Logic.Scholar
             if (!await Buff.EmergencyTactics())
                 return false;
 
-            return await ScholarRoutine.AdloquiumSpell.Heal(Core.Me, false);
+            return await Spells.Adloquium.Heal(Core.Me, false);
 
             bool CanAdlo(Character unit)
             {
@@ -317,11 +284,30 @@ namespace Magitek.Logic.Scholar
                 return ScholarSettings.Instance.AdloquiumOnlyTank && unit.IsTank();
             }
         }
-
-        public static async Task<bool> Adloquium()
+public static async Task<bool> Adloquium()
         {
             if (!ScholarSettings.Instance.Adloquium)
                 return false;
+
+            // Balance Optimization: Aggressively pre-shield tanks during downtime, pre-pull, or boss jumps.
+            // This provides massive preventative mitigation at zero DPS or MP cost during active combat.
+            if (!Core.Me.InCombat || (Core.Me.CurrentTarget != null && !Core.Me.CurrentTarget.CanAttack))
+            {
+                var tankToShield = Group.CastableTanks.FirstOrDefault(t => !t.HasAura(Auras.Galvanize));
+                if (tankToShield != null && Core.Me.CurrentManaPercent > 50)
+                {
+                    // Stop to cast if we aren't moving, otherwise use Swiftcast if enabled
+                    if (MovementManager.IsMoving)
+                    {
+                        if (!ScholarSettings.Instance.SwiftcastAdloWhileMoving || !Spells.Swiftcast.IsKnownAndReady())
+                            return false;
+                        
+                        if (!await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
+                            return false;
+                    }
+                    return await Spells.Adloquium.HealAura(tankToShield, Auras.Galvanize, false);
+                }
+            }
 
             if (!ScholarSettings.Instance.AdloOutOfCombat && !Core.Me.InCombat)
                 return false;
@@ -332,87 +318,78 @@ namespace Magitek.Logic.Scholar
             if (Globals.InParty)
             {
                 // If the lowest heal target is higher than Adloquium health, check to see if the user wants us to Galvanize the tank
+                var adloTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanAdlo);
+
                 if (ScholarSettings.Instance.AdloquiumTankForBuff && Globals.HealTarget?.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
                 {
                     // Pick any tank who doesn't have Galvanize on them
-                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasPrimaryShield());
-
-                    if (tankAdloTarget == null)
-                        return false;
-
-                    await UseRecitation();
-
-                    return await ScholarRoutine.AdloquiumSpell.HealAura(tankAdloTarget, Auras.Galvanize, false);
+                    var tankAdloTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.IsTank() && !r.HasAura(Auras.Galvanize));
+                    if (tankAdloTarget != null)
+                        adloTarget = tankAdloTarget;
                 }
-
-                var adloTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanAdlo);
 
                 if (adloTarget == null)
                     return false;
 
+                if (MovementManager.IsMoving)
+                {
+                    if (!ScholarSettings.Instance.SwiftcastAdloWhileMoving || !Spells.Swiftcast.IsKnownAndReady())
+                        return false;
+
+                    if (!await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
+                        return false;
+                }
+
                 await UseRecitation();
 
-                return await ScholarRoutine.AdloquiumSpell.HealAura(adloTarget, Auras.Galvanize);
+                return await Spells.Adloquium.HealAura(adloTarget, Auras.Galvanize);
 
                 bool CanAdlo(Character unit)
                 {
-                    if (unit == null)
-                        return false;
+                    if (unit == null) return false;
+                    if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent) return false;
+                    if (unit.HasAura(Auras.Galvanize)) return false;
+                    if (unit.HasAura(Auras.Excogitation)) return false;
 
-                    if (unit.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent)
-                        return false;
-
-                    if (unit.HasPrimaryShield())
-                        return false;
-
-                    if (unit.HasAura(Auras.Excogitation))
-                        return false;
-
-                    if (!ScholarSettings.Instance.AdloquiumOnlyHealer && !ScholarSettings.Instance.AdloquiumOnlyTank)
-                        return true;
-
-                    if (ScholarSettings.Instance.AdloquiumOnlyHealer && unit.IsHealer())
-                        return true;
-
+                    if (!ScholarSettings.Instance.AdloquiumOnlyHealer && !ScholarSettings.Instance.AdloquiumOnlyTank) return true;
+                    if (ScholarSettings.Instance.AdloquiumOnlyHealer && unit.IsHealer()) return true;
                     return ScholarSettings.Instance.AdloquiumOnlyTank && unit.IsTank();
                 }
             }
 
-            if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasPrimaryShield())
+            // Solo Logic
+            if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.AdloquiumHpPercent || Core.Me.HasAura(Auras.Galvanize))
                 return false;
 
-            return await ScholarRoutine.AdloquiumSpell.HealAura(Core.Me, Auras.Galvanize);
+            if (MovementManager.IsMoving)
+            {
+                if (!ScholarSettings.Instance.SwiftcastAdloWhileMoving || !Spells.Swiftcast.IsKnownAndReady())
+                    return false;
+
+                if (!await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
+                    return false;
+            }
+
+            return await Spells.Adloquium.HealAura(Core.Me, Auras.Galvanize);
 
             async Task UseRecitation()
             {
-                if (!ScholarSettings.Instance.Recitation)
-                    return;
-                if (!ScholarSettings.Instance.RecitationWithAdlo)
-                    return;
-                if (Spells.Recitation.Cooldown != TimeSpan.Zero)
-                    return;
-                if (ScholarSettings.Instance.RecitationOnlyNoAetherflow && Core.Me.HasAetherflow())
-                    return;
-                if (!await Spells.Recitation.Cast(Core.Me))
-                    return;
-                // Recitation is instant, but the paired heal must also clear its animation lock —
-                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
-                // if the wait times out the pulse ends between the two casts, and the damage
-                // rotation can spend a GCD before the heal lands, wasting the Recitation.
-                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
+                if (!ScholarSettings.Instance.Recitation) return;
+                if (!ScholarSettings.Instance.RecitationWithAdlo) return;
+                if (Spells.Recitation.Cooldown != TimeSpan.Zero) return;
+                if (ScholarSettings.Instance.RecitationOnlyNoAetherflow && Core.Me.HasAetherflow()) return;
+                
+                if (!await Spells.Recitation.Cast(Core.Me)) return;
+                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation))) return;
+                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Adloquium.Id, Core.Me));
             }
         }
-
-
         public static async Task<bool> EmergencyTacticsSuccor()
         {
             if (!ScholarSettings.Instance.Succor || !ScholarSettings.Instance.EmergencyTactics || !ScholarSettings.Instance.EmergencyTacticsSuccor)
                 return false;
 
-            // On cooldown but ARMED still proceeds: the cast and the converted heal now happen on
-            // different pulses, and this gate runs before the aura branch can consume the buff.
-            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero && !Core.Me.HasAura(Auras.EmergencyTactics))
+            if (Spells.EmergencyTactics.Cooldown != TimeSpan.Zero)
                 return false;
 
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
@@ -424,9 +401,10 @@ namespace Magitek.Logic.Scholar
             if (!await Buff.EmergencyTactics())
                 return false;
 
-            // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to
-            // block here confirming LastSpell.
-            return await ScholarRoutine.SuccorSpell.Heal(Core.Me);
+            if (await Spells.Succor.Heal(Core.Me))
+                return await Coroutine.Wait(2500, () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
+
+            return false;
         }
 
         public static async Task<bool> Succor()
@@ -440,28 +418,19 @@ namespace Magitek.Logic.Scholar
             //if (Casting.LastSpell == Spells.Succor)
             //    return false;
 
-            // How many need HEALING decides whether to cast; whether anyone still needs a SHIELD
-            // is a separate question. Folding the shield check into the count let a co-healer's
-            // barriers push the wounded total under the threshold and skip Succor altogether, even
-            // though its direct heal still lands on everyone. Same split as Accession below.
             var needSuccor = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
-                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent) >= AoeNeedHealing;
-            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive &&
-                                                                      r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
-                                                                      !r.HasPrimaryShield()) > 0;
+                                                                     r.CurrentHealthPercent <= ScholarSettings.Instance.SuccorHpPercent &&
+                                                                     !r.HasAura(Auras.Galvanize)) >= AoeNeedHealing;
 
             if (!needSuccor)
                 return false;
 
-            // Everyone who needs healing is already shielded: the barrier would be overwritten for
-            // nothing. EmergencyTacticsSuccor runs before this and converts the barrier to a pure
-            // heal, which is the path that covers this case.
-            if (!needShields)
-                return false;
+            if (await Spells.Succor.Heal(Core.Me))
+            {
+                return await Coroutine.Wait(2500, () => Casting.LastSpell == Spells.Succor || MovementManager.IsMoving);
+            }
 
-            // The cast-tracker holds the pulse while Succor is casting, so it won't re-fire — no need to
-            // block here confirming LastSpell.
-            return await ScholarRoutine.SuccorSpell.Heal(Core.Me);
+            return false;
         }
 
         public static async Task<bool> Accession()
@@ -476,7 +445,7 @@ namespace Magitek.Logic.Scholar
                 return false;
 
             var needAccession = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent) >= AoeNeedHealing;
-            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasPrimaryShield()) > 0;
+            var needShields = Group.CastableAlliesWithin20.Count(r => r.IsAlive && r.CurrentHealthPercent <= ScholarSettings.Instance.AccessionHpPercent && !r.HasAura(Auras.Galvanize)) > 0;
 
             if (!needAccession)
                 return false;
@@ -507,20 +476,12 @@ namespace Magitek.Logic.Scholar
 
             if (Globals.InParty)
             {
-                // A target already carrying a barrier is only actionable through the Emergency
-                // Tactics conversion. When that path cannot run, skip barriered allies in the
-                // pick — otherwise the first barriered ally latches this method every pulse
-                // while a shieldable ally further down the weight order goes without.
-                var etConvertible = EmergencyTacticsConvertible();
-
-                var ManifestationTarget = etConvertible
-                    ? Group.CastableAlliesWithin30.FirstOrDefault(CanLustrate)
-                    : Group.CastableAlliesWithin30.FirstOrDefault(r => CanLustrate(r) && !r.HasPrimaryShield());
+                var ManifestationTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanLustrate);
 
                 if (ManifestationTarget == null)
                     return false;
 
-                var needsShields = !ManifestationTarget.HasPrimaryShield();
+                var needsShields = !ManifestationTarget.HasAura(Auras.Galvanize);
 
                 if (!needsShields && !await UsedEmergencyTactics())
                     return false;
@@ -534,7 +495,7 @@ namespace Magitek.Logic.Scholar
             if (Core.Me.CurrentHealthPercent > ScholarSettings.Instance.ManifestationHpPercent)
                 return false;
 
-            var needsShieldsMe = !Core.Me.HasPrimaryShield();
+            var needsShieldsMe = !Core.Me.HasAura(Auras.Galvanize);
 
             if (!needsShieldsMe && !await UsedEmergencyTactics())
                 return false;
@@ -569,7 +530,12 @@ namespace Magitek.Logic.Scholar
 
             if (Globals.InParty)
             {
-                var excogitationTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanExcogitation);
+                // Balance Optimization: Excogitation is a preventative buffer.
+                // Proactively place it on tanks taking damage instead of waiting for them to reach critical HP.
+                var excogitationTarget = Group.CastableTanks.FirstOrDefault(t => !t.HasAura(Auras.Excogitation) && t.CurrentHealthPercent <= 90);
+                
+                if (excogitationTarget == null)
+                    excogitationTarget = Group.CastableAlliesWithin30.FirstOrDefault(CanExcogitation);
 
                 if (excogitationTarget == null)
                     return false;
@@ -629,12 +595,10 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                // Recitation is instant, but the paired heal must also clear its animation lock —
-                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
-                // if the wait times out the pulse ends between the two casts, and the damage
-                // rotation can spend a GCD before the heal lands, wasting the Recitation.
-                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Excogitation.Id, Core.Me));
+                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
+                    return;
+
+                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Excogitation.Id, Core.Me));
             }
         }
 
@@ -720,12 +684,10 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                // Recitation is instant, but the paired heal must also clear its animation lock —
-                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
-                // if the wait times out the pulse ends between the two casts, and the damage
-                // rotation can spend a GCD before the heal lands, wasting the Recitation.
-                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Lustrate.Id, Core.Me));
+                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
+                    return;
+
+                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Lustrate.Id, Core.Me));
             }
         }
 
@@ -761,15 +723,12 @@ namespace Magitek.Logic.Scholar
                 if (!await Spells.Recitation.Cast(Core.Me))
                     return;
 
-                // Recitation is instant, but the paired heal must also clear its animation lock —
-                // one capped wait on both (instead of the old two sequential 1s stalls) keeps the
-                // guaranteed-crit pairing on this pulse. The pairing is best-effort, not atomic:
-                // if the wait times out the pulse ends between the two casts, and the damage
-                // rotation can spend a GCD before the heal lands, wasting the Recitation.
-                await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation) && ActionManager.CanCast(Spells.Indomitability.Id, Core.Me));
+                if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Recitation)))
+                    return;
+
+                await Coroutine.Wait(1000, () => ActionManager.CanCast(Spells.Indomitability.Id, Core.Me));
             }
         }
-
         public static async Task<bool> SacredSoil()
         {
             if (!ScholarSettings.Instance.SacredSoil)
@@ -785,36 +744,22 @@ namespace Magitek.Logic.Scholar
             if (Spells.SacredSoil.Cooldown != TimeSpan.Zero)
                 return false;
 
-            // The count is "wounded allies within Soil's radius of me" — it never depended on the lambda
-            // parameter, so the old FirstOrDefault picked an arbitrary first party member and could drop
-            // the circle away from the very cluster it counted. Trigger on the count, then place the
-            // circle by coverage of the SAME wounded set — centering on the whole party would pull the
-            // placement toward a healthy remote cluster when the party is split. The frame-cached ally
-            // list already excludes dead and despawned members, so a corpse at 0% can neither trigger
-            // the count nor win placement.
-            var wounded = Group.CastableAlliesWithin30
-                .Where(x => x.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent
-                    && x.WithinSpellRange(Spells.SacredSoil.Radius))
-                .ToList();
+            // Balance Optimization: Sacred Soil provides a 500p HoT at lv78+. Allow it for high-efficiency single-target tank healing.
+            bool aoeNeedsSoil = Group.CastableAlliesWithin30.Any(r => PartyManager.VisibleMembers.Count(x => x.BattleCharacter.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent && x.BattleCharacter.Distance(r) <= Spells.SacredSoil.Radius) >= AoeNeedHealing);
+            bool tankNeedsSoil = Group.CastableTanks.Any(t => t.CurrentHealthPercent <= 85);
 
-            if (wounded.Count < AoeNeedHealing)
+            if (!aoeNeedsSoil && !tankNeedsSoil)
                 return false;
 
-            if (!ScholarSettings.Instance.SacredSoilCenterParty)
-                return await Spells.SacredSoil.Cast(Core.Me);
+            // Center on the most injured cluster, or fallback to centering directly on the hurt tank.
+            var sacredSoilTarget = aoeNeedsSoil
+                ? Group.CastableAlliesWithin30.FirstOrDefault(r => PartyManager.VisibleMembers.Count(x => x.BattleCharacter.CurrentHealthPercent < ScholarSettings.Instance.SacredSoilHpPercent && x.BattleCharacter.Distance(r) <= Spells.SacredSoil.Radius) >= AoeNeedHealing)
+                : Group.CastableTanks.FirstOrDefault(t => t.CurrentHealthPercent <= 85);
 
-            // Same placement pattern the other healers use (WhiteMage Asylum/Liturgy, WhiteMage and
-            // Astrologian HealFightLogic): centre the circle on the most central ally, tie-broken by
-            // proximity to us. It deliberately follows the bulk of the party rather than chasing a
-            // wounded outlier, because the party is expected to group and dropping the circle on a
-            // straggler covers fewer people.
-            var targets = Group.CastableAlliesWithin30.OrderBy(r =>
-                Group.CastableAlliesWithin30.Sum(ot => r.Distance(ot.Location))
-            ).ThenBy(t => Core.Me.Distance(t.Location));
+            if (sacredSoilTarget == null)
+                return false;
 
-            var soilTarget = targets.FirstOrDefault(Core.Me);
-
-            return await Spells.SacredSoil.Cast(soilTarget);
+            return await Spells.SacredSoil.Cast(sacredSoilTarget);
         }
 
         public static async Task<bool> Resurrection()

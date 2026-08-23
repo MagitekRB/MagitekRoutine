@@ -290,7 +290,10 @@ namespace Magitek.Models.Scholar
         [Setting]
         [DefaultValue(4)]
         public int ExpedientNeedHealing { get; set; }
-
+        
+        [Setting]
+        [DefaultValue(true)]
+        public bool SwiftcastAdloWhileMoving { get; set; }
         #endregion
 
         #region Dispelling
