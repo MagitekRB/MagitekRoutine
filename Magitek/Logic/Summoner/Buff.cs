@@ -117,9 +117,10 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.HasAura(Auras.SearingLight))
                 return false;
-
-            if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
-                return false;
+                
+            //In Shadowbringers, Searing Light was cast by your Carbuncle. In modern FFXIV, it is cast directly by the Summoner.
+            //if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
+            //    return false;
 
             return await Spells.SearingLight.Cast(Core.Me);
         }
