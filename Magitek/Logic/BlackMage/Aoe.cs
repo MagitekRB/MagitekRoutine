@@ -117,9 +117,6 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Freeze.IsKnown())
                 return false;
 
-            if (Casting.LastSpellWas(Spells.Freeze))
-                return false;
-
             //If flarestar is ready, cast it
             if (AstralSoulStacks == 6)
                 return false;
@@ -132,13 +129,17 @@ namespace Magitek.Logic.BlackMage
             // This is a trait check, not a spell availability check
             if (Core.Me.ClassLevel >= 58)
             {
+                // One Freeze grants full hearts; the guard covers the pulse before the gauge updates
+                if (Casting.LastSpellWas(Spells.Freeze))
+                    return false;
+
                 // The ice phase is done once Freeze has granted full hearts
                 if (UmbralHearts == 3)
                     return false;
             }
             else
             {
-                // Below the trait there are no hearts; the ice phase only needs MP
+                // Below the trait there are no hearts; Freeze chains until the MP refill is done
                 if (Core.Me.CurrentMana == Core.Me.MaxMana)
                     return false;
             }
@@ -320,13 +321,9 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (Casting.LastSpellWas(Spells.Blizzard2)
-                || Casting.LastSpellWas(Spells.HighBlizzardII)
-                || Casting.LastSpellWas(Spells.ManaFont))
-                return false;
-
             // Below Freeze, Blizzard II is the ice phase itself: castable at any Umbral Ice stack
-            // count, it grants Umbral Ice III and carries the MP refill until full
+            // count, it grants Umbral Ice III and carries the MP refill until full. Chaining it
+            // back-to-back is intended here, so this sits above the doublecast guard below
             if (!Spells.Freeze.IsKnown() && UmbralStacks > 0)
             {
                 if (Core.Me.CurrentMana == Core.Me.MaxMana)
@@ -334,6 +331,11 @@ namespace Magitek.Logic.BlackMage
 
                 return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
             }
+
+            if (Casting.LastSpellWas(Spells.Blizzard2)
+                || Casting.LastSpellWas(Spells.HighBlizzardII)
+                || Casting.LastSpellWas(Spells.ManaFont))
+                return false;
 
             if (AstralStacks < 3 || UmbralStacks == 3)
                 return false;
