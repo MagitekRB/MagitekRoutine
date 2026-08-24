@@ -548,9 +548,14 @@ namespace Magitek.Logic.Astrologian
             // regen check it recast after every hit, overwriting a regen that was still mostly fresh.
             // A fresh self-regen means we just cast this; once it ages past the threshold the branch
             // may fire again so the party can be re-shielded before the next hit.
+            // A regen cast shortly BEFORE Neutral Sect must not block the window's first
+            // shields, so the freshness gate only applies once Neutral Sect (20s) has been
+            // up for a few seconds - by then a fresh self-regen can only mean we shielded.
+            var neutralSectJustApplied = Core.Me.HasAura(Auras.NeutralSect, true, 16000);
+
             if (Core.Me.HasAura(Auras.NeutralSect) &&
                 Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield)
-                && !Core.Me.HasAura(heliosAura, true, AstrologianSettings.Instance.DiurnalHeliosReshieldRegenSecondsLeft * 1000))
+                && (neutralSectJustApplied || !Core.Me.HasAura(heliosAura, true, AstrologianSettings.Instance.DiurnalHeliosReshieldRegenSecondsLeft * 1000)))
                 return MovementManager.IsMoving
                     ? await SwiftCastAspectedHelios()
                     : await Spells.AspectedHelios.HealAura(Core.Me, Auras.NeutralSectShield, false);
