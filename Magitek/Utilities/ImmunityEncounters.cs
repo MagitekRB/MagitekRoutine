@@ -97,6 +97,16 @@ namespace Magitek.Utilities
             GuardOnDutyGamma = 4548,
             GuardOnDutyDelta = 4549;
 
+        // RebornBuddy exposes these BNpc name-row identifiers through GameObject.NpcId. Unlike display
+        // names they are stable across client languages, and the untargetable helper actors used by the
+        // Headsmen's cell attacks retain their owner's id, so the same mark restriction still covers the
+        // entire mechanic without accidentally including Hellmakers.
+        public const uint
+            BloodyHeadsmanNpcId = 14047,
+            RavenousHeadsmanNpcId = 14048,
+            PaleHeadsmanNpcId = 14049,
+            PestilentHeadsmanNpcId = 14050;
+
         /// <summary>Our Cell Block mark -> the Guard on Duty status an enemy needs to take our damage.</summary>
         public static readonly Dictionary<uint, uint> MarkMatchDamageableEnemyAura = new Dictionary<uint, uint>
         {
@@ -143,11 +153,11 @@ namespace Magitek.Utilities
                 // during the same cell phase without a Guard on Duty status and must still be attacked, so
                 // the mark rule is deliberately scoped to the four marked Headsmen rather than the zone.
                 MarkMatch = MarkMatchDamageableEnemyAura,
-                MarkMatchEnemies = new HashSet<string> {
-                    "Ravenous Headsman",
-                    "Bloody Headsman",
-                    "Pale Headsman",
-                    "Pestilent Headsman",
+                MarkMatchEnemyIds = new HashSet<uint> {
+                    BloodyHeadsmanNpcId,
+                    RavenousHeadsmanNpcId,
+                    PaleHeadsmanNpcId,
+                    PestilentHeadsmanNpcId,
                 }
             },
 

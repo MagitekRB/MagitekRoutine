@@ -59,7 +59,7 @@ namespace Magitek.Utilities
                 return false;
 
             if (encounter.MarkMatch != null
-                && (encounter.MarkMatchEnemies == null || encounter.MarkMatchEnemies.Contains(name))
+                && (encounter.MarkMatchEnemyIds == null || encounter.MarkMatchEnemyIds.Contains(unit.NpcId))
                 && !DamageableByMyMark(unit, me, encounter.MarkMatch))
                 return false;
 
@@ -207,10 +207,11 @@ namespace Magitek.Utilities
         internal Dictionary<uint, uint> MarkMatch { get; set; }
 
         /// <summary>
-        /// Exact English enemy names that participate in <see cref="MarkMatch"/>. A zone can contain
-        /// ordinary adds while the player remains marked; leaving those adds outside this set prevents
-        /// the encounter rule from incorrectly suppressing otherwise valid attacks against them.
+        /// Stable RebornBuddy <see cref="GameObject.NpcId"/> values that participate in
+        /// <see cref="MarkMatch"/>. A zone can contain ordinary adds while the player remains marked;
+        /// leaving those adds outside this set prevents the encounter rule from incorrectly suppressing
+        /// otherwise valid attacks against them. A null set retains the original zone-wide behavior.
         /// </summary>
-        internal HashSet<string> MarkMatchEnemies { get; set; }
+        internal HashSet<uint> MarkMatchEnemyIds { get; set; }
     }
 }
