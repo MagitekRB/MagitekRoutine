@@ -5682,6 +5682,9 @@
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>
   </data>
+  <data name="Astrologian_Content_Smart_Gravity" xml:space="preserve">
+    <value>将重力朝周围敌人最多的目标施放，而非当前目标</value>
+  </data>
   <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
     <value>队友生命值低于</value>
   </data>

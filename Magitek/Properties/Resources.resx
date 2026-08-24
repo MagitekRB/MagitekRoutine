@@ -5449,6 +5449,9 @@
   <data name="Generic_Seconds" xml:space="preserve">
     <value>seconds</value>
   </data>
+  <data name="Astrologian_Content_Smart_Gravity" xml:space="preserve">
+    <value>Aim Gravity at the enemy with the most others around it, instead of your target</value>
+  </data>
   <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
     <value>Allies Are Below</value>
   </data>

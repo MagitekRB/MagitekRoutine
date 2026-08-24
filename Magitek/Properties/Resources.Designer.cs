@@ -539,6 +539,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aim Gravity at the enemy with the most others around it, instead of your target.
+        /// </summary>
+        public static string Astrologian_Content_Smart_Gravity {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Smart_Gravity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stellar Detonation.
         /// </summary>
         public static string Astrologian_Content_Stellar_Detonation {

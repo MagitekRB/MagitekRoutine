@@ -70,7 +70,7 @@
                     <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Gravity_When_There_Are}" IsChecked="{Binding AstrologianSettings.Gravity, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric Margin="2,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.GravityEnemies, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Enemies_In_Gravity_Circle}" />
-                    <CheckBox Margin="5,0" Content="{x:Static properties:Resources.Generic_Smart_Aoe}" IsChecked="{Binding AstrologianSettings.SmartAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="5,0" Content="{x:Static properties:Resources.Astrologian_Content_Smart_Gravity}" IsChecked="{Binding AstrologianSettings.SmartAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Margin="0,0,5,0" Content="{x:Static properties:Resources.Astrologian_Content_Use_Oracle_at_least}" IsChecked="{Binding AstrologianSettings.Oracle, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
