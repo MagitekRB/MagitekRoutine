@@ -215,18 +215,18 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.HasAura(Auras.FullMetalMachinist))
                 return false;
 
-            // A live Wildfire counts as a burst state: after the blasts end the window has
-            // ~2.5s left, and that is exactly where Full Metal Field belongs (it is one of
-            // Wildfire's six counted hits). Without this term the guard pair made an
-            // in-window Full Metal Field impossible - measured 2 of 15 landing inside.
-            if (!Core.Me.HasAura(Auras.Overheated) && !Core.Me.HasAura(Auras.WildfireBuff, true)
-                && MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss())
+            // Never during overheat: every overheat GCD belongs to a Blazing Shot, and a
+            // Full Metal Field there eats one of the five stacks (measured as a run of
+            // 4-blast windows when it was allowed in).
+            if (Core.Me.HasAura(Auras.Overheated))
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
-                return false;
-
-            if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
+            // The burst slot is the guide's own sequence - Full Metal Field immediately
+            // BEFORE Hypercharge + Wildfire (inside raid buffs), or in Wildfire's tail
+            // after the blasts. So: fire only with Wildfire up or at most a GCD away.
+            if (MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss()
+                && !Core.Me.HasAura(Auras.WildfireBuff, true)
+                && !Spells.Wildfire.IsKnownAndReady(5000))
                 return false;
 
             return await Spells.FullMetalField.Cast(Core.Me.CurrentTarget);
