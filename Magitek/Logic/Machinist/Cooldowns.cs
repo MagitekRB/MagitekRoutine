@@ -167,13 +167,6 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             if (MachinistSettings.Instance.DoubleHyperchargedWildfire
-                && ActionResourceManager.Machinist.Heat >= 50
-                && Core.Me.HasAura(Auras.FullMetalMachinist)
-                && Spells.FullMetalField.IsKnown()
-                && Combat.IsBoss())
-                return false;
-
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
                 && Spells.FullMetalField.IsKnown()
                 && !Spells.BarrelStabilizer.IsKnownAndReady()
                 && Casting.LastSpell == Spells.Hypercharge

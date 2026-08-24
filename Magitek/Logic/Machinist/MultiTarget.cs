@@ -215,7 +215,12 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.HasAura(Auras.FullMetalMachinist))
                 return false;
 
-            if (!Core.Me.HasAura(Auras.Overheated) && MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss())
+            // A live Wildfire counts as a burst state: after the blasts end the window has
+            // ~2.5s left, and that is exactly where Full Metal Field belongs (it is one of
+            // Wildfire's six counted hits). Without this term the guard pair made an
+            // in-window Full Metal Field impossible - measured 2 of 15 landing inside.
+            if (!Core.Me.HasAura(Auras.Overheated) && !Core.Me.HasAura(Auras.WildfireBuff, true)
+                && MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss())
                 return false;
 
             if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
