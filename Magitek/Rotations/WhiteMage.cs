@@ -121,6 +121,8 @@ namespace Magitek.Rotations
             if (await Logic.WhiteMage.Heal.Cure()) return true;
             if (await Logic.WhiteMage.Heal.Regen()) return true;
 
+            if (await Healer.HealWalkingDeadTank(WhiteMageSettings.Instance.DontLetTheDRKDie, Spells.Cure2)) return true;
+
             return await HealAlliance();
         }
 

@@ -4638,6 +4638,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep a Dark Knight in Walking Dead topped up so it doesn't kill them.
+        /// </summary>
+        public static string Generic_Dont_Let_The_DRK_Die {
+            get {
+                return ResourceManager.GetString("Generic_Dont_Let_The_DRK_Die", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DRAGOON.
         /// </summary>
         public static string Generic_Dragoon {

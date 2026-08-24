@@ -123,6 +123,8 @@ namespace Magitek.Rotations
             if (await Logic.Scholar.Heal.Adloquium()) return true;
             if (await Logic.Scholar.Heal.Physick()) return true;
 
+            if (await Healer.HealWalkingDeadTank(ScholarSettings.Instance.DontLetTheDRKDie, Spells.Adloquium)) return true;
+
             return await HealAlliance();
         }
 

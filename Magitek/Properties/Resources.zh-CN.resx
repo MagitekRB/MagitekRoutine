@@ -5649,6 +5649,9 @@
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>
   </data>
+  <data name="Generic_Dont_Let_The_DRK_Die" xml:space="preserve">
+    <value>为死而不僵状态的暗黑骑士持续补血，防止效果结束时死亡</value>
+  </data>
   <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
     <value>使用 PVP 仇恨计数器</value>
   </data>

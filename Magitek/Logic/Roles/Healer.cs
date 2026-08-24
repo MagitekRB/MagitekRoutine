@@ -16,6 +16,30 @@ namespace Magitek.Logic.Roles
 {
     public class Healer
     {
+        // A Dark Knight in Walking Dead dies when it expires unless enough healing is pumped
+        // into them first - so a tank the shared immunity check would normally skip becomes
+        // the single most urgent heal target, above every normal threshold. Each healer
+        // passes its own toggle and single-target heal, same shape as FightLogic_Doom.
+        public static async Task<bool> HealWalkingDeadTank(bool useHeal, SpellData heal)
+        {
+            if (!useHeal)
+                return false;
+
+            if (!Globals.InParty)
+                return false;
+
+            if (!Globals.PartyInCombat)
+                return false;
+
+            var walkingDeadMan = Group.CastableTanks.FirstOrDefault(r =>
+                r.HasAura(Auras.WalkingDead)
+                && r.CurrentHealthPercent < 100);
+
+            if (walkingDeadMan == null)
+                return false;
+
+            return await heal.Heal(walkingDeadMan);
+        }
         public static async Task<bool> LucidDreaming(bool useLucid, float manaPercent)
         {
             if (!useLucid)

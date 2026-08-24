@@ -92,6 +92,8 @@ namespace Magitek.Rotations
                 if (await Logic.Sage.Shield.ShieldsUpRedAlert()) return true;
             }
 
+            if (await Healer.HealWalkingDeadTank(SageSettings.Instance.DontLetTheDRKDie, Spells.Diagnosis)) return true;
+
             return await HealAlliance();
         }
 
