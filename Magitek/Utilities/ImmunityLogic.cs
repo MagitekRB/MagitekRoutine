@@ -58,7 +58,9 @@ namespace Magitek.Utilities
                 && !me.HasAura(requiredSelfAura))
                 return false;
 
-            if (encounter.MarkMatch != null && !DamageableByMyMark(unit, me, encounter.MarkMatch))
+            if (encounter.MarkMatch != null
+                && (encounter.MarkMatchEnemies == null || encounter.MarkMatchEnemies.Contains(name))
+                && !DamageableByMyMark(unit, me, encounter.MarkMatch))
                 return false;
 
             return true;
@@ -203,5 +205,12 @@ namespace Magitek.Utilities
 
         /// <summary>Our mark -> the aura an enemy must carry to take our damage while we are marked.</summary>
         internal Dictionary<uint, uint> MarkMatch { get; set; }
+
+        /// <summary>
+        /// Exact English enemy names that participate in <see cref="MarkMatch"/>. A zone can contain
+        /// ordinary adds while the player remains marked; leaving those adds outside this set prevents
+        /// the encounter rule from incorrectly suppressing otherwise valid attacks against them.
+        /// </summary>
+        internal HashSet<string> MarkMatchEnemies { get; set; }
     }
 }

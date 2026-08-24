@@ -139,8 +139,16 @@ namespace Magitek.Utilities
                 Name = "The Meso Terminal (Headsman mark mechanic)",
                 Expansion = FfxivExpansion.Dawntrail,
                 // While marked, a player can ONLY damage the Headsman whose Guard on Duty letter matches
-                // their Cell Block — "Attacks against other targets are nullified."
-                MarkMatch = MarkMatchDamageableEnemyAura
+                // their Cell Block — "Attacks against other targets are nullified." Hellmakers can spawn
+                // during the same cell phase without a Guard on Duty status and must still be attacked, so
+                // the mark rule is deliberately scoped to the four marked Headsmen rather than the zone.
+                MarkMatch = MarkMatchDamageableEnemyAura,
+                MarkMatchEnemies = new HashSet<string> {
+                    "Ravenous Headsman",
+                    "Bloody Headsman",
+                    "Pale Headsman",
+                    "Pestilent Headsman",
+                }
             },
 
             #endregion
