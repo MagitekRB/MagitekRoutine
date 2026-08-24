@@ -1392,6 +1392,12 @@
   <data name="Dragoon_Content_Life_Surge" xml:space="preserve">
     <value>龙剑</value>
   </data>
+  <data name="Dragoon_Text_Life_Surge_Charge_Threshold" xml:space="preserve">
+    <value>龙剑充能阈值</value>
+  </data>
+  <data name="Dragoon_Content_Weave_Jumps" xml:space="preserve">
+    <value>在能力技窗口内使用跳跃</value>
+  </data>
   <data name="Dragoon_Content_Use_Dragon_Sight" xml:space="preserve">
     <value>使用 巨龙视线</value>
   </data>
