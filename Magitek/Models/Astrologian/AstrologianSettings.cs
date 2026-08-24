@@ -171,14 +171,6 @@ namespace Magitek.Models.Astrologian
         public float SynastryHealthPercent { get; set; }
 
         [Setting]
-        [DefaultValue(2)]
-        public int SynastryAmountOfPeople { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool SynastryTankOnly { get; set; }
-
-        [Setting]
         [DefaultValue(true)]
         public bool EssentialDignity { get; set; }
 

@@ -801,9 +801,6 @@
   <data name="Astrologian_Text_Resurrection_Delay" xml:space="preserve">
     <value>Resurrection Delay:</value>
   </data>
-  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
-    <value>Allies Are Below</value>
-  </data>
   <data name="Astrologian_Text_Enemies_Near_Target" xml:space="preserve">
     <value>Enemies Near Target</value>
   </data>
@@ -824,9 +821,6 @@
   </data>
   <data name="Astrologian_Content_Essential_Dignity" xml:space="preserve">
     <value>Essential Dignity</value>
-  </data>
-  <data name="Astrologian_Content_Synastry_When" xml:space="preserve">
-    <value>Synastry when</value>
   </data>
   <data name="Astrologian_Content_Horoscope_When" xml:space="preserve">
     <value>Horoscope When</value>
@@ -5454,6 +5448,12 @@
   </data>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>seconds</value>
+  </data>
+  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
+    <value>Allies Are Below</value>
+  </data>
+  <data name="Astrologian_Content_Synastry_Bond" xml:space="preserve">
+    <value>Bond Synastry to the tank or most wounded ally (their heals hit 40% harder) at or below</value>
   </data>
   <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
     <value>Use PvP Aggro Count Overlay</value>

@@ -566,11 +566,11 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Synastry When.
+        ///   Looks up a localized string similar to Bond Synastry to the tank or most wounded ally at or below.
         /// </summary>
-        public static string Astrologian_Content_Synastry_When {
+        public static string Astrologian_Content_Synastry_Bond {
             get {
-                return ResourceManager.GetString("Astrologian_Content_Synastry_When", resourceCulture);
+                return ResourceManager.GetString("Astrologian_Content_Synastry_Bond", resourceCulture);
             }
         }
         

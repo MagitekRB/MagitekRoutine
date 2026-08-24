@@ -74,12 +74,9 @@
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Margin="0,0,4,0" Content="{x:Static properties:Resources.Astrologian_Content_Synastry_When}" IsChecked="{Binding AstrologianSettings.Synastry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric MaxValue="8" MinValue="1" Value="{Binding AstrologianSettings.SynastryAmountOfPeople, Mode=TwoWay}" />
-                    <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Allies_Are_Below}" />
+                    <CheckBox Margin="0,0,4,0" Content="{x:Static properties:Resources.Astrologian_Content_Synastry_Bond}" IsChecked="{Binding AstrologianSettings.Synastry, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SynastryHealthPercent, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Health_Percent}" />
-                    <CheckBox Margin="6,0" Content="{x:Static properties:Resources.Generic_On_Tank_Only}" IsChecked="{Binding AstrologianSettings.SynastryTankOnly, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="5">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Dont_Let_The_DRK_Die}" IsChecked="{Binding AstrologianSettings.DontLetTheDRKDie, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

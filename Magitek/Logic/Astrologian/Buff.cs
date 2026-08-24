@@ -107,13 +107,17 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.HasAura(Auras.SynastrySource))
                 return false;
 
-            if (Group.CastableAlliesWithin30.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent) < AstrologianSettings.Instance.SynastryAmountOfPeople)
-                return false;
-
-            GameObject target = AstrologianSettings.Instance.SynastryTankOnly
-                ? Group.CastableTanks.FirstOrDefault(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent
-                && r.IsTank())
-                : Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent);
+            // Verified tooltip: the bonded ally recovers 40% of every single-target healing
+            // spell we cast on anyone, themselves included - Synastry is a focus-heal
+            // amplifier, so the bond belongs on the ally our single-target heals are about
+            // to pour into. One endangered ally is the whole trigger; the old ally-count
+            // gate blocked exactly the textbook case, a lone tank eating busters.
+            GameObject target = Group.CastableAlliesWithin30
+                .Where(r => r.CurrentHealth > 0
+                    && r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent)
+                .OrderBy(r => r.IsTank() ? 0 : 1)
+                .ThenBy(r => r.CurrentHealthPercent)
+                .FirstOrDefault();
 
             if (target == null)
                 return false;

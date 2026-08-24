@@ -801,9 +801,6 @@
   <data name="Astrologian_Text_Resurrection_Delay" xml:space="preserve">
     <value>延迟复活：</value>
   </data>
-  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
-    <value>队友生命值低于</value>
-  </data>
   <data name="Astrologian_Text_Enemies_Near_Target" xml:space="preserve">
     <value>目标附近的敌人</value>
   </data>
@@ -824,9 +821,6 @@
   </data>
   <data name="Astrologian_Content_Essential_Dignity" xml:space="preserve">
     <value>先天禀赋</value>
-  </data>
-  <data name="Astrologian_Content_Synastry_When" xml:space="preserve">
-    <value>星位合一 当</value>
   </data>
   <data name="Astrologian_Content_Horoscope_When" xml:space="preserve">
     <value>使用天宫图 当</value>
@@ -5687,6 +5681,12 @@
   </data>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>
+  </data>
+  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
+    <value>队友生命值低于</value>
+  </data>
+  <data name="Astrologian_Content_Synastry_Bond" xml:space="preserve">
+    <value>当坦克或最受伤的队友生命低于此百分比时施放星媒（其受单体治疗提升40%）</value>
   </data>
   <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
     <value>使用 PVP 仇恨计数器</value>
