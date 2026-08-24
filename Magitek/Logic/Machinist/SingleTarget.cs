@@ -156,9 +156,14 @@ namespace Magitek.Logic.Machinist
             if (ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                 return false;
 
+            // Give Wildfire the first beat of the window, then blast regardless: late-weave
+            // Wildfire paces itself off GCD progress, so holding blasts for it starves the
+            // very clock it waits on - measured as 3-8s stalls and whole overheats lost.
+            // The guide's shape is blasts rolling with Wildfire late-weaved in among them.
             if (MachinistSettings.Instance.DoubleHyperchargedWildfire
                 && Spells.FullMetalField.IsKnown()
-                && Spells.Wildfire.IsReady())
+                && Spells.Wildfire.IsReady()
+                && ActionResourceManager.Machinist.OverheatRemaining.TotalMilliseconds > 8000)
                 return false;
 
             return await Spells.HeatBlast.Cast(Core.Me.CurrentTarget);
