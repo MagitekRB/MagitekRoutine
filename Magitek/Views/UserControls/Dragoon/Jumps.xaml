@@ -1,4 +1,4 @@
-<UserControl x:Class="Magitek.Views.UserControls.Dragoon.Jumps"
+﻿<UserControl x:Class="Magitek.Views.UserControls.Dragoon.Jumps"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties" 
@@ -20,6 +20,7 @@
             <StackPanel Margin="5">
                 <CheckBox Content="{x:Static properties:Resources.Dragoon_Content_Use_Jumps}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.UseJumps, Mode=TwoWay}" />
                 <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Dragoon_Content_Safe_Jumping_Logic}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.SafeJumpLogic, Mode=TwoWay}" />
+                <CheckBox Margin="0,3" Content="{x:Static properties:Resources.Dragoon_Content_Weave_Jumps}" Style="{DynamicResource CheckBoxFlat}" IsChecked="{Binding DragoonSettings.WeaveJumps, Mode=TwoWay}" />
             </StackPanel>
         </controls:SettingsBlock>
 

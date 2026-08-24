@@ -1,4 +1,4 @@
-using Magitek.Enumerations;
+﻿using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -27,6 +27,10 @@ namespace Magitek.Models.Dragoon
         [Setting]
         [DefaultValue(true)]
         public bool SafeJumpLogic { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool WeaveJumps { get; set; }
 
         [Setting]
         [DefaultValue(true)]
