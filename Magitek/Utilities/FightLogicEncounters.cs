@@ -7903,12 +7903,7 @@ namespace Magitek.Utilities
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
-                        BigAoes = new List<uint> {
-                            // Sets every player to 1 HP (the log shows set-HP effects, not damage, which
-                            // is why it reads as zero damage). Shields do nothing against it — the value
-                            // of the response is the heal-back after it lands.
-                            46039, // Charybdistopia
-                        }
+                        BigAoes = null
                     },
                 }
             },
