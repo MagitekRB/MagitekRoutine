@@ -224,15 +224,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t Dot if more than.
-        /// </summary>
-        public static string Astrologian_Content_Dont_Dot_if_more_than {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Dont_Dot_if_more_than", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Double Cast.
         /// </summary>
         public static string Astrologian_Content_Double_Cast {
@@ -629,15 +620,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weave OGCD Heals.
-        /// </summary>
-        public static string Astrologian_Content_Weave_OGCD_Heals {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Weave_OGCD_Heals", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to % HP.
         /// </summary>
         public static string Astrologian_Text__HP {
@@ -935,14 +917,14 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Keep Combust on every enemy, not just your target (requires the AoE toggle).
+        ///   Looks up a localized string similar to enemies during battle.
         /// </summary>
-        public static string Astrologian_Content_Combust_All_Enemies {
+        public static string Astrologian_Text_Enemies_During_Battle {
             get {
-                return ResourceManager.GetString("Astrologian_Content_Combust_All_Enemies", resourceCulture);
+                return ResourceManager.GetString("Astrologian_Text_Enemies_During_Battle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to enemies inside its circle.
         /// </summary>
@@ -988,6 +970,15 @@ namespace Magitek.Properties {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Keep Combust rolling on up to.
+        /// </summary>
+        public static string Astrologian_Text_Combust_Up_To {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Combust_Up_To", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to DNC:.
         /// </summary>

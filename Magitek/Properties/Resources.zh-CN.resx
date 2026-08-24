@@ -606,9 +606,6 @@
   <data name="Astrologian_Text_Seconds_Bosses_Exempt" xml:space="preserve">
     <value>秒（Boss除外）</value>
   </data>
-  <data name="Astrologian_Content_Combust_All_Enemies" xml:space="preserve">
-    <value>对所有敌人保持焚灼，而非仅当前目标（需启用AoE总开关）</value>
-  </data>
   <data name="Astrologian_Text_Enemies_In_Gravity_Circle" xml:space="preserve">
     <value>名敌人位于其范围内</value>
   </data>
@@ -750,9 +747,6 @@
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
     <value>不对预计将在以下时间内死亡的敌人施放焚灼</value>
   </data>
-  <data name="Astrologian_Content_Dont_Dot_if_more_than" xml:space="preserve">
-    <value>当战斗中敌人多于以下数量时完全不上焚灼</value>
-  </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>重力 当至少</value>
   </data>
@@ -839,9 +833,6 @@
   </data>
   <data name="Astrologian_Content_Stellar_Detonation" xml:space="preserve">
     <value>星体爆轰</value>
-  </data>
-  <data name="Astrologian_Content_Weave_OGCD_Heals" xml:space="preserve">
-    <value>插入治疗能力技</value>
   </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>使用中重力至少</value>
@@ -4982,6 +4973,12 @@
   </data>
   <data name="Astrologian_Content_Combust" xml:space="preserve">
     <value>烧灼</value>
+  </data>
+  <data name="Astrologian_Text_Combust_Up_To" xml:space="preserve">
+    <value>战斗中最多为</value>
+  </data>
+  <data name="Astrologian_Text_Enemies_During_Battle" xml:space="preserve">
+    <value>个敌人维持焚灼</value>
   </data>
   <data name="Astrologian_Content_Exaltation" xml:space="preserve">
     <value>擢升</value>

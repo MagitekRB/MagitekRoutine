@@ -24,9 +24,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
-            if (Globals.InParty && Utilities.Combat.Enemies.Count > AstrologianSettings.Instance.StopDamageWhenMoreThanEnemies)
-                return false;
-
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
@@ -49,7 +46,7 @@ namespace Magitek.Rotations
             if (await HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(AstrologianSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
-            if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+            if (GlobalCooldown.CanWeave(1))
             {
                 if (await Buff.Divination()) return true;
                 if (await Buff.LucidDreaming()) return true;
@@ -61,8 +58,7 @@ namespace Magitek.Rotations
 
             // Cards double-weave while Divination is up so the Balance shares its window
             // instead of waiting a full GCD behind it.
-            if (AstrologianSettings.Instance.WeaveOGCDHeals
-                && Core.Me.HasAura(Auras.Divination, true)
+            if (Core.Me.HasAura(Auras.Divination, true)
                 && GlobalCooldown.CanWeave(2)
                 && !GlobalCooldown.IsLateWeaveWindow())
             {
@@ -76,7 +72,7 @@ namespace Magitek.Rotations
                 // Essential Dignity ahead of the rest. Original order for reference:
                 // Macrocosmos, Star, CU, Lady, CO, HoroscopePop, Synastry, ED, CI,
                 // Horoscope, Exaltation, Lord, Draw, Play.
-                if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+                if (GlobalCooldown.CanWeave(1))
                 {
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
@@ -133,7 +129,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> CombatBuff()
         {
-            if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+            if (GlobalCooldown.CanWeave(1))
 
             {
                 if (await Buff.LucidDreaming()) return true;
@@ -150,8 +146,7 @@ namespace Magitek.Rotations
 
             // Cards double-weave while Divination is up so the Balance shares its window
             // instead of waiting a full GCD behind it.
-            if (AstrologianSettings.Instance.WeaveOGCDHeals
-                && Core.Me.HasAura(Auras.Divination, true)
+            if (Core.Me.HasAura(Auras.Divination, true)
                 && GlobalCooldown.CanWeave(2)
                 && !GlobalCooldown.IsLateWeaveWindow())
             {
@@ -160,7 +155,7 @@ namespace Magitek.Rotations
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
-                if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+                if (GlobalCooldown.CanWeave(1))
                 {
                     if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;
@@ -188,9 +183,6 @@ namespace Magitek.Rotations
 
             if (Globals.InParty)
             {
-                if (Utilities.Combat.Enemies.Count > AstrologianSettings.Instance.StopDamageWhenMoreThanEnemies)
-                    return false;
-
                 if (Core.Me.CurrentManaPercent < AstrologianSettings.Instance.MinimumManaPercentToDoDamage
                     && Core.Target.CombatTimeLeft() > AstrologianSettings.Instance.DoDamageIfTimeLeftLessThan)
                     return false;

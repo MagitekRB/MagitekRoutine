@@ -43,12 +43,12 @@ namespace Magitek.Models.Astrologian
         public bool Combust { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool CombustMultipleTargets { get; set; }
-
-        [Setting]
         [DefaultValue(3050)]
         public int CombustRefreshMSeconds { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int CombustUpToEnemies { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -57,14 +57,6 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(21)]
         public int DontCombustIfEnemyDyingWithin { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool DontDotIfMoreEnemies { get; set; }
-
-        [Setting]
-        [DefaultValue(5)]
-        public int DontDotIfMoreEnemiesThan { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -379,10 +371,6 @@ namespace Magitek.Models.Astrologian
         [Setting]
         [DefaultValue(65f)]
         public float MacrocosmosHealthPercent { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool WeaveOGCDHeals { get; set; }
 
         [Setting]
         [DefaultValue(true)]

@@ -75,37 +75,33 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Astral_Card_Weights}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_MNK}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SAM}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SamAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_VPR}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.VprAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_RPR}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.RprAstralCardWeight, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_MNK}" />
                     <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.MnkAstralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_DRG}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.DrgAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_DRG}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.DrgAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_NIN}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.NinAstralCardWeight, Mode=TwoWay}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_NIN}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.NinAstralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SAM}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SamAstralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_RPR}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.RprAstralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_VPR}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.VprAstralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_PLD}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PldAstralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_WAR}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_DRK}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.DrkAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_GNB}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.GnbAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_WAR}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.WarAstralCardWeight, Mode=TwoWay}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_DRK}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.DrkAstralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_GNB}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.GnbAstralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BLU}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_PLD}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PldAstralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BLU}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BluAstralCardWeight, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
@@ -115,39 +111,35 @@
             <StackPanel Margin="5">
                 <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Umbral_Card_Weights}" />
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BRD}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BrdUmbralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_MCH}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.MchUmbralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_DNC}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.DncUmbralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BLM}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BlmUmbralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SMN}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SmnUmbralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_RDM}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.RdmUmbralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_PCT}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_PCT}" />
                     <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.PctUmbralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_WHM}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.WhmUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BLM}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BlmUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SMN}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SmnUmbralCardWeight, Mode=TwoWay}" />
                 </StackPanel>
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SCH}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_MCH}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.MchUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_RDM}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.RdmUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BRD}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BrdUmbralCardWeight, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_DNC}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.DncUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_AST}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.AstUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SGE}" />
+                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SgeUmbralCardWeight, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SCH}" />
                     <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SchUmbralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_AST}" />
-                    <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.AstUmbralCardWeight, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_SGE}" />
-                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.SgeUmbralCardWeight, Mode=TwoWay}" />
-                    <TextBlock Margin="0,0,4,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BLU}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_WHM}" />
+                    <controls:Numeric Margin="0,0,16,0" MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.WhmUmbralCardWeight, Mode=TwoWay}" />
+                    <TextBlock Width="34" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_BLU}" />
                     <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding AstrologianSettings.BluUmbralCardWeight, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>

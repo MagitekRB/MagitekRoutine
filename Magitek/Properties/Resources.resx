@@ -606,9 +606,6 @@
   <data name="Astrologian_Text_Seconds_Bosses_Exempt" xml:space="preserve">
     <value>seconds (bosses exempt)</value>
   </data>
-  <data name="Astrologian_Content_Combust_All_Enemies" xml:space="preserve">
-    <value>Keep Combust on every enemy, not just your target (requires the AoE toggle)</value>
-  </data>
   <data name="Astrologian_Text_Enemies_In_Gravity_Circle" xml:space="preserve">
     <value>enemies inside its circle</value>
   </data>
@@ -750,9 +747,6 @@
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
     <value>Don't Combust an enemy expected to die within</value>
   </data>
-  <data name="Astrologian_Content_Dont_Dot_if_more_than" xml:space="preserve">
-    <value>Don't Combust at all when more than</value>
-  </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
     <value>Gravity when at least</value>
   </data>
@@ -839,9 +833,6 @@
   </data>
   <data name="Astrologian_Content_Stellar_Detonation" xml:space="preserve">
     <value>Stellar Detonation</value>
-  </data>
-  <data name="Astrologian_Content_Weave_OGCD_Heals" xml:space="preserve">
-    <value>Weave OGCD Heals</value>
   </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>Gravity II with at least</value>
@@ -4977,6 +4968,12 @@
   </data>
   <data name="Astrologian_Content_Combust" xml:space="preserve">
     <value>Combust</value>
+  </data>
+  <data name="Astrologian_Text_Combust_Up_To" xml:space="preserve">
+    <value>Keep Combust rolling on up to</value>
+  </data>
+  <data name="Astrologian_Text_Enemies_During_Battle" xml:space="preserve">
+    <value>enemies during battle</value>
   </data>
   <data name="Astrologian_Content_Exaltation" xml:space="preserve">
     <value>Exaltation</value>

@@ -45,9 +45,6 @@
                     <controls:Numeric Margin="3,0" Value="{Binding AstrologianSettings.InterruptHealingHealthPercent, Mode=TwoWay}" />
                     <TextBlock Margin="2,0,3,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                 </StackPanel>
-                <StackPanel Margin="5">
-                    <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Weave_OGCD_Heals}" IsChecked="{Binding AstrologianSettings.WeaveOGCDHeals, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 

@@ -119,9 +119,14 @@ namespace Magitek.Logic.Astrologian
             if (playIICard == AstrologianCard.Bole)
             {
                 var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
+                // Same one-mitigation-per-buster rule as the responder: a victim already
+                // carrying Exaltation or an Intersection shield is covered - hold the Bole
+                // for the next buster (the dump still flushes it before the draw).
+                var victimCovered = busterTarget != null
+                    && (busterTarget.HasAura(Auras.Exaltation) || busterTarget.HasAura(Auras.CelestialIntersection));
                 var target = (GameObject)busterTarget ?? MainTankOrFallback();
 
-                if (dumping || busterTarget != null)
+                if (dumping || (busterTarget != null && !victimCovered))
                     if (await Spells.PlayII.Masked().Cast(target))
                         return true;
             }
