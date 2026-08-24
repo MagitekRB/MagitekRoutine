@@ -66,6 +66,10 @@ namespace Magitek.Rotations
 
             if (await Logic.WhiteMage.Heal.Raise()) return true;
 
+            // A Walking Dead tank outranks discretionary healing: the window is short
+            // and every other heal path stops below the healing it needs.
+            if (await Healer.HealWalkingDeadTank(WhiteMageSettings.Instance.DontLetTheDRKDie, Spells.Cure2)) return true;
+
             if (await HealFightLogic.Aoe()) return true;
             if (await HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(WhiteMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
@@ -120,8 +124,6 @@ namespace Magitek.Rotations
             if (await Logic.WhiteMage.Heal.Cure2()) return true;
             if (await Logic.WhiteMage.Heal.Cure()) return true;
             if (await Logic.WhiteMage.Heal.Regen()) return true;
-
-            if (await Healer.HealWalkingDeadTank(WhiteMageSettings.Instance.DontLetTheDRKDie, Spells.Cure2)) return true;
 
             return await HealAlliance();
         }

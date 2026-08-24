@@ -38,7 +38,9 @@ namespace Magitek.Logic.Roles
             if (walkingDeadMan == null)
                 return false;
 
-            return await heal.Heal(walkingDeadMan);
+            // healthChecks off: Walking Dead wants healing PUMPED - the target being
+            // healthy right now is not a reason to cancel, it is the halfway point.
+            return await heal.Heal(walkingDeadMan, false);
         }
         public static async Task<bool> LucidDreaming(bool useLucid, float manaPercent)
         {
