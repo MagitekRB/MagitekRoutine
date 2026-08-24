@@ -15,7 +15,8 @@ namespace Magitek.Logic.Astrologian
     internal static class Cards
     {
         // The next draw overwrites the hand, so play out anything held this close to it.
-        private const int DrawDumpWindowSeconds = 10;
+        // Internal: the Lady of Crowns dump in Heals shares the same window.
+        internal const int DrawDumpWindowSeconds = 10;
 
         // Failsafe: a play condition stuck false used to wedge the draw permanently.
         private const int DrawStallBreakSeconds = 15;
@@ -136,7 +137,13 @@ namespace Magitek.Logic.Astrologian
                         && a.CurrentHealthPercent <= AstrologianSettings.Instance.ArrowHealthPercent)
                     .OrderBy(a => a.CurrentHealthPercent)
                     .FirstOrDefault();
-                var target = (GameObject)busterTarget ?? wounded ?? MainTankOrFallback();
+                // In the dump the threshold no longer applies - the card is leaving either
+                // way, so the most wounded ally, hurt or not, beats a full-health tank.
+                var lowestForArrow = Group.CastableAlliesWithin30
+                    .Where(a => a.CurrentHealth > 0)
+                    .OrderBy(a => a.CurrentHealthPercent)
+                    .FirstOrDefault();
+                var target = (GameObject)busterTarget ?? wounded ?? (GameObject)lowestForArrow ?? MainTankOrFallback();
 
                 if (dumping
                     || (AstrologianSettings.Instance.PlayArrow && (busterTarget != null || wounded != null)))
@@ -147,9 +154,18 @@ namespace Magitek.Logic.Astrologian
             if (playIIICard == AstrologianCard.Spire)
             {
                 var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
-                var target = (GameObject)busterTarget ?? MainTankOrFallback();
+                // A catalogued raidwide is as good a reason as a buster: the barrier goes to
+                // whoever can least afford the incoming hit.
+                var aoeIncoming = FightLogic.Peek.EnemyIsCastingAoe();
+                var lowestForSpire = Group.CastableAlliesWithin30
+                    .Where(a => a.CurrentHealth > 0)
+                    .OrderBy(a => a.CurrentHealthPercent)
+                    .FirstOrDefault();
+                var target = (GameObject)busterTarget
+                    ?? (aoeIncoming ? (GameObject)lowestForSpire : null)
+                    ?? MainTankOrFallback();
 
-                if (dumping || busterTarget != null)
+                if (dumping || busterTarget != null || aoeIncoming)
                     if (await Spells.PlayIII.Masked().Cast(target))
                         return true;
             }

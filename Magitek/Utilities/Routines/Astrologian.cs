@@ -101,7 +101,7 @@ namespace Magitek.Utilities.Routines
                             r.WithinSpellRange(Spells.AspectedHelios.Radius) &&
                             r.CurrentHealthPercent <=
                             AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
-                            !r.HasAura(Auras.AspectedHelios, true)) < AoeThreshold)
+                            !r.HasAura(Auras.AspectedHelios, true) && !r.HasAura(Auras.HeliosConjunction, true)) < AoeThreshold)
                     {
                         Logger.Error($@"Stopped Healing: Party's Health Too High");
                         return true;
@@ -165,6 +165,10 @@ namespace Magitek.Utilities.Routines
         };
 
         public static Vector3 EarthlyStarLocation { get; set; }
+
+        // Set on every Earthly Star placement attempt, accepted or rejected, so a refused
+        // ground-target cannot re-dispatch at pulse rate.
+        public static long LastEarthlyStarAttemptTick { get; set; }
 
     }
 }

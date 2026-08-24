@@ -338,7 +338,13 @@ namespace Magitek.Logic.Astrologian
             if (!Globals.InParty && Core.Me.CurrentHealthPercent <= Core.Me.AdjustHealthThresholdByRegen(AstrologianSettings.Instance.LadyOfCrownsHealthPercent))
                 return await Spells.LadyofCrowns.Heal(Core.Me);
 
-            if (Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= r.AdjustHealthThresholdByRegen(AstrologianSettings.Instance.LadyOfCrownsHealthPercent)) <= AoeThreshold)
+            // The Lady is free healing on a card the next Astral Draw deletes. One ally at or
+            // below her threshold is reason enough to spend her, and inside the dump window
+            // before that draw she goes out regardless - overhealing beats losing the card.
+            var heldLady = Spells.MinorArcana.Masked() == Spells.LadyofCrowns;
+            var dumpingLady = heldLady && Spells.AstralDraw.Cooldown.TotalSeconds <= Cards.DrawDumpWindowSeconds;
+
+            if (!dumpingLady && !Group.CastableAlliesWithin20.Any(r => r.CurrentHealthPercent <= r.AdjustHealthThresholdByRegen(AstrologianSettings.Instance.LadyOfCrownsHealthPercent)))
                 return false;
 
             return await Spells.LadyofCrowns.Heal(Core.Me);
@@ -688,11 +694,20 @@ namespace Magitek.Logic.Astrologian
             // hurt only delays it. Heal-need gating lives in the Stellar Detonation checks above.
             if (Core.Target.EnemiesNearby(30).Count() >= AstrologianSettings.Instance.EarthlyStarEnemiesNearTarget
                 && Core.Target.WithinSpellRange(30))
+            {
+                // A rejected ground placement (bad spot, no line of sight) re-qualifies every
+                // pulse and used to re-dispatch at pulse rate. Space attempts a few animation
+                // locks apart; a successful plant is gated by the 60s recast anyway.
+                if (System.Environment.TickCount64 - Utilities.Routines.Astrologian.LastEarthlyStarAttemptTick < Globals.AnimationLockMs * 3)
+                    return false;
+                Utilities.Routines.Astrologian.LastEarthlyStarAttemptTick = System.Environment.TickCount64;
+
                 if (await Spells.EarthlyStar.Cast(Core.Target))
                 {
                     Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
                     return true;
                 }
+            }
             return false;
         }
 

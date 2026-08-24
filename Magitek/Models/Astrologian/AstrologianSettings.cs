@@ -199,7 +199,7 @@ namespace Magitek.Models.Astrologian
         public float EssentialDignityHealthPercent { get; set; }
 
         [Setting]
-        [DefaultValue(85.0f)]
+        [DefaultValue(70.0f)]
         public float EssentialDignityCappedHealthPercent { get; set; }
 
         // oGCD-first: while a free heal is ready, hardcast GCD heals only fire at or below
@@ -492,7 +492,7 @@ namespace Magitek.Models.Astrologian
         public bool LadyOfCrowns { get; set; }
 
         [Setting]
-        [DefaultValue(80.0f)]
+        [DefaultValue(70.0f)]
         public float LadyOfCrownsHealthPercent { get; set; }
 
         [Setting]
