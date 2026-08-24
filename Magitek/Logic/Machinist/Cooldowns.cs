@@ -67,13 +67,17 @@ namespace Magitek.Logic.Machinist
 
             if (MachinistSettings.Instance.LateWeaveWildfire)
             {
+                // Braced deliberately: the old unbraced else bound to the INNER if, so with
+                // this option off the 15-second alignment hold below never ran and Hypercharge
+                // could be spent right before Wildfire came up.
                 if (MachinistSettings.Instance.DoubleHyperchargedWildfire)
+                {
                     if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 7000
                         && ActionResourceManager.Machinist.Heat < 100)
                         return false;
-                    else
-                    if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
-                        return false;
+                }
+                else if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
+                    return false;
             }
             else
             {

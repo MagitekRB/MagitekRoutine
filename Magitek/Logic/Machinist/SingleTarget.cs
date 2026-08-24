@@ -44,10 +44,10 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseDrill && Spells.Drill.IsKnownAndReady(200))
                 return false;
 
-            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
-            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
             if (Core.Me.HasAura(Auras.Overheated) && Spells.HeatBlast.IsKnown())
@@ -67,10 +67,10 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseDrill && Spells.Drill.IsKnownAndReady(200))
                 return false;
 
-            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
-            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
             if (Core.Me.HasAura(Auras.Overheated) && Spells.HeatBlast.IsKnown())

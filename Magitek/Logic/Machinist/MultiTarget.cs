@@ -67,7 +67,9 @@ namespace Magitek.Logic.Machinist
             if (ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                 return false;
 
-            if (Core.Me.EnemiesInCone(12) < 3)
+            // Blazing Shot generates Double Check/Checkmate charges and Auto Crossbow does
+            // not, so the crossbow only wins the overheat GCD at high target counts.
+            if (Core.Me.EnemiesInCone(12) < MachinistSettings.Instance.AutoCrossbowEnemyCount)
                 return false;
 
             return await Spells.AutoCrossbow.Cast(Core.Me.CurrentTarget);

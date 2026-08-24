@@ -22,7 +22,10 @@ namespace Magitek.Logic.Machinist
             if (Core.Me.HasAura(Auras.Overheated))
                 return false;
 
-            if (ActionResourceManager.Machinist.Battery < MachinistSettings.Instance.UseRookQueenBattery)
+            // Deploy at the configured target - or regardless of it when Battery is about
+            // to overcap (every tool grants +20), so a capped gauge never wastes generation.
+            if (ActionResourceManager.Machinist.Battery < MachinistSettings.Instance.UseRookQueenBattery
+                && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
             return await MachinistRoutine.RookQueenPet.Cast(Core.Me);
