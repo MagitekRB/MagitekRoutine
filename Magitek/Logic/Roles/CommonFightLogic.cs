@@ -18,7 +18,11 @@ namespace Magitek.Logic.Roles
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyTankbusterLogic())
                 return false;
 
-            if (FightLogic.EnemyIsCastingTankBuster() != null
+            // Personal defensives only answer a hit that will land on US: a single-target
+            // buster aimed at someone else (now matchable since the victim widening) must not
+            // burn our cooldowns. A shared buster hits every tank, so it always qualifies.
+            var busterVictim = FightLogic.EnemyIsCastingTankBuster();
+            if ((busterVictim != null && busterVictim == Core.Me)
                 || FightLogic.EnemyIsCastingSharedTankBuster() != null)
             {
                 if (Core.Me.HasAnyAura(defensiveAuras))
