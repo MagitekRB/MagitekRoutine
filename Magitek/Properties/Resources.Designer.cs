@@ -2010,6 +2010,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Ethers in AoE.
+        /// </summary>
+        public static string BlackMage_Content_Use_Ethers_In_AOE {
+            get {
+                return ResourceManager.GetString("BlackMage_Content_Use_Ethers_In_AOE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Thunder Spells in Single Target that will live for at least.
         /// </summary>
         public static string BlackMage_Content_Use_Thunder_Spells_Single_Target_Only {

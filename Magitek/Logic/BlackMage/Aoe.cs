@@ -201,6 +201,47 @@ namespace Magitek.Logic.BlackMage
             return false;
         }
 
+        public static async Task<bool> UseAoeEther()
+        {
+            if (!AoeControl.Enabled)
+                return false;
+
+            if (!BlackMageSettings.Instance.UseEtherInAoe)
+                return false;
+
+            // Only use ethers to extend the Astral Fire phase
+            if (AstralStacks == 0)
+                return false;
+
+            // Don't pop an ether while MP can still pay for Flare
+            if (Core.Me.CurrentMana >= 800)
+                return false;
+
+            // Hold the ether until a ready Flare Star is consumed
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                return false;
+
+            // Manafont restores more than any ether - let it fire first when permitted
+            if (BlackMageSettings.Instance.ManaFont && Spells.ManaFont.IsKnownAndReady())
+                return false;
+
+            // Best to worst; HQ (raw id + 1,000,000) ahead of NQ within each tier.
+            // Any of these restores enough MP for at least one more Flare.
+            foreach (var etherId in new[] {
+                1023168, 23168, // Super-Ether
+                1013638, 13638, // Max-Ether
+                1004558, 4558,  // X-Ether
+                1004557, 4557,  // Mega-Ether
+                1004556, 4556   // Hi-Ether
+            })
+            {
+                if (await Ether.UseEther(etherId))
+                    return true;
+            }
+
+            return false;
+        }
+
         public static async Task<bool> Thunder4()
         {
             if (!AoeControl.Enabled)

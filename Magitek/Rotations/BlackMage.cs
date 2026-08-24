@@ -96,6 +96,8 @@ namespace Magitek.Rotations
                 if (await Aoe.Thunder4()) return true;
                 if (await Aoe.Foul()) return true;
 
+                if (await Aoe.UseAoeEther()) return true;
+
                 if (await Aoe.AoeTranspose()) return true;
 
                 if (await Aoe.Blizzard2()) return true;

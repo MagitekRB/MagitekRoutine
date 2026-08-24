@@ -129,6 +129,10 @@ namespace Magitek.Models.BlackMage
         [Setting]
         [DefaultValue(true)]
         public bool ThunderAoe { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseEtherInAoe { get; set; }
         #endregion
 
         #region PVP
