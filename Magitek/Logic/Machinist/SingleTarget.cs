@@ -90,7 +90,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.Drill.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -123,7 +123,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.AirAnchor.IsKnownAndReady() && !Spells.HotShot.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -193,7 +193,7 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseRicochet && Spells.Ricochet.Masked().Charges > spell.Charges)
                 return false;
 
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive
                 && Combat.IsBoss()
                 && Core.Me.HasAura(Auras.WildfireBuff, true)
                 && !Core.Me.HasAura(Auras.Overheated)

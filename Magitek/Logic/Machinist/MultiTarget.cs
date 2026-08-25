@@ -142,7 +142,7 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseGaussRound && Spells.GaussRound.Masked().Charges > spell.Charges)
                 return false;
 
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive
                 && Combat.IsBoss()
                 && Core.Me.HasAura(Auras.WildfireBuff, true)
                 && !Core.Me.HasAura(Auras.Overheated)
@@ -160,7 +160,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.ChainSaw.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -192,7 +192,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.Excavator.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -226,7 +226,7 @@ namespace Magitek.Logic.Machinist
             // after the blasts. So: fire only with Wildfire up or at most a GCD away.
             // ...but never let the proc die waiting: once it is inside its last 8 seconds,
             // an off-window Full Metal Field beats a lost one.
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss()
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive && Combat.IsBoss()
                 && !Core.Me.HasAura(Auras.WildfireBuff, true)
                 && !Spells.Wildfire.IsKnownAndReady(5000)
                 && Core.Me.HasAura(Auras.FullMetalMachinist, true, 8000))
