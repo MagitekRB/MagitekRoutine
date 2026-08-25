@@ -32,6 +32,11 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.AlignCardsWithDivination)
                 return false;
 
+            // Holding only makes sense when the routine itself will draw and play the fresh
+            // card - with either toggle off the draw this waits for can never complete
+            if (!AstrologianSettings.Instance.DrawCards || !AstrologianSettings.Instance.Play)
+                return false;
+
             if (CurrentCards.Any(card => card == AstrologianCard.Balance || card == AstrologianCard.Spear))
                 return false;
 

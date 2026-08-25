@@ -282,9 +282,18 @@ namespace Magitek.Utilities
 
         private static Character MatchTankBuster(Enemy enemyLogic, BattleCharacter enemy)
         {
-            return enemyLogic.TankBusters.Contains(enemy.CastingSpellId)
-                ? Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
-                : null;
+            // The victim is whoever the cast is aimed at - usually a tank, but not always: a dead
+            // main tank retargets the buster onto whoever has aggro, and some catalogued busters
+            // (Io Ousia's Barreling Smash) pick an arbitrary player. Two tiers: tank victims match
+            // exactly as master always did (CastableTanks carries no distance filter - see
+            // MatchSharedTankBuster below - and every tank Defensives spell is self-cast, so range
+            // never matters there). Non-tank victims are new here and DO feed ranged responses,
+            // so they get a real reachability check.
+            if (!enemyLogic.TankBusters.Contains(enemy.CastingSpellId))
+                return null;
+
+            return Group.CastableTanks.FirstOrDefault(x => x == enemy.TargetCharacter)
+                ?? Group.CastableParty.FirstOrDefault(x => x == enemy.TargetCharacter && x.WithinSpellRange(30));
         }
 
         private static Character MatchSharedTankBuster(Enemy enemyLogic, BattleCharacter enemy)

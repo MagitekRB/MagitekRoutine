@@ -1,4 +1,4 @@
-using Magitek.Enumerations;
+﻿using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -74,6 +74,11 @@ namespace Magitek.Models.Dragoon
         [Setting]
         [DefaultValue(true)]
         public bool UseLifeSurge { get; set; }
+
+
+        [Setting]
+        [DefaultValue(1.5f)]
+        public float LifeSurgeChargeThreshold { get; set; }
 
         #endregion
 

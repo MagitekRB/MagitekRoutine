@@ -24,13 +24,14 @@ namespace Magitek.Logic.Dragoon
             if (Core.Me.HasAura(Auras.LanceCharge))
                 return false;
 
-            //Exec LanceCharge after Disembowel or RaidenThrust if only 1 ennemy
+            //Exec LanceCharge after Disembowel, SpiralBlow or RaidenThrust if only 1 enemy
             if (Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) == 1)
             {
-                if (ActionManager.LastSpell.Id != Spells.Disembowel.Id && ActionManager.LastSpell.Id != Spells.RaidenThrust.Id)
+                if (ActionManager.LastSpell.Id != Spells.Disembowel.Id
+                    && ActionManager.LastSpell.Id != Spells.SpiralBlow.Id
+                    && ActionManager.LastSpell.Id != Spells.RaidenThrust.Id)
                     return false;
             }
-
             return await Spells.LanceCharge.Cast(Core.Me);
         }
 
@@ -56,45 +57,67 @@ namespace Magitek.Logic.Dragoon
             if (!DragoonSettings.Instance.UseLifeSurge)
                 return false;
 
+            if (Casting.LastSpell == Spells.LifeSurge || Core.Me.HasAura(Auras.LifeSurge))
+                return false;
+
+            // LanceCharge burst or prevent charge overcapping outside burst
             if (!Core.Me.HasAura(Auras.LanceCharge))
-                return false;
+            {
+                if (Spells.LanceCharge.IsKnown())
+                {
+                    // HARDCODED: Level 88 is when Enhanced Life Surge grants the second charge
+                    // This is a trait check, not a spell availability check - MaxCharges reports
+                    // the sheet value (2) even when level sync means only one charge exists
+                    if (Core.Me.ClassLevel >= 88)
+                    {
+                        // Use the user-configured threshold to ensure we don't overcap charges before the next Lance Charge window
+                        if (Spells.LifeSurge.Charges < DragoonSettings.Instance.LifeSurgeChargeThreshold && Spells.LanceCharge.Cooldown.TotalMilliseconds <= 15000)
+                            return false;
+                    }
+                    else
+                    {
+                        // With 1 charge, save it for LanceCharge
+                        return false;
+                    }
+                }
+            }
 
-            if (Casting.LastSpell == Spells.LifeSurge)
-                return false;
+            // Prioritize highest-potency weaponskills: Heavens' Thrust / Full Thrust > Drakesbane > Fang & Claw / AoE
+            if (!Spells.FullThrust.IsKnown())
+            {
+                return await Spells.LifeSurge.Cast(Core.Me);
+            }
 
-            //Life surge only for HeavensThrust / FangAndClaw for SingleTarget or DraconianFury / CoerthanTorment for AOE 
-            if (!Spells.FullThrust.IsKnown()
-                ||
-                (Spells.FullThrust.IsKnown()
-                    &&
-                    (
-                        ActionManager.LastSpell == Spells.VorpalThrust
-                        || ActionManager.LastSpell == DragoonRoutine.Disembowel
-                        || ActionManager.LastSpell == DragoonRoutine.HeavensThrust
-                        || ActionManager.LastSpell == DragoonRoutine.ChaoticSpring
-                        || ActionManager.LastSpell == Spells.WheelingThrust
-                        || ActionManager.LastSpell == Spells.FangAndClaw
-                    )
-                )
-                ||
-                (Spells.CoerthanTorment.IsKnown()
-                    &&
-                    (
-                        ActionManager.LastSpell == Spells.SonicThrust
-                    )
-                )
-                ||
-                (!Spells.CoerthanTorment.IsKnown()
-                    &&
-                    (
-                        ActionManager.LastSpell == Spells.DoomSpike
-                    )
-                )
-                ||
-                Core.Me.HasAura(Auras.DraconianFire, true)
-            )
+            // Single Target: Heavens' Thrust / Full Thrust (after Vorpal Thrust or Lance Barrage)
+            if (ActionManager.LastSpell == Spells.VorpalThrust || ActionManager.LastSpell == Spells.LanceBarrage)
                 return await Spells.LifeSurge.Cast(Core.Me);
 
+            // Single Target: Drakesbane (after Wheeling Thrust or Fang and Claw)
+            if (Spells.Drakesbane.IsKnown() && (ActionManager.LastSpell == Spells.WheelingThrust || ActionManager.LastSpell == Spells.FangAndClaw))
+                return await Spells.LifeSurge.Cast(Core.Me);
+
+            // Low level (58-63): Fang and Claw after Heavens' Thrust
+            if (!Spells.Drakesbane.IsKnown() && ActionManager.LastSpell == DragoonRoutine.HeavensThrust)
+                return await Spells.LifeSurge.Cast(Core.Me);
+
+            // AoE: Coerthan Torment (after Sonic Thrust)
+            if (Spells.CoerthanTorment.IsKnown() && ActionManager.LastSpell == Spells.SonicThrust)
+                return await Spells.LifeSurge.Cast(Core.Me);
+
+            // AoE low level: Sonic Thrust (after Doom Spike)
+            if (!Spells.CoerthanTorment.IsKnown() && ActionManager.LastSpell == Spells.DoomSpike)
+                return await Spells.LifeSurge.Cast(Core.Me);
+
+            // AoE: Draconian Fury
+            if (Core.Me.HasAura(Auras.DraconianFire, true)
+                && AoeControl.Enabled
+                && DragoonSettings.Instance.UseAoe
+                && Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= DragoonSettings.Instance.AoeEnemies)
+            {
+                return await Spells.LifeSurge.Cast(Core.Me);
+            }
+
+            // Fallback: If no conditions are met, do not cast Life Surge
             return false;
         }
 

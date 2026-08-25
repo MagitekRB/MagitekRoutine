@@ -399,6 +399,10 @@ namespace Magitek.Models.Sage
         public bool Diagnosis { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool DontLetTheDRKDie { get; set; }
+
+        [Setting]
         [DefaultValue(30.0f)]
         public float DiagnosisHpPercent { get; set; }
 

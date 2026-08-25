@@ -47,6 +47,10 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Doom(SageSettings.Instance.Diagnosis, Spells.Diagnosis)) return true;
 
             if (await Logic.Sage.Heal.Egeiro()) return true;
+
+            // A Walking Dead tank outranks discretionary healing: the window is short
+            // and every other heal path stops below the healing it needs.
+            if (await Healer.HealWalkingDeadTank(SageSettings.Instance.DontLetTheDRKDie, Spells.Diagnosis)) return true;
             if (await Dispel.Execute()) return true;
 
             if (await Logic.Sage.Heal.ForceZoePneuma()) return true;

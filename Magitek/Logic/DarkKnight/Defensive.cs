@@ -64,7 +64,7 @@ namespace Magitek.Logic.DarkKnight
             if (target == null)
                 return false;
 
-            return await Spells.Oblation.CastAura(Core.Me, Auras.Oblation);
+            return await Spells.Oblation.CastAura(target, Auras.Oblation);
 
             bool CanOblation(Character unit)
             {

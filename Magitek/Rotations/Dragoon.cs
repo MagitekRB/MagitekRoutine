@@ -141,7 +141,6 @@ namespace Magitek.Rotations
 
             return await SingleTarget.TrueThrust();
         }
-
         public static async Task<bool> PvP()
         {
             if (await CommonPvp.CommonTasks(DragoonSettings.Instance)) return true;

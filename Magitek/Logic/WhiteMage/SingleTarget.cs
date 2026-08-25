@@ -29,10 +29,6 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.HasAura(Auras.SacredSight))
                 return false;
 
-            // Target safety check
-            if (Core.Me.CurrentTarget == null || !Core.Me.CurrentTarget.CanAttack)
-                return false;
-
             return await Spells.GlareIV.Cast(Core.Me.CurrentTarget);
         }
 
