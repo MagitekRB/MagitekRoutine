@@ -177,12 +177,15 @@ namespace Magitek.Logic.Machinist
                 && Combat.IsBoss())
                 return false;
 
+            // An unspent Full Metal Field proc always goes BEFORE Wildfire - the guide's
+            // pre-window slot. The old shape let Wildfire through when Barrel Stabilizer's
+            // Hypercharged was also up, and the proc then sat locked out through both
+            // overheats and died on Wildfire's cooldown.
             if (MachinistSettings.Instance.DoubleHyperchargedWildfire
+                && MachinistSettings.Instance.UseFullMetalField
                 && Spells.FullMetalField.IsKnown()
-                && Spells.Wildfire.IsKnownAndReady()
-                && !Spells.BarrelStabilizer.IsKnownAndReady()
+                && Core.Me.HasAura(Auras.FullMetalMachinist)
                 && !Core.Me.HasAura(Auras.Overheated)
-                && (!Core.Me.HasAura(Auras.FullMetalMachinist) || !Core.Me.HasAura(Auras.Hypercharged))
                 && Combat.IsBoss())
                 return false;
 

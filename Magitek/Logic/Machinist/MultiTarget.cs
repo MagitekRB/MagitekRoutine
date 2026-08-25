@@ -224,9 +224,12 @@ namespace Magitek.Logic.Machinist
             // The burst slot is the guide's own sequence - Full Metal Field immediately
             // BEFORE Hypercharge + Wildfire (inside raid buffs), or in Wildfire's tail
             // after the blasts. So: fire only with Wildfire up or at most a GCD away.
+            // ...but never let the proc die waiting: once it is inside its last 8 seconds,
+            // an off-window Full Metal Field beats a lost one.
             if (MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss()
                 && !Core.Me.HasAura(Auras.WildfireBuff, true)
-                && !Spells.Wildfire.IsKnownAndReady(5000))
+                && !Spells.Wildfire.IsKnownAndReady(5000)
+                && Core.Me.HasAura(Auras.FullMetalMachinist, true, 8000))
                 return false;
 
             return await Spells.FullMetalField.Cast(Core.Me.CurrentTarget);
