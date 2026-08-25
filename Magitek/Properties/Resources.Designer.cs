@@ -3792,15 +3792,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weave Jumps.
-        /// </summary>
-        public static string Dragoon_Content_Weave_Jumps {
-            get {
-                return ResourceManager.GetString("Dragoon_Content_Weave_Jumps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nastrond.
         /// </summary>
         public static string Dragoon_Content_Nastrond {

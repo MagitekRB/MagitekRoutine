@@ -108,7 +108,7 @@ namespace Magitek.Rotations
                 if (await Aoe.Nastrond()) return true; //used in Single Target Rotation
 
                 //Jumps SingleWeave
-                if (CanWeaveJump())
+                if (DragoonRoutine.GlobalCooldown.CanWeave(1))
                 {
                     if (await Jumps.HighJump()) return true;  //SingleWeave
                     if (await Jumps.DragonfireDive()) return true; //SingleWeave
@@ -140,14 +140,6 @@ namespace Magitek.Rotations
             if (await SingleTarget.Disembowel()) return true;
 
             return await SingleTarget.TrueThrust();
-        }
-        internal static bool CanWeaveJump()
-        {
-            // Jumps fire whenever ready if the user opts out of weave alignment
-            if (!DragoonSettings.Instance.WeaveJumps)
-                return true;
-
-            return DragoonRoutine.GlobalCooldown.CanWeave(1);
         }
         public static async Task<bool> PvP()
         {

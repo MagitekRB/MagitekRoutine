@@ -30,10 +30,6 @@ namespace Magitek.Models.Dragoon
 
         [Setting]
         [DefaultValue(true)]
-        public bool WeaveJumps { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool UseHighJump { get; set; }
 
         [Setting]
