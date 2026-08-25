@@ -7397,6 +7397,8 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             49179, // Empty Proclamation
                             49182, // Super Nova
+                            49174, // Starflare — same structure as Shinryu's catalogued Starflare: the
+                                   // bar is the parent cast and the hits ride hidden twins ~8-10s later
                             // Celestial Trail family 49139-49144/49147: only 49140 has a castbar
                             // (7.7s, from HP-44 helper copies sharing the boss's NpcId); the rest are
                             // echoes and damage ids — do not catalogue them. Needs the
@@ -7426,7 +7428,9 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
-                            50092,
+                            50092, // Fulmination Khalkeos
+                            50093, // Fulmination Khryseos — twin of Khalkeos with identical arena-wide
+                                   // geometry; seen in earlier sessions but not yet hit-confirmed
                         },
                         BigAoes = null,
                         Knockbacks = null,
