@@ -55,6 +55,13 @@ namespace Magitek.Logic.Roles
             Mesmerized = 4802,
             MagicShell = 4788,
             HonedSpellblade = 4789,
+            // Blazing Spellblade applies BOTH halves of a pair from a single cast, 70s each:
+            // 4790 lands on us (+5% damage dealt), 4791 on the enemy (+5% damage taken). The
+            // English names are no guide to which is which - Japanese marks the harmful half
+            // with ［害］ (まほうけんフレア vs まほうけんフレア［害］) and the client's ReactionFlag
+            // reads 1 for 4790 against 2 for 4791. Do not swap these.
+            BlazingSpellblade = 4790,
+            BlazingBane = 4791,
             FinishingFervor = 4793,
             Defend = 4792,
             // Elemental weaknesses revealed on an enemy by Occult Libra (North Horn). A matching
@@ -3639,8 +3646,20 @@ namespace Magitek.Logic.Roles
             if (!target.WithinSpellRange(OCSpells.BlazingSpellblade.Range))
                 return false;
 
-            // Don't recast if target already has Vulnerability Up (70s duration)
-            if (target.HasAura(Auras.VulnerabilityUp))
+            // Re-cast if EITHER half of the pair is missing. A freshly pulled enemy has no
+            // Blazing Bane even while our own Blazing Spellblade is still running, and another
+            // Mystic Knight's Bane on the target does nothing for our personal damage buff.
+            //
+            // All three Spellblades share one 30s recast, so cast windows land at 0/30/60/90
+            // while the pair expires at 70 - waiting for a clean expiry leaves a 20s hole. At
+            // the third window the pair has exactly 10s left, and msLeft compares with >=, so
+            // the threshold has to clear 10s to catch it. Half a shared window does that with
+            // room for the real cadence drifting late, and spends every other window on Blazing
+            // while the rest go to Holy Spellblade, which is the bigger hit.
+            const int refreshMs = 15000;
+
+            if (Core.Me.HasAura(OCAuras.BlazingSpellblade, msLeft: refreshMs)
+                && target.HasAura(OCAuras.BlazingBane, msLeft: refreshMs))
                 return false;
 
             return await OCSpells.BlazingSpellblade.Cast(target);
