@@ -151,6 +151,12 @@
         </controls:SettingsBlock>        
 
 
+        <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <CheckBox Content="{x:Static properties:Resources.Generic_Dont_Let_The_DRK_Die}" IsChecked="{Binding WhiteMageSettings.DontLetTheDRKDie, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+            </StackPanel>
+        </controls:SettingsBlock>
+
         </StackPanel>
     </ScrollViewer>
 </UserControl>

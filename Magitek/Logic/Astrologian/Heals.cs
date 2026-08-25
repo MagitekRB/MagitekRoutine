@@ -178,24 +178,7 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> DontLetTheDrkDie()
         {
-            if (!AstrologianSettings.Instance.DontLetTheDRKDie)
-                return false;
-
-            if (!Globals.InParty)
-                return false;
-
-            if (!Globals.PartyInCombat)
-                return false;
-
-            var walkingDeadMan = Group.CastableTanks.FirstOrDefault(r =>
-                !Utilities.Routines.Astrologian.DontBenefic2.Contains(r.Name)
-                && r.HasAura(Auras.WalkingDead)
-                && r.CurrentHealthPercent < 100);
-
-            if (walkingDeadMan == null)
-                return false;
-
-            return await Spells.Benefic2.Heal(walkingDeadMan);
+            return await Healer.HealWalkingDeadTank(AstrologianSettings.Instance.DontLetTheDRKDie, Spells.Benefic2);
         }
 
         public static async Task<bool> CelestialIntersection()

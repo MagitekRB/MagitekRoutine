@@ -43,6 +43,10 @@ namespace Magitek.Rotations
             if (await CommonFightLogic.FightLogic_Doom(AstrologianSettings.Instance.Benefic2, Spells.Benefic2)) return true;
 
             if (await Heals.Ascend()) return true;
+
+            // A Walking Dead tank outranks discretionary healing: the window is short
+            // and every other heal path stops below the healing it needs.
+            if (await Heals.DontLetTheDrkDie()) return true;
             if (await Dispel.Execute()) return true;
 
             if (await HealFightLogic.Aoe()) return true;
@@ -94,7 +98,6 @@ namespace Magitek.Rotations
                 if (await Heals.AspectedBenefic()) return true;
                 if (await Heals.Benefic2()) return true;
                 if (await Heals.Benefic()) return true;
-                if (await Heals.DontLetTheDrkDie()) return true;
             }
 
             return await HealAlliance();

@@ -5430,6 +5430,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>seconds</value>
   </data>
+  <data name="Generic_Dont_Let_The_DRK_Die" xml:space="preserve">
+    <value>Keep a Dark Knight in Walking Dead topped up so it doesn't kill them</value>
+  </data>
   <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
     <value>Use PvP Aggro Count Overlay</value>
   </data>

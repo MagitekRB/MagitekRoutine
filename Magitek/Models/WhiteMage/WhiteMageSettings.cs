@@ -278,6 +278,10 @@ namespace Magitek.Models.WhiteMage
         public bool Cure2 { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool DontLetTheDRKDie { get; set; }
+
+        [Setting]
         [DefaultValue(75.0f)]
         public float Cure2HealthPercent { get; set; }
 
