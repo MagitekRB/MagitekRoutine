@@ -139,7 +139,11 @@ namespace Magitek.Logic.Machinist
                 if (!Core.Me.HasAura(Auras.Overheated))
                     return false;
 
-                if (!MachinistRoutine.GlobalCooldown.IsLateWeaveWindow())
+                // Weave on position while the overheat window is young; once it is half
+                // spent, fire in ANY weave slot rather than risk the buff missing the
+                // blasts entirely (blasts free-run and never wait for this cast).
+                if (!MachinistRoutine.GlobalCooldown.IsLateWeaveWindow()
+                    && ActionResourceManager.Machinist.OverheatRemaining.TotalMilliseconds > 5000)
                     return false;
             }
             else
