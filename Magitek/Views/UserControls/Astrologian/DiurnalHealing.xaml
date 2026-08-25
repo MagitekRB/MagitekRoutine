@@ -85,6 +85,11 @@
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Minimum_Mana_To_Use}" />
                 </StackPanel>
 
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Astrologian_Text_Neutral_Sect_No_Reshield}" />
+                    <controls:Numeric MaxValue="15" MinValue="0" Value="{Binding AstrologianSettings.DiurnalHeliosReshieldRegenSecondsLeft, Mode=TwoWay}" />
+                </StackPanel>
+
                 <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone}"  IsChecked="{Binding AstrologianSettings.DiurnalHeliosNoSwiftcast, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
