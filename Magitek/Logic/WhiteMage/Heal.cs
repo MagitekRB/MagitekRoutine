@@ -687,6 +687,15 @@ namespace Magitek.Logic.WhiteMage
             if (!Core.Me.HasAura(Auras.DivineGrace))
                 return false;
 
+            // Optional: hold Divine Caress while Temperance is up so the mitigation and the shield
+            // land back to back instead of on top of each other, releasing once Divine Grace is
+            // nearly out. Off by default, because Divine Caress is also our fight logic shield
+            // response and holding it means the shield is missing when the mechanic resolves.
+            if (WhiteMageSettings.Instance.HoldDivineCaressDuringTemperance
+                && Core.Me.HasAura(Auras.Temperance)
+                && !Core.Me.HasAuraExpiringWithin(Auras.DivineGrace, msRemaining: 5000))
+                return false;
+
             return await Spells.DivineCaress.Cast(Core.Me);
         }
 

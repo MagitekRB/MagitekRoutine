@@ -131,6 +131,9 @@
                 <StackPanel Margin="0,5" Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.WhiteMage_Content_Divine_Caress}" IsChecked="{Binding WhiteMageSettings.UseDivineCaress, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
+                <StackPanel Margin="0,5" Orientation="Horizontal">
+                    <CheckBox Margin="20,0,0,0" Content="{x:Static properties:Resources.WhiteMage_Content_Hold_Divine_Caress_During_Temperance}" IsChecked="{Binding WhiteMageSettings.HoldDivineCaressDuringTemperance, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                </StackPanel>
             </StackPanel>
         </controls:SettingsBlock>
 
