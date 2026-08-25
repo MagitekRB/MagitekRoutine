@@ -331,16 +331,16 @@ namespace Magitek.Logic.Roles
                 new Vector3(456.5246f, 71.46682f, 524.4749f),
                 new Vector3(350.6741f, 46.45173f, -558.5289f),
                 new Vector3(-18.32449f, 3.79342f, -37.40308f),
-                // Forked Tower shares this zone id but sits far below the overworld. These came from
-                // session logs rather than a live reading, so they are approximate and unconfirmed.
-                new Vector3(597.8f, -700f, 927f),               // Forked Tower entrance
-                new Vector3(-893f, -984.7401f, 780f),           // Forked Tower
-                new Vector3(-900f, -986.1f, 782.2488f),
-                new Vector3(103f, -706.7383f, 678f),
-                new Vector3(0f, -722.6936f, -367f),
-                new Vector3(603.5453f, -672.6606f, 640.6041f),
-                new Vector3(599.4f, -700.0f, 927.8f),           // Forked Tower, Lower Vestibule
-                new Vector3(603.7968f, -670.6514f, -125.1157f)
+                // Forked Tower shares this zone id but sits far below the overworld. These six
+                // were surveyed in game at the live crystal objects (2026-08-07), replacing the
+                // earlier approximate log-derived set — which also listed the raid's staging marker
+                // (~58y from the real Tower Base crystal) and drew failed buff rounds there.
+                new Vector3(-893.3f, -986.1f, 781.9f),          // Tower Base
+                new Vector3(602.3f, -674.0f, 642.0f),           // Lower Central
+                new Vector3(599.4f, -700.0f, 927.8f),           // Lower Vestibule
+                new Vector3(603.0f, -672.0f, -123.4f),          // Veil of Ignorance
+                new Vector3(102.0f, -708.0f, 679.6f),           // Upper Passage
+                new Vector3(-0.5f, -724.0f, -365.1f)            // Pinnacle
             }
         };
 
