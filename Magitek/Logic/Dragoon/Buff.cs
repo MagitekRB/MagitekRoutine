@@ -65,8 +65,10 @@ namespace Magitek.Logic.Dragoon
             {
                 if (Spells.LanceCharge.IsKnown())
                 {
-                    // With 2 charges (lv88+), spend a charge if nearing overcap or LanceCharge is far off
-                    if (Spells.LifeSurge.MaxCharges >= 2)
+                    // HARDCODED: Level 88 is when Enhanced Life Surge grants the second charge
+                    // This is a trait check, not a spell availability check - MaxCharges reports
+                    // the sheet value (2) even when level sync means only one charge exists
+                    if (Core.Me.ClassLevel >= 88)
                     {
                         // Use the user-configured threshold to ensure we don't overcap charges before the next Lance Charge window
                         if (Spells.LifeSurge.Charges < DragoonSettings.Instance.LifeSurgeChargeThreshold && Spells.LanceCharge.Cooldown.TotalMilliseconds <= 15000)
