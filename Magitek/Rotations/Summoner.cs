@@ -70,6 +70,7 @@ namespace Magitek.Rotations
             if (await Aoe.CrimsonStrike()) return true;
             if (await Buff.LucidDreaming()) return true;
             if (await Pets.SummonCarbuncleOrEgi()) return true;
+            if (await Buff.SearingLight()) return true;
             if (await Aoe.EnergySiphon()) return true;
             if (await Aoe.SearingFlash()) return true;
             if (await SingleTarget.EnergyDrain()) return true;
