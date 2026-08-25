@@ -3819,6 +3819,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Life Surge charge threshold.
+        /// </summary>
+        public static string Dragoon_Text_Life_Surge_Charge_Threshold {
+            get {
+                return ResourceManager.GetString("Dragoon_Text_Life_Surge_Charge_Threshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nastrond.
         /// </summary>
         public static string Dragoon_Content_Nastrond {
