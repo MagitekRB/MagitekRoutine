@@ -102,6 +102,13 @@ namespace Magitek.Logic.Astrologian
             if (target.CharacterAuras.Count() >= 25)
                 return false;
 
+            // The dial covers this path too: a fresh dot on the current target spends the
+            // same budget the multi-target path counts, or target-swapping would ride the
+            // primary cast past any cap. Refreshing a target already carrying it is free.
+            if (!Core.Me.CurrentTarget.HasAnyAura(CombustAuras, true)
+                && Combat.Enemies.Count(e => e.HasAnyAura(CombustAuras, true)) >= AstrologianSettings.Instance.CombustUpToEnemies)
+                return false;
+
             if (Core.Me.CurrentTarget.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds))
                 return false;
 
