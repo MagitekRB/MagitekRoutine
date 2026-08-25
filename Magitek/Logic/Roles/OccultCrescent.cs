@@ -2048,6 +2048,14 @@ namespace Magitek.Logic.Roles
             if (potionTarget == null)
                 return false;
 
+            // An item cast carries a ~2s animation lock: fired inside Machinist's overheat
+            // it locks out a Heat Blast (measured as recurring ~4.4s dead space right after
+            // Hypercharge). Overheat lasts 10s at most, so unless the target is in real
+            // danger - below half the configured threshold - the potion waits the window out.
+            if (Core.Me.HasAura(Auras.Overheated)
+                && potionTarget.CurrentHealthPercent > OccultCrescentSettings.Instance.OccultPotionHealthPercent / 2)
+                return false;
+
             return await OCSpells.OccultPotion.Cast(potionTarget);
         }
 
@@ -2088,6 +2096,11 @@ namespace Magitek.Logic.Roles
             }
 
             if (etherTarget == null)
+                return false;
+
+            // Same item animation lock as Occult Potion: never worth a Heat Blast, and
+            // nobody is in danger from low MP for the few seconds overheat lasts.
+            if (Core.Me.HasAura(Auras.Overheated))
                 return false;
 
             return await OCSpells.OccultEther.Cast(etherTarget);
@@ -2165,6 +2178,22 @@ namespace Magitek.Logic.Roles
             // Only cast if multiple people need help (justify the 300k cost)
             if (partyMembersNeedingHelp < 2)
                 return false;
+
+            // Same item animation lock as Occult Potion, and the trigger above counts low
+            // MP as "needing help" - two casters dipping mana must not break a Machinist
+            // overheat. During overheat only a real HP emergency (two allies below half
+            // the configured threshold) justifies it; Revive is deliberately NOT gated
+            // anywhere in this kit - a raise always outranks a burst window.
+            if (Core.Me.HasAura(Auras.Overheated))
+            {
+                var hpEmergencies = Group.CastableAlliesWithin30.Count(ally =>
+                    ally.IsValid && ally.IsAlive
+                    && ally.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultElixirPartyHealthPercent / 2)
+                    + (Core.Me.CurrentHealthPercent <= OccultCrescentSettings.Instance.OccultElixirPartyHealthPercent / 2 ? 1 : 0);
+
+                if (hpEmergencies < 2)
+                    return false;
+            }
 
             return await OCSpells.OccultElixir.Cast(Core.Me);
         }
