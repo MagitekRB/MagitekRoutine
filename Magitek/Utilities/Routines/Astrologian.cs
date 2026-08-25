@@ -29,15 +29,19 @@ namespace Magitek.Utilities.Routines
         {
             var s = Models.Astrologian.AstrologianSettings.Instance;
 
-            if (s.EssentialDignity && Spells.EssentialDignity.IsKnownAndReady())
+            // Each clause mirrors its caster's own gates (combat, party) - a tool that
+            // would refuse to fire must not suppress the fallback GCD heals. Between
+            // pulls this once held Benefic at the emergency threshold on the strength
+            // of an Essential Dignity that never casts out of combat.
+            if (s.EssentialDignity && Core.Me.InCombat && Spells.EssentialDignity.IsKnownAndReady())
                 return true;
 
-            if (s.CelestialIntersection && Spells.CelestialIntersection.IsKnownAndReady())
+            if (s.CelestialIntersection && Globals.PartyInCombat && Spells.CelestialIntersection.IsKnownAndReady())
                 return true;
 
             // Exaltation only counts while its threshold path is live - in fight-logic mode
             // against catalogued busters it is reserved for the buster, not for upkeep.
-            if (s.Exaltation && Spells.Exaltation.IsKnownAndReady()
+            if (s.Exaltation && Globals.InParty && Spells.Exaltation.IsKnownAndReady()
                 && (!s.FightLogicExaltation || !FightLogic.EnemyHasAnyTankbusterLogic()))
                 return true;
 
@@ -51,7 +55,7 @@ namespace Magitek.Utilities.Routines
             if (s.CelestialOpposition && Spells.CelestialOpposition.IsKnownAndReady())
                 return true;
 
-            if (s.CollectiveUnconscious && Spells.CollectiveUnconscious.IsKnownAndReady())
+            if (s.CollectiveUnconscious && Core.Me.InCombat && Spells.CollectiveUnconscious.IsKnownAndReady())
                 return true;
 
             return false;
