@@ -15891,6 +15891,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hold Divine Caress While Temperance Is Active.
+        /// </summary>
+        public static string WhiteMage_Content_Hold_Divine_Caress_During_Temperance {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Hold_Divine_Caress_During_Temperance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Holy When There Are.
         /// </summary>
         public static string WhiteMage_Content_Holy_When_There_Are {

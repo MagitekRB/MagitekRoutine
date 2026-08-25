@@ -3765,6 +3765,9 @@
   <data name="WhiteMage_Content_Dot_up_to" xml:space="preserve">
     <value>为最多[xx]个目标上DoT</value>
   </data>
+  <data name="WhiteMage_Content_Hold_Divine_Caress_During_Temperance" xml:space="preserve">
+    <value>节制期间保留神爱抚</value>
+  </data>
   <data name="WhiteMage_Content_Holy_When_There_Are" xml:space="preserve">
     <value>当有[xx]时使用神圣</value>
   </data>

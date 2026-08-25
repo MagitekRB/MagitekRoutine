@@ -3764,6 +3764,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="WhiteMage_Content_Dot_up_to" xml:space="preserve">
     <value>Dot up to</value>
   </data>
+  <data name="WhiteMage_Content_Hold_Divine_Caress_During_Temperance" xml:space="preserve">
+    <value>Hold Divine Caress While Temperance Is Active</value>
+  </data>
   <data name="WhiteMage_Content_Holy_When_There_Are" xml:space="preserve">
     <value>Holy When There Are</value>
   </data>
