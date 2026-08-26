@@ -4295,11 +4295,65 @@ namespace Magitek.Logic.Roles
             if (await WhiteMageOccultCureII())
                 return true;
 
+            // Occult Raise - below the mitigation and the heals, above the damage. Someone already on
+            // the floor can wait the couple of seconds it takes to finish a cure; someone about to join
+            // them cannot. Instant cast, so being outranked here costs a pulse, not a cast.
+            if (await OccultRaise())
+                return true;
+
             // Occult Holy - 60s recast, the job's only damage
             if (await OccultHoly())
                 return true;
 
             return false;
+        }
+
+        /// <summary>
+        /// Cast Occult Raise - resurrects a dead party member
+        /// Instant cast, so no swiftcast handling, and it uniquely works on targets flagged
+        /// Resurrection Restricted
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultRaise()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultRaise)
+                return false;
+
+            // Occult Raise already had a call site in ExecuteNonPartyResurrection(), which works off
+            // the alliance list. This is the party-side path it was missing, so a Phantom White Mage
+            // now picks up their own party members and Trust NPCs rather than only strangers.
+            //
+            // Find dead allies using the same logic as Healer.Raise — including the raw 3D
+            // distance, which is deliberate there and must stay deliberate here. It is the
+            // exception to the "always use WithinSpellRange" rule in AGENTS.md: a corpse has
+            // no usable CombatReach, so raise range is centre to centre, and WithinSpellRange
+            // uses Distance2D so it would ignore height entirely. Leave this as Distance.
+            var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
+                                                       !u.HasAura(Auras.Raise) &&
+                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.IsVisible &&
+                                                       u.InLineOfSight() &&
+                                                       u.IsTargetable &&
+                                                       Group.GetDeathTime(u)?.AddSeconds(OccultCrescentSettings.Instance.OccultRaiseDelay) <= DateTime.Now)
+                .OrderByDescending(r => r.GetResurrectionWeight());
+
+            var deadTarget = deadList.FirstOrDefault();
+
+            if (deadTarget == null)
+                return false;
+
+            if (!deadTarget.IsTargetable)
+                return false;
+
+            if (!OCSpells.OccultRaise.CanCast(deadTarget))
+                return false;
+
+            // Check combat restrictions - only check out of combat restriction
+            if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.OccultRaiseOutOfCombat)
+                return false;
+
+            // Occult Raise is instant - no swiftcast needed
+            return await OCSpells.OccultRaise.CastAura(deadTarget, Auras.Raise);
         }
         #endregion
 

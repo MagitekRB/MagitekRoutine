@@ -2097,6 +2097,9 @@
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>使用 魔神圣</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Raise" xml:space="preserve">
+    <value>使用 魔复活 (复活死亡的小队成员)</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
     <value>使用 魔分身 (无效化一次魔法攻击)</value>
   </data>

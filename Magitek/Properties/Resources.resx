@@ -2096,6 +2096,9 @@ Does not work if Lightspeed is disabled.</value>
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>Use Occult Holy</value>
   </data>
+  <data name="OccultCrescent_Content_Use_Occult_Raise" xml:space="preserve">
+    <value>Use Occult Raise (Resurrect dead party members)</value>
+  </data>
   <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
     <value>Use Occult Blink (nullifies one magic attack)</value>
   </data>
