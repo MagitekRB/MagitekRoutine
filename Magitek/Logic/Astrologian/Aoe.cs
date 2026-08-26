@@ -38,10 +38,21 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.LordOfCrowns)
                 return false;
 
+            // A damage oGCD has no business firing out of combat - but in a duty the
+            // heal-oGCD block runs between pulls too (InActiveDuty stays true for the whole
+            // instance), and Lord was landing 0.7s after out-of-combat raises: measured five
+            // times across two days, once onto a still-idle pack.
+            if (!Core.Me.InCombat)
+                return false;
+
             if (!Spells.LordofCrowns.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(20).Count() < AstrologianSettings.Instance.LordOfCrownsEnemies && AstrologianSettings.Instance.LordOfCrownsEnemies > 1)
+            // Lord is centred on the caster, so count around US rather than the current
+            // target - and always require at least one enemy in range: the old guard skipped
+            // counting entirely at the default setting, and dereferenced a target that
+            // between pulls often does not exist.
+            if (Core.Me.EnemiesNearby(20).Count() < System.Math.Max(1, AstrologianSettings.Instance.LordOfCrownsEnemies))
                 return false;
 
             return await Spells.LordofCrowns.Cast(Core.Me);
