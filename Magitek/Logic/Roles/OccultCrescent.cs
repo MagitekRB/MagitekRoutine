@@ -893,16 +893,19 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteChemistPhantomJob()
         {
-            // Revive - resurrect dead party members first
-            if (await Revive())
-                return true;
-
             // OccultElixir - party-wide HP/MP restoration (most expensive)
             if (await OccultElixir())
                 return true;
 
             // OccultPotion - HP restoration (expensive)
             if (await OccultPotion())
+                return true;
+
+            // Revive - resurrect dead party members, below the heals that keep the living alive and
+            // above the MP top-up that does not. Revive used to run first, which meant stopping to
+            // pick someone up off the floor while a party member on the edge died waiting. Same order
+            // as Phantom White Mage's Occult Raise.
+            if (await Revive())
                 return true;
 
             // OccultEther - MP restoration
