@@ -23,25 +23,35 @@ namespace Magitek.Utilities.Routines
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Astrologian, Spells.Malefic);
 
         // Modern AST heals oGCD-first: a hardcast GCD heal is justified only when the free
-        // tools cannot answer, so the GCD heals shrink to their emergency threshold while
-        // one of these is ready and the weave window handles everything above it.
-        public static bool SingleTargetOgcdHealReady()
+        // tools cannot answer, so the GCD heals shrink to their emergency threshold for an
+        // ally one of these WILL cover. The question is "will a free tool heal this person",
+        // never "is a free tool off cooldown": each clause mirrors its caster's own gates -
+        // combat state, tank-only mode, blacklist - so an ally the tools would never touch
+        // keeps the full GCD threshold. On stock settings all three are tank-only, which
+        // once left a DPS at 50% unhealed until 45%.
+        public static bool SingleTargetOgcdHealReadyFor(Character target)
         {
+            if (target == null)
+                return false;
+
             var s = Models.Astrologian.AstrologianSettings.Instance;
+            var isTank = target.IsTank();
+            var soloSelf = !Globals.InParty && target == Core.Me;
 
-            // Each clause mirrors its caster's own gates (combat, party) - a tool that
-            // would refuse to fire must not suppress the fallback GCD heals. Between
-            // pulls this once held Benefic at the emergency threshold on the strength
-            // of an Essential Dignity that never casts out of combat.
-            if (s.EssentialDignity && Core.Me.InCombat && Spells.EssentialDignity.IsKnownAndReady())
+            if (s.EssentialDignity && Core.Me.InCombat && Spells.EssentialDignity.IsKnownAndReady()
+                && !DontEssentialDignity.Contains(target.Name)
+                && (!s.EssentialDignityTankOnly || isTank || soloSelf))
                 return true;
 
-            if (s.CelestialIntersection && Globals.PartyInCombat && Spells.CelestialIntersection.IsKnownAndReady())
+            if (s.CelestialIntersection && Globals.PartyInCombat && Spells.CelestialIntersection.IsKnownAndReady()
+                && !DontCelestialIntersection.Contains(target.Name)
+                && (!s.CelestialIntersectionTankOnly || isTank))
                 return true;
 
-            // Exaltation only counts while its threshold path is live - in fight-logic mode
-            // against catalogued busters it is reserved for the buster, not for upkeep.
-            if (s.Exaltation && Globals.InParty && Spells.Exaltation.IsKnownAndReady()
+            // Exaltation's threshold path only ever covers a tank - and only while that path
+            // is live: in fight-logic mode against catalogued busters it is reserved for the
+            // buster, not for upkeep.
+            if (s.Exaltation && Globals.InParty && isTank && Spells.Exaltation.IsKnownAndReady()
                 && (!s.FightLogicExaltation || !FightLogic.EnemyHasAnyTankbusterLogic()))
                 return true;
 

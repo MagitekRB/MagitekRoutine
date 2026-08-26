@@ -53,16 +53,21 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
-            // oGCD-first, same rule as Benefic II below.
-            var beneficThreshold = AstrologianSettings.Instance.BeneficHealthPercent;
-            if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.SingleTargetOgcdHealReady())
-                beneficThreshold = System.Math.Min(beneficThreshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+            // oGCD-first, same rule as Benefic II below - judged per ally, because whether a
+            // free tool will cover someone depends on who they are.
+            bool WantsBenefic(Character r)
+            {
+                var threshold = AstrologianSettings.Instance.BeneficHealthPercent;
+                if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.SingleTargetOgcdHealReadyFor(r))
+                    threshold = System.Math.Min(threshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+                return r.CurrentHealthPercent <= threshold;
+            }
 
             if (Globals.InParty)
             {
                 var beneficTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontBenefic.Contains(r.Name)
                     && r.CurrentHealth > 0
-                    && r.CurrentHealthPercent <= beneficThreshold
+                    && WantsBenefic(r)
                     && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
                 if (beneficTarget == null)
@@ -71,7 +76,7 @@ namespace Magitek.Logic.Astrologian
                 return await Spells.Benefic.Heal(beneficTarget);
             }
 
-            if (Core.Me.CurrentHealthPercent > beneficThreshold)
+            if (!WantsBenefic(Core.Me))
                 return false;
 
             return await Spells.Benefic.Heal(Core.Me);
@@ -88,11 +93,15 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
-            // oGCD-first: while a free single-target tool is ready, only hardcast for real
-            // emergencies - the weave window answers everything above that line.
-            var benefic2Threshold = AstrologianSettings.Instance.Benefic2HealthPercent;
-            if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.SingleTargetOgcdHealReady())
-                benefic2Threshold = System.Math.Min(benefic2Threshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+            // oGCD-first: while a free single-target tool will cover this ally, only hardcast
+            // for real emergencies - the weave window answers everything above that line.
+            bool WantsBenefic2(Character r)
+            {
+                var threshold = AstrologianSettings.Instance.Benefic2HealthPercent;
+                if (AstrologianSettings.Instance.PreferOgcdHeals && Utilities.Routines.Astrologian.SingleTargetOgcdHealReadyFor(r))
+                    threshold = System.Math.Min(threshold, AstrologianSettings.Instance.GcdHealOnlyBelowHealthPercent);
+                return r.CurrentHealthPercent <= threshold;
+            }
 
             var shouldBenefic2WithEnhancedBenefic2 = AstrologianSettings.Instance.Benefic2AlwaysWithEnhancedBenefic2
                 && Core.Me.CurrentManaPercent >= Spells.Benefic2.Cost;
@@ -113,12 +122,12 @@ namespace Magitek.Logic.Astrologian
                     }
                 }
 
-                if (Core.Me.CurrentHealthPercent < benefic2Threshold)
+                if (WantsBenefic2(Core.Me))
                     return await Spells.Benefic2.Heal(Core.Me);
 
                 var benefic2Target = Group.CastableAlliesWithin30.FirstOrDefault(r => !Utilities.Routines.Astrologian.DontBenefic2.Contains(r.Name)
                 && r.CurrentHealth > 0
-                && r.CurrentHealthPercent <= benefic2Threshold
+                && WantsBenefic2(r)
                 && r.CheckTankImmunity() == TankImmunityCheck.HealThem);
 
                 if (benefic2Target == null)
@@ -135,7 +144,7 @@ namespace Magitek.Logic.Astrologian
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent > benefic2Threshold)
+                if (!WantsBenefic2(Core.Me))
                     return false;
 
                 return await Spells.Benefic2.Heal(Core.Me);
