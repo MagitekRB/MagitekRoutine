@@ -215,9 +215,13 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             // At full charges every tick of recharge is wasted free healing, so spend one
-            // far more liberally than the normal threshold.
+            // far more liberally than the normal threshold. MaxCharges is trait-aware at
+            // runtime (1 below Lv78, 2, then 3 at 98+), so with a single charge "capped" would
+            // simply mean "ready" and the normal threshold would never apply - the relaxed
+            // rule only exists where there are charges to bank.
             var edThreshold = AstrologianSettings.Instance.EssentialDignityHealthPercent;
-            if (Spells.EssentialDignity.Charges >= Spells.EssentialDignity.MaxCharges)
+            if (Spells.EssentialDignity.MaxCharges > 1
+                && Spells.EssentialDignity.Charges >= Spells.EssentialDignity.MaxCharges)
                 edThreshold = System.Math.Max(edThreshold, AstrologianSettings.Instance.EssentialDignityCappedHealthPercent);
 
             if (Globals.InParty)
