@@ -47,6 +47,10 @@ namespace Magitek.Utilities
         /// </summary>
         public static string CommonAoeLockOnsDisplay => string.Join(", ", CommonAoeLockOns.OrderBy(x => x));
 
+        // Doom carriers we have already sent a heal at, and the moment that heal stops being in
+        // flight. Keyed by ObjectId, pruned on every write, so it cannot grow past the party.
+        private static readonly Dictionary<uint, DateTime> DoomResponseSettlesAt = new Dictionary<uint, DateTime>();
+
         /// <summary>
         /// The ally (or ourselves when solo) carrying a heal-to-full Doom, or null. This Doom
         /// recurs across content - dungeon bosses apply it as well as the Occult Crescent
@@ -60,9 +64,49 @@ namespace Magitek.Utilities
             // sitting at full is already cleansing (removal latency) and healing them again
             // only wastes the GCD.
             if (Globals.InParty)
-                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth);
+                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth && !DoomResponseInFlight(r));
 
-            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth ? Core.Me : null;
+            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth && !DoomResponseInFlight(Core.Me) ? Core.Me : null;
+        }
+
+        /// <summary>
+        /// Records that a Doom heal has just gone out at <paramref name="carrier"/> and paces the
+        /// next one at that same carrier by the cast plus a full GCD.
+        /// <para>
+        /// Without this the response answers the same Doom twice, back to back. The aura only clears
+        /// once the SERVER applies the heal, which is a round trip after the client says the cast
+        /// finished - so on the pulse right after it lands the carrier still reads as doomed and
+        /// still reads as below full, and the next GCD is spent on a Doom that is already answered.
+        /// Seen five times on one party member in a single Occult Crescent CE, each pair 2.0-2.8s
+        /// apart, which is one GCD.
+        /// </para>
+        /// <para>
+        /// The window is derived rather than fixed so it tracks the healer's spell speed and
+        /// whichever heal the job passed: the cast has to finish, and then a whole GCD has to pass -
+        /// "put a normal action in between", stated as a duration. A duration rather than "did we
+        /// cast anything else" on purpose, because an oGCD weaved on top of the heal satisfies the
+        /// second phrasing while still landing inside the round trip.
+        /// </para>
+        /// <para>
+        /// Paced per carrier rather than globally, so a second doomed ally is still answered at once.
+        /// </para>
+        /// </summary>
+        public static void PaceDoomResponse(Character carrier, SpellData heal)
+        {
+            if (carrier == null || heal == null)
+                return;
+
+            var now = DateTime.UtcNow;
+
+            foreach (var settled in DoomResponseSettlesAt.Where(r => r.Value <= now).Select(r => r.Key).ToList())
+                DoomResponseSettlesAt.Remove(settled);
+
+            DoomResponseSettlesAt[carrier.ObjectId] = now + heal.AdjustedCastTime + heal.AdjustedCooldown;
+        }
+
+        private static bool DoomResponseInFlight(Character carrier)
+        {
+            return DoomResponseSettlesAt.TryGetValue(carrier.ObjectId, out var settlesAt) && DateTime.UtcNow < settlesAt;
         }
 
         private static TimeSpan FlCooldown
@@ -700,4 +744,4 @@ namespace Magitek.Utilities
         internal FfxivExpansion Expansion { get; set; }
         internal List<Enemy> Enemies { get; set; }
     }
-}
+}

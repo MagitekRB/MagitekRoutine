@@ -214,7 +214,14 @@ namespace Magitek.Logic.Roles
             if (BaseSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo($"[Doom Response] Cast {heal.Name} on {doomed.Name}");
 
-            return await heal.Heal(doomed, false);
+            if (!await heal.Heal(doomed, false))
+                return false;
+
+            // The heal is now in flight, and the aura will not clear until the server applies it -
+            // so this carrier is off the table until it has resolved. Without this the very next
+            // GCD answers the same Doom a second time.
+            FightLogic.PaceDoomResponse(doomed, heal);
+            return true;
         }
     }
 }
