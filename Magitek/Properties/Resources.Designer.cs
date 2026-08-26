@@ -9001,7 +9001,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Quick_Speed_buff", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Raise (Resurrect dead party members).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Raise {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Raise", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Slowga (Inflicts Slow on enemies).
         /// </summary>
