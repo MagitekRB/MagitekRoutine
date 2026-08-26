@@ -39,11 +39,14 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Benefic)
                 return false;
 
-            // Benefic II fully replaces Benefic once learned. Historically this method
-            // silently redirected every cast to Benefic II; now it honestly steps aside,
-            // and only casts plain Benefic under deep level sync or with Benefic II disabled.
-            // The alliance-only-Benefic mode bypasses this - spamming the cheap heal on the
-            // alliance is that mode's entire point.
+            // Benefic and Benefic II are independent actions - both stay on the bar at 100,
+            // nothing masks one into the other. Plain Benefic steps aside here because
+            // Benefic II runs first with its own (higher, on defaults) threshold and simply
+            // out-heals it, so the cheaper cast only earns a slot where Benefic II is not
+            // available: deep level sync, or Benefic II disabled. Historically this method
+            // silently redirected every cast to Benefic II instead. The alliance-only-Benefic
+            // mode bypasses this - spamming the cheap heal on the alliance is that mode's
+            // entire point.
             if (!ignoreBenefic2 && Spells.Benefic2.IsKnown() && AstrologianSettings.Instance.Benefic2)
                 return false;
 
