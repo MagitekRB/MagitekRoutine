@@ -71,7 +71,7 @@ namespace Magitek.Models.Machinist
         public bool UseAutoCrossbow { get; set; }
 
         [Setting]
-        [DefaultValue(6)]
+        [DefaultValue(4)]
         public int AutoCrossbowEnemyCount { get; set; }
 
         [Setting]
