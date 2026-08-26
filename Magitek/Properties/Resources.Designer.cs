@@ -4854,6 +4854,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hold responses during DPS burst windows (e.g. Machinist overheat).
+        /// </summary>
+        public static string Generic_Fight_Logic_Respect_Burst_Windows {
+            get {
+                return ResourceManager.GetString("Generic_Fight_Logic_Respect_Burst_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FightLogic.
         /// </summary>
         public static string Generic_FightLogic {
@@ -8391,6 +8400,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hold phantom actions during job burst windows.
+        /// </summary>
+        public static string OccultCrescent_Content_Respect_Burst_Windows {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Respect_Burst_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore original phantom job after auto-buffing.
         /// </summary>
         public static string OccultCrescent_Content_Restore_original_phantom_jo {
@@ -9746,6 +9764,15 @@ namespace Magitek.Properties {
         public static string OccultCrescent_Text_Regen_when_HP_below {
             get {
                 return ResourceManager.GetString("OccultCrescent_Text_Regen_when_HP_below", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to While your job is bursting (for example Machinist overheat), no phantom actions are used until the burst window ends..
+        /// </summary>
+        public static string OccultCrescent_Text_Respect_Burst_Windows_Desc {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Text_Respect_Burst_Windows_Desc", resourceCulture);
             }
         }
         

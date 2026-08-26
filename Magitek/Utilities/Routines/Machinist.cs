@@ -3,7 +3,10 @@ using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Models.Machinist;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace Magitek.Utilities.Routines
@@ -11,6 +14,47 @@ namespace Magitek.Utilities.Routines
     internal static class Machinist
     {
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Machinist, Spells.SplitShot, new List<SpellData>() { Spells.Flamethrower });
+
+        // How close Wildfire's cooldown has to be before we report the burst as
+        // imminent. Matches the hold thresholds MCH's own logic already uses
+        // (Cooldowns.cs holds Barrel Stabilizer and Hypercharge at 7s/15s out).
+        private const int WildfireImminentMs = 7000;
+
+        /// <summary>
+        /// Reports MCH burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the MCH rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        public static void ReportBurstWindows()
+        {
+            // Overheat: Heat Blast every 1.5s for up to 10s. Any interjected cast or
+            // item costs a blast outright. Strongest signal, checked first.
+            var overheated = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.Overheated);
+            if (overheated != null)
+            {
+                RoutineState.ReportBurstWindow(overheated.TimespanLeft, "MCH Overheat");
+                return;
+            }
+
+            // Wildfire ticking on the target: every GCD in its 10s counts toward the
+            // detonation. Covers the moments around overheat inside the window.
+            var wildfire = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.WildfireBuff && x.CasterId == Core.Me.ObjectId);
+            if (wildfire != null)
+            {
+                RoutineState.ReportBurstWindow(wildfire.TimespanLeft, "MCH Wildfire");
+                return;
+            }
+
+            // Wildfire almost off cooldown: the 2-minute window is about to open, so
+            // nothing slow should start now. Only reported while it is actually
+            // cooling down — "ready but held" is unbounded and would starve consumers.
+            if (Core.Me.InCombat && MachinistSettings.Instance.UseWildfire && Spells.Wildfire.IsKnown())
+            {
+                var cooldownMs = Spells.Wildfire.Cooldown.TotalMilliseconds;
+                if (cooldownMs > 0 && cooldownMs <= WildfireImminentMs)
+                    RoutineState.ReportImminentBurst(TimeSpan.FromMilliseconds(cooldownMs), "MCH Wildfire");
+            }
+        }
 
         public static SpellData HeatedSplitShot => Spells.HeatedSplitShot.IsKnown()
                                                     ? Spells.HeatedSplitShot

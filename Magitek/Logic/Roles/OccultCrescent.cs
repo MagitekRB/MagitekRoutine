@@ -365,6 +365,11 @@ namespace Magitek.Logic.Roles
         private static bool _lastCrystalResult = false;
         private static readonly TimeSpan CrystalCheckInterval = TimeSpan.FromSeconds(1.0);
 
+        // How far ahead of a reported burst window phantom actions stand down: long
+        // enough that a cast or item (~2s lock) started now cannot still be locking
+        // when the window opens. Internal timing, not a user knob.
+        private static readonly TimeSpan BurstImminentLead = TimeSpan.FromSeconds(3.0);
+
         // Throttling for non-party resurrection checks
         private static DateTime _lastNonPartyResCheck = DateTime.MinValue;
         private static readonly TimeSpan NonPartyResCheckInterval = TimeSpan.FromSeconds(1.0);
@@ -534,6 +539,15 @@ namespace Magitek.Logic.Roles
             // can return true, so a pending Occult Toad or Slowga still gets a verdict on the
             // pulses where an ability fires.
             OccultDebuffImmunityTracker.Update();
+
+            // While the real job reports a burst window (e.g. Machinist overheat/Wildfire),
+            // or one is about to open, NO phantom action runs — a phantom cast or item
+            // mid-burst wrecks the job's timing. Deliberately no carve-outs, Revive
+            // included: windows are short (~10s) and TTL-guarded, so the worst case is a
+            // raise delayed a few seconds, never a stuck hold.
+            if (OccultCrescentSettings.Instance.RespectBurstWindows
+                && (RoutineState.InBurstWindow || RoutineState.BurstImminent(BurstImminentLead)))
+                return false;
 
             // First, try automatic phantom job switching for knowledge crystal buffs. This runs before
             // the phantom-job guard below because Freelancer grants no phantom job aura, so a player

@@ -54,6 +54,20 @@
                         <Run Text="{x:Static properties:Resources.OccultCrescent_Text_Magitek_automatically_detects_}"/>
                                         </TextBlock>
 
+                                        <!-- Respect Job Burst Windows -->
+                                        <StackPanel Margin="5"
+                                                    Orientation="Horizontal">
+                                                <CheckBox Content="{x:Static properties:Resources.OccultCrescent_Content_Respect_Burst_Windows}"
+                                                          IsChecked="{Binding RespectBurstWindows, Mode=TwoWay}"
+                                                          Style="{DynamicResource CheckBoxFlat}"/>
+                                        </StackPanel>
+
+                                        <TextBlock Margin="5"
+                                                   Style="{DynamicResource TextBlockDefault}"
+                                                   TextWrapping="Wrap"
+                                                   FontStyle="Italic"
+                                                   Text="{x:Static properties:Resources.OccultCrescent_Text_Respect_Burst_Windows_Desc}"/>
+
                                         <!-- Party Buff Refresh Time Setting -->
                                         <StackPanel Margin="5"
                                                     Orientation="Horizontal">

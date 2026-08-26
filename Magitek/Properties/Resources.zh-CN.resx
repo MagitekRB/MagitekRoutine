@@ -1845,6 +1845,9 @@
   <data name="OccultCrescent_Text_Party_buff_refresh_time_contro" xml:space="preserve">
     <value>此设置用于控制在“知见水晶”附近时，何时重新施加长持续时间的团队增益.</value>
   </data>
+  <data name="OccultCrescent_Text_Respect_Burst_Windows_Desc" xml:space="preserve">
+    <value>当当前职业处于爆发窗口（例如机工士过热）时，将不会使用任何幻职技能，直到爆发窗口结束.</value>
+  </data>
   <data name="OccultCrescent_Text_In_combat_Uses_SwiftcastDualca" xml:space="preserve">
     <value>战斗中：仅使用“瞬发”/“连续咏唱”。非战斗中：优先使用“瞬发”，若需要则进行读条.</value>
   </data>
@@ -3918,6 +3921,9 @@
   <data name="OccultCrescent_Content_Revive_Non_Party_Dead_Playe" xml:space="preserve">
     <value>复活非小队成员 (仅限有多余蓝量时)</value>
   </data>
+  <data name="OccultCrescent_Content_Respect_Burst_Windows" xml:space="preserve">
+    <value>在职业爆发窗口期间暂停幻职技能</value>
+  </data>
   <data name="OccultCrescent_Content_Auto_switch_to_Bard_for_Rom" xml:space="preserve">
     <value>为“爱之歌”自动切换为诗人</value>
   </data>
@@ -4244,6 +4250,9 @@
   </data>
   <data name="Generic_Fight_Logic_Limitation" xml:space="preserve">
     <value>仅在支持的Boss和副本中有效，且仅限于可通过Boss咏唱条检测到的动作。</value>
+  </data>
+  <data name="Generic_Fight_Logic_Respect_Burst_Windows" xml:space="preserve">
+    <value>在DPS爆发窗口期间暂停战斗逻辑响应（例如机工士过热）</value>
   </data>
   <data name="Generic_Single_Target" xml:space="preserve">
     <value>单体目标</value>
