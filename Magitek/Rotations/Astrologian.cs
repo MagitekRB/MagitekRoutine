@@ -24,6 +24,9 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Pull()
         {
+            if (Globals.InParty && Utilities.Combat.Enemies.Count > AstrologianSettings.Instance.StopDamageWhenMoreThanEnemies)
+                return false;
+
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
@@ -183,6 +186,9 @@ namespace Magitek.Rotations
 
             if (Globals.InParty)
             {
+                if (Utilities.Combat.Enemies.Count > AstrologianSettings.Instance.StopDamageWhenMoreThanEnemies)
+                    return false;
+
                 if (Core.Me.CurrentManaPercent < AstrologianSettings.Instance.MinimumManaPercentToDoDamage
                     && Core.Target.CombatTimeLeft() > AstrologianSettings.Instance.DoDamageIfTimeLeftLessThan)
                     return false;
