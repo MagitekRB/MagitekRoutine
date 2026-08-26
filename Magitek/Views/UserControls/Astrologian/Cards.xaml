@@ -31,7 +31,7 @@
             <StackPanel Margin="5,0">
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="0,5" Content="{x:Static properties:Resources.Astrologian_Content_Lord_Of_Crowns_at_least}" IsChecked="{Binding AstrologianSettings.LordOfCrowns, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <controls:Numeric Grid.Column="1" Margin="3,0" Value="{Binding AstrologianSettings.LordOfCrownsEnemies, Mode=TwoWay}" />
+                    <controls:Numeric Grid.Column="1" Margin="3,0" MinValue="1" Value="{Binding AstrologianSettings.LordOfCrownsEnemies, Mode=TwoWay}" />
                     <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="White" Text="{x:Static properties:Resources.Generic_Enemies}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
