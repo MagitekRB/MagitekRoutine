@@ -51,8 +51,10 @@ namespace Magitek.Logic.Astrologian
             // Lord is centred on the caster, so count around US rather than the current
             // target - and always require at least one enemy in range: the old guard skipped
             // counting entirely at the default setting, and dereferenced a target that
-            // between pulls often does not exist.
-            if (Core.Me.EnemiesNearby(20).Count() < System.Math.Max(1, AstrologianSettings.Instance.LordOfCrownsEnemies))
+            // between pulls often does not exist. WithinSpellRange rather than EnemiesNearby:
+            // called on ourselves the latter adds our own combat reach twice and never the
+            // enemy's, so a big-hitbox target inside the radius could go uncounted.
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(20)) < System.Math.Max(1, AstrologianSettings.Instance.LordOfCrownsEnemies))
                 return false;
 
             return await Spells.LordofCrowns.Cast(Core.Me);
