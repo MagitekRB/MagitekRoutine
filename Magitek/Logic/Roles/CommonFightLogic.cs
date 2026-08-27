@@ -206,7 +206,9 @@ namespace Magitek.Logic.Roles
                 && !Core.Me.HasAura(Utilities.Auras.Dualcast))
                 return false;
 
-            var doomed = FightLogic.DoomedHealTarget();
+            // Skips a carrier whose last Doom heal landed less than a GCD ago - the aura outlives
+            // the cast by a server round trip, so without that the next GCD answers it again.
+            var doomed = FightLogic.DoomedHealTarget(heal);
 
             if (doomed == null)
                 return false;
@@ -214,14 +216,7 @@ namespace Magitek.Logic.Roles
             if (BaseSettings.Instance.DebugFightLogic)
                 Logger.WriteInfo($"[Doom Response] Cast {heal.Name} on {doomed.Name}");
 
-            if (!await heal.Heal(doomed, false))
-                return false;
-
-            // The heal is now in flight, and the aura will not clear until the server applies it -
-            // so this carrier is off the table until it has resolved. Without this the very next
-            // GCD answers the same Doom a second time.
-            FightLogic.PaceDoomResponse(doomed, heal);
-            return true;
+            return await heal.Heal(doomed, false);
         }
     }
 }

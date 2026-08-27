@@ -47,10 +47,6 @@ namespace Magitek.Utilities
         /// </summary>
         public static string CommonAoeLockOnsDisplay => string.Join(", ", CommonAoeLockOns.OrderBy(x => x));
 
-        // Doom carriers we have already sent a heal at, and the moment that heal stops being in
-        // flight. Keyed by ObjectId, pruned on every write, so it cannot grow past the party.
-        private static readonly Dictionary<uint, DateTime> DoomResponseSettlesAt = new Dictionary<uint, DateTime>();
-
         /// <summary>
         /// The ally (or ourselves when solo) carrying a heal-to-full Doom, or null. This Doom
         /// recurs across content - dungeon bosses apply it as well as the Occult Crescent
@@ -58,55 +54,47 @@ namespace Magitek.Utilities
         /// first, so healers treat the carrier as the top-priority heal target. Deliberately
         /// not zone-gated, unlike the enemy-cast catalogues.
         /// </summary>
-        public static Character DoomedHealTarget()
+        public static Character DoomedHealTarget(SpellData heal)
         {
             // The below-full check matters: full HP is what removes the aura, so a carrier
             // sitting at full is already cleansing (removal latency) and healing them again
             // only wastes the GCD.
             if (Globals.InParty)
-                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth && !DoomResponseInFlight(r));
+                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth && !DoomResponseInFlight(r, heal));
 
-            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth && !DoomResponseInFlight(Core.Me) ? Core.Me : null;
+            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth && !DoomResponseInFlight(Core.Me, heal) ? Core.Me : null;
         }
 
         /// <summary>
-        /// Records that a Doom heal has just gone out at <paramref name="carrier"/> and paces the
-        /// next one at that same carrier by the cast plus a full GCD.
+        /// True while a Doom heal that already landed on <paramref name="carrier"/> is still
+        /// resolving, so the response leaves that one carrier alone and still answers anyone else
+        /// immediately.
         /// <para>
-        /// Without this the response answers the same Doom twice, back to back. The aura only clears
-        /// once the SERVER applies the heal, which is a round trip after the client says the cast
-        /// finished - so on the pulse right after it lands the carrier still reads as doomed and
-        /// still reads as below full, and the next GCD is spent on a Doom that is already answered.
-        /// Seen five times on one party member in a single Occult Crescent CE, each pair 2.0-2.8s
-        /// apart, which is one GCD.
+        /// Without this the response answers the same Doom twice, back to back. The aura only
+        /// clears once the SERVER applies the heal, which is a round trip after the cast finishes -
+        /// so on the pulse right after it the carrier still reads as doomed and still reads as
+        /// below full, and the next GCD is spent on a Doom that is already answered. Seen five
+        /// times on one party member in a single Occult Crescent CE, each duplicate 0.27-0.9s
+        /// after its predecessor completed.
         /// </para>
         /// <para>
-        /// The window is derived rather than fixed so it tracks the healer's spell speed and
-        /// whichever heal the job passed: the cast has to finish, and then a whole GCD has to pass -
-        /// "put a normal action in between", stated as a duration. A duration rather than "did we
-        /// cast anything else" on purpose, because an oGCD weaved on top of the heal satisfies the
-        /// second phrasing while still landing inside the round trip.
+        /// Read off <see cref="Casting"/> rather than stamped when the cast is fired, because
+        /// those fields are written only by CheckForSuccessfulCast: a Doom heal that started and
+        /// was then cancelled - movement, target invalidation, a job interrupt check - paces
+        /// nothing, and the carrier stays eligible on the very next pulse.
         /// </para>
         /// <para>
-        /// Paced per carrier rather than globally, so a second doomed ally is still answered at once.
+        /// One GCD measured from cast COMPLETION, derived from whichever heal the job passed so it
+        /// tracks the healer's spell speed. Measuring from completion is also what keeps this
+        /// honest when Swiftcast or Dualcast makes the heal instant: the window is the GCD either
+        /// way, never the nominal cast time on top of it. Doom runs 10s, so a carrier the first
+        /// heal did not top off still gets several more attempts.
         /// </para>
         /// </summary>
-        public static void PaceDoomResponse(Character carrier, SpellData heal)
+        private static bool DoomResponseInFlight(Character carrier, SpellData heal)
         {
-            if (carrier == null || heal == null)
-                return;
-
-            var now = DateTime.UtcNow;
-
-            foreach (var settled in DoomResponseSettlesAt.Where(r => r.Value <= now).Select(r => r.Key).ToList())
-                DoomResponseSettlesAt.Remove(settled);
-
-            DoomResponseSettlesAt[carrier.ObjectId] = now + heal.AdjustedCastTime + heal.AdjustedCooldown;
-        }
-
-        private static bool DoomResponseInFlight(Character carrier)
-        {
-            return DoomResponseSettlesAt.TryGetValue(carrier.ObjectId, out var settlesAt) && DateTime.UtcNow < settlesAt;
+            return Casting.LastSpellWas(heal, (int)heal.AdjustedCooldown.TotalMilliseconds)
+                   && Casting.LastSpellTarget?.ObjectId == carrier.ObjectId;
         }
 
         private static TimeSpan FlCooldown
@@ -744,4 +732,4 @@ namespace Magitek.Utilities
         internal FfxivExpansion Expansion { get; set; }
         internal List<Enemy> Enemies { get; set; }
     }
-}
+}
