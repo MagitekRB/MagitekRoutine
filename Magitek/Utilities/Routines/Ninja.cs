@@ -26,6 +26,87 @@ namespace Magitek.Utilities.Routines
 
         public static DateTime oGCD = DateTime.Now;
 
+        // How close Trick Attack's cooldown has to be before we report the burst as
+        // imminent. The base action (2258) masks to Kunai's Bane at 92 and its
+        // cooldown tracks through the mask.
+        private const int TrickAttackImminentMs = 5000;
+
+        /// <summary>
+        /// Reports NIN burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the NIN rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        /// <remarks>
+        /// Burst anchor: Kunai's Bane / Trick Attack (own 10% target debuff, 15s,
+        /// every 60s; Dokumori/TCJ/Bunshin ride the 2-minute ones). The mudra state
+        /// and Ten Chi Jin also report — any foreign action mid-mudra destroys the
+        /// ninjutsu (Rabbit Medium) and any non-TCJ action forfeits Ten Chi Jin,
+        /// burst or not. Since 7.1 movement no longer cancels TCJ. Window contents:
+        /// Kunai's Bane, Dokumori, Ten Chi Jin, Meisui, Bunshin, Bhavacakra/Zesho
+        /// Meppo spam, Raiju chain, Tenri Jindo.
+        /// Sources: The Balance NIN basic guide, official job guide, consolegameswiki
+        /// Ninjutsu, Lodestone 7.1 notes, live client via rb (researched 2026-08-26).
+        /// </remarks>
+        public static void ReportBurstWindows()
+        {
+            // Mudra state: any foreign action mid-mudra destroys the ninjutsu
+            // (Rabbit Medium), so this reports regardless of burst timing —
+            // deliberate, same class as DNC's dancing state. UsedMudras bridges the
+            // button-press-to-aura latency.
+            var mudra = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.Mudra && x.CasterId == Core.Me.ObjectId);
+            if (mudra != null || UsedMudras.Count > 0)
+            {
+                // One GCD-ish placeholder while only UsedMudras indicates; the aura
+                // lands within a server tick of the press.
+                RoutineState.ReportBurstWindow(mudra?.TimespanLeft ?? TimeSpan.FromMilliseconds(1500), "NIN Mudra");
+                return;
+            }
+
+            // Ten Chi Jin: a non-TCJ action forfeits a 120s cooldown plus Tenri
+            // Jindo. Cast-protection like the mudra state, so it shares its source.
+            var tcj = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.TenChiJin && x.CasterId == Core.Me.ObjectId);
+            if (tcj != null)
+            {
+                RoutineState.ReportBurstWindow(tcj.TimespanLeft, "NIN Mudra");
+                return;
+            }
+
+            // Burst envelope: our own Kunai's Bane (Trick Attack pre-92) debuff on
+            // the current target. 15s per 60s; the 1-min/2-min distinction doesn't
+            // change the envelope.
+            if (Core.Me.CurrentTarget is Character target && target.IsValid)
+            {
+                var remaining = TimeSpan.Zero;
+                foreach (var aura in target.CharacterAuras)
+                {
+                    if (aura.CasterId != Core.Me.ObjectId)
+                        continue;
+
+                    if (aura.Id != Auras.KunaisBane && aura.Id != Auras.TrickAttack)
+                        continue;
+
+                    if (aura.TimespanLeft > remaining)
+                        remaining = aura.TimespanLeft;
+                }
+
+                if (remaining > TimeSpan.Zero)
+                {
+                    RoutineState.ReportBurstWindow(remaining, "NIN Kunai's Bane");
+                    return;
+                }
+            }
+
+            // Trick Attack almost off cooldown: the debuff is about to go out, so
+            // nothing slow should start now. Only reported while it is actually
+            // cooling down — "ready but held" is unbounded and would starve consumers.
+            if (Core.Me.InCombat && Spells.TrickAttack.IsKnown())
+            {
+                var cooldownMs = Spells.TrickAttack.Cooldown.TotalMilliseconds;
+                if (cooldownMs > 0 && cooldownMs <= TrickAttackImminentMs)
+                    RoutineState.ReportImminentBurst(TimeSpan.FromMilliseconds(cooldownMs), "NIN Kunai's Bane");
+            }
+        }
+
         public static async Task<bool> PrepareNinjutsu(SpellData endMudra, int ninjustsuLength, GameObject target)
         {
 

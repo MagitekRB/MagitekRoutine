@@ -6,6 +6,7 @@ using Magitek.Extensions;
 using Magitek.Models.Machinist;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 
@@ -20,18 +21,40 @@ namespace Magitek.Utilities.Routines
         // (Cooldowns.cs holds Barrel Stabilizer and Hypercharge at 7s/15s out).
         private const int WildfireImminentMs = 7000;
 
+        // At 100 the 2-minute burst is a double Hypercharge: two overheat windows
+        // separated by exactly one GCD, during which both Overheated and Wildfire
+        // have dropped. Bridge that gap for up to this long after Overheated ends.
+        private const int OverheatBridgeMs = 3000;
+
+        // Time since Overheated was last seen. Never started until we first see the
+        // aura, so a fresh combat can't bridge off a stale timestamp — and once it
+        // runs past OverheatBridgeMs it simply stops matching.
+        private static readonly Stopwatch OverheatedDropTimer = new Stopwatch();
+
         /// <summary>
         /// Reports MCH burst windows to the state bus. Called every combat pulse via
         /// RoutineState.Pulse() — deliberately not from the MCH rotation, which can be
         /// preempted (by Occult Crescent among others) and would starve the report.
         /// </summary>
+        /// <remarks>
+        /// Burst anchor: Wildfire, entered via Hypercharge (weaved before Full Metal
+        /// Field); at 100 the 2-minute burst is a double Hypercharge with one GCD
+        /// between the overheat windows. Window contents: Wildfire, Hypercharge,
+        /// Barrel Stabilizer, Reassemble, Drill, Air Anchor, Chain Saw/Excavator,
+        /// Full Metal Field, Automaton Queen.
+        /// Sources: The Balance MCH basic guide/FAQ/openers, official job guide,
+        /// Icy Veins (researched 2026-08-26).
+        /// </remarks>
         public static void ReportBurstWindows()
         {
-            // Overheat: Heat Blast every 1.5s for up to 10s. Any interjected cast or
-            // item costs a blast outright. Strongest signal, checked first.
+            // Overheat: Heat Blast every 1.5s for up to 10s. An interjected cast still
+            // lands all five Blazing Shots (The Balance FAQ), but drifts the window and
+            // costs a Wildfire weaponskill stack (~240 potency). Strongest signal,
+            // checked first.
             var overheated = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.Overheated);
             if (overheated != null)
             {
+                OverheatedDropTimer.Restart();
                 RoutineState.ReportBurstWindow(overheated.TimespanLeft, "MCH Overheat");
                 return;
             }
@@ -42,6 +65,19 @@ namespace Magitek.Utilities.Routines
             if (wildfire != null)
             {
                 RoutineState.ReportBurstWindow(wildfire.TimespanLeft, "MCH Wildfire");
+                return;
+            }
+
+            // Double-Hypercharge gap: one GCD between overheat windows where both
+            // auras above have dropped. Bridge it only while a second Hypercharge is
+            // actually available (heat or Hypercharged), so an interjected cast can't
+            // push the second window out of raid buffs.
+            if (OverheatedDropTimer.IsRunning && OverheatedDropTimer.ElapsedMilliseconds <= OverheatBridgeMs
+                && (ActionResourceManager.Machinist.Heat >= 50 || Core.Me.HasAura(Auras.Hypercharged, true)))
+            {
+                RoutineState.ReportBurstWindow(
+                    TimeSpan.FromMilliseconds(OverheatBridgeMs - OverheatedDropTimer.ElapsedMilliseconds),
+                    "MCH Overheat bridge");
                 return;
             }
 

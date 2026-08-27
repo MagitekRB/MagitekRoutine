@@ -3,6 +3,7 @@ using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
+using System;
 using Auras = Magitek.Utilities.Auras;
 
 namespace Magitek.Utilities.Routines
@@ -43,6 +44,65 @@ namespace Magitek.Utilities.Routines
         };
 
         public static int RequiescatStackCount => Core.Me.CharacterAuras.GetAuraStacksById(Auras.Requiescat);
+
+        // How close Fight or Flight's cooldown has to be before we report the burst as
+        // imminent. Covers the pre-window GCDs where a slow foreign cast would delay
+        // the press and drift the whole 60s loop.
+        private const int FightOrFlightImminentMs = 5000;
+
+        /// <summary>
+        /// Reports PLD burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the PLD rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        /// <remarks>
+        /// Burst anchor: Fight or Flight (20s, every 60s; Imperator weaved one GCD
+        /// later), with Requiescat stacks, Confiteor Ready, and Blade of Honor Ready
+        /// extending the envelope when the magic chain runs long. Window contents:
+        /// Fight or Flight, Imperator -> Confiteor -> Blades of Faith/Truth/Valor ->
+        /// Blade of Honor, Goring Blade, Circle of Scorn, Expiacion, Intervene x2.
+        /// Sources: The Balance PLD basic guide, official job guide, live client via
+        /// rb (researched 2026-08-26).
+        /// </remarks>
+        public static void ReportBurstWindows()
+        {
+            // Window: union (max remaining) of the four own-cast burst auras. In a
+            // clean rotation the follow-up states are subsets of FoF; they extend the
+            // window only when the magic chain got delayed — exactly when a foreign
+            // cast must not wedge between Blades. Deliberately excluded: Goring Blade
+            // Ready (30s leash makes delaying it free) and the Divine Might/Atonement
+            // procs (up nearly permanently — would make the window always-on). Under
+            // level sync missing auras simply never appear — no level branching needed.
+            var remaining = TimeSpan.Zero;
+            foreach (var aura in Core.Me.Auras)
+            {
+                if (aura.CasterId != Core.Me.ObjectId)
+                    continue;
+
+                if (aura.Id != Auras.FightOrFlight && aura.Id != Auras.Requiescat
+                    && aura.Id != Auras.ConfiteorReady && aura.Id != Auras.BladeOfHonorReady)
+                    continue;
+
+                if (aura.TimespanLeft > remaining)
+                    remaining = aura.TimespanLeft;
+            }
+
+            if (remaining > TimeSpan.Zero)
+            {
+                RoutineState.ReportBurstWindow(remaining, "PLD Fight or Flight");
+                return;
+            }
+
+            // Fight or Flight almost off cooldown: the window is about to open, so
+            // nothing slow should start now. Only reported while it is actually
+            // cooling down — "ready but held" is unbounded and would starve consumers.
+            if (Core.Me.InCombat && Spells.FightorFlight.IsKnown())
+            {
+                var cooldownMs = Spells.FightorFlight.Cooldown.TotalMilliseconds;
+                if (cooldownMs > 0 && cooldownMs <= FightOrFlightImminentMs)
+                    RoutineState.ReportImminentBurst(TimeSpan.FromMilliseconds(cooldownMs), "PLD Fight or Flight");
+            }
+        }
 
         public static bool ToggleAndSpellCheck(bool Toggle, SpellData Spell)
         {
