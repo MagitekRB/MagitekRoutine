@@ -53,7 +53,7 @@ namespace Magitek.Rotations
             if (await HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(AstrologianSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
-            if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+            if (GlobalCooldown.CanWeave(1))
             {
                 if (await Buff.Divination()) return true;
                 if (await Buff.LucidDreaming()) return true;
@@ -65,8 +65,7 @@ namespace Magitek.Rotations
 
             // Cards double-weave while Divination is up so the Balance shares its window
             // instead of waiting a full GCD behind it.
-            if (AstrologianSettings.Instance.WeaveOGCDHeals
-                && Core.Me.HasAura(Auras.Divination, true)
+            if (Core.Me.HasAura(Auras.Divination, true)
                 && GlobalCooldown.CanWeave(2)
                 && !GlobalCooldown.IsLateWeaveWindow())
             {
@@ -75,19 +74,24 @@ namespace Magitek.Rotations
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
-                if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+                // Order follows the guides' priority lists: Star first (its charge does the
+                // work), then the grouped-party tools, then the single-target charges with
+                // Essential Dignity ahead of the rest. Original order for reference:
+                // Macrocosmos, Star, CU, Lady, CO, HoroscopePop, Synastry, ED, CI,
+                // Horoscope, Exaltation, Lord, Draw, Play.
+                if (GlobalCooldown.CanWeave(1))
                 {
-                    if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
-                    if (await Heals.LadyOfCrowns()) return true;
+                    if (await Heals.Macrocosmos()) return true;
                     if (await Heals.CelestialOpposition()) return true;
+                    if (await Heals.LadyOfCrowns()) return true;
                     if (await Heals.HoroscopePop()) return true;
-                    if (await Buff.Synastry()) return true;
                     if (await Heals.EssentialDignity()) return true;
                     if (await Heals.CelestialIntersection()) return true;
-                    if (await Heals.Horoscope()) return true;
                     if (await Heals.Exaltation()) return true;
+                    if (await Heals.Horoscope()) return true;
+                    if (await Buff.Synastry()) return true;
                     if (await Aoe.LordOfCrown()) return true;
                     if (await Cards.Draw()) return true;
                     if (await Cards.PlayCards()) return true;
@@ -119,7 +123,7 @@ namespace Magitek.Rotations
 
                 if (AstrologianSettings.Instance.HealAllianceOnlyBenefic)
                 {
-                    return await Heals.Benefic();
+                    return await Heals.Benefic(ignoreBenefic2: true);
                 }
 
                 if (await Heals.EssentialDignity()) return true;
@@ -131,7 +135,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> CombatBuff()
         {
-            if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+            if (GlobalCooldown.CanWeave(1))
 
             {
                 if (await Buff.LucidDreaming()) return true;
@@ -148,8 +152,7 @@ namespace Magitek.Rotations
 
             // Cards double-weave while Divination is up so the Balance shares its window
             // instead of waiting a full GCD behind it.
-            if (AstrologianSettings.Instance.WeaveOGCDHeals
-                && Core.Me.HasAura(Auras.Divination, true)
+            if (Core.Me.HasAura(Auras.Divination, true)
                 && GlobalCooldown.CanWeave(2)
                 && !GlobalCooldown.IsLateWeaveWindow())
             {
@@ -158,7 +161,7 @@ namespace Magitek.Rotations
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
-                if (AstrologianSettings.Instance.WeaveOGCDHeals && GlobalCooldown.CanWeave(1))
+                if (GlobalCooldown.CanWeave(1))
                 {
                     if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;

@@ -45,13 +45,14 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.LordOfCrowns)
                 return false;
 
+            // Lord is a damage oGCD - the master damage switch applies to it like everything else.
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
-            // A damage oGCD has no business firing out of combat either - but in a duty the
-            // heal-oGCD block runs between pulls too (InActiveDuty stays true for the whole
-            // instance), and Lord was landing 0.7s after out-of-combat raises: measured five
-            // times across two days, once onto a still-idle pack.
+            // It has no business firing out of combat either - but in a duty the heal-oGCD
+            // block runs between pulls too (InActiveDuty stays true for the whole instance),
+            // and Lord was landing 0.7s after out-of-combat raises: measured five times
+            // across two days, once onto a still-idle pack.
             if (!Core.Me.InCombat)
                 return false;
 
@@ -81,6 +82,7 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Oracle)
                 return false;
 
+            // Oracle is a damage oGCD - the master damage switch applies to it like everything else.
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 

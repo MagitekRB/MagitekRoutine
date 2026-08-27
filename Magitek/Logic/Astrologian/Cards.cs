@@ -15,7 +15,8 @@ namespace Magitek.Logic.Astrologian
     internal static class Cards
     {
         // The next draw overwrites the hand, so play out anything held this close to it.
-        private const int DrawDumpWindowSeconds = 10;
+        // Internal: the Lady of Crowns dump in Heals shares the same window.
+        internal const int DrawDumpWindowSeconds = 10;
 
         // Failsafe: a play condition stuck false used to wedge the draw permanently.
         private const int DrawStallBreakSeconds = 15;
@@ -114,14 +115,48 @@ namespace Magitek.Logic.Astrologian
             }
 
             // Peek, not the responder: a card is additive and must not consume the mechanic.
-            if (playIICard != AstrologianCard.None)
+            // The utility cards split by function. The Bole (10% damage taken cut) and the
+            // Spire (400-potency barrier) are anticipatory: fight logic plays them at an
+            // incoming tankbuster and otherwise they are HELD - the dump window before each
+            // draw flushes whatever was never needed, so a held card cannot rot. The Arrow
+            // and the Ewer respond to damage already taken and carry their own controls.
+            // The dump ignores every toggle so a disabled card can never wedge the draw.
+            if (playIICard == AstrologianCard.Bole)
             {
                 var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
+                // Same one-mitigation-per-buster rule as the responder: a victim already
+                // carrying Exaltation or an Intersection shield is covered - hold the Bole
+                // for the next buster (the dump still flushes it before the draw).
+                var victimCovered = busterTarget != null
+                    && (busterTarget.HasAura(Auras.Exaltation) || busterTarget.HasAura(Auras.CelestialIntersection));
                 var target = (GameObject)busterTarget ?? MainTankOrFallback();
 
+                if (dumping || (busterTarget != null && !victimCovered))
+                    if (await Spells.PlayII.Masked().Cast(target))
+                        return true;
+            }
+
+            if (playIICard == AstrologianCard.Arrow)
+            {
+                // The Arrow raises healing RECEIVED by 10%: the buster victim is about to eat
+                // a hit and the heals that follow it; failing that, the most wounded ally
+                // below the Arrow's threshold is where the healing is already going.
+                var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
+                var wounded = Group.CastableAlliesWithin30
+                    .Where(a => a.CurrentHealth > 0
+                        && a.CurrentHealthPercent <= AstrologianSettings.Instance.ArrowHealthPercent)
+                    .OrderBy(a => a.CurrentHealthPercent)
+                    .FirstOrDefault();
+                // In the dump the threshold no longer applies - the card is leaving either
+                // way, so the most wounded ally, hurt or not, beats a full-health tank.
+                var lowestForArrow = Group.CastableAlliesWithin30
+                    .Where(a => a.CurrentHealth > 0)
+                    .OrderBy(a => a.CurrentHealthPercent)
+                    .FirstOrDefault();
+                var target = (GameObject)busterTarget ?? wounded ?? (GameObject)lowestForArrow ?? MainTankOrFallback();
+
                 if (dumping
-                    || busterTarget != null
-                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    || (AstrologianSettings.Instance.PlayArrow && (busterTarget != null || wounded != null)))
                     if (await Spells.PlayII.Masked().Cast(target))
                         return true;
             }
@@ -129,11 +164,18 @@ namespace Magitek.Logic.Astrologian
             if (playIIICard == AstrologianCard.Spire)
             {
                 var busterTarget = FightLogic.Peek.EnemyIsCastingTankBuster();
-                var target = (GameObject)busterTarget ?? MainTankOrFallback();
+                // A catalogued raidwide is as good a reason as a buster: the barrier goes to
+                // whoever can least afford the incoming hit.
+                var aoeIncoming = FightLogic.Peek.EnemyIsCastingAoe();
+                var lowestForSpire = Group.CastableAlliesWithin30
+                    .Where(a => a.CurrentHealth > 0)
+                    .OrderBy(a => a.CurrentHealthPercent)
+                    .FirstOrDefault();
+                var target = (GameObject)busterTarget
+                    ?? (aoeIncoming ? (GameObject)lowestForSpire : null)
+                    ?? MainTankOrFallback();
 
-                if (dumping
-                    || busterTarget != null
-                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                if (dumping || busterTarget != null || aoeIncoming)
                     if (await Spells.PlayIII.Masked().Cast(target))
                         return true;
             }
@@ -147,7 +189,8 @@ namespace Magitek.Logic.Astrologian
                              ?? MainTankOrFallback();
 
                 if (dumping
-                    || target.CurrentHealthPercent <= AstrologianSettings.Instance.PlayUtilityCardHealthPercent)
+                    || (AstrologianSettings.Instance.PlayEwer
+                        && target.CurrentHealthPercent <= AstrologianSettings.Instance.EwerHealthPercent))
                     if (await Spells.PlayIII.Masked().Cast(target))
                         return true;
             }
@@ -246,12 +289,12 @@ namespace Magitek.Logic.Astrologian
         {
             //Get party size
             int partySize = Group.CastableAlliesWithin30.Count();
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetWeight);
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetAstralWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && a.IsTank()).OrderBy(GetAstralWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
@@ -266,12 +309,12 @@ namespace Magitek.Logic.Astrologian
             // The pool boundary IS the potency bracket, deliberately: off-role recipients get
             // only 3%, and a full-potency tank (~two-thirds of a DPS's output at 6%) out-gains
             // a half-potency ranged DPS — so with no melee DPS alive the tank is the right call.
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetAstralWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsTank() || a.IsMeleeDps())).OrderBy(a => a.IsTank() ? 1 : 0).ThenBy(GetAstralWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
@@ -285,95 +328,110 @@ namespace Magitek.Logic.Astrologian
             // a DPS makes more of the buff than a healer, so DPS sort ahead inside the bracket.
             // Same deliberate pool boundary as The Balance: a half-potency melee DPS does not
             // out-gain a full-potency healer's-bracket recipient, so off-role DPS stay excluded.
-            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
+            var ally = Group.CastableAlliesWithin30.Where(a => !a.HasAnyCardAura() && a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetUmbralWeight);
 
             //If in light party, allow ally to have more than one card aura.
             if (partySize <= 4)
             {
-                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetWeight);
+                var extendedAlly = Group.CastableAlliesWithin30.Where(a => a.CurrentHealth > 0 && !a.HasAura(Auras.Weakness) && (a.IsHealer() || a.IsRangedDpsCard())).OrderBy(a => a.IsHealer() ? 1 : 0).ThenBy(GetUmbralWeight);
                 return extendedAlly.FirstOrDefault(Core.Me);
             }
             return ally.FirstOrDefault(Core.Me);
         }
 
-        private static int GetWeight(Character c)
+        // Two tables, one per hand: the Balance empowers melee DPS and tanks, the Spear ranged
+        // DPS and healers, so each card ranks only the half of the party it gives its full 6%.
+        // Blue Mage counts as every role in game data and appears in both tables. A job outside
+        // the queried table returns 0 and sorts first, same as the old unknown-job behavior.
+        private static int GetAstralWeight(Character c)
         {
             switch (c.CurrentJob)
             {
-                case ClassJobType.Astrologian:
-                    return AstrologianSettings.Instance.AstCardWeight;
-
                 case ClassJobType.Monk:
                 case ClassJobType.Pugilist:
-                    return AstrologianSettings.Instance.MnkCardWeight;
-
-                case ClassJobType.BlackMage:
-                case ClassJobType.Thaumaturge:
-                    return AstrologianSettings.Instance.BlmCardWeight;
+                    return AstrologianSettings.Instance.MnkAstralCardWeight;
 
                 case ClassJobType.Dragoon:
                 case ClassJobType.Lancer:
-                    return AstrologianSettings.Instance.DrgCardWeight;
-
-                case ClassJobType.Samurai:
-                    return AstrologianSettings.Instance.SamCardWeight;
-
-                case ClassJobType.Machinist:
-                    return AstrologianSettings.Instance.MchCardWeight;
-
-                case ClassJobType.Summoner:
-                case ClassJobType.Arcanist:
-                    return AstrologianSettings.Instance.SmnCardWeight;
-
-                case ClassJobType.Bard:
-                case ClassJobType.Archer:
-                    return AstrologianSettings.Instance.BrdCardWeight;
+                    return AstrologianSettings.Instance.DrgAstralCardWeight;
 
                 case ClassJobType.Ninja:
                 case ClassJobType.Rogue:
-                    return AstrologianSettings.Instance.NinCardWeight;
+                    return AstrologianSettings.Instance.NinAstralCardWeight;
 
-                case ClassJobType.RedMage:
-                    return AstrologianSettings.Instance.RdmCardWeight;
+                case ClassJobType.Samurai:
+                    return AstrologianSettings.Instance.SamAstralCardWeight;
 
-                case ClassJobType.Dancer:
-                    return AstrologianSettings.Instance.DncCardWeight;
+                case ClassJobType.Reaper:
+                    return AstrologianSettings.Instance.RprAstralCardWeight;
+
+                case ClassJobType.Viper:
+                    return AstrologianSettings.Instance.VprAstralCardWeight;
 
                 case ClassJobType.Paladin:
                 case ClassJobType.Gladiator:
-                    return AstrologianSettings.Instance.PldCardWeight;
+                    return AstrologianSettings.Instance.PldAstralCardWeight;
 
                 case ClassJobType.Warrior:
                 case ClassJobType.Marauder:
-                    return AstrologianSettings.Instance.WarCardWeight;
+                    return AstrologianSettings.Instance.WarAstralCardWeight;
 
                 case ClassJobType.DarkKnight:
-                    return AstrologianSettings.Instance.DrkCardWeight;
+                    return AstrologianSettings.Instance.DrkAstralCardWeight;
 
                 case ClassJobType.Gunbreaker:
-                    return AstrologianSettings.Instance.GnbCardWeight;
+                    return AstrologianSettings.Instance.GnbAstralCardWeight;
+
+                case ClassJobType.BlueMage:
+                    return AstrologianSettings.Instance.BluAstralCardWeight;
+            }
+
+            return c.CurrentJob == ClassJobType.Adventurer ? 70 : 0;
+        }
+
+        private static int GetUmbralWeight(Character c)
+        {
+            switch (c.CurrentJob)
+            {
+                case ClassJobType.Bard:
+                case ClassJobType.Archer:
+                    return AstrologianSettings.Instance.BrdUmbralCardWeight;
+
+                case ClassJobType.Machinist:
+                    return AstrologianSettings.Instance.MchUmbralCardWeight;
+
+                case ClassJobType.Dancer:
+                    return AstrologianSettings.Instance.DncUmbralCardWeight;
+
+                case ClassJobType.BlackMage:
+                case ClassJobType.Thaumaturge:
+                    return AstrologianSettings.Instance.BlmUmbralCardWeight;
+
+                case ClassJobType.Summoner:
+                case ClassJobType.Arcanist:
+                    return AstrologianSettings.Instance.SmnUmbralCardWeight;
+
+                case ClassJobType.RedMage:
+                    return AstrologianSettings.Instance.RdmUmbralCardWeight;
+
+                case ClassJobType.Pictomancer:
+                    return AstrologianSettings.Instance.PctUmbralCardWeight;
 
                 case ClassJobType.WhiteMage:
                 case ClassJobType.Conjurer:
-                    return AstrologianSettings.Instance.WhmCardWeight;
+                    return AstrologianSettings.Instance.WhmUmbralCardWeight;
 
                 case ClassJobType.Scholar:
-                    return AstrologianSettings.Instance.SchCardWeight;
+                    return AstrologianSettings.Instance.SchUmbralCardWeight;
 
-                case ClassJobType.Reaper:
-                    return AstrologianSettings.Instance.RprCardWeight;
+                case ClassJobType.Astrologian:
+                    return AstrologianSettings.Instance.AstUmbralCardWeight;
 
                 case ClassJobType.Sage:
-                    return AstrologianSettings.Instance.SgeCardWeight;
-
-                case ClassJobType.Pictomancer:
-                    return AstrologianSettings.Instance.PctCardWeight;
-
-                case ClassJobType.Viper:
-                    return AstrologianSettings.Instance.VprCardWeight;
+                    return AstrologianSettings.Instance.SgeUmbralCardWeight;
 
                 case ClassJobType.BlueMage:
-                    return AstrologianSettings.Instance.BluCardWeight;
+                    return AstrologianSettings.Instance.BluUmbralCardWeight;
             }
 
             return c.CurrentJob == ClassJobType.Adventurer ? 70 : 0;
