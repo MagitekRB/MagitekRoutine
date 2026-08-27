@@ -18,11 +18,59 @@ namespace Magitek.Utilities.Routines
         public static HashSet<string> DontBenefic = new HashSet<string>();
         public static HashSet<string> DontBenefic2 = new HashSet<string>();
         public static HashSet<string> DontDiurnalBenefic = new HashSet<string>();
-        public static HashSet<string> DontNocturnalBenefic = new HashSet<string>();
         public static HashSet<string> DontEssentialDignity = new HashSet<string>();
         public static HashSet<string> DontCelestialIntersection = new HashSet<string>();
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Astrologian, Spells.Malefic);
+
+        // Modern AST heals oGCD-first: a hardcast GCD heal is justified only when the free
+        // tools cannot answer, so the GCD heals shrink to their emergency threshold for an
+        // ally one of these WILL cover. The question is "will a free tool heal this person",
+        // never "is a free tool off cooldown": each clause mirrors its caster's own gates -
+        // combat state, tank-only mode, blacklist - so an ally the tools would never touch
+        // keeps the full GCD threshold. On stock settings all three are tank-only, which
+        // once left a DPS at 50% unhealed until 45%.
+        public static bool SingleTargetOgcdHealReadyFor(Character target)
+        {
+            if (target == null)
+                return false;
+
+            var s = Models.Astrologian.AstrologianSettings.Instance;
+            var isTank = target.IsTank();
+            var soloSelf = !Globals.InParty && target == Core.Me;
+
+            if (s.EssentialDignity && Core.Me.InCombat && Spells.EssentialDignity.IsKnownAndReady()
+                && !DontEssentialDignity.Contains(target.Name)
+                && (!s.EssentialDignityTankOnly || isTank || soloSelf))
+                return true;
+
+            if (s.CelestialIntersection && Globals.PartyInCombat && Spells.CelestialIntersection.IsKnownAndReady()
+                && !DontCelestialIntersection.Contains(target.Name)
+                && (!s.CelestialIntersectionTankOnly || isTank))
+                return true;
+
+            // Exaltation's threshold path only ever covers a tank - and only while that path
+            // is live: in fight-logic mode against catalogued busters it is reserved for the
+            // buster, not for upkeep.
+            if (s.Exaltation && Globals.InParty && isTank && Spells.Exaltation.IsKnownAndReady()
+                && (!s.FightLogicExaltation || !FightLogic.EnemyHasAnyTankbusterLogic()))
+                return true;
+
+            return false;
+        }
+
+        public static bool AoeOgcdHealReady()
+        {
+            var s = Models.Astrologian.AstrologianSettings.Instance;
+
+            if (s.CelestialOpposition && Spells.CelestialOpposition.IsKnownAndReady())
+                return true;
+
+            if (s.CollectiveUnconscious && Core.Me.InCombat && Spells.CollectiveUnconscious.IsKnownAndReady())
+                return true;
+
+            return false;
+        }
 
         public static List<Character> AllianceBeneficOnly = new List<Character>();
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? AstrologianSettings.Instance.AoeNeedHealingFullParty : AstrologianSettings.Instance.AoeNeedHealingLightParty;
@@ -48,21 +96,27 @@ namespace Magitek.Utilities.Routines
             if (AstrologianSettings.Instance.InterruptHealing && Casting.DoHealthChecks &&
                 Casting.SpellTarget?.CurrentHealthPercent >= AstrologianSettings.Instance.InterruptHealingHealthPercent)
             {
-                if (Casting.CastingSpell == Spells.Helios && PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
-                        r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Helios.Radius) && r.CurrentHealthPercent <=
-                        AstrologianSettings.Instance.HeliosHealthPercent) < AoeThreshold)
+                // Exhaustive chain: each AoE heal is judged by its own party count, and only
+                // single-target casts fall to the target-health rule. The old shape let a
+                // still-needed Helios fall into the single-target else and get cancelled.
+                if (Casting.CastingSpell == Spells.Helios)
                 {
-                    Logger.Error($@"Stopped Healing: Party's Health Too High");
-                    return true;
+                    if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
+                            r.CurrentHealth > 0 && r.WithinSpellRange(Spells.Helios.Radius) && r.CurrentHealthPercent <=
+                            AstrologianSettings.Instance.HeliosHealthPercent) < AoeThreshold)
+                    {
+                        Logger.Error($@"Stopped Healing: Party's Health Too High");
+                        return true;
+                    }
                 }
-                if (Casting.CastingSpell == Spells.AspectedHelios)
+                else if (Casting.CastingSpell == Spells.AspectedHelios)
                 {
                     if (PartyManager.VisibleMembers.Select(r => r.BattleCharacter).Count(r =>
                             r.CurrentHealth > 0 &&
                             r.WithinSpellRange(Spells.AspectedHelios.Radius) &&
                             r.CurrentHealthPercent <=
                             AstrologianSettings.Instance.DiurnalHeliosHealthPercent &&
-                            !r.HasAura(Auras.AspectedHelios, true)) < AoeThreshold)
+                            !r.HasAura(Auras.AspectedHelios, true) && !r.HasAura(Auras.HeliosConjunction, true)) < AoeThreshold)
                     {
                         Logger.Error($@"Stopped Healing: Party's Health Too High");
                         return true;
@@ -126,6 +180,10 @@ namespace Magitek.Utilities.Routines
         };
 
         public static Vector3 EarthlyStarLocation { get; set; }
+
+        // Set on every Earthly Star placement attempt, accepted or rejected, so a refused
+        // ground-target cannot re-dispatch at pulse rate.
+        public static long LastEarthlyStarAttemptTick { get; set; }
 
         // How close Divination's cooldown has to be before we report the burst as
         // imminent. Covers the pre-burst weave where Divination is about to go out and

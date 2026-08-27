@@ -17,22 +17,6 @@ namespace Magitek.Logic.Astrologian
     {
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? AstrologianSettings.Instance.AoeNeedHealingFullParty : AstrologianSettings.Instance.AoeNeedHealingLightParty;
 
-        public static async Task<bool> Swiftcast()
-        {
-            if (Spells.Swiftcast.Cooldown != TimeSpan.Zero)
-                return false;
-
-            if (Core.Me.HasAura(Auras.Lightspeed, true))
-                return false;
-
-            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
-            {
-                return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
-            }
-
-            return false;
-        }
-
         public static async Task<bool> LucidDreaming()
         {
             return await Roles.Healer.LucidDreaming(AstrologianSettings.Instance.LucidDreaming, AstrologianSettings.Instance.LucidDreamingManaPercent);
@@ -62,7 +46,7 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.LightspeedWithDivination && Core.Me.HasAura(Auras.Divination, true))
                 return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
 
-            if (AstrologianSettings.Instance.LightspeedWithDivination && Core.Me.HasAura(Auras.NeutralSect, true))
+            if (AstrologianSettings.Instance.LightspeedWithNeutralSect && Core.Me.HasAura(Auras.NeutralSect, true))
                 return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
 
             if (Globals.InParty)
@@ -123,13 +107,17 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.HasAura(Auras.SynastrySource))
                 return false;
 
-            if (Group.CastableAlliesWithin30.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent) < AstrologianSettings.Instance.SynastryAmountOfPeople)
-                return false;
-
-            GameObject target = AstrologianSettings.Instance.SynastryTankOnly
-                ? Group.CastableTanks.FirstOrDefault(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent
-                && r.IsTank())
-                : Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent);
+            // Verified tooltip: the bonded ally recovers 40% of every single-target healing
+            // spell we cast on anyone, themselves included - Synastry is a focus-heal
+            // amplifier, so the bond belongs on the ally our single-target heals are about
+            // to pour into. One endangered ally is the whole trigger; the old ally-count
+            // gate blocked exactly the textbook case, a lone tank eating busters.
+            GameObject target = Group.CastableAlliesWithin30
+                .Where(r => r.CurrentHealth > 0
+                    && r.CurrentHealthPercent <= AstrologianSettings.Instance.SynastryHealthPercent)
+                .OrderBy(r => r.IsTank() ? 0 : 1)
+                .ThenBy(r => r.CurrentHealthPercent)
+                .FirstOrDefault();
 
             if (target == null)
                 return false;
@@ -148,7 +136,10 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.NeutralSect.IsKnownAndReady())
                 return false;
 
-            if (AstrologianSettings.Instance.FightLogic_NeutralSectAspectedHelios && FightLogic.EnemyIsCastingBigAoe() && (AstrologianSettings.Instance.FightLogic_Macrocosmos && !Spells.Macrocosmos.IsKnownAndReady()) && !Core.Me.HasAnyAura(AstroUtils.ScholarAndSageShieldsNotToOverwrite))
+            // One fight-logic family: the responder tab's toggle rules this, and the Macrocosmos
+            // check is READINESS - Neutral Sect steps in when Macrocosmos cannot, regardless of
+            // whether the user enabled Macrocosmos reactions.
+            if (AstrologianSettings.Instance.FightLogicNeutralSect && FightLogic.EnemyIsCastingBigAoe() && !Spells.Macrocosmos.IsKnownAndReady() && !Core.Me.HasAnyAura(AstroUtils.ScholarAndSageShieldsNotToOverwrite))
                 return await FightLogic.DoAndBuffer(Spells.NeutralSect.CastAura(Core.Me, Auras.NeutralSect));
 
             var neutral = Group.CastableAlliesWithin15.Count(r => r.CurrentHealth > 0

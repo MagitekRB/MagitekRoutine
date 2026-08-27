@@ -168,14 +168,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Collective Unco..
-        /// </summary>
-        public static string Astrologian_Content_Collective_Unco {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Collective_Unco", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Collective Unconscious.
@@ -228,15 +220,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Dont_attack_Invuln_Hallowed_Ground_Undead_Redemption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t Dot if more than.
-        /// </summary>
-        public static string Astrologian_Content_Dont_Dot_if_more_than {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Dont_Dot_if_more_than", resourceCulture);
             }
         }
         
@@ -484,24 +467,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nocturnal Benefic.
-        /// </summary>
-        public static string Astrologian_Content_Nocturnal_Benefic {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Nocturnal_Benefic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nocturnal Helios.
-        /// </summary>
-        public static string Astrologian_Content_Nocturnal_Helios {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Nocturnal_Helios", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Regen.
         /// </summary>
         public static string Astrologian_Content_Only_Heal_Alliance_Members_With_Regen {
@@ -518,6 +483,24 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Astrologian_Content_Oracle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Prefer free (oGCD) heals - hardcast GCD heals only at or below.
+        /// </summary>
+        public static string Astrologian_Content_Prefer_Ogcd_Heals {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Prefer_Ogcd_Heals", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to At full Essential Dignity charges, spend one at or below.
+        /// </summary>
+        public static string Astrologian_Text_Essential_Dignity_At_Cap {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Essential_Dignity_At_Cap", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Play Cards.
@@ -525,15 +508,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Play_Cards {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Play_Cards", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prevent Usage of Swiftcast Alone.
-        /// </summary>
-        public static string Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone", resourceCulture);
             }
         }
         
@@ -565,6 +539,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aim Gravity at the enemy with the most others around it, instead of your target.
+        /// </summary>
+        public static string Astrologian_Content_Smart_Gravity {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Smart_Gravity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stellar Detonation.
         /// </summary>
         public static string Astrologian_Content_Stellar_Detonation {
@@ -592,11 +575,11 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Synastry When.
+        ///   Looks up a localized string similar to Bond Synastry to the tank or most wounded ally at or below.
         /// </summary>
-        public static string Astrologian_Content_Synastry_When {
+        public static string Astrologian_Content_Synastry_Bond {
             get {
-                return ResourceManager.GetString("Astrologian_Content_Synastry_When", resourceCulture);
+                return ResourceManager.GetString("Astrologian_Content_Synastry_Bond", resourceCulture);
             }
         }
         
@@ -615,15 +598,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Use_Divination_at_least {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Use_Divination_at_least", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Nocturnal Benefic While Moving If Mana Is Above.
-        /// </summary>
-        public static string Astrologian_Content_Use_Nocturnal_Benefic_While_Mo {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Use_Nocturnal_Benefic_While_Mo", resourceCulture);
             }
         }
         
@@ -651,15 +625,6 @@ namespace Magitek.Properties {
         public static string Astrologian_Content_Use_Time_Till_Death_For_Damage {
             get {
                 return ResourceManager.GetString("Astrologian_Content_Use_Time_Till_Death_For_Damage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weave OGCD Heals.
-        /// </summary>
-        public static string Astrologian_Content_Weave_OGCD_Heals {
-            get {
-                return ResourceManager.GetString("Astrologian_Content_Weave_OGCD_Heals", resourceCulture);
             }
         }
         
@@ -754,11 +719,254 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Astral hand - the Balance (melee DPS and tanks get the full 6%).
+        /// </summary>
+        public static string Astrologian_Text_Astral_Card_Weights {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Astral_Card_Weights", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Exaltation - react to catalogued tankbusters (held for them in catalogued fights).
+        /// </summary>
+        public static string Astrologian_Content_FL_Exaltation {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Exaltation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Celestial Intersection - react to catalogued tankbusters.
+        /// </summary>
+        public static string Astrologian_Content_FL_Celestial_Intersection {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Celestial_Intersection", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Neutral Sect - react to catalogued big raidwides when Macrocosmos is unavailable.
+        /// </summary>
+        public static string Astrologian_Content_FL_Neutral_Sect {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Neutral_Sect", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Earthly Star - detonate a matured Star at a catalogued raidwide.
+        /// </summary>
+        public static string Astrologian_Content_FL_Earthly_Star {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Earthly_Star", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Detonate at the ally nearest the party's center.
+        /// </summary>
+        public static string Astrologian_Content_FL_Earthly_Star_Center {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Earthly_Star_Center", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Collective Unconscious - react to catalogued raidwides when at least.
+        /// </summary>
+        public static string Astrologian_Content_FL_Collective_Unconscious {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Collective_Unconscious", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to allies are in range.
+        /// </summary>
+        public static string Astrologian_Text_FL_Allies_In_Range {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_FL_Allies_In_Range", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Horoscope - react to catalogued raidwides.
+        /// </summary>
+        public static string Astrologian_Content_FL_Horoscope {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Horoscope", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Aspected Helios - shield against catalogued raidwides.
+        /// </summary>
+        public static string Astrologian_Content_FL_Aspected_Helios {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Aspected_Helios", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Macrocosmos - react to catalogued big raidwides.
+        /// </summary>
+        public static string Astrologian_Content_FL_Macrocosmos {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Macrocosmos", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Lightspeed - stay instant through catalogued big raidwides when Neutral Sect and Macrocosmos are una.
+        /// </summary>
+        public static string Astrologian_Content_FL_Lightspeed {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Lightspeed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Surecast - react to catalogued knockbacks.
+        /// </summary>
+        public static string Astrologian_Content_FL_Knockback {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_FL_Knockback", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Free single-target heals (no cast, no global cooldown) - these answer first.
+        /// </summary>
+        public static string Astrologian_Text_Free_Single_Target_Heals {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Free_Single_Target_Heals", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Free AoE heals.
+        /// </summary>
+        public static string Astrologian_Text_Free_AoE_Heals {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Free_AoE_Heals", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Regens.
+        /// </summary>
+        public static string Astrologian_Text_Regens {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Regens", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hardcast heals - used when the free tools cannot answer.
+        /// </summary>
+        public static string Astrologian_Text_Hardcast_Heals {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Hardcast_Heals", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Keep a Dark Knight in Walking Dead topped up with Benefic II.
+        /// </summary>
+        public static string Astrologian_Content_Dont_Let_The_DRK_Die {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Dont_Let_The_DRK_Die", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Benefic (only without Benefic II) at or below.
+        /// </summary>
+        public static string Astrologian_Content_Benefic_Fallback {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Benefic_Fallback", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cast damage abilities.
+        /// </summary>
+        public static string Astrologian_Content_Cast_Damage_Abilities {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Cast_Damage_Abilities", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to In a party, hold damage while mana is below.
+        /// </summary>
+        public static string Astrologian_Text_Hold_Damage_Below_Mana {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Hold_Damage_Below_Mana", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to % - unless the target is expected to die within.
+        /// </summary>
+        public static string Astrologian_Text_Unless_Target_Dies_Within {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Unless_Target_Dies_Within", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to seconds (bosses exempt).
+        /// </summary>
+        public static string Astrologian_Text_Seconds_Bosses_Exempt {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Seconds_Bosses_Exempt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to enemies during battle.
+        /// </summary>
+        public static string Astrologian_Text_Enemies_During_Battle {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Enemies_During_Battle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enemies inside its circle.
+        /// </summary>
+        public static string Astrologian_Text_Enemies_In_Gravity_Circle {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Enemies_In_Gravity_Circle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Apply This Rule On.
+        /// </summary>
+        public static string Generic_Apply_This_Rule_On {
+            get {
+                return ResourceManager.GetString("Generic_Apply_This_Rule_On", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Card Priority (First to Last).
         /// </summary>
         public static string Astrologian_Text_Card_Priority_First_to_Last {
             get {
                 return ResourceManager.GetString("Astrologian_Text_Card_Priority_First_to_Last", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Umbral hand - the Spear (ranged DPS and healers get the full 6%).
+        /// </summary>
+        public static string Astrologian_Text_Umbral_Card_Weights {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Umbral_Card_Weights", resourceCulture);
             }
         }
         
@@ -772,6 +980,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Keep Combust rolling on up to.
+        /// </summary>
+        public static string Astrologian_Text_Combust_Up_To {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Combust_Up_To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DNC:.
         /// </summary>
         public static string Astrologian_Text_DNC {
@@ -780,14 +997,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Do Not Aspected Benefic Someone With Regen.
-        /// </summary>
-        public static string Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Dont Do Damage If There Are More Than 3 Enemies.
@@ -798,14 +1007,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Dont Play Cards When There is Less Than 30 Seconds.
-        /// </summary>
-        public static string Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Dont Use DoT if Enemy Dying Within 10 Seconds.
@@ -861,15 +1062,7 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Fight Logic:.
-        /// </summary>
-        public static string Astrologian_Text_Fight_Logic {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Fight_Logic", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Full Party:.
         /// </summary>
@@ -1024,11 +1217,29 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play utility cards (Bole, Arrow, Ewer, Spire) at or below.
+        ///   Looks up a localized string similar to Play the Arrow (boosts healing received) on the most wounded ally at or below.
         /// </summary>
-        public static string Astrologian_Text_Play_Utility_Cards_Below {
+        public static string Astrologian_Content_Play_The_Arrow_At_Or_Below {
             get {
-                return ResourceManager.GetString("Astrologian_Text_Play_Utility_Cards_Below", resourceCulture);
+                return ResourceManager.GetString("Astrologian_Content_Play_The_Arrow_At_Or_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Play the Ewer (regen) on the most wounded ally at or below.
+        /// </summary>
+        public static string Astrologian_Content_Play_The_Ewer_At_Or_Below {
+            get {
+                return ResourceManager.GetString("Astrologian_Content_Play_The_Ewer_At_Or_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Bole and the Spire are held for incoming tankbusters and played by fight logic.
+        /// </summary>
+        public static string Astrologian_Text_Bole_Spire_Fight_Logic {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Bole_Spire_Fight_Logic", resourceCulture);
             }
         }
         
@@ -1095,14 +1306,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Seconds Left in Combat..
-        /// </summary>
-        public static string Astrologian_Text_Seconds_Left_in_Combat {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Seconds_Left_in_Combat", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to SGE:.
@@ -1149,14 +1352,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Tank Only at.
-        /// </summary>
-        public static string Astrologian_Text_Tank_Only_at {
-            get {
-                return ResourceManager.GetString("Astrologian_Text_Tank_Only_at", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to VPR:.
@@ -1185,56 +1380,11 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to This will automatically cast Collective Unconscious for AOEs.
-        ///Does not work if Lightspeed is disabled..
-        /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_C {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_C", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This will automatically cast for Tankbusters.
-        ///Does not work if Exaltation is disabled..
-        /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_f {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_f", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This will automatically cast Lightspeed for Big AOEs if Macrocosmos and Neutral Sect FightLogic are enabled but unavailable.
-        ///Does not work if Lightspeed is disabled..
-        /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_L {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_L", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This will automatically cast Macrocosmos for Big AOEs.
-        ///Does not work if Lightspeed is disabled..
-        /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_M {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_M", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This will automatically cast Neutral Sect and Aspected Helios for Big AOEs if Macrocosmos Fight Logic is enabled but unavailable.
-        ///Does not work if Neutral Sect is disabled..
-        /// </summary>
-        public static string Astrologian_ToolTip_This_will_automatically_cast_N {
-            get {
-                return ResourceManager.GetString("Astrologian_ToolTip_This_will_automatically_cast_N", resourceCulture);
-            }
-        }
-        
+
+
+
+
+
         /// <summary>
         ///   Looks up a localized string similar to Apex Arrow.
         /// </summary>
@@ -4124,14 +4274,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Apply This Rule On.
-        /// </summary>
-        public static string Generic_Apply_This_Rule_On {
-            get {
-                return ResourceManager.GetString("Generic_Apply_This_Rule_On", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Arms Length.
@@ -14711,14 +14853,6 @@ namespace Magitek.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Aspected Healing.
-        /// </summary>
-        public static string Views_Header_Aspected_Healing {
-            get {
-                return ResourceManager.GetString("Views_Header_Aspected_Healing", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Damage Over Time.

@@ -67,7 +67,9 @@ namespace Magitek.Logic.Machinist
             if (ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                 return false;
 
-            if (Core.Me.EnemiesInCone(12) < 3)
+            // Blazing Shot generates Double Check/Checkmate charges and Auto Crossbow does
+            // not, so the crossbow only wins the overheat GCD at high target counts.
+            if (Core.Me.EnemiesInCone(12) < MachinistSettings.Instance.AutoCrossbowEnemyCount)
                 return false;
 
             return await Spells.AutoCrossbow.Cast(Core.Me.CurrentTarget);
@@ -140,7 +142,7 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseGaussRound && Spells.GaussRound.Masked().Charges > spell.Charges)
                 return false;
 
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive
                 && Combat.IsBoss()
                 && Core.Me.HasAura(Auras.WildfireBuff, true)
                 && !Core.Me.HasAura(Auras.Overheated)
@@ -158,7 +160,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.ChainSaw.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -190,7 +192,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.Excavator.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -213,13 +215,21 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.HasAura(Auras.FullMetalMachinist))
                 return false;
 
-            if (!Core.Me.HasAura(Auras.Overheated) && MachinistSettings.Instance.DoubleHyperchargedWildfire && Combat.IsBoss())
+            // Never during overheat: every overheat GCD belongs to a Blazing Shot, and a
+            // Full Metal Field there eats one of the five stacks (measured as a run of
+            // 4-blast windows when it was allowed in).
+            if (Core.Me.HasAura(Auras.Overheated))
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
-                return false;
-
-            if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
+            // The burst slot is the guide's own sequence - Full Metal Field immediately
+            // BEFORE Hypercharge + Wildfire (inside raid buffs), or in Wildfire's tail
+            // after the blasts. So: fire only with Wildfire up or at most a GCD away.
+            // ...but never let the proc die waiting: once it is inside its last 8 seconds,
+            // an off-window Full Metal Field beats a lost one.
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive && Combat.IsBoss()
+                && !Core.Me.HasAura(Auras.WildfireBuff, true)
+                && !Spells.Wildfire.IsKnownAndReady(5000)
+                && Core.Me.HasAura(Auras.FullMetalMachinist, true, 8000))
                 return false;
 
             return await Spells.FullMetalField.Cast(Core.Me.CurrentTarget);

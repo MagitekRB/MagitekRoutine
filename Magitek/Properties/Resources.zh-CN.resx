@@ -519,9 +519,6 @@
   <data name="Views_Header_General_Healing" xml:space="preserve">
     <value>常规治疗</value>
   </data>
-  <data name="Views_Header_Aspected_Healing" xml:space="preserve">
-    <value>吉星治疗</value>
-  </data>
   <data name="Views_Header_Healing_Options" xml:space="preserve">
     <value>治疗选项</value>
   </data>
@@ -565,19 +562,100 @@
     <value>中间学派时光速</value>
   </data>
   <data name="Astrologian_Content_Neutral_Sect_at" xml:space="preserve">
-    <value>中间学派时</value>
+    <value>中间学派 当队友生命值不高于</value>
   </data>
   <data name="Astrologian_Content_Use_Divination_at_least" xml:space="preserve">
-    <value>至少使用一次占卜</value>
+    <value>占卜 当至少有</value>
   </data>
   <data name="Astrologian_Content_Use_Oracle_at_least" xml:space="preserve">
-    <value>至少使用天宫图</value>
-  </data>
-  <data name="Astrologian_Text_Seconds_Left_in_Combat" xml:space="preserve">
-    <value>倒计时.</value>
+    <value>神谕 当至少有</value>
   </data>
   <data name="Astrologian_Text_Card_Priority_First_to_Last" xml:space="preserve">
     <value>卡片权重（数值越低越优先）。攻击卡优先给DPS，其次坦克/治疗；权重用于同类之间排序。</value>
+  </data>
+  <data name="Generic_Apply_This_Rule_On" xml:space="preserve">
+    <value>应用该规则于</value>
+  </data>
+  <data name="Astrologian_Text_Free_Single_Target_Heals" xml:space="preserve">
+    <value>免费单体治疗（无咏唱、不占GCD）- 优先使用</value>
+  </data>
+  <data name="Astrologian_Text_Free_AoE_Heals" xml:space="preserve">
+    <value>免费群体治疗</value>
+  </data>
+  <data name="Astrologian_Text_Regens" xml:space="preserve">
+    <value>持续回复</value>
+  </data>
+  <data name="Astrologian_Text_Hardcast_Heals" xml:space="preserve">
+    <value>读条治疗 - 免费手段不足时才使用</value>
+  </data>
+  <data name="Astrologian_Content_Dont_Let_The_DRK_Die" xml:space="preserve">
+    <value>用福星术奶满处于“行尸走肉”的暗黑骑士</value>
+  </data>
+  <data name="Astrologian_Content_Benefic_Fallback" xml:space="preserve">
+    <value>吉星术（仅当福星术未习得或已禁用）低于</value>
+  </data>
+  <data name="Astrologian_Content_Cast_Damage_Abilities" xml:space="preserve">
+    <value>使用伤害技能</value>
+  </data>
+  <data name="Astrologian_Text_Hold_Damage_Below_Mana" xml:space="preserve">
+    <value>小队中，当法力低于以下值时暂停输出</value>
+  </data>
+  <data name="Astrologian_Text_Unless_Target_Dies_Within" xml:space="preserve">
+    <value>% - 除非目标预计在以下时间内死亡</value>
+  </data>
+  <data name="Astrologian_Text_Seconds_Bosses_Exempt" xml:space="preserve">
+    <value>秒（Boss除外）</value>
+  </data>
+  <data name="Astrologian_Text_Enemies_In_Gravity_Circle" xml:space="preserve">
+    <value>名敌人位于其范围内</value>
+  </data>
+  <data name="Astrologian_Content_FL_Exaltation" xml:space="preserve">
+    <value>擢升 - 对已收录的坦克死刑做出反应（收录战斗中为其保留）</value>
+  </data>
+  <data name="Astrologian_Content_FL_Celestial_Intersection" xml:space="preserve">
+    <value>天星交错 - 对已收录的坦克死刑做出反应</value>
+  </data>
+  <data name="Astrologian_Content_FL_Neutral_Sect" xml:space="preserve">
+    <value>中间学派 - 大宇宙不可用时应对已收录的超大AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Earthly_Star" xml:space="preserve">
+    <value>地星 - 在已收录的AoE来临时引爆成熟的地星</value>
+  </data>
+  <data name="Astrologian_Content_FL_Earthly_Star_Center" xml:space="preserve">
+    <value>在最接近队伍中心的队友处引爆</value>
+  </data>
+  <data name="Astrologian_Content_FL_Collective_Unconscious" xml:space="preserve">
+    <value>命运之轮 - 应对已收录的AoE，需至少</value>
+  </data>
+  <data name="Astrologian_Text_FL_Allies_In_Range" xml:space="preserve">
+    <value>名队友在范围内</value>
+  </data>
+  <data name="Astrologian_Content_FL_Horoscope" xml:space="preserve">
+    <value>天宫图 - 应对已收录的AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Aspected_Helios" xml:space="preserve">
+    <value>阳星相位 - 以护盾应对已收录的AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Macrocosmos" xml:space="preserve">
+    <value>大宇宙 - 应对已收录的超大AoE</value>
+  </data>
+  <data name="Astrologian_Content_FL_Lightspeed" xml:space="preserve">
+    <value>光速 - 中间学派与大宇宙不可用时，用于在超大AoE期间保持瞬发</value>
+  </data>
+  <data name="Astrologian_Content_FL_Knockback" xml:space="preserve">
+    <value>沉稳咏唱 - 应对已收录的击退</value>
+  </data>
+  <data name="Astrologian_Text_Astral_Card_Weights" xml:space="preserve">
+    <value>星极手牌 - 太阳神之衡（近战DPS与坦克获得全额6%）</value>
+  </data>
+  <data name="Astrologian_Text_Umbral_Card_Weights" xml:space="preserve">
+    <value>灵极手牌 - 战争神之枪（远程DPS与治疗获得全额6%）</value>
+  </data>
+  <data name="Astrologian_Content_Prefer_Ogcd_Heals" xml:space="preserve">
+    <value>优先使用免费的能力技治疗 - 仅在生命值不高于以下百分比时读条治疗</value>
+  </data>
+  <data name="Astrologian_Text_Essential_Dignity_At_Cap" xml:space="preserve">
+    <value>“先天禀赋”充能满层时，对生命值不高于以下百分比的目标使用一层</value>
   </data>
   <data name="Astrologian_Text_MNK" xml:space="preserve">
     <value>武僧：</value>
@@ -649,7 +727,7 @@
     <value>自动抽卡（星极与灵极交替）</value>
   </data>
   <data name="Astrologian_Content_Lord_Of_Crowns_at_least" xml:space="preserve">
-    <value>至少使用一次王冠之领主</value>
+    <value>王冠之领主 当至少有</value>
   </data>
   <data name="Astrologian_Content_Lady_Of_Crowns" xml:space="preserve">
     <value>王冠之贵妇</value>
@@ -667,19 +745,13 @@
     <value>停手专心治疗</value>
   </data>
   <data name="Astrologian_Content_Use_Time_Till_Death_For_Damage" xml:space="preserve">
-    <value>根据目标血量决定DOT的使用</value>
-  </data>
-  <data name="Astrologian_Content_Dont_Dot_if_more_than" xml:space="preserve">
-    <value>当小怪多于   只时不上dot</value>
+    <value>不对预计将在以下时间内死亡的敌人施放焚灼</value>
   </data>
   <data name="Astrologian_Content_Gravity_When_There_Are" xml:space="preserve">
-    <value>当有   时使用重力</value>
+    <value>重力 当至少</value>
   </data>
   <data name="Astrologian_Text_Ally_Health_Percent" xml:space="preserve">
     <value>队友HP%百分比</value>
-  </data>
-  <data name="Astrologian_Text_Tank_Only_at" xml:space="preserve">
-    <value>仅限坦克在</value>
   </data>
   <data name="Astrologian_Text_Health_Percent_and" xml:space="preserve">
     <value>HP生命值%和</value>
@@ -732,9 +804,6 @@
   <data name="Astrologian_Text_Resurrection_Delay" xml:space="preserve">
     <value>延迟复活：</value>
   </data>
-  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
-    <value>队友生命值低于</value>
-  </data>
   <data name="Astrologian_Text_Enemies_Near_Target" xml:space="preserve">
     <value>目标附近的敌人</value>
   </data>
@@ -743,9 +812,6 @@
   </data>
   <data name="Astrologian_Text_Stellar_Explosion_If" xml:space="preserve">
     <value>星体爆炸 如果</value>
-  </data>
-  <data name="Astrologian_Text_Fight_Logic" xml:space="preserve">
-    <value>战斗逻辑：</value>
   </data>
   <data name="Astrologian_Content_Swiftcast_Ascend" xml:space="preserve">
     <value>即刻复活</value>
@@ -759,44 +825,11 @@
   <data name="Astrologian_Content_Essential_Dignity" xml:space="preserve">
     <value>先天禀赋</value>
   </data>
-  <data name="Astrologian_Content_Collective_Unco" xml:space="preserve">
-    <value>命运之轮.</value>
-  </data>
-  <data name="Astrologian_Content_Synastry_When" xml:space="preserve">
-    <value>使用星位合图 当</value>
-  </data>
   <data name="Astrologian_Content_Horoscope_When" xml:space="preserve">
     <value>使用天宫图 当</value>
   </data>
   <data name="Astrologian_Content_Stellar_Detonation" xml:space="preserve">
     <value>星体爆轰</value>
-  </data>
-  <data name="Astrologian_Content_Weave_OGCD_Heals" xml:space="preserve">
-    <value>插入治疗能力技</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_f" xml:space="preserve">
-    <value>自动对坦克职业使用。如果“擢升”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_C" xml:space="preserve">
-    <value>AOE时尝试使用“命运之轮”。如果“光速”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_M" xml:space="preserve">
-    <value>超大AOE时尝试使用“大宇宙”。如果“光速”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_N" xml:space="preserve">
-    <value>若 “大宇宙战斗逻辑” 已启用但无法释放时，面对超大AOE会尝试使用 “中间学派” 与 “阳星相位”。如果“中间学派”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_ToolTip_This_will_automatically_cast_L" xml:space="preserve">
-    <value>若 “大宇宙战斗逻辑” 及“中间学派战斗逻辑”已启用但无法释放时，面对超大AOE会尝试使用 “光速”。如果“光速”禁用则无效.</value>
-  </data>
-  <data name="Astrologian_Content_Nocturnal_Benefic" xml:space="preserve">
-    <value>吉星相位</value>
-  </data>
-  <data name="Astrologian_Content_Use_Nocturnal_Benefic_While_Mo" xml:space="preserve">
-    <value>移动时使用“吉星相位” 如果MP高于</value>
-  </data>
-  <data name="Astrologian_Content_Nocturnal_Helios" xml:space="preserve">
-    <value>夜星阳星</value>
   </data>
   <data name="Astrologian_Text_Gravity_II_with_at_least" xml:space="preserve">
     <value>使用中重力至少</value>
@@ -4015,13 +4048,16 @@
     <value>GCD-其他</value>
   </data>
   <data name="Astrologian_Content_Only_Heal_Alliance_Members_With_Regen" xml:space="preserve">
-    <value>仅用再生治疗小队外成员</value>
+    <value>仅使用吉星术治疗团队成员</value>
   </data>
-  <data name="Astrologian_Text_Dont_Play_Cards_When_There_is_Less_Than_30_Seconds" xml:space="preserve">
-    <value>当剩余时间少于30秒时不发卡</value>
+  <data name="Astrologian_Content_Play_The_Arrow_At_Or_Below" xml:space="preserve">
+    <value>对生命值不高于以下百分比的最受伤队友打出“放浪神之箭”（提高受到的治疗）</value>
   </data>
-  <data name="Astrologian_Text_Play_Utility_Cards_Below" xml:space="preserve">
-    <value>当血量低于或等于以下值时打出辅助卡（干、箭、瓶、塔）</value>
+  <data name="Astrologian_Content_Play_The_Ewer_At_Or_Below" xml:space="preserve">
+    <value>对生命值不高于以下百分比的最受伤队友打出“河流神之瓶”（持续回复）</value>
+  </data>
+  <data name="Astrologian_Text_Bole_Spire_Fight_Logic" xml:space="preserve">
+    <value>“世界树之干”与“建筑神之塔”将保留至坦克死刑，由战斗逻辑自动打出。</value>
   </data>
   <data name="Astrologian_Text_Always_Do_Damage_If_Target_Time_Till_Death_Is_Less_Than" xml:space="preserve">
     <value>如果目标的死亡倒计时少于[xx]则总是造成伤害</value>
@@ -4030,7 +4066,7 @@
     <value>如果敌人多于3个则不造成伤害</value>
   </data>
   <data name="Astrologian_Text_Refresh_When_Combust_Has_Less_Than_3_Seconds" xml:space="preserve">
-    <value>当焚灼剩余时间少于3秒时刷新</value>
+    <value>当焚灼剩余时间少于以下值时刷新</value>
   </data>
   <data name="Astrologian_Text_Dont_Use_DoT_if_Enemy_Dying_Within_10_Seconds" xml:space="preserve">
     <value>如果敌人在10秒内即将死亡，则不使用DoT</value>
@@ -4041,14 +4077,8 @@
   <data name="Astrologian_Content_Dispel_Only_If_Nearby_Players_Health_Is_Above" xml:space="preserve">
     <value>仅当附近玩家血量高于[xx]时驱散</value>
   </data>
-  <data name="Astrologian_Text_Do_Not_Aspected_Benefic_Someone_With_Regen" xml:space="preserve">
-    <value>不为有再生效果的目标附加吉星相位</value>
-  </data>
   <data name="Astrologian_Content_Use_Aspected_Benefic_While_Moving" xml:space="preserve">
     <value>移动时使用 吉星相位</value>
-  </data>
-  <data name="Astrologian_Content_Prevent_Usage_of_Swiftcast_Alone" xml:space="preserve">
-    <value>防止单独使用即刻咏唱</value>
   </data>
   <data name="Astrologian_Text_Party_Members_Near_Earthly_Star_Are_Below" xml:space="preserve">
     <value>地星范围内的队友血量低于</value>
@@ -4289,9 +4319,6 @@
   </data>
   <data name="Generic_Use_Esuna_To_Dispel" xml:space="preserve">
     <value>使用康复驱散</value>
-  </data>
-  <data name="Generic_Apply_This_Rule_On" xml:space="preserve">
-    <value>将此规则应用于</value>
   </data>
   <data name="Generic_On_Tank_Only" xml:space="preserve">
     <value>仅限坦克</value>
@@ -4954,16 +4981,22 @@
     <value>闪</value>
   </data>
   <data name="Astrologian_Content_Lightspeed" xml:space="preserve">
-    <value>光速</value>
+    <value>光速 当队友生命值不高于</value>
   </data>
   <data name="Astrologian_Content_SunSign" xml:space="preserve">
-    <value>太阳星座</value>
+    <value>太阳星座（中间学派之后）</value>
   </data>
   <data name="Astrologian_Content_Malefic" xml:space="preserve">
     <value>凶星</value>
   </data>
   <data name="Astrologian_Content_Combust" xml:space="preserve">
     <value>烧灼</value>
+  </data>
+  <data name="Astrologian_Text_Combust_Up_To" xml:space="preserve">
+    <value>战斗中最多为</value>
+  </data>
+  <data name="Astrologian_Text_Enemies_During_Battle" xml:space="preserve">
+    <value>个敌人维持焚灼</value>
   </data>
   <data name="Astrologian_Content_Exaltation" xml:space="preserve">
     <value>擢升</value>
@@ -5675,6 +5708,15 @@
   </data>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>
+  </data>
+  <data name="Astrologian_Content_Smart_Gravity" xml:space="preserve">
+    <value>将重力朝周围敌人最多的目标施放，而非当前目标</value>
+  </data>
+  <data name="Astrologian_Text_Allies_Are_Below" xml:space="preserve">
+    <value>队友生命值低于</value>
+  </data>
+  <data name="Astrologian_Content_Synastry_Bond" xml:space="preserve">
+    <value>当坦克或最受伤的队友生命低于此百分比时施放星媒（其受单体治疗提升40%）</value>
   </data>
   <data name="Generic_Dont_Let_The_DRK_Die" xml:space="preserve">
     <value>为死而不僵状态的暗黑骑士持续补血，防止效果结束时死亡</value>

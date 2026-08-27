@@ -48,8 +48,6 @@ namespace Magitek.Utilities
             EnhancedBenefic2 = 815,
             AspectedBenefic = 835,
             AspectedHelios = 836,
-            DiurnalSect = 839,
-            NocturnalSect = 840,
             EyesOpen = 1252,
             NocturnalField = 837,
             SynastrySource = 845,

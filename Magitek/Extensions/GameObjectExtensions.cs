@@ -493,13 +493,6 @@ namespace Magitek.Extensions
             return tar.CurrentHealth >= healthSetting || !(tar.CurrentHealthPercent < healthSettingPercent);
         }
 
-        public static AstrologianSect Sect(this GameObject unit)
-        {
-            if (unit.HasAura(Auras.DiurnalSect)) return AstrologianSect.Diurnal;
-            if (unit.HasAura(Auras.NocturnalSect)) return AstrologianSect.Nocturnal;
-            return AstrologianSect.None;
-        }
-
         public static bool IsBoss(this GameObject unit)
         {
             return unit != null && (

@@ -234,7 +234,9 @@ namespace Magitek.Logic.Roles
                 && !Core.Me.HasAura(Utilities.Auras.Dualcast))
                 return false;
 
-            var doomed = FightLogic.DoomedHealTarget();
+            // Skips a carrier whose last Doom heal landed less than a GCD ago - the aura outlives
+            // the cast by a server round trip, so without that the next GCD answers it again.
+            var doomed = FightLogic.DoomedHealTarget(heal);
 
             if (doomed == null)
                 return false;

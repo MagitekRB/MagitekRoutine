@@ -67,7 +67,6 @@ namespace Magitek.Logic.Astrologian
             if (AstrologianSettings.Instance.FightLogicCollectiveUnconscious
                 && Spells.CollectiveUnconscious.IsKnownAndReady()
                 && Spells.CollectiveUnconscious.CanCast()
-                && AstrologianSettings.Instance.CollectiveUnconsciousCenterParty
                 && Group.CastableAlliesWithin30.Count() >= AstrologianSettings.Instance.CollectiveUnconsciousAllies)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
@@ -132,9 +131,16 @@ namespace Magitek.Logic.Astrologian
             if (!FightLogic.HodlCastTimeRemaining(hodlTillDurationInPct: BaseSettings.Instance.FightLogicResponseDelay))
                 return false;
 
+            // One mitigation per buster: if the victim already carries one of our tools
+            // (the card's Bole included), the hit is answered - save the next tool for the
+            // next buster instead of stacking diminishing mitigation on this one.
+            var alreadyMitigated = target.HasAura(Auras.TheBole)
+                || target.HasAura(Auras.CelestialIntersection)
+                || target.HasAura(Auras.Exaltation);
+
             if (AstrologianSettings.Instance.FightLogicCelestialIntersection
                 && Spells.CelestialIntersection.IsKnownAndReady()
-                && !target.HasAura(Auras.CelestialIntersection)
+                && !alreadyMitigated
                 && Spells.CelestialIntersection.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
@@ -144,7 +150,7 @@ namespace Magitek.Logic.Astrologian
 
             if (AstrologianSettings.Instance.FightLogicExaltation
                 && Spells.Exaltation.IsKnownAndReady()
-                && !target.HasAura(Auras.Exaltation)
+                && !alreadyMitigated
                 && Spells.Exaltation.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)

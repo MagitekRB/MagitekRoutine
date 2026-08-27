@@ -14,6 +14,13 @@ namespace Magitek.Utilities.Routines
 {
     internal static class Machinist
     {
+        // The Double Hypercharged Wildfire label promises "(requires late weave wildfire)".
+        // Every consumer reads THIS so the promise is kept in one place: with Late Weave off,
+        // no hold, guard, or alignment anywhere saves for a double window that cannot happen.
+        public static bool DoubleHyperchargedWildfireActive =>
+            Models.Machinist.MachinistSettings.Instance.DoubleHyperchargedWildfire
+            && Models.Machinist.MachinistSettings.Instance.LateWeaveWildfire;
+
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Machinist, Spells.SplitShot, new List<SpellData>() { Spells.Flamethrower });
 
         // How close Wildfire's cooldown has to be before we report the burst as

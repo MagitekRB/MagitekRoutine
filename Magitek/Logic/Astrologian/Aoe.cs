@@ -35,13 +35,36 @@ namespace Magitek.Logic.Astrologian
             //if (ActionResourceManager.Astrologian.CurrentDraw != ActionResourceManager.Astrologian.AstrologianDraw.Astral)
             //    return false;
 
+            // Same three gates Gravity carries, in the same order: Lord is a self-centred
+            // damage AoE, but it is dispatched from the heal/buff blocks, which run before
+            // the DoDamage, StopDamageWhenMoreThanEnemies and mana gates in Combat() - so it
+            // never reached any of them and fired with the global AoE toggle off.
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!AstrologianSettings.Instance.LordOfCrowns)
+                return false;
+
+            // Lord is a damage oGCD - the master damage switch applies to it like everything else.
+            if (!AstrologianSettings.Instance.DoDamage)
+                return false;
+
+            // It has no business firing out of combat either - but in a duty the heal-oGCD
+            // block runs between pulls too (InActiveDuty stays true for the whole instance),
+            // and Lord was landing 0.7s after out-of-combat raises: measured five times
+            // across two days, once onto a still-idle pack.
+            if (!Core.Me.InCombat)
                 return false;
 
             if (!Spells.LordofCrowns.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.CurrentTarget.EnemiesNearby(20).Count() < AstrologianSettings.Instance.LordOfCrownsEnemies && AstrologianSettings.Instance.LordOfCrownsEnemies > 1)
+            // Lord is centred on the caster, so count around US rather than the current
+            // target, which between pulls often does not exist. WithinSpellRange rather than
+            // EnemiesNearby: called on ourselves the latter adds our own combat reach twice
+            // and never the enemy's, so a big-hitbox target inside the radius could go
+            // uncounted.
+            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.LordofCrowns.Radius)) < AstrologianSettings.Instance.LordOfCrownsEnemies)
                 return false;
 
             return await Spells.LordofCrowns.Cast(Core.Me);
@@ -50,7 +73,17 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> Oracle()
         {
+            // Same exposure as Lord above: dispatched from CombatBuff(), which runs before
+            // Combat()'s damage gates, so it needs its own. Divination is a party buff and is
+            // not damage-gated, so the Divining requirement below does not stand in for these.
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!AstrologianSettings.Instance.Oracle)
+                return false;
+
+            // Oracle is a damage oGCD - the master damage switch applies to it like everything else.
+            if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
             if (!Spells.Oracle.IsKnownAndReady())

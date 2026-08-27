@@ -732,10 +732,6 @@
                                  Style="{DynamicResource MainTabHealing}">
                             <astrologian:Healing/>
                         </TabItem>
-                        <TabItem Header="{x:Static properties:Resources.Views_Header_Aspected_Healing}"
-                                 Style="{DynamicResource MainTabHealing}">
-                            <astrologian:DiurnalHealing/>
-                        </TabItem>
                         <TabItem Header="{x:Static properties:Resources.Generic_Cards}"
                                  Style="{DynamicResource MainTabCards}">
                             <astrologian:Cards/>
