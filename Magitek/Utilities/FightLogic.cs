@@ -54,15 +54,47 @@ namespace Magitek.Utilities
         /// first, so healers treat the carrier as the top-priority heal target. Deliberately
         /// not zone-gated, unlike the enemy-cast catalogues.
         /// </summary>
-        public static Character DoomedHealTarget()
+        public static Character DoomedHealTarget(SpellData heal)
         {
             // The below-full check matters: full HP is what removes the aura, so a carrier
             // sitting at full is already cleansing (removal latency) and healing them again
             // only wastes the GCD.
             if (Globals.InParty)
-                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth);
+                return Group.CastableAlliesWithin30.FirstOrDefault(r => r.HasAura(Auras.Doom) && r.CurrentHealth < r.MaxHealth && !DoomResponseInFlight(r, heal));
 
-            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth ? Core.Me : null;
+            return Core.Me.HasAura(Auras.Doom) && Core.Me.CurrentHealth < Core.Me.MaxHealth && !DoomResponseInFlight(Core.Me, heal) ? Core.Me : null;
+        }
+
+        /// <summary>
+        /// True while a Doom heal that already landed on <paramref name="carrier"/> is still
+        /// resolving, so the response leaves that one carrier alone and still answers anyone else
+        /// immediately.
+        /// <para>
+        /// Without this the response answers the same Doom twice, back to back. The aura only
+        /// clears once the SERVER applies the heal, which is a round trip after the cast finishes -
+        /// so on the pulse right after it the carrier still reads as doomed and still reads as
+        /// below full, and the next GCD is spent on a Doom that is already answered. Seen five
+        /// times on one party member in a single Occult Crescent CE, each duplicate 0.27-0.9s
+        /// after its predecessor completed.
+        /// </para>
+        /// <para>
+        /// Read off <see cref="Casting"/> rather than stamped when the cast is fired, because
+        /// those fields are written only by CheckForSuccessfulCast: a Doom heal that started and
+        /// was then cancelled - movement, target invalidation, a job interrupt check - paces
+        /// nothing, and the carrier stays eligible on the very next pulse.
+        /// </para>
+        /// <para>
+        /// One GCD measured from cast COMPLETION, derived from whichever heal the job passed so it
+        /// tracks the healer's spell speed. Measuring from completion is also what keeps this
+        /// honest when Swiftcast or Dualcast makes the heal instant: the window is the GCD either
+        /// way, never the nominal cast time on top of it. Doom runs 10s, so a carrier the first
+        /// heal did not top off still gets several more attempts.
+        /// </para>
+        /// </summary>
+        private static bool DoomResponseInFlight(Character carrier, SpellData heal)
+        {
+            return Casting.LastSpellWas(heal, (int)heal.AdjustedCooldown.TotalMilliseconds)
+                   && Casting.LastSpellTarget?.ObjectId == carrier.ObjectId;
         }
 
         private static TimeSpan FlCooldown
