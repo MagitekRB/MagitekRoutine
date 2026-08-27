@@ -2,7 +2,6 @@
 using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.Sage;
-using Magitek.Models.Scholar;
 using Magitek.Utilities;
 using Magitek.Utilities.Managers;
 using System.Linq;
@@ -36,11 +35,11 @@ namespace Magitek.Logic.Sage
                 return await Spells.Esuna.Cast(dispelTarget);
             }
 
-            if (!ScholarSettings.Instance.AutomaticallyDispelAnythingThatsDispellable)
+            if (!SageSettings.Instance.AutomaticallyDispelAnythingThatsDispellable)
                 return false;
 
             // Check to see if we need to heal people before we Dispel anyone
-            if (ScholarSettings.Instance.DispelOnlyAbove && Group.CastableAlliesWithin30.Any(r => r.CurrentHealthPercent < ScholarSettings.Instance.DispelOnlyAboveHealth))
+            if (SageSettings.Instance.DispelOnlyAbove && Group.CastableAlliesWithin30.Any(r => r.CurrentHealthPercent < SageSettings.Instance.DispelOnlyAboveHealth))
                 return false;
 
             if (Casting.LastSpell == Spells.Esuna)
@@ -65,10 +64,10 @@ namespace Magitek.Logic.Sage
             if (Casting.LastSpell == Spells.Esuna && Casting.LastSpellTarget == Core.Me)
                 return false;
 
-            if (!ScholarSettings.Instance.AutomaticallyDispelAnythingThatsDispellable)
+            if (!SageSettings.Instance.AutomaticallyDispelAnythingThatsDispellable)
                 return false;
 
-            if (Core.Me.CurrentHealthPercent < ScholarSettings.Instance.DispelOnlyAboveHealth)
+            if (Core.Me.CurrentHealthPercent < SageSettings.Instance.DispelOnlyAboveHealth)
                 return false;
 
             if (!Core.Me.HasAnyDispellableAura())

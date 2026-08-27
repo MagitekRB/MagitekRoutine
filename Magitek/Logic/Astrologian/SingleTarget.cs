@@ -33,20 +33,20 @@ namespace Magitek.Logic.Astrologian
             if (!AstrologianSettings.Instance.Combust)
                 return false;
 
-            if (!AstrologianSettings.Instance.CombustMultipleTargets)
+            if (AstrologianSettings.Instance.CombustUpToEnemies < 2)
                 return false;
 
             if (!AstrologianSettings.Instance.DoDamage)
                 return false;
 
+            // One positive dial instead of the old cap/blanket toggles: keep the dot rolling
+            // on up to this many enemies, counting the ones already carrying it.
+            if (Combat.Enemies.Count(e => e.HasAnyAura(CombustAuras, true)) >= AstrologianSettings.Instance.CombustUpToEnemies)
+                return false;
+
             var combustTarget = Combat.Enemies.FirstOrDefault(NeedsCombust);
 
             if (combustTarget == null)
-                return false;
-
-            if (AstrologianSettings.Instance.DontDotIfMoreEnemies
-                && AstrologianSettings.Instance.DontDotIfMoreEnemiesThan > 0
-                && Combat.Enemies.Count > AstrologianSettings.Instance.DontDotIfMoreEnemiesThan)
                 return false;
 
             return await Spells.Combust.Cast(combustTarget);
@@ -62,6 +62,11 @@ namespace Magitek.Logic.Astrologian
             bool CanCombust(GameObject unit)
             {
                 if (!AstrologianSettings.Instance.UseTTDForCombust)
+                    return true;
+
+                // Same rule as the single-target path: bosses are always worth the dot - their
+                // time-to-death estimate is unreliable and they exempt there too.
+                if (unit.IsBoss())
                     return true;
 
                 return unit.CombatTimeLeft() >= AstrologianSettings.Instance.DontCombustIfEnemyDyingWithin;
@@ -97,12 +102,14 @@ namespace Magitek.Logic.Astrologian
             if (target.CharacterAuras.Count() >= 25)
                 return false;
 
-            if (Core.Me.CurrentTarget.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds))
+            // The dial covers this path too: a fresh dot on the current target spends the
+            // same budget the multi-target path counts, or target-swapping would ride the
+            // primary cast past any cap. Refreshing a target already carrying it is free.
+            if (!Core.Me.CurrentTarget.HasAnyAura(CombustAuras, true)
+                && Combat.Enemies.Count(e => e.HasAnyAura(CombustAuras, true)) >= AstrologianSettings.Instance.CombustUpToEnemies)
                 return false;
 
-            if (AstrologianSettings.Instance.DontDotIfMoreEnemies
-                && AstrologianSettings.Instance.DontDotIfMoreEnemiesThan > 0
-                && Combat.Enemies.Count > AstrologianSettings.Instance.DontDotIfMoreEnemiesThan)
+            if (Core.Me.CurrentTarget.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds))
                 return false;
 
             return await Spells.Combust.Cast(Core.Me.CurrentTarget);
