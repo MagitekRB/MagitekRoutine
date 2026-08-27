@@ -55,6 +55,13 @@ namespace Magitek.Logic.Roles
             Mesmerized = 4802,
             MagicShell = 4788,
             HonedSpellblade = 4789,
+            // Blazing Spellblade applies BOTH halves of a pair from a single cast, 70s each:
+            // 4790 lands on us (+5% damage dealt), 4791 on the enemy (+5% damage taken). The
+            // English names are no guide to which is which - Japanese marks the harmful half
+            // with ［害］ (まほうけんフレア vs まほうけんフレア［害］) and the client's ReactionFlag
+            // reads 1 for 4790 against 2 for 4791. Do not swap these.
+            BlazingSpellblade = 4790,
+            BlazingBane = 4791,
             FinishingFervor = 4793,
             Defend = 4792,
             // Elemental weaknesses revealed on an enemy by Occult Libra (North Horn). A matching
@@ -324,16 +331,16 @@ namespace Magitek.Logic.Roles
                 new Vector3(456.5246f, 71.46682f, 524.4749f),
                 new Vector3(350.6741f, 46.45173f, -558.5289f),
                 new Vector3(-18.32449f, 3.79342f, -37.40308f),
-                // Forked Tower shares this zone id but sits far below the overworld. These came from
-                // session logs rather than a live reading, so they are approximate and unconfirmed.
-                new Vector3(597.8f, -700f, 927f),               // Forked Tower entrance
-                new Vector3(-893f, -984.7401f, 780f),           // Forked Tower
-                new Vector3(-900f, -986.1f, 782.2488f),
-                new Vector3(103f, -706.7383f, 678f),
-                new Vector3(0f, -722.6936f, -367f),
-                new Vector3(603.5453f, -672.6606f, 640.6041f),
-                new Vector3(599.4f, -700.0f, 927.8f),           // Forked Tower, Lower Vestibule
-                new Vector3(603.7968f, -670.6514f, -125.1157f)
+                // Forked Tower shares this zone id but sits far below the overworld. These six
+                // were surveyed in game at the live crystal objects (2026-08-07), replacing the
+                // earlier approximate log-derived set — which also listed the raid's staging marker
+                // (~58y from the real Tower Base crystal) and drew failed buff rounds there.
+                new Vector3(-893.3f, -986.1f, 781.9f),          // Tower Base
+                new Vector3(602.3f, -674.0f, 642.0f),           // Lower Central
+                new Vector3(599.4f, -700.0f, 927.8f),           // Lower Vestibule
+                new Vector3(603.0f, -672.0f, -123.4f),          // Veil of Ignorance
+                new Vector3(102.0f, -708.0f, 679.6f),           // Upper Passage
+                new Vector3(-0.5f, -724.0f, -365.1f)            // Pinnacle
             }
         };
 
@@ -886,16 +893,19 @@ namespace Magitek.Logic.Roles
         /// <returns>True if an action was executed, false otherwise</returns>
         private static async Task<bool> ExecuteChemistPhantomJob()
         {
-            // Revive - resurrect dead party members first
-            if (await Revive())
-                return true;
-
             // OccultElixir - party-wide HP/MP restoration (most expensive)
             if (await OccultElixir())
                 return true;
 
             // OccultPotion - HP restoration (expensive)
             if (await OccultPotion())
+                return true;
+
+            // Revive - resurrect dead party members, below the heals that keep the living alive and
+            // above the MP top-up that does not. Revive used to run first, which meant stopping to
+            // pick someone up off the floor while a party member on the edge died waiting. Same order
+            // as Phantom White Mage's Occult Raise.
+            if (await Revive())
                 return true;
 
             // OccultEther - MP restoration
@@ -3639,8 +3649,20 @@ namespace Magitek.Logic.Roles
             if (!target.WithinSpellRange(OCSpells.BlazingSpellblade.Range))
                 return false;
 
-            // Don't recast if target already has Vulnerability Up (70s duration)
-            if (target.HasAura(Auras.VulnerabilityUp))
+            // Re-cast if EITHER half of the pair is missing. A freshly pulled enemy has no
+            // Blazing Bane even while our own Blazing Spellblade is still running, and another
+            // Mystic Knight's Bane on the target does nothing for our personal damage buff.
+            //
+            // All three Spellblades share one 30s recast, so cast windows land at 0/30/60/90
+            // while the pair expires at 70 - waiting for a clean expiry leaves a 20s hole. At
+            // the third window the pair has exactly 10s left, and msLeft compares with >=, so
+            // the threshold has to clear 10s to catch it. Half a shared window does that with
+            // room for the real cadence drifting late, and spends every other window on Blazing
+            // while the rest go to Holy Spellblade, which is the bigger hit.
+            const int refreshMs = 15000;
+
+            if (Core.Me.HasAura(OCAuras.BlazingSpellblade, msLeft: refreshMs)
+                && target.HasAura(OCAuras.BlazingBane, msLeft: refreshMs))
                 return false;
 
             return await OCSpells.BlazingSpellblade.Cast(target);
@@ -4276,11 +4298,65 @@ namespace Magitek.Logic.Roles
             if (await WhiteMageOccultCureII())
                 return true;
 
+            // Occult Raise - below the mitigation and the heals, above the damage. Someone already on
+            // the floor can wait the couple of seconds it takes to finish a cure; someone about to join
+            // them cannot. Instant cast, so being outranked here costs a pulse, not a cast.
+            if (await OccultRaise())
+                return true;
+
             // Occult Holy - 60s recast, the job's only damage
             if (await OccultHoly())
                 return true;
 
             return false;
+        }
+
+        /// <summary>
+        /// Cast Occult Raise - resurrects a dead party member
+        /// Instant cast, so no swiftcast handling, and it uniquely works on targets flagged
+        /// Resurrection Restricted
+        /// </summary>
+        /// <returns>True if spell was cast, false otherwise</returns>
+        private static async Task<bool> OccultRaise()
+        {
+            if (!OccultCrescentSettings.Instance.UseOccultRaise)
+                return false;
+
+            // Occult Raise already had a call site in ExecuteNonPartyResurrection(), which works off
+            // the alliance list. This is the party-side path it was missing, so a Phantom White Mage
+            // now picks up their own party members and Trust NPCs rather than only strangers.
+            //
+            // Find dead allies using the same logic as Healer.Raise — including the raw 3D
+            // distance, which is deliberate there and must stay deliberate here. It is the
+            // exception to the "always use WithinSpellRange" rule in AGENTS.md: a corpse has
+            // no usable CombatReach, so raise range is centre to centre, and WithinSpellRange
+            // uses Distance2D so it would ignore height entirely. Leave this as Distance.
+            var deadList = Group.DeadAllies.Where(u => u.CurrentHealth == 0 &&
+                                                       !u.HasAura(Auras.Raise) &&
+                                                       u.Distance(Core.Me) <= 30 &&
+                                                       u.IsVisible &&
+                                                       u.InLineOfSight() &&
+                                                       u.IsTargetable &&
+                                                       Group.GetDeathTime(u)?.AddSeconds(OccultCrescentSettings.Instance.OccultRaiseDelay) <= DateTime.Now)
+                .OrderByDescending(r => r.GetResurrectionWeight());
+
+            var deadTarget = deadList.FirstOrDefault();
+
+            if (deadTarget == null)
+                return false;
+
+            if (!deadTarget.IsTargetable)
+                return false;
+
+            if (!OCSpells.OccultRaise.CanCast(deadTarget))
+                return false;
+
+            // Check combat restrictions - only check out of combat restriction
+            if (!Core.Me.InCombat && !OccultCrescentSettings.Instance.OccultRaiseOutOfCombat)
+                return false;
+
+            // Occult Raise is instant - no swiftcast needed
+            return await OCSpells.OccultRaise.CastAura(deadTarget, Auras.Raise);
         }
         #endregion
 

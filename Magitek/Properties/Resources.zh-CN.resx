@@ -774,6 +774,9 @@
   <data name="Astrologian_Content_Aspected_Helios" xml:space="preserve">
     <value>阳星相位</value>
   </data>
+  <data name="Astrologian_Text_Neutral_Sect_No_Reshield" xml:space="preserve">
+    <value>自身的阳星相位回复效果至少还剩这些秒数时，不重新施放中间学派护盾：</value>
+  </data>
   <data name="Astrologian_Content_Celestial_Opposition" xml:space="preserve">
     <value>天星冲日</value>
   </data>
@@ -1427,6 +1430,9 @@
   </data>
   <data name="Dragoon_Content_Life_Surge" xml:space="preserve">
     <value>龙剑</value>
+  </data>
+  <data name="Dragoon_Text_Life_Surge_Charge_Threshold" xml:space="preserve">
+    <value>龙剑充能阈值</value>
   </data>
   <data name="Dragoon_Content_Use_Dragon_Sight" xml:space="preserve">
     <value>使用 巨龙视线</value>
@@ -2123,6 +2129,9 @@
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>使用 魔神圣</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Raise" xml:space="preserve">
+    <value>使用 魔复活 (复活死亡的小队成员)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
     <value>使用 魔分身 (无效化一次魔法攻击)</value>
@@ -3795,6 +3804,9 @@
   <data name="WhiteMage_Content_Dot_up_to" xml:space="preserve">
     <value>为最多[xx]个目标上DoT</value>
   </data>
+  <data name="WhiteMage_Content_Hold_Divine_Caress_During_Temperance" xml:space="preserve">
+    <value>节制期间保留神爱抚</value>
+  </data>
   <data name="WhiteMage_Content_Holy_When_There_Are" xml:space="preserve">
     <value>当有[xx]时使用神圣</value>
   </data>
@@ -4118,6 +4130,9 @@
   </data>
   <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
     <value>在范围攻击时使用雷系魔法</value>
+  </data>
+  <data name="BlackMage_Content_Use_Ethers_In_AOE" xml:space="preserve">
+    <value>在范围攻击时使用以太药</value>
   </data>
   <data name="BlackMage_Content_Use_TTD_For_Thunder_Single" xml:space="preserve">
     <value>对单体雷系魔法使用死亡倒计时(TTD)判定（敌人在[xx]秒内即将死亡时不使用）</value>
@@ -5007,6 +5022,9 @@
   <data name="BlackMage_Content_Amplifier" xml:space="preserve">
     <value>详述</value>
   </data>
+  <data name="BlackMage_Content_Use_Swiftcast" xml:space="preserve">
+    <value>使用即刻咏唱</value>
+  </data>
   <data name="BlackMage_Content_UmbralSoul" xml:space="preserve">
     <value>灵极魂</value>
   </data>
@@ -5690,6 +5708,9 @@
   </data>
   <data name="Astrologian_Content_Synastry_Bond" xml:space="preserve">
     <value>当坦克或最受伤的队友生命低于此百分比时施放星媒（其受单体治疗提升40%）</value>
+  </data>
+  <data name="Generic_Dont_Let_The_DRK_Die" xml:space="preserve">
+    <value>为死而不僵状态的暗黑骑士持续补血，防止效果结束时死亡</value>
   </data>
   <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
     <value>使用 PVP 仇恨计数器</value>

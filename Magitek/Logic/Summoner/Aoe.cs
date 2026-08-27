@@ -222,8 +222,10 @@ namespace Magitek.Logic.Summoner
             if (SmnResources.Aetherflow + ArcResources.Aetherflow != 0)
                 return false;
 
-            if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
-                return false;
+            //This explicitly forbids the bot from casting Energy Drain unless you are currently in a Bahamut or Phoenix phase. 
+            //If it comes off cooldown during Titan/Ifrit/Garuda, it will sit unused for up to 45 seconds, completely destroying your DPS.
+            //if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
+            //    return false;
 
             if (!GlobalCooldown.CanWeave())
                 return false;

@@ -44,10 +44,10 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseDrill && Spells.Drill.IsKnownAndReady(200))
                 return false;
 
-            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
-            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
             if (Core.Me.HasAura(Auras.Overheated) && Spells.HeatBlast.IsKnown())
@@ -67,10 +67,10 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseDrill && Spells.Drill.IsKnownAndReady(200))
                 return false;
 
-            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseHotAirAnchor && Spells.AirAnchor.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
-            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200))
+            if (MachinistSettings.Instance.UseChainSaw && Spells.ChainSaw.IsKnownAndReady(200) && ActionResourceManager.Machinist.Battery <= 80)
                 return false;
 
             if (Core.Me.HasAura(Auras.Overheated) && Spells.HeatBlast.IsKnown())
@@ -90,7 +90,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.Drill.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -123,7 +123,7 @@ namespace Magitek.Logic.Machinist
             if (!Spells.AirAnchor.IsKnownAndReady() && !Spells.HotShot.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.Overheated) && !MachinistSettings.Instance.DoubleHyperchargedWildfire)
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
                 return false;
 
             if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
@@ -156,11 +156,11 @@ namespace Magitek.Logic.Machinist
             if (ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                 return false;
 
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
-                && Spells.FullMetalField.IsKnown()
-                && Spells.Wildfire.IsReady())
-                return false;
-
+            // Blasts never hold for Wildfire. Holding was measured as 2-4s of dead space per
+            // window: late-weave Wildfire paces itself off GCD progress, so waiting for it
+            // starves the very clock it waits on. Wildfire's 10s window still counts a full
+            // 6 GCDs when weaved in after the first blast, so blasts roll immediately and
+            // Wildfire lands among them (with a mid-window fallback on the Wildfire side).
             return await Spells.HeatBlast.Cast(Core.Me.CurrentTarget);
         }
 
@@ -193,7 +193,7 @@ namespace Magitek.Logic.Machinist
             if (MachinistSettings.Instance.UseRicochet && Spells.Ricochet.Masked().Charges > spell.Charges)
                 return false;
 
-            if (MachinistSettings.Instance.DoubleHyperchargedWildfire
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive
                 && Combat.IsBoss()
                 && Core.Me.HasAura(Auras.WildfireBuff, true)
                 && !Core.Me.HasAura(Auras.Overheated)

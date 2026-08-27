@@ -1,4 +1,5 @@
-using ff14bot;
+﻿using ff14bot;
+using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Logic.BlackMage;
 using Magitek.Logic.Roles;
@@ -56,7 +57,26 @@ namespace Magitek.Rotations
             if (await MagicDps.FightLogic_Addle(BlackMageSettings.Instance)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(BlackMageSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
+            // Moving without an instant-cast buff: keep uptime with the natural instants first,
+            // then pop Triplecast or Swiftcast. Each call carries its own gates.
+            if (MovementManager.IsMoving
+                && !Core.Me.HasAura(Auras.Swiftcast)
+                && !Core.Me.HasAura(Auras.Triplecast))
+            {
+                if (await SingleTarget.Xenoglossy()) return true;
+                if (await SingleTarget.Paradox()) return true;
+                if (await SingleTarget.Thunder3()) return true;
+
+                if (Core.Me.HasAura(Auras.FireStarter))
+                    if (await SingleTarget.Fire3()) return true;
+
+                if (await Buff.Triplecast()) return true;
+                if (await Buff.Swiftcast()) return true;
+            }
+
             if (await Aoe.FlareStar()) return true;
+
+            if (await Buff.UsePotion()) return true;
 
             if (await Buff.Amplifier()) return true;
             if (await Buff.Triplecast()) return true;
@@ -75,6 +95,10 @@ namespace Magitek.Rotations
                 //Either
                 if (await Aoe.Thunder4()) return true;
                 if (await Aoe.Foul()) return true;
+
+                if (await Aoe.UseAoeEther()) return true;
+
+                if (await Aoe.AoeTranspose()) return true;
 
                 if (await Aoe.Blizzard2()) return true;
                 if (await Aoe.Fire2()) return true;

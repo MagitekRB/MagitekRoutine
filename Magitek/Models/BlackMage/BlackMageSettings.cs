@@ -1,4 +1,4 @@
-using Magitek.Enumerations;
+﻿using Magitek.Enumerations;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -91,6 +91,10 @@ namespace Magitek.Models.BlackMage
 
         [Setting]
         [DefaultValue(true)]
+        public bool UseSwiftcast { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool UmbralSoul { get; set; }
 
         [Setting]
@@ -125,6 +129,10 @@ namespace Magitek.Models.BlackMage
         [Setting]
         [DefaultValue(true)]
         public bool ThunderAoe { get; set; }
+
+        [Setting]
+        [DefaultValue(false)]
+        public bool UseEtherInAoe { get; set; }
         #endregion
 
         #region PVP

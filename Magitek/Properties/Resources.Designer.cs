@@ -1199,6 +1199,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don't recast the Neutral Sect shield while your own Helios regen still has at least this many seconds left:.
+        /// </summary>
+        public static string Astrologian_Text_Neutral_Sect_No_Reshield {
+            get {
+                return ResourceManager.GetString("Astrologian_Text_Neutral_Sect_No_Reshield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PCT:.
         /// </summary>
         public static string Astrologian_Text_PCT {
@@ -2106,6 +2115,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Swiftcast.
+        /// </summary>
+        public static string BlackMage_Content_Use_Swiftcast {
+            get {
+                return ResourceManager.GetString("BlackMage_Content_Use_Swiftcast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UmbralSoul.
         /// </summary>
         public static string BlackMage_Content_UmbralSoul {
@@ -2147,6 +2165,15 @@ namespace Magitek.Properties {
         public static string BlackMage_Content_Use_Thunder_Spells_AOE {
             get {
                 return ResourceManager.GetString("BlackMage_Content_Use_Thunder_Spells_AOE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Ethers in AoE.
+        /// </summary>
+        public static string BlackMage_Content_Use_Ethers_In_AOE {
+            get {
+                return ResourceManager.GetString("BlackMage_Content_Use_Ethers_In_AOE", resourceCulture);
             }
         }
         
@@ -3951,6 +3978,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Life Surge charge threshold.
+        /// </summary>
+        public static string Dragoon_Text_Life_Surge_Charge_Threshold {
+            get {
+                return ResourceManager.GetString("Dragoon_Text_Life_Surge_Charge_Threshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nastrond.
         /// </summary>
         public static string Dragoon_Content_Nastrond {
@@ -4776,6 +4812,15 @@ namespace Magitek.Properties {
         public static string Generic_DPS {
             get {
                 return ResourceManager.GetString("Generic_DPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep a Dark Knight in Walking Dead topped up so it doesn't kill them.
+        /// </summary>
+        public static string Generic_Dont_Let_The_DRK_Die {
+            get {
+                return ResourceManager.GetString("Generic_Dont_Let_The_DRK_Die", resourceCulture);
             }
         }
         
@@ -9098,7 +9143,16 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Quick_Speed_buff", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Occult Raise (Resurrect dead party members).
+        /// </summary>
+        public static string OccultCrescent_Content_Use_Occult_Raise {
+            get {
+                return ResourceManager.GetString("OccultCrescent_Content_Use_Occult_Raise", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Use Occult Slowga (Inflicts Slow on enemies).
         /// </summary>
@@ -15985,6 +16039,15 @@ namespace Magitek.Properties {
         public static string WhiteMage_Content_Dot_up_to {
             get {
                 return ResourceManager.GetString("WhiteMage_Content_Dot_up_to", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hold Divine Caress While Temperance Is Active.
+        /// </summary>
+        public static string WhiteMage_Content_Hold_Divine_Caress_During_Temperance {
+            get {
+                return ResourceManager.GetString("WhiteMage_Content_Hold_Divine_Caress_During_Temperance", resourceCulture);
             }
         }
         

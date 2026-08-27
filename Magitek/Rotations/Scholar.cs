@@ -61,6 +61,10 @@ namespace Magitek.Rotations
 
             if (await Logic.Scholar.Heal.Resurrection()) return true;
 
+            // A Walking Dead tank outranks discretionary healing: the window is short
+            // and every other heal path stops below the healing it needs.
+            if (await Healer.HealWalkingDeadTank(ScholarSettings.Instance.DontLetTheDRKDie, Spells.Adloquium)) return true;
+
             // Scalebound Extreme Rathalos
             if (Core.Me.HasAura(1495))
             {

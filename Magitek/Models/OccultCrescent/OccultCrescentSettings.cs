@@ -664,6 +664,18 @@ namespace Magitek.Models.OccultCrescent
         [Setting]
         [DefaultValue(true)]
         public bool UseOccultHoly { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseOccultRaise { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool OccultRaiseOutOfCombat { get; set; }
+
+        [Setting]
+        [DefaultValue(3.0f)]
+        public float OccultRaiseDelay { get; set; }
         #endregion
 
         #region Phantom Ninja

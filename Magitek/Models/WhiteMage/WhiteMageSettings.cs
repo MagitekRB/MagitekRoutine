@@ -142,6 +142,10 @@ namespace Magitek.Models.WhiteMage
         public bool UseDivineCaress { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool HoldDivineCaressDuringTemperance { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool Cure3 { get; set; }
 
@@ -276,6 +280,10 @@ namespace Magitek.Models.WhiteMage
         [Setting]
         [DefaultValue(true)]
         public bool Cure2 { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool DontLetTheDRKDie { get; set; }
 
         [Setting]
         [DefaultValue(75.0f)]

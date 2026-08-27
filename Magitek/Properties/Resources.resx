@@ -774,6 +774,9 @@
   <data name="Astrologian_Content_Aspected_Helios" xml:space="preserve">
     <value>Aspected Helios</value>
   </data>
+  <data name="Astrologian_Text_Neutral_Sect_No_Reshield" xml:space="preserve">
+    <value>Don't recast the Neutral Sect shield while your own Helios regen still has at least this many seconds left:</value>
+  </data>
   <data name="Astrologian_Content_Celestial_Opposition" xml:space="preserve">
     <value>Celestial Opposition</value>
   </data>
@@ -1427,6 +1430,9 @@
   </data>
   <data name="Dragoon_Content_Life_Surge" xml:space="preserve">
     <value>Life Surge</value>
+  </data>
+  <data name="Dragoon_Text_Life_Surge_Charge_Threshold" xml:space="preserve">
+    <value>Life Surge charge threshold</value>
   </data>
   <data name="Dragoon_Content_Use_Dragon_Sight" xml:space="preserve">
     <value>Use Dragon Sight</value>
@@ -2117,6 +2123,9 @@
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Holy" xml:space="preserve">
     <value>Use Occult Holy</value>
+  </data>
+  <data name="OccultCrescent_Content_Use_Occult_Raise" xml:space="preserve">
+    <value>Use Occult Raise (Resurrect dead party members)</value>
   </data>
   <data name="OccultCrescent_Content_Use_Occult_Blink" xml:space="preserve">
     <value>Use Occult Blink (nullifies one magic attack)</value>
@@ -3789,6 +3798,9 @@
   <data name="WhiteMage_Content_Dot_up_to" xml:space="preserve">
     <value>Dot up to</value>
   </data>
+  <data name="WhiteMage_Content_Hold_Divine_Caress_During_Temperance" xml:space="preserve">
+    <value>Hold Divine Caress While Temperance Is Active</value>
+  </data>
   <data name="WhiteMage_Content_Holy_When_There_Are" xml:space="preserve">
     <value>Holy When There Are</value>
   </data>
@@ -4112,6 +4124,9 @@
   </data>
   <data name="BlackMage_Content_Use_Thunder_Spells_AOE" xml:space="preserve">
     <value>Use Thunder Spells in AoE</value>
+  </data>
+  <data name="BlackMage_Content_Use_Ethers_In_AOE" xml:space="preserve">
+    <value>Use Ethers in AoE</value>
   </data>
   <data name="BlackMage_Content_Use_TTD_For_Thunder_Single" xml:space="preserve">
     <value>Use TTD Check for Thunder Single (Don't cast if enemy dying within)</value>
@@ -5002,6 +5017,9 @@
   <data name="BlackMage_Content_Amplifier" xml:space="preserve">
     <value>Amplifier</value>
   </data>
+  <data name="BlackMage_Content_Use_Swiftcast" xml:space="preserve">
+    <value>Use Swiftcast</value>
+  </data>
   <data name="BlackMage_Content_UmbralSoul" xml:space="preserve">
     <value>UmbralSoul</value>
   </data>
@@ -5457,6 +5475,9 @@
   </data>
   <data name="Astrologian_Content_Synastry_Bond" xml:space="preserve">
     <value>Bond Synastry to the tank or most wounded ally (their heals hit 40% harder) at or below</value>
+  </data>
+  <data name="Generic_Dont_Let_The_DRK_Die" xml:space="preserve">
+    <value>Keep a Dark Knight in Walking Dead topped up so it doesn't kill them</value>
   </data>
   <data name="Views_Content_Use_Pvp_Aggro_Count_Overlay" xml:space="preserve">
     <value>Use PvP Aggro Count Overlay</value>

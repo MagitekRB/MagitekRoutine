@@ -1,4 +1,4 @@
-using Buddy.Coroutines;
+﻿using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
@@ -63,6 +63,13 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.Despair)
                 return false;
 
+            // In the AoE rotation Flare owns the fire-phase finisher - Despair firing first
+            // dumps the MP that two more Flares and Flare Star were going to convert
+            if (AoeControl.Enabled
+                && BlackMageSettings.Instance.UseAoe
+                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+                return false;
+
             if (Casting.LastSpellWas(Spells.Despair))
                 return false;
 
@@ -79,8 +86,13 @@ namespace Magitek.Logic.BlackMage
             if (Spells.ManaFont.IsKnownAndReadyAndCastable())
                 return false;
 
-            // If our mana is more then 1600
-            if (Core.Me.CurrentMana >= 1600 || Core.Me.CurrentMana == 0)
+            // FFXIV MP costs (patch 7.x): Despair consumes all MP and needs at least 800 to fire
+            if (Core.Me.CurrentMana < 800)
+                return false;
+
+            // Fire IV costs 800 MP with an Umbral Heart, 1600 without - keep casting Fire IV
+            // while another Fire IV plus a Despair still fit in the mana we have
+            if (Core.Me.CurrentMana >= (UmbralHearts > 0 ? 800 : 1600) + 800)
                 return false;
 
             return await Spells.Despair.Cast(Core.Me.CurrentTarget);
@@ -123,6 +135,10 @@ namespace Magitek.Logic.BlackMage
 
             //only use in astral fire
             if (AstralStacks != 3)
+                return false;
+
+            // FFXIV MP costs (patch 7.x): Fire IV costs 800 MP with an Umbral Heart, 1600 without
+            if (Core.Me.CurrentMana < (UmbralHearts > 0 ? 800 : 1600))
                 return false;
 
             return await Spells.Fire4.Cast(Core.Me.CurrentTarget);
@@ -315,6 +331,11 @@ namespace Magitek.Logic.BlackMage
             }
 
             if (Casting.LastSpellWas(Spells.Blizzard4))
+                return false;
+
+            // In the modern ice phase (Blizzard IV known) the sequence is B3 -> B4 -> Paradox -> F3;
+            // base Blizzard only burned a GCD while the Umbral Ice MP refill tick landed
+            if (Spells.Blizzard4.IsKnown() && UmbralStacks == 3)
                 return false;
 
             return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);

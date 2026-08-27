@@ -114,18 +114,8 @@ namespace Magitek.Logic.Summoner
                 && Combat.CombatTotalTimeLeft < SummonerSettings.Instance.ThrottleTranceSummonsSeconds)
                 return false;
 
-            if (!SummonerSettings.Instance.SearingLight)
-                return await bahamutSpell.Cast(Core.Me.CurrentTarget);
-
-            if (!Spells.SearingLight.IsReady() && !Core.Me.HasAura(Auras.SearingLight))
-                return await bahamutSpell.Cast(Core.Me.CurrentTarget);
-
-            if (Spells.SearingLight.IsReady() && GlobalCooldown.CanWeave())
-                return await Buff.SearingLight();
-
-            if (!Core.Me.HasAura(Auras.SearingLight))
-                return false;
-
+            // Dawntrail Optimization: Decoupled Searing Light from Bahamut. 
+            // It is now an independent oGCD that should weave naturally without stalling Demi summons.
             return await bahamutSpell.Cast(Core.Me.CurrentTarget);
         }
 

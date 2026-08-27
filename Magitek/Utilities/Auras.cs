@@ -332,6 +332,7 @@ namespace Magitek.Utilities
             BowShock = 1838,
             DraconianFire = 1863,
             PowerSurge = 2720,
+            LifeSurge = 116,
             ChaoticSpring = 2719,
             ChaosThrust = 118,
             LanceCharge = 1864,

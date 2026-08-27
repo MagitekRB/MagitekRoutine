@@ -140,6 +140,10 @@ namespace Magitek.Models.Scholar
         public bool Adloquium { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool DontLetTheDRKDie { get; set; }
+
+        [Setting]
         [DefaultValue(60.0f)]
         public float AdloquiumHpPercent { get; set; }
 

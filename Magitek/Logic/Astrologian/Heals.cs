@@ -153,24 +153,7 @@ namespace Magitek.Logic.Astrologian
 
         public static async Task<bool> DontLetTheDrkDie()
         {
-            if (!AstrologianSettings.Instance.DontLetTheDRKDie)
-                return false;
-
-            if (!Globals.InParty)
-                return false;
-
-            if (!Globals.PartyInCombat)
-                return false;
-
-            var walkingDeadMan = Group.CastableTanks.FirstOrDefault(r =>
-                !Utilities.Routines.Astrologian.DontBenefic2.Contains(r.Name)
-                && r.HasAura(Auras.WalkingDead)
-                && r.CurrentHealthPercent < 100);
-
-            if (walkingDeadMan == null)
-                return false;
-
-            return await Spells.Benefic2.Heal(walkingDeadMan);
+            return await Healer.HealWalkingDeadTank(AstrologianSettings.Instance.DontLetTheDRKDie, Spells.Benefic2);
         }
 
         public static async Task<bool> CelestialIntersection()
@@ -540,8 +523,21 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.AspectedHelios.IsKnownAndReady())
                 return false;
 
+            // RB masks the spell to Helios Conjunction at 96+, but not the aura it applies.
+            var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
+
+            // A raidwide consuming the shields re-qualifies this branch a GCD later, so without the
+            // regen check it recast after every hit, overwriting a regen that was still mostly fresh.
+            // A fresh self-regen means we just cast this; once it ages past the threshold the branch
+            // may fire again so the party can be re-shielded before the next hit.
+            // A regen cast shortly BEFORE Neutral Sect must not block the window's first
+            // shields, so the freshness gate only applies once Neutral Sect (20s) has been
+            // up for a few seconds - by then a fresh self-regen can only mean we shielded.
+            var neutralSectJustApplied = Core.Me.HasAura(Auras.NeutralSect, true, 16000);
+
             if (Core.Me.HasAura(Auras.NeutralSect) &&
-                Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield))
+                Group.CastableAlliesWithin15.Count(x => !x.HasAura(Auras.NeutralSectShield)) >= AoeThreshold && !Core.Me.HasAura(Auras.NeutralSectShield)
+                && (neutralSectJustApplied || !Core.Me.HasAura(heliosAura, true, AstrologianSettings.Instance.DiurnalHeliosReshieldRegenSecondsLeft * 1000)))
                 // Swiftcast stays reserved for Ascend. While moving, the Lightspeed pairing
                 // with Neutral Sect (on by default) is what makes this castable; without it
                 // the shield waits for the next standstill.
@@ -569,9 +565,6 @@ namespace Magitek.Logic.Astrologian
 
             if (diurnalHeliosCount >= AoeThreshold)
             {
-                // RB masks the spell to Helios Conjunction at 96+, but not the aura it applies.
-                var heliosAura = (uint)(Spells.HeliosConjunction.IsKnown() ? Auras.HeliosConjunction : Auras.AspectedHelios);
-
                 return await Spells.AspectedHelios.HealAura(Core.Me, heliosAura);
             }
             return false;

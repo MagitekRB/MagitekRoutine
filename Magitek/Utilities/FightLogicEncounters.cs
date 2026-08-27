@@ -7397,6 +7397,8 @@ namespace Magitek.Utilities
                         Aoes = new List<uint> {
                             49179, // Empty Proclamation
                             49182, // Super Nova
+                            49174, // Starflare — same structure as Shinryu's catalogued Starflare: the
+                                   // bar is the parent cast and the hits ride hidden twins ~8-10s later
                             // Celestial Trail family 49139-49144/49147: only 49140 has a castbar
                             // (7.7s, from HP-44 helper copies sharing the boss's NpcId); the rest are
                             // echoes and damage ids — do not catalogue them. Needs the
@@ -7426,7 +7428,9 @@ namespace Magitek.Utilities
                         TankBusters = null,
                         SharedTankBusters = null,
                         Aoes = new List<uint> {
-                            50092,
+                            50092, // Fulmination Khalkeos
+                            50093, // Fulmination Khryseos — twin of Khalkeos with identical arena-wide
+                                   // geometry; seen in earlier sessions but not yet hit-confirmed
                         },
                         BigAoes = null,
                         Knockbacks = null,
@@ -7842,11 +7846,20 @@ namespace Magitek.Utilities
                             46470, // Alley-oop Inferno
                             46466, // Divers' Dare
                             46472, // Pyrotation
+                            46474, // Hot Aerial — tower soak; the tower damage is unavoidable by design
+                            46478, // Cutback Blaze — marked spread cones, every cast dealt party damage
+                            46497, // Xtreme Spectacular — tag-team multi-hit raidwide chain
+                            47251, // Insane Air — intro cast for the baited-cone rounds
+                            47253, // Insane Air — per-round baited cones, rolling party damage
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = new List<uint> {
+                            // Fires simultaneously with Deep Blue's Watersnaking; together they cover
+                            // all eight players in one instant with most hits above half a health bar.
+                            46462, // Firesnaking
+                        }
                     },
                     new Enemy {
                         Id = 14369,
@@ -7856,11 +7869,16 @@ namespace Magitek.Utilities
                         },
                         Aoes = new List<uint> {
                             46467, // Divers' Dare
+                            46498, // Xtreme Spectacular — Deep Blue's castbar for the shared chain
+                            47252, // Insane Air — intro cast
+                            47254, // Insane Air — per-round baited cones
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
                         SharedTankBusters = null,
-                        BigAoes = null
+                        BigAoes = new List<uint> {
+                            46463, // Watersnaking — simultaneous half of Firesnaking, same coverage
+                        }
                     },
                 }
             },
@@ -7883,6 +7901,8 @@ namespace Magitek.Utilities
                             46016, // Raw Steel
                             46043, // One and Only
                             46079, // Heartbreak Kick
+                            46024, // Void Stardust — unavoidable spread on every player, comet rain follows
+                            46056, // Flatliner — the damage rides a hidden twin that hits all eight ~6s later
                         },
                         AoeLockOns = null,
                         Knockbacks = null,
@@ -7906,6 +7926,8 @@ namespace Magitek.Utilities
                             46228, // The Fixer
                             47552, // Splattershed
                             48096, // Splattershed
+                            47549, // Splattershed — third castbar of the same family; its damage hit
+                                   // every living player ~5.5s after the bar starts
                             46208, // Venomous Scourge — marked AoE on every player. Measured 22 hits
                                    // across all eight at up to 62.2% of a health bar, and its damage
                                    // lands 5.0s after the cast, so mitigation applied on the cast is

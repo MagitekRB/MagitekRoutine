@@ -117,21 +117,129 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Freeze.IsKnown())
                 return false;
 
-            if (Casting.LastSpellWas(Spells.Freeze))
-                return false;
-
             //If flarestar is ready, cast it
             if (AstralSoulStacks == 6)
                 return false;
 
-            //Can only use in Umbral Ice
-            if (UmbralStacks != 3)
+            //Can only use in Umbral Ice - the Transpose loop enters ice at Umbral Ice 1
+            if (UmbralStacks == 0)
                 return false;
 
-            if (Core.Me.CurrentMana == 10000)
-                return false;
+            // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
+            // This is a trait check, not a spell availability check
+            if (Core.Me.ClassLevel >= 58)
+            {
+                // One Freeze grants full hearts; the guard covers the pulse before the gauge updates
+                if (Casting.LastSpellWas(Spells.Freeze))
+                    return false;
+
+                // The ice phase is done once Freeze has granted full hearts
+                if (UmbralHearts == 3)
+                    return false;
+            }
+            else
+            {
+                // Below the trait there are no hearts; Freeze chains until the MP refill is done
+                if (Core.Me.CurrentMana == Core.Me.MaxMana)
+                    return false;
+            }
 
             return await Spells.Freeze.Cast(Core.Me.CurrentTarget);
+        }
+
+        public static async Task<bool> AoeTranspose()
+        {
+            if (!AoeControl.Enabled)
+                return false;
+
+            // The Transpose AoE loop starts at Blizzard II (level 12); Freeze (40) and Umbral
+            // Hearts (58) refine the ice phase but the stance cycle itself is the same
+            if (!Spells.Blizzard2.IsKnown())
+                return false;
+
+            if (!Spells.Transpose.IsKnownAndReady())
+                return false;
+
+            // Astral Fire -> Umbral Ice: swap once MP can no longer support the fire phase
+            if (AstralStacks > 0)
+            {
+                // Never strand a ready Flare Star
+                if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                    return false;
+
+                // FFXIV MP costs (patch 7.x): Flare fires down to its 800 MP minimum; without it
+                // the fire spender is Fire II (1500 MP, doubled to 3000 in Astral Fire), and below
+                // that base Fire (800 MP, doubled to 1600).
+                var fireFloor = Spells.Flare.IsKnown() ? 800 : Spells.Fire2.IsKnown() ? 3000 : 1600;
+                if (Core.Me.CurrentMana >= fireFloor)
+                    return false;
+
+                return await Spells.Transpose.Cast(Core.Me);
+            }
+
+            // Umbral Ice -> Astral Fire: swap once the ice phase has done its job
+            if (UmbralStacks > 0)
+            {
+                // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
+                // This is a trait check, not a spell availability check
+                if (Core.Me.ClassLevel >= 58)
+                {
+                    // Freeze granted full hearts and Flare's 800 MP floor is covered
+                    if (UmbralHearts == 3 && Core.Me.CurrentMana >= 800)
+                        return await Spells.Transpose.Cast(Core.Me);
+
+                    return false;
+                }
+
+                // Below the trait there are no hearts; the ice phase ends at full MP
+                if (Core.Me.CurrentMana == Core.Me.MaxMana)
+                    return await Spells.Transpose.Cast(Core.Me);
+
+                return false;
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> UseAoeEther()
+        {
+            if (!AoeControl.Enabled)
+                return false;
+
+            if (!BlackMageSettings.Instance.UseEtherInAoe)
+                return false;
+
+            // Only use ethers to extend the Astral Fire phase
+            if (AstralStacks == 0)
+                return false;
+
+            // Don't pop an ether while MP can still pay for Flare
+            if (Core.Me.CurrentMana >= 800)
+                return false;
+
+            // Hold the ether until a ready Flare Star is consumed
+            if (AstralSoulStacks == 6 && Spells.FlareStar.IsKnown())
+                return false;
+
+            // Manafont restores more than any ether - let it fire first when permitted
+            if (BlackMageSettings.Instance.ManaFont && Spells.ManaFont.IsKnownAndReady())
+                return false;
+
+            // Best to worst; HQ (raw id + 1,000,000) ahead of NQ within each tier.
+            // Any of these restores enough MP for at least one more Flare.
+            foreach (var etherId in new[] {
+                1023168, 23168, // Super-Ether
+                1013638, 13638, // Max-Ether
+                1004558, 4558,  // X-Ether
+                1004557, 4557,  // Mega-Ether
+                1004556, 4556   // Hi-Ether
+            })
+            {
+                if (await Ether.UseEther(etherId))
+                    return true;
+            }
+
+            return false;
         }
 
         public static async Task<bool> Thunder4()
@@ -181,6 +289,11 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Fire2.IsKnown())
                 return false;
 
+            // In Astral Fire with Flare known the AoE fire phase belongs to Flare - don't hardcast
+            // Fire II over it. Fire II stays the Umbral Ice exit hardcast and the sub-50 fire spender.
+            if (AstralStacks > 0 && Spells.Flare.IsKnown())
+                return false;
+
             //No stack, open with Fire3
             if (AstralStacks < 3 && UmbralStacks == 0)
                 return await Spells.Fire2.Cast(Core.Me.CurrentTarget);
@@ -189,8 +302,25 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (UmbralStacks == 3 && UmbralHearts != 3)
-                return false;
+            // In Umbral Ice, Fire II is only the exit cast back into fire, and only once the ice
+            // phase is done - never mid-refill, which flips the stance with no MP restored
+            if (UmbralStacks > 0)
+            {
+                // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
+                // This is a trait check, not a spell availability check
+                if (Core.Me.ClassLevel >= 58)
+                {
+                    // The ice phase is done once Freeze has granted full hearts
+                    if (UmbralHearts != 3)
+                        return false;
+                }
+                else
+                {
+                    // Below the trait the ice phase ends at full MP (Transpose exits first when ready)
+                    if (Core.Me.CurrentMana < Core.Me.MaxMana)
+                        return false;
+                }
+            }
 
             //Try and keep from doublecasting or using after manafont
             // if (Casting.LastSpell == Spells.Fire2
@@ -232,12 +362,27 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
+            // Below Freeze, Blizzard II is the ice phase itself: castable at any Umbral Ice stack
+            // count, it grants Umbral Ice III and carries the MP refill until full. Chaining it
+            // back-to-back is intended here, so this sits above the doublecast guard below
+            if (!Spells.Freeze.IsKnown() && UmbralStacks > 0)
+            {
+                if (Core.Me.CurrentMana == Core.Me.MaxMana)
+                    return false;
+
+                return await Spells.Blizzard2.Cast(Core.Me.CurrentTarget);
+            }
+
             if (Casting.LastSpellWas(Spells.Blizzard2)
                 || Casting.LastSpellWas(Spells.HighBlizzardII)
                 || Casting.LastSpellWas(Spells.ManaFont))
                 return false;
 
             if (AstralStacks < 3 || UmbralStacks == 3)
+                return false;
+
+            // Flare keeps the fire phase going down to its 800 MP floor - don't hardcast into ice while it still can
+            if (Spells.Flare.IsKnown() && Core.Me.CurrentMana >= 800)
                 return false;
 
             if (Core.Me.CurrentMana >= 1600)
