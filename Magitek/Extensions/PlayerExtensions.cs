@@ -1,10 +1,7 @@
-﻿using ff14bot;
-using ff14bot.Managers;
+﻿using ff14bot.Managers;
 using ff14bot.Objects;
-using Magitek.Utilities;
 using Magitek.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 
 
 namespace Magitek.Extensions
@@ -106,10 +103,5 @@ namespace Magitek.Extensions
             1269, // Phantom Village
             1237, // Sinus Adorum
         };
-
-        public static int EnemiesInCone(this LocalPlayer player, float maxdistance)
-        {
-            return Combat.Enemies.Count(r => r.Distance(Core.Me) <= maxdistance + r.CombatReach && r.RadiansFromPlayerHeading() < 0.9599f);
-        }
     }
 }

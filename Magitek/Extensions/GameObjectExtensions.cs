@@ -52,6 +52,11 @@ namespace Magitek.Extensions
             return lp != null && lp.TargetGameObject == unit;
         }
 
+        /// <summary>
+        /// Can we reach <paramref name="unit"/> with a spell of this range? Edge to edge: both
+        /// hitboxes come off, because both ends are physical objects. Not the same geometry as an
+        /// AoE radius - see EnemiesNearby.
+        /// </summary>
         public static bool WithinSpellRange(this GameObject unit, float range)
         {
             if (unit == null)
@@ -276,15 +281,41 @@ namespace Magitek.Extensions
         }
 
 
+        /// <summary>
+        /// Enemies inside an AoE of radius <paramref name="distance"/> centred on <paramref name="unit"/>.
+        /// An enemy counts once its own hitbox edge is within the radius, and only the
+        /// counted enemy's combat reach applies - the AoE centre itself adds nothing.
+        /// </summary>
+        /// <remarks>
+        /// Not WithinSpellRange, which is a range check and subtracts both hitboxes.
+        ///
+        /// Measured in game: a radius-5 AoE hit out to 5 + the target's own combat reach and no
+        /// further, across hitboxes of 0.5, 2.4 and 3.2, centred on us and on another mob alike.
+        /// A striking dummy reports 1.5 but resolves AoE like 0.5 - retest on real monsters.
+        /// </remarks>
         public static IEnumerable<BattleCharacter> EnemiesNearby(this GameObject unit, float distance)
         {
-            if (unit == null || Core.Me == null)
+            if (unit == null)
                 return Enumerable.Empty<BattleCharacter>();
 
-            var meCombatReach = Core.Me.CombatReach;
-            var unitCombatReach = unit.CombatReach;
+            return Combat.Enemies.Where(r => r != null && r.Distance(unit) <= distance + r.CombatReach);
+        }
 
-            return Combat.Enemies.Where(r => r != null && r.Distance(unit) <= distance + meCombatReach + unitCombatReach);
+        /// <summary>
+        /// Enemies inside a frontal cone of LENGTH <paramref name="maxdistance"/> from the player.
+        /// Same rule as EnemiesNearby. Returns the count, not the sequence.
+        /// </summary>
+        /// <remarks>
+        /// Width is a hardcoded 0.9599 rad half-angle (~110 degree cone), not read from spell data,
+        /// so every cone ability is checked against the same shape whatever its real one is.
+        ///
+        /// Heading is the post-auto-face one, not where we point now: RadiansFromPlayerHeading uses
+        /// the heading we will have after facing the target, when FaceTargetOnAction and
+        /// UseAutoFaceChecks are both on and a target exists.
+        /// </remarks>
+        public static int EnemiesInCone(this LocalPlayer player, float maxdistance)
+        {
+            return Combat.Enemies.Count(r => r.Distance(Core.Me) <= maxdistance + r.CombatReach && r.RadiansFromPlayerHeading() < 0.9599f);
         }
 
         public static IEnumerable<BattleCharacter> EnemiesNearbyOoc(this GameObject unit, float distance)
