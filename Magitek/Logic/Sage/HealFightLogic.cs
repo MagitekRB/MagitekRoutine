@@ -34,7 +34,9 @@ namespace Magitek.Logic.Sage
                 && Addersgall >= 1
                 && useAoEBuffs)
             {
-                var targets = Group.CastableAlliesWithin20.Where(r => !r.HasAura(Auras.Kerachole) && !r.HasAura(Auras.Taurochole));
+                //Radius is 30y, same as Panhaima and Holos below - a 20y sample loses allies
+                //the mitigation would have covered, and the tank check below reads the same set.
+                var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Kerachole) && !r.HasAura(Auras.Taurochole));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.KeracholeOnlyWithTank
                     || targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank));
