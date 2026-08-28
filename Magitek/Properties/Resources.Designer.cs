@@ -2070,6 +2070,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retrace Ley Lines after standing still for.
+        /// </summary>
+        public static string BlackMage_Content_Retrace_After_Standing_Still {
+            get {
+                return ResourceManager.GetString("BlackMage_Content_Retrace_After_Standing_Still", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paradox.
         /// </summary>
         public static string BlackMage_Content_Paradox {

@@ -114,6 +114,10 @@ namespace Magitek.Models.BlackMage
         public bool LeyLinesBossOnly { get; set; }
 
         [Setting]
+        [DefaultValue(2)]
+        public int RetraceStandStillSeconds { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UsePreCombatTranspose { get; set; }
 

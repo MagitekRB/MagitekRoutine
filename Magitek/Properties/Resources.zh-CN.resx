@@ -5049,6 +5049,9 @@
   <data name="BlackMage_Content_TripleCast" xml:space="preserve">
     <value>三连咏唱</value>
   </data>
+  <data name="BlackMage_Content_Retrace_After_Standing_Still" xml:space="preserve">
+    <value>原地静止以下时间后使用黑魔纹移动</value>
+  </data>
   <data name="BlackMage_Content_Paradox" xml:space="preserve">
     <value>悖论</value>
   </data>

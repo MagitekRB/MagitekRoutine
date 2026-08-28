@@ -5044,6 +5044,9 @@
   <data name="BlackMage_Content_TripleCast" xml:space="preserve">
     <value>TripleCast</value>
   </data>
+  <data name="BlackMage_Content_Retrace_After_Standing_Still" xml:space="preserve">
+    <value>Retrace Ley Lines after standing still for</value>
+  </data>
   <data name="BlackMage_Content_Paradox" xml:space="preserve">
     <value>Paradox</value>
   </data>

@@ -139,6 +139,10 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.InCombat)
                 return false;
 
+            // IsMoving drops mid-slidecast, so wait for a real stop before moving the Ley Lines.
+            if (Combat.NotMovingInCombatTime.ElapsedMilliseconds < BlackMageSettings.Instance.RetraceStandStillSeconds * 1000)
+                return false;
+
             return await Spells.Retrace.Cast(Core.Me);
         }
         public static async Task<bool> UmbralSoul()
