@@ -80,10 +80,14 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.AoE)
                 return false;
 
-            if (Combat.CurrentTargetCombatTimeLeft <= SageSettings.Instance.DontDotIfEnemyDyingWithin)
+            if (!SageSettings.Instance.EukrasianDyskrasia)
                 return false;
 
-            if (!SageSettings.Instance.EukrasianDyskrasia)
+            // Same gate the single-target dot uses: the checkbox above the threshold governs both,
+            // and a boss is always worth the dot because its time-to-death estimate is unreliable.
+            if (SageSettings.Instance.UseTTDForDots
+                && Combat.CurrentTargetCombatTimeLeft <= SageSettings.Instance.DontDotIfEnemyDyingWithin
+                && !Core.Me.CurrentTarget.IsBoss())
                 return false;
 
             if (!Spells.EukrasianDyskrasia.IsKnownAndReady())
