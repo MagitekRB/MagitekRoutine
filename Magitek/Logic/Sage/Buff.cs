@@ -238,10 +238,12 @@ namespace Magitek.Logic.Sage
                 return false;
 
             var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.PhilosophiaHealthPercent
-                                                                  && !r.HasAura(Auras.Eudaimonia));
-            var philosophiaTarget = targets.FirstOrDefault();
+                                                                  && !r.HasAura(Auras.Eudaimonia)).ToList();
 
-            if (philosophiaTarget == null)
+            // Philosophia is the longest cooldown in the kit at 180s, and it heals nobody on its
+            // own - it amplifies the healing that follows. Every comparable party cooldown here
+            // requires a count before spending; this one fired for a single hurt ally.
+            if (targets.Count < Heal.AoeNeedHealing)
                 return false;
 
             return await Spells.Philosophia.CastAura(Core.Me, Auras.Eudaimonia);

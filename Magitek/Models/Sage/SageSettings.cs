@@ -248,11 +248,12 @@ namespace Magitek.Models.Sage
         [DefaultValue(80.0f)]
         public float SoteriaHealthPercent { get; set; }
 
+        [Setting]
         [DefaultValue(true)]
         public bool Philosophia { get; set; }
 
         [Setting]
-        [DefaultValue(40.0f)]
+        [DefaultValue(60.0f)]
         public float PhilosophiaHealthPercent { get; set; }
 
         [Setting]
