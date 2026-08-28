@@ -204,9 +204,15 @@ namespace Magitek.Rotations
                 return false;
 
             //if (await Aoe.LordOfCrown()) return true;
-            if (await Aoe.Gravity()) return true;
+            // Combust ahead of Gravity: Gravity returns true on every GCD once two enemies are
+            // inside its 8y circle, so with it first the dot was never applied or refreshed again
+            // for the rest of the pull - a boss with a single add parked in range is enough to
+            // trip it. Both Combust paths self-limit (refresh window, CombustUpToEnemies, and the
+            // time-to-death gate), so they take only the few GCDs the dot actually needs and
+            // Gravity resumes on the very next one.
             if (await SingleTarget.Combust()) return true;
             if (await SingleTarget.CombustMultipleTargets()) return true;
+            if (await Aoe.Gravity()) return true;
             return await SingleTarget.Malefic();
         }
 
