@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Sage;
 using Auras = Magitek.Utilities.Auras;
+using SageRoutine = Magitek.Utilities.Routines.Sage;
 
 namespace Magitek.Logic.Sage
 {
@@ -351,9 +352,26 @@ namespace Magitek.Logic.Sage
             if (SageSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
+            // The Addersgall timer stops at three charges, so every second spent capped forfeits
+            // both the next charge and the 700 MP that comes with spending one. Druochole is last
+            // in the weave block, so a dump cannot preempt a real heal - everything above it has
+            // already declined this pulse. In combat only: this method is also reached on
+            // InActiveDuty, where a capped gauge would otherwise fire Druochole between pulls.
+            var overcapDump = SageSettings.Instance.DruocholeOnAddersgallOvercap
+                              && Addersgall >= SageRoutine.MaxAddersgall
+                              && Core.Me.InCombat;
+
             if (Globals.InParty)
             {
                 var DruocholeTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent <= SageSettings.Instance.DruocholeHpPercent);
+
+                // Whoever is furthest from full rather than whoever the party list happens to put
+                // first, because at the overcap threshold most of the party usually qualifies.
+                if (DruocholeTarget == null && overcapDump)
+                    DruocholeTarget = Group.CastableAlliesWithin30
+                        .Where(r => r.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent)
+                        .OrderBy(r => r.CurrentHealthPercent)
+                        .FirstOrDefault();
 
                 if (DruocholeTarget == null)
                     return false;
@@ -361,7 +379,8 @@ namespace Magitek.Logic.Sage
                 return await Spells.Druochole.Heal(DruocholeTarget);
             }
 
-            if (Core.Me.CurrentHealthPercent > SageSettings.Instance.DruocholeHpPercent)
+            if (Core.Me.CurrentHealthPercent > SageSettings.Instance.DruocholeHpPercent
+                && !(overcapDump && Core.Me.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent))
                 return false;
 
             return await Spells.Druochole.Heal(Core.Me);

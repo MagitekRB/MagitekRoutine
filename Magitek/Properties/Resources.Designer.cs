@@ -12025,6 +12025,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to at full Addersgall, anyone below.
+        /// </summary>
+        public static string Sage_Content_At_Full_Addersgall_Anyone_Below {
+            get {
+                return ResourceManager.GetString("Sage_Content_At_Full_Addersgall_Anyone_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Druochole.
         /// </summary>
         public static string Sage_Content_Druochole {

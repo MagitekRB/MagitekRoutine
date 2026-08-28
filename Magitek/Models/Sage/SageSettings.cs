@@ -512,6 +512,14 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(true)]
+        public bool DruocholeOnAddersgallOvercap { get; set; }
+
+        [Setting]
+        [DefaultValue(100.0f)]
+        public float DruocholeOvercapHpPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Ixochole { get; set; }
 
         [Setting]

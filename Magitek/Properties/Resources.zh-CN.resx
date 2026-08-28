@@ -5295,6 +5295,9 @@
   <data name="Sage_Content_Diagnosis" xml:space="preserve">
     <value>诊断</value>
   </data>
+  <data name="Sage_Content_At_Full_Addersgall_Anyone_Below" xml:space="preserve">
+    <value>蛇胆量谱满时，目标血量低于</value>
+  </data>
   <data name="Sage_Content_Druochole" xml:space="preserve">
     <value>灵橡清汁</value>
   </data>

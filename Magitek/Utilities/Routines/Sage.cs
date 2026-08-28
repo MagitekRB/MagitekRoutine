@@ -13,6 +13,12 @@ namespace Magitek.Utilities.Routines
     internal static class Sage
     {
         /// <summary>
+        /// Addersgall caps at three charges at every level that has the gauge, and the 20s
+        /// generation timer stops while capped.
+        /// </summary>
+        public const int MaxAddersgall = 3;
+
+        /// <summary>
         /// Enemies inside a rectangular line AoE cast forward from the player: <paramref name="length"/>
         /// yalms ahead, <paramref name="width"/> yalms across in total. Decomposed from the angle off
         /// our heading - forward = distance * cos, sideways = distance * sin - because the repo's
