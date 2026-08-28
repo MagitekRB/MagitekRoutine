@@ -16,9 +16,10 @@ namespace Magitek.Logic.Sage
     {
         public static async Task<bool> Phlegma()
         {
-            if (!AoeControl.Enabled)
-                return false;
-
+            // No AoeControl gate: the enemy-count check below is deliberately commented out
+            // because Phlegma is used as a single-target GCD, and it has no single-target
+            // fallback to fall through to - gating it on the AoE toggle just deletes it from
+            // the rotation for anyone who turns AoE off.
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
