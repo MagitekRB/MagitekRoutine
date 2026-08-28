@@ -46,7 +46,10 @@ namespace Magitek.Utilities.Managers
     [AddINotifyPropertyChangedInterface]
     internal class RotationComposites : Rotation
     {
-        private static readonly Dictionary<ClassJobType, string> RotationClassMap = new()
+        // Also consumed by RoutineState to discover per-job burst-window publishers —
+        // keep this the single job-to-class-name map (TogglesViewModel carries the other,
+        // string-keyed one; do not add a third).
+        internal static readonly Dictionary<ClassJobType, string> RotationClassMap = new()
         {
             { ClassJobType.Gladiator, "Paladin" },
             { ClassJobType.Paladin, "Paladin" },
@@ -197,6 +200,12 @@ namespace Magitek.Utilities.Managers
             if (await CustomOpenerLogic.Opener())
                 return true;
 
+            // Publish the current job's burst-window state before anything that can
+            // preempt the job rotation reads it (Occult Crescent below). Publishing
+            // from inside the job rotation would starve the report whenever it is
+            // preempted for more than the bus TTL.
+            RoutineState.Pulse();
+
             if (await OccultCrescent.Execute())
                 return true;
 
@@ -229,6 +238,12 @@ namespace Magitek.Utilities.Managers
             // which allows openers to be checked when not in combat.
             if (await CustomOpenerLogic.Opener())
                 return true;
+
+            // Publish the current job's burst-window state before anything that can
+            // preempt the job rotation reads it (Occult Crescent below). Publishing
+            // from inside the job rotation would starve the report whenever it is
+            // preempted for more than the bus TTL.
+            RoutineState.Pulse();
 
             if (await OccultCrescent.Execute())
                 return true;
@@ -292,6 +307,12 @@ namespace Magitek.Utilities.Managers
 
             if (await CustomOpenerLogic.Opener())
                 return true;
+
+            // Publish the current job's burst-window state before anything that can
+            // preempt the job rotation reads it (Occult Crescent below). Publishing
+            // from inside the job rotation would starve the report whenever it is
+            // preempted for more than the bus TTL.
+            RoutineState.Pulse();
 
             if (await OccultCrescent.Execute())
                 return true;

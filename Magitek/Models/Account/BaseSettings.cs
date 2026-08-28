@@ -145,6 +145,10 @@ namespace Magitek.Models.Account
 
         [Setting]
         [DefaultValue(true)]
+        public bool FightLogicRespectBurstWindows { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool FightLogicIncludeCommonAoeLockOnsTest { get; set; }
 
         [Setting]

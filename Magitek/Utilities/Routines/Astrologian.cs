@@ -5,6 +5,7 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Astrologian;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -184,5 +185,35 @@ namespace Magitek.Utilities.Routines
         // ground-target cannot re-dispatch at pulse rate.
         public static long LastEarthlyStarAttemptTick { get; set; }
 
+        // How close Divination's cooldown has to be before we report the burst as
+        // imminent. Covers the pre-burst weave where Divination is about to go out and
+        // an interruption would delay the press.
+        private const int DivinationImminentMs = 5000;
+
+        /// <summary>
+        /// Reports AST burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the AST rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        /// <remarks>
+        /// Imminent-only guard: Divination (+6% party damage, 20s, every 2 minutes)
+        /// heads the densest healer press cluster (Divination, held cards, Lord,
+        /// Oracle) — the press must not be delayed, but everything after it is
+        /// tolerant (Divining lasts 30s), so no active window is reported.
+        /// Sources: official job guide, The Balance AST basic guide, live client via
+        /// rb (researched 2026-08-26).
+        /// </remarks>
+        public static void ReportBurstWindows()
+        {
+            // Divination almost off cooldown: the press is about to happen, so
+            // nothing slow should start now. Only reported while it is actually
+            // cooling down — "ready but held" is unbounded and would starve consumers.
+            if (Core.Me.InCombat && Spells.Divination.IsKnown())
+            {
+                var cooldownMs = Spells.Divination.Cooldown.TotalMilliseconds;
+                if (cooldownMs > 0 && cooldownMs <= DivinationImminentMs)
+                    RoutineState.ReportImminentBurst(TimeSpan.FromMilliseconds(cooldownMs), "AST Divination");
+            }
+        }
     }
 }

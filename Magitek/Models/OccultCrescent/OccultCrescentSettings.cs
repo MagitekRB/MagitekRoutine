@@ -18,6 +18,10 @@ namespace Magitek.Models.OccultCrescent
         public bool Enable { get; set; }
 
         [Setting]
+        [DefaultValue(true)]
+        public bool RespectBurstWindows { get; set; }
+
+        [Setting]
         [DefaultValue(15.0f)]
         public float PartyBuffRefreshMinutes { get; set; }
 

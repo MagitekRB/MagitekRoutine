@@ -1872,6 +1872,9 @@
   <data name="OccultCrescent_Text_Party_buff_refresh_time_contro" xml:space="preserve">
     <value>Party buff refresh time controls when to reapply long-duration buffs near Knowledge Crystals.</value>
   </data>
+  <data name="OccultCrescent_Text_Respect_Burst_Windows_Desc" xml:space="preserve">
+    <value>While your job is bursting (for example Machinist overheat), no phantom actions are used until the burst window ends.</value>
+  </data>
   <data name="OccultCrescent_Text_In_combat_Uses_SwiftcastDualca" xml:space="preserve">
     <value>In combat: Uses Swiftcast/Dualcast only. Out of combat: Uses Swiftcast first, then slowcast if needed.</value>
   </data>
@@ -3945,6 +3948,9 @@
   <data name="OccultCrescent_Content_Revive_Non_Party_Dead_Playe" xml:space="preserve">
     <value>Revive Non-Party Dead Players (excess mana only)</value>
   </data>
+  <data name="OccultCrescent_Content_Respect_Burst_Windows" xml:space="preserve">
+    <value>Hold phantom actions during job burst windows</value>
+  </data>
   <data name="OccultCrescent_Content_Auto_switch_to_Bard_for_Rom" xml:space="preserve">
     <value>Auto-switch to Bard for Romeo's Ballad</value>
   </data>
@@ -4268,6 +4274,9 @@
   </data>
   <data name="Generic_Fight_Logic_Limitation" xml:space="preserve">
     <value>Only works on supported bosses and dungeons and limited to only boss-cast-bar detectable actions.</value>
+  </data>
+  <data name="Generic_Fight_Logic_Respect_Burst_Windows" xml:space="preserve">
+    <value>Hold responses during DPS burst windows (e.g. Machinist overheat)</value>
   </data>
   <data name="Generic_Single_Target" xml:space="preserve">
     <value>Single Target</value>

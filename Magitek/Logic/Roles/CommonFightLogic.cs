@@ -10,6 +10,22 @@ namespace Magitek.Logic.Roles
 {
     internal class CommonFightLogic
     {
+        // While a DPS job reports a burst window (e.g. MCH overheat/Wildfire), fight-logic
+        // responses wait it out — an oGCD defensive interjected mid-burst costs more than
+        // it saves. Healers always respond, and a tank's mitigation outranks its burst
+        // window, so only DPS hold. Deliberately not applied to FightLogic_TankDefensive
+        // (tanks never hold) or FightLogic_Doom (a doom response is life-or-death).
+        private static bool HoldForBurstWindow()
+        {
+            if (!BaseSettings.Instance.FightLogicRespectBurstWindows)
+                return false;
+
+            if (!Core.Me.IsDps())
+                return false;
+
+            return RoutineState.InBurstWindow;
+        }
+
         public static async Task<bool> FightLogic_TankDefensive(bool useDefensive, SpellData[] defensiveSpells, uint[] defensiveAuras, int castTimeRemainingMs = 0)
         {
             if (!useDefensive)
@@ -50,6 +66,9 @@ namespace Magitek.Logic.Roles
             if (!useShield)
                 return false;
 
+            if (HoldForBurstWindow())
+                return false;
+
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyAoeLogic())
                 return false;
 
@@ -76,6 +95,9 @@ namespace Magitek.Logic.Roles
         public static async Task<bool> FightLogic_PartyShield(bool useShield, SpellData spell, bool selfAuraCheck = false, uint[] auras = null, uint aura = 0, int castTimeRemainingMs = 0)
         {
             if (!useShield)
+                return false;
+
+            if (HoldForBurstWindow())
                 return false;
 
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyAoeLogic())
@@ -107,6 +129,9 @@ namespace Magitek.Logic.Roles
         public static async Task<bool> FightLogic_Debuff(bool useDebuff, SpellData spell, bool targetAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 0, float range = 0f)
         {
             if (!useDebuff)
+                return false;
+
+            if (HoldForBurstWindow())
                 return false;
 
             if (!FightLogic.ZoneHasFightLogic())
@@ -153,6 +178,9 @@ namespace Magitek.Logic.Roles
         public static async Task<bool> FightLogic_Knockback(bool useAntiKnockback, SpellData spell, bool selfAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 3000)
         {
             if (!useAntiKnockback)
+                return false;
+
+            if (HoldForBurstWindow())
                 return false;
 
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyKnockbackLogic())

@@ -4,6 +4,7 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Bard;
+using System;
 using System.Linq;
 using BardSong = ff14bot.Managers.ActionResourceManager.Bard.BardSong;
 
@@ -19,6 +20,68 @@ namespace Magitek.Utilities.Routines
         public static bool AlreadySnapped = false;
         public static bool IsUnderBuffWindow = false;
         public static int SongMaxDuration = 45000;
+
+        // How close Raging Strikes' cooldown has to be before we report the burst as
+        // imminent. Covers the pre-burst weave segment (late-weaved Wanderer's Minuet,
+        // then the Radiant Finale + Battle Voice + Raging Strikes triple weave) where
+        // no burst aura is up yet but an interruption delays the whole buff stack.
+        private const int RagingStrikesImminentMs = 5000;
+
+        /// <summary>
+        /// Reports BRD burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the BRD rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        /// <remarks>
+        /// Burst anchor: Raging Strikes, preceded one weave set by Radiant Finale +
+        /// Battle Voice (all 20s, applied under a late-weaved Wanderer's Minuet).
+        /// Window contents: the three buffs above plus the buffed-GCD payload
+        /// (Radiant Encore, Apex/Blast Arrow, Resonant Arrow, Barrage + Refulgent,
+        /// Iron Jaws refresh).
+        /// Sources: The Balance BRD basic/advanced/openers guides, official job
+        /// guide, Icy Veins (researched 2026-08-26).
+        /// </remarks>
+        public static void ReportBurstWindows()
+        {
+            // Burst window: any of the three own-cast 20s buffs — Raging Strikes,
+            // Battle Voice, Radiant Finale (The Balance). They go out staggered
+            // (Finale + Voice one weave set before Raging Strikes), so requiring all
+            // three would miss the front edge; the window ends when the last drops,
+            // hence the max remaining. Battle Voice and Radiant Finale also land from
+            // other Bards, so only own-cast records count. Under level sync missing
+            // buffs simply never appear — no level branching needed.
+            // Radiant Finale: 2722 is the id Magitek's Bard logic already keys on
+            // (the client also has 2964); whether the self-cast record differs from
+            // the party one is pending an in-game check.
+            var remaining = TimeSpan.Zero;
+            foreach (var aura in Core.Me.Auras)
+            {
+                if (aura.CasterId != Core.Me.ObjectId)
+                    continue;
+
+                if (aura.Id != Auras.RagingStrikes && aura.Id != Auras.BattleVoice && aura.Id != Auras.RadiantFinale)
+                    continue;
+
+                if (aura.TimespanLeft > remaining)
+                    remaining = aura.TimespanLeft;
+            }
+
+            if (remaining > TimeSpan.Zero)
+            {
+                RoutineState.ReportBurstWindow(remaining, "BRD Buffs");
+                return;
+            }
+
+            // Raging Strikes almost off cooldown: the buff stack is about to go out,
+            // so nothing slow should start now. Only reported while it is actually
+            // cooling down — "ready but held" is unbounded and would starve consumers.
+            if (Core.Me.InCombat && Spells.RagingStrikes.IsKnown())
+            {
+                var cooldownMs = Spells.RagingStrikes.Cooldown.TotalMilliseconds;
+                if (cooldownMs > 0 && cooldownMs <= RagingStrikesImminentMs)
+                    RoutineState.ReportImminentBurst(TimeSpan.FromMilliseconds(cooldownMs), "BRD Raging Strikes");
+            }
+        }
 
         public static SpellData LadonsBite => Spells.Ladonsbite.IsKnown() ? Spells.Ladonsbite : Spells.QuickNock;
         public static SpellData Stormbite => Spells.Stormbite.IsKnown() ? Spells.Stormbite : Spells.Windbite;

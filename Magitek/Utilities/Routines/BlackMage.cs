@@ -32,6 +32,36 @@ namespace Magitek.Utilities.Routines
             return false;
         }
 
+        /// <summary>
+        /// Reports BLM burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the BLM rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        /// <remarks>
+        /// Burst anchor: Ley Lines (own, fixed 20s, 2 charges/120s) — BLM has no
+        /// raid-buff burst window; Ley Lines is its only bounded state where an
+        /// interjection costs extra (hasted 2.125s GCD, ~18% more per 2s lock, on top
+        /// of BLM's already-high flat cost of ~0.8 GCD per interjection anywhere) and
+        /// where the player is spatially committed. Circle of Power is deliberately
+        /// not used (flickers when stepping out). No imminent trigger: Ley Lines has
+        /// no ramp and its press is not cooldown-predictable. Sources: The Balance
+        /// BLM basic guide, official job guide, consolegameswiki, live client via rb
+        /// (researched 2026-08-26).
+        /// </remarks>
+        public static void ReportBurstWindows()
+        {
+            // Burst window: the Ley Lines self-buff (fixed 20s). Not Circle of Power —
+            // that aura drops and reapplies every time the player steps out of the
+            // lines to dodge, which would flicker the window. Unlocks at Lv52; below
+            // sync the aura simply never appears — no level branching needed.
+            var leyLines = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.LeyLines && x.CasterId == Core.Me.ObjectId);
+            if (leyLines != null)
+                RoutineState.ReportBurstWindow(leyLines.TimespanLeft, "BLM Ley Lines");
+
+            // No imminent branch: Ley Lines is an instant oGCD with zero ramp, and its
+            // press is not cooldown-predictable (charges are deliberately held).
+        }
+
         public static int MaxPolyglotCount
         {
             get

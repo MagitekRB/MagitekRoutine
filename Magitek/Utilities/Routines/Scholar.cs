@@ -3,6 +3,7 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Scholar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -113,6 +114,39 @@ namespace Magitek.Utilities.Routines
 
             EnemiesInCone = Core.Me.EnemiesInCone(8);
 
+        }
+
+        // How close Chain Stratagem's cooldown has to be before we report the burst as
+        // imminent. Covers the pre-burst weave where CS is about to go out and an
+        // interruption would delay the press.
+        private const int ChainStratagemImminentMs = 5000;
+
+        /// <summary>
+        /// Reports SCH burst windows to the state bus. Called every combat pulse via
+        /// RoutineState.Pulse() — deliberately not from the SCH rotation, which can be
+        /// preempted (by Occult Crescent among others) and would starve the report.
+        /// </summary>
+        /// <remarks>
+        /// Imminent-only guard: Chain Stratagem (+10% crit on the target, 20s, every
+        /// 2 minutes) is a party buff whose press must not be delayed by a foreign 2s
+        /// cast — but nothing after the press is interruption-sensitive (Impact
+        /// Imminent lasts 30s), so no active window is reported.
+        /// Sources: official job guide, The Balance, live client via rb
+        /// (researched 2026-08-26).
+        /// </remarks>
+        public static void ReportBurstWindows()
+        {
+            // SCH's own damage (Broil spam, Baneful Impaction on a 30s leash) never
+            // justifies an active window — imminent only.
+            // Chain Stratagem almost off cooldown: the press is about to happen, so
+            // nothing slow should start now. Only reported while it is actually
+            // cooling down — "ready but held" is unbounded and would starve consumers.
+            if (Core.Me.InCombat && Spells.ChainStrategem.IsKnown())
+            {
+                var cooldownMs = Spells.ChainStrategem.Cooldown.TotalMilliseconds;
+                if (cooldownMs > 0 && cooldownMs <= ChainStratagemImminentMs)
+                    RoutineState.ReportImminentBurst(TimeSpan.FromMilliseconds(cooldownMs), "SCH Chain Stratagem");
+            }
         }
     }
 }
