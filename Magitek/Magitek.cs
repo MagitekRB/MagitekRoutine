@@ -349,6 +349,11 @@ namespace Magitek
                 {
                     Debug.Instance.IsBoss = Core.Me.CurrentTarget.IsBoss() ? "True" : "False";
                     Debug.Instance.TargetCombatTimeLeft = Core.Me.CurrentTarget.CombatTimeLeft();
+
+                    // BaseId is shown so a wrong call can be reported precisely. Compare against the
+                    // target ring: an unsegmented circle is True.
+                    Debug.Instance.IsOmnidirectional =
+                        $"{Core.Me.CurrentTarget.IsOmnidirectional()} [BaseId {Core.Me.CurrentTarget.BaseId}]";
                 }
             }
 

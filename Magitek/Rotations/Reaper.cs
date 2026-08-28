@@ -167,7 +167,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(200,
                                           "",
-                                          () => ReaperSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || ReaperSettings.Instance.EnemyIsOmni || Core.Me.HasAura(Auras.Enshrouded))
+                                          () => ReaperSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.CurrentTarget.IgnorePositionals(ReaperSettings.Instance.Positionals) || Core.Me.HasAura(Auras.Enshrouded))
                 );
 
             CombatMessageManager.RegisterMessageStrategy(

@@ -147,7 +147,7 @@ namespace Magitek.Logic.Reaper
             bool canUseGallows = ReaperSettings.Instance.UseGallows;
             bool canUseGibbet = ReaperSettings.Instance.UseGibbet;
 
-            if (ReaperSettings.Instance.EnemyIsOmni || (!Core.Me.CurrentTarget.IsBehind && !Core.Me.CurrentTarget.IsFlanking))
+            if (Core.Me.CurrentTarget.IgnorePositionals(ReaperSettings.Instance.Positionals) || (!Core.Me.CurrentTarget.IsBehind && !Core.Me.CurrentTarget.IsFlanking))
             {
                 if (canUseGallows) return await gallowsspell.Cast(Core.Me.CurrentTarget);
                 if (canUseGibbet) return await gibbetspell.Cast(Core.Me.CurrentTarget);

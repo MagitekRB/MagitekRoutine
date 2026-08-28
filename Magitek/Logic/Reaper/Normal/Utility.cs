@@ -13,7 +13,7 @@ namespace Magitek.Logic.Reaper
 
         public static async Task<bool> TrueNorth()
         {
-            if (ReaperSettings.Instance.EnemyIsOmni || !ReaperSettings.Instance.UseTrueNorth) return false;
+            if (Core.Me.CurrentTarget.IgnorePositionals(ReaperSettings.Instance.Positionals) || !ReaperSettings.Instance.UseTrueNorth) return false;
 
             if (Core.Me.HasAura(Auras.TrueNorth))
                 return false;

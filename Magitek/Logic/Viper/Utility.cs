@@ -12,7 +12,7 @@ namespace Magitek.Logic.Viper
 
         public static async Task<bool> TrueNorth()
         {
-            if (ViperSettings.Instance.EnemyIsOmni || !ViperSettings.Instance.UseTrueNorth) return false;
+            if (Core.Me.CurrentTarget.IgnorePositionals(ViperSettings.Instance.Positionals) || !ViperSettings.Instance.UseTrueNorth) return false;
 
             if (Core.Me.HasAura(Auras.TrueNorth))
                 return false;

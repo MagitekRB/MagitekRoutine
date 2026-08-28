@@ -258,29 +258,5 @@
     "RemoveToggleSettingCommand": {},
     "ToggleKey": 0,
     "ToggleModifierKey": 0
-  },
-  {
-    "ToggleText": "Is Omni",
-    "ToggleJob": "Reaper",
-    "ToggleShowOnOverlay": true,
-    "IsPvpToggle": false,
-    "ToggleChecked": false,
-    "Settings": [
-      {
-        "Name": "EnemyIsOmni",
-        "Type": 1,
-        "BoolCheckedValue": true,
-        "BoolUncheckedValue": false,
-        "IntCheckedValue": 0,
-        "IntUncheckedValue": 0,
-        "FloatCheckedValue": 0.0,
-        "FloatUncheckedValue": 0.0
-      }
-    ],
-    "ExecuteToggleCommand": {},
-    "AddToggleSettingCommand": {},
-    "RemoveToggleSettingCommand": {},
-    "ToggleKey": 0,
-    "ToggleModifierKey": 0
   }
 ]

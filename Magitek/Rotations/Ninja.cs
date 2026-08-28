@@ -143,7 +143,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(200,
                                           "",
-                                          () => NinjaSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.HasAura(Auras.TenChiJin) || NinjaSettings.Instance.EnemyIsOmni)
+                                          () => NinjaSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.HasAura(Auras.TenChiJin) || Core.Me.CurrentTarget.IgnorePositionals(NinjaSettings.Instance.Positionals))
                 );
 
             CombatMessageManager.RegisterMessageStrategy(

@@ -50,7 +50,7 @@ namespace Magitek.Logic.Samurai
 
         public static async Task<bool> TrueNorth()
         {
-            if (SamuraiSettings.Instance.EnemyIsOmni || !SamuraiSettings.Instance.UseTrueNorth)
+            if (Core.Me.CurrentTarget.IgnorePositionals(SamuraiSettings.Instance.Positionals) || !SamuraiSettings.Instance.UseTrueNorth)
                 return false;
 
             if (Casting.LastSpell == Spells.TrueNorth)

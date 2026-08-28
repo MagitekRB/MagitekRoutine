@@ -2617,6 +2617,33 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Bugs_Text_Current_Target_Boss", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Positionals:.
+        /// </summary>
+        public static string Generic_Text_Positionals {
+            get {
+                return ResourceManager.GetString("Generic_Text_Positionals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Auto skips them on omnidirectional targets).
+        /// </summary>
+        public static string Generic_Text_Positionals_Auto {
+            get {
+                return ResourceManager.GetString("Generic_Text_Positionals_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Target Omnidirectional?:.
+        /// </summary>
+        public static string Bugs_Text_Current_Target_Omnidirectional {
+            get {
+                return ResourceManager.GetString("Bugs_Text_Current_Target_Omnidirectional", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Current Target Combat Time Left:.

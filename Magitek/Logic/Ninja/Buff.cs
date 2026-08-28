@@ -85,7 +85,7 @@ namespace Magitek.Logic.Ninja
 
         public static async Task<bool> TrueNorth()
         {
-            if (NinjaSettings.Instance.EnemyIsOmni || !NinjaSettings.Instance.UseTrueNorth)
+            if (Core.Me.CurrentTarget.IgnorePositionals(NinjaSettings.Instance.Positionals) || !NinjaSettings.Instance.UseTrueNorth)
                 return false;
 
             if (AoeControl.Enabled && Combat.Enemies.Count(x => x.WithinSpellRange(10)) >= NinjaSettings.Instance.AoeEnemies)
