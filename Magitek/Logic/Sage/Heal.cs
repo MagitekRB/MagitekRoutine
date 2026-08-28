@@ -312,9 +312,9 @@ namespace Magitek.Logic.Sage
             if (!spell.IsKnownAndReady())
                 return false;
 
-            if (SageSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
-                return false;
-
+            // No single-target suppression here: Physis is an AoE regen, and every other AoE heal
+            // in this file is judged purely by its own party-count gate below. Carrying the
+            // single-target rule hard-blocked it exactly when the party needed it most.
             var targets = Spells.PhysisII.IsKnown()
                 ? Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura))
                 : Group.CastableAlliesWithin20.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura));
