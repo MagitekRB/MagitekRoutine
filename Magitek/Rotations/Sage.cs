@@ -205,7 +205,6 @@ namespace Magitek.Rotations
 
         public static async Task<bool> PvP()
         {
-            SageRoutine.RefreshVars();
 
             if (await CommonPvp.CommonTasks(SageSettings.Instance)) return true;
 

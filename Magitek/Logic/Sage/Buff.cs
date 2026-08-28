@@ -15,15 +15,6 @@ namespace Magitek.Logic.Sage
 {
     internal static class Buff
     {
-        public static async Task<bool> Swiftcast()
-        {
-            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
-            {
-                return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
-            }
-
-            return false;
-        }
         public static async Task<bool> LucidDreaming()
         {
             return await Roles.Healer.LucidDreaming(SageSettings.Instance.LucidDreaming, SageSettings.Instance.LucidDreamingManaPercent);

@@ -47,23 +47,11 @@ namespace Magitek.Utilities.Routines
             });
         }
 
-        public static bool OnGcd => Spells.Dosis.Cooldown.TotalMilliseconds > 100;
 
-        public static HashSet<string> DontShield = new HashSet<string>();
-        public static HashSet<string> DontEukrasianDiagnosis = new HashSet<string>();
-        public static HashSet<string> DontEukrasianPrognosis = new HashSet<string>();
 
-        public static List<Character> AllianceDiagnosisOnly = new List<Character>();
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Sage, Spells.Diagnosis);
 
-        public static int AoeEnemies5Yards;
-        public static int AoeEnemies30Yards;
-        public static void RefreshVars()
-        {
-            AoeEnemies5Yards = Combat.Enemies.Count(x => x.WithinSpellRange(5) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
-            AoeEnemies30Yards = Combat.Enemies.Count(x => x.WithinSpellRange(30) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
-        }
         public static bool CanWeave()
         {
             if (SageSettings.Instance.WeaveOGCDHeals
