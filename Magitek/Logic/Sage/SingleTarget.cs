@@ -98,8 +98,11 @@ namespace Magitek.Logic.Sage
 
             // Don't multidot if we can use the aoe version of it. 
             // but multidot if we are out of range enough to use the aoe dot.
+            // Exactly the AoE dot's own radius: a wider suppression radius leaves a band where
+            // multi-dotting stops but the AoE dot has not started, so only the primary target
+            // keeps a dot at all.
             if (Spells.EukrasianDyskrasia.IsKnown()
-                && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.EukrasianDyskrasia.Radius * 1.5)) >= SageSettings.Instance.AoEEnemies)
+                && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)) >= SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())
