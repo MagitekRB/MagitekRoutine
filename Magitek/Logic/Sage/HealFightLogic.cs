@@ -136,7 +136,6 @@ namespace Magitek.Logic.Sage
             if (SageSettings.Instance.FightLogic_Haima
                 && Spells.Haima.IsKnownAndReady()
                 && !target.HasAura(Auras.Haimatinon)
-                && !target.HasAura(Auras.Panhaimatinon)
                 && Spells.Haima.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)

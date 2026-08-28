@@ -510,8 +510,7 @@ namespace Magitek.Logic.Sage
 
                 var haimaCandidates = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.HaimaHpPercent
                                                                      && !r.HasAura(Auras.Weakness)
-                                                                     && !r.HasAura(Auras.Haimatinon)
-                                                                     && !r.HasAura(Auras.Panhaimatinon));
+                                                                     && !r.HasAura(Auras.Haimatinon));
 
                 if (SageSettings.Instance.HaimaTankForBuff)
                     haimaCandidates = haimaCandidates.Where(r => r.IsTank(SageSettings.Instance.HaimaMainTankForBuff));
