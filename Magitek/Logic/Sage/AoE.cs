@@ -128,13 +128,7 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> Toxikon()
         {
-            if (!AoeControl.Enabled)
-                return false;
-
             if (!SageSettings.Instance.DoDamage)
-                return false;
-
-            if (!SageSettings.Instance.ToxiconWhileMoving && !SageSettings.Instance.AoE)
                 return false;
 
             if (!Spells.Toxikon.IsKnown())
@@ -148,21 +142,17 @@ namespace Magitek.Logic.Sage
             if (Addersting == 0)
                 return false;
 
-            var doToxicon = false;
+            // Four independent reasons, each honouring its own setting. Previously moving set this
+            // unconditionally - so the "while moving" checkbox did nothing - and a compound guard
+            // above could disable the full-Addersting and low-mana reasons outright whenever AoE
+            // was off. Only the enemy-count reason is an AoE decision, so only it reads AoeControl.
+            var movingCheck = MovementManager.IsMoving && SageSettings.Instance.ToxiconWhileMoving;
+            var enemyCountCheck = AoeControl.Enabled && SageSettings.Instance.AoE
+                && Combat.Enemies.Count(r => r.Distance(target) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
+            var adderstingCheck = SageSettings.Instance.ToxiconOnFullAddersting && Addersting == 3;
+            var lowManaCheck = SageSettings.Instance.ToxiconOnLowMana && Core.Me.CurrentManaPercent < SageSettings.Instance.MinimumManaPercentToDoDamage;
 
-            if (MovementManager.IsMoving)
-            {
-                doToxicon = true;
-            }
-            else
-            {
-                var enemyCountCheck = SageSettings.Instance.AoE && Combat.Enemies.Count(r => r.Distance(target) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
-                var adderstingCheck = SageSettings.Instance.ToxiconOnFullAddersting && Addersting == 3;
-                var lowManaCheck = SageSettings.Instance.ToxiconOnLowMana && Core.Me.CurrentManaPercent < SageSettings.Instance.MinimumManaPercentToDoDamage;
-
-                if (enemyCountCheck || adderstingCheck || lowManaCheck)
-                    doToxicon = true;
-            }
+            var doToxicon = movingCheck || enemyCountCheck || adderstingCheck || lowManaCheck;
 
             if (doToxicon)
             {
