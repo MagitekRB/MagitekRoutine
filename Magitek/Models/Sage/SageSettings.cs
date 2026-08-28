@@ -75,10 +75,6 @@ namespace Magitek.Models.Sage
         [DefaultValue(false)]
         public bool FightLogic_RespectOnlyTank { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool FightLogic_Philosophia { get; set; }
-
 
         #endregion
 
