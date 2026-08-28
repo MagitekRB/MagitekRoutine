@@ -6382,6 +6382,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to unless the target dies within.
+        /// </summary>
+        public static string Generic_Unless_Target_Dies_Within {
+            get {
+                return ResourceManager.GetString("Generic_Unless_Target_Dies_Within", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to seconds.
         /// </summary>
         public static string Generic_Seconds {

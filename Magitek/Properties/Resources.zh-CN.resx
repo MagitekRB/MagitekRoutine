@@ -5721,6 +5721,9 @@
   <data name="Controls_Content_DELETE_GAMBIT" xml:space="preserve">
     <value>删除策略</value>
   </data>
+  <data name="Generic_Unless_Target_Dies_Within" xml:space="preserve">
+    <value>除非目标将在此时间内死亡</value>
+  </data>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>
   </data>
