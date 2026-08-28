@@ -75,7 +75,6 @@ namespace Magitek.Rotations
             {
                 if (SageRoutine.CanWeave())
                 {
-                    if (await Logic.Sage.Heal.Pepsis()) return true;
                     // Physis first: Panhaima and Haima snapshot their potency when cast, so a
                     // Physis that lands afterwards cannot amplify them. Their health thresholds
                     // overlap, so without this the stronger cooldown routinely goes out unbuffed.
@@ -87,6 +86,11 @@ namespace Magitek.Rotations
                     if (await Logic.Sage.Heal.Haima()) return true;
                     if (await Logic.Sage.Heal.Taurochole()) return true;
                     if (await Logic.Sage.Heal.Druochole()) return true;
+                    // Last in the block: the job guides call Pepsis "a utility button, not
+                    // something you will be using as part of your healing rotation", so it
+                    // only takes the weave slot once the Addersgall heals and the big
+                    // cooldowns have all declined it.
+                    if (await Logic.Sage.Heal.Pepsis()) return true;
                 }
 
                 if (await Logic.Sage.Heal.ZoePneuma()) return true;
