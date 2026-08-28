@@ -9,11 +9,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Sage;
 using Auras = Magitek.Utilities.Auras;
+using SageRoutine = Magitek.Utilities.Routines.Sage;
 
 namespace Magitek.Logic.Sage
 {
     internal static class AoE
     {
+        // Pneuma's line is 4 yalms across (game data: CastType 4, XAxisModified 4). Its length is
+        // the spell's own Radius, so only the width needs stating here.
+        private const float PneumaLineWidth = 4f;
+
         public static async Task<bool> Phlegma()
         {
             // No AoeControl gate: the enemy-count check below is deliberately commented out
@@ -190,12 +195,10 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            // Pneuma is a LINE in front of us, not a circle: counting every enemy within 25y of the
-            // target described a 50y-wide disc, so three mobs anywhere nearby spent a 120s cooldown
-            // on what was often a single-target hit. EnemiesInCone is the repo's directional count
-            // (distance plus a front arc) - still wider than the real line, but it at least requires
-            // the enemies to be in front of us.
-            if (Core.Me.EnemiesInCone(Spells.Pneuma.Radius) < SageSettings.Instance.AoEEnemies)
+            // Pneuma's damage is a LINE - 25y ahead, 4y across - not a circle. Counting every enemy
+            // within 25y of the target described a 50y-wide disc, so three mobs anywhere nearby spent
+            // a 120s cooldown on what was often a single-target hit.
+            if (SageRoutine.EnemiesInLine(Spells.Pneuma.Radius, PneumaLineWidth) < SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (Spells.Pneuma.Cooldown != TimeSpan.Zero)

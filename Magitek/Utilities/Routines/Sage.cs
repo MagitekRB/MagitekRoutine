@@ -4,6 +4,7 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Account;
 using Magitek.Models.Sage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +12,41 @@ namespace Magitek.Utilities.Routines
 {
     internal static class Sage
     {
+        /// <summary>
+        /// Enemies inside a rectangular line AoE cast forward from the player: <paramref name="length"/>
+        /// yalms ahead, <paramref name="width"/> yalms across in total. Decomposed from the angle off
+        /// our heading - forward = distance * cos, sideways = distance * sin - because the repo's
+        /// other AoE counters are circles and cones, and a line gated as a circle describes a disc
+        /// twice its length across (Pneuma is 25y long and 4y wide: a circle test passes on mobs
+        /// 25y off to either side that the line never touches).
+        /// Combat reach is added to both axes, matching WithinSpellRange's edge-to-edge convention.
+        /// Job-scoped while Sage is the only caller; promote to GameObjectExtensions when a second
+        /// job needs it.
+        /// </summary>
+        public static int EnemiesInLine(float length, float width)
+        {
+            var halfWidth = width / 2f;
+
+            return Combat.Enemies.Count(r =>
+            {
+                if (r == null)
+                    return false;
+
+                var angle = r.RadiansFromPlayerHeading();
+
+                // Behind us: a forward line cannot reach them however close they are.
+                if (angle >= Math.PI / 2)
+                    return false;
+
+                var distance = r.Distance(Core.Me);
+                var forward = distance * Math.Cos(angle);
+                var sideways = distance * Math.Sin(angle);
+
+                return forward <= length + r.CombatReach
+                       && sideways <= halfWidth + r.CombatReach;
+            });
+        }
+
         public static bool OnGcd => Spells.Dosis.Cooldown.TotalMilliseconds > 100;
 
         public static HashSet<string> DontShield = new HashSet<string>();
