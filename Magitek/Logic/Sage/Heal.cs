@@ -44,10 +44,15 @@ namespace Magitek.Logic.Sage
                 return false;
             if (!await Spells.Eukrasia.Cast(Core.Me))
                 return false;
-            if (!await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Eukrasia, true)))
-                return false;
+
+            // Keep the arm->cast pair atomic, exactly as Scholar's Emergency Tactics helper does:
+            // one bounded wait for the aura AND the paired spell's castability, so the Eukrasia
+            // cannot drift to another caller between pulses (the damage path deliberately spends a
+            // banked Eukrasia on the dot, which is the drift this prevents). One wait rather than
+            // two sequential ones, and Scholar's 1000ms bound instead of 2500 twice over.
             var target = targetObject == null ? Core.Me : targetObject;
-            return await Coroutine.Wait(2500, () => ActionManager.CanCast(spellId, target));
+            return await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Eukrasia, true)
+                                                    && ActionManager.CanCast(spellId, target));
         }
         private static async Task<bool> UseZoe()
         {
