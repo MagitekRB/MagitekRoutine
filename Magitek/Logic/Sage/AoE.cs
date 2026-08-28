@@ -190,7 +190,12 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Pneuma.Radius) < SageSettings.Instance.AoEEnemies)
+            // Pneuma is a LINE in front of us, not a circle: counting every enemy within 25y of the
+            // target described a 50y-wide disc, so three mobs anywhere nearby spent a 120s cooldown
+            // on what was often a single-target hit. EnemiesInCone is the repo's directional count
+            // (distance plus a front arc) - still wider than the real line, but it at least requires
+            // the enemies to be in front of us.
+            if (Core.Me.EnemiesInCone(Spells.Pneuma.Radius) < SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (Spells.Pneuma.Cooldown != TimeSpan.Zero)
