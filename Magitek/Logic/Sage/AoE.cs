@@ -36,14 +36,15 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            // Phlegma is a great 550 potency single target attack.
+            // Phlegma is a great single target attack (690 potency at III), so it is not gated
+            // on an enemy count - it is a gain even on one target.
             //if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Phlegma.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
             //    return false;
             var spell = Spells.PhlegmaIII;
             if (!Spells.PhlegmaIII.IsKnown())
                 spell = Spells.PhlegmaII.IsKnown() ? Spells.PhlegmaII : Spells.Phlegma;
 
-            if (spell.Charges == 0)
+            if (!spell.IsKnownAndReady())
                 return false;
 
             return await spell.Cast(target);
@@ -201,7 +202,7 @@ namespace Magitek.Logic.Sage
             if (SageRoutine.EnemiesInLine(Spells.Pneuma.Radius, PneumaLineWidth) < SageSettings.Instance.AoEEnemies)
                 return false;
 
-            if (Spells.Pneuma.Cooldown != TimeSpan.Zero)
+            if (!Spells.Pneuma.IsReady())
                 return false;
 
             return await Spells.Pneuma.Cast(target);

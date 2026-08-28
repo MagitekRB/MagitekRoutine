@@ -151,7 +151,7 @@ namespace Magitek.Logic.Sage
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Spells.Soteria.Cooldown != TimeSpan.Zero)
+            if (!Spells.Soteria.IsReady())
                 return false;
 
             if (Core.Me.HasAura(Auras.Soteria))
@@ -181,7 +181,7 @@ namespace Magitek.Logic.Sage
             if (!Core.Me.InCombat)
                 return false;
 
-            if (Spells.Rhizomata.Cooldown != TimeSpan.Zero)
+            if (!Spells.Rhizomata.IsReady())
                 return false;
 
             if (Addersgall >= 2)
@@ -204,7 +204,7 @@ namespace Magitek.Logic.Sage
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Spells.Krasis.Cooldown != TimeSpan.Zero)
+            if (!Spells.Krasis.IsReady())
                 return false;
 
             var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.KrasisHealthPercent
@@ -234,7 +234,7 @@ namespace Magitek.Logic.Sage
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Spells.Philosophia.Cooldown != TimeSpan.Zero)
+            if (!Spells.Philosophia.IsReady())
                 return false;
 
             var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.PhilosophiaHealthPercent
