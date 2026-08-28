@@ -76,9 +76,12 @@ namespace Magitek.Rotations
                 if (SageRoutine.CanWeave())
                 {
                     if (await Logic.Sage.Heal.Pepsis()) return true;
+                    // Physis first: Panhaima and Haima snapshot their potency when cast, so a
+                    // Physis that lands afterwards cannot amplify them. Their health thresholds
+                    // overlap, so without this the stronger cooldown routinely goes out unbuffed.
+                    if (await Logic.Sage.Heal.Physis()) return true;
                     if (await Logic.Sage.Heal.Panhaima()) return true;
                     if (await Logic.Sage.Heal.Holos()) return true;
-                    if (await Logic.Sage.Heal.Physis()) return true;
                     if (await Logic.Sage.Heal.Ixochole()) return true;
                     if (await Logic.Sage.Heal.Kerachole()) return true;
                     if (await Logic.Sage.Heal.Haima()) return true;
