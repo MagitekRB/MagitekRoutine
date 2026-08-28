@@ -110,7 +110,10 @@ namespace Magitek.Logic.Sage
             if (targetChar != null && targetChar.CharacterAuras.Count() >= 25)
                 return false;
 
-            if (!Combat.Enemies.Any(x => (!x.HasAnyAura(DotAuras, true) || (x.HasAnyAura(DotAuras, true) && !x.HasAnyAura(DotAuras, true, SageSettings.Instance.DotRefreshMSeconds)))
+            // "no dot at all, or a dot inside the refresh window" is just "no dot with more than
+            // the refresh window left" - the old shape walked each enemy's aura list three times
+            // per pulse to ask the same question.
+            if (!Combat.Enemies.Any(x => !x.HasAnyAura(DotAuras, true, SageSettings.Instance.DotRefreshMSeconds)
                                          && x.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)))
                 return false;
 

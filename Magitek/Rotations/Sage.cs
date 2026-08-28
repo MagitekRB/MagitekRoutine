@@ -183,7 +183,7 @@ namespace Magitek.Rotations
                 && Core.Target.CombatTimeLeft() > SageSettings.Instance.DoDamageIfTimeLeftLessThan)
             {
                 if (await AoE.Toxikon()) return true;
-                return true;
+                return false;
             }
 
             if (await AoE.Phlegma()) return true;

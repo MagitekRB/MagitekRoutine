@@ -218,7 +218,12 @@ namespace Magitek.Logic.Sage
             if (!IsEukrasiaReady())
                 return false;
 
-            var target = Core.Me.CurrentTarget;
+            // Validate before arming: Eukrasia is a real GCD, and this takes the current target
+            // raw - which can be an enemy, out of range, or nothing at all.
+            var target = Core.Me.CurrentTarget as Character;
+
+            if (target == null || !target.IsAlive || target.CanAttack || !target.WithinSpellRange(30))
+                return false;
 
             if (!await UseEukrasia(Spells.EukrasianDiagnosis.Id, targetObject: target))
                 return false;
