@@ -595,7 +595,7 @@ namespace Magitek.Models.Sage
         public bool OnlyZoePneuma { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool PneumaHealOnly { get; set; }
 
         [Setting]
@@ -604,7 +604,7 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(3)]
-        public float PneumaNeedHealing { get; set; }
+        public int PneumaNeedHealing { get; set; }
 
         #endregion
 

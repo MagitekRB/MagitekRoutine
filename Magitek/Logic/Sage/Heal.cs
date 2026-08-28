@@ -653,7 +653,11 @@ namespace Magitek.Logic.Sage
 
             if (Globals.InParty)
             {
-                var pneumaTarget = Group.CastableAlliesWithin25.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= AoeNeedHealing;
+                // 20y, not 25: Pneuma's damage is a 25y line but its HEAL is a 20y circle centred
+                // on us, so allies between 20 and 25 were counted for a heal that cannot reach them.
+                // PneumaNeedHealing is the ability's own threshold - it has a control on the Combat
+                // tab and, until now, nothing read it.
+                var pneumaTarget = Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= SageSettings.Instance.PneumaNeedHealing;
 
                 if (!pneumaTarget)
                     return false;
@@ -688,7 +692,11 @@ namespace Magitek.Logic.Sage
 
             if (Globals.InParty)
             {
-                var pneumaTarget = Group.CastableAlliesWithin25.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= AoeNeedHealing;
+                // 20y, not 25: Pneuma's damage is a 25y line but its HEAL is a 20y circle centred
+                // on us, so allies between 20 and 25 were counted for a heal that cannot reach them.
+                // PneumaNeedHealing is the ability's own threshold - it has a control on the Combat
+                // tab and, until now, nothing read it.
+                var pneumaTarget = Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= SageSettings.Instance.PneumaNeedHealing;
 
                 if (!pneumaTarget)
                     return false;
