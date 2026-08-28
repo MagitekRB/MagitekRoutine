@@ -2934,6 +2934,9 @@
   <data name="Sage_Content_Use_Kardia" xml:space="preserve">
     <value>使用 心关</value>
   </data>
+  <data name="Sage_Text_Dont_Move_Kardia_To_Anyone_Below" xml:space="preserve">
+    <value>不将心关切换给血量低于此值的队友</value>
+  </data>
   <data name="Sage_Content_Switch_Kardia_Targets_below" xml:space="preserve">
     <value>当目标血量低于[xx]时切换 心关</value>
   </data>

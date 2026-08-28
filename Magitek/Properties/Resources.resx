@@ -2928,6 +2928,9 @@
   <data name="Sage_Content_Use_Kardia" xml:space="preserve">
     <value>Use Kardia</value>
   </data>
+  <data name="Sage_Text_Dont_Move_Kardia_To_Anyone_Below" xml:space="preserve">
+    <value>Don't move Kardia to anyone below</value>
+  </data>
   <data name="Sage_Content_Switch_Kardia_Targets_below" xml:space="preserve">
     <value>Switch Kardia Targets below</value>
   </data>

@@ -48,7 +48,12 @@ namespace Magitek.Logic.Sage
                     && Core.Me.InCombat
                     && (!SageSettings.Instance.KardiaSwitchTargetsCurrent || currentKardiaTarget.CurrentHealthPercent >= SageSettings.Instance.KardiaSwitchTargetsCurrentHealthPercent))
                 {
-                    var canKardiaTargets = Group.CastableAlliesWithin30.Where(CanKardia).Where(CanKardiaSwitch).OrderByDescending(KardiaPriority).ToList();
+                    // Kardia is a heal-over-time, so it goes to whoever needs topping up - not to
+                    // whoever holds the highest-ranking role. Ordered by health, with the role
+                    // priority only as a tiebreak; initial placement below keeps role ordering,
+                    // because an untouched party still wants Kardia parked on the tank.
+                    var canKardiaTargets = Group.CastableAlliesWithin30.Where(CanKardia).Where(CanKardiaSwitch)
+                        .OrderBy(a => a.CurrentHealthPercent).ThenByDescending(KardiaPriority).ToList();
 
                     if (canKardiaTargets.Contains(currentKardiaTarget))
                         return false;
@@ -90,7 +95,13 @@ namespace Magitek.Logic.Sage
 
             bool CanKardiaSwitch(Character unit)
             {
+                // Needs topping up...
                 if (unit.CurrentHealthPercent > SageSettings.Instance.KardiaSwitchTargetsHealthPercent)
+                    return false;
+
+                // ...but is not in danger. Someone this low needs a real heal now, and parking the
+                // trickle on them neither saves them nor tops anyone else up.
+                if (unit.CurrentHealthPercent < SageSettings.Instance.KardiaMinimumHealthPercent)
                     return false;
 
                 return true;

@@ -12412,6 +12412,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t move Kardia to anyone below.
+        /// </summary>
+        public static string Sage_Text_Dont_Move_Kardia_To_Anyone_Below {
+            get {
+                return ResourceManager.GetString("Sage_Text_Dont_Move_Kardia_To_Anyone_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Switch Kardia Targets below.
         /// </summary>
         public static string Sage_Content_Switch_Kardia_Targets_below {

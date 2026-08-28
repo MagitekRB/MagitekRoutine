@@ -197,6 +197,10 @@ namespace Magitek.Models.Sage
         public float KardiaSwitchTargetsCurrentHealthPercent { get; set; }
 
         [Setting]
+        [DefaultValue(30.0f)]
+        public float KardiaMinimumHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool KardiaMainTank { get; set; }
 
