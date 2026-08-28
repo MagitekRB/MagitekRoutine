@@ -152,9 +152,13 @@ namespace Magitek.Logic.Sage
                 return await FightLogic.DoAndBuffer(Spells.Taurochole.HealAura(target, Auras.Taurochole));
             }
 
+            // The two branches above guard reachability; this one did not. MatchTankBuster's
+            // preferred tier draws from Group.CastableTanks, which carries no distance filter, so a
+            // tank sent out for a mechanic would spend a real Eukrasia GCD on a cast that cannot land.
             if (SageSettings.Instance.FightLogic_EukrasianDiagnosis
                 && Spells.Eukrasia.IsKnown()
                 && !target.HasPrimaryShield()
+                && Spells.EukrasianDiagnosis.CanCast(target)
                 && Heal.IsEukrasiaReady())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
