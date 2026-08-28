@@ -1,4 +1,6 @@
-﻿using PropertyChanged;
+using Magitek.Enumerations;
+using System;
+using PropertyChanged;
 using System.ComponentModel;
 using System.Configuration;
 
@@ -8,6 +10,24 @@ namespace Magitek.Models.Roles
     public abstract class JobSettings : JsonSettings
     {
         protected JobSettings(string path) : base(path) { }
+
+        protected override void Migrate()
+        {
+            base.Migrate();
+
+            // EnemyIsOmni was a manual "treat every target as omnidirectional" override, replaced
+            // by Positionals now that the omnidirectional flag can be read off the target. Anyone
+            // who left it on keeps that behaviour. Clearing it makes this run exactly once, so a
+            // later switch back to Auto is not undone on the next load.
+#pragma warning disable CS0618
+            if (EnemyIsOmni)
+            {
+                Positionals = PositionalStrategy.Never;
+                EnemyIsOmni = false;
+                Save();
+            }
+#pragma warning restore CS0618
+        }
 
         #region General
         [Setting]
@@ -19,8 +39,15 @@ namespace Magitek.Models.Roles
         public int SaveIfEnemyDyingWithin { get; set; }
 
         [Setting]
+        [DefaultValue(PositionalStrategy.Auto)]
+        public PositionalStrategy Positionals { get; set; }
+
+        // Legacy property for migration - will be removed in a future version
+        [Setting]
         [DefaultValue(false)]
+        [Obsolete("Use Positionals instead")]
         public bool EnemyIsOmni { get; set; }
+
         #endregion
 
         #region pvp

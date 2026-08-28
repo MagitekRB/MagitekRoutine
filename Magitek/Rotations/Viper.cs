@@ -139,7 +139,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(200,
                                           "",
-                                          () => ViperSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.HasAura(Auras.Reawakened) || ViperSettings.Instance.EnemyIsOmni)
+                                          () => ViperSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.HasAura(Auras.Reawakened) || Core.Me.CurrentTarget.IgnorePositionals(ViperSettings.Instance.Positionals))
                 );
 
             CombatMessageManager.RegisterMessageStrategy(

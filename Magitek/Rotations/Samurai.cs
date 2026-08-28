@@ -122,7 +122,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(200,
                                           "",
-                                          () => SamuraiSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || SamuraiSettings.Instance.EnemyIsOmni));
+                                          () => SamuraiSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.CurrentTarget.IgnorePositionals(SamuraiSettings.Instance.Positionals)));
 
             //Third priority : Positional
             CombatMessageManager.RegisterMessageStrategy(

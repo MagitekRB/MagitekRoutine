@@ -16,7 +16,7 @@ namespace Magitek.Logic.Monk
     {
         public static async Task<bool> TrueNorth()
         {
-            if (MonkSettings.Instance.EnemyIsOmni || !MonkSettings.Instance.UseTrueNorth)
+            if (Core.Me.CurrentTarget.IgnorePositionals(MonkSettings.Instance.Positionals) || !MonkSettings.Instance.UseTrueNorth)
                 return false;
 
             if (AoeControl.Enabled && Combat.Enemies.Count(x => x.Distance(Core.Me) <= 10 + x.CombatReach) >= MonkSettings.Instance.AoeEnemies)

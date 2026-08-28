@@ -1122,6 +1122,9 @@
   <data name="Bugs_Text_Current_Target_Boss" xml:space="preserve">
     <value>Current Target Boss?:</value>
   </data>
+  <data name="Bugs_Text_Current_Target_Omnidirectional" xml:space="preserve">
+    <value>Current Target Omnidirectional?:</value>
+  </data>
   <data name="Bugs_Text_In_Combat_Time" xml:space="preserve">
     <value>In Combat Time:</value>
   </data>
@@ -4382,6 +4385,12 @@
   </data>
   <data name="Generic_Use_True_North" xml:space="preserve">
     <value>Use True North</value>
+  </data>
+  <data name="Generic_Text_Positionals" xml:space="preserve">
+    <value>Positionals:</value>
+  </data>
+  <data name="Generic_Text_Positionals_Auto" xml:space="preserve">
+    <value>(Auto skips them on omnidirectional targets)</value>
   </data>
   <data name="Generic_Hide_Positional_Message" xml:space="preserve">
     <value>Hide Positional Message</value>

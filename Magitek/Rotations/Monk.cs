@@ -126,7 +126,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(200,
                                           "",
-                                          () => MonkSettings.Instance.HidePositionalMessage && Core.Me.HasAura(Auras.TrueNorth) || MonkSettings.Instance.EnemyIsOmni));
+                                          () => MonkSettings.Instance.HidePositionalMessage && Core.Me.HasAura(Auras.TrueNorth) || Core.Me.CurrentTarget.IgnorePositionals(MonkSettings.Instance.Positionals)));
 
             //third priority (tie): Demolish
             CombatMessageManager.RegisterMessageStrategy(

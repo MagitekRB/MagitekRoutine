@@ -533,6 +533,38 @@ namespace Magitek.Extensions
             );
         }
 
+        /// <summary>
+        /// True when rear/flank positional bonuses do not apply to this unit, so True North and
+        /// repositioning are wasted on it. The client draws an unsegmented target ring for these.
+        /// </summary>
+        /// <remarks>
+        /// From BNpcBase.IsOmnidirectional, keyed by <see cref="GameObject.BaseId"/> - the BNpcBase
+        /// row - and NOT by NpcId, which is the BNpcName row. Many base rows share a name: the
+        /// striking dummies in a housing plot and the one in Occult Crescent are all NpcId 541 but
+        /// different BaseIds, and classify oppositely.
+        /// </remarks>
+        public static bool IsOmnidirectional(this GameObject unit)
+        {
+            return unit != null && XivDataHelper.OmnidirectionalBaseIds.Contains(unit.BaseId);
+        }
+
+        /// <summary>
+        /// True when this job should not work positionals against this unit - either the unit is
+        /// omnidirectional, or the user has told the job to skip positionals outright.
+        /// </summary>
+        public static bool IgnorePositionals(this GameObject unit, PositionalStrategy strategy)
+        {
+            switch (strategy)
+            {
+                case PositionalStrategy.Never:
+                    return true;
+                case PositionalStrategy.Always:
+                    return false;
+                default:
+                    return unit.IsOmnidirectional();
+            }
+        }
+
         public static bool IsWarMachina(this GameObject unit)
         {
             return unit != null && (unit.EnglishName.Contains("Raven")

@@ -65,6 +65,21 @@ namespace Magitek.Utilities
             BossNames = new HashSet<string>(BossDictionary.Values);
             BossNames.UnionWith(JsonConvert.DeserializeObject<List<string>>(bossesNames));
 
+            // Every BNpcBase row with IsOmnidirectional = true. Keyed by GameObject.BaseId
+            // (the BNpcBase row), NOT NpcId (the BNpcName row)
+            const string omnidirectionalFile = "Magitek.Resources.OmnidirectionalBaseIds.json";
+
+            string omnidirectionalBaseIds;
+
+            using (var stream = assembly.GetManifestResourceStream(omnidirectionalFile))
+
+            using (var reader = new StreamReader(stream))
+            {
+                omnidirectionalBaseIds = reader.ReadToEnd();
+            }
+
+            OmnidirectionalBaseIds = new HashSet<uint>(JsonConvert.DeserializeObject<List<uint>>(omnidirectionalBaseIds));
+
             FightLogicEncounters.Encounters.SelectMany(encounter => encounter.Enemies)
                 .Where(enemy => enemy.Name != null)
                 .ToList()
@@ -76,5 +91,6 @@ namespace Magitek.Utilities
         public static readonly List<XivDbItem> XivDbActions;
         public static Dictionary<uint, string> BossDictionary;
         public static HashSet<string> BossNames;
+        public static HashSet<uint> OmnidirectionalBaseIds;
     }
 }

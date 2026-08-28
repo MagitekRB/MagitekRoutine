@@ -184,7 +184,7 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(200,
                                           "",
-                                          () => DragoonSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || DragoonSettings.Instance.EnemyIsOmni));
+                                          () => DragoonSettings.Instance.HidePositionalMessage || Core.Me.HasAura(Auras.TrueNorth) || Core.Me.CurrentTarget.IgnorePositionals(DragoonSettings.Instance.Positionals)));
 
             //Third priority : Positional
             CombatMessageManager.RegisterMessageStrategy(

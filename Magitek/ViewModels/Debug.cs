@@ -49,6 +49,7 @@ namespace Magitek.ViewModels
         public Duty.States DutyState { get; set; } = Duty.States.NotInDuty;
         public long DutyTime { get; set; }
         public string IsBoss { get; set; }
+        public string IsOmnidirectional { get; set; }
 
         public string FightLogicData { get; set; }
 

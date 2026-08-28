@@ -15,7 +15,7 @@ namespace Magitek.Logic.Dragoon
 
         public static async Task<bool> TrueNorth()
         {
-            if (DragoonSettings.Instance.EnemyIsOmni || !DragoonSettings.Instance.UseTrueNorth)
+            if (Core.Me.CurrentTarget.IgnorePositionals(DragoonSettings.Instance.Positionals) || !DragoonSettings.Instance.UseTrueNorth)
                 return false;
 
             if (Casting.LastSpell == Spells.TrueNorth)
