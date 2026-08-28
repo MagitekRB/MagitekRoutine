@@ -173,7 +173,6 @@ namespace Magitek.Rotations
                 return true;
             }
 
-            if (await AoE.Toxikon()) return true;
             if (await AoE.Phlegma()) return true;
             if (await AoE.Pneuma()) return true;
 
@@ -182,6 +181,11 @@ namespace Magitek.Rotations
             if (await AoE.Dyskrasia()) return true;
 
             if (await SingleTarget.EukrasianDosis()) return true;
+
+            // After the dot refresh: both halves of the refresh are instant and legal while
+            // moving, so spending the moving GCD on Toxikon first only delays the dot. The same
+            // Toxikons still get cast on later moving GCDs.
+            if (await AoE.Toxikon()) return true;
             return await SingleTarget.Dosis();
         }
 
