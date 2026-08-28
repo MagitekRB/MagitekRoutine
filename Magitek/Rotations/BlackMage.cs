@@ -90,7 +90,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.Despair()) return true;
 
             //AoE Section
-            if (BlackMageSettings.Instance.UseAoe && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+            if (BlackMageRoutine.InAoeRotation)
             {
                 //Either
                 if (await Aoe.Thunder4()) return true;

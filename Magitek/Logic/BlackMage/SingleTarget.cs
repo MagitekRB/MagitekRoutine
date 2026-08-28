@@ -65,9 +65,7 @@ namespace Magitek.Logic.BlackMage
 
             // In the AoE rotation Flare owns the fire-phase finisher - Despair firing first
             // dumps the MP that two more Flares and Flare Star were going to convert
-            if (AoeControl.Enabled
-                && BlackMageSettings.Instance.UseAoe
-                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && BlackMageRoutine.InAoeRotation)
                 return false;
 
             if (Casting.LastSpellWas(Spells.Despair))
@@ -175,8 +173,7 @@ namespace Magitek.Logic.BlackMage
             if (AstralSoulStacks == 6)
                 return false;
 
-            if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
+            // Don't block the Fire III transition on Triplecast.
 
             if (AstralStacks == 3 || UmbralStacks < 3)
                 return false;
@@ -197,9 +194,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // Skip if we're in an AoE situation (use Thunder4 instead)
-            if (AoeControl.Enabled
-                && BlackMageSettings.Instance.UseAoe
-                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && BlackMageRoutine.InAoeRotation)
                 return false;
 
             // If the last spell we cast is triple cast, stop
@@ -289,9 +284,7 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks < 3 || UmbralStacks == 3)
                 return false;
 
-            if (AoeControl.Enabled
-                && BlackMageSettings.Instance.UseAoe
-                && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies)
+            if (AoeControl.Enabled && BlackMageRoutine.InAoeRotation)
                 return false;
 
             if (Core.Me.CurrentMana >= 1600)
@@ -338,14 +331,28 @@ namespace Magitek.Logic.BlackMage
             if (Spells.Blizzard4.IsKnown() && UmbralStacks == 3)
                 return false;
 
+            // Blizzard masks as Paradox, so skip when Paradox isn't appropriate here.
+            if (SkipParadoxForAoe
+                && ActionResourceManager.BlackMage.Paradox
+                && Spells.Blizzard.Masked() == Spells.Paradox)
+                return false;
+
             return await Spells.Blizzard.Cast(Core.Me.CurrentTarget);
         }
+        // Paradox steals a GCD from Flare in AoE. Still take it while moving.
+        private static bool SkipParadoxForAoe => AoeControl.Enabled
+            && BlackMageRoutine.InAoeRotation
+            && !MovementManager.IsMoving;
+
         public static async Task<bool> Paradox()
         {
             if (!Spells.Paradox.IsKnown())
                 return false;
 
             if (!BlackMageSettings.Instance.Paradox)
+                return false;
+
+            if (SkipParadoxForAoe)
                 return false;
 
             if (Casting.LastSpellWas(Spells.Fire3))
@@ -357,11 +364,15 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks != 3 && UmbralStacks != 3)
                 return false;
 
-            if (Spells.ManaFont.IsKnownAndReady())
-                return false;
+            // Manafont only matters in the fire phase - it can't be cast in Umbral Ice.
+            if (AstralStacks == 3)
+            {
+                if (Spells.ManaFont.IsKnownAndReady())
+                    return false;
 
-            if (Spells.Fire4.IsKnownAndReadyAndCastableAtTarget() && Spells.ManaFont.Cooldown.TotalMilliseconds >= 70000)
-                return false;
+                if (Spells.Fire4.IsKnownAndReadyAndCastableAtTarget() && Spells.ManaFont.Cooldown.TotalMilliseconds >= 70000)
+                    return false;
+            }
 
             return await Spells.Paradox.Cast(Core.Me.CurrentTarget);
         }
