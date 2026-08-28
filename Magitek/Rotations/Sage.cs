@@ -83,9 +83,13 @@ namespace Magitek.Rotations
                     if (await Logic.Sage.Heal.Holos()) return true;
                     if (await Logic.Sage.Heal.Ixochole()) return true;
                     if (await Logic.Sage.Heal.Kerachole()) return true;
-                    if (await Logic.Sage.Heal.Haima()) return true;
                     if (await Logic.Sage.Heal.Taurochole()) return true;
                     if (await Logic.Sage.Heal.Druochole()) return true;
+                    // Below the cheap heals: Haima is a 120s cooldown that restores no HP at
+                    // all, and its threshold sits under Druochole's and Taurochole's, so a
+                    // single spike would spend it ahead of a 1s and a 45s heal that would
+                    // have covered the same dip. HealAlliance already orders them this way.
+                    if (await Logic.Sage.Heal.Haima()) return true;
                     // Last in the block: the job guides call Pepsis "a utility button, not
                     // something you will be using as part of your healing rotation", so it
                     // only takes the weave slot once the Addersgall heals and the big
