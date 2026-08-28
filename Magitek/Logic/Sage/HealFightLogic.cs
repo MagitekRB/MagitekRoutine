@@ -99,8 +99,10 @@ namespace Magitek.Logic.Sage
                 {
                     if (BaseSettings.Instance.DebugFightLogic)
                         Logger.WriteInfo($"[AOE Response] Cast Eukrasian Prognosis");
-                    if (await Heal.UseEukrasia(Spells.EukrasianPrognosis.Id))
-                        return await FightLogic.DoAndBuffer(Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis));
+                    var prognosis = Heal.EukrasianPrognosisSpell;
+
+                    if (await Heal.UseEukrasia(prognosis.Id))
+                        return await FightLogic.DoAndBuffer(prognosis.HealAura(Core.Me, Auras.EukrasianPrognosis));
                 }
 
             }

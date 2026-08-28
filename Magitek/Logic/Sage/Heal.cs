@@ -25,6 +25,15 @@ namespace Magitek.Logic.Sage
             return Core.Me.HasAura(Auras.Eukrasia, true) || Spells.Eukrasia.IsKnownAndReady();
         }
 
+        /// <summary>
+        /// Eukrasian Prognosis II is an INDEPENDENT action, not a mask of the base spell: at 96+
+        /// the client refuses CanCast on the base id even with Eukrasia up, and GetMaskedAction
+        /// leaves the base id unchanged. Asking for the base spell there waits out its timeout and
+        /// casts nothing, so every caller picks the shield through here.
+        /// </summary>
+        public static SpellData EukrasianPrognosisSpell =>
+            Spells.EukrasianPrognosisII.IsKnown() ? Spells.EukrasianPrognosisII : Spells.EukrasianPrognosis;
+
         public static async Task<bool> UseEukrasia(uint spellId = 24291, GameObject targetObject = null)
         {
             if (Core.Me.HasAura(Auras.Eukrasia, true))
@@ -259,20 +268,12 @@ namespace Magitek.Logic.Sage
                     if (targets.Any(r => r.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent))
                         await UseZoe(); // intentionally ignore failures
 
-            if (!Spells.EukrasianPrognosisII.IsKnown())
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
-                    return false;
+            var prognosis = EukrasianPrognosisSpell;
 
-                return await Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis);
-            }
-            else
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosisII.Id))
-                    return false;
+            if (!await UseEukrasia(prognosis.Id))
+                return false;
 
-                return await Spells.EukrasianPrognosisII.HealAura(Core.Me, Auras.EukrasianPrognosis);
-            }
+            return await prognosis.HealAura(Core.Me, Auras.EukrasianPrognosis);
         }
         public static async Task<bool> ForceEukrasianPrognosis()
         {
@@ -282,22 +283,13 @@ namespace Magitek.Logic.Sage
             if (!IsEukrasiaReady())
                 return false;
 
-            if (!Spells.EukrasianPrognosisII.IsKnown())
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
-                    return false;
+            var forcedPrognosis = EukrasianPrognosisSpell;
 
-                if (!await Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis))
-                    return false;
-            }
-            else
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosisII.Id))
-                    return false;
+            if (!await UseEukrasia(forcedPrognosis.Id))
+                return false;
 
-                if (!await Spells.EukrasianPrognosisII.HealAura(Core.Me, Auras.EukrasianPrognosis))
-                    return false;
-            }
+            if (!await forcedPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis))
+                return false;
 
             SageSettings.Instance.ForceEukrasianPrognosis = false;
             TogglesManager.ResetToggles();
@@ -446,10 +438,12 @@ namespace Magitek.Logic.Sage
 
             if (needPrognosis)
             {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
+                var prognosis = EukrasianPrognosisSpell;
+
+                if (!await UseEukrasia(prognosis.Id))
                     return false;
 
-                if (!await Spells.EukrasianPrognosis.Cast(Core.Me))
+                if (!await prognosis.Cast(Core.Me))
                     return false;
 
                 if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EukrasianPrognosis, true)))
