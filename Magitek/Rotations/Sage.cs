@@ -69,6 +69,14 @@ namespace Magitek.Rotations
                 if (await Buff.LucidDreaming()) return true;
                 if (await Buff.Rhizomata()) return true;
                 if (await Buff.Krasis()) return true;
+                // Beside Krasis rather than in Combat(): none of these three touch an enemy - they
+                // read ally health and cast on us - but Combat() only reaches its weave block past
+                // HasTarget, ThoroughCanAttack, StopDamageWhenMoreThanEnemies, DoDamage and InView.
+                // ThoroughCanAttack consults damage immunity, so a boss phase our damage cannot
+                // reach was disabling Sage's healing cooldowns outright.
+                if (await Buff.Kardia()) return true;
+                if (await Buff.Soteria()) return true;
+                if (await Buff.Philosophia()) return true;
             }
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
@@ -168,9 +176,6 @@ namespace Magitek.Rotations
 
             if (SageRoutine.CanWeave())
             {
-                if (await Buff.Kardia()) return true;
-                if (await Buff.Soteria()) return true;
-                if (await Buff.Philosophia()) return true;
                 if (await AoE.Psyche()) return true;
             }
 
