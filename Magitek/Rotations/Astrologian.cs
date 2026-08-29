@@ -53,7 +53,7 @@ namespace Magitek.Rotations
             if (await HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(AstrologianSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
-            if (GlobalCooldown.CanWeave(1))
+            if (CanWeave())
             {
                 if (await Buff.Divination()) return true;
                 if (await Buff.LucidDreaming()) return true;
@@ -79,7 +79,7 @@ namespace Magitek.Rotations
                 // Essential Dignity ahead of the rest. Original order for reference:
                 // Macrocosmos, Star, CU, Lady, CO, HoroscopePop, Synastry, ED, CI,
                 // Horoscope, Exaltation, Lord, Draw, Play.
-                if (GlobalCooldown.CanWeave(1))
+                if (CanWeave())
                 {
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
@@ -135,7 +135,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> CombatBuff()
         {
-            if (GlobalCooldown.CanWeave(1))
+            if (CanWeave())
 
             {
                 if (await Buff.LucidDreaming()) return true;
@@ -161,7 +161,7 @@ namespace Magitek.Rotations
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
-                if (GlobalCooldown.CanWeave(1))
+                if (CanWeave())
                 {
                     if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;

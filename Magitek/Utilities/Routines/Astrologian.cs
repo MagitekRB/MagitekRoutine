@@ -23,6 +23,19 @@ namespace Magitek.Utilities.Routines
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Astrologian, Spells.Malefic);
 
+        // Same shape as Sage's CanWeave: the plain weave window, plus a stall fallback.
+        // GlobalCooldown.CanWeave is true only while the GCD is rolling, so with the GCD
+        // idle - healbot mode with damage off, no valid target, post-movement - a bare
+        // gate locks every discretionary oGCD out precisely when nothing else is
+        // happening. If nothing has finished casting for this long, open the gate.
+        public static bool CanWeave()
+        {
+            if (GlobalCooldown.CanWeave(1))
+                return true;
+
+            return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
+        }
+
         // Modern AST heals oGCD-first: a hardcast GCD heal is justified only when the free
         // tools cannot answer, so the GCD heals shrink to their emergency threshold for an
         // ally one of these WILL cover. The question is "will a free tool heal this person",
