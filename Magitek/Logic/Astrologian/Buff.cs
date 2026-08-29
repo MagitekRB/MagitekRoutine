@@ -54,7 +54,7 @@ namespace Magitek.Logic.Astrologian
                 if (AstrologianSettings.Instance.FightLogic_Lightspeed && FightLogic.EnemyIsCastingBigAoe() && !Spells.NeutralSect.IsKnownAndReady() && !Spells.Macrocosmos.IsKnownAndReady())
                     return await FightLogic.DoAndBuffer(Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed));
 
-                if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.LightspeedHealthPercent) > Heals.AoeThreshold)
+                if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.LightspeedHealthPercent) >= Heals.AoeThreshold)
                     return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
             }
 

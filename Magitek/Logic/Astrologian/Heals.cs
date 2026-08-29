@@ -668,7 +668,7 @@ namespace Magitek.Logic.Astrologian
                 && AstrologianSettings.Instance.StellarDetonation)
             {
                 if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= Spells.StellarDetonation.Radius
-                && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyDominanceHealthPercent) > AstrologianSettings.Instance.EarthlyDominanceCount)
+                && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyDominanceHealthPercent) >= AstrologianSettings.Instance.EarthlyDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
 
@@ -678,7 +678,7 @@ namespace Magitek.Logic.Astrologian
                 && AstrologianSettings.Instance.StellarDetonation)
             {
                 if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= Spells.StellarDetonation.Radius
-                && r.CurrentHealthPercent <= AstrologianSettings.Instance.GiantDominanceHealthPercent) > AstrologianSettings.Instance.GiantDominanceCount)
+                && r.CurrentHealthPercent <= AstrologianSettings.Instance.GiantDominanceHealthPercent) >= AstrologianSettings.Instance.GiantDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
 
