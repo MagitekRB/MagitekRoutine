@@ -634,7 +634,8 @@ namespace Magitek.Logic.Astrologian
             // around ITS placement — allies inside the star's radius can be outside the
             // caster's 30y, and a cached caster-centred list would miss them.
             List<BattleCharacter> EarthlyStarTargets() =>
-                PartyManager.VisibleMembers.Select(r => r.BattleCharacter).ToList();
+                PartyManager.VisibleMembers.Select(r => r.BattleCharacter)
+                    .Where(r => r.CurrentHealth > 0).ToList();
 
             // The pop checks gate on Stellar Detonation's own action: the base Earthly Star
             // action sits on its 60s recast for the star's whole deployment, so putting these
@@ -660,7 +661,7 @@ namespace Magitek.Logic.Astrologian
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
-                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= 30
+                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= Spells.StellarDetonation.Radius
                 && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyDominanceHealthPercent) > AstrologianSettings.Instance.EarthlyDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
@@ -670,7 +671,7 @@ namespace Magitek.Logic.Astrologian
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
-                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= 30
+                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= Spells.StellarDetonation.Radius
                 && r.CurrentHealthPercent <= AstrologianSettings.Instance.GiantDominanceHealthPercent) > AstrologianSettings.Instance.GiantDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
