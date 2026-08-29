@@ -785,9 +785,6 @@ namespace Magitek.Logic.Astrologian
             if (Group.CastableAlliesWithin20.Any(x => x.HasAura(Auras.Macrocosmos)))
                 return false;
 
-            if (AstrologianSettings.Instance.FightLogic_Macrocosmos && FightLogic.EnemyIsCastingBigAoe())
-                return await FightLogic.DoAndBuffer(Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos));
-
             var enemyCount = Combat.Enemies.Count();
             if (enemyCount == 0)
                 return false;

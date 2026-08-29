@@ -75,6 +75,24 @@ namespace Magitek.Logic.Astrologian
                 return await FightLogic.DoAndBuffer(Spells.CollectiveUnconscious.Cast(Core.Me));
             }
 
+            // Macrocosmos stores the hit and returns half of it as healing, so it must go
+            // out BEFORE the raidwide lands - and only for the big ones, the same
+            // selectivity its old branch in Heals had. The aura guards are load-bearing:
+            // with the buff already up the client resolves this id to Microcosmos, so an
+            // unguarded press would CONVERT the stored damage before the hit arrives.
+            if (AstrologianSettings.Instance.FightLogic_Macrocosmos
+                && FightLogic.EnemyIsCastingBigAoe()
+                && Spells.Macrocosmos.IsKnownAndReady()
+                && !Core.Me.HasMyAura(Auras.Macrocosmos)
+                && !Group.CastableAlliesWithin20.Any(x => x.HasAura(Auras.Macrocosmos))
+                && Spells.Macrocosmos.CanCast())
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    Logger.WriteInfo($"[AOE Response] Cast Macrocosmos");
+
+                return await FightLogic.DoAndBuffer(Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos));
+            }
+
             if (AstrologianSettings.Instance.FightLogicHoroscope
                 && Spells.Horoscope.IsKnownAndReady()
                 && Spells.Horoscope.CanCast())

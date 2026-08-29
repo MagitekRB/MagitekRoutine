@@ -83,7 +83,6 @@ namespace Magitek.Rotations
                 {
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
-                    if (await Heals.Macrocosmos()) return true;
                     if (await Heals.CelestialOpposition()) return true;
                     if (await Heals.LadyOfCrowns()) return true;
                     if (await Heals.HoroscopePop()) return true;
@@ -97,6 +96,13 @@ namespace Magitek.Rotations
                     if (await Cards.PlayCards()) return true;
                 }
 
+                // Macrocosmos is a GCD - inside the weave blocks above it could never
+                // cast (the weave window only opens while the GCD is rolling, exactly
+                // when a GCD is refused), so it sat wedged since it was written. First
+                // among the GCD heals: its own gates are the narrowest in the file, and
+                // when they hold it is the strongest play. The conversion it dispatches
+                // is an oGCD and fires from here whenever it is worth taking.
+                if (await Heals.Macrocosmos()) return true;
                 if (await Heals.AspectedHelios()) return true;
                 if (await Heals.Helios()) return true;
                 if (await Heals.AspectedBenefic()) return true;
@@ -163,7 +169,6 @@ namespace Magitek.Rotations
             {
                 if (CanWeave())
                 {
-                    if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
                     if (await Heals.LadyOfCrowns()) return true;
