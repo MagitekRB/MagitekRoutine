@@ -793,8 +793,18 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (enemyCount > PartyManager.NumMembers)
-                if (Combat.Enemies.All(x => x.WithinSpellRange(Spells.Macrocosmos.Radius) && Group.CastableAlliesWithin20.Count() == PartyManager.NumMembers))
+            {
+                // Whole living party in reach and every enemy inside the blast: the
+                // wall-to-wall placement. The old check compared the castable list against
+                // PartyManager.NumMembers, which counts the dead - one death made it
+                // permanently false - and sat invariant inside the enemy predicate.
+                var livingParty = PartyManager.VisibleMembers.Select(m => m.BattleCharacter).Count(b => b.CurrentHealth > 0);
+
+                if (livingParty > 0
+                    && Group.CastableAlliesWithin20.Count() >= livingParty
+                    && Core.Me.EnemiesNearby(Spells.Macrocosmos.Radius).Count() >= enemyCount)
                     return await Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos);
+            }
 
             var isThereABoss = Combat.Enemies.Any(x => x.IsBoss());
 
@@ -811,7 +821,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (Group.CastableAlliesWithin30.Count(x => x.HasMyAura(Auras.Macrocosmos)
-                    && x.CurrentHealthPercent < AstrologianSettings.Instance.MacrocosmosHealthPercent) <= AoeThreshold) return false;
+                    && x.CurrentHealthPercent < AstrologianSettings.Instance.MacrocosmosHealthPercent) < AoeThreshold) return false;
 
             return await Spells.Microcosmos.Heal(Core.Me);
 
