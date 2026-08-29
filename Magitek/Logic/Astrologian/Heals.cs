@@ -739,8 +739,14 @@ namespace Magitek.Logic.Astrologian
                 return await AspectedHelios() ? true : await Spells.Helios.Cast(Core.Me);
 
             if (await Spells.Horoscope.Cast(Core.Me))
+            {
+                // The upgrade is opportunistic - both are GCDs and rarely castable inside a
+                // weave window - but the Horoscope itself went out: report the action so the
+                // pulse ends instead of dispatching more abilities on top of it.
                 if (!await AspectedHelios())
-                    return await Spells.Helios.Cast(Core.Me);
+                    await Spells.Helios.Cast(Core.Me);
+                return true;
+            }
 
             return false;
         }
