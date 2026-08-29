@@ -68,6 +68,14 @@ namespace Magitek.Logic.Astrologian
                 if (!unit.WithinSpellRange(Spells.Combust.Range) || !unit.InLineOfSight())
                     return false;
 
+                // Combat.Enemies keeps enemies our damage cannot touch so the defensive
+                // paths still see them, and the client accepts a cast at one - immunity
+                // nullifies the damage, it does not refuse the action. A picker choosing
+                // its own target must ask the immunity rules itself, exactly as
+                // ThoroughCanAttack does for the current target.
+                if (!unit.CanBeDamagedByMe())
+                    return false;
+
                 return !unit.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds);
             }
 
