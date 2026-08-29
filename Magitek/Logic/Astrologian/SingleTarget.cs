@@ -62,6 +62,12 @@ namespace Magitek.Logic.Astrologian
                 if (unit.CharacterAuras.Count() >= 25)
                     return false;
 
+                // Reachability, cheapest first: an enemy out of Combust's 25y or behind a
+                // wall fails the cast anyway, and picking it blocked spreading to the
+                // dottable enemies actually in reach.
+                if (!unit.WithinSpellRange(Spells.Combust.Range) || !unit.InLineOfSight())
+                    return false;
+
                 return !unit.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds);
             }
 
