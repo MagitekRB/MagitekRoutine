@@ -56,6 +56,12 @@ namespace Magitek.Logic.Astrologian
                 if (!CanCombust(unit))
                     return false;
 
+                // Same guard as the single-target path: at 25+ statuses the debuff silently
+                // fails to apply, and a cast that lands no aura re-selects this enemy every
+                // pulse - an unbounded loop of zero-damage GCDs.
+                if (unit.CharacterAuras.Count() >= 25)
+                    return false;
+
                 return !unit.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds);
             }
 
