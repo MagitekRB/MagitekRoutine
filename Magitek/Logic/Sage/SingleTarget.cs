@@ -129,6 +129,15 @@ namespace Magitek.Logic.Sage
             }
             bool CanDot(GameObject unit)
             {
+                // Combat.Enemies keeps enemies our damage cannot touch - a duel Villain we
+                // lack the Hero buff for, a boss immune to our damage type - so the defensive
+                // paths still see them. The client accepts a CAST at such an enemy (immunity
+                // nullifies the damage, it does not refuse the action), so a picker choosing
+                // its own target must ask the immunity rules itself, exactly as
+                // ThoroughCanAttack does for the current target.
+                if (!unit.CanBeDamagedByMe())
+                    return false;
+
                 // Check dosis since no eukrasia buff yet.
                 if (!Spells.Dosis.CanCast(unit))
                     return false;
