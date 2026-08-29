@@ -85,6 +85,24 @@
                                 Background="{DynamicResource ClassSelectorBackground}">
             <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text="{x:Static properties:Resources.BlackMage_Content_Retrace_After_Standing_Still}"/>
+                    <controls:Numeric Margin="0.3"
+                                      MaxValue="10"
+                                      MinValue="0"
+                                      Value="{Binding BlackMageSettings.RetraceStandStillSeconds, Mode=TwoWay}"/>
+                    <TextBlock Margin="5"
+                               Style="{DynamicResource TextBlockDefault}"
+                               Text="{x:Static properties:Resources.Generic_Seconds}"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:SettingsBlock>
+
+        <controls:SettingsBlock Margin="0,3,0,0"
+                                Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal">
                     <CheckBox Content="{x:Static properties:Resources.Generic_Lucid_Dreaming_When_Under}"
                               IsChecked="{Binding BlackMageSettings.UseLucidDreaming, Mode=TwoWay}"
                               Style="{DynamicResource CheckBoxFlat}"/>

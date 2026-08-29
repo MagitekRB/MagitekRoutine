@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Models.BlackMage;
 using Magitek.Utilities;
 using System;
 using System.Linq;
@@ -103,5 +104,9 @@ namespace Magitek.Utilities.Routines
         public static readonly uint XEther = 4558;
         public static readonly uint MegaEther = 13638;
         public static readonly uint SuperEther = 23168;
+
+        // The AoE rotation's entry condition, shared so single-target logic can defer to it.
+        public static bool InAoeRotation => BlackMageSettings.Instance.UseAoe
+            && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies;
     }
 }
