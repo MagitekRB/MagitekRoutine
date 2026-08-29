@@ -20,6 +20,12 @@ namespace Magitek.Logic.Astrologian
 
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? AstrologianSettings.Instance.AoeNeedHealingFullParty : AstrologianSettings.Instance.AoeNeedHealingLightParty;
 
+        // How far from maturity the star must still be before the weak pop is worth taking:
+        // within this window the full-strength version is moments away, so decline and let
+        // the Giant Dominance branch spend it instead. Same internal-hold shape as
+        // Cards.HoldDivinationForDrawSeconds.
+        private const int EarthlyDominanceRipenMs = 4000;
+
         public static bool NeedAoEHealing()
         {
             var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.AoEHealHealthPercent);
@@ -656,7 +662,7 @@ namespace Magitek.Logic.Astrologian
                     || Core.Me.HasAura(Auras.EarthlyDominance, false, Utilities.Combat.CombatWallClockTimeLeft * 1000)))
                 return await Spells.StellarDetonation.Heal(Core.Me);
 
-            if (Core.Me.HasAura(Auras.EarthlyDominance)
+            if (Core.Me.HasAura(Auras.EarthlyDominance, false, EarthlyDominanceRipenMs)
                 && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
