@@ -7625,8 +7625,12 @@ namespace Magitek.Utilities
                                     // was observed detecting live 2026-08-07
                         Name = "Phantom Hydra",
                         Aoes = new List<uint> {
-                            47210, // Discordance (user-confirmed AoE 2026-08-07; 53 observed casts
-                                   // in the 2026-07-30 corpus — Forked Tower)
+                            47209, // Discordance - the CASTBAR id. Same-name twin pair measured
+                                   // 2026-08-29 in a North Horn CE: 47209 casts (5 castbars, zero
+                                   // damage lines), 47210 lands the damage (172 player hits; the
+                                   // "53 observed casts" of the 2026-07-30 corpus were those damage
+                                   // lines, which is how the wrong twin got catalogued). Detection
+                                   // matches CastingSpellId, so only the castbar id arms responses.
                         },
                     },
                     new Enemy {
