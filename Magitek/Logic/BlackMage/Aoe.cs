@@ -15,6 +15,11 @@ namespace Magitek.Logic.BlackMage
 {
     internal static class Aoe
     {
+        // The Balance: one filler, in Umbral Ice after Freeze, only while Transpose is still down.
+        private static bool AoeFillerAllowed => !Spells.FlareStar.IsKnown()
+            || MovementManager.IsMoving
+            || (UmbralStacks > 0 && UmbralHearts == 3 && !Spells.Transpose.IsKnownAndReady());
+
         public static async Task<bool> Foul()
         {
             if (!AoeControl.Enabled)
@@ -54,7 +59,9 @@ namespace Magitek.Logic.BlackMage
             if (BlackMageRoutine.WillOvercapPolyglot())
                 return await Spells.Foul.Cast(Core.Me.CurrentTarget);
 
-            // In AoE, don't save charges - use them for more damage
+            if (!AoeFillerAllowed)
+                return false;
+
             return await Spells.Foul.Cast(Core.Me.CurrentTarget);
         }
 
@@ -124,6 +131,10 @@ namespace Magitek.Logic.BlackMage
             //Can only use in Umbral Ice - the Transpose loop enters ice at Umbral Ice 1
             if (UmbralStacks == 0)
                 return false;
+
+            // Ice filler: more potency and a shorter cast than High Blizzard II. Needs Freeze's 1000 MP plus Flare's 800 floor.
+            if (Spells.FlareStar.IsKnown() && UmbralHearts == 3 && !Spells.Transpose.IsKnownAndReady() && Core.Me.CurrentMana >= 1800)
+                return await Spells.Freeze.Cast(Core.Me.CurrentTarget);
 
             // HARDCODED: Level 58 is when the Umbral Heart trait unlocks
             // This is a trait check, not a spell availability check
@@ -264,6 +275,13 @@ namespace Magitek.Logic.BlackMage
             // If we have the triplecast aura, stop
             if (Core.Me.HasAura(Auras.Triplecast))
                 return false;
+
+            if (!AoeFillerAllowed)
+                return false;
+
+            // Last-resort ice filler: refresh early only when Polyglot is empty and MP won't cover Freeze.
+            if (Spells.FlareStar.IsKnown() && UmbralStacks > 0 && PolyglotCount == 0 && Core.Me.CurrentMana < 1800)
+                return await Spells.HighThunderII.Cast(Core.Me.CurrentTarget);
 
             //If we don't need to refresh Thunder, skip
             if (Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
