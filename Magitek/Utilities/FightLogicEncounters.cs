@@ -7804,6 +7804,20 @@ namespace Magitek.Utilities
                             47167, // Left-Right Combination — 17 players, 20%
                         },
                     },
+                    new Enemy {
+                        // Id unknown - the dragon despawned before it could be read; name
+                        // matching carries the entry (Greater Fan precedent). Backfill the
+                        // NpcId on the next encounter.
+                        Id = 0,
+                        Name = "Claret Dragon",
+                        Aoes = new List<uint> {
+                            48277, // Howling Darkness - castbar id, harvested live 2026-08-29.
+                                   // User field ruling from the same session: this is the ONLY
+                                   // cast of the kit that needs mitigation. Ruled out: Soar
+                                   // 50488, Aetherial Ward 48271, Cauterize 48264, Grave Mold
+                                   // 48261, Snaking Necrobreath 48260.
+                        },
+                    },
                 }
             },
             #endregion
