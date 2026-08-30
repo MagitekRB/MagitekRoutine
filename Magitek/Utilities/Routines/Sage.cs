@@ -27,6 +27,11 @@ namespace Magitek.Utilities.Routines
         // the Eukrasian Prognosis arm retried for 17 seconds against a rolling GCD).
         public static long LastAoeResponseAttemptTick;
 
+        // The tankbuster responder paces on its own anchor: sharing the raidwide one let an
+        // AoE detector that was declining every branch re-stamp each second and starve the
+        // tankbuster response entirely (Aoe() runs first in the pulse).
+        public static long LastTankbusterResponseAttemptTick;
+
         /// <summary>
         /// Enemies inside a rectangular line AoE cast forward from the player: <paramref name="length"/>
         /// yalms ahead, <paramref name="width"/> yalms across in total. Decomposed from the angle off

@@ -153,9 +153,9 @@ namespace Magitek.Logic.Sage
 
             // One attempt window per second: the detector keeps the mechanic open, so
             // pacing costs nothing but the pulse-rate retry storm a failed cast produced.
-            if (System.Environment.TickCount64 - global::Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick < 1000)
+            if (System.Environment.TickCount64 - global::Magitek.Utilities.Routines.Sage.LastTankbusterResponseAttemptTick < 1000)
                 return false;
-            global::Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick = System.Environment.TickCount64;
+            global::Magitek.Utilities.Routines.Sage.LastTankbusterResponseAttemptTick = System.Environment.TickCount64;
 
             if (SageSettings.Instance.FightLogic_Haima
                 && Spells.Haima.IsKnownAndReady()
