@@ -653,9 +653,14 @@ namespace Magitek.Logic.Astrologian
             // Wall-clock, not the summed estimate: the pull ends when the last enemy dies, and
             // in multi-target pulls the sum overstates that badly (four mobs at 3s each sum to
             // 12s), so a summed check never trips and the star expires after combat unspent.
+            // Boss fights disarm the dump entirely: the estimate reads "pull ending" every
+            // time an add wave is about to die while the boss fight has minutes left —
+            // field-observed 2026-08-30, a 3-second star dumped weak mid-encounter. Same
+            // boss-blind time-to-death trap the Summoner throttle needed excluding for.
             if (AstrologianSettings.Instance.StellarDetonation
                 && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
+                && !Utilities.Combat.Enemies.Any(x => x.IsBoss())
                 && Utilities.Combat.CombatWallClockTimeLeft > 0
                 && Utilities.Combat.CombatWallClockTimeLeft <= AstrologianSettings.Instance.StellarDetonationPullEndingSeconds
                 && (Core.Me.HasAura(Auras.GiantDominance)
