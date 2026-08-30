@@ -30,9 +30,6 @@ namespace Magitek.Logic.Summoner
             if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
                 return false;
 
-            if (!SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.None))
-                return false;
-
             if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
                 return false;
 

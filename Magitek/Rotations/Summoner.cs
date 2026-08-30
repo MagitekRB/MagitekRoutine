@@ -79,6 +79,10 @@ namespace Magitek.Rotations
 
             if (await Aoe.CrimsonStrike()) return true;
             if (await Buff.LucidDreaming()) return true;
+            // Demi before gems: with both available the demi goes out first (the guides'
+            // skip rule) and re-grants the gems itself; the gem phases then run inside
+            // the two-minute window instead of pushing the demi out of it.
+            if (await Buff.Aethercharge()) return true;
             if (await Pets.SummonCarbuncleOrEgi()) return true;
             if (await Buff.SearingLight()) return true;
             if (await Aoe.EnergySiphon()) return true;
@@ -88,7 +92,6 @@ namespace Magitek.Rotations
             if (await Aoe.AstralFlow()) return true;
             if (await Aoe.Painflare()) return true;
             if (await SingleTarget.Fester()) return true;
-            if (await Buff.Aethercharge()) return true;
             if (await Aoe.Ruin4()) return true;
             if (await Aoe.Outburst()) return true;
             return await SingleTarget.Ruin();
