@@ -18,6 +18,15 @@ namespace Magitek.Utilities.Routines
         /// </summary>
         public const int MaxAddersgall = 3;
 
+        // Stamped when the Kardia switch branch moves the trickle onto a hurt ally.
+        // Soteria pairs itself to that moment instead of firing free-standing.
+        public static long LastKardiaSwitchTick;
+
+        // Paces the raidwide responder's cast attempts: a failed cast re-qualifies on the
+        // next pulse and stormed at pulse rate (measured 2026-08-29: 13 attempts in 400ms;
+        // the Eukrasian Prognosis arm retried for 17 seconds against a rolling GCD).
+        public static long LastAoeResponseAttemptTick;
+
         /// <summary>
         /// Enemies inside a rectangular line AoE cast forward from the player: <paramref name="length"/>
         /// yalms ahead, <paramref name="width"/> yalms across in total. Decomposed from the angle off

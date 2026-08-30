@@ -15,6 +15,10 @@ namespace Magitek.Logic.Sage
 {
     internal static class Buff
     {
+        // How stale a Kardia switch may be and still justify Soteria; a little over the
+        // 5s Kardia recast so a switch-then-weave pulse ordering cannot miss the window.
+        private const int SoteriaAfterKardiaSwitchMs = 6000;
+
         public static async Task<bool> LucidDreaming()
         {
             return await Roles.Healer.LucidDreaming(SageSettings.Instance.LucidDreaming, SageSettings.Instance.LucidDreamingManaPercent);
@@ -52,7 +56,15 @@ namespace Magitek.Logic.Sage
                     var kardiaTargetSwitch = canKardiaTargets.FirstOrDefault();
 
                     if (kardiaTargetSwitch != null)
-                        return await Spells.Kardia.CastAura(kardiaTargetSwitch, Auras.Kardion);
+                    {
+                        if (!await Spells.Kardia.CastAura(kardiaTargetSwitch, Auras.Kardion))
+                            return false;
+
+                        // The switch is the moment the trickle has a job: stamp it so
+                        // Soteria can pair its amplified ticks with the newly assigned ally.
+                        global::Magitek.Utilities.Routines.Sage.LastKardiaSwitchTick = Environment.TickCount64;
+                        return true;
+                    }
                     return false;
                 }
                 else
@@ -155,6 +167,14 @@ namespace Magitek.Logic.Sage
                 return false;
 
             if (Core.Me.HasAura(Auras.Soteria))
+                return false;
+
+            // Fired free-standing, Soteria went out and the oGCD heals topped the holder
+            // before the amplified ticks could matter (field-observed 2026-08-29). It now
+            // pairs with the Kardia switch: fire only while the trickle was just reassigned
+            // to a hurt ally - the window where the extra potency actually converts. The
+            // health and tank gates below still apply on top.
+            if (Environment.TickCount64 - global::Magitek.Utilities.Routines.Sage.LastKardiaSwitchTick > SoteriaAfterKardiaSwitchMs)
                 return false;
 
             var kardionTarget = Group.CastableAlliesWithin30.Where(r => r.HasAura(Auras.Kardion, true)).FirstOrDefault();
