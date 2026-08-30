@@ -180,10 +180,12 @@ namespace Magitek.Logic.Sage
             // The two branches above guard reachability; this one did not. MatchTankBuster's
             // preferred tier draws from Group.CastableTanks, which carries no distance filter, so a
             // tank sent out for a mechanic would spend a real Eukrasia GCD on a cast that cannot land.
+            // Range check, not CanCast: the Eukrasian action only becomes castable after Eukrasia
+            // is armed, so a pre-arm CanCast is always false and would kill this branch outright.
             if (SageSettings.Instance.FightLogic_EukrasianDiagnosis
                 && Spells.Eukrasia.IsKnown()
                 && !target.HasPrimaryShield()
-                && Spells.EukrasianDiagnosis.CanCast(target)
+                && target.WithinSpellRange(30)
                 && Heal.IsEukrasiaReady())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
