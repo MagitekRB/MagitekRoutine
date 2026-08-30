@@ -7677,7 +7677,10 @@ namespace Magitek.Utilities
                         Id = 14518,
                         Name = "Entanglement",
                         Knockbacks = new List<uint> {
-                            47072, // Malicious Weave — a draw-in, but the same immunities answer it
+                            // 47072 Malicious Weave removed - the draw-in does not need immunity
+                            // (user-confirmed in the field 2026-08-29: displacement is harmless, and
+                            // Surecast was being spent answering it). Its paired blowout 47071
+                            // Baleful Blowout is likewise not worth mitigating - same ruling.
                         },
                     },
                     new Enemy {
