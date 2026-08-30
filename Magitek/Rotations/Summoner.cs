@@ -44,9 +44,17 @@ namespace Magitek.Rotations
             return await Logic.Summoner.Heal.Physick();
         }
 
-        public static Task<bool> CombatBuff()
+        public static async Task<bool> CombatBuff()
         {
-            return Task.FromResult(false);
+            // Ahead of Combat() on purpose: these answer incoming mechanics and must fire
+            // even when Combat() declines to act - its immunity early-return kept them dead
+            // against exactly the enemies (duel Villains, damage-type immunity) whose
+            // mechanics most need answering.
+            if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
+            return false;
         }
 
         public static async Task<bool> Combat()
@@ -62,10 +70,6 @@ namespace Magitek.Rotations
 
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
-
-            if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
-            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             if (await Aoe.CrimsonStrike()) return true;
             if (await Buff.LucidDreaming()) return true;
