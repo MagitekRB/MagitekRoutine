@@ -7742,9 +7742,10 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 14736,
                         Name = "Demi-Medusa",
-                        Aoes = new List<uint> {
-                            48254, // Lamian Lesion
-                        },
+                        // Lamian Lesion 48254 removed by field ruling 2026-08-30: it is dodgeable,
+                        // and answering it was burning Neutral Sect/Sun Sign with nothing to soak.
+                        // Null, not empty, so the has-fight-logic check doesn't claim coverage.
+                        Aoes = null,
                     },
                     // Critical engagement bosses from a second recorded run. Each ability below was
                     // measured rather than assumed: the damage was matched to its cast by timestamp, and
