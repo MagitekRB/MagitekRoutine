@@ -367,9 +367,14 @@ namespace Magitek.Logic.Sage
 
                 // Whoever is furthest from full rather than whoever the party list happens to put
                 // first, because at the overcap threshold most of the party usually qualifies.
+                // Full-health allies are excluded outright: the default threshold is 100, and
+                // <= 100 is true at full HP, so a gauge capped during downtime dumped into an
+                // unhurt party the moment combat started (field-observed 2026-08-29 - the
+                // pull opened with a Druochole that healed nobody).
                 if (DruocholeTarget == null && overcapDump)
                     DruocholeTarget = Group.CastableAlliesWithin30
-                        .Where(r => r.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent)
+                        .Where(r => r.CurrentHealth < r.MaxHealth
+                            && r.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent)
                         .OrderBy(r => r.CurrentHealthPercent)
                         .FirstOrDefault();
 
@@ -380,7 +385,9 @@ namespace Magitek.Logic.Sage
             }
 
             if (Core.Me.CurrentHealthPercent > SageSettings.Instance.DruocholeHpPercent
-                && !(overcapDump && Core.Me.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent))
+                && !(overcapDump
+                    && Core.Me.CurrentHealth < Core.Me.MaxHealth
+                    && Core.Me.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent))
                 return false;
 
             return await Spells.Druochole.Heal(Core.Me);
