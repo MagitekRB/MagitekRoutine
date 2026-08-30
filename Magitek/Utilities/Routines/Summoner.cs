@@ -27,7 +27,7 @@ namespace Magitek.Utilities.Routines
         /// <remarks>
         /// Burst anchor: the demi phase (Solar Bahamut/Bahamut/Phoenix, 15s every
         /// 60s; Searing Light cast inside the even-minute one), read from the
-        /// pet/trance gauge timers since no self-aura exists for the summon.
+        /// trance gauge timer since no self-aura exists for the summon.
         /// Window contents: demi summon, Enkindle, Astral Flow
         /// (Deathflare/Rekindle/Sunflare), the six demi GCDs whose casts drive demi
         /// autos, Searing Light. Sensitivity is moderate — all demi GCDs are instant
@@ -38,14 +38,52 @@ namespace Magitek.Utilities.Routines
         /// </remarks>
         public static void ReportBurstWindows()
         {
-            // Demi/trance phase via the gauge: PetTimer covers the demi summons,
-            // TranceTimer the low-level trances (both Int32 milliseconds). The gauge
-            // is the ON edge — PetManager.ActivePetType lags the pet spawn. EVERY
-            // demi phase reports (15s each, every 60s), not only the Searing-Light-
-            // aligned ones, and the 58-59 trance windows are near-empty but report
-            // anyway — they are still trances.
-            var gaugeMs = Math.Max(ActionResourceManager.Summoner.PetTimer, ActionResourceManager.Summoner.TranceTimer);
-            var remaining = gaugeMs > 0 ? TimeSpan.FromMilliseconds(gaugeMs) : TimeSpan.Zero;
+            // Demi/trance phase via TranceTimer ONLY — never PetTimer, never a
+            // Max() of the two. Log-proven (2026-08-30, full-session forensics):
+            // Max(PetTimer, TranceTimer) opened a ~30.0s window on every gem
+            // summon (Garuda/Titan/Ifrit II) and ~15.0s on demi summons, so
+            // "burst" asserted through the gem attunement phases — roughly 2/3
+            // of combat — and starved Surecast/Addle/Radiant Aegis.
+            // Field mapping: TranceTimer reads gauge offset 0x08, the client's
+            // SummonTimer (runs for trances AND demis); PetTimer reads 0x0A,
+            // the AttunementTimer (gem phases). Consistent with the shipped
+            // Dreadwyrm Trance gates (TranceTimer > 0 with Carbuncle out): if
+            // TranceTimer were the attunement timer it would read 0 during a
+            // trance and those gates could never have fired.
+            // ASSUMPTIONS — per-field values were never sampled in combat, only
+            // the Max was ever logged: that TranceTimer stays 0 through gem
+            // phases and runs through 70+ demis both come from the mapping
+            // above. A wrong mapping fails toward a MISSED report (a defensive
+            // weaving during burst), never toward the false report this
+            // replaces, because the pet conjunct below blocks the gem half
+            // regardless: a gem phase keeps its egi out essentially phase-long
+            // (field-observed, with rare ~1s Carbuncle/None blips), and the pet
+            // id can lag a spawn by a pulse or two at any phase edge — again
+            // only ever dropping a report.
+            // The no-demi-pet clause exists ONLY for Dreadwyrm Trance (58-69),
+            // the one band where a trance is legitimately petless. At 70+ it is
+            // disabled (!SummonBahamut known): in a full field-validation run
+            // (2026-08-30, 32 windows) every real window came from the demi-pet
+            // clause or Searing Light, while the only two false asserts (~2s
+            // micro-windows mid-gem-phase, mechanism unidentified) came from
+            // this clause catching a transient pet blip. Below 58 nothing
+            // reports; no burst there is worth starving a defensive for.
+            var tranceMs = ActionResourceManager.Summoner.TranceTimer;
+            var remaining = TimeSpan.Zero;
+
+            if (tranceMs > 0)
+            {
+                var pet = Core.Me.SummonedPet();
+
+                var demiPetOut = pet == SmnPets.Bahamut || pet == SmnPets.Phoenix || pet == SmnPets.SolarBahamut;
+
+                var tranceWithoutDemiPet = (pet == SmnPets.Carbuncle || pet == SmnPets.None)
+                    && Spells.DreadwyrmTrance.IsKnown()
+                    && !Spells.SummonBahamut.IsKnown();
+
+                if (demiPetOut || tranceWithoutDemiPet)
+                    remaining = TimeSpan.FromMilliseconds(tranceMs);
+            }
 
             // Own-cast Searing Light (20s, cast inside the even-minute demi):
             // extends the window past the demi phase. It also lands from another
