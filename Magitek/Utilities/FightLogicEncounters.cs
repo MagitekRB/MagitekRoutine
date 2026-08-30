@@ -7698,15 +7698,16 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 14738,
                         Name = "Sensual Sandy",
-                        Aoes = new List<uint> {
-                            // 48945 Wild Wild Breath and 48946 Wild Wild Wild Wild Wild Breath removed —
-                            // both are the same dodgeable breath (the longer one adds dodgeable poison
-                            // puddles), not raidwides (user-confirmed in the field 2026-08-07); don't
-                            // spend mitigation on either.
-                        },
-                        BigAoes = new List<uint> {
-                            48947, // Extensible Tendrils
-                        },
+                        // Everything Sandy casts is dodgeable - nothing needs AoE mitigation
+                        // (user-confirmed in the field 2026-08-30, extending the 2026-08-07
+                        // ruling): 48945 Wild Wild Breath / 48946 Wild Wild Wild Wild Wild
+                        // Breath (same dodgeable breath, longer one adds dodgeable poison
+                        // puddles) and 48947 Extensible Tendrils are all deliberately not
+                        // catalogued. Null, not empty lists: EnemyHasAnyAoeLogic() reads any
+                        // non-null list as "this boss has answerable logic" and suppresses
+                        // normal healing fallbacks for it (same trap Cresceregina documents).
+                        Aoes = null,
+                        BigAoes = null,
                     },
                     new Enemy {
                         Id = 14785,
