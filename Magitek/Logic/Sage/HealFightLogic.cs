@@ -29,9 +29,9 @@ namespace Magitek.Logic.Sage
 
             // One attempt window per second: the detector keeps the mechanic open, so
             // pacing costs nothing but the pulse-rate retry storm a failed cast produced.
-            if (System.Environment.TickCount64 - Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick < 1000)
+            if (System.Environment.TickCount64 - global::Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick < 1000)
                 return false;
-            Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick = System.Environment.TickCount64;
+            global::Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick = System.Environment.TickCount64;
 
             var useAoEBuffs = Heal.UseAoEHealingBuff(Group.CastableAlliesWithin20);
 
@@ -43,14 +43,9 @@ namespace Magitek.Logic.Sage
                 //Radius is 30y, same as Panhaima and Holos below - a 20y sample loses allies
                 //the mitigation would have covered, and the tank check below reads the same set.
                 var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Kerachole) && !r.HasAura(Auras.Taurochole));
-                // The trailing clause waives the tank requirement when the party has no
-                // castable tank at all: a tankless light party (common in field operations)
-                // otherwise loses this barrier entirely - field-observed 2026-08-29, a
-                // raidwide went unanswered with every barrier ready.
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.KeracholeOnlyWithTank
-                    || targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank))
-                    || !Group.CastableTanks.Any();
+                    || targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank));
 
                 if (targets.Count() >= Heal.AoeNeedHealing &&
                     tankCheck)
@@ -69,8 +64,7 @@ namespace Magitek.Logic.Sage
                 var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Panhaimatinon));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.PanhaimaOnlyWithTank
-                    || targets.Any(r => r.IsTank(SageSettings.Instance.PanhaimaOnlyWithMainTank))
-                    || !Group.CastableTanks.Any(); // tankless party: see Kerachole above
+                    || targets.Any(r => r.IsTank(SageSettings.Instance.PanhaimaOnlyWithMainTank));
 
                 if (targets.Count() >= Heal.AoeNeedHealing
                     && tankCheck)
@@ -89,8 +83,7 @@ namespace Magitek.Logic.Sage
                 var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Holos));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.HolosTankOnly
-                    || targets.Any(r => r.IsTank(SageSettings.Instance.HolosMainTankOnly))
-                    || !Group.CastableTanks.Any(); // tankless party: see Kerachole above
+                    || targets.Any(r => r.IsTank(SageSettings.Instance.HolosMainTankOnly));
 
                 if (targets.Count() >= Heal.AoeNeedHealing
                     && tankCheck)
@@ -107,8 +100,7 @@ namespace Magitek.Logic.Sage
             {
                 var targets = Group.CastableAlliesWithin20.Where(r => !r.HasPrimaryShield());
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
-                    || targets.Any(r => r.IsTank())
-                    || !Group.CastableTanks.Any(); // tankless party: see Kerachole above
+                    || targets.Any(r => r.IsTank());
 
                 if (targets.Count() >= Heal.AoeNeedHealing
                     && tankCheck)
@@ -153,9 +145,9 @@ namespace Magitek.Logic.Sage
 
             // One attempt window per second: the detector keeps the mechanic open, so
             // pacing costs nothing but the pulse-rate retry storm a failed cast produced.
-            if (System.Environment.TickCount64 - Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick < 1000)
+            if (System.Environment.TickCount64 - global::Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick < 1000)
                 return false;
-            Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick = System.Environment.TickCount64;
+            global::Magitek.Utilities.Routines.Sage.LastAoeResponseAttemptTick = System.Environment.TickCount64;
 
             if (SageSettings.Instance.FightLogic_Haima
                 && Spells.Haima.IsKnownAndReady()
