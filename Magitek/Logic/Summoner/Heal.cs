@@ -177,6 +177,12 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.CurrentHealthPercent >= SummonerSettings.Instance.RadiantAegisHPThreshold)
                 return false;
 
+            // All() over an empty list is true: with no enemies tracked at all, the
+            // "everything attacking me is casting" panic pattern passed vacuously and the
+            // shield was spent against nothing. Demand an enemy before reading the pattern.
+            if (!Combat.Enemies.Any())
+                return false;
+
             if (!Combat.Enemies.All(x => x.TargetCharacter == Core.Me && x.IsCasting))
                 return false;
 
