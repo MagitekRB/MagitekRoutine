@@ -43,9 +43,14 @@ namespace Magitek.Logic.Sage
                 //Radius is 30y, same as Panhaima and Holos below - a 20y sample loses allies
                 //the mitigation would have covered, and the tank check below reads the same set.
                 var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Kerachole) && !r.HasAura(Auras.Taurochole));
+                // The trailing clause waives the tank requirement when the party has no
+                // castable tank at all: a tankless light party (common in field operations)
+                // otherwise loses this barrier entirely - field-observed 2026-08-29, a
+                // raidwide went unanswered with every barrier ready.
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.KeracholeOnlyWithTank
-                    || targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank));
+                    || targets.Any(r => r.IsTank(SageSettings.Instance.KeracholeOnlyWithMainTank))
+                    || !Group.CastableTanks.Any();
 
                 if (targets.Count() >= Heal.AoeNeedHealing &&
                     tankCheck)
@@ -64,7 +69,8 @@ namespace Magitek.Logic.Sage
                 var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Panhaimatinon));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.PanhaimaOnlyWithTank
-                    || targets.Any(r => r.IsTank(SageSettings.Instance.PanhaimaOnlyWithMainTank));
+                    || targets.Any(r => r.IsTank(SageSettings.Instance.PanhaimaOnlyWithMainTank))
+                    || !Group.CastableTanks.Any(); // tankless party: see Kerachole above
 
                 if (targets.Count() >= Heal.AoeNeedHealing
                     && tankCheck)
@@ -83,7 +89,8 @@ namespace Magitek.Logic.Sage
                 var targets = Group.CastableAlliesWithin30.Where(r => !r.HasAura(Auras.Holos));
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
                     || !SageSettings.Instance.HolosTankOnly
-                    || targets.Any(r => r.IsTank(SageSettings.Instance.HolosMainTankOnly));
+                    || targets.Any(r => r.IsTank(SageSettings.Instance.HolosMainTankOnly))
+                    || !Group.CastableTanks.Any(); // tankless party: see Kerachole above
 
                 if (targets.Count() >= Heal.AoeNeedHealing
                     && tankCheck)
@@ -100,7 +107,8 @@ namespace Magitek.Logic.Sage
             {
                 var targets = Group.CastableAlliesWithin20.Where(r => !r.HasPrimaryShield());
                 var tankCheck = !SageSettings.Instance.FightLogic_RespectOnlyTank
-                    || targets.Any(r => r.IsTank());
+                    || targets.Any(r => r.IsTank())
+                    || !Group.CastableTanks.Any(); // tankless party: see Kerachole above
 
                 if (targets.Count() >= Heal.AoeNeedHealing
                     && tankCheck)
