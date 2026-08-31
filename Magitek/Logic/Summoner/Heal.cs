@@ -209,7 +209,7 @@ namespace Magitek.Logic.Summoner
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent <= SummonerSettings.Instance.LuxSolarisHpPercent)
+                if (Core.Me.CurrentHealthPercent > SummonerSettings.Instance.LuxSolarisHpPercent)
                     return false;
             }
 
