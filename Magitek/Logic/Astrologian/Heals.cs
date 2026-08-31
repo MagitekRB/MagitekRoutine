@@ -781,8 +781,12 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.Macrocosmos.IsKnown())
                 return false;
 
+            // The conversion is an oGCD reached from the GCD-heal section (the placement
+            // GCD had to escape the weave blocks to cast at all), so it carries its own
+            // weave gate - ungated it could fire in a late recast window and clip the
+            // next GCD.
             if (Core.Me.HasMyAura(Auras.Macrocosmos))
-                return await Microcosmos();
+                return global::Magitek.Utilities.Routines.Astrologian.CanWeave() && await Microcosmos();
 
             if (!Spells.Macrocosmos.IsReady())
                 return false;
