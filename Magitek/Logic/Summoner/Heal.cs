@@ -200,6 +200,11 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.HasAura(Auras.RefulgentLux))
                 return false;
 
+            // Expiry dump: the heal is free and the charge is about to vanish, so spend it
+            // regardless of anyone's health rather than let it expire unused.
+            if (!Core.Me.HasAura(Auras.RefulgentLux, msLeft: 4000))
+                return await Spells.LuxSolaris.Cast(Core.Me);
+
             if (Globals.InParty)
             {
                 var needHealing = PartyManager.NumMembers > 4 ? 3 : 2;
