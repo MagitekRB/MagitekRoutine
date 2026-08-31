@@ -71,6 +71,10 @@ namespace Magitek.Models.Summoner
         [DefaultValue(true)]
         public bool SwiftRubyRite { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool SwiftRubyRiteWhileMoving { get; set; }
+
         #endregion
 
         #region Aoes

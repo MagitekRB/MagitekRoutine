@@ -51,6 +51,7 @@
                 <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Outburst_Pet_Outburst_Tri_Disaster_Pet_Disaster_Pet_Catastrophe_Astral_Flare_Brand_of_Purgatory}" IsChecked="{Binding SummonerSettings.Outburst, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Swiftcast_Ruby_Rite}" IsChecked="{Binding SummonerSettings.SwiftRubyRite, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <CheckBox Margin="20,3,5,3" Content="{x:Static properties:Resources.Summoner_Content_Swiftcast_Ruby_Rite_While_Moving}" IsChecked="{Binding SummonerSettings.SwiftRubyRiteWhileMoving, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Ruin_IV}" IsChecked="{Binding SummonerSettings.Ruin4, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">

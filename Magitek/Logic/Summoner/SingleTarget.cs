@@ -46,7 +46,13 @@ namespace Magitek.Logic.Summoner
                                                             u.InLineOfSight() &&
                                                             u.IsTargetable);
 
-                    if (anyDead || SmnResources.ElementalAttunement > 1 ||
+                    // While moving, remaining stacks are no reason to hardcast: the 2.8s cast
+                    // cannot complete and the whole chain dead-ends until movement stops.
+                    // Swiftcast-for-movement is the guides' second priority for the charge.
+                    var stacksForceHardcast = SmnResources.ElementalAttunement > 1
+                        && !(SummonerSettings.Instance.SwiftRubyRiteWhileMoving && ff14bot.Managers.MovementManager.IsMoving);
+
+                    if (anyDead || stacksForceHardcast ||
                         !SummonerSettings.Instance.SwiftRubyRite)
                         return await Spells.RubyRite.Cast(Core.Me.CurrentTarget);
 

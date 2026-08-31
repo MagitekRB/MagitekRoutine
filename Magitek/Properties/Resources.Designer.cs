@@ -14474,6 +14474,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Swiftcast for it while moving, even with charges left.
+        /// </summary>
+        public static string Summoner_Content_Swiftcast_Ruby_Rite_While_Moving {
+            get {
+                return ResourceManager.GetString("Summoner_Content_Swiftcast_Ruby_Rite_While_Moving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Throttle Egi Summons with TTL.
         /// </summary>
         public static string Summoner_Content_Throttle_Egi_Summons_with_TTL {
