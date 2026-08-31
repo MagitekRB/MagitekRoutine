@@ -79,6 +79,8 @@ namespace Magitek.Utilities
         public static readonly uint[] DamageNullifying =
         {
             4175, // Burning Ward — Tangata (Halatali, Occult Crescent) self-applies it via action 40596
+            5376, // Perfect Defense — Alexander Resurrected (Windurst: The Third Walk) casts it on itself, action 50149
+            5377, // Perfect Defense — the same window's Gordius System adds carry their own copy
         };
 
         #endregion
