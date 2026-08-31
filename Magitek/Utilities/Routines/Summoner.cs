@@ -17,6 +17,21 @@ namespace Magitek.Utilities.Routines
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Summoner, Spells.Ruin);
 
+        /// <summary>
+        /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
+        /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
+        /// hardcast-only state, or the GCD toggles switched off — every oGCD behind it is locked out
+        /// for the duration. Once the last action finished long enough ago that the GCD is clearly
+        /// stalled rather than rolling, let oGCDs fire anyway.
+        /// </summary>
+        public static bool CanWeave()
+        {
+            if (GlobalCooldown.CanWeave())
+                return true;
+
+            return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
+        }
+
         private const int DemiImminentMs = 5000;
 
         /// <summary>

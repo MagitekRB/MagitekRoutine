@@ -92,7 +92,7 @@ namespace Magitek.Logic.Summoner
             if (SmnResources.Aetherflow + ArcResources.Aetherflow == 0)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             // Defer to Painflare only where Painflare will actually take over: its own gate
@@ -125,7 +125,7 @@ namespace Magitek.Logic.Summoner
             //if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
             //    return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             // Only defer to Energy Siphon when it can actually fire: it is Lv52 (Energy Drain is Lv10)
@@ -164,7 +164,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.EnkindleBahamut.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.EnkindleBahamut.Cast(Core.Me.CurrentTarget);
@@ -181,7 +181,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.EnkindleSolarBahamut.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.EnkindleSolarBahamut.Cast(Core.Me.CurrentTarget);
@@ -198,7 +198,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.EnkindlePhoenix.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.EnkindlePhoenix.Cast(Core.Me.CurrentTarget);

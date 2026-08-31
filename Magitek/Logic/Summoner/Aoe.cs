@@ -49,7 +49,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Deathflare.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Deathflare, SummonerSettings.Instance.SmartAoe);
@@ -71,7 +71,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Sunflare.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Sunflare, SummonerSettings.Instance.SmartAoe);
@@ -93,7 +93,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Rekindle.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var targetNeedsHealing = Group.CastableAlliesWithin30
@@ -227,7 +227,7 @@ namespace Magitek.Logic.Summoner
             //if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
             //    return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
@@ -249,7 +249,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.SearingFlash.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             if (!Core.Me.HasAura(Auras.RubysGlimmer))
@@ -350,7 +350,7 @@ namespace Magitek.Logic.Summoner
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Painflare, SummonerSettings.Instance.SmartAoe);

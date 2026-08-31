@@ -53,7 +53,7 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.CurrentManaPercent > SummonerSettings.Instance.LucidDreamingManaPercent)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.LucidDreaming.Cast(Core.Me);
