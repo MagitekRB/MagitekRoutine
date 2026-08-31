@@ -121,6 +121,26 @@ namespace Magitek.Logic.Summoner
             if (!CanWeave())
                 return false;
 
+            // Align with the demi window: fired on plain cooldown, the 20s buff opens on the
+            // zero-potency summon GCD and expires one to two GCDs early at the tail — the guides
+            // weave it after the first demi GCD instead. TranceTimer is the demi/trance clock
+            // (despite the name, PetTimer is the gem attunement timer), so: demi out -> cast;
+            // demi imminent (summon cooldown inside a few seconds) -> hold for it; no demi in
+            // sight (desynced, downtime recovery) -> cast on cooldown, because staying aligned
+            // with the party's two-minute buffs outranks our own placement.
+            if (SmnResources.TranceTimer <= 0)
+            {
+                var summon = Spells.SummonSolarBahamut.IsKnown() ? Spells.SummonSolarBahamut
+                    : Spells.SummonBahamut.IsKnown() ? Spells.SummonBahamut
+                    : Spells.DreadwyrmTrance.IsKnown() ? Spells.DreadwyrmTrance
+                    : Spells.Aethercharge;
+
+                var summonCooldownMs = summon.Cooldown.TotalMilliseconds;
+
+                if (summonCooldownMs > 0 && summonCooldownMs <= 5000)
+                    return false;
+            }
+
             //In Shadowbringers, Searing Light was cast by your Carbuncle. In modern FFXIV, it is cast directly by the Summoner.
             //if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
             //    return false;
