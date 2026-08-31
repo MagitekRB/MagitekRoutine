@@ -122,9 +122,10 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.HasAura(Auras.IfritsFavor))
                 return false;
 
-            if (SmnResources.ElementalAttunement > 1)
-                return false;
-
+            // No attunement gate: the game's only precondition is Ifrit's Favor, and the
+            // guides' buff-window sequence opens the phase with the dash before the Rites
+            // (Crimson Cyclone -> Crimson Strike -> Swiftcast -> Ruby Rite). Holding it
+            // behind spent Rubies was an invented ordering.
             var target = Combat.SmartAoeTarget(Spells.CrimsonCyclone, SummonerSettings.Instance.SmartAoe);
 
             if (target == null)
