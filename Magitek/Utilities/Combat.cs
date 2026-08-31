@@ -131,8 +131,13 @@ namespace Magitek.Utilities
             if (!smartAoeSetting)
                 return Core.Me.CurrentTarget == null ? null : (BattleCharacter)Core.Me.CurrentTarget;
 
-            var bestTarget = Enemies.Where(x => x.WithinSpellRange(spell.Range))
-                .OrderByDescending(x => x.EnemiesNearby(spell.Radius).Count());
+            // Combat.Enemies deliberately keeps damage-immune units (immunity gating lives at
+            // offensive call sites, not in the collection), so the picker must check
+            // CanBeDamagedByMe itself: the client accepts casts at damage-immune enemies and
+            // nullifies the result. Immune units are excluded from the anchor AND from the
+            // density scoring, so clusters of mostly-immune enemies stop attracting casts.
+            var bestTarget = Enemies.Where(x => x.WithinSpellRange(spell.Range) && x.CanBeDamagedByMe())
+                .OrderByDescending(x => x.EnemiesNearby(spell.Radius).Count(y => y.CanBeDamagedByMe()));
 
             return bestTarget?.FirstOrDefault();
         }
