@@ -110,7 +110,10 @@ namespace Magitek.Logic.Summoner
                 return false;
 
             if (Spells.SearingLight.Cooldown != TimeSpan.Zero)
+            {
+                Utilities.Routines.Summoner.SearingLightHoldStartTick = 0;
                 return false;
+            }
 
             if (Core.Me.HasAura(Auras.SearingLight))
                 return false;
@@ -137,8 +140,19 @@ namespace Magitek.Logic.Summoner
 
                 var summonCooldownMs = summon.Cooldown.TotalMilliseconds;
 
-                if (summonCooldownMs > 0 && summonCooldownMs <= 5000)
-                    return false;
+                // Ready counts as imminent too — field-observed: with the summon at zero the
+                // buff went out 3.8s before the demi. But a ready summon can also sit parked
+                // behind leftover gem phases for tens of seconds, so the hold is BOUNDED:
+                // after a few seconds of waiting, alignment with the party's two-minute
+                // buffs wins and the cast goes out anyway.
+                if (summonCooldownMs <= 5000)
+                {
+                    if (Utilities.Routines.Summoner.SearingLightHoldStartTick == 0)
+                        Utilities.Routines.Summoner.SearingLightHoldStartTick = System.Environment.TickCount64;
+
+                    if (System.Environment.TickCount64 - Utilities.Routines.Summoner.SearingLightHoldStartTick < 8000)
+                        return false;
+                }
             }
 
             //In Shadowbringers, Searing Light was cast by your Carbuncle. In modern FFXIV, it is cast directly by the Summoner.

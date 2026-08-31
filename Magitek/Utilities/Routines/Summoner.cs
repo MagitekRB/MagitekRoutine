@@ -39,6 +39,10 @@ namespace Magitek.Utilities.Routines
             return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
         }
 
+        // Stamps when Searing Light first found the demi summon ready-or-imminent and
+        // began waiting for it; bounds the wait so gem phases cannot park the buff.
+        public static long SearingLightHoldStartTick;
+
         private const int DemiImminentMs = 5000;
 
         /// <summary>
