@@ -122,7 +122,11 @@ namespace Magitek.Logic.Summoner
             if (!GlobalCooldown.CanWeave())
                 return false;
 
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
+            // Only defer to Energy Siphon when it can actually fire: it is Lv52 (Energy Drain is Lv10)
+            // and has its own toggle. Deferring while it is unknown or disabled means no Aetherflow is
+            // ever generated in 3+ packs, which also kills Painflare and Fester for the whole pull.
+            if (AoeControl.Enabled && Spells.EnergySiphon.IsKnown() && SummonerSettings.Instance.EnergySiphon
+                && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
                 return false;
 
             return await Spells.EnergyDrain.Cast(Core.Me.CurrentTarget);
