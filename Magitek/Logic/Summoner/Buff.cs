@@ -114,7 +114,13 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.HasAura(Auras.SearingLight))
                 return false;
-                
+
+            // It is an oGCD: without a weave gate it fired the moment the 120s recast ended, clipping
+            // a ready GCD by an animation lock — worst at the aligned pulse where the next GCD is the
+            // demi summon itself. The stall-fallback gate still lets it fire if the GCD cannot roll.
+            if (!CanWeave())
+                return false;
+
             //In Shadowbringers, Searing Light was cast by your Carbuncle. In modern FFXIV, it is cast directly by the Summoner.
             //if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
             //    return false;
