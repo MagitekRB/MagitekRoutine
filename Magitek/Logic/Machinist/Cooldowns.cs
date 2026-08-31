@@ -58,7 +58,22 @@ namespace Magitek.Logic.Machinist
 
             // Force cast if barrel stabilizer is active and about to expire
             if (Core.Me.HasAura(Auras.Hypercharged, true, 3000))
+            {
+                // DHW: overheat's 10s starts on cast, so wait until only the last weave slot remains
+                if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                    && MachinistRoutine.GlobalCooldown.CanDoubleWeave())
+                    return false;
+
+                // DHW: don't open the double until HC#2 is funded (proc pays #1, 50 heat pays #2),
+                // but only when we're within a couple GCDs of 50 and the proc has time to spare
+                if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                    && ActionResourceManager.Machinist.Heat >= 40
+                    && ActionResourceManager.Machinist.Heat < 50
+                    && Core.Me.HasAura(Auras.Hypercharged, true, 6000))
+                    return false;
+
                 return await Spells.Hypercharge.CastAura(Core.Me, Auras.Overheated);
+            }
 
             if (MachinistRoutine.DoubleHyperchargedWildfireActive
                 && Combat.IsBoss()
@@ -67,17 +82,13 @@ namespace Magitek.Logic.Machinist
 
             if (MachinistSettings.Instance.LateWeaveWildfire)
             {
-                // Braced deliberately: the old unbraced else bound to the INNER if, so with
-                // this option off the 15-second alignment hold below never ran and Hypercharge
-                // could be spent right before Wildfire came up.
                 if (MachinistRoutine.DoubleHyperchargedWildfireActive)
-                {
                     if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 7000
                         && ActionResourceManager.Machinist.Heat < 100)
                         return false;
-                }
-                else if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
-                    return false;
+                    else
+                    if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
+                        return false;
             }
             else
             {
@@ -89,7 +100,10 @@ namespace Magitek.Logic.Machinist
                     return await Spells.Hypercharge.CastAura(Core.Me, Auras.Overheated);
             }
 
-            if (MachinistSettings.Instance.DelayHypercharge)
+            // Never delay for tools while Wildfire is ticking, or while heat is capped and wasting
+            if (MachinistSettings.Instance.DelayHypercharge
+                && !Core.Me.HasAura(Auras.WildfireBuff, true)
+                && ActionResourceManager.Machinist.Heat < 100)
             {
                 if (Spells.Drill.IsKnown() && Spells.Drill.Cooldown.TotalSeconds <= MachinistSettings.Instance.DelayHyperchargeSeconds)
                     return false;
@@ -139,11 +153,7 @@ namespace Magitek.Logic.Machinist
                 if (!Core.Me.HasAura(Auras.Overheated))
                     return false;
 
-                // Weave on position while the overheat window is young; once it is half
-                // spent, fire in ANY weave slot rather than risk the buff missing the
-                // blasts entirely (blasts free-run and never wait for this cast).
-                if (!MachinistRoutine.GlobalCooldown.IsLateWeaveWindow()
-                    && ActionResourceManager.Machinist.OverheatRemaining.TotalMilliseconds > 5000)
+                if (!MachinistRoutine.GlobalCooldown.IsLateWeaveWindow())
                     return false;
             }
             else
@@ -168,6 +178,13 @@ namespace Magitek.Logic.Machinist
             }
 
             if (Utilities.Routines.Common.CheckTTDIsEnemyDyingSoon(MachinistSettings.Instance))
+                return false;
+
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                && ActionResourceManager.Machinist.Heat >= 50
+                && Core.Me.HasAura(Auras.FullMetalMachinist)
+                && Spells.FullMetalField.IsKnown()
+                && Combat.IsBoss())
                 return false;
 
             if (MachinistRoutine.DoubleHyperchargedWildfireActive
