@@ -28,10 +28,17 @@ namespace Magitek.Utilities.Routines
         // idle - healbot mode with damage off, no valid target, post-movement - a bare
         // gate locks every discretionary oGCD out precisely when nothing else is
         // happening. If nothing has finished casting for this long, open the gate.
+        // The fallback opens ONLY while the GCD is truly idle: the age check alone also
+        // came true in the tail of every rolling recast (age passes 1750ms before a 2.5s
+        // GCD comes back), exactly where CanWeave(1) refuses because an oGCD would clip
+        // the next GCD.
         public static bool CanWeave()
         {
             if (GlobalCooldown.CanWeave(1))
                 return true;
+
+            if (Spells.Malefic.Cooldown > System.TimeSpan.Zero || Core.Me.IsCasting)
+                return false;
 
             return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
         }
