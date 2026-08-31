@@ -54,6 +54,12 @@ namespace Magitek.Logic.Summoner
                     {
                         while (Core.Me.HasAura(Auras.Swiftcast))
                         {
+                            // If the target died or despawned mid-sequence the cast can never succeed,
+                            // and without an exit this loop parks the whole routine until the Swiftcast
+                            // aura expires (~10s). Bail out so the normal chain resumes next pulse.
+                            if (Core.Me.CurrentTarget == null || !Core.Me.CurrentTarget.IsValid || Core.Me.CurrentTarget.CurrentHealth == 0)
+                                return false;
+
                             if (await Spells.RubyRite.Cast(Core.Me.CurrentTarget)) return true;
                             await Coroutine.Yield();
                         }
