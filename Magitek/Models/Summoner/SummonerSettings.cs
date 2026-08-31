@@ -185,10 +185,6 @@ namespace Magitek.Models.Summoner
         public bool ResOutOfCombat { get; set; }
 
         [Setting]
-        [DefaultValue(true)]
-        public bool ResuSwift { get; set; }
-
-        [Setting]
         [DefaultValue(false)]
         public bool ForceResuSwift { get; set; }
 
