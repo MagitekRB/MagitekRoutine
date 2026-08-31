@@ -274,13 +274,19 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Outburst.IsKnownAndReady())
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled)
                 return false;
 
             BattleCharacter target;
 
+            // Brand of Purgatory and Umbral Flare hit an 8y circle while the rest of the family hits
+            // 5y — count the 3+ breakpoint (and score Smart AoE clusters) with the radius of the
+            // spell that will actually be cast, so an enemy standing 5-8y out still counts.
             if (Core.Me.SummonedPet() == SmnPets.Phoenix)
             {
+                if (Core.Me.CurrentTarget.EnemiesNearby(Spells.BrandofPurgatory.Radius).Count() < 3)
+                    return false;
+
                 target = Combat.SmartAoeTarget(Spells.BrandofPurgatory, SummonerSettings.Instance.SmartAoe);
 
                 if (target == null || Core.Me.CurrentTarget == null)
@@ -289,6 +295,22 @@ namespace Magitek.Logic.Summoner
                 return await Spells.BrandofPurgatory.Cast(target);
             }
 
+            if (Core.Me.SummonedPet() == SmnPets.SolarBahamut)
+            {
+                if (Core.Me.CurrentTarget.EnemiesNearby(Spells.UmbralFlare.Radius).Count() < 3)
+                    return false;
+
+                target = Combat.SmartAoeTarget(Spells.UmbralFlare, SummonerSettings.Instance.SmartAoe);
+
+                if (target == null || Core.Me.CurrentTarget == null)
+                    return false;
+
+                return await Spells.UmbralFlare.Cast(target);
+            }
+
+            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+                return false;
+
             target = Combat.SmartAoeTarget(Spells.PreciousBrilliance, SummonerSettings.Instance.SmartAoe);
 
             if (target == null || Core.Me.CurrentTarget == null)
@@ -296,9 +318,6 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut)
                 return await Spells.AstralFlare.Cast(target);
-
-            if (Core.Me.SummonedPet() == SmnPets.SolarBahamut)
-                return await Spells.UmbralFlare.Cast(target);
 
             if (Spells.AstralFlare.IsKnownAndReadyAndCastableAtTarget() && SmnResources.TranceTimer > 0 && Core.Me.SummonedPet() == SmnPets.Carbuncle) //It means we're in Dreadwyrm Trance
                 return await Spells.AstralFlare.Cast(target);
