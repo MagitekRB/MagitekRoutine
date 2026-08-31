@@ -81,6 +81,7 @@
         </controls:SettingsBlock>
         
         <controls:SettingsBlock Margin="0,3" Background="{DynamicResource ClassSelectorBackground}">
+            <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Buffs}" />
                     <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Searing_Light}" IsChecked="{Binding SummonerSettings.SearingLight, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
@@ -88,6 +89,12 @@
                     <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.RadiantAegisHPThreshold, Mode=TwoWay}" />
                     <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}" />
                 </StackPanel>
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <CheckBox Margin="5,3" Content="{x:Static properties:Resources.Summoner_Content_Lux_Solaris_when_party_members_be}" IsChecked="{Binding SummonerSettings.LuxSolaris, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    <controls:Numeric Margin="0,3" MaxValue="100" MinValue="1" Value="{Binding SummonerSettings.LuxSolarisHpPercent, Mode=TwoWay}" />
+                    <TextBlock Margin="3" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Summoner_Text_Health_Percent}" />
+                </StackPanel>
+            </StackPanel>
         </controls:SettingsBlock>
         
         <controls:SettingsBlock Margin="0,3" Background="{DynamicResource ClassSelectorBackground}">
