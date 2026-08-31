@@ -79,7 +79,13 @@ namespace Magitek.Utilities.Routines
             {
                 if (GlobalCooldown.CanWeave(1))
                     return true;
-                else if (Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + BaseSettings.Instance.UserLatencyOffset)
+                // Stall fallback, idle GCD only: the age check alone also came true in the
+                // tail of every rolling recast (age passes 1750ms before a 2.5s GCD comes
+                // back), exactly where CanWeave(1) refuses because an oGCD would clip the
+                // next GCD. The fallback exists for a rotation that has genuinely stopped.
+                else if (Spells.Diagnosis.Cooldown == System.TimeSpan.Zero
+                    && !Core.Me.IsCasting
+                    && Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + BaseSettings.Instance.UserLatencyOffset)
                     return true;
             }
             else
