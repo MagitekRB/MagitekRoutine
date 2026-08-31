@@ -29,6 +29,13 @@ namespace Magitek.Utilities.Routines
             if (GlobalCooldown.CanWeave())
                 return true;
 
+            // Idle GCD only: the age check alone also comes true in the tail of every
+            // rolling recast (age passes 1750ms before a 2.5s GCD comes back), exactly
+            // where CanWeave refuses because an oGCD would clip the next GCD. The
+            // fallback exists for a rotation that has genuinely stopped casting.
+            if (Spells.Ruin.Cooldown > System.TimeSpan.Zero || Core.Me.IsCasting)
+                return false;
+
             return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
         }
 
