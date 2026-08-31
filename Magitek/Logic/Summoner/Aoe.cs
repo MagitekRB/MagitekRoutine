@@ -366,8 +366,12 @@ namespace Magitek.Logic.Summoner
                 && SmnResources.ElementalAttunement > 0)
                 return false;
 
+            // While moving in an Ifrit phase, Ruby stacks are unspendable (Ruby Rite is a hardcast),
+            // so Ruin IV is the guide-prescribed buffer at ANY stack count. The old attunement > 1
+            // clause only ever had effect while moving — exactly when Ruin IV was the only castable
+            // GCD — and stalled the whole routine at the start of an Ifrit phase.
             if (SmnResources.ActivePet == SmnResources.ActivePetType.Ifrit
-                && (SmnResources.ElementalAttunement > 1 || !MovementManager.IsMoving))
+                && !MovementManager.IsMoving)
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Ruin4, SummonerSettings.Instance.SmartAoe);
