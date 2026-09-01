@@ -592,10 +592,6 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(false)]
-        public bool OnlyZoePneuma { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
         public bool PneumaHealOnly { get; set; }
 
         [Setting]

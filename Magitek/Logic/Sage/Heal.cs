@@ -151,7 +151,7 @@ namespace Magitek.Logic.Sage
                 if (target == null)
                     return false;
 
-                if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianDiagnosis && !SageSettings.Instance.OnlyZoePneuma)
+                if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianDiagnosis)
                     if (SageSettings.Instance.ZoeHealer && target.IsHealer()
                         || SageSettings.Instance.ZoeTank && target.IsTank(SageSettings.Instance.ZoeMainTank))
                         if (target.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent)
@@ -253,7 +253,7 @@ namespace Magitek.Logic.Sage
             if (!UseAoEHealingBuff(targets))
                 return false;
 
-            if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianPrognosis && !SageSettings.Instance.OnlyZoePneuma)
+            if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianPrognosis)
                 if (SageSettings.Instance.ZoeHealer && targets.Any(r => r.IsHealer())
                     || SageSettings.Instance.ZoeTank && targets.Any(r => r.IsTank(SageSettings.Instance.ZoeMainTank)))
                     if (targets.Any(r => r.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent))
@@ -644,7 +644,8 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Pneuma)
                 return false;
 
-            if (SageSettings.Instance.OnlyZoePneuma)
+            // Zoe off = "Only With Pneuma" mode, where ZoePneuma() owns the cast
+            if (!SageSettings.Instance.Zoe)
                 return false;
 
             if (!Spells.Pneuma.IsKnownAndReady())
@@ -674,12 +675,8 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Pneuma)
                 return false;
 
-            if (SageSettings.Instance.Zoe)
-            {
-                if (!SageSettings.Instance.ZoePneuma)
-                    return false;
-            }
-            else if (!SageSettings.Instance.OnlyZoePneuma)
+            // Zoe off = "Only With Pneuma" mode, where this always applies
+            if (SageSettings.Instance.Zoe && !SageSettings.Instance.ZoePneuma)
                 return false;
 
             if (!Spells.Pneuma.IsKnownAndReady())

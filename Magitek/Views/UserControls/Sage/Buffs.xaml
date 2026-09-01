@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:properties="clr-namespace:Magitek.Properties"
              xmlns:controls="clr-namespace:Magitek.Controls"
+             xmlns:converters="clr-namespace:Magitek.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Magitek.ViewModels"             
@@ -15,7 +16,13 @@
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Magitek;component/Styles/Magitek.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:InvertedBooleanConverter x:Key="InvertedBool" />
+            <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBoolToVis" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -154,10 +161,10 @@
             <StackPanel Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal">
                     <RadioButton IsChecked="{Binding SageSettings.Zoe, Mode=TwoWay}" GroupName="UseZoe" Style="{DynamicResource RadioButtonCheckboxLike}">Use Zoe</RadioButton>
-                    <RadioButton Margin="5,0,0,0" IsChecked="{Binding SageSettings.OnlyZoePneuma, Mode=TwoWay}" GroupName="UseZoe" Style="{DynamicResource RadioButtonCheckboxLike}">Only With Pneuma</RadioButton>
+                    <RadioButton Margin="5,0,0,0" IsChecked="{Binding SageSettings.Zoe, Converter={StaticResource InvertedBool}, Mode=TwoWay}" GroupName="UseZoe" Style="{DynamicResource RadioButtonCheckboxLike}">Only With Pneuma</RadioButton>
                 </StackPanel>
 
-                <StackPanel Visibility="{Binding SageSettings.OnlyZoePneuma, Converter={StaticResource BoolToVis}}">
+                <StackPanel Visibility="{Binding SageSettings.Zoe, Converter={StaticResource InvertedBoolToVis}}">
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Sage_Text_Uses_Pneuma_HP_On_Combat_Tab}" />
                 </StackPanel>
 
