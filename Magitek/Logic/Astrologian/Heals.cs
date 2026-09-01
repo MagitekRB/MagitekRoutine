@@ -723,11 +723,17 @@ namespace Magitek.Logic.Astrologian
                     return false;
                 Utilities.Routines.Astrologian.LastEarthlyStarAttemptTick = System.Environment.TickCount64;
 
-                if (await Spells.EarthlyStar.Cast(Core.Target))
-                {
+                var planted = await Spells.EarthlyStar.Cast(Core.Target);
+
+                if (planted)
                     Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
-                    return true;
-                }
+
+                // Consume the pulse even when the placement did not confirm in time: the
+                // ground-targeted intent may still be in flight, and falling through let the
+                // same pulse dispatch another action on top of it — field-observed: Lord of
+                // Crowns fired the same millisecond and the placement died silently. One
+                // spent pulse per attempt is bounded by the pacing above.
+                return true;
             }
             return false;
         }
