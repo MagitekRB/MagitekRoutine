@@ -7481,6 +7481,9 @@ namespace Magitek.Utilities
                             48427, // Omni-elements
                             48456, // Flare
                         },
+                        // Deliberately absent: Duology of Implements (48388) precedes a
+                        // two-part dodgeable mechanic (player-ruled 2026-08-31) — dodge,
+                        // never mitigate. One 4.7s castbar, zero damage hits observed.
                     },
                     new Enemy {
                         Id = 14505,
@@ -7521,6 +7524,7 @@ namespace Magitek.Utilities
                         // is a forced one-direction knockback that anti-knockback does not help —
                         // none of them are mitigation problems. This Buffet shares only a NAME with
                         // the Abductor knockback (47440/48250); ids differ and so does the answer.
+                        // Two Terrors re-proven 2026-08-31: 2 casts, exactly 1 player hit (~35.6k).
                     },
                     new Enemy {
                         Id = 19481,
@@ -7560,7 +7564,13 @@ namespace Magitek.Utilities
                             47505, // Corpse Mangler
                         },
                         Aoes = new List<uint> {
-                            47452, // Hail of Hellflares (raidwide, ~5s self-targeted cast — id from ACT 2026-08-03)
+                            47452, // Hail of Hellflares (raidwide, ~5s self-targeted cast — id from ACT 2026-08-03;
+                                   // castbar re-proven 2026-08-31, damage rides twin 47453: 46 hits avg ~13.5k,
+                                   // ~15 players per cast)
+                            // The SECOND Hellflares pair (48956 castbar-name / 48957 damage: 177 hits avg
+                            // ~5.6k over ~12s of pulses, 2026-08-31) is deliberately absent: its damage
+                            // lands with NO castbar line at all, so cast-id detection has nothing to arm
+                            // on. Do not re-add on a future harvest.
                             // Dark Current (47476-47478) and Severed Dark Current (47479) are deliberately
                             // absent: the sweep is dodged, not mitigated (player-confirmed 2026-08-10).
                             // Ancient Thunder III (47457/47458, twin simultaneous casters — often from the
