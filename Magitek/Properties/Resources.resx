@@ -3052,16 +3052,13 @@
     <value>Allies Are Lower Than</value>
   </data>
   <data name="Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis" xml:space="preserve">
-    <value>Healing Buffs: Panhaimatinon, Holos, Physis, Kerachole, Eukrasian Prognosis</value>
+    <value>Healing Buffs: Panhaimatinon, Holos, Physis, Kerachole, Eukrasian Prognosis, and a co-healer's Galvanize, Sacred Soil, Fey Illumination</value>
   </data>
   <data name="Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove" xml:space="preserve">
     <value>Weave OGCD Abilities When Mana Is Over</value>
   </data>
   <data name="Sage_Content_Limit_Healing_Buffs_To_Only_Use" xml:space="preserve">
     <value>Limit Healing Buffs To Only Use</value>
-  </data>
-  <data name="Sage_Content_Only_Consider_Own_Buffs_disable_to_in" xml:space="preserve">
-    <value>Only Consider Own Buffs (disable to include co-sage)</value>
   </data>
   <data name="Sage_Content_Phlegma_III" xml:space="preserve">
     <value>Phlegma III</value>

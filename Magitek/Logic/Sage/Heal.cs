@@ -60,7 +60,11 @@ namespace Magitek.Logic.Sage
             Auras.Panhaimatinon,
             Auras.PhysisII,
             Auras.Holos,
-            Auras.Eudaimonia
+            Auras.Eudaimonia,
+            // A co-healer's party mitigation saturates a target the same way ours does
+            Auras.Galvanize,
+            Auras.SacredSoilReceiver,
+            Auras.FeyIllumination
         };
 
         private static readonly List<uint> HealingBuffSingleAuras = new List<uint> {
@@ -77,7 +81,7 @@ namespace Magitek.Logic.Sage
             if (!wantHealTargets.Any())
                 return true;
 
-            var nAuras = wantHealTargets.Select(c => c.CountAuras(HealingBuffAoEAuras, SageSettings.Instance.HealingBuffsOnlyMine)).Max();
+            var nAuras = wantHealTargets.Select(c => c.CountAuras(HealingBuffAoEAuras)).Max();
 
             if (nAuras >= SageSettings.Instance.HealingBuffsMaxAtOnce)
             {

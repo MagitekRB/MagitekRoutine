@@ -3058,16 +3058,13 @@
     <value>当队友血量低于</value>
   </data>
   <data name="Sage_Text_Healing_Buffs_Panhaimatinon_Holos_Physis" xml:space="preserve">
-    <value>治疗增益：泛输血, 整体论, 自生, 坚角清汁, 均衡预后</value>
+    <value>治疗增益：泛输血, 整体论, 自生, 坚角清汁, 均衡预后, 以及协作治疗者的鼓舞, 野战治疗阵, 异想的幻光</value>
   </data>
   <data name="Sage_Content_Weave_OGCD_Abilities_When_Mana_Is_Ove" xml:space="preserve">
     <value>当蓝量高于[xx]时穿插能力技能(oGCD)</value>
   </data>
   <data name="Sage_Content_Limit_Healing_Buffs_To_Only_Use" xml:space="preserve">
     <value>限制治疗增益仅使用[xx]</value>
-  </data>
-  <data name="Sage_Content_Only_Consider_Own_Buffs_disable_to_in" xml:space="preserve">
-    <value>仅考虑自身增益 (取消勾选以包含搭档贤者)</value>
   </data>
   <data name="Sage_Content_Phlegma_III" xml:space="preserve">
     <value>发炎III</value>

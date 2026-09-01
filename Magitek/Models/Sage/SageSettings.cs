@@ -392,10 +392,6 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(true)]
-        public bool HealingBuffsOnlyMine { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Diagnosis { get; set; }
 
         [Setting]
