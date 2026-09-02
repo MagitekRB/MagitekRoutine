@@ -101,10 +101,12 @@ namespace Magitek.Rotations
         {
             if (await CommonPvp.CommonTasks(SummonerSettings.Instance)) return true;
 
+            // Self-shield stays outside the burst gate so "Hold Burst" cannot suppress it.
+            if (await Pvp.RadiantAegisPvp()) return true;
+
             // The whole damage block is behind ShouldUseBurst: "Hold Burst" saves these abilities for the burst window.
             if (CommonPvp.ShouldUseBurst())
             {
-                if (await Pvp.RadiantAegisPvp()) return true;
                 if (await Pvp.SummonBahamutPvp()) return true;
                 if (await Pvp.SummonPhoenixPvp()) return true;
             }
