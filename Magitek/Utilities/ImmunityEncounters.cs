@@ -79,6 +79,8 @@ namespace Magitek.Utilities
         public static readonly uint[] DamageNullifying =
         {
             4175, // Burning Ward — Tangata (Halatali, Occult Crescent) self-applies it via action 40596
+            5376, // Perfect Defense — Alexander Resurrected (Windurst: The Third Walk) casts it on itself, action 50149
+            5377, // Perfect Defense — the same window's Gordius System adds carry their own copy
         };
 
         #endregion
@@ -167,7 +169,7 @@ namespace Magitek.Utilities
 
             new ImmunityEncounter {
                 ZoneId = 1346,
-                Name = "The Occult Crescent: South Horn — Forked Tower: Blood (Arbatel)",
+                Name = "The Occult Crescent: North Horn (Arbatel)",
                 Expansion = FfxivExpansion.Dawntrail,
                 // Arbatel spawns numbered Pages the routine should never spend actions on: the game
                 // nullifies damage against them (combat logs across multiple pulls: 153 player hits, 151

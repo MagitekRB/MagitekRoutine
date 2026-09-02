@@ -132,8 +132,9 @@ namespace Magitek.Logic.BlackMage
             if (UmbralStacks == 0)
                 return false;
 
-            // Ice filler: more potency and a shorter cast than High Blizzard II. Needs Freeze's 1000 MP plus Flare's 800 floor.
-            if (Spells.FlareStar.IsKnown() && UmbralHearts == 3 && !Spells.Transpose.IsKnownAndReady() && Core.Me.CurrentMana >= 1800)
+            // The Balance's Lv58+ ice filler slot is Foul/Thunder II/Freeze while Transpose is
+            // down. Needs Freeze's 1000 MP plus Flare's 800 floor. Inert below the Umbral Heart trait.
+            if (UmbralHearts == 3 && !Spells.Transpose.IsKnownAndReady() && Core.Me.CurrentMana >= 1800)
                 return await Spells.Freeze.Cast(Core.Me.CurrentTarget);
 
             // HARDCODED: Level 58 is when the Umbral Heart trait unlocks

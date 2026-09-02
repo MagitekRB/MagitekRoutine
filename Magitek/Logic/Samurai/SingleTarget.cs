@@ -302,7 +302,7 @@ namespace Magitek.Logic.Samurai
             if (Spells.TendoKaeshiSetsugekka.IsKnownAndReadyAndCastable())
                 return await Spells.TendoKaeshiSetsugekka.Cast(Core.Me.CurrentTarget);
 
-            if (SamuraiRoutine.SenCount != 3)
+            if (!Spells.KaeshiSetsugekka.CanCast())
                 return false;
 
             return await Spells.KaeshiSetsugekka.Cast(Core.Me.CurrentTarget);
