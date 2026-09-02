@@ -37,8 +37,14 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> UseEukrasia(uint spellId = 24291, GameObject targetObject = null)
         {
+            var target = targetObject == null ? Core.Me : targetObject;
+
+            // Armed already: only report success when the paired spell can actually go out now.
+            // Trusting the aura alone failed silently in the field - the aura read lags a consume
+            // by tens of milliseconds, and a rolling GCD refuses the press either way - and the
+            // caller's cast then died without a log line while the dot path took the Eukrasia.
             if (Core.Me.HasAura(Auras.Eukrasia, true))
-                return true;
+                return ActionManager.CanCast(spellId, target);
             if (!SageSettings.Instance.Eukrasia)
                 return false;
             if (!IsEukrasiaReady())
@@ -51,8 +57,9 @@ namespace Magitek.Logic.Sage
             // cannot drift to another caller between pulses (the damage path deliberately spends a
             // banked Eukrasia on the dot, which is the drift this prevents). One wait rather than
             // two sequential ones, and Scholar's 1000ms bound instead of 2500 twice over.
-            var target = targetObject == null ? Core.Me : targetObject;
-            return await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.Eukrasia, true)
+            // 1250ms, not 1000: Eukrasia's own recast is exactly 1000ms and the paired spell only
+            // becomes castable when it reaches zero, so a 1000ms bound raced it and lost by a few ms.
+            return await Coroutine.Wait(1250, () => Core.Me.HasAura(Auras.Eukrasia, true)
                                                     && ActionManager.CanCast(spellId, target));
         }
         private static async Task<bool> UseZoe()
