@@ -54,7 +54,7 @@ namespace Magitek.Logic.Astrologian
                 if (AstrologianSettings.Instance.FightLogic_Lightspeed && FightLogic.EnemyIsCastingBigAoe() && !Spells.NeutralSect.IsKnownAndReady() && !Spells.Macrocosmos.IsKnownAndReady())
                     return await FightLogic.DoAndBuffer(Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed));
 
-                if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.LightspeedHealthPercent) > Heals.AoeThreshold)
+                if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.LightspeedHealthPercent) >= Heals.AoeThreshold)
                     return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
             }
 
@@ -73,6 +73,13 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (!Spells.Divination.IsKnownAndReady())
+                return false;
+
+            // A party damage buff with nothing to damage: transitions and add-phase gaps
+            // keep us in combat with an empty enemy list, and a Divination spent there is
+            // a two-minute window thrown away. Combat.Enemies drops untargetable enemies,
+            // so it empties exactly when the fight cannot be hit.
+            if (Combat.Enemies.Count == 0)
                 return false;
 
             if (Cards.HoldDivinationForDraw())

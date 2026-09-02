@@ -227,7 +227,18 @@ namespace Magitek.Logic.Astrologian
                 return await readyDraw.Cast(Core.Me);
             }
 
-            // Out of combat nothing can wedge — plays are combat-gated — so a held hand just waits for the pull.
+            // Out of combat a held hand cannot empty - plays are combat-gated - so a hand
+            // with no damage card would start the pull without one. Cards are free here:
+            // overwrite the leftovers and open with a fresh full hand. Both packs contain
+            // a damage card, so one draw settles it, and the recast gates any repeat.
+            if (!Core.Me.InCombat && readyDraw != null
+                && CurrentCards.All(card => card != AstrologianCard.Balance && card != AstrologianCard.Spear))
+            {
+                _readyDrawBlockedSince = DateTime.MinValue;
+                return await readyDraw.Cast(Core.Me);
+            }
+
+            // Otherwise a held hand out of combat just waits for the pull.
             if (readyDraw == null || !Core.Me.InCombat)
             {
                 _readyDrawBlockedSince = DateTime.MinValue;
