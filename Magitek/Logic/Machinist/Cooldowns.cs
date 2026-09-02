@@ -82,13 +82,17 @@ namespace Magitek.Logic.Machinist
 
             if (MachinistSettings.Instance.LateWeaveWildfire)
             {
+                // Braced deliberately: the old unbraced else bound to the INNER if, so with
+                // this option off the 15-second alignment hold below never ran and Hypercharge
+                // could be spent right before Wildfire came up.
                 if (MachinistRoutine.DoubleHyperchargedWildfireActive)
+                {
                     if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 7000
                         && ActionResourceManager.Machinist.Heat < 100)
                         return false;
-                    else
-                    if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
-                        return false;
+                }
+                else if (Spells.Wildfire.IsKnown() && !Spells.Wildfire.CanCast() && Spells.Wildfire.Cooldown.TotalMilliseconds <= 15000)
+                    return false;
             }
             else
             {
@@ -180,7 +184,9 @@ namespace Magitek.Logic.Machinist
             if (Utilities.Routines.Common.CheckTTDIsEnemyDyingSoon(MachinistSettings.Instance))
                 return false;
 
+            // Both holds sequence Hypercharge -> Full Metal Field -> Wildfire, so neither applies with FMF disabled
             if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                && MachinistSettings.Instance.UseFullMetalField
                 && ActionResourceManager.Machinist.Heat >= 50
                 && Core.Me.HasAura(Auras.FullMetalMachinist)
                 && Spells.FullMetalField.IsKnown()
@@ -188,6 +194,7 @@ namespace Magitek.Logic.Machinist
                 return false;
 
             if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                && MachinistSettings.Instance.UseFullMetalField
                 && Spells.FullMetalField.IsKnown()
                 && !Spells.BarrelStabilizer.IsKnownAndReady()
                 && Casting.LastSpell == Spells.Hypercharge

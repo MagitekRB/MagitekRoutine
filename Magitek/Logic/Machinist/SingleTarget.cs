@@ -156,7 +156,9 @@ namespace Magitek.Logic.Machinist
             if (ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                 return false;
 
+            // Hold the GCD for Wildfire only if Wildfire can actually be cast, or the whole overheat stalls
             if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                && MachinistSettings.Instance.UseWildfire
                 && Spells.FullMetalField.IsKnown()
                 && Spells.Wildfire.IsReady())
                 return false;
