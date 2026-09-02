@@ -215,21 +215,13 @@ namespace Magitek.Logic.Machinist
             if (!Core.Me.HasAura(Auras.FullMetalMachinist))
                 return false;
 
-            // Never during overheat: every overheat GCD belongs to a Blazing Shot, and a
-            // Full Metal Field there eats one of the five stacks (measured as a run of
-            // 4-blast windows when it was allowed in).
-            if (Core.Me.HasAura(Auras.Overheated))
+            if (!Core.Me.HasAura(Auras.Overheated) && MachinistRoutine.DoubleHyperchargedWildfireActive && Combat.IsBoss())
                 return false;
 
-            // The burst slot is the guide's own sequence - Full Metal Field immediately
-            // BEFORE Hypercharge + Wildfire (inside raid buffs), or in Wildfire's tail
-            // after the blasts. So: fire only with Wildfire up or at most a GCD away.
-            // ...but never let the proc die waiting: once it is inside its last 8 seconds,
-            // an off-window Full Metal Field beats a lost one.
-            if (MachinistRoutine.DoubleHyperchargedWildfireActive && Combat.IsBoss()
-                && !Core.Me.HasAura(Auras.WildfireBuff, true)
-                && !Spells.Wildfire.IsKnownAndReady(5000)
-                && Core.Me.HasAura(Auras.FullMetalMachinist, true, 8000))
+            if (Core.Me.HasAura(Auras.Overheated) && !MachinistRoutine.DoubleHyperchargedWildfireActive)
+                return false;
+
+            if (Core.Me.HasAura(Auras.WildfireBuff) && Core.Me.HasAura(Auras.Overheated))
                 return false;
 
             return await Spells.FullMetalField.Cast(Core.Me.CurrentTarget);

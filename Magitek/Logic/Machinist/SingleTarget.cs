@@ -156,11 +156,13 @@ namespace Magitek.Logic.Machinist
             if (ActionResourceManager.Machinist.OverheatRemaining == TimeSpan.Zero)
                 return false;
 
-            // Blasts never hold for Wildfire. Holding was measured as 2-4s of dead space per
-            // window: late-weave Wildfire paces itself off GCD progress, so waiting for it
-            // starves the very clock it waits on. Wildfire's 10s window still counts a full
-            // 6 GCDs when weaved in after the first blast, so blasts roll immediately and
-            // Wildfire lands among them (with a mid-window fallback on the Wildfire side).
+            // Hold the GCD for Wildfire only if Wildfire can actually be cast, or the whole overheat stalls
+            if (MachinistRoutine.DoubleHyperchargedWildfireActive
+                && MachinistSettings.Instance.UseWildfire
+                && Spells.FullMetalField.IsKnown()
+                && Spells.Wildfire.IsReady())
+                return false;
+
             return await Spells.HeatBlast.Cast(Core.Me.CurrentTarget);
         }
 
