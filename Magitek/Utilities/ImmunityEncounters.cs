@@ -169,7 +169,7 @@ namespace Magitek.Utilities
 
             new ImmunityEncounter {
                 ZoneId = 1346,
-                Name = "The Occult Crescent: South Horn — Forked Tower: Blood (Arbatel)",
+                Name = "The Occult Crescent: North Horn (Arbatel)",
                 Expansion = FfxivExpansion.Dawntrail,
                 // Arbatel spawns numbered Pages the routine should never spend actions on: the game
                 // nullifies damage against them (combat logs across multiple pulls: 153 player hits, 151
