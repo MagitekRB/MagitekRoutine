@@ -7481,6 +7481,9 @@ namespace Magitek.Utilities
                             48427, // Omni-elements
                             48456, // Flare
                         },
+                        // Deliberately absent: Duology of Implements (48388) precedes a
+                        // two-part dodgeable mechanic (player-ruled 2026-08-31) — dodge,
+                        // never mitigate. One 4.7s castbar, zero damage hits observed.
                     },
                     new Enemy {
                         Id = 14505,
@@ -7521,6 +7524,7 @@ namespace Magitek.Utilities
                         // is a forced one-direction knockback that anti-knockback does not help —
                         // none of them are mitigation problems. This Buffet shares only a NAME with
                         // the Abductor knockback (47440/48250); ids differ and so does the answer.
+                        // Two Terrors re-proven 2026-08-31: 2 casts, exactly 1 player hit (~35.6k).
                     },
                     new Enemy {
                         Id = 19481,
@@ -7560,7 +7564,13 @@ namespace Magitek.Utilities
                             47505, // Corpse Mangler
                         },
                         Aoes = new List<uint> {
-                            47452, // Hail of Hellflares (raidwide, ~5s self-targeted cast — id from ACT 2026-08-03)
+                            47452, // Hail of Hellflares (raidwide, ~5s self-targeted cast — id from ACT 2026-08-03;
+                                   // castbar re-proven 2026-08-31, damage rides twin 47453: 46 hits avg ~13.5k,
+                                   // ~15 players per cast)
+                            // The SECOND Hellflares pair (48956 castbar-name / 48957 damage: 177 hits avg
+                            // ~5.6k over ~12s of pulses, 2026-08-31) is deliberately absent: its damage
+                            // lands with NO castbar line at all, so cast-id detection has nothing to arm
+                            // on. Do not re-add on a future harvest.
                             // Dark Current (47476-47478) and Severed Dark Current (47479) are deliberately
                             // absent: the sweep is dodged, not mitigated (player-confirmed 2026-08-10).
                             // Ancient Thunder III (47457/47458, twin simultaneous casters — often from the
@@ -7625,8 +7635,12 @@ namespace Magitek.Utilities
                                     // was observed detecting live 2026-08-07
                         Name = "Phantom Hydra",
                         Aoes = new List<uint> {
-                            47210, // Discordance (user-confirmed AoE 2026-08-07; 53 observed casts
-                                   // in the 2026-07-30 corpus — Forked Tower)
+                            47209, // Discordance - the CASTBAR id. Same-name twin pair measured
+                                   // 2026-08-29 in a North Horn CE: 47209 casts (5 castbars, zero
+                                   // damage lines), 47210 lands the damage (172 player hits; the
+                                   // "53 observed casts" of the 2026-07-30 corpus were those damage
+                                   // lines, which is how the wrong twin got catalogued). Detection
+                                   // matches CastingSpellId, so only the castbar id arms responses.
                         },
                     },
                     new Enemy {
@@ -7673,7 +7687,10 @@ namespace Magitek.Utilities
                         Id = 14518,
                         Name = "Entanglement",
                         Knockbacks = new List<uint> {
-                            47072, // Malicious Weave — a draw-in, but the same immunities answer it
+                            // 47072 Malicious Weave removed - the draw-in does not need immunity
+                            // (user-confirmed in the field 2026-08-29: displacement is harmless, and
+                            // Surecast was being spent answering it). Its paired blowout 47071
+                            // Baleful Blowout is likewise not worth mitigating - same ruling.
                         },
                     },
                     new Enemy {
@@ -7691,15 +7708,16 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 14738,
                         Name = "Sensual Sandy",
-                        Aoes = new List<uint> {
-                            // 48945 Wild Wild Breath and 48946 Wild Wild Wild Wild Wild Breath removed —
-                            // both are the same dodgeable breath (the longer one adds dodgeable poison
-                            // puddles), not raidwides (user-confirmed in the field 2026-08-07); don't
-                            // spend mitigation on either.
-                        },
-                        BigAoes = new List<uint> {
-                            48947, // Extensible Tendrils
-                        },
+                        // Everything Sandy casts is dodgeable - nothing needs AoE mitigation
+                        // (user-confirmed in the field 2026-08-30, extending the 2026-08-07
+                        // ruling): 48945 Wild Wild Breath / 48946 Wild Wild Wild Wild Wild
+                        // Breath (same dodgeable breath, longer one adds dodgeable poison
+                        // puddles) and 48947 Extensible Tendrils are all deliberately not
+                        // catalogued. Null, not empty lists: EnemyHasAnyAoeLogic() reads any
+                        // non-null list as "this boss has answerable logic" and suppresses
+                        // normal healing fallbacks for it (same trap Cresceregina documents).
+                        Aoes = null,
+                        BigAoes = null,
                     },
                     new Enemy {
                         Id = 14785,
@@ -7734,9 +7752,10 @@ namespace Magitek.Utilities
                     new Enemy {
                         Id = 14736,
                         Name = "Demi-Medusa",
-                        Aoes = new List<uint> {
-                            48254, // Lamian Lesion
-                        },
+                        // Lamian Lesion 48254 removed by field ruling 2026-08-30: it is dodgeable,
+                        // and answering it was burning Neutral Sect/Sun Sign with nothing to soak.
+                        // Null, not empty, so the has-fight-logic check doesn't claim coverage.
+                        Aoes = null,
                     },
                     // Critical engagement bosses from a second recorded run. Each ability below was
                     // measured rather than assumed: the damage was matched to its cast by timestamp, and
@@ -7795,6 +7814,20 @@ namespace Magitek.Utilities
                         Name = "Alabaster Blade",
                         Aoes = new List<uint> {
                             47167, // Left-Right Combination — 17 players, 20%
+                        },
+                    },
+                    new Enemy {
+                        // Id unknown - the dragon despawned before it could be read; name
+                        // matching carries the entry (Greater Fan precedent). Backfill the
+                        // NpcId on the next encounter.
+                        Id = 0,
+                        Name = "Claret Dragon",
+                        Aoes = new List<uint> {
+                            48277, // Howling Darkness - castbar id, harvested live 2026-08-29.
+                                   // User field ruling from the same session: this is the ONLY
+                                   // cast of the kit that needs mitigation. Ruled out: Soar
+                                   // 50488, Aetherial Ward 48271, Cauterize 48264, Grave Mold
+                                   // 48261, Snaking Necrobreath 48260.
                         },
                     },
                 }
