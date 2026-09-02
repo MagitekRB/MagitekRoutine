@@ -613,7 +613,7 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(3)]
-        public int PneumaNeedHealing { get; set; }
+        public float PneumaNeedHealing { get; set; }
 
         #endregion
 
