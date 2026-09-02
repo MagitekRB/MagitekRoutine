@@ -21,10 +21,9 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> Phlegma()
         {
-            // No AoeControl gate: the enemy-count check below is deliberately commented out
-            // because Phlegma is used as a single-target GCD, and it has no single-target
-            // fallback to fall through to - gating it on the AoE toggle just deletes it from
-            // the rotation for anyone who turns AoE off.
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
@@ -141,6 +140,9 @@ namespace Magitek.Logic.Sage
 
         public static async Task<bool> Toxikon()
         {
+            if (!AoeControl.Enabled)
+                return false;
+
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
@@ -157,10 +159,11 @@ namespace Magitek.Logic.Sage
 
             // Four independent reasons, each honouring its own setting. Previously moving set this
             // unconditionally - so the "while moving" checkbox did nothing - and a compound guard
-            // above could disable the full-Addersting and low-mana reasons outright whenever AoE
-            // was off. Only the enemy-count reason is an AoE decision, so only it reads AoeControl.
+            // above could disable the full-Addersting and low-mana reasons outright whenever the
+            // AoE setting was off. The AoE toggle itself gates the whole method above: it means
+            // "never hit a second monster", and Toxikon is a 5y splash.
             var movingCheck = MovementManager.IsMoving && SageSettings.Instance.ToxiconWhileMoving;
-            var enemyCountCheck = AoeControl.Enabled && SageSettings.Instance.AoE
+            var enemyCountCheck = SageSettings.Instance.AoE
                 && Combat.Enemies.Count(r => r.Distance(target) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
             var adderstingCheck = SageSettings.Instance.ToxiconOnFullAddersting && Addersting == 3;
             var lowManaCheck = SageSettings.Instance.ToxiconOnLowMana && Core.Me.CurrentManaPercent < SageSettings.Instance.MinimumManaPercentToDoDamage;
