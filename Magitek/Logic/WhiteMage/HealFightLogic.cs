@@ -31,7 +31,7 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.DivineCaress.CanCast())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Divine Caress");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Divine Caress");
                 return await FightLogic.DoAndBuffer(Spells.DivineCaress.Cast(Core.Me));
             }
 
@@ -40,7 +40,7 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.Temperance.CanCast())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Temperance");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Temperance");
                 return await FightLogic.DoAndBuffer(Spells.Temperance.Cast(Core.Me));
             }
 
@@ -49,7 +49,7 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.LiturgyOfTheBell.CanCast())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Liturgy of the Bell");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Liturgy of the Bell");
 
                 Character target = Core.Me;
 
@@ -70,7 +70,7 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.Asylum.CanCast())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Asylum");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Asylum");
 
                 Character target = Core.Me;
 
@@ -94,7 +94,7 @@ namespace Magitek.Logic.WhiteMage
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Plenary Indulgence");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Plenary Indulgence");
 
                 return await FightLogic.DoAndBuffer(Spells.PlenaryIndulgence.Cast(Core.Me));
             }
@@ -113,7 +113,7 @@ namespace Magitek.Logic.WhiteMage
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Medica 2");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Medica 2");
 
                 return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
@@ -148,7 +148,7 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.DivineBenison.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Divine Benison on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Divine Benison on {target.CurrentJob}");
                 return await FightLogic.DoAndBuffer(Spells.DivineBenison.HealAura(target, Auras.DivineBenison));
             }
 
@@ -158,7 +158,7 @@ namespace Magitek.Logic.WhiteMage
                 && Spells.Aquaveil.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Aquaveil on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Aquaveil on {target.CurrentJob}");
                 return await FightLogic.DoAndBuffer(Spells.Aquaveil.HealAura(target, Auras.Aquaveil));
             }
 

@@ -143,7 +143,7 @@ namespace Magitek.Logic.Roles
             // One targeted use per pulse. NOT the shared UseItem() extension: it loops UseItem() with no
             // target and no inter-use delay, which would fire on the wrong unit and re-fire every frame
             // until the revive lands (burning multiple Phoenix Downs).
-            Logger.WriteInfo($"[Phoenix Down] Reviving {target.Name} ({target.CurrentJob})");
+            Logger.WriteInfo($"[Phoenix Down] Reviving {target.CurrentJob}");
             if (!item.UseItem(target))
                 return false;
 

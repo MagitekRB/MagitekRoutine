@@ -5,6 +5,7 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
+using Magitek.Models.Account;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
 using System.Collections.Generic;
@@ -286,6 +287,9 @@ namespace Magitek.Logic.Astrologian
 
                 if (tankBusterOnPartyMember == null)
                     return false;
+
+                if (BaseSettings.Instance.DebugFightLogic)
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting {Spells.Exaltation.Name} on {tankBusterOnPartyMember.CurrentJob}");
 
                 return await FightLogic.DoAndBuffer(
                     Spells.Exaltation.HealAura(tankBusterOnPartyMember, Auras.Exaltation));
@@ -609,8 +613,12 @@ namespace Magitek.Logic.Astrologian
 
             if (AstrologianSettings.Instance.FightLogicCollectiveUnconscious && FightLogic.EnemyIsCastingAoe() &&
                 Group.CastableAlliesWithin30.Count(x => x.WithinSpellRange(Spells.CollectiveUnconscious.Radius)) >= AoeThreshold)
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    FightLogic.LogThrottled($"[AOE Response] Attempting {Spells.CollectiveUnconscious.Name}");
                 return await FightLogic.DoAndBuffer(
                     Spells.CollectiveUnconscious.HealAura(Core.Me, Auras.CollectiveUnconsciousMitigation));
+            }
 
 
             if (Group.CastableAlliesWithin30.Count(r => r.WithinSpellRange(30)

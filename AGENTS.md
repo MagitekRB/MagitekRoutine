@@ -886,6 +886,8 @@ return await Spells.HolyCircle.Cast(Core.Me);
 14. **Duplicating shared code** in Logic files instead of using `Utilities/Routines/<Job>.cs` for helper functions, cached variables, and calculations used by multiple Logic files (see "Job-Specific Shared Utilities" section) — including reimplementing a helper that already exists there.
 15. **Asserting game behavior without a source.** "Spell X requires buff Y" or "spell X is unknown at level Y" must come from the tooltip, the official job guide, or an in-game observation — not from what sounds plausible (see "Claims About the Game" in `CONTRIBUTING.md`).
 
+16. **Logging a player's character name.** Log files get shared in bug reports and on Discord, and a character name is personal data. Never put a player's `Name` in a `Logger` call, not the local player's and not an ally's. Identify the local player as `Core.Me` plus role or job, and other players by role or by job (`CurrentJob`). Enemy and NPC names are fine.
+
 **Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented. Do not remove commented-out code you did not write — it may be kept deliberately.
 
 **Note on Existing Comments**: Do not change existing comments unless they are actually wrong and need a factual update. Rewording a correct comment is a meaningless diff change that pollutes review.
