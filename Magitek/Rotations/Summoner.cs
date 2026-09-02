@@ -44,14 +44,28 @@ namespace Magitek.Rotations
             return await Logic.Summoner.Heal.Physick();
         }
 
-        public static Task<bool> CombatBuff()
+        public static async Task<bool> CombatBuff()
         {
-            return Task.FromResult(false);
+            // Ahead of Combat() on purpose: these answer incoming mechanics and must fire
+            // even when Combat() declines to act - its immunity early-return kept them dead
+            // against exactly the enemies (duel Villains, damage-type immunity) whose
+            // mechanics most need answering.
+            if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
+            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
+            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
+
+            return false;
         }
 
         public static async Task<bool> Combat()
         {
-            if (Core.Me.CurrentTarget.HasAura(Auras.MagicResistance))
+            // Every other job opens Combat() with this; Summoner instead hand-checked Magic
+            // Resistance alone, which is only one of the ways a target can be immune to us.
+            // ThoroughCanAttack covers that same status (942 is in
+            // ImmunityEncounters.MagicImmunity) plus the mark, duel and damage-type rules, so
+            // this is strictly wider than what it replaces - and without it Summoner keeps
+            // casting into, say, an Occult Villain it cannot damage.
+            if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
             //Fix issue with level 1 SMN and/or PotD
@@ -63,12 +77,12 @@ namespace Magitek.Rotations
             //LimitBreak
             if (Aoe.ForceLimitBreak()) return true;
 
-            if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
-            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
-
             if (await Aoe.CrimsonStrike()) return true;
             if (await Buff.LucidDreaming()) return true;
+            // Demi before gems: with both available the demi goes out first (the guides'
+            // skip rule) and re-grants the gems itself; the gem phases then run inside
+            // the two-minute window instead of pushing the demi out of it.
+            if (await Buff.Aethercharge()) return true;
             if (await Pets.SummonCarbuncleOrEgi()) return true;
             if (await Buff.SearingLight()) return true;
             if (await Aoe.EnergySiphon()) return true;
@@ -78,7 +92,6 @@ namespace Magitek.Rotations
             if (await Aoe.AstralFlow()) return true;
             if (await Aoe.Painflare()) return true;
             if (await SingleTarget.Fester()) return true;
-            if (await Buff.Aethercharge()) return true;
             if (await Aoe.Ruin4()) return true;
             if (await Aoe.Outburst()) return true;
             return await SingleTarget.Ruin();
