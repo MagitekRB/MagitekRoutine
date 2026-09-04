@@ -3,6 +3,7 @@ using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
+using Magitek.Models.Account;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
 using System;
@@ -52,7 +53,11 @@ namespace Magitek.Logic.Astrologian
             if (Globals.InParty)
             {
                 if (AstrologianSettings.Instance.FightLogic_Lightspeed && FightLogic.EnemyIsCastingBigAoe() && !Spells.NeutralSect.IsKnownAndReady() && !Spells.Macrocosmos.IsKnownAndReady())
+                {
+                    if (BaseSettings.Instance.DebugFightLogic)
+                        FightLogic.LogThrottled($"[AOE Response] Attempting {Spells.Lightspeed.Name}");
                     return await FightLogic.DoAndBuffer(Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed));
+                }
 
                 if (Group.CastableAlliesWithin15.Count(r => r.CurrentHealthPercent <= AstrologianSettings.Instance.LightspeedHealthPercent) >= Heals.AoeThreshold)
                     return await Spells.Lightspeed.CastAura(Core.Me, Auras.Lightspeed);
@@ -147,7 +152,11 @@ namespace Magitek.Logic.Astrologian
             // check is READINESS - Neutral Sect steps in when Macrocosmos cannot, regardless of
             // whether the user enabled Macrocosmos reactions.
             if (AstrologianSettings.Instance.FightLogicNeutralSect && FightLogic.EnemyIsCastingBigAoe() && !Spells.Macrocosmos.IsKnownAndReady() && !Core.Me.HasAnyAura(AstroUtils.ScholarAndSageShieldsNotToOverwrite))
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    FightLogic.LogThrottled($"[AOE Response] Attempting {Spells.NeutralSect.Name}");
                 return await FightLogic.DoAndBuffer(Spells.NeutralSect.CastAura(Core.Me, Auras.NeutralSect));
+            }
 
             var neutral = Group.CastableAlliesWithin15.Count(r => r.CurrentHealth > 0
             && r.CurrentHealthPercent <= AstrologianSettings.Instance.NeutralSectHealthPercent);
