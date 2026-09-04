@@ -2934,6 +2934,9 @@
   <data name="Sage_Content_Use_Kardia" xml:space="preserve">
     <value>使用 心关</value>
   </data>
+  <data name="Sage_Text_Dont_Move_Kardia_To_Anyone_Below" xml:space="preserve">
+    <value>不将心关切换给血量低于此值的队友</value>
+  </data>
   <data name="Sage_Content_Switch_Kardia_Targets_below" xml:space="preserve">
     <value>当目标血量低于[xx]时切换 心关</value>
   </data>
@@ -5289,6 +5292,9 @@
   <data name="Sage_Content_Diagnosis" xml:space="preserve">
     <value>诊断</value>
   </data>
+  <data name="Sage_Content_At_Full_Addersgall_Anyone_Below" xml:space="preserve">
+    <value>蛇胆量谱满时，目标血量低于</value>
+  </data>
   <data name="Sage_Content_Druochole" xml:space="preserve">
     <value>灵橡清汁</value>
   </data>
@@ -5714,6 +5720,9 @@
   </data>
   <data name="Controls_Content_DELETE_GAMBIT" xml:space="preserve">
     <value>删除策略</value>
+  </data>
+  <data name="Generic_Unless_Target_Dies_Within" xml:space="preserve">
+    <value>除非目标将在此时间内死亡</value>
   </data>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>秒</value>

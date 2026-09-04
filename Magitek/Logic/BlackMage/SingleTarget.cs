@@ -273,6 +273,10 @@ namespace Magitek.Logic.BlackMage
             if (!Spells.Blizzard3.IsKnown())
                 return false;
 
+            // A stray Umbral Ice I/II has no exit - Blizzard IV and Fire III both need three stacks
+            if (UmbralStacks > 0 && UmbralStacks < 3 && !(AoeControl.Enabled && BlackMageRoutine.InAoeRotation))
+                return await Spells.Blizzard3.Cast(Core.Me.CurrentTarget);
+
             if (Casting.LastSpellWas(Spells.Blizzard3)
                 || Casting.LastSpellWas(Spells.ManaFont))
                 return false;

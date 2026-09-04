@@ -53,7 +53,7 @@ namespace Magitek.Rotations
             if (await HealFightLogic.Tankbuster()) return true;
             if (await CommonFightLogic.FightLogic_Knockback(AstrologianSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
-            if (GlobalCooldown.CanWeave(1))
+            if (CanWeave())
             {
                 if (await Buff.Divination()) return true;
                 if (await Buff.LucidDreaming()) return true;
@@ -79,11 +79,10 @@ namespace Magitek.Rotations
                 // Essential Dignity ahead of the rest. Original order for reference:
                 // Macrocosmos, Star, CU, Lady, CO, HoroscopePop, Synastry, ED, CI,
                 // Horoscope, Exaltation, Lord, Draw, Play.
-                if (GlobalCooldown.CanWeave(1))
+                if (CanWeave())
                 {
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
-                    if (await Heals.Macrocosmos()) return true;
                     if (await Heals.CelestialOpposition()) return true;
                     if (await Heals.LadyOfCrowns()) return true;
                     if (await Heals.HoroscopePop()) return true;
@@ -97,6 +96,13 @@ namespace Magitek.Rotations
                     if (await Cards.PlayCards()) return true;
                 }
 
+                // Macrocosmos is a GCD - inside the weave blocks above it could never
+                // cast (the weave window only opens while the GCD is rolling, exactly
+                // when a GCD is refused), so it sat wedged since it was written. First
+                // among the GCD heals: its own gates are the narrowest in the file, and
+                // when they hold it is the strongest play. The conversion it dispatches
+                // is an oGCD and fires from here whenever it is worth taking.
+                if (await Heals.Macrocosmos()) return true;
                 if (await Heals.AspectedHelios()) return true;
                 if (await Heals.Helios()) return true;
                 if (await Heals.AspectedBenefic()) return true;
@@ -135,7 +141,7 @@ namespace Magitek.Rotations
 
         public static async Task<bool> CombatBuff()
         {
-            if (GlobalCooldown.CanWeave(1))
+            if (CanWeave())
 
             {
                 if (await Buff.LucidDreaming()) return true;
@@ -161,9 +167,8 @@ namespace Magitek.Rotations
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
-                if (GlobalCooldown.CanWeave(1))
+                if (CanWeave())
                 {
-                    if (await Heals.Macrocosmos()) return true;
                     if (await Heals.EarthlyStar()) return true;
                     if (await Heals.CollectiveUnconscious()) return true;
                     if (await Heals.LadyOfCrowns()) return true;
@@ -204,9 +209,15 @@ namespace Magitek.Rotations
                 return false;
 
             //if (await Aoe.LordOfCrown()) return true;
-            if (await Aoe.Gravity()) return true;
+            // Combust ahead of Gravity: Gravity returns true on every GCD once two enemies are
+            // inside its 8y circle, so with it first the dot was never applied or refreshed again
+            // for the rest of the pull - a boss with a single add parked in range is enough to
+            // trip it. Both Combust paths self-limit (refresh window, CombustUpToEnemies, and the
+            // time-to-death gate), so they take only the few GCDs the dot actually needs and
+            // Gravity resumes on the very next one.
             if (await SingleTarget.Combust()) return true;
             if (await SingleTarget.CombustMultipleTargets()) return true;
+            if (await Aoe.Gravity()) return true;
             return await SingleTarget.Malefic();
         }
 
@@ -224,6 +235,8 @@ namespace Magitek.Rotations
             if (await Pvp.MacrocosmosPvp()) return true;
             if (await Pvp.MicrocosmosPvp()) return true;
             if (await Pvp.AspectedBeneficPvp()) return true;
+            // Double Cast may be holding a second Aspected Benefic, so it must not sit behind the damage gate
+            if (await Pvp.DoubleCastPvp()) return true;
 
             // Special Actions
             if (CommonPvp.ShouldUseBurst())
@@ -235,7 +248,6 @@ namespace Magitek.Rotations
             // Damage
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(AstrologianSettings.Instance))
             {
-                if (await Pvp.DoubleCastPvp()) return true;
                 if (await Pvp.GravityIIPvp()) return true;
             }
 

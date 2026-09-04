@@ -65,9 +65,11 @@ namespace Magitek.Rotations
 
             if (ActionResourceManager.Machinist.OverheatRemaining != TimeSpan.Zero)
             {
+                // Outside CanWeave(): Heat Blast holds the GCD for Wildfire, so a parked GCD must still reach this
+                if (await Cooldowns.Wildfire()) return true;
+
                 if (MachinistRoutine.GlobalCooldown.CanWeave())
                 {
-                    if (await Cooldowns.Wildfire()) return true;
                     if (await Cooldowns.Hypercharge()) return true; // for 10xHB
                 }
 
@@ -90,6 +92,9 @@ namespace Magitek.Rotations
             }
             else
             {
+                // DHW chain: HC#2 must beat any tool GCD into the gap between overheat windows
+                if (Core.Me.HasAura(Auras.WildfireBuff, true) && await Cooldowns.Hypercharge()) return true;
+
                 if (MachinistRoutine.GlobalCooldown.CanWeave())
                 {
                     //Utility

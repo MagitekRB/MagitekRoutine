@@ -45,7 +45,10 @@ namespace Magitek.Logic.Sage
 
         private static async Task<bool> ShieldTarget(IEnumerable<ff14bot.Objects.Character> targetBase, bool keepUp)
         {
-            var targets = targetBase.Where(r => !r.HasAura(Auras.EukrasianDiagnosis, true));
+            // Any healer's shield counts, not just our own Diagnosis: re-shielding someone who
+            // already carries a Scholar's Galvanize (or the Eukrasian Prognosis our own fight-logic
+            // response just placed) destroys it. Same rule the reactive heal paths already use.
+            var targets = targetBase.Where(r => !r.HasPrimaryShield());
             ff14bot.Objects.Character target = null;
 
             if (keepUp)

@@ -51,7 +51,7 @@ namespace Magitek.Logic.Scholar
                 Spells.DeploymentTactics.IsKnownAndReady())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Deploy Adlo");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Deploy Adlo");
 
                 var target = Group.CastableParty.FirstOrDefault(x => x.HasAura(Auras.Catalyze, true, castTimeRemaining + 1000));
 
@@ -80,7 +80,7 @@ namespace Magitek.Logic.Scholar
                 Group.CastableParty.Count(x => x.HasAura(Auras.Galvanize)) < AoeThreshold)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Recitation Succor");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Recitation Succor");
 
                 if (Spells.Recitation.IsKnownAndReady())
                 {
@@ -96,7 +96,7 @@ namespace Magitek.Logic.Scholar
                 Core.Me.HasAetherflow())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Sacred Soil");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Sacred Soil");
 
                 Character target = Core.Me;
 
@@ -117,7 +117,7 @@ namespace Magitek.Logic.Scholar
                 Group.CastableParty.Count(x => x.HasAura(Auras.Galvanize)) < AoeThreshold)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Succor");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Succor");
 
                 return await FightLogic.DoAndBuffer(Spells.Succor.Cast(Core.Me));
             }

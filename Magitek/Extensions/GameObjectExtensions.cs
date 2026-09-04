@@ -623,7 +623,7 @@ namespace Magitek.Extensions
             var distanceMaxWeight = BaseSettings.Instance.WeightedDistanceMax;
             var distanceWeight = distanceMinWeight + (distanceMaxWeight - distanceMinWeight) * (Core.Me.Distance(c) / 30);
             /*
-             * Logger.WriteInfo($"{c.Name} - \n" +
+             * Logger.WriteInfo($"{c.CurrentJob} - \n" +
                 $"hp {c.CurrentHealthPercent}\n" +
                 $"self {selfWeight}\n" +
                 $"role {roleWeight}\n" +

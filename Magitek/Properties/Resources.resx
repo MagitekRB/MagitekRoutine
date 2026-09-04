@@ -2928,6 +2928,9 @@
   <data name="Sage_Content_Use_Kardia" xml:space="preserve">
     <value>Use Kardia</value>
   </data>
+  <data name="Sage_Text_Dont_Move_Kardia_To_Anyone_Below" xml:space="preserve">
+    <value>Don't move Kardia to anyone below</value>
+  </data>
   <data name="Sage_Content_Switch_Kardia_Targets_below" xml:space="preserve">
     <value>Switch Kardia Targets below</value>
   </data>
@@ -5284,6 +5287,9 @@
   <data name="Sage_Content_Diagnosis" xml:space="preserve">
     <value>Diagnosis</value>
   </data>
+  <data name="Sage_Content_At_Full_Addersgall_Anyone_Below" xml:space="preserve">
+    <value>at full Addersgall, anyone below</value>
+  </data>
   <data name="Sage_Content_Druochole" xml:space="preserve">
     <value>Druochole</value>
   </data>
@@ -5481,6 +5487,9 @@
   </data>
   <data name="Generic_Use_Interrupt_And_Stun_If_Activated" xml:space="preserve">
     <value>Use Interrupt and Stun. If activated, use strategy: </value>
+  </data>
+  <data name="Generic_Unless_Target_Dies_Within" xml:space="preserve">
+    <value>unless the target dies within</value>
   </data>
   <data name="Generic_Seconds" xml:space="preserve">
     <value>seconds</value>

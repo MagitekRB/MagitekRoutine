@@ -94,7 +94,7 @@ namespace Magitek.Utilities
 
                 if (BaseSettings.Instance.DebugHealingListsPrintToLog == true)
                 {
-                    Logger.WriteInfo($@"[Debug] PartyManager {ally.Name} is a valid Party Member in PartyManager.");
+                    Logger.WriteInfo($@"[Debug] PartyManager {ally.CurrentJob} is a valid Party Member in PartyManager.");
                 }
 
                 //if (!ally.IsTargetable || !ally.InLineOfSight() || ally.Icon == PlayerIcon.Viewing_Cutscene)
@@ -120,8 +120,8 @@ namespace Magitek.Utilities
             /*if (CastableParty.Count() < PartyManager.NumMembers)
             {
                 Logger.WriteInfo("Mismatch in Castable Party Count:");
-                Logger.WriteInfo($"CastableParty: {String.Join(", ",CastableParty.Select(x => x.Name))}");
-                Logger.WriteInfo($"PartyManager: {String.Join(", ",PartyManager.AllMembers.Select(x => x.Name))}");
+                Logger.WriteInfo($"CastableParty: {String.Join(", ",CastableParty.Select(x => x.CurrentJob))}");
+                Logger.WriteInfo($"PartyManager: {String.Join(", ",PartyManager.AllMembers.Select(x => x.CurrentJob))}");
             }*/
 
             foreach (var ally in CastableParty.Where(a => a != null && a.IsValid).OrderBy(a => a.GetHealingWeight()))

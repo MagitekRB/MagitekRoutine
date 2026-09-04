@@ -9,11 +9,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Sage;
 using Auras = Magitek.Utilities.Auras;
+using SageRoutine = Magitek.Utilities.Routines.Sage;
 
 namespace Magitek.Logic.Sage
 {
     internal static class AoE
     {
+        // Pneuma's line is 4 yalms across (game data: CastType 4, XAxisModified 4). Its length is
+        // the spell's own Radius, so only the width needs stating here.
+        private const float PneumaLineWidth = 4f;
+
         public static async Task<bool> Phlegma()
         {
             if (!AoeControl.Enabled)
@@ -30,14 +35,15 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            // Phlegma is a great 550 potency single target attack.
+            // Phlegma is a great single target attack (690 potency at III), so it is not gated
+            // on an enemy count - it is a gain even on one target.
             //if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Phlegma.Radius + r.CombatReach) < SageSettings.Instance.AoEEnemies)
             //    return false;
             var spell = Spells.PhlegmaIII;
             if (!Spells.PhlegmaIII.IsKnown())
                 spell = Spells.PhlegmaII.IsKnown() ? Spells.PhlegmaII : Spells.Phlegma;
 
-            if (spell.Charges == 0)
+            if (!spell.IsKnownAndReady())
                 return false;
 
             return await spell.Cast(target);
@@ -79,10 +85,14 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.AoE)
                 return false;
 
-            if (Combat.CurrentTargetCombatTimeLeft <= SageSettings.Instance.DontDotIfEnemyDyingWithin)
+            if (!SageSettings.Instance.EukrasianDyskrasia)
                 return false;
 
-            if (!SageSettings.Instance.EukrasianDyskrasia)
+            // Same gate the single-target dot uses: the checkbox above the threshold governs both,
+            // and a boss is always worth the dot because its time-to-death estimate is unreliable.
+            if (SageSettings.Instance.UseTTDForDots
+                && Combat.CurrentTargetCombatTimeLeft <= SageSettings.Instance.DontDotIfEnemyDyingWithin
+                && !Core.Me.CurrentTarget.IsBoss())
                 return false;
 
             if (!Spells.EukrasianDyskrasia.IsKnownAndReady())
@@ -99,7 +109,10 @@ namespace Magitek.Logic.Sage
             if (targetChar != null && targetChar.CharacterAuras.Count() >= 25)
                 return false;
 
-            if (!Combat.Enemies.Any(x => (!x.HasAnyAura(DotAuras, true) || (x.HasAnyAura(DotAuras, true) && !x.HasAnyAura(DotAuras, true, SageSettings.Instance.DotRefreshMSeconds)))
+            // "no dot at all, or a dot inside the refresh window" is just "no dot with more than
+            // the refresh window left" - the old shape walked each enemy's aura list three times
+            // per pulse to ask the same question.
+            if (!Combat.Enemies.Any(x => !x.HasAnyAura(DotAuras, true, SageSettings.Instance.DotRefreshMSeconds)
                                          && x.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)))
                 return false;
 
@@ -133,9 +146,6 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.DoDamage)
                 return false;
 
-            if (!SageSettings.Instance.ToxiconWhileMoving && !SageSettings.Instance.AoE)
-                return false;
-
             if (!Spells.Toxikon.IsKnown())
                 return false;
 
@@ -147,21 +157,18 @@ namespace Magitek.Logic.Sage
             if (Addersting == 0)
                 return false;
 
-            var doToxicon = false;
+            // Four independent reasons, each honouring its own setting. Previously moving set this
+            // unconditionally - so the "while moving" checkbox did nothing - and a compound guard
+            // above could disable the full-Addersting and low-mana reasons outright whenever the
+            // AoE setting was off. The AoE toggle itself gates the whole method above: it means
+            // "never hit a second monster", and Toxikon is a 5y splash.
+            var movingCheck = MovementManager.IsMoving && SageSettings.Instance.ToxiconWhileMoving;
+            var enemyCountCheck = SageSettings.Instance.AoE
+                && Combat.Enemies.Count(r => r.Distance(target) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
+            var adderstingCheck = SageSettings.Instance.ToxiconOnFullAddersting && Addersting == 3;
+            var lowManaCheck = SageSettings.Instance.ToxiconOnLowMana && Core.Me.CurrentManaPercent < SageSettings.Instance.MinimumManaPercentToDoDamage;
 
-            if (MovementManager.IsMoving)
-            {
-                doToxicon = true;
-            }
-            else
-            {
-                var enemyCountCheck = SageSettings.Instance.AoE && Combat.Enemies.Count(r => r.Distance(target) <= Spells.Toxikon.Radius + r.CombatReach) >= SageSettings.Instance.AoEEnemies;
-                var adderstingCheck = SageSettings.Instance.ToxiconOnFullAddersting && Addersting == 3;
-                var lowManaCheck = SageSettings.Instance.ToxiconOnLowMana && Core.Me.CurrentManaPercent < SageSettings.Instance.MinimumManaPercentToDoDamage;
-
-                if (enemyCountCheck || adderstingCheck || lowManaCheck)
-                    doToxicon = true;
-            }
+            var doToxicon = movingCheck || enemyCountCheck || adderstingCheck || lowManaCheck;
 
             if (doToxicon)
             {
@@ -195,10 +202,13 @@ namespace Magitek.Logic.Sage
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Pneuma.Radius) < SageSettings.Instance.AoEEnemies)
+            // Pneuma's damage is a LINE - 25y ahead, 4y across - not a circle. Counting every enemy
+            // within 25y of the target described a 50y-wide disc, so three mobs anywhere nearby spent
+            // a 120s cooldown on what was often a single-target hit.
+            if (SageRoutine.EnemiesInLine(Spells.Pneuma.Radius, PneumaLineWidth) < SageSettings.Instance.AoEEnemies)
                 return false;
 
-            if (Spells.Pneuma.Cooldown != TimeSpan.Zero)
+            if (!Spells.Pneuma.IsReady())
                 return false;
 
             return await Spells.Pneuma.Cast(target);

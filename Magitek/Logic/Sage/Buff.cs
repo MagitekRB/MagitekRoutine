@@ -15,15 +15,9 @@ namespace Magitek.Logic.Sage
 {
     internal static class Buff
     {
-        public static async Task<bool> Swiftcast()
-        {
-            if (await Spells.Swiftcast.CastAura(Core.Me, Auras.Swiftcast))
-            {
-                return await Coroutine.Wait(15000, () => Core.Me.HasAura(Auras.Swiftcast, true, 7000));
-            }
+        // How stale a Kardia switch may be and still justify Soteria; a little over the
+        // 5s Kardia recast so a switch-then-weave pulse ordering cannot miss the window.
 
-            return false;
-        }
         public static async Task<bool> LucidDreaming()
         {
             return await Roles.Healer.LucidDreaming(SageSettings.Instance.LucidDreaming, SageSettings.Instance.LucidDreamingManaPercent);
@@ -48,7 +42,12 @@ namespace Magitek.Logic.Sage
                     && Core.Me.InCombat
                     && (!SageSettings.Instance.KardiaSwitchTargetsCurrent || currentKardiaTarget.CurrentHealthPercent >= SageSettings.Instance.KardiaSwitchTargetsCurrentHealthPercent))
                 {
-                    var canKardiaTargets = Group.CastableAlliesWithin30.Where(CanKardia).Where(CanKardiaSwitch).OrderByDescending(KardiaPriority).ToList();
+                    // Kardia is a heal-over-time, so it goes to whoever needs topping up - not to
+                    // whoever holds the highest-ranking role. Ordered by health, with the role
+                    // priority only as a tiebreak; initial placement below keeps role ordering,
+                    // because an untouched party still wants Kardia parked on the tank.
+                    var canKardiaTargets = Group.CastableAlliesWithin30.Where(CanKardia).Where(CanKardiaSwitch)
+                        .OrderBy(a => a.CurrentHealthPercent).ThenByDescending(KardiaPriority).ToList();
 
                     if (canKardiaTargets.Contains(currentKardiaTarget))
                         return false;
@@ -56,7 +55,12 @@ namespace Magitek.Logic.Sage
                     var kardiaTargetSwitch = canKardiaTargets.FirstOrDefault();
 
                     if (kardiaTargetSwitch != null)
-                        return await Spells.Kardia.CastAura(kardiaTargetSwitch, Auras.Kardion);
+                    {
+                        if (!await Spells.Kardia.CastAura(kardiaTargetSwitch, Auras.Kardion))
+                            return false;
+
+                        return true;
+                    }
                     return false;
                 }
                 else
@@ -90,7 +94,13 @@ namespace Magitek.Logic.Sage
 
             bool CanKardiaSwitch(Character unit)
             {
+                // Needs topping up...
                 if (unit.CurrentHealthPercent > SageSettings.Instance.KardiaSwitchTargetsHealthPercent)
+                    return false;
+
+                // ...but is not in danger. Someone this low needs a real heal now, and parking the
+                // trickle on them neither saves them nor tops anyone else up.
+                if (unit.CurrentHealthPercent < SageSettings.Instance.KardiaMinimumHealthPercent)
                     return false;
 
                 return true;
@@ -149,7 +159,7 @@ namespace Magitek.Logic.Sage
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Spells.Soteria.Cooldown != TimeSpan.Zero)
+            if (!Spells.Soteria.IsReady())
                 return false;
 
             if (Core.Me.HasAura(Auras.Soteria))
@@ -179,7 +189,7 @@ namespace Magitek.Logic.Sage
             if (!Core.Me.InCombat)
                 return false;
 
-            if (Spells.Rhizomata.Cooldown != TimeSpan.Zero)
+            if (!Spells.Rhizomata.IsReady())
                 return false;
 
             if (Addersgall >= 2)
@@ -202,7 +212,7 @@ namespace Magitek.Logic.Sage
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Spells.Krasis.Cooldown != TimeSpan.Zero)
+            if (!Spells.Krasis.IsReady())
                 return false;
 
             var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.KrasisHealthPercent
@@ -232,14 +242,16 @@ namespace Magitek.Logic.Sage
             if (!Globals.PartyInCombat)
                 return false;
 
-            if (Spells.Philosophia.Cooldown != TimeSpan.Zero)
+            if (!Spells.Philosophia.IsReady())
                 return false;
 
             var targets = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.PhilosophiaHealthPercent
-                                                                  && !r.HasAura(Auras.Eudaimonia));
-            var philosophiaTarget = targets.FirstOrDefault();
+                                                                  && !r.HasAura(Auras.Eudaimonia)).ToList();
 
-            if (philosophiaTarget == null)
+            // Philosophia is the longest cooldown in the kit at 180s, and it heals nobody on its
+            // own - it amplifies the healing that follows. Every comparable party cooldown here
+            // requires a count before spending; this one fired for a single hurt ally.
+            if (targets.Count < Heal.AoeNeedHealing)
                 return false;
 
             return await Spells.Philosophia.CastAura(Core.Me, Auras.Eudaimonia);

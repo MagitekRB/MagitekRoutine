@@ -69,21 +69,40 @@ namespace Magitek.Rotations
                 if (await Buff.LucidDreaming()) return true;
                 if (await Buff.Rhizomata()) return true;
                 if (await Buff.Krasis()) return true;
+                // Beside Krasis rather than in Combat(): none of these three touch an enemy - they
+                // read ally health and cast on us - but Combat() only reaches its weave block past
+                // HasTarget, ThoroughCanAttack, StopDamageWhenMoreThanEnemies, DoDamage and InView.
+                // ThoroughCanAttack consults damage immunity, so a boss phase our damage cannot
+                // reach was disabling Sage's healing cooldowns outright.
+                if (await Buff.Kardia()) return true;
+                if (await Buff.Soteria()) return true;
+                if (await Buff.Philosophia()) return true;
             }
 
             if (Globals.InActiveDuty || Core.Me.InCombat)
             {
                 if (SageRoutine.CanWeave())
                 {
-                    if (await Logic.Sage.Heal.Pepsis()) return true;
+                    // Physis first: Panhaima and Haima snapshot their potency when cast, so a
+                    // Physis that lands afterwards cannot amplify them. Their health thresholds
+                    // overlap, so without this the stronger cooldown routinely goes out unbuffed.
+                    if (await Logic.Sage.Heal.Physis()) return true;
                     if (await Logic.Sage.Heal.Panhaima()) return true;
                     if (await Logic.Sage.Heal.Holos()) return true;
-                    if (await Logic.Sage.Heal.Physis()) return true;
                     if (await Logic.Sage.Heal.Ixochole()) return true;
                     if (await Logic.Sage.Heal.Kerachole()) return true;
-                    if (await Logic.Sage.Heal.Haima()) return true;
                     if (await Logic.Sage.Heal.Taurochole()) return true;
                     if (await Logic.Sage.Heal.Druochole()) return true;
+                    // Below the cheap heals: Haima is a 120s cooldown that restores no HP at
+                    // all, and its threshold sits under Druochole's and Taurochole's, so a
+                    // single spike would spend it ahead of a 1s and a 45s heal that would
+                    // have covered the same dip. HealAlliance already orders them this way.
+                    if (await Logic.Sage.Heal.Haima()) return true;
+                    // Last in the block: the job guides call Pepsis "a utility button, not
+                    // something you will be using as part of your healing rotation", so it
+                    // only takes the weave slot once the Addersgall heals and the big
+                    // cooldowns have all declined it.
+                    if (await Logic.Sage.Heal.Pepsis()) return true;
                 }
 
                 if (await Logic.Sage.Heal.ZoePneuma()) return true;
@@ -157,9 +176,6 @@ namespace Magitek.Rotations
 
             if (SageRoutine.CanWeave())
             {
-                if (await Buff.Kardia()) return true;
-                if (await Buff.Soteria()) return true;
-                if (await Buff.Philosophia()) return true;
                 if (await AoE.Psyche()) return true;
             }
 
@@ -167,7 +183,7 @@ namespace Magitek.Rotations
                 && Core.Target.CombatTimeLeft() > SageSettings.Instance.DoDamageIfTimeLeftLessThan)
             {
                 if (await AoE.Toxikon()) return true;
-                return true;
+                return false;
             }
 
             if (await AoE.Toxikon()) return true;
@@ -179,13 +195,13 @@ namespace Magitek.Rotations
             if (await AoE.Dyskrasia()) return true;
 
             if (await SingleTarget.EukrasianDosis()) return true;
+
             return await SingleTarget.Dosis();
         }
 
 
         public static async Task<bool> PvP()
         {
-            SageRoutine.RefreshVars();
 
             if (await CommonPvp.CommonTasks(SageSettings.Instance)) return true;
 

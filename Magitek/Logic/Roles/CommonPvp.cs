@@ -603,7 +603,8 @@ namespace Magitek.Logic.Roles
         // RANGED MAGICAL DPS:
         // BLM - 4316 Wreath of Ice reduces damage taken by 20%
         // BLM - 3221 Burst: Absorbs potency of 15000
-        // SMN - 3231 Scarlet Flame: reduces damage dealt by 50%
+        // SMN - 3232 Revelation (applied by Brand of Purgatory): reduces damage dealt by 50%
+        // SMN - 3231 Scarlet Flame: Firebird Trance damage over time only, never belongs in the damage table
         // SMN - 3224 Radiant Aegis: absorbs potency by 12000 and reduces damage taken by 25%
         // RDM - 3242 Monomachy: increases damage dealt to target by 10%
         // RDM - 4320 Forte: Reduces damage taken by 50% and absorbs potency of 4000
@@ -688,7 +689,7 @@ namespace Magitek.Logic.Roles
             
             // Auras on self that reduce damage dealt
             { Auras.PvpOrogeny, 0.90 }, // WAR - reduces damage dealt by 10%
-            { Auras.PvpScarletFlame, 0.50 }, // SMN - reduces damage dealt by 50%
+            { Auras.PvpRevelation, 0.50 }, // SMN - Brand of Purgatory reduces damage dealt by 50%
             { Auras.PvpRust, 0.67 }, // Ranged role - reduces damage dealt by 33%
             { Auras.PvpHorridRoar, 0.50 }, // DRG - reduces damage dealt by 50% (if target is dragoon)
         };

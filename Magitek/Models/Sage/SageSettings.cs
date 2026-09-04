@@ -75,10 +75,6 @@ namespace Magitek.Models.Sage
         [DefaultValue(false)]
         public bool FightLogic_RespectOnlyTank { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        public bool FightLogic_Philosophia { get; set; }
-
 
         #endregion
 
@@ -197,6 +193,10 @@ namespace Magitek.Models.Sage
         public float KardiaSwitchTargetsCurrentHealthPercent { get; set; }
 
         [Setting]
+        [DefaultValue(30.0f)]
+        public float KardiaMinimumHealthPercent { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool KardiaMainTank { get; set; }
 
@@ -248,11 +248,12 @@ namespace Magitek.Models.Sage
         [DefaultValue(80.0f)]
         public float SoteriaHealthPercent { get; set; }
 
+        [Setting]
         [DefaultValue(true)]
         public bool Philosophia { get; set; }
 
         [Setting]
-        [DefaultValue(40.0f)]
+        [DefaultValue(60.0f)]
         public float PhilosophiaHealthPercent { get; set; }
 
         [Setting]
@@ -508,6 +509,14 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(true)]
+        public bool DruocholeOnAddersgallOvercap { get; set; }
+
+        [Setting]
+        [DefaultValue(100.0f)]
+        public float DruocholeOvercapHpPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
         public bool Ixochole { get; set; }
 
         [Setting]
@@ -587,7 +596,7 @@ namespace Magitek.Models.Sage
         public bool Pneuma { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool PneumaHealOnly { get; set; }
 
         [Setting]

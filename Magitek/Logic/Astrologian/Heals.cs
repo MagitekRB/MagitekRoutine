@@ -5,6 +5,7 @@ using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Logic.Roles;
+using Magitek.Models.Account;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
 using System.Collections.Generic;
@@ -19,6 +20,12 @@ namespace Magitek.Logic.Astrologian
     {
 
         public static int AoeThreshold => PartyManager.NumMembers > 4 ? AstrologianSettings.Instance.AoeNeedHealingFullParty : AstrologianSettings.Instance.AoeNeedHealingLightParty;
+
+        // How far from maturity the star must still be before the weak pop is worth taking:
+        // within this window the full-strength version is moments away, so decline and let
+        // the Giant Dominance branch spend it instead. Same internal-hold shape as
+        // Cards.HoldDivinationForDrawSeconds.
+        private const int EarthlyDominanceRipenMs = 4000;
 
         public static bool NeedAoEHealing()
         {
@@ -280,6 +287,9 @@ namespace Magitek.Logic.Astrologian
 
                 if (tankBusterOnPartyMember == null)
                     return false;
+
+                if (BaseSettings.Instance.DebugFightLogic)
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting {Spells.Exaltation.Name} on {tankBusterOnPartyMember.CurrentJob}");
 
                 return await FightLogic.DoAndBuffer(
                     Spells.Exaltation.HealAura(tankBusterOnPartyMember, Auras.Exaltation));
@@ -603,8 +613,12 @@ namespace Magitek.Logic.Astrologian
 
             if (AstrologianSettings.Instance.FightLogicCollectiveUnconscious && FightLogic.EnemyIsCastingAoe() &&
                 Group.CastableAlliesWithin30.Count(x => x.WithinSpellRange(Spells.CollectiveUnconscious.Radius)) >= AoeThreshold)
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    FightLogic.LogThrottled($"[AOE Response] Attempting {Spells.CollectiveUnconscious.Name}");
                 return await FightLogic.DoAndBuffer(
                     Spells.CollectiveUnconscious.HealAura(Core.Me, Auras.CollectiveUnconsciousMitigation));
+            }
 
 
             if (Group.CastableAlliesWithin30.Count(r => r.WithinSpellRange(30)
@@ -634,7 +648,8 @@ namespace Magitek.Logic.Astrologian
             // around ITS placement — allies inside the star's radius can be outside the
             // caster's 30y, and a cached caster-centred list would miss them.
             List<BattleCharacter> EarthlyStarTargets() =>
-                PartyManager.VisibleMembers.Select(r => r.BattleCharacter).ToList();
+                PartyManager.VisibleMembers.Select(r => r.BattleCharacter)
+                    .Where(r => r.CurrentHealth > 0).ToList();
 
             // The pop checks gate on Stellar Detonation's own action: the base Earthly Star
             // action sits on its 60s recast for the star's whole deployment, so putting these
@@ -646,22 +661,27 @@ namespace Magitek.Logic.Astrologian
             // Wall-clock, not the summed estimate: the pull ends when the last enemy dies, and
             // in multi-target pulls the sum overstates that badly (four mobs at 3s each sum to
             // 12s), so a summed check never trips and the star expires after combat unspent.
+            // Boss fights disarm the dump entirely: the estimate reads "pull ending" every
+            // time an add wave is about to die while the boss fight has minutes left —
+            // field-observed 2026-08-30, a 3-second star dumped weak mid-encounter. Same
+            // boss-blind time-to-death trap the Summoner throttle needed excluding for.
             if (AstrologianSettings.Instance.StellarDetonation
                 && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
+                && !Utilities.Combat.Enemies.Any(x => x.IsBoss())
                 && Utilities.Combat.CombatWallClockTimeLeft > 0
                 && Utilities.Combat.CombatWallClockTimeLeft <= AstrologianSettings.Instance.StellarDetonationPullEndingSeconds
                 && (Core.Me.HasAura(Auras.GiantDominance)
                     || Core.Me.HasAura(Auras.EarthlyDominance, false, Utilities.Combat.CombatWallClockTimeLeft * 1000)))
                 return await Spells.StellarDetonation.Heal(Core.Me);
 
-            if (Core.Me.HasAura(Auras.EarthlyDominance)
+            if (Core.Me.HasAura(Auras.EarthlyDominance, false, EarthlyDominanceRipenMs)
                 && Spells.StellarDetonation.IsKnownAndReady()
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
-                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= 30
-                && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyDominanceHealthPercent) > AstrologianSettings.Instance.EarthlyDominanceCount)
+                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= Spells.StellarDetonation.Radius
+                && r.CurrentHealthPercent <= AstrologianSettings.Instance.EarthlyDominanceHealthPercent) >= AstrologianSettings.Instance.EarthlyDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
 
@@ -670,8 +690,8 @@ namespace Magitek.Logic.Astrologian
                 && Utilities.Routines.Astrologian.EarthlyStarLocation != Vector3.Zero
                 && AstrologianSettings.Instance.StellarDetonation)
             {
-                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= 30
-                && r.CurrentHealthPercent <= AstrologianSettings.Instance.GiantDominanceHealthPercent) > AstrologianSettings.Instance.GiantDominanceCount)
+                if (EarthlyStarTargets().Count(r => r.Distance(earthlyStarLocation) <= Spells.StellarDetonation.Radius
+                && r.CurrentHealthPercent <= AstrologianSettings.Instance.GiantDominanceHealthPercent) >= AstrologianSettings.Instance.GiantDominanceCount)
                     return await Spells.StellarDetonation.Heal(Core.Me);
             }
 
@@ -711,11 +731,17 @@ namespace Magitek.Logic.Astrologian
                     return false;
                 Utilities.Routines.Astrologian.LastEarthlyStarAttemptTick = System.Environment.TickCount64;
 
-                if (await Spells.EarthlyStar.Cast(Core.Target))
-                {
+                var planted = await Spells.EarthlyStar.Cast(Core.Target);
+
+                if (planted)
                     Utilities.Routines.Astrologian.EarthlyStarLocation = Core.Target.Location;
-                    return true;
-                }
+
+                // Consume the pulse even when the placement did not confirm in time: the
+                // ground-targeted intent may still be in flight, and falling through let the
+                // same pulse dispatch another action on top of it — field-observed: Lord of
+                // Crowns fired the same millisecond and the placement died silently. One
+                // spent pulse per attempt is bounded by the pacing above.
+                return true;
             }
             return false;
         }
@@ -732,8 +758,14 @@ namespace Magitek.Logic.Astrologian
                 return await AspectedHelios() ? true : await Spells.Helios.Cast(Core.Me);
 
             if (await Spells.Horoscope.Cast(Core.Me))
+            {
+                // The upgrade is opportunistic - both are GCDs and rarely castable inside a
+                // weave window - but the Horoscope itself went out: report the action so the
+                // pulse ends instead of dispatching more abilities on top of it.
                 if (!await AspectedHelios())
-                    return await Spells.Helios.Cast(Core.Me);
+                    await Spells.Helios.Cast(Core.Me);
+                return true;
+            }
 
             return false;
         }
@@ -763,8 +795,12 @@ namespace Magitek.Logic.Astrologian
             if (!Spells.Macrocosmos.IsKnown())
                 return false;
 
+            // The conversion is an oGCD reached from the GCD-heal section (the placement
+            // GCD had to escape the weave blocks to cast at all), so it carries its own
+            // weave gate - ungated it could fire in a late recast window and clip the
+            // next GCD.
             if (Core.Me.HasMyAura(Auras.Macrocosmos))
-                return await Microcosmos();
+                return global::Magitek.Utilities.Routines.Astrologian.CanWeave() && await Microcosmos();
 
             if (!Spells.Macrocosmos.IsReady())
                 return false;
@@ -772,16 +808,23 @@ namespace Magitek.Logic.Astrologian
             if (Group.CastableAlliesWithin20.Any(x => x.HasAura(Auras.Macrocosmos)))
                 return false;
 
-            if (AstrologianSettings.Instance.FightLogic_Macrocosmos && FightLogic.EnemyIsCastingBigAoe())
-                return await FightLogic.DoAndBuffer(Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos));
-
             var enemyCount = Combat.Enemies.Count();
             if (enemyCount == 0)
                 return false;
 
             if (enemyCount > PartyManager.NumMembers)
-                if (Combat.Enemies.All(x => x.WithinSpellRange(Spells.Macrocosmos.Radius) && Group.CastableAlliesWithin20.Count() == PartyManager.NumMembers))
+            {
+                // Whole living party in reach and every enemy inside the blast: the
+                // wall-to-wall placement. The old check compared the castable list against
+                // PartyManager.NumMembers, which counts the dead - one death made it
+                // permanently false - and sat invariant inside the enemy predicate.
+                var livingParty = PartyManager.VisibleMembers.Select(m => m.BattleCharacter).Count(b => b.CurrentHealth > 0);
+
+                if (livingParty > 0
+                    && Group.CastableAlliesWithin20.Count() >= livingParty
+                    && Core.Me.EnemiesNearby(Spells.Macrocosmos.Radius).Count() >= enemyCount)
                     return await Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos);
+            }
 
             var isThereABoss = Combat.Enemies.Any(x => x.IsBoss());
 
@@ -798,7 +841,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             if (Group.CastableAlliesWithin30.Count(x => x.HasMyAura(Auras.Macrocosmos)
-                    && x.CurrentHealthPercent < AstrologianSettings.Instance.MacrocosmosHealthPercent) <= AoeThreshold) return false;
+                    && x.CurrentHealthPercent < AstrologianSettings.Instance.MacrocosmosHealthPercent) < AoeThreshold) return false;
 
             return await Spells.Microcosmos.Heal(Core.Me);
 

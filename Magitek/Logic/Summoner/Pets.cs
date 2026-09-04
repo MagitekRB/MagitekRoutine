@@ -53,16 +53,13 @@ namespace Magitek.Logic.Summoner
             if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
                 return false;
 
-            if (SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Ifrit)
-                || SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Titan)
-                || SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Garuda)
-                || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Ruby)
-                || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Topaz)
-                || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Emerald))
-                return false;
-
-            if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
-                return false;
+            // No gem-flag guard here on purpose: the demi is never delayed for unspent
+            // primal gems. Both guides are explicit - "do not delay demi-primal" (The
+            // Balance downtime flowchart) and "you should skip the remainder of your
+            // primal(s)" (Icy Veins) - and the demi re-grants all three gems on summon,
+            // so nothing is lost. The old guard also read the per-gem toggles as
+            // always-on: one unticked gem summon left its flag permanently set and
+            // deadlocked the entire demi cycle for the rest of the session.
 
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL
                 && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
@@ -98,14 +95,7 @@ namespace Magitek.Logic.Summoner
             if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
                 return false;
 
-            if (SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Ifrit)
-                || SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Titan)
-                || SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Garuda)
-                || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Ruby)
-                || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Topaz)
-                || ArcResources.AvailablePets.HasFlag(ArcResources.AvailablePetFlags.Emerald))
-                return false;
-
+            // No gem-flag guard: see SummonPhoenix above - the demi outranks unspent gems.
             if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
                 return false;
 

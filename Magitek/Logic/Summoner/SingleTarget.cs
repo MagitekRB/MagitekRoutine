@@ -89,7 +89,12 @@ namespace Magitek.Logic.Summoner
             if (!GlobalCooldown.CanWeave())
                 return false;
 
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 2)
+            // Defer to Painflare only where Painflare will actually take over: its own gate
+            // needs three enemies, so deferring at two left the gauge frozen - Fester held,
+            // Painflare declining, Energy Drain never recast - any time exactly two enemies
+            // were clustered. And below Painflare's level there is nothing to defer to at all.
+            if (AoeControl.Enabled && Spells.Painflare.IsKnown()
+                && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
                 return false;
 
             return await Spells.Fester.Cast(Core.Me.CurrentTarget);

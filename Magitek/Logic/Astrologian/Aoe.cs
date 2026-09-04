@@ -24,7 +24,11 @@ namespace Magitek.Logic.Astrologian
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Gravity.Radius) < AstrologianSettings.Instance.GravityEnemies)
+            // EnemiesNearby, matching the smart-AoE picker and the measured game geometry
+            // (radius + the counted enemy's own hitbox): a bare centre-distance count missed
+            // big-hitbox enemies inside the real blast and disagreed with the picker's
+            // ranking, refusing targets it had just selected.
+            if (target.EnemiesNearby(Spells.Gravity.Radius).Count() < AstrologianSettings.Instance.GravityEnemies)
                 return false;
 
             return await Spells.Gravity.Cast(target);
@@ -60,11 +64,11 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             // Lord is centred on the caster, so count around US rather than the current
-            // target, which between pulls often does not exist. WithinSpellRange rather than
-            // EnemiesNearby: called on ourselves the latter adds our own combat reach twice
-            // and never the enemy's, so a big-hitbox target inside the radius could go
-            // uncounted.
-            if (Combat.Enemies.Count(r => r.WithinSpellRange(Spells.LordofCrowns.Radius)) < AstrologianSettings.Instance.LordOfCrownsEnemies)
+            // target, which between pulls often does not exist. EnemiesNearby is the right
+            // geometry since it was reworked to add only the counted enemy's hitbox - exactly
+            // how a self-centred blast resolves; WithinSpellRange is an edge-to-edge range
+            // check and padded the count with our own reach.
+            if (Core.Me.EnemiesNearby(Spells.LordofCrowns.Radius).Count() < AstrologianSettings.Instance.LordOfCrownsEnemies)
                 return false;
 
             return await Spells.LordofCrowns.Cast(Core.Me);
@@ -97,7 +101,8 @@ namespace Magitek.Logic.Astrologian
             if (target == null)
                 return false;
 
-            if (Combat.Enemies.Count(r => r.Distance(target) <= Spells.Oracle.Radius) < AstrologianSettings.Instance.OracleEnemies)
+            // Same geometry as Gravity above: the blast reaches radius + each enemy's hitbox.
+            if (target.EnemiesNearby(Spells.Oracle.Radius).Count() < AstrologianSettings.Instance.OracleEnemies)
                 return false;
 
             if (!Core.Me.HasAura(Auras.Divining, true))

@@ -642,7 +642,8 @@ namespace Magitek.Utilities
             PvpFanDance = 2052, // DNC - reduces damage taken by 20%
             PvpWreathOfIce = 4316, // BLM - reduces damage taken by 20%
             PvpBurst = 3221, // BLM - absorbs potency of 15000
-            PvpScarletFlame = 3231, // SMN - reduces damage dealt by 50%
+            PvpScarletFlame = 3231, // SMN - Firebird Trance damage over time, not a damage modifier
+            PvpRevelation = 3232, // SMN - applied by Brand of Purgatory, -50% damage dealt; the client name is a leftover from 7.0
             PvpRadiantAegis = 3224, // SMN - absorbs potency of 12000 and reduces damage taken by 25%
             PvpForte = 4320, // RDM - reduces damage taken by 50% and absorbs potency of 4000
             PvpEnchantedRiposte = 3234, // RDM - absorbs potency of 4000

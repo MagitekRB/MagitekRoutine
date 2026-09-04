@@ -56,6 +56,26 @@ namespace Magitek.Logic.Astrologian
                 if (!CanCombust(unit))
                     return false;
 
+                // Same guard as the single-target path: at 25+ statuses the debuff silently
+                // fails to apply, and a cast that lands no aura re-selects this enemy every
+                // pulse - an unbounded loop of zero-damage GCDs.
+                if (unit.CharacterAuras.Count() >= 25)
+                    return false;
+
+                // Reachability, cheapest first: an enemy out of Combust's 25y or behind a
+                // wall fails the cast anyway, and picking it blocked spreading to the
+                // dottable enemies actually in reach.
+                if (!unit.WithinSpellRange(Spells.Combust.Range) || !unit.InLineOfSight())
+                    return false;
+
+                // Combat.Enemies keeps enemies our damage cannot touch so the defensive
+                // paths still see them, and the client accepts a cast at one - immunity
+                // nullifies the damage, it does not refuse the action. A picker choosing
+                // its own target must ask the immunity rules itself, exactly as
+                // ThoroughCanAttack does for the current target.
+                if (!unit.CanBeDamagedByMe())
+                    return false;
+
                 return !unit.HasAnyAura(CombustAuras, true, msLeft: AstrologianSettings.Instance.CombustRefreshMSeconds);
             }
 

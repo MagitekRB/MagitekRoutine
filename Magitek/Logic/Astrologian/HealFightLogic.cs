@@ -33,7 +33,7 @@ namespace Magitek.Logic.Astrologian
                 && Spells.NeutralSect.CanCast())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Neutral Sect");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Neutral Sect");
                 return await FightLogic.DoAndBuffer(Spells.NeutralSect.Cast(Core.Me));
             }
 
@@ -46,7 +46,7 @@ namespace Magitek.Logic.Astrologian
                 && Spells.StellarDetonation.CanCast())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Earthly Star");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Earthly Star");
 
                 Character target = Core.Me;
 
@@ -70,9 +70,27 @@ namespace Magitek.Logic.Astrologian
                 && Group.CastableAlliesWithin30.Count() >= AstrologianSettings.Instance.CollectiveUnconsciousAllies)
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Collective Unconscious");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Collective Unconscious");
 
                 return await FightLogic.DoAndBuffer(Spells.CollectiveUnconscious.Cast(Core.Me));
+            }
+
+            // Macrocosmos stores the hit and returns half of it as healing, so it must go
+            // out BEFORE the raidwide lands - and only for the big ones, the same
+            // selectivity its old branch in Heals had. The aura guards are load-bearing:
+            // with the buff already up the client resolves this id to Microcosmos, so an
+            // unguarded press would CONVERT the stored damage before the hit arrives.
+            if (AstrologianSettings.Instance.FightLogic_Macrocosmos
+                && FightLogic.EnemyIsCastingBigAoe()
+                && Spells.Macrocosmos.IsKnownAndReady()
+                && !Core.Me.HasMyAura(Auras.Macrocosmos)
+                && !Group.CastableAlliesWithin20.Any(x => x.HasAura(Auras.Macrocosmos))
+                && Spells.Macrocosmos.CanCast())
+            {
+                if (BaseSettings.Instance.DebugFightLogic)
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Macrocosmos");
+
+                return await FightLogic.DoAndBuffer(Spells.Macrocosmos.HealAura(Core.Me, Auras.Macrocosmos));
             }
 
             if (AstrologianSettings.Instance.FightLogicHoroscope
@@ -83,7 +101,7 @@ namespace Magitek.Logic.Astrologian
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Horoscope");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Horoscope");
 
                 return await FightLogic.DoAndBuffer(Spells.Horoscope.Cast(Core.Me));
             }
@@ -102,7 +120,7 @@ namespace Magitek.Logic.Astrologian
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Response] Cast Aspected Helios");
+                    FightLogic.LogThrottled($"[AOE Response] Attempting Aspected Helios");
 
                 return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
@@ -144,7 +162,7 @@ namespace Magitek.Logic.Astrologian
                 && Spells.CelestialIntersection.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Celestial Intersection on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Celestial Intersection on {target.CurrentJob}");
                 return await FightLogic.DoAndBuffer(Spells.CelestialIntersection.HealAura(target, Auras.CelestialIntersection));
             }
 
@@ -154,7 +172,7 @@ namespace Magitek.Logic.Astrologian
                 && Spells.Exaltation.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Exaltation on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Exaltation on {target.CurrentJob}");
                 return await FightLogic.DoAndBuffer(Spells.Exaltation.HealAura(target, Auras.Exaltation));
             }
 
