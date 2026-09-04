@@ -15,7 +15,8 @@ namespace Magitek.Logic.Roles
         // responses wait it out — an oGCD defensive interjected mid-burst costs more than
         // it saves. Healers always respond, and a tank's mitigation outranks its burst
         // window, so only DPS hold. Deliberately not applied to FightLogic_TankDefensive
-        // (tanks never hold) or FightLogic_Doom (a doom response is life-or-death).
+        // (tanks never hold), FightLogic_Doom (a doom response is life-or-death) or
+        // FightLogic_Knockback (a missed knockback can kill; one clipped oGCD is cheaper).
         private static bool HoldForBurstWindow([CallerMemberName] string responder = null)
         {
             if (!BaseSettings.Instance.FightLogicRespectBurstWindows)
@@ -188,9 +189,6 @@ namespace Magitek.Logic.Roles
         public static async Task<bool> FightLogic_Knockback(bool useAntiKnockback, SpellData spell, bool selfAuraCheck = false, uint aura = 0, int castTimeRemainingMs = 3000)
         {
             if (!useAntiKnockback)
-                return false;
-
-            if (HoldForBurstWindow())
                 return false;
 
             if (!FightLogic.ZoneHasFightLogic() || !FightLogic.EnemyHasAnyKnockbackLogic())
