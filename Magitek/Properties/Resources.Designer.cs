@@ -6382,6 +6382,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to unless the target dies within.
+        /// </summary>
+        public static string Generic_Unless_Target_Dies_Within {
+            get {
+                return ResourceManager.GetString("Generic_Unless_Target_Dies_Within", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to seconds.
         /// </summary>
         public static string Generic_Seconds {
@@ -12016,6 +12025,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to at full Addersgall, anyone below.
+        /// </summary>
+        public static string Sage_Content_At_Full_Addersgall_Anyone_Below {
+            get {
+                return ResourceManager.GetString("Sage_Content_At_Full_Addersgall_Anyone_Below", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Druochole.
         /// </summary>
         public static string Sage_Content_Druochole {
@@ -12411,6 +12429,15 @@ namespace Magitek.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t move Kardia to anyone below.
+        /// </summary>
+        public static string Sage_Text_Dont_Move_Kardia_To_Anyone_Below {
+            get {
+                return ResourceManager.GetString("Sage_Text_Dont_Move_Kardia_To_Anyone_Below", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Switch Kardia Targets below.
         /// </summary>

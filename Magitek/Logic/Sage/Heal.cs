@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ff14bot.Managers.ActionResourceManager.Sage;
 using Auras = Magitek.Utilities.Auras;
+using SageRoutine = Magitek.Utilities.Routines.Sage;
 
 namespace Magitek.Logic.Sage
 {
@@ -25,20 +26,41 @@ namespace Magitek.Logic.Sage
             return Core.Me.HasAura(Auras.Eukrasia, true) || Spells.Eukrasia.IsKnownAndReady();
         }
 
+        /// <summary>
+        /// Eukrasian Prognosis II is an INDEPENDENT action, not a mask of the base spell: at 96+
+        /// the client refuses CanCast on the base id even with Eukrasia up, and GetMaskedAction
+        /// leaves the base id unchanged. Asking for the base spell there waits out its timeout and
+        /// casts nothing, so every caller picks the shield through here.
+        /// </summary>
+        public static SpellData EukrasianPrognosisSpell =>
+            Spells.EukrasianPrognosisII.IsKnown() ? Spells.EukrasianPrognosisII : Spells.EukrasianPrognosis;
+
         public static async Task<bool> UseEukrasia(uint spellId = 24291, GameObject targetObject = null)
         {
+            var target = targetObject == null ? Core.Me : targetObject;
+
+            // Armed already: only report success when the paired spell can actually go out now.
+            // Trusting the aura alone failed silently in the field - the aura read lags a consume
+            // by tens of milliseconds, and a rolling GCD refuses the press either way - and the
+            // caller's cast then died without a log line while the dot path took the Eukrasia.
             if (Core.Me.HasAura(Auras.Eukrasia, true))
-                return true;
+                return ActionManager.CanCast(spellId, target);
             if (!SageSettings.Instance.Eukrasia)
                 return false;
             if (!IsEukrasiaReady())
                 return false;
             if (!await Spells.Eukrasia.Cast(Core.Me))
                 return false;
-            if (!await Coroutine.Wait(2500, () => Core.Me.HasAura(Auras.Eukrasia, true)))
-                return false;
-            var target = targetObject == null ? Core.Me : targetObject;
-            return await Coroutine.Wait(2500, () => ActionManager.CanCast(spellId, target));
+
+            // Keep the arm->cast pair atomic, exactly as Scholar's Emergency Tactics helper does:
+            // one bounded wait for the aura AND the paired spell's castability, so the Eukrasia
+            // cannot drift to another caller between pulses (the damage path deliberately spends a
+            // banked Eukrasia on the dot, which is the drift this prevents). One wait rather than
+            // two sequential ones, and Scholar's 1000ms bound instead of 2500 twice over.
+            // 1250ms, not 1000: Eukrasia's own recast is exactly 1000ms and the paired spell only
+            // becomes castable when it reaches zero, so a 1000ms bound raced it and lost by a few ms.
+            return await Coroutine.Wait(1250, () => Core.Me.HasAura(Auras.Eukrasia, true)
+                                                    && ActionManager.CanCast(spellId, target));
         }
         private static async Task<bool> UseZoe()
         {
@@ -204,7 +226,12 @@ namespace Magitek.Logic.Sage
             if (!IsEukrasiaReady())
                 return false;
 
-            var target = Core.Me.CurrentTarget;
+            // Validate before arming: Eukrasia is a real GCD, and this takes the current target
+            // raw - which can be an enemy, out of range, or nothing at all.
+            var target = Core.Me.CurrentTarget as Character;
+
+            if (target == null || !target.IsAlive || target.CanAttack || !target.WithinSpellRange(30))
+                return false;
 
             if (!await UseEukrasia(Spells.EukrasianDiagnosis.Id, targetObject: target))
                 return false;
@@ -259,20 +286,12 @@ namespace Magitek.Logic.Sage
                     if (targets.Any(r => r.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent))
                         await UseZoe(); // intentionally ignore failures
 
-            if (!Spells.EukrasianPrognosisII.IsKnown())
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
-                    return false;
+            var prognosis = EukrasianPrognosisSpell;
 
-                return await Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis);
-            }
-            else
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosisII.Id))
-                    return false;
+            if (!await UseEukrasia(prognosis.Id))
+                return false;
 
-                return await Spells.EukrasianPrognosisII.HealAura(Core.Me, Auras.EukrasianPrognosis);
-            }
+            return await prognosis.HealAura(Core.Me, Auras.EukrasianPrognosis);
         }
         public static async Task<bool> ForceEukrasianPrognosis()
         {
@@ -282,22 +301,13 @@ namespace Magitek.Logic.Sage
             if (!IsEukrasiaReady())
                 return false;
 
-            if (!Spells.EukrasianPrognosisII.IsKnown())
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
-                    return false;
+            var forcedPrognosis = EukrasianPrognosisSpell;
 
-                if (!await Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis))
-                    return false;
-            }
-            else
-            {
-                if (!await UseEukrasia(Spells.EukrasianPrognosisII.Id))
-                    return false;
+            if (!await UseEukrasia(forcedPrognosis.Id))
+                return false;
 
-                if (!await Spells.EukrasianPrognosisII.HealAura(Core.Me, Auras.EukrasianPrognosis))
-                    return false;
-            }
+            if (!await forcedPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis))
+                return false;
 
             SageSettings.Instance.ForceEukrasianPrognosis = false;
             TogglesManager.ResetToggles();
@@ -320,9 +330,9 @@ namespace Magitek.Logic.Sage
             if (!spell.IsKnownAndReady())
                 return false;
 
-            if (SageSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
-                return false;
-
+            // No single-target suppression here: Physis is an AoE regen, and every other AoE heal
+            // in this file is judged purely by its own party-count gate below. Carrying the
+            // single-target rule hard-blocked it exactly when the party needed it most.
             var targets = Spells.PhysisII.IsKnown()
                 ? Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura))
                 : Group.CastableAlliesWithin20.Where(r => r.CurrentHealthPercent <= SageSettings.Instance.PhysisHpPercent && !r.HasAura(aura));
@@ -349,9 +359,31 @@ namespace Magitek.Logic.Sage
             if (SageSettings.Instance.DisableSingleHealWhenNeedAoeHealing && NeedAoEHealing())
                 return false;
 
+            // The Addersgall timer stops at three charges, so every second spent capped forfeits
+            // both the next charge and the 700 MP that comes with spending one. Druochole is last
+            // in the weave block, so a dump cannot preempt a real heal - everything above it has
+            // already declined this pulse. In combat only: this method is also reached on
+            // InActiveDuty, where a capped gauge would otherwise fire Druochole between pulls.
+            var overcapDump = SageSettings.Instance.DruocholeOnAddersgallOvercap
+                              && Addersgall >= SageRoutine.MaxAddersgall
+                              && Core.Me.InCombat;
+
             if (Globals.InParty)
             {
                 var DruocholeTarget = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealthPercent <= SageSettings.Instance.DruocholeHpPercent);
+
+                // Whoever is furthest from full rather than whoever the party list happens to put
+                // first, because at the overcap threshold most of the party usually qualifies.
+                // Full-health allies are excluded outright: the default threshold is 100, and
+                // <= 100 is true at full HP, so a gauge capped during downtime dumped into an
+                // unhurt party the moment combat started (field-observed 2026-08-29 - the
+                // pull opened with a Druochole that healed nobody).
+                if (DruocholeTarget == null && overcapDump)
+                    DruocholeTarget = Group.CastableAlliesWithin30
+                        .Where(r => r.CurrentHealth < r.MaxHealth
+                            && r.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent)
+                        .OrderBy(r => r.CurrentHealthPercent)
+                        .FirstOrDefault();
 
                 if (DruocholeTarget == null)
                     return false;
@@ -359,7 +391,10 @@ namespace Magitek.Logic.Sage
                 return await Spells.Druochole.Heal(DruocholeTarget);
             }
 
-            if (Core.Me.CurrentHealthPercent > SageSettings.Instance.DruocholeHpPercent)
+            if (Core.Me.CurrentHealthPercent > SageSettings.Instance.DruocholeHpPercent
+                && !(overcapDump
+                    && Core.Me.CurrentHealth < Core.Me.MaxHealth
+                    && Core.Me.CurrentHealthPercent <= SageSettings.Instance.DruocholeOvercapHpPercent))
                 return false;
 
             return await Spells.Druochole.Heal(Core.Me);
@@ -446,10 +481,12 @@ namespace Magitek.Logic.Sage
 
             if (needPrognosis)
             {
-                if (!await UseEukrasia(Spells.EukrasianPrognosis.Id))
+                var prognosis = EukrasianPrognosisSpell;
+
+                if (!await UseEukrasia(prognosis.Id))
                     return false;
 
-                if (!await Spells.EukrasianPrognosis.Cast(Core.Me))
+                if (!await prognosis.Cast(Core.Me))
                     return false;
 
                 if (!await Coroutine.Wait(1000, () => Core.Me.HasAura(Auras.EukrasianPrognosis, true)))
@@ -516,8 +553,7 @@ namespace Magitek.Logic.Sage
 
                 var haimaCandidates = Group.CastableAlliesWithin30.Where(r => r.CurrentHealthPercent < SageSettings.Instance.HaimaHpPercent
                                                                      && !r.HasAura(Auras.Weakness)
-                                                                     && !r.HasAura(Auras.Haimatinon)
-                                                                     && !r.HasAura(Auras.Panhaimatinon));
+                                                                     && !r.HasAura(Auras.Haimatinon));
 
                 if (SageSettings.Instance.HaimaTankForBuff)
                     haimaCandidates = haimaCandidates.Where(r => r.IsTank(SageSettings.Instance.HaimaMainTankForBuff));
@@ -655,7 +691,11 @@ namespace Magitek.Logic.Sage
 
             if (Globals.InParty)
             {
-                var pneumaTarget = Group.CastableAlliesWithin25.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= AoeNeedHealing;
+                // 20y, not 25: Pneuma's damage is a 25y line but its HEAL is a 20y circle centred
+                // on us, so allies between 20 and 25 were counted for a heal that cannot reach them.
+                // PneumaNeedHealing is the ability's own threshold - it has a control on the Combat
+                // tab and, until now, nothing read it.
+                var pneumaTarget = Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= SageSettings.Instance.PneumaNeedHealing;
 
                 if (!pneumaTarget)
                     return false;
@@ -690,7 +730,11 @@ namespace Magitek.Logic.Sage
 
             if (Globals.InParty)
             {
-                var pneumaTarget = Group.CastableAlliesWithin25.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= AoeNeedHealing;
+                // 20y, not 25: Pneuma's damage is a 25y line but its HEAL is a 20y circle centred
+                // on us, so allies between 20 and 25 were counted for a heal that cannot reach them.
+                // PneumaNeedHealing is the ability's own threshold - it has a control on the Combat
+                // tab and, until now, nothing read it.
+                var pneumaTarget = Group.CastableAlliesWithin20.Count(r => r.CurrentHealthPercent <= SageSettings.Instance.PneumaHpPercent) >= SageSettings.Instance.PneumaNeedHealing;
 
                 if (!pneumaTarget)
                     return false;

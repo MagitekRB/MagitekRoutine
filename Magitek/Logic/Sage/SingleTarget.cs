@@ -98,8 +98,11 @@ namespace Magitek.Logic.Sage
 
             // Don't multidot if we can use the aoe version of it. 
             // but multidot if we are out of range enough to use the aoe dot.
+            // Exactly the AoE dot's own radius: a wider suppression radius leaves a band where
+            // multi-dotting stops but the AoE dot has not started, so only the primary target
+            // keeps a dot at all.
             if (Spells.EukrasianDyskrasia.IsKnown()
-                && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.EukrasianDyskrasia.Radius * 1.5)) >= SageSettings.Instance.AoEEnemies)
+                && Combat.Enemies.Count(r => r.WithinSpellRange(Spells.EukrasianDyskrasia.Radius)) >= SageSettings.Instance.AoEEnemies)
                 return false;
 
             if (!Heal.IsEukrasiaReady())
@@ -126,6 +129,15 @@ namespace Magitek.Logic.Sage
             }
             bool CanDot(GameObject unit)
             {
+                // Combat.Enemies keeps enemies our damage cannot touch - a duel Villain we
+                // lack the Hero buff for, a boss immune to our damage type - so the defensive
+                // paths still see them. The client accepts a CAST at such an enemy (immunity
+                // nullifies the damage, it does not refuse the action), so a picker choosing
+                // its own target must ask the immunity rules itself, exactly as
+                // ThoroughCanAttack does for the current target.
+                if (!unit.CanBeDamagedByMe())
+                    return false;
+
                 // Check dosis since no eukrasia buff yet.
                 if (!Spells.Dosis.CanCast(unit))
                     return false;

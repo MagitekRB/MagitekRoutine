@@ -4,6 +4,7 @@ using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Account;
 using Magitek.Models.Sage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,23 +12,52 @@ namespace Magitek.Utilities.Routines
 {
     internal static class Sage
     {
-        public static bool OnGcd => Spells.Dosis.Cooldown.TotalMilliseconds > 100;
+        /// <summary>
+        /// Addersgall caps at three charges at every level that has the gauge, and the 20s
+        /// generation timer stops while capped.
+        /// </summary>
+        public const int MaxAddersgall = 3;
 
-        public static HashSet<string> DontShield = new HashSet<string>();
-        public static HashSet<string> DontEukrasianDiagnosis = new HashSet<string>();
-        public static HashSet<string> DontEukrasianPrognosis = new HashSet<string>();
+        /// <summary>
+        /// Enemies inside a rectangular line AoE cast forward from the player: <paramref name="length"/>
+        /// yalms ahead, <paramref name="width"/> yalms across in total. Decomposed from the angle off
+        /// our heading - forward = distance * cos, sideways = distance * sin - because the repo's
+        /// other AoE counters are circles and cones, and a line gated as a circle describes a disc
+        /// twice its length across (Pneuma is 25y long and 4y wide: a circle test passes on mobs
+        /// 25y off to either side that the line never touches).
+        /// Combat reach is added to both axes, matching WithinSpellRange's edge-to-edge convention.
+        /// Job-scoped while Sage is the only caller; promote to GameObjectExtensions when a second
+        /// job needs it.
+        /// </summary>
+        public static int EnemiesInLine(float length, float width)
+        {
+            var halfWidth = width / 2f;
 
-        public static List<Character> AllianceDiagnosisOnly = new List<Character>();
+            return Combat.Enemies.Count(r =>
+            {
+                if (r == null)
+                    return false;
+
+                var angle = r.RadiansFromPlayerHeading();
+
+                // Behind us: a forward line cannot reach them however close they are.
+                if (angle >= Math.PI / 2)
+                    return false;
+
+                var distance = r.Distance(Core.Me);
+                var forward = distance * Math.Cos(angle);
+                var sideways = distance * Math.Sin(angle);
+
+                return forward <= length + r.CombatReach
+                       && sideways <= halfWidth + r.CombatReach;
+            });
+        }
+
+
+
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Sage, Spells.Diagnosis);
 
-        public static int AoeEnemies5Yards;
-        public static int AoeEnemies30Yards;
-        public static void RefreshVars()
-        {
-            AoeEnemies5Yards = Combat.Enemies.Count(x => x.WithinSpellRange(5) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
-            AoeEnemies30Yards = Combat.Enemies.Count(x => x.WithinSpellRange(30) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
-        }
         public static bool CanWeave()
         {
             if (SageSettings.Instance.WeaveOGCDHeals
@@ -35,7 +65,13 @@ namespace Magitek.Utilities.Routines
             {
                 if (GlobalCooldown.CanWeave(1))
                     return true;
-                else if (Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + BaseSettings.Instance.UserLatencyOffset)
+                // Stall fallback, idle GCD only: the age check alone also came true in the
+                // tail of every rolling recast (age passes 1750ms before a 2.5s GCD comes
+                // back), exactly where CanWeave(1) refuses because an oGCD would clip the
+                // next GCD. The fallback exists for a rotation that has genuinely stopped.
+                else if (Spells.Diagnosis.Cooldown == System.TimeSpan.Zero
+                    && !Core.Me.IsCasting
+                    && Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + BaseSettings.Instance.UserLatencyOffset)
                     return true;
             }
             else
@@ -132,12 +168,6 @@ namespace Magitek.Utilities.Routines
             );
         }
 
-        public static readonly uint[] ShieldAuraList = {
-            Auras.NocturnalField,
-            Auras.Galvanize,
-            Auras.EukrasianDiagnosis,
-            Auras.EukrasianPrognosis
-        };
 
     }
 }
