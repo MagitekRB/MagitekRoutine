@@ -71,6 +71,7 @@ namespace Magitek
             GameEvents.OnClassChanged += GameEventsOnOnClassChanged;
             GameEvents.OnLevelUp += GameEventsOnOnLevelUp;
             GameEvents.OnMapChanged += GameEventsOnOnMapChanged;
+            ZoomHack.RequestRefresh();
 
             HookBehaviors();
 
@@ -110,6 +111,7 @@ namespace Magitek
             {
                 // Set the current zone
                 CurrentZone = WorldManager.ZoneId;
+                ZoomHack.RequestRefresh();
 
                 // Run the shit we need to.
                 // InvokeAsync, never Invoke, same as the other zone/job handlers below: this
@@ -189,6 +191,7 @@ namespace Magitek
             {
                 // Set the current zone
                 CurrentZone = WorldManager.ZoneId;
+                ZoomHack.RequestRefresh();
 
                 // InvokeAsync for the same reason as the class-changed handler above: blocking the
                 // pulse thread here wedged the bot on every zone transition, which is far more
@@ -316,6 +319,7 @@ namespace Magitek
             if (!TreeRoot.IsRunning)
                 return;
 
+            ZoomHack.Pulse();
             Tracking.Update();
             Combat.AdjustCombatTime();
             Combat.AdjustDutyTime();
