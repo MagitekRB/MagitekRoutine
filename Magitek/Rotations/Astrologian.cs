@@ -235,6 +235,8 @@ namespace Magitek.Rotations
             if (await Pvp.MacrocosmosPvp()) return true;
             if (await Pvp.MicrocosmosPvp()) return true;
             if (await Pvp.AspectedBeneficPvp()) return true;
+            // Double Cast may be holding a second Aspected Benefic, so it must not sit behind the damage gate
+            if (await Pvp.DoubleCastPvp()) return true;
 
             // Special Actions
             if (CommonPvp.ShouldUseBurst())
@@ -246,7 +248,6 @@ namespace Magitek.Rotations
             // Damage
             if (CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(AstrologianSettings.Instance))
             {
-                if (await Pvp.DoubleCastPvp()) return true;
                 if (await Pvp.GravityIIPvp()) return true;
             }
 

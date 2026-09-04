@@ -1,6 +1,7 @@
-using ff14bot;
+﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Logic.Roles;
 using Magitek.Models.Astrologian;
 using Magitek.Utilities;
 using System.Linq;
@@ -50,8 +51,7 @@ namespace Magitek.Logic.Astrologian
             var Target = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent);
 
             if (Target == null)
-                if (Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent)
-                    return await Spells.AspectedBeneficPvp.Heal(Core.Me);
+                return false;
 
             return await Spells.AspectedBeneficPvp.Heal(Target);
         }
@@ -71,7 +71,7 @@ namespace Magitek.Logic.Astrologian
                 return false;
 
             // Check for nearby enemies around the target
-            var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.GravityIIPvp.Radius));
+            var nearbyEnemies = Core.Me.CurrentTarget.EnemiesNearby(Spells.GravityIIPvp.Radius).Count();
             if (nearbyEnemies < AstrologianSettings.Instance.Pvp_GravityIIEnemies)
                 return false;
 
@@ -89,8 +89,8 @@ namespace Magitek.Logic.Astrologian
             if (Core.Me.HasAura(Auras.PvpGuard))
                 return false;
 
-            // Only use Double Cast if we have more than 1 charge
-            if (Spells.DoubleCastPvp.Charges <= 1)
+            // Keep one charge in reserve: Charges is fractional, so require two full ones
+            if (Spells.DoubleCastPvp.Charges < 2)
                 return false;
 
             // Get the masked spell from Double Cast
@@ -98,10 +98,13 @@ namespace Magitek.Logic.Astrologian
             if (maskedSpell == null)
                 return false;
 
+            // The heal branch runs from the healing block, so only the damage branches honour Hold Burst and Guard
+            var canDamage = CommonPvp.ShouldUseBurst() && !CommonPvp.GuardCheck(AstrologianSettings.Instance);
+
             // Handle each possible masked spell type
             if (maskedSpell.Id == Spells.DoubleFallMaleficPvp.Id)
             {
-                if (!AstrologianSettings.Instance.Pvp_FallMalefic)
+                if (!AstrologianSettings.Instance.Pvp_FallMalefic || !canDamage)
                     return false;
 
                 if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
@@ -122,21 +125,20 @@ namespace Magitek.Logic.Astrologian
                 var Target = Group.CastableAlliesWithin30.FirstOrDefault(r => r.CurrentHealth > 0 && r.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent);
 
                 if (Target == null)
-                    if (Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_AspectedBeneficHealthPercent)
-                        return await maskedSpell.Cast(Core.Me);
+                    return false;
 
                 return await maskedSpell.Cast(Target);
             }
             else if (maskedSpell.Id == Spells.DoubleGravityIIPvp.Id)
             {
-                if (!AstrologianSettings.Instance.Pvp_GravityII)
+                if (!AstrologianSettings.Instance.Pvp_GravityII || !canDamage)
                     return false;
 
                 if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                     return false;
 
                 // Check for nearby enemies around the target
-                var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.GravityIIPvp.Radius));
+                var nearbyEnemies = Core.Me.CurrentTarget.EnemiesNearby(Spells.GravityIIPvp.Radius).Count();
                 if (nearbyEnemies < AstrologianSettings.Instance.Pvp_GravityIIEnemies)
                     return false;
 
@@ -185,13 +187,10 @@ namespace Magitek.Logic.Astrologian
 
             // Detonate early when an ally (or self) within range drops below the configured heal threshold,
             // rather than waiting for the buff to expire on its own (the dev wanted that control).
-            var alliesNeedingHealing = Group.CastableAlliesWithin15.Count(x =>
+            var alliesNeedingHealing = Group.CastableAlliesWithin20.Count(x =>
                 x.IsValid &&
                 x.IsAlive &&
                 x.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_MicrocosmosHealthPercent);
-
-            if (Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_MicrocosmosHealthPercent)
-                alliesNeedingHealing++;
 
             if (alliesNeedingHealing < 1)
                 return false;
@@ -215,13 +214,9 @@ namespace Magitek.Logic.Astrologian
             if (maskedSpell == null)
                 return false;
 
-            // If Minor Arcana equals itself (not drawn yet) and we have a target in range
+            // If Minor Arcana equals itself (not drawn yet), draw - the card is random and both outcomes are handled below
             if (maskedSpell.Id == Spells.MinorArcanaPvp.Id)
             {
-                var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.LordOfCrownsPvp.Radius));
-                if (nearbyEnemies < AstrologianSettings.Instance.Pvp_LordOfCrownsEnemies)
-                    return false;
-
                 return await maskedSpell.Cast(Core.Me);
             }
 
@@ -239,10 +234,6 @@ namespace Magitek.Logic.Astrologian
             }
             else if (maskedSpell.Id == Spells.LordOfCrownsPvp.Id)
             {
-                // Check if we have a valid target for damage
-                if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
-                    return false;
-
                 var nearbyEnemies = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.LordOfCrownsPvp.Radius));
                 if (nearbyEnemies < AstrologianSettings.Instance.Pvp_LordOfCrownsEnemies)
                     return false;
@@ -270,6 +261,11 @@ namespace Magitek.Logic.Astrologian
             if (!Core.Me.CurrentTarget.ValidAttackUnit() || !Core.Me.CurrentTarget.InLineOfSight())
                 return false;
 
+            // Guard eats Oracle, so wait it out unless Divining has under a GCD and a half left
+            var holdForGuardMs = (int)(Spells.FallMaleficPvp.AdjustedCooldown.TotalMilliseconds * 1.5);
+            if (CommonPvp.GuardCheck(AstrologianSettings.Instance, Core.Me.CurrentTarget) && Core.Me.HasAura(Auras.PvpDivining, false, holdForGuardMs))
+                return false;
+
             return await Spells.OraclePvp.Cast(Core.Me.CurrentTarget);
         }
 
@@ -290,15 +286,11 @@ namespace Magitek.Logic.Astrologian
                 x.IsAlive &&
                 x.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_CelestialRiverHealthPercent);
 
-            // Include self in the count if below health threshold
-            if (Core.Me.CurrentHealthPercent <= AstrologianSettings.Instance.Pvp_CelestialRiverHealthPercent)
-                alliesNeedingHealing++;
-
             if (alliesNeedingHealing < AstrologianSettings.Instance.Pvp_CelestialRiverNearbyAllies)
                 return false;
 
-            // Check for enemies within Oracle range
-            var enemiesInRange = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.OraclePvp.Radius));
+            // Check for enemies within Celestial River's own radius
+            var enemiesInRange = Combat.Enemies.Count(x => x.WithinSpellRange(Spells.CelestialRiverPvp.Radius));
             if (enemiesInRange == 0)
                 return false;
 
