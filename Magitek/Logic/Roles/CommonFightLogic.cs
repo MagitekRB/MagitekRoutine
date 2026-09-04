@@ -4,6 +4,7 @@ using Magitek.Extensions;
 using Magitek.Models.Account;
 using Magitek.Utilities;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Magitek.Logic.Roles
@@ -16,7 +17,7 @@ namespace Magitek.Logic.Roles
         // window, so only DPS hold. Deliberately not applied to FightLogic_TankDefensive
         // (tanks never hold), FightLogic_Doom (a doom response is life-or-death) or
         // FightLogic_Knockback (a missed knockback can kill; one clipped oGCD is cheaper).
-        private static bool HoldForBurstWindow()
+        private static bool HoldForBurstWindow([CallerMemberName] string responder = null)
         {
             if (!BaseSettings.Instance.FightLogicRespectBurstWindows)
                 return false;
@@ -24,7 +25,16 @@ namespace Magitek.Logic.Roles
             if (!Core.Me.IsDps())
                 return false;
 
-            return RoutineState.InBurstWindow;
+            if (!RoutineState.InBurstWindow)
+                return false;
+
+            // Without this a held response reads exactly like one that never detected.
+            if (BaseSettings.Instance.DebugFightLogic)
+                FightLogic.LogThrottled(
+                    $"[FightLogic] Holding {responder} for burst window, {RoutineState.BurstWindowRemaining.TotalSeconds:F1}s left",
+                    $"hold:{responder}");
+
+            return true;
         }
 
         public static async Task<bool> FightLogic_TankDefensive(bool useDefensive, SpellData[] defensiveSpells, uint[] defensiveAuras, int castTimeRemainingMs = 0)
@@ -53,7 +63,7 @@ namespace Magitek.Logic.Roles
                     if (defensiveSpell.IsKnownAndReadyAndCastable(Core.Me))
                     {
                         if (BaseSettings.Instance.DebugFightLogic)
-                            Logger.WriteInfo($"[TankDefensive Response] Cast {defensiveSpell.Name}");
+                            FightLogic.LogThrottled($"[TankDefensive Response] Attempting {defensiveSpell.Name}");
                         if (await FightLogic.DoAndBuffer(defensiveSpell.Cast(Core.Me)))
                             return true; // intentionally continue to next defensive in the list. 
                     }
@@ -86,7 +96,7 @@ namespace Magitek.Logic.Roles
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[SelfShield Response] Cast {spell.Name}");
+                    FightLogic.LogThrottled($"[SelfShield Response] Attempting {spell.Name}");
 
                 return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
@@ -120,7 +130,7 @@ namespace Magitek.Logic.Roles
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[PartyShield Response] Cast {spell.Name}");
+                    FightLogic.LogThrottled($"[PartyShield Response] Attempting {spell.Name}");
 
                 return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
@@ -168,7 +178,7 @@ namespace Magitek.Logic.Roles
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[Debuff Response] Cast {spell.Name} on {debuffTarget.Name}");
+                    FightLogic.LogThrottled($"[Debuff Response] Attempting {spell.Name} on {debuffTarget.Name}");
 
                 return await FightLogic.DoAndBuffer(spell.Cast(debuffTarget));
             }
@@ -196,7 +206,7 @@ namespace Magitek.Logic.Roles
                     return false;
 
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AntiKnockback Response] Cast {spell.Name}");
+                    FightLogic.LogThrottled($"[AntiKnockback Response] Attempting {spell.Name}");
 
                 return await FightLogic.DoAndBuffer(spell.Cast(Core.Me));
             }
@@ -240,7 +250,7 @@ namespace Magitek.Logic.Roles
                 return false;
 
             if (BaseSettings.Instance.DebugFightLogic)
-                Logger.WriteInfo($"[Doom Response] Cast {heal.Name} on {doomed.Name}");
+                FightLogic.LogThrottled($"[Doom Response] Attempting {heal.Name} on {doomed.CurrentJob}");
 
             return await heal.Heal(doomed, false);
         }

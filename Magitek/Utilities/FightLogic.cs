@@ -21,6 +21,33 @@ namespace Magitek.Utilities
 
         private static HashSet<uint> FlHandledCastingSpellId = new HashSet<uint>();
 
+        // Responders re-run every pulse until something lands, so an unanswered mechanic
+        // repeats its debug line ~30x/s. Collapse identical lines to one per second.
+        private const int LogRepeatIntervalMs = 1000;
+        private static readonly Stopwatch LogClock = Stopwatch.StartNew();
+
+        // Keyed by message; bounded by the spell and enemy names in one encounter.
+        private static readonly Dictionary<string, long> LastLoggedMs = new();
+
+        /// <summary>
+        /// Debug log for fight logic, deduped so a stuck responder cannot flood the log.
+        /// Pass throttleKey when the message carries a value that changes every pulse.
+        /// </summary>
+        public static void LogThrottled(string message, string throttleKey = null)
+        {
+            if (!DebugSettings.Instance.DebugFightLogic)
+                return;
+
+            var key = throttleKey ?? message;
+            var now = LogClock.ElapsedMilliseconds;
+
+            if (LastLoggedMs.TryGetValue(key, out var last) && now - last < LogRepeatIntervalMs)
+                return;
+
+            LastLoggedMs[key] = now;
+            Logger.WriteInfo(message);
+        }
+
         // Global list of common AoeLockOn IDs that are used across multiple dungeons
         // These are visual indicators that seem to always represent AoE attacks regardless of dungeon
         private static readonly HashSet<uint> CommonAoeLockOns = new HashSet<uint>
@@ -126,6 +153,17 @@ namespace Magitek.Utilities
 
             if (!await task) return false;
 
+            // An instant action the client accepted but never fired starts no cooldown, so
+            // don't mark the mechanic answered by a press that did nothing.
+            var pressed = Casting.CastingSpell;
+            var lostPress = pressed != null && pressed.AdjustedCastTime == TimeSpan.Zero && pressed.Cooldown == TimeSpan.Zero;
+
+            if (pressed != null)
+                LogThrottled($"[FightLogic] DoAndBuffer {pressed.Name} cooldown={pressed.Cooldown.TotalMilliseconds:F0}ms latched={!lostPress}", $"doandbuffer:{pressed.Name}");
+
+            if (lostPress)
+                return true;
+
             FlHandledCastingSpellId.Add(enemy.CastingSpellId);
             FlStopwatch.Start();
             return true;
@@ -148,7 +186,7 @@ namespace Magitek.Utilities
             var output = MatchTankBuster(enemyLogic, enemy);
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
-                Logger.WriteInfo(
+                LogThrottled(
                     $"[TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name} on {output.CurrentJob} in our party.");
 
             return output;
@@ -171,7 +209,7 @@ namespace Magitek.Utilities
             var output = MatchSharedTankBuster(enemyLogic, enemy);
 
             if (output != null && DebugSettings.Instance.DebugFightLogic)
-                Logger.WriteInfo(
+                LogThrottled(
                     $"[Shared TankBuster Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}. Handling for {output.CurrentJob} in our party.");
 
             return output;
@@ -222,7 +260,7 @@ namespace Magitek.Utilities
                 var output = MatchAoe(enemyLogic, enemy);
 
                 if (output && DebugSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
+                    LogThrottled($"[AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
 
                 if (output)
                     return true;
@@ -238,7 +276,7 @@ namespace Magitek.Utilities
                     {
                         var encounterName = encounter?.Name ?? "Unknown Encounter";
                         var enemyName = enemy?.Name ?? "Unknown Enemy";
-                        Logger.WriteInfo($"[AOE Lock On Detected] {encounterName} {enemyName} lockon {lockOnId}");
+                        LogThrottled($"[AOE Lock On Detected] {encounterName} {enemyName} lockon {lockOnId}");
                     }
                     return true;
                 }
@@ -251,7 +289,7 @@ namespace Magitek.Utilities
                 if (found)
                 {
                     if (DebugSettings.Instance.DebugFightLogic)
-                        Logger.WriteInfo($"[AOE Lock On Detected] Common lockon {lockOnId}");
+                        LogThrottled($"[AOE Lock On Detected] Common lockon {lockOnId}");
                     return true;
                 }
             }
@@ -279,7 +317,7 @@ namespace Magitek.Utilities
             var output = MatchBigAoe(enemyLogic, enemy);
 
             if (output && DebugSettings.Instance.DebugFightLogic)
-                Logger.WriteInfo(
+                LogThrottled(
                     $"[BIG AOE Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
 
             return output;
@@ -302,7 +340,7 @@ namespace Magitek.Utilities
             var output = MatchKnockback(enemyLogic, enemy);
 
             if (output && DebugSettings.Instance.DebugFightLogic)
-                Logger.WriteInfo($"[Knockback Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
+                LogThrottled($"[Knockback Detected] {encounter.Name} {enemy.Name} casting {enemy.SpellCastInfo.Name}");
 
             return output;
         }

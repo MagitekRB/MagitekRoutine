@@ -43,7 +43,7 @@ namespace Magitek.Logic.Sage
                     tankCheck)
                 {
                     if (BaseSettings.Instance.DebugFightLogic)
-                        Logger.WriteInfo($"[AOE Response] Cast Kerachole");
+                        FightLogic.LogThrottled($"[AOE Response] Attempting Kerachole");
                     return await FightLogic.DoAndBuffer(Spells.Kerachole.CastAura(Core.Me, Auras.Kerachole));
                 }
             }
@@ -62,7 +62,7 @@ namespace Magitek.Logic.Sage
                     && tankCheck)
                 {
                     if (BaseSettings.Instance.DebugFightLogic)
-                        Logger.WriteInfo($"[AOE Response] Cast Panhaima");
+                        FightLogic.LogThrottled($"[AOE Response] Attempting Panhaima");
                     return await FightLogic.DoAndBuffer(Spells.Panhaima.CastAura(Core.Me, Auras.Panhaimatinon));
                 }
             }
@@ -81,7 +81,7 @@ namespace Magitek.Logic.Sage
                     && tankCheck)
                 {
                     if (BaseSettings.Instance.DebugFightLogic)
-                        Logger.WriteInfo($"[AOE Response] Cast Holos");
+                        FightLogic.LogThrottled($"[AOE Response] Attempting Holos");
                     return await FightLogic.DoAndBuffer(Spells.Holos.CastAura(Core.Me, Auras.Holos));
                 }
             }
@@ -98,7 +98,7 @@ namespace Magitek.Logic.Sage
                     && tankCheck)
                 {
                     if (BaseSettings.Instance.DebugFightLogic)
-                        Logger.WriteInfo($"[AOE Response] Cast Eukrasian Prognosis");
+                        FightLogic.LogThrottled($"[AOE Response] Attempting Eukrasian Prognosis");
                     if (await Heal.UseEukrasia(Spells.EukrasianPrognosis.Id))
                         return await FightLogic.DoAndBuffer(Spells.EukrasianPrognosis.HealAura(Core.Me, Auras.EukrasianPrognosis));
                 }
@@ -136,7 +136,7 @@ namespace Magitek.Logic.Sage
                 && Spells.Haima.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Haima on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Haima on {target.CurrentJob}");
                 return await FightLogic.DoAndBuffer(Spells.Haima.CastAura(target, Auras.Haimatinon));
             }
 
@@ -146,7 +146,7 @@ namespace Magitek.Logic.Sage
                 && Spells.Taurochole.CanCast(target))
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Taurochole on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Taurochole on {target.CurrentJob}");
                 return await FightLogic.DoAndBuffer(Spells.Taurochole.HealAura(target, Auras.Taurochole));
             }
 
@@ -156,7 +156,7 @@ namespace Magitek.Logic.Sage
                 && Heal.IsEukrasiaReady())
             {
                 if (BaseSettings.Instance.DebugFightLogic)
-                    Logger.WriteInfo($"[TankBuster Response] Cast Eukrasian Diagnosis on {target.Name}");
+                    FightLogic.LogThrottled($"[TankBuster Response] Attempting Eukrasian Diagnosis on {target.CurrentJob}");
                 if (await Heal.UseEukrasia(targetObject: target))
                     return await FightLogic.DoAndBuffer(Spells.EukrasianDiagnosis.HealAura(target, Auras.EukrasianDiagnosis));
             }
