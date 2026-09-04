@@ -7830,6 +7830,26 @@ namespace Magitek.Utilities
                                    // 48261, Snaking Necrobreath 48260.
                         },
                     },
+                    new Enemy {
+                        Id = 14747,
+                        Name = "Pelekys",
+                        Aoes = new List<uint> {
+                            47231, // Acrid Rain - castbar id, 4.7s. Same-name twin pair measured
+                                   // 2026-09-04 in a North Horn CE: 47231 is the castbar (4 starts,
+                                   // no damage lines), 47232 lands it (12 casts, 13.3 players per
+                                   // cast, up to 56k). Detection matches CastingSpellId, so only
+                                   // the castbar id arms responses.
+                                   // User field ruling: the ONLY cast of the kit that needs
+                                   // mitigation. Ruled out as dodgeable, all measured in the same
+                                   // six-minute engagement across 42 Pelekys: Central Gardening
+                                   // 47218 -> 47220 (10.7 players per cast), Side Gardening 47219
+                                   // -> 47221 / 49729, Venom 47216 -> 47217 (96 resolutions),
+                                   // Venom Mist 47224 / 47225 / 47228 -> 50547 / 50548 / 50549
+                                   // (up to 12.5), Poison Heart 47229 -> 47230 (84 casts from 28
+                                   // separate adds), Pollen Lure 47222, Devour 47223, Noxious
+                                   // Nectar 47215 / 49730 / 49885.
+                        },
+                    },
                 }
             },
             #endregion
