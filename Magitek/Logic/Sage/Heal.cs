@@ -83,11 +83,20 @@ namespace Magitek.Logic.Sage
             Auras.PhysisII,
             Auras.Holos,
             Auras.Eudaimonia,
-            // A co-healer's party mitigation saturates a target the same way ours does
-            Auras.Galvanize,
+            // A co-healer's party mitigation saturates a target the same way ours does.
+            // Galvanize is deliberately absent: see GalvanizeCountsAsPartyWideAt below.
             Auras.SacredSoilReceiver,
             Auras.FeyIllumination
         };
+
+        // Every other aura in the list above can only come from a party-wide cast, so one ally
+        // carrying it means the group is covered. Galvanize is the exception: Adloquium puts it on a
+        // single ally while Succor and Deployment Tactics put it on the party, and the aura is
+        // identical either way. The limiter reads the MOST covered injured ally, so counting it
+        // unconditionally would let one shielded tank suppress our raid buffs for everyone else.
+        // It therefore only counts once enough of the group carries it to be a party-wide
+        // application - comfortably above a single Adloquium, and below any real Succor.
+        private const int GalvanizeCountsAsPartyWideAt = 3;
 
         private static readonly List<uint> HealingBuffSingleAuras = new List<uint> {
             Auras.EukrasianDiagnosis,
@@ -103,7 +112,13 @@ namespace Magitek.Logic.Sage
             if (!wantHealTargets.Any())
                 return true;
 
-            var nAuras = wantHealTargets.Select(c => c.CountAuras(HealingBuffAoEAuras)).Max();
+            var galvanizeIsPartyWide = Group.CastableAlliesWithin30
+                .Count(a => a.HasAura(Auras.Galvanize)) >= GalvanizeCountsAsPartyWideAt;
+
+            var nAuras = wantHealTargets
+                .Select(c => c.CountAuras(HealingBuffAoEAuras)
+                             + (galvanizeIsPartyWide && c.HasAura(Auras.Galvanize) ? 1 : 0))
+                .Max();
 
             if (nAuras >= SageSettings.Instance.HealingBuffsMaxAtOnce)
             {
