@@ -18,6 +18,11 @@ namespace Magitek.Logic.Ninja
         private static int AoeComboEnemies =>
             Core.Me.HasAura(Auras.Doton) ? Math.Max(3, NinjaSettings.Instance.AoeEnemies - 1) : NinjaSettings.Instance.AoeEnemies;
 
+        // Bhavacakra 400 loses to two Hellfrogs (500) and Zesho Meppo 700 to two Deathfrogs (800), so the
+        // setting defaults to two; under Meisui (550 / 850) they win until one more target.
+        public static int NinkiAoeEnemies =>
+            NinjaSettings.Instance.HellfrogMediumEnemies + (Core.Me.HasMyAura(Auras.Meisui) ? 1 : 0);
+
         public static async Task<bool> DeathBlossom()
         {
             if (!AoeControl.Enabled)
@@ -75,7 +80,7 @@ namespace Magitek.Logic.Ninja
             if (!Spells.HellfrogMedium.IsKnown())
                 return false;
 
-            if (NinjaRoutine.AoeEnemies6Yards < NinjaRoutine.NinkiAoeEnemies)
+            if (NinjaRoutine.AoeEnemies6Yards < NinkiAoeEnemies)
                 return false;
 
             if (ActionResourceManager.Ninja.NinkiGauge < 50)

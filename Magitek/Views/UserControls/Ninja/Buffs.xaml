@@ -62,10 +62,17 @@
             </controls:SettingsBlock>
 
             <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
-                <StackPanel Margin="5" Orientation="Horizontal">
-                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Kassatsu}" IsChecked="{Binding NinjaSettings.UseKassatsu, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Meisui}" IsChecked="{Binding NinjaSettings.UseMeisui, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Bunshin}" IsChecked="{Binding NinjaSettings.UseBunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                <StackPanel Margin="5">
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Kassatsu}" IsChecked="{Binding NinjaSettings.UseKassatsu, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Meisui}" IsChecked="{Binding NinjaSettings.UseMeisui, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Bunshin}" IsChecked="{Binding NinjaSettings.UseBunshin, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Kassatsu_Up_To}" />
+                        <controls:Numeric MaxValue="15" MinValue="0" Value="{Binding NinjaSettings.KassatsuSecondsBeforeTrickAttack, Mode=TwoWay}" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Seconds_Before_Trick_Attack}" />
+                    </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>
 

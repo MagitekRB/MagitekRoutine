@@ -87,8 +87,8 @@ namespace Magitek.Logic.Ninja
         }
 
         // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
-        // the window; its buff lasts 15 s against Shadow Walker's 20 s.
-        public const int KassatsuLeadInMs = 5000;
+        // the window; its buff lasts 15 s against Shadow Walker's 20 s. User setting, default five seconds.
+        public static int KassatsuLeadInMs => NinjaSettings.Instance.KassatsuSecondsBeforeTrickAttack * 1000;
 
         // The Kassatsu ninjutsu stops waiting for Kunai's Bane once the buff has this little left.
         private const int KassatsuNinjutsuHoldFloorMs = 4000;
@@ -160,7 +160,7 @@ namespace Magitek.Logic.Ninja
             if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack)
                 return false;
 
-            if (NinjaRoutine.AoeEnemies6Yards >= NinjaRoutine.NinkiAoeEnemies)
+            if (NinjaRoutine.AoeEnemies6Yards >= Aoe.NinkiAoeEnemies)
                 return false;
 
             return await Spells.ZeshoMeppo.Cast(Core.Me.CurrentTarget);

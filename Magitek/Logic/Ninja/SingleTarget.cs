@@ -98,7 +98,7 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (AoeControl.Enabled && NinjaSettings.Instance.UseAoe && NinjaSettings.Instance.UseHellfrogMedium
-                && NinjaRoutine.AoeEnemies6Yards >= NinjaRoutine.NinkiAoeEnemies)
+                && NinjaRoutine.AoeEnemies6Yards >= Aoe.NinkiAoeEnemies)
                 return false;
 
             //Smart Target Logic needs to be addded

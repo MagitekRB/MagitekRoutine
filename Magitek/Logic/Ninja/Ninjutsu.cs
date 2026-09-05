@@ -224,7 +224,7 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             // Goka Mekkyaku at two targets beats Hyosho since the 7.4 buff (850 x 1.3 on two vs 1300 x 1.3 on one).
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 2)
+            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
             if (Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
@@ -246,7 +246,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 2)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
             if (Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))

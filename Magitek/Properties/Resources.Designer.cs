@@ -8407,6 +8407,42 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enemies (one more under Meisui).
+        /// </summary>
+        public static string Ninja_Text_Enemies_One_More_Under_Meisui {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_One_More_Under_Meisui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Goka Mekkyaku instead of Hyosho Ranryu when there are.
+        /// </summary>
+        public static string Ninja_Text_Goka_Instead_Of_Hyosho_When_There_Are {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Goka_Instead_Of_Hyosho_When_There_Are", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kassatsu up to.
+        /// </summary>
+        public static string Ninja_Text_Kassatsu_Up_To {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Kassatsu_Up_To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to seconds before Trick Attack / Kunai's Bane.
+        /// </summary>
+        public static string Ninja_Text_Seconds_Before_Trick_Attack {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Seconds_Before_Trick_Attack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Three Mudra Buffs.
         /// </summary>
         public static string Ninja_Text_Three_Mudra_Buffs {

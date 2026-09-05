@@ -1776,6 +1776,18 @@
   <data name="Ninja_Content_FightLogic_Use_Shade_Shift" xml:space="preserve">
     <value>FightLogic Use Shade Shift</value>
   </data>
+  <data name="Ninja_Text_Enemies_One_More_Under_Meisui" xml:space="preserve">
+    <value>Enemies (one more under Meisui)</value>
+  </data>
+  <data name="Ninja_Text_Goka_Instead_Of_Hyosho_When_There_Are" xml:space="preserve">
+    <value>Goka Mekkyaku instead of Hyosho Ranryu when there are</value>
+  </data>
+  <data name="Ninja_Text_Kassatsu_Up_To" xml:space="preserve">
+    <value>Kassatsu up to</value>
+  </data>
+  <data name="Ninja_Text_Seconds_Before_Trick_Attack" xml:space="preserve">
+    <value>seconds before Trick Attack / Kunai's Bane</value>
+  </data>
   <data name="Ninja_Text_Three_Mudra_Buffs" xml:space="preserve">
     <value>Three Mudra Buffs</value>
   </data>

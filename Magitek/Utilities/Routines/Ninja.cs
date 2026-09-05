@@ -36,10 +36,6 @@ namespace Magitek.Utilities.Routines
             CountdownPullUntil = DateTime.Now.AddMilliseconds(CountdownPullLatchMs);
         }
 
-        // Bhavacakra 400 loses to two Hellfrogs (500) and Zesho Meppo 700 to two Deathfrogs (800); under
-        // Meisui (550 / 850) they win until the third target.
-        public static int NinkiAoeEnemies => Core.Me.HasMyAura(Auras.Meisui) ? 3 : 2;
-
         private static readonly List<SpellData> Mudras = new List<SpellData>() { Spells.Ten, Spells.Jin, Spells.Chi };
 
         public static DateTime oGCD = DateTime.Now;
