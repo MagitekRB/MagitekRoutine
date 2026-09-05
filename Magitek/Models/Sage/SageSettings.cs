@@ -393,10 +393,6 @@ namespace Magitek.Models.Sage
 
         [Setting]
         [DefaultValue(true)]
-        public bool HealingBuffsOnlyMine { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
         public bool Diagnosis { get; set; }
 
         [Setting]
@@ -598,10 +594,6 @@ namespace Magitek.Models.Sage
         [Setting]
         [DefaultValue(true)]
         public bool Pneuma { get; set; }
-
-        [Setting]
-        [DefaultValue(false)]
-        public bool OnlyZoePneuma { get; set; }
 
         [Setting]
         [DefaultValue(true)]

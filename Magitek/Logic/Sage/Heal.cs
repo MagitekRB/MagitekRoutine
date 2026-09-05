@@ -82,8 +82,21 @@ namespace Magitek.Logic.Sage
             Auras.Panhaimatinon,
             Auras.PhysisII,
             Auras.Holos,
-            Auras.Eudaimonia
+            Auras.Eudaimonia,
+            // A co-healer's party mitigation saturates a target the same way ours does.
+            // Galvanize is deliberately absent: see GalvanizeCountsAsPartyWideAt below.
+            Auras.SacredSoilReceiver,
+            Auras.FeyIllumination
         };
+
+        // Every other aura in the list above can only come from a party-wide cast, so one ally
+        // carrying it means the group is covered. Galvanize is the exception: Adloquium puts it on a
+        // single ally while Succor and Deployment Tactics put it on the party, and the aura is
+        // identical either way. The limiter reads the MOST covered injured ally, so counting it
+        // unconditionally would let one shielded tank suppress our raid buffs for everyone else.
+        // It therefore only counts once enough of the group carries it to be a party-wide
+        // application - comfortably above a single Adloquium, and below any real Succor.
+        private const int GalvanizeCountsAsPartyWideAt = 3;
 
         private static readonly List<uint> HealingBuffSingleAuras = new List<uint> {
             Auras.EukrasianDiagnosis,
@@ -99,7 +112,13 @@ namespace Magitek.Logic.Sage
             if (!wantHealTargets.Any())
                 return true;
 
-            var nAuras = wantHealTargets.Select(c => c.CountAuras(HealingBuffAoEAuras, SageSettings.Instance.HealingBuffsOnlyMine)).Max();
+            var galvanizeIsPartyWide = Group.CastableAlliesWithin30
+                .Count(a => a.HasAura(Auras.Galvanize)) >= GalvanizeCountsAsPartyWideAt;
+
+            var nAuras = wantHealTargets
+                .Select(c => c.CountAuras(HealingBuffAoEAuras)
+                             + (galvanizeIsPartyWide && c.HasAura(Auras.Galvanize) ? 1 : 0))
+                .Max();
 
             if (nAuras >= SageSettings.Instance.HealingBuffsMaxAtOnce)
             {
@@ -173,7 +192,7 @@ namespace Magitek.Logic.Sage
                 if (target == null)
                     return false;
 
-                if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianDiagnosis && !SageSettings.Instance.OnlyZoePneuma)
+                if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianDiagnosis)
                     if (SageSettings.Instance.ZoeHealer && target.IsHealer()
                         || SageSettings.Instance.ZoeTank && target.IsTank(SageSettings.Instance.ZoeMainTank))
                         if (target.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent)
@@ -280,7 +299,7 @@ namespace Magitek.Logic.Sage
             if (!UseAoEHealingBuff(targets))
                 return false;
 
-            if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianPrognosis && !SageSettings.Instance.OnlyZoePneuma)
+            if (SageSettings.Instance.Zoe && SageSettings.Instance.ZoeEukrasianPrognosis)
                 if (SageSettings.Instance.ZoeHealer && targets.Any(r => r.IsHealer())
                     || SageSettings.Instance.ZoeTank && targets.Any(r => r.IsTank(SageSettings.Instance.ZoeMainTank)))
                     if (targets.Any(r => r.CurrentHealthPercent <= SageSettings.Instance.ZoeHealthPercent))
@@ -680,7 +699,8 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Pneuma)
                 return false;
 
-            if (SageSettings.Instance.OnlyZoePneuma)
+            // Zoe off = "Only With Pneuma" mode, where ZoePneuma() owns the cast
+            if (!SageSettings.Instance.Zoe)
                 return false;
 
             if (!Spells.Pneuma.IsKnownAndReady())
@@ -714,12 +734,8 @@ namespace Magitek.Logic.Sage
             if (!SageSettings.Instance.Pneuma)
                 return false;
 
-            if (SageSettings.Instance.Zoe)
-            {
-                if (!SageSettings.Instance.ZoePneuma)
-                    return false;
-            }
-            else if (!SageSettings.Instance.OnlyZoePneuma)
+            // Zoe off = "Only With Pneuma" mode, where this always applies
+            if (SageSettings.Instance.Zoe && !SageSettings.Instance.ZoePneuma)
                 return false;
 
             if (!Spells.Pneuma.IsKnownAndReady())

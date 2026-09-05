@@ -12223,15 +12223,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only Consider Own Buffs (disable to include co-sage).
-        /// </summary>
-        public static string Sage_Content_Only_Consider_Own_Buffs_disable_to_in {
-            get {
-                return ResourceManager.GetString("Sage_Content_Only_Consider_Own_Buffs_disable_to_in", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only Heal Alliance Members With Diagnosis.
         /// </summary>
         public static string Sage_Content_Only_Heal_Alliance_Members_With_Diagn {

@@ -41,6 +41,7 @@ namespace Magitek.Utilities
             SacredSoilReceiver = 299,
             WhisperingDawn = 315,
             AngelsWhisper = 1874,
+            FeyIllumination = 317,
             Catalyze = 1918,
             Combust = 838,
             Combust2 = 843,
