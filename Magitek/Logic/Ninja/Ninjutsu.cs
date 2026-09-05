@@ -36,7 +36,9 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards <= 2)
                 return false;
 
-            if (!Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
+            // Decided only before the first mudra: a chain in progress is finished whatever the estimate
+            // says now, because abandoning it wastes the charge and hands the mudra state to a Rabbit Medium.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Huton, Core.Me);
@@ -64,7 +66,9 @@ namespace Magitek.Logic.Ninja
             // Suiton exists to enable Kunai's Bane. When Kunai's Bane is not going to be pressed on this
             // target the charge is worth more as a Raiton, and a Shadow Walker that expires unused is a
             // Raiton and a Raiju thrown away.
-            if (!Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
+            // Decided only before the first mudra: the time-to-die estimate moves every pulse, and a chain
+            // abandoned after its mudras wastes the charge and hands the mudra state to a Rabbit Medium.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
@@ -227,7 +231,8 @@ namespace Magitek.Logic.Ninja
             if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
-            if (Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
+            // Only before the first mudra; a started chain is finished (see Suiton).
+            if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
@@ -249,7 +254,8 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
-            if (Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
+            // Only before the first mudra; a started chain is finished (see Suiton).
+            if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);
