@@ -93,6 +93,15 @@ namespace Magitek.Logic.Ninja
         // The Kassatsu ninjutsu stops waiting for Kunai's Bane once the buff has this little left.
         private const int KassatsuNinjutsuHoldFloorMs = 4000;
 
+        // Game constants: Kassatsu's recast and the duration of its buff. The remaining buff time is derived
+        // from the recast because a freshly applied aura reports zero time left on its first samples, which
+        // made an aura-time check release the hold one second after the press.
+        private const int KassatsuRecastMs = 60000;
+        private const int KassatsuBuffMs = 15000;
+
+        private static double KassatsuBuffLeftMs =>
+            KassatsuBuffMs - (KassatsuRecastMs - Spells.Kassatsu.Cooldown.TotalMilliseconds);
+
         /// <summary>
         /// Kunai's Bane is enabled and this target is worth it. Suiton and Huton mirror this so a Shadow
         /// Walker is never built for a Kunai's Bane that will not be pressed.
@@ -131,7 +140,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
-            if (!Core.Me.HasAura(Auras.Kassatsu, true, KassatsuNinjutsuHoldFloorMs))
+            if (!Core.Me.HasAura(Auras.Kassatsu) || KassatsuBuffLeftMs < KassatsuNinjutsuHoldFloorMs)
                 return false;
 
             return Spells.TrickAttack.Cooldown.TotalMilliseconds <= KassatsuLeadInMs;
