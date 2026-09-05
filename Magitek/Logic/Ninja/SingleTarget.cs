@@ -97,12 +97,28 @@ namespace Magitek.Logic.Ninja
             if (ActionResourceManager.Ninja.NinkiGauge < 90 || (Spells.Mug.Cooldown > new TimeSpan(0, 0, 7) && ActionResourceManager.Ninja.NinkiGauge + 40 < 90))
                 return false;
 
-            if (AoeControl.Enabled && (NinjaRoutine.AoeEnemies6Yards > 2 && !Core.Me.HasMyAura(Auras.Meisui)
-                || NinjaRoutine.AoeEnemies6Yards > 3 && Core.Me.HasMyAura(Auras.Meisui)))
+            if (AoeControl.Enabled && NinjaSettings.Instance.UseAoe && NinjaSettings.Instance.UseHellfrogMedium
+                && NinjaRoutine.AoeEnemies6Yards >= NinjaRoutine.NinkiAoeEnemies)
                 return false;
 
             //Smart Target Logic needs to be addded
             return await Spells.Bhavacakra.Cast(Core.Me.CurrentTarget);
+        }
+
+        // A single-target GCD in its own right (700 potency, 5-yalm splash), not an AoE option: it fires
+        // whenever Bunshin has granted it, whatever the AoE toggle says.
+        public static async Task<bool> PhantomKamaitachi()
+        {
+            if (!NinjaSettings.Instance.UsePhantomKamaitachi)
+                return false;
+
+            if (!Spells.PhantomKamaitachi.IsKnown())
+                return false;
+
+            if (!Core.Me.HasMyAura(Auras.PhantomKamaitachiReady) && Casting.SpellCastHistory.FirstOrDefault()?.Spell != Spells.Bunshin)
+                return false;
+
+            return await Spells.PhantomKamaitachi.Cast(Core.Me.CurrentTarget);
         }
 
         //Missing range check

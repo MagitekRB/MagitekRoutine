@@ -39,10 +39,6 @@
                 <StackPanel Margin="3">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox  Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_HellfrogMedium}" IsChecked="{Binding NinjaSettings.UseHellfrogMedium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <CheckBox  Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_DeathfrogMedium}" IsChecked="{Binding NinjaSettings.UseDeathfrogMedium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox  Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_PhantomKamaitachi}" IsChecked="{Binding NinjaSettings.UsePhantomKamaitachi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox  Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_TenriJindo}" IsChecked="{Binding NinjaSettings.UseTenriJindo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                 </StackPanel>

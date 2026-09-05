@@ -25,6 +25,9 @@ namespace Magitek.Rotations
         {
             Utilities.Routines.Ninja.RefreshVars();
 
+            if (GamelogManagerCountdown.IsCountdownRunning())
+                NinjaRoutine.NoteCountdown();
+
             if (await Utility.PrePullHide()) return true;
 
             if (await Ninjutsu.PrePullSuitonRamp()) return true;
@@ -114,7 +117,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.FleetingRaiju()) return true;
             if (await SingleTarget.ForkedRaiju()) return true;
 
-            if (await Aoe.PhantomKamaitachi()) return true;
+            if (await SingleTarget.PhantomKamaitachi()) return true;
 
             if (await Aoe.HakkeMujinsatsu()) return true;
             if (await Aoe.DeathBlossom()) return true;

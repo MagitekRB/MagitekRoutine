@@ -22,6 +22,24 @@ namespace Magitek.Utilities.Routines
         public static List<SpellData> UsedMudras = new List<SpellData>();
         public static int OpenerBurstAfterGCD = 2;
 
+        // True while the current pull started from a countdown, i.e. the pre-pull Suiton ramp ran and the
+        // opener alignment (Dokumori on GCD 2, Kunai's Bane on GCD 4) applies. Every other pull is a
+        // dungeon or field pull where the guides say to use the cooldowns as they come up. A latch with
+        // an expiry rather than a flag: the pull phase between the countdown ending and combat starting
+        // has no reliable place to clear a flag without also clearing it too early.
+        public static bool CountdownPull => DateTime.Now < CountdownPullUntil;
+        private static DateTime CountdownPullUntil = DateTime.MinValue;
+        private const int CountdownPullLatchMs = 30000;
+
+        public static void NoteCountdown()
+        {
+            CountdownPullUntil = DateTime.Now.AddMilliseconds(CountdownPullLatchMs);
+        }
+
+        // Bhavacakra 400 loses to two Hellfrogs (500) and Zesho Meppo 700 to two Deathfrogs (800); under
+        // Meisui (550 / 850) they win until the third target.
+        public static int NinkiAoeEnemies => Core.Me.HasMyAura(Auras.Meisui) ? 3 : 2;
+
         private static readonly List<SpellData> Mudras = new List<SpellData>() { Spells.Ten, Spells.Jin, Spells.Chi };
 
         public static DateTime oGCD = DateTime.Now;
@@ -117,10 +135,11 @@ namespace Magitek.Utilities.Routines
                 {
                     List<SpellData> availableMudras = Mudras.FindAll(x => x != endMudra && !UsedMudras.Contains(x) && x.IsKnown());
 
-                    if (await availableMudras[new Random().Next(availableMudras.Count)].Cast(Core.Me))
+                    var mudra = availableMudras[new Random().Next(availableMudras.Count)];
+                    if (await mudra.Cast(Core.Me))
                     {
                         await Casting.CheckForSuccessfulCast();
-                        UsedMudras.Add(Casting.SpellCastHistory.First().Spell);
+                        UsedMudras.Add(mudra);
                         return true;
                     }
 
@@ -197,10 +216,11 @@ namespace Magitek.Utilities.Routines
                 {
                     List<SpellData> availableMudras = Mudras.FindAll(x => x != NinjutsuEndMudra[ninjutsu] && !UsedMudras.Contains(x) && x.IsKnown());
 
-                    if (await availableMudras[new Random().Next(availableMudras.Count)].Cast(Core.Me))
+                    var mudra = availableMudras[new Random().Next(availableMudras.Count)];
+                    if (await mudra.Cast(Core.Me))
                     {
                         await Casting.CheckForSuccessfulCast();
-                        UsedMudras.Add(Casting.SpellCastHistory.First().Spell);
+                        UsedMudras.Add(mudra);
                         return true;
                     }
 
@@ -208,6 +228,7 @@ namespace Magitek.Utilities.Routines
 
                 else if (await NinjutsuEndMudra[ninjutsu].Cast(Core.Me))
                 {
+                    await Casting.CheckForSuccessfulCast();
                     UsedMudras.Add(NinjutsuEndMudra[ninjutsu]);
                     return true;
                 }
@@ -233,7 +254,7 @@ namespace Magitek.Utilities.Routines
                     if (Core.Me.HasMyAura(Auras.Mudra) || Core.Me.HasMyAura(Auras.TenChiJin))
                         break;
 
-                    if (!Core.Me.HasMyAura(Auras.TenChiJin) && !Core.Me.HasMyAura(Auras.Mudra) && new List<SpellData>() { Spells.Ten, Spells.Chi, Spells.Jin }.Contains(Casting.SpellCastHistory.First().Spell))
+                    if (!Core.Me.HasMyAura(Auras.TenChiJin) && !Core.Me.HasMyAura(Auras.Mudra) && Mudras.Contains(Casting.SpellCastHistory.FirstOrDefault()?.Spell))
                         break;
 
                     UsedMudras.Clear();

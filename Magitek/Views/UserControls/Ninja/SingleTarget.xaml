@@ -67,6 +67,10 @@
                         <CheckBox Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_ZeshoMeppo}" IsChecked="{Binding NinjaSettings.UseZeshoMeppo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_PhantomKamaitachi}" IsChecked="{Binding NinjaSettings.UsePhantomKamaitachi, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        <CheckBox Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Fleeting_Raiju}" IsChecked="{Binding NinjaSettings.UseFleetingRaiju, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Forked_Raiju}" IsChecked="{Binding NinjaSettings.UseForkedRaiju, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <CheckBox Margin="5" Content="{x:Static properties:Resources.Ninja_Content_Use_ThrowingDagger}" IsChecked="{Binding NinjaSettings.UseThrowingDagger, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                     </StackPanel>

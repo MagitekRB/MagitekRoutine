@@ -1848,9 +1848,6 @@
   <data name="Ninja_Content_Use_HellfrogMedium" xml:space="preserve">
     <value>Hellfrog Medium</value>
   </data>
-	<data name="Ninja_Content_Use_DeathfrogMedium" xml:space="preserve">
-    <value>Deathfrog Medium</value>
-  </data>
   <data name="Ninja_Content_Use_PhantomKamaitachi" xml:space="preserve">
     <value>Phantom Kamaitachi</value>
   </data>

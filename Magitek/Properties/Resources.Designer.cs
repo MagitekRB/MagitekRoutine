@@ -8299,15 +8299,6 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deathfrog Medium.
-        /// </summary>
-        public static string Ninja_Content_Use_DeathfrogMedium {
-            get {
-                return ResourceManager.GetString("Ninja_Content_Use_DeathfrogMedium", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hellfrog Medium.
         /// </summary>
         public static string Ninja_Content_Use_HellfrogMedium {

@@ -41,7 +41,7 @@ namespace Magitek.Models.Ninja
         public bool UseAoe { get; set; }
 
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(4)]
         public int AoeEnemies { get; set; }
 
         [Setting]
@@ -51,10 +51,6 @@ namespace Magitek.Models.Ninja
         [Setting]
         [DefaultValue(true)]
         public bool UseHellfrogMedium { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool UseDeathfrogMedium { get; set; }
 
         [Setting]
         [DefaultValue(true)]

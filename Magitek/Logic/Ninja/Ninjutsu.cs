@@ -1,6 +1,7 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
 using Magitek.Extensions;
+using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using Magitek.Utilities.GamelogManager;
 using System;
@@ -35,6 +36,9 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards <= 2)
                 return false;
 
+            if (!Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
+                return false;
+
             return await NinjaRoutine.PrepareNinjutsu(Spells.Huton, Core.Me);
 
         }
@@ -55,6 +59,12 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
+                return false;
+
+            // Suiton exists to enable Kunai's Bane. When Kunai's Bane is not going to be pressed on this
+            // target the charge is worth more as a Raiton, and a Shadow Walker that expires unused is a
+            // Raiton and a Raiju thrown away.
+            if (!Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
@@ -117,6 +127,12 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Suiton.IsKnownAndReadyAndCastable())
                 return false;
 
+            // Only the ramp's own three mudras qualify. The client reports Suiton castable whenever the
+            // Ninjutsu button is, so pressing it with fewer mudras up executes Fuma Shuriken instead and
+            // burns the charge; on a field pull that happened twice in the first two seconds of most fights.
+            if (NinjaRoutine.UsedMudras.Count < 3 || !Core.Me.HasMyAura(Auras.Mudra))
+                return false;
+
             return await Spells.Suiton.Cast(Core.Me.CurrentTarget);
 
         }
@@ -139,10 +155,16 @@ namespace Magitek.Logic.Ninja
             if (!Spells.TenChiJin.IsKnown())
                 return false;
 
+            if (!NinjaSettings.Instance.UseTenChiJin)
+                return false;
+
             if (Spells.TrickAttack.Cooldown < new TimeSpan(0, 0, 45))
                 return false;
 
-            if (Spells.Chi.Charges >= (Spells.Chi.MaxCharges - (6000 / 20000)))
+            // Spend a charge on a Raiton first when the mudras are within six seconds of the twenty-second
+            // recharge cap (0.3 of a charge); the old integer division made this line refuse only at exactly
+            // full charges.
+            if (Spells.Chi.Charges >= Spells.Chi.MaxCharges - 0.3)
                 return false;
 
             return await Spells.TenChiJin.CastAura(Core.Me, Auras.TenChiJin);
@@ -201,7 +223,11 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
+            // Goka Mekkyaku at two targets beats Hyosho since the 7.4 buff (850 x 1.3 on two vs 1300 x 1.3 on one).
+            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 2)
+                return false;
+
+            if (Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
@@ -220,7 +246,10 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 2)
+                return false;
+
+            if (Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);

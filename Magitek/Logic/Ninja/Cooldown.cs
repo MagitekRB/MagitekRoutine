@@ -8,6 +8,7 @@ using Magitek.Utilities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 namespace Magitek.Logic.Ninja
@@ -34,7 +35,9 @@ namespace Magitek.Logic.Ninja
                     return false;
             }
 
-            if (Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * NinjaRoutine.OpenerBurstAfterGCD - 770)
+            // Opener alignment only: on a countdown pull Dokumori goes out on the second GCD. Any other
+            // pull uses it as soon as it is up.
+            if (NinjaRoutine.CountdownPull && Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * NinjaRoutine.OpenerBurstAfterGCD - 770)
                 return false;
 
             if (ActionResourceManager.Ninja.NinkiGauge + 40 > 100)
@@ -58,16 +61,13 @@ namespace Magitek.Logic.Ninja
             if (!Spells.TrickAttack.IsKnownAndReady())
                 return false;
 
-            if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
-                return false;
-
-            if (Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown == new TimeSpan(0, 0, 0))
-                return false;
-
+            // Kunai's Bane goes out on cooldown. Dokumori and Bunshin sit above it in the weave list, so
+            // when they are ready together they still land first; they no longer hold it when they are not.
             if (Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 800)
                 return false;
 
-            if (Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * (NinjaRoutine.OpenerBurstAfterGCD * 2) - 770)
+            // Opener alignment only: on a countdown pull Kunai's Bane is the late weave after the fourth GCD.
+            if (NinjaRoutine.CountdownPull && Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * (NinjaRoutine.OpenerBurstAfterGCD * 2) - 770)
                 return false;
 
             if (!CanTrickAttack(Core.Me.CurrentTarget))
@@ -86,6 +86,47 @@ namespace Magitek.Logic.Ninja
             return unit.CombatTimeLeft() >= NinjaSettings.Instance.DontTrickAttackIfEnemyDyingWithinSeconds;
         }
 
+        // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
+        // the window; its buff lasts 15 s against Shadow Walker's 20 s.
+        public const int KassatsuLeadInMs = 5000;
+
+        // The Kassatsu ninjutsu stops waiting for Kunai's Bane once the buff has this little left.
+        private const int KassatsuNinjutsuHoldFloorMs = 4000;
+
+        /// <summary>
+        /// Kunai's Bane is enabled and this target is worth it. Suiton and Huton mirror this so a Shadow
+        /// Walker is never built for a Kunai's Bane that will not be pressed.
+        /// </summary>
+        public static bool KunaisBaneWanted(GameObject unit)
+        {
+            if (!Spells.TrickAttack.IsKnown() || !NinjaSettings.Instance.UseTrickAttack || NinjaSettings.Instance.BurstLogicHoldBurst)
+                return false;
+
+            return unit != null && CanTrickAttack(unit);
+        }
+
+        /// <summary>
+        /// Kassatsu is up and Kunai's Bane is about to land on this target: hold the Kassatsu ninjutsu so it
+        /// lands inside the window. Gives up once Kassatsu is nearly gone rather than lose it.
+        /// </summary>
+        public static bool HoldKassatsuNinjutsuForKunaisBane(GameObject unit)
+        {
+            if (!KunaisBaneWanted(unit))
+                return false;
+
+            if (unit.HasAura(Auras.KunaisBane, true) || unit.HasAura(Auras.TrickAttack, true))
+                return false;
+
+            // Without Shadow Walker no Kunai's Bane can arrive inside the hold, so there is nothing to wait for.
+            if (!Core.Me.HasMyAura(Auras.ShadowWalker))
+                return false;
+
+            if (!Core.Me.HasAura(Auras.Kassatsu, true, KassatsuNinjutsuHoldFloorMs))
+                return false;
+
+            return Spells.TrickAttack.Cooldown.TotalMilliseconds <= KassatsuLeadInMs;
+        }
+
         public static async Task<bool> Assassinate()
         {
             if (!Spells.Assassinate.IsKnown())
@@ -99,7 +140,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.TrickAttack.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
-            if (Casting.SpellCastHistory.First().Spell == Spells.TrickAttack && Spells.SpinningEdge.Cooldown.TotalMilliseconds < 800)
+            if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack && Spells.SpinningEdge.Cooldown.TotalMilliseconds < 800)
                 return false;
 
             return await Spells.Assassinate.Cast(Core.Me.CurrentTarget);
@@ -116,10 +157,10 @@ namespace Magitek.Logic.Ninja
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))
                 return false;
 
-            if (Casting.SpellCastHistory.First().Spell == Spells.TrickAttack)
+            if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack)
                 return false;
 
-            if (NinjaRoutine.AoeEnemies6Yards > 1)
+            if (NinjaRoutine.AoeEnemies6Yards >= NinjaRoutine.NinkiAoeEnemies)
                 return false;
 
             return await Spells.ZeshoMeppo.Cast(Core.Me.CurrentTarget);
@@ -137,7 +178,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))
                 return false;
 
-            if (Casting.SpellCastHistory.First().Spell == Spells.TrickAttack)
+            if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack)
                 return false;
 
             return await Spells.TenriJindo.Cast(Core.Me.CurrentTarget);
