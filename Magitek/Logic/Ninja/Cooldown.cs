@@ -70,7 +70,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.CountdownPull && Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * (NinjaRoutine.OpenerBurstAfterGCD * 2) - 770)
                 return false;
 
-            if (!CanTrickAttack(Core.Me.CurrentTarget))
+            if (!KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
             return await Spells.TrickAttack.Cast(Core.Me.CurrentTarget);
@@ -102,7 +102,17 @@ namespace Magitek.Logic.Ninja
             if (!Spells.TrickAttack.IsKnown() || !NinjaSettings.Instance.UseTrickAttack || NinjaSettings.Instance.BurstLogicHoldBurst)
                 return false;
 
-            return unit != null && CanTrickAttack(unit);
+            if (unit == null)
+                return false;
+
+            // The time-to-die decision is taken once, when the Suiton is built. With Shadow Walker already up
+            // the charge is spent, so Kunai's Bane goes out whatever the estimate says now: the estimate moves
+            // every pulse and reads zero for a pulse after every target swap, and re-deciding here released
+            // the Kassatsu hold early on most trash windows in a Forked Tower run.
+            if (Core.Me.HasMyAura(Auras.ShadowWalker))
+                return true;
+
+            return CanTrickAttack(unit);
         }
 
         /// <summary>
