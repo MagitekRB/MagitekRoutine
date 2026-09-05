@@ -3459,6 +3459,9 @@
   <data name="Summoner_Content_Swiftcast_Ruby_Rite" xml:space="preserve">
     <value>Swiftcast Ruby Rite</value>
   </data>
+  <data name="Summoner_Content_Swiftcast_Ruby_Rite_While_Moving" xml:space="preserve">
+    <value>Use Swiftcast for it while moving, even with charges left</value>
+  </data>
   <data name="Summoner_Content_Ruin_IV" xml:space="preserve">
     <value>Ruin IV</value>
   </data>

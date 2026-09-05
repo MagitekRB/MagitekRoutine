@@ -3465,6 +3465,9 @@
   <data name="Summoner_Content_Swiftcast_Ruby_Rite" xml:space="preserve">
     <value>即刻咏唱 红宝石之仪</value>
   </data>
+  <data name="Summoner_Content_Swiftcast_Ruby_Rite_While_Moving" xml:space="preserve">
+    <value>移动时使用即刻咏唱释放红宝石之仪（即使尚有层数）</value>
+  </data>
   <data name="Summoner_Content_Ruin_IV" xml:space="preserve">
     <value>毁绝</value>
   </data>

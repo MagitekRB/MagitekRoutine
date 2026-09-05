@@ -200,6 +200,15 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.HasAura(Auras.RefulgentLux))
                 return false;
 
+            // Expiry dump: the heal is free and the charge is about to vanish, so spend it
+            // regardless of anyone's health rather than let it expire unused. ExpiringWithin,
+            // not a negated HasAura(msLeft): the client reports a fresh aura's time left as its
+            // NEGATED full duration on the first sample (-30s for Refulgent Lux), which read as
+            // "under 4s left" and fired Lux the instant Solar Bahamut landed - 13/13 casts in the
+            // field, 0.1-1.3s after the summon. ExpiringWithin requires a non-negative reading.
+            if (Core.Me.HasAuraExpiringWithin(Auras.RefulgentLux, msRemaining: 4000))
+                return await Spells.LuxSolaris.Cast(Core.Me);
+
             if (Globals.InParty)
             {
                 var needHealing = PartyManager.NumMembers > 4 ? 3 : 2;
@@ -209,7 +218,7 @@ namespace Magitek.Logic.Summoner
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent <= SummonerSettings.Instance.LuxSolarisHpPercent)
+                if (Core.Me.CurrentHealthPercent > SummonerSettings.Instance.LuxSolarisHpPercent)
                     return false;
             }
 
