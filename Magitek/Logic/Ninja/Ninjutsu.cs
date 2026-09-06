@@ -137,6 +137,12 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count < 3 || !Core.Me.HasMyAura(Auras.Mudra))
                 return false;
 
+            // Only the ramp's chain: a three-mudra Doton or Huton built on a pack pull also completes inside
+            // the first second of combat, and pressing the Ninjutsu button here executes whatever sequence the
+            // game holds - a Doton was cast under the name Suiton, so no Shadow Walker and a wasted Kassatsu.
+            if (NinjaRoutine.ChainNinjutsu != Spells.Suiton)
+                return false;
+
             return await Spells.Suiton.Cast(Core.Me.CurrentTarget);
 
         }
