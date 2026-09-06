@@ -61,10 +61,12 @@ namespace Magitek.Logic.Ninja
             if (!Spells.TrickAttack.IsKnownAndReady())
                 return false;
 
-            // Kunai's Bane goes out on cooldown. Dokumori and Bunshin sit above it in the weave list, so
-            // when they are ready together they still land first; they no longer hold it when they are not.
-            if (Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 800)
-                return false;
+            // Kunai's Bane goes out on cooldown, in whichever weave slot is open. Dokumori and Bunshin sit
+            // above it in the weave list, so when they are ready together they still land first. It used to
+            // be refused while the weaponskill recast had 800 ms or more left, which against the weave
+            // block's own 770 ms floor left a 30 ms window per GCD: whether it went out was down to pulse
+            // timing, and a Shadow Walker expired unused after ten seconds of open weave slots. The Balance:
+            // only weave it late in the opener, anywhere else use it on cooldown.
 
             // Opener alignment only: on a countdown pull Kunai's Bane is the late weave after the fourth GCD.
             if (NinjaRoutine.CountdownPull && Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * (NinjaRoutine.OpenerBurstAfterGCD * 2) - 770)
