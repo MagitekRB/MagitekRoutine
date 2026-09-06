@@ -63,6 +63,10 @@ namespace Magitek.Utilities.Routines
         // a chain that works.
         private const int TenChiJinStepMs = 1000;
 
+        // How long after the Ten Chi Jin press its aura may still be missing from the aura list before
+        // "no aura" means it is over.
+        private const int TenChiJinAuraGraceMs = 2000;
+
         private static async Task<bool> PressMudra(SpellData mudra, GameObject target)
         {
             if (!await mudra.Cast(target))
@@ -268,13 +272,10 @@ namespace Magitek.Utilities.Routines
                 return await PressMudra(NinjutsuEndMudra[ninjutsu], target);
             }
 
-            // One chain, one owner.
-            if (UsedMudras.Count == 0)
-            {
-                ChainNinjutsu = ninjutsu;
-                ChainTargetsSelf = target == Core.Me;
-            }
-            else if (ChainNinjutsu != null && ChainNinjutsu != ninjutsu)
+            // One chain, one owner. The owner is recorded once its first press has gone out, so a first
+            // press that fails (no charge) leaves no ghost owner behind.
+            var firstPress = UsedMudras.Count == 0;
+            if (!firstPress && ChainNinjutsu != null && ChainNinjutsu != ninjutsu)
                 return false;
 
             if (UsedMudras.Count < NinjutsuComplexity[ninjutsu] - 1)
@@ -283,12 +284,26 @@ namespace Magitek.Utilities.Routines
 
                 var mudra = availableMudras[new Random().Next(availableMudras.Count)];
                 if (await PressMudra(mudra, Core.Me))
+                {
+                    if (firstPress)
+                    {
+                        ChainNinjutsu = ninjutsu;
+                        ChainTargetsSelf = target == Core.Me;
+                    }
                     return true;
+                }
             }
             else if (UsedMudras.Count < NinjutsuComplexity[ninjutsu])
             {
                 if (await PressMudra(NinjutsuEndMudra[ninjutsu], Core.Me))
+                {
+                    if (firstPress)
+                    {
+                        ChainNinjutsu = ninjutsu;
+                        ChainTargetsSelf = target == Core.Me;
+                    }
                     return true;
+                }
             }
 
             if (UsedMudras.Count < NinjutsuComplexity[ninjutsu])
@@ -330,9 +345,17 @@ namespace Magitek.Utilities.Routines
             {
                 TenChiJin = true;
             }
-            if (TenChiJin && !Core.Me.HasMyAura(Auras.TenChiJin) && Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell != Spells.TenChiJin)
+            // Ten Chi Jin is over once its aura is gone - also when nothing was cast after it, because the
+            // steps never went out and it expired. The history test alone never noticed that case: the
+            // flag stayed latched and the next ordinary chain was built through the Ten Chi Jin branch.
+            // Whatever the steps recorded goes with it.
+            if (TenChiJin && !Core.Me.HasMyAura(Auras.TenChiJin) && Casting.SpellCastHistory.Count() > 0
+                && (Casting.SpellCastHistory.First().Spell != Spells.TenChiJin
+                    || (DateTime.UtcNow - Casting.SpellCastHistory.First().TimeCastUtc).TotalMilliseconds > TenChiJinAuraGraceMs))
             {
                 TenChiJin = false;
+                UsedMudras.Clear();
+                ChainNinjutsu = null;
             }
 
             if (Core.Me.HasAura(Auras.TenChiJin))
