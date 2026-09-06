@@ -115,7 +115,7 @@ namespace Magitek.Rotations
             if (Core.Me.HasMyAura(Auras.TenChiJin)
                 && (NinjaRoutine.UsedMudras.Count < 3 || NinjaRoutine.MudraPressedRecently)) return true;
 
-            if (await NinjaRoutine.ContinueChain()) return true;
+            if (await Ninjutsu.ContinueChain()) return true;
 
             if (await Ninjutsu.Doton()) return true;
             if (await Ninjutsu.GokaMekkyaku()) return true;

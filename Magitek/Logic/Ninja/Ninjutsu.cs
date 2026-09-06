@@ -1,12 +1,15 @@
 ﻿using ff14bot;
 using ff14bot.Managers;
+using ff14bot.Objects;
 using Magitek.Extensions;
 using Magitek.Models.Ninja;
 using Magitek.Utilities;
 using Magitek.Utilities.GamelogManager;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Auras = Magitek.Utilities.Auras;
 using NinjaRoutine = Magitek.Utilities.Routines.Ninja;
 
 
@@ -14,6 +17,157 @@ namespace Magitek.Logic.Ninja
 {
     internal static class Ninjutsu
     {
+
+        #region Mudra chain
+
+        private static readonly List<SpellData> Mudras = new List<SpellData>() { Spells.Ten, Spells.Jin, Spells.Chi };
+
+        // Under Ten Chi Jin every mudra press is itself a ninjutsu with an animation lock, and a press sent
+        // inside the previous one's lock replaces it in the client's queue: the Ten went missing, the Chi
+        // ran as the Fuma Shuriken step, and the chain could never finish. The steps are a second apart in
+        // a chain that works.
+        private const int TenChiJinStepMs = 1000;
+
+        /// <summary>
+        /// Finishes the chain in progress for the ninjutsu that started it, ahead of every ninjutsu
+        /// method's own gates: a gate that flips mid-chain (enemy count, the estimate, a cooldown) must
+        /// not leave the mudras hanging for a weaponskill to break, or for another ninjutsu to finish
+        /// in its own order.
+        /// </summary>
+        public static async Task<bool> ContinueChain()
+        {
+            if (NinjaRoutine.ChainNinjutsu == null || NinjaRoutine.UsedMudras.Count == 0)
+                return false;
+
+            if (NinjaRoutine.TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
+                return false;
+
+            var target = NinjaRoutine.ChainTargetsSelf ? Core.Me : Core.Me.CurrentTarget;
+            if (target == null)
+                return false;
+
+            return await PrepareNinjutsu(NinjaRoutine.ChainNinjutsu, target);
+        }
+
+        private static async Task<bool> PressMudra(SpellData mudra, GameObject target)
+        {
+            if (!await mudra.Cast(target))
+                return false;
+
+            await Casting.CheckForSuccessfulCast();
+            NinjaRoutine.NoteMudraPress(mudra);
+            return true;
+        }
+
+        public static async Task<bool> PrepareNinjutsu(SpellData ninjutsu, GameObject target)
+        {
+
+            Dictionary<SpellData, SpellData> NinjutsuEndMudra = new Dictionary<SpellData, SpellData>
+            {
+                { Spells.FumaShuriken   , Spells.Ten },
+                { Spells.Raiton         , Spells.Chi },
+                { Spells.Katon          , Spells.Ten },
+                //Kassatsu Ninjutsu
+                { Spells.GokaMekkyaku   , Spells.Ten },
+                { Spells.Hyoton         , Spells.Jin },
+                //Kassatsu Ninjutsu
+                { Spells.HyoshoRanryu   , Spells.Jin },
+                { Spells.Suiton         , Spells.Jin },
+                { Spells.Doton          , Spells.Chi },
+                { Spells.Huton          , Spells.Ten }
+            };
+
+            Dictionary<SpellData, int> NinjutsuComplexity = new Dictionary<SpellData, int>
+            {
+                { Spells.FumaShuriken   , 1 },
+                { Spells.Raiton         , 2 },
+                { Spells.Katon          , 2 },
+                //Kassatsu Ninjutsu
+                { Spells.GokaMekkyaku   , 2 },
+                { Spells.Hyoton         , 2 },
+                //Kassatsu Ninjutsu
+                { Spells.HyoshoRanryu   , 2 },
+                { Spells.Suiton         , 3 },
+                { Spells.Doton          , 3 },
+                { Spells.Huton          , 3 }
+            };
+
+            if (NinjaRoutine.TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
+            {
+                NinjutsuEndMudra = new Dictionary<SpellData, SpellData>
+                {
+                    { Spells.FumaShuriken   , Spells.Ten },
+                    { Spells.Raiton         , Spells.Chi },
+                    { Spells.Suiton         , Spells.Jin }
+                };
+
+                NinjutsuComplexity = new Dictionary<SpellData, int>
+                {
+                    { Spells.FumaShuriken   , 1 },
+                    { Spells.Raiton         , 1 },
+                    { Spells.Suiton         , 1 }
+                };
+            }
+
+            if (!NinjutsuEndMudra.ContainsKey(ninjutsu))
+                return false;
+
+            if (NinjaRoutine.TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
+            {
+                // Every step is recorded, so the callers' counts pick the step; hold each press until
+                // the previous one has had its second.
+                if (NinjaRoutine.UsedMudras.Count > 0 && NinjaRoutine.MsSinceLastMudraPress < TenChiJinStepMs)
+                    return true;
+
+                return await PressMudra(NinjutsuEndMudra[ninjutsu], target);
+            }
+
+            // One chain, one owner. The owner is recorded once its first press has gone out, so a first
+            // press that fails (no charge) leaves no ghost owner behind.
+            var firstPress = NinjaRoutine.UsedMudras.Count == 0;
+            if (!firstPress && NinjaRoutine.ChainNinjutsu != null && NinjaRoutine.ChainNinjutsu != ninjutsu)
+                return false;
+
+            if (NinjaRoutine.UsedMudras.Count < NinjutsuComplexity[ninjutsu] - 1)
+            {
+                List<SpellData> availableMudras = Mudras.FindAll(x => x != NinjutsuEndMudra[ninjutsu] && !NinjaRoutine.UsedMudras.Contains(x) && x.IsKnown());
+
+                var mudra = availableMudras[new Random().Next(availableMudras.Count)];
+                if (await PressMudra(mudra, Core.Me))
+                {
+                    if (firstPress)
+                        NinjaRoutine.BeginChain(ninjutsu, target == Core.Me);
+                    return true;
+                }
+            }
+            else if (NinjaRoutine.UsedMudras.Count < NinjutsuComplexity[ninjutsu])
+            {
+                if (await PressMudra(NinjutsuEndMudra[ninjutsu], Core.Me))
+                {
+                    if (firstPress)
+                        NinjaRoutine.BeginChain(ninjutsu, target == Core.Me);
+                    return true;
+                }
+            }
+
+            if (NinjaRoutine.UsedMudras.Count < NinjutsuComplexity[ninjutsu])
+            {
+                // The mudra was not castable this pulse (its half-second recast). Pressing the ninjutsu
+                // now would execute a lesser one, and falling through to a weaponskill would break the
+                // chain, so wait - briefly.
+                return NinjaRoutine.MudraPressedRecently;
+            }
+
+            if (!await ninjutsu.Cast(target))
+                return false;
+
+            // The chain is spent whatever the game made of it; the next one starts clean.
+            NinjaRoutine.EndChain();
+            return true;
+        }
+
+        #endregion
+
 
         public static async Task<bool> Huton()
         {
@@ -41,7 +195,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Huton, Core.Me);
+            return await PrepareNinjutsu(Spells.Huton, Core.Me);
 
         }
 
@@ -71,7 +225,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
 
         }
 
@@ -95,7 +249,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count >= 3)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> PrePullSuitonUse()
@@ -116,7 +270,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count != 3)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
 
         }
 
@@ -191,7 +345,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count() != 0)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> TenChiJin_Raiton()
@@ -203,7 +357,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count() != 1)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
         }
 
         public static async Task<bool> TenChiJin_Suiton()
@@ -215,7 +369,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count() != 2)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);
         }
 
         #endregion
@@ -243,7 +397,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
 
         }
 
@@ -266,7 +420,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);
 
         }
 
@@ -294,7 +448,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.TenChiJin.Cooldown >= new TimeSpan(0, 1, 10) && Core.Me.Auras.Where(x => x.Id == Auras.RaijuReady && x.Value == 1).Count() != 0)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
 
         }
 
@@ -323,7 +477,7 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Katon, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.Katon, Core.Me.CurrentTarget);
 
         }
 
@@ -355,7 +509,7 @@ namespace Magitek.Logic.Ninja
             if (Combat.IsMoving(Core.Me.CurrentTarget))
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.Doton, Core.Me);
+            return await PrepareNinjutsu(Spells.Doton, Core.Me);
 
         }
 
@@ -371,7 +525,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.Raiton.IsKnown())
                 return false;
 
-            return await NinjaRoutine.PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);
+            return await PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);
 
         }
 
