@@ -83,9 +83,10 @@ namespace Magitek.Logic.Ninja
         // that refused Kunai's Bane on every fresh pull: Raiton took the first chain, Kassatsu fired with
         // nothing to wait for, and the Kassatsu ninjutsu went out ahead of the debuff - on a critical
         // engagement boss as readily as on trash. No estimate is not a short estimate.
-        private const int EstimateWarmupMs = 4000;
+        private const int EstimateWarmupSeconds = 4;
 
-        private static bool EstimateUnknown(GameObject unit) => unit.TimeInCombat() < EstimateWarmupMs;
+        // TimeInCombat is in seconds.
+        private static bool EstimateUnknown(GameObject unit) => unit.TimeInCombat() < EstimateWarmupSeconds;
 
         public static bool CanMug(GameObject unit)
         {
