@@ -180,7 +180,9 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasMyAura(Auras.TenChiJin))
                 return false;
 
-            if (NinjaRoutine.UsedMudras.Count() >= 1)
+            // Each step is chosen by how many the chain has recorded, exactly - not "at most" - so a
+            // press that failed this pulse is retried instead of the next step starting the chain.
+            if (NinjaRoutine.UsedMudras.Count() != 0)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);
@@ -192,7 +194,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasMyAura(Auras.TenChiJin))
                 return false;
 
-            if (NinjaRoutine.UsedMudras.Count() >= 2)
+            if (NinjaRoutine.UsedMudras.Count() != 1)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
@@ -204,7 +206,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasMyAura(Auras.TenChiJin))
                 return false;
 
-            if (NinjaRoutine.UsedMudras.Count() >= 3)
+            if (NinjaRoutine.UsedMudras.Count() != 2)
                 return false;
 
             return await NinjaRoutine.PrepareNinjutsu(Spells.Suiton, Core.Me.CurrentTarget);

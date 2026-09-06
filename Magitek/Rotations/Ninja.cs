@@ -105,6 +105,12 @@ namespace Magitek.Rotations
             if (await Ninjutsu.TenChiJin_Raiton()) return true;
             if (await Ninjutsu.TenChiJin_Suiton()) return true;
 
+            // Anything else pressed under Ten Chi Jin forfeits the rest of it. When the next step is not
+            // castable this pulse, wait rather than fall through to a weaponskill.
+            if (Core.Me.HasMyAura(Auras.TenChiJin)) return true;
+
+            if (await NinjaRoutine.ContinueChain()) return true;
+
             if (await Ninjutsu.Doton()) return true;
             if (await Ninjutsu.GokaMekkyaku()) return true;
             if (await Ninjutsu.HyoshoRanryu()) return true;
