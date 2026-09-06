@@ -78,14 +78,23 @@ namespace Magitek.Logic.Ninja
             return await Spells.TrickAttack.Cast(Core.Me.CurrentTarget);
         }
 
+        // The time-to-die estimate is health over measured damage, so for the first seconds of a fight, and
+        // until the tracker has picked the enemy up at all, it reads zero. Read as "dying within N seconds"
+        // that refused Kunai's Bane on every fresh pull: Raiton took the first chain, Kassatsu fired with
+        // nothing to wait for, and the Kassatsu ninjutsu went out ahead of the debuff - on a critical
+        // engagement boss as readily as on trash. No estimate is not a short estimate.
+        private const int EstimateWarmupMs = 4000;
+
+        private static bool EstimateUnknown(GameObject unit) => unit.TimeInCombat() < EstimateWarmupMs;
+
         public static bool CanMug(GameObject unit)
         {
-            return unit.CombatTimeLeft() >= NinjaSettings.Instance.DontMugIfEnemyDyingWithinSeconds;
+            return EstimateUnknown(unit) || unit.CombatTimeLeft() >= NinjaSettings.Instance.DontMugIfEnemyDyingWithinSeconds;
         }
 
         public static bool CanTrickAttack(GameObject unit)
         {
-            return unit.CombatTimeLeft() >= NinjaSettings.Instance.DontTrickAttackIfEnemyDyingWithinSeconds;
+            return EstimateUnknown(unit) || unit.CombatTimeLeft() >= NinjaSettings.Instance.DontTrickAttackIfEnemyDyingWithinSeconds;
         }
 
         // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
