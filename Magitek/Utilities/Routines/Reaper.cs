@@ -87,6 +87,11 @@ namespace Magitek.Utilities.Routines
             return Common.CheckTTDIsEnemyDyingSoon(ReaperSettings.Instance);
         }
 
+        // Soul Slice and Soul Scythe share two 30 s charges (the recast ignores skill speed). True when both are
+        // up, or the second arrives within one weaponskill GCD - the point past which waiting loses a charge.
+        public static bool SoulSliceChargeAboutToCap =>
+            Spells.SoulSlice.Charges >= Spells.SoulSlice.MaxCharges - Spells.Slice.AdjustedCooldown.TotalMilliseconds / Spells.SoulSlice.AdjustedCooldown.TotalMilliseconds;
+
         // Reaper uses an 8x8 square in front for its "cone". So it can hit something 90* to the side 8y away.
         public static int EnemiesInReaperCone(float maxdistance)
         {

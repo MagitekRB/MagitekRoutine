@@ -106,12 +106,11 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.HasAura(Auras.Executioner)) return false;
             if (Core.Me.HasAura(Auras.SoulReaver)) return false;
 
-            //Keep SoulSlice/SoulScythe Charges at a maximum
-            /*
-            if (Spells.SoulSlice.Charges <= 1) return false;
-            if (Spells.SoulSlice.Cooldown > Spells.Slice.Cooldown) return false;
-            */
-            if (ActionResourceManager.Reaper.SoulGauge > 50) return false;
+            // A charge that sits full is a Soul Slice never cast: 520 potency and 50 Soul gone. With both charges
+            // up, or the second within a GCD of it, cast whatever the gauge reads; otherwise the refusal above 50
+            // keeps the gauge under its cap. In a Forked Tower run 13 of 50 Soul Slice intervals passed 32 s.
+            if (!Utilities.Routines.Reaper.SoulSliceChargeAboutToCap && ActionResourceManager.Reaper.SoulGauge > 50)
+                return false;
 
             return await Spells.SoulSlice.Cast(Core.Me.CurrentTarget);
         }
