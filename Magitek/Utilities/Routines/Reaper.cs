@@ -92,8 +92,11 @@ namespace Magitek.Utilities.Routines
         // The guide puts the floor at a 2.47 s GCD - faster clips the Plentiful Harvest weave - and its high-ping
         // advice is the same fallback: single shrouds on a priority system, which is what the routine did before.
         private const int DoubleEnshroudMinGcdMs = 2470;
-        // How far ahead of Arcane Circle odd-minute shrouds stop, so 50 Shroud is there for the first one.
-        private const int ShroudBankWindowMs = 40000;
+        // How far ahead of Arcane Circle odd-minute shrouds stop, so 50 Shroud is there for the first one. Shroud
+        // comes in at roughly one point a second with movement, so the odd shroud has to be at least 50 s out: at
+        // 40 s a Forked Tower run took its odd shroud 33 to 52 s before the buff and reached the buff under 50 in
+        // 11 windows of 16. The guide's own spacing between the odd shroud and the pre-buff one is about 55 s.
+        private const int ShroudBankWindowMs = 55000;
         // The first shroud is pressed this many GCDs before Arcane Circle comes off cooldown.
         private const int EnshroudLeadGcds = 2;
         // "Do not enter Enshroud if Gluttony is under 13 s on its cooldown."
