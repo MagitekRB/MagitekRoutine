@@ -11204,6 +11204,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Reaper_Content_Death_Warrant", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bank Shroud for Arcane Circle and Enshroud before and after it (off below a 2.47s GCD).
+        /// </summary>
+        public static string Reaper_Content_Double_Enshroud {
+            get {
+                return ResourceManager.GetString("Reaper_Content_Double_Enshroud", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Enable AoE (does not apply to abilities used in single target rotation).

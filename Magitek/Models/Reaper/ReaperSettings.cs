@@ -212,6 +212,10 @@ namespace Magitek.Models.Reaper
         [DefaultValue(true)]
         public bool UseEnshroud { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDoubleEnshroud { get; set; }
+
         #endregion
 
         #region Utility-Abilities

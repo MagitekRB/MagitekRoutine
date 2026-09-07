@@ -279,6 +279,7 @@ namespace Magitek.Utilities
             IdealHost = 3905,
             Executioner = 3858,
             PerfectioParata = 3860,
+            PerfectioOcculta = 3859,
             EnhancedGibbet = 2588,
             EnhancedGallows = 2589,
             EnhancedHarpe = 2845,

@@ -2763,6 +2763,9 @@
   <data name="Reaper_Content_Death_Warrant" xml:space="preserve">
     <value>斩首令</value>
   </data>
+  <data name="Reaper_Content_Double_Enshroud" xml:space="preserve">
+    <value>为神秘环储存魂衣量谱，并在其前后各夜游魂衣一次（GCD 快于 2.47 秒时关闭）</value>
+  </data>
   <data name="Reaper_Content_Harvest_Moon" xml:space="preserve">
     <value>收获月</value>
   </data>
