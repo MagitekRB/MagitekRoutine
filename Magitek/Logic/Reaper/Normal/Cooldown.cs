@@ -20,7 +20,8 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseGluttony) return false;
             if (Core.Me.HasAura(Auras.SoulReaver)) return false;
             if (Core.Me.HasAura(Auras.Executioner)) return false;
-            if (Spells.Slice.Cooldown > new TimeSpan(Spells.Slice.AdjustedCooldown.Ticks / 2)) return false;
+            // Any weave slot: the guides use it the moment it is ready. It waited for the late slot only, which
+            // measured a median of one GCD late and up to four.
             if (!Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true)) return false;
             if (ActionResourceManager.Reaper.ShroudGauge > 80)
                 return false;
