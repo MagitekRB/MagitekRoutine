@@ -63,6 +63,10 @@ namespace Magitek.Rotations
             {
                 if (ReaperRoutine.GlobalCooldown.CanWeave(1))
                 {
+                    // The first shroud of the two-minute opens before Arcane Circle, so the buff (and the potion
+                    // that rides it) is pressed from inside it; one weave per 1.5 s Reaping, these first.
+                    if (await Cooldown.ArcaneCircle()) return true;
+                    if (await Utility.UsePotion()) return true;
                     if (await Enshroud.AoE.LemuresScythe()) return true;
                     if (await Enshroud.SingleTarget.LemuresSlice()) return true;
                 }

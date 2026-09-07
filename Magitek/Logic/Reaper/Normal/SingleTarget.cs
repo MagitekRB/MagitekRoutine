@@ -26,6 +26,15 @@ namespace Magitek.Logic.Reaper
             if (AoeControl.Enabled && Utilities.Routines.Reaper.EnemiesAroundPlayer5Yards >= ReaperSettings.Instance.WhorlOfDeathTargetCount)
                 return false;
 
+            // Going into the shroud before Arcane Circle the debuff needs about 30 s or it drops before Communio;
+            // one Shadow of Death inside four GCDs of the buff extends it to cover the whole window.
+            if (Utilities.Routines.Reaper.DoubleEnshroudActive
+                && Spells.ArcaneCircle.Cooldown.TotalMilliseconds <= 4 * Spells.Slice.AdjustedCooldown.TotalMilliseconds
+                && !Core.Me.HasAura(Auras.ArcaneCircle)
+                && !Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true, 30000)
+                && !Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon())
+                return await Spells.ShadowOfDeath.Cast(Core.Me.CurrentTarget);
+
             if (Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true) && Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true, (int)Spells.Slice.AdjustedCooldown.TotalMilliseconds))
                 return false;
 

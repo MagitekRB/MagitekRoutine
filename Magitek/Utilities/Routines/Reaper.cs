@@ -87,6 +87,35 @@ namespace Magitek.Utilities.Routines
             return Common.CheckTTDIsEnemyDyingSoon(ReaperSettings.Instance);
         }
 
+        // The two-minute (The Balance intermediate guide, 7.55): Shroud is banked so a full shroud opens two GCDs
+        // before Arcane Circle, the buff lands inside it, and the Ideal Host shroud from Plentiful Harvest follows.
+        // The guide puts the floor at a 2.47 s GCD - faster clips the Plentiful Harvest weave - and its high-ping
+        // advice is the same fallback: single shrouds on a priority system, which is what the routine did before.
+        private const int DoubleEnshroudMinGcdMs = 2470;
+        // How far ahead of Arcane Circle odd-minute shrouds stop, so 50 Shroud is there for the first one.
+        private const int ShroudBankWindowMs = 40000;
+        // The first shroud is pressed this many GCDs before Arcane Circle comes off cooldown.
+        private const int EnshroudLeadGcds = 2;
+        // "Do not enter Enshroud if Gluttony is under 13 s on its cooldown."
+        public const int GluttonyHoldMs = 13000;
+
+        public static bool DoubleEnshroudActive =>
+            ReaperSettings.Instance.UseDoubleEnshroud
+            && Spells.ArcaneCircle.IsKnown() && Spells.PlentifulHarvest.IsKnown()
+            && Spells.Slice.AdjustedCooldown.TotalMilliseconds >= DoubleEnshroudMinGcdMs;
+
+        private static double ArcaneCircleCooldownMs => Spells.ArcaneCircle.Cooldown.TotalMilliseconds;
+
+        // Arcane Circle is ready or within two GCDs: the first shroud goes now.
+        public static bool ArcaneCircleImminent =>
+            DoubleEnshroudActive && Core.Me.InCombat
+            && ArcaneCircleCooldownMs <= EnshroudLeadGcds * Spells.Slice.AdjustedCooldown.TotalMilliseconds;
+
+        // Inside the banking window and not yet imminent: no odd-minute shroud.
+        public static bool BankingShroud =>
+            DoubleEnshroudActive && Core.Me.InCombat && !Core.Me.HasAura(Auras.ArcaneCircle)
+            && !ArcaneCircleImminent && ArcaneCircleCooldownMs <= ShroudBankWindowMs;
+
         // In-game tooltip potencies (7.55) for the Enshroud cone-versus-single choices: the cone attack replaces the
         // single-target action at the target count where it out-damages it. One table, so the cone and the
         // single-target methods agree on where the line is; when they disagreed (Lemure's Slice yielding at two,

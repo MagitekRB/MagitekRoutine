@@ -58,8 +58,25 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseEnshroud) return false;
             if (ActionResourceManager.Reaper.ShroudGauge < 50 && !Core.Me.HasAura(Auras.IdealHost)) return false;
             if (!Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true)) return false;
-            if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon())
+
+            var idealHost = Core.Me.HasAura(Auras.IdealHost);
+
+            // The Ideal Host shroud carries Communio and, with Perfectio Occulta up, Perfectio: 2,400 potency on
+            // anything that lives eight seconds. On trash the dying-enemy gate threw that away (8 of 21 harvests
+            // in one Occult Crescent session ended without a Perfectio).
+            if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon() && !(idealHost && Core.Me.HasAura(Auras.PerfectioOcculta)))
                 return false;
+
+            if (!idealHost && !Utilities.Routines.Reaper.ArcaneCircleImminent && !Core.Me.HasAura(Auras.ArcaneCircle))
+            {
+                // Odd-minute shrouds: none inside the banking window before Arcane Circle, and none with Gluttony
+                // ready or under thirteen seconds away - Gluttony goes first.
+                if (Utilities.Routines.Reaper.BankingShroud)
+                    return false;
+                if (GluttonyWanted() && Spells.Gluttony.Cooldown.TotalMilliseconds <= Utilities.Routines.Reaper.GluttonyHoldMs)
+                    return false;
+            }
+
             return await Spells.Enshroud.Cast(Core.Me);
         }
 
