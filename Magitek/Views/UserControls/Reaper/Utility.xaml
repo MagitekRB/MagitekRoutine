@@ -66,7 +66,7 @@
                     <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding ReaperSettings.ArcaneCircleCount, Mode=TwoWay}" />
                     <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Players_Are_In_Range_For_Buff}" />
                 </StackPanel>
-                <StackPanel Margin="10,0" Orientation="Horizontal">
+                <StackPanel Margin="5" Orientation="Horizontal">
                     <CheckBox Margin="5" Content="{x:Static properties:Resources.Reaper_Content_Double_Enshroud}" IsChecked="{Binding ReaperSettings.UseDoubleEnshroud, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                 </StackPanel>
             </StackPanel>

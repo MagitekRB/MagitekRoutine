@@ -91,34 +91,29 @@ namespace Magitek.Utilities.Routines
         // before Arcane Circle, the buff lands inside it, and the Ideal Host shroud from Plentiful Harvest follows.
         // The guide puts the floor at a 2.47 s GCD - faster clips the Plentiful Harvest weave - and its high-ping
         // advice is the same fallback: single shrouds on a priority system, which is what the routine did before.
-        private const int DoubleEnshroudMinGcdMs = 2470;
+        public const int DoubleEnshroudMinGcdMs = 2470;
         // How far ahead of Arcane Circle odd-minute shrouds stop, so 50 Shroud is there for the first one. Shroud
         // comes in at roughly one point a second with movement, so the odd shroud has to be at least 50 s out: at
         // 40 s a Forked Tower run took its odd shroud 33 to 52 s before the buff and reached the buff under 50 in
         // 11 windows of 16. The guide's own spacing between the odd shroud and the pre-buff one is about 55 s.
-        private const int ShroudBankWindowMs = 55000;
+        public const int ShroudBankWindowMs = 55000;
         // The first shroud is pressed this many GCDs before Arcane Circle comes off cooldown.
-        private const int EnshroudLeadGcds = 2;
+        public const int EnshroudLeadGcds = 2;
         // "Do not enter Enshroud if Gluttony is under 13 s on its cooldown."
         public const int GluttonyHoldMs = 13000;
 
-        public static bool DoubleEnshroudActive =>
-            ReaperSettings.Instance.UseDoubleEnshroud
-            && ReaperSettings.Instance.UseArcaneCircle && ReaperSettings.Instance.UsePlentifulHarvest
-            && Spells.ArcaneCircle.IsKnown() && Spells.PlentifulHarvest.IsKnown()
-            && Spells.Slice.AdjustedCooldown.TotalMilliseconds >= DoubleEnshroudMinGcdMs;
-
         private static double ArcaneCircleCooldownMs => Spells.ArcaneCircle.Cooldown.TotalMilliseconds;
 
-        // Arcane Circle is ready or within two GCDs: the first shroud goes now.
-        public static bool ArcaneCircleImminent =>
-            DoubleEnshroudActive && Core.Me.InCombat
+        // Arcane Circle is ready or within the lead. Whether the routine will press it (settings, party count, a
+        // dying target) is the Logic's call: see Cooldown.ArcaneCircleImminent.
+        public static bool ArcaneCircleWithinLead =>
+            Core.Me.InCombat
             && ArcaneCircleCooldownMs <= EnshroudLeadGcds * Spells.Slice.AdjustedCooldown.TotalMilliseconds;
 
-        // Inside the banking window and not yet imminent: no odd-minute shroud.
-        public static bool BankingShroud =>
-            DoubleEnshroudActive && Core.Me.InCombat && !Core.Me.HasAura(Auras.ArcaneCircle, true)
-            && !ArcaneCircleImminent && ArcaneCircleCooldownMs <= ShroudBankWindowMs;
+        // Arcane Circle is still cooling down and inside the bank window. Ready-but-held is deliberately not in
+        // here: once the buff is ready and the routine is not pressing it, the bank ends and shrouds go at 50.
+        public static bool ArcaneCircleCoolingInBankWindow =>
+            Core.Me.InCombat && ArcaneCircleCooldownMs > 0 && ArcaneCircleCooldownMs <= ShroudBankWindowMs;
 
         // In-game tooltip potencies (7.55) for the Enshroud cone-versus-single choices: the cone attack replaces the
         // single-target action at the target count where it out-damages it. One table, so the cone and the

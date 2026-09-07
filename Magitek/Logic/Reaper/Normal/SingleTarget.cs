@@ -30,7 +30,7 @@ namespace Magitek.Logic.Reaper
             // one Shadow of Death inside four GCDs of the buff extends it to cover the whole window. Only while the
             // buff is actually cooling down: ready-and-held (the party gate) would otherwise refresh every 30 s.
             // The threshold allows one GCD of tolerance so a fresh 30 s application is not followed by a second.
-            if (Utilities.Routines.Reaper.DoubleEnshroudActive
+            if (Cooldown.DoubleEnshroudActive
                 && Spells.ArcaneCircle.Cooldown.TotalMilliseconds > 0
                 && Spells.ArcaneCircle.Cooldown.TotalMilliseconds <= 4 * Spells.Slice.AdjustedCooldown.TotalMilliseconds
                 && !Core.Me.HasAura(Auras.ArcaneCircle, true)

@@ -64,18 +64,18 @@ namespace Magitek.Logic.Reaper
             // The Ideal Host shroud carries Communio and, with Perfectio Occulta up, Perfectio: 2,400 potency on
             // anything that lives eight seconds. On trash the dying-enemy gate threw that away (8 of 21 harvests
             // in one Occult Crescent session ended without a Perfectio).
-            if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon() && !(idealHost && Core.Me.HasAura(Auras.PerfectioOcculta)))
+            if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon()
+                && !(ReaperSettings.Instance.UseDoubleEnshroud && idealHost && Core.Me.HasAura(Auras.PerfectioOcculta)))
                 return false;
 
             // Only my own Arcane Circle counts: another Reaper's buff landing here would lift the bank and open an
             // odd shroud a few seconds before my own buff.
-            if (Utilities.Routines.Reaper.DoubleEnshroudActive && !idealHost
-                && !Utilities.Routines.Reaper.ArcaneCircleImminent && !Core.Me.HasAura(Auras.ArcaneCircle, true))
+            if (DoubleEnshroudActive && !idealHost && !ArcaneCircleImminent && !Core.Me.HasAura(Auras.ArcaneCircle, true))
             {
                 // Odd-minute shrouds: none inside the banking window before Arcane Circle, and none with Gluttony
                 // ready or under thirteen seconds away - Gluttony goes first. Both rules belong to the two-minute
                 // structure and switch off with it.
-                if (Utilities.Routines.Reaper.BankingShroud)
+                if (BankingShroud)
                     return false;
                 if (GluttonyWanted() && Spells.Gluttony.Cooldown.TotalMilliseconds <= Utilities.Routines.Reaper.GluttonyHoldMs)
                     return false;
@@ -84,7 +84,12 @@ namespace Magitek.Logic.Reaper
             return await Spells.Enshroud.Cast(Core.Me);
         }
 
-        public static async Task<bool> ArcaneCircle()
+        /// <summary>
+        /// Every gate Arcane Circle has except its cooldown. The pre-buff shroud opens only when this is true, so a
+        /// buff the routine is not going to press (another Reaper's buff on us, the party out of range, a dying
+        /// target) does not consume the shroud that was banked for it.
+        /// </summary>
+        public static bool ArcaneCircleWanted()
         {
             if (!ReaperSettings.Instance.UseArcaneCircle || !Spells.ArcaneCircle.IsKnown())
                 return false;
@@ -107,14 +112,38 @@ namespace Magitek.Logic.Reaper
                 if (ReaperSettings.Instance.ArcaneCircleEntireParty)
                     arcaneNeededCount = Group.CastableParty.Count();
 
-                if (couldArcane >= arcaneNeededCount)
-                    return await Spells.ArcaneCircle.Cast(Core.Me);
-                else
-                    return false;
+                return couldArcane >= arcaneNeededCount;
             }
+
+            return true;
+        }
+
+        public static async Task<bool> ArcaneCircle()
+        {
+            if (!ArcaneCircleWanted())
+                return false;
 
             return await Spells.ArcaneCircle.Cast(Core.Me);
         }
+
+        // The two-minute (The Balance intermediate guide, 7.55): Shroud is banked so a full shroud opens two GCDs
+        // before Arcane Circle, the buff lands inside it, and the Ideal Host shroud from Plentiful Harvest follows.
+        // The guide puts the floor at a 2.47 s GCD - faster clips the Plentiful Harvest weave - and its high-ping
+        // advice is the same fallback: single shrouds on a priority system, which is what the routine did before.
+        public static bool DoubleEnshroudActive =>
+            ReaperSettings.Instance.UseDoubleEnshroud
+            && ReaperSettings.Instance.UseArcaneCircle && ReaperSettings.Instance.UsePlentifulHarvest
+            && Spells.ArcaneCircle.IsKnown() && Spells.PlentifulHarvest.IsKnown()
+            && Spells.Slice.AdjustedCooldown.TotalMilliseconds >= Utilities.Routines.Reaper.DoubleEnshroudMinGcdMs;
+
+        // Arcane Circle is within the lead and the routine is going to press it: the first shroud goes now.
+        public static bool ArcaneCircleImminent =>
+            DoubleEnshroudActive && Utilities.Routines.Reaper.ArcaneCircleWithinLead && ArcaneCircleWanted();
+
+        // Inside the bank window and not yet imminent: no odd-minute shroud.
+        public static bool BankingShroud =>
+            DoubleEnshroudActive && Utilities.Routines.Reaper.ArcaneCircleCoolingInBankWindow
+            && !ArcaneCircleImminent && !Core.Me.HasAura(Auras.ArcaneCircle, true);
 
     }
 }
