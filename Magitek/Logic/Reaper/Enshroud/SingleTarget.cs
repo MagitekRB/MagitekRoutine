@@ -37,7 +37,7 @@ namespace Magitek.Logic.Reaper.Enshroud
 
         public static async Task<bool> CrossReaping()
         {
-            if (!ReaperSettings.Instance.UseVoidReaping || !Spells.CrossReaping.IsKnown())
+            if (!ReaperSettings.Instance.UseCrossReaping || !Spells.CrossReaping.IsKnown())
                 return false;
 
             if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
