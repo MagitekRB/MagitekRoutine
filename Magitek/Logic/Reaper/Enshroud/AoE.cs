@@ -10,16 +10,6 @@ namespace Magitek.Logic.Reaper.Enshroud
 {
     internal static class AoE
     {
-        // In-game tooltip potencies (7.55). The "efficient potency" branch compares the cone attack against the
-        // single-target action it replaces; the old constants were the pre-7.05 Reaping values and a 200 for
-        // Lemure's Slice that let Lemure's Scythe fire at two targets (13 of 17 casts in a Forked Tower run hit
-        // two or fewer).
-        private const int ReapingPotency = 580;
-        private const int EnhancedReapingPotency = 640;
-        private const int GrimReapingPotency = 220;
-        private const int LemuresSlicePotency = 280;
-        private const int LemuresScythePotency = 100;
-
         public static async Task<bool> GrimReaping()
         {
             if (!AoeControl.Enabled)
@@ -37,12 +27,12 @@ namespace Magitek.Logic.Reaper.Enshroud
             {
                 if (Core.Me.HasAura(Auras.EnhancedVoidReaping) || Core.Me.HasAura(Auras.EnhancedCrossReaping))
                 {
-                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * GrimReapingPotency >= EnhancedReapingPotency)
+                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency >= Utilities.Routines.Reaper.EnhancedReapingPotency)
                         return await Spells.GrimReaping.Cast(Core.Me.CurrentTarget);
                 }
                 else
                 {
-                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * GrimReapingPotency >= ReapingPotency)
+                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency >= Utilities.Routines.Reaper.ReapingPotency)
                         return await Spells.GrimReaping.Cast(Core.Me.CurrentTarget);
                 }
             }
@@ -71,7 +61,7 @@ namespace Magitek.Logic.Reaper.Enshroud
 
             if (ReaperSettings.Instance.EfficientAoEPotencyCalculation)
             {
-                if (Utilities.Routines.Reaper.EnemiesIn8YardCone * LemuresScythePotency >= LemuresSlicePotency)
+                if (Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.LemuresScythePotency >= Utilities.Routines.Reaper.LemuresSlicePotency)
                     return await Spells.LemuresScythe.Cast(Core.Me.CurrentTarget);
             }
             else
@@ -95,7 +85,7 @@ namespace Magitek.Logic.Reaper.Enshroud
                 return false;
 
 
-            if ((ReaperSettings.Instance.EfficientAoEPotencyCalculation && Utilities.Routines.Reaper.EnemiesIn8YardCone * LemuresScythePotency >= LemuresSlicePotency)
+            if ((ReaperSettings.Instance.EfficientAoEPotencyCalculation && Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.LemuresScythePotency >= Utilities.Routines.Reaper.LemuresSlicePotency)
             || Utilities.Routines.Reaper.EnemiesIn8YardCone >= ReaperSettings.Instance.LemuresScytheTargetCount)
             {
                 // Only use Lemures Scythe off weave if resources are deadlocked

@@ -87,8 +87,20 @@ namespace Magitek.Utilities.Routines
             return Common.CheckTTDIsEnemyDyingSoon(ReaperSettings.Instance);
         }
 
+        // In-game tooltip potencies (7.55) for the Enshroud cone-versus-single choices: the cone attack replaces the
+        // single-target action at the target count where it out-damages it. One table, so the cone and the
+        // single-target methods agree on where the line is; when they disagreed (Lemure's Slice yielding at two,
+        // Lemure's Scythe waiting for three) the shroud sat on four Void Shroud and did nothing until it expired.
+        public const int ReapingPotency = 580;
+        public const int EnhancedReapingPotency = 640;
+        public const int GrimReapingPotency = 220;
+        public const int LemuresSlicePotency = 280;
+        public const int LemuresScythePotency = 100;
+
         // Soul Slice and Soul Scythe share two 30 s charges (the recast ignores skill speed). True when both are
         // up, or the second arrives within one weaponskill GCD - the point past which waiting loses a charge.
+        // Below level 78 there is one charge and this reads "ready or within a GCD of ready", the single-charge
+        // rule: cast it whatever the gauge reads.
         public static bool SoulSliceChargeAboutToCap =>
             Spells.SoulSlice.Charges >= Spells.SoulSlice.MaxCharges - Spells.Slice.AdjustedCooldown.TotalMilliseconds / Spells.SoulSlice.AdjustedCooldown.TotalMilliseconds;
 
