@@ -18,7 +18,9 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.EnhancedCrossReaping))
+            // Yield to the enhanced partner only while the partner is enabled: with Cross Reaping unticked, the
+            // shroud would otherwise have no Reaping to cast after the first one and sit until it expired.
+            if (Core.Me.HasAura(Auras.EnhancedCrossReaping) && ReaperSettings.Instance.UseCrossReaping)
                 return false;
 
             if (Core.Me.HasAura(Auras.EnhancedVoidReaping))
@@ -43,7 +45,7 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.EnhancedVoidReaping))
+            if (Core.Me.HasAura(Auras.EnhancedVoidReaping) && ReaperSettings.Instance.UseVoidReaping)
                 return false;
 
             if (Core.Me.HasAura(Auras.EnhancedCrossReaping))

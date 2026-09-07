@@ -33,7 +33,7 @@ namespace Magitek.Logic.Reaper
 
             // Guillotine has no positional and replaces Gibbet/Gallows from its own target count; that count, not
             // the scythe or swathe ones, decides whether True North has anything to fix.
-            if (AoeControl.Enabled && ReaperSettings.Instance.UseGuillotine && Utilities.Routines.Reaper.EnemiesIn8YardCone >= ReaperSettings.Instance.GuillotineTargetCount) return false;
+            if (AoeControl.Enabled && ReaperSettings.Instance.UseAoe && ReaperSettings.Instance.UseGuillotine && Utilities.Routines.Reaper.EnemiesIn8YardCone >= ReaperSettings.Instance.GuillotineTargetCount) return false;
 
 
             if (Core.Me.HasAura(Auras.EnhancedGibbet))
