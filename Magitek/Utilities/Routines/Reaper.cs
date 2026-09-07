@@ -101,6 +101,7 @@ namespace Magitek.Utilities.Routines
 
         public static bool DoubleEnshroudActive =>
             ReaperSettings.Instance.UseDoubleEnshroud
+            && ReaperSettings.Instance.UseArcaneCircle && ReaperSettings.Instance.UsePlentifulHarvest
             && Spells.ArcaneCircle.IsKnown() && Spells.PlentifulHarvest.IsKnown()
             && Spells.Slice.AdjustedCooldown.TotalMilliseconds >= DoubleEnshroudMinGcdMs;
 
@@ -113,7 +114,7 @@ namespace Magitek.Utilities.Routines
 
         // Inside the banking window and not yet imminent: no odd-minute shroud.
         public static bool BankingShroud =>
-            DoubleEnshroudActive && Core.Me.InCombat && !Core.Me.HasAura(Auras.ArcaneCircle)
+            DoubleEnshroudActive && Core.Me.InCombat && !Core.Me.HasAura(Auras.ArcaneCircle, true)
             && !ArcaneCircleImminent && ArcaneCircleCooldownMs <= ShroudBankWindowMs;
 
         // In-game tooltip potencies (7.55) for the Enshroud cone-versus-single choices: the cone attack replaces the

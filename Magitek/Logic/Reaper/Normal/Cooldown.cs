@@ -67,10 +67,14 @@ namespace Magitek.Logic.Reaper
             if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon() && !(idealHost && Core.Me.HasAura(Auras.PerfectioOcculta)))
                 return false;
 
-            if (!idealHost && !Utilities.Routines.Reaper.ArcaneCircleImminent && !Core.Me.HasAura(Auras.ArcaneCircle))
+            // Only my own Arcane Circle counts: another Reaper's buff landing here would lift the bank and open an
+            // odd shroud a few seconds before my own buff.
+            if (Utilities.Routines.Reaper.DoubleEnshroudActive && !idealHost
+                && !Utilities.Routines.Reaper.ArcaneCircleImminent && !Core.Me.HasAura(Auras.ArcaneCircle, true))
             {
                 // Odd-minute shrouds: none inside the banking window before Arcane Circle, and none with Gluttony
-                // ready or under thirteen seconds away - Gluttony goes first.
+                // ready or under thirteen seconds away - Gluttony goes first. Both rules belong to the two-minute
+                // structure and switch off with it.
                 if (Utilities.Routines.Reaper.BankingShroud)
                     return false;
                 if (GluttonyWanted() && Spells.Gluttony.Cooldown.TotalMilliseconds <= Utilities.Routines.Reaper.GluttonyHoldMs)
