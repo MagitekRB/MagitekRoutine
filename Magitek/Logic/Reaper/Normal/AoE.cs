@@ -169,7 +169,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseGrimSwathe) return false;
             if (Spells.Gluttony.IsKnown())
             {
-                if (Spells.Gluttony.Cooldown.Ticks == 0)
+                if (Spells.Gluttony.Cooldown.Ticks == 0 && Cooldown.GluttonyWanted())
                     return false;
                 if (Spells.Gluttony.AdjustedCooldown - Spells.Gluttony.Cooldown <= Spells.Slice.AdjustedCooldown)
                     return false;
