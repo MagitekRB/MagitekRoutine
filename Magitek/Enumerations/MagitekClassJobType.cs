@@ -63,6 +63,8 @@ namespace Magitek.Enumerations
         Viper = ClassJobType.Viper,
 
         [Description("BLU")]
-        BlueMage = ClassJobType.BlueMage
+        BlueMage = ClassJobType.BlueMage,
+        [Description("BST")]
+        BeastMaster = 43
     }
 }

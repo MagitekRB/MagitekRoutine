@@ -20,6 +20,7 @@
         xmlns:samurai="clr-namespace:Magitek.Views.UserControls.Samurai"
         xmlns:reaper="clr-namespace:Magitek.Views.UserControls.Reaper"
         xmlns:blueMage="clr-namespace:Magitek.Views.UserControls.BlueMage"
+        xmlns:beastMaster="clr-namespace:Magitek.Views.UserControls.BeastMaster"
         xmlns:scholar="clr-namespace:Magitek.Views.UserControls.Scholar"
         xmlns:summoner="clr-namespace:Magitek.Views.UserControls.Summoner"
         xmlns:viewModels="clr-namespace:Magitek.ViewModels"
@@ -1259,6 +1260,20 @@
                         <TabItem Header="PVP"
                                  Style="{DynamicResource MainTabCombat}">
                             <viper:Pvp/>
+                        </TabItem>
+                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
+                                 Style="{DynamicResource MainTabHotkeys}">
+                            <customControls:TogglesSettings/>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+
+                <TabItem Name="BeastMaster"
+                         Style="{DynamicResource TabItemBeastMaster}">
+                    <TabControl Style="{DynamicResource JobOptionsTabControl}">
+                        <TabItem Header="{x:Static properties:Resources.BeastMaster_Header_Rotation}"
+                                 Style="{DynamicResource MainTabCombat}">
+                            <beastMaster:Rotation/>
                         </TabItem>
                         <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
                                  Style="{DynamicResource MainTabHotkeys}">

@@ -5835,4 +5835,73 @@
   <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
     <value>至少保留的数量：</value>
   </data>
+  <data name="BeastMaster_Header_Rotation" xml:space="preserve">
+    <value>循环</value>
+  </data>
+  <data name="BeastMaster_Text_Familiar" xml:space="preserve">
+    <value>宠物</value>
+  </data>
+  <data name="BeastMaster_Text_Rotation" xml:space="preserve">
+    <value>循环</value>
+  </data>
+  <data name="BeastMaster_Text_Kinship" xml:space="preserve">
+    <value>亲缘技能（借用后的兽性模式）</value>
+  </data>
+  <data name="BeastMaster_Content_Summon" xml:space="preserve">
+    <value>使用战角召唤宠物，优先使用第几号战角</value>
+  </data>
+  <data name="BeastMaster_Content_Tempered_Release" xml:space="preserve">
+    <value>调驯解放（宠物的受控技能）</value>
+  </data>
+  <data name="BeastMaster_Content_Borrow" xml:space="preserve">
+    <value>借用（获得宠物的亲缘）</value>
+  </data>
+  <data name="BeastMaster_Content_Prefer_Borrow" xml:space="preserve">
+    <value>优先用借用而非调驯解放消耗与自然合一</value>
+  </data>
+  <data name="BeastMaster_Content_Trick" xml:space="preserve">
+    <value>宠物TP足够时使用把戏（宠物的本能技能）</value>
+  </data>
+  <data name="BeastMaster_Content_Parting_Blow" xml:space="preserve">
+    <value>临别一击（宠物的以太爆发，随后撤退）</value>
+  </data>
+  <data name="BeastMaster_Content_Parting_Blow_Vantage" xml:space="preserve">
+    <value>仅在残存优势下且另一支战角就绪时</value>
+  </data>
+  <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
+    <value>TP达到100时按内心罗盘使用本能斧技</value>
+  </data>
+  <data name="BeastMaster_Content_Rally" xml:space="preserve">
+    <value>集结</value>
+  </data>
+  <data name="BeastMaster_Content_Rallying_Cheer" xml:space="preserve">
+    <value>鼓舞</value>
+  </data>
+  <data name="BeastMaster_Content_Shield_Charge" xml:space="preserve">
+    <value>盾牌冲锋用于突进，并在保留以下层数的前提下按冷却使用</value>
+  </data>
+  <data name="BeastMaster_Content_Soul_Crush" xml:space="preserve">
+    <value>对可打断的咏唱使用碎魂（魂之亲缘）</value>
+  </data>
+  <data name="BeastMaster_Content_Quelling_Wave" xml:space="preserve">
+    <value>按冷却使用平息之浪（浪之亲缘）</value>
+  </data>
+  <data name="BeastMaster_Content_Scouring_Ash" xml:space="preserve">
+    <value>自身有有害效果时使用净灰（灰之亲缘）</value>
+  </data>
+  <data name="BeastMaster_Content_Seedsower" xml:space="preserve">
+    <value>目标没有播种效果时使用播种者（种之亲缘）</value>
+  </data>
+  <data name="BeastMaster_Content_Beastskin" xml:space="preserve">
+    <value>兽皮</value>
+  </data>
+  <data name="BeastMaster_Content_Scaleskin" xml:space="preserve">
+    <value>鳞皮</value>
+  </data>
+  <data name="BeastMaster_Content_Vileskin" xml:space="preserve">
+    <value>虫皮</value>
+  </data>
+  <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
+    <value>生命值低于以下百分比时使用防御性亲缘技能</value>
+  </data>
 </root>

@@ -4,6 +4,7 @@ using Magitek.Enumerations;
 using Magitek.Models.Astrologian;
 using Magitek.Models.Bard;
 using Magitek.Models.BlackMage;
+using Magitek.Models.BeastMaster;
 using Magitek.Models.BlueMage;
 using Magitek.Models.Dancer;
 using Magitek.Models.DarkKnight;
@@ -146,6 +147,11 @@ namespace Magitek.ViewModels
         {
             get => BlueMageSettings.Instance;
             set => BlueMageSettings.Instance = value;
+        }
+        public BeastMasterSettings BeastMasterSettings
+        {
+            get => BeastMasterSettings.Instance;
+            set => BeastMasterSettings.Instance = value;
         }
         public BlackMageSettings BlackMageSettings
         {

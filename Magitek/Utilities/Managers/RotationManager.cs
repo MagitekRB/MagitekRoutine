@@ -81,7 +81,9 @@ namespace Magitek.Utilities.Managers
             { ClassJobType.Reaper, "Reaper" },
             { ClassJobType.Sage, "Sage" },
             { ClassJobType.Viper, "Viper" },
-            { ClassJobType.Pictomancer, "Pictomancer" }
+            { ClassJobType.Pictomancer, "Pictomancer" },
+            // Beastmaster (7.56): the reference assemblies predate the enum member, hence the value.
+            { (ClassJobType)43, "BeastMaster" }
         };
 
         // Cache the reflected methods so reflection only has to happen once.
