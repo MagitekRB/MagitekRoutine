@@ -54,6 +54,15 @@ namespace Magitek.Utilities.Routines
             }
         }
 
+        /// <summary>Enemies within a radius of the summoned familiar (its abilities go out from where it stands).</summary>
+        public static int EnemiesNearFamiliar(float yards)
+        {
+            var pet = Core.Me.Pet;
+            if (pet == null)
+                return 0;
+            return Combat.Enemies.Count(e => e.Distance(pet) <= yards + e.CombatReach);
+        }
+
         /// <summary>A familiar is summoned. RebornBuddy exposes it as the player's pet.</summary>
         public static bool FamiliarOut => Core.Me.Pet != null && Core.Me.Pet.IsValid;
 

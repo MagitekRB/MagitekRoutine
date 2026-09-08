@@ -5620,6 +5620,18 @@
   <data name="BeastMaster_Content_Tempered_Release" xml:space="preserve">
     <value>Tempered Release (the familiar's controlled ability)</value>
   </data>
+  <data name="BeastMaster_Content_TR_Knockbacks" xml:space="preserve">
+    <value>Allow knockback and pull-in controlled abilities in a party</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Mitigation" xml:space="preserve">
+    <value>Mitigation controlled abilities when health is below (or a catalogued AoE is coming)</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Sleep" xml:space="preserve">
+    <value>Sleep controlled abilities only with at least this many enemies near the familiar</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Finisher" xml:space="preserve">
+    <value>Final Sting when the target's health is below (and another horn is ready)</value>
+  </data>
   <data name="BeastMaster_Content_Borrow" xml:space="preserve">
     <value>Borrow (take the familiar's kinship)</value>
   </data>

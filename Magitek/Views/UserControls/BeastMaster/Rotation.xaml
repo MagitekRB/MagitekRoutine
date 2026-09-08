@@ -24,6 +24,23 @@
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Tempered_Release}" IsChecked="{Binding BeastMasterSettings.UseTemperedRelease, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
                         <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_TR_Knockbacks}" IsChecked="{Binding BeastMasterSettings.TemperedReleaseKnockbacksInParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_TR_Mitigation}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.TemperedReleaseMitigationHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_TR_Sleep}" />
+                            <controls:Numeric MaxValue="10" MinValue="1" Value="{Binding BeastMasterSettings.TemperedReleaseSleepMinEnemies, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_TR_Finisher}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.TemperedReleaseFinisherHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
+                        <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Borrow}" IsChecked="{Binding BeastMasterSettings.UseBorrow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
                         <StackPanel Margin="5">

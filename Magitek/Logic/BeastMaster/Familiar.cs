@@ -109,7 +109,7 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             var borrow = BeastMasterSettings.Instance.UseBorrow && Spells.Borrow.IsKnown();
-            var release = BeastMasterSettings.Instance.UseTemperedRelease && Spells.TemperedRelease.IsKnown();
+            var release = BeastMasterSettings.Instance.UseTemperedRelease && Spells.TemperedRelease.IsKnown() && TemperedReleaseWanted();
 
             // Both are orders to the familiar (range 0): cast on self, the familiar resolves what its ability hits.
             if (borrow && (BeastMasterSettings.Instance.PreferBorrow || !release))
@@ -122,6 +122,59 @@ namespace Magitek.Logic.BeastMaster
                 return await Spells.Borrow.Cast(Core.Me);
 
             return false;
+        }
+
+        /// <summary>
+        /// Whether this is the moment for the summoned familiar's controlled ability. The horns are the only source
+        /// of One with Nature, so it is one use per summon and its class decides when that use is worth taking:
+        /// damage as soon as the target will live to feel it, party buffs likewise, the familiar's own buff at once,
+        /// mitigation when we are hurt or a catalogued AoE is coming, sleep only with company to put down, and Final
+        /// Sting (the familiar retreats) as a kill shot with another horn ready. Knockbacks and pull-ins stay off in
+        /// a party unless asked for. A beast the bestiary does not classify is used as before.
+        /// </summary>
+        private static bool TemperedReleaseWanted()
+        {
+            var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
+            if (ability == null || string.IsNullOrEmpty(ability.Kind))
+                return true;
+
+            var settings = BeastMasterSettings.Instance;
+            var target = Core.Me.CurrentTarget;
+
+            if (Globals.InParty && !settings.TemperedReleaseKnockbacksInParty && (ability.Has("Knockback") || ability.Has("DrawIn")))
+                return false;
+
+            switch (ability.Kind)
+            {
+                case AbilityKind.Damage:
+                    // A dispel is worth more with something to strip: give the fight a few seconds to show one.
+                    if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < 8)
+                        return false;
+                    return !BeastMasterRoutine.CheckTTDIsEnemyDyingSoon();
+
+                case AbilityKind.PartyBuff:
+                    if (ability.Has("SelfDamage") && Core.Me.CurrentHealthPercent < 60)
+                        return false;
+                    return !BeastMasterRoutine.CheckTTDIsEnemyDyingSoon();
+
+                case AbilityKind.FamiliarBuff:
+                    return true;
+
+                case AbilityKind.Mitigation:
+                    return Core.Me.CurrentHealthPercent <= settings.TemperedReleaseMitigationHealthPercent
+                        || FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe();
+
+                case AbilityKind.CrowdControl:
+                    return BeastMasterRoutine.EnemiesNearFamiliar(8) >= settings.TemperedReleaseSleepMinEnemies;
+
+                case AbilityKind.Finisher:
+                    if (target.CurrentHealthPercent > settings.TemperedReleaseFinisherHealthPercent)
+                        return false;
+                    return BeastMasterRoutine.Battlehorns.Any(h => h != BeastMasterRoutine.LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero);
+
+                default:
+                    return true;
+            }
         }
 
         /// <summary>

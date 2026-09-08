@@ -28,6 +28,24 @@ namespace Magitek.Models.BeastMaster
         public int Range { get; set; }
         public int EffectRange { get; set; }
         public string Description { get; set; }
+
+        // Tempered Release only: what kind of effect the controlled ability is (Damage, PartyBuff, FamiliarBuff,
+        // Mitigation, CrowdControl, Finisher) and the riders that change when it is worth the one One with Nature a
+        // summon grants (Knockback, DrawIn, Sleep, SelfDamage, Retreats, Dispel, Esuna, Doom, Aoe, ...).
+        public string Kind { get; set; }
+        public List<string> Flags { get; set; } = new List<string>();
+
+        public bool Has(string flag) => Flags != null && Flags.Contains(flag);
+    }
+
+    public static class AbilityKind
+    {
+        public const string Damage = "Damage";
+        public const string PartyBuff = "PartyBuff";
+        public const string FamiliarBuff = "FamiliarBuff";
+        public const string Mitigation = "Mitigation";
+        public const string CrowdControl = "CrowdControl";
+        public const string Finisher = "Finisher";
     }
 
     /// <summary>The Inner Compass: clockwise order. Executing the next affinity within 7 s is an intentional combo.</summary>

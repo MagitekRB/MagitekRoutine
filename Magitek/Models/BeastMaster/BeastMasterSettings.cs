@@ -32,6 +32,23 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool UseTemperedRelease { get; set; }
 
+        // Tempered Release policies by the ability's class (see Resources/BeastMasterFamiliars.json).
+        [Setting]
+        [DefaultValue(false)]
+        public bool TemperedReleaseKnockbacksInParty { get; set; }
+
+        [Setting]
+        [DefaultValue(70.0f)]
+        public float TemperedReleaseMitigationHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int TemperedReleaseSleepMinEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(30.0f)]
+        public float TemperedReleaseFinisherHealthPercent { get; set; }
+
         // One with Nature is spent by either Tempered Release or Borrow; when both are on, Borrow wins if this is set.
         [Setting]
         [DefaultValue(false)]

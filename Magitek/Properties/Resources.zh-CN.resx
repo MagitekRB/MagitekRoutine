@@ -5853,6 +5853,18 @@
   <data name="BeastMaster_Content_Tempered_Release" xml:space="preserve">
     <value>调驯解放（宠物的受控技能）</value>
   </data>
+  <data name="BeastMaster_Content_TR_Knockbacks" xml:space="preserve">
+    <value>组队时允许使用击退和拉拽类的操控技能</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Mitigation" xml:space="preserve">
+    <value>生命值低于以下百分比（或即将受到已收录的范围攻击）时使用减伤类操控技能</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Sleep" xml:space="preserve">
+    <value>仅当魔兽附近至少有以下数量的敌人时使用睡眠类操控技能</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Finisher" xml:space="preserve">
+    <value>目标生命值低于以下百分比（且另一支战角可用）时使用致命一蜇</value>
+  </data>
   <data name="BeastMaster_Content_Borrow" xml:space="preserve">
     <value>借用（获得宠物的亲缘）</value>
   </data>

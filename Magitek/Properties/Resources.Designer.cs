@@ -2041,6 +2041,42 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Borrow", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow knockback and pull-in controlled abilities in a party.
+        /// </summary>
+        public static string BeastMaster_Content_TR_Knockbacks {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Knockbacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mitigation controlled abilities when health is below (or a catalogued AoE is coming).
+        /// </summary>
+        public static string BeastMaster_Content_TR_Mitigation {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Mitigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sleep controlled abilities only with at least this many enemies near the familiar.
+        /// </summary>
+        public static string BeastMaster_Content_TR_Sleep {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Sleep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Final Sting when the target's health is below (and another horn is ready).
+        /// </summary>
+        public static string BeastMaster_Content_TR_Finisher {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Finisher", resourceCulture);
+            }
+        }
 
         /// <summary>
         ///   Looks up a localized string similar to Spend One with Nature on Borrow rather than Tempered Release.

@@ -33,7 +33,9 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 1,
-   "description": "Orders your familiar to use **Relentless Rake**, delivering a sixfold slashing physical attack with a potency of 150. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Relentless Rake**, delivering a sixfold slashing physical attack with a potency of 150. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": []
   }
  },
  {
@@ -68,7 +70,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Scamper**, reducing weaponskill cast time and recast time, spell cast time and recast time, and auto-attack delay by 15% for nearby party members. **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Scamper**, reducing weaponskill cast time and recast time, spell cast time and recast time, and auto-attack delay by 15% for nearby party members. **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "PartyBuff",
+   "flags": []
   }
  },
  {
@@ -103,7 +107,12 @@
    "effectRange": 8,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Lullaby**, afflicting all nearby enemies with **Sleep**. **Duration:** 30s **Additional Effect:** Increases sleep resistance of all nearby party members, and reduces the duration of sleep-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Lullaby**, afflicting all nearby enemies with **Sleep**. **Duration:** 30s **Additional Effect:** Increases sleep resistance of all nearby party members, and reduces the duration of sleep-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "CrowdControl",
+   "flags": [
+    "Sleep",
+    "Aoe"
+   ]
   }
  },
  {
@@ -138,7 +147,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Water Wall**, reducing nearby party members' magic vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases paralysis resistance of all nearby party members, and reduces the duration of paralysis-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Water Wall**, reducing nearby party members' magic vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases paralysis resistance of all nearby party members, and reduces the duration of paralysis-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Mitigation",
+   "flags": []
   }
  },
  {
@@ -175,7 +186,11 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Pins and Nails**, dealing unaspected damage with a potency of 750. **Additional Effect:** Afflicts target with **Paralysis** **Duration:** 45s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Pins and Nails**, dealing unaspected damage with a potency of 750. **Additional Effect:** Afflicts target with **Paralysis** **Duration:** 45s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Paralysis"
+   ]
   }
  },
  {
@@ -210,7 +225,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Strut**, reducing earth damage taken by 15% for nearby party members, and occasionally nullifying it entirely. **Duration:** 60s **Additional Effect:** Increases blind resistance of all nearby party members, and reduces the duration of blind-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Strut**, reducing earth damage taken by 15% for nearby party members, and occasionally nullifying it entirely. **Duration:** 60s **Additional Effect:** Increases blind resistance of all nearby party members, and reduces the duration of blind-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Mitigation",
+   "flags": []
   }
  },
  {
@@ -245,7 +262,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Vulcanize**, reducing nearby party members' physical vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases poison resistance of all nearby party members, and reduces the duration of poison-related status afflictions by 80% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Vulcanize**, reducing nearby party members' physical vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases poison resistance of all nearby party members, and reduces the duration of poison-related status afflictions by 80% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Mitigation",
+   "flags": []
   }
  },
  {
@@ -282,7 +301,12 @@
    "effectRange": 16,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Silkscreen**, dealing unaspected damage with a potency of 450 to all enemies in a straight line before it. **Additional Effect:** 15-yalm knockback and **Bind+** that cannot be nullified by suffering damage **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Silkscreen**, dealing unaspected damage with a potency of 450 to all enemies in a straight line before it. **Additional Effect:** 15-yalm knockback and **Bind+** that cannot be nullified by suffering damage **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Knockback",
+    "Aoe"
+   ]
   }
  },
  {
@@ -319,7 +343,12 @@
    "effectRange": 9,
    "aspect": 6,
    "attackType": 5,
-   "description": "Orders your familiar to use **Bubble Shower**, dealing water damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Reduces targets' water resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Bubble Shower**, dealing water damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Reduces targets' water resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "ResistanceDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -356,7 +385,11 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 2,
-   "description": "Orders your familiar to use **Final Sting**, delivering a piercing physical attack with a potency of 2,000. Potency increases up to 3,000 as the target's HP decreases. Familiar retreats from combat upon execution. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Final Sting**, delivering a piercing physical attack with a potency of 2,000. Potency increases up to 3,000 as the target's HP decreases. Familiar retreats from combat upon execution. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Finisher",
+   "flags": [
+    "Retreats"
+   ]
   }
  },
  {
@@ -393,7 +426,12 @@
    "effectRange": 8,
    "aspect": 3,
    "attackType": 5,
-   "description": "Orders your familiar to use **Bloodcurdling Caw**, dealing wind damage with a potency of 450 to all nearby enemies. **Additional Effect:** Removes one beneficial status from targets and increases **Familiar TP Gauge** by 100 per status removed **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Bloodcurdling Caw**, dealing wind damage with a potency of 450 to all nearby enemies. **Additional Effect:** Removes one beneficial status from targets and increases **Familiar TP Gauge** by 100 per status removed **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Dispel",
+    "Aoe"
+   ]
   }
  },
  {
@@ -430,7 +468,12 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Heirloom Scream**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Heavy** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Heirloom Scream**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Heavy** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Heavy",
+    "Aoe"
+   ]
   }
  },
  {
@@ -465,7 +508,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Odium**, granting **Life Siphon** to nearby party members. **Life Siphon Effect:** Converts a portion of damage dealt into HP **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Odium**, granting **Life Siphon** to nearby party members. **Life Siphon Effect:** Converts a portion of damage dealt into HP **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "PartyBuff",
+   "flags": []
   }
  },
  {
@@ -502,7 +547,12 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 1,
-   "description": "Orders your familiar to use **Tail Chase**, delivering a slashing physical attack with a potency of 750 to all nearby enemies. **Additional Effect:** 15-yalm knockback **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Tail Chase**, delivering a slashing physical attack with a potency of 750 to all nearby enemies. **Additional Effect:** 15-yalm knockback **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Knockback",
+    "Aoe"
+   ]
   }
  },
  {
@@ -537,7 +587,9 @@
    "effectRange": 0,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Hundred Fists**, reducing its auto-attack delay by 75%. **Duration:** 6s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Hundred Fists**, reducing its auto-attack delay by 75%. **Duration:** 6s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "FamiliarBuff",
+   "flags": []
   }
  },
  {
@@ -574,7 +626,12 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Eerie Soundwave**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Increases targets' physical vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Eerie Soundwave**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Increases targets' physical vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "VulnerabilityUp",
+    "Aoe"
+   ]
   }
  },
  {
@@ -611,7 +668,12 @@
    "effectRange": 4,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Syrup**, dealing unaspected damage with a potency of 550 to target and all enemies nearby it. **Additional Effect:** Afflicts targets with **Bind+** that cannot be nullified by suffering damage **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Syrup**, dealing unaspected damage with a potency of 550 to target and all enemies nearby it. **Additional Effect:** Afflicts targets with **Bind+** that cannot be nullified by suffering damage **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Bind",
+    "Aoe"
+   ]
   }
  },
  {
@@ -646,7 +708,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **King's Will**, increasing nearby party members' physical damage dealt by 10%. **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **King's Will**, increasing nearby party members' physical damage dealt by 10%. **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "PartyBuff",
+   "flags": []
   }
  },
  {
@@ -683,7 +747,13 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Ultrasonics**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Reduces targets' accuracy by 10% **Duration:** 21s **Additional Effect:** Removes a single detrimental effect from all nearby party members **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Ultrasonics**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Reduces targets' accuracy by 10% **Duration:** 21s **Additional Effect:** Removes a single detrimental effect from all nearby party members **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Esuna",
+    "AccuracyDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -720,7 +790,12 @@
    "effectRange": 5,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Necrotic Nectar**, dealing unaspected damage with a potency of 550 to target and all enemies nearby it. **Additional Effect:** Increases targets' magic vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Necrotic Nectar**, dealing unaspected damage with a potency of 550 to target and all enemies nearby it. **Additional Effect:** Increases targets' magic vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "VulnerabilityUp",
+    "Aoe"
+   ]
   }
  },
  {
@@ -757,7 +832,12 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Petribreath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Petrification** **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Petribreath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Petrification** **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Petrify",
+    "Aoe"
+   ]
   }
  },
  {
@@ -792,7 +872,11 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Hypodermic Hustle**, granting **Keen Edge** to nearby party members, excluding familiars. **Keen Edge Effect:** Increases damage dealt by 20% but inflicts damage over time **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Hypodermic Hustle**, granting **Keen Edge** to nearby party members, excluding familiars. **Keen Edge Effect:** Increases damage dealt by 20% but inflicts damage over time **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "PartyBuff",
+   "flags": [
+    "SelfDamage"
+   ]
   }
  },
  {
@@ -829,7 +913,12 @@
    "effectRange": 8,
    "aspect": 4,
    "attackType": 5,
-   "description": "Orders your familiar to use **Rockslide**, dealing earth damage with a potency of 450 to all enemies in a straight line before it. **Additional Effect:** Reduces targets' earth resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Rockslide**, dealing earth damage with a potency of 450 to all enemies in a straight line before it. **Additional Effect:** Reduces targets' earth resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "ResistanceDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -866,7 +955,11 @@
    "effectRange": 0,
    "aspect": 6,
    "attackType": 5,
-   "description": "Orders your familiar to use **Regurgitate**, dealing water damage with a potency of 750. **Additional Effect:** Afflicts target with **Slow** **Duration:** 45s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Regurgitate**, dealing water damage with a potency of 750. **Additional Effect:** Afflicts target with **Slow** **Duration:** 45s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Slow"
+   ]
   }
  },
  {
@@ -901,7 +994,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Harden Shell**, reducing nearby party members' physical vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases petrification resistance of all nearby party members, and reduces the duration of petrification-related status afflictions by 80% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Harden Shell**, reducing nearby party members' physical vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases petrification resistance of all nearby party members, and reduces the duration of petrification-related status afflictions by 80% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Mitigation",
+   "flags": []
   }
  },
  {
@@ -938,7 +1033,12 @@
    "effectRange": 15,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **War Cry**, dealing unaspected damage with a potency of 750 to all nearby enemies. **Additional Effect:** Afflicts targets with **Stun** **Duration:** 15s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **War Cry**, dealing unaspected damage with a potency of 750 to all nearby enemies. **Additional Effect:** Afflicts targets with **Stun** **Duration:** 15s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Stun",
+    "Aoe"
+   ]
   }
  },
  {
@@ -975,7 +1075,12 @@
    "effectRange": 6,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Gas Shell**, dealing unaspected damage with a potency of 300 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Poison** **Potency:** 150 **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Gas Shell**, dealing unaspected damage with a potency of 300 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Poison** **Potency:** 150 **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Poison",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1012,7 +1117,12 @@
    "effectRange": 12,
    "aspect": 4,
    "attackType": 5,
-   "description": "Orders your familiar to use **Bottomless Desert**, dealing earth damage with a potency of 800 to all nearby enemies. **Additional Effect:** Afflicts targets with **Heavy** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Bottomless Desert**, dealing earth damage with a potency of 800 to all nearby enemies. **Additional Effect:** Afflicts targets with **Heavy** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Heavy",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1049,7 +1159,9 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 3,
-   "description": "Orders your familiar to use **Frenetic Flurry**, delivering a sevenfold blunt physical attack with a potency of 125. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Frenetic Flurry**, delivering a sevenfold blunt physical attack with a potency of 125. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": []
   }
  },
  {
@@ -1086,7 +1198,12 @@
    "effectRange": 6,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Moldy Sneeze**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Disease** **Disease Effect:** Reduces movement speed by 80% and HP recovered via healing magic by 95% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Moldy Sneeze**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Disease** **Disease Effect:** Reduces movement speed by 80% and HP recovered via healing magic by 95% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Disease",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1123,7 +1240,11 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 3,
-   "description": "Orders your familiar to use **Sticky Tongue**, delivering a ranged blunt physical attack with a potency of 750. **Additional Effect:** Draws target to familiar **Additional Effect:** Reduces target's accuracy by 10% **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Sticky Tongue**, delivering a ranged blunt physical attack with a potency of 750. **Additional Effect:** Draws target to familiar **Additional Effect:** Reduces target's accuracy by 10% **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "DrawIn"
+   ]
   }
  },
  {
@@ -1160,7 +1281,9 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 2,
-   "description": "Orders your familiar to use **Pecking Flurry**, delivering a fivefold piercing physical attack with a potency of 200. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Pecking Flurry**, delivering a fivefold piercing physical attack with a potency of 200. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": []
   }
  },
  {
@@ -1197,7 +1320,13 @@
    "effectRange": 7,
    "aspect": 5,
    "attackType": 5,
-   "description": "Orders your familiar to use **Charged Whisker**, dealing lightning damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Paralysis** **Duration:** 30s **Additional Effect:** Reduces targets' lightning resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Charged Whisker**, dealing lightning damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Paralysis** **Duration:** 30s **Additional Effect:** Reduces targets' lightning resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Paralysis",
+    "ResistanceDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1234,7 +1363,12 @@
    "effectRange": 12,
    "aspect": 1,
    "attackType": 5,
-   "description": "Orders your familiar to use **Foul Breath**, dealing fire damage with a potency of 1,000 to all enemies in a cone before it. **Additional Effect:** Reduces targets' fire resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Foul Breath**, dealing fire damage with a potency of 1,000 to all enemies in a cone before it. **Additional Effect:** Reduces targets' fire resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "ResistanceDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1269,7 +1403,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Smoldering Scales**, reducing nearby party members' magic vulnerability by 20% and fire damage taken by 15%, occasionally nullifying it entirely. **Duration:** 48s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Smoldering Scales**, reducing nearby party members' magic vulnerability by 20% and fire damage taken by 15%, occasionally nullifying it entirely. **Duration:** 48s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Mitigation",
+   "flags": []
   }
  },
  {
@@ -1306,7 +1442,12 @@
    "effectRange": 10,
    "aspect": 3,
    "attackType": 5,
-   "description": "Orders your familiar to use **Arboreal Storm**, dealing wind damage with a potency of 450 to all nearby enemies. **Additional Effect:** 15-yalm knockback **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Arboreal Storm**, dealing wind damage with a potency of 450 to all nearby enemies. **Additional Effect:** 15-yalm knockback **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Knockback",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1341,7 +1482,11 @@
    "effectRange": 7,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Formic Pheromones**, afflicting all nearby enemies with **Slow**. **Duration:** 30s **Additional Effect:** Reduces water, earth, and ice damage taken by 15% for nearby party members, and occasionally nullifies it entirely **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Formic Pheromones**, afflicting all nearby enemies with **Slow**. **Duration:** 30s **Additional Effect:** Reduces water, earth, and ice damage taken by 15% for nearby party members, and occasionally nullifies it entirely **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Mitigation",
+   "flags": [
+    "Slow"
+   ]
   }
  },
  {
@@ -1379,7 +1524,13 @@
    "effectRange": 9,
    "aspect": 2,
    "attackType": 5,
-   "description": "Orders your familiar to use **The Ram's Voice**, dealing ice damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Deep Freeze** **Duration:** 20s **Additional Effect:** Reduces targets' ice resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **The Ram's Voice**, dealing ice damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Deep Freeze** **Duration:** 20s **Additional Effect:** Reduces targets' ice resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Freeze",
+    "ResistanceDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1416,7 +1567,13 @@
    "effectRange": 12,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Bad Breath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Slow**, **Blind**, and **Paralysis** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Bad Breath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Slow**, **Blind**, and **Paralysis** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Slow",
+    "Paralysis",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1454,7 +1611,13 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Curse**, dealing unaspected damage with a potency of 300 to all nearby enemies. **Additional Effect:** Deals additional damage with a potency of 1,500 to targets suffering from **Disease** **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Curse**, dealing unaspected damage with a potency of 300 to all nearby enemies. **Additional Effect:** Deals additional damage with a potency of 1,500 to targets suffering from **Disease** **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Doom",
+    "LowLevelOnly",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1491,7 +1654,12 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Peculiar Light**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Increases targets' magic vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Peculiar Light**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Increases targets' magic vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "VulnerabilityUp",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1528,7 +1696,11 @@
    "effectRange": 0,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Stone Gaze**, dealing unaspected damage with a potency of 750. **Additional Effect:** Afflicts target with **Petrification** **Duration:** 42s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Stone Gaze**, dealing unaspected damage with a potency of 750. **Additional Effect:** Afflicts target with **Petrification** **Duration:** 42s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Petrify"
+   ]
   }
  },
  {
@@ -1565,7 +1737,12 @@
    "effectRange": 15,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **White Breath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Disease** **Disease Effect:** Reduces movement speed by 80% and HP recovered via healing magic by 95% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **White Breath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Disease** **Disease Effect:** Reduces movement speed by 80% and HP recovered via healing magic by 95% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Disease",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1602,7 +1779,12 @@
    "effectRange": 8,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Venom**, dealing unaspected damage with a potency of 300 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Poison** **Potency:** 150 **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Venom**, dealing unaspected damage with a potency of 300 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Poison** **Potency:** 150 **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Poison",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1639,7 +1821,12 @@
    "effectRange": 20,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Inhale**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Draws targets to familiar **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Inhale**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Draws targets to familiar **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "DrawIn",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1676,7 +1863,12 @@
    "effectRange": 12,
    "aspect": 3,
    "attackType": 5,
-   "description": "Orders your familiar to use **Breath Wing**, dealing wind damage with a potency of 800 to all nearby enemies. **Additional Effect:** Reduces targets' wind resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Breath Wing**, dealing wind damage with a potency of 800 to all nearby enemies. **Additional Effect:** Reduces targets' wind resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "ResistanceDown",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1711,7 +1903,9 @@
    "effectRange": 20,
    "aspect": 0,
    "attackType": 0,
-   "description": "Orders your familiar to use **Frozen Heart**, increasing nearby party members' magic damage dealt by 25%. **Duration:** 15s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Frozen Heart**, increasing nearby party members' magic damage dealt by 25%. **Duration:** 15s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "PartyBuff",
+   "flags": []
   }
  },
  {
@@ -1748,7 +1942,12 @@
    "effectRange": 12,
    "aspect": 6,
    "attackType": 5,
-   "description": "Orders your familiar to use **Tail Screw**, dealing water damage with a potency of 800 to target and all enemies nearby it. **Additional Effect:** Small chance to reduce enemy HP to a single digit. Has no effect on enemies whose level is higher than your own. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Tail Screw**, dealing water damage with a potency of 800 to target and all enemies nearby it. **Additional Effect:** Small chance to reduce enemy HP to a single digit. Has no effect on enemies whose level is higher than your own. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "LowLevelOnly",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1785,7 +1984,13 @@
    "effectRange": 12,
    "aspect": 7,
    "attackType": 5,
-   "description": "Orders your familiar to use **Blighted Bouquet**, dealing unaspected damage with a potency of 800 to all nearby enemies. **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Blighted Bouquet**, dealing unaspected damage with a potency of 800 to all nearby enemies. **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Doom",
+    "LowLevelOnly",
+    "Aoe"
+   ]
   }
  },
  {
@@ -1822,7 +2027,11 @@
    "effectRange": 18,
    "aspect": 1,
    "attackType": 5,
-   "description": "Orders your familiar to use **Meteor**, dealing fire damage with a potency of 1,000 to target and all enemies nearby it. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+   "description": "Orders your familiar to use **Meteor**, dealing fire damage with a potency of 1,000 to target and all enemies nearby it. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**.",
+   "kind": "Damage",
+   "flags": [
+    "Aoe"
+   ]
   }
  }
 ]
