@@ -109,24 +109,29 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             var borrow = BeastMasterSettings.Instance.UseBorrow && Spells.Borrow.IsKnown();
-            var release = BeastMasterSettings.Instance.UseTemperedRelease && Spells.TemperedRelease.IsKnown() && TemperedReleaseWanted();
+            var release = BeastMasterSettings.Instance.UseTemperedRelease && Spells.TemperedRelease.IsKnown();
+            var timing = release ? TemperedReleaseTiming() : Timing.Never;
 
+            // One use per summon, so "not now" and "not at all" are different answers: a mitigation waiting for
+            // damage or a sleep waiting for company keeps One with Nature for its moment, and Borrow only takes it
+            // when the controlled ability is off, unknown, or ruled out (a knockback in a party), or when Borrow is
+            // preferred outright.
+            //
             // Borrow is an order with nothing to aim: cast on self. Tempered Release is aimed the way the beast's
             // ability is: one centred on the familiar (Ultrasonics, the party buffs and mitigations) takes the order
             // on self, one aimed at an enemy (Necrotic Nectar, Petribreath and every cone, line or single-target hit)
             // only goes through with the order on that enemy; on self the client drops it without a word
             // (0 of 95 attempts, 2026-09-08). The catalogue's range tells the two apart.
-            if (borrow && (BeastMasterSettings.Instance.PreferBorrow || !release))
+            if (borrow && (BeastMasterSettings.Instance.PreferBorrow || timing == Timing.Never))
                 return await Spells.Borrow.Cast(Core.Me);
 
-            if (release && await Spells.TemperedRelease.Cast(TemperedReleaseOrderTarget()))
-                return true;
-
-            if (borrow)
-                return await Spells.Borrow.Cast(Core.Me);
+            if (timing == Timing.Now)
+                return await Spells.TemperedRelease.Cast(TemperedReleaseOrderTarget());
 
             return false;
         }
+
+        private enum Timing { Now, Later, Never }
 
         /// <summary>Who the Tempered Release order is placed on: the enemy for an aimed ability, ourselves otherwise.</summary>
         private static ff14bot.Objects.GameObject TemperedReleaseOrderTarget()
@@ -138,55 +143,57 @@ namespace Magitek.Logic.BeastMaster
         }
 
         /// <summary>
-        /// Whether this is the moment for the summoned familiar's controlled ability. The horns are the only source
-        /// of One with Nature, so it is one use per summon and its class decides when that use is worth taking:
-        /// damage as soon as the target will live to feel it, party buffs likewise, the familiar's own buff at once,
-        /// mitigation when we are hurt or a catalogued AoE is coming, sleep only with company to put down, and Final
-        /// Sting (the familiar retreats) as a kill shot with another horn ready. Knockbacks and pull-ins stay off in
-        /// a party unless asked for. A beast the bestiary does not classify is used as before.
+        /// When the summoned familiar's controlled ability is worth the one One with Nature a summon grants: now,
+        /// later in this summon, or never. Its class decides: damage as soon as the target will live to feel it,
+        /// party buffs likewise, the familiar's own buff at once, mitigation when we are hurt or a catalogued AoE is
+        /// coming, sleep only with company to put down, and Final Sting (the familiar retreats) as a kill shot with
+        /// another horn ready. Knockbacks and pull-ins are never in a party unless asked for. A beast the bestiary
+        /// does not classify is used at once, as before.
         /// </summary>
-        private static bool TemperedReleaseWanted()
+        private static Timing TemperedReleaseTiming()
         {
             var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
             if (ability == null || string.IsNullOrEmpty(ability.Kind))
-                return true;
+                return Timing.Now;
 
             var settings = BeastMasterSettings.Instance;
             var target = Core.Me.CurrentTarget;
 
             if (Globals.InParty && !settings.TemperedReleaseKnockbacksInParty && (ability.Has("Knockback") || ability.Has("DrawIn")))
-                return false;
+                return Timing.Never;
 
             switch (ability.Kind)
             {
                 case AbilityKind.Damage:
                     // A dispel is worth more with something to strip: give the fight a few seconds to show one.
                     if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < 8)
-                        return false;
-                    return !BeastMasterRoutine.CheckTTDIsEnemyDyingSoon();
+                        return Timing.Later;
+                    return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
                 case AbilityKind.PartyBuff:
                     if (ability.Has("SelfDamage") && Core.Me.CurrentHealthPercent < 60)
-                        return false;
-                    return !BeastMasterRoutine.CheckTTDIsEnemyDyingSoon();
+                        return Timing.Later;
+                    return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
                 case AbilityKind.FamiliarBuff:
-                    return true;
+                    return Timing.Now;
 
                 case AbilityKind.Mitigation:
                     return Core.Me.CurrentHealthPercent <= settings.TemperedReleaseMitigationHealthPercent
-                        || FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe();
+                        || FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe()
+                        ? Timing.Now : Timing.Later;
 
                 case AbilityKind.CrowdControl:
-                    return BeastMasterRoutine.EnemiesNearFamiliar(8) >= settings.TemperedReleaseSleepMinEnemies;
+                    return BeastMasterRoutine.EnemiesNearFamiliar(8) >= settings.TemperedReleaseSleepMinEnemies ? Timing.Now : Timing.Later;
 
                 case AbilityKind.Finisher:
                     if (target.CurrentHealthPercent > settings.TemperedReleaseFinisherHealthPercent)
-                        return false;
-                    return BeastMasterRoutine.Battlehorns.Any(h => h != BeastMasterRoutine.LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero);
+                        return Timing.Later;
+                    return BeastMasterRoutine.Battlehorns.Any(h => h != BeastMasterRoutine.LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero)
+                        ? Timing.Now : Timing.Later;
 
                 default:
-                    return true;
+                    return Timing.Now;
             }
         }
 
