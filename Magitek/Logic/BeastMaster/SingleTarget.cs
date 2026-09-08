@@ -38,6 +38,10 @@ namespace Magitek.Logic.BeastMaster
             if (ActionManager.LastSpell == Spells.SmashAxe || ActionManager.LastSpell == Spells.AxebladeBite)
                 return false;
 
+            // The familiar was just ordered: its Heart is the one to continue, once it is there.
+            if (BeastMasterRoutine.TrickPending)
+                return false;
+
             var heart = BeastMasterRoutine.EffectiveHeart;
             var familiar = BeastMasterRoutine.WaveringHeart ? null : BeastMasterRoutine.FamiliarAffinity;
 

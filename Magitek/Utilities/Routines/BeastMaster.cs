@@ -70,11 +70,19 @@ namespace Magitek.Utilities.Routines
             }
         }
 
-        // A Heart takes a moment to appear after the skill that lights it; until it does, the skill just cast says
-        // what the Heart will be, so the follow-up is chosen right instead of restarting the chain.
+        // A Heart takes a moment to appear after our own axe; until it does, the axe just cast says what the Heart
+        // will be, so the follow-up is chosen right instead of restarting the chain.
         private const int HeartLagMs = 1500;
 
-        /// <summary>The Heart lit now, or the one about to be lit by a Trick or axe just cast.</summary>
+        // Trick is an order: the familiar acts on its own time. An axe thrown before its skill has landed does not
+        // continue anything; it earned Wavering Heart every time (Trick, axe 0.6 s later, lockout 1.5 s after that,
+        // 2026-09-08). So after a Trick the axe waits for the familiar's Heart to actually show, up to this long.
+        private const int TrickLandingMs = 4000;
+
+        /// <summary>A Trick was ordered and the familiar's Heart has not shown yet: nothing of ours should go out.</summary>
+        public static bool TrickPending => CurrentHeart == null && Casting.LastSpellWas(Spells.Trick, TrickLandingMs);
+
+        /// <summary>The Heart lit now, or the one about to be lit by an axe just cast.</summary>
         public static string EffectiveHeart
         {
             get
@@ -82,9 +90,6 @@ namespace Magitek.Utilities.Routines
                 var heart = CurrentHeart;
                 if (heart != null)
                     return heart;
-
-                if (Casting.LastSpellWas(Spells.Trick, HeartLagMs))
-                    return FamiliarAffinity;
 
                 foreach (var affinity in Affinity.Clockwise)
                 {
