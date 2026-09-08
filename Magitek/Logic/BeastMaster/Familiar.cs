@@ -257,8 +257,12 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterRoutine.HasTpFor(Spells.Trick))
                 return false;
 
+            // A pair still resolving: nothing chains with the familiar until it clears (about 2 s).
+            if (BeastMasterRoutine.WaveringHeart)
+                return false;
+
             var affinity = BeastMasterRoutine.FamiliarAffinity;
-            if (affinity != null && !BeastMasterRoutine.WaveringHeart)
+            if (affinity != null)
             {
                 var heart = BeastMasterRoutine.EffectiveHeart;
                 if (heart != null)
@@ -321,12 +325,26 @@ namespace Magitek.Logic.BeastMaster
             return await Spells.QuellingWave.Cast(target);
         }
 
+        /// <summary>
+        /// Rally spends the Mastered Instinct our combos built (40 TP, +70 per stack). Without the gauge the stacks
+        /// are estimated from the combos we finished; it goes out at the cap, or with two stacks when an axe is
+        /// waiting on TP.
+        /// </summary>
         public static async Task<bool> Rally()
         {
             if (!BeastMasterSettings.Instance.UseRally || !Core.Me.InCombat)
                 return false;
 
-            return await Spells.Rally.Cast(Core.Me);
+            var stacks = BeastMasterRoutine.MasteredInstinct;
+            var axeWaiting = !BeastMasterRoutine.Axes.Any(a => BeastMasterRoutine.HasTpFor(a));
+            if (stacks < 3 && !(stacks >= 2 && axeWaiting))
+                return false;
+
+            if (!await Spells.Rally.Cast(Core.Me))
+                return false;
+
+            BeastMasterRoutine.SpentMastered();
+            return true;
         }
 
         public static async Task<bool> RallyingCheer()
@@ -334,7 +352,20 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.UseRallyingCheer || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
                 return false;
 
-            return await Spells.RallyingCheer.Cast(Core.Me);
+            // Natural Instinct from the combos the familiar finished (30 familiar TP, +70 per stack): at the cap, or
+            // with two stacks when the familiar's Trick is waiting on TP.
+            var natural = BeastMasterRoutine.NaturalInstinct;
+            if (natural < 3 && !(natural >= 2 && !BeastMasterRoutine.HasTpFor(Spells.Trick)))
+                return false;
+
+            if (!await Spells.RallyingCheer.Cast(Core.Me))
+
+                return false;
+
+
+            BeastMasterRoutine.SpentNatural();
+
+            return true;
         }
     }
 }

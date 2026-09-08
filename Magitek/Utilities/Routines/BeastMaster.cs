@@ -110,29 +110,51 @@ namespace Magitek.Utilities.Routines
         // will be, so the follow-up is chosen right instead of restarting the chain.
         private const int HeartLagMs = 1500;
 
-        // Trick is an order: the familiar acts on its own time. An axe thrown 0.6 s after the order, before its
-        // skill had landed, earned Wavering Heart every time; so did one thrown the instant the familiar's Heart
-        // appeared (1.2 s after the order, 2026-09-08 17:15). The Heart shows when the familiar starts its skill,
-        // not when it lands. So after a Trick the axe waits for the Heart and for this much time since the order;
-        // the axe and any Wavering Heart log their distance from the order so the safe gap gets measured.
+        // Trick is an order: the familiar acts on its own time (its hit lands about 0.2 s after the order, its Heart
+        // shows on us about 0.8 s after, measured on ACT 2026-09-08). An axe thrown before that Heart continues
+        // nothing; one thrown the moment it shows completes the pair. So after a Trick the axe waits for the Heart,
+        // up to this long.
         private const int TrickLandingMs = 4000;
-        private const int TrickSettleMs = 2500;
 
         public static System.DateTime LastTrickAt = System.DateTime.MinValue;
         public static double MsSinceTrick => (System.DateTime.Now - LastTrickAt).TotalMilliseconds;
 
-        /// <summary>A Trick was ordered and the familiar has not been given its time yet: nothing of ours should go out.</summary>
-        public static bool TrickPending
+        /// <summary>A Trick was ordered and the familiar's Heart has not shown yet: nothing of ours should go out.</summary>
+        public static bool TrickPending => CurrentHeart == null && Casting.LastSpellWas(Spells.Trick, TrickLandingMs);
+
+        // How a combo resolves (ACT, 76 intentional combos on 2026-09-08): the finishing skill consumes the Heart and
+        // applies Wavering Heart; the second half of the combo damage lands 2.1 s later, Wavering Heart clears, and a
+        // Sunstrider or Moonstalker window (7 s) opens for the next link. Nothing chains with the familiar while
+        // Wavering Heart is up, so instinctual actions wait it out; in the window that follows, the chain continues
+        // clockwise from the affinity of the skill that finished the pair, not from a Heart (there is none).
+        public static string LastInstinctAffinity;
+        private static System.DateTime _lastInstinctAt = System.DateTime.MinValue;
+        private const int InstinctMemoryMs = 10000;
+
+        public static bool ChainWindowOpen => Core.Me.HasAura(Auras.Sunstrider) || Core.Me.HasAura(Auras.Moonstalker);
+
+        public static void NoteInstinct(string affinity)
         {
-            get
-            {
-                if (!Casting.LastSpellWas(Spells.Trick, TrickLandingMs))
-                    return false;
-                return CurrentHeart == null || MsSinceTrick < TrickSettleMs;
-            }
+            if (affinity == null)
+                return;
+            LastInstinctAffinity = affinity;
+            _lastInstinctAt = System.DateTime.Now;
         }
 
-        /// <summary>The Heart lit now, or the one about to be lit by an axe just cast.</summary>
+        // What the gauge would tell us, estimated until the bot exposes it: a combo we finish adds a Mastered
+        // Instinct (Wild Heart III, level 28), one the familiar finishes adds a Natural Instinct (Wild Heart IV,
+        // level 40), three of each at most; Rally and Rallying Cheer spend them.
+        public static int MasteredInstinct;
+        public static int NaturalInstinct;
+        private const int InstinctStacksMax = 3;
+
+        public static void SpentMastered() => MasteredInstinct = 0;
+        public static void SpentNatural() => NaturalInstinct = 0;
+
+        /// <summary>
+        /// The affinity the next link has to follow: the Heart lit now, the one about to be lit by an axe just
+        /// cast, or, inside a Sunstrider/Moonstalker window, the skill that finished the last pair.
+        /// </summary>
         public static string EffectiveHeart
         {
             get
@@ -148,6 +170,9 @@ namespace Magitek.Utilities.Routines
                         return affinity;
                 }
 
+                if (ChainWindowOpen && LastInstinctAffinity != null && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < InstinctMemoryMs)
+                    return LastInstinctAffinity;
+
                 return null;
             }
         }
@@ -157,8 +182,8 @@ namespace Magitek.Utilities.Routines
             EffectiveHeart != null && FamiliarAffinity != null && FamiliarAffinity == Affinity.Next(EffectiveHeart);
 
         /// <summary>
-        /// Wavering Heart: the client says combos with the familiar are off for a while. Its cause is not documented,
-        /// so its first appearance in a fight is logged with what was cast just before it.
+        /// Wavering Heart: a pair just completed and is resolving (2.1 s to the second hit), during which nothing
+        /// chains with the familiar. Its appearance is the combo signal the bot can see, and says who finished it.
         /// </summary>
         public static bool WaveringHeart => Core.Me.HasAura(Auras.WaveringHeart);
         private static bool _waveringLogged;
@@ -175,7 +200,29 @@ namespace Magitek.Utilities.Routines
                 return;
 
             _waveringLogged = true;
-            Logger.WriteInfo($"[Beastmaster] Wavering Heart after {Casting.LastSpell?.LocalizedName ?? "nothing"} (familiar {(FamiliarOut ? "out" : "away")}, heart {CurrentHeart ?? "none"}, {MsSinceTrick:0} ms after the last Trick order).");
+
+            // Our axe within the last moments finished it; otherwise the familiar did.
+            var ours = false;
+            foreach (var affinity in Affinity.Clockwise)
+            {
+                var axe = AxeFor(affinity);
+                if (axe != null && Casting.LastSpellWas(axe, 2000))
+                {
+                    ours = true;
+                    NoteInstinct(affinity);
+                    break;
+                }
+            }
+
+            if (ours)
+                MasteredInstinct = System.Math.Min(InstinctStacksMax, MasteredInstinct + 1);
+            else
+            {
+                NaturalInstinct = System.Math.Min(InstinctStacksMax, NaturalInstinct + 1);
+                NoteInstinct(FamiliarAffinity);
+            }
+
+            Logger.WriteInfo($"[Beastmaster] Combo completed by {(ours ? Casting.LastSpell?.LocalizedName : "the familiar")} (instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
         }
 
         /// <summary>

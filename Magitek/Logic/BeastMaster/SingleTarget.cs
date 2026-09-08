@@ -55,12 +55,13 @@ namespace Magitek.Logic.BeastMaster
             if (ActionManager.LastSpell == Spells.SmashAxe || ActionManager.LastSpell == Spells.AxebladeBite)
                 return false;
 
-            // The familiar was just ordered: its Heart is the one to continue, once it is there.
-            if (BeastMasterRoutine.TrickPending)
+            // The familiar was just ordered: its Heart is the one to continue, once it is there. And a pair that is
+            // still resolving (Wavering Heart) is not to be stepped on.
+            if (BeastMasterRoutine.TrickPending || BeastMasterRoutine.WaveringHeart)
                 return false;
 
             var heart = BeastMasterRoutine.EffectiveHeart;
-            var familiar = BeastMasterRoutine.WaveringHeart ? null : BeastMasterRoutine.FamiliarAffinity;
+            var familiar = BeastMasterRoutine.FamiliarAffinity;
 
             string wanted = null;
             if (heart != null)
@@ -74,8 +75,7 @@ namespace Magitek.Logic.BeastMaster
                 if (!await axe.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                if (BeastMasterRoutine.MsSinceTrick < 10000)
-                    Logger.WriteInfo($"[Beastmaster] {axe.LocalizedName} {BeastMasterRoutine.MsSinceTrick:0} ms after the Trick order (heart {heart ?? "none"}).");
+                BeastMasterRoutine.NoteInstinct(wanted);
                 return true;
             }
 
