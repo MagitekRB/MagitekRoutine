@@ -41,13 +41,17 @@ namespace Magitek.Utilities.Routines
         private static System.DateTime _hornSeenRecasting = System.DateTime.MinValue;
         private const int HornArrivalGraceMs = 5000;
 
+        // The post-cast recast is 2 s; the cooldown a retreat starts is 90 s. Only the short one means a horn was
+        // just blown; the long one would otherwise keep the grace alive for a minute and a half.
+        private static readonly System.TimeSpan HornRecast = System.TimeSpan.FromSeconds(3);
+
         public static bool HornJustBlown =>
             Battlehorns.Any(h => Casting.LastSpellWas(h, HornArrivalGraceMs))
             || (System.DateTime.Now - _hornSeenRecasting).TotalMilliseconds < HornArrivalGraceMs;
 
         public static void RefreshVars()
         {
-            if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero))
+            if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
                 _hornSeenRecasting = System.DateTime.Now;
 
             // The chat listener that fills the bestiary: armed here as well as at bot start, since a hot-reload
@@ -345,11 +349,16 @@ namespace Magitek.Utilities.Routines
         // familiar to heel, and fight only what is awake and on us, with the 1-2-3 alone (the axes and Trick are
         // cones and lines that would wake the rest).
         private const int SleepDisengageMs = 30000;
+        // The familiar acts after the order: the Sleep is not on anyone for the first moments, and that must not
+        // read as the sleep being over.
+        private const int SleepLandingMs = 4000;
         private static System.DateTime _sleepDisengageUntil = System.DateTime.MinValue;
+        private static System.DateTime _sleepDisengageSince = System.DateTime.MinValue;
         private static bool _familiarHeeled;
 
         public static void BeginSleepDisengage()
         {
+            _sleepDisengageSince = System.DateTime.Now;
             _sleepDisengageUntil = System.DateTime.Now.AddMilliseconds(SleepDisengageMs);
             Logger.WriteInfo("[Beastmaster] Sleep out: disengaging from sleeping targets for up to 30 s.");
         }
@@ -359,6 +368,9 @@ namespace Magitek.Utilities.Routines
         public static bool IsAsleep(GameObject unit) => unit != null && unit.HasAnyAura(SleepStatuses);
 
         public static bool AnyEnemyAsleepNearby => Combat.Enemies.Any(e => IsAsleep(e) && e.Distance(Core.Me) <= 20 + e.CombatReach);
+
+        /// <summary>The sleep was ordered so recently that it may not have landed yet.</summary>
+        public static bool SleepStillLanding => (System.DateTime.Now - _sleepDisengageSince).TotalMilliseconds < SleepLandingMs;
 
         /// <summary>The familiar follows and stops attacking; the pet bar's Heel. Once per disengage.</summary>
         public static void HeelFamiliar()

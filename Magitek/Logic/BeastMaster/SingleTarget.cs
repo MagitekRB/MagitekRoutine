@@ -97,10 +97,11 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            var outOfMelee = target.Distance(Core.Me) > 5 + target.CombatReach;
+            var outOfMelee = !target.WithinSpellRange(5);
 
-            // One charge until Enhanced Shield Charge at 36: the kept count cannot exceed what exists.
-            var keep = System.Math.Min(BeastMasterSettings.Instance.ShieldChargeKeepCharges, System.Math.Max(0, (int)Spells.ShieldCharge.MaxCharges - 1));
+            // The reserve may be every charge there is (one until Enhanced Shield Charge at 36): then it is only
+            // ever the gap-closer.
+            var keep = System.Math.Min(BeastMasterSettings.Instance.ShieldChargeKeepCharges, (int)Spells.ShieldCharge.MaxCharges);
             if (!outOfMelee && Spells.ShieldCharge.Charges < keep + 1)
                 return false;
 

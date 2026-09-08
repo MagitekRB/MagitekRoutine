@@ -54,7 +54,7 @@ namespace Magitek.Rotations
             // whatever is awake and on us, until the sleep runs out or everything nearby is awake again.
             if (BeastMasterRoutine.SleepDisengageActive)
             {
-                if (!BeastMasterRoutine.AnyEnemyAsleepNearby)
+                if (!BeastMasterRoutine.AnyEnemyAsleepNearby && !BeastMasterRoutine.SleepStillLanding)
                 {
                     BeastMasterRoutine.EndSleepDisengage();
                 }
