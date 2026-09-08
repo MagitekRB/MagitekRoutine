@@ -35,8 +35,21 @@ namespace Magitek.Utilities.Routines
         private static System.DateTime _wantedHornSince = System.DateTime.MinValue;
         private const int WantedHornMs = 10000;
 
+        // A horn blown by anyone, the player included, shows as that horn on its 2 s recast. The familiar arrives
+        // about a second after the cast, and in that gap no familiar is out: the auto-summon must not answer the
+        // gap with a second horn (it did, 2026-09-08, and wasted the player's own choice).
+        private static System.DateTime _hornSeenRecasting = System.DateTime.MinValue;
+        private const int HornArrivalGraceMs = 5000;
+
+        public static bool HornJustBlown =>
+            Battlehorns.Any(h => Casting.LastSpellWas(h, HornArrivalGraceMs))
+            || (System.DateTime.Now - _hornSeenRecasting).TotalMilliseconds < HornArrivalGraceMs;
+
         public static void RefreshVars()
         {
+            if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero))
+                _hornSeenRecasting = System.DateTime.Now;
+
             // The chat listener that fills the bestiary: armed here as well as at bot start, since a hot-reload
             // re-initialises the routine without the start hook.
             BeastMasterBestiary.Start();

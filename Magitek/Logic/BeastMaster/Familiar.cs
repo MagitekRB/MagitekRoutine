@@ -21,8 +21,8 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.SummonFamiliar || BeastMasterRoutine.FamiliarOut)
                 return false;
 
-            // A horn just blown is a familiar on its way (1 s cast); do not stack a second order on it.
-            if (BeastMasterRoutine.Battlehorns.Any(h => Casting.LastSpellWas(h, 5000)))
+            // A horn just blown, by the routine or by hand, is a familiar on its way: no second order on top of it.
+            if (BeastMasterRoutine.HornJustBlown)
                 return false;
 
             var horn = BeastMasterRoutine.ReadyBattlehorn();
