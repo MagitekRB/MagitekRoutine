@@ -1,5 +1,6 @@
 using Magitek.Models.Roles;
 using PropertyChanged;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 
@@ -113,6 +114,27 @@ namespace Magitek.Models.BeastMaster
         [Setting]
         [DefaultValue(60.0f)]
         public float DefensiveKinshipHealthPercent { get; set; }
+
+        #endregion
+
+        #region Master's Bestiary
+
+        // Gauge each new kind of beast and capture the ones the bestiary lacks.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseCapture { get; set; }
+
+        // Gauge's five answers, 1 (exceedingly difficult) to 5 (no effort at all): capture only from this one up.
+        [Setting]
+        [DefaultValue(1)]
+        public int CaptureMinimumOdds { get; set; }
+
+        // What the game answered per mob name id (see BeastMasterBestiary); replaced whole, never edited in place.
+        [Setting]
+        public Dictionary<uint, int> CaptureVerdicts { get; set; } = new Dictionary<uint, int>();
+
+        [Setting]
+        public List<string> BefriendedBeasts { get; set; } = new List<string>();
 
         #endregion
     }

@@ -29,6 +29,10 @@ namespace Magitek.Utilities.Routines
 
         public static void RefreshVars()
         {
+            // The chat listener that fills the bestiary: armed here as well as at bot start, since a hot-reload
+            // re-initialises the routine without the start hook.
+            BeastMasterBestiary.Start();
+
             EnemiesIn5Yards = Combat.Enemies.Count(e => e.Distance(Core.Me) <= 5 + e.CombatReach);
             Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.EnglishName) : null;
 

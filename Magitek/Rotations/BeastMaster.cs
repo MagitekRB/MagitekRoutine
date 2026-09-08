@@ -58,6 +58,7 @@ namespace Magitek.Rotations
 
             if (BeastMasterRoutine.GlobalCooldown.CanWeave())
             {
+                if (await Capture.Gauge()) return true;
                 if (await Familiar.SpendOneWithNature()) return true;
                 if (await Familiar.KinshipAction()) return true;
                 if (await Familiar.Trick()) return true;
@@ -69,6 +70,8 @@ namespace Magitek.Rotations
                 if (await PhysicalDps.Bloodbath(BeastMasterSettings.Instance)) return true;
             }
 
+            // Before the axes: a beast weak enough to capture is one more hit from dying.
+            if (await Capture.Mark()) return true;
             if (await SingleTarget.InstinctualSkill()) return true;
             if (await Familiar.QuellingWave()) return true;
             return await SingleTarget.Combo();

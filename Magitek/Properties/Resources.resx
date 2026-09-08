@@ -5668,6 +5668,15 @@
   <data name="BeastMaster_Content_Vileskin" xml:space="preserve">
     <value>Vileskin</value>
   </data>
+  <data name="BeastMaster_Text_Bestiary" xml:space="preserve">
+    <value>Master's Bestiary</value>
+  </data>
+  <data name="BeastMaster_Content_Capture" xml:space="preserve">
+    <value>Gauge each new kind of beast and capture the ones not yet in the bestiary</value>
+  </data>
+  <data name="BeastMaster_Content_Capture_Odds" xml:space="preserve">
+    <value>Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all)</value>
+  </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>Defensive kinship actions when health is below</value>
   </data>

@@ -5901,6 +5901,15 @@
   <data name="BeastMaster_Content_Vileskin" xml:space="preserve">
     <value>虫皮</value>
   </data>
+  <data name="BeastMaster_Text_Bestiary" xml:space="preserve">
+    <value>魔兽图鉴</value>
+  </data>
+  <data name="BeastMaster_Content_Capture" xml:space="preserve">
+    <value>对每种新遇到的魔兽使用估量，并捕获尚未登录图鉴的魔兽</value>
+  </data>
+  <data name="BeastMaster_Content_Capture_Odds" xml:space="preserve">
+    <value>仅当估量结果至少为（1 极难，5 毫不费力）</value>
+  </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>生命值低于以下百分比时使用防御性亲缘技能</value>
   </data>

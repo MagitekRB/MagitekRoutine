@@ -2178,6 +2178,33 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Master's Bestiary.
+        /// </summary>
+        public static string BeastMaster_Text_Bestiary {
+            get {
+                return ResourceManager.GetString("BeastMaster_Text_Bestiary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gauge each new kind of beast and capture the ones not yet in the bestiary.
+        /// </summary>
+        public static string BeastMaster_Content_Capture {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all).
+        /// </summary>
+        public static string BeastMaster_Content_Capture_Odds {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_Odds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Defensive kinship actions when health is below.
         /// </summary>
         public static string BeastMaster_Content_Defensive_Health {

@@ -90,6 +90,20 @@
                     </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>
+            <controls:SettingsBlock Margin="0,5" Background="{DynamicResource ClassSelectorBackground}">
+                <StackPanel>
+                    <TextBlock Style="{DynamicResource TextBlockSection}" Text="{x:Static properties:Resources.BeastMaster_Text_Bestiary}"/>
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Capture}" IsChecked="{Binding BeastMasterSettings.UseCapture, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Capture_Odds}" />
+                            <controls:Numeric MaxValue="5" MinValue="1" Value="{Binding BeastMasterSettings.CaptureMinimumOdds, Mode=TwoWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </controls:SettingsBlock>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
