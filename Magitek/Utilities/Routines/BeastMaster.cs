@@ -35,6 +35,7 @@ namespace Magitek.Utilities.Routines
 
             EnemiesIn5Yards = Combat.Enemies.Count(e => e.Distance(Core.Me) <= 5 + e.CombatReach);
             Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.EnglishName) : null;
+            TrackWaveringHeart();
 
             if (FamiliarOut && Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)
             {
@@ -67,6 +68,59 @@ namespace Magitek.Utilities.Routines
                 if (Core.Me.HasAura(Auras.EldritchHeart)) return Affinity.Eldritch;
                 return null;
             }
+        }
+
+        // A Heart takes a moment to appear after the skill that lights it; until it does, the skill just cast says
+        // what the Heart will be, so the follow-up is chosen right instead of restarting the chain.
+        private const int HeartLagMs = 1500;
+
+        /// <summary>The Heart lit now, or the one about to be lit by a Trick or axe just cast.</summary>
+        public static string EffectiveHeart
+        {
+            get
+            {
+                var heart = CurrentHeart;
+                if (heart != null)
+                    return heart;
+
+                if (Casting.LastSpellWas(Spells.Trick, HeartLagMs))
+                    return FamiliarAffinity;
+
+                foreach (var affinity in Affinity.Clockwise)
+                {
+                    var axe = AxeFor(affinity);
+                    if (axe != null && Casting.LastSpellWas(axe, HeartLagMs))
+                        return affinity;
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>The familiar's Trick would continue the chain from the Heart lit now.</summary>
+        public static bool TrickContinuesChain =>
+            EffectiveHeart != null && FamiliarAffinity != null && FamiliarAffinity == Affinity.Next(EffectiveHeart);
+
+        /// <summary>
+        /// Wavering Heart: the client says combos with the familiar are off for a while. Its cause is not documented,
+        /// so its first appearance in a fight is logged with what was cast just before it.
+        /// </summary>
+        public static bool WaveringHeart => Core.Me.HasAura(Auras.WaveringHeart);
+        private static bool _waveringLogged;
+
+        private static void TrackWaveringHeart()
+        {
+            if (!WaveringHeart)
+            {
+                _waveringLogged = false;
+                return;
+            }
+
+            if (_waveringLogged)
+                return;
+
+            _waveringLogged = true;
+            Logger.WriteInfo($"[Beastmaster] Wavering Heart after {Casting.LastSpell?.LocalizedName ?? "nothing"} (familiar {(FamiliarOut ? "out" : "away")}, heart {CurrentHeart ?? "none"}).");
         }
 
         /// <summary>

@@ -99,9 +99,11 @@ namespace Magitek.Logic.BeastMaster
         }
 
         /// <summary>
-        /// Trick spends the familiar's TP on its instinctual skill (the client refuses it below 100). Best right
-        /// after an axe whose affinity precedes the familiar's, but never held: the familiar's TP is worth nothing
-        /// banked.
+        /// Trick spends the familiar's TP on its instinctual skill (the client refuses it below 100), and it is one
+        /// half of a pair: it goes out when it continues the Heart we lit, or opens a chain we can answer at once
+        /// with the next axe. Held otherwise, since the familiar's TP keeps growing its damage up to the cap. Under
+        /// Wavering Heart no pair is possible and it goes out for the damage; a familiar the bestiary does not know
+        /// has no affinity to plan around and is used as it comes.
         /// </summary>
         public static async Task<bool> Trick()
         {
@@ -110,6 +112,23 @@ namespace Magitek.Logic.BeastMaster
 
             if (!BeastMasterRoutine.HasTpFor(Spells.Trick))
                 return false;
+
+            var affinity = BeastMasterRoutine.FamiliarAffinity;
+            if (affinity != null && !BeastMasterRoutine.WaveringHeart)
+            {
+                var heart = BeastMasterRoutine.EffectiveHeart;
+                if (heart != null)
+                {
+                    // Another Heart is lit: Trick would restart the chain instead of continuing it.
+                    if (!BeastMasterRoutine.TrickContinuesChain)
+                        return false;
+                }
+                else if (!BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Next(affinity))))
+                {
+                    // Nothing lit and no axe ready to answer: wait for our TP, or for our axe to open.
+                    return false;
+                }
+            }
 
             return await Spells.Trick.Cast(Core.Me.CurrentTarget);
         }

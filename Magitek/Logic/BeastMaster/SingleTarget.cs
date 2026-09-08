@@ -38,8 +38,8 @@ namespace Magitek.Logic.BeastMaster
             if (ActionManager.LastSpell == Spells.SmashAxe || ActionManager.LastSpell == Spells.AxebladeBite)
                 return false;
 
-            var heart = BeastMasterRoutine.CurrentHeart;
-            var familiar = BeastMasterRoutine.FamiliarAffinity;
+            var heart = BeastMasterRoutine.EffectiveHeart;
+            var familiar = BeastMasterRoutine.WaveringHeart ? null : BeastMasterRoutine.FamiliarAffinity;
 
             string wanted = null;
             if (heart != null)
