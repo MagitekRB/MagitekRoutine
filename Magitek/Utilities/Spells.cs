@@ -917,6 +917,42 @@ namespace Magitek.Utilities
         #endregion
 
         // BLU
+        #region BST
+        public static readonly SpellData SmashAxe = DataManager.GetSpellData(44879);
+        public static readonly SpellData Capture = DataManager.GetSpellData(44880);
+        public static readonly SpellData FirstBattlehorn = DataManager.GetSpellData(44881);
+        public static readonly SpellData Gauge = DataManager.GetSpellData(44882);
+        public static readonly SpellData AxebladeBite = DataManager.GetSpellData(44883);
+        public static readonly SpellData AvalancheAxe = DataManager.GetSpellData(44884);
+        public static readonly SpellData PartingBlow = DataManager.GetSpellData(44891);
+        public static readonly SpellData MistralAxe = DataManager.GetSpellData(44887);
+        public static readonly SpellData Trick = DataManager.GetSpellData(47093);
+        public static readonly SpellData SecondBattlehorn = DataManager.GetSpellData(44892);
+        public static readonly SpellData Shieldsplitter = DataManager.GetSpellData(44885);
+        public static readonly SpellData SpinningAxe = DataManager.GetSpellData(44888);
+        public static readonly SpellData GaleAxe = DataManager.GetSpellData(44889);
+        public static readonly SpellData TemperedRelease = DataManager.GetSpellData(44890);
+        public static readonly SpellData ThirdBattlehorn = DataManager.GetSpellData(44894);
+        public static readonly SpellData BeastMode = DataManager.GetSpellData(44886);
+        public static readonly SpellData Borrow = DataManager.GetSpellData(44895);
+        public static readonly SpellData ShieldCharge = DataManager.GetSpellData(44893);
+        public static readonly SpellData Rally = DataManager.GetSpellData(44905);
+        public static readonly SpellData RallyingCheer = DataManager.GetSpellData(44904);
+        public static readonly SpellData Beastskin = DataManager.GetSpellData(44896);
+        public static readonly SpellData Vileskin = DataManager.GetSpellData(44897);
+        public static readonly SpellData CloudSkim = DataManager.GetSpellData(44898);
+        public static readonly SpellData Seedsower = DataManager.GetSpellData(44899);
+        public static readonly SpellData QuellingWave = DataManager.GetSpellData(44900);
+        public static readonly SpellData Scaleskin = DataManager.GetSpellData(44901);
+        public static readonly SpellData SoulCrush = DataManager.GetSpellData(44902);
+        public static readonly SpellData ScouringAsh = DataManager.GetSpellData(44903);
+        public static readonly SpellData BrutalRage = DataManager.GetSpellData(44930);
+        public static readonly SpellData HawkishTalons = DataManager.GetSpellData(44931);
+        public static readonly SpellData RisenFall = DataManager.GetSpellData(44932);
+        public static readonly SpellData Calamity = DataManager.GetSpellData(44933);
+        public static readonly SpellData AethericBurst = DataManager.GetSpellData(44934);
+        #endregion
+
         #region BLU
         public static readonly SpellData Snort = DataManager.GetSpellData(11383);
         public static readonly SpellData FourTonzWeight = DataManager.GetSpellData(11384);

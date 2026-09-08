@@ -1,4 +1,5 @@
-﻿using Magitek.Models.WebResources;
+﻿using Magitek.Models.BeastMaster;
+using Magitek.Models.WebResources;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,20 @@ namespace Magitek.Utilities
         static XivDataHelper()
         {
             var assembly = Assembly.GetExecutingAssembly();
+
+            // The Beastmaster bestiary (7.56 client data): each familiar's Trick affinity, controlled ability and
+            // kinship. Guarded so a missing resource degrades to an empty list.
+            const string familiarsFile = "Magitek.Resources.BeastMasterFamiliars.json";
+            BeastMasterFamiliars = new List<BeastMasterFamiliar>();
+            if (assembly.GetManifestResourceNames().Any(n => n == familiarsFile))
+            {
+                using (var stream = assembly.GetManifestResourceStream(familiarsFile))
+                using (var reader = new StreamReader(stream))
+                {
+                    BeastMasterFamiliars = JsonConvert.DeserializeObject<List<BeastMasterFamiliar>>(reader.ReadToEnd()) ?? new List<BeastMasterFamiliar>();
+                }
+            }
+
             const string statusFile = "Magitek.Resources.StatusList.json";
 
             string statuses;
@@ -87,6 +102,7 @@ namespace Magitek.Utilities
         }
 
 
+        public static readonly List<BeastMasterFamiliar> BeastMasterFamiliars;
         public static readonly List<XivDbItem> XivDbStatuses;
         public static readonly List<XivDbItem> XivDbActions;
         public static Dictionary<uint, string> BossDictionary;

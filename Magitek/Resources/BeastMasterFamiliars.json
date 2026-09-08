@@ -1,0 +1,1828 @@
+[
+ {
+  "petId": 47,
+  "name": "Cu Sith",
+  "kinship": "Beastkin",
+  "level": 42,
+  "location": 0,
+  "locationKey": 0,
+  "feedCap": 3,
+  "trick": {
+   "id": 44935,
+   "name": "Rake",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 5,
+   "effectRange": 6,
+   "aspect": 7,
+   "attackType": 1,
+   "description": "Orders your familiar to use **Rake**, delivering a slashing physical attack with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44936,
+   "name": "Relentless Rake",
+   "affinity": "",
+   "potencies": [
+    150
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 1,
+   "description": "Orders your familiar to use **Relentless Rake**, delivering a sixfold slashing physical attack with a potency of 150. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 48,
+  "name": "squirrel",
+  "kinship": "Beastkin",
+  "level": 35,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 3,
+  "trick": {
+   "id": 44937,
+   "name": "Somersault Slash",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 12,
+   "range": 2,
+   "effectRange": 8,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Somersault Slash**, dealing fire damage with a potency of 500 to all enemies in a straight line before and behind it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44938,
+   "name": "Scamper",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Scamper**, reducing weaponskill cast time and recast time, spell cast time and recast time, and auto-attack delay by 15% for nearby party members. **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 49,
+  "name": "lamb",
+  "kinship": "Beastkin",
+  "level": 21,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 4,
+  "trick": {
+   "id": 44939,
+   "name": "Fleece Butt",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 12,
+   "range": 4,
+   "effectRange": 5,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Fleece Butt**, delivering a blunt physical attack with a potency of 500 to all enemies in a straight line before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44940,
+   "name": "Lullaby",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Lullaby**, afflicting all nearby enemies with **Sleep**. **Duration:** 30s **Additional Effect:** Increases sleep resistance of all nearby party members, and reduces the duration of sleep-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 50,
+  "name": "pugil",
+  "kinship": "Wavekin",
+  "level": 45,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44941,
+   "name": "Screwdriver",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 5,
+   "effectRange": 6,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Screwdriver**, dealing water damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44942,
+   "name": "Water Wall",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Water Wall**, reducing nearby party members' magic vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases paralysis resistance of all nearby party members, and reduces the duration of paralysis-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 52,
+  "name": "opo-opo",
+  "kinship": "Beastkin",
+  "level": 18,
+  "location": 57,
+  "locationKey": 1,
+  "feedCap": 3,
+  "trick": {
+   "id": 44943,
+   "name": "Stone Throw",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Stone Throw**, delivering a blunt physical attack with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44944,
+   "name": "Pins and Nails",
+   "affinity": "",
+   "potencies": [
+    750
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Pins and Nails**, dealing unaspected damage with a potency of 750. **Additional Effect:** Afflicts target with **Paralysis** **Duration:** 45s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 53,
+  "name": "dodo",
+  "kinship": "Cloudkin",
+  "level": 5,
+  "location": 31,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44945,
+   "name": "Fowl Stench",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 4,
+   "effectRange": 5,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Fowl Stench**, dealing earth damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** **Additional Effect:** Afflicts targets with **Blind** **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44946,
+   "name": "Strut",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Strut**, reducing earth damage taken by 15% for nearby party members, and occasionally nullifying it entirely. **Duration:** 60s **Additional Effect:** Increases blind resistance of all nearby party members, and reduces the duration of blind-related status afflictions by 80% **Duration:** 90s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 54,
+  "name": "coblyn",
+  "kinship": "Soulkin",
+  "level": 43,
+  "location": 42,
+  "locationKey": 1,
+  "feedCap": 1,
+  "trick": {
+   "id": 44947,
+   "name": "Bestial Thunder",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 5,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bestial Thunder**, dealing ranged lightning damage with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44948,
+   "name": "Vulcanize",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Vulcanize**, reducing nearby party members' physical vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases poison resistance of all nearby party members, and reduces the duration of poison-related status afflictions by 80% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 55,
+  "name": "diremite",
+  "kinship": "Vilekin",
+  "level": 27,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 1,
+  "trick": {
+   "id": 44949,
+   "name": "Deadly Thrust",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Deadly Thrust**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** **Additional Effect:** Afflicts target with **Poison** **Potency:** 75 **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44950,
+   "name": "Silkscreen",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 12,
+   "range": 15,
+   "effectRange": 16,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Silkscreen**, dealing unaspected damage with a potency of 450 to all enemies in a straight line before it. **Additional Effect:** 15-yalm knockback and **Bind+** that cannot be nullified by suffering damage **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 56,
+  "name": "megalocrab",
+  "kinship": "Wavekin",
+  "level": 8,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44951,
+   "name": "Drenching Blow",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Drenching Blow**, dealing water damage with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44952,
+   "name": "Bubble Shower",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 8,
+   "effectRange": 9,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bubble Shower**, dealing water damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Reduces targets' water resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 57,
+  "name": "wespe",
+  "kinship": "Vilekin",
+  "level": 37,
+  "location": 43,
+  "locationKey": 1,
+  "feedCap": 1,
+  "trick": {
+   "id": 44953,
+   "name": "Sharp Sting",
+   "affinity": "Volant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Sharp Sting**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** **Additional Effect:** Afflicts target with **Poison** **Potency:** 75 **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44954,
+   "name": "Final Sting",
+   "affinity": "",
+   "potencies": [
+    2000
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Final Sting**, delivering a piercing physical attack with a potency of 2,000. Potency increases up to 3,000 as the target's HP decreases. Familiar retreats from combat upon execution. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 58,
+  "name": "vulture",
+  "kinship": "Cloudkin",
+  "level": 5,
+  "location": 42,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44955,
+   "name": "Wing Cutter",
+   "affinity": "Volant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 4,
+   "effectRange": 5,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Wing Cutter**, dealing wind damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44956,
+   "name": "Bloodcurdling Caw",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bloodcurdling Caw**, dealing wind damage with a potency of 450 to all nearby enemies. **Additional Effect:** Removes one beneficial status from targets and increases **Familiar TP Gauge** by 100 per status removed **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 59,
+  "name": "mandragora",
+  "kinship": "Seedkin",
+  "level": 36,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44957,
+   "name": "Budbutt",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Budbutt**, delivering a blunt physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44958,
+   "name": "Heirloom Scream",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Heirloom Scream**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Heavy** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 60,
+  "name": "geshunpest",
+  "kinship": "Ashkin",
+  "level": 6,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 5,
+  "trick": {
+   "id": 44959,
+   "name": "Dark Thunder",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 5,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Dark Thunder**, dealing lightning damage with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44960,
+   "name": "Odium",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Odium**, granting **Life Siphon** to nearby party members. **Life Siphon Effect:** Converts a portion of damage dealt into HP **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 61,
+  "name": "puk",
+  "kinship": "Scalekin",
+  "level": 47,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44961,
+   "name": "Fireball",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 3,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Fireball**, dealing fire damage with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44962,
+   "name": "Tail Chase",
+   "affinity": "",
+   "potencies": [
+    750
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 1,
+   "description": "Orders your familiar to use **Tail Chase**, delivering a slashing physical attack with a potency of 750 to all nearby enemies. **Additional Effect:** 15-yalm knockback **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 62,
+  "name": "crab",
+  "kinship": "Wavekin",
+  "level": 12,
+  "location": 42,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44963,
+   "name": "Bubble Shower",
+   "affinity": "Durant",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 5,
+   "effectRange": 6,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bubble Shower**, dealing water damage with a potency of 450 to all enemies in a cone before it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44964,
+   "name": "Hundred Fists",
+   "affinity": "",
+   "potencies": [],
+   "castType": 1,
+   "range": 0,
+   "effectRange": 0,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Hundred Fists**, reducing its auto-attack delay by 75%. **Duration:** 6s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 63,
+  "name": "mantis",
+  "kinship": "Vilekin",
+  "level": 27,
+  "location": 33,
+  "locationKey": 1,
+  "feedCap": 1,
+  "trick": {
+   "id": 44965,
+   "name": "Standing Chine",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 1,
+   "description": "Orders your familiar to use **Standing Chine**, delivering a slashing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44966,
+   "name": "Eerie Soundwave",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Eerie Soundwave**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Increases targets' physical vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 64,
+  "name": "slime",
+  "kinship": "Ashkin",
+  "level": 40,
+  "location": 3,
+  "locationKey": 2,
+  "feedCap": 5,
+  "trick": {
+   "id": 44967,
+   "name": "Digest",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Digest**, dealing unaspected damage with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** **Additional Effect:** Damage dealt is partially absorbed as beastmaster HP May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44968,
+   "name": "Syrup",
+   "affinity": "",
+   "potencies": [
+    550
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 4,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Syrup**, dealing unaspected damage with a potency of 550 to target and all enemies nearby it. **Additional Effect:** Afflicts targets with **Bind+** that cannot be nullified by suffering damage **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 65,
+  "name": "dullahan",
+  "kinship": "Soulkin",
+  "level": 15,
+  "location": 7,
+  "locationKey": 2,
+  "feedCap": 2,
+  "trick": {
+   "id": 44969,
+   "name": "Iron Justice",
+   "affinity": "Durant",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 1,
+   "description": "Orders your familiar to use **Iron Justice**, delivering a slashing physical attack with a potency of 450 to all enemies in a cone before it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44970,
+   "name": "King's Will",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **King's Will**, increasing nearby party members' physical damage dealt by 10%. **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 66,
+  "name": "bat",
+  "kinship": "Cloudkin",
+  "level": 16,
+  "location": 31,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44971,
+   "name": "Blood Drain",
+   "affinity": "Volant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Blood Drain**, dealing unaspected damage with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** **Additional Effect:** Damage dealt is partially absorbed as beastmaster HP May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44972,
+   "name": "Ultrasonics",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Ultrasonics**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Reduces targets' accuracy by 10% **Duration:** 21s **Additional Effect:** Removes a single detrimental effect from all nearby party members **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 67,
+  "name": "flying trap",
+  "kinship": "Seedkin",
+  "level": 16,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44973,
+   "name": "Sour Sough",
+   "affinity": "Volant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Sour Sough**, dealing wind damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** **Additional Effect:** 15-yalm knockback and **Poison** **Potency:** 75 **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44974,
+   "name": "Necrotic Nectar",
+   "affinity": "",
+   "potencies": [
+    550
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 5,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Necrotic Nectar**, dealing unaspected damage with a potency of 550 to target and all enemies nearby it. **Additional Effect:** Increases targets' magic vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 68,
+  "name": "ziz",
+  "kinship": "Scalekin",
+  "level": 5,
+  "location": 33,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44975,
+   "name": "Ice Breath",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 2,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Ice Breath**, dealing ice damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44976,
+   "name": "Petribreath",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Petribreath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Petrification** **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 69,
+  "name": "sabotender",
+  "kinship": "Seedkin",
+  "level": 18,
+  "location": 42,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44977,
+   "name": "Natural Needles",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 12,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Natural Needles**, delivering a piercing physical attack with a potency of 500 to all enemies in a straight line before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44978,
+   "name": "Hypodermic Hustle",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Hypodermic Hustle**, granting **Keen Edge** to nearby party members, excluding familiars. **Keen Edge Effect:** Increases damage dealt by 20% but inflicts damage over time **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 70,
+  "name": "golem",
+  "kinship": "Soulkin",
+  "level": 25,
+  "location": 45,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44979,
+   "name": "Boulder Clap",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Boulder Clap**, dealing earth damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44980,
+   "name": "Rockslide",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 12,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Rockslide**, dealing earth damage with a potency of 450 to all enemies in a straight line before it. **Additional Effect:** Reduces targets' earth resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 71,
+  "name": "apkallu",
+  "kinship": "Cloudkin",
+  "level": 48,
+  "location": 32,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44981,
+   "name": "Flying Sardine",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Flying Sardine**, dealing water damage with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44982,
+   "name": "Regurgitate",
+   "affinity": "",
+   "potencies": [
+    750
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Regurgitate**, dealing water damage with a potency of 750. **Additional Effect:** Afflicts target with **Slow** **Duration:** 45s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 72,
+  "name": "adamantoise",
+  "kinship": "Scalekin",
+  "level": 44,
+  "location": 43,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44983,
+   "name": "Bestial Thunder II",
+   "affinity": "Eldritch",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 5,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bestial Thunder II**, dealing lightning damage with a potency of 450 to target and all enemies nearby it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44984,
+   "name": "Harden Shell",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Harden Shell**, reducing nearby party members' physical vulnerability by 20%. **Duration:** 48s **Additional Effect:** Increases petrification resistance of all nearby party members, and reduces the duration of petrification-related status afflictions by 80% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 73,
+  "name": "buffalo",
+  "kinship": "Beastkin",
+  "level": 30,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 3,
+  "trick": {
+   "id": 44985,
+   "name": "Heave",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Heave**, delivering a blunt physical attack with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44986,
+   "name": "War Cry",
+   "affinity": "",
+   "potencies": [
+    750
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 15,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **War Cry**, dealing unaspected damage with a potency of 750 to all nearby enemies. **Additional Effect:** Afflicts targets with **Stun** **Duration:** 15s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 74,
+  "name": "uragnite",
+  "kinship": "Wavekin",
+  "level": 39,
+  "location": 42,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44987,
+   "name": "Frost Breath",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 2,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Frost Breath**, dealing ice damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44988,
+   "name": "Gas Shell",
+   "affinity": "",
+   "potencies": [
+    300
+   ],
+   "castType": 13,
+   "range": 5,
+   "effectRange": 6,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Gas Shell**, dealing unaspected damage with a potency of 300 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Poison** **Potency:** 150 **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 75,
+  "name": "worm",
+  "kinship": "Vilekin",
+  "level": 26,
+  "location": 45,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44989,
+   "name": "Sand Breath",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Sand Breath**, dealing earth damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** **Additional Effect:** Afflicts targets with **Blind** **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44990,
+   "name": "Bottomless Desert",
+   "affinity": "",
+   "potencies": [
+    800
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 12,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bottomless Desert**, dealing earth damage with a potency of 800 to all nearby enemies. **Additional Effect:** Afflicts targets with **Heavy** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 76,
+  "name": "spriggan",
+  "kinship": "Soulkin",
+  "level": 33,
+  "location": 43,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44991,
+   "name": "Romp",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Romp**, dealing fire damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44992,
+   "name": "Frenetic Flurry",
+   "affinity": "",
+   "potencies": [
+    125
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Frenetic Flurry**, delivering a sevenfold blunt physical attack with a potency of 125. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 77,
+  "name": "goobbue",
+  "kinship": "Beastkin",
+  "level": 21,
+  "location": 31,
+  "locationKey": 1,
+  "feedCap": 3,
+  "trick": {
+   "id": 44993,
+   "name": "Beatdown",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 12,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Beatdown**, delivering a blunt physical attack with a potency of 500 to all enemies in a straight line before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44994,
+   "name": "Moldy Sneeze",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 5,
+   "effectRange": 6,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Moldy Sneeze**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Disease** **Disease Effect:** Reduces movement speed by 80% and HP recovered via healing magic by 95% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 78,
+  "name": "gigantoad",
+  "kinship": "Wavekin",
+  "level": 19,
+  "location": 31,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44995,
+   "name": "Bestial Blizzard II",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 2,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bestial Blizzard II**, dealing ice damage with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44996,
+   "name": "Sticky Tongue",
+   "affinity": "",
+   "potencies": [
+    750
+   ],
+   "castType": 1,
+   "range": 20,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Sticky Tongue**, delivering a ranged blunt physical attack with a potency of 750. **Additional Effect:** Draws target to familiar **Additional Effect:** Reduces target's accuracy by 10% **Duration:** 21s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 79,
+  "name": "colibri",
+  "kinship": "Cloudkin",
+  "level": 50,
+  "location": 32,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 44997,
+   "name": "Loop",
+   "affinity": "Volant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Loop**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 44998,
+   "name": "Pecking Flurry",
+   "affinity": "",
+   "potencies": [
+    200
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Pecking Flurry**, delivering a fivefold piercing physical attack with a potency of 200. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 80,
+  "name": "coeurl",
+  "kinship": "Beastkin",
+  "level": 14,
+  "location": 350,
+  "locationKey": 1,
+  "feedCap": 3,
+  "trick": {
+   "id": 44999,
+   "name": "Blaster",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 5,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Blaster**, dealing lightning damage with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45000,
+   "name": "Charged Whisker",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 7,
+   "aspect": 5,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Charged Whisker**, dealing lightning damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Paralysis** **Duration:** 30s **Additional Effect:** Reduces targets' lightning resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 81,
+  "name": "raptor",
+  "kinship": "Scalekin",
+  "level": 14,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 45001,
+   "name": "Frost Breath",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 2,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Frost Breath**, dealing ice damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45002,
+   "name": "Foul Breath",
+   "affinity": "",
+   "potencies": [
+    1000
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Foul Breath**, dealing fire damage with a potency of 1,000 to all enemies in a cone before it. **Additional Effect:** Reduces targets' fire resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 82,
+  "name": "drake",
+  "kinship": "Scalekin",
+  "level": 46,
+  "location": 45,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 45003,
+   "name": "Burning Cyclone",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 5,
+   "effectRange": 6,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Burning Cyclone**, dealing fire damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45004,
+   "name": "Smoldering Scales",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Smoldering Scales**, reducing nearby party members' magic vulnerability by 20% and fire damage taken by 15%, occasionally nullifying it entirely. **Duration:** 48s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 83,
+  "name": "treant",
+  "kinship": "Seedkin",
+  "level": 10,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 45005,
+   "name": "Acorn Bomb",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 6,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Acorn Bomb**, dealing earth damage with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** **Additional Effect:** Afflicts targets with **Nightmare** **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45006,
+   "name": "Arboreal Storm",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 10,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Arboreal Storm**, dealing wind damage with a potency of 450 to all nearby enemies. **Additional Effect:** 15-yalm knockback **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 84,
+  "name": "antling",
+  "kinship": "Vilekin",
+  "level": 32,
+  "location": 12,
+  "locationKey": 2,
+  "feedCap": 1,
+  "trick": {
+   "id": 45007,
+   "name": "Mandible Bite",
+   "affinity": "Rampant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Mandible Bite**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45008,
+   "name": "Formic Pheromones",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 7,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Formic Pheromones**, afflicting all nearby enemies with **Slow**. **Duration:** 30s **Additional Effect:** Reduces water, earth, and ice damage taken by 15% for nearby party members, and occasionally nullifies it entirely **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 85,
+  "name": "chimera",
+  "kinship": "Beastkin",
+  "level": 21,
+  "location": 12,
+  "locationKey": 2,
+  "feedCap": 3,
+  "trick": {
+   "id": 45009,
+   "name": "the Lion's Breath",
+   "affinity": "Rampant",
+   "potencies": [
+    450,
+    1000
+   ],
+   "castType": 13,
+   "range": 8,
+   "effectRange": 9,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **The Lion's Breath**, dealing fire damage with a potency of 450 to all enemies in a cone before it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** **Additional Effect:** Deals additional damage with a potency of 1,000 to targets suffering from **Deep Freeze** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45010,
+   "name": "the Ram's Voice",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 9,
+   "aspect": 2,
+   "attackType": 5,
+   "description": "Orders your familiar to use **The Ram's Voice**, dealing ice damage with a potency of 450 to all nearby enemies. **Additional Effect:** Afflicts targets with **Deep Freeze** **Duration:** 20s **Additional Effect:** Reduces targets' ice resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 86,
+  "name": "morbol",
+  "kinship": "Seedkin",
+  "level": 22,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 45011,
+   "name": "Vine Probe",
+   "affinity": "Rampant",
+   "potencies": [
+    450
+   ],
+   "castType": 12,
+   "range": 6,
+   "effectRange": 7,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Vine Probe**, delivering a piercing physical attack with a potency of 450 to all enemies in a straight line before it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Rampant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45012,
+   "name": "Bad Breath",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bad Breath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Slow**, **Blind**, and **Paralysis** **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 87,
+  "name": "ghost",
+  "kinship": "Ashkin",
+  "level": 17,
+  "location": 30,
+  "locationKey": 1,
+  "feedCap": 5,
+  "trick": {
+   "id": 45013,
+   "name": "Fell Gale",
+   "affinity": "Volant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Fell Gale**, dealing wind damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45014,
+   "name": "Curse",
+   "affinity": "",
+   "potencies": [
+    300,
+    1500
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Curse**, dealing unaspected damage with a potency of 300 to all nearby enemies. **Additional Effect:** Deals additional damage with a potency of 1,500 to targets suffering from **Disease** **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 88,
+  "name": "salamander",
+  "kinship": "Wavekin",
+  "level": 16,
+  "location": 54,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 45015,
+   "name": "Brackish Rain",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Brackish Rain**, dealing water damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45016,
+   "name": "Peculiar Light",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Peculiar Light**, dealing unaspected damage with a potency of 450 to all nearby enemies. **Additional Effect:** Increases targets' magic vulnerability by 10% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 89,
+  "name": "cobra",
+  "kinship": "Scalekin",
+  "level": 30,
+  "location": 67,
+  "locationKey": 1,
+  "feedCap": 2,
+  "trick": {
+   "id": 45017,
+   "name": "Dripping Fang",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Dripping Fang**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** **Additional Effect:** Afflicts target with **Poison** **Potency:** 75 **Duration:** 30s May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45018,
+   "name": "Stone Gaze",
+   "affinity": "",
+   "potencies": [
+    750
+   ],
+   "castType": 1,
+   "range": 15,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Stone Gaze**, dealing unaspected damage with a potency of 750. **Additional Effect:** Afflicts target with **Petrification** **Duration:** 42s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 90,
+  "name": "hydra",
+  "kinship": "Scalekin",
+  "level": 13,
+  "location": 75,
+  "locationKey": 2,
+  "feedCap": 3,
+  "trick": {
+   "id": 45019,
+   "name": "Main Trap",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Main Trap**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45020,
+   "name": "White Breath",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 14,
+   "effectRange": 15,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **White Breath**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Disease** **Disease Effect:** Reduces movement speed by 80% and HP recovered via healing magic by 95% **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 91,
+  "name": "damselfly",
+  "kinship": "Vilekin",
+  "level": 41,
+  "location": 22,
+  "locationKey": 2,
+  "feedCap": 1,
+  "trick": {
+   "id": 45021,
+   "name": "Cursed Sphere",
+   "affinity": "Volant",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 3,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Cursed Sphere**, dealing wind damage with a potency of 450 to target and all enemies nearby it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45022,
+   "name": "Venom",
+   "affinity": "",
+   "potencies": [
+    300
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Venom**, dealing unaspected damage with a potency of 300 to all enemies in a cone before it. **Additional Effect:** Afflicts targets with **Poison** **Potency:** 150 **Duration:** 30s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 92,
+  "name": "rotting goobbue",
+  "kinship": "Ashkin",
+  "level": 29,
+  "location": 22,
+  "locationKey": 2,
+  "feedCap": 5,
+  "trick": {
+   "id": 45023,
+   "name": "Dirty Sneeze",
+   "affinity": "Eldritch",
+   "potencies": [
+    450
+   ],
+   "castType": 1,
+   "range": 25,
+   "effectRange": 0,
+   "aspect": 4,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Dirty Sneeze**, dealing ranged earth damage with a potency of 450. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45024,
+   "name": "Inhale",
+   "affinity": "",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 19,
+   "effectRange": 20,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Inhale**, dealing unaspected damage with a potency of 450 to all enemies in a cone before it. **Additional Effect:** Draws targets to familiar **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 93,
+  "name": "zu",
+  "kinship": "Cloudkin",
+  "level": 15,
+  "location": 17,
+  "locationKey": 2,
+  "feedCap": 3,
+  "trick": {
+   "id": 45025,
+   "name": "Flying Frenzy",
+   "affinity": "Volant",
+   "potencies": [
+    450
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 7,
+   "attackType": 3,
+   "description": "Orders your familiar to use **Flying Frenzy**, rushing target and delivering a blunt physical attack with a potency of 450 to target and all enemies nearby it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Volant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45026,
+   "name": "Breath Wing",
+   "affinity": "",
+   "potencies": [
+    800
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 12,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Breath Wing**, dealing wind damage with a potency of 800 to all nearby enemies. **Additional Effect:** Reduces targets' wind resistance by 20% **Duration:** 60s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 94,
+  "name": "ice golem",
+  "kinship": "Soulkin",
+  "level": 28,
+  "location": 27,
+  "locationKey": 2,
+  "feedCap": 3,
+  "trick": {
+   "id": 45027,
+   "name": "Ice Guillotine",
+   "affinity": "Durant",
+   "potencies": [
+    450
+   ],
+   "castType": 13,
+   "range": 7,
+   "effectRange": 8,
+   "aspect": 2,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Ice Guillotine**, dealing ice damage with a potency of 450 to all enemies in a cone before it. Potency increases up to 1,500 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45028,
+   "name": "Frozen Heart",
+   "affinity": "",
+   "potencies": [],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 20,
+   "aspect": 0,
+   "attackType": 0,
+   "description": "Orders your familiar to use **Frozen Heart**, increasing nearby party members' magic damage dealt by 25%. **Duration:** 15s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 95,
+  "name": "Karlabos",
+  "kinship": "Wavekin",
+  "level": 24,
+  "location": 28,
+  "locationKey": 2,
+  "feedCap": 3,
+  "trick": {
+   "id": 45029,
+   "name": "Impale",
+   "affinity": "Durant",
+   "potencies": [
+    500
+   ],
+   "castType": 1,
+   "range": 5,
+   "effectRange": 0,
+   "aspect": 7,
+   "attackType": 2,
+   "description": "Orders your familiar to use **Impale**, delivering a piercing physical attack with a potency of 500. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Durant** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45030,
+   "name": "Tail Screw",
+   "affinity": "",
+   "potencies": [
+    800
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 12,
+   "aspect": 6,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Tail Screw**, dealing water damage with a potency of 800 to target and all enemies nearby it. **Additional Effect:** Small chance to reduce enemy HP to a single digit. Has no effect on enemies whose level is higher than your own. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 96,
+  "name": "rafflesia",
+  "kinship": "Seedkin",
+  "level": 49,
+  "location": 98,
+  "locationKey": 2,
+  "feedCap": 3,
+  "trick": {
+   "id": 45031,
+   "name": "Bloody Caress",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 8,
+   "aspect": 3,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Bloody Caress**, dealing wind damage with a potency of 500 to target and all enemies nearby it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45032,
+   "name": "Blighted Bouquet",
+   "affinity": "",
+   "potencies": [
+    800
+   ],
+   "castType": 2,
+   "range": 0,
+   "effectRange": 12,
+   "aspect": 7,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Blighted Bouquet**, dealing unaspected damage with a potency of 800 to all nearby enemies. **Additional Effect:** Small chance to afflict targets with **Doom** **Doom Effect:** Incapacitates target when the effect expires. Has no effect on enemies whose level is higher than your own. **Duration:** 5s **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ },
+ {
+  "petId": 97,
+  "name": "behemoth",
+  "kinship": "Beastkin",
+  "level": 26,
+  "location": 92,
+  "locationKey": 2,
+  "feedCap": 4,
+  "trick": {
+   "id": 45033,
+   "name": "Thunderbolt",
+   "affinity": "Eldritch",
+   "potencies": [
+    500
+   ],
+   "castType": 13,
+   "range": 11,
+   "effectRange": 12,
+   "aspect": 5,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Thunderbolt**, dealing lightning damage with a potency of 500 to all enemies in a cone before it. Potency increases up to 1,250 as Familiar TP nears maximum. **Minimum Familiar TP Gauge Cost:** 100 **Instinctual Affinity:** **Eldritch** May be used alongside beastmaster instinctual skills to initiate or complete combos."
+  },
+  "temperedRelease": {
+   "id": 45034,
+   "name": "Meteor",
+   "affinity": "",
+   "potencies": [
+    1000
+   ],
+   "castType": 2,
+   "range": 25,
+   "effectRange": 18,
+   "aspect": 1,
+   "attackType": 5,
+   "description": "Orders your familiar to use **Meteor**, dealing fire damage with a potency of 1,000 to target and all enemies nearby it. **Additional Effect:** Grants **Lingering Vantage** **Duration:** 60s Can only be executed while in combat and under the effect of **One with Nature**."
+  }
+ }
+]
