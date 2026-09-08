@@ -632,12 +632,12 @@ namespace Magitek.Logic.Roles
             if (Group.DeadAllies.Any())
                 return false;
 
-            // Check if we're Phantom Chemist (free resurrection) or need MP check for regular jobs
+            // Check if we have a free phantom raise or need MP check for regular jobs
             var phantomJob = GetCurrentPhantomJob();
-            bool isPhantomChemist = phantomJob == PhantomJob.Chemist;
+            bool hasFreePhantomRaise = phantomJob == PhantomJob.Chemist || phantomJob == PhantomJob.WhiteMage;
 
-            // Only check MP for non-Chemist resurrections (Chemist Revive doesn't cost MP)
-            if (!isPhantomChemist && Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
+            // Only check MP when the raise costs some (Revive and Occult Raise are free)
+            if (!hasFreePhantomRaise && Core.Me.CurrentManaPercent < OccultCrescentSettings.Instance.ReviveNonPartyMinimumManaPercent)
                 return false;
 
             // Check combat preferences
