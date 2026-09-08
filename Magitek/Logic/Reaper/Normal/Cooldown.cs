@@ -12,19 +12,31 @@ namespace Magitek.Logic.Reaper
     internal static class Cooldown
     {
 
-        public static async Task<bool> Gluttony()
+        /// <summary>
+        /// Every gate Gluttony has except its own cooldown. Blood Stalk and Grim Swathe defer to Gluttony only
+        /// while this is true: deferring to a ready Gluttony that its other gates refuse (Shroud above 80, no
+        /// Death's Design, a dying target) parked the Soul gauge at 100 with nothing spending it.
+        /// </summary>
+        public static bool GluttonyWanted()
         {
-            //Add level check so it doesn't hang here
             if (!Spells.Gluttony.IsKnown())
                 return false;
             if (!ReaperSettings.Instance.UseGluttony) return false;
             if (Core.Me.HasAura(Auras.SoulReaver)) return false;
             if (Core.Me.HasAura(Auras.Executioner)) return false;
-            if (Spells.Slice.Cooldown > new TimeSpan(Spells.Slice.AdjustedCooldown.Ticks / 2)) return false;
             if (!Core.Me.CurrentTarget.HasAura(Auras.DeathsDesign, true)) return false;
             if (ActionResourceManager.Reaper.ShroudGauge > 80)
                 return false;
             if (Utilities.Routines.Reaper.CheckTTDIsEnemyDyingSoon())
+                return false;
+            return true;
+        }
+
+        public static async Task<bool> Gluttony()
+        {
+            // Any weave slot: the guides use it the moment it is ready. It waited for the late slot only, which
+            // measured a median of one GCD late and up to four.
+            if (!GluttonyWanted())
                 return false;
 
             // wait for Executioner aura on self to prevent canceling it with another action

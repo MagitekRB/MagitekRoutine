@@ -18,17 +18,19 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.EnhancedCrossReaping))
+            // Yield to the enhanced partner only while the partner is enabled: with Cross Reaping unticked, the
+            // shroud would otherwise have no Reaping to cast after the first one and sit until it expired.
+            if (Core.Me.HasAura(Auras.EnhancedCrossReaping) && ReaperSettings.Instance.UseCrossReaping)
                 return false;
 
             if (Core.Me.HasAura(Auras.EnhancedVoidReaping))
             {
-                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * 200 < 520)
+                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency < Utilities.Routines.Reaper.EnhancedReapingPotency)
                     return await Spells.VoidReaping.Cast(Core.Me.CurrentTarget);
             }
             else
             {
-                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * 200 < 460)
+                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency < Utilities.Routines.Reaper.ReapingPotency)
                     return await Spells.VoidReaping.Cast(Core.Me.CurrentTarget);
             }
 
@@ -37,23 +39,23 @@ namespace Magitek.Logic.Reaper.Enshroud
 
         public static async Task<bool> CrossReaping()
         {
-            if (!ReaperSettings.Instance.UseVoidReaping || !Spells.CrossReaping.IsKnown())
+            if (!ReaperSettings.Instance.UseCrossReaping || !Spells.CrossReaping.IsKnown())
                 return false;
 
             if (ActionResourceManager.Reaper.LemureShroud < 2 && Spells.Communio.IsKnown())
                 return false;
 
-            if (Core.Me.HasAura(Auras.EnhancedVoidReaping))
+            if (Core.Me.HasAura(Auras.EnhancedVoidReaping) && ReaperSettings.Instance.UseVoidReaping)
                 return false;
 
             if (Core.Me.HasAura(Auras.EnhancedCrossReaping))
             {
-                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * 200 < 520)
+                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency < Utilities.Routines.Reaper.EnhancedReapingPotency)
                     return await Spells.CrossReaping.Cast(Core.Me.CurrentTarget);
             }
             else
             {
-                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * 200 < 460)
+                if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency < Utilities.Routines.Reaper.ReapingPotency)
                     return await Spells.CrossReaping.Cast(Core.Me.CurrentTarget);
             }
 
@@ -69,7 +71,7 @@ namespace Magitek.Logic.Reaper.Enshroud
             if (ActionResourceManager.Reaper.VoidShroud < 2)
                 return false;
 
-            if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * 100 < 200)
+            if (!AoeControl.Enabled || !ReaperSettings.Instance.UseAoe || !ReaperSettings.Instance.EfficientAoEPotencyCalculation || Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.LemuresScythePotency < Utilities.Routines.Reaper.LemuresSlicePotency)
                 return await Spells.LemuresSlice.Cast(Core.Me.CurrentTarget);
 
             return false;

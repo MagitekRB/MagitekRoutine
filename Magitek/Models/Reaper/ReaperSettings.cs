@@ -14,10 +14,6 @@ namespace Magitek.Models.Reaper
 
         #region General-Stuff
         [Setting]
-        [DefaultValue(false)]
-        public bool BurnEverything { get; set; }
-
-        [Setting]
         [DefaultValue(70.0f)]
         public float RestHealthPercent { get; set; }
 
@@ -113,7 +109,7 @@ namespace Magitek.Models.Reaper
         public bool UseSpinningScythe { get; set; }
 
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(4)]
         public int SpinningScytheTargetCount { get; set; }
 
         [Setting]
@@ -121,7 +117,7 @@ namespace Magitek.Models.Reaper
         public bool UseNightmareScythe { get; set; }
 
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(4)]
         public int NightmareScytheTargetCount { get; set; }
 
         [Setting]
@@ -145,7 +141,7 @@ namespace Magitek.Models.Reaper
         public bool UseGrimSwathe { get; set; }
 
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(4)]
         public int GrimSwatheTargetCount { get; set; }
 
         [Setting]

@@ -146,7 +146,9 @@ namespace Magitek.Logic.Reaper
             if (Core.Me.HasAura(Auras.Executioner)) return false;
             if (Core.Me.HasAura(Auras.SoulReaver)) return false;
 
-            if (ActionResourceManager.Reaper.SoulGauge > 50) return false;
+            // Shares its charges with Soul Slice: same rule, a full charge is cast whatever the gauge reads.
+            if (!Utilities.Routines.Reaper.SoulSliceChargeAboutToCap && ActionResourceManager.Reaper.SoulGauge > 50)
+                return false;
 
             return await Spells.SoulScythe.Cast(Core.Me);
         }
@@ -167,7 +169,7 @@ namespace Magitek.Logic.Reaper
             if (!ReaperSettings.Instance.UseGrimSwathe) return false;
             if (Spells.Gluttony.IsKnown())
             {
-                if (Spells.Gluttony.Cooldown.Ticks == 0)
+                if (Spells.Gluttony.Cooldown.Ticks == 0 && Cooldown.GluttonyWanted())
                     return false;
                 if (Spells.Gluttony.AdjustedCooldown - Spells.Gluttony.Cooldown <= Spells.Slice.AdjustedCooldown)
                     return false;

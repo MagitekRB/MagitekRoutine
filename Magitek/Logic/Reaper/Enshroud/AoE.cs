@@ -27,12 +27,12 @@ namespace Magitek.Logic.Reaper.Enshroud
             {
                 if (Core.Me.HasAura(Auras.EnhancedVoidReaping) || Core.Me.HasAura(Auras.EnhancedCrossReaping))
                 {
-                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * 200 >= 520)
+                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency >= Utilities.Routines.Reaper.EnhancedReapingPotency)
                         return await Spells.GrimReaping.Cast(Core.Me.CurrentTarget);
                 }
                 else
                 {
-                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * 200 >= 460)
+                    if (Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.GrimReapingPotency >= Utilities.Routines.Reaper.ReapingPotency)
                         return await Spells.GrimReaping.Cast(Core.Me.CurrentTarget);
                 }
             }
@@ -61,7 +61,7 @@ namespace Magitek.Logic.Reaper.Enshroud
 
             if (ReaperSettings.Instance.EfficientAoEPotencyCalculation)
             {
-                if (Utilities.Routines.Reaper.EnemiesIn8YardCone * 100 >= 200)
+                if (Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.LemuresScythePotency >= Utilities.Routines.Reaper.LemuresSlicePotency)
                     return await Spells.LemuresScythe.Cast(Core.Me.CurrentTarget);
             }
             else
@@ -85,7 +85,7 @@ namespace Magitek.Logic.Reaper.Enshroud
                 return false;
 
 
-            if ((ReaperSettings.Instance.EfficientAoEPotencyCalculation && Utilities.Routines.Reaper.EnemiesIn8YardCone * 100 >= 200)
+            if ((ReaperSettings.Instance.EfficientAoEPotencyCalculation && Utilities.Routines.Reaper.EnemiesIn8YardCone * Utilities.Routines.Reaper.LemuresScythePotency >= Utilities.Routines.Reaper.LemuresSlicePotency)
             || Utilities.Routines.Reaper.EnemiesIn8YardCone >= ReaperSettings.Instance.LemuresScytheTargetCount)
             {
                 // Only use Lemures Scythe off weave if resources are deadlocked
