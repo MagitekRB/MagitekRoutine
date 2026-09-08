@@ -10,8 +10,8 @@ namespace Magitek.Logic.BeastMaster
     /// <summary>
     /// Filling the Master's Bestiary. Gauge asks the game about each new kind of beast (an ability, one weave), the
     /// chat answer is remembered, and Capture goes out on a beast that can be captured, is not yet befriended, is not
-    /// above our level. The mark lasts two minutes and things die fast, so it goes out as soon as the answer allows;
-    /// Capture cannot kill, the attacks that follow do, and the pact is forged on the kill.
+    /// above our level and is under the health threshold (the odds rise as health falls, the mark lasts two minutes).
+    /// Capture cannot kill; the attacks that follow do, and the pact is forged on the kill.
     /// </summary>
     internal static class Capture
     {
@@ -61,6 +61,11 @@ namespace Magitek.Logic.BeastMaster
 
             // Capture is ineffective on targets above our level.
             if (target.ClassLevel > Core.Me.ClassLevel)
+                return false;
+
+            // The pact's odds rise as the target's health falls; the setting is where that trades against the
+            // beast dying before the mark is on it.
+            if (target.CurrentHealthPercent > BeastMasterSettings.Instance.CaptureHealthPercent)
                 return false;
 
             if (!await Spells.Capture.Cast(target))

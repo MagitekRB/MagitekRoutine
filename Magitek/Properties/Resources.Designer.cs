@@ -2196,6 +2196,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capture when the target's health is below.
+        /// </summary>
+        public static string BeastMaster_Content_Capture_Health {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_Health", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all).
         /// </summary>
         public static string BeastMaster_Content_Capture_Odds {

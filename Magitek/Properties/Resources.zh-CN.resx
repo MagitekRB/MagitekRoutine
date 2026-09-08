@@ -5907,6 +5907,9 @@
   <data name="BeastMaster_Content_Capture" xml:space="preserve">
     <value>对每种新遇到的魔兽使用估量，并捕获尚未登录图鉴的魔兽</value>
   </data>
+  <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
+    <value>目标生命值低于以下百分比时捕获</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Odds" xml:space="preserve">
     <value>仅当估量结果至少为（1 极难，5 毫不费力）</value>
   </data>

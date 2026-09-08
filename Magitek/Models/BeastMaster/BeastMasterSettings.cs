@@ -124,6 +124,10 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool UseCapture { get; set; }
 
+        [Setting]
+        [DefaultValue(50.0f)]
+        public float CaptureHealthPercent { get; set; }
+
         // Gauge's five answers, 1 (exceedingly difficult) to 5 (no effort at all): capture only from this one up.
         [Setting]
         [DefaultValue(1)]

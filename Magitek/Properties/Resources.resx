@@ -5674,6 +5674,9 @@
   <data name="BeastMaster_Content_Capture" xml:space="preserve">
     <value>Gauge each new kind of beast and capture the ones not yet in the bestiary</value>
   </data>
+  <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
+    <value>Capture when the target's health is below</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Odds" xml:space="preserve">
     <value>Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all)</value>
   </data>
