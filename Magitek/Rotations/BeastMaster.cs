@@ -56,6 +56,18 @@ namespace Magitek.Rotations
             // A familiar first: everything else keys off it.
             if (await Familiar.Summon()) return true;
 
+            // The mark, the moment the beast is weak enough.
+            if (await Capture.Mark()) return true;
+
+            // A capturable beast, unmarked: one Smash Axe to start the auto-attacks, then nothing but auto-attacks
+            // (ours and the familiar's) until the mark is on it. Gauge is still fine, it does no damage.
+            if (BeastMasterRoutine.HoldingForCapture)
+            {
+                if (BeastMasterRoutine.GlobalCooldown.CanWeave() && await Capture.Gauge()) return true;
+                if (await SingleTarget.Engage()) return true;
+                return true;
+            }
+
             if (BeastMasterRoutine.GlobalCooldown.CanWeave())
             {
                 if (await Capture.Gauge()) return true;
@@ -71,8 +83,6 @@ namespace Magitek.Rotations
                 if (await PhysicalDps.Bloodbath(BeastMasterSettings.Instance)) return true;
             }
 
-            // Before the axes: a beast weak enough to capture is one more hit from dying.
-            if (await Capture.Mark()) return true;
             if (await SingleTarget.InstinctualSkill()) return true;
             if (await Familiar.QuellingWave()) return true;
             return await SingleTarget.Combo();

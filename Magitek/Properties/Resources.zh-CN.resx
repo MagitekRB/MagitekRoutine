@@ -5910,6 +5910,9 @@
   <data name="BeastMaster_Content_Capture" xml:space="preserve">
     <value>对每种新遇到的魔兽使用估量，并捕获尚未登录图鉴的魔兽</value>
   </data>
+  <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
+    <value>可捕获的魔兽在被标记之前只进行自动攻击（先用一次粉碎斧起手）</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>目标生命值低于以下百分比时捕获</value>
   </data>

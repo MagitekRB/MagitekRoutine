@@ -100,6 +100,9 @@
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Capture}" IsChecked="{Binding BeastMasterSettings.UseCapture, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Capture_Hold}" IsChecked="{Binding BeastMasterSettings.HoldForCapture, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Capture_Health}" />
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CaptureHealthPercent, Mode=TwoWay}" />

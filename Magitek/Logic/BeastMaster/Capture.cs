@@ -4,6 +4,7 @@ using Magitek.Models.BeastMaster;
 using Magitek.Utilities;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
+using BeastMasterRoutine = Magitek.Utilities.Routines.BeastMaster;
 
 namespace Magitek.Logic.BeastMaster
 {
@@ -43,25 +44,13 @@ namespace Magitek.Logic.BeastMaster
             if (target == null || !target.IsNpc || target.HasAura(Auras.InterestCaptured))
                 return false;
 
-            var verdict = BeastMasterBestiary.Verdict(target.NpcId);
-            if (verdict == null)
+            if (!BeastMasterRoutine.CaptureWanted(target))
             {
-                // Without Gauge, Capture is its own question: the same answers come back.
-                if (Spells.Gauge.IsKnown())
+                // Without Gauge, Capture is its own question: the same answers come back. Anything else the game
+                // has answered, or that is above our level, is not for capturing.
+                if (Spells.Gauge.IsKnown() || BeastMasterBestiary.Verdict(target.NpcId) != null || target.ClassLevel > Core.Me.ClassLevel)
                     return false;
-                verdict = BeastMasterBestiary.LowestOdds;
             }
-
-            if (verdict < BeastMasterBestiary.LowestOdds)
-                return false;
-
-            // Setting 1..5 against Gauge's five odds.
-            if (verdict - BeastMasterBestiary.LowestOdds + 1 < BeastMasterSettings.Instance.CaptureMinimumOdds)
-                return false;
-
-            // Capture is ineffective on targets above our level.
-            if (target.ClassLevel > Core.Me.ClassLevel)
-                return false;
 
             // The pact's odds rise as the target's health falls; the setting is where that trades against the
             // beast dying before the mark is on it.

@@ -45,6 +45,7 @@ namespace Magitek.Utilities.Routines
             Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.EnglishName) : null;
             TrackWaveringHeart();
             LearnHornFamiliar();
+            TrackCaptureHold();
 
             if (FamiliarOut && Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)
             {
@@ -300,5 +301,58 @@ namespace Magitek.Utilities.Routines
         }
 
         public static bool CheckTTDIsEnemyDyingSoon() => Common.CheckTTDIsEnemyDyingSoon(BeastMasterSettings.Instance);
+
+        /// <summary>
+        /// A beast Capture should go on: the game said it can be captured (with odds the setting accepts), it is not
+        /// befriended, not above our level, and not marked yet. Health is not part of it; Capture itself waits for
+        /// the threshold, the hold below waits with it.
+        /// </summary>
+        public static bool CaptureWanted(BattleCharacter target)
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseCapture || !Spells.Capture.IsKnown() || target == null || !target.IsNpc)
+                return false;
+
+            if (target.HasAura(Auras.InterestCaptured) || target.ClassLevel > Core.Me.ClassLevel)
+                return false;
+
+            var verdict = BeastMasterBestiary.Verdict(target.NpcId);
+            if (verdict == null || verdict < BeastMasterBestiary.LowestOdds)
+                return false;
+
+            return verdict - BeastMasterBestiary.LowestOdds + 1 >= settings.CaptureMinimumOdds;
+        }
+
+        // Weaponskills and familiar orders wait while a capturable beast is unmarked: an axe at 55% is what kills it
+        // before the mark. Auto-attacks (ours and the familiar's) bring it to the threshold, and Capture is next.
+        public static bool HoldingForCapture;
+
+        // The target the first Smash Axe went out on: that one hit is allowed, since auto-attack starts on it.
+        public static uint EngagedTargetId;
+        private static uint _holdLoggedFor;
+
+        private static void TrackCaptureHold()
+        {
+            var target = Core.Me.CurrentTarget as BattleCharacter;
+            HoldingForCapture = BeastMasterSettings.Instance.HoldForCapture && Core.Me.InCombat && CaptureWanted(target);
+
+            if (!HoldingForCapture)
+            {
+                _holdLoggedFor = 0;
+                return;
+            }
+
+            if (_holdLoggedFor == target.ObjectId)
+                return;
+
+            _holdLoggedFor = target.ObjectId;
+            Logger.WriteInfo("[Beastmaster] Holding weaponskills on " + target.EnglishName + " until the mark is on it (auto-attacks only).");
+        }
+
+        public static void NoteEngaged(GameObject target)
+        {
+            if (target != null)
+                EngagedTargetId = target.ObjectId;
+        }
     }
 }

@@ -137,6 +137,11 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(50.0f)]
         public float CaptureHealthPercent { get; set; }
 
+        // While a capturable beast is unmarked, only auto-attacks go out (after one Smash Axe to start them).
+        [Setting]
+        [DefaultValue(true)]
+        public bool HoldForCapture { get; set; }
+
         // Gauge's five answers, 1 (exceedingly difficult) to 5 (no effort at all): capture only from this one up.
         [Setting]
         [DefaultValue(1)]

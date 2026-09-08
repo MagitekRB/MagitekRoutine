@@ -5677,6 +5677,9 @@
   <data name="BeastMaster_Content_Capture" xml:space="preserve">
     <value>Gauge each new kind of beast and capture the ones not yet in the bestiary</value>
   </data>
+  <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
+    <value>Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start)</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>Capture when the target's health is below</value>
   </data>

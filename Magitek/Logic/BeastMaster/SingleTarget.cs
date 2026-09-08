@@ -19,7 +19,24 @@ namespace Magitek.Logic.BeastMaster
             if (Spells.AxebladeBite.IsKnown() && ActionManager.LastSpell == Spells.SmashAxe)
                 return await Spells.AxebladeBite.Cast(Core.Me.CurrentTarget);
 
-            return await Spells.SmashAxe.Cast(Core.Me.CurrentTarget);
+            if (!await Spells.SmashAxe.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            BeastMasterRoutine.NoteEngaged(Core.Me.CurrentTarget);
+            return true;
+        }
+
+        /// <summary>The one hit allowed on a beast we are holding for: Smash Axe, which starts the auto-attacks.</summary>
+        public static async Task<bool> Engage()
+        {
+            if (BeastMasterRoutine.EngagedTargetId == Core.Me.CurrentTarget.ObjectId)
+                return false;
+
+            if (!await Spells.SmashAxe.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            BeastMasterRoutine.NoteEngaged(Core.Me.CurrentTarget);
+            return true;
         }
 
         /// <summary>

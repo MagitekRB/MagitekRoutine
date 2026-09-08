@@ -2212,6 +2212,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Capture_Health", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start).
+        /// </summary>
+        public static string BeastMaster_Content_Capture_Hold {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_Hold", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all).
