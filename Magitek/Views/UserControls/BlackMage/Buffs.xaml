@@ -55,10 +55,12 @@
                           Content="{x:Static properties:Resources.BlackMage_Content_TripleCast}"
                           IsChecked="{Binding BlackMageSettings.TripleCast, Mode=TwoWay}"
                           Style="{DynamicResource CheckBoxFlat}"/>
-                <CheckBox Margin="5"
-                          Content="{x:Static properties:Resources.BlackMage_Content_Save_1_Charges_For_Moving}"
-                          IsChecked="{Binding BlackMageSettings.TripleCastWhileMoving, Mode=TwoWay}"
-                          Style="{DynamicResource CheckBoxFlat}"/>
+                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                           Text="{x:Static properties:Resources.BlackMage_Text_and_save_at_least}"/>
+                <controls:Numeric Margin="5" MaxValue="2" MinValue="0"
+                                  Value="{Binding BlackMageSettings.SaveTriplecastCharges, Mode=TwoWay}"/>
+                <TextBlock Style="{DynamicResource TextBlockDefault}"
+                           Text="{x:Static properties:Resources.BlackMage_Text_charges_for_moving}"/>
                 <CheckBox Margin="5"
                           Content="{x:Static properties:Resources.BlackMage_Content_Use_Swiftcast}"
                           IsChecked="{Binding BlackMageSettings.UseSwiftcast, Mode=TwoWay}"

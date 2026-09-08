@@ -2088,11 +2088,11 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save 1 Charges For Moving.
+        ///   Looks up a localized string similar to charges for moving.
         /// </summary>
-        public static string BlackMage_Content_Save_1_Charges_For_Moving {
+        public static string BlackMage_Text_charges_for_moving {
             get {
-                return ResourceManager.GetString("BlackMage_Content_Save_1_Charges_For_Moving", resourceCulture);
+                return ResourceManager.GetString("BlackMage_Text_charges_for_moving", resourceCulture);
             }
         }
         

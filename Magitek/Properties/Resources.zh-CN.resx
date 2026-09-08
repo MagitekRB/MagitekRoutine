@@ -1038,8 +1038,8 @@
   <data name="Bard_Content_Natures_Minne_At" xml:space="preserve">
     <value>大地神的抒情恋歌 在</value>
   </data>
-  <data name="BlackMage_Content_Save_1_Charges_For_Moving" xml:space="preserve">
-    <value>移动时保留 1 层充能</value>
+  <data name="BlackMage_Text_charges_for_moving" xml:space="preserve">
+    <value>层充能用于移动</value>
   </data>
   <data name="BlackMage_Content_Ley_Lines" xml:space="preserve">
     <value>黑魔纹</value>

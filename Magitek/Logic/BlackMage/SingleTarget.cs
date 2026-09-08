@@ -36,7 +36,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // If we're moving in combat
-            if (MovementManager.IsMoving)
+            if (BlackMageRoutine.MovingPastSlidecast)
             {
                 // If we don't have any procs (while in movement), cast
                 if (!Core.Me.HasAura(Auras.Swiftcast)

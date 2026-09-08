@@ -59,7 +59,7 @@ namespace Magitek.Rotations
 
             // Moving without an instant-cast buff: keep uptime with the natural instants first,
             // then pop Triplecast or Swiftcast. Each call carries its own gates.
-            if (MovementManager.IsMoving
+            if (BlackMageRoutine.MovingPastSlidecast
                 && !Core.Me.HasAura(Auras.Swiftcast)
                 && !Core.Me.HasAura(Auras.Triplecast))
             {
