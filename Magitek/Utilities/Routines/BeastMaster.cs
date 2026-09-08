@@ -325,6 +325,64 @@ namespace Magitek.Utilities.Routines
 
         public static bool CheckTTDIsEnemyDyingSoon() => Common.CheckTTDIsEnemyDyingSoon(BeastMasterSettings.Instance);
 
+        // Every Sleep status in the 7.56 data (the Lullaby one is not told apart from the others).
+        public static readonly uint[] SleepStatuses = { 3, 926, 1348, 1363, 1510, 1596, 1947, 2983, 3466, 4894 };
+
+        // After a sleep from the familiar (Lullaby, 30 s): drop sleeping targets so nothing wakes them, call the
+        // familiar to heel, and fight only what is awake and on us, with the 1-2-3 alone (the axes and Trick are
+        // cones and lines that would wake the rest).
+        private const int SleepDisengageMs = 30000;
+        private static System.DateTime _sleepDisengageUntil = System.DateTime.MinValue;
+        private static bool _familiarHeeled;
+
+        public static void BeginSleepDisengage()
+        {
+            _sleepDisengageUntil = System.DateTime.Now.AddMilliseconds(SleepDisengageMs);
+            Logger.WriteInfo("[Beastmaster] Sleep out: disengaging from sleeping targets for up to 30 s.");
+        }
+
+        public static bool SleepDisengageActive => BeastMasterSettings.Instance.DisengageAfterSleep && System.DateTime.Now < _sleepDisengageUntil;
+
+        public static bool IsAsleep(GameObject unit) => unit != null && unit.HasAnyAura(SleepStatuses);
+
+        public static bool AnyEnemyAsleepNearby => Combat.Enemies.Any(e => IsAsleep(e) && e.Distance(Core.Me) <= 20 + e.CombatReach);
+
+        /// <summary>The familiar follows and stops attacking; the pet bar's Heel. Once per disengage.</summary>
+        public static void HeelFamiliar()
+        {
+            if (_familiarHeeled || !FamiliarOut)
+                return;
+
+            _familiarHeeled = true;
+            var names = new List<string>();
+            var heel = false;
+            foreach (var pair in PetManager.CurrentActions)
+            {
+                var action = pair.Value;
+                if (action == null)
+                    continue;
+                names.Add(action.LocalizedName);
+                if (action.LocalizedName == "Heel")
+                    heel = true;
+            }
+
+            var list = names.Count == 0 ? "none" : string.Join(", ", names);
+            if (heel && PetManager.DoAction("Heel", Core.Me))
+                Logger.WriteInfo("[Beastmaster] Familiar called to heel (pet actions: " + list + ").");
+            else
+                Logger.WriteInfo("[Beastmaster] Could not call the familiar to heel (pet actions: " + list + ").");
+        }
+
+        public static void EndSleepDisengage()
+        {
+            if (_sleepDisengageUntil == System.DateTime.MinValue)
+                return;
+
+            _sleepDisengageUntil = System.DateTime.MinValue;
+            _familiarHeeled = false;
+            Logger.WriteInfo("[Beastmaster] Disengage over: back to the rotation.");
+        }
+
         /// <summary>
         /// A beast Capture should go on: the game said it can be captured (with odds the setting accepts), it is not
         /// befriended, not above our level, and not marked yet. Health is not part of it; Capture itself waits for

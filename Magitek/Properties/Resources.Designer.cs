@@ -2061,6 +2061,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to After a sleep, disengage: drop sleeping targets, heel the familiar, only the 1-2-3 on what is awake.
+        /// </summary>
+        public static string BeastMaster_Content_Sleep_Disengage {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Sleep_Disengage", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Sleep controlled abilities only with at least this many enemies near the familiar.
         /// </summary>
         public static string BeastMaster_Content_TR_Sleep {

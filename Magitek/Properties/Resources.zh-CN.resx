@@ -5859,6 +5859,9 @@
   <data name="BeastMaster_Content_TR_Mitigation" xml:space="preserve">
     <value>生命值低于以下百分比（或即将受到已收录的范围攻击）时使用减伤类操控技能</value>
   </data>
+  <data name="BeastMaster_Content_Sleep_Disengage" xml:space="preserve">
+    <value>睡眠后脱离战斗：放弃睡眠中的目标，召回魔兽，对清醒的敌人只使用基础连击</value>
+  </data>
   <data name="BeastMaster_Content_TR_Sleep" xml:space="preserve">
     <value>仅当魔兽附近至少有以下数量的敌人时使用睡眠类操控技能</value>
   </data>

@@ -32,6 +32,11 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool UseTemperedRelease { get; set; }
 
+        // After the familiar's sleep (Lullaby): drop sleeping targets, heel the familiar, only the 1-2-3 on what is awake.
+        [Setting]
+        [DefaultValue(true)]
+        public bool DisengageAfterSleep { get; set; }
+
         // Tempered Release policies by the ability's class (see Resources/BeastMasterFamiliars.json).
         [Setting]
         [DefaultValue(false)]
