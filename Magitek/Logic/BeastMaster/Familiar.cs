@@ -193,7 +193,11 @@ namespace Magitek.Logic.BeastMaster
                 }
             }
 
-            return await Spells.Trick.Cast(Core.Me.CurrentTarget);
+            if (!await Spells.Trick.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            BeastMasterRoutine.LastTrickAt = System.DateTime.Now;
+            return true;
         }
 
         /// <summary>

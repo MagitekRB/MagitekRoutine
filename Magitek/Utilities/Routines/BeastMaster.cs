@@ -84,13 +84,27 @@ namespace Magitek.Utilities.Routines
         // will be, so the follow-up is chosen right instead of restarting the chain.
         private const int HeartLagMs = 1500;
 
-        // Trick is an order: the familiar acts on its own time. An axe thrown before its skill has landed does not
-        // continue anything; it earned Wavering Heart every time (Trick, axe 0.6 s later, lockout 1.5 s after that,
-        // 2026-09-08). So after a Trick the axe waits for the familiar's Heart to actually show, up to this long.
+        // Trick is an order: the familiar acts on its own time. An axe thrown 0.6 s after the order, before its
+        // skill had landed, earned Wavering Heart every time; so did one thrown the instant the familiar's Heart
+        // appeared (1.2 s after the order, 2026-09-08 17:15). The Heart shows when the familiar starts its skill,
+        // not when it lands. So after a Trick the axe waits for the Heart and for this much time since the order;
+        // the axe and any Wavering Heart log their distance from the order so the safe gap gets measured.
         private const int TrickLandingMs = 4000;
+        private const int TrickSettleMs = 2500;
 
-        /// <summary>A Trick was ordered and the familiar's Heart has not shown yet: nothing of ours should go out.</summary>
-        public static bool TrickPending => CurrentHeart == null && Casting.LastSpellWas(Spells.Trick, TrickLandingMs);
+        public static System.DateTime LastTrickAt = System.DateTime.MinValue;
+        public static double MsSinceTrick => (System.DateTime.Now - LastTrickAt).TotalMilliseconds;
+
+        /// <summary>A Trick was ordered and the familiar has not been given its time yet: nothing of ours should go out.</summary>
+        public static bool TrickPending
+        {
+            get
+            {
+                if (!Casting.LastSpellWas(Spells.Trick, TrickLandingMs))
+                    return false;
+                return CurrentHeart == null || MsSinceTrick < TrickSettleMs;
+            }
+        }
 
         /// <summary>The Heart lit now, or the one about to be lit by an axe just cast.</summary>
         public static string EffectiveHeart
@@ -135,7 +149,7 @@ namespace Magitek.Utilities.Routines
                 return;
 
             _waveringLogged = true;
-            Logger.WriteInfo($"[Beastmaster] Wavering Heart after {Casting.LastSpell?.LocalizedName ?? "nothing"} (familiar {(FamiliarOut ? "out" : "away")}, heart {CurrentHeart ?? "none"}).");
+            Logger.WriteInfo($"[Beastmaster] Wavering Heart after {Casting.LastSpell?.LocalizedName ?? "nothing"} (familiar {(FamiliarOut ? "out" : "away")}, heart {CurrentHeart ?? "none"}, {MsSinceTrick:0} ms after the last Trick order).");
         }
 
         /// <summary>

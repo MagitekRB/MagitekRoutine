@@ -70,7 +70,14 @@ namespace Magitek.Logic.BeastMaster
 
             var axe = BeastMasterRoutine.AxeFor(wanted);
             if (BeastMasterRoutine.HasTpFor(axe))
-                return await axe.Cast(Core.Me.CurrentTarget);
+            {
+                if (!await axe.Cast(Core.Me.CurrentTarget))
+                    return false;
+
+                if (BeastMasterRoutine.MsSinceTrick < 10000)
+                    Logger.WriteInfo($"[Beastmaster] {axe.LocalizedName} {BeastMasterRoutine.MsSinceTrick:0} ms after the Trick order (heart {heart ?? "none"}).");
+                return true;
+            }
 
             foreach (var candidate in BeastMasterRoutine.Axes)
             {
