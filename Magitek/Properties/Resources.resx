@@ -2757,6 +2757,9 @@
   <data name="Reaper_Content_Death_Warrant" xml:space="preserve">
     <value>Death Warrant</value>
   </data>
+  <data name="Reaper_Content_Double_Enshroud" xml:space="preserve">
+    <value>Bank Shroud for Arcane Circle and Enshroud before and after it (off below a 2.47s GCD)</value>
+  </data>
   <data name="Reaper_Content_Harvest_Moon" xml:space="preserve">
     <value>Harvest Moon</value>
   </data>
