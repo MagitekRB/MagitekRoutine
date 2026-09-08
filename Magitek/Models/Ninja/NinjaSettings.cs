@@ -41,7 +41,7 @@ namespace Magitek.Models.Ninja
         public bool UseAoe { get; set; }
 
         [Setting]
-        [DefaultValue(3)]
+        [DefaultValue(4)]
         public int AoeEnemies { get; set; }
 
         [Setting]
@@ -53,8 +53,12 @@ namespace Magitek.Models.Ninja
         public bool UseHellfrogMedium { get; set; }
 
         [Setting]
-        [DefaultValue(true)]
-        public bool UseDeathfrogMedium { get; set; }
+        [DefaultValue(2)]
+        public int HellfrogMediumEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int GokaMekkyakuEnemies { get; set; }
 
         [Setting]
         [DefaultValue(true)]
@@ -91,6 +95,10 @@ namespace Magitek.Models.Ninja
         [Setting]
         [DefaultValue(true)]
         public bool UseKassatsu { get; set; }
+
+        [Setting]
+        [DefaultValue(5)]
+        public int KassatsuSecondsBeforeTrickAttack { get; set; }
 
         [Setting]
         [DefaultValue(true)]

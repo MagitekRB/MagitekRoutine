@@ -25,6 +25,9 @@ namespace Magitek.Rotations
         {
             Utilities.Routines.Ninja.RefreshVars();
 
+            if (GamelogManagerCountdown.IsCountdownRunning())
+                NinjaRoutine.NoteCountdown();
+
             if (await Utility.PrePullHide()) return true;
 
             if (await Ninjutsu.PrePullSuitonRamp()) return true;
@@ -62,7 +65,10 @@ namespace Magitek.Rotations
 
             if (await Ninjutsu.PrePullSuitonUseCheck()) return true;
 
-            if (NinjaRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 770
+            // No weaving inside a mudra chain or Ten Chi Jin: an ability there breaks the chain, and the
+            // mudras do not roll the weaponskill recast, so the weave test alone can pass mid-chain.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Core.Me.HasMyAura(Auras.TenChiJin)
+                && NinjaRoutine.GlobalCooldown.CountOGCDs() < 2 && Spells.SpinningEdge.Cooldown.TotalMilliseconds >= 770
                 && DateTime.Now >= NinjaRoutine.oGCD)
             {
 
@@ -102,6 +108,15 @@ namespace Magitek.Rotations
             if (await Ninjutsu.TenChiJin_Raiton()) return true;
             if (await Ninjutsu.TenChiJin_Suiton()) return true;
 
+            // Anything else pressed under Ten Chi Jin forfeits the rest of it. When the next step is not
+            // castable this pulse, wait rather than fall through to a weaponskill. Once every step has
+            // been sent and the aura is still up well after the last press, the game did not count one of
+            // them; stop waiting and let the rotation forfeit it, as it always did.
+            if (Core.Me.HasMyAura(Auras.TenChiJin)
+                && (NinjaRoutine.UsedMudras.Count < 3 || NinjaRoutine.MudraPressedRecently)) return true;
+
+            if (await Ninjutsu.ContinueChain()) return true;
+
             if (await Ninjutsu.Doton()) return true;
             if (await Ninjutsu.GokaMekkyaku()) return true;
             if (await Ninjutsu.HyoshoRanryu()) return true;
@@ -114,7 +129,7 @@ namespace Magitek.Rotations
             if (await SingleTarget.FleetingRaiju()) return true;
             if (await SingleTarget.ForkedRaiju()) return true;
 
-            if (await Aoe.PhantomKamaitachi()) return true;
+            if (await SingleTarget.PhantomKamaitachi()) return true;
 
             if (await Aoe.HakkeMujinsatsu()) return true;
             if (await Aoe.DeathBlossom()) return true;

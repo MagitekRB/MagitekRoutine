@@ -29,9 +29,14 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || NinjaRoutine.UsedMudras.Count() > 0)
                 return false;
 
-            // Hold Kassatsu until Trick Attack/Kunai's Bane is on cooldown so Hyosho lands inside the debuff window
-            if (NinjaSettings.Instance.UseTrickAttack && !NinjaSettings.Instance.BurstLogicHoldBurst
-                && Spells.TrickAttack.IsKnownAndReady())
+            // Pop Kassatsu just ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside the
+            // window instead of a weave spent inside it. Free to go whenever Kunai's Bane is not wanted.
+            // Never before the Suiton is built: no ninjutsu can be started under Kassatsu, so an early
+            // Kassatsu would lock Shadow Walker out for its whole duration.
+            var target = Core.Me.CurrentTarget;
+            if (Cooldown.KunaisBaneWanted(target)
+                && !target.HasAura(Auras.KunaisBane, true) && !target.HasAura(Auras.TrickAttack, true)
+                && (!Core.Me.HasMyAura(Auras.ShadowWalker) || Spells.TrickAttack.Cooldown.TotalMilliseconds > Cooldown.KassatsuLeadInMs))
                 return false;
 
             return await Spells.Kassatsu.Cast(Core.Me);
@@ -73,7 +78,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 20))
                 return false;
 
-            if (Casting.SpellCastHistory.First().Spell == Spells.TrickAttack)
+            if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack)
                 return false;
 
             if (!NinjaRoutine.GlobalCooldown.IsWeaveWindow(1))
