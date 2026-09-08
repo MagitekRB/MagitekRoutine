@@ -36,8 +36,9 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
-        // A horn blown over the familiar out swaps in about a second; the Parting Blow route (retreat, then the horn)
-        // takes longer, and the Heart lasts seven seconds.
+        // A horn blown over the familiar out swaps it (the client accepts any horn but the one whose beast is already
+        // out; seen out of combat 2026-09-08, one-second cast, cancelled by moving). The Parting Blow route (retreat,
+        // then the horn) is the fallback when the client refuses, and takes longer; the Heart lasts seven seconds.
         private const int DirectSwapMs = 3500;
         private const int RetreatSwapMs = 5500;
 

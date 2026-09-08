@@ -211,15 +211,21 @@ namespace Magitek.Utilities.Routines
         /// </summary>
         private static void LearnHornFamiliar()
         {
-            if (!FamiliarOut || LastHorn == null || !Casting.LastSpellWas(LastHorn, 8000))
+            if (!FamiliarOut)
                 return;
 
             var name = Core.Me.Pet.EnglishName;
-            if (string.IsNullOrEmpty(name) || name == _petNameAtHornCast)
+            if (string.IsNullOrEmpty(name))
                 return;
 
-            _petNameAtHornCast = name;
-            var slot = HornSlot(LastHorn);
+            // With a familiar out, the client refuses the horn that would summon the same beast and accepts the
+            // others (which swap). So the one known horn that reads not castable is the horn this familiar came
+            // from: the mapping is read without blowing anything, including for a familiar summoned by hand.
+            var horn = CurrentFamiliarHorn;
+            if (horn == null)
+                return;
+
+            var slot = HornSlot(horn);
             var settings = BeastMasterSettings.Instance;
             var known = settings.BattlehornFamiliars;
             if (known != null && known.TryGetValue(slot, out var recorded) && recorded == name)
@@ -229,6 +235,31 @@ namespace Magitek.Utilities.Routines
             copy[slot] = name;
             settings.BattlehornFamiliars = copy;
             Logger.WriteInfo("[Beastmaster] Battlehorn " + slot + " summons " + name + " (" + (FamiliarByName(name)?.Trick?.Affinity ?? "affinity unknown") + " Trick).");
+        }
+
+        /// <summary>
+        /// The horn the familiar out came from: the only known horn the client will not cast while it is out
+        /// (the others swap). Null when no familiar is out, when a horn was blown in the last moments (its recast
+        /// would also read not castable), or when the read is ambiguous.
+        /// </summary>
+        public static SpellData CurrentFamiliarHorn
+        {
+            get
+            {
+                if (!FamiliarOut || Battlehorns.Any(h => Casting.LastSpellWas(h, 3000)))
+                    return null;
+
+                SpellData found = null;
+                foreach (var horn in Battlehorns)
+                {
+                    if (!horn.IsKnown() || ActionManager.CanCast(horn.Id, Core.Me))
+                        continue;
+                    if (found != null)
+                        return null;
+                    found = horn;
+                }
+                return found;
+            }
         }
 
         /// <summary>The Trick affinity of the beast a horn is known to summon, or null.</summary>
@@ -246,7 +277,8 @@ namespace Magitek.Utilities.Routines
             if (affinity == null)
                 return null;
 
-            return Battlehorns.FirstOrDefault(h => h != LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero && HornAffinity(h) == affinity);
+            var current = CurrentFamiliarHorn ?? LastHorn;
+            return Battlehorns.FirstOrDefault(h => h != current && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero && HornAffinity(h) == affinity);
         }
 
         /// <summary>A horn that can be blown now: the one the swap asked for, else the preferred one first.</summary>
