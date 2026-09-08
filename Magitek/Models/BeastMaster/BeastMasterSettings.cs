@@ -55,6 +55,15 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool PartingBlowOnlyWithVantage { get; set; }
 
+        // Swap familiars mid-fight when another horn's beast continues the lit Heart and the one out cannot.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBattlehornSwaps { get; set; }
+
+        // Which beast each horn (1-3) summons, learned by watching who shows up; replaced whole, never edited in place.
+        [Setting]
+        public Dictionary<int, string> BattlehornFamiliars { get; set; } = new Dictionary<int, string>();
+
         #endregion
 
         #region Rotation

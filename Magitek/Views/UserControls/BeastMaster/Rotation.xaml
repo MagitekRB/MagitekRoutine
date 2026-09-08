@@ -38,6 +38,9 @@
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Parting_Blow_Vantage}" IsChecked="{Binding BeastMasterSettings.PartingBlowOnlyWithVantage, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Battlehorn_Swaps}" IsChecked="{Binding BeastMasterSettings.UseBattlehornSwaps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>

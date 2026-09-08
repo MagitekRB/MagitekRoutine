@@ -27,6 +27,14 @@ namespace Magitek.Utilities.Routines
         public static SpellData LastHorn;
         private static string _unmatchedFamiliar;
 
+        // The pet's name when the last horn was blown: once it changes, the newcomer is what that horn summons.
+        private static string _petNameAtHornCast;
+
+        // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
+        public static SpellData WantedHorn;
+        private static System.DateTime _wantedHornSince = System.DateTime.MinValue;
+        private const int WantedHornMs = 10000;
+
         public static void RefreshVars()
         {
             // The chat listener that fills the bestiary: armed here as well as at bot start, since a hot-reload
@@ -36,6 +44,7 @@ namespace Magitek.Utilities.Routines
             EnemiesIn5Yards = Combat.Enemies.Count(e => e.Distance(Core.Me) <= 5 + e.CombatReach);
             Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.EnglishName) : null;
             TrackWaveringHeart();
+            LearnHornFamiliar();
 
             if (FamiliarOut && Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)
             {
@@ -166,9 +175,88 @@ namespace Magitek.Utilities.Routines
 
         public static readonly SpellData[] Battlehorns = { Spells.FirstBattlehorn, Spells.SecondBattlehorn, Spells.ThirdBattlehorn };
 
-        /// <summary>A horn that can be blown now, the preferred one first.</summary>
+        private static readonly uint[] HeartAuras = { Auras.VolantHeart, Auras.RampantHeart, Auras.DurantHeart, Auras.EldritchHeart };
+
+        /// <summary>Milliseconds left on the lit Heart, 0 when none.</summary>
+        public static double HeartMsLeft
+        {
+            get
+            {
+                var aura = Core.Me.CharacterAuras.FirstOrDefault(a => HeartAuras.Contains(a.Id));
+                return aura?.TimespanLeft.TotalMilliseconds ?? 0;
+            }
+        }
+
+        /// <summary>Horn slot 1-3, or 0 for anything else.</summary>
+        public static int HornSlot(SpellData horn) => horn == null ? 0 : System.Array.IndexOf(Battlehorns, horn) + 1;
+
+        /// <summary>A horn was blown: remember it and the pet on the field at that moment.</summary>
+        public static void NoteHornCast(SpellData horn)
+        {
+            LastHorn = horn;
+            _petNameAtHornCast = Core.Me.Pet?.EnglishName ?? string.Empty;
+            if (horn == WantedHorn)
+                WantedHorn = null;
+        }
+
+        public static void WantHorn(SpellData horn)
+        {
+            WantedHorn = horn;
+            _wantedHornSince = System.DateTime.Now;
+        }
+
+        /// <summary>
+        /// Which beast each horn summons is not in any data sheet; it is learned when a familiar shows up after a horn
+        /// and kept in the settings, so the swap logic knows what the other horns would bring.
+        /// </summary>
+        private static void LearnHornFamiliar()
+        {
+            if (!FamiliarOut || LastHorn == null || !Casting.LastSpellWas(LastHorn, 8000))
+                return;
+
+            var name = Core.Me.Pet.EnglishName;
+            if (string.IsNullOrEmpty(name) || name == _petNameAtHornCast)
+                return;
+
+            _petNameAtHornCast = name;
+            var slot = HornSlot(LastHorn);
+            var settings = BeastMasterSettings.Instance;
+            var known = settings.BattlehornFamiliars;
+            if (known != null && known.TryGetValue(slot, out var recorded) && recorded == name)
+                return;
+
+            var copy = known == null ? new Dictionary<int, string>() : new Dictionary<int, string>(known);
+            copy[slot] = name;
+            settings.BattlehornFamiliars = copy;
+            Logger.WriteInfo("[Beastmaster] Battlehorn " + slot + " summons " + name + " (" + (FamiliarByName(name)?.Trick?.Affinity ?? "affinity unknown") + " Trick).");
+        }
+
+        /// <summary>The Trick affinity of the beast a horn is known to summon, or null.</summary>
+        public static string HornAffinity(SpellData horn)
+        {
+            var known = BeastMasterSettings.Instance.BattlehornFamiliars;
+            if (known == null || !known.TryGetValue(HornSlot(horn), out var name))
+                return null;
+            return FamiliarByName(name)?.Trick?.Affinity;
+        }
+
+        /// <summary>Another horn, off cooldown, whose beast carries this affinity.</summary>
+        public static SpellData SwapHornFor(string affinity)
+        {
+            if (affinity == null)
+                return null;
+
+            return Battlehorns.FirstOrDefault(h => h != LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero && HornAffinity(h) == affinity);
+        }
+
+        /// <summary>A horn that can be blown now: the one the swap asked for, else the preferred one first.</summary>
         public static SpellData ReadyBattlehorn()
         {
+            if (WantedHorn != null && (System.DateTime.Now - _wantedHornSince).TotalMilliseconds > WantedHornMs)
+                WantedHorn = null;
+            if (WantedHorn != null && WantedHorn.IsKnown() && ActionManager.CanCast(WantedHorn.Id, Core.Me))
+                return WantedHorn;
+
             var preferred = System.Math.Max(1, System.Math.Min(3, BeastMasterSettings.Instance.PreferredBattlehorn)) - 1;
             for (var i = 0; i < 3; i++)
             {

@@ -2086,6 +2086,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Instinctual", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap familiars with the battlehorns mid-fight when another beast continues the chain.
+        /// </summary>
+        public static string BeastMaster_Content_Battlehorn_Swaps {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Battlehorn_Swaps", resourceCulture);
+            }
+        }
 
         /// <summary>
         ///   Looks up a localized string similar to Rally.

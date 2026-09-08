@@ -5635,6 +5635,9 @@
   <data name="BeastMaster_Content_Parting_Blow_Vantage" xml:space="preserve">
     <value>Only under Lingering Vantage and with another horn ready</value>
   </data>
+  <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
+    <value>Swap familiars with the battlehorns mid-fight when another beast continues the chain</value>
+  </data>
   <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
     <value>Instinctual axes at 100 TP, following the Inner Compass</value>
   </data>

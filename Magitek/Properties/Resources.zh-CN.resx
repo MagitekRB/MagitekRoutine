@@ -5868,6 +5868,9 @@
   <data name="BeastMaster_Content_Parting_Blow_Vantage" xml:space="preserve">
     <value>仅在残存优势下且另一支战角就绪时</value>
   </data>
+  <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
+    <value>战斗中当其他魔兽能接续连击时，通过战角更换魔兽</value>
+  </data>
   <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
     <value>TP达到100时按内心罗盘使用本能斧技</value>
   </data>

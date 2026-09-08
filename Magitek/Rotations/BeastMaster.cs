@@ -60,6 +60,7 @@ namespace Magitek.Rotations
             {
                 if (await Capture.Gauge()) return true;
                 if (await Familiar.SpendOneWithNature()) return true;
+                if (await Familiar.SwapForChain()) return true;
                 if (await Familiar.KinshipAction()) return true;
                 if (await Familiar.Trick()) return true;
                 if (await Familiar.PartingBlow()) return true;

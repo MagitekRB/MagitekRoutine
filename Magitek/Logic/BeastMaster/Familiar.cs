@@ -32,7 +32,69 @@ namespace Magitek.Logic.BeastMaster
             if (!await horn.Cast(Core.Me))
                 return false;
 
-            BeastMasterRoutine.LastHorn = horn;
+            BeastMasterRoutine.NoteHornCast(horn);
+            return true;
+        }
+
+        // A horn blown over the familiar out swaps in about a second; the Parting Blow route (retreat, then the horn)
+        // takes longer, and the Heart lasts seven seconds.
+        private const int DirectSwapMs = 3500;
+        private const int RetreatSwapMs = 5500;
+
+        /// <summary>
+        /// The Heart lit now cannot be continued by the familiar out, but another horn's beast carries the affinity
+        /// that would: swap. A familiar's TP has to be there for the Trick that follows, so the swap is only taken
+        /// when Trick reads castable. If the horn can be blown over the current familiar it is; otherwise Parting Blow
+        /// sends the familiar home and Summon blows the wanted horn next.
+        /// </summary>
+        public static async Task<bool> SwapForChain()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseBattlehornSwaps || !settings.UseTrick || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
+                return false;
+
+            if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
+                return false;
+
+            var heart = BeastMasterRoutine.CurrentHeart;
+            if (heart == null)
+                return false;
+
+            var wanted = Affinity.Next(heart);
+            if (BeastMasterRoutine.FamiliarAffinity == wanted)
+                return false;
+
+            if (!BeastMasterRoutine.HasTpFor(Spells.Trick))
+                return false;
+
+            var horn = BeastMasterRoutine.SwapHornFor(wanted);
+            if (horn == null)
+                return false;
+
+            var msLeft = BeastMasterRoutine.HeartMsLeft;
+            var slot = BeastMasterRoutine.HornSlot(horn);
+
+            if (ActionManager.CanCast(horn.Id, Core.Me))
+            {
+                if (msLeft < DirectSwapMs)
+                    return false;
+
+                if (!await horn.Cast(Core.Me))
+                    return false;
+
+                BeastMasterRoutine.NoteHornCast(horn);
+                Logger.WriteInfo("[Beastmaster] Battlehorn " + slot + " blown over the familiar for a " + wanted + " Trick (" + msLeft.ToString("0") + " ms left on the Heart).");
+                return true;
+            }
+
+            if (!Spells.PartingBlow.IsKnown() || Spells.PartingBlow.Cooldown != System.TimeSpan.Zero || msLeft < RetreatSwapMs)
+                return false;
+
+            if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            BeastMasterRoutine.WantHorn(horn);
+            Logger.WriteInfo("[Beastmaster] Parting Blow, then battlehorn " + slot + " for a " + wanted + " Trick (" + msLeft.ToString("0") + " ms left on the Heart).");
             return true;
         }
 
