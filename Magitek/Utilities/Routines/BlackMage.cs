@@ -21,6 +21,10 @@ namespace Magitek.Utilities.Routines
             AoeEnemies5Yards = Combat.Enemies.Count(x => x.WithinSpellRange(5) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
             AoeEnemies30Yards = Combat.Enemies.Count(x => x.WithinSpellRange(30) && x.IsTargetable && x.IsValid && !x.HasAnyAura(Auras.Invincibility) && x.NotInvulnerable());
         }
+        // A slidecast is over before the GCD comes back; still moving with a GCD ready is real movement
+        public static bool MovingPastSlidecast => MovementManager.IsMoving
+            && Spells.Blizzard.Cooldown <= TimeSpan.Zero;
+
         public static bool NeedToInterruptCast()
         {
             if (Casting.SpellTarget?.CurrentHealth == 0)

@@ -8,6 +8,7 @@ using Magitek.Utilities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using BlackMageRoutine = Magitek.Utilities.Routines.BlackMage;
 using static ff14bot.Managers.ActionResourceManager.BlackMage;
 
 namespace Magitek.Logic.BlackMage
@@ -22,9 +23,6 @@ namespace Magitek.Logic.BlackMage
             if (!BlackMageSettings.Instance.TripleCast)
                 return false;
 
-            if (AstralSoulStacks == 6)
-                return false;
-
             if (!Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
                 return false;
 
@@ -32,8 +30,12 @@ namespace Magitek.Logic.BlackMage
             if (Core.Me.HasAura(Auras.Triplecast))
                 return false;
 
-            if ((MovementManager.IsMoving && AstralStacks == 3))
+            if (BlackMageRoutine.MovingPastSlidecast && AstralStacks == 3)
                 return await Spells.Triplecast.Cast(Core.Me);
+
+            // Flare Star has a cast time, so only hold for it when standing still
+            if (AstralSoulStacks == 6)
+                return false;
 
             // Charges is a float whose fraction is progress toward the next charge
             if (Math.Floor(Spells.Triplecast.Charges) <= BlackMageSettings.Instance.SaveTriplecastCharges)
@@ -273,7 +275,7 @@ namespace Magitek.Logic.BlackMage
                 return false;
 
             // Only to keep casting while moving, and only when no instant-cast buff is already up
-            if (!MovementManager.IsMoving)
+            if (!BlackMageRoutine.MovingPastSlidecast)
                 return false;
 
             if (Core.Me.HasAura(Auras.Swiftcast) || Core.Me.HasAura(Auras.Triplecast))
