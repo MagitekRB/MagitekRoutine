@@ -70,6 +70,7 @@ namespace Magitek.Rotations
             }
 
             if (await SingleTarget.InstinctualSkill()) return true;
+            if (await Familiar.QuellingWave()) return true;
             return await SingleTarget.Combo();
         }
 

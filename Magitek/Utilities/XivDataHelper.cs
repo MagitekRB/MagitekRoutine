@@ -20,10 +20,17 @@ namespace Magitek.Utilities
             BeastMasterFamiliars = new List<BeastMasterFamiliar>();
             if (assembly.GetManifestResourceNames().Any(n => n == familiarsFile))
             {
-                using (var stream = assembly.GetManifestResourceStream(familiarsFile))
-                using (var reader = new StreamReader(stream))
+                try
                 {
-                    BeastMasterFamiliars = JsonConvert.DeserializeObject<List<BeastMasterFamiliar>>(reader.ReadToEnd()) ?? new List<BeastMasterFamiliar>();
+                    using (var stream = assembly.GetManifestResourceStream(familiarsFile))
+                    using (var reader = new StreamReader(stream))
+                    {
+                        BeastMasterFamiliars = JsonConvert.DeserializeObject<List<BeastMasterFamiliar>>(reader.ReadToEnd()) ?? new List<BeastMasterFamiliar>();
+                    }
+                }
+                catch (System.Exception)
+                {
+                    BeastMasterFamiliars = new List<BeastMasterFamiliar>();
                 }
             }
 

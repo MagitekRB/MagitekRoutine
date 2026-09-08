@@ -755,6 +755,7 @@ namespace Magitek.Extensions
 
         private static readonly List<ClassJobType> Dps = new List<ClassJobType>()
         {
+            (ClassJobType)43, // Beastmaster (7.56)
             ClassJobType.Archer,
             ClassJobType.Bard,
             ClassJobType.Thaumaturge,
@@ -787,6 +788,7 @@ namespace Magitek.Extensions
 
         private static readonly List<ClassJobType> MeleeDps = new List<ClassJobType>()
         {
+            (ClassJobType)43, // Beastmaster (7.56)
             ClassJobType.Lancer,
             ClassJobType.Dragoon,
             ClassJobType.Pugilist,

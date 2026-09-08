@@ -21,11 +21,19 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.SummonFamiliar || BeastMasterRoutine.FamiliarOut)
                 return false;
 
+            // A horn just blown is a familiar on its way (1 s cast); do not stack a second order on it.
+            if (BeastMasterRoutine.Battlehorns.Any(h => Casting.LastSpellWas(h, 5000)))
+                return false;
+
             var horn = BeastMasterRoutine.ReadyBattlehorn();
             if (horn == null)
                 return false;
 
-            return await horn.Cast(Core.Me);
+            if (!await horn.Cast(Core.Me))
+                return false;
+
+            BeastMasterRoutine.LastHorn = horn;
+            return true;
         }
 
         /// <summary>
@@ -40,11 +48,15 @@ namespace Magitek.Logic.BeastMaster
             var borrow = BeastMasterSettings.Instance.UseBorrow && Spells.Borrow.IsKnown();
             var release = BeastMasterSettings.Instance.UseTemperedRelease && Spells.TemperedRelease.IsKnown();
 
+            // Both are orders to the familiar (range 0): cast on self, the familiar resolves what its ability hits.
             if (borrow && (BeastMasterSettings.Instance.PreferBorrow || !release))
                 return await Spells.Borrow.Cast(Core.Me);
 
-            if (release)
-                return await Spells.TemperedRelease.Cast(Core.Me.CurrentTarget);
+            if (release && await Spells.TemperedRelease.Cast(Core.Me))
+                return true;
+
+            if (borrow)
+                return await Spells.Borrow.Cast(Core.Me);
 
             return false;
         }
@@ -65,9 +77,6 @@ namespace Magitek.Logic.BeastMaster
             if (BeastMasterRoutine.SoulKinship && settings.UseSoulCrush && enemy != null
                 && enemy.IsCasting && enemy.SpellCastInfo != null && enemy.SpellCastInfo.Interruptible)
                 return await Spells.SoulCrush.Cast(target);
-
-            if (BeastMasterRoutine.WaveKinship && settings.UseQuellingWave)
-                return await Spells.QuellingWave.Cast(target);
 
             if (BeastMasterRoutine.AshKinship && settings.UseScouringAsh && Core.Me.HasAnyDispellableAura())
                 return await Spells.ScouringAsh.Cast(Core.Me);
@@ -118,12 +127,31 @@ namespace Magitek.Logic.BeastMaster
             if (BeastMasterSettings.Instance.PartingBlowOnlyWithVantage && !Core.Me.HasAura(Auras.LingeringVantage))
                 return false;
 
-            var current = BeastMasterRoutine.Battlehorns.FirstOrDefault(h => h.IsKnown() && !ActionManager.CanCast(h.Id, Core.Me));
-            var another = BeastMasterRoutine.Battlehorns.Any(h => h != current && h.IsKnown() && ActionManager.CanCast(h.Id, Core.Me));
+            // The horn that summoned this familiar still reads castable while it is out (its 90 s starts at the
+            // retreat), so "another horn is ready" has to look at the other horns' own cooldowns.
+            var another = BeastMasterRoutine.Battlehorns.Any(h => h != BeastMasterRoutine.LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero);
             if (!another)
                 return false;
 
             return await Spells.PartingBlow.Cast(Core.Me.CurrentTarget);
+        }
+
+        /// <summary>
+        /// Quelling Wave is a spell on the GCD (Wave Kinship): 350 water at range, +10 TP, and +50 TP when it strips
+        /// a buff. Worth a GCD when the target carries a dispellable buff or you are out of melee; otherwise the combo
+        /// is better.
+        /// </summary>
+        public static async Task<bool> QuellingWave()
+        {
+            if (!BeastMasterSettings.Instance.UseQuellingWave || !BeastMasterRoutine.WaveKinship || !Spells.BeastMode.IsKnown())
+                return false;
+
+            var target = Core.Me.CurrentTarget;
+            var outOfMelee = target.Distance(Core.Me) > 5 + target.CombatReach;
+            if (!outOfMelee && !target.HasDispellableBuff())
+                return false;
+
+            return await Spells.QuellingWave.Cast(target);
         }
 
         public static async Task<bool> Rally()

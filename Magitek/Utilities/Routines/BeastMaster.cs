@@ -22,10 +22,21 @@ namespace Magitek.Utilities.Routines
         public static int EnemiesIn5Yards;
         public static BeastMasterFamiliar Familiar;
 
+        // The horn that summoned the current familiar: it reads castable while the familiar is out, so Parting Blow
+        // has to look past it to the other horns.
+        public static SpellData LastHorn;
+        private static string _unmatchedFamiliar;
+
         public static void RefreshVars()
         {
             EnemiesIn5Yards = Combat.Enemies.Count(e => e.Distance(Core.Me) <= 5 + e.CombatReach);
-            Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.Name) : null;
+            Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.EnglishName) : null;
+
+            if (FamiliarOut && Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)
+            {
+                _unmatchedFamiliar = Core.Me.Pet.EnglishName;
+                Logger.WriteInfo($"[Beastmaster] Familiar \"{_unmatchedFamiliar}\" is not in the bestiary; the compass will follow your own Hearts only.");
+            }
         }
 
         /// <summary>A familiar is summoned. RebornBuddy exposes it as the player's pet.</summary>
@@ -54,20 +65,23 @@ namespace Magitek.Utilities.Routines
             }
         }
 
-        /// <summary>The player's instinctual axe of a given affinity (the level 50 forms replace them on the bar).</summary>
+        /// <summary>
+        /// The player's instinctual axe of a given affinity. At level 50 the bar swaps them for the 250 TP forms;
+        /// Masked() follows the swap, so the caller always casts what the bar shows.
+        /// </summary>
         public static SpellData AxeFor(string affinity)
         {
             switch (affinity)
             {
-                case Affinity.Volant: return Spells.GaleAxe;
-                case Affinity.Rampant: return Spells.AvalancheAxe;
-                case Affinity.Durant: return Spells.MistralAxe;
-                case Affinity.Eldritch: return Spells.SpinningAxe;
+                case Affinity.Volant: return Spells.GaleAxe.Masked();
+                case Affinity.Rampant: return Spells.AvalancheAxe.Masked();
+                case Affinity.Durant: return Spells.MistralAxe.Masked();
+                case Affinity.Eldritch: return Spells.SpinningAxe.Masked();
                 default: return null;
             }
         }
 
-        public static readonly SpellData[] Axes = { Spells.GaleAxe, Spells.AvalancheAxe, Spells.MistralAxe, Spells.SpinningAxe };
+        public static SpellData[] Axes => new[] { Spells.GaleAxe.Masked(), Spells.AvalancheAxe.Masked(), Spells.MistralAxe.Masked(), Spells.SpinningAxe.Masked() };
 
         /// <summary>
         /// The bot does not expose the TP gauges yet, so readiness is read the way the client enforces it: an

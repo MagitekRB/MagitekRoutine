@@ -33,6 +33,11 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.UseInstinctualSkills)
                 return false;
 
+            // Inside the 1-2-3 the chain's TP bonuses (+13, +15) are worth finishing first; the axe goes out after
+            // Shieldsplitter or when no chain is open. Whether an axe would even break the chain is unverified.
+            if (ActionManager.LastSpell == Spells.SmashAxe || ActionManager.LastSpell == Spells.AxebladeBite)
+                return false;
+
             var heart = BeastMasterRoutine.CurrentHeart;
             var familiar = BeastMasterRoutine.FamiliarAffinity;
 
@@ -66,7 +71,9 @@ namespace Magitek.Logic.BeastMaster
             var target = Core.Me.CurrentTarget;
             var outOfMelee = target.Distance(Core.Me) > 5 + target.CombatReach;
 
-            if (!outOfMelee && Spells.ShieldCharge.Charges < BeastMasterSettings.Instance.ShieldChargeKeepCharges + 1)
+            // One charge until Enhanced Shield Charge at 36: the kept count cannot exceed what exists.
+            var keep = System.Math.Min(BeastMasterSettings.Instance.ShieldChargeKeepCharges, System.Math.Max(0, (int)Spells.ShieldCharge.MaxCharges - 1));
+            if (!outOfMelee && Spells.ShieldCharge.Charges < keep + 1)
                 return false;
 
             return await Spells.ShieldCharge.Cast(target);
