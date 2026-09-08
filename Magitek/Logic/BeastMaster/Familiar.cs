@@ -111,17 +111,30 @@ namespace Magitek.Logic.BeastMaster
             var borrow = BeastMasterSettings.Instance.UseBorrow && Spells.Borrow.IsKnown();
             var release = BeastMasterSettings.Instance.UseTemperedRelease && Spells.TemperedRelease.IsKnown() && TemperedReleaseWanted();
 
-            // Both are orders to the familiar (range 0): cast on self, the familiar resolves what its ability hits.
+            // Borrow is an order with nothing to aim: cast on self. Tempered Release is aimed the way the beast's
+            // ability is: one centred on the familiar (Ultrasonics, the party buffs and mitigations) takes the order
+            // on self, one aimed at an enemy (Necrotic Nectar, Petribreath and every cone, line or single-target hit)
+            // only goes through with the order on that enemy; on self the client drops it without a word
+            // (0 of 95 attempts, 2026-09-08). The catalogue's range tells the two apart.
             if (borrow && (BeastMasterSettings.Instance.PreferBorrow || !release))
                 return await Spells.Borrow.Cast(Core.Me);
 
-            if (release && await Spells.TemperedRelease.Cast(Core.Me))
+            if (release && await Spells.TemperedRelease.Cast(TemperedReleaseOrderTarget()))
                 return true;
 
             if (borrow)
                 return await Spells.Borrow.Cast(Core.Me);
 
             return false;
+        }
+
+        /// <summary>Who the Tempered Release order is placed on: the enemy for an aimed ability, ourselves otherwise.</summary>
+        private static ff14bot.Objects.GameObject TemperedReleaseOrderTarget()
+        {
+            var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
+            if (ability != null && ability.Range > 0 && Core.Me.HasTarget)
+                return Core.Me.CurrentTarget;
+            return Core.Me;
         }
 
         /// <summary>
