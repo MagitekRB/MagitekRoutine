@@ -1038,8 +1038,8 @@
   <data name="Bard_Content_Natures_Minne_At" xml:space="preserve">
     <value>Nature's Minne At</value>
   </data>
-  <data name="BlackMage_Content_Save_1_Charges_For_Moving" xml:space="preserve">
-    <value>Save 1 Charges For Moving</value>
+  <data name="BlackMage_Text_charges_for_moving" xml:space="preserve">
+    <value>charges for moving</value>
   </data>
   <data name="BlackMage_Content_Ley_Lines" xml:space="preserve">
     <value>Ley Lines</value>

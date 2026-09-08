@@ -28,24 +28,20 @@ namespace Magitek.Logic.BlackMage
             if (!Core.Me.CurrentTarget.HasAnyAura(ThunderAuras, true, BlackMageSettings.Instance.ThunderRefreshSecondsLeft * 1000 + 500))
                 return false;
 
+            // Check to see if triplecast is already up
+            if (Core.Me.HasAura(Auras.Triplecast))
+                return false;
+
             if ((MovementManager.IsMoving && AstralStacks == 3))
                 return await Spells.Triplecast.Cast(Core.Me);
 
-            if (BlackMageSettings.Instance.TripleCastWhileMoving && Spells.Triplecast.Charges <= 1)
+            // Charges is a float whose fraction is progress toward the next charge
+            if (Math.Floor(Spells.Triplecast.Charges) <= BlackMageSettings.Instance.SaveTriplecastCharges)
                 return false;
 
             // Don't dot if time in combat less than 30 seconds
             //if (Combat.CombatTotalTimeLeft <= 30)
             //    return false;
-
-            // Add check for charges with new update
-            if (Spells.Triplecast.Cooldown != TimeSpan.Zero
-                && Spells.Triplecast.Charges == 0)
-                return false;
-
-            // Check to see if triplecast is already up
-            if (Core.Me.HasAura(Auras.Triplecast))
-                return false;
 
             // Dun cast truplecast when in umbral
             if (UmbralStacks > 0)

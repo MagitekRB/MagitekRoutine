@@ -86,8 +86,8 @@ namespace Magitek.Models.BlackMage
         public bool Despair { get; set; }
 
         [Setting]
-        [DefaultValue(false)]
-        public bool TripleCastWhileMoving { get; set; }
+        [DefaultValue(0)]
+        public int SaveTriplecastCharges { get; set; }
 
         [Setting]
         [DefaultValue(true)]
