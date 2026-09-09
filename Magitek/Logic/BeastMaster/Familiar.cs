@@ -325,6 +325,7 @@ namespace Magitek.Logic.BeastMaster
             // exception, and so is a Vantage about to run out.
             var hold = BeastMasterSettings.Instance.PartingBlowSpacingSeconds;
             var left = hold - BeastMasterRoutine.FamiliarOutSeconds;
+            string early = null;
             if (hold > 0 && left > 0)
             {
                 // A Vantage whose timer the bot has not read yet shows 0 ms left; that is not an ending Vantage.
@@ -338,10 +339,18 @@ namespace Magitek.Logic.BeastMaster
                 if (!vantageEnding && !diesFirst)
                     return false;
 
-                Logger.WriteInfo($"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.");
+                early = $"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.";
             }
 
-            return await Spells.PartingBlow.Cast(Core.Me.CurrentTarget);
+            // The reason is logged once the cast has gone out. The check passes on every pulse while the beast is
+            // still leaving, and it wrote the line fifteen times a second on a pack in the field (2026-09-09).
+            if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            if (early != null)
+                Logger.WriteInfo(early);
+
+            return true;
         }
 
         /// <summary>
