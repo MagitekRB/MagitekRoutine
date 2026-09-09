@@ -2277,6 +2277,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Capture at once, without waiting for the health threshold, when the beast is at least this many levels below you.
+        /// </summary>
+        public static string BeastMaster_Content_Capture_At_Once {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_At_Once", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Assign new pacts to empty battlehorn slots.
         /// </summary>
         public static string BeastMaster_Content_Assign_Horns {

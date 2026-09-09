@@ -144,6 +144,10 @@
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CaptureHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                         </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Capture_At_Once}" />
+                            <controls:Numeric MaxValue="49" MinValue="1" Value="{Binding BeastMasterSettings.CaptureAtOnceLevelGap, Mode=TwoWay}" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>

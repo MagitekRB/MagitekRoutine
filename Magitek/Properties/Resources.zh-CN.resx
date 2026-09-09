@@ -5940,6 +5940,9 @@
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>目标生命值低于以下百分比时捕获</value>
   </data>
+  <data name="BeastMaster_Content_Capture_At_Once" xml:space="preserve">
+    <value>当野兽等级比你低至少这么多级时，立即捕获而不等待体力阈值</value>
+  </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>生命值低于以下百分比时使用防御性亲缘技能</value>
   </data>

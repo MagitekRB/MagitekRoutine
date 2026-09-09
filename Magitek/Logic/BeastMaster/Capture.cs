@@ -23,8 +23,11 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             // The pact's odds rise as the target's health falls; the setting is where that trades against the
-            // beast dying before the mark is on it.
-            if (target.CurrentHealthPercent > BeastMasterSettings.Instance.CaptureHealthPercent)
+            // beast dying before the mark is on it. A beast well below your level would die first, and the level
+            // difference already lifts the odds, so it is marked at once.
+            var settings = BeastMasterSettings.Instance;
+            var farBelow = Core.Me.ClassLevel - target.ClassLevel >= settings.CaptureAtOnceLevelGap;
+            if (!farBelow && target.CurrentHealthPercent > settings.CaptureHealthPercent)
                 return false;
 
             return await Spells.Capture.Cast(target);

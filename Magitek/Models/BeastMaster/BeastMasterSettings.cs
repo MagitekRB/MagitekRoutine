@@ -169,6 +169,11 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(50.0f)]
         public float CaptureHealthPercent { get; set; }
 
+        // A beast this many levels or more below you dies in a hit or two, so it is marked at once instead of at the threshold.
+        [Setting]
+        [DefaultValue(3)]
+        public int CaptureAtOnceLevelGap { get; set; }
+
         // While a capturable beast is unmarked, only auto-attacks go out (after one Smash Axe to start them).
         [Setting]
         [DefaultValue(true)]

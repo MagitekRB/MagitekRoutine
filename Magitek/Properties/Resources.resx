@@ -5707,6 +5707,9 @@
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>Capture when the target's health is below</value>
   </data>
+  <data name="BeastMaster_Content_Capture_At_Once" xml:space="preserve">
+    <value>Capture at once, without waiting for the health threshold, when the beast is at least this many levels below you</value>
+  </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>Defensive kinship actions when health is below</value>
   </data>
