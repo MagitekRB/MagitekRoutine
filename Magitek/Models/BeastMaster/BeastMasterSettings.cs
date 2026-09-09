@@ -91,6 +91,12 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool PartingBlowOnlyWithVantage { get; set; }
 
+        // Keep each familiar out at least this long before Parting Blow (0 = as soon as a horn is ready). Three
+        // horns on a 90 s recast give one summon per 45 s at best; spacing them keeps every exit under Vantage.
+        [Setting]
+        [DefaultValue(45)]
+        public int PartingBlowSpacingSeconds { get; set; }
+
         // Swap familiars mid-fight when another horn's beast continues the lit Heart and the one out cannot.
         [Setting]
         [DefaultValue(true)]

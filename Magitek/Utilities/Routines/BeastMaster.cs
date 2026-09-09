@@ -19,6 +19,11 @@ namespace Magitek.Utilities.Routines
         public static SpellData[] Axes = new SpellData[4];
         private static string _unmatchedFamiliar;
         private static int _loggedFamiliarId;
+        private static uint _petObjectId;
+
+        /// <summary>When the familiar out now arrived (a new pet object was first seen).</summary>
+        public static System.DateTime FamiliarSince = System.DateTime.MinValue;
+        public static double FamiliarOutSeconds => FamiliarOut ? (System.DateTime.Now - FamiliarSince).TotalSeconds : 0;
 
         // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
         public static SpellData WantedHorn;
@@ -67,7 +72,14 @@ namespace Magitek.Utilities.Routines
             if (!FamiliarOut)
             {
                 _loggedFamiliarId = 0;
+                _petObjectId = 0;
                 return;
+            }
+
+            if (Core.Me.Pet.ObjectId != _petObjectId)
+            {
+                _petObjectId = Core.Me.Pet.ObjectId;
+                FamiliarSince = System.DateTime.Now;
             }
 
             if (Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)

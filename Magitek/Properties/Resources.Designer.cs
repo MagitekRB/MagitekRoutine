@@ -2142,6 +2142,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Keep each familiar out at least.
+        /// </summary>
+        public static string BeastMaster_Content_Parting_Blow_Spacing {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Parting_Blow_Spacing", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Only under Lingering Vantage and with another horn ready.
         /// </summary>
         public static string BeastMaster_Content_Parting_Blow_Vantage {
