@@ -75,13 +75,19 @@ namespace Magitek.Logic.BeastMaster
             }
 
             var heart = BeastMasterRoutine.EffectiveHeart;
-            var familiar = BeastMasterRoutine.FamiliarAffinity;
 
+            // Our axe finishes a pair; it does not open one. The Trick opens (earlier in the pulse, once both bars
+            // can pay) and our axe answers, which is the pair that earns Mastered Instinct. An axe thrown to open
+            // for the familiar lit a Heart nobody could answer when its TP was short, and when it could answer it
+            // only turned a Mastered pair into a Natural one (dummy, 2026-09-09). While the axe waits, our TP
+            // keeps raising its potency, so nothing is lost by holding it.
+            // The one exception: with the yellow diamonds full and Rally not ready, the axe opens and the Trick
+            // finishes, so the stack lands on blue for Rallying Cheer instead of overflowing.
             string wanted = null;
             if (heart != null)
                 wanted = Affinity.Next(heart);
-            else if (familiar != null)
-                wanted = Affinity.Previous(familiar);
+            else if (BeastMasterRoutine.NaturalPreferred && BeastMasterRoutine.FamiliarCanAnswer && !BeastMasterRoutine.HoldPairForRally)
+                wanted = Affinity.Previous(BeastMasterRoutine.FamiliarAffinity);
 
             var axe = BeastMasterRoutine.AxeFor(wanted);
             if (BeastMasterRoutine.HasTpFor(axe))
@@ -98,8 +104,12 @@ namespace Magitek.Logic.BeastMaster
             if (axe != null && axe.IsKnown() && heart != null && BeastMasterRoutine.HeartMsLeft > 1500)
                 return false;
 
-            // Nothing to pair: any axe with TP. Once the axes have turned at 50 this opens a Sunstrider or Moonstalker
-            // window for Universality; the rushing forms go last.
+            // Nothing to pair: an axe alone is worth throwing only when the bar is full, where it has its whole
+            // potency and every further point would be lost. Below the cap the TP is worth more in the next pair.
+            // Once the axes have turned at 50 this opens a Sunstrider or Moonstalker window; the rushing forms go last.
+            if (!BeastMasterRoutine.TpFull)
+                return false;
+
             foreach (var candidate in BeastMasterRoutine.Axes.OrderBy(a => a != null && (a.Id == Spells.BrutalRage.Id || a.Id == Spells.HawkishTalons.Id) ? 1 : 0))
             {
                 if (candidate == axe || !BeastMasterRoutine.HasTpFor(candidate))

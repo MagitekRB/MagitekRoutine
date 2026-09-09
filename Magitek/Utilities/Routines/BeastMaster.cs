@@ -25,6 +25,43 @@ namespace Magitek.Utilities.Routines
         public static System.DateTime FamiliarSince = System.DateTime.MinValue;
         public static double FamiliarOutSeconds => FamiliarOut ? (System.DateTime.Now - FamiliarSince).TotalSeconds : 0;
 
+        // Parting Blow sends the familiar home, but its pet object lingers through the retreat: a Trick ordered in
+        // that moment is accepted by the client, acted on by nobody, and costs the whole familiar TP (144 lost on
+        // the dummy, 2026-09-09). The beast counts as retreating until a different pet object is out.
+        private static uint _petAtPartingBlow;
+        private static System.DateTime _partingBlowAt = System.DateTime.MinValue;
+        private const int RetreatMaxMs = 10000;
+
+        public static void NotePartingBlow()
+        {
+            _petAtPartingBlow = Core.Me.Pet?.ObjectId ?? 0;
+            _partingBlowAt = System.DateTime.Now;
+        }
+
+        public static bool FamiliarRetreating =>
+            FamiliarOut && Core.Me.Pet.ObjectId == _petAtPartingBlow
+            && (System.DateTime.Now - _partingBlowAt).TotalMilliseconds < RetreatMaxMs;
+
+        /// <summary>Both gauges cap at 250 (measured 2026-09-09); an axe spends the whole bar, at full potency from here.</summary>
+        public const int TpCap = 250;
+        public static bool TpFull => Gauge.TP >= TpCap;
+        public static int Tp => (int)Gauge.TP;
+        public static int PetTp => (int)Gauge.PetTP;
+
+        /// <summary>
+        /// Our half of a pair is paid (a 100 TP axe is affordable) and the familiar cannot pay its Trick yet. Not
+        /// in the moment after a Trick order, before its Heart shows: the familiar TP reads zero there and a Cheer
+        /// in that gap refilled a bar that had just been spent (dummy, 2026-09-09).
+        /// </summary>
+        /// <summary>The last Trick order has had all the time the familiar needs to act on it.</summary>
+        public static bool TrickSettled => TrickActed || MsSinceTrick > TrickLandingMs + 2000;
+
+        public static bool PairWaitingOnFamiliar =>
+            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart && TrickSettled
+            && !HasTpFor(Spells.Trick) && Axes.Any(a => a != null && a.Cost <= 100 && HasTpFor(a));
+
+        public static bool PetTpFull => Gauge.PetTP >= TpCap;
+
         // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
         public static SpellData WantedHorn;
         private static System.DateTime _wantedHornSince = System.DateTime.MinValue;
@@ -56,6 +93,7 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            TrackTrickActed();
             TrackWaveringHeart();
             TrackCaptureHold();
 
@@ -149,7 +187,10 @@ namespace Magitek.Utilities.Routines
         // shows on us about 0.8 s after, measured on ACT 2026-09-08). An axe thrown before that Heart continues
         // nothing; one thrown the moment it shows completes the pair. So after a Trick the axe waits for the Heart,
         // up to this long.
-        private const int TrickLandingMs = 4000;
+        // Right after a summon the familiar is busy with its Tempered Release ability and the Trick queues behind
+        // it: 3.3 to 3.8 s from order to action, Heart a second later (dummy, 2026-09-09). Four seconds expired in
+        // the instant before the Heart showed, and a second Trick and a Rallying Cheer went into that instant.
+        private const int TrickLandingMs = 6500;
 
         public static System.DateTime LastTrickAt = System.DateTime.MinValue;
         public static double MsSinceTrick => (System.DateTime.Now - LastTrickAt).TotalMilliseconds;
@@ -159,7 +200,22 @@ namespace Magitek.Utilities.Routines
         /// out. Keyed on the order's own time, not on "the last spell was Trick": a Smash Axe in between made the
         /// routine forget the order and open a new chain with the wrong affinity (six wrong-order pairs, 2026-09-08).
         /// </summary>
-        public static bool TrickPending => CurrentHeart == null && MsSinceTrick < TrickLandingMs;
+        public static bool TrickPending => !TrickActed && CurrentHeart == null && MsSinceTrick < TrickLandingMs;
+
+        // The order has visibly been acted on: the Heart of the familiar showed (Trick first) or the pair it
+        // finished is resolving (axe first). Seen within the landing window, it ends the wait at once; the
+        // window itself is only the fallback for a Trick the bot never sees land.
+        private static System.DateTime _trickActedFor = System.DateTime.MinValue;
+        public static bool TrickActed => LastTrickAt != System.DateTime.MinValue && _trickActedFor == LastTrickAt;
+
+        private static void TrackTrickActed()
+        {
+            if (_trickActedFor == LastTrickAt || MsSinceTrick > TrickLandingMs + 2000)
+                return;
+            var heart = CurrentHeart;
+            if (WaveringHeart || (heart != null && heart == FamiliarAffinity))
+                _trickActedFor = LastTrickAt;
+        }
 
         // How a combo resolves (ACT, 76 intentional combos on 2026-09-08): the finishing skill consumes the Heart and
         // the compass reads Wavering; the second half of the combo damage lands 2.1 s later, Wavering clears, and a
@@ -187,6 +243,28 @@ namespace Magitek.Utilities.Routines
         public static int MasteredInstinct;
         public static int NaturalInstinct;
         private const int InstinctStacksMax = 3;
+
+        /// <summary>
+        /// The yellow diamonds are full: a pair our axe finishes pays a stack that overflows, even the pair Rally
+        /// fires on, since the stack lands at the finishing hit and Rally spends 0.9 s later. That pair is better
+        /// finished by the Trick, paying a Natural stack for Rallying Cheer. Three pairs and the Universality pay
+        /// four Mastered per 90 s Rally, so one was lost every cycle (dummy, 2026-09-09, twice over).
+        /// </summary>
+        public static bool NaturalPreferred => MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax;
+
+        /// <summary>
+        /// Rally is a few seconds from ready with the yellow diamonds full: the next pair is worth holding so its
+        /// window is the one Rally spends into (finishers came every 105 s instead of 90 on the dummy). Held only
+        /// while our TP is short of the cap, where the axes turn into their 250 forms and cannot pair.
+        /// </summary>
+        public static bool HoldPairForRally =>
+            BeastMasterSettings.Instance.UseRally && MasteredInstinct >= InstinctStacksMax
+            && Spells.Rally.IsKnown() && Spells.Rally.Cooldown > System.TimeSpan.Zero
+            && Spells.Rally.Cooldown.TotalSeconds <= RallyHoldSeconds && Gauge.TP < TpCap - 50;
+        private const int RallyHoldSeconds = 12;
+
+        /// <summary>The familiar is here, not leaving, and holds the TP for its Trick.</summary>
+        public static bool FamiliarCanAnswer => FamiliarAffinity != null && !FamiliarRetreating && HasTpFor(Spells.Trick);
 
         public static void SpentMastered() => MasteredInstinct = 0;
         public static void SpentNatural() => NaturalInstinct = 0;
