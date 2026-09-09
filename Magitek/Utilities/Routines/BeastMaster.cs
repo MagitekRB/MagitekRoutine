@@ -430,9 +430,10 @@ namespace Magitek.Utilities.Routines
         }
 
         /// <summary>
-        /// The bestiary entry a wild beast would fill, or None when it is not a capturable beast. Capturability goes by
-        /// the beast's model skeleton (Resources/BeastMasterCapturableBases.json, keyed by BNpcBase id): a Black Eft is a
-        /// salamander, an Anole a raptor.
+        /// The bestiary entry a wild beast would fill, or None when it is not a capturable beast. The game flags the
+        /// capturable mobs on their BNpcBase row and the species follows from the model skeleton
+        /// (Resources/BeastMasterCapturableBases.json, keyed by BNpcBase id): a Black Eft is a salamander, an Anole a
+        /// raptor, a Lemur nothing.
         /// </summary>
         public static BeastmasterPet PetFor(BattleCharacter target)
         {
