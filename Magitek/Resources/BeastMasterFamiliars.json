@@ -1,5 +1,6 @@
 [
  {
+  "id": 1,
   "petId": 47,
   "name": "Cu Sith",
   "kinship": "Beastkin",
@@ -39,6 +40,7 @@
   }
  },
  {
+  "id": 2,
   "petId": 48,
   "name": "squirrel",
   "kinship": "Beastkin",
@@ -76,6 +78,7 @@
   }
  },
  {
+  "id": 3,
   "petId": 49,
   "name": "lamb",
   "kinship": "Beastkin",
@@ -116,6 +119,7 @@
   }
  },
  {
+  "id": 4,
   "petId": 50,
   "name": "pugil",
   "kinship": "Wavekin",
@@ -153,6 +157,7 @@
   }
  },
  {
+  "id": 5,
   "petId": 52,
   "name": "opo-opo",
   "kinship": "Beastkin",
@@ -194,6 +199,7 @@
   }
  },
  {
+  "id": 6,
   "petId": 53,
   "name": "dodo",
   "kinship": "Cloudkin",
@@ -231,6 +237,7 @@
   }
  },
  {
+  "id": 7,
   "petId": 54,
   "name": "coblyn",
   "kinship": "Soulkin",
@@ -268,6 +275,7 @@
   }
  },
  {
+  "id": 8,
   "petId": 55,
   "name": "diremite",
   "kinship": "Vilekin",
@@ -310,6 +318,7 @@
   }
  },
  {
+  "id": 9,
   "petId": 56,
   "name": "megalocrab",
   "kinship": "Wavekin",
@@ -352,6 +361,7 @@
   }
  },
  {
+  "id": 10,
   "petId": 57,
   "name": "wespe",
   "kinship": "Vilekin",
@@ -393,6 +403,7 @@
   }
  },
  {
+  "id": 11,
   "petId": 58,
   "name": "vulture",
   "kinship": "Cloudkin",
@@ -435,6 +446,7 @@
   }
  },
  {
+  "id": 12,
   "petId": 59,
   "name": "mandragora",
   "kinship": "Seedkin",
@@ -477,6 +489,7 @@
   }
  },
  {
+  "id": 13,
   "petId": 60,
   "name": "geshunpest",
   "kinship": "Ashkin",
@@ -514,6 +527,7 @@
   }
  },
  {
+  "id": 14,
   "petId": 61,
   "name": "puk",
   "kinship": "Scalekin",
@@ -556,6 +570,7 @@
   }
  },
  {
+  "id": 15,
   "petId": 62,
   "name": "crab",
   "kinship": "Wavekin",
@@ -593,6 +608,7 @@
   }
  },
  {
+  "id": 16,
   "petId": 63,
   "name": "mantis",
   "kinship": "Vilekin",
@@ -635,6 +651,7 @@
   }
  },
  {
+  "id": 17,
   "petId": 64,
   "name": "slime",
   "kinship": "Ashkin",
@@ -677,6 +694,7 @@
   }
  },
  {
+  "id": 18,
   "petId": 65,
   "name": "dullahan",
   "kinship": "Soulkin",
@@ -714,6 +732,7 @@
   }
  },
  {
+  "id": 19,
   "petId": 66,
   "name": "bat",
   "kinship": "Cloudkin",
@@ -757,6 +776,7 @@
   }
  },
  {
+  "id": 20,
   "petId": 67,
   "name": "flying trap",
   "kinship": "Seedkin",
@@ -799,6 +819,7 @@
   }
  },
  {
+  "id": 21,
   "petId": 68,
   "name": "ziz",
   "kinship": "Scalekin",
@@ -841,6 +862,7 @@
   }
  },
  {
+  "id": 22,
   "petId": 69,
   "name": "sabotender",
   "kinship": "Seedkin",
@@ -880,6 +902,7 @@
   }
  },
  {
+  "id": 23,
   "petId": 70,
   "name": "golem",
   "kinship": "Soulkin",
@@ -922,6 +945,7 @@
   }
  },
  {
+  "id": 24,
   "petId": 71,
   "name": "apkallu",
   "kinship": "Cloudkin",
@@ -963,6 +987,7 @@
   }
  },
  {
+  "id": 25,
   "petId": 72,
   "name": "adamantoise",
   "kinship": "Scalekin",
@@ -1000,6 +1025,7 @@
   }
  },
  {
+  "id": 26,
   "petId": 73,
   "name": "buffalo",
   "kinship": "Beastkin",
@@ -1042,6 +1068,7 @@
   }
  },
  {
+  "id": 27,
   "petId": 74,
   "name": "uragnite",
   "kinship": "Wavekin",
@@ -1084,6 +1111,7 @@
   }
  },
  {
+  "id": 28,
   "petId": 75,
   "name": "worm",
   "kinship": "Vilekin",
@@ -1126,6 +1154,7 @@
   }
  },
  {
+  "id": 29,
   "petId": 76,
   "name": "spriggan",
   "kinship": "Soulkin",
@@ -1165,6 +1194,7 @@
   }
  },
  {
+  "id": 30,
   "petId": 77,
   "name": "goobbue",
   "kinship": "Beastkin",
@@ -1207,6 +1237,7 @@
   }
  },
  {
+  "id": 31,
   "petId": 78,
   "name": "gigantoad",
   "kinship": "Wavekin",
@@ -1248,6 +1279,7 @@
   }
  },
  {
+  "id": 32,
   "petId": 79,
   "name": "colibri",
   "kinship": "Cloudkin",
@@ -1287,6 +1319,7 @@
   }
  },
  {
+  "id": 33,
   "petId": 80,
   "name": "coeurl",
   "kinship": "Beastkin",
@@ -1330,6 +1363,7 @@
   }
  },
  {
+  "id": 34,
   "petId": 81,
   "name": "raptor",
   "kinship": "Scalekin",
@@ -1372,6 +1406,7 @@
   }
  },
  {
+  "id": 35,
   "petId": 82,
   "name": "drake",
   "kinship": "Scalekin",
@@ -1409,6 +1444,7 @@
   }
  },
  {
+  "id": 36,
   "petId": 83,
   "name": "treant",
   "kinship": "Seedkin",
@@ -1451,6 +1487,7 @@
   }
  },
  {
+  "id": 37,
   "petId": 84,
   "name": "antling",
   "kinship": "Vilekin",
@@ -1490,6 +1527,7 @@
   }
  },
  {
+  "id": 38,
   "petId": 85,
   "name": "chimera",
   "kinship": "Beastkin",
@@ -1534,6 +1572,7 @@
   }
  },
  {
+  "id": 39,
   "petId": 86,
   "name": "morbol",
   "kinship": "Seedkin",
@@ -1577,6 +1616,7 @@
   }
  },
  {
+  "id": 40,
   "petId": 87,
   "name": "ghost",
   "kinship": "Ashkin",
@@ -1621,6 +1661,7 @@
   }
  },
  {
+  "id": 41,
   "petId": 88,
   "name": "salamander",
   "kinship": "Wavekin",
@@ -1663,6 +1704,7 @@
   }
  },
  {
+  "id": 42,
   "petId": 89,
   "name": "cobra",
   "kinship": "Scalekin",
@@ -1704,6 +1746,7 @@
   }
  },
  {
+  "id": 43,
   "petId": 90,
   "name": "hydra",
   "kinship": "Scalekin",
@@ -1746,6 +1789,7 @@
   }
  },
  {
+  "id": 44,
   "petId": 91,
   "name": "damselfly",
   "kinship": "Vilekin",
@@ -1788,6 +1832,7 @@
   }
  },
  {
+  "id": 45,
   "petId": 92,
   "name": "rotting goobbue",
   "kinship": "Ashkin",
@@ -1830,6 +1875,7 @@
   }
  },
  {
+  "id": 46,
   "petId": 93,
   "name": "zu",
   "kinship": "Cloudkin",
@@ -1872,6 +1918,7 @@
   }
  },
  {
+  "id": 47,
   "petId": 94,
   "name": "ice golem",
   "kinship": "Soulkin",
@@ -1909,6 +1956,7 @@
   }
  },
  {
+  "id": 48,
   "petId": 95,
   "name": "Karlabos",
   "kinship": "Wavekin",
@@ -1951,6 +1999,7 @@
   }
  },
  {
+  "id": 49,
   "petId": 96,
   "name": "rafflesia",
   "kinship": "Seedkin",
@@ -1994,6 +2043,7 @@
   }
  },
  {
+  "id": 50,
   "petId": 97,
   "name": "behemoth",
   "kinship": "Beastkin",

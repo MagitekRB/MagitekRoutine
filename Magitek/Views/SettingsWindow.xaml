@@ -1270,16 +1270,7 @@
 
                 <TabItem Name="BeastMaster"
                          Style="{DynamicResource TabItemBeastMaster}">
-                    <TabControl Style="{DynamicResource JobOptionsTabControl}">
-                        <TabItem Header="{x:Static properties:Resources.BeastMaster_Header_Rotation}"
-                                 Style="{DynamicResource MainTabCombat}">
-                            <beastMaster:Rotation/>
-                        </TabItem>
-                        <TabItem Header="{x:Static properties:Resources.Generic_Toggles}"
-                                 Style="{DynamicResource MainTabHotkeys}">
-                            <customControls:TogglesSettings/>
-                        </TabItem>
-                    </TabControl>
+                    <beastMaster:Rotation/>
                 </TabItem>
 
                 <TabItem Name="BlueMage"

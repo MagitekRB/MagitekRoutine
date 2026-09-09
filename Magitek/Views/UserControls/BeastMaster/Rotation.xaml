@@ -43,6 +43,19 @@
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.TemperedReleaseFinisherHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                         </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_TR_SelfDamage}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.TemperedReleaseSelfDamageHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_TR_DispelWait}" />
+                            <controls:Numeric MaxValue="60" MinValue="0" Value="{Binding BeastMasterSettings.TemperedReleaseDispelWaitSeconds, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_TR_SleepRadius}" />
+                            <controls:Numeric MaxValue="30" MinValue="1" Value="{Binding BeastMasterSettings.TemperedReleaseSleepRadius, Mode=TwoWay}" />
+                        </StackPanel>
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Borrow}" IsChecked="{Binding BeastMasterSettings.UseBorrow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
@@ -123,14 +136,13 @@
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Capture_Hold}" IsChecked="{Binding BeastMasterSettings.HoldForCapture, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Assign_Horns}" IsChecked="{Binding BeastMasterSettings.AssignPactsToEmptyHorns, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Capture_Health}" />
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CaptureHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
-                        </StackPanel>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Capture_Odds}" />
-                            <controls:Numeric MaxValue="5" MinValue="1" Value="{Binding BeastMasterSettings.CaptureMinimumOdds, Mode=TwoWay}" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

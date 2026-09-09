@@ -5835,9 +5835,6 @@
   <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
     <value>至少保留的数量：</value>
   </data>
-  <data name="BeastMaster_Header_Rotation" xml:space="preserve">
-    <value>循环</value>
-  </data>
   <data name="BeastMaster_Text_Familiar" xml:space="preserve">
     <value>宠物</value>
   </data>
@@ -5867,6 +5864,15 @@
   </data>
   <data name="BeastMaster_Content_TR_Finisher" xml:space="preserve">
     <value>目标生命值低于以下百分比（且另一支战角可用）时使用致命一蜇</value>
+  </data>
+  <data name="BeastMaster_Content_TR_SelfDamage" xml:space="preserve">
+    <value>会消耗自身体力的队伍增益仅在体力高于</value>
+  </data>
+  <data name="BeastMaster_Content_TR_DispelWait" xml:space="preserve">
+    <value>带驱散的伤害技能在战斗开始后等待这么多秒以寻找可驱散的增益</value>
+  </data>
+  <data name="BeastMaster_Content_TR_SleepRadius" xml:space="preserve">
+    <value>催眠计算敌人数量时以宠物为中心的半径（米）</value>
   </data>
   <data name="BeastMaster_Content_Borrow" xml:space="preserve">
     <value>借用（获得宠物的亲缘）</value>
@@ -5925,14 +5931,14 @@
   <data name="BeastMaster_Content_Capture" xml:space="preserve">
     <value>对每种新遇到的魔兽使用估量，并捕获尚未登录图鉴的魔兽</value>
   </data>
+  <data name="BeastMaster_Content_Assign_Horns" xml:space="preserve">
+    <value>将新缔结的契约分配到空的战角槽位</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
     <value>可捕获的魔兽在被标记之前只进行自动攻击（先用一次粉碎斧起手）</value>
   </data>
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>目标生命值低于以下百分比时捕获</value>
-  </data>
-  <data name="BeastMaster_Content_Capture_Odds" xml:space="preserve">
-    <value>仅当估量结果至少为（1 极难，5 毫不费力）</value>
   </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>生命值低于以下百分比时使用防御性亲缘技能</value>

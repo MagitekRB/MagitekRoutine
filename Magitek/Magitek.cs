@@ -252,7 +252,6 @@ namespace Magitek
             HookBehaviors();
 
             GamelogManager.MessageRecevied += GamelogManagerCountdownRecevied;
-            BeastMasterBestiary.Start();
         }
 
         public void OnStop(BotBase bot)
@@ -474,7 +473,6 @@ namespace Magitek
                 GameEvents.OnLevelUp -= GameEventsOnOnLevelUp;
                 GameEvents.OnMapChanged -= GameEventsOnOnMapChanged;
                 GamelogManager.MessageRecevied -= GamelogManagerCountdownRecevied;
-                BeastMasterBestiary.Stop();
                 Logger.WriteInfo("[Hot-Reload] GameEvents unregistered during shutdown");
             }
             catch (Exception e)

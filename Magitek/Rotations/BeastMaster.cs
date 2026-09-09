@@ -1,7 +1,6 @@
 using ff14bot;
 using Magitek.Extensions;
 using Magitek.Logic.BeastMaster;
-using Magitek.Logic.Roles;
 using Magitek.Models.BeastMaster;
 using Magitek.Utilities;
 using System.Threading.Tasks;
@@ -63,7 +62,7 @@ namespace Magitek.Rotations
                     BeastMasterRoutine.HeelFamiliar();
                     if (Core.Me.HasTarget && BeastMasterRoutine.IsAsleep(Core.Me.CurrentTarget))
                     {
-                        Core.Player.ClearTarget();
+                        Core.Me.ClearTarget();
                         return true;
                     }
                     if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
@@ -82,17 +81,15 @@ namespace Magitek.Rotations
             if (await Capture.Mark()) return true;
 
             // A capturable beast, unmarked: one Smash Axe to start the auto-attacks, then nothing but auto-attacks
-            // (ours and the familiar's) until the mark is on it. Gauge is still fine, it does no damage.
+            // (ours and the familiar's) until the mark is on it.
             if (BeastMasterRoutine.HoldingForCapture)
             {
-                if (BeastMasterRoutine.GlobalCooldown.CanWeave() && await Capture.Gauge()) return true;
                 if (await SingleTarget.Engage()) return true;
                 return true;
             }
 
             if (BeastMasterRoutine.GlobalCooldown.CanWeave())
             {
-                if (await Capture.Gauge()) return true;
                 if (await Familiar.SpendOneWithNature()) return true;
                 if (await Familiar.SwapForChain()) return true;
                 if (await Familiar.KinshipAction()) return true;
@@ -101,8 +98,6 @@ namespace Magitek.Rotations
                 if (await Familiar.Rally()) return true;
                 if (await Familiar.RallyingCheer()) return true;
                 if (await SingleTarget.ShieldCharge()) return true;
-                if (await PhysicalDps.SecondWind(BeastMasterSettings.Instance)) return true;
-                if (await PhysicalDps.Bloodbath(BeastMasterSettings.Instance)) return true;
             }
 
             if (await SingleTarget.InstinctualSkill()) return true;

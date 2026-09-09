@@ -6,29 +6,19 @@ using Magitek.Extensions;
 using Magitek.Models.BeastMaster;
 using System.Collections.Generic;
 using System.Linq;
-using Auras = Magitek.Utilities.Auras;
+using Gauge = ff14bot.Managers.ActionResourceManager.BeastMaster;
 
 namespace Magitek.Utilities.Routines
 {
     internal static class BeastMaster
     {
-        // RebornBuddy 1.0.911 names the job BeastMaster (43); the reference assemblies Magitek compiles against
-        // predate it, so the value is used directly.
-        public const ClassJobType Job = (ClassJobType)43;
-
-        public static WeaveWindow GlobalCooldown = new WeaveWindow(Job, Spells.SmashAxe, new List<SpellData>());
+        public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.BeastMaster, Spells.SmashAxe, new List<SpellData>());
 
         // Cached each pulse
-        public static int EnemiesIn5Yards;
         public static BeastMasterFamiliar Familiar;
-
-        // The horn that summoned the current familiar: it reads castable while the familiar is out, so Parting Blow
-        // has to look past it to the other horns.
-        public static SpellData LastHorn;
+        public static SpellData[] Axes = new SpellData[4];
         private static string _unmatchedFamiliar;
-
-        // The pet's name when the last horn was blown: once it changes, the newcomer is what that horn summons.
-        private static string _petNameAtHornCast;
+        private static int _loggedFamiliarId;
 
         // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
         public static SpellData WantedHorn;
@@ -54,20 +44,32 @@ namespace Magitek.Utilities.Routines
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
                 _hornSeenRecasting = System.DateTime.Now;
 
-            // The chat listener that fills the bestiary: armed here as well as at bot start, since a hot-reload
-            // re-initialises the routine without the start hook.
-            BeastMasterBestiary.Start();
+            // At level 50 the bar swaps the axes for their 250 TP forms; one masked read per axe per pulse.
+            Axes[0] = Spells.GaleAxe.Masked();
+            Axes[1] = Spells.AvalancheAxe.Masked();
+            Axes[2] = Spells.MistralAxe.Masked();
+            Axes[3] = Spells.SpinningAxe.Masked();
 
-            EnemiesIn5Yards = Combat.Enemies.Count(e => e.Distance(Core.Me) <= 5 + e.CombatReach);
-            Familiar = FamiliarOut ? FamiliarByName(Core.Me.Pet?.EnglishName) : null;
+            Familiar = FamiliarOut ? CurrentFamiliar() : null;
             TrackWaveringHeart();
-            LearnHornFamiliar();
             TrackCaptureHold();
 
-            if (FamiliarOut && Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)
+            if (!FamiliarOut)
+            {
+                _loggedFamiliarId = 0;
+                return;
+            }
+
+            if (Familiar == null && _unmatchedFamiliar != Core.Me.Pet.EnglishName)
             {
                 _unmatchedFamiliar = Core.Me.Pet.EnglishName;
                 Logger.WriteInfo($"[Beastmaster] Familiar \"{_unmatchedFamiliar}\" is not in the bestiary; the compass will follow your own Hearts only.");
+            }
+
+            if (Familiar != null && _loggedFamiliarId != Familiar.Id)
+            {
+                _loggedFamiliarId = Familiar.Id;
+                Logger.WriteInfo($"[Beastmaster] Familiar out: {Familiar.Name} ({Familiar.Trick?.Affinity ?? "no"} Trick); gauge horn {Gauge.ActiveBattlehorn}, slots {string.Join(", ", PetManager.BeastmasterPetSlots)}.");
             }
         }
 
@@ -75,34 +77,42 @@ namespace Magitek.Utilities.Routines
         public static int EnemiesNearFamiliar(float yards)
         {
             var pet = Core.Me.Pet;
-            if (pet == null)
-                return 0;
-            return Combat.Enemies.Count(e => e.Distance(pet) <= yards + e.CombatReach);
+            return pet == null ? 0 : pet.EnemiesNearby(yards).Count();
         }
 
         /// <summary>A familiar is summoned. RebornBuddy exposes it as the player's pet.</summary>
         public static bool FamiliarOut => Core.Me.Pet != null && Core.Me.Pet.IsValid;
 
+        public static BeastMasterFamiliar FamiliarFor(BeastmasterPet pet) =>
+            pet == BeastmasterPet.None ? null : XivDataHelper.BeastMasterFamiliars.FirstOrDefault(f => f.Id == (int)pet);
+
         public static BeastMasterFamiliar FamiliarByName(string name) =>
             string.IsNullOrEmpty(name) ? null
                 : XivDataHelper.BeastMasterFamiliars.FirstOrDefault(f => string.Equals(f.Name, name, System.StringComparison.OrdinalIgnoreCase));
+
+        // The pet's name is the catalogue name; the gauge's active horn slot is the fallback for a renamed pet.
+        private static BeastMasterFamiliar CurrentFamiliar() =>
+            FamiliarByName(Core.Me.Pet?.EnglishName) ?? FamiliarFor(SlotPet(Gauge.ActiveBattlehorn));
 
         /// <summary>The affinity the summoned familiar's Trick carries, or null.</summary>
         public static string FamiliarAffinity => Familiar?.Trick?.Affinity;
 
         /// <summary>
-        /// The Heart on the player right now: the affinity of the last instinctual skill (mine or the familiar's),
-        /// which the next one has to follow clockwise for an intentional combo. Null when nothing is lit.
+        /// The Heart lit right now: the affinity of the last instinctual skill (mine or the familiar's), which the
+        /// next one has to follow clockwise for an intentional combo. Null when nothing is lit.
         /// </summary>
         public static string CurrentHeart
         {
             get
             {
-                if (Core.Me.HasAura(Auras.VolantHeart)) return Affinity.Volant;
-                if (Core.Me.HasAura(Auras.RampantHeart)) return Affinity.Rampant;
-                if (Core.Me.HasAura(Auras.DurantHeart)) return Affinity.Durant;
-                if (Core.Me.HasAura(Auras.EldritchHeart)) return Affinity.Eldritch;
-                return null;
+                switch (Gauge.InnerCompass)
+                {
+                    case Gauge.InnerCompassState.Volant: return Affinity.Volant;
+                    case Gauge.InnerCompassState.Rampant: return Affinity.Rampant;
+                    case Gauge.InnerCompassState.Durant: return Affinity.Durant;
+                    case Gauge.InnerCompassState.Eldritch: return Affinity.Eldritch;
+                    default: return null;
+                }
             }
         }
 
@@ -123,15 +133,16 @@ namespace Magitek.Utilities.Routines
         public static bool TrickPending => CurrentHeart == null && Casting.LastSpellWas(Spells.Trick, TrickLandingMs);
 
         // How a combo resolves (ACT, 76 intentional combos on 2026-09-08): the finishing skill consumes the Heart and
-        // applies Wavering Heart; the second half of the combo damage lands 2.1 s later, Wavering Heart clears, and a
+        // the compass reads Wavering; the second half of the combo damage lands 2.1 s later, Wavering clears, and a
         // Sunstrider or Moonstalker window (7 s) opens for the next link. Nothing chains with the familiar while
-        // Wavering Heart is up, so instinctual actions wait it out; in the window that follows, the chain continues
+        // Wavering is up, so instinctual actions wait it out; in the window that follows, the chain continues
         // clockwise from the affinity of the skill that finished the pair, not from a Heart (there is none).
         public static string LastInstinctAffinity;
         private static System.DateTime _lastInstinctAt = System.DateTime.MinValue;
         private const int InstinctMemoryMs = 10000;
 
-        public static bool ChainWindowOpen => Core.Me.HasAura(Auras.Sunstrider) || Core.Me.HasAura(Auras.Moonstalker);
+        public static bool ChainWindowOpen =>
+            Gauge.InnerCompass == Gauge.InnerCompassState.Sunstrider || Gauge.InnerCompass == Gauge.InnerCompassState.Moonstalker;
 
         public static void NoteInstinct(string affinity)
         {
@@ -141,9 +152,9 @@ namespace Magitek.Utilities.Routines
             _lastInstinctAt = System.DateTime.Now;
         }
 
-        // What the gauge would tell us, estimated until the bot exposes it: a combo we finish adds a Mastered
-        // Instinct (Wild Heart III, level 28), one the familiar finishes adds a Natural Instinct (Wild Heart IV,
-        // level 40), three of each at most; Rally and Rallying Cheer spend them.
+        // The gauge has no stack counts for Rally and Rallying Cheer, so they are still estimated: a combo we finish
+        // adds a Mastered Instinct (Wild Heart III, level 28), one the familiar finishes adds a Natural Instinct
+        // (Wild Heart IV, level 40), three of each at most.
         public static int MasteredInstinct;
         public static int NaturalInstinct;
         private const int InstinctStacksMax = 3;
@@ -163,11 +174,10 @@ namespace Magitek.Utilities.Routines
                 if (heart != null)
                     return heart;
 
-                foreach (var affinity in Affinity.Clockwise)
+                foreach (var axe in Axes)
                 {
-                    var axe = AxeFor(affinity);
-                    if (axe != null && Casting.LastSpellWas(axe, HeartLagMs))
-                        return affinity;
+                    if (axe != null && Casting.LastSpellWas(axe, HeartLagMs) && System.Array.IndexOf(Affinity.Clockwise, AxeAffinity(axe)) >= 0)
+                        return AxeAffinity(axe);
                 }
 
                 if (ChainWindowOpen && LastInstinctAffinity != null && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < InstinctMemoryMs)
@@ -182,10 +192,10 @@ namespace Magitek.Utilities.Routines
             EffectiveHeart != null && FamiliarAffinity != null && FamiliarAffinity == Affinity.Next(EffectiveHeart);
 
         /// <summary>
-        /// Wavering Heart: a pair just completed and is resolving (2.1 s to the second hit), during which nothing
-        /// chains with the familiar. Its appearance is the combo signal the bot can see, and says who finished it.
+        /// Wavering: a pair just completed and is resolving (2.1 s to the second hit), during which nothing chains
+        /// with the familiar. Its appearance is the combo signal, and says who finished it.
         /// </summary>
-        public static bool WaveringHeart => Core.Me.HasAura(Auras.WaveringHeart);
+        public static bool WaveringHeart => Gauge.InnerCompass == Gauge.InnerCompassState.Wavering;
         private static bool _waveringLogged;
 
         private static void TrackWaveringHeart()
@@ -203,13 +213,12 @@ namespace Magitek.Utilities.Routines
 
             // Our axe within the last moments finished it; otherwise the familiar did.
             var ours = false;
-            foreach (var affinity in Affinity.Clockwise)
+            foreach (var axe in Axes)
             {
-                var axe = AxeFor(affinity);
                 if (axe != null && Casting.LastSpellWas(axe, 2000))
                 {
                     ours = true;
-                    NoteInstinct(affinity);
+                    NoteInstinct(AxeAffinity(axe));
                     break;
                 }
             }
@@ -222,33 +231,58 @@ namespace Magitek.Utilities.Routines
                 NoteInstinct(FamiliarAffinity);
             }
 
-            Logger.WriteInfo($"[Beastmaster] Combo completed by {(ours ? Casting.LastSpell?.LocalizedName : "the familiar")} (instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
+            Logger.WriteInfo($"[Beastmaster] Combo completed by {(ours ? Casting.LastSpell?.LocalizedName : "the familiar")} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
         }
 
         /// <summary>
-        /// The player's instinctual axe of a given affinity. At level 50 the bar swaps them for the 250 TP forms;
-        /// Masked() follows the swap, so the caller always casts what the bar shows.
+        /// The affinity an axe carries in the form the bar shows now: its compass point, or at level 50 with 250 TP
+        /// Sunstrider (Brutal Rage, Risen Fall) or Moonstalker (Hawkish Talons, Calamity).
         /// </summary>
-        public static SpellData AxeFor(string affinity)
+        public static string AxeAffinity(SpellData axe)
         {
-            switch (affinity)
+            if (axe == null)
+                return null;
+            if (axe.Id == Spells.BrutalRage.Id || axe.Id == Spells.RisenFall.Id)
+                return Affinity.Sunstrider;
+            if (axe.Id == Spells.HawkishTalons.Id || axe.Id == Spells.Calamity.Id)
+                return Affinity.Moonstalker;
+            var i = System.Array.IndexOf(Axes, axe);
+            return i < 0 ? null : Affinity.Clockwise[i];
+        }
+
+        /// <summary>The player's axe carrying a given affinity in its current form, or null (a compass point is not on the bar once the axes have turned).</summary>
+        public static SpellData AxeFor(string affinity) => affinity == null ? null : Axes.FirstOrDefault(a => AxeAffinity(a) == affinity);
+
+        /// <summary>
+        /// Level 50: the 250 TP axes make no intentional combo; a Sunstrider axe under Moonstalker, or a Moonstalker
+        /// axe under Sunstrider, is the infinitive combo Universality. Null outside those windows or below 250 TP.
+        /// </summary>
+        public static SpellData UniversalityAxe()
+        {
+            string wanted;
+            switch (Gauge.InnerCompass)
             {
-                case Affinity.Volant: return Spells.GaleAxe.Masked();
-                case Affinity.Rampant: return Spells.AvalancheAxe.Masked();
-                case Affinity.Durant: return Spells.MistralAxe.Masked();
-                case Affinity.Eldritch: return Spells.SpinningAxe.Masked();
+                case Gauge.InnerCompassState.Sunstrider: wanted = Affinity.Moonstalker; break;
+                case Gauge.InnerCompassState.Moonstalker: wanted = Affinity.Sunstrider; break;
                 default: return null;
             }
+            // Risen Fall and Calamity stay put; Brutal Rage and Hawkish Talons rush to the target. The standing ones first.
+            return Axes.Where(a => AxeAffinity(a) == wanted && HasTpFor(a))
+                .OrderBy(a => a.Id == Spells.BrutalRage.Id || a.Id == Spells.HawkishTalons.Id ? 1 : 0)
+                .FirstOrDefault();
         }
 
-        public static SpellData[] Axes => new[] { Spells.GaleAxe.Masked(), Spells.AvalancheAxe.Masked(), Spells.MistralAxe.Masked(), Spells.SpinningAxe.Masked() };
+        // Cost types on the Action sheet: 111 is the player's TP, 112 the familiar's.
+        private const int FamiliarTpCostType = 112;
 
-        /// <summary>
-        /// The bot does not expose the TP gauges yet, so readiness is read the way the client enforces it: an
-        /// instinctual skill is castable only from 100 TP (250 for the level 50 forms).
-        /// </summary>
-        public static bool HasTpFor(SpellData skill) =>
-            skill != null && skill.IsKnown() && Core.Me.HasTarget && ActionManager.CanCast(skill.Id, Core.Me.CurrentTarget);
+        /// <summary>The skill is known and the gauge it draws on holds its cost (100, or 250 for the level 50 forms).</summary>
+        public static bool HasTpFor(SpellData skill)
+        {
+            if (skill == null || !skill.IsKnown())
+                return false;
+            var tp = (int)skill.CostType == FamiliarTpCostType ? Gauge.PetTP : Gauge.TP;
+            return tp >= skill.Cost;
+        }
 
         public static bool KinshipOf(uint timed, uint permanent) => Core.Me.HasAura(timed) || Core.Me.HasAura(permanent);
 
@@ -263,26 +297,25 @@ namespace Magitek.Utilities.Routines
 
         public static readonly SpellData[] Battlehorns = { Spells.FirstBattlehorn, Spells.SecondBattlehorn, Spells.ThirdBattlehorn };
 
-        private static readonly uint[] HeartAuras = { Auras.VolantHeart, Auras.RampantHeart, Auras.DurantHeart, Auras.EldritchHeart };
-
         /// <summary>Milliseconds left on the lit Heart, 0 when none.</summary>
-        public static double HeartMsLeft
-        {
-            get
-            {
-                var aura = Core.Me.CharacterAuras.FirstOrDefault(a => HeartAuras.Contains(a.Id));
-                return aura?.TimespanLeft.TotalMilliseconds ?? 0;
-            }
-        }
+        public static double HeartMsLeft => CurrentHeart == null ? 0 : Gauge.InnerCompassTimer.TotalMilliseconds;
 
         /// <summary>Horn slot 1-3, or 0 for anything else.</summary>
         public static int HornSlot(SpellData horn) => horn == null ? 0 : System.Array.IndexOf(Battlehorns, horn) + 1;
 
-        /// <summary>A horn was blown: remember it and the pet on the field at that moment.</summary>
+        /// <summary>The beast assigned to a horn slot (1-3) in the Master's Bestiary, or None.</summary>
+        public static BeastmasterPet SlotPet(int slot)
+        {
+            var slots = PetManager.BeastmasterPetSlots;
+            return slot >= 1 && slot <= slots.Length ? slots[slot - 1] : BeastmasterPet.None;
+        }
+
+        /// <summary>The horn whose slot holds the familiar out, or null.</summary>
+        public static SpellData ActiveHorn =>
+            Familiar == null ? null : Battlehorns.FirstOrDefault(h => (int)SlotPet(HornSlot(h)) == Familiar.Id);
+
         public static void NoteHornCast(SpellData horn)
         {
-            LastHorn = horn;
-            _petNameAtHornCast = Core.Me.Pet?.EnglishName ?? string.Empty;
             if (horn == WantedHorn)
                 WantedHorn = null;
         }
@@ -293,95 +326,32 @@ namespace Magitek.Utilities.Routines
             _wantedHornSince = System.DateTime.Now;
         }
 
-        /// <summary>
-        /// Which beast each horn summons is not in any data sheet; it is learned when a familiar shows up after a horn
-        /// and kept in the settings, so the swap logic knows what the other horns would bring.
-        /// </summary>
-        private static void LearnHornFamiliar()
-        {
-            if (!FamiliarOut)
-                return;
+        /// <summary>The Trick affinity of the beast in a horn's slot, or null.</summary>
+        public static string HornAffinity(SpellData horn) => FamiliarFor(SlotPet(HornSlot(horn)))?.Trick?.Affinity;
 
-            var name = Core.Me.Pet.EnglishName;
-            if (string.IsNullOrEmpty(name))
-                return;
+        private static bool HornReady(SpellData horn) =>
+            horn.IsKnownAndReady() && SlotPet(HornSlot(horn)) != BeastmasterPet.None;
 
-            // With a familiar out, the client refuses the horn that would summon the same beast and accepts the
-            // others (which swap). So the one known horn that reads not castable is the horn this familiar came
-            // from: the mapping is read without blowing anything, including for a familiar summoned by hand.
-            var horn = CurrentFamiliarHorn;
-            if (horn == null)
-                return;
-
-            var slot = HornSlot(horn);
-            var settings = BeastMasterSettings.Instance;
-            var known = settings.BattlehornFamiliars;
-            if (known != null && known.TryGetValue(slot, out var recorded) && recorded == name)
-                return;
-
-            var copy = known == null ? new Dictionary<int, string>() : new Dictionary<int, string>(known);
-            copy[slot] = name;
-            settings.BattlehornFamiliars = copy;
-            Logger.WriteInfo("[Beastmaster] Battlehorn " + slot + " summons " + name + " (" + (FamiliarByName(name)?.Trick?.Affinity ?? "affinity unknown") + " Trick).");
-        }
-
-        /// <summary>
-        /// The horn the familiar out came from: the only known horn the client will not cast while it is out
-        /// (the others swap). Null when no familiar is out, when a horn was blown in the last moments (its recast
-        /// would also read not castable), or when the read is ambiguous.
-        /// </summary>
-        public static SpellData CurrentFamiliarHorn
-        {
-            get
-            {
-                if (!FamiliarOut || Battlehorns.Any(h => Casting.LastSpellWas(h, 3000)))
-                    return null;
-
-                SpellData found = null;
-                foreach (var horn in Battlehorns)
-                {
-                    if (!horn.IsKnown() || ActionManager.CanCast(horn.Id, Core.Me))
-                        continue;
-                    if (found != null)
-                        return null;
-                    found = horn;
-                }
-                return found;
-            }
-        }
-
-        /// <summary>The Trick affinity of the beast a horn is known to summon, or null.</summary>
-        public static string HornAffinity(SpellData horn)
-        {
-            var known = BeastMasterSettings.Instance.BattlehornFamiliars;
-            if (known == null || !known.TryGetValue(HornSlot(horn), out var name))
-                return null;
-            return FamiliarByName(name)?.Trick?.Affinity;
-        }
+        /// <summary>A horn other than the familiar's own, off cooldown, with a beast in its slot.</summary>
+        public static bool AnotherHornReady => Battlehorns.Any(h => h != ActiveHorn && HornReady(h));
 
         /// <summary>Another horn, off cooldown, whose beast carries this affinity.</summary>
-        public static SpellData SwapHornFor(string affinity)
-        {
-            if (affinity == null)
-                return null;
-
-            var current = CurrentFamiliarHorn ?? LastHorn;
-            return Battlehorns.FirstOrDefault(h => h != current && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero && HornAffinity(h) == affinity);
-        }
+        public static SpellData SwapHornFor(string affinity) =>
+            affinity == null ? null : Battlehorns.FirstOrDefault(h => h != ActiveHorn && HornReady(h) && HornAffinity(h) == affinity);
 
         /// <summary>A horn that can be blown now: the one the swap asked for, else the preferred one first.</summary>
         public static SpellData ReadyBattlehorn()
         {
             if (WantedHorn != null && (System.DateTime.Now - _wantedHornSince).TotalMilliseconds > WantedHornMs)
                 WantedHorn = null;
-            if (WantedHorn != null && WantedHorn.IsKnown() && ActionManager.CanCast(WantedHorn.Id, Core.Me))
+            if (WantedHorn != null && WantedHorn != ActiveHorn && WantedHorn.IsKnownAndReady())
                 return WantedHorn;
 
             var preferred = System.Math.Max(1, System.Math.Min(3, BeastMasterSettings.Instance.PreferredBattlehorn)) - 1;
             for (var i = 0; i < 3; i++)
             {
                 var horn = Battlehorns[(preferred + i) % 3];
-                if (horn.IsKnown() && ActionManager.CanCast(horn.Id, Core.Me))
+                if (horn != ActiveHorn && HornReady(horn))
                     return horn;
             }
             return null;
@@ -414,7 +384,7 @@ namespace Magitek.Utilities.Routines
 
         public static bool IsAsleep(GameObject unit) => unit != null && unit.HasAnyAura(SleepStatuses);
 
-        public static bool AnyEnemyAsleepNearby => Combat.Enemies.Any(e => IsAsleep(e) && e.Distance(Core.Me) <= 20 + e.CombatReach);
+        public static bool AnyEnemyAsleepNearby => Core.Me.EnemiesNearby(20).Any(IsAsleep);
 
         /// <summary>The sleep was ordered so recently that it may not have landed yet.</summary>
         public static bool SleepStillLanding => (System.DateTime.Now - _sleepDisengageSince).TotalMilliseconds < SleepLandingMs;
@@ -456,24 +426,45 @@ namespace Magitek.Utilities.Routines
         }
 
         /// <summary>
-        /// A beast Capture should go on: the game said it can be captured (with odds the setting accepts), it is not
-        /// befriended, not above our level, and not marked yet. Health is not part of it; Capture itself waits for
-        /// the threshold, the hold below waits with it.
+        /// The bestiary entry a wild beast would fill, or None when it is not a capturable beast. Capturability goes by
+        /// the beast's model skeleton (Resources/BeastMasterCapturableBases.json, keyed by BNpcBase id): a Black Eft is a
+        /// salamander, an Anole a raptor.
+        /// </summary>
+        public static BeastmasterPet PetFor(BattleCharacter target)
+        {
+            if (target == null || !target.IsNpc)
+                return BeastmasterPet.None;
+            return XivDataHelper.BeastMasterCapturableBases.TryGetValue(target.BaseId, out var pet) ? (BeastmasterPet)(byte)pet : BeastmasterPet.None;
+        }
+
+        /// <summary>
+        /// A beast Capture should go on: a capturable beast the bestiary lacks, not above our level, not marked yet.
+        /// Health is not part of it; Capture itself waits for the threshold, the hold below waits with it.
         /// </summary>
         public static bool CaptureWanted(BattleCharacter target)
         {
-            var settings = BeastMasterSettings.Instance;
-            if (!settings.UseCapture || !Spells.Capture.IsKnown() || target == null || !target.IsNpc)
+            if (!BeastMasterSettings.Instance.UseCapture || !Spells.Capture.IsKnown())
                 return false;
 
-            if (target.HasAura(Auras.InterestCaptured) || target.ClassLevel > Core.Me.ClassLevel)
-                return false;
+            return PetFor(target) != BeastmasterPet.None && CaptureSkipReason(target) == null;
+        }
 
-            var verdict = BeastMasterBestiary.Verdict(target.NpcId);
-            if (verdict == null || verdict < BeastMasterBestiary.LowestOdds)
-                return false;
-
-            return verdict - BeastMasterBestiary.LowestOdds + 1 >= settings.CaptureMinimumOdds;
+        /// <summary>Why a capturable beast is not for capturing right now, or null when it is.</summary>
+        public static string CaptureSkipReason(BattleCharacter target)
+        {
+            var pet = PetFor(target);
+            if (pet == BeastmasterPet.None)
+                return null;
+            if (PetManager.IsBeastmasterPetUnlocked(pet))
+                return pet + " is already in the bestiary";
+            if (target.HasAura(Auras.InterestCaptured))
+                return "already marked";
+            if (target.ClassLevel > Core.Me.ClassLevel)
+                return "level " + target.ClassLevel + " against your " + Core.Me.ClassLevel + ", Capture would be ineffective";
+            // Bosses share skeletons with ordinary beasts; holding weaponskills on one for a refused Capture is not worth it.
+            if (target.IsBoss())
+                return "a boss";
+            return null;
         }
 
         // Weaponskills and familiar orders wait while a capturable beast is unmarked: an axe at 55% is what kills it
@@ -489,17 +480,46 @@ namespace Magitek.Utilities.Routines
             var target = Core.Me.CurrentTarget as BattleCharacter;
             HoldingForCapture = BeastMasterSettings.Instance.HoldForCapture && Core.Me.InCombat && CaptureWanted(target);
 
-            if (!HoldingForCapture)
+            if (target == null || _holdLoggedFor == target.ObjectId)
+                return;
+            _holdLoggedFor = target.ObjectId;
+
+            if (HoldingForCapture)
             {
-                _holdLoggedFor = 0;
+                Logger.WriteInfo("[Beastmaster] Holding weaponskills on " + target.EnglishName + " until the mark is on it (auto-attacks only).");
                 return;
             }
 
-            if (_holdLoggedFor == target.ObjectId)
+            var reason = BeastMasterSettings.Instance.UseCapture ? CaptureSkipReason(target) : null;
+            if (reason != null && reason != "already marked")
+                Logger.WriteInfo("[Beastmaster] Not capturing " + target.EnglishName + ": " + reason + ".");
+        }
+
+        /// <summary>
+        /// A pact with nothing to blow it: the first empty slot whose horn you know gets an unassigned beast. Slots
+        /// already holding a beast are never touched. Assigning a slot sends the familiar out home (seen 2026-09-08),
+        /// so this runs only when none is out, right before a horn is blown.
+        /// </summary>
+        public static void AssignPactsToEmptyHorns()
+        {
+            if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut)
                 return;
 
-            _holdLoggedFor = target.ObjectId;
-            Logger.WriteInfo("[Beastmaster] Holding weaponskills on " + target.EnglishName + " until the mark is on it (auto-attacks only).");
+            var slots = PetManager.BeastmasterPetSlots;
+            var unassigned = PetManager.UnlockedBeastmasterPets.Where(p => p != BeastmasterPet.None && !slots.Contains(p)).ToList();
+            if (unassigned.Count == 0)
+                return;
+
+            for (var i = 0; i < slots.Length && i < Battlehorns.Length; i++)
+            {
+                if (slots[i] != BeastmasterPet.None || !Battlehorns[i].IsKnown())
+                    continue;
+
+                var pet = unassigned[0];
+                var ok = PetManager.SetBeastmasterPetSlot(i, pet);
+                Logger.WriteInfo("[Beastmaster] Battlehorn " + (i + 1) + " " + (ok ? "assigned" : "could not be assigned") + " " + pet + ".");
+                return;
+            }
         }
 
         public static void NoteEngaged(GameObject target)

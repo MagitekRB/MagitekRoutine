@@ -5602,9 +5602,6 @@
   <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
     <value>Keep at least this many in reserve:</value>
   </data>
-  <data name="BeastMaster_Header_Rotation" xml:space="preserve">
-    <value>Rotation</value>
-  </data>
   <data name="BeastMaster_Text_Familiar" xml:space="preserve">
     <value>Familiar</value>
   </data>
@@ -5634,6 +5631,15 @@
   </data>
   <data name="BeastMaster_Content_TR_Finisher" xml:space="preserve">
     <value>Final Sting when the target's health is below (and another horn is ready)</value>
+  </data>
+  <data name="BeastMaster_Content_TR_SelfDamage" xml:space="preserve">
+    <value>Party buffs that cost you health only when your health is above</value>
+  </data>
+  <data name="BeastMaster_Content_TR_DispelWait" xml:space="preserve">
+    <value>Damaging dispels wait this many seconds into a fight for a buff to strip</value>
+  </data>
+  <data name="BeastMaster_Content_TR_SleepRadius" xml:space="preserve">
+    <value>Sleep enemy count radius around the familiar (yalms)</value>
   </data>
   <data name="BeastMaster_Content_Borrow" xml:space="preserve">
     <value>Borrow (take the familiar's kinship)</value>
@@ -5692,14 +5698,14 @@
   <data name="BeastMaster_Content_Capture" xml:space="preserve">
     <value>Gauge each new kind of beast and capture the ones not yet in the bestiary</value>
   </data>
+  <data name="BeastMaster_Content_Assign_Horns" xml:space="preserve">
+    <value>Assign new pacts to empty battlehorn slots</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
     <value>Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start)</value>
   </data>
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>Capture when the target's health is below</value>
-  </data>
-  <data name="BeastMaster_Content_Capture_Odds" xml:space="preserve">
-    <value>Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all)</value>
   </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>Defensive kinship actions when health is below</value>

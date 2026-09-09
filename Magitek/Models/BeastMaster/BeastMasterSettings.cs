@@ -1,13 +1,12 @@
 using Magitek.Models.Roles;
 using PropertyChanged;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 
 namespace Magitek.Models.BeastMaster
 {
     [AddINotifyPropertyChangedInterface]
-    public class BeastMasterSettings : PhysicalDpsSettings, IRoutineSettings
+    public class BeastMasterSettings : JobSettings, IRoutineSettings
     {
         public BeastMasterSettings() : base(CharacterSettingsDirectory + "/Magitek/BeastMaster/BeastMasterSettings.json") { }
 
@@ -54,6 +53,21 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(30.0f)]
         public float TemperedReleaseFinisherHealthPercent { get; set; }
 
+        // A party buff that costs you health waits until you are above this.
+        [Setting]
+        [DefaultValue(60.0f)]
+        public float TemperedReleaseSelfDamageHealthPercent { get; set; }
+
+        // A damaging dispel waits this long into a fight for a buff to strip before going out anyway.
+        [Setting]
+        [DefaultValue(8)]
+        public int TemperedReleaseDispelWaitSeconds { get; set; }
+
+        // Enemies for the sleep are counted within this many yalms of the familiar.
+        [Setting]
+        [DefaultValue(8)]
+        public int TemperedReleaseSleepRadius { get; set; }
+
         // One with Nature is spent by either Tempered Release or Borrow; when both are on, Borrow wins if this is set.
         [Setting]
         [DefaultValue(false)]
@@ -81,10 +95,6 @@ namespace Magitek.Models.BeastMaster
         [Setting]
         [DefaultValue(true)]
         public bool UseBattlehornSwaps { get; set; }
-
-        // Which beast each horn (1-3) summons, learned by watching who shows up; replaced whole, never edited in place.
-        [Setting]
-        public Dictionary<int, string> BattlehornFamiliars { get; set; } = new Dictionary<int, string>();
 
         #endregion
 
@@ -150,7 +160,7 @@ namespace Magitek.Models.BeastMaster
 
         #region Master's Bestiary
 
-        // Gauge each new kind of beast and capture the ones the bestiary lacks.
+        // Capture the beasts the bestiary lacks (RebornBuddy reads the bestiary; see BeastMasterRoutine.CaptureWanted).
         [Setting]
         [DefaultValue(true)]
         public bool UseCapture { get; set; }
@@ -164,17 +174,10 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool HoldForCapture { get; set; }
 
-        // Gauge's five answers, 1 (exceedingly difficult) to 5 (no effort at all): capture only from this one up.
+        // A new pact fills the first empty battlehorn slot you have the horn for; horns already assigned are left alone.
         [Setting]
-        [DefaultValue(1)]
-        public int CaptureMinimumOdds { get; set; }
-
-        // What the game answered per mob name id (see BeastMasterBestiary); replaced whole, never edited in place.
-        [Setting]
-        public Dictionary<uint, int> CaptureVerdicts { get; set; } = new Dictionary<uint, int>();
-
-        [Setting]
-        public List<string> BefriendedBeasts { get; set; } = new List<string>();
+        [DefaultValue(true)]
+        public bool AssignPactsToEmptyHorns { get; set; }
 
         #endregion
     }

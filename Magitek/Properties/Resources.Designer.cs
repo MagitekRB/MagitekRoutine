@@ -1980,15 +1980,6 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Rotation.
-        /// </summary>
-        public static string BeastMaster_Header_Rotation {
-            get {
-                return ResourceManager.GetString("BeastMaster_Header_Rotation", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Familiar.
         /// </summary>
         public static string BeastMaster_Text_Familiar {
@@ -2084,6 +2075,33 @@ namespace Magitek.Properties {
         public static string BeastMaster_Content_TR_Finisher {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_TR_Finisher", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Party buffs that cost you health only when your health is above.
+        /// </summary>
+        public static string BeastMaster_Content_TR_SelfDamage {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_SelfDamage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Damaging dispels wait this many seconds into a fight for a buff to strip.
+        /// </summary>
+        public static string BeastMaster_Content_TR_DispelWait {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_DispelWait", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Sleep enemy count radius around the familiar (yalms).
+        /// </summary>
+        public static string BeastMaster_Content_TR_SleepRadius {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_SleepRadius", resourceCulture);
             }
         }
 
@@ -2259,20 +2277,20 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Assign new pacts to empty battlehorn slots.
+        /// </summary>
+        public static string BeastMaster_Content_Assign_Horns {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Assign_Horns", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start).
         /// </summary>
         public static string BeastMaster_Content_Capture_Hold {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Capture_Hold", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only when Gauge rates the odds at least (1 exceedingly difficult, 5 no effort at all).
-        /// </summary>
-        public static string BeastMaster_Content_Capture_Odds {
-            get {
-                return ResourceManager.GetString("BeastMaster_Content_Capture_Odds", resourceCulture);
             }
         }
         

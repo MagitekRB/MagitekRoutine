@@ -9,6 +9,8 @@ namespace Magitek.Models.BeastMaster
     /// </summary>
     public class BeastMasterFamiliar
     {
+        // The BeastmasterPet enum value RebornBuddy uses for the bestiary and horn slots; also BNpcName 14406 + Id for the wild beast.
+        public int Id { get; set; }
         public int PetId { get; set; }
         public string Name { get; set; }
         public string Kinship { get; set; }
@@ -55,6 +57,10 @@ namespace Magitek.Models.BeastMaster
         public const string Rampant = "Rampant";
         public const string Durant = "Durant";
         public const string Eldritch = "Eldritch";
+
+        // Level 50: the 250 TP axes carry these instead of a compass point; one under the other's window is Universality.
+        public const string Sunstrider = "Sunstrider";
+        public const string Moonstalker = "Moonstalker";
 
         public static readonly string[] Clockwise = { Volant, Rampant, Durant, Eldritch };
 

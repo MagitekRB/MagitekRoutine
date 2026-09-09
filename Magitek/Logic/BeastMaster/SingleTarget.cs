@@ -3,6 +3,7 @@ using ff14bot.Managers;
 using Magitek.Extensions;
 using Magitek.Models.BeastMaster;
 using Magitek.Utilities;
+using System.Linq;
 using System.Threading.Tasks;
 using BeastMasterRoutine = Magitek.Utilities.Routines.BeastMaster;
 
@@ -50,15 +51,28 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.UseInstinctualSkills)
                 return false;
 
-            // Inside the 1-2-3 the chain's TP bonuses (+13, +15) are worth finishing first; the axe goes out after
-            // Shieldsplitter or when no chain is open. Whether an axe would even break the chain is unverified.
-            if (ActionManager.LastSpell == Spells.SmashAxe || ActionManager.LastSpell == Spells.AxebladeBite)
+            // Inside the 1-2-3 the chain's TP bonuses (+13, +15) are worth finishing first; the axe goes out once the
+            // last known link has landed. Whether an axe would even break the chain is unverified.
+            var comboOpen = (ActionManager.LastSpell == Spells.SmashAxe && Spells.AxebladeBite.IsKnown())
+                || (ActionManager.LastSpell == Spells.AxebladeBite && Spells.Shieldsplitter.IsKnown());
+            if (comboOpen)
                 return false;
 
             // The familiar was just ordered: its Heart is the one to continue, once it is there. And a pair that is
             // still resolving (Wavering Heart) is not to be stepped on.
             if (BeastMasterRoutine.TrickPending || BeastMasterRoutine.WaveringHeart)
                 return false;
+
+            // Level 50: a 250 TP axe of the opposite affinity to the open window is Universality, and beats any pair.
+            var universality = BeastMasterRoutine.UniversalityAxe();
+            if (universality != null)
+            {
+                if (!await universality.Cast(Core.Me.CurrentTarget))
+                    return false;
+
+                BeastMasterRoutine.NoteInstinct(BeastMasterRoutine.AxeAffinity(universality));
+                return true;
+            }
 
             var heart = BeastMasterRoutine.EffectiveHeart;
             var familiar = BeastMasterRoutine.FamiliarAffinity;
@@ -79,12 +93,17 @@ namespace Magitek.Logic.BeastMaster
                 return true;
             }
 
-            foreach (var candidate in BeastMasterRoutine.Axes)
+            // Nothing to pair: any axe with TP. Once the axes have turned at 50 this opens a Sunstrider or Moonstalker
+            // window for Universality; the rushing forms go last.
+            foreach (var candidate in BeastMasterRoutine.Axes.OrderBy(a => a != null && (a.Id == Spells.BrutalRage.Id || a.Id == Spells.HawkishTalons.Id) ? 1 : 0))
             {
-                if (candidate == axe)
+                if (candidate == axe || !BeastMasterRoutine.HasTpFor(candidate))
                     continue;
-                if (BeastMasterRoutine.HasTpFor(candidate))
-                    return await candidate.Cast(Core.Me.CurrentTarget);
+                if (!await candidate.Cast(Core.Me.CurrentTarget))
+                    return false;
+
+                BeastMasterRoutine.NoteInstinct(BeastMasterRoutine.AxeAffinity(candidate));
+                return true;
             }
 
             return false;

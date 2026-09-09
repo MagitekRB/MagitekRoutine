@@ -25,6 +25,9 @@ namespace Magitek.Logic.BeastMaster
             if (BeastMasterRoutine.HornJustBlown)
                 return false;
 
+            // No familiar out: the moment to fill an empty horn slot without sending one home.
+            BeastMasterRoutine.AssignPactsToEmptyHorns();
+
             var horn = BeastMasterRoutine.ReadyBattlehorn();
             if (horn == null)
                 return false;
@@ -75,7 +78,8 @@ namespace Magitek.Logic.BeastMaster
             var msLeft = BeastMasterRoutine.HeartMsLeft;
             var slot = BeastMasterRoutine.HornSlot(horn);
 
-            if (ActionManager.CanCast(horn.Id, Core.Me))
+            // The client accepts any horn but the one whose beast is already out, and SwapHornFor never returns that one.
+            if (horn.IsKnownAndReady())
             {
                 if (msLeft < DirectSwapMs)
                     return false;
@@ -174,12 +178,12 @@ namespace Magitek.Logic.BeastMaster
             {
                 case AbilityKind.Damage:
                     // A dispel is worth more with something to strip: give the fight a few seconds to show one.
-                    if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < 8)
+                    if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
                         return Timing.Later;
                     return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
                 case AbilityKind.PartyBuff:
-                    if (ability.Has("SelfDamage") && Core.Me.CurrentHealthPercent < 60)
+                    if (ability.Has("SelfDamage") && Core.Me.CurrentHealthPercent < settings.TemperedReleaseSelfDamageHealthPercent)
                         return Timing.Later;
                     return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
@@ -192,12 +196,12 @@ namespace Magitek.Logic.BeastMaster
                         ? Timing.Now : Timing.Later;
 
                 case AbilityKind.CrowdControl:
-                    return BeastMasterRoutine.EnemiesNearFamiliar(8) >= settings.TemperedReleaseSleepMinEnemies ? Timing.Now : Timing.Later;
+                    return BeastMasterRoutine.EnemiesNearFamiliar(settings.TemperedReleaseSleepRadius) >= settings.TemperedReleaseSleepMinEnemies ? Timing.Now : Timing.Later;
 
                 case AbilityKind.Finisher:
                     if (target.CurrentHealthPercent > settings.TemperedReleaseFinisherHealthPercent)
                         return Timing.Later;
-                    return BeastMasterRoutine.Battlehorns.Any(h => h != BeastMasterRoutine.LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero)
+                    return BeastMasterRoutine.AnotherHornReady
                         ? Timing.Now : Timing.Later;
 
                 default:
@@ -300,7 +304,7 @@ namespace Magitek.Logic.BeastMaster
 
             // The horn that summoned this familiar still reads castable while it is out (its 90 s starts at the
             // retreat), so "another horn is ready" has to look at the other horns' own cooldowns.
-            var another = BeastMasterRoutine.Battlehorns.Any(h => h != BeastMasterRoutine.LastHorn && h.IsKnown() && h.Cooldown == System.TimeSpan.Zero);
+            var another = BeastMasterRoutine.AnotherHornReady;
             if (!another)
                 return false;
 
@@ -318,7 +322,7 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             var target = Core.Me.CurrentTarget;
-            var outOfMelee = target.Distance(Core.Me) > 5 + target.CombatReach;
+            var outOfMelee = !target.WithinSpellRange(5);
             if (!outOfMelee && !target.HasDispellableBuff())
                 return false;
 
