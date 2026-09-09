@@ -48,10 +48,16 @@ namespace Magitek.Utilities.Routines
         public static int Tp => (int)Gauge.TP;
         public static int PetTp => (int)Gauge.PetTP;
 
-        /// <summary>Our half of a pair is paid (a 100 TP axe is affordable) and the familiar cannot pay its Trick yet.</summary>
+        /// <summary>
+        /// Our half of a pair is paid (a 100 TP axe is affordable) and the familiar cannot pay its Trick yet. Not
+        /// in the moment after a Trick order, before its Heart shows: the familiar TP reads zero there and a Cheer
+        /// in that gap refilled a bar that had just been spent (dummy, 2026-09-09).
+        /// </summary>
         public static bool PairWaitingOnFamiliar =>
-            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart
+            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart && !TrickPending
             && !HasTpFor(Spells.Trick) && Axes.Any(a => a != null && a.Cost <= 100 && HasTpFor(a));
+
+        public static bool PetTpFull => Gauge.PetTP >= TpCap;
 
         // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
         public static SpellData WantedHorn;

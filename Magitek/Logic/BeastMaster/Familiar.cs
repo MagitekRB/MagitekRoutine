@@ -266,8 +266,10 @@ namespace Magitek.Logic.BeastMaster
             if (BeastMasterRoutine.WaveringHeart)
                 return false;
 
+            // The familiar bar is full: every further auto-attack is lost, so the Trick goes out on its own. It
+            // opens a Heart our axe answers if our TP allows; if not, it was TP that had nowhere else to go.
             var affinity = BeastMasterRoutine.FamiliarAffinity;
-            if (affinity != null)
+            if (affinity != null && !BeastMasterRoutine.PetTpFull)
             {
                 var heart = BeastMasterRoutine.EffectiveHeart;
                 if (heart != null)
@@ -385,6 +387,8 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
+        private const int CheerOverflowAllowed = 40;
+
         public static async Task<bool> RallyingCheer()
         {
             if (!BeastMasterSettings.Instance.UseRallyingCheer || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
@@ -398,8 +402,10 @@ namespace Magitek.Logic.BeastMaster
             if (natural < 1)
                 return false;
 
+            // A little overflow is allowed, or three stacks (240) could never go out: the familiar is rarely under
+            // ten TP.
             var gain = 30 + 70 * natural;
-            if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap)
+            if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
                 return false;
 
             if (!BeastMasterRoutine.PairWaitingOnFamiliar && natural < 3)
