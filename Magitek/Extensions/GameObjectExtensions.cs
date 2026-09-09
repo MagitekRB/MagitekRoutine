@@ -755,7 +755,6 @@ namespace Magitek.Extensions
 
         private static readonly List<ClassJobType> Dps = new List<ClassJobType>()
         {
-            (ClassJobType)43, // Beastmaster (7.56)
             ClassJobType.Archer,
             ClassJobType.Bard,
             ClassJobType.Thaumaturge,
@@ -774,7 +773,8 @@ namespace Magitek.Extensions
             ClassJobType.BlueMage,
             ClassJobType.Reaper,
             ClassJobType.Pictomancer,
-            ClassJobType.Viper
+            ClassJobType.Viper,
+            ClassJobType.BeastMaster
         };
 
         private static readonly List<ClassJobType> RangedPhysicalDps = new List<ClassJobType>()
@@ -788,7 +788,6 @@ namespace Magitek.Extensions
 
         private static readonly List<ClassJobType> MeleeDps = new List<ClassJobType>()
         {
-            (ClassJobType)43, // Beastmaster (7.56)
             ClassJobType.Lancer,
             ClassJobType.Dragoon,
             ClassJobType.Pugilist,
@@ -798,7 +797,8 @@ namespace Magitek.Extensions
             ClassJobType.Samurai,
             ClassJobType.BlueMage,
             ClassJobType.Reaper,
-            ClassJobType.Viper
+            ClassJobType.Viper,
+            ClassJobType.BeastMaster
         };
 
         private static readonly List<ClassJobType> RangedDps = new List<ClassJobType>()

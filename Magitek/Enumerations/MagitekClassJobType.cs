@@ -64,7 +64,8 @@ namespace Magitek.Enumerations
 
         [Description("BLU")]
         BlueMage = ClassJobType.BlueMage,
+
         [Description("BST")]
-        BeastMaster = 43
+        BeastMaster = ClassJobType.BeastMaster
     }
 }
