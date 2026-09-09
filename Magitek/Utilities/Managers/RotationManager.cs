@@ -81,7 +81,8 @@ namespace Magitek.Utilities.Managers
             { ClassJobType.Reaper, "Reaper" },
             { ClassJobType.Sage, "Sage" },
             { ClassJobType.Viper, "Viper" },
-            { ClassJobType.Pictomancer, "Pictomancer" }
+            { ClassJobType.Pictomancer, "Pictomancer" },
+            { ClassJobType.BeastMaster, "BeastMaster" }
         };
 
         // Cache the reflected methods so reflection only has to happen once.

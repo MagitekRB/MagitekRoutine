@@ -114,6 +114,9 @@ namespace Magitek.Views
                     case ClassJobType.BlueMage:
                         BlueMage.IsSelected = true;
                         break;
+                    case ClassJobType.BeastMaster:
+                        BeastMaster.IsSelected = true;
+                        break;
                     case ClassJobType.RedMage:
                         RedMage.IsSelected = true;
                         break;

@@ -773,7 +773,8 @@ namespace Magitek.Extensions
             ClassJobType.BlueMage,
             ClassJobType.Reaper,
             ClassJobType.Pictomancer,
-            ClassJobType.Viper
+            ClassJobType.Viper,
+            ClassJobType.BeastMaster
         };
 
         private static readonly List<ClassJobType> RangedPhysicalDps = new List<ClassJobType>()
@@ -796,7 +797,8 @@ namespace Magitek.Extensions
             ClassJobType.Samurai,
             ClassJobType.BlueMage,
             ClassJobType.Reaper,
-            ClassJobType.Viper
+            ClassJobType.Viper,
+            ClassJobType.BeastMaster
         };
 
         private static readonly List<ClassJobType> RangedDps = new List<ClassJobType>()

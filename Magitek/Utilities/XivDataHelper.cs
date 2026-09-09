@@ -1,4 +1,5 @@
-﻿using Magitek.Models.WebResources;
+﻿using Magitek.Models.BeastMaster;
+using Magitek.Models.WebResources;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,47 @@ namespace Magitek.Utilities
         static XivDataHelper()
         {
             var assembly = Assembly.GetExecutingAssembly();
+
+            // The Beastmaster bestiary (7.56 client data): each familiar's Trick affinity, controlled ability and
+            // kinship. Guarded so a missing resource degrades to an empty list.
+            const string familiarsFile = "Magitek.Resources.BeastMasterFamiliars.json";
+            BeastMasterFamiliars = new List<BeastMasterFamiliar>();
+            if (assembly.GetManifestResourceNames().Any(n => n == familiarsFile))
+            {
+                try
+                {
+                    using (var stream = assembly.GetManifestResourceStream(familiarsFile))
+                    using (var reader = new StreamReader(stream))
+                    {
+                        BeastMasterFamiliars = JsonConvert.DeserializeObject<List<BeastMasterFamiliar>>(reader.ReadToEnd()) ?? new List<BeastMasterFamiliar>();
+                    }
+                }
+                catch (System.Exception)
+                {
+                    BeastMasterFamiliars = new List<BeastMasterFamiliar>();
+                }
+            }
+
+            // Which BNpcBase ids are capturable beasts, and as which pet: every base sharing a familiar's model skeleton
+            // (a Black Eft is a salamander, an Anole a raptor). Same guard as the catalogue.
+            const string capturableFile = "Magitek.Resources.BeastMasterCapturableBases.json";
+            BeastMasterCapturableBases = new Dictionary<uint, int>();
+            if (assembly.GetManifestResourceNames().Any(n => n == capturableFile))
+            {
+                try
+                {
+                    using (var stream = assembly.GetManifestResourceStream(capturableFile))
+                    using (var reader = new StreamReader(stream))
+                    {
+                        BeastMasterCapturableBases = JsonConvert.DeserializeObject<Dictionary<uint, int>>(reader.ReadToEnd()) ?? new Dictionary<uint, int>();
+                    }
+                }
+                catch (System.Exception)
+                {
+                    BeastMasterCapturableBases = new Dictionary<uint, int>();
+                }
+            }
+
             const string statusFile = "Magitek.Resources.StatusList.json";
 
             string statuses;
@@ -87,6 +129,8 @@ namespace Magitek.Utilities
         }
 
 
+        public static readonly List<BeastMasterFamiliar> BeastMasterFamiliars;
+        public static readonly Dictionary<uint, int> BeastMasterCapturableBases;
         public static readonly List<XivDbItem> XivDbStatuses;
         public static readonly List<XivDbItem> XivDbActions;
         public static Dictionary<uint, string> BossDictionary;

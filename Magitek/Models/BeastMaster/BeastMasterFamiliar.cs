@@ -1,0 +1,79 @@
+using System.Collections.Generic;
+
+namespace Magitek.Models.BeastMaster
+{
+    /// <summary>
+    /// One familiar of the Beastmaster bestiary (Resources/BeastMasterFamiliars.json, from the 7.56 client data):
+    /// what its Trick is (the instinctual skill and its compass affinity), what its Tempered Release does, and which
+    /// kinship Borrow takes from it. The routine reads the summoned familiar's entry by name.
+    /// </summary>
+    public class BeastMasterFamiliar
+    {
+        // The BeastmasterPet enum value RebornBuddy uses for the bestiary and horn slots; also BNpcName 14406 + Id for the wild beast.
+        public int Id { get; set; }
+        public int PetId { get; set; }
+        public string Name { get; set; }
+        public string Kinship { get; set; }
+        public int Level { get; set; }
+        public int FeedCap { get; set; }
+        public FamiliarAbility Trick { get; set; } = new FamiliarAbility();
+        public FamiliarAbility TemperedRelease { get; set; } = new FamiliarAbility();
+    }
+
+    public class FamiliarAbility
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Affinity { get; set; }
+        public List<int> Potencies { get; set; } = new List<int>();
+        public int CastType { get; set; }
+        public int Range { get; set; }
+        public int EffectRange { get; set; }
+        public string Description { get; set; }
+
+        // Tempered Release only: what kind of effect the controlled ability is (Damage, PartyBuff, FamiliarBuff,
+        // Mitigation, CrowdControl, Finisher) and the riders that change when it is worth the one One with Nature a
+        // summon grants (Knockback, DrawIn, Sleep, SelfDamage, Retreats, Dispel, Esuna, Doom, Aoe, ...).
+        public string Kind { get; set; }
+        public List<string> Flags { get; set; } = new List<string>();
+
+        public bool Has(string flag) => Flags != null && Flags.Contains(flag);
+    }
+
+    public static class AbilityKind
+    {
+        public const string Damage = "Damage";
+        public const string PartyBuff = "PartyBuff";
+        public const string FamiliarBuff = "FamiliarBuff";
+        public const string Mitigation = "Mitigation";
+        public const string CrowdControl = "CrowdControl";
+        public const string Finisher = "Finisher";
+    }
+
+    /// <summary>The Inner Compass: clockwise order. Executing the next affinity within 7 s is an intentional combo.</summary>
+    public static class Affinity
+    {
+        public const string Volant = "Volant";
+        public const string Rampant = "Rampant";
+        public const string Durant = "Durant";
+        public const string Eldritch = "Eldritch";
+
+        // Level 50: the 250 TP axes carry these instead of a compass point; one under the other's window is Universality.
+        public const string Sunstrider = "Sunstrider";
+        public const string Moonstalker = "Moonstalker";
+
+        public static readonly string[] Clockwise = { Volant, Rampant, Durant, Eldritch };
+
+        public static string Next(string affinity)
+        {
+            var i = System.Array.IndexOf(Clockwise, affinity);
+            return i < 0 ? null : Clockwise[(i + 1) % 4];
+        }
+
+        public static string Previous(string affinity)
+        {
+            var i = System.Array.IndexOf(Clockwise, affinity);
+            return i < 0 ? null : Clockwise[(i + 3) % 4];
+        }
+    }
+}

@@ -5602,4 +5602,118 @@
   <data name="Views_Text_Phoenix_Down_Reserve" xml:space="preserve">
     <value>Keep at least this many in reserve:</value>
   </data>
+  <data name="BeastMaster_Text_Familiar" xml:space="preserve">
+    <value>Familiar</value>
+  </data>
+  <data name="BeastMaster_Text_Rotation" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="BeastMaster_Text_Kinship" xml:space="preserve">
+    <value>Kinship actions (Beast Mode after Borrow)</value>
+  </data>
+  <data name="BeastMaster_Content_Summon" xml:space="preserve">
+    <value>Summon a familiar with the battlehorns, starting with horn</value>
+  </data>
+  <data name="BeastMaster_Content_Tempered_Release" xml:space="preserve">
+    <value>Tempered Release (the familiar's controlled ability)</value>
+  </data>
+  <data name="BeastMaster_Content_Use_TTD" xml:space="preserve">
+    <value>Hold damaging and buffing controlled abilities when the enemy will die within</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Knockbacks" xml:space="preserve">
+    <value>Allow knockback and pull-in controlled abilities in a party</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Mitigation" xml:space="preserve">
+    <value>Mitigation controlled abilities when health is below (or a catalogued AoE is coming)</value>
+  </data>
+  <data name="BeastMaster_Content_Sleep_Disengage" xml:space="preserve">
+    <value>After a sleep, disengage: drop sleeping targets, heel the familiar, only the 1-2-3 on what is awake</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Sleep" xml:space="preserve">
+    <value>Sleep controlled abilities only with at least this many enemies near the familiar</value>
+  </data>
+  <data name="BeastMaster_Content_TR_Finisher" xml:space="preserve">
+    <value>Final Sting when the target's health is below (and another horn is ready)</value>
+  </data>
+  <data name="BeastMaster_Content_TR_SelfDamage" xml:space="preserve">
+    <value>Party buffs that cost you health only when your health is above</value>
+  </data>
+  <data name="BeastMaster_Content_TR_DispelWait" xml:space="preserve">
+    <value>Damaging dispels wait this many seconds into a fight for a buff to strip</value>
+  </data>
+  <data name="BeastMaster_Content_TR_SleepRadius" xml:space="preserve">
+    <value>Sleep enemy count radius around the familiar (yalms)</value>
+  </data>
+  <data name="BeastMaster_Content_Borrow" xml:space="preserve">
+    <value>Borrow (take the familiar's kinship)</value>
+  </data>
+  <data name="BeastMaster_Content_Prefer_Borrow" xml:space="preserve">
+    <value>Spend One with Nature on Borrow rather than Tempered Release</value>
+  </data>
+  <data name="BeastMaster_Content_Trick" xml:space="preserve">
+    <value>Trick (the familiar's instinctual skill) whenever its TP allows</value>
+  </data>
+  <data name="BeastMaster_Content_Parting_Blow" xml:space="preserve">
+    <value>Parting Blow (the familiar's Aetheric Burst; it retreats)</value>
+  </data>
+  <data name="BeastMaster_Content_Parting_Blow_Vantage" xml:space="preserve">
+    <value>Only under Lingering Vantage and with another horn ready</value>
+  </data>
+  <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
+    <value>Swap familiars with the battlehorns mid-fight when another beast continues the chain</value>
+  </data>
+  <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
+    <value>Instinctual axes at 100 TP, following the Inner Compass</value>
+  </data>
+  <data name="BeastMaster_Content_Rally" xml:space="preserve">
+    <value>Rally</value>
+  </data>
+  <data name="BeastMaster_Content_Rallying_Cheer" xml:space="preserve">
+    <value>Rallying Cheer</value>
+  </data>
+  <data name="BeastMaster_Content_Shield_Charge" xml:space="preserve">
+    <value>Shield Charge as a gap-closer, and on cooldown keeping charges</value>
+  </data>
+  <data name="BeastMaster_Content_Soul_Crush" xml:space="preserve">
+    <value>Soul Crush on an interruptible cast (Soul Kinship)</value>
+  </data>
+  <data name="BeastMaster_Content_Quelling_Wave" xml:space="preserve">
+    <value>Quelling Wave on cooldown (Wave Kinship)</value>
+  </data>
+  <data name="BeastMaster_Content_Scouring_Ash" xml:space="preserve">
+    <value>Scouring Ash when you carry a harmful effect (Ash Kinship)</value>
+  </data>
+  <data name="BeastMaster_Content_Seedsower" xml:space="preserve">
+    <value>Seedsower when the target lacks Seeds Sown (Seed Kinship)</value>
+  </data>
+  <data name="BeastMaster_Content_Beastskin" xml:space="preserve">
+    <value>Beastskin</value>
+  </data>
+  <data name="BeastMaster_Content_Scaleskin" xml:space="preserve">
+    <value>Scaleskin</value>
+  </data>
+  <data name="BeastMaster_Content_Vileskin" xml:space="preserve">
+    <value>Vileskin</value>
+  </data>
+  <data name="BeastMaster_Text_Bestiary" xml:space="preserve">
+    <value>Master's Bestiary</value>
+  </data>
+  <data name="BeastMaster_Content_Capture" xml:space="preserve">
+    <value>Gauge each new kind of beast and capture the ones not yet in the bestiary</value>
+  </data>
+  <data name="BeastMaster_Content_Assign_Horns" xml:space="preserve">
+    <value>Assign new pacts to empty battlehorn slots</value>
+  </data>
+  <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
+    <value>Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start)</value>
+  </data>
+  <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
+    <value>Capture when the target's health is below</value>
+  </data>
+  <data name="BeastMaster_Content_Capture_At_Once" xml:space="preserve">
+    <value>Capture at once, without waiting for the health threshold, when the beast is at least this many levels below you</value>
+  </data>
+  <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
+    <value>Defensive kinship actions when health is below</value>
+  </data>
 </root>

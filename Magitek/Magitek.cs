@@ -306,6 +306,7 @@ namespace Magitek
                     case ClassJobType.Sage:
                     case ClassJobType.Pictomancer:
                     case ClassJobType.Viper:
+                    case ClassJobType.BeastMaster:
                         return new[] { Core.Me.CurrentJob };
                     default:
                         return new[] { ClassJobType.Adventurer };

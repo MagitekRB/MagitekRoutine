@@ -20,6 +20,7 @@
         xmlns:samurai="clr-namespace:Magitek.Views.UserControls.Samurai"
         xmlns:reaper="clr-namespace:Magitek.Views.UserControls.Reaper"
         xmlns:blueMage="clr-namespace:Magitek.Views.UserControls.BlueMage"
+        xmlns:beastMaster="clr-namespace:Magitek.Views.UserControls.BeastMaster"
         xmlns:scholar="clr-namespace:Magitek.Views.UserControls.Scholar"
         xmlns:summoner="clr-namespace:Magitek.Views.UserControls.Summoner"
         xmlns:viewModels="clr-namespace:Magitek.ViewModels"
@@ -1265,6 +1266,11 @@
                             <customControls:TogglesSettings/>
                         </TabItem>
                     </TabControl>
+                </TabItem>
+
+                <TabItem Name="BeastMaster"
+                         Style="{DynamicResource TabItemBeastMaster}">
+                    <beastMaster:Rotation/>
                 </TabItem>
 
                 <TabItem Name="BlueMage"

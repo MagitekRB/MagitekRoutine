@@ -1978,6 +1978,348 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Bard_Text_Selected_Song_Order", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Familiar.
+        /// </summary>
+        public static string BeastMaster_Text_Familiar {
+            get {
+                return ResourceManager.GetString("BeastMaster_Text_Familiar", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rotation.
+        /// </summary>
+        public static string BeastMaster_Text_Rotation {
+            get {
+                return ResourceManager.GetString("BeastMaster_Text_Rotation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Kinship actions (Beast Mode after Borrow).
+        /// </summary>
+        public static string BeastMaster_Text_Kinship {
+            get {
+                return ResourceManager.GetString("BeastMaster_Text_Kinship", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Summon a familiar with the battlehorns, starting with horn.
+        /// </summary>
+        public static string BeastMaster_Content_Summon {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Summon", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Tempered Release (the familiar's controlled ability).
+        /// </summary>
+        public static string BeastMaster_Content_Tempered_Release {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Tempered_Release", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hold damaging and buffing controlled abilities when the enemy will die within.
+        /// </summary>
+        public static string BeastMaster_Content_Use_TTD {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Use_TTD", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Borrow (take the familiar's kinship).
+        /// </summary>
+        public static string BeastMaster_Content_Borrow {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Borrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow knockback and pull-in controlled abilities in a party.
+        /// </summary>
+        public static string BeastMaster_Content_TR_Knockbacks {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Knockbacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mitigation controlled abilities when health is below (or a catalogued AoE is coming).
+        /// </summary>
+        public static string BeastMaster_Content_TR_Mitigation {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Mitigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After a sleep, disengage: drop sleeping targets, heel the familiar, only the 1-2-3 on what is awake.
+        /// </summary>
+        public static string BeastMaster_Content_Sleep_Disengage {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Sleep_Disengage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Sleep controlled abilities only with at least this many enemies near the familiar.
+        /// </summary>
+        public static string BeastMaster_Content_TR_Sleep {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Sleep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Final Sting when the target's health is below (and another horn is ready).
+        /// </summary>
+        public static string BeastMaster_Content_TR_Finisher {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_Finisher", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Party buffs that cost you health only when your health is above.
+        /// </summary>
+        public static string BeastMaster_Content_TR_SelfDamage {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_SelfDamage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Damaging dispels wait this many seconds into a fight for a buff to strip.
+        /// </summary>
+        public static string BeastMaster_Content_TR_DispelWait {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_DispelWait", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Sleep enemy count radius around the familiar (yalms).
+        /// </summary>
+        public static string BeastMaster_Content_TR_SleepRadius {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_TR_SleepRadius", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Spend One with Nature on Borrow rather than Tempered Release.
+        /// </summary>
+        public static string BeastMaster_Content_Prefer_Borrow {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Prefer_Borrow", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Trick (the familiar's instinctual skill) whenever its TP allows.
+        /// </summary>
+        public static string BeastMaster_Content_Trick {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Trick", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Parting Blow (the familiar's Aetheric Burst; it retreats).
+        /// </summary>
+        public static string BeastMaster_Content_Parting_Blow {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Parting_Blow", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only under Lingering Vantage and with another horn ready.
+        /// </summary>
+        public static string BeastMaster_Content_Parting_Blow_Vantage {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Parting_Blow_Vantage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Instinctual axes at 100 TP, following the Inner Compass.
+        /// </summary>
+        public static string BeastMaster_Content_Instinctual {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Instinctual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap familiars with the battlehorns mid-fight when another beast continues the chain.
+        /// </summary>
+        public static string BeastMaster_Content_Battlehorn_Swaps {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Battlehorn_Swaps", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rally.
+        /// </summary>
+        public static string BeastMaster_Content_Rally {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Rally", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rallying Cheer.
+        /// </summary>
+        public static string BeastMaster_Content_Rallying_Cheer {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Rallying_Cheer", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Shield Charge as a gap-closer, and on cooldown keeping charges.
+        /// </summary>
+        public static string BeastMaster_Content_Shield_Charge {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Shield_Charge", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Soul Crush on an interruptible cast (Soul Kinship).
+        /// </summary>
+        public static string BeastMaster_Content_Soul_Crush {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Soul_Crush", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Quelling Wave on cooldown (Wave Kinship).
+        /// </summary>
+        public static string BeastMaster_Content_Quelling_Wave {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Quelling_Wave", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scouring Ash when you carry a harmful effect (Ash Kinship).
+        /// </summary>
+        public static string BeastMaster_Content_Scouring_Ash {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Scouring_Ash", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Seedsower when the target lacks Seeds Sown (Seed Kinship).
+        /// </summary>
+        public static string BeastMaster_Content_Seedsower {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Seedsower", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Beastskin.
+        /// </summary>
+        public static string BeastMaster_Content_Beastskin {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Beastskin", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scaleskin.
+        /// </summary>
+        public static string BeastMaster_Content_Scaleskin {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Scaleskin", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Vileskin.
+        /// </summary>
+        public static string BeastMaster_Content_Vileskin {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Vileskin", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Master's Bestiary.
+        /// </summary>
+        public static string BeastMaster_Text_Bestiary {
+            get {
+                return ResourceManager.GetString("BeastMaster_Text_Bestiary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gauge each new kind of beast and capture the ones not yet in the bestiary.
+        /// </summary>
+        public static string BeastMaster_Content_Capture {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture when the target's health is below.
+        /// </summary>
+        public static string BeastMaster_Content_Capture_Health {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_Health", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Capture at once, without waiting for the health threshold, when the beast is at least this many levels below you.
+        /// </summary>
+        public static string BeastMaster_Content_Capture_At_Once {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_At_Once", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Assign new pacts to empty battlehorn slots.
+        /// </summary>
+        public static string BeastMaster_Content_Assign_Horns {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Assign_Horns", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start).
+        /// </summary>
+        public static string BeastMaster_Content_Capture_Hold {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Capture_Hold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defensive kinship actions when health is below.
+        /// </summary>
+        public static string BeastMaster_Content_Defensive_Health {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Defensive_Health", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Always Transpose To Astral.
