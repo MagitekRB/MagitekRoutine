@@ -390,10 +390,19 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.UseRallyingCheer || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
                 return false;
 
-            // Natural Instinct from the combos the familiar finished (30 familiar TP, +70 per stack): at the cap, or
-            // with two stacks when the familiar's Trick is waiting on TP.
+            // Natural Instinct from the pairs the familiar finished (30 familiar TP, +70 per stack). One stack is a
+            // whole Trick, and its moment is when our half of a pair is paid and the familiar's is not: spent then
+            // it is an extra pair, spent at the cap next to Rally it sat near 200 pet TP for thirty seconds while
+            // our TP rebuilt (dummy, 2026-09-09). Never into an overflowing bar.
             var natural = BeastMasterRoutine.NaturalInstinct;
-            if (natural < 3 && !(natural >= 2 && !BeastMasterRoutine.HasTpFor(Spells.Trick)))
+            if (natural < 1)
+                return false;
+
+            var gain = 30 + 70 * natural;
+            if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap)
+                return false;
+
+            if (!BeastMasterRoutine.PairWaitingOnFamiliar && natural < 3)
                 return false;
 
             if (!await Spells.RallyingCheer.Cast(Core.Me))

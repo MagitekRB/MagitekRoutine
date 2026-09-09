@@ -45,6 +45,13 @@ namespace Magitek.Utilities.Routines
         /// <summary>Both gauges cap at 250 (measured 2026-09-09); an axe spends the whole bar, at full potency from here.</summary>
         public const int TpCap = 250;
         public static bool TpFull => Gauge.TP >= TpCap;
+        public static int Tp => (int)Gauge.TP;
+        public static int PetTp => (int)Gauge.PetTP;
+
+        /// <summary>Our half of a pair is paid (a 100 TP axe is affordable) and the familiar cannot pay its Trick yet.</summary>
+        public static bool PairWaitingOnFamiliar =>
+            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart
+            && !HasTpFor(Spells.Trick) && Axes.Any(a => a != null && a.Cost <= 100 && HasTpFor(a));
 
         // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
         public static SpellData WantedHorn;
