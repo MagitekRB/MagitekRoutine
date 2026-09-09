@@ -610,9 +610,6 @@ namespace Magitek.Utilities.Routines
                 return "already marked";
             if (target.ClassLevel > Core.Me.ClassLevel)
                 return "level " + target.ClassLevel + " against your " + Core.Me.ClassLevel + ", Capture would be ineffective";
-            // Bosses share skeletons with ordinary beasts; holding weaponskills on one for a refused Capture is not worth it.
-            if (target.IsBoss())
-                return "a boss";
             return null;
         }
 
@@ -627,7 +624,11 @@ namespace Magitek.Utilities.Routines
         private static void TrackCaptureHold()
         {
             var target = Core.Me.CurrentTarget as BattleCharacter;
-            HoldingForCapture = BeastMasterSettings.Instance.HoldForCapture && Core.Me.InCombat && CaptureWanted(target);
+            var wanted = CaptureWanted(target);
+            // Twelve species are only in the bestiary as a duty boss (Karlabos in Sastasha, the Zu in Pharos Sirius),
+            // so Capture goes out on a boss; the hold does not, since a boss dies by the party's damage, not ours.
+            var boss = wanted && target.IsBoss();
+            HoldingForCapture = BeastMasterSettings.Instance.HoldForCapture && Core.Me.InCombat && wanted && !boss;
 
             if (target == null || _holdLoggedFor == target.ObjectId)
                 return;
@@ -636,6 +637,12 @@ namespace Magitek.Utilities.Routines
             if (HoldingForCapture)
             {
                 Logger.WriteInfo("[Beastmaster] Holding weaponskills on " + target.EnglishName + " until the mark is on it (auto-attacks only).");
+                return;
+            }
+
+            if (boss)
+            {
+                Logger.WriteInfo("[Beastmaster] " + target.EnglishName + " is a boss: Capture goes out, but weaponskills are not held for it.");
                 return;
             }
 
