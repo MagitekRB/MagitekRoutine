@@ -278,8 +278,8 @@ namespace Magitek.Logic.BeastMaster
                 }
                 else if (BeastMasterRoutine.NaturalPreferred)
                 {
-                    // The yellow diamonds are full and Rally cannot spend them in time: our axe opens this pair so
-                    // the Trick finishes it and the stack lands on blue instead of overflowing.
+                    // The yellow diamonds are full: our axe opens this pair so the Trick finishes it and the stack
+                    // lands on blue instead of overflowing.
                     return false;
                 }
                 else if (!BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Next(affinity))))

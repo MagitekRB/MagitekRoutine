@@ -86,7 +86,7 @@ namespace Magitek.Logic.BeastMaster
             string wanted = null;
             if (heart != null)
                 wanted = Affinity.Next(heart);
-            else if (BeastMasterRoutine.NaturalPreferred && BeastMasterRoutine.FamiliarCanAnswer)
+            else if (BeastMasterRoutine.NaturalPreferred && BeastMasterRoutine.FamiliarCanAnswer && !BeastMasterRoutine.HoldPairForRally)
                 wanted = Affinity.Previous(BeastMasterRoutine.FamiliarAffinity);
 
             var axe = BeastMasterRoutine.AxeFor(wanted);

@@ -197,15 +197,23 @@ namespace Magitek.Utilities.Routines
         private const int InstinctStacksMax = 3;
 
         /// <summary>
-        /// The yellow diamonds are full and Rally cannot spend them before the next pair resolves: that pair is
-        /// better finished by the Trick, paying a Natural stack for Rallying Cheer, than by our axe into an
-        /// overflow. Three pairs and the Universality pay four Mastered stacks per 90 s Rally, so one was lost every
-        /// cycle (dummy, 2026-09-09).
+        /// The yellow diamonds are full: a pair our axe finishes pays a stack that overflows, even the pair Rally
+        /// fires on, since the stack lands at the finishing hit and Rally spends 0.9 s later. That pair is better
+        /// finished by the Trick, paying a Natural stack for Rallying Cheer. Three pairs and the Universality pay
+        /// four Mastered per 90 s Rally, so one was lost every cycle (dummy, 2026-09-09, twice over).
         /// </summary>
-        public static bool NaturalPreferred =>
-            MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax
-            && (!BeastMasterSettings.Instance.UseRally || Spells.Rally.Cooldown.TotalSeconds > RallyReadySoonSeconds);
-        private const int RallyReadySoonSeconds = 5;
+        public static bool NaturalPreferred => MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax;
+
+        /// <summary>
+        /// Rally is a few seconds from ready with the yellow diamonds full: the next pair is worth holding so its
+        /// window is the one Rally spends into (finishers came every 105 s instead of 90 on the dummy). Held only
+        /// while our TP is short of the cap, where the axes turn into their 250 forms and cannot pair.
+        /// </summary>
+        public static bool HoldPairForRally =>
+            BeastMasterSettings.Instance.UseRally && MasteredInstinct >= InstinctStacksMax
+            && Spells.Rally.IsKnown() && Spells.Rally.Cooldown > System.TimeSpan.Zero
+            && Spells.Rally.Cooldown.TotalSeconds <= RallyHoldSeconds && Gauge.TP < TpCap - 50;
+        private const int RallyHoldSeconds = 12;
 
         /// <summary>The familiar is here, not leaving, and holds the TP for its Trick.</summary>
         public static bool FamiliarCanAnswer => FamiliarAffinity != null && !FamiliarRetreating && HasTpFor(Spells.Trick);
