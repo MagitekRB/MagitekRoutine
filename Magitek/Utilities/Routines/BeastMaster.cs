@@ -54,7 +54,8 @@ namespace Magitek.Utilities.Routines
         /// in that gap refilled a bar that had just been spent (dummy, 2026-09-09).
         /// </summary>
         public static bool PairWaitingOnFamiliar =>
-            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart && !TrickPending
+            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart
+            && MsSinceTrick > TrickLandingMs + 2000
             && !HasTpFor(Spells.Trick) && Axes.Any(a => a != null && a.Cost <= 100 && HasTpFor(a));
 
         public static bool PetTpFull => Gauge.PetTP >= TpCap;
@@ -170,7 +171,10 @@ namespace Magitek.Utilities.Routines
         // shows on us about 0.8 s after, measured on ACT 2026-09-08). An axe thrown before that Heart continues
         // nothing; one thrown the moment it shows completes the pair. So after a Trick the axe waits for the Heart,
         // up to this long.
-        private const int TrickLandingMs = 4000;
+        // Right after a summon the familiar is busy with its Tempered Release ability and the Trick queues behind
+        // it: 3.3 to 3.8 s from order to action, Heart a second later (dummy, 2026-09-09). Four seconds expired in
+        // the instant before the Heart showed, and a second Trick and a Rallying Cheer went into that instant.
+        private const int TrickLandingMs = 6500;
 
         public static System.DateTime LastTrickAt = System.DateTime.MinValue;
         public static double MsSinceTrick => (System.DateTime.Now - LastTrickAt).TotalMilliseconds;

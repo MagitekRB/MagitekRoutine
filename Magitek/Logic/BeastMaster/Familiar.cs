@@ -262,8 +262,10 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterRoutine.HasTpFor(Spells.Trick))
                 return false;
 
-            // A pair still resolving: nothing chains with the familiar until it clears (about 2 s).
-            if (BeastMasterRoutine.WaveringHeart)
+            // A pair still resolving: nothing chains with the familiar until it clears (about 2 s). And a Trick
+            // already ordered whose Heart has not shown yet is not to be doubled: the second one went into the
+            // Wavering Heart of the first (dummy, 2026-09-09).
+            if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
                 return false;
 
             // The familiar bar is full: every further auto-attack is lost, so the Trick goes out on its own. It
