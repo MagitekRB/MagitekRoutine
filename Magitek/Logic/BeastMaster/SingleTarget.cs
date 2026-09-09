@@ -77,10 +77,15 @@ namespace Magitek.Logic.BeastMaster
             var heart = BeastMasterRoutine.EffectiveHeart;
             var familiar = BeastMasterRoutine.FamiliarAffinity;
 
+            // A pair opens only when both halves can be paid: an axe thrown to open for a familiar without the TP
+            // for its Trick lit a Heart nobody answered (dummy, 2026-09-09). While the axe waits, our TP keeps
+            // raising its potency, so nothing is lost by holding it.
+            var familiarCanAnswer = familiar != null && !BeastMasterRoutine.FamiliarRetreating && BeastMasterRoutine.HasTpFor(Spells.Trick);
+
             string wanted = null;
             if (heart != null)
                 wanted = Affinity.Next(heart);
-            else if (familiar != null)
+            else if (familiarCanAnswer)
                 wanted = Affinity.Previous(familiar);
 
             var axe = BeastMasterRoutine.AxeFor(wanted);
@@ -98,8 +103,12 @@ namespace Magitek.Logic.BeastMaster
             if (axe != null && axe.IsKnown() && heart != null && BeastMasterRoutine.HeartMsLeft > 1500)
                 return false;
 
-            // Nothing to pair: any axe with TP. Once the axes have turned at 50 this opens a Sunstrider or Moonstalker
-            // window for Universality; the rushing forms go last.
+            // Nothing to pair: an axe alone is worth throwing only when the bar is full, where it has its whole
+            // potency and every further point would be lost. Below the cap the TP is worth more in the next pair.
+            // Once the axes have turned at 50 this opens a Sunstrider or Moonstalker window; the rushing forms go last.
+            if (!BeastMasterRoutine.TpFull)
+                return false;
+
             foreach (var candidate in BeastMasterRoutine.Axes.OrderBy(a => a != null && (a.Id == Spells.BrutalRage.Id || a.Id == Spells.HawkishTalons.Id) ? 1 : 0))
             {
                 if (candidate == axe || !BeastMasterRoutine.HasTpFor(candidate))

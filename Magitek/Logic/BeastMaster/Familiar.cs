@@ -98,6 +98,7 @@ namespace Magitek.Logic.BeastMaster
             if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                 return false;
 
+            BeastMasterRoutine.NotePartingBlow();
             BeastMasterRoutine.WantHorn(horn);
             Logger.WriteInfo("[Beastmaster] Parting Blow, then battlehorn " + slot + " for a " + wanted + " Trick (" + msLeft.ToString("0") + " ms left on the Heart).");
             return true;
@@ -255,7 +256,7 @@ namespace Magitek.Logic.BeastMaster
         /// </summary>
         public static async Task<bool> Trick()
         {
-            if (!BeastMasterSettings.Instance.UseTrick || !BeastMasterRoutine.FamiliarOut)
+            if (!BeastMasterSettings.Instance.UseTrick || !BeastMasterRoutine.FamiliarOut || BeastMasterRoutine.FamiliarRetreating)
                 return false;
 
             if (!BeastMasterRoutine.HasTpFor(Spells.Trick))
@@ -331,7 +332,11 @@ namespace Magitek.Logic.BeastMaster
                 Logger.WriteInfo($"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.");
             }
 
-            return await Spells.PartingBlow.Cast(Core.Me.CurrentTarget);
+            if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            BeastMasterRoutine.NotePartingBlow();
+            return true;
         }
 
         /// <summary>

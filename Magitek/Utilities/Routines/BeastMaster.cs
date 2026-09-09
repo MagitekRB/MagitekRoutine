@@ -25,6 +25,27 @@ namespace Magitek.Utilities.Routines
         public static System.DateTime FamiliarSince = System.DateTime.MinValue;
         public static double FamiliarOutSeconds => FamiliarOut ? (System.DateTime.Now - FamiliarSince).TotalSeconds : 0;
 
+        // Parting Blow sends the familiar home, but its pet object lingers through the retreat: a Trick ordered in
+        // that moment is accepted by the client, acted on by nobody, and costs the whole familiar TP (144 lost on
+        // the dummy, 2026-09-09). The beast counts as retreating until a different pet object is out.
+        private static uint _petAtPartingBlow;
+        private static System.DateTime _partingBlowAt = System.DateTime.MinValue;
+        private const int RetreatMaxMs = 10000;
+
+        public static void NotePartingBlow()
+        {
+            _petAtPartingBlow = Core.Me.Pet?.ObjectId ?? 0;
+            _partingBlowAt = System.DateTime.Now;
+        }
+
+        public static bool FamiliarRetreating =>
+            FamiliarOut && Core.Me.Pet.ObjectId == _petAtPartingBlow
+            && (System.DateTime.Now - _partingBlowAt).TotalMilliseconds < RetreatMaxMs;
+
+        /// <summary>Both gauges cap at 250 (measured 2026-09-09); an axe spends the whole bar, at full potency from here.</summary>
+        public const int TpCap = 250;
+        public static bool TpFull => Gauge.TP >= TpCap;
+
         // A horn the swap logic wants blown next (after Parting Blow sent the current familiar home).
         public static SpellData WantedHorn;
         private static System.DateTime _wantedHornSince = System.DateTime.MinValue;
