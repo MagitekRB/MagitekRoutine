@@ -16,6 +16,8 @@ namespace Magitek.Logic.BeastMaster
     /// </summary>
     internal static class Capture
     {
+        private const int CaptureNowSeconds = 8;
+
         public static async Task<bool> Gauge()
         {
             if (!BeastMasterSettings.Instance.UseCapture || !Spells.Gauge.IsKnown())
@@ -53,8 +55,11 @@ namespace Magitek.Logic.BeastMaster
             }
 
             // The pact's odds rise as the target's health falls; the setting is where that trades against the
-            // beast dying before the mark is on it.
-            if (target.CurrentHealthPercent > BeastMasterSettings.Instance.CaptureHealthPercent)
+            // beast dying before the mark is on it. A beast the tracker expects dead within moments (a party is on
+            // it) gets the mark now: worse odds beat no pact at all.
+            var timeLeft = target.CombatTimeLeft();
+            var dyingSoon = timeLeft > 0 && timeLeft <= CaptureNowSeconds;
+            if (target.CurrentHealthPercent > BeastMasterSettings.Instance.CaptureHealthPercent && !dyingSoon)
                 return false;
 
             if (!await Spells.Capture.Cast(target))

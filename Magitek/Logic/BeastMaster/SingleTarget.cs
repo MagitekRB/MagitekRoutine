@@ -79,6 +79,11 @@ namespace Magitek.Logic.BeastMaster
                 return true;
             }
 
+            // The right axe exists but cannot go now (its own 5 s recast, or TP): while the Heart still has time,
+            // waiting for it beats throwing another axe into a lesser, non-intentional pair.
+            if (axe != null && axe.IsKnown() && heart != null && BeastMasterRoutine.HeartMsLeft > 1500)
+                return false;
+
             foreach (var candidate in BeastMasterRoutine.Axes)
             {
                 if (candidate == axe)
