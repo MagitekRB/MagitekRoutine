@@ -340,9 +340,27 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             var stacks = BeastMasterRoutine.MasteredInstinct;
-            var axeWaiting = !BeastMasterRoutine.Axes.Any(a => BeastMasterRoutine.HasTpFor(a));
-            if (stacks < 3 && !(stacks >= 2 && axeWaiting))
-                return false;
+            if (Core.Me.ClassLevel >= 50)
+            {
+                // Level 50: three stacks fill the bar from nothing (40 + 3 x 70 = 250) and turn the axes into their
+                // 250 TP forms. Spent while a pair is resolving or its Sunstrider or Moonstalker window is open, the
+                // opposite form completes Universality (dummy, 2026-09-09: Rally 0.8 s after the finishing axe,
+                // Calamity under Sunstrider, "Infinitive Combo: Universality", chain counter 2). Spent anywhere else
+                // the bar goes into a lone 250 axe whose window nothing can answer.
+                if (stacks < 3)
+                    return false;
+                if (!BeastMasterRoutine.WaveringHeart && !BeastMasterRoutine.ChainWindowOpen)
+                    return false;
+                // The bar is already full: the finisher needs no Rally.
+                if (BeastMasterRoutine.Axes.Any(a => a != null && a.Cost >= 250 && BeastMasterRoutine.HasTpFor(a)))
+                    return false;
+            }
+            else
+            {
+                var axeWaiting = !BeastMasterRoutine.Axes.Any(a => BeastMasterRoutine.HasTpFor(a));
+                if (stacks < 3 && !(stacks >= 2 && axeWaiting))
+                    return false;
+            }
 
             if (!await Spells.Rally.Cast(Core.Me))
                 return false;
