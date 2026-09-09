@@ -317,11 +317,18 @@ namespace Magitek.Logic.BeastMaster
             var left = hold - BeastMasterRoutine.FamiliarOutSeconds;
             if (hold > 0 && left > 0)
             {
-                var vantageEnding = Core.Me.HasAura(Auras.LingeringVantage) && !Core.Me.HasAura(Auras.LingeringVantage, false, 3000);
+                // A Vantage whose timer the bot has not read yet shows 0 ms left; that is not an ending Vantage.
+                // At the pull, with every horn ready, the check ran inside the first second after Tempered Release
+                // and sent two beasts home at once (dummy, 2026-09-09).
+                var vantage = Core.Me.CharacterAuras.FirstOrDefault(a => a.Id == Auras.LingeringVantage);
+                var vantageMsLeft = vantage?.TimespanLeft.TotalMilliseconds ?? 0;
+                var vantageEnding = vantageMsLeft > 0 && vantageMsLeft < 3000;
                 var ttd = Core.Me.CurrentTarget?.CombatTimeLeft() ?? 0;
                 var diesFirst = ttd > 0 && ttd < left;
                 if (!vantageEnding && !diesFirst)
                     return false;
+
+                Logger.WriteInfo($"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.");
             }
 
             return await Spells.PartingBlow.Cast(Core.Me.CurrentTarget);
