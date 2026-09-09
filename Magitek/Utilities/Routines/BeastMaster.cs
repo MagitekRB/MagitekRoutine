@@ -54,6 +54,11 @@ namespace Magitek.Utilities.Routines
             TrackWaveringHeart();
             TrackCaptureHold();
 
+            // The compass state a pair consumes says who finished it; kept from the pulse before Wavering Heart.
+            var compass = Gauge.InnerCompass;
+            if (compass != Gauge.InnerCompassState.Wavering && compass != Gauge.InnerCompassState.None)
+                _compassBeforeWavering = compass;
+
             if (!FamiliarOut)
             {
                 _loggedFamiliarId = 0;
@@ -101,20 +106,21 @@ namespace Magitek.Utilities.Routines
         /// The Heart lit right now: the affinity of the last instinctual skill (mine or the familiar's), which the
         /// next one has to follow clockwise for an intentional combo. Null when nothing is lit.
         /// </summary>
-        public static string CurrentHeart
+        public static string CurrentHeart => HeartOf(Gauge.InnerCompass);
+
+        private static string HeartOf(Gauge.InnerCompassState state)
         {
-            get
+            switch (state)
             {
-                switch (Gauge.InnerCompass)
-                {
-                    case Gauge.InnerCompassState.Volant: return Affinity.Volant;
-                    case Gauge.InnerCompassState.Rampant: return Affinity.Rampant;
-                    case Gauge.InnerCompassState.Durant: return Affinity.Durant;
-                    case Gauge.InnerCompassState.Eldritch: return Affinity.Eldritch;
-                    default: return null;
-                }
+                case Gauge.InnerCompassState.Volant: return Affinity.Volant;
+                case Gauge.InnerCompassState.Rampant: return Affinity.Rampant;
+                case Gauge.InnerCompassState.Durant: return Affinity.Durant;
+                case Gauge.InnerCompassState.Eldritch: return Affinity.Eldritch;
+                default: return null;
             }
         }
+
+        private static Gauge.InnerCompassState _compassBeforeWavering = Gauge.InnerCompassState.None;
 
         // A Heart takes a moment to appear after our own axe; until it does, the axe just cast says what the Heart
         // will be, so the follow-up is chosen right instead of restarting the chain.
@@ -215,27 +221,35 @@ namespace Magitek.Utilities.Routines
 
             _waveringLogged = true;
 
-            // Our axe within the last moments finished it; otherwise the familiar did.
-            var ours = false;
-            foreach (var axe in Axes)
+            // The state the pair consumed says who finished it. A Heart of the familiar's own colour was lit by its
+            // Trick, so our axe followed it; a Heart of any other colour was ours, so the Trick followed. Inside a
+            // Sunstrider or Moonstalker window only our 250 TP forms act. "The last spell was an axe" is not the
+            // test: a Smash Axe in the 1.7 s before the bot sees Wavering Heart credited the familiar with a pair
+            // Spinning Axe finished (dummy, 2026-09-09).
+            var before = _compassBeforeWavering;
+            var heart = HeartOf(before);
+            var ours = before == Gauge.InnerCompassState.Sunstrider || before == Gauge.InnerCompassState.Moonstalker
+                || (heart != null && heart == FamiliarAffinity);
+
+            string finisher = null;
+            if (ours)
             {
-                if (axe != null && Casting.LastSpellWas(axe, 2000))
+                // Universality is counted as ours; whether it pays a stack is not measured yet.
+                MasteredInstinct = System.Math.Min(InstinctStacksMax, MasteredInstinct + 1);
+                if (heart != null)
                 {
-                    ours = true;
-                    NoteInstinct(AxeAffinity(axe));
-                    break;
+                    finisher = Affinity.Next(heart);
+                    NoteInstinct(finisher);
                 }
             }
-
-            if (ours)
-                MasteredInstinct = System.Math.Min(InstinctStacksMax, MasteredInstinct + 1);
             else
             {
                 NaturalInstinct = System.Math.Min(InstinctStacksMax, NaturalInstinct + 1);
                 NoteInstinct(FamiliarAffinity);
             }
 
-            Logger.WriteInfo($"[Beastmaster] Combo completed by {(ours ? Casting.LastSpell?.LocalizedName : "the familiar")} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
+            var by = ours ? (AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
+            Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
         }
 
         /// <summary>
