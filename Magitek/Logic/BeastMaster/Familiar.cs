@@ -303,7 +303,13 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.UsePartingBlow || !BeastMasterRoutine.FamiliarOut || !Spells.PartingBlow.IsKnown())
                 return false;
 
-            if (BeastMasterSettings.Instance.PartingBlowOnlyWithVantage && !Core.Me.HasAura(Auras.LingeringVantage))
+            // Vantage is worth waiting for only while it can still come, that is while One with Nature is unspent.
+            // Once it is spent and Vantage has run out, waiting keeps this beast out for the rest of the fight: on
+            // the dummy (2026-09-09) the third beast's Vantage expired ten seconds before the first horn returned
+            // and the cycle never resumed. An unbuffed Parting Blow still brings the next beast and its Tempered
+            // Release.
+            if (BeastMasterSettings.Instance.PartingBlowOnlyWithVantage && !Core.Me.HasAura(Auras.LingeringVantage)
+                && Core.Me.HasAura(Auras.OneWithNature))
                 return false;
 
             // The horn that summoned this familiar still reads castable while it is out (its 90 s starts at the
