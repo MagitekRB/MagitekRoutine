@@ -248,7 +248,7 @@ namespace Magitek.Utilities.Routines
                 NoteInstinct(FamiliarAffinity);
             }
 
-            var by = ours ? (AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
+            var by = ours ? (heart == null ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
             Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
         }
 
