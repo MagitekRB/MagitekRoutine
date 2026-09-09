@@ -102,6 +102,7 @@ namespace Magitek.Logic.BeastMaster
             if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                 return false;
 
+            BeastMasterRoutine.NotePartingBlow();
             BeastMasterRoutine.WantHorn(horn);
             Logger.WriteInfo("[Beastmaster] Parting Blow, then battlehorn " + slot + " for a " + wanted + " Trick (" + msLeft.ToString("0") + " ms left on the Heart).");
             return true;
@@ -259,14 +260,16 @@ namespace Magitek.Logic.BeastMaster
         /// </summary>
         public static async Task<bool> Trick()
         {
-            if (!BeastMasterSettings.Instance.UseTrick || !BeastMasterRoutine.FamiliarOut)
+            if (!BeastMasterSettings.Instance.UseTrick || !BeastMasterRoutine.FamiliarOut || BeastMasterRoutine.FamiliarRetreating)
                 return false;
 
             if (!BeastMasterRoutine.HasTpFor(Spells.Trick))
                 return false;
 
-            // A pair still resolving: nothing chains with the familiar until it clears (about 2 s).
-            if (BeastMasterRoutine.WaveringHeart)
+            // A pair still resolving: nothing chains with the familiar until it clears (about 2 s). And a Trick
+            // already ordered whose Heart has not shown yet is not to be doubled: the second one went into the
+            // Wavering Heart of the first (dummy, 2026-09-09).
+            if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
                 return false;
 
             var affinity = BeastMasterRoutine.FamiliarAffinity;
@@ -275,9 +278,24 @@ namespace Magitek.Logic.BeastMaster
                 var heart = BeastMasterRoutine.EffectiveHeart;
                 if (heart != null)
                 {
-                    // Another Heart is lit: Trick would restart the chain instead of continuing it.
+                    // Another Heart is lit, or a Sunstrider or Moonstalker window is open: a Trick that does not
+                    // continue the chain restarts it, and inside a window it consumes the window as a link (a
+                    // lone Trick at a full bar did, and cost three Universalities in one dummy run, 2026-09-09).
+                    // This holds whatever the familiar bar reads.
                     if (!BeastMasterRoutine.TrickContinuesChain)
                         return false;
+                }
+                else if (BeastMasterRoutine.PetTpFull && BeastMasterRoutine.Tp < LoneTrickOurTpBelow)
+                {
+                    // Nothing lit, the familiar bar is full and our TP is far from a pair: every further
+                    // auto-attack is lost, so the Trick goes out on its own. With our TP nearer, the same Trick
+                    // inside a pair is worth far more than the few auto-attacks the wait loses.
+                }
+                else if (BeastMasterRoutine.NaturalPreferred)
+                {
+                    // The yellow diamonds are full: our axe opens this pair so the Trick finishes it and the stack
+                    // lands on blue instead of overflowing.
+                    return false;
                 }
                 else if (!BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Next(affinity))))
                 {
@@ -341,7 +359,11 @@ namespace Magitek.Logic.BeastMaster
                 Logger.WriteInfo($"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.");
             }
 
-            return await Spells.PartingBlow.Cast(Core.Me.CurrentTarget);
+            if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                return false;
+
+            BeastMasterRoutine.NotePartingBlow();
+            return true;
         }
 
         /// <summary>
@@ -402,15 +424,32 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
+        private const int CheerOverflowAllowed = 40;
+        private const int LoneTrickOurTpBelow = 40;
+
         public static async Task<bool> RallyingCheer()
         {
             if (!BeastMasterSettings.Instance.UseRallyingCheer || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
                 return false;
 
-            // Natural Instinct from the combos the familiar finished (30 familiar TP, +70 per stack): at the cap, or
-            // with two stacks when the familiar's Trick is waiting on TP.
+            // Natural Instinct from the pairs the familiar finished (30 familiar TP, +70 per stack). One stack is a
+            // whole Trick, and its moment is when our half of a pair is paid and the familiar's is not: spent then
+            // it is an extra pair, spent at the cap next to Rally it sat near 200 pet TP for thirty seconds while
+            // our TP rebuilt (dummy, 2026-09-09). Never into an overflowing bar.
             var natural = BeastMasterRoutine.NaturalInstinct;
-            if (natural < 3 && !(natural >= 2 && !BeastMasterRoutine.HasTpFor(Spells.Trick)))
+            if (natural < 1)
+                return false;
+
+            // A Trick scales with the familiar TP it spends (about 880 at 100-149, 1,500 at 200-249, 1,800 at 250
+            // on the dummy, 2026-09-09), so every point Cheer adds is damage as long as the bar does not overflow:
+            // the moment is right after a Trick has landed, into an empty bar, with one stack or three. The
+            // pending gap after a Trick order is skipped, since that Trick has already taken its TP. A pair
+            // waiting on the familiar takes it whatever the bar reads, within the same headroom.
+            var gain = 30 + 70 * natural;
+            if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
+                return false;
+
+            if (!BeastMasterRoutine.PairWaitingOnFamiliar && (!BeastMasterRoutine.TrickSettled || BeastMasterRoutine.FamiliarRetreating))
                 return false;
 
             if (!await Spells.RallyingCheer.Cast(Core.Me))
