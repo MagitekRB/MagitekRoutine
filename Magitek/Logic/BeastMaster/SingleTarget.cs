@@ -81,9 +81,13 @@ namespace Magitek.Logic.BeastMaster
             // for the familiar lit a Heart nobody could answer when its TP was short, and when it could answer it
             // only turned a Mastered pair into a Natural one (dummy, 2026-09-09). While the axe waits, our TP
             // keeps raising its potency, so nothing is lost by holding it.
+            // The one exception: with the yellow diamonds full and Rally not ready, the axe opens and the Trick
+            // finishes, so the stack lands on blue for Rallying Cheer instead of overflowing.
             string wanted = null;
             if (heart != null)
                 wanted = Affinity.Next(heart);
+            else if (BeastMasterRoutine.NaturalPreferred && BeastMasterRoutine.FamiliarCanAnswer)
+                wanted = Affinity.Previous(BeastMasterRoutine.FamiliarAffinity);
 
             var axe = BeastMasterRoutine.AxeFor(wanted);
             if (BeastMasterRoutine.HasTpFor(axe))

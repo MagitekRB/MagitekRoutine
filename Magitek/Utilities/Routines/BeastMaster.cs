@@ -196,6 +196,20 @@ namespace Magitek.Utilities.Routines
         public static int NaturalInstinct;
         private const int InstinctStacksMax = 3;
 
+        /// <summary>
+        /// The yellow diamonds are full and Rally cannot spend them before the next pair resolves: that pair is
+        /// better finished by the Trick, paying a Natural stack for Rallying Cheer, than by our axe into an
+        /// overflow. Three pairs and the Universality pay four Mastered stacks per 90 s Rally, so one was lost every
+        /// cycle (dummy, 2026-09-09).
+        /// </summary>
+        public static bool NaturalPreferred =>
+            MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax
+            && (!BeastMasterSettings.Instance.UseRally || Spells.Rally.Cooldown.TotalSeconds > RallyReadySoonSeconds);
+        private const int RallyReadySoonSeconds = 5;
+
+        /// <summary>The familiar is here, not leaving, and holds the TP for its Trick.</summary>
+        public static bool FamiliarCanAnswer => FamiliarAffinity != null && !FamiliarRetreating && HasTpFor(Spells.Trick);
+
         public static void SpentMastered() => MasteredInstinct = 0;
         public static void SpentNatural() => NaturalInstinct = 0;
 
