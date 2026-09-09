@@ -75,18 +75,15 @@ namespace Magitek.Logic.BeastMaster
             }
 
             var heart = BeastMasterRoutine.EffectiveHeart;
-            var familiar = BeastMasterRoutine.FamiliarAffinity;
 
-            // A pair opens only when both halves can be paid: an axe thrown to open for a familiar without the TP
-            // for its Trick lit a Heart nobody answered (dummy, 2026-09-09). While the axe waits, our TP keeps
-            // raising its potency, so nothing is lost by holding it.
-            var familiarCanAnswer = familiar != null && !BeastMasterRoutine.FamiliarRetreating && BeastMasterRoutine.HasTpFor(Spells.Trick);
-
+            // Our axe finishes a pair; it does not open one. The Trick opens (earlier in the pulse, once both bars
+            // can pay) and our axe answers, which is the pair that earns Mastered Instinct. An axe thrown to open
+            // for the familiar lit a Heart nobody could answer when its TP was short, and when it could answer it
+            // only turned a Mastered pair into a Natural one (dummy, 2026-09-09). While the axe waits, our TP
+            // keeps raising its potency, so nothing is lost by holding it.
             string wanted = null;
             if (heart != null)
                 wanted = Affinity.Next(heart);
-            else if (familiarCanAnswer)
-                wanted = Affinity.Previous(familiar);
 
             var axe = BeastMasterRoutine.AxeFor(wanted);
             if (BeastMasterRoutine.HasTpFor(axe))
