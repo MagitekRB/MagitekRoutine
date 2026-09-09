@@ -301,6 +301,32 @@ namespace Magitek.Utilities.Routines
 
         public static readonly SpellData[] Battlehorns = { Spells.FirstBattlehorn, Spells.SecondBattlehorn, Spells.ThirdBattlehorn };
 
+        // The Crucible of the Unbroken (7.56): the duty owns the battlehorns. It empties the slots between nodes
+        // and fills them from its own roster, and summoning on the board is blocked. Writing pacts into those
+        // slots and blowing horns on the board crashed two players on launch day (2026-09-09). Territories f1x1
+        // to f1x5: the three Boards and the two Master Boards.
+        private static readonly HashSet<uint> CrucibleZones = new HashSet<uint> { 1339, 1340, 1341, 1342, 1343 };
+        public static bool InCrucible => CrucibleZones.Contains(WorldManager.ZoneId);
+        private static bool _crucibleLogged;
+
+        /// <summary>Inside the Crucible the routine leaves the horns and the slots to the duty; said once per visit.</summary>
+        public static bool LeaveHornsToTheDuty()
+        {
+            if (!InCrucible)
+            {
+                _crucibleLogged = false;
+                return false;
+            }
+
+            if (!_crucibleLogged)
+            {
+                _crucibleLogged = true;
+                Logger.WriteInfo("[Beastmaster] Crucible of the Unbroken: the duty assigns the battlehorns, so the slots are left alone and a familiar is summoned only in a fight.");
+            }
+
+            return true;
+        }
+
         /// <summary>Milliseconds left on the lit Heart, 0 when none.</summary>
         public static double HeartMsLeft => CurrentHeart == null ? 0 : Gauge.InnerCompassTimer.TotalMilliseconds;
 
@@ -507,7 +533,7 @@ namespace Magitek.Utilities.Routines
         /// </summary>
         public static void AssignPactsToEmptyHorns()
         {
-            if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut)
+            if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;

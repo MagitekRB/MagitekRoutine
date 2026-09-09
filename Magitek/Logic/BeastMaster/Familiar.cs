@@ -21,6 +21,10 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.SummonFamiliar || BeastMasterRoutine.FamiliarOut)
                 return false;
 
+            // On the Crucible board a horn does nothing but upset the duty; inside a fight the horns are its own.
+            if (BeastMasterRoutine.LeaveHornsToTheDuty() && !Core.Me.InCombat)
+                return false;
+
             // A horn just blown, by the routine or by hand, is a familiar on its way: no second order on top of it.
             if (BeastMasterRoutine.HornJustBlown)
                 return false;
