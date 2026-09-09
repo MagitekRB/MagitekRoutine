@@ -281,10 +281,11 @@ namespace Magitek.Logic.BeastMaster
                     if (!BeastMasterRoutine.TrickContinuesChain)
                         return false;
                 }
-                else if (BeastMasterRoutine.PetTpFull)
+                else if (BeastMasterRoutine.PetTpFull && BeastMasterRoutine.Tp < LoneTrickOurTpBelow)
                 {
-                    // Nothing lit and the familiar bar is full: every further auto-attack is lost, so the Trick
-                    // goes out on its own and opens a Heart our axe answers if our TP allows.
+                    // Nothing lit, the familiar bar is full and our TP is far from a pair: every further
+                    // auto-attack is lost, so the Trick goes out on its own. With our TP nearer, the same Trick
+                    // inside a pair is worth far more than the few auto-attacks the wait loses.
                 }
                 else if (BeastMasterRoutine.NaturalPreferred)
                 {
@@ -396,6 +397,7 @@ namespace Magitek.Logic.BeastMaster
         }
 
         private const int CheerOverflowAllowed = 40;
+        private const int LoneTrickOurTpBelow = 40;
 
         public static async Task<bool> RallyingCheer()
         {
@@ -410,14 +412,16 @@ namespace Magitek.Logic.BeastMaster
             if (natural < 1)
                 return false;
 
-            // Only when a pair is waiting on the familiar, whatever the stacks: spent at the cap next to Rally the
-            // 240 went into a full bar, and the lone Trick that followed consumed a Universality window (dummy,
-            // 2026-09-09). A fourth Natural stack lost is cheaper than that. A little overflow is allowed.
-            if (!BeastMasterRoutine.PairWaitingOnFamiliar)
-                return false;
-
+            // A Trick scales with the familiar TP it spends (about 880 at 100-149, 1,500 at 200-249, 1,800 at 250
+            // on the dummy, 2026-09-09), so every point Cheer adds is damage as long as the bar does not overflow:
+            // the moment is right after a Trick has landed, into an empty bar, with one stack or three. The
+            // pending gap after a Trick order is skipped, since that Trick has already taken its TP. A pair
+            // waiting on the familiar takes it whatever the bar reads, within the same headroom.
             var gain = 30 + 70 * natural;
             if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
+                return false;
+
+            if (!BeastMasterRoutine.PairWaitingOnFamiliar && (!BeastMasterRoutine.TrickSettled || BeastMasterRoutine.FamiliarRetreating))
                 return false;
 
             if (!await Spells.RallyingCheer.Cast(Core.Me))

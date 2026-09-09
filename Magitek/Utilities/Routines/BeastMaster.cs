@@ -53,9 +53,11 @@ namespace Magitek.Utilities.Routines
         /// in the moment after a Trick order, before its Heart shows: the familiar TP reads zero there and a Cheer
         /// in that gap refilled a bar that had just been spent (dummy, 2026-09-09).
         /// </summary>
+        /// <summary>The last Trick order has had all the time the familiar needs to act on it.</summary>
+        public static bool TrickSettled => MsSinceTrick > TrickLandingMs + 2000;
+
         public static bool PairWaitingOnFamiliar =>
-            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart
-            && MsSinceTrick > TrickLandingMs + 2000
+            FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart && TrickSettled
             && !HasTpFor(Spells.Trick) && Axes.Any(a => a != null && a.Cost <= 100 && HasTpFor(a));
 
         public static bool PetTpFull => Gauge.PetTP >= TpCap;
