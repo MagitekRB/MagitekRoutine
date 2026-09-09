@@ -51,6 +51,8 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            if (FamiliarAffinity != null)
+                _lastFamiliarAffinity = FamiliarAffinity;
             TrackWaveringHeart();
             TrackCaptureHold();
 
@@ -121,6 +123,10 @@ namespace Magitek.Utilities.Routines
         }
 
         private static Gauge.InnerCompassState _compassBeforeWavering = Gauge.InnerCompassState.None;
+
+        // Remembered past the retreat: a Parting Blow can land between the finishing hit and the bot seeing
+        // Wavering Heart, and the credit still needs the colour of the beast that was out.
+        private static string _lastFamiliarAffinity;
 
         // A Heart takes a moment to appear after our own axe; until it does, the axe just cast says what the Heart
         // will be, so the follow-up is chosen right instead of restarting the chain.
@@ -228,8 +234,15 @@ namespace Magitek.Utilities.Routines
             // Spinning Axe finished (dummy, 2026-09-09).
             var before = _compassBeforeWavering;
             var heart = HeartOf(before);
-            var ours = before == Gauge.InnerCompassState.Sunstrider || before == Gauge.InnerCompassState.Moonstalker
-                || (heart != null && heart == FamiliarAffinity);
+            var window = before == Gauge.InnerCompassState.Sunstrider || before == Gauge.InnerCompassState.Moonstalker;
+
+            // Inside a window either our 250 TP axe or the Trick of the familiar can act, and the Trick did on
+            // 2026-09-09 (it consumed a Sunstrider window as chain link 2, logged as Universality): ours only if
+            // our 250 axe was noted moments ago.
+            var ours = window
+                ? (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker)
+                    && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < 3000
+                : heart != null && heart == _lastFamiliarAffinity;
 
             string finisher = null;
             if (ours)
@@ -248,7 +261,7 @@ namespace Magitek.Utilities.Routines
                 NoteInstinct(FamiliarAffinity);
             }
 
-            var by = ours ? (heart == null ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
+            var by = ours ? (window ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
             Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
         }
 
