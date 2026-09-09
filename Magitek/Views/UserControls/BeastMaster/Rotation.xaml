@@ -23,6 +23,11 @@
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Tempered_Release}" IsChecked="{Binding BeastMasterSettings.UseTemperedRelease, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Use_TTD}" IsChecked="{Binding BeastMasterSettings.UseTTD, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                            <controls:Numeric MaxValue="100000" MinValue="1" Value="{Binding BeastMasterSettings.SaveIfEnemyDyingWithin, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Seconds}" />
+                        </StackPanel>
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_TR_Knockbacks}" IsChecked="{Binding BeastMasterSettings.TemperedReleaseKnockbacksInParty, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>

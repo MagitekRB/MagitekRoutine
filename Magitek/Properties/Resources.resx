@@ -5617,6 +5617,9 @@
   <data name="BeastMaster_Content_Tempered_Release" xml:space="preserve">
     <value>Tempered Release (the familiar's controlled ability)</value>
   </data>
+  <data name="BeastMaster_Content_Use_TTD" xml:space="preserve">
+    <value>Hold damaging and buffing controlled abilities when the enemy will die within</value>
+  </data>
   <data name="BeastMaster_Content_TR_Knockbacks" xml:space="preserve">
     <value>Allow knockback and pull-in controlled abilities in a party</value>
   </data>

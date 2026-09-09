@@ -5850,6 +5850,9 @@
   <data name="BeastMaster_Content_Tempered_Release" xml:space="preserve">
     <value>调驯解放（宠物的受控技能）</value>
   </data>
+  <data name="BeastMaster_Content_Use_TTD" xml:space="preserve">
+    <value>当敌人将在以下秒数内死亡时，保留伤害与增益类操控技能</value>
+  </data>
   <data name="BeastMaster_Content_TR_Knockbacks" xml:space="preserve">
     <value>组队时允许使用击退和拉拽类的操控技能</value>
   </data>

@@ -2025,6 +2025,15 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Hold damaging and buffing controlled abilities when the enemy will die within.
+        /// </summary>
+        public static string BeastMaster_Content_Use_TTD {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Use_TTD", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Borrow (take the familiar's kinship).
         /// </summary>
         public static string BeastMaster_Content_Borrow {
