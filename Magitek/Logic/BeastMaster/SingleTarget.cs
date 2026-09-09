@@ -93,6 +93,11 @@ namespace Magitek.Logic.BeastMaster
                 return true;
             }
 
+            // The right axe exists but cannot go now (its own 5 s recast, or TP): while the Heart still has time,
+            // waiting for it beats throwing another axe into a lesser, non-intentional pair.
+            if (axe != null && axe.IsKnown() && heart != null && BeastMasterRoutine.HeartMsLeft > 1500)
+                return false;
+
             // Nothing to pair: any axe with TP. Once the axes have turned at 50 this opens a Sunstrider or Moonstalker
             // window for Universality; the rushing forms go last.
             foreach (var candidate in BeastMasterRoutine.Axes.OrderBy(a => a != null && (a.Id == Spells.BrutalRage.Id || a.Id == Spells.HawkishTalons.Id) ? 1 : 0))
