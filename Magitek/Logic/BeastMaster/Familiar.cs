@@ -268,17 +268,23 @@ namespace Magitek.Logic.BeastMaster
             if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
                 return false;
 
-            // The familiar bar is full: every further auto-attack is lost, so the Trick goes out on its own. It
-            // opens a Heart our axe answers if our TP allows; if not, it was TP that had nowhere else to go.
             var affinity = BeastMasterRoutine.FamiliarAffinity;
-            if (affinity != null && !BeastMasterRoutine.PetTpFull)
+            if (affinity != null)
             {
                 var heart = BeastMasterRoutine.EffectiveHeart;
                 if (heart != null)
                 {
-                    // Another Heart is lit: Trick would restart the chain instead of continuing it.
+                    // Another Heart is lit, or a Sunstrider or Moonstalker window is open: a Trick that does not
+                    // continue the chain restarts it, and inside a window it consumes the window as a link (a
+                    // lone Trick at a full bar did, and cost three Universalities in one dummy run, 2026-09-09).
+                    // This holds whatever the familiar bar reads.
                     if (!BeastMasterRoutine.TrickContinuesChain)
                         return false;
+                }
+                else if (BeastMasterRoutine.PetTpFull)
+                {
+                    // Nothing lit and the familiar bar is full: every further auto-attack is lost, so the Trick
+                    // goes out on its own and opens a Heart our axe answers if our TP allows.
                 }
                 else if (BeastMasterRoutine.NaturalPreferred)
                 {
@@ -404,13 +410,14 @@ namespace Magitek.Logic.BeastMaster
             if (natural < 1)
                 return false;
 
-            // A little overflow is allowed, or three stacks (240) could never go out: the familiar is rarely under
-            // ten TP.
-            var gain = 30 + 70 * natural;
-            if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
+            // Only when a pair is waiting on the familiar, whatever the stacks: spent at the cap next to Rally the
+            // 240 went into a full bar, and the lone Trick that followed consumed a Universality window (dummy,
+            // 2026-09-09). A fourth Natural stack lost is cheaper than that. A little overflow is allowed.
+            if (!BeastMasterRoutine.PairWaitingOnFamiliar)
                 return false;
 
-            if (!BeastMasterRoutine.PairWaitingOnFamiliar && natural < 3)
+            var gain = 30 + 70 * natural;
+            if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
                 return false;
 
             if (!await Spells.RallyingCheer.Cast(Core.Me))
