@@ -51,15 +51,18 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
-            if (FamiliarAffinity != null)
-                _lastFamiliarAffinity = FamiliarAffinity;
             TrackWaveringHeart();
             TrackCaptureHold();
 
-            // The compass state a pair consumes says who finished it; kept from the pulse before Wavering Heart.
+            // The compass state a pair consumes says who finished it; kept from the pulse before Wavering Heart,
+            // together with the colour of the beast that was out then (a swap or a Parting Blow can replace it
+            // before the bot sees Wavering Heart).
             var compass = Gauge.InnerCompass;
             if (compass != Gauge.InnerCompassState.Wavering && compass != Gauge.InnerCompassState.None)
+            {
                 _compassBeforeWavering = compass;
+                _familiarBeforeWavering = FamiliarAffinity;
+            }
 
             if (!FamiliarOut)
             {
@@ -124,9 +127,7 @@ namespace Magitek.Utilities.Routines
 
         private static Gauge.InnerCompassState _compassBeforeWavering = Gauge.InnerCompassState.None;
 
-        // Remembered past the retreat: a Parting Blow can land between the finishing hit and the bot seeing
-        // Wavering Heart, and the credit still needs the colour of the beast that was out.
-        private static string _lastFamiliarAffinity;
+        private static string _familiarBeforeWavering;
 
         // A Heart takes a moment to appear after our own axe; until it does, the axe just cast says what the Heart
         // will be, so the follow-up is chosen right instead of restarting the chain.
@@ -242,7 +243,7 @@ namespace Magitek.Utilities.Routines
             var ours = window
                 ? (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker)
                     && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < 3000
-                : heart != null && heart == _lastFamiliarAffinity;
+                : heart != null && heart == _familiarBeforeWavering;
 
             string finisher = null;
             if (ours)
