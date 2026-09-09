@@ -54,7 +54,7 @@ namespace Magitek.Utilities.Routines
         /// in that gap refilled a bar that had just been spent (dummy, 2026-09-09).
         /// </summary>
         /// <summary>The last Trick order has had all the time the familiar needs to act on it.</summary>
-        public static bool TrickSettled => MsSinceTrick > TrickLandingMs + 2000;
+        public static bool TrickSettled => TrickActed || MsSinceTrick > TrickLandingMs + 2000;
 
         public static bool PairWaitingOnFamiliar =>
             FamiliarOut && !FamiliarRetreating && CurrentHeart == null && !WaveringHeart && TrickSettled
@@ -93,6 +93,7 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            TrackTrickActed();
             TrackWaveringHeart();
             TrackCaptureHold();
 
@@ -186,7 +187,22 @@ namespace Magitek.Utilities.Routines
         /// out. Keyed on the order's own time, not on "the last spell was Trick": a Smash Axe in between made the
         /// routine forget the order and open a new chain with the wrong affinity (six wrong-order pairs, 2026-09-08).
         /// </summary>
-        public static bool TrickPending => CurrentHeart == null && MsSinceTrick < TrickLandingMs;
+        public static bool TrickPending => !TrickActed && CurrentHeart == null && MsSinceTrick < TrickLandingMs;
+
+        // The order has visibly been acted on: the Heart of the familiar showed (Trick first) or the pair it
+        // finished is resolving (axe first). Seen within the landing window, it ends the wait at once; the
+        // window itself is only the fallback for a Trick the bot never sees land.
+        private static System.DateTime _trickActedFor = System.DateTime.MinValue;
+        public static bool TrickActed => LastTrickAt != System.DateTime.MinValue && _trickActedFor == LastTrickAt;
+
+        private static void TrackTrickActed()
+        {
+            if (_trickActedFor == LastTrickAt || MsSinceTrick > TrickLandingMs + 2000)
+                return;
+            var heart = CurrentHeart;
+            if (WaveringHeart || (heart != null && heart == FamiliarAffinity))
+                _trickActedFor = LastTrickAt;
+        }
 
         // How a combo resolves (ACT, 76 intentional combos on 2026-09-08): the finishing skill consumes the Heart and
         // the compass reads Wavering; the second half of the combo damage lands 2.1 s later, Wavering clears, and a
