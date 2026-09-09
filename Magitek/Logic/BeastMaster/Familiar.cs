@@ -308,6 +308,22 @@ namespace Magitek.Logic.BeastMaster
             if (!another)
                 return false;
 
+            // Three horns on a 90 s recast that starts at the retreat allow one summon per 45 s on average however
+            // fast the exits come. Exiting sooner only bunches them: two beasts out ten seconds each, then one
+            // stranded for eighty with its Vantage long gone (dummy, 2026-09-09). Holding each beast for the
+            // interval keeps every exit under Vantage. A target that will die inside the interval is the
+            // exception, and so is a Vantage about to run out.
+            var hold = BeastMasterSettings.Instance.PartingBlowSpacingSeconds;
+            var left = hold - BeastMasterRoutine.FamiliarOutSeconds;
+            if (hold > 0 && left > 0)
+            {
+                var vantageEnding = Core.Me.HasAura(Auras.LingeringVantage) && !Core.Me.HasAura(Auras.LingeringVantage, false, 3000);
+                var ttd = Core.Me.CurrentTarget?.CombatTimeLeft() ?? 0;
+                var diesFirst = ttd > 0 && ttd < left;
+                if (!vantageEnding && !diesFirst)
+                    return false;
+            }
+
             return await Spells.PartingBlow.Cast(Core.Me.CurrentTarget);
         }
 
