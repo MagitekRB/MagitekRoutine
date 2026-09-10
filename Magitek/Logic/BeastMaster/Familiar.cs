@@ -43,6 +43,43 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
+        // Away is instant and the familiar takes a moment to leave; the next order waits for that.
+        private static System.DateTime _awayAt = System.DateTime.MinValue;
+        private const int AwayRetryMs = 5000;
+
+        /// <summary>
+        /// Out of combat, a familiar whose One with Nature is spent goes Away and the horn brings it back with a fresh
+        /// one, so every pull opens with Tempered Release (Icy Veins, 2026-09-09: the cooldowns reset while the horn
+        /// itself is not on cooldown, which a swap or a Parting Blow would have started). Only with an enemy near
+        /// enough that a pull is coming, and never in the Crucible, where the horns are the duty's.
+        /// </summary>
+        public static bool AwayReset()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.AwayResetBetweenPulls || !settings.SummonFamiliar || !BeastMasterRoutine.FamiliarOut || Core.Me.InCombat)
+                return false;
+
+            if (Core.Me.HasAura(Auras.OneWithNature) || BeastMasterRoutine.LeaveHornsToTheDuty())
+                return false;
+
+            if ((System.DateTime.Now - _awayAt).TotalMilliseconds < AwayRetryMs)
+                return false;
+
+            var horn = BeastMasterRoutine.ActiveHorn;
+            if (horn == null || horn.Cooldown != System.TimeSpan.Zero)
+                return false;
+
+            if (!Core.Me.EnemiesNearbyOoc(settings.AwayResetRange).Any())
+                return false;
+
+            if (!PetManager.DoAction("Away", Core.Me))
+                return false;
+
+            _awayAt = System.DateTime.Now;
+            Logger.WriteInfo("[Beastmaster] Away: One with Nature is spent and a pull is near; the horn brings the familiar back with a fresh one.");
+            return true;
+        }
+
         // A horn blown over the familiar out swaps it (the client accepts any horn but the one whose beast is already
         // out; seen out of combat 2026-09-08, one-second cast, cancelled by moving). The Parting Blow route (retreat,
         // then the horn) is the fallback when the client refuses, and takes longer; the Heart lasts seven seconds.

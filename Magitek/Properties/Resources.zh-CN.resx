@@ -5895,6 +5895,9 @@
   <data name="BeastMaster_Content_Parting_Blow_Spacing" xml:space="preserve">
     <value>每只魔物至少留出</value>
   </data>
+  <data name="BeastMaster_Content_Away_Reset" xml:space="preserve">
+    <value>拉怪前重新召唤以刷新调驯解放，当敌人在此距离内</value>
+  </data>
   <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
     <value>战斗中当其他魔兽能接续连击时，通过战角更换魔兽</value>
   </data>

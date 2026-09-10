@@ -26,7 +26,11 @@ namespace Magitek.Rotations
             await Casting.CheckForSuccessfulCast();
             BeastMasterRoutine.RefreshVars();
 
-            // A familiar out before the pull: the horn's cooldown only runs from a retreat in combat.
+            // A familiar out before the pull: the horn's cooldown only runs from a retreat in combat. A familiar
+            // whose One with Nature is spent goes Away first so the horn brings it back with a fresh one.
+            if (Familiar.AwayReset())
+                return true;
+
             return await Familiar.Summon();
         }
 

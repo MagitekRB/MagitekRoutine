@@ -27,6 +27,17 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(1)]
         public int PreferredBattlehorn { get; set; }
 
+        // Out of combat, a familiar whose One with Nature is spent goes Away before the next pull and the horn brings
+        // it back with a fresh one (its cooldowns reset while the horn itself is not on cooldown). Never in the Crucible.
+        [Setting]
+        [DefaultValue(true)]
+        public bool AwayResetBetweenPulls { get; set; }
+
+        // How near an enemy has to be, out of combat, for the reset to count a pull as coming.
+        [Setting]
+        [DefaultValue(30)]
+        public int AwayResetRange { get; set; }
+
         [Setting]
         [DefaultValue(true)]
         public bool UseTemperedRelease { get; set; }

@@ -2169,6 +2169,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resummon before a pull for a fresh Tempered Release when an enemy is within.
+        /// </summary>
+        public static string BeastMaster_Content_Away_Reset {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Away_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Swap familiars with the battlehorns mid-fight when another beast continues the chain.
         /// </summary>
         public static string BeastMaster_Content_Battlehorn_Swaps {
