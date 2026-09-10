@@ -447,14 +447,7 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterRoutine.PairWaitingOnFamiliar && (!BeastMasterRoutine.TrickSettled || BeastMasterRoutine.FamiliarRetreating))
                 return false;
 
-            if (!await Spells.RallyingCheer.Cast(Core.Me))
-
-                return false;
-
-
-            BeastMasterRoutine.SpentNatural();
-
-            return true;
+            return await Spells.RallyingCheer.Cast(Core.Me);
         }
     }
 }
