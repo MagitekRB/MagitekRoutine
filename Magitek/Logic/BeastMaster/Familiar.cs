@@ -61,6 +61,10 @@ namespace Magitek.Logic.BeastMaster
             if (!settings.UseBattlehornSwaps || !settings.UseTrick || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
                 return false;
 
+            // A chain swap puts another beast in front of the piece; in the Crucible the beast out stays out.
+            if (BeastMasterRoutine.InCrucible)
+                return false;
+
             if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
                 return false;
 
@@ -335,6 +339,24 @@ namespace Magitek.Logic.BeastMaster
             var another = BeastMasterRoutine.AnotherHornReady;
             if (!another)
                 return false;
+
+            // In the Crucible the three beasts in the slots are the node's share of a finite roster and their HP
+            // carries from node to node (first run 2026-09-09: the field cycle put all three in front of the piece
+            // every node and one died). The familiar out stays out; it leaves only when its health says so and a
+            // horn can bring another. No spacing exit, no time-to-death exit.
+            if (BeastMasterRoutine.InCrucible)
+            {
+                var pet = Core.Me.Pet;
+                if (pet == null || pet.CurrentHealthPercent > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                    return false;
+
+                if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                    return false;
+
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + pet.CurrentHealthPercent.ToString("0") + " % leaves; the next horn brings a healthier beast.");
+                BeastMasterRoutine.NotePartingBlow();
+                return true;
+            }
 
             // Three horns on a 90 s recast that starts at the retreat allow one summon per 45 s on average however
             // fast the exits come. Exiting sooner only bunches them: two beasts out ten seconds each, then one

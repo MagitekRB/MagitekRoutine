@@ -162,6 +162,12 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(60.0f)]
         public float DefensiveKinshipHealthPercent { get; set; }
 
+        // Crucible of the Unbroken: the familiar out leaves only below this health, and only when another horn
+        // can bring a beast. HP carries from node to node there, so the field horn cycle is off.
+        [Setting]
+        [DefaultValue(40f)]
+        public float CrucibleSwapHealthPercent { get; set; }
+
         #endregion
 
         #region Master's Bestiary

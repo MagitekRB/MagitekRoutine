@@ -5719,4 +5719,7 @@
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>Defensive kinship actions when health is below</value>
   </data>
+  <data name="BeastMaster_Content_Crucible_Swap" xml:space="preserve">
+    <value>In the Crucible, swap the familiar out below</value>
+  </data>
 </root>

@@ -2322,6 +2322,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In the Crucible, swap the familiar out below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Swap {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Swap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Defensive kinship actions when health is below.
         /// </summary>
         public static string BeastMaster_Content_Defensive_Health {
