@@ -346,8 +346,20 @@ namespace Magitek.Logic.BeastMaster
             // horn can bring another. No spacing exit, no time-to-death exit.
             if (BeastMasterRoutine.InCrucible)
             {
+                // A beast already on its way out is not read again: its object vanishes mid-retreat and the health
+                // read threw out of the rotation (Ice Golem, run 3, 2026-09-10).
+                if (BeastMasterRoutine.FamiliarRetreating)
+                    return false;
+
                 var pet = Core.Me.Pet;
-                if (pet == null || pet.CurrentHealthPercent > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                if (pet == null || !pet.IsValid)
+                    return false;
+
+                float petHealth;
+                try { petHealth = pet.CurrentHealthPercent; }
+                catch { return false; }
+
+                if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
                     return false;
 
                 // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
@@ -356,15 +368,16 @@ namespace Magitek.Logic.BeastMaster
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
                 if (horn != null && await horn.Cast(Core.Me))
                 {
-                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + pet.CurrentHealthPercent.ToString("0") + " % is swapped out by the horn.");
+                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
                     BeastMasterRoutine.NoteHornCast(horn);
+                    BeastMasterRoutine.NotePartingBlow();
                     return true;
                 }
 
                 if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + pet.CurrentHealthPercent.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
                 BeastMasterRoutine.NotePartingBlow();
                 return true;
             }
