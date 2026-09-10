@@ -237,10 +237,10 @@ namespace Magitek.Utilities.Routines
             _lastInstinctAt = System.DateTime.Now;
         }
 
-        // Mastered Instinct (Wild Heart III, level 28) is read off the gauge. Natural Instinct (Wild Heart IV,
-        // level 40) is not exposed, so it is still estimated: a pair the familiar finishes adds one, three at most.
+        // Mastered Instinct (Wild Heart III, level 28) and Natural Instinct (Wild Heart IV, level 40) are read off
+        // the gauge (RebornBuddy 1.0.915).
         public static int MasteredInstinct => Gauge.MasteredInstinct;
-        public static int NaturalInstinct;
+        public static int NaturalInstinct => Gauge.NaturalInstinct;
         private const int InstinctStacksMax = 3;
 
         /// <summary>
@@ -264,8 +264,6 @@ namespace Magitek.Utilities.Routines
 
         /// <summary>The familiar is here, not leaving, and holds the TP for its Trick.</summary>
         public static bool FamiliarCanAnswer => FamiliarAffinity != null && !FamiliarRetreating && HasTpFor(Spells.Trick);
-
-        public static void SpentNatural() => NaturalInstinct = 0;
 
         /// <summary>
         /// The affinity the next link has to follow: the Heart lit now, the one about to be lit by an axe just
@@ -344,12 +342,11 @@ namespace Magitek.Utilities.Routines
             }
             else
             {
-                NaturalInstinct = System.Math.Min(InstinctStacksMax, NaturalInstinct + 1);
                 NoteInstinct(FamiliarAffinity);
             }
 
             var by = ours ? (window ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
-            Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural estimated).");
+            Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural).");
         }
 
         /// <summary>
