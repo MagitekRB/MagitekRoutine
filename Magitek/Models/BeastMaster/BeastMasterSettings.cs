@@ -168,6 +168,24 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(40f)]
         public float CrucibleSwapHealthPercent { get; set; }
 
+        // Crucible enmity control. Snarl puts the familiar in front of the piece and makes it take every hit meant
+        // for you for 45 s; Challenge takes the piece back onto you and cancels that cover.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSnarlAndChallenge { get; set; }
+
+        [Setting]
+        [DefaultValue(50f)]
+        public float CrucibleSnarlFamiliarHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(70f)]
+        public float CrucibleSnarlPlayerHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(30f)]
+        public float CrucibleChallengeFamiliarHealthPercent { get; set; }
+
         #endregion
 
         #region Master's Bestiary

@@ -43,6 +43,59 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
+        /// <summary>
+        /// Crucible enmity control. The pieces go for the familiar by default and hit it four to six times harder than
+        /// they hit you (first run 2026-09-09), so the beast is the tank. Snarl while the beast is healthy and you are
+        /// low or being targeted: it takes every hit meant for you for 45 s. Challenge when the beast is the one
+        /// running out, so the piece turns to you before it dies. Both are granted by the duty and never read as
+        /// known, so they go through the action manager on a castable check alone.
+        /// </summary>
+        public static bool CrucibleEnmity()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseSnarlAndChallenge || !BeastMasterRoutine.InCrucible || !Core.Me.InCombat)
+                return false;
+
+            var enemy = Core.Me.CurrentTarget as ff14bot.Objects.BattleCharacter;
+            var pet = Core.Me.Pet;
+            if (enemy == null || pet == null)
+                return false;
+
+            var petHealth = pet.CurrentHealthPercent;
+            var myHealth = Core.Me.CurrentHealthPercent;
+            var targeted = Core.Me.BeingTargeted();
+
+            if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && !Core.Me.HasAura(Auras.Covered)
+                && (myHealth <= settings.CrucibleSnarlPlayerHealthPercent || targeted)
+                && CastDutyAction(Spells.Snarl, enemy))
+            {
+                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %" + (targeted ? " (targeted)" : "") + ".");
+                return true;
+            }
+
+            if (petHealth <= settings.CrucibleChallengeFamiliarHealthPercent && myHealth > petHealth && !targeted
+                && CastDutyAction(Spells.Challenge, enemy))
+            {
+                Logger.WriteInfo("[Beastmaster] Challenge: " + pet.EnglishName + " at " + petHealth.ToString("0") + " %, you at " + myHealth.ToString("0") + " %: the piece turns to you.");
+                return true;
+            }
+
+            return false;
+        }
+
+        // Duty actions bypass the routine's known-spell gate: castable now is the only test the client offers.
+        private static bool CastDutyAction(ff14bot.Objects.SpellData spell, ff14bot.Objects.GameObject target)
+        {
+            if (!ActionManager.CanCast(spell, target))
+                return false;
+
+            if (!ActionManager.DoAction(spell, target))
+                return false;
+
+            Logger.WriteInfo("[Magitek] Cast: " + spell.Name);
+            return true;
+        }
+
         // A horn blown over the familiar out swaps it (the client accepts any horn but the one whose beast is already
         // out; seen out of combat 2026-09-08, one-second cast, cancelled by moving). The Parting Blow route (retreat,
         // then the horn) is the fallback when the client refuses, and takes longer; the Heart lasts seven seconds.

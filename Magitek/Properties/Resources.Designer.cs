@@ -2322,6 +2322,42 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Challenge when the familiar is below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Challenge {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Challenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl and Challenge in the Crucible.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Enmity {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Enmity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl while the familiar is above.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_Familiar {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_Familiar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to % and you are below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_Player {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In the Crucible, swap the familiar out below.
         /// </summary>
         public static string BeastMaster_Content_Crucible_Swap {
