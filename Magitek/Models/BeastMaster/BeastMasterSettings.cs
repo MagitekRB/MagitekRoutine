@@ -165,7 +165,7 @@ namespace Magitek.Models.BeastMaster
         // Crucible of the Unbroken: the familiar out leaves only below this health, and only when another horn
         // can bring a beast. HP carries from node to node there, so the field horn cycle is off.
         [Setting]
-        [DefaultValue(40f)]
+        [DefaultValue(55f)]
         public float CrucibleSwapHealthPercent { get; set; }
 
         #endregion

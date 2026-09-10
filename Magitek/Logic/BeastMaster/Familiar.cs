@@ -350,10 +350,21 @@ namespace Magitek.Logic.BeastMaster
                 if (pet == null || pet.CurrentHealthPercent > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
                     return false;
 
+                // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
+                // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
+                // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
+                var horn = BeastMasterRoutine.AnotherReadyHorn;
+                if (horn != null && await horn.Cast(Core.Me))
+                {
+                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + pet.CurrentHealthPercent.ToString("0") + " % is swapped out by the horn.");
+                    BeastMasterRoutine.NoteHornCast(horn);
+                    return true;
+                }
+
                 if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + pet.CurrentHealthPercent.ToString("0") + " % leaves; the next horn brings a healthier beast.");
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + pet.CurrentHealthPercent.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
                 BeastMasterRoutine.NotePartingBlow();
                 return true;
             }
