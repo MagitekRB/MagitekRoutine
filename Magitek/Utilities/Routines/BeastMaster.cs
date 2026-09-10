@@ -237,10 +237,9 @@ namespace Magitek.Utilities.Routines
             _lastInstinctAt = System.DateTime.Now;
         }
 
-        // The gauge has no stack counts for Rally and Rallying Cheer, so they are still estimated: a combo we finish
-        // adds a Mastered Instinct (Wild Heart III, level 28), one the familiar finishes adds a Natural Instinct
-        // (Wild Heart IV, level 40), three of each at most.
-        public static int MasteredInstinct;
+        // Mastered Instinct (Wild Heart III, level 28) is read off the gauge. Natural Instinct (Wild Heart IV,
+        // level 40) is not exposed, so it is still estimated: a pair the familiar finishes adds one, three at most.
+        public static int MasteredInstinct => Gauge.MasteredInstinct;
         public static int NaturalInstinct;
         private const int InstinctStacksMax = 3;
 
@@ -266,7 +265,6 @@ namespace Magitek.Utilities.Routines
         /// <summary>The familiar is here, not leaving, and holds the TP for its Trick.</summary>
         public static bool FamiliarCanAnswer => FamiliarAffinity != null && !FamiliarRetreating && HasTpFor(Spells.Trick);
 
-        public static void SpentMastered() => MasteredInstinct = 0;
         public static void SpentNatural() => NaturalInstinct = 0;
 
         /// <summary>
@@ -338,8 +336,6 @@ namespace Magitek.Utilities.Routines
             string finisher = null;
             if (ours)
             {
-                // Universality is counted as ours; whether it pays a stack is not measured yet.
-                MasteredInstinct = System.Math.Min(InstinctStacksMax, MasteredInstinct + 1);
                 if (heart != null)
                 {
                     finisher = Affinity.Next(heart);
@@ -353,7 +349,7 @@ namespace Magitek.Utilities.Routines
             }
 
             var by = ours ? (window ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
-            Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural, estimated).");
+            Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural estimated).");
         }
 
         /// <summary>
@@ -620,6 +616,10 @@ namespace Magitek.Utilities.Routines
         // before the mark. Auto-attacks (ours and the familiar's) bring it to the threshold, and Capture is next.
         public static bool HoldingForCapture;
 
+        // A wanted beast at or above our level: auto-attacks alone never bring it to the threshold (a Morbol killed the
+        // character three times), so the basic combo takes it there while the familiar's burst stays holstered.
+        public static bool BasicComboForCapture;
+
         // The target the first Smash Axe went out on: that one hit is allowed, since auto-attack starts on it.
         public static uint EngagedTargetId;
         private static uint _holdLoggedFor;
@@ -631,7 +631,10 @@ namespace Magitek.Utilities.Routines
             // Twelve species are only in the bestiary as a duty boss (Karlabos in Sastasha, the Zu in Pharos Sirius),
             // so Capture goes out on a boss; the hold does not, since a boss dies by the party's damage, not ours.
             var boss = wanted && target.IsBoss();
-            HoldingForCapture = BeastMasterSettings.Instance.HoldForCapture && Core.Me.InCombat && wanted && !boss;
+            var belowUs = wanted && target.ClassLevel < Core.Me.ClassLevel;
+            var holdWanted = BeastMasterSettings.Instance.HoldForCapture && Core.Me.InCombat && wanted && !boss;
+            HoldingForCapture = holdWanted && belowUs;
+            BasicComboForCapture = holdWanted && !belowUs;
 
             if (target == null || _holdLoggedFor == target.ObjectId)
                 return;
@@ -640,6 +643,11 @@ namespace Magitek.Utilities.Routines
             if (HoldingForCapture)
             {
                 Logger.WriteInfo("[Beastmaster] Holding weaponskills on " + target.EnglishName + " until the mark is on it (auto-attacks only).");
+                return;
+            }
+            if (BasicComboForCapture)
+            {
+                Logger.WriteInfo("[Beastmaster] Basic combo only on " + target.EnglishName + " until the mark is on it (level " + target.ClassLevel + " against your " + Core.Me.ClassLevel + ").");
                 return;
             }
 

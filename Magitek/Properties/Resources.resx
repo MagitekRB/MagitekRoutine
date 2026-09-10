@@ -5708,7 +5708,7 @@
     <value>Assign new pacts to empty battlehorn slots</value>
   </data>
   <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
-    <value>Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start)</value>
+    <value>Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start); a beast at or above your level gets the basic combo instead</value>
   </data>
   <data name="BeastMaster_Content_Capture_Health" xml:space="preserve">
     <value>Capture when the target's health is below</value>

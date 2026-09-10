@@ -91,6 +91,10 @@ namespace Magitek.Rotations
                 return true;
             }
 
+            // At or above our level: the basic combo brings it to the threshold, nothing that could burst it past.
+            if (BeastMasterRoutine.BasicComboForCapture)
+                return await SingleTarget.Combo();
+
             if (BeastMasterRoutine.GlobalCooldown.CanWeave())
             {
                 if (await Familiar.SpendOneWithNature()) return true;
