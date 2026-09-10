@@ -5731,6 +5731,9 @@
   <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
     <value>% and you are below</value>
   </data>
+  <data name="BeastMaster_Content_Crucible_Challenge_Player" xml:space="preserve">
+    <value>% and you are above</value>
+  </data>
   <data name="BeastMaster_Content_Crucible_Challenge" xml:space="preserve">
     <value>Challenge when the familiar is below</value>
   </data>

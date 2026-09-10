@@ -2333,6 +2333,15 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Snarl and Challenge in the Crucible.
         /// </summary>
+        public static string BeastMaster_Content_Crucible_Challenge_Player {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Challenge_Player", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl and Challenge in the Crucible.
+        /// </summary>
         public static string BeastMaster_Content_Crucible_Enmity {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Crucible_Enmity", resourceCulture);

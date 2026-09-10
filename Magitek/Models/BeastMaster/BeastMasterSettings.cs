@@ -179,12 +179,17 @@ namespace Magitek.Models.BeastMaster
         public float CrucibleSnarlFamiliarHealthPercent { get; set; }
 
         [Setting]
-        [DefaultValue(70f)]
+        [DefaultValue(40f)]
         public float CrucibleSnarlPlayerHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(30f)]
         public float CrucibleChallengeFamiliarHealthPercent { get; set; }
+
+        // Challenge only while you can hold the piece yourself.
+        [Setting]
+        [DefaultValue(60f)]
+        public float CrucibleChallengePlayerHealthPercent { get; set; }
 
         #endregion
 

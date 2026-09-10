@@ -45,10 +45,12 @@ namespace Magitek.Logic.BeastMaster
 
         /// <summary>
         /// Crucible enmity control. The pieces go for the familiar by default and hit it four to six times harder than
-        /// they hit you (first run 2026-09-09), so the beast is the tank. Snarl while the beast is healthy and you are
-        /// low or being targeted: it takes every hit meant for you for 45 s. Challenge when the beast is the one
-        /// running out, so the piece turns to you before it dies. Both are granted by the duty and never read as
-        /// known, so they go through the action manager on a castable check alone.
+        /// they hit you (first run 2026-09-09), so the beast is the tank without any help. Snarl is the emergency:
+        /// a covering beast takes its own hits AND every hit meant for you, and fired at every summon (the piece
+        /// targets you until the beast is out) it emptied a beast in thirty seconds (run 2: Drake 100 to 10 %, Buffalo
+        /// 100 to 6 %). So Snarl only when you are low and the beast is healthy. Challenge only when you can afford
+        /// it: the beast is low and still out, and you are healthy enough to hold the piece. Both are granted by the
+        /// duty and never read as known, so they go through the action manager on a castable check alone.
         /// </summary>
         public static bool CrucibleEnmity()
         {
@@ -63,17 +65,17 @@ namespace Magitek.Logic.BeastMaster
 
             var petHealth = pet.CurrentHealthPercent;
             var myHealth = Core.Me.CurrentHealthPercent;
-            var targeted = Core.Me.BeingTargeted();
 
-            if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && !Core.Me.HasAura(Auras.Covered)
-                && (myHealth <= settings.CrucibleSnarlPlayerHealthPercent || targeted)
-                && CastDutyAction(Spells.Snarl, enemy))
+            if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
+                && !Core.Me.HasAura(Auras.Covered) && CastDutyAction(Spells.Snarl, enemy))
             {
-                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %" + (targeted ? " (targeted)" : "") + ".");
+                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %.");
                 return true;
             }
 
-            if (petHealth <= settings.CrucibleChallengeFamiliarHealthPercent && myHealth > petHealth && !targeted
+            // A retreating or dead beast cannot be spared, and a beast at the swap threshold is leaving anyway.
+            if (petHealth > 0 && petHealth <= settings.CrucibleChallengeFamiliarHealthPercent && !BeastMasterRoutine.FamiliarRetreating
+                && myHealth >= settings.CrucibleChallengePlayerHealthPercent && !Core.Me.BeingTargeted()
                 && CastDutyAction(Spells.Challenge, enemy))
             {
                 Logger.WriteInfo("[Beastmaster] Challenge: " + pet.EnglishName + " at " + petHealth.ToString("0") + " %, you at " + myHealth.ToString("0") + " %: the piece turns to you.");

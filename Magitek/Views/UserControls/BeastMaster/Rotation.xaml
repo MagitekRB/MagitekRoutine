@@ -151,6 +151,8 @@
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Challenge}" />
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleChallengeFamiliarHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Challenge_Player}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleChallengePlayerHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                         </StackPanel>
                     </StackPanel>
