@@ -60,10 +60,14 @@ namespace Magitek.Logic.BeastMaster
 
             var enemy = Core.Me.CurrentTarget as ff14bot.Objects.BattleCharacter;
             var pet = Core.Me.Pet;
-            if (enemy == null || pet == null)
+            if (enemy == null || pet == null || !pet.IsValid)
                 return false;
 
-            var petHealth = pet.CurrentHealthPercent;
+            // The beast's object can vanish mid-read while it retreats; that is no reason to stop the rotation.
+            float petHealth;
+            try { petHealth = pet.CurrentHealthPercent; }
+            catch { return false; }
+
             var myHealth = Core.Me.CurrentHealthPercent;
 
             if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
