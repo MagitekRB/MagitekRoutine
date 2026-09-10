@@ -385,9 +385,8 @@ namespace Magitek.Logic.BeastMaster
         }
 
         /// <summary>
-        /// Rally spends the Mastered Instinct our combos built (40 TP, +70 per stack). Without the gauge the stacks
-        /// are estimated from the combos we finished; it goes out at the cap, or with two stacks when an axe is
-        /// waiting on TP.
+        /// Rally spends the Mastered Instinct our combos built (40 TP, +70 per stack). It goes out at the cap, or
+        /// with two stacks when an axe is waiting on TP.
         /// </summary>
         public static async Task<bool> Rally()
         {
@@ -417,11 +416,7 @@ namespace Magitek.Logic.BeastMaster
                     return false;
             }
 
-            if (!await Spells.Rally.Cast(Core.Me))
-                return false;
-
-            BeastMasterRoutine.SpentMastered();
-            return true;
+            return await Spells.Rally.Cast(Core.Me);
         }
 
         private const int CheerOverflowAllowed = 40;
