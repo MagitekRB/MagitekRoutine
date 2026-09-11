@@ -50,6 +50,8 @@ namespace Magitek.Models.BeastMaster
         public string Status { get; set; }
         public bool? Nullifiable { get; set; }
         public string StatusOn { get; set; }
+        // The board lists a piece's basic attack among its moves (the Voidmancer's Water); it is not an event.
+        public bool Basic { get; set; }
 
         /// <summary>A cast Soul Crush is worth spending on: the board says it can be stopped, or, unknown, it is long enough to try.</summary>
         public bool WorthInterrupting => Interruptible == true || (Interruptible == null && CastSeconds >= 3f);
