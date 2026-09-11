@@ -478,6 +478,20 @@ namespace Magitek.Utilities.Routines
 
         /// <summary>That horn, or null.</summary>
         public static SpellData AnotherReadyHorn => Battlehorns.FirstOrDefault(h => h != ActiveHorn && HornReady(h));
+        // Enemy buffs a dispel removes although the status sheet does not flag them dispellable: the Piscodemon
+        // Piece's Damage Up (1225, from its Clear Mind, 15 s) went at the Quelling Wave that hit it seven seconds in
+        // (Crucible, 2026-09-10 21:58). The sheet flag stays the first test; this list is the second.
+        private static readonly HashSet<uint> StrippableBuffs = new HashSet<uint> { 1225 };
+
+        /// <summary>A buff on the target worth a dispel: flagged by the sheet, or on the list above.</summary>
+        public static bool HasStrippableBuff(GameObject target)
+        {
+            var character = target as Character;
+            if (character == null || !character.IsValid)
+                return false;
+
+            return character.HasDispellableBuff() || character.CharacterAuras.Any(a => StrippableBuffs.Contains(a.Id));
+        }
 
         /// <summary>Another horn, off cooldown, whose beast carries this affinity.</summary>
         public static SpellData SwapHornFor(string affinity) =>

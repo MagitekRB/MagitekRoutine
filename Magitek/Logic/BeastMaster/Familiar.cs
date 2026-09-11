@@ -77,6 +77,9 @@ namespace Magitek.Logic.BeastMaster
 
             _awayAt = System.DateTime.Now;
             Logger.WriteInfo("[Beastmaster] Away: One with Nature is spent and a pull is near; the horn brings the familiar back with a fresh one.");
+            return true;
+        }
+
         /// <summary>
         /// Crucible enmity control. The pieces go for the familiar by default and hit it four to six times harder than
         /// they hit you (first run 2026-09-09), so the beast is the tank without any help. Snarl is the emergency:
@@ -280,7 +283,7 @@ namespace Magitek.Logic.BeastMaster
             {
                 case AbilityKind.Damage:
                     // A dispel is worth more with something to strip: give the fight a few seconds to show one.
-                    if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
+                    if (ability.Has("Dispel") && !BeastMasterRoutine.HasStrippableBuff(target) && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
                         return Timing.Later;
                     return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
@@ -523,7 +526,7 @@ namespace Magitek.Logic.BeastMaster
 
             var target = Core.Me.CurrentTarget;
             var outOfMelee = !target.WithinSpellRange(5);
-            if (!outOfMelee && !target.HasDispellableBuff())
+            if (!outOfMelee && !BeastMasterRoutine.HasStrippableBuff(target))
                 return false;
 
             return await Spells.QuellingWave.Cast(target);
