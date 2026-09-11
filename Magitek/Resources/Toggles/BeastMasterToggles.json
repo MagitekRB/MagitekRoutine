@@ -1,0 +1,26 @@
+[
+  {
+    "ToggleText": "Use Parting Blow",
+    "ToggleJob": "BeastMaster",
+    "ToggleShowOnOverlay": true,
+    "IsPvpToggle": false,
+    "ToggleChecked": true,
+    "Settings": [
+      {
+        "Name": "UsePartingBlow",
+        "Type": 1,
+        "BoolCheckedValue": true,
+        "BoolUncheckedValue": false,
+        "IntCheckedValue": 0,
+        "IntUncheckedValue": 0,
+        "FloatCheckedValue": 0.0,
+        "FloatUncheckedValue": 0.0
+      }
+    ],
+    "ExecuteToggleCommand": {},
+    "AddToggleSettingCommand": {},
+    "RemoveToggleSettingCommand": {},
+    "ToggleKey": 0,
+    "ToggleModifierKey": 0
+  }
+]

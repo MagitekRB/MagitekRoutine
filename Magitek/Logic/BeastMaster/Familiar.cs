@@ -222,16 +222,18 @@ namespace Magitek.Logic.BeastMaster
             var timing = release ? TemperedReleaseTiming() : Timing.Never;
 
             // One use per summon, so "not now" and "not at all" are different answers: a mitigation waiting for
-            // damage or a sleep waiting for company keeps One with Nature for its moment, and Borrow only takes it
-            // when the controlled ability is off, unknown, or ruled out (a knockback in a party), or when Borrow is
-            // preferred outright.
+            // damage or a sleep waiting for company keeps One with Nature for its moment. Borrow takes it when the
+            // controlled ability is off, unknown, or ruled out (a knockback in a party), or, with PreferBorrow, when
+            // no Kinship is up: one Borrow lasts 90 s and pauses while a familiar is out, so Tempered Release gets
+            // every summon after that until it lapses. Without this Tempered Release won every summon and Borrow
+            // never fired (0 casts in every log, 2026-09-09).
             //
             // Borrow is an order with nothing to aim: cast on self. Tempered Release is aimed the way the beast's
             // ability is: one centred on the familiar (Ultrasonics, the party buffs and mitigations) takes the order
             // on self, one aimed at an enemy (Necrotic Nectar, Petribreath and every cone, line or single-target hit)
             // only goes through with the order on that enemy; on self the client drops it without a word
             // (0 of 95 attempts, 2026-09-08). The catalogue's range tells the two apart.
-            if (borrow && (BeastMasterSettings.Instance.PreferBorrow || timing == Timing.Never))
+            if (borrow && (timing == Timing.Never || (BeastMasterSettings.Instance.PreferBorrow && !BeastMasterRoutine.AnyKinship)))
                 return await Spells.Borrow.Cast(Core.Me);
 
             if (timing == Timing.Now)

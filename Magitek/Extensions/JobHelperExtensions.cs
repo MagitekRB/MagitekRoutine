@@ -1,6 +1,7 @@
 ﻿using Magitek.Models;
 using Magitek.Models.Astrologian;
 using Magitek.Models.Bard;
+using Magitek.Models.BeastMaster;
 using Magitek.Models.BlackMage;
 using Magitek.Models.BlueMage;
 using Magitek.Models.Dancer;
@@ -95,6 +96,9 @@ namespace Magitek.Extensions
 
                 case "BlueMage":
                     return BlueMageSettings.Instance;
+
+                case "BeastMaster":
+                    return BeastMasterSettings.Instance;
             }
 
             return null;

@@ -79,9 +79,9 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(8)]
         public int TemperedReleaseSleepRadius { get; set; }
 
-        // One with Nature is spent by either Tempered Release or Borrow; when both are on, Borrow wins if this is set.
+        // One with Nature is spent by either Tempered Release or Borrow; with this set, Borrow wins whenever no Kinship is up.
         [Setting]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool PreferBorrow { get; set; }
 
         [Setting]
