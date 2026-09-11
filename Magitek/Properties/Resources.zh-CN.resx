@@ -5964,6 +5964,9 @@
   <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
     <value>% 且你的生命值低于</value>
   </data>
+  <data name="BeastMaster_Content_Crucible_Reactions" xml:space="preserve">
+    <value>在熔炉中应对棋子已收录的咏唱（打断、护皮、咆哮、减伤调驯解放）</value>
+  </data>
   <data name="BeastMaster_Content_Crucible_Challenge_Player" xml:space="preserve">
     <value>% 且你的生命值高于</value>
   </data>

@@ -5731,6 +5731,9 @@
   <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
     <value>% and you are below</value>
   </data>
+  <data name="BeastMaster_Content_Crucible_Reactions" xml:space="preserve">
+    <value>In the Crucible, answer the pieces' catalogued casts (interrupt, skin, Snarl, mitigating Tempered Release)</value>
+  </data>
   <data name="BeastMaster_Content_Crucible_Challenge_Player" xml:space="preserve">
     <value>% and you are above</value>
   </data>

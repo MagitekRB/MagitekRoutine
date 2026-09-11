@@ -2349,6 +2349,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In the Crucible, answer the pieces' catalogued casts.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Reactions {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Reactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Snarl while the familiar is above.
         /// </summary>
         public static string BeastMaster_Content_Crucible_Snarl_Familiar {

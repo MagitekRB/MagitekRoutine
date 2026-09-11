@@ -197,6 +197,13 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(60f)]
         public float CrucibleChallengePlayerHealthPercent { get; set; }
 
+        // Crucible cast reactions from the piece library: Soul Crush on a move the board marks interruptible, the
+        // borrowed skin before a hit aimed at you, Snarl so the beast takes a hit aimed at you, the beast's
+        // mitigating Tempered Release before a heavy hit aimed at it.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseCrucibleCastReactions { get; set; }
+
         #endregion
 
         #region Master's Bestiary

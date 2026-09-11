@@ -62,6 +62,9 @@ namespace Magitek.Rotations
             // Crucible: who the piece is hitting matters more than anything below.
             if (Familiar.CrucibleEnmity()) return true;
 
+            // Crucible: a catalogued cast gets its answer from the library (interrupt, skin, Snarl, mitigating TR).
+            if (await Familiar.CrucibleCastReaction()) return true;
+
             // The mark, the moment the beast is weak enough.
             if (await Capture.Mark()) return true;
 

@@ -583,6 +583,11 @@ namespace Magitek.Utilities.Routines
         /// <summary>The library entry for the current target, or null.</summary>
         public static CruciblePiece CurrentPiece => CruciblePieceFor(Core.Me.CurrentTarget);
 
+        // Set by the Crucible cast reaction when a catalogued heavy hit is coming for the beast; a mitigating
+        // Tempered Release (Vulcanize, Smoldering Scales, Harden Shell, Water Wall, Strut) then goes out at once.
+        public static System.DateTime MitigationWantedAt = System.DateTime.MinValue;
+        public static bool MitigationWanted => (System.DateTime.Now - MitigationWantedAt).TotalSeconds < 8;
+
         private static uint _pieceLoggedFor;
 
         // Once per piece targeted: what the library knows about it, so the log shows the plan the rules will build on.
