@@ -96,6 +96,7 @@ namespace Magitek.Utilities.Routines
             TrackTrickActed();
             TrackWaveringHeart();
             TrackCaptureHold();
+            TrackCruciblePiece();
 
             // The compass state a pair consumes says who finished it; kept from the pulse before Wavering Heart,
             // together with the colour of the beast that was out then (a swap or a Parting Blow can replace it
@@ -635,6 +636,40 @@ namespace Magitek.Utilities.Routines
         // The target the first Smash Axe went out on: that one hit is allowed, since auto-attack starts on it.
         public static uint EngagedTargetId;
         private static uint _holdLoggedFor;
+
+        /// <summary>The Crucible piece this target is, by its BNpcName, or null outside the Crucible or for anything not in the library.</summary>
+        public static CruciblePiece CruciblePieceFor(GameObject target)
+        {
+            if (target == null || !InCrucible)
+                return null;
+
+            return XivDataHelper.BeastMasterCruciblePieces.TryGetValue(target.NpcId, out var piece) ? piece : null;
+        }
+
+        /// <summary>The library entry for the current target, or null.</summary>
+        public static CruciblePiece CurrentPiece => CruciblePieceFor(Core.Me.CurrentTarget);
+
+        private static uint _pieceLoggedFor;
+
+        // Once per piece targeted: what the library knows about it, so the log shows the plan the rules will build on.
+        private static void TrackCruciblePiece()
+        {
+            var target = Core.Me.CurrentTarget;
+            if (target == null || !InCrucible || _pieceLoggedFor == target.ObjectId)
+                return;
+
+            _pieceLoggedFor = target.ObjectId;
+            var piece = CruciblePieceFor(target);
+            if (piece == null)
+            {
+                Logger.WriteInfo("[Beastmaster] Crucible: " + target.EnglishName + " (NpcId " + target.NpcId + ") is not in the piece library.");
+                return;
+            }
+
+            Logger.WriteInfo("[Beastmaster] Crucible piece: " + piece.Name + (piece.IsBoss ? " (boss)" : "") + (piece.HasWeakness ? ", weak to " + piece.Weakness : ", no weakness")
+                + " (Str " + piece.Strength + ", Int " + piece.Intelligence + ", PhysRes " + piece.PhysicalResistance + ", MagRes " + piece.MagicResistance + ", Con " + piece.Constitution + ")"
+                + (piece.Actions.Count > 0 ? "; " + string.Join(", ", piece.Actions.Select(a => a.Name)) : "") + ".");
+        }
 
         private static void TrackCaptureHold()
         {

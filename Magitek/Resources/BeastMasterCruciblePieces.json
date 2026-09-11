@@ -1,0 +1,2419 @@
+[
+ {
+  "encounter": 1,
+  "bnpcName": 14531,
+  "name": "bone knight",
+  "weakness": "Blunt",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 3,
+  "resist": 247,
+  "actions": [
+   {
+    "id": 46866,
+    "name": "Tumulus"
+   },
+   {
+    "id": 46871,
+    "name": "Ossify"
+   }
+  ]
+ },
+ {
+  "encounter": 1,
+  "bnpcName": 14532,
+  "name": "bone bishop",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 248,
+  "actions": [
+   {
+    "id": 46868,
+    "name": "Death Spiral"
+   },
+   {
+    "id": 46870,
+    "name": "Ancient Aero"
+   }
+  ]
+ },
+ {
+  "encounter": 2,
+  "bnpcName": 14533,
+  "name": "arch demon piece",
+  "weakness": "Lightning",
+  "strength": 3,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 46886,
+    "name": "Abyssal Swing"
+   }
+  ]
+ },
+ {
+  "encounter": 3,
+  "bnpcName": 14535,
+  "name": "piscodemon piece",
+  "weakness": "Slashing",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 210,
+  "actions": [
+   {
+    "id": 46898,
+    "name": "Clear Mind"
+   },
+   {
+    "id": 46892,
+    "name": "Void Thunder III"
+   }
+  ]
+ },
+ {
+  "encounter": 4,
+  "bnpcName": 14536,
+  "name": "banemite piece",
+  "weakness": "Ice",
+  "strength": 3,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 234,
+  "actions": [
+   {
+    "id": 46906,
+    "name": "Deadly Thrust"
+   }
+  ]
+ },
+ {
+  "encounter": 4,
+  "bnpcName": 14537,
+  "name": "miteling piece",
+  "weakness": "Ice",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 249,
+  "actions": [
+   {
+    "id": 46909,
+    "name": "Silkscreen"
+   }
+  ]
+ },
+ {
+  "encounter": 5,
+  "bnpcName": 14538,
+  "name": "ogre piece",
+  "weakness": "Wind",
+  "strength": 4,
+  "intelligence": 3,
+  "physicalResistance": 4,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 46912,
+    "name": "Scorching Smite"
+   },
+   {
+    "id": 46920,
+    "name": "Straight Punch"
+   }
+  ]
+ },
+ {
+  "encounter": 5,
+  "bnpcName": 14539,
+  "name": "wisp piece",
+  "weakness": "Water",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 225,
+  "actions": [
+   {
+    "id": 46919,
+    "name": "Scorched Earth"
+   }
+  ]
+ },
+ {
+  "encounter": 5,
+  "bnpcName": 14748,
+  "name": "great wisp piece",
+  "weakness": "Water",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 225,
+  "actions": [
+   {
+    "id": 46919,
+    "name": "Scorched Earth"
+   }
+  ]
+ },
+ {
+  "encounter": 6,
+  "bnpcName": 14541,
+  "name": "Pas de Seul",
+  "weakness": "Piercing",
+  "strength": 2,
+  "intelligence": 5,
+  "physicalResistance": 3,
+  "magicResistance": 5,
+  "constitution": 5,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 46924,
+    "name": "Blood Rain"
+   },
+   {
+    "id": 46935,
+    "name": "Cold Caress"
+   }
+  ]
+ },
+ {
+  "encounter": 6,
+  "bnpcName": 14542,
+  "name": "succubus mage",
+  "weakness": "Fire",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 250,
+  "actions": [
+   {
+    "id": 46928,
+    "name": "Fanaticism"
+   },
+   {
+    "id": 46929,
+    "name": "Void Fire II"
+   }
+  ]
+ },
+ {
+  "encounter": 6,
+  "bnpcName": 14543,
+  "name": "succubus knight",
+  "weakness": "Fire",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 251,
+  "actions": [
+   {
+    "id": 46930,
+    "name": "Sweet Steel"
+   }
+  ]
+ },
+ {
+  "encounter": 7,
+  "bnpcName": 14545,
+  "name": "manticore piece",
+  "weakness": "Wind",
+  "strength": 3,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 48137,
+    "name": "Hammerleap"
+   },
+   {
+    "id": 48138,
+    "name": "Deadly Hold"
+   }
+  ]
+ },
+ {
+  "encounter": 8,
+  "bnpcName": 14546,
+  "name": "taurus piece",
+  "weakness": "Piercing",
+  "strength": 4,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 4,
+  "constitution": 4,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48143,
+    "name": "Mortal Ray"
+   },
+   {
+    "id": 48155,
+    "name": "Ruinous Locus"
+   }
+  ]
+ },
+ {
+  "encounter": 8,
+  "bnpcName": 14548,
+  "name": "ahriman piece",
+  "weakness": "Ice",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 252,
+  "actions": [
+   {
+    "id": 48153,
+    "name": "Mortal Gaze"
+   }
+  ]
+ },
+ {
+  "encounter": 9,
+  "bnpcName": 14549,
+  "name": "wyvern piece",
+  "weakness": "Lightning",
+  "strength": 3,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 48175,
+    "name": "Blazing Trail"
+   },
+   {
+    "id": 48168,
+    "name": "Typhoon"
+   }
+  ]
+ },
+ {
+  "encounter": 10,
+  "bnpcName": 14552,
+  "name": "voidmancer piece",
+  "weakness": "Earth",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 50793,
+    "name": "Water"
+   },
+   {
+    "id": 48186,
+    "name": "Dark Orb"
+   }
+  ]
+ },
+ {
+  "encounter": 10,
+  "bnpcName": 14553,
+  "name": "zombie piece",
+  "weakness": "Ice",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 253,
+  "actions": []
+ },
+ {
+  "encounter": 11,
+  "bnpcName": 14555,
+  "name": "elder tablitaur piece",
+  "weakness": "Fire",
+  "strength": 4,
+  "intelligence": 1,
+  "physicalResistance": 4,
+  "magicResistance": 4,
+  "constitution": 3,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48189,
+    "name": "1000-tonze Swipe"
+   },
+   {
+    "id": 48193,
+    "name": "1111-tonze Swing"
+   }
+  ]
+ },
+ {
+  "encounter": 11,
+  "bnpcName": 14556,
+  "name": "younger tablitaur piece",
+  "weakness": "Fire",
+  "strength": 4,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 171,
+  "actions": [
+   {
+    "id": 48203,
+    "name": "Rallying Cheer"
+   }
+  ]
+ },
+ {
+  "encounter": 12,
+  "bnpcName": 14557,
+  "name": "demon piece",
+  "weakness": "Slashing",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 254,
+  "actions": [
+   {
+    "id": 48247,
+    "name": "Void Paralyze"
+   },
+   {
+    "id": 48223,
+    "name": "Condemnation"
+   }
+  ]
+ },
+ {
+  "encounter": 12,
+  "bnpcName": 14558,
+  "name": "evil weapon piece",
+  "weakness": "Ice",
+  "strength": 3,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 254,
+  "actions": [
+   {
+    "id": 48218,
+    "name": "Smite of Excessive Rage"
+   },
+   {
+    "id": 48219,
+    "name": "Smite of Excessive Rage"
+   }
+  ]
+ },
+ {
+  "encounter": 12,
+  "bnpcName": 14559,
+  "name": "devilet piece",
+  "weakness": "Earth",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 255,
+  "actions": [
+   {
+    "id": 48222,
+    "name": "Void Fire III"
+   }
+  ]
+ },
+ {
+  "encounter": 13,
+  "bnpcName": 14561,
+  "name": "Loosefrox Inkyjots",
+  "weakness": "Blunt",
+  "strength": 5,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 4,
+  "constitution": 4,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 48242,
+    "name": "Kinborrow"
+   },
+   {
+    "id": 48229,
+    "name": "Gobspin Headlops"
+   }
+  ]
+ },
+ {
+  "encounter": 13,
+  "bnpcName": 14562,
+  "name": "Chewchum Popoto",
+  "weakness": "Water",
+  "strength": 3,
+  "intelligence": 5,
+  "physicalResistance": 4,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48227,
+    "name": "Sand Breath"
+   }
+  ]
+ },
+ {
+  "encounter": 14,
+  "bnpcName": 14564,
+  "name": "cavalier piece",
+  "weakness": "Fire",
+  "strength": 3,
+  "intelligence": 2,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 3,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 48473,
+    "name": "Steelripper"
+   }
+  ]
+ },
+ {
+  "encounter": 14,
+  "bnpcName": 14567,
+  "name": "bone bishop",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 36,
+  "actions": [
+   {
+    "id": 48621,
+    "name": "Blizzard"
+   },
+   {
+    "id": 50693,
+    "name": "Soul Douse"
+   }
+  ]
+ },
+ {
+  "encounter": 15,
+  "bnpcName": 14569,
+  "name": "ymir piece",
+  "weakness": "Ice",
+  "strength": 3,
+  "intelligence": 3,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 246,
+  "actions": [
+   {
+    "id": 48477,
+    "name": "Head Snatch"
+   },
+   {
+    "id": 48479,
+    "name": "Blanket Thunder"
+   }
+  ]
+ },
+ {
+  "encounter": 15,
+  "bnpcName": 14571,
+  "name": "Sahagin piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 1,
+  "magicResistance": 3,
+  "constitution": 2,
+  "resist": 243,
+  "actions": [
+   {
+    "id": 48485,
+    "name": "Dreadwash"
+   },
+   {
+    "id": 50532,
+    "name": "Paralyzing Spikes"
+   }
+  ]
+ },
+ {
+  "encounter": 16,
+  "bnpcName": 14572,
+  "name": "zu piece",
+  "weakness": "Earth",
+  "strength": 4,
+  "intelligence": 2,
+  "physicalResistance": 4,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 48497,
+    "name": "Fore Carve"
+   },
+   {
+    "id": 48499,
+    "name": "Rear Carve"
+   }
+  ]
+ },
+ {
+  "encounter": 16,
+  "bnpcName": 14573,
+  "name": "cockerel piece",
+  "weakness": "Blunt",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 166,
+  "actions": []
+ },
+ {
+  "encounter": 16,
+  "bnpcName": 14574,
+  "name": "pullet piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 74,
+  "actions": [
+   {
+    "id": 48489,
+    "name": "Caustic Vomit"
+   }
+  ]
+ },
+ {
+  "encounter": 17,
+  "bnpcName": 14577,
+  "name": "catoblepas piece",
+  "weakness": "Wind",
+  "strength": 2,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 48510,
+    "name": "False Demon Eye"
+   },
+   {
+    "id": 48512,
+    "name": "Sinister Gleam"
+   }
+  ]
+ },
+ {
+  "encounter": 18,
+  "bnpcName": 14580,
+  "name": "Lakhamu piece",
+  "weakness": "Water",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48556,
+    "name": "Landslip"
+   },
+   {
+    "id": 48561,
+    "name": "Sand Tempest"
+   }
+  ]
+ },
+ {
+  "encounter": 18,
+  "bnpcName": 14581,
+  "name": "golem piece",
+  "weakness": "Water",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 44,
+  "actions": [
+   {
+    "id": 48555,
+    "name": "Rockslide"
+   },
+   {
+    "id": 48221,
+    "name": "Might"
+   }
+  ]
+ },
+ {
+  "encounter": 19,
+  "bnpcName": 14583,
+  "name": "siren piece",
+  "weakness": "Piercing",
+  "strength": 2,
+  "intelligence": 4,
+  "physicalResistance": 3,
+  "magicResistance": 4,
+  "constitution": 4,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 48563,
+    "name": "Song of Torment"
+   },
+   {
+    "id": 48575,
+    "name": "Dead Man's Dirge"
+   }
+  ]
+ },
+ {
+  "encounter": 19,
+  "bnpcName": 14585,
+  "name": "shambling piece",
+  "weakness": "Fire",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 43,
+  "actions": [
+   {
+    "id": 50662,
+    "name": "Wallop"
+   }
+  ]
+ },
+ {
+  "encounter": 19,
+  "bnpcName": 14586,
+  "name": "crawling piece",
+  "weakness": "Fire",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48568,
+    "name": "Death Throes"
+   }
+  ]
+ },
+ {
+  "encounter": 20,
+  "bnpcName": 14587,
+  "name": "campeador piece",
+  "weakness": "Lightning",
+  "strength": 3,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 2,
+  "resist": 248,
+  "actions": [
+   {
+    "id": 48588,
+    "name": "Seeding Needles"
+   },
+   {
+    "id": 48589,
+    "name": "Seeding Needles"
+   }
+  ]
+ },
+ {
+  "encounter": 20,
+  "bnpcName": 14588,
+  "name": "sabotender piece",
+  "weakness": "Lightning",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 42,
+  "actions": []
+ },
+ {
+  "encounter": 20,
+  "bnpcName": 14589,
+  "name": "flowertender piece",
+  "weakness": "Lightning",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 42,
+  "actions": [
+   {
+    "id": 48579,
+    "name": "Healing Water"
+   }
+  ]
+ },
+ {
+  "encounter": 20,
+  "bnpcName": 14590,
+  "name": "soldado piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 42,
+  "actions": [
+   {
+    "id": 48581,
+    "name": "??? Needles"
+   }
+  ]
+ },
+ {
+  "encounter": 20,
+  "bnpcName": 14591,
+  "name": "guardia piece",
+  "weakness": "Ice",
+  "strength": 3,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 2,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48582,
+    "name": "Cactguard"
+   }
+  ]
+ },
+ {
+  "encounter": 21,
+  "bnpcName": 14592,
+  "name": "Guttler the Gutter",
+  "weakness": "",
+  "strength": 5,
+  "intelligence": 5,
+  "physicalResistance": 5,
+  "magicResistance": 5,
+  "constitution": 5,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 48607,
+    "name": "Beastly Aura"
+   },
+   {
+    "id": 48620,
+    "name": "Thunderbolt"
+   }
+  ]
+ },
+ {
+  "encounter": 21,
+  "bnpcName": 14595,
+  "name": "Thanatos piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 230,
+  "actions": [
+   {
+    "id": 50540,
+    "name": "Infernal Pain"
+   }
+  ]
+ },
+ {
+  "encounter": 22,
+  "bnpcName": 14596,
+  "name": "Strix piece",
+  "weakness": "Piercing",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 210,
+  "actions": [
+   {
+    "id": 48668,
+    "name": "Ultimate Focus"
+   },
+   {
+    "id": 48657,
+    "name": "On the Properties of Quakes"
+   }
+  ]
+ },
+ {
+  "encounter": 23,
+  "bnpcName": 14599,
+  "name": "morbol piece",
+  "weakness": "Slashing",
+  "strength": 2,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48673,
+    "name": "Extremely Bad Breath"
+   },
+   {
+    "id": 50758,
+    "name": "Tremblor"
+   }
+  ]
+ },
+ {
+  "encounter": 23,
+  "bnpcName": 14600,
+  "name": "seedling piece",
+  "weakness": "Slashing",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 41,
+  "actions": [
+   {
+    "id": 50750,
+    "name": "attack"
+   }
+  ]
+ },
+ {
+  "encounter": 23,
+  "bnpcName": 14601,
+  "name": "ochu piece",
+  "weakness": "Slashing",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 244,
+  "actions": [
+   {
+    "id": 48679,
+    "name": "Acid Mist"
+   }
+  ]
+ },
+ {
+  "encounter": 23,
+  "bnpcName": 14602,
+  "name": "carrion broth",
+  "weakness": "Ice",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 248,
+  "actions": [
+   {
+    "id": 50544,
+    "name": "attack"
+   },
+   {
+    "id": 48680,
+    "name": "Sticky Spit"
+   }
+  ]
+ },
+ {
+  "encounter": 24,
+  "bnpcName": 14603,
+  "name": "corpse flower piece",
+  "weakness": "Wind",
+  "strength": 2,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 234,
+  "actions": [
+   {
+    "id": 48691,
+    "name": "Rotten Stench"
+   },
+   {
+    "id": 48685,
+    "name": "Devour"
+   }
+  ]
+ },
+ {
+  "encounter": 24,
+  "bnpcName": 14605,
+  "name": "queen hawk piece",
+  "weakness": "Blunt",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 34,
+  "actions": [
+   {
+    "id": 48689,
+    "name": "Final Sting"
+   }
+  ]
+ },
+ {
+  "encounter": 25,
+  "bnpcName": 14606,
+  "name": "ice dragon piece",
+  "weakness": "Fire",
+  "strength": 3,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 48704,
+    "name": "Cauterize"
+   },
+   {
+    "id": 48708,
+    "name": "Withering Eternity"
+   }
+  ]
+ },
+ {
+  "encounter": 25,
+  "bnpcName": 14607,
+  "name": "ice sprite",
+  "weakness": "Fire",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 40,
+  "actions": [
+   {
+    "id": 48621,
+    "name": "Blizzard"
+   }
+  ]
+ },
+ {
+  "encounter": 26,
+  "bnpcName": 14608,
+  "name": "gargoyle piece",
+  "weakness": "",
+  "strength": 4,
+  "intelligence": 3,
+  "physicalResistance": 4,
+  "magicResistance": 5,
+  "constitution": 4,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48720,
+    "name": "Rippling Evisceration"
+   },
+   {
+    "id": 48727,
+    "name": "Desolation"
+   }
+  ]
+ },
+ {
+  "encounter": 27,
+  "bnpcName": 14610,
+  "name": "administrator piece",
+  "weakness": "Lightning",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 15,
+  "actions": [
+   {
+    "id": 48740,
+    "name": "Confound"
+   },
+   {
+    "id": 48747,
+    "name": "Flame Thrower"
+   }
+  ]
+ },
+ {
+  "encounter": 27,
+  "bnpcName": 14611,
+  "name": "bug piece",
+  "weakness": "Lightning",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 35,
+  "actions": []
+ },
+ {
+  "encounter": 27,
+  "bnpcName": 14612,
+  "name": "footman piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 39,
+  "actions": [
+   {
+    "id": 48736,
+    "name": "Headspin"
+   }
+  ]
+ },
+ {
+  "encounter": 27,
+  "bnpcName": 14613,
+  "name": "dreadnaught piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 3,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 39,
+  "actions": [
+   {
+    "id": 48742,
+    "name": "Incinerate"
+   }
+  ]
+ },
+ {
+  "encounter": 27,
+  "bnpcName": 14614,
+  "name": "drone piece",
+  "weakness": "Lightning",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 39,
+  "actions": [
+   {
+    "id": 48735,
+    "name": "Auto-cannons"
+   }
+  ]
+ },
+ {
+  "encounter": 27,
+  "bnpcName": 14616,
+  "name": "cobra piece",
+  "weakness": "Piercing",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 39,
+  "actions": [
+   {
+    "id": 48738,
+    "name": "Noxious Nova"
+   }
+  ]
+ },
+ {
+  "encounter": 28,
+  "bnpcName": 14617,
+  "name": "golem piece",
+  "weakness": "Water",
+  "strength": 3,
+  "intelligence": 4,
+  "physicalResistance": 4,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48757,
+    "name": "Stoneshower"
+   },
+   {
+    "id": 48768,
+    "name": "Outcrop"
+   }
+  ]
+ },
+ {
+  "encounter": 29,
+  "bnpcName": 14618,
+  "name": "treant piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 222,
+  "actions": [
+   {
+    "id": 48781,
+    "name": "Acorn Bomb"
+   }
+  ]
+ },
+ {
+  "encounter": 29,
+  "bnpcName": 14619,
+  "name": "slug piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 166,
+  "actions": [
+   {
+    "id": 48783,
+    "name": "Aqueous Discharge"
+   }
+  ]
+ },
+ {
+  "encounter": 29,
+  "bnpcName": 14620,
+  "name": "sapling piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 52,
+  "actions": [
+   {
+    "id": 48786,
+    "name": "Grab and Grow"
+   }
+  ]
+ },
+ {
+  "encounter": 29,
+  "bnpcName": 14621,
+  "name": "diremite piece",
+  "weakness": "Ice",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 249,
+  "actions": [
+   {
+    "id": 48785,
+    "name": "Silkscreen"
+   }
+  ]
+ },
+ {
+  "encounter": 29,
+  "bnpcName": 14622,
+  "name": "biloko piece",
+  "weakness": "Ice",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 38,
+  "actions": [
+   {
+    "id": 48782,
+    "name": "Natural Nurture"
+   }
+  ]
+ },
+ {
+  "encounter": 30,
+  "bnpcName": 14623,
+  "name": "Progenitrix piece",
+  "weakness": "Wind",
+  "strength": 3,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 15,
+  "actions": [
+   {
+    "id": 48802,
+    "name": "Massive Explosion"
+   },
+   {
+    "id": 48801,
+    "name": "Meltdown"
+   }
+  ]
+ },
+ {
+  "encounter": 30,
+  "bnpcName": 14624,
+  "name": "grenade piece",
+  "weakness": "Wind",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 244,
+  "actions": [
+   {
+    "id": 48790,
+    "name": "Massive Explosion"
+   }
+  ]
+ },
+ {
+  "encounter": 30,
+  "bnpcName": 14625,
+  "name": "bomb piece",
+  "weakness": "Wind",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 244,
+  "actions": [
+   {
+    "id": 48791,
+    "name": "Fire II"
+   },
+   {
+    "id": 48792,
+    "name": "Self-destruct"
+   }
+  ]
+ },
+ {
+  "encounter": 30,
+  "bnpcName": 14626,
+  "name": "snoll piece",
+  "weakness": "Fire",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 244,
+  "actions": [
+   {
+    "id": 48793,
+    "name": "Ice Spikes"
+   },
+   {
+    "id": 48794,
+    "name": "Hypothermal Combustion"
+   }
+  ]
+ },
+ {
+  "encounter": 30,
+  "bnpcName": 14627,
+  "name": "pyrobolus piece",
+  "weakness": "Water",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 6,
+  "actions": [
+   {
+    "id": 48796,
+    "name": "Toxic Fumes"
+   }
+  ]
+ },
+ {
+  "encounter": 31,
+  "bnpcName": 14628,
+  "name": "Borgny the Venomous",
+  "weakness": "Earth",
+  "strength": 4,
+  "intelligence": 5,
+  "physicalResistance": 4,
+  "magicResistance": 5,
+  "constitution": 4,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 48810,
+    "name": "Toxic Vomit"
+   },
+   {
+    "id": 48814,
+    "name": "Cauterize"
+   }
+  ]
+ },
+ {
+  "encounter": 31,
+  "bnpcName": 14629,
+  "name": "toxic mass",
+  "weakness": "Water",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 5,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 226,
+  "actions": [
+   {
+    "id": 48821,
+    "name": "Noxious Explosion"
+   }
+  ]
+ },
+ {
+  "encounter": 32,
+  "bnpcName": 14631,
+  "name": "Flauros piece",
+  "weakness": "Earth",
+  "strength": 2,
+  "intelligence": 3,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 210,
+  "actions": [
+   {
+    "id": 49193,
+    "name": "Charged Lightning"
+   },
+   {
+    "id": 49189,
+    "name": "Erratic Blaster"
+   }
+  ]
+ },
+ {
+  "encounter": 32,
+  "bnpcName": 14632,
+  "name": "lightning sprite",
+  "weakness": "Earth",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 37,
+  "actions": [
+   {
+    "id": 49194,
+    "name": "Line Voltage"
+   }
+  ]
+ },
+ {
+  "encounter": 33,
+  "bnpcName": 14633,
+  "name": "mindflayer piece",
+  "weakness": "Slashing",
+  "strength": 2,
+  "intelligence": 4,
+  "physicalResistance": 3,
+  "magicResistance": 4,
+  "constitution": 4,
+  "resist": 210,
+  "actions": [
+   {
+    "id": 49200,
+    "name": "Void Water III"
+   },
+   {
+    "id": 49208,
+    "name": "Void Paralyze III"
+   }
+  ]
+ },
+ {
+  "encounter": 33,
+  "bnpcName": 14634,
+  "name": "myconid piece",
+  "weakness": "Water",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 60,
+  "actions": [
+   {
+    "id": 49196,
+    "name": "Spore Spill"
+   },
+   {
+    "id": 49198,
+    "name": "Big Burst"
+   }
+  ]
+ },
+ {
+  "encounter": 34,
+  "bnpcName": 14638,
+  "name": "boogyman piece",
+  "weakness": "Ice",
+  "strength": 3,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 210,
+  "actions": [
+   {
+    "id": 49231,
+    "name": "Ripples of Gloom"
+   },
+   {
+    "id": 49209,
+    "name": "Veil of Darkness"
+   }
+  ]
+ },
+ {
+  "encounter": 34,
+  "bnpcName": 14639,
+  "name": "deepeye piece",
+  "weakness": "Wind",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 242,
+  "actions": [
+   {
+    "id": 49214,
+    "name": "Oogle"
+   }
+  ]
+ },
+ {
+  "encounter": 34,
+  "bnpcName": 14640,
+  "name": "bomb piece",
+  "weakness": "Wind",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 233,
+  "actions": [
+   {
+    "id": 49211,
+    "name": "Self-destruct"
+   },
+   {
+    "id": 49210,
+    "name": "Explosion"
+   }
+  ]
+ },
+ {
+  "encounter": 34,
+  "bnpcName": 14641,
+  "name": "light sprite",
+  "weakness": "",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 37,
+  "actions": [
+   {
+    "id": 49213,
+    "name": "Banish"
+   },
+   {
+    "id": 49212,
+    "name": "Diffuse Light"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14642,
+  "name": "Atomos piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 5,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 49238,
+    "name": "Shockwave"
+   },
+   {
+    "id": 49240,
+    "name": "Dark II"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14643,
+  "name": "red gremlin piece",
+  "weakness": "Piercing",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 166,
+  "actions": [
+   {
+    "id": 49241,
+    "name": "Bad-mouth"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14644,
+  "name": "gremlin piece",
+  "weakness": "Piercing",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 166,
+  "actions": []
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14645,
+  "name": "pudding piece",
+  "weakness": "Wind",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 3,
+  "actions": [
+   {
+    "id": 49243,
+    "name": "Fire III"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14646,
+  "name": "bavarois piece",
+  "weakness": "Lightning",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 3,
+  "actions": [
+   {
+    "id": 49242,
+    "name": "Water III"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14647,
+  "name": "flan piece",
+  "weakness": "Earth",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 5,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 3,
+  "actions": [
+   {
+    "id": 49246,
+    "name": "Thunder III"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14648,
+  "name": "vodoriga piece",
+  "weakness": "Piercing",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 42,
+  "actions": [
+   {
+    "id": 49247,
+    "name": "Terror Eye"
+   }
+  ]
+ },
+ {
+  "encounter": 35,
+  "bnpcName": 14649,
+  "name": "menacing dahak piece",
+  "weakness": "Ice",
+  "strength": 3,
+  "intelligence": 2,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 49248,
+    "name": "Rotten Breath"
+   },
+   {
+    "id": 49249,
+    "name": "Tail Drive"
+   }
+  ]
+ },
+ {
+  "encounter": 36,
+  "bnpcName": 14651,
+  "name": "drake piece",
+  "weakness": "Wind",
+  "strength": 3,
+  "intelligence": 2,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 3,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 49253,
+    "name": "Blaze Spikes"
+   },
+   {
+    "id": 49254,
+    "name": "Mangling Fang"
+   }
+  ]
+ },
+ {
+  "encounter": 36,
+  "bnpcName": 14653,
+  "name": "barbmole piece",
+  "weakness": "Fire",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 60,
+  "actions": [
+   {
+    "id": 49250,
+    "name": "Needles Out"
+   },
+   {
+    "id": 49252,
+    "name": "Seeding Needles"
+   }
+  ]
+ },
+ {
+  "encounter": 36,
+  "bnpcName": 14655,
+  "name": "abaddon piece",
+  "weakness": "Water",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 66,
+  "actions": []
+ },
+ {
+  "encounter": 36,
+  "bnpcName": 14656,
+  "name": "morpho piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 37,
+  "actions": [
+   {
+    "id": 49260,
+    "name": "Unwitting Wings"
+   },
+   {
+    "id": 49261,
+    "name": "Delusion Dust"
+   }
+  ]
+ },
+ {
+  "encounter": 37,
+  "bnpcName": 14657,
+  "name": "Durga piece",
+  "weakness": "Fire",
+  "strength": 3,
+  "intelligence": 4,
+  "physicalResistance": 4,
+  "magicResistance": 5,
+  "constitution": 4,
+  "resist": 234,
+  "actions": [
+   {
+    "id": 49272,
+    "name": "Atomic Ray"
+   },
+   {
+    "id": 49265,
+    "name": "Grounding Jolt"
+   }
+  ]
+ },
+ {
+  "encounter": 37,
+  "bnpcName": 14659,
+  "name": "spinner-rook piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 40,
+  "actions": [
+   {
+    "id": 49271,
+    "name": "Aether Charge"
+   }
+  ]
+ },
+ {
+  "encounter": 38,
+  "bnpcName": 14660,
+  "name": "medusa piece",
+  "weakness": "Piercing",
+  "strength": 4,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 4,
+  "constitution": 5,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 49278,
+    "name": "Petrifying Regard"
+   },
+   {
+    "id": 49298,
+    "name": "Impassion"
+   }
+  ]
+ },
+ {
+  "encounter": 38,
+  "bnpcName": 14661,
+  "name": "lamia piece",
+  "weakness": "Piercing",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 2,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 140,
+  "actions": [
+   {
+    "id": 49286,
+    "name": "Terrorizing Miasma"
+   },
+   {
+    "id": 49287,
+    "name": "Raise"
+   }
+  ]
+ },
+ {
+  "encounter": 38,
+  "bnpcName": 14662,
+  "name": "cyclops piece",
+  "weakness": "",
+  "strength": 4,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 77,
+  "actions": [
+   {
+    "id": 49297,
+    "name": "1000-tonze Swing"
+   },
+   {
+    "id": 49370,
+    "name": "Glower"
+   }
+  ]
+ },
+ {
+  "encounter": 39,
+  "bnpcName": 14663,
+  "name": "chimera piece",
+  "weakness": "Water",
+  "strength": 4,
+  "intelligence": 4,
+  "physicalResistance": 4,
+  "magicResistance": 4,
+  "constitution": 5,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 49315,
+    "name": "the Ram's Roar"
+   },
+   {
+    "id": 49316,
+    "name": "the Dragon's Roar"
+   }
+  ]
+ },
+ {
+  "encounter": 40,
+  "bnpcName": 14665,
+  "name": "sphinx piece",
+  "weakness": "Slashing",
+  "strength": 1,
+  "intelligence": 3,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 4,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 49344,
+    "name": "Mnemonic Riddle"
+   },
+   {
+    "id": 49353,
+    "name": "Numeric Riddle"
+   }
+  ]
+ },
+ {
+  "encounter": 41,
+  "bnpcName": 14670,
+  "name": "gigantis piece",
+  "weakness": "",
+  "strength": 3,
+  "intelligence": 2,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 4,
+  "resist": 222,
+  "actions": [
+   {
+    "id": 49378,
+    "name": "Smashing Stamp"
+   },
+   {
+    "id": 49359,
+    "name": "Gigantic Rage"
+   }
+  ]
+ },
+ {
+  "encounter": 41,
+  "bnpcName": 14671,
+  "name": "cyclops piece",
+  "weakness": "",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 1,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 117,
+  "actions": [
+   {
+    "id": 49367,
+    "name": "Glower"
+   },
+   {
+    "id": 49368,
+    "name": "Camaraderie"
+   }
+  ]
+ },
+ {
+  "encounter": 41,
+  "bnpcName": 14672,
+  "name": "congealed lightning",
+  "weakness": "Earth",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 5,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 5,
+  "actions": [
+   {
+    "id": 49373,
+    "name": "Rupture"
+   }
+  ]
+ },
+ {
+  "encounter": 41,
+  "bnpcName": 14673,
+  "name": "congealed kindling",
+  "weakness": "Wind",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 5,
+  "magicResistance": 2,
+  "constitution": 2,
+  "resist": 5,
+  "actions": [
+   {
+    "id": 49375,
+    "name": "Rupture"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14674,
+  "name": "swordsmog piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 204,
+  "actions": []
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14675,
+  "name": "mogbreaker piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 16,
+  "actions": [
+   {
+    "id": 49381,
+    "name": "100-kuponze Swipe"
+   },
+   {
+    "id": 49383,
+    "name": "Moogle Tempest"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14676,
+  "name": "kinged kupocurer",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 1,
+  "resist": 81,
+  "actions": [
+   {
+    "id": 49385,
+    "name": "Pom Flood"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14677,
+  "name": "kinged kupocaster",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 1,
+  "resist": 81,
+  "actions": [
+   {
+    "id": 49384,
+    "name": "Pom Flare"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14678,
+  "name": "kupocurer piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 1,
+  "resist": 81,
+  "actions": [
+   {
+    "id": 49387,
+    "name": "Pom Holy"
+   },
+   {
+    "id": 48626,
+    "name": "Water"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14679,
+  "name": "kupocaster piece",
+  "weakness": "Blunt",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 1,
+  "resist": 81,
+  "actions": [
+   {
+    "id": 50943,
+    "name": "Pom Meteorain"
+   },
+   {
+    "id": 48621,
+    "name": "Blizzard"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14680,
+  "name": "kinged swordsmog",
+  "weakness": "Lightning",
+  "strength": 3,
+  "intelligence": 2,
+  "physicalResistance": 4,
+  "magicResistance": 3,
+  "constitution": 2,
+  "resist": 223,
+  "actions": [
+   {
+    "id": 49395,
+    "name": "Mogshield Swipe"
+   },
+   {
+    "id": 49394,
+    "name": "Spirit of Pompetition"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14681,
+  "name": "melomog piece",
+  "weakness": "Water",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 2,
+  "magicResistance": 3,
+  "constitution": 1,
+  "resist": 3,
+  "actions": [
+   {
+    "id": 49397,
+    "name": "Moghemian Rhapsody"
+   }
+  ]
+ },
+ {
+  "encounter": 42,
+  "bnpcName": 14683,
+  "name": "mogmugger piece",
+  "weakness": "Water",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 3,
+  "constitution": 1,
+  "resist": 3,
+  "actions": [
+   {
+    "id": 49399,
+    "name": "Daylight Pommery"
+   },
+   {
+    "id": 49400,
+    "name": "Kupo and Good Night"
+   }
+  ]
+ },
+ {
+  "encounter": 43,
+  "bnpcName": 14684,
+  "name": "behemoth piece",
+  "weakness": "Earth",
+  "strength": 4,
+  "intelligence": 4,
+  "physicalResistance": 5,
+  "magicResistance": 4,
+  "constitution": 4,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 49410,
+    "name": "Ecliptic Meteor"
+   },
+   {
+    "id": 49415,
+    "name": "Charybdis"
+   }
+  ]
+ },
+ {
+  "encounter": 43,
+  "bnpcName": 14685,
+  "name": "giant piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 1,
+  "constitution": 2,
+  "resist": 39,
+  "actions": [
+   {
+    "id": 49408,
+    "name": "Grand Sword"
+   }
+  ]
+ },
+ {
+  "encounter": 43,
+  "bnpcName": 14686,
+  "name": "lightning sprite",
+  "weakness": "Earth",
+  "strength": 1,
+  "intelligence": 1,
+  "physicalResistance": 5,
+  "magicResistance": 1,
+  "constitution": 1,
+  "resist": 37,
+  "actions": [
+   {
+    "id": 49411,
+    "name": "Cross Charge"
+   }
+  ]
+ },
+ {
+  "encounter": 44,
+  "bnpcName": 14688,
+  "name": "king ahriman piece",
+  "weakness": "Ice",
+  "strength": 2,
+  "intelligence": 4,
+  "physicalResistance": 4,
+  "magicResistance": 5,
+  "constitution": 4,
+  "resist": 1,
+  "actions": [
+   {
+    "id": 49418,
+    "name": "Roulette"
+   },
+   {
+    "id": 49429,
+    "name": "Curtains for Rank 5"
+   }
+  ]
+ },
+ {
+  "encounter": 44,
+  "bnpcName": 14691,
+  "name": "hapalit piece",
+  "weakness": "Wind",
+  "strength": 3,
+  "intelligence": 1,
+  "physicalResistance": 3,
+  "magicResistance": 1,
+  "constitution": 3,
+  "resist": 169,
+  "actions": [
+   {
+    "id": 49435,
+    "name": "Straight Punch"
+   }
+  ]
+ },
+ {
+  "encounter": 44,
+  "bnpcName": 14692,
+  "name": "dirty eye piece",
+  "weakness": "Ice",
+  "strength": 1,
+  "intelligence": 2,
+  "physicalResistance": 1,
+  "magicResistance": 2,
+  "constitution": 1,
+  "resist": 44,
+  "actions": [
+   {
+    "id": 49434,
+    "name": "Mortal Gaze"
+   },
+   {
+    "id": 50747,
+    "name": "Stone"
+   }
+  ]
+ },
+ {
+  "encounter": 45,
+  "bnpcName": 14693,
+  "name": "Lauda the Spellcleaver",
+  "weakness": "",
+  "strength": 5,
+  "intelligence": 5,
+  "physicalResistance": 5,
+  "magicResistance": 5,
+  "constitution": 5,
+  "resist": 2,
+  "actions": [
+   {
+    "id": 49453,
+    "name": "Beastly Aura"
+   },
+   {
+    "id": 49470,
+    "name": "Thunderbolt"
+   }
+  ]
+ },
+ {
+  "encounter": 45,
+  "bnpcName": 14699,
+  "name": "Thanatos piece",
+  "weakness": "Lightning",
+  "strength": 2,
+  "intelligence": 2,
+  "physicalResistance": 4,
+  "magicResistance": 3,
+  "constitution": 2,
+  "resist": 230,
+  "actions": [
+   {
+    "id": 50541,
+    "name": "Infernal Pain"
+   }
+  ]
+ }
+]
