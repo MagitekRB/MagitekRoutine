@@ -662,7 +662,9 @@
     "target": "Highest Enmity",
     "interruptible": false,
     "damageType": "Water",
-    "shape": "Single Target"
+    "shape": "Single Target",
+    "basic": true,
+    "note": "Its primary attack (user, 2026-09-11): not an event to react to."
    },
    {
     "id": 48186,
