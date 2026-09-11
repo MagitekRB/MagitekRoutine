@@ -17,7 +17,11 @@
     "castSeconds": 5.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 6
+    "effectRange": 6,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Piercing",
+    "shape": "Circle"
    },
    {
     "id": 46871,
@@ -25,8 +29,20 @@
     "castSeconds": 8.0,
     "castType": 1,
     "range": 0,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Self",
+    "interruptible": true,
+    "damageType": null,
+    "shape": "Single Target",
+    "status": "Physical Damage Up",
+    "nullifiable": true,
+    "statusOn": "self"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Slow",
+   "Silence"
   ]
  },
  {
@@ -47,7 +63,11 @@
     "castSeconds": 6.0,
     "castType": 10,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Ring"
    },
    {
     "id": 46870,
@@ -55,8 +75,19 @@
     "castSeconds": 5.7,
     "castType": 12,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Wind",
+    "shape": "Front",
+    "status": "Windburn",
+    "nullifiable": true,
+    "statusOn": "player"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Heavy"
   ]
  },
  {
@@ -77,8 +108,16 @@
     "castSeconds": 5.7,
     "castType": 13,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Slashing",
+    "shape": "Front"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Poison"
   ]
  },
  {
@@ -99,7 +138,14 @@
     "castSeconds": 4.0,
     "castType": 1,
     "range": 0,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": null,
+    "shape": "Single Target",
+    "status": "Damage Up",
+    "nullifiable": true,
+    "statusOn": "self"
    },
    {
     "id": 46892,
@@ -107,8 +153,17 @@
     "castSeconds": 5.0,
     "castType": 11,
     "range": 0,
-    "effectRange": 50
+    "effectRange": 50,
+    "target": "Ground",
+    "interruptible": false,
+    "damageType": "Lightning",
+    "shape": "Cross"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Heavy",
+   "Poison"
   ]
  },
  {
@@ -129,8 +184,19 @@
     "castSeconds": 5.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Player",
+    "interruptible": false,
+    "damageType": "Piercing",
+    "shape": "Single Target",
+    "status": "Poison",
+    "nullifiable": true,
+    "statusOn": "player"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Blind"
   ]
  },
  {
@@ -151,8 +217,27 @@
     "castSeconds": 5.0,
     "castType": 12,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Front",
+    "status": "Heavy",
+    "nullifiable": false,
+    "statusOn": "player"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Slow",
+   "Petrification",
+   "Paralysis",
+   "Blind",
+   "Stun",
+   "Sleep",
+   "Bind",
+   "Heavy",
+   "Doom"
   ]
  },
  {
@@ -173,7 +258,11 @@
     "castSeconds": 6.0,
     "castType": 13,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Front"
    },
    {
     "id": 46920,
@@ -181,8 +270,17 @@
     "castSeconds": 5.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Player",
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Single Target"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Blind",
+   "Poison"
   ]
  },
  {
@@ -203,9 +301,19 @@
     "castSeconds": 0.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 60
+    "effectRange": 60,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Universal"
    }
-  ]
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Bind",
+   "Heavy"
+  ],
+  "note": "Quelling Wave (Wavekin Borrow, instant) one-shots the lesser wisps."
  },
  {
   "encounter": 5,
@@ -225,8 +333,17 @@
     "castSeconds": 0.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 60
+    "effectRange": 60,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Universal"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Bind",
+   "Heavy"
   ]
  },
  {
@@ -247,7 +364,11 @@
     "castSeconds": 6.0,
     "castType": 10,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Circle/Ring"
    },
    {
     "id": 46935,
@@ -255,9 +376,18 @@
     "castSeconds": 5.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Highest Enmity",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Single Target",
+    "status": "Poison",
+    "nullifiable": true,
+    "statusOn": "player"
    }
-  ]
+  ],
+  "board": 1,
+  "vulnerableTo": []
  },
  {
   "encounter": 6,
@@ -277,7 +407,14 @@
     "castSeconds": 6.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Allies",
+    "interruptible": true,
+    "damageType": null,
+    "shape": "Single Target",
+    "status": "Damage Up",
+    "nullifiable": true,
+    "statusOn": "ally"
    },
    {
     "id": 46929,
@@ -285,8 +422,18 @@
     "castSeconds": 4.0,
     "castType": 2,
     "range": 100,
-    "effectRange": 10
+    "effectRange": 10,
+    "target": "Ground",
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Circle"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Slow",
+   "Silence",
+   "Doom"
   ]
  },
  {
@@ -307,8 +454,21 @@
     "castSeconds": 4.0,
     "castType": 13,
     "range": 0,
-    "effectRange": 10
+    "effectRange": 10,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Slashing",
+    "shape": "Front"
    }
+  ],
+  "board": 1,
+  "vulnerableTo": [
+   "Slow",
+   "Petrification",
+   "Paralysis",
+   "Stun",
+   "Sleep",
+   "Doom"
   ]
  },
  {
@@ -339,7 +499,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 8,
@@ -369,7 +530,8 @@
     "range": 0,
     "effectRange": 8
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 8,
@@ -391,7 +553,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 9,
@@ -421,7 +584,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 10,
@@ -451,7 +615,8 @@
     "range": 0,
     "effectRange": 18
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 10,
@@ -464,7 +629,8 @@
   "magicResistance": 1,
   "constitution": 1,
   "resist": 253,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 11,
@@ -494,7 +660,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 11,
@@ -516,7 +683,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 12,
@@ -546,7 +714,8 @@
     "range": 0,
     "effectRange": 12
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 12,
@@ -576,7 +745,8 @@
     "range": 0,
     "effectRange": 30
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 12,
@@ -598,7 +768,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 13,
@@ -628,7 +799,8 @@
     "range": 0,
     "effectRange": 8
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 13,
@@ -650,7 +822,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 14,
@@ -672,7 +845,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 14,
@@ -701,7 +875,38 @@
     "castType": 2,
     "range": 0,
     "effectRange": 60
+   },
+   {
+    "id": 0,
+    "name": "Death Spiral",
+    "castSeconds": 0,
+    "castType": null,
+    "range": null,
+    "effectRange": null,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Ring"
+   },
+   {
+    "id": 0,
+    "name": "Ancient Aero",
+    "castSeconds": 0,
+    "castType": null,
+    "range": null,
+    "effectRange": null,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Wind",
+    "shape": "Front",
+    "status": "Windburn",
+    "nullifiable": true,
+    "statusOn": "player"
    }
+  ],
+  "board": 0,
+  "vulnerableTo": [
+   "Heavy"
   ]
  },
  {
@@ -732,7 +937,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 15,
@@ -762,7 +968,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 16,
@@ -792,7 +999,8 @@
     "range": 0,
     "effectRange": 15
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 16,
@@ -805,7 +1013,8 @@
   "magicResistance": 1,
   "constitution": 1,
   "resist": 166,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 16,
@@ -827,7 +1036,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 17,
@@ -857,7 +1067,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 18,
@@ -887,7 +1098,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 18,
@@ -917,7 +1129,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 19,
@@ -947,7 +1160,8 @@
     "range": 0,
     "effectRange": 43
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 19,
@@ -969,7 +1183,8 @@
     "range": 0,
     "effectRange": 5
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 19,
@@ -991,7 +1206,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 20,
@@ -1021,7 +1237,8 @@
     "range": 0,
     "effectRange": 100
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 20,
@@ -1034,7 +1251,8 @@
   "magicResistance": 1,
   "constitution": 1,
   "resist": 42,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 20,
@@ -1056,7 +1274,8 @@
     "range": 100,
     "effectRange": 6
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 20,
@@ -1078,7 +1297,8 @@
     "range": 0,
     "effectRange": 15
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 20,
@@ -1100,7 +1320,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 21,
@@ -1130,7 +1351,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 21,
@@ -1152,7 +1374,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 22,
@@ -1182,7 +1405,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 23,
@@ -1212,7 +1436,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 23,
@@ -1234,7 +1459,8 @@
     "range": 1,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 23,
@@ -1256,7 +1482,8 @@
     "range": 0,
     "effectRange": 6
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 23,
@@ -1286,7 +1513,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 24,
@@ -1316,7 +1544,8 @@
     "range": 0,
     "effectRange": 8
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 24,
@@ -1338,7 +1567,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 25,
@@ -1368,7 +1598,8 @@
     "range": 100,
     "effectRange": 9
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 25,
@@ -1390,7 +1621,8 @@
     "range": 25,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 26,
@@ -1420,7 +1652,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 27,
@@ -1450,7 +1683,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 27,
@@ -1463,7 +1697,8 @@
   "magicResistance": 1,
   "constitution": 1,
   "resist": 35,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 27,
@@ -1485,7 +1720,8 @@
     "range": 0,
     "effectRange": 5
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 27,
@@ -1507,7 +1743,8 @@
     "range": 0,
     "effectRange": 6
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 27,
@@ -1529,7 +1766,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 27,
@@ -1551,7 +1789,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 28,
@@ -1581,7 +1820,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 29,
@@ -1603,7 +1843,8 @@
     "range": 100,
     "effectRange": 3
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 29,
@@ -1625,7 +1866,8 @@
     "range": 0,
     "effectRange": 5
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 29,
@@ -1647,7 +1889,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 29,
@@ -1669,7 +1912,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 29,
@@ -1691,7 +1935,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 30,
@@ -1721,7 +1966,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 30,
@@ -1743,7 +1989,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 30,
@@ -1773,7 +2020,8 @@
     "range": 0,
     "effectRange": 6
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 30,
@@ -1803,7 +2051,8 @@
     "range": 0,
     "effectRange": 10
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 30,
@@ -1825,7 +2074,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 31,
@@ -1855,7 +2105,8 @@
     "range": 0,
     "effectRange": 48
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 31,
@@ -1877,7 +2128,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 32,
@@ -1907,7 +2159,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 32,
@@ -1929,7 +2182,8 @@
     "range": 0,
     "effectRange": 100
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 33,
@@ -1959,7 +2213,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 33,
@@ -1989,7 +2244,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 34,
@@ -2019,7 +2275,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 34,
@@ -2041,7 +2298,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 34,
@@ -2071,7 +2329,8 @@
     "range": 0,
     "effectRange": 9
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 34,
@@ -2101,7 +2360,8 @@
     "range": 0,
     "effectRange": 20
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2131,7 +2391,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2153,7 +2414,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2166,7 +2428,8 @@
   "magicResistance": 1,
   "constitution": 1,
   "resist": 166,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2188,7 +2451,8 @@
     "range": 100,
     "effectRange": 6
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2210,7 +2474,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2232,7 +2497,8 @@
     "range": 100,
     "effectRange": 5
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2254,7 +2520,8 @@
     "range": 100,
     "effectRange": 6
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 35,
@@ -2284,7 +2551,8 @@
     "range": 0,
     "effectRange": 30
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 36,
@@ -2314,7 +2582,8 @@
     "range": 5,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 36,
@@ -2344,7 +2613,8 @@
     "range": 0,
     "effectRange": 20
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 36,
@@ -2357,7 +2627,8 @@
   "magicResistance": 2,
   "constitution": 2,
   "resist": 66,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 36,
@@ -2387,7 +2658,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 37,
@@ -2417,7 +2689,8 @@
     "range": 0,
     "effectRange": 20
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 37,
@@ -2439,7 +2712,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 38,
@@ -2469,7 +2743,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 38,
@@ -2499,7 +2774,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 38,
@@ -2529,7 +2805,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 39,
@@ -2559,7 +2836,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 40,
@@ -2589,7 +2867,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 41,
@@ -2619,7 +2898,8 @@
     "range": 0,
     "effectRange": 15
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 41,
@@ -2649,7 +2929,8 @@
     "range": 100,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 41,
@@ -2671,7 +2952,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 41,
@@ -2693,7 +2975,8 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2706,7 +2989,8 @@
   "magicResistance": 2,
   "constitution": 1,
   "resist": 204,
-  "actions": []
+  "actions": [],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2736,7 +3020,8 @@
     "range": 0,
     "effectRange": 22
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2758,7 +3043,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2780,7 +3066,8 @@
     "range": 0,
     "effectRange": 60
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2810,7 +3097,8 @@
     "range": 25,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2840,7 +3128,8 @@
     "range": 25,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2870,7 +3159,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2892,7 +3182,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 42,
@@ -2922,7 +3213,8 @@
     "range": 0,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 43,
@@ -2952,7 +3244,8 @@
     "range": 0,
     "effectRange": 12
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 43,
@@ -2974,7 +3267,8 @@
     "range": 0,
     "effectRange": 30
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 43,
@@ -2996,7 +3290,8 @@
     "range": 0,
     "effectRange": 25
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 44,
@@ -3026,7 +3321,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 44,
@@ -3048,7 +3344,8 @@
     "range": 3,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 44,
@@ -3078,7 +3375,8 @@
     "range": 25,
     "effectRange": 0
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 45,
@@ -3108,7 +3406,8 @@
     "range": 0,
     "effectRange": 50
    }
-  ]
+  ],
+  "board": 0
  },
  {
   "encounter": 45,
@@ -3130,6 +3429,7 @@
     "range": 0,
     "effectRange": 40
    }
-  ]
+  ],
+  "board": 0
  }
 ]

@@ -20,6 +20,10 @@ namespace Magitek.Models.BeastMaster
         public int MagicResistance { get; set; }
         public int Constitution { get; set; }
         public int Resist { get; set; }
+        public int Board { get; set; }
+        // From the board's own entry (hand-curated): which statuses land on this piece, and a player note.
+        public List<string> VulnerableTo { get; set; } = new List<string>();
+        public string Note { get; set; }
         public List<CruciblePieceAction> Actions { get; set; } = new List<CruciblePieceAction>();
 
         public bool IsBoss => Strength >= 5;
@@ -35,7 +39,18 @@ namespace Magitek.Models.BeastMaster
         public int Range { get; set; }
         public int EffectRange { get; set; }
 
-        /// <summary>A cast long enough for Soul Crush to matter (the routine reads interruptibility live).</summary>
+        // From the board's entry: who the move targets, whether Soul Crush can stop it, its damage type and shape,
+        // the status it applies (on the player, the piece itself or its allies) and whether that status can be nullified.
+        public string Target { get; set; }
+        public bool? Interruptible { get; set; }
+        public string DamageType { get; set; }
+        public string Shape { get; set; }
+        public string Status { get; set; }
+        public bool? Nullifiable { get; set; }
+        public string StatusOn { get; set; }
+
+        /// <summary>A cast Soul Crush is worth spending on: the board says it can be stopped, or, unknown, it is long enough to try.</summary>
+        public bool WorthInterrupting => Interruptible == true || (Interruptible == null && CastSeconds >= 3f);
         public bool LongCast => CastSeconds >= 3f;
     }
 }
