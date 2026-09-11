@@ -5725,4 +5725,19 @@
   <data name="BeastMaster_Content_Crucible_Swap" xml:space="preserve">
     <value>In the Crucible, swap the familiar out below</value>
   </data>
+  <data name="BeastMaster_Content_Crucible_Enmity" xml:space="preserve">
+    <value>Snarl and Challenge in the Crucible</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Snarl_Familiar" xml:space="preserve">
+    <value>Snarl while the familiar is above</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
+    <value>% and you are below</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Challenge_Player" xml:space="preserve">
+    <value>% and you are above</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Challenge" xml:space="preserve">
+    <value>Challenge when the familiar is below</value>
+  </data>
 </root>

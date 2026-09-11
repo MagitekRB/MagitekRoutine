@@ -81,6 +81,9 @@ namespace Magitek.Rotations
             // A familiar first: everything else keys off it.
             if (await Familiar.Summon()) return true;
 
+            // Crucible: who the piece is hitting matters more than anything below.
+            if (Familiar.CrucibleEnmity()) return true;
+
             // The mark, the moment the beast is weak enough.
             if (await Capture.Mark()) return true;
 

@@ -77,6 +77,62 @@ namespace Magitek.Logic.BeastMaster
 
             _awayAt = System.DateTime.Now;
             Logger.WriteInfo("[Beastmaster] Away: One with Nature is spent and a pull is near; the horn brings the familiar back with a fresh one.");
+        /// <summary>
+        /// Crucible enmity control. The pieces go for the familiar by default and hit it four to six times harder than
+        /// they hit you (first run 2026-09-09), so the beast is the tank without any help. Snarl is the emergency:
+        /// a covering beast takes its own hits AND every hit meant for you, and fired at every summon (the piece
+        /// targets you until the beast is out) it emptied a beast in thirty seconds (run 2: Drake 100 to 10 %, Buffalo
+        /// 100 to 6 %). So Snarl only when you are low and the beast is healthy. Challenge only when you can afford
+        /// it: the beast is low and still out, and you are healthy enough to hold the piece. Both are granted by the
+        /// duty and never read as known, so they go through the action manager on a castable check alone.
+        /// </summary>
+        public static bool CrucibleEnmity()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseSnarlAndChallenge || !BeastMasterRoutine.InCrucible || !Core.Me.InCombat)
+                return false;
+
+            var enemy = Core.Me.CurrentTarget as ff14bot.Objects.BattleCharacter;
+            var pet = Core.Me.Pet;
+            if (enemy == null || pet == null || !pet.IsValid)
+                return false;
+
+            // The beast's object can vanish mid-read while it retreats; that is no reason to stop the rotation.
+            float petHealth;
+            try { petHealth = pet.CurrentHealthPercent; }
+            catch { return false; }
+
+            var myHealth = Core.Me.CurrentHealthPercent;
+
+            if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
+                && !Core.Me.HasAura(Auras.Covered) && CastDutyAction(Spells.Snarl, enemy))
+            {
+                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %.");
+                return true;
+            }
+
+            // A retreating or dead beast cannot be spared, and a beast at the swap threshold is leaving anyway.
+            if (petHealth > 0 && petHealth <= settings.CrucibleChallengeFamiliarHealthPercent && !BeastMasterRoutine.FamiliarRetreating
+                && myHealth >= settings.CrucibleChallengePlayerHealthPercent && !Core.Me.BeingTargeted()
+                && CastDutyAction(Spells.Challenge, enemy))
+            {
+                Logger.WriteInfo("[Beastmaster] Challenge: " + pet.EnglishName + " at " + petHealth.ToString("0") + " %, you at " + myHealth.ToString("0") + " %: the piece turns to you.");
+                return true;
+            }
+
+            return false;
+        }
+
+        // Duty actions bypass the routine's known-spell gate: castable now is the only test the client offers.
+        private static bool CastDutyAction(ff14bot.Objects.SpellData spell, ff14bot.Objects.GameObject target)
+        {
+            if (!ActionManager.CanCast(spell, target))
+                return false;
+
+            if (!ActionManager.DoAction(spell, target))
+                return false;
+
+            Logger.WriteInfo("[Magitek] Cast: " + spell.Name);
             return true;
         }
 
