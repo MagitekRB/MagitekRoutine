@@ -170,7 +170,7 @@ namespace Magitek.Logic.BeastMaster
 
             var spellId = enemy.CastingSpellId;
             var move = piece.Actions.FirstOrDefault(a => a.Id == spellId);
-            if (move == null)
+            if (move == null || move.Basic)
                 return false;
 
             if (_reactedTarget == enemy.ObjectId && _reactedSpell == spellId && (System.DateTime.Now - _reactedAt).TotalSeconds < 15)
