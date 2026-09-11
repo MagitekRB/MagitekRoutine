@@ -476,6 +476,9 @@ namespace Magitek.Utilities.Routines
         /// <summary>A horn other than the familiar's own, off cooldown, with a beast in its slot.</summary>
         public static bool AnotherHornReady => Battlehorns.Any(h => h != ActiveHorn && HornReady(h));
 
+        /// <summary>That horn, or null.</summary>
+        public static SpellData AnotherReadyHorn => Battlehorns.FirstOrDefault(h => h != ActiveHorn && HornReady(h));
+
         /// <summary>Another horn, off cooldown, whose beast carries this affinity.</summary>
         public static SpellData SwapHornFor(string affinity) =>
             affinity == null ? null : Battlehorns.FirstOrDefault(h => h != ActiveHorn && HornReady(h) && HornAffinity(h) == affinity);

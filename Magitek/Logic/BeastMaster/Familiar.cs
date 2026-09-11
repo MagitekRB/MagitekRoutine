@@ -98,6 +98,10 @@ namespace Magitek.Logic.BeastMaster
             if (!settings.UseBattlehornSwaps || !settings.UseTrick || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
                 return false;
 
+            // A chain swap puts another beast in front of the piece; in the Crucible the beast out stays out.
+            if (BeastMasterRoutine.InCrucible)
+                return false;
+
             if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
                 return false;
 
@@ -372,6 +376,48 @@ namespace Magitek.Logic.BeastMaster
             var another = BeastMasterRoutine.AnotherHornReady;
             if (!another)
                 return false;
+
+            // In the Crucible the three beasts in the slots are the node's share of a finite roster and their HP
+            // carries from node to node (first run 2026-09-09: the field cycle put all three in front of the piece
+            // every node and one died). The familiar out stays out; it leaves only when its health says so and a
+            // horn can bring another. No spacing exit, no time-to-death exit.
+            if (BeastMasterRoutine.InCrucible)
+            {
+                // A beast already on its way out is not read again: its object vanishes mid-retreat and the health
+                // read threw out of the rotation (Ice Golem, run 3, 2026-09-10).
+                if (BeastMasterRoutine.FamiliarRetreating)
+                    return false;
+
+                var pet = Core.Me.Pet;
+                if (pet == null || !pet.IsValid)
+                    return false;
+
+                float petHealth;
+                try { petHealth = pet.CurrentHealthPercent; }
+                catch { return false; }
+
+                if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                    return false;
+
+                // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
+                // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
+                // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
+                var horn = BeastMasterRoutine.AnotherReadyHorn;
+                if (horn != null && await horn.Cast(Core.Me))
+                {
+                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                    BeastMasterRoutine.NoteHornCast(horn);
+                    BeastMasterRoutine.NotePartingBlow();
+                    return true;
+                }
+
+                if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                    return false;
+
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
+                BeastMasterRoutine.NotePartingBlow();
+                return true;
+            }
 
             // Three horns on a 90 s recast that starts at the retreat allow one summon per 45 s on average however
             // fast the exits come. Exiting sooner only bunches them: two beasts out ten seconds each, then one

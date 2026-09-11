@@ -138,6 +138,11 @@
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.DefensiveKinshipHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                         </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Swap}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleSwapHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>

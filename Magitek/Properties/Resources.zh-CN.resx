@@ -5955,4 +5955,7 @@
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>生命值低于以下百分比时使用防御性亲缘技能</value>
   </data>
+  <data name="BeastMaster_Content_Crucible_Swap" xml:space="preserve">
+    <value>在熔炉中，魔物生命值低于此值时换出</value>
+  </data>
 </root>
