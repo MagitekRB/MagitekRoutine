@@ -54,6 +54,28 @@ namespace Magitek.Utilities
                 }
             }
 
+            // The Crucible of the Unbroken enemies (7.56 client data, XBMBattleDetail): weakness, ratings and the two
+            // signature actions per piece, keyed by BNpcName. Same guard as the catalogue.
+            const string piecesFile = "Magitek.Resources.BeastMasterCruciblePieces.json";
+            BeastMasterCruciblePieces = new Dictionary<uint, CruciblePiece>();
+            if (assembly.GetManifestResourceNames().Any(n => n == piecesFile))
+            {
+                try
+                {
+                    using (var stream = assembly.GetManifestResourceStream(piecesFile))
+                    using (var reader = new StreamReader(stream))
+                    {
+                        var pieces = JsonConvert.DeserializeObject<List<CruciblePiece>>(reader.ReadToEnd()) ?? new List<CruciblePiece>();
+                        foreach (var piece in pieces)
+                            BeastMasterCruciblePieces[piece.BNpcName] = piece;
+                    }
+                }
+                catch (System.Exception)
+                {
+                    BeastMasterCruciblePieces = new Dictionary<uint, CruciblePiece>();
+                }
+            }
+
             const string statusFile = "Magitek.Resources.StatusList.json";
 
             string statuses;
@@ -131,6 +153,7 @@ namespace Magitek.Utilities
 
         public static readonly List<BeastMasterFamiliar> BeastMasterFamiliars;
         public static readonly Dictionary<uint, int> BeastMasterCapturableBases;
+        public static readonly Dictionary<uint, CruciblePiece> BeastMasterCruciblePieces;
         public static readonly List<XivDbItem> XivDbStatuses;
         public static readonly List<XivDbItem> XivDbActions;
         public static Dictionary<uint, string> BossDictionary;

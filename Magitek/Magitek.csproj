@@ -43,6 +43,7 @@
     <EmbeddedResource Include="Resources\BossDictionary.json" />
     <EmbeddedResource Include="Resources\BeastMasterFamiliars.json" />
     <EmbeddedResource Include="Resources\BeastMasterCapturableBases.json" />
+    <EmbeddedResource Include="Resources\BeastMasterCruciblePieces.json" />
     <EmbeddedResource Include="Resources\OccultDebuffImmunity.json" />
     <EmbeddedResource Include="Resources\OmnidirectionalBaseIds.json" />
 	<EmbeddedResource Include="Resources\BossNames.json" />
