@@ -35,9 +35,11 @@ namespace Magitek.Models.BeastMaster
         public uint Id { get; set; }
         public string Name { get; set; }
         public float CastSeconds { get; set; }
-        public int CastType { get; set; }
-        public int Range { get; set; }
-        public int EffectRange { get; set; }
+        // Nullable: a move the board lists that the sheet does not has no cast data, and a null into an int fails the
+        // whole deserialization, which left the library empty on its first run (2026-09-11).
+        public int? CastType { get; set; }
+        public int? Range { get; set; }
+        public int? EffectRange { get; set; }
 
         // From the board's entry: who the move targets, whether Soul Crush can stop it, its damage type and shape,
         // the status it applies (on the player, the piece itself or its allies) and whether that status can be nullified.
