@@ -2169,6 +2169,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resummon before a pull for a fresh Tempered Release when an enemy is within.
+        /// </summary>
+        public static string BeastMaster_Content_Away_Reset {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Away_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Swap familiars with the battlehorns mid-fight when another beast continues the chain.
         /// </summary>
         public static string BeastMaster_Content_Battlehorn_Swaps {
@@ -2318,6 +2327,60 @@ namespace Magitek.Properties {
         public static string BeastMaster_Content_Capture_Hold {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Capture_Hold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenge when the familiar is below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Challenge {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Challenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl and Challenge in the Crucible.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Challenge_Player {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Challenge_Player", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl and Challenge in the Crucible.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Enmity {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Enmity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl while the familiar is above.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_Familiar {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_Familiar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to % and you are below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_Player {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In the Crucible, swap the familiar out below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Swap {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Swap", resourceCulture);
             }
         }
         

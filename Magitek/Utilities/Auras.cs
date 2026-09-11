@@ -267,6 +267,7 @@ namespace Magitek.Utilities
             Sunstrider = 4599,
             Moonstalker = 4600,
             OneWithNature = 4601,
+            Covered = 2413, // Crucible: the familiar takes the damage meant for the beastmaster (Snarl, 45 s)
             BeastKinship = 4602,
             VileKinship = 4603,
             CloudKinship = 4604,

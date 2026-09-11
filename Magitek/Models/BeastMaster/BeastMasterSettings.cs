@@ -27,6 +27,17 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(1)]
         public int PreferredBattlehorn { get; set; }
 
+        // Out of combat, a familiar whose One with Nature is spent goes Away before the next pull and the horn brings
+        // it back with a fresh one (its cooldowns reset while the horn itself is not on cooldown). Never in the Crucible.
+        [Setting]
+        [DefaultValue(true)]
+        public bool AwayResetBetweenPulls { get; set; }
+
+        // How near an enemy has to be, out of combat, for the reset to count a pull as coming.
+        [Setting]
+        [DefaultValue(30)]
+        public int AwayResetRange { get; set; }
+
         [Setting]
         [DefaultValue(true)]
         public bool UseTemperedRelease { get; set; }
@@ -161,6 +172,35 @@ namespace Magitek.Models.BeastMaster
         [Setting]
         [DefaultValue(60.0f)]
         public float DefensiveKinshipHealthPercent { get; set; }
+
+        // Crucible of the Unbroken: the familiar out leaves only below this health, and only when another horn
+        // can bring a beast. HP carries from node to node there, so the field horn cycle is off.
+        [Setting]
+        [DefaultValue(55f)]
+        public float CrucibleSwapHealthPercent { get; set; }
+
+        // Crucible enmity control. Snarl puts the familiar in front of the piece and makes it take every hit meant
+        // for you for 45 s; Challenge takes the piece back onto you and cancels that cover.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseSnarlAndChallenge { get; set; }
+
+        [Setting]
+        [DefaultValue(50f)]
+        public float CrucibleSnarlFamiliarHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(40f)]
+        public float CrucibleSnarlPlayerHealthPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(30f)]
+        public float CrucibleChallengeFamiliarHealthPercent { get; set; }
+
+        // Challenge only while you can hold the piece yourself.
+        [Setting]
+        [DefaultValue(60f)]
+        public float CrucibleChallengePlayerHealthPercent { get; set; }
 
         #endregion
 

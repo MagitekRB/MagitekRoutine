@@ -20,6 +20,11 @@
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Summon}" IsChecked="{Binding BeastMasterSettings.SummonFamiliar, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                             <controls:Numeric MaxValue="3" MinValue="1" Value="{Binding BeastMasterSettings.PreferredBattlehorn, Mode=TwoWay}" />
                         </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Away_Reset}" IsChecked="{Binding BeastMasterSettings.AwayResetBetweenPulls, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                            <controls:Numeric MaxValue="50" MinValue="5" Value="{Binding BeastMasterSettings.AwayResetRange, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Yalms_Away}" />
+                        </StackPanel>
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Tempered_Release}" IsChecked="{Binding BeastMasterSettings.UseTemperedRelease, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
@@ -131,6 +136,28 @@
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Defensive_Health}" />
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.DefensiveKinshipHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Swap}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleSwapHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Crucible_Enmity}" IsChecked="{Binding BeastMasterSettings.UseSnarlAndChallenge, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Snarl_Familiar}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleSnarlFamiliarHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Snarl_Player}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleSnarlPlayerHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Challenge}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleChallengeFamiliarHealthPercent, Mode=TwoWay}" />
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Crucible_Challenge_Player}" />
+                            <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleChallengePlayerHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                         </StackPanel>
                     </StackPanel>

@@ -43,6 +43,102 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
+        // Away is instant and the familiar takes a moment to leave; the next order waits for that.
+        private static System.DateTime _awayAt = System.DateTime.MinValue;
+        private const int AwayRetryMs = 5000;
+
+        /// <summary>
+        /// Out of combat, a familiar whose One with Nature is spent goes Away and the horn brings it back with a fresh
+        /// one, so every pull opens with Tempered Release (Icy Veins, 2026-09-09: the cooldowns reset while the horn
+        /// itself is not on cooldown, which a swap or a Parting Blow would have started). Only with an enemy near
+        /// enough that a pull is coming, and never in the Crucible, where the horns are the duty's.
+        /// </summary>
+        public static bool AwayReset()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.AwayResetBetweenPulls || !settings.SummonFamiliar || !BeastMasterRoutine.FamiliarOut || Core.Me.InCombat)
+                return false;
+
+            if (Core.Me.HasAura(Auras.OneWithNature) || BeastMasterRoutine.LeaveHornsToTheDuty())
+                return false;
+
+            if ((System.DateTime.Now - _awayAt).TotalMilliseconds < AwayRetryMs)
+                return false;
+
+            var horn = BeastMasterRoutine.ActiveHorn;
+            if (horn == null || horn.Cooldown != System.TimeSpan.Zero)
+                return false;
+
+            if (!Core.Me.EnemiesNearbyOoc(settings.AwayResetRange).Any())
+                return false;
+
+            if (!PetManager.DoAction("Away", Core.Me))
+                return false;
+
+            _awayAt = System.DateTime.Now;
+            Logger.WriteInfo("[Beastmaster] Away: One with Nature is spent and a pull is near; the horn brings the familiar back with a fresh one.");
+            return true;
+        }
+
+        /// <summary>
+        /// Crucible enmity control. The pieces go for the familiar by default and hit it four to six times harder than
+        /// they hit you (first run 2026-09-09), so the beast is the tank without any help. Snarl is the emergency:
+        /// a covering beast takes its own hits AND every hit meant for you, and fired at every summon (the piece
+        /// targets you until the beast is out) it emptied a beast in thirty seconds (run 2: Drake 100 to 10 %, Buffalo
+        /// 100 to 6 %). So Snarl only when you are low and the beast is healthy. Challenge only when you can afford
+        /// it: the beast is low and still out, and you are healthy enough to hold the piece. Both are granted by the
+        /// duty and never read as known, so they go through the action manager on a castable check alone.
+        /// </summary>
+        public static bool CrucibleEnmity()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseSnarlAndChallenge || !BeastMasterRoutine.InCrucible || !Core.Me.InCombat)
+                return false;
+
+            var enemy = Core.Me.CurrentTarget as ff14bot.Objects.BattleCharacter;
+            var pet = Core.Me.Pet;
+            if (enemy == null || pet == null || !pet.IsValid)
+                return false;
+
+            // The beast's object can vanish mid-read while it retreats; that is no reason to stop the rotation.
+            float petHealth;
+            try { petHealth = pet.CurrentHealthPercent; }
+            catch { return false; }
+
+            var myHealth = Core.Me.CurrentHealthPercent;
+
+            if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
+                && !Core.Me.HasAura(Auras.Covered) && CastDutyAction(Spells.Snarl, enemy))
+            {
+                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %.");
+                return true;
+            }
+
+            // A retreating or dead beast cannot be spared, and a beast at the swap threshold is leaving anyway.
+            if (petHealth > 0 && petHealth <= settings.CrucibleChallengeFamiliarHealthPercent && !BeastMasterRoutine.FamiliarRetreating
+                && myHealth >= settings.CrucibleChallengePlayerHealthPercent && !Core.Me.BeingTargeted()
+                && CastDutyAction(Spells.Challenge, enemy))
+            {
+                Logger.WriteInfo("[Beastmaster] Challenge: " + pet.EnglishName + " at " + petHealth.ToString("0") + " %, you at " + myHealth.ToString("0") + " %: the piece turns to you.");
+                return true;
+            }
+
+            return false;
+        }
+
+        // Duty actions bypass the routine's known-spell gate: castable now is the only test the client offers.
+        private static bool CastDutyAction(ff14bot.Objects.SpellData spell, ff14bot.Objects.GameObject target)
+        {
+            if (!ActionManager.CanCast(spell, target))
+                return false;
+
+            if (!ActionManager.DoAction(spell, target))
+                return false;
+
+            Logger.WriteInfo("[Magitek] Cast: " + spell.Name);
+            return true;
+        }
+
         // A horn blown over the familiar out swaps it (the client accepts any horn but the one whose beast is already
         // out; seen out of combat 2026-09-08, one-second cast, cancelled by moving). The Parting Blow route (retreat,
         // then the horn) is the fallback when the client refuses, and takes longer; the Heart lasts seven seconds.
@@ -59,6 +155,10 @@ namespace Magitek.Logic.BeastMaster
         {
             var settings = BeastMasterSettings.Instance;
             if (!settings.UseBattlehornSwaps || !settings.UseTrick || !Core.Me.InCombat || !BeastMasterRoutine.FamiliarOut)
+                return false;
+
+            // A chain swap puts another beast in front of the piece; in the Crucible the beast out stays out.
+            if (BeastMasterRoutine.InCrucible)
                 return false;
 
             if (BeastMasterRoutine.WaveringHeart || BeastMasterRoutine.TrickPending)
@@ -183,7 +283,7 @@ namespace Magitek.Logic.BeastMaster
             {
                 case AbilityKind.Damage:
                     // A dispel is worth more with something to strip: give the fight a few seconds to show one.
-                    if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
+                    if (ability.Has("Dispel") && !BeastMasterRoutine.HasStrippableBuff(target) && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
                         return Timing.Later;
                     return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
@@ -336,6 +436,48 @@ namespace Magitek.Logic.BeastMaster
             if (!another)
                 return false;
 
+            // In the Crucible the three beasts in the slots are the node's share of a finite roster and their HP
+            // carries from node to node (first run 2026-09-09: the field cycle put all three in front of the piece
+            // every node and one died). The familiar out stays out; it leaves only when its health says so and a
+            // horn can bring another. No spacing exit, no time-to-death exit.
+            if (BeastMasterRoutine.InCrucible)
+            {
+                // A beast already on its way out is not read again: its object vanishes mid-retreat and the health
+                // read threw out of the rotation (Ice Golem, run 3, 2026-09-10).
+                if (BeastMasterRoutine.FamiliarRetreating)
+                    return false;
+
+                var pet = Core.Me.Pet;
+                if (pet == null || !pet.IsValid)
+                    return false;
+
+                float petHealth;
+                try { petHealth = pet.CurrentHealthPercent; }
+                catch { return false; }
+
+                if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                    return false;
+
+                // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
+                // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
+                // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
+                var horn = BeastMasterRoutine.AnotherReadyHorn;
+                if (horn != null && await horn.Cast(Core.Me))
+                {
+                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                    BeastMasterRoutine.NoteHornCast(horn);
+                    BeastMasterRoutine.NotePartingBlow();
+                    return true;
+                }
+
+                if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                    return false;
+
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
+                BeastMasterRoutine.NotePartingBlow();
+                return true;
+            }
+
             // Three horns on a 90 s recast that starts at the retreat allow one summon per 45 s on average however
             // fast the exits come. Exiting sooner only bunches them: two beasts out ten seconds each, then one
             // stranded for eighty with its Vantage long gone (dummy, 2026-09-09). Holding each beast for the
@@ -343,6 +485,7 @@ namespace Magitek.Logic.BeastMaster
             // exception, and so is a Vantage about to run out.
             var hold = BeastMasterSettings.Instance.PartingBlowSpacingSeconds;
             var left = hold - BeastMasterRoutine.FamiliarOutSeconds;
+            string early = null;
             if (hold > 0 && left > 0)
             {
                 // A Vantage whose timer the bot has not read yet shows 0 ms left; that is not an ending Vantage.
@@ -356,11 +499,16 @@ namespace Magitek.Logic.BeastMaster
                 if (!vantageEnding && !diesFirst)
                     return false;
 
-                Logger.WriteInfo($"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.");
+                early = $"[Beastmaster] Parting Blow {left:0} s before the spacing interval ends: {(diesFirst ? $"target dead in {ttd} s" : $"Vantage has {vantageMsLeft:0} ms left")}.";
             }
 
+            // The reason is logged once the cast has gone out. The check passes on every pulse while the beast is
+            // still leaving, and it wrote the line fifteen times a second on a pack in the field (2026-09-09).
             if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                 return false;
+
+            if (early != null)
+                Logger.WriteInfo(early);
 
             BeastMasterRoutine.NotePartingBlow();
             return true;
@@ -378,7 +526,7 @@ namespace Magitek.Logic.BeastMaster
 
             var target = Core.Me.CurrentTarget;
             var outOfMelee = !target.WithinSpellRange(5);
-            if (!outOfMelee && !target.HasDispellableBuff())
+            if (!outOfMelee && !BeastMasterRoutine.HasStrippableBuff(target))
                 return false;
 
             return await Spells.QuellingWave.Cast(target);

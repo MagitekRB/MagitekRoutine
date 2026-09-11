@@ -938,6 +938,9 @@ namespace Magitek.Utilities
         public static readonly SpellData ShieldCharge = DataManager.GetSpellData(44893);
         public static readonly SpellData Rally = DataManager.GetSpellData(44905);
         public static readonly SpellData RallyingCheer = DataManager.GetSpellData(44904);
+        // Crucible of the Unbroken duty actions: never read as known, castable inside a node (2026-09-09).
+        public static readonly SpellData Snarl = DataManager.GetSpellData(46751);
+        public static readonly SpellData Challenge = DataManager.GetSpellData(46750);
         public static readonly SpellData Beastskin = DataManager.GetSpellData(44896);
         public static readonly SpellData Vileskin = DataManager.GetSpellData(44897);
         public static readonly SpellData CloudSkim = DataManager.GetSpellData(44898);

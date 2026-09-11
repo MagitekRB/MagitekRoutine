@@ -5895,6 +5895,9 @@
   <data name="BeastMaster_Content_Parting_Blow_Spacing" xml:space="preserve">
     <value>每只魔物至少留出</value>
   </data>
+  <data name="BeastMaster_Content_Away_Reset" xml:space="preserve">
+    <value>拉怪前重新召唤以刷新调驯解放，当敌人在此距离内</value>
+  </data>
   <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
     <value>战斗中当其他魔兽能接续连击时，通过战角更换魔兽</value>
   </data>
@@ -5951,5 +5954,23 @@
   </data>
   <data name="BeastMaster_Content_Defensive_Health" xml:space="preserve">
     <value>生命值低于以下百分比时使用防御性亲缘技能</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Swap" xml:space="preserve">
+    <value>在熔炉中，魔物生命值低于此值时换出</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Enmity" xml:space="preserve">
+    <value>在熔炉中使用咆哮和挑衅</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Snarl_Familiar" xml:space="preserve">
+    <value>魔物生命值高于此值时咆哮</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
+    <value>% 且你的生命值低于</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Challenge_Player" xml:space="preserve">
+    <value>% 且你的生命值高于</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Challenge" xml:space="preserve">
+    <value>魔物生命值低于此值时挑衅</value>
   </data>
 </root>
