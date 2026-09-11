@@ -489,7 +489,11 @@
     "castSeconds": 8.1,
     "castType": 2,
     "range": 0,
-    "effectRange": 30
+    "effectRange": 30,
+    "target": "Ground",
+    "interruptible": false,
+    "damageType": "Blunt",
+    "shape": "Circle"
    },
    {
     "id": 48138,
@@ -497,10 +501,17 @@
     "castSeconds": 5.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Player",
+    "interruptible": false,
+    "damageType": "Blunt",
+    "shape": "Single Target"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Poison"
+  ]
  },
  {
   "encounter": 8,
@@ -520,7 +531,14 @@
     "castSeconds": 5.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 60
+    "effectRange": 60,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Universal",
+    "status": "Doom",
+    "nullifiable": false,
+    "statusOn": "player"
    },
    {
     "id": 48155,
@@ -528,10 +546,15 @@
     "castSeconds": 6.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 8
+    "effectRange": 8,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Circle"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": []
  },
  {
   "encounter": 8,
@@ -551,10 +574,24 @@
     "castSeconds": 5.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 50
+    "effectRange": 50,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Universal",
+    "status": "Doom",
+    "nullifiable": false,
+    "statusOn": "player"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Slow",
+   "Paralysis",
+   "Blind",
+   "Stun",
+   "Sleep"
+  ]
  },
  {
   "encounter": 9,
@@ -574,7 +611,11 @@
     "castSeconds": 8.0,
     "castType": 13,
     "range": 0,
-    "effectRange": 60
+    "effectRange": 60,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Front"
    },
    {
     "id": 48168,
@@ -582,10 +623,18 @@
     "castSeconds": 3.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Wind",
+    "shape": "Universal"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Blind",
+   "Poison"
+  ]
  },
  {
   "encounter": 10,
@@ -605,7 +654,11 @@
     "castSeconds": 0.0,
     "castType": 1,
     "range": 25,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Highest Enmity",
+    "interruptible": false,
+    "damageType": "Water",
+    "shape": "Single Target"
    },
    {
     "id": 48186,
@@ -613,10 +666,15 @@
     "castSeconds": 8.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 18
+    "effectRange": 18,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Circle"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": []
  },
  {
   "encounter": 10,
@@ -630,7 +688,15 @@
   "constitution": 1,
   "resist": 253,
   "actions": [],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Slow",
+   "Petrification",
+   "Bind",
+   "Heavy",
+   "Doom"
+  ],
+  "note": "No abilities listed on the board."
  },
  {
   "encounter": 11,
@@ -650,7 +716,11 @@
     "castSeconds": 6.5,
     "castType": 1,
     "range": 0,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": null,
+    "interruptible": false,
+    "damageType": null,
+    "shape": "Front"
    },
    {
     "id": 48193,
@@ -658,10 +728,15 @@
     "castSeconds": 7.0,
     "castType": 1,
     "range": 0,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": null,
+    "shape": "Circle"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": []
  },
  {
   "encounter": 11,
@@ -681,10 +756,23 @@
     "castSeconds": 7.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Allies",
+    "interruptible": true,
+    "damageType": null,
+    "shape": "Single Target",
+    "status": "Damage Up",
+    "nullifiable": true,
+    "statusOn": "ally"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Silence",
+   "Blind",
+   "Heavy",
+   "Poison"
+  ]
  },
  {
   "encounter": 12,
@@ -704,7 +792,14 @@
     "castSeconds": 5.0,
     "castType": 1,
     "range": 100,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Highest Enmity",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Single Target",
+    "status": "Paralysis",
+    "nullifiable": true,
+    "statusOn": "player"
    },
    {
     "id": 48223,
@@ -712,10 +807,24 @@
     "castSeconds": 3.0,
     "castType": 13,
     "range": 0,
-    "effectRange": 12
+    "effectRange": 12,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Front"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Slow",
+   "Petrification",
+   "Paralysis",
+   "Stun",
+   "Sleep",
+   "Bind",
+   "Heavy",
+   "Doom"
+  ]
  },
  {
   "encounter": 12,
@@ -735,7 +844,11 @@
     "castSeconds": 7.0,
     "castType": 12,
     "range": 0,
-    "effectRange": 40
+    "effectRange": 40,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Slashing",
+    "shape": "Front/Rear or Ring (two variations under one name)"
    },
    {
     "id": 48219,
@@ -743,10 +856,24 @@
     "castSeconds": 7.0,
     "castType": 10,
     "range": 0,
-    "effectRange": 30
+    "effectRange": 30,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Slashing",
+    "shape": "Front/Rear or Ring (two variations under one name)"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Slow",
+   "Petrification",
+   "Paralysis",
+   "Stun",
+   "Sleep",
+   "Bind",
+   "Heavy",
+   "Doom"
+  ]
  },
  {
   "encounter": 12,
@@ -766,10 +893,20 @@
     "castSeconds": 10.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 60
+    "effectRange": 60,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Fire",
+    "shape": "Universal"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Slow",
+   "Paralysis",
+   "Stun",
+   "Doom"
+  ]
  },
  {
   "encounter": 13,
@@ -789,7 +926,14 @@
     "castSeconds": 4.0,
     "castType": 1,
     "range": 0,
-    "effectRange": 0
+    "effectRange": 0,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Unaspected",
+    "shape": "Single Target",
+    "status": "Popoto Skin",
+    "nullifiable": true,
+    "statusOn": "self"
    },
    {
     "id": 48229,
@@ -797,10 +941,18 @@
     "castSeconds": 6.0,
     "castType": 2,
     "range": 0,
-    "effectRange": 8
+    "effectRange": 8,
+    "target": "Self",
+    "interruptible": false,
+    "damageType": "Slashing",
+    "shape": "Circle/Ring"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": [
+   "Blind",
+   "Poison"
+  ]
  },
  {
   "encounter": 13,
@@ -820,10 +972,18 @@
     "castSeconds": 9.0,
     "castType": 13,
     "range": 0,
-    "effectRange": 60
+    "effectRange": 60,
+    "target": null,
+    "interruptible": false,
+    "damageType": "Earth",
+    "shape": "Front",
+    "status": "Blind",
+    "nullifiable": true,
+    "statusOn": "player"
    }
   ],
-  "board": 0
+  "board": 2,
+  "vulnerableTo": []
  },
  {
   "encounter": 14,
