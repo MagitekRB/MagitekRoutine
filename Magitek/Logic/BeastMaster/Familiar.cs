@@ -183,7 +183,7 @@ namespace Magitek.Logic.BeastMaster
             {
                 case AbilityKind.Damage:
                     // A dispel is worth more with something to strip: give the fight a few seconds to show one.
-                    if (ability.Has("Dispel") && !target.HasDispellableBuff() && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
+                    if (ability.Has("Dispel") && !BeastMasterRoutine.HasStrippableBuff(target) && Combat.CombatTime.Elapsed.TotalSeconds < settings.TemperedReleaseDispelWaitSeconds)
                         return Timing.Later;
                     return BeastMasterRoutine.CheckTTDIsEnemyDyingSoon() ? Timing.Later : Timing.Now;
 
@@ -378,7 +378,7 @@ namespace Magitek.Logic.BeastMaster
 
             var target = Core.Me.CurrentTarget;
             var outOfMelee = !target.WithinSpellRange(5);
-            if (!outOfMelee && !target.HasDispellableBuff())
+            if (!outOfMelee && !BeastMasterRoutine.HasStrippableBuff(target))
                 return false;
 
             return await Spells.QuellingWave.Cast(target);
