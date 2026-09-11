@@ -17,6 +17,32 @@ namespace Magitek.Utilities.Routines
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Summoner, Spells.Ruin);
 
+        /// <summary>
+        /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
+        /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
+        /// hardcast-only state, or the GCD toggles switched off — every oGCD behind it is locked out
+        /// for the duration. Once the last action finished long enough ago that the GCD is clearly
+        /// stalled rather than rolling, let oGCDs fire anyway.
+        /// </summary>
+        public static bool CanWeave()
+        {
+            if (GlobalCooldown.CanWeave())
+                return true;
+
+            // Idle GCD only: the age check alone also comes true in the tail of every
+            // rolling recast (age passes 1750ms before a 2.5s GCD comes back), exactly
+            // where CanWeave refuses because an oGCD would clip the next GCD. The
+            // fallback exists for a rotation that has genuinely stopped casting.
+            if (Spells.Ruin.Cooldown > System.TimeSpan.Zero || Core.Me.IsCasting)
+                return false;
+
+            return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
+        }
+
+        // Stamps when Searing Light first found the demi summon ready-or-imminent and
+        // began waiting for it; bounds the wait so gem phases cannot park the buff.
+        public static long SearingLightHoldStartTick;
+
         private const int DemiImminentMs = 5000;
 
         /// <summary>
