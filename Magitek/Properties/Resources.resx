@@ -5648,7 +5648,7 @@
     <value>Borrow (take the familiar's kinship)</value>
   </data>
   <data name="BeastMaster_Content_Prefer_Borrow" xml:space="preserve">
-    <value>Spend One with Nature on Borrow rather than Tempered Release</value>
+    <value>Spend One with Nature on Borrow whenever no Kinship is active</value>
   </data>
   <data name="BeastMaster_Content_Trick" xml:space="preserve">
     <value>Trick (the familiar's instinctual skill) whenever its TP allows</value>

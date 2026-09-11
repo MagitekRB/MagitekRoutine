@@ -5881,7 +5881,7 @@
     <value>借用（获得宠物的亲缘）</value>
   </data>
   <data name="BeastMaster_Content_Prefer_Borrow" xml:space="preserve">
-    <value>优先用借用而非调驯解放消耗与自然合一</value>
+    <value>没有亲缘时优先用借用消耗与自然合一</value>
   </data>
   <data name="BeastMaster_Content_Trick" xml:space="preserve">
     <value>宠物TP足够时使用把戏（宠物的本能技能）</value>

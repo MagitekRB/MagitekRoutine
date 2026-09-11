@@ -412,6 +412,7 @@ namespace Magitek.Utilities.Routines
         public static bool ScaleKinship => KinshipOf(Auras.ScaleKinship, Auras.ScaleKinshipSummoned);
         public static bool SoulKinship => KinshipOf(Auras.SoulKinship, Auras.SoulKinshipSummoned);
         public static bool AshKinship => KinshipOf(Auras.AshKinship, Auras.AshKinshipSummoned);
+        public static bool AnyKinship => BeastKinship || VileKinship || CloudKinship || SeedKinship || WaveKinship || ScaleKinship || SoulKinship || AshKinship;
 
         public static readonly SpellData[] Battlehorns = { Spells.FirstBattlehorn, Spells.SecondBattlehorn, Spells.ThirdBattlehorn };
 
