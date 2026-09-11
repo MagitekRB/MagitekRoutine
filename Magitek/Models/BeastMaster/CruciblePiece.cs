@@ -30,5 +30,12 @@ namespace Magitek.Models.BeastMaster
     {
         public uint Id { get; set; }
         public string Name { get; set; }
+        public float CastSeconds { get; set; }
+        public int CastType { get; set; }
+        public int Range { get; set; }
+        public int EffectRange { get; set; }
+
+        /// <summary>A cast long enough for Soul Crush to matter (the routine reads interruptibility live).</summary>
+        public bool LongCast => CastSeconds >= 3f;
     }
 }

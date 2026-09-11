@@ -13,11 +13,19 @@
   "actions": [
    {
     "id": 46866,
-    "name": "Tumulus"
+    "name": "Tumulus",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 6
    },
    {
     "id": 46871,
-    "name": "Ossify"
+    "name": "Ossify",
+    "castSeconds": 8.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -35,11 +43,19 @@
   "actions": [
    {
     "id": 46868,
-    "name": "Death Spiral"
+    "name": "Death Spiral",
+    "castSeconds": 6.0,
+    "castType": 10,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 46870,
-    "name": "Ancient Aero"
+    "name": "Ancient Aero",
+    "castSeconds": 5.7,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -57,7 +73,11 @@
   "actions": [
    {
     "id": 46886,
-    "name": "Abyssal Swing"
+    "name": "Abyssal Swing",
+    "castSeconds": 5.7,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -75,11 +95,19 @@
   "actions": [
    {
     "id": 46898,
-    "name": "Clear Mind"
+    "name": "Clear Mind",
+    "castSeconds": 4.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 46892,
-    "name": "Void Thunder III"
+    "name": "Void Thunder III",
+    "castSeconds": 5.0,
+    "castType": 11,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -97,7 +125,11 @@
   "actions": [
    {
     "id": 46906,
-    "name": "Deadly Thrust"
+    "name": "Deadly Thrust",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -115,7 +147,11 @@
   "actions": [
    {
     "id": 46909,
-    "name": "Silkscreen"
+    "name": "Silkscreen",
+    "castSeconds": 5.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -133,11 +169,19 @@
   "actions": [
    {
     "id": 46912,
-    "name": "Scorching Smite"
+    "name": "Scorching Smite",
+    "castSeconds": 6.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 46920,
-    "name": "Straight Punch"
+    "name": "Straight Punch",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -155,7 +199,11 @@
   "actions": [
    {
     "id": 46919,
-    "name": "Scorched Earth"
+    "name": "Scorched Earth",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -173,7 +221,11 @@
   "actions": [
    {
     "id": 46919,
-    "name": "Scorched Earth"
+    "name": "Scorched Earth",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -191,11 +243,19 @@
   "actions": [
    {
     "id": 46924,
-    "name": "Blood Rain"
+    "name": "Blood Rain",
+    "castSeconds": 6.0,
+    "castType": 10,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 46935,
-    "name": "Cold Caress"
+    "name": "Cold Caress",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -213,11 +273,19 @@
   "actions": [
    {
     "id": 46928,
-    "name": "Fanaticism"
+    "name": "Fanaticism",
+    "castSeconds": 6.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    },
    {
     "id": 46929,
-    "name": "Void Fire II"
+    "name": "Void Fire II",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 10
    }
   ]
  },
@@ -235,7 +303,11 @@
   "actions": [
    {
     "id": 46930,
-    "name": "Sweet Steel"
+    "name": "Sweet Steel",
+    "castSeconds": 4.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 10
    }
   ]
  },
@@ -253,11 +325,19 @@
   "actions": [
    {
     "id": 48137,
-    "name": "Hammerleap"
+    "name": "Hammerleap",
+    "castSeconds": 8.1,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 30
    },
    {
     "id": 48138,
-    "name": "Deadly Hold"
+    "name": "Deadly Hold",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -275,11 +355,19 @@
   "actions": [
    {
     "id": 48143,
-    "name": "Mortal Ray"
+    "name": "Mortal Ray",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    },
    {
     "id": 48155,
-    "name": "Ruinous Locus"
+    "name": "Ruinous Locus",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 8
    }
   ]
  },
@@ -297,7 +385,11 @@
   "actions": [
    {
     "id": 48153,
-    "name": "Mortal Gaze"
+    "name": "Mortal Gaze",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -315,11 +407,19 @@
   "actions": [
    {
     "id": 48175,
-    "name": "Blazing Trail"
+    "name": "Blazing Trail",
+    "castSeconds": 8.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    },
    {
     "id": 48168,
-    "name": "Typhoon"
+    "name": "Typhoon",
+    "castSeconds": 3.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -337,11 +437,19 @@
   "actions": [
    {
     "id": 50793,
-    "name": "Water"
+    "name": "Water",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 25,
+    "effectRange": 0
    },
    {
     "id": 48186,
-    "name": "Dark Orb"
+    "name": "Dark Orb",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 18
    }
   ]
  },
@@ -372,11 +480,19 @@
   "actions": [
    {
     "id": 48189,
-    "name": "1000-tonze Swipe"
+    "name": "1000-tonze Swipe",
+    "castSeconds": 6.5,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 48193,
-    "name": "1111-tonze Swing"
+    "name": "1111-tonze Swing",
+    "castSeconds": 7.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -394,7 +510,11 @@
   "actions": [
    {
     "id": 48203,
-    "name": "Rallying Cheer"
+    "name": "Rallying Cheer",
+    "castSeconds": 7.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -412,11 +532,19 @@
   "actions": [
    {
     "id": 48247,
-    "name": "Void Paralyze"
+    "name": "Void Paralyze",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    },
    {
     "id": 48223,
-    "name": "Condemnation"
+    "name": "Condemnation",
+    "castSeconds": 3.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 12
    }
   ]
  },
@@ -434,11 +562,19 @@
   "actions": [
    {
     "id": 48218,
-    "name": "Smite of Excessive Rage"
+    "name": "Smite of Excessive Rage",
+    "castSeconds": 7.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 48219,
-    "name": "Smite of Excessive Rage"
+    "name": "Smite of Excessive Rage",
+    "castSeconds": 7.0,
+    "castType": 10,
+    "range": 0,
+    "effectRange": 30
    }
   ]
  },
@@ -456,7 +592,11 @@
   "actions": [
    {
     "id": 48222,
-    "name": "Void Fire III"
+    "name": "Void Fire III",
+    "castSeconds": 10.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -474,11 +614,19 @@
   "actions": [
    {
     "id": 48242,
-    "name": "Kinborrow"
+    "name": "Kinborrow",
+    "castSeconds": 4.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 48229,
-    "name": "Gobspin Headlops"
+    "name": "Gobspin Headlops",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 8
    }
   ]
  },
@@ -496,7 +644,11 @@
   "actions": [
    {
     "id": 48227,
-    "name": "Sand Breath"
+    "name": "Sand Breath",
+    "castSeconds": 9.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -514,7 +666,11 @@
   "actions": [
    {
     "id": 48473,
-    "name": "Steelripper"
+    "name": "Steelripper",
+    "castSeconds": 7.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -532,11 +688,19 @@
   "actions": [
    {
     "id": 48621,
-    "name": "Blizzard"
+    "name": "Blizzard",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 25,
+    "effectRange": 0
    },
    {
     "id": 50693,
-    "name": "Soul Douse"
+    "name": "Soul Douse",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -554,11 +718,19 @@
   "actions": [
    {
     "id": 48477,
-    "name": "Head Snatch"
+    "name": "Head Snatch",
+    "castSeconds": 0.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 7
    },
    {
     "id": 48479,
-    "name": "Blanket Thunder"
+    "name": "Blanket Thunder",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -576,11 +748,19 @@
   "actions": [
    {
     "id": 48485,
-    "name": "Dreadwash"
+    "name": "Dreadwash",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 30
    },
    {
     "id": 50532,
-    "name": "Paralyzing Spikes"
+    "name": "Paralyzing Spikes",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -598,11 +778,19 @@
   "actions": [
    {
     "id": 48497,
-    "name": "Fore Carve"
+    "name": "Fore Carve",
+    "castSeconds": 1.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 15
    },
    {
     "id": 48499,
-    "name": "Rear Carve"
+    "name": "Rear Carve",
+    "castSeconds": 1.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 15
    }
   ]
  },
@@ -633,7 +821,11 @@
   "actions": [
    {
     "id": 48489,
-    "name": "Caustic Vomit"
+    "name": "Caustic Vomit",
+    "castSeconds": 13.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -651,11 +843,19 @@
   "actions": [
    {
     "id": 48510,
-    "name": "False Demon Eye"
+    "name": "False Demon Eye",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 100
    },
    {
     "id": 48512,
-    "name": "Sinister Gleam"
+    "name": "Sinister Gleam",
+    "castSeconds": 6.5,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -673,11 +873,19 @@
   "actions": [
    {
     "id": 48556,
-    "name": "Landslip"
+    "name": "Landslip",
+    "castSeconds": 8.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 45
    },
    {
     "id": 48561,
-    "name": "Sand Tempest"
+    "name": "Sand Tempest",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -695,11 +903,19 @@
   "actions": [
    {
     "id": 48555,
-    "name": "Rockslide"
+    "name": "Rockslide",
+    "castSeconds": 7.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 45
    },
    {
     "id": 48221,
-    "name": "Might"
+    "name": "Might",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -717,11 +933,19 @@
   "actions": [
    {
     "id": 48563,
-    "name": "Song of Torment"
+    "name": "Song of Torment",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    },
    {
     "id": 48575,
-    "name": "Dead Man's Dirge"
+    "name": "Dead Man's Dirge",
+    "castSeconds": 7.0,
+    "castType": 10,
+    "range": 0,
+    "effectRange": 43
    }
   ]
  },
@@ -739,7 +963,11 @@
   "actions": [
    {
     "id": 50662,
-    "name": "Wallop"
+    "name": "Wallop",
+    "castSeconds": 2.5,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 5
    }
   ]
  },
@@ -757,7 +985,11 @@
   "actions": [
    {
     "id": 48568,
-    "name": "Death Throes"
+    "name": "Death Throes",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -775,11 +1007,19 @@
   "actions": [
    {
     "id": 48588,
-    "name": "Seeding Needles"
+    "name": "Seeding Needles",
+    "castSeconds": 6.0,
+    "castType": 10,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 48589,
-    "name": "Seeding Needles"
+    "name": "Seeding Needles",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 100
    }
   ]
  },
@@ -810,7 +1050,11 @@
   "actions": [
    {
     "id": 48579,
-    "name": "Healing Water"
+    "name": "Healing Water",
+    "castSeconds": 3.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 6
    }
   ]
  },
@@ -828,7 +1072,11 @@
   "actions": [
    {
     "id": 48581,
-    "name": "??? Needles"
+    "name": "??? Needles",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 15
    }
   ]
  },
@@ -846,7 +1094,11 @@
   "actions": [
    {
     "id": 48582,
-    "name": "Cactguard"
+    "name": "Cactguard",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -864,11 +1116,19 @@
   "actions": [
    {
     "id": 48607,
-    "name": "Beastly Aura"
+    "name": "Beastly Aura",
+    "castSeconds": 7.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 80
    },
    {
     "id": 48620,
-    "name": "Thunderbolt"
+    "name": "Thunderbolt",
+    "castSeconds": 5.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -886,7 +1146,11 @@
   "actions": [
    {
     "id": 50540,
-    "name": "Infernal Pain"
+    "name": "Infernal Pain",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -904,11 +1168,19 @@
   "actions": [
    {
     "id": 48668,
-    "name": "Ultimate Focus"
+    "name": "Ultimate Focus",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 48657,
-    "name": "On the Properties of Quakes"
+    "name": "On the Properties of Quakes",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -926,11 +1198,19 @@
   "actions": [
    {
     "id": 48673,
-    "name": "Extremely Bad Breath"
+    "name": "Extremely Bad Breath",
+    "castSeconds": 5.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 50758,
-    "name": "Tremblor"
+    "name": "Tremblor",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -948,7 +1228,11 @@
   "actions": [
    {
     "id": 50750,
-    "name": "attack"
+    "name": "attack",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 1,
+    "effectRange": 0
    }
   ]
  },
@@ -966,7 +1250,11 @@
   "actions": [
    {
     "id": 48679,
-    "name": "Acid Mist"
+    "name": "Acid Mist",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 6
    }
   ]
  },
@@ -984,11 +1272,19 @@
   "actions": [
    {
     "id": 50544,
-    "name": "attack"
+    "name": "attack",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 1,
+    "effectRange": 0
    },
    {
     "id": 48680,
-    "name": "Sticky Spit"
+    "name": "Sticky Spit",
+    "castSeconds": 2.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1006,11 +1302,19 @@
   "actions": [
    {
     "id": 48691,
-    "name": "Rotten Stench"
+    "name": "Rotten Stench",
+    "castSeconds": 0.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 45
    },
    {
     "id": 48685,
-    "name": "Devour"
+    "name": "Devour",
+    "castSeconds": 0.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 8
    }
   ]
  },
@@ -1028,7 +1332,11 @@
   "actions": [
    {
     "id": 48689,
-    "name": "Final Sting"
+    "name": "Final Sting",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1046,11 +1354,19 @@
   "actions": [
    {
     "id": 48704,
-    "name": "Cauterize"
+    "name": "Cauterize",
+    "castSeconds": 1.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 46
    },
    {
     "id": 48708,
-    "name": "Withering Eternity"
+    "name": "Withering Eternity",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 9
    }
   ]
  },
@@ -1068,7 +1384,11 @@
   "actions": [
    {
     "id": 48621,
-    "name": "Blizzard"
+    "name": "Blizzard",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 25,
+    "effectRange": 0
    }
   ]
  },
@@ -1086,11 +1406,19 @@
   "actions": [
    {
     "id": 48720,
-    "name": "Rippling Evisceration"
+    "name": "Rippling Evisceration",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 13
    },
    {
     "id": 48727,
-    "name": "Desolation"
+    "name": "Desolation",
+    "castSeconds": 3.5,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1108,11 +1436,19 @@
   "actions": [
    {
     "id": 48740,
-    "name": "Confound"
+    "name": "Confound",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    },
    {
     "id": 48747,
-    "name": "Flame Thrower"
+    "name": "Flame Thrower",
+    "castSeconds": 7.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1143,7 +1479,11 @@
   "actions": [
    {
     "id": 48736,
-    "name": "Headspin"
+    "name": "Headspin",
+    "castSeconds": 1.5,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 5
    }
   ]
  },
@@ -1161,7 +1501,11 @@
   "actions": [
    {
     "id": 48742,
-    "name": "Incinerate"
+    "name": "Incinerate",
+    "castSeconds": 0.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 6
    }
   ]
  },
@@ -1179,7 +1523,11 @@
   "actions": [
    {
     "id": 48735,
-    "name": "Auto-cannons"
+    "name": "Auto-cannons",
+    "castSeconds": 3.5,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1197,7 +1545,11 @@
   "actions": [
    {
     "id": 48738,
-    "name": "Noxious Nova"
+    "name": "Noxious Nova",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1215,11 +1567,19 @@
   "actions": [
    {
     "id": 48757,
-    "name": "Stoneshower"
+    "name": "Stoneshower",
+    "castSeconds": 1.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 8
    },
    {
     "id": 48768,
-    "name": "Outcrop"
+    "name": "Outcrop",
+    "castSeconds": 5.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1237,7 +1597,11 @@
   "actions": [
    {
     "id": 48781,
-    "name": "Acorn Bomb"
+    "name": "Acorn Bomb",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 3
    }
   ]
  },
@@ -1255,7 +1619,11 @@
   "actions": [
    {
     "id": 48783,
-    "name": "Aqueous Discharge"
+    "name": "Aqueous Discharge",
+    "castSeconds": 2.5,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 5
    }
   ]
  },
@@ -1273,7 +1641,11 @@
   "actions": [
    {
     "id": 48786,
-    "name": "Grab and Grow"
+    "name": "Grab and Grow",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1291,7 +1663,11 @@
   "actions": [
    {
     "id": 48785,
-    "name": "Silkscreen"
+    "name": "Silkscreen",
+    "castSeconds": 3.5,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1309,7 +1685,11 @@
   "actions": [
    {
     "id": 48782,
-    "name": "Natural Nurture"
+    "name": "Natural Nurture",
+    "castSeconds": 9.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1327,11 +1707,19 @@
   "actions": [
    {
     "id": 48802,
-    "name": "Massive Explosion"
+    "name": "Massive Explosion",
+    "castSeconds": 7.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 48801,
-    "name": "Meltdown"
+    "name": "Meltdown",
+    "castSeconds": 0.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1349,7 +1737,11 @@
   "actions": [
    {
     "id": 48790,
-    "name": "Massive Explosion"
+    "name": "Massive Explosion",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -1367,11 +1759,19 @@
   "actions": [
    {
     "id": 48791,
-    "name": "Fire II"
+    "name": "Fire II",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 5
    },
    {
     "id": 48792,
-    "name": "Self-destruct"
+    "name": "Self-destruct",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 6
    }
   ]
  },
@@ -1389,11 +1789,19 @@
   "actions": [
    {
     "id": 48793,
-    "name": "Ice Spikes"
+    "name": "Ice Spikes",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 48794,
-    "name": "Hypothermal Combustion"
+    "name": "Hypothermal Combustion",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 10
    }
   ]
  },
@@ -1411,7 +1819,11 @@
   "actions": [
    {
     "id": 48796,
-    "name": "Toxic Fumes"
+    "name": "Toxic Fumes",
+    "castSeconds": 4.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1429,11 +1841,19 @@
   "actions": [
    {
     "id": 48810,
-    "name": "Toxic Vomit"
+    "name": "Toxic Vomit",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 6
    },
    {
     "id": 48814,
-    "name": "Cauterize"
+    "name": "Cauterize",
+    "castSeconds": 6.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 48
    }
   ]
  },
@@ -1451,7 +1871,11 @@
   "actions": [
    {
     "id": 48821,
-    "name": "Noxious Explosion"
+    "name": "Noxious Explosion",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1469,11 +1893,19 @@
   "actions": [
    {
     "id": 49193,
-    "name": "Charged Lightning"
+    "name": "Charged Lightning",
+    "castSeconds": 5.8,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 49189,
-    "name": "Erratic Blaster"
+    "name": "Erratic Blaster",
+    "castSeconds": 7.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1491,7 +1923,11 @@
   "actions": [
    {
     "id": 49194,
-    "name": "Line Voltage"
+    "name": "Line Voltage",
+    "castSeconds": 2.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 100
    }
   ]
  },
@@ -1509,11 +1945,19 @@
   "actions": [
    {
     "id": 49200,
-    "name": "Void Water III"
+    "name": "Void Water III",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 8
    },
    {
     "id": 49208,
-    "name": "Void Paralyze III"
+    "name": "Void Paralyze III",
+    "castSeconds": 7.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1531,11 +1975,19 @@
   "actions": [
    {
     "id": 49196,
-    "name": "Spore Spill"
+    "name": "Spore Spill",
+    "castSeconds": 1.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 6
    },
    {
     "id": 49198,
-    "name": "Big Burst"
+    "name": "Big Burst",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1553,11 +2005,19 @@
   "actions": [
    {
     "id": 49231,
-    "name": "Ripples of Gloom"
+    "name": "Ripples of Gloom",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 49209,
-    "name": "Veil of Darkness"
+    "name": "Veil of Darkness",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -1575,7 +2035,11 @@
   "actions": [
    {
     "id": 49214,
-    "name": "Oogle"
+    "name": "Oogle",
+    "castSeconds": 10.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1593,11 +2057,19 @@
   "actions": [
    {
     "id": 49211,
-    "name": "Self-destruct"
+    "name": "Self-destruct",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 49210,
-    "name": "Explosion"
+    "name": "Explosion",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 9
    }
   ]
  },
@@ -1615,11 +2087,19 @@
   "actions": [
    {
     "id": 49213,
-    "name": "Banish"
+    "name": "Banish",
+    "castSeconds": 1.5,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    },
    {
     "id": 49212,
-    "name": "Diffuse Light"
+    "name": "Diffuse Light",
+    "castSeconds": 1.5,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 20
    }
   ]
  },
@@ -1637,11 +2117,19 @@
   "actions": [
    {
     "id": 49238,
-    "name": "Shockwave"
+    "name": "Shockwave",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 49240,
-    "name": "Dark II"
+    "name": "Dark II",
+    "castSeconds": 7.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1659,7 +2147,11 @@
   "actions": [
    {
     "id": 49241,
-    "name": "Bad-mouth"
+    "name": "Bad-mouth",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1690,7 +2182,11 @@
   "actions": [
    {
     "id": 49243,
-    "name": "Fire III"
+    "name": "Fire III",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 6
    }
   ]
  },
@@ -1708,7 +2204,11 @@
   "actions": [
    {
     "id": 49242,
-    "name": "Water III"
+    "name": "Water III",
+    "castSeconds": 2.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -1726,7 +2226,11 @@
   "actions": [
    {
     "id": 49246,
-    "name": "Thunder III"
+    "name": "Thunder III",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 5
    }
   ]
  },
@@ -1744,7 +2248,11 @@
   "actions": [
    {
     "id": 49247,
-    "name": "Terror Eye"
+    "name": "Terror Eye",
+    "castSeconds": 3.0,
+    "castType": 2,
+    "range": 100,
+    "effectRange": 6
    }
   ]
  },
@@ -1762,11 +2270,19 @@
   "actions": [
    {
     "id": 49248,
-    "name": "Rotten Breath"
+    "name": "Rotten Breath",
+    "castSeconds": 5.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 28
    },
    {
     "id": 49249,
-    "name": "Tail Drive"
+    "name": "Tail Drive",
+    "castSeconds": 5.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 30
    }
   ]
  },
@@ -1784,11 +2300,19 @@
   "actions": [
    {
     "id": 49253,
-    "name": "Blaze Spikes"
+    "name": "Blaze Spikes",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 49254,
-    "name": "Mangling Fang"
+    "name": "Mangling Fang",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 5,
+    "effectRange": 0
    }
   ]
  },
@@ -1806,11 +2330,19 @@
   "actions": [
    {
     "id": 49250,
-    "name": "Needles Out"
+    "name": "Needles Out",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 49252,
-    "name": "Seeding Needles"
+    "name": "Seeding Needles",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 20
    }
   ]
  },
@@ -1841,11 +2373,19 @@
   "actions": [
    {
     "id": 49260,
-    "name": "Unwitting Wings"
+    "name": "Unwitting Wings",
+    "castSeconds": 4.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    },
    {
     "id": 49261,
-    "name": "Delusion Dust"
+    "name": "Delusion Dust",
+    "castSeconds": 0.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -1863,11 +2403,19 @@
   "actions": [
    {
     "id": 49272,
-    "name": "Atomic Ray"
+    "name": "Atomic Ray",
+    "castSeconds": 13.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    },
    {
     "id": 49265,
-    "name": "Grounding Jolt"
+    "name": "Grounding Jolt",
+    "castSeconds": 5.2,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 20
    }
   ]
  },
@@ -1885,7 +2433,11 @@
   "actions": [
    {
     "id": 49271,
-    "name": "Aether Charge"
+    "name": "Aether Charge",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1903,11 +2455,19 @@
   "actions": [
    {
     "id": 49278,
-    "name": "Petrifying Regard"
+    "name": "Petrifying Regard",
+    "castSeconds": 3.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    },
    {
     "id": 49298,
-    "name": "Impassion"
+    "name": "Impassion",
+    "castSeconds": 8.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -1925,11 +2485,19 @@
   "actions": [
    {
     "id": 49286,
-    "name": "Terrorizing Miasma"
+    "name": "Terrorizing Miasma",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 6
    },
    {
     "id": 49287,
-    "name": "Raise"
+    "name": "Raise",
+    "castSeconds": 10.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -1947,11 +2515,19 @@
   "actions": [
    {
     "id": 49297,
-    "name": "1000-tonze Swing"
+    "name": "1000-tonze Swing",
+    "castSeconds": 10.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 20
    },
    {
     "id": 49370,
-    "name": "Glower"
+    "name": "Glower",
+    "castSeconds": 4.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1969,11 +2545,19 @@
   "actions": [
    {
     "id": 49315,
-    "name": "the Ram's Roar"
+    "name": "the Ram's Roar",
+    "castSeconds": 7.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 12
    },
    {
     "id": 49316,
-    "name": "the Dragon's Roar"
+    "name": "the Dragon's Roar",
+    "castSeconds": 7.0,
+    "castType": 10,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -1991,11 +2575,19 @@
   "actions": [
    {
     "id": 49344,
-    "name": "Mnemonic Riddle"
+    "name": "Mnemonic Riddle",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 49353,
-    "name": "Numeric Riddle"
+    "name": "Numeric Riddle",
+    "castSeconds": 5.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -2013,11 +2605,19 @@
   "actions": [
    {
     "id": 49378,
-    "name": "Smashing Stamp"
+    "name": "Smashing Stamp",
+    "castSeconds": 3.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 49359,
-    "name": "Gigantic Rage"
+    "name": "Gigantic Rage",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 15
    }
   ]
  },
@@ -2035,11 +2635,19 @@
   "actions": [
    {
     "id": 49367,
-    "name": "Glower"
+    "name": "Glower",
+    "castSeconds": 4.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 49368,
-    "name": "Camaraderie"
+    "name": "Camaraderie",
+    "castSeconds": 8.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    }
   ]
  },
@@ -2057,7 +2665,11 @@
   "actions": [
    {
     "id": 49373,
-    "name": "Rupture"
+    "name": "Rupture",
+    "castSeconds": 7.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -2075,7 +2687,11 @@
   "actions": [
    {
     "id": 49375,
-    "name": "Rupture"
+    "name": "Rupture",
+    "castSeconds": 7.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  },
@@ -2106,11 +2722,19 @@
   "actions": [
    {
     "id": 49381,
-    "name": "100-kuponze Swipe"
+    "name": "100-kuponze Swipe",
+    "castSeconds": 8.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 60
    },
    {
     "id": 49383,
-    "name": "Moogle Tempest"
+    "name": "Moogle Tempest",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 22
    }
   ]
  },
@@ -2128,7 +2752,11 @@
   "actions": [
    {
     "id": 49385,
-    "name": "Pom Flood"
+    "name": "Pom Flood",
+    "castSeconds": 10.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -2146,7 +2774,11 @@
   "actions": [
    {
     "id": 49384,
-    "name": "Pom Flare"
+    "name": "Pom Flare",
+    "castSeconds": 10.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 60
    }
   ]
  },
@@ -2164,11 +2796,19 @@
   "actions": [
    {
     "id": 49387,
-    "name": "Pom Holy"
+    "name": "Pom Holy",
+    "castSeconds": 9.0,
+    "castType": 14,
+    "range": 0,
+    "effectRange": 40
    },
    {
     "id": 48626,
-    "name": "Water"
+    "name": "Water",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 25,
+    "effectRange": 0
    }
   ]
  },
@@ -2186,11 +2826,19 @@
   "actions": [
    {
     "id": 50943,
-    "name": "Pom Meteorain"
+    "name": "Pom Meteorain",
+    "castSeconds": 7.5,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 6
    },
    {
     "id": 48621,
-    "name": "Blizzard"
+    "name": "Blizzard",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 25,
+    "effectRange": 0
    }
   ]
  },
@@ -2208,11 +2856,19 @@
   "actions": [
    {
     "id": 49395,
-    "name": "Mogshield Swipe"
+    "name": "Mogshield Swipe",
+    "castSeconds": 0.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 8
    },
    {
     "id": 49394,
-    "name": "Spirit of Pompetition"
+    "name": "Spirit of Pompetition",
+    "castSeconds": 3.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -2230,7 +2886,11 @@
   "actions": [
    {
     "id": 49397,
-    "name": "Moghemian Rhapsody"
+    "name": "Moghemian Rhapsody",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -2248,11 +2908,19 @@
   "actions": [
    {
     "id": 49399,
-    "name": "Daylight Pommery"
+    "name": "Daylight Pommery",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 100,
+    "effectRange": 0
    },
    {
     "id": 49400,
-    "name": "Kupo and Good Night"
+    "name": "Kupo and Good Night",
+    "castSeconds": 10.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    }
   ]
  },
@@ -2270,11 +2938,19 @@
   "actions": [
    {
     "id": 49410,
-    "name": "Ecliptic Meteor"
+    "name": "Ecliptic Meteor",
+    "castSeconds": 11.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 49415,
-    "name": "Charybdis"
+    "name": "Charybdis",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 12
    }
   ]
  },
@@ -2292,7 +2968,11 @@
   "actions": [
    {
     "id": 49408,
-    "name": "Grand Sword"
+    "name": "Grand Sword",
+    "castSeconds": 4.0,
+    "castType": 13,
+    "range": 0,
+    "effectRange": 30
    }
   ]
  },
@@ -2310,7 +2990,11 @@
   "actions": [
    {
     "id": 49411,
-    "name": "Cross Charge"
+    "name": "Cross Charge",
+    "castSeconds": 4.0,
+    "castType": 11,
+    "range": 0,
+    "effectRange": 25
    }
   ]
  },
@@ -2328,11 +3012,19 @@
   "actions": [
    {
     "id": 49418,
-    "name": "Roulette"
+    "name": "Roulette",
+    "castSeconds": 5.0,
+    "castType": 1,
+    "range": 0,
+    "effectRange": 0
    },
    {
     "id": 49429,
-    "name": "Curtains for Rank 5"
+    "name": "Curtains for Rank 5",
+    "castSeconds": 6.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -2350,7 +3042,11 @@
   "actions": [
    {
     "id": 49435,
-    "name": "Straight Punch"
+    "name": "Straight Punch",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 3,
+    "effectRange": 0
    }
   ]
  },
@@ -2368,11 +3064,19 @@
   "actions": [
    {
     "id": 49434,
-    "name": "Mortal Gaze"
+    "name": "Mortal Gaze",
+    "castSeconds": 4.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 50
    },
    {
     "id": 50747,
-    "name": "Stone"
+    "name": "Stone",
+    "castSeconds": 0.0,
+    "castType": 1,
+    "range": 25,
+    "effectRange": 0
    }
   ]
  },
@@ -2390,11 +3094,19 @@
   "actions": [
    {
     "id": 49453,
-    "name": "Beastly Aura"
+    "name": "Beastly Aura",
+    "castSeconds": 7.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 80
    },
    {
     "id": 49470,
-    "name": "Thunderbolt"
+    "name": "Thunderbolt",
+    "castSeconds": 5.0,
+    "castType": 12,
+    "range": 0,
+    "effectRange": 50
    }
   ]
  },
@@ -2412,7 +3124,11 @@
   "actions": [
    {
     "id": 50541,
-    "name": "Infernal Pain"
+    "name": "Infernal Pain",
+    "castSeconds": 8.0,
+    "castType": 2,
+    "range": 0,
+    "effectRange": 40
    }
   ]
  }
