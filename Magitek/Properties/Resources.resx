@@ -5626,9 +5626,6 @@
   <data name="BeastMaster_Content_TR_Mitigation" xml:space="preserve">
     <value>Mitigation controlled abilities when health is below (or a catalogued AoE is coming)</value>
   </data>
-  <data name="BeastMaster_Content_Sleep_Disengage" xml:space="preserve">
-    <value>After a sleep, disengage: drop sleeping targets, heel the familiar, only the 1-2-3 on what is awake</value>
-  </data>
   <data name="BeastMaster_Content_TR_Sleep" xml:space="preserve">
     <value>Sleep controlled abilities only with at least this many enemies near the familiar</value>
   </data>

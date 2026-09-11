@@ -373,6 +373,7 @@ belongs there, the alias pattern, and `RefreshVars()` caching.
 - **Reuse targeting/utilities**: Jobs expose helpers like `Group.CastableAlliesWithin30`, `Group.CastableTanks`, and `Utilities.Routines.[Job]` collections (see "Job-Specific Shared Utilities" section). Run new heals/defensives through those helpers instead of bespoke loops.
 - **Honor defensive orchestration**: Tanks and defensive DPS features funnel through centralized helpers (`UseDefensives()`, `CommonFightLogic` methods). Always call them so limits such as "max simultaneous defensives" keep working.
 - **Mind legacy layout debt**: Some XAML views still contain Grid-based layouts. Treat them as technical debt—keep StackPanel spacing for new UI and only refactor old Grids when already editing that block.
+- **Never select, clear, or swap the target.** Target selection belongs to the botbase (OrderBot, a botbase's own targeting provider, or the player's hand). Magitek decides *whether* to act on the current target, never *which* target that is: no `ClearTarget()`, no setting the target, no swapping `CombatTargeting.Instance.Provider`, no "pick a better target and switch". A routine that drops or changes the target fights the botbase re-selecting it every pulse — the BST sleep disengage shipped exactly that (target/untarget flicker and 30 s stalls in dungeons) and was removed. If the current target should not be hit, return `false` and let the botbase move on. Choosing whom to *cast* a heal, buff, or AoE on is fine; that never changes `Core.Me.CurrentTarget`.
 
 ---
 
@@ -887,6 +888,8 @@ return await Spells.HolyCircle.Cast(Core.Me);
 15. **Asserting game behavior without a source.** "Spell X requires buff Y" or "spell X is unknown at level Y" must come from the tooltip, the official job guide, or an in-game observation — not from what sounds plausible (see "Claims About the Game" in `CONTRIBUTING.md`).
 
 16. **Logging a player's character name.** Log files get shared in bug reports and on Discord, and a character name is personal data. Never put a player's `Name` in a `Logger` call, not the local player's and not an ally's. Identify the local player as `Core.Me` plus role or job, and other players by role or by job (`CurrentJob`). Enemy and NPC names are fine.
+
+17. **Touching target selection.** No `ClearTarget()`, no setting the target, no swapping the targeting provider. The botbase owns the target; Magitek only decides whether to act on it (see "Rotation Integration Guidelines").
 
 **Note on Commented Code**: Temporarily commented code for testing/debugging purposes is acceptable. However, before submitting a PR for review, consider whether the commented code should be removed (if it's obsolete) or uncommented (if it's needed). Use descriptive comments to explain why code is temporarily commented. Do not remove commented-out code you did not write — it may be kept deliberately.
 

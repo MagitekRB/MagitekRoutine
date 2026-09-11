@@ -237,15 +237,7 @@ namespace Magitek.Logic.BeastMaster
                 return await Spells.Borrow.Cast(Core.Me);
 
             if (timing == Timing.Now)
-            {
-                if (!await Spells.TemperedRelease.Cast(TemperedReleaseOrderTarget()))
-                    return false;
-
-                var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
-                if (ability != null && ability.Has("Sleep"))
-                    BeastMasterRoutine.BeginSleepDisengage();
-                return true;
-            }
+                return await Spells.TemperedRelease.Cast(TemperedReleaseOrderTarget());
 
             return false;
         }

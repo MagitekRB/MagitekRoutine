@@ -53,28 +53,6 @@ namespace Magitek.Rotations
         {
             BeastMasterRoutine.RefreshVars();
 
-            // After the familiar's sleep: nothing on a sleeping target, the familiar heeled, and only the 1-2-3 on
-            // whatever is awake and on us, until the sleep runs out or everything nearby is awake again.
-            if (BeastMasterRoutine.SleepDisengageActive)
-            {
-                if (!BeastMasterRoutine.AnyEnemyAsleepNearby && !BeastMasterRoutine.SleepStillLanding)
-                {
-                    BeastMasterRoutine.EndSleepDisengage();
-                }
-                else
-                {
-                    BeastMasterRoutine.HeelFamiliar();
-                    if (Core.Me.HasTarget && BeastMasterRoutine.IsAsleep(Core.Me.CurrentTarget))
-                    {
-                        Core.Me.ClearTarget();
-                        return true;
-                    }
-                    if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
-                        return true;
-                    return await SingleTarget.Combo();
-                }
-            }
-
             if (!Core.Me.HasTarget || !Core.Me.CurrentTarget.ThoroughCanAttack())
                 return false;
 
