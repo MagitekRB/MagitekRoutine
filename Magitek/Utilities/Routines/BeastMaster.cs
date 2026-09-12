@@ -583,16 +583,25 @@ namespace Magitek.Utilities.Routines
         /// <summary>The library entry for the current target, or null.</summary>
         public static CruciblePiece CurrentPiece => CruciblePieceFor(Core.Me.CurrentTarget);
 
-        private static uint _pieceLoggedFor;
+        // Set by the Crucible cast reaction when a catalogued heavy hit is coming for the beast; a mitigating
+        // Tempered Release (Vulcanize, Smoldering Scales, Harden Shell, Water Wall, Strut) then goes out at once.
+        public static System.DateTime MitigationWantedAt = System.DateTime.MinValue;
+        public static bool MitigationWanted => (System.DateTime.Now - MitigationWantedAt).TotalSeconds < 8;
+
+        private static readonly System.Collections.Generic.HashSet<uint> _piecesLogged = new System.Collections.Generic.HashSet<uint>();
 
         // Once per piece targeted: what the library knows about it, so the log shows the plan the rules will build on.
         private static void TrackCruciblePiece()
         {
             var target = Core.Me.CurrentTarget;
-            if (target == null || !InCrucible || _pieceLoggedFor == target.ObjectId)
+            // A placeholder object in a node (empty name, NpcId 0; siren node, 2026-09-12) is not a piece and not worth a line.
+            if (target == null || !InCrucible || target.NpcId == 0 || _piecesLogged.Contains(target.ObjectId))
                 return;
 
-            _pieceLoggedFor = target.ObjectId;
+            // Every piece spawned gets a new id; a run is a few dozen of them, so the set is emptied before it grows.
+            if (_piecesLogged.Count > 64)
+                _piecesLogged.Clear();
+            _piecesLogged.Add(target.ObjectId);
             var piece = CruciblePieceFor(target);
             if (piece == null)
             {

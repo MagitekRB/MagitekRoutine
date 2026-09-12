@@ -139,6 +139,75 @@ namespace Magitek.Logic.BeastMaster
             return true;
         }
 
+        // One reaction per cast: the piece and the cast id are remembered so a five-second cast is answered once.
+        private static uint _reactedTarget;
+        private static uint _reactedSpell;
+        private static System.DateTime _reactedAt = System.DateTime.MinValue;
+        private static readonly System.Collections.Generic.HashSet<string> PhysicalTypes = new System.Collections.Generic.HashSet<string> { "Slashing", "Piercing", "Blunt" };
+        private static readonly System.Collections.Generic.HashSet<string> MagicTypes = new System.Collections.Generic.HashSet<string> { "Fire", "Ice", "Wind", "Earth", "Lightning", "Water", "Unaspected" };
+
+        /// <summary>
+        /// Crucible cast reactions from the piece library. The board says, per signature move, who it targets, its
+        /// damage type, whether it can be interrupted and what it applies; the routine reads the piece's casting id
+        /// against that and answers with what it holds: Soul Crush on a move the board marks interruptible; the
+        /// matching skin, if that kin is borrowed, before a physical or magic hit aimed at you; and the beast's own
+        /// mitigating Tempered Release before a heavy hit aimed at it. Snarl is deliberately not here: a signature
+        /// aimed at you costs about 8 % of your HP and the covered beast 26 % of its own (run 5, 2026-09-11), so the
+        /// enmity rule alone decides Snarl, by your actual HP. Nothing here targets: it acts on the current target only.
+        /// </summary>
+        public static async Task<bool> CrucibleCastReaction()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseCrucibleCastReactions || !BeastMasterRoutine.InCrucible || !Core.Me.InCombat)
+                return false;
+
+            var enemy = Core.Me.CurrentTarget as ff14bot.Objects.BattleCharacter;
+            if (enemy == null || !enemy.IsValid || !enemy.IsCasting)
+                return false;
+
+            var piece = BeastMasterRoutine.CurrentPiece;
+            if (piece == null)
+                return false;
+
+            var spellId = enemy.CastingSpellId;
+            var move = piece.Actions.FirstOrDefault(a => a.Id == spellId);
+            if (move == null || move.Basic)
+                return false;
+
+            if (_reactedTarget == enemy.ObjectId && _reactedSpell == spellId && (System.DateTime.Now - _reactedAt).TotalSeconds < 15)
+                return false;
+
+            var targeted = Core.Me.BeingTargeted();
+            var onMe = move.Target == "Player" || move.Shape == "Universal" || (move.Target == "Highest Enmity" && targeted);
+            var onBeast = move.Target == "Highest Enmity" && !targeted;
+            var physical = PhysicalTypes.Contains(move.DamageType ?? "");
+            var magic = MagicTypes.Contains(move.DamageType ?? "");
+            string did = null;
+
+            if (move.Interruptible == true && settings.UseSoulCrush && BeastMasterRoutine.SoulKinship && await Spells.SoulCrush.Cast(enemy))
+                did = "Soul Crush on " + move.Name + " (the board marks it interruptible)";
+            else if (onMe && physical && settings.UseBeastskin && BeastMasterRoutine.BeastKinship && await Spells.Beastskin.Cast(Core.Me))
+                did = "Beastskin before " + move.Name + " (physical, aimed at you)";
+            else if (onMe && magic && settings.UseScaleskin && BeastMasterRoutine.ScaleKinship && await Spells.Scaleskin.Cast(Core.Me))
+                did = "Scaleskin before " + move.Name + " (magic, aimed at you)";
+            else if (onMe && physical && settings.UseVileskin && BeastMasterRoutine.VileKinship && await Spells.Vileskin.Cast(Core.Me))
+                did = "Vileskin before " + move.Name + " (physical, aimed at you)";
+            else if (onBeast && piece.Strength >= 3 && Core.Me.HasAura(Auras.OneWithNature) && BeastMasterRoutine.Familiar?.TemperedRelease?.Kind == AbilityKind.Mitigation)
+            {
+                BeastMasterRoutine.MitigationWantedAt = System.DateTime.Now;
+                did = "the beast's mitigating Tempered Release before " + move.Name + " (aimed at the beast)";
+            }
+
+            if (did == null)
+                return false;
+
+            _reactedTarget = enemy.ObjectId;
+            _reactedSpell = spellId;
+            _reactedAt = System.DateTime.Now;
+            Logger.WriteInfo("[Beastmaster] Crucible: " + did + ".");
+            return true;
+        }
+
         // A horn blown over the familiar out swaps it (the client accepts any horn but the one whose beast is already
         // out; seen out of combat 2026-09-08, one-second cast, cancelled by moving). The Parting Blow route (retreat,
         // then the horn) is the fallback when the client refuses, and takes longer; the Heart lasts seven seconds.
@@ -292,6 +361,7 @@ namespace Magitek.Logic.BeastMaster
                 case AbilityKind.Mitigation:
                     return Core.Me.CurrentHealthPercent <= settings.TemperedReleaseMitigationHealthPercent
                         || FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe()
+                        || BeastMasterRoutine.MitigationWanted
                         ? Timing.Now : Timing.Later;
 
                 case AbilityKind.CrowdControl:
@@ -458,7 +528,11 @@ namespace Magitek.Logic.BeastMaster
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
                 if (horn != null && await horn.Cast(Core.Me))
                 {
-                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                    // A beast on its way out after a Parting Blow the routine did not cast reads 0 HP (2026-09-11: every
+                    // "at 0 %" swap followed a hand-cast Parting Blow); the horn then brings the next beast, not a swap.
+                    Logger.WriteInfo(petHealth <= 0
+                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings the next beast."
+                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
                     return true;
