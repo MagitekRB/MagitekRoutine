@@ -594,7 +594,8 @@ namespace Magitek.Utilities.Routines
         private static void TrackCruciblePiece()
         {
             var target = Core.Me.CurrentTarget;
-            if (target == null || !InCrucible || _piecesLogged.Contains(target.ObjectId))
+            // A placeholder object in a node (empty name, NpcId 0; siren node, 2026-09-12) is not a piece and not worth a line.
+            if (target == null || !InCrucible || target.NpcId == 0 || _piecesLogged.Contains(target.ObjectId))
                 return;
 
             // Every piece spawned gets a new id; a run is a few dozen of them, so the set is emptied before it grows.
