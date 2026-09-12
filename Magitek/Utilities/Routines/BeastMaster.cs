@@ -81,8 +81,62 @@ namespace Magitek.Utilities.Routines
             Battlehorns.Any(h => Casting.LastSpellWas(h, HornArrivalGraceMs))
             || (System.DateTime.Now - _hornSeenRecasting).TotalMilliseconds < HornArrivalGraceMs;
 
+        // The bestiary unlock state is empty on a fresh client until it is fetched (RB 1.0.916, probed 2026-09-12: no
+        // beast unlocked and an empty list until PetManager.EnsureBeastmasterPetUnlockStateAsync had run, all fifty
+        // and true six seconds later). The fetch is started once from the pulse and never awaited on it (that would
+        // hang the client); the reads that depend on it wait for the flag, and after three failed attempts they fall
+        // back to the cache so a broken fetch cannot switch Capture off for good.
+        private static System.Threading.Tasks.Task<bool> _unlockStateTask;
+        private static System.DateTime _unlockStateAskedAt = System.DateTime.MinValue;
+        private static int _unlockStateAttempts;
+        private static bool _unlockStateLogged;
+        private const int UnlockStateMaxAttempts = 3;
+
+        /// <summary>The bestiary unlock state has been fetched, so the unlock reads mean what they say.</summary>
+        public static bool UnlockStateReady => _unlockStateTask != null && _unlockStateTask.Status == System.Threading.Tasks.TaskStatus.RanToCompletion && _unlockStateTask.Result;
+
+        /// <summary>The fetch failed three times; the unlock reads are trusted as they are.</summary>
+        public static bool UnlockStateGaveUp => !UnlockStateReady && _unlockStateAttempts >= UnlockStateMaxAttempts;
+
+        private static void EnsureUnlockState()
+        {
+            if (_unlockStateTask != null && !_unlockStateTask.IsCompleted)
+                return;
+
+            if (UnlockStateReady)
+            {
+                if (!_unlockStateLogged)
+                {
+                    _unlockStateLogged = true;
+                    Logger.WriteInfo("[Beastmaster] Bestiary: " + PetManager.UnlockedBeastmasterPets.Count(p => p != BeastmasterPet.None) + " beasts unlocked.");
+                }
+                return;
+            }
+
+            if (_unlockStateAttempts >= UnlockStateMaxAttempts || (System.DateTime.Now - _unlockStateAskedAt).TotalSeconds < 10)
+            {
+                if (_unlockStateAttempts >= UnlockStateMaxAttempts && !_unlockStateLogged)
+                {
+                    _unlockStateLogged = true;
+                    Logger.WriteInfo("[Beastmaster] Bestiary: the unlock state could not be fetched; the cached reads are trusted as they are.");
+                }
+                return;
+            }
+
+            _unlockStateAskedAt = System.DateTime.Now;
+            _unlockStateAttempts++;
+            try { _unlockStateTask = PetManager.EnsureBeastmasterPetUnlockStateAsync(); }
+            catch (System.Exception e)
+            {
+                _unlockStateTask = null;
+                Logger.WriteInfo("[Beastmaster] Bestiary: the unlock state fetch threw " + e.GetType().Name + " (attempt " + _unlockStateAttempts + ").");
+            }
+        }
+
         public static void RefreshVars()
         {
+            EnsureUnlockState();
+
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
                 _hornSeenRecasting = System.DateTime.Now;
 
@@ -550,6 +604,8 @@ namespace Magitek.Utilities.Routines
             var pet = PetFor(target);
             if (pet == BeastmasterPet.None)
                 return null;
+            if (!UnlockStateReady && !UnlockStateGaveUp)
+                return "the bestiary is still loading";
             if (PetManager.IsBeastmasterPetUnlocked(pet))
                 return pet + " is already in the bestiary";
             if (target.HasAura(Auras.InterestCaptured))
@@ -651,6 +707,9 @@ namespace Magitek.Utilities.Routines
         public static void AssignPactsToEmptyHorns()
         {
             if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
+                return;
+
+            if (!UnlockStateReady && !UnlockStateGaveUp)
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;
