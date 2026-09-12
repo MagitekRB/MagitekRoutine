@@ -2313,6 +2313,33 @@ namespace Magitek.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Battlehorn 1 preferred beast (None: strongest captured).
+        /// </summary>
+        public static string BeastMaster_Content_Preferred_Pet_1 {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Preferred_Pet_1", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Battlehorn 2 preferred beast (None: strongest captured).
+        /// </summary>
+        public static string BeastMaster_Content_Preferred_Pet_2 {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Preferred_Pet_2", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Battlehorn 3 preferred beast (None: strongest captured).
+        /// </summary>
+        public static string BeastMaster_Content_Preferred_Pet_3 {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Preferred_Pet_3", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start).
         /// </summary>
         public static string BeastMaster_Content_Capture_Hold {
