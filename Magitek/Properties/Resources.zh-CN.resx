@@ -5940,6 +5940,15 @@
   <data name="BeastMaster_Content_Assign_Horns" xml:space="preserve">
     <value>将新缔结的契约分配到空的战角槽位</value>
   </data>
+  <data name="BeastMaster_Content_Preferred_Pet_1" xml:space="preserve">
+    <value>战角1首选魔兽（None：最强的已捕获魔兽）</value>
+  </data>
+  <data name="BeastMaster_Content_Preferred_Pet_2" xml:space="preserve">
+    <value>战角2首选魔兽（None：最强的已捕获魔兽）</value>
+  </data>
+  <data name="BeastMaster_Content_Preferred_Pet_3" xml:space="preserve">
+    <value>战角3首选魔兽（None：最强的已捕获魔兽）</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
     <value>可捕获的魔兽在被标记之前只进行自动攻击（先用一次粉碎斧起手）；等级不低于你的魔兽则改用基础连击</value>
   </data>

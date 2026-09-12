@@ -1,3 +1,4 @@
+using ff14bot.Enums;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -220,10 +221,23 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool HoldForCapture { get; set; }
 
-        // A new pact fills the first empty battlehorn slot you have the horn for; horns already assigned are left alone.
+        // An empty battlehorn slot you have the horn for gets its preferred beast, or the strongest captured one with the
+        // lamb last; horns already assigned are left alone.
         [Setting]
         [DefaultValue(true)]
         public bool AssignPactsToEmptyHorns { get; set; }
+
+        [Setting]
+        [DefaultValue(BeastmasterPet.None)]
+        public BeastmasterPet PreferredPetHorn1 { get; set; }
+
+        [Setting]
+        [DefaultValue(BeastmasterPet.None)]
+        public BeastmasterPet PreferredPetHorn2 { get; set; }
+
+        [Setting]
+        [DefaultValue(BeastmasterPet.None)]
+        public BeastmasterPet PreferredPetHorn3 { get; set; }
 
         #endregion
     }
