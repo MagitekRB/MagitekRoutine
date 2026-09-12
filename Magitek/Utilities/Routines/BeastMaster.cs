@@ -618,11 +618,12 @@ namespace Magitek.Utilities.Routines
         private static System.DateTime _slotsWrittenAt = System.DateTime.MinValue;
         private const int SlotWriteSettleMs = 30000;
 
-        // For a moment after a zone change every slot reads None; the client rejects a write built from that read
-        // ("cannot execute command", 2026-09-11 log, 03:41:37).
+        // After a zone change every slot reads None for a while and the client rejects a write built from that read
+        // ("cannot execute command", 2026-09-11 log, 03:41:37). Leaving a duty for a city is the slowest case, so the
+        // wait matches the settle above rather than the length of a loading screen.
         private static uint _lastZone;
         private static System.DateTime _zonedAt = System.DateTime.MinValue;
-        private const int ZoneSettleMs = 10000;
+        private const int ZoneSettleMs = 30000;
 
         /// <summary>
         /// Empty slots whose horn you know get a beast, all in one write: the slot's preferred beast when captured and
