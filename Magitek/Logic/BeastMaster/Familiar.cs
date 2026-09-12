@@ -150,9 +150,10 @@ namespace Magitek.Logic.BeastMaster
         /// Crucible cast reactions from the piece library. The board says, per signature move, who it targets, its
         /// damage type, whether it can be interrupted and what it applies; the routine reads the piece's casting id
         /// against that and answers with what it holds: Soul Crush on a move the board marks interruptible; the
-        /// matching skin, if that kin is borrowed, before a physical or magic hit aimed at you; otherwise Snarl so a
-        /// healthy beast takes a hit aimed at you; and the beast's own mitigating Tempered Release before a heavy
-        /// hit aimed at it. Nothing here targets: it acts on the current target only.
+        /// matching skin, if that kin is borrowed, before a physical or magic hit aimed at you; and the beast's own
+        /// mitigating Tempered Release before a heavy hit aimed at it. Snarl is deliberately not here: a signature
+        /// aimed at you costs about 8 % of your HP and the covered beast 26 % of its own (run 5, 2026-09-11), so the
+        /// enmity rule alone decides Snarl, by your actual HP. Nothing here targets: it acts on the current target only.
         /// </summary>
         public static async Task<bool> CrucibleCastReaction()
         {
@@ -181,8 +182,6 @@ namespace Magitek.Logic.BeastMaster
             var onBeast = move.Target == "Highest Enmity" && !targeted;
             var physical = PhysicalTypes.Contains(move.DamageType ?? "");
             var magic = MagicTypes.Contains(move.DamageType ?? "");
-            var pet = Core.Me.Pet;
-            var petHealth = PetHealthPercent(pet);
             string did = null;
 
             if (move.Interruptible == true && settings.UseSoulCrush && BeastMasterRoutine.SoulKinship && await Spells.SoulCrush.Cast(enemy))
@@ -193,9 +192,6 @@ namespace Magitek.Logic.BeastMaster
                 did = "Scaleskin before " + move.Name + " (magic, aimed at you)";
             else if (onMe && physical && settings.UseVileskin && BeastMasterRoutine.VileKinship && await Spells.Vileskin.Cast(Core.Me))
                 did = "Vileskin before " + move.Name + " (physical, aimed at you)";
-            else if (onMe && move.Target == "Player" && settings.UseSnarlAndChallenge && pet != null && petHealth >= settings.CrucibleSnarlFamiliarHealthPercent
-                     && !Core.Me.HasAura(Auras.Covered) && CastDutyAction(Spells.Snarl, enemy))
-                did = "Snarl before " + move.Name + " (aimed at you; " + pet.EnglishName + " at " + petHealth.ToString("0") + " % takes it)";
             else if (onBeast && piece.Strength >= 3 && Core.Me.HasAura(Auras.OneWithNature) && BeastMasterRoutine.Familiar?.TemperedRelease?.Kind == AbilityKind.Mitigation)
             {
                 BeastMasterRoutine.MitigationWantedAt = System.DateTime.Now;
@@ -210,17 +206,6 @@ namespace Magitek.Logic.BeastMaster
             _reactedAt = System.DateTime.Now;
             Logger.WriteInfo("[Beastmaster] Crucible: " + did + ".");
             return true;
-        }
-
-        // The beast's object can vanish mid-read while it retreats; a failed read is "unknown", never a crash.
-        private static float PetHealthPercent(ff14bot.Objects.GameObject pet)
-        {
-            var character = pet as ff14bot.Objects.Character;
-            if (character == null || !character.IsValid)
-                return -1f;
-
-            try { return character.CurrentHealthPercent; }
-            catch { return -1f; }
         }
 
         // A horn blown over the familiar out swaps it (the client accepts any horn but the one whose beast is already
