@@ -1,4 +1,5 @@
 using ff14bot;
+using ff14bot.Behavior;
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
@@ -83,10 +84,10 @@ namespace Magitek.Utilities.Routines
 
         public static void RefreshVars()
         {
-            if (WorldManager.ZoneId != _lastZone)
+            if (CommonBehaviors.IsLoading || WorldManager.ZoneId != _lastZone)
             {
                 _lastZone = WorldManager.ZoneId;
-                _zonedAt = System.DateTime.Now;
+                _notReadyAt = System.DateTime.Now;
             }
 
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
@@ -618,12 +619,12 @@ namespace Magitek.Utilities.Routines
         private static System.DateTime _slotsWrittenAt = System.DateTime.MinValue;
         private const int SlotWriteSettleMs = 30000;
 
-        // After a zone change every slot reads None for a while and the client rejects a write built from that read
-        // ("cannot execute command", 2026-09-11 log, 03:41:37). Leaving a duty for a city is the slowest case, so the
-        // wait matches the settle above rather than the length of a loading screen.
-        private static uint _lastZone;
-        private static System.DateTime _zonedAt = System.DateTime.MinValue;
-        private const int ZoneSettleMs = 30000;
+        // Loading, and the moment after it, reads every slot as None; the client refuses a write built from that
+        // read ("cannot execute command", 2026-09-11 log, 03:41:37). IsLoading is the loading screen plus the
+        // movement lock either side of it, and the new zone id covers a pulse that misses the lock entirely.
+        private static ushort _lastZone;
+        private static System.DateTime _notReadyAt = System.DateTime.MinValue;
+        private const int NotReadySettleMs = 5000;
 
         /// <summary>
         /// Empty slots whose horn you know get a beast, all in one write: the slot's preferred beast when captured and
@@ -638,7 +639,7 @@ namespace Magitek.Utilities.Routines
                 return;
             if ((System.DateTime.Now - _slotsWrittenAt).TotalMilliseconds < SlotWriteSettleMs)
                 return;
-            if ((System.DateTime.Now - _zonedAt).TotalMilliseconds < ZoneSettleMs)
+            if ((System.DateTime.Now - _notReadyAt).TotalMilliseconds < NotReadySettleMs)
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;
