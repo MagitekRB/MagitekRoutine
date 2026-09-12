@@ -50,13 +50,17 @@ namespace Magitek.Logic.BeastMaster
         /// <summary>
         /// Out of combat, a familiar whose One with Nature is spent goes Away and the horn brings it back with a fresh
         /// one, so every pull opens with Tempered Release (Icy Veins, 2026-09-09: the cooldowns reset while the horn
-        /// itself is not on cooldown, which a swap or a Parting Blow would have started). Only with an enemy near
-        /// enough that a pull is coming, and never in the Crucible, where the horns are the duty's.
+        /// itself is not on cooldown, which a swap or a Parting Blow would have started). Only standing still, with an
+        /// enemy near enough that a pull is coming, and never in the Crucible, where the horns are the duty's.
         /// </summary>
         public static bool AwayReset()
         {
             var settings = BeastMasterSettings.Instance;
             if (!settings.AwayResetBetweenPulls || !settings.SummonFamiliar || !BeastMasterRoutine.FamiliarOut || Core.Me.InCombat)
+                return false;
+
+            // The horn that brings it back is a 1 s cast movement interrupts, so a swap on the move leaves you petless.
+            if (MovementManager.IsMoving)
                 return false;
 
             if (Core.Me.HasAura(Auras.OneWithNature) || BeastMasterRoutine.LeaveHornsToTheDuty())
