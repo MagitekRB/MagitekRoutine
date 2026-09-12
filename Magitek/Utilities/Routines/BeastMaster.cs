@@ -588,16 +588,19 @@ namespace Magitek.Utilities.Routines
         public static System.DateTime MitigationWantedAt = System.DateTime.MinValue;
         public static bool MitigationWanted => (System.DateTime.Now - MitigationWantedAt).TotalSeconds < 8;
 
-        private static uint _pieceLoggedFor;
+        private static readonly System.Collections.Generic.HashSet<uint> _piecesLogged = new System.Collections.Generic.HashSet<uint>();
 
         // Once per piece targeted: what the library knows about it, so the log shows the plan the rules will build on.
         private static void TrackCruciblePiece()
         {
             var target = Core.Me.CurrentTarget;
-            if (target == null || !InCrucible || _pieceLoggedFor == target.ObjectId)
+            if (target == null || !InCrucible || _piecesLogged.Contains(target.ObjectId))
                 return;
 
-            _pieceLoggedFor = target.ObjectId;
+            // Every piece spawned gets a new id; a run is a few dozen of them, so the set is emptied before it grows.
+            if (_piecesLogged.Count > 64)
+                _piecesLogged.Clear();
+            _piecesLogged.Add(target.ObjectId);
             var piece = CruciblePieceFor(target);
             if (piece == null)
             {

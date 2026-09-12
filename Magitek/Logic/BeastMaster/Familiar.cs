@@ -543,7 +543,11 @@ namespace Magitek.Logic.BeastMaster
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
                 if (horn != null && await horn.Cast(Core.Me))
                 {
-                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                    // A beast on its way out after a Parting Blow the routine did not cast reads 0 HP (2026-09-11: every
+                    // "at 0 %" swap followed a hand-cast Parting Blow); the horn then brings the next beast, not a swap.
+                    Logger.WriteInfo(petHealth <= 0
+                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings the next beast."
+                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
                     return true;
