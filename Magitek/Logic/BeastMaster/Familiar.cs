@@ -89,6 +89,11 @@ namespace Magitek.Logic.BeastMaster
         /// it: the beast is low and still out, and you are healthy enough to hold the piece. Both are granted by the
         /// duty and never read as known, so they go through the action manager on a castable check alone.
         /// </summary>
+        private const float CoverSeconds = 45f;
+        private const float CoverMargin = 2f;
+        private const float LastResortSeconds = 15f;
+        private static uint _snarlHeldFor;
+
         public static bool CrucibleEnmity()
         {
             var settings = BeastMasterSettings.Instance;
@@ -102,16 +107,40 @@ namespace Magitek.Logic.BeastMaster
 
             // The beast's object can vanish mid-read while it retreats; that is no reason to stop the rotation.
             float petHealth;
-            try { petHealth = pet.CurrentHealthPercent; }
+            float petHp;
+            try { petHealth = pet.CurrentHealthPercent; petHp = pet.CurrentHealth; }
             catch { return false; }
 
             var myHealth = Core.Me.CurrentHealthPercent;
 
             if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
-                && !Core.Me.HasAura(Auras.Covered) && CastDutyAction(Spells.Snarl, enemy))
+                && !Core.Me.HasAura(Auras.Covered))
             {
-                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %.");
-                return true;
+                // The cover hands the beast every hit meant for you, from every piece on the node, for 45 s, on top of
+                // its own. Your HP does not come back between nodes, so once you were under the threshold every fresh
+                // beast was Snarled on arrival and emptied by the node (board 3, 2026-09-12: Apkallu 100 % to dead in
+                // 9 s under four Earth Shakers, Raptor and Chimera the same way). So the beast has to be able to carry
+                // your current intake for the whole cover with room for its own hits, and there has to be an intake to
+                // cover. The one exception is the last resort: a player death ends the run, a beast death costs a slot.
+                var intake = BeastMasterRoutine.PlayerIntakePerSecond;
+                var needed = intake * CoverSeconds * CoverMargin;
+                var lastResort = myHealth <= settings.CrucibleSnarlLastResortHealthPercent || BeastMasterRoutine.PlayerSecondsToDeath <= LastResortSeconds;
+                var canCarry = intake > 0 && petHp > needed;
+
+                if ((canCarry || lastResort) && CastDutyAction(Spells.Snarl, enemy))
+                {
+                    Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0")
+                        + " % (you lose " + intake.ToString("0") + " HP/s, the cover needs " + needed.ToString("0") + ", the beast has " + petHp.ToString("0")
+                        + (lastResort && !canCarry ? "; last resort" : "") + ").");
+                    return true;
+                }
+
+                if (_snarlHeldFor != pet.ObjectId)
+                {
+                    _snarlHeldFor = pet.ObjectId;
+                    Logger.WriteInfo("[Beastmaster] Snarl held: " + pet.EnglishName + " has " + petHp.ToString("0") + " HP and the cover would need "
+                        + needed.ToString("0") + " (you lose " + intake.ToString("0") + " HP/s at " + myHealth.ToString("0") + " %).");
+                }
             }
 
             // A retreating or dead beast cannot be spared, and a beast at the swap threshold is leaving anyway.

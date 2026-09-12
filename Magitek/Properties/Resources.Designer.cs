@@ -2367,6 +2367,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Snarl whatever it costs the beast when you are at or below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_LastResort {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_LastResort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In the Crucible, swap the familiar out below.
         /// </summary>
         public static string BeastMaster_Content_Crucible_Swap {

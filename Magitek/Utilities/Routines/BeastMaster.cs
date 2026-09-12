@@ -86,6 +86,8 @@ namespace Magitek.Utilities.Routines
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
                 _hornSeenRecasting = System.DateTime.Now;
 
+            TrackPlayerIntake();
+
             // At level 50 the bar swaps the axes for their 250 TP forms; one masked read per axe per pulse.
             Axes[0] = Spells.GaleAxe.Masked();
             Axes[1] = Spells.AvalancheAxe.Masked();
@@ -582,6 +584,42 @@ namespace Magitek.Utilities.Routines
 
         /// <summary>The library entry for the current target, or null.</summary>
         public static CruciblePiece CurrentPiece => CruciblePieceFor(Core.Me.CurrentTarget);
+
+        // Your HP sampled per pulse over the last ten seconds. The Crucible Snarl rule reads the intake off it: what
+        // the pieces are taking from you per second is what a covering beast will take instead, for the whole cover.
+        private static readonly System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<System.DateTime, uint>> _hpSamples
+            = new System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<System.DateTime, uint>>();
+        private static readonly System.TimeSpan IntakeWindow = System.TimeSpan.FromSeconds(10);
+
+        /// <summary>HP you lost per second over the last ten seconds of combat; 0 when nothing is coming in.</summary>
+        public static float PlayerIntakePerSecond { get; private set; }
+
+        /// <summary>Seconds until your HP runs out at the current intake; infinite when nothing is coming in.</summary>
+        public static float PlayerSecondsToDeath => PlayerIntakePerSecond <= 0 ? float.PositiveInfinity : Core.Me.CurrentHealth / PlayerIntakePerSecond;
+
+        private static void TrackPlayerIntake()
+        {
+            if (!Core.Me.InCombat)
+            {
+                if (_hpSamples.Count > 0)
+                    _hpSamples.Clear();
+                PlayerIntakePerSecond = 0;
+                return;
+            }
+
+            var now = System.DateTime.Now;
+            _hpSamples.Add(new System.Collections.Generic.KeyValuePair<System.DateTime, uint>(now, Core.Me.CurrentHealth));
+            _hpSamples.RemoveAll(s => now - s.Key > IntakeWindow);
+
+            // Only the drops count: a heal between two samples does not cancel the hit that came before it.
+            float lost = 0;
+            for (var i = 1; i < _hpSamples.Count; i++)
+                if (_hpSamples[i - 1].Value > _hpSamples[i].Value)
+                    lost += _hpSamples[i - 1].Value - _hpSamples[i].Value;
+
+            var seconds = (float)(now - _hpSamples[0].Key).TotalSeconds;
+            PlayerIntakePerSecond = seconds < 1 ? lost : lost / seconds;
+        }
 
         private static uint _pieceLoggedFor;
 
