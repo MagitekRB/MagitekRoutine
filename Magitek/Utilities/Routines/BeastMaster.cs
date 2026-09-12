@@ -83,6 +83,12 @@ namespace Magitek.Utilities.Routines
 
         public static void RefreshVars()
         {
+            if (WorldManager.ZoneId != _lastZone)
+            {
+                _lastZone = WorldManager.ZoneId;
+                _zonedAt = System.DateTime.Now;
+            }
+
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
                 _hornSeenRecasting = System.DateTime.Now;
 
@@ -612,6 +618,12 @@ namespace Magitek.Utilities.Routines
         private static System.DateTime _slotsWrittenAt = System.DateTime.MinValue;
         private const int SlotWriteSettleMs = 30000;
 
+        // For a moment after a zone change every slot reads None; the client rejects a write built from that read
+        // ("cannot execute command", 2026-09-11 log, 03:41:37).
+        private static uint _lastZone;
+        private static System.DateTime _zonedAt = System.DateTime.MinValue;
+        private const int ZoneSettleMs = 10000;
+
         /// <summary>
         /// Empty slots whose horn you know get a beast, all in one write: the slot's preferred beast when captured and
         /// not already in a slot, else the strongest unassigned one (highest bestiary number, the lamb last). Filled
@@ -624,6 +636,8 @@ namespace Magitek.Utilities.Routines
             if (!settings.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
                 return;
             if ((System.DateTime.Now - _slotsWrittenAt).TotalMilliseconds < SlotWriteSettleMs)
+                return;
+            if ((System.DateTime.Now - _zonedAt).TotalMilliseconds < ZoneSettleMs)
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;
