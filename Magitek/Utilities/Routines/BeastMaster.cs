@@ -95,8 +95,12 @@ namespace Magitek.Utilities.Routines
         /// <summary>The bestiary unlock state has been fetched, so the unlock reads mean what they say.</summary>
         public static bool UnlockStateReady => _unlockStateTask != null && _unlockStateTask.Status == System.Threading.Tasks.TaskStatus.RanToCompletion && _unlockStateTask.Result;
 
-        /// <summary>The fetch failed three times; the unlock reads are trusted as they are.</summary>
-        public static bool UnlockStateGaveUp => !UnlockStateReady && _unlockStateAttempts >= UnlockStateMaxAttempts;
+        /// <summary>The fetch failed three times and the last attempt has finished; the unlock reads are trusted as they are.</summary>
+        public static bool UnlockStateGaveUp => !UnlockStateReady && _unlockStateAttempts >= UnlockStateMaxAttempts
+            && (_unlockStateTask == null || _unlockStateTask.IsCompleted);
+
+        /// <summary>The fetch is still owed or under way: the unlock reads cannot be trusted yet.</summary>
+        public static bool UnlockStateLoading => !UnlockStateReady && !UnlockStateGaveUp;
 
         private static void EnsureUnlockState()
         {
@@ -598,13 +602,24 @@ namespace Magitek.Utilities.Routines
             return PetFor(target) != BeastmasterPet.None && CaptureSkipReason(target) == null;
         }
 
+        /// <summary>
+        /// A capturable beast while the bestiary is still loading: held for as if wanted, so the six seconds of the
+        /// fetch cannot cost the capture of an uncaptured first target, while the Capture itself waits for the answer.
+        /// </summary>
+        public static bool CapturePending(BattleCharacter target)
+        {
+            if (target == null || !UnlockStateLoading || !BeastMasterSettings.Instance.UseCapture || !Spells.Capture.IsKnown())
+                return false;
+            return PetFor(target) != BeastmasterPet.None && !target.HasAura(Auras.InterestCaptured) && target.ClassLevel <= Core.Me.ClassLevel;
+        }
+
         /// <summary>Why a capturable beast is not for capturing right now, or null when it is.</summary>
         public static string CaptureSkipReason(BattleCharacter target)
         {
             var pet = PetFor(target);
             if (pet == BeastmasterPet.None)
                 return null;
-            if (!UnlockStateReady && !UnlockStateGaveUp)
+            if (UnlockStateLoading)
                 return "the bestiary is still loading";
             if (PetManager.IsBeastmasterPetUnlocked(pet))
                 return pet + " is already in the bestiary";
@@ -664,7 +679,7 @@ namespace Magitek.Utilities.Routines
         private static void TrackCaptureHold()
         {
             var target = Core.Me.CurrentTarget as BattleCharacter;
-            var wanted = CaptureWanted(target);
+            var wanted = CaptureWanted(target) || CapturePending(target);
             // Twelve species are only in the bestiary as a duty boss (Karlabos in Sastasha, the Zu in Pharos Sirius),
             // so Capture goes out on a boss; the hold does not, since a boss dies by the party's damage, not ours.
             var boss = wanted && target.IsBoss();
@@ -709,7 +724,7 @@ namespace Magitek.Utilities.Routines
             if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
                 return;
 
-            if (!UnlockStateReady && !UnlockStateGaveUp)
+            if (UnlockStateLoading)
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;
