@@ -479,9 +479,26 @@ namespace Magitek.Utilities.Routines
         /// <summary>A horn other than the familiar's own, off cooldown, with a beast in its slot.</summary>
         public static bool AnotherHornReady => Battlehorns.Any(h => h != ActiveHorn && HornReady(h));
 
-        /// <summary>That horn, or null: the one whose beast is healthiest, an unseen beast counting as full.</summary>
-        public static SpellData AnotherReadyHorn => Battlehorns.Where(h => h != ActiveHorn && HornReady(h))
-            .OrderByDescending(h => KnownHealth(SlotPet(HornSlot(h)))).FirstOrDefault();
+        /// <summary>
+        /// That horn, or null. Slot order is the base (user, 2026-09-12): the horns after the active one, wrapping, so
+        /// horn 3 hands to horn 1. Health only skips a beast the swap rule would refuse anyway (at or under the swap
+        /// line, an unseen beast counting as full); when every ready beast is under it, order decides.
+        /// </summary>
+        public static SpellData AnotherReadyHorn
+        {
+            get
+            {
+                var ready = HornsAfterActive().Where(h => h != ActiveHorn && HornReady(h)).ToList();
+                return ready.FirstOrDefault(h => NextHealth(h) > BeastMasterSettings.Instance.CrucibleSwapHealthPercent) ?? ready.FirstOrDefault();
+            }
+        }
+
+        private static IEnumerable<SpellData> HornsAfterActive()
+        {
+            var start = System.Array.IndexOf(Battlehorns, ActiveHorn);
+            for (var i = 1; i <= Battlehorns.Length; i++)
+                yield return Battlehorns[(start + i) % Battlehorns.Length];
+        }
 
         // Beast HP persists across Crucible nodes, so a beast that left at the swap line comes back at the swap line
         // (Hydra: out at 55 %, summoned again a node later, swapped out two seconds after, 2026-09-13). Each beast is
