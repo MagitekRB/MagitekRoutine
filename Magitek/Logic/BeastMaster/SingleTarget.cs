@@ -70,6 +70,7 @@ namespace Magitek.Logic.BeastMaster
                 if (!await universality.Cast(Core.Me.CurrentTarget))
                     return false;
 
+                BeastMasterRoutine.LastAxeAt = System.DateTime.Now;
                 BeastMasterRoutine.NoteInstinct(BeastMasterRoutine.AxeAffinity(universality));
                 return true;
             }
@@ -95,6 +96,7 @@ namespace Magitek.Logic.BeastMaster
                 if (!await axe.Cast(Core.Me.CurrentTarget))
                     return false;
 
+                BeastMasterRoutine.LastAxeAt = System.DateTime.Now;
                 BeastMasterRoutine.NoteInstinct(wanted);
                 return true;
             }
@@ -117,6 +119,7 @@ namespace Magitek.Logic.BeastMaster
                 if (!await candidate.Cast(Core.Me.CurrentTarget))
                     return false;
 
+                BeastMasterRoutine.LastAxeAt = System.DateTime.Now;
                 BeastMasterRoutine.NoteInstinct(BeastMasterRoutine.AxeAffinity(candidate));
                 return true;
             }

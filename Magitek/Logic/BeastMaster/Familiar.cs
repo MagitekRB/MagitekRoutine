@@ -375,8 +375,9 @@ namespace Magitek.Logic.BeastMaster
                     // Another Heart is lit, or a Sunstrider or Moonstalker window is open: a Trick that does not
                     // continue the chain restarts it, and inside a window it consumes the window as a link (a
                     // lone Trick at a full bar did, and cost three Universalities in one dummy run, 2026-09-09).
-                    // This holds whatever the familiar bar reads.
-                    if (!BeastMasterRoutine.TrickContinuesChain)
+                    // This holds whatever the familiar bar reads. The one window it takes is the one after Rally,
+                    // with our bar at 250: its link opens the window the 250 axe turns into Universality.
+                    if (!BeastMasterRoutine.TrickContinuesChain && !BeastMasterRoutine.TrickTakesWindow)
                         return false;
                 }
                 else if (BeastMasterRoutine.PetTpFull && BeastMasterRoutine.Tp < LoneTrickOurTpBelow)
@@ -385,10 +386,12 @@ namespace Magitek.Logic.BeastMaster
                     // auto-attack is lost, so the Trick goes out on its own. With our TP nearer, the same Trick
                     // inside a pair is worth far more than the few auto-attacks the wait loses.
                 }
-                else if (BeastMasterRoutine.NaturalPreferred)
+                else if (BeastMasterRoutine.NaturalPreferred && !BeastMasterRoutine.HoldPairForRally
+                         && BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Previous(affinity))))
                 {
-                    // The yellow diamonds are full: our axe opens this pair so the Trick finishes it and the stack
-                    // lands on blue instead of overflowing.
+                    // Two yellow diamonds and no blue, or the yellow ones full: our axe opens this pair so the
+                    // Trick finishes it and the stack lands on blue. Only while that axe can go now, or the Trick
+                    // would wait on our TP for nothing.
                     return false;
                 }
                 else if (!BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Next(affinity))))
@@ -543,7 +546,12 @@ namespace Magitek.Logic.BeastMaster
                 // opposite form completes Universality (dummy, 2026-09-09: Rally 0.8 s after the finishing axe,
                 // Calamity under Sunstrider, "Infinitive Combo: Universality", chain counter 2). Spent anywhere else
                 // the bar goes into a lone 250 axe whose window nothing can answer.
-                if (stacks < 3)
+                // Two yellow with a blue banked: Rally (40 + 140) plus what the bar holds reaches 250 as well, and the
+                // blue pays the Trick that takes the window as the next link before the 250 axe (the chain measured
+                // at 4x the axe on 2026-09-12: pair, both Rallies, Trick, then the opposite 250 axe).
+                var withBlue = stacks == 2 && BeastMasterRoutine.NaturalInstinct >= 1
+                    && BeastMasterRoutine.Tp + 40 + 70 * stacks >= BeastMasterRoutine.TpCap;
+                if (stacks < 3 && !withBlue)
                     return false;
                 if (!BeastMasterRoutine.WaveringHeart && !BeastMasterRoutine.ChainWindowOpen)
                     return false;
@@ -585,6 +593,11 @@ namespace Magitek.Logic.BeastMaster
             var gain = 30 + 70 * natural;
             if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
                 return false;
+
+            // The window after Rally: the familiar takes the next link with its Trick only if it can pay, and the blue
+            // diamond is what pays it. Cheer goes at once there.
+            if (BeastMasterRoutine.TrickTakesWindow && !BeastMasterRoutine.HasTpFor(Spells.Trick) && !BeastMasterRoutine.FamiliarRetreating)
+                return await Spells.RallyingCheer.Cast(Core.Me);
 
             if (!BeastMasterRoutine.PairWaitingOnFamiliar && (!BeastMasterRoutine.TrickSettled || BeastMasterRoutine.FamiliarRetreating))
                 return false;

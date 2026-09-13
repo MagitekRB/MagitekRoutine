@@ -250,7 +250,18 @@ namespace Magitek.Utilities.Routines
         /// finished by the Trick, paying a Natural stack for Rallying Cheer. Three pairs and the Universality pay
         /// four Mastered per 90 s Rally, so one was lost every cycle (dummy, 2026-09-09, twice over).
         /// </summary>
-        public static bool NaturalPreferred => MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax;
+        public static bool NaturalPreferred => (MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax)
+            || (MasteredInstinct >= 2 && NaturalInstinct < 1);
+
+        /// <summary>
+        /// The familiar takes an open Sunstrider or Moonstalker window with its Trick as the next link. Only once our
+        /// bar already holds 250: Rally has been spent, the 250 axe waits for the window the Trick opens, and nothing
+        /// is lost. A Trick into a window Rally still had to spend into cost three Universalities (dummy, 2026-09-09).
+        /// </summary>
+        public static bool TrickTakesWindow => ChainWindowOpen && FamiliarAffinity != null && Gauge.TP >= TpCap;
+
+        /// <summary>When our last axe of any form went out; inside a window that is what says the link was ours.</summary>
+        public static System.DateTime LastAxeAt = System.DateTime.MinValue;
 
         /// <summary>
         /// Rally is a few seconds from ready with the yellow diamonds full: the next pair is worth holding so its
@@ -324,12 +335,12 @@ namespace Magitek.Utilities.Routines
             var heart = HeartOf(before);
             var window = before == Gauge.InnerCompassState.Sunstrider || before == Gauge.InnerCompassState.Moonstalker;
 
-            // Inside a window either our 250 TP axe or the Trick of the familiar can act, and the Trick did on
-            // 2026-09-09 (it consumed a Sunstrider window as chain link 2, logged as Universality): ours only if
-            // our 250 axe was noted moments ago.
+            // Inside a window our axe of any form completes the link, not only a 250 form (a Mistral Axe 1.2 s before
+            // the link resolved paid the yellow diamond and was credited to the familiar, 2026-09-11 18:44), and the
+            // Trick of the familiar can take the window too (2026-09-09). Ours is any axe of ours in the last three
+            // seconds, stamped where the axes are cast.
             var ours = window
-                ? (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker)
-                    && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < 3000
+                ? (System.DateTime.Now - LastAxeAt).TotalMilliseconds < 3000
                 : heart != null && heart == _familiarBeforeWavering;
 
             string finisher = null;
@@ -346,7 +357,8 @@ namespace Magitek.Utilities.Routines
                 NoteInstinct(FamiliarAffinity);
             }
 
-            var by = ours ? (window ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
+            var universality = window && (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker);
+            var by = ours ? (window ? (universality ? "Universality" : "our axe in the window") : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
             Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural).");
         }
 
