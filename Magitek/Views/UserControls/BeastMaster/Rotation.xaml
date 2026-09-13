@@ -157,6 +157,9 @@
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CrucibleChallengePlayerHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />
                         </StackPanel>
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Crucible_Reactions}" IsChecked="{Binding BeastMasterSettings.UseCrucibleCastReactions, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>
