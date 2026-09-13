@@ -1,4 +1,5 @@
 using ff14bot;
+using ff14bot.Behavior;
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
@@ -139,6 +140,11 @@ namespace Magitek.Utilities.Routines
 
         public static void RefreshVars()
         {
+            if (CommonBehaviors.IsLoading || WorldManager.ZoneId != _lastZone)
+            {
+                _lastZone = WorldManager.ZoneId;
+                _notReadyAt = System.DateTime.Now;
+            }
             EnsureUnlockState();
 
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
@@ -151,6 +157,7 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            TrackChainWindow();
             TrackTrickActed();
             TrackWaveringHeart();
             TrackCaptureHold();
@@ -308,7 +315,67 @@ namespace Magitek.Utilities.Routines
         /// finished by the Trick, paying a Natural stack for Rallying Cheer. Three pairs and the Universality pay
         /// four Mastered per 90 s Rally, so one was lost every cycle (dummy, 2026-09-09, twice over).
         /// </summary>
-        public static bool NaturalPreferred => MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax;
+        public static bool NaturalPreferred => (MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax)
+            || (MasteredInstinct >= 2 && NaturalInstinct < 1);
+
+        /// <summary>
+        /// The familiar takes an open Sunstrider or Moonstalker window with its Trick as the next link. Only once our
+        /// bar already holds 250: Rally has been spent, the 250 axe waits for the window the Trick opens, and nothing
+        /// is lost. A Trick into a window Rally still had to spend into cost three Universalities (dummy, 2026-09-09).
+        /// </summary>
+        public static bool TrickTakesWindow => ChainWindowOpen && FamiliarAffinity != null && Gauge.TP >= TpCap;
+
+        /// <summary>
+        /// The familiar is owed the next link: the window after Rally is open with time left, it is not leaving, and it
+        /// can pay its Trick now or a blue diamond will pay it. The field exit and the 250 axe wait for that link
+        /// (dummy, 2026-09-13: Parting Blow went out in the window at 03:28:12 and Risen Fall took the window a
+        /// second later, and the same again at 03:26:27 before Rally had even spent).
+        /// </summary>
+        public static bool FamiliarLinkPending => BeastMasterSettings.Instance.UseTrick && TrickTakesWindow && !FamiliarRetreating
+            && Gauge.InnerCompassTimer.TotalMilliseconds > 2500
+            && (HasTpFor(Spells.Trick) || (BeastMasterSettings.Instance.UseRallyingCheer && NaturalInstinct >= 1));
+
+        /// <summary>Rally is about to spend into this pair: the stacks are there and it is ready, in Wavering Heart or a window.</summary>
+        public static bool RallyImminent
+        {
+            get
+            {
+                if (!BeastMasterSettings.Instance.UseRally || !Spells.Rally.IsKnownAndReady() || (!WaveringHeart && !ChainWindowOpen))
+                    return false;
+                var stacks = MasteredInstinct;
+                if (stacks >= InstinctStacksMax)
+                    return true;
+                // The same two-stack cases Rally itself accepts: at 50, two yellow with a blue when the bar will reach
+                // 250; below 50, two yellow while an axe waits on TP.
+                if (Core.Me.ClassLevel >= 50)
+                    return stacks >= 2 && NaturalInstinct >= 1 && Gauge.TP + 40 + 70 * stacks >= TpCap;
+                return stacks >= 2 && !Axes.Any(a => HasTpFor(a));
+            }
+        }
+
+        /// <summary>
+        /// The one blue diamond is kept for the window Rally opens when Rally is near: spent the moment it was earned it
+        /// was gone thirty seconds before the window (dummy, 2026-09-13), and the familiar had no TP for its link.
+        /// </summary>
+        public static bool KeepBlueForRally => BeastMasterSettings.Instance.UseRally && Spells.Rally.IsKnown() && MasteredInstinct >= 2
+            && NaturalInstinct == 1 && Spells.Rally.Cooldown.TotalSeconds <= 30;
+
+        /// <summary>When our last axe of any form went out; inside a window that is what says the link was ours.</summary>
+        public static System.DateTime LastAxeAt = System.DateTime.MinValue;
+
+        // When the open Sunstrider or Moonstalker window began: an axe cast since then took this window, an axe cast
+        // before it finished the previous pair (Wavering is 2.1 s and the familiar acts soon after the window opens,
+        // so a fixed three seconds could reach back to that pair).
+        private static System.DateTime _windowOpenedAt = System.DateTime.MinValue;
+        private static bool _windowWasOpen;
+
+        private static void TrackChainWindow()
+        {
+            var open = ChainWindowOpen;
+            if (open && !_windowWasOpen)
+                _windowOpenedAt = System.DateTime.Now;
+            _windowWasOpen = open;
+        }
 
         /// <summary>
         /// Rally is a few seconds from ready with the yellow diamonds full: the next pair is worth holding so its
@@ -382,12 +449,12 @@ namespace Magitek.Utilities.Routines
             var heart = HeartOf(before);
             var window = before == Gauge.InnerCompassState.Sunstrider || before == Gauge.InnerCompassState.Moonstalker;
 
-            // Inside a window either our 250 TP axe or the Trick of the familiar can act, and the Trick did on
-            // 2026-09-09 (it consumed a Sunstrider window as chain link 2, logged as Universality): ours only if
-            // our 250 axe was noted moments ago.
+            // Inside a window our axe of any form completes the link, not only a 250 form (a Mistral Axe 1.2 s before
+            // the link resolved paid the yellow diamond and was credited to the familiar, 2026-09-11 18:44), and the
+            // Trick of the familiar can take the window too (2026-09-09). Ours is any axe of ours in the last three
+            // seconds, stamped where the axes are cast.
             var ours = window
-                ? (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker)
-                    && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < 3000
+                ? LastAxeAt >= _windowOpenedAt
                 : heart != null && heart == _familiarBeforeWavering;
 
             string finisher = null;
@@ -404,7 +471,8 @@ namespace Magitek.Utilities.Routines
                 NoteInstinct(FamiliarAffinity);
             }
 
-            var by = ours ? (window ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
+            var universality = window && (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker);
+            var by = ours ? (window ? (universality ? "Universality" : "our axe in the window") : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
             Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural).");
         }
 
@@ -654,16 +722,25 @@ namespace Magitek.Utilities.Routines
         /// <summary>The library entry for the current target, or null.</summary>
         public static CruciblePiece CurrentPiece => CruciblePieceFor(Core.Me.CurrentTarget);
 
-        private static uint _pieceLoggedFor;
+        // Set by the Crucible cast reaction when a catalogued heavy hit is coming for the beast; a mitigating
+        // Tempered Release (Vulcanize, Smoldering Scales, Harden Shell, Water Wall, Strut) then goes out at once.
+        public static System.DateTime MitigationWantedAt = System.DateTime.MinValue;
+        public static bool MitigationWanted => (System.DateTime.Now - MitigationWantedAt).TotalSeconds < 8;
+
+        private static readonly System.Collections.Generic.HashSet<uint> _piecesLogged = new System.Collections.Generic.HashSet<uint>();
 
         // Once per piece targeted: what the library knows about it, so the log shows the plan the rules will build on.
         private static void TrackCruciblePiece()
         {
             var target = Core.Me.CurrentTarget;
-            if (target == null || !InCrucible || _pieceLoggedFor == target.ObjectId)
+            // A placeholder object in a node (empty name, NpcId 0; siren node, 2026-09-12) is not a piece and not worth a line.
+            if (target == null || !InCrucible || target.NpcId == 0 || _piecesLogged.Contains(target.ObjectId))
                 return;
 
-            _pieceLoggedFor = target.ObjectId;
+            // Every piece spawned gets a new id; a run is a few dozen of them, so the set is emptied before it grows.
+            if (_piecesLogged.Count > 64)
+                _piecesLogged.Clear();
+            _piecesLogged.Add(target.ObjectId);
             var piece = CruciblePieceFor(target);
             if (piece == null)
             {
@@ -714,34 +791,65 @@ namespace Magitek.Utilities.Routines
                 Logger.WriteInfo("[Beastmaster] Not capturing " + target.EnglishName + ": " + reason + ".");
         }
 
+        // The slot read lags the write; a second write built from the stale read clobbered the first (2026-09-10 log).
+        private static System.DateTime _slotsWrittenAt = System.DateTime.MinValue;
+        private const int SlotWriteSettleMs = 30000;
+
+        // Loading, and the moment after it, reads every slot as None; the client refuses a write built from that
+        // read ("cannot execute command", 2026-09-11 log, 03:41:37). IsLoading is the loading screen plus the
+        // movement lock either side of it, and the new zone id covers a pulse that misses the lock entirely.
+        private static ushort _lastZone;
+        private static System.DateTime _notReadyAt = System.DateTime.MinValue;
+        private const int NotReadySettleMs = 5000;
+
         /// <summary>
-        /// A pact with nothing to blow it: the first empty slot whose horn you know gets an unassigned beast. Slots
-        /// already holding a beast are never touched. Assigning a slot sends the familiar out home (seen 2026-09-08),
-        /// so this runs only when none is out, right before a horn is blown.
+        /// Empty slots whose horn you know get a beast, all in one write: the slot's preferred beast when captured and
+        /// not already in a slot, else the strongest unassigned one (highest bestiary number, the lamb last). Filled
+        /// slots are never touched. Assigning sends the familiar out home (seen 2026-09-08), so this runs only when
+        /// none is out, right before a horn is blown.
         /// </summary>
         public static void AssignPactsToEmptyHorns()
         {
-            if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
+                return;
+            if ((System.DateTime.Now - _slotsWrittenAt).TotalMilliseconds < SlotWriteSettleMs)
+                return;
+            if ((System.DateTime.Now - _notReadyAt).TotalMilliseconds < NotReadySettleMs)
                 return;
 
             if (UnlockStateLoading)
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;
-            var unassigned = PetManager.UnlockedBeastmasterPets.Where(p => p != BeastmasterPet.None && !slots.Contains(p)).ToList();
-            if (unassigned.Count == 0)
-                return;
+            var wanted = (BeastmasterPet[])slots.Clone();
+            var preferred = new[] { settings.PreferredPetHorn1, settings.PreferredPetHorn2, settings.PreferredPetHorn3 };
+            var unlocked = PetManager.UnlockedBeastmasterPets;
+            var spare = unlocked
+                .Where(p => p != BeastmasterPet.None && !slots.Contains(p) && !preferred.Contains(p))
+                .OrderByDescending(p => p == BeastmasterPet.Lamb ? -1 : (int)p)
+                .ToList();
 
-            for (var i = 0; i < slots.Length && i < Battlehorns.Length; i++)
+            for (var i = 0; i < wanted.Length && i < Battlehorns.Length; i++)
             {
-                if (slots[i] != BeastmasterPet.None || !Battlehorns[i].IsKnown())
+                if (wanted[i] != BeastmasterPet.None || !Battlehorns[i].IsKnown())
                     continue;
 
-                var pet = unassigned[0];
-                var ok = PetManager.SetBeastmasterPetSlot(i, pet);
-                Logger.WriteInfo("[Beastmaster] Battlehorn " + (i + 1) + " " + (ok ? "assigned" : "could not be assigned") + " " + pet + ".");
-                return;
+                var pick = preferred[i];
+                if (pick == BeastmasterPet.None || !unlocked.Contains(pick) || wanted.Contains(pick))
+                {
+                    pick = spare.FirstOrDefault();
+                    spare.Remove(pick);
+                }
+                wanted[i] = pick;
             }
+
+            if (wanted.SequenceEqual(slots))
+                return;
+
+            _slotsWrittenAt = System.DateTime.Now;
+            var ok = PetManager.SetBeastmasterPetSlots(wanted[0], wanted[1], wanted[2]);
+            Logger.WriteInfo("[Beastmaster] Battlehorns " + (ok ? "assigned: " : "could not be assigned: ") + string.Join(", ", wanted) + ".");
         }
 
         public static void NoteEngaged(GameObject target)
