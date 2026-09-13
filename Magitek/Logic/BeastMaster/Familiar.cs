@@ -418,6 +418,11 @@ namespace Magitek.Logic.BeastMaster
             if (!BeastMasterSettings.Instance.UsePartingBlow || !BeastMasterRoutine.FamiliarOut || !Spells.PartingBlow.IsKnown())
                 return false;
 
+            // The beast is owed the next link of the chain, or Rally is about to open the window it takes: the exit
+            // waits the few seconds that costs rather than send the beast home out of its own Universality chain.
+            if (BeastMasterRoutine.FamiliarLinkPending || BeastMasterRoutine.RallyImminent)
+                return false;
+
             // Vantage is worth waiting for only while it can still come, that is while One with Nature is unspent.
             // Once it is spent and Vantage has run out, waiting keeps this beast out for the rest of the fight: on
             // the dummy (2026-09-09) the third beast's Vantage expired ten seconds before the first horn returned
@@ -598,6 +603,9 @@ namespace Magitek.Logic.BeastMaster
             // diamond is what pays it. Cheer goes at once there.
             if (BeastMasterRoutine.TrickTakesWindow && !BeastMasterRoutine.HasTpFor(Spells.Trick) && !BeastMasterRoutine.FamiliarRetreating)
                 return await Spells.RallyingCheer.Cast(Core.Me);
+
+            if (BeastMasterRoutine.KeepBlueForRally)
+                return false;
 
             if (!BeastMasterRoutine.PairWaitingOnFamiliar && (!BeastMasterRoutine.TrickSettled || BeastMasterRoutine.FamiliarRetreating))
                 return false;

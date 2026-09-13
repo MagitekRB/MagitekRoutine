@@ -63,6 +63,11 @@ namespace Magitek.Logic.BeastMaster
             if (BeastMasterRoutine.TrickPending || BeastMasterRoutine.WaveringHeart)
                 return false;
 
+            // The familiar takes this window first when it can (its link opens the window the 250 axe then turns
+            // into Universality); the axe waits while that link is owed.
+            if (BeastMasterRoutine.FamiliarLinkPending)
+                return false;
+
             // Level 50: a 250 TP axe of the opposite affinity to the open window is Universality, and beats any pair.
             var universality = BeastMasterRoutine.UniversalityAxe();
             if (universality != null)

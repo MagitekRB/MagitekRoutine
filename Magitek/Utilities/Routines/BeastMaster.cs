@@ -281,6 +281,26 @@ namespace Magitek.Utilities.Routines
                 + " settled " + TrickSettled + " retreating " + FamiliarRetreating + " lastAxe " + (System.DateTime.Now - LastAxeAt).TotalMilliseconds.ToString("0") + " ms.");
         }
 
+        /// <summary>
+        /// The familiar is owed the next link: the window after Rally is open with time left, it is not leaving, and it
+        /// can pay its Trick now or a blue diamond will pay it. The field exit and the 250 axe wait for that link
+        /// (dummy, 2026-09-13: Parting Blow went out in the window at 03:28:12 and Risen Fall took the window a
+        /// second later, and the same again at 03:26:27 before Rally had even spent).
+        /// </summary>
+        public static bool FamiliarLinkPending => TrickTakesWindow && !FamiliarRetreating && Gauge.InnerCompassTimer.TotalMilliseconds > 2500
+            && (HasTpFor(Spells.Trick) || (BeastMasterSettings.Instance.UseRallyingCheer && NaturalInstinct >= 1));
+
+        /// <summary>Rally is about to spend into this pair: the stacks are there and it is ready, in Wavering Heart or a window.</summary>
+        public static bool RallyImminent => BeastMasterSettings.Instance.UseRally && Spells.Rally.IsKnownAndReady() && (WaveringHeart || ChainWindowOpen)
+            && (MasteredInstinct >= InstinctStacksMax || (MasteredInstinct >= 2 && NaturalInstinct >= 1));
+
+        /// <summary>
+        /// The one blue diamond is kept for the window Rally opens when Rally is near: spent the moment it was earned it
+        /// was gone thirty seconds before the window (dummy, 2026-09-13), and the familiar had no TP for its link.
+        /// </summary>
+        public static bool KeepBlueForRally => BeastMasterSettings.Instance.UseRally && Spells.Rally.IsKnown() && MasteredInstinct >= 2
+            && NaturalInstinct == 1 && Spells.Rally.Cooldown.TotalSeconds <= 30;
+
         /// <summary>When our last axe of any form went out; inside a window that is what says the link was ours.</summary>
         public static System.DateTime LastAxeAt = System.DateTime.MinValue;
 
