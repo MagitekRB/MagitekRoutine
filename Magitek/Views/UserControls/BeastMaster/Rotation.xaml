@@ -174,6 +174,18 @@
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Assign_Horns}" IsChecked="{Binding BeastMasterSettings.AssignPactsToEmptyHorns, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Preferred_Pet_1}" />
+                            <ComboBox Width="140" ItemsSource="{Binding CapturedPets}" SelectedValue="{Binding BeastMasterSettings.PreferredPetHorn1, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Preferred_Pet_2}" />
+                            <ComboBox Width="140" ItemsSource="{Binding CapturedPets}" SelectedValue="{Binding BeastMasterSettings.PreferredPetHorn2, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Preferred_Pet_3}" />
+                            <ComboBox Width="140" ItemsSource="{Binding CapturedPets}" SelectedValue="{Binding BeastMasterSettings.PreferredPetHorn3, Mode=TwoWay}" Style="{DynamicResource ComboBox}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.BeastMaster_Content_Capture_Health}" />
                             <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding BeastMasterSettings.CaptureHealthPercent, Mode=TwoWay}" />
                             <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Generic_Percent}" />

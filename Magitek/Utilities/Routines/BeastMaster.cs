@@ -1,4 +1,5 @@
 using ff14bot;
+using ff14bot.Behavior;
 using ff14bot.Enums;
 using ff14bot.Managers;
 using ff14bot.Objects;
@@ -83,6 +84,12 @@ namespace Magitek.Utilities.Routines
 
         public static void RefreshVars()
         {
+            if (CommonBehaviors.IsLoading || WorldManager.ZoneId != _lastZone)
+            {
+                _lastZone = WorldManager.ZoneId;
+                _notReadyAt = System.DateTime.Now;
+            }
+
             if (Battlehorns.Any(h => h.IsKnown() && h.Cooldown > System.TimeSpan.Zero && h.Cooldown <= HornRecast))
                 _hornSeenRecasting = System.DateTime.Now;
 
@@ -643,31 +650,62 @@ namespace Magitek.Utilities.Routines
                 Logger.WriteInfo("[Beastmaster] Not capturing " + target.EnglishName + ": " + reason + ".");
         }
 
+        // The slot read lags the write; a second write built from the stale read clobbered the first (2026-09-10 log).
+        private static System.DateTime _slotsWrittenAt = System.DateTime.MinValue;
+        private const int SlotWriteSettleMs = 30000;
+
+        // Loading, and the moment after it, reads every slot as None; the client refuses a write built from that
+        // read ("cannot execute command", 2026-09-11 log, 03:41:37). IsLoading is the loading screen plus the
+        // movement lock either side of it, and the new zone id covers a pulse that misses the lock entirely.
+        private static ushort _lastZone;
+        private static System.DateTime _notReadyAt = System.DateTime.MinValue;
+        private const int NotReadySettleMs = 5000;
+
         /// <summary>
-        /// A pact with nothing to blow it: the first empty slot whose horn you know gets an unassigned beast. Slots
-        /// already holding a beast are never touched. Assigning a slot sends the familiar out home (seen 2026-09-08),
-        /// so this runs only when none is out, right before a horn is blown.
+        /// Empty slots whose horn you know get a beast, all in one write: the slot's preferred beast when captured and
+        /// not already in a slot, else the strongest unassigned one (highest bestiary number, the lamb last). Filled
+        /// slots are never touched. Assigning sends the familiar out home (seen 2026-09-08), so this runs only when
+        /// none is out, right before a horn is blown.
         /// </summary>
         public static void AssignPactsToEmptyHorns()
         {
-            if (!BeastMasterSettings.Instance.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.AssignPactsToEmptyHorns || FamiliarOut || LeaveHornsToTheDuty())
+                return;
+            if ((System.DateTime.Now - _slotsWrittenAt).TotalMilliseconds < SlotWriteSettleMs)
+                return;
+            if ((System.DateTime.Now - _notReadyAt).TotalMilliseconds < NotReadySettleMs)
                 return;
 
             var slots = PetManager.BeastmasterPetSlots;
-            var unassigned = PetManager.UnlockedBeastmasterPets.Where(p => p != BeastmasterPet.None && !slots.Contains(p)).ToList();
-            if (unassigned.Count == 0)
-                return;
+            var wanted = (BeastmasterPet[])slots.Clone();
+            var preferred = new[] { settings.PreferredPetHorn1, settings.PreferredPetHorn2, settings.PreferredPetHorn3 };
+            var unlocked = PetManager.UnlockedBeastmasterPets;
+            var spare = unlocked
+                .Where(p => p != BeastmasterPet.None && !slots.Contains(p) && !preferred.Contains(p))
+                .OrderByDescending(p => p == BeastmasterPet.Lamb ? -1 : (int)p)
+                .ToList();
 
-            for (var i = 0; i < slots.Length && i < Battlehorns.Length; i++)
+            for (var i = 0; i < wanted.Length && i < Battlehorns.Length; i++)
             {
-                if (slots[i] != BeastmasterPet.None || !Battlehorns[i].IsKnown())
+                if (wanted[i] != BeastmasterPet.None || !Battlehorns[i].IsKnown())
                     continue;
 
-                var pet = unassigned[0];
-                var ok = PetManager.SetBeastmasterPetSlot(i, pet);
-                Logger.WriteInfo("[Beastmaster] Battlehorn " + (i + 1) + " " + (ok ? "assigned" : "could not be assigned") + " " + pet + ".");
-                return;
+                var pick = preferred[i];
+                if (pick == BeastmasterPet.None || !unlocked.Contains(pick) || wanted.Contains(pick))
+                {
+                    pick = spare.FirstOrDefault();
+                    spare.Remove(pick);
+                }
+                wanted[i] = pick;
             }
+
+            if (wanted.SequenceEqual(slots))
+                return;
+
+            _slotsWrittenAt = System.DateTime.Now;
+            var ok = PetManager.SetBeastmasterPetSlots(wanted[0], wanted[1], wanted[2]);
+            Logger.WriteInfo("[Beastmaster] Battlehorns " + (ok ? "assigned: " : "could not be assigned: ") + string.Join(", ", wanted) + ".");
         }
 
         public static void NoteEngaged(GameObject target)

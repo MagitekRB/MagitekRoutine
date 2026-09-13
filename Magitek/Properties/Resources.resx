@@ -5707,6 +5707,15 @@
   <data name="BeastMaster_Content_Assign_Horns" xml:space="preserve">
     <value>Assign new pacts to empty battlehorn slots</value>
   </data>
+  <data name="BeastMaster_Content_Preferred_Pet_1" xml:space="preserve">
+    <value>Battlehorn 1 preferred beast (None: strongest captured)</value>
+  </data>
+  <data name="BeastMaster_Content_Preferred_Pet_2" xml:space="preserve">
+    <value>Battlehorn 2 preferred beast (None: strongest captured)</value>
+  </data>
+  <data name="BeastMaster_Content_Preferred_Pet_3" xml:space="preserve">
+    <value>Battlehorn 3 preferred beast (None: strongest captured)</value>
+  </data>
   <data name="BeastMaster_Content_Capture_Hold" xml:space="preserve">
     <value>Until the mark is on a capturable beast, only auto-attack it (one Smash Axe to start); a beast at or above your level gets the basic combo instead</value>
   </data>
