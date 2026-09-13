@@ -410,6 +410,14 @@ namespace Magitek.Logic.BeastMaster
         /// 90 s cooldown. So: under Vantage, and only when another horn can follow at once (unless the user says
         /// otherwise), so the fight never runs without a familiar.
         /// </summary>
+        // A Crucible swap has to buy something (user, 2026-09-12: a swap two seconds after a summon, into a beast no
+        // healthier, is a surprise mid-fight). The next beast must be above the swap line and clearly healthier than
+        // the one out, a beast just summoned gets a few seconds, and a beast with no replacement ready stays; only a
+        // critical beast (half the swap line) leaves regardless, since a dead beast is gone for the run.
+        private const float SwapGainPercent = 10f;
+        private const double SwapGraceSeconds = 8;
+        private static uint _swapHeldFor;
+
         public static async Task<bool> PartingBlow()
         {
             if (!BeastMasterSettings.Instance.UsePartingBlow || !BeastMasterRoutine.FamiliarOut || !Spells.PartingBlow.IsKnown())
@@ -456,18 +464,44 @@ namespace Magitek.Logic.BeastMaster
                 // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
                 // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
+                var next = BeastMasterRoutine.NextHealth(horn);
+                var nextName = horn == null ? "nothing" : BeastMasterRoutine.SlotPet(BeastMasterRoutine.HornSlot(horn)).ToString();
+                var critical = petHealth <= BeastMasterSettings.Instance.CrucibleSwapHealthPercent / 2;
+
+                if (!critical)
+                {
+                    if (horn == null)
+                        return false;
+
+                    if (next <= BeastMasterSettings.Instance.CrucibleSwapHealthPercent || next < petHealth + SwapGainPercent)
+                    {
+                        if (_swapHeldFor != pet.ObjectId)
+                        {
+                            _swapHeldFor = pet.ObjectId;
+                            Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % stays; the next beast, " + nextName + ", was last seen at " + next.ToString("0") + " %.");
+                        }
+                        return false;
+                    }
+
+                    if (BeastMasterRoutine.FamiliarOutSeconds < SwapGraceSeconds)
+                        return false;
+                }
+
                 if (horn != null && await horn.Cast(Core.Me))
                 {
-                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                    Logger.WriteInfo(petHealth <= 0
+                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings " + nextName + " (last seen at " + next.ToString("0") + " %)."
+                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn for " + nextName + " (last seen at " + next.ToString("0") + " %).");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
                     return true;
                 }
 
-                if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                // No horn ready: only a critical beast retreats into an empty slot, since staying would lose it.
+                if (petHealth <= 0 || !await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow before it dies; no horn is ready.");
                 BeastMasterRoutine.NotePartingBlow();
                 return true;
             }
