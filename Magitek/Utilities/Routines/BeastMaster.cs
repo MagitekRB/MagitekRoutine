@@ -100,6 +100,7 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            TrackChainWindow();
             TrackTrickActed();
             TrackWaveringHeart();
             TrackCaptureHold();
@@ -257,7 +258,67 @@ namespace Magitek.Utilities.Routines
         /// finished by the Trick, paying a Natural stack for Rallying Cheer. Three pairs and the Universality pay
         /// four Mastered per 90 s Rally, so one was lost every cycle (dummy, 2026-09-09, twice over).
         /// </summary>
-        public static bool NaturalPreferred => MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax;
+        public static bool NaturalPreferred => (MasteredInstinct >= InstinctStacksMax && NaturalInstinct < InstinctStacksMax)
+            || (MasteredInstinct >= 2 && NaturalInstinct < 1);
+
+        /// <summary>
+        /// The familiar takes an open Sunstrider or Moonstalker window with its Trick as the next link. Only once our
+        /// bar already holds 250: Rally has been spent, the 250 axe waits for the window the Trick opens, and nothing
+        /// is lost. A Trick into a window Rally still had to spend into cost three Universalities (dummy, 2026-09-09).
+        /// </summary>
+        public static bool TrickTakesWindow => ChainWindowOpen && FamiliarAffinity != null && Gauge.TP >= TpCap;
+
+        /// <summary>
+        /// The familiar is owed the next link: the window after Rally is open with time left, it is not leaving, and it
+        /// can pay its Trick now or a blue diamond will pay it. The field exit and the 250 axe wait for that link
+        /// (dummy, 2026-09-13: Parting Blow went out in the window at 03:28:12 and Risen Fall took the window a
+        /// second later, and the same again at 03:26:27 before Rally had even spent).
+        /// </summary>
+        public static bool FamiliarLinkPending => BeastMasterSettings.Instance.UseTrick && TrickTakesWindow && !FamiliarRetreating
+            && Gauge.InnerCompassTimer.TotalMilliseconds > 2500
+            && (HasTpFor(Spells.Trick) || (BeastMasterSettings.Instance.UseRallyingCheer && NaturalInstinct >= 1));
+
+        /// <summary>Rally is about to spend into this pair: the stacks are there and it is ready, in Wavering Heart or a window.</summary>
+        public static bool RallyImminent
+        {
+            get
+            {
+                if (!BeastMasterSettings.Instance.UseRally || !Spells.Rally.IsKnownAndReady() || (!WaveringHeart && !ChainWindowOpen))
+                    return false;
+                var stacks = MasteredInstinct;
+                if (stacks >= InstinctStacksMax)
+                    return true;
+                // The same two-stack cases Rally itself accepts: at 50, two yellow with a blue when the bar will reach
+                // 250; below 50, two yellow while an axe waits on TP.
+                if (Core.Me.ClassLevel >= 50)
+                    return stacks >= 2 && NaturalInstinct >= 1 && Gauge.TP + 40 + 70 * stacks >= TpCap;
+                return stacks >= 2 && !Axes.Any(a => HasTpFor(a));
+            }
+        }
+
+        /// <summary>
+        /// The one blue diamond is kept for the window Rally opens when Rally is near: spent the moment it was earned it
+        /// was gone thirty seconds before the window (dummy, 2026-09-13), and the familiar had no TP for its link.
+        /// </summary>
+        public static bool KeepBlueForRally => BeastMasterSettings.Instance.UseRally && Spells.Rally.IsKnown() && MasteredInstinct >= 2
+            && NaturalInstinct == 1 && Spells.Rally.Cooldown.TotalSeconds <= 30;
+
+        /// <summary>When our last axe of any form went out; inside a window that is what says the link was ours.</summary>
+        public static System.DateTime LastAxeAt = System.DateTime.MinValue;
+
+        // When the open Sunstrider or Moonstalker window began: an axe cast since then took this window, an axe cast
+        // before it finished the previous pair (Wavering is 2.1 s and the familiar acts soon after the window opens,
+        // so a fixed three seconds could reach back to that pair).
+        private static System.DateTime _windowOpenedAt = System.DateTime.MinValue;
+        private static bool _windowWasOpen;
+
+        private static void TrackChainWindow()
+        {
+            var open = ChainWindowOpen;
+            if (open && !_windowWasOpen)
+                _windowOpenedAt = System.DateTime.Now;
+            _windowWasOpen = open;
+        }
 
         /// <summary>
         /// Rally is a few seconds from ready with the yellow diamonds full: the next pair is worth holding so its
@@ -331,12 +392,12 @@ namespace Magitek.Utilities.Routines
             var heart = HeartOf(before);
             var window = before == Gauge.InnerCompassState.Sunstrider || before == Gauge.InnerCompassState.Moonstalker;
 
-            // Inside a window either our 250 TP axe or the Trick of the familiar can act, and the Trick did on
-            // 2026-09-09 (it consumed a Sunstrider window as chain link 2, logged as Universality): ours only if
-            // our 250 axe was noted moments ago.
+            // Inside a window our axe of any form completes the link, not only a 250 form (a Mistral Axe 1.2 s before
+            // the link resolved paid the yellow diamond and was credited to the familiar, 2026-09-11 18:44), and the
+            // Trick of the familiar can take the window too (2026-09-09). Ours is any axe of ours in the last three
+            // seconds, stamped where the axes are cast.
             var ours = window
-                ? (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker)
-                    && (System.DateTime.Now - _lastInstinctAt).TotalMilliseconds < 3000
+                ? LastAxeAt >= _windowOpenedAt
                 : heart != null && heart == _familiarBeforeWavering;
 
             string finisher = null;
@@ -353,7 +414,8 @@ namespace Magitek.Utilities.Routines
                 NoteInstinct(FamiliarAffinity);
             }
 
-            var by = ours ? (window ? "Universality" : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
+            var universality = window && (LastInstinctAffinity == Affinity.Sunstrider || LastInstinctAffinity == Affinity.Moonstalker);
+            var by = ours ? (window ? (universality ? "Universality" : "our axe in the window") : AxeFor(finisher)?.LocalizedName ?? "our axe") : "the familiar";
             Logger.WriteInfo($"[Beastmaster] Combo completed by {by} (chain {Gauge.ComboCounter}; instinct {MasteredInstinct} mastered / {NaturalInstinct} natural).");
         }
 
