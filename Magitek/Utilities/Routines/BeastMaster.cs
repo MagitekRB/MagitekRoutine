@@ -94,7 +94,6 @@ namespace Magitek.Utilities.Routines
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
             TrackTrickActed();
-            TrackWindowDiagnostics();
             TrackWaveringHeart();
             TrackCaptureHold();
             TrackCruciblePiece();
@@ -260,26 +259,6 @@ namespace Magitek.Utilities.Routines
         /// is lost. A Trick into a window Rally still had to spend into cost three Universalities (dummy, 2026-09-09).
         /// </summary>
         public static bool TrickTakesWindow => ChainWindowOpen && FamiliarAffinity != null && Gauge.TP >= TpCap;
-
-        // TEST DIAGNOSTIC (2026-09-13, to be removed before the PR): what the window rules read, twice per window.
-        private static System.DateTime _windowLoggedAt = System.DateTime.MinValue;
-        private static int _windowLogs;
-        private static void TrackWindowDiagnostics()
-        {
-            if (!ChainWindowOpen)
-            {
-                _windowLogs = 0;
-                return;
-            }
-            if (_windowLogs >= 2 || (System.DateTime.Now - _windowLoggedAt).TotalMilliseconds < 1500)
-                return;
-            _windowLogs++;
-            _windowLoggedAt = System.DateTime.Now;
-            Logger.WriteInfo("[Beastmaster] Window " + Gauge.InnerCompass + " timer " + Gauge.InnerCompassTimer.TotalMilliseconds.ToString("0") + " ms: TP " + Gauge.TP + " pet " + Gauge.PetTP
-                + " yellow " + MasteredInstinct + " blue " + NaturalInstinct + " affinity " + (FamiliarAffinity ?? "-") + " heart " + (EffectiveHeart ?? "-")
-                + " takes " + TrickTakesWindow + " trickTp " + HasTpFor(Spells.Trick) + " continues " + TrickContinuesChain + " weave " + GlobalCooldown.CanWeave()
-                + " settled " + TrickSettled + " retreating " + FamiliarRetreating + " lastAxe " + (System.DateTime.Now - LastAxeAt).TotalMilliseconds.ToString("0") + " ms.");
-        }
 
         /// <summary>
         /// The familiar is owed the next link: the window after Rally is open with time left, it is not leaving, and it
