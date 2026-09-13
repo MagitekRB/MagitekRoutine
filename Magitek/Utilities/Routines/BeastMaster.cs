@@ -93,6 +93,7 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            TrackChainWindow();
             TrackTrickActed();
             TrackWaveringHeart();
             TrackCaptureHold();
@@ -266,12 +267,27 @@ namespace Magitek.Utilities.Routines
         /// (dummy, 2026-09-13: Parting Blow went out in the window at 03:28:12 and Risen Fall took the window a
         /// second later, and the same again at 03:26:27 before Rally had even spent).
         /// </summary>
-        public static bool FamiliarLinkPending => TrickTakesWindow && !FamiliarRetreating && Gauge.InnerCompassTimer.TotalMilliseconds > 2500
+        public static bool FamiliarLinkPending => BeastMasterSettings.Instance.UseTrick && TrickTakesWindow && !FamiliarRetreating
+            && Gauge.InnerCompassTimer.TotalMilliseconds > 2500
             && (HasTpFor(Spells.Trick) || (BeastMasterSettings.Instance.UseRallyingCheer && NaturalInstinct >= 1));
 
         /// <summary>Rally is about to spend into this pair: the stacks are there and it is ready, in Wavering Heart or a window.</summary>
-        public static bool RallyImminent => BeastMasterSettings.Instance.UseRally && Spells.Rally.IsKnownAndReady() && (WaveringHeart || ChainWindowOpen)
-            && (MasteredInstinct >= InstinctStacksMax || (MasteredInstinct >= 2 && NaturalInstinct >= 1));
+        public static bool RallyImminent
+        {
+            get
+            {
+                if (!BeastMasterSettings.Instance.UseRally || !Spells.Rally.IsKnownAndReady() || (!WaveringHeart && !ChainWindowOpen))
+                    return false;
+                var stacks = MasteredInstinct;
+                if (stacks >= InstinctStacksMax)
+                    return true;
+                // The same two-stack cases Rally itself accepts: at 50, two yellow with a blue when the bar will reach
+                // 250; below 50, two yellow while an axe waits on TP.
+                if (Core.Me.ClassLevel >= 50)
+                    return stacks >= 2 && NaturalInstinct >= 1 && Gauge.TP + 40 + 70 * stacks >= TpCap;
+                return stacks >= 2 && !Axes.Any(a => HasTpFor(a));
+            }
+        }
 
         /// <summary>
         /// The one blue diamond is kept for the window Rally opens when Rally is near: spent the moment it was earned it
@@ -282,6 +298,20 @@ namespace Magitek.Utilities.Routines
 
         /// <summary>When our last axe of any form went out; inside a window that is what says the link was ours.</summary>
         public static System.DateTime LastAxeAt = System.DateTime.MinValue;
+
+        // When the open Sunstrider or Moonstalker window began: an axe cast since then took this window, an axe cast
+        // before it finished the previous pair (Wavering is 2.1 s and the familiar acts soon after the window opens,
+        // so a fixed three seconds could reach back to that pair).
+        private static System.DateTime _windowOpenedAt = System.DateTime.MinValue;
+        private static bool _windowWasOpen;
+
+        private static void TrackChainWindow()
+        {
+            var open = ChainWindowOpen;
+            if (open && !_windowWasOpen)
+                _windowOpenedAt = System.DateTime.Now;
+            _windowWasOpen = open;
+        }
 
         /// <summary>
         /// Rally is a few seconds from ready with the yellow diamonds full: the next pair is worth holding so its
@@ -360,7 +390,7 @@ namespace Magitek.Utilities.Routines
             // Trick of the familiar can take the window too (2026-09-09). Ours is any axe of ours in the last three
             // seconds, stamped where the axes are cast.
             var ours = window
-                ? (System.DateTime.Now - LastAxeAt).TotalMilliseconds < 3000
+                ? LastAxeAt >= _windowOpenedAt
                 : heart != null && heart == _familiarBeforeWavering;
 
             string finisher = null;
