@@ -30,6 +30,10 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData VariantCureAloalo = DataManager.GetSpellData(33862);
         public static readonly SpellData VariantSpiritDartAloalo = DataManager.GetSpellData(33863);
         public static readonly SpellData VariantRampartAloalo = DataManager.GetSpellData(33864);
+
+        // The Criterion tiers have their own raise, Variant Raise II (1.3 s cast, 25 s recast), the only raise there
+        // (Another Sil'dihn Subterrane, ACT 2026-06-12).
+        public static readonly SpellData VariantRaiseCriterion = DataManager.GetSpellData(29734);
     }
 
     internal static class VDAuras
@@ -177,7 +181,8 @@ namespace Magitek.Logic.Roles
             if (deadTarget == null)
                 return false;
 
-            if (!IsVariantSpellReady(VDSpells.VariantRaise, deadTarget))
+            var raise = GetCastableVariant(VDSpells.VariantRaise, VDSpells.VariantRaiseCriterion, deadTarget);
+            if (raise == null)
                 return false;
 
             if (VariantDungeonSettings.Instance.UseSwiftcastForVariantRaise
@@ -186,13 +191,13 @@ namespace Magitek.Logic.Roles
             {
                 if (await Spells.Swiftcast.Cast(Core.Me))
                 {
-                    if (await VDSpells.VariantRaise.CastAura(deadTarget, Auras.Raise))
+                    if (await raise.CastAura(deadTarget, Auras.Raise))
                         return true;
                 }
             }
 
             if (!Core.Me.InCombat || VariantDungeonSettings.Instance.SlowcastVariantRaise)
-                return await VDSpells.VariantRaise.Cast(deadTarget);
+                return await raise.Cast(deadTarget);
 
             return false;
         }
