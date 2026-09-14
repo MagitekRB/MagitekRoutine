@@ -21,9 +21,10 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData VariantRampart = DataManager.GetSpellData(46941);
         public static readonly SpellData VariantEagleEyeShot = DataManager.GetSpellData(46942);
 
-        // Endwalker variant dungeon spell IDs: Sil'dihn and Rokkon share one set, Aloalo Island has its own
-        // (Aloalo, 2026-09-13: the routine cast none of the three there, while Ultimatum and Raise, which every
-        // dungeon shares, were fine; the player's own casts in ACT carried 33862, 33863 and 33864).
+        // Endwalker variant dungeon spell IDs. Cure, Spirit Dart and Rampart have three rows each in the Action sheet:
+        // 297xx (Sil'dihn, logged), 338xx (Aloalo Island, logged 2026-09-13: the routine cast none of the three there
+        // while Ultimatum and Raise, shared by every dungeon, were fine) and 469xx (Dawntrail). Mount Rokkon is on one
+        // of the two Endwalker sets. The effect statuses (3358-3360) are the same in every generation.
         public static readonly SpellData VariantCureOld = DataManager.GetSpellData(29729);
         public static readonly SpellData VariantSpiritDartOld = DataManager.GetSpellData(29732);
         public static readonly SpellData VariantRampartOld = DataManager.GetSpellData(29733);
@@ -55,16 +56,11 @@ namespace Magitek.Logic.Roles
             return ActionManager.CanCast(spell, target ?? Core.Me);
         }
 
-        private static SpellData GetCastableVariant(SpellData primary, SpellData fallback, GameObject target = null, SpellData third = null)
+        /// <summary>The first of the candidates the client will cast on the target now (self when null), or null.</summary>
+        private static SpellData GetCastableVariant(GameObject target, params SpellData[] candidates)
         {
             var t = target ?? Core.Me;
-            if (primary != null && ActionManager.CanCast(primary, t))
-                return primary;
-            if (fallback != null && ActionManager.CanCast(fallback, t))
-                return fallback;
-            if (third != null && ActionManager.CanCast(third, t))
-                return third;
-            return null;
+            return candidates.FirstOrDefault(s => s != null && ActionManager.CanCast(s, t));
         }
 
         private static readonly HashSet<ushort> VariantDungeonZoneIds = new()
@@ -113,7 +109,7 @@ namespace Magitek.Logic.Roles
 
             if (Core.Me.CurrentHealthPercent <= VariantDungeonSettings.Instance.VariantCureHealthPercent)
             {
-                var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld, null, VDSpells.VariantCureAloalo);
+                var spell = GetCastableVariant(null, VDSpells.VariantCure, VDSpells.VariantCureOld, VDSpells.VariantCureAloalo);
                 if (spell != null)
                     return await spell.Cast(Core.Me);
             }
@@ -129,7 +125,7 @@ namespace Magitek.Logic.Roles
 
                 if (allyTarget != null)
                 {
-                    var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld, allyTarget, VDSpells.VariantCureAloalo);
+                    var spell = GetCastableVariant(allyTarget, VDSpells.VariantCure, VDSpells.VariantCureOld, VDSpells.VariantCureAloalo);
                     if (spell != null)
                         return await spell.Cast(allyTarget);
                 }
@@ -181,9 +177,14 @@ namespace Magitek.Logic.Roles
             if (deadTarget == null)
                 return false;
 
-            var raise = GetCastableVariant(VDSpells.VariantRaise, VDSpells.VariantRaiseCriterion, deadTarget);
+            var raise = GetCastableVariant(deadTarget, VDSpells.VariantRaise, VDSpells.VariantRaiseCriterion);
             if (raise == null)
                 return false;
+
+            // Variant Raise II is a 1.3 s cast: it goes as it is, with Swiftcast kept for the job and the slowcast
+            // setting (about the 8 s raise) not in its way.
+            if (raise == VDSpells.VariantRaiseCriterion)
+                return await raise.Cast(deadTarget);
 
             if (VariantDungeonSettings.Instance.UseSwiftcastForVariantRaise
                 && Spells.Swiftcast.IsKnownAndReady()
@@ -216,7 +217,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentTarget.HasAura(VDAuras.VariantSpiritDart, true, 3000))
                 return false;
 
-            var spell = GetCastableVariant(VDSpells.VariantSpiritDart, VDSpells.VariantSpiritDartOld, Core.Me.CurrentTarget, VDSpells.VariantSpiritDartAloalo);
+            var spell = GetCastableVariant(Core.Me.CurrentTarget, VDSpells.VariantSpiritDart, VDSpells.VariantSpiritDartOld, VDSpells.VariantSpiritDartAloalo);
             if (spell == null)
                 return false;
 
@@ -237,7 +238,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentHealthPercent > VariantDungeonSettings.Instance.VariantRampartHealthPercent)
                 return false;
 
-            var spell = GetCastableVariant(VDSpells.VariantRampart, VDSpells.VariantRampartOld, null, VDSpells.VariantRampartAloalo);
+            var spell = GetCastableVariant(null, VDSpells.VariantRampart, VDSpells.VariantRampartOld, VDSpells.VariantRampartAloalo);
             if (spell == null)
                 return false;
 
