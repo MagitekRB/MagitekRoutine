@@ -21,10 +21,15 @@ namespace Magitek.Logic.Roles
         public static readonly SpellData VariantRampart = DataManager.GetSpellData(46941);
         public static readonly SpellData VariantEagleEyeShot = DataManager.GetSpellData(46942);
 
-        // Endwalker variant dungeon spell IDs (Sil'dihn, Rokkon, Aloalo)
+        // Endwalker variant dungeon spell IDs: Sil'dihn and Rokkon share one set, Aloalo Island has its own
+        // (Aloalo, 2026-09-13: the routine cast none of the three there, while Ultimatum and Raise, which every
+        // dungeon shares, were fine; the player's own casts in ACT carried 33862, 33863 and 33864).
         public static readonly SpellData VariantCureOld = DataManager.GetSpellData(29729);
         public static readonly SpellData VariantSpiritDartOld = DataManager.GetSpellData(29732);
         public static readonly SpellData VariantRampartOld = DataManager.GetSpellData(29733);
+        public static readonly SpellData VariantCureAloalo = DataManager.GetSpellData(33862);
+        public static readonly SpellData VariantSpiritDartAloalo = DataManager.GetSpellData(33863);
+        public static readonly SpellData VariantRampartAloalo = DataManager.GetSpellData(33864);
     }
 
     internal static class VDAuras
@@ -46,13 +51,15 @@ namespace Magitek.Logic.Roles
             return ActionManager.CanCast(spell, target ?? Core.Me);
         }
 
-        private static SpellData GetCastableVariant(SpellData primary, SpellData fallback, GameObject target = null)
+        private static SpellData GetCastableVariant(SpellData primary, SpellData fallback, GameObject target = null, SpellData third = null)
         {
             var t = target ?? Core.Me;
             if (primary != null && ActionManager.CanCast(primary, t))
                 return primary;
             if (fallback != null && ActionManager.CanCast(fallback, t))
                 return fallback;
+            if (third != null && ActionManager.CanCast(third, t))
+                return third;
             return null;
         }
 
@@ -102,7 +109,7 @@ namespace Magitek.Logic.Roles
 
             if (Core.Me.CurrentHealthPercent <= VariantDungeonSettings.Instance.VariantCureHealthPercent)
             {
-                var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld);
+                var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld, null, VDSpells.VariantCureAloalo);
                 if (spell != null)
                     return await spell.Cast(Core.Me);
             }
@@ -118,7 +125,7 @@ namespace Magitek.Logic.Roles
 
                 if (allyTarget != null)
                 {
-                    var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld, allyTarget);
+                    var spell = GetCastableVariant(VDSpells.VariantCure, VDSpells.VariantCureOld, allyTarget, VDSpells.VariantCureAloalo);
                     if (spell != null)
                         return await spell.Cast(allyTarget);
                 }
@@ -204,7 +211,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentTarget.HasAura(VDAuras.VariantSpiritDart, true, 3000))
                 return false;
 
-            var spell = GetCastableVariant(VDSpells.VariantSpiritDart, VDSpells.VariantSpiritDartOld, Core.Me.CurrentTarget);
+            var spell = GetCastableVariant(VDSpells.VariantSpiritDart, VDSpells.VariantSpiritDartOld, Core.Me.CurrentTarget, VDSpells.VariantSpiritDartAloalo);
             if (spell == null)
                 return false;
 
@@ -225,7 +232,7 @@ namespace Magitek.Logic.Roles
             if (Core.Me.CurrentHealthPercent > VariantDungeonSettings.Instance.VariantRampartHealthPercent)
                 return false;
 
-            var spell = GetCastableVariant(VDSpells.VariantRampart, VDSpells.VariantRampartOld);
+            var spell = GetCastableVariant(VDSpells.VariantRampart, VDSpells.VariantRampartOld, null, VDSpells.VariantRampartAloalo);
             if (spell == null)
                 return false;
 
