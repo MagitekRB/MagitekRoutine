@@ -46,7 +46,13 @@ namespace Magitek.Logic.Summoner
                                                             u.InLineOfSight() &&
                                                             u.IsTargetable);
 
-                    if (anyDead || SmnResources.ElementalAttunement > 1 ||
+                    // While moving, remaining stacks are no reason to hardcast: the 2.8s cast
+                    // cannot complete and the whole chain dead-ends until movement stops.
+                    // Swiftcast-for-movement is the guides' second priority for the charge.
+                    var stacksForceHardcast = SmnResources.ElementalAttunement > 1
+                        && !(SummonerSettings.Instance.SwiftRubyRiteWhileMoving && ff14bot.Managers.MovementManager.IsMoving);
+
+                    if (anyDead || stacksForceHardcast ||
                         !SummonerSettings.Instance.SwiftRubyRite)
                         return await Spells.RubyRite.Cast(Core.Me.CurrentTarget);
 
@@ -54,6 +60,12 @@ namespace Magitek.Logic.Summoner
                     {
                         while (Core.Me.HasAura(Auras.Swiftcast))
                         {
+                            // If the target died or despawned mid-sequence the cast can never succeed,
+                            // and without an exit this loop parks the whole routine until the Swiftcast
+                            // aura expires (~10s). Bail out so the normal chain resumes next pulse.
+                            if (Core.Me.CurrentTarget == null || !Core.Me.CurrentTarget.IsValid || Core.Me.CurrentTarget.CurrentHealth == 0)
+                                return false;
+
                             if (await Spells.RubyRite.Cast(Core.Me.CurrentTarget)) return true;
                             await Coroutine.Yield();
                         }
@@ -86,7 +98,7 @@ namespace Magitek.Logic.Summoner
             if (SmnResources.Aetherflow + ArcResources.Aetherflow == 0)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             // Defer to Painflare only where Painflare will actually take over: its own gate
@@ -119,10 +131,14 @@ namespace Magitek.Logic.Summoner
             //if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
             //    return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
+            // Only defer to Energy Siphon when it can actually fire: it is Lv52 (Energy Drain is Lv10)
+            // and has its own toggle. Deferring while it is unknown or disabled means no Aetherflow is
+            // ever generated in 3+ packs, which also kills Painflare and Fester for the whole pull.
+            if (AoeControl.Enabled && Spells.EnergySiphon.IsKnown() && SummonerSettings.Instance.EnergySiphon
+                && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= 3)
                 return false;
 
             return await Spells.EnergyDrain.Cast(Core.Me.CurrentTarget);
@@ -154,7 +170,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.EnkindleBahamut.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.EnkindleBahamut.Cast(Core.Me.CurrentTarget);
@@ -171,7 +187,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.EnkindleSolarBahamut.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.EnkindleSolarBahamut.Cast(Core.Me.CurrentTarget);
@@ -188,7 +204,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.EnkindlePhoenix.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.EnkindlePhoenix.Cast(Core.Me.CurrentTarget);
