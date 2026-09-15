@@ -54,7 +54,8 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Bunshin.IsKnownAndReady())
                 return false;
 
-            if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
+            // A ready Dokumori goes first, unless it is the one waiting for Kunai's Bane.
+            if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0) && !Cooldown.DokumoriWaitingForKunaisBane())
                 return false;
 
             return await Spells.Bunshin.Cast(Core.Me);
