@@ -25,6 +25,7 @@ namespace Magitek.Logic
         private static Queue<Gambit> _currentOpenerQueue = null;
         public static HashSet<OpenerGroup> _executedOpeners = new HashSet<OpenerGroup>();
         private static Gambit _executingGambit = null;
+        private static bool _countdownReached;
         private static Stopwatch GambitTimer { get; set; }
         public static DateTime LastOpenerStartedAt = DateTime.UtcNow;
         public static DateTime LastOpenerResetAt = DateTime.UtcNow;
@@ -111,6 +112,7 @@ namespace Magitek.Logic
             if (_executingGambit == null)
             {
                 _executingGambit = _currentOpenerQueue.Dequeue();
+                _countdownReached = false;
 
                 // Start the timer
                 GambitTimer = new Stopwatch();
@@ -152,6 +154,13 @@ namespace Magitek.Logic
                     // Combat started without the countdown reaching this step: the prepull is moot.
                     Logger.WriteInfo($@"Opener [{_executingOpener.Name}] Skipping Prepull Action [{_executingGambit.Order}][{_executingGambit.Title}] - combat started without a countdown");
                     return SkipExecutingGambit();
+                }
+
+                // The wait for the countdown is not the action's own wait.
+                if (!_countdownReached)
+                {
+                    _countdownReached = true;
+                    GambitTimer.Restart();
                 }
             }
             #endregion
