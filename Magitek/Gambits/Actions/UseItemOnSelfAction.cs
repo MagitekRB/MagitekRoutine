@@ -20,7 +20,12 @@ namespace Magitek.Gambits.Actions
         public bool NormalQualityOnly { get; set; }
         public bool HighQualityOnly { get; set; }
 
-        public override async Task<bool> Execute(ObservableCollection<IGambitCondition> conditions)
+        public bool InInventory()
+        {
+            return FindBagSlot() != null;
+        }
+
+        private BagSlot FindBagSlot()
         {
             //Logger.WriteInfo($@"Looking for Item : {ItemName}");
 
@@ -31,10 +36,17 @@ namespace Magitek.Gambits.Actions
             {
                 bagSlot = InventoryManager.FilledSlots.FirstOrDefault(r => string.Equals(r.EnglishName, ItemName, StringComparison.CurrentCultureIgnoreCase) &&
                 (AnyQuality || HighQualityOnly && r.IsHighQuality || NormalQualityOnly && !r.IsHighQuality));
-
-                if (bagSlot == null)
-                    return false;
             }
+
+            return bagSlot;
+        }
+
+        public override async Task<bool> Execute(ObservableCollection<IGambitCondition> conditions)
+        {
+            var bagSlot = FindBagSlot();
+
+            if (bagSlot == null)
+                return false;
 
             if (conditions.Any(condition => !condition.Check(Core.Me)))
                 return false;
