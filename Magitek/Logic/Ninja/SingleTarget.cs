@@ -90,6 +90,15 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Bhavacakra.IsKnownAndReady())
                 return false;
 
+            // Bunshin spends 50 Ninki too and sits above this in the weave list, so once it is ready it goes
+            // first. About to come off cooldown, it keeps its 50: a Bhavacakra that drops the gauge under it
+            // leaves Bunshin waiting for the gauge to rebuild (twenty seconds, twice in the census). With the
+            // gauge full there is room for both. Zesho Meppo and Hellfrog Medium are left alone: they are
+            // worth more than the wait.
+            var bunshinDue = NinjaSettings.Instance.UseBunshin && Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown <= new TimeSpan(0, 0, 7);
+            if (bunshinDue && ActionResourceManager.Ninja.NinkiGauge < 100)
+                return false;
+
             if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 45))
                 return await Spells.Bhavacakra.Cast(Core.Me.CurrentTarget);
 
