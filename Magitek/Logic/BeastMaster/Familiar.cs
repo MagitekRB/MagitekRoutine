@@ -342,12 +342,17 @@ namespace Magitek.Logic.BeastMaster
         /// The spacing exit is close enough that a Tempered Release still waiting for its moment will not get one:
         /// Parting Blow is on, the interval is set, the beast has been out for nearly all of it, and this is not the
         /// Crucible, where beasts stay out on their own health and a held mitigation may yet be wanted. An ability
-        /// held back for safety rather than value (one that hurts us, while we are low) stays held.
+        /// held back for safety rather than value (one that hurts us, while we are low) stays held. So does one
+        /// held for a replacement horn: the exit itself waits for another horn, and a finisher fired without one
+        /// (Final Sting sends the beast home by itself) would leave the fight without a familiar until a horn returns.
         /// </summary>
         private static bool HeldReleaseDue()
         {
             var settings = BeastMasterSettings.Instance;
             if (!settings.UsePartingBlow || settings.PartingBlowSpacingSeconds <= 0 || BeastMasterRoutine.InCrucible)
+                return false;
+
+            if (!BeastMasterRoutine.AnotherHornReady)
                 return false;
 
             var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
