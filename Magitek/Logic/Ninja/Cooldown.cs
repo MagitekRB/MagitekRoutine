@@ -102,6 +102,15 @@ namespace Magitek.Logic.Ninja
         // the window; its buff lasts 15 s against Shadow Walker's 20 s. User setting, default five seconds.
         public static int KassatsuLeadInMs => NinjaSettings.Instance.KassatsuSecondsBeforeTrickAttack * 1000;
 
+        // Suiton's first mudra goes down this far ahead of Kunai's Bane. The charge it spends is back twenty
+        // seconds later, so the closer Suiton sits to the window the earlier inside it the second Raiton can go
+        // out; started fifteen seconds early it came back two seconds after the window closed. User setting,
+        // default ten seconds.
+        public static int SuitonLeadInMs => NinjaSettings.Instance.SuitonSecondsBeforeTrickAttack * 1000;
+
+        // Kunai's Bane recasts in 60 s and its debuff lasts 15 s: while the recast is above this, the window is open.
+        private const int KunaisBaneWindowOpenCooldownMs = 45000;
+
         // The Kassatsu ninjutsu stops waiting for Kunai's Bane once the buff has this little left.
         private const int KassatsuNinjutsuHoldFloorMs = 4000;
 
@@ -156,6 +165,26 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             return Spells.TrickAttack.Cooldown.TotalMilliseconds <= KassatsuLeadInMs;
+        }
+
+        /// <summary>
+        /// A mudra charge spent now would come back inside the coming Kunai's Bane window, or not in time for
+        /// the Suiton that opens it. Three ninjutsu a minute is one Suiton and two Raitons, and both Raitons
+        /// belong under Kunai's Bane; a charge dumped in the last half minute before the window is exactly the
+        /// one that goes missing there. Sitting at full charges for the few seconds until Suiton is the loop.
+        /// </summary>
+        public static bool HoldMudraChargeForKunaisBane(GameObject unit)
+        {
+            if (!KunaisBaneWanted(unit))
+                return false;
+
+            var cooldownMs = Spells.TrickAttack.Cooldown.TotalMilliseconds;
+
+            // Kunai's Bane just went out: the window is what the charges are for.
+            if (cooldownMs > KunaisBaneWindowOpenCooldownMs)
+                return false;
+
+            return cooldownMs <= SuitonLeadInMs + NinjaRoutine.MudraRechargeMs;
         }
 
         public static async Task<bool> Assassinate()

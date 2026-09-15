@@ -101,6 +101,10 @@ namespace Magitek.Models.Ninja
         public int KassatsuSecondsBeforeTrickAttack { get; set; }
 
         [Setting]
+        [DefaultValue(10)]
+        public int SuitonSecondsBeforeTrickAttack { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseMeisui { get; set; }
 

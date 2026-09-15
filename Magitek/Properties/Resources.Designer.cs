@@ -8882,6 +8882,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Ninja_Text_Seconds_Before_Trick_Attack", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Suiton up to.
+        /// </summary>
+        public static string Ninja_Text_Suiton_Up_To {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Suiton_Up_To", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Three Mudra Buffs.
