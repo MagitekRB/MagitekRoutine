@@ -40,6 +40,16 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.CountdownPull && Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * NinjaRoutine.OpenerBurstAfterGCD - 770)
                 return false;
 
+            // Ready a few seconds ahead of Kunai's Bane, Dokumori waits for it. Pressed on cooldown it landed
+            // three to six seconds before the window every time: its debuff then ran out early, and Higi was up
+            // while the Ninki dump that keeps the gauge off the cap went out, which the game answers with a
+            // Zesho Meppo two seconds before Kunai's Bane and none inside it. A fresh pull has Kunai's Bane
+            // ready, so the opener is untouched; a Kunai's Bane that will not be pressed holds nothing.
+            if (KunaisBaneWanted(Core.Me.CurrentTarget)
+                && Spells.TrickAttack.Cooldown.TotalMilliseconds > 0
+                && Spells.TrickAttack.Cooldown.TotalMilliseconds <= DokumoriHoldMs)
+                return false;
+
             if (ActionResourceManager.Ninja.NinkiGauge + 40 > 100)
                 return false;
 
@@ -107,6 +117,9 @@ namespace Magitek.Logic.Ninja
         // out; started fifteen seconds early it came back two seconds after the window closed. User setting,
         // default ten seconds.
         public static int SuitonLeadInMs => NinjaSettings.Instance.SuitonSecondsBeforeTrickAttack * 1000;
+
+        // Dokumori ready within this much of Kunai's Bane waits for it. User setting, default eight seconds.
+        public static int DokumoriHoldMs => NinjaSettings.Instance.DokumoriSecondsBeforeTrickAttack * 1000;
 
         // Kunai's Bane recasts in 60 s and its debuff lasts 15 s: while the recast is above this, the window is open.
         private const int KunaisBaneWindowOpenCooldownMs = 45000;

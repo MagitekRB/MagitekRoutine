@@ -105,6 +105,10 @@ namespace Magitek.Models.Ninja
         public int SuitonSecondsBeforeTrickAttack { get; set; }
 
         [Setting]
+        [DefaultValue(8)]
+        public int DokumoriSecondsBeforeTrickAttack { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UseMeisui { get; set; }
 

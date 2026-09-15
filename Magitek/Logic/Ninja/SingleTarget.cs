@@ -93,8 +93,13 @@ namespace Magitek.Logic.Ninja
             if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 45))
                 return await Spells.Bhavacakra.Cast(Core.Me.CurrentTarget);
 
-            //dumping Bhavacakra during Burst Window is missing
-            if (ActionResourceManager.Ninja.NinkiGauge < 90 || (Spells.Mug.Cooldown > new TimeSpan(0, 0, 7) && ActionResourceManager.Ninja.NinkiGauge + 40 < 90))
+            // Outside the window Ninki is pooled, and spent only to keep it off the cap: at 90 or more, or when
+            // Dokumori is due within seven seconds and its 40 Ninki would not fit. The second clause used to ask
+            // for a gauge under 90 after the first had already required 90 or more, so it never fired: Dokumori
+            // was refused above 60 Ninki and drifted while the gauge sat at 100.
+            var ninki = ActionResourceManager.Ninja.NinkiGauge;
+            var dokumoriDue = NinjaSettings.Instance.UseMug && Spells.Mug.IsKnown() && Spells.Mug.Cooldown <= new TimeSpan(0, 0, 7);
+            if (ninki < 90 && !(dokumoriDue && ninki + 40 > 100))
                 return false;
 
             if (AoeControl.Enabled && NinjaSettings.Instance.UseAoe && NinjaSettings.Instance.UseHellfrogMedium
