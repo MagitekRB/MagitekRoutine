@@ -323,7 +323,9 @@ namespace Magitek.Utilities.Routines
         /// bar already holds 250: Rally has been spent, the 250 axe waits for the window the Trick opens, and nothing
         /// is lost. A Trick into a window Rally still had to spend into cost three Universalities (dummy, 2026-09-09).
         /// </summary>
-        public static bool TrickTakesWindow => ChainWindowOpen && FamiliarAffinity != null && Gauge.TP >= TpCap;
+        // Full TP alone does not make a Trick a valid extension. Repeating the same familiar after its
+        // answering axe breaks the clockwise chain; leave that window for the opposite 250 TP finisher.
+        public static bool TrickTakesWindow => ChainWindowOpen && TrickContinuesChain && Gauge.TP >= TpCap;
 
         /// <summary>
         /// The familiar is owed the next link: the window after Rally is open with time left, it is not leaving, and it
