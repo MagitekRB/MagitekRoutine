@@ -95,7 +95,8 @@ namespace Magitek.Logic.Ninja
             // leaves Bunshin waiting for the gauge to rebuild (twenty seconds, twice in the census). With the
             // gauge full there is room for both. Zesho Meppo and Hellfrog Medium are left alone: they are
             // worth more than the wait.
-            var bunshinDue = NinjaSettings.Instance.UseBunshin && Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown <= new TimeSpan(0, 0, 7);
+            var bunshinDue = NinjaSettings.Instance.UseBunshin && Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown <= new TimeSpan(0, 0, 7)
+                && !Buff.DefersToDokumori();
             if (bunshinDue && ActionResourceManager.Ninja.NinkiGauge < 100)
                 return false;
 
