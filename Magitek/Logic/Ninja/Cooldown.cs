@@ -198,6 +198,13 @@ namespace Magitek.Logic.Ninja
         /// </summary>
         public static bool HoldMudraChargeForKunaisBane(GameObject unit)
         {
+            // Trick Attack is known from level 18, but inside a fight it needs Shadow Walker, and that is
+            // Suiton (level 45); Hide only works out of combat. Synced below 45 there is no window coming for
+            // the charge to be kept for, and holding it would leave Raiton unused for the whole fight (Fuma
+            // Shuriken gives way once Raiton is known).
+            if (!Spells.Suiton.IsKnown())
+                return false;
+
             if (!KunaisBaneWanted(unit))
                 return false;
 
