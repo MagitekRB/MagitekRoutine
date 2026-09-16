@@ -90,11 +90,26 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Bhavacakra.IsKnownAndReady())
                 return false;
 
+            // Bunshin spends 50 Ninki too and sits above this in the weave list, so once it is ready it goes
+            // first. About to come off cooldown, it keeps its 50: a Bhavacakra that drops the gauge under it
+            // leaves Bunshin waiting for the gauge to rebuild (twenty seconds, twice in the census). With the
+            // gauge full there is room for both. Zesho Meppo and Hellfrog Medium are left alone: they are
+            // worth more than the wait.
+            var bunshinDue = NinjaSettings.Instance.UseBunshin && Spells.Bunshin.IsKnown() && Spells.Bunshin.Cooldown <= new TimeSpan(0, 0, 7)
+                && !Buff.DefersToDokumori();
+            if (bunshinDue && ActionResourceManager.Ninja.NinkiGauge < 100)
+                return false;
+
             if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 45))
                 return await Spells.Bhavacakra.Cast(Core.Me.CurrentTarget);
 
-            //dumping Bhavacakra during Burst Window is missing
-            if (ActionResourceManager.Ninja.NinkiGauge < 90 || (Spells.Mug.Cooldown > new TimeSpan(0, 0, 7) && ActionResourceManager.Ninja.NinkiGauge + 40 < 90))
+            // Outside the window Ninki is pooled, and spent only to keep it off the cap: at 90 or more, or when
+            // Dokumori is due within seven seconds and its 40 Ninki would not fit. The second clause used to ask
+            // for a gauge under 90 after the first had already required 90 or more, so it never fired: Dokumori
+            // was refused above 60 Ninki and drifted while the gauge sat at 100.
+            var ninki = ActionResourceManager.Ninja.NinkiGauge;
+            var dokumoriDue = NinjaSettings.Instance.UseMug && Spells.Mug.IsKnown() && Spells.Mug.Cooldown <= new TimeSpan(0, 0, 7);
+            if (ninki < 90 && !(dokumoriDue && ninki + 40 > 100))
                 return false;
 
             if (AoeControl.Enabled && NinjaSettings.Instance.UseAoe && NinjaSettings.Instance.UseHellfrogMedium

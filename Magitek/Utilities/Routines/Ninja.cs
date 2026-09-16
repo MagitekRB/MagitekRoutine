@@ -22,6 +22,9 @@ namespace Magitek.Utilities.Routines
         public static List<SpellData> UsedMudras = new List<SpellData>();
         public static int OpenerBurstAfterGCD = 2;
 
+        // Game constant: a spent mudra charge takes this long to come back.
+        public const int MudraRechargeMs = 20000;
+
         // The ninjutsu the current chain is being built for. Every ninjutsu method decides for itself
         // each pulse, so a chain one of them started (Raiton pressing Jin first, because Kunai's Bane
         // looked unwanted on the pull's first pulse) was carried on by another one pulse later (Suiton,
