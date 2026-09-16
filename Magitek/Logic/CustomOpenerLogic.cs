@@ -7,6 +7,7 @@ using Magitek.Gambits;
 using Magitek.Gambits.Actions;
 using Magitek.Models.Account;
 using Magitek.Utilities;
+using Magitek.Utilities.GamelogManager;
 using Roslyn.Utilities;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Magitek.Logic
         private static Queue<Gambit> _currentOpenerQueue = null;
         public static HashSet<OpenerGroup> _executedOpeners = new HashSet<OpenerGroup>();
         private static Gambit _executingGambit = null;
+        private static bool _countdownReached;
         private static Stopwatch GambitTimer { get; set; }
         public static DateTime LastOpenerStartedAt = DateTime.UtcNow;
         public static DateTime LastOpenerResetAt = DateTime.UtcNow;
@@ -110,6 +112,7 @@ namespace Magitek.Logic
             if (_executingGambit == null)
             {
                 _executingGambit = _currentOpenerQueue.Dequeue();
+                _countdownReached = false;
 
                 // Start the timer
                 GambitTimer = new Stopwatch();
@@ -131,12 +134,33 @@ namespace Magitek.Logic
             }
             #endregion
 
+            #region Check Item Is In Inventory
+            if (_executingGambit.Action is UseItemOnSelfAction itemAction && !itemAction.InInventory())
+            {
+                Logger.WriteInfo($@"Opener [{_executingOpener.Name}] Skipping Action [{_executingGambit.Order}][{_executingGambit.Title}] - {itemAction.ItemName} is not in the inventory");
+                return SkipExecutingGambit();
+            }
+            #endregion
+
             #region Check Conditions Pre-Opener Countdown
             if (_executingGambit.Conditions.Any(condition => "Magitek.Gambits.Conditions.CountdownTimerCondition".Equals(condition.ToString())))
             {
                 if (!CheckConditions())
                 {
-                    return true;
+                    // Hold for the countdown while out of combat, or while one is still running.
+                    if (!Core.Me.InCombat || GamelogManagerCountdown.IsCountdownRunning())
+                        return true;
+
+                    // Combat started without the countdown reaching this step: the prepull is moot.
+                    Logger.WriteInfo($@"Opener [{_executingOpener.Name}] Skipping Prepull Action [{_executingGambit.Order}][{_executingGambit.Title}] - combat started without a countdown");
+                    return SkipExecutingGambit();
+                }
+
+                // The wait for the countdown is not the action's own wait.
+                if (!_countdownReached)
+                {
+                    _countdownReached = true;
+                    GambitTimer.Restart();
                 }
             }
             #endregion
@@ -201,6 +225,19 @@ namespace Magitek.Logic
             return true;
 
             #endregion 
+        }
+
+        // Drops the current step and moves on, finishing the opener if it was the last one.
+        private static bool SkipExecutingGambit()
+        {
+            _executingGambit = null;
+
+            if (_currentOpenerQueue.Any())
+                return true;
+
+            Logger.WriteInfo($@"Finished Opener [{_executingOpener.Name}]");
+            InOpener = false;
+            return true;
         }
 
         private static bool CheckForOpener()

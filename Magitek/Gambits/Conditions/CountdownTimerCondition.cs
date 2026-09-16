@@ -1,4 +1,5 @@
-﻿using ff14bot.Objects;
+﻿using ff14bot;
+using ff14bot.Objects;
 using Magitek.Utilities.GamelogManager;
 
 namespace Magitek.Gambits.Conditions
@@ -14,6 +15,10 @@ namespace Magitek.Gambits.Conditions
         public override bool Check(GameObject gameObject = null)
         {
             //Logger.WriteInfo($@"[Opener] Current Countdown = {GamelogManagerCountdown.GetCurrentCooldown()} | Step Timer Config = {CountdownTimerInSeconds}");
+            // Zero is the pull: once combat is on we are past it, countdown or not.
+            if (CountdownTimerInSeconds == 0 && Core.Me.InCombat)
+                return true;
+
             if (GamelogManagerCountdown.GetCurrentCooldown() != CountdownTimerInSeconds)
                 return false;
 

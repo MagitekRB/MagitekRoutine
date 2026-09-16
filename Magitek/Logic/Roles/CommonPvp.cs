@@ -886,16 +886,11 @@ namespace Magitek.Logic.Roles
             // First check current target if valid
             if (Core.Me.CurrentTarget != null && Core.Me.CurrentTarget.ValidAttackUnit() && Core.Me.CurrentTarget.InLineOfSight())
             {
-                if (Core.Me.CurrentTarget.WithinSpellRange(range))
+                // A Guarded or over-targeted current target is skipped, not a reason to abandon the search below
+                if (Core.Me.CurrentTarget.WithinSpellRange(range)
+                    && (!checkGuard || !GuardCheck(settings, Core.Me.CurrentTarget))
+                    && (maxAlliesTargetingLimit <= 0 || !TooManyAlliesTargeting(settings, Core.Me.CurrentTarget)))
                 {
-                    // Check Guard if required
-                    if (checkGuard && GuardCheck(settings, Core.Me.CurrentTarget))
-                        return null; // Skip guarded target
-
-                    // Check ally targeting limit if enabled
-                    if (maxAlliesTargetingLimit > 0 && TooManyAlliesTargeting(settings, Core.Me.CurrentTarget))
-                        return null; // Skip target with too many allies
-
                     double targetPotency = potencyCalculator != null ? potencyCalculator(Core.Me.CurrentTarget) : potency;
                     if (WouldKillWithPotency(targetPotency, Core.Me.CurrentTarget, ignoreGuard: ignoreGuard))
                     {
