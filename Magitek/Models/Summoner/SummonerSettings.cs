@@ -71,6 +71,10 @@ namespace Magitek.Models.Summoner
         [DefaultValue(true)]
         public bool SwiftRubyRite { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        public bool SwiftRubyRiteWhileMoving { get; set; }
+
         #endregion
 
         #region Aoes
@@ -183,10 +187,6 @@ namespace Magitek.Models.Summoner
         [Setting]
         [DefaultValue(true)]
         public bool ResOutOfCombat { get; set; }
-
-        [Setting]
-        [DefaultValue(true)]
-        public bool ResuSwift { get; set; }
 
         [Setting]
         [DefaultValue(false)]

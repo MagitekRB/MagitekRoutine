@@ -49,7 +49,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Deathflare.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Deathflare, SummonerSettings.Instance.SmartAoe);
@@ -71,7 +71,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Sunflare.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Sunflare, SummonerSettings.Instance.SmartAoe);
@@ -93,7 +93,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Rekindle.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var targetNeedsHealing = Group.CastableAlliesWithin30
@@ -122,9 +122,10 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.HasAura(Auras.IfritsFavor))
                 return false;
 
-            if (SmnResources.ElementalAttunement > 1)
-                return false;
-
+            // No attunement gate: the game's only precondition is Ifrit's Favor, and the
+            // guides' buff-window sequence opens the phase with the dash before the Rites
+            // (Crimson Cyclone -> Crimson Strike -> Swiftcast -> Ruby Rite). Holding it
+            // behind spent Rubies was an invented ordering.
             var target = Combat.SmartAoeTarget(Spells.CrimsonCyclone, SummonerSettings.Instance.SmartAoe);
 
             if (target == null)
@@ -227,7 +228,7 @@ namespace Magitek.Logic.Summoner
             //if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
             //    return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
@@ -249,7 +250,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.SearingFlash.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             if (!Core.Me.HasAura(Auras.RubysGlimmer))
@@ -274,13 +275,19 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Outburst.IsKnownAndReady())
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled)
                 return false;
 
             BattleCharacter target;
 
+            // Brand of Purgatory and Umbral Flare hit an 8y circle while the rest of the family hits
+            // 5y — count the 3+ breakpoint (and score Smart AoE clusters) with the radius of the
+            // spell that will actually be cast, so an enemy standing 5-8y out still counts.
             if (Core.Me.SummonedPet() == SmnPets.Phoenix)
             {
+                if (Core.Me.CurrentTarget.EnemiesNearby(Spells.BrandofPurgatory.Radius).Count() < 3)
+                    return false;
+
                 target = Combat.SmartAoeTarget(Spells.BrandofPurgatory, SummonerSettings.Instance.SmartAoe);
 
                 if (target == null || Core.Me.CurrentTarget == null)
@@ -289,6 +296,22 @@ namespace Magitek.Logic.Summoner
                 return await Spells.BrandofPurgatory.Cast(target);
             }
 
+            if (Core.Me.SummonedPet() == SmnPets.SolarBahamut)
+            {
+                if (Core.Me.CurrentTarget.EnemiesNearby(Spells.UmbralFlare.Radius).Count() < 3)
+                    return false;
+
+                target = Combat.SmartAoeTarget(Spells.UmbralFlare, SummonerSettings.Instance.SmartAoe);
+
+                if (target == null || Core.Me.CurrentTarget == null)
+                    return false;
+
+                return await Spells.UmbralFlare.Cast(target);
+            }
+
+            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+                return false;
+
             target = Combat.SmartAoeTarget(Spells.PreciousBrilliance, SummonerSettings.Instance.SmartAoe);
 
             if (target == null || Core.Me.CurrentTarget == null)
@@ -296,9 +319,6 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut)
                 return await Spells.AstralFlare.Cast(target);
-
-            if (Core.Me.SummonedPet() == SmnPets.SolarBahamut)
-                return await Spells.UmbralFlare.Cast(target);
 
             if (Spells.AstralFlare.IsKnownAndReadyAndCastableAtTarget() && SmnResources.TranceTimer > 0 && Core.Me.SummonedPet() == SmnPets.Carbuncle) //It means we're in Dreadwyrm Trance
                 return await Spells.AstralFlare.Cast(target);
@@ -331,7 +351,7 @@ namespace Magitek.Logic.Summoner
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Painflare, SummonerSettings.Instance.SmartAoe);
@@ -366,8 +386,12 @@ namespace Magitek.Logic.Summoner
                 && SmnResources.ElementalAttunement > 0)
                 return false;
 
+            // While moving in an Ifrit phase, Ruby stacks are unspendable (Ruby Rite is a hardcast),
+            // so Ruin IV is the guide-prescribed buffer at ANY stack count. The old attunement > 1
+            // clause only ever had effect while moving — exactly when Ruin IV was the only castable
+            // GCD — and stalled the whole routine at the start of an Ifrit phase.
             if (SmnResources.ActivePet == SmnResources.ActivePetType.Ifrit
-                && (SmnResources.ElementalAttunement > 1 || !MovementManager.IsMoving))
+                && !MovementManager.IsMoving)
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Ruin4, SummonerSettings.Instance.SmartAoe);
