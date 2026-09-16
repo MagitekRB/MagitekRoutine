@@ -93,8 +93,12 @@ namespace Magitek.Logic.BeastMaster
         /// it: the beast is low and still out, and you are healthy enough to hold the piece. Both are granted by the
         /// duty and never read as known, so they go through the action manager on a castable check alone.
         /// </summary>
-        private const float CoverSeconds = 45f;
-        private const float CoverMargin = 2f;
+        // How much of your current intake the beast must be able to absorb before it is asked to cover you. The
+        // first version asked for the whole 45 s cover twice over: 5,000 to 13,000 HP against beasts of about 2,000,
+        // so the test never passed and Snarl only ever went out as a last resort - at 25 % and then at 8 %, and the
+        // player died on the Third Board (2026-09-16). Fifteen seconds of intake is what a Snarl has to buy: by then
+        // the node has moved on, the beast has been swapped, or the last resort has fired anyway.
+        private const float CoverHorizonSeconds = 15f;
         private const float LastResortSeconds = 15f;
         private static uint _snarlHeldFor;
 
@@ -127,9 +131,11 @@ namespace Magitek.Logic.BeastMaster
                 // your current intake for the whole cover with room for its own hits, and there has to be an intake to
                 // cover. The one exception is the last resort: a player death ends the run, a beast death costs a slot.
                 var intake = BeastMasterRoutine.PlayerIntakePerSecond;
-                var needed = intake * CoverSeconds * CoverMargin;
+                // No measured intake is not "nothing to cover": at 19 % with a full-health beast the cover is free
+                // insurance, and the lull that read as zero ended two hits later (Third Board, 2026-09-16).
+                var needed = intake * CoverHorizonSeconds;
                 var lastResort = myHealth <= settings.CrucibleSnarlLastResortHealthPercent || BeastMasterRoutine.PlayerSecondsToDeath <= LastResortSeconds;
-                var canCarry = intake > 0 && petHp > needed;
+                var canCarry = petHp > needed;
 
                 if ((canCarry || lastResort) && CastDutyAction(Spells.Snarl, enemy))
                 {

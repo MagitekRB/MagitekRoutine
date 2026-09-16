@@ -191,7 +191,7 @@ namespace Magitek.Models.BeastMaster
 
         // Below this, Snarl goes out whatever it costs the beast: a player death ends the Crucible run.
         [Setting]
-        [DefaultValue(15f)]
+        [DefaultValue(25f)]
         public float CrucibleSnarlLastResortHealthPercent { get; set; }
 
         [Setting]
