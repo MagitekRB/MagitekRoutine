@@ -336,6 +336,10 @@ namespace Magitek.Logic.BeastMaster
         /// </summary>
         // A finisher waits for the piece to drop, but not past the last ten seconds of a physical vulnerability on it.
         private const int FinisherVulnerabilityWindowMs = 10000;
+        // The time-to-die estimate reads zero until the tracker has a few seconds on the target; under this many
+        // seconds left, a finisher is a beast sent home for nothing.
+        private const int FinisherEstimateWarmupSeconds = 4;
+        private const int FinisherWasteSeconds = 3;
 
         private static Timing TemperedReleaseTiming()
         {
@@ -377,7 +381,9 @@ namespace Magitek.Logic.BeastMaster
                 case AbilityKind.Finisher:
                     // A finisher on a target that is dying anyway sends the beast home for nothing: Final Sting went
                     // out on a Cavalier Piece at 408 of 46,602 HP (2026-09-16). One with Nature keeps for the next one.
-                    if (BeastMasterRoutine.CheckTTDIsEnemyDyingSoon())
+                    // Read straight off the tracker: the shared check counts a fresh target's zero estimate as dying
+                    // and skips bosses, and a piece is one or the other for most of a node.
+                    if (target.TimeInCombat() >= FinisherEstimateWarmupSeconds && target.CombatTimeLeft() > 0 && target.CombatTimeLeft() < FinisherWasteSeconds)
                         return Timing.Later;
 
                     var lowEnough = target.CurrentHealthPercent <= settings.TemperedReleaseFinisherHealthPercent;
