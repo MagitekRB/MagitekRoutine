@@ -1,3 +1,4 @@
+using ff14bot.Enums;
 using Magitek.Models.Roles;
 using PropertyChanged;
 using System.ComponentModel;
@@ -202,6 +203,13 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(60f)]
         public float CrucibleChallengePlayerHealthPercent { get; set; }
 
+        // Crucible cast reactions from the piece library: Soul Crush on a move the board marks interruptible, the
+        // borrowed skin before a hit aimed at you, the beast's mitigating Tempered Release before a heavy hit aimed
+        // at it.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseCrucibleCastReactions { get; set; }
+
         #endregion
 
         #region Master's Bestiary
@@ -225,10 +233,23 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool HoldForCapture { get; set; }
 
-        // A new pact fills the first empty battlehorn slot you have the horn for; horns already assigned are left alone.
+        // An empty battlehorn slot you have the horn for gets its preferred beast, or the strongest captured one with the
+        // lamb last; horns already assigned are left alone.
         [Setting]
         [DefaultValue(true)]
         public bool AssignPactsToEmptyHorns { get; set; }
+
+        [Setting]
+        [DefaultValue(BeastmasterPet.None)]
+        public BeastmasterPet PreferredPetHorn1 { get; set; }
+
+        [Setting]
+        [DefaultValue(BeastmasterPet.None)]
+        public BeastmasterPet PreferredPetHorn2 { get; set; }
+
+        [Setting]
+        [DefaultValue(BeastmasterPet.None)]
+        public BeastmasterPet PreferredPetHorn3 { get; set; }
 
         #endregion
     }

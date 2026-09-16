@@ -50,13 +50,17 @@ namespace Magitek.Logic.BeastMaster
         /// <summary>
         /// Out of combat, a familiar whose One with Nature is spent goes Away and the horn brings it back with a fresh
         /// one, so every pull opens with Tempered Release (Icy Veins, 2026-09-09: the cooldowns reset while the horn
-        /// itself is not on cooldown, which a swap or a Parting Blow would have started). Only with an enemy near
-        /// enough that a pull is coming, and never in the Crucible, where the horns are the duty's.
+        /// itself is not on cooldown, which a swap or a Parting Blow would have started). Only standing still, with an
+        /// enemy near enough that a pull is coming, and never in the Crucible, where the horns are the duty's.
         /// </summary>
         public static bool AwayReset()
         {
             var settings = BeastMasterSettings.Instance;
             if (!settings.AwayResetBetweenPulls || !settings.SummonFamiliar || !BeastMasterRoutine.FamiliarOut || Core.Me.InCombat)
+                return false;
+
+            // The horn that brings it back is a 1 s cast movement interrupts, so a swap on the move leaves you petless.
+            if (MovementManager.IsMoving)
                 return false;
 
             if (Core.Me.HasAura(Auras.OneWithNature) || BeastMasterRoutine.LeaveHornsToTheDuty())
@@ -165,6 +169,75 @@ namespace Magitek.Logic.BeastMaster
                 return false;
 
             Logger.WriteInfo("[Magitek] Cast: " + spell.Name);
+            return true;
+        }
+
+        // One reaction per cast: the piece and the cast id are remembered so a five-second cast is answered once.
+        private static uint _reactedTarget;
+        private static uint _reactedSpell;
+        private static System.DateTime _reactedAt = System.DateTime.MinValue;
+        private static readonly System.Collections.Generic.HashSet<string> PhysicalTypes = new System.Collections.Generic.HashSet<string> { "Slashing", "Piercing", "Blunt" };
+        private static readonly System.Collections.Generic.HashSet<string> MagicTypes = new System.Collections.Generic.HashSet<string> { "Fire", "Ice", "Wind", "Earth", "Lightning", "Water", "Unaspected" };
+
+        /// <summary>
+        /// Crucible cast reactions from the piece library. The board says, per signature move, who it targets, its
+        /// damage type, whether it can be interrupted and what it applies; the routine reads the piece's casting id
+        /// against that and answers with what it holds: Soul Crush on a move the board marks interruptible; the
+        /// matching skin, if that kin is borrowed, before a physical or magic hit aimed at you; and the beast's own
+        /// mitigating Tempered Release before a heavy hit aimed at it. Snarl is deliberately not here: a signature
+        /// aimed at you costs about 8 % of your HP and the covered beast 26 % of its own (run 5, 2026-09-11), so the
+        /// enmity rule alone decides Snarl, by your actual HP. Nothing here targets: it acts on the current target only.
+        /// </summary>
+        public static async Task<bool> CrucibleCastReaction()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UseCrucibleCastReactions || !BeastMasterRoutine.InCrucible || !Core.Me.InCombat)
+                return false;
+
+            var enemy = Core.Me.CurrentTarget as ff14bot.Objects.BattleCharacter;
+            if (enemy == null || !enemy.IsValid || !enemy.IsCasting)
+                return false;
+
+            var piece = BeastMasterRoutine.CurrentPiece;
+            if (piece == null)
+                return false;
+
+            var spellId = enemy.CastingSpellId;
+            var move = piece.Actions.FirstOrDefault(a => a.Id == spellId);
+            if (move == null || move.Basic)
+                return false;
+
+            if (_reactedTarget == enemy.ObjectId && _reactedSpell == spellId && (System.DateTime.Now - _reactedAt).TotalSeconds < 15)
+                return false;
+
+            var targeted = Core.Me.BeingTargeted();
+            var onMe = move.Target == "Player" || move.Shape == "Universal" || (move.Target == "Highest Enmity" && targeted);
+            var onBeast = move.Target == "Highest Enmity" && !targeted;
+            var physical = PhysicalTypes.Contains(move.DamageType ?? "");
+            var magic = MagicTypes.Contains(move.DamageType ?? "");
+            string did = null;
+
+            if (move.Interruptible == true && settings.UseSoulCrush && BeastMasterRoutine.SoulKinship && await Spells.SoulCrush.Cast(enemy))
+                did = "Soul Crush on " + move.Name + " (the board marks it interruptible)";
+            else if (onMe && physical && settings.UseBeastskin && BeastMasterRoutine.BeastKinship && await Spells.Beastskin.Cast(Core.Me))
+                did = "Beastskin before " + move.Name + " (physical, aimed at you)";
+            else if (onMe && magic && settings.UseScaleskin && BeastMasterRoutine.ScaleKinship && await Spells.Scaleskin.Cast(Core.Me))
+                did = "Scaleskin before " + move.Name + " (magic, aimed at you)";
+            else if (onMe && physical && settings.UseVileskin && BeastMasterRoutine.VileKinship && await Spells.Vileskin.Cast(Core.Me))
+                did = "Vileskin before " + move.Name + " (physical, aimed at you)";
+            else if (onBeast && piece.Strength >= 3 && Core.Me.HasAura(Auras.OneWithNature) && BeastMasterRoutine.Familiar?.TemperedRelease?.Kind == AbilityKind.Mitigation)
+            {
+                BeastMasterRoutine.MitigationWantedAt = System.DateTime.Now;
+                did = "the beast's mitigating Tempered Release before " + move.Name + " (aimed at the beast)";
+            }
+
+            if (did == null)
+                return false;
+
+            _reactedTarget = enemy.ObjectId;
+            _reactedSpell = spellId;
+            _reactedAt = System.DateTime.Now;
+            Logger.WriteInfo("[Beastmaster] Crucible: " + did + ".");
             return true;
         }
 
@@ -321,6 +394,7 @@ namespace Magitek.Logic.BeastMaster
                 case AbilityKind.Mitigation:
                     return Core.Me.CurrentHealthPercent <= settings.TemperedReleaseMitigationHealthPercent
                         || FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe()
+                        || BeastMasterRoutine.MitigationWanted
                         ? Timing.Now : Timing.Later;
 
                 case AbilityKind.CrowdControl:
@@ -404,8 +478,9 @@ namespace Magitek.Logic.BeastMaster
                     // Another Heart is lit, or a Sunstrider or Moonstalker window is open: a Trick that does not
                     // continue the chain restarts it, and inside a window it consumes the window as a link (a
                     // lone Trick at a full bar did, and cost three Universalities in one dummy run, 2026-09-09).
-                    // This holds whatever the familiar bar reads.
-                    if (!BeastMasterRoutine.TrickContinuesChain)
+                    // This holds whatever the familiar bar reads. The one window it takes is the one after Rally,
+                    // with our bar at 250: its link opens the window the 250 axe turns into Universality.
+                    if (!BeastMasterRoutine.TrickContinuesChain && !BeastMasterRoutine.TrickTakesWindow)
                         return false;
                 }
                 else if (BeastMasterRoutine.PetTpFull && BeastMasterRoutine.Tp < LoneTrickOurTpBelow)
@@ -414,10 +489,12 @@ namespace Magitek.Logic.BeastMaster
                     // auto-attack is lost, so the Trick goes out on its own. With our TP nearer, the same Trick
                     // inside a pair is worth far more than the few auto-attacks the wait loses.
                 }
-                else if (BeastMasterRoutine.NaturalPreferred)
+                else if (BeastMasterRoutine.NaturalPreferred && !BeastMasterRoutine.HoldPairForRally
+                         && BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Previous(affinity))))
                 {
-                    // The yellow diamonds are full: our axe opens this pair so the Trick finishes it and the stack
-                    // lands on blue instead of overflowing.
+                    // Two yellow diamonds and no blue, or the yellow ones full: our axe opens this pair so the
+                    // Trick finishes it and the stack lands on blue. Only while that axe can go now, or the Trick
+                    // would wait on our TP for nothing.
                     return false;
                 }
                 else if (!BeastMasterRoutine.HasTpFor(BeastMasterRoutine.AxeFor(Affinity.Next(affinity))))
@@ -442,6 +519,11 @@ namespace Magitek.Logic.BeastMaster
         public static async Task<bool> PartingBlow()
         {
             if (!BeastMasterSettings.Instance.UsePartingBlow || !BeastMasterRoutine.FamiliarOut || !Spells.PartingBlow.IsKnown())
+                return false;
+
+            // The beast is owed the next link of the chain, or Rally is about to open the window it takes: the exit
+            // waits the few seconds that costs rather than send the beast home out of its own Universality chain.
+            if (BeastMasterRoutine.FamiliarLinkPending || BeastMasterRoutine.RallyImminent)
                 return false;
 
             // Vantage is worth waiting for only while it can still come, that is while One with Nature is unspent.
@@ -487,7 +569,11 @@ namespace Magitek.Logic.BeastMaster
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
                 if (horn != null && await horn.Cast(Core.Me))
                 {
-                    Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                    // A beast on its way out after a Parting Blow the routine did not cast reads 0 HP (2026-09-11: every
+                    // "at 0 %" swap followed a hand-cast Parting Blow); the horn then brings the next beast, not a swap.
+                    Logger.WriteInfo(petHealth <= 0
+                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings the next beast."
+                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
                     return true;
@@ -572,7 +658,12 @@ namespace Magitek.Logic.BeastMaster
                 // opposite form completes Universality (dummy, 2026-09-09: Rally 0.8 s after the finishing axe,
                 // Calamity under Sunstrider, "Infinitive Combo: Universality", chain counter 2). Spent anywhere else
                 // the bar goes into a lone 250 axe whose window nothing can answer.
-                if (stacks < 3)
+                // Two yellow with a blue banked: Rally (40 + 140) plus what the bar holds reaches 250 as well, and the
+                // blue pays the Trick that takes the window as the next link before the 250 axe (the chain measured
+                // at 4x the axe on 2026-09-12: pair, both Rallies, Trick, then the opposite 250 axe).
+                var withBlue = stacks == 2 && BeastMasterRoutine.NaturalInstinct >= 1
+                    && BeastMasterRoutine.Tp + 40 + 70 * stacks >= BeastMasterRoutine.TpCap;
+                if (stacks < 3 && !withBlue)
                     return false;
                 if (!BeastMasterRoutine.WaveringHeart && !BeastMasterRoutine.ChainWindowOpen)
                     return false;
@@ -613,6 +704,14 @@ namespace Magitek.Logic.BeastMaster
             // waiting on the familiar takes it whatever the bar reads, within the same headroom.
             var gain = 30 + 70 * natural;
             if (BeastMasterRoutine.PetTp + gain > BeastMasterRoutine.TpCap + CheerOverflowAllowed)
+                return false;
+
+            // The window after Rally: the familiar takes the next link with its Trick only if it can pay, and the blue
+            // diamond is what pays it. Cheer goes at once there.
+            if (BeastMasterRoutine.TrickTakesWindow && !BeastMasterRoutine.HasTpFor(Spells.Trick) && !BeastMasterRoutine.FamiliarRetreating)
+                return await Spells.RallyingCheer.Cast(Core.Me);
+
+            if (BeastMasterRoutine.KeepBlueForRally)
                 return false;
 
             if (!BeastMasterRoutine.PairWaitingOnFamiliar && (!BeastMasterRoutine.TrickSettled || BeastMasterRoutine.FamiliarRetreating))

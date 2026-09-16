@@ -1,4 +1,6 @@
 ﻿using Clio.Utilities.Collections;
+using ff14bot.Enums;
+using ff14bot.Managers;
 using Magitek.Commands;
 using Magitek.Enumerations;
 using Magitek.Models.Astrologian;
@@ -28,6 +30,8 @@ using Magitek.Toggles;
 using Magitek.Utilities.Overlays;
 using Magitek.Views;
 using PropertyChanged;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Magitek.ViewModels
@@ -73,6 +77,10 @@ namespace Magitek.ViewModels
         });
 
         public AsyncObservableCollection<double> FontSizes { get; set; } = new AsyncObservableCollection<double>() { 9, 10, 11, 12 };
+
+        // Only beasts in your bestiary can go in a battlehorn, so the preferred-pet dropdowns list those and None.
+        public IEnumerable<BeastmasterPet> CapturedPets =>
+            new[] { BeastmasterPet.None }.Concat(PetManager.UnlockedBeastmasterPets.Where(p => p != BeastmasterPet.None));
 
         public Models.Account.BaseSettings GeneralSettings => Models.Account.BaseSettings.Instance;
 
