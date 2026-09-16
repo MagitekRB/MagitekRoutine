@@ -5665,6 +5665,9 @@
   <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
     <value>Swap familiars with the battlehorns mid-fight when another beast continues the chain</value>
   </data>
+  <data name="BeastMaster_Content_Battlehorn_Scoring" xml:space="preserve">
+    <value>Pick the next battlehorn by what its beast brings to the fight (Tempered Release, chain fit, health); off, slot order</value>
+  </data>
   <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
     <value>Instinctual axes at 100 TP, following the Inner Compass</value>
   </data>

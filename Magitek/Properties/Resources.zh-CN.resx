@@ -5898,6 +5898,9 @@
   <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
     <value>战斗中当其他魔兽能接续连击时，通过战角更换魔兽</value>
   </data>
+  <data name="BeastMaster_Content_Battlehorn_Scoring" xml:space="preserve">
+    <value>根据魔兽对本场战斗的价值选择下一个战角（调驯解放、连击契合、生命值）；关闭则按槽位顺序</value>
+  </data>
   <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
     <value>TP达到100时按内心罗盘使用本能斧技</value>
   </data>

@@ -616,6 +616,9 @@ namespace Magitek.Utilities.Routines
         {
             get
             {
+                if (BeastMasterSettings.Instance.UseBattlehornScoring)
+                    return BestReadyHorn(HornsAfterActive());
+
                 var ready = HornsAfterActive().Where(h => h != ActiveHorn && HornReady(h)).ToList();
                 return ready.FirstOrDefault(h => NextHealth(h) > BeastMasterSettings.Instance.CrucibleSwapHealthPercent) ?? ready.FirstOrDefault();
             }
@@ -626,6 +629,206 @@ namespace Magitek.Utilities.Routines
             var start = System.Array.IndexOf(Battlehorns, ActiveHorn);
             for (var i = 1; i <= Battlehorns.Length; i++)
                 yield return Battlehorns[(start + i) % Battlehorns.Length];
+        }
+
+        /// <summary>The horns from the preferred one, wrapping: the order a summon with nothing out uses.</summary>
+        private static IEnumerable<SpellData> HornsFromPreferred()
+        {
+            var preferred = System.Math.Max(1, System.Math.Min(3, BeastMasterSettings.Instance.PreferredBattlehorn)) - 1;
+            for (var i = 0; i < Battlehorns.Length; i++)
+                yield return Battlehorns[(preferred + i) % Battlehorns.Length];
+        }
+
+        // Horn scoring. Which ready horn to blow is decided by what its beast brings to THIS fight, not by slot order
+        // or health alone. The weights are relative and only order the three horns. The Tempered Release is the one
+        // big effect a summon brings, so it carries the most, and a Vulnerability Up or Resistance Down that sets up
+        // everything after it outranks a plain hit and the finisher that wants to land inside it: on the Second Board
+        // (2026-09-16) the health-order pick skipped the Mantis for the Wespe, and Final Sting went out at 27 % with
+        // no vulnerability on the piece. A finisher already inside a window outranks another set-up. The chain's next
+        // affinity is worth a little; known health and the caller's order (the preferred horn, or the slots after the
+        // active one) break ties.
+        private const int ScoreDamage = 3;
+        private const int ScoreSetUp = 2;
+        private const int ScoreFinisherInWindow = 6;
+        private const int ScoreFinisherReady = 4;
+        private const int ScoreFinisherWaiting = 1;
+        private const int ScoreMitigationWanted = 3;
+        private const int ScorePartyBuff = 2;
+        private const int ScoreSelfBuff = 1;
+        private const int ScoreCrowdControlWanted = 2;
+        private const int ScoreChainFit = 2;
+        // A release worth bringing a beast out for even under the swap line, if it can live the seconds to cast it.
+        private const int ScoreWorthTheRisk = ScoreFinisherReady;
+        private const int FinisherWindowMinMs = 3000;
+
+        /// <summary>The affinity the compass wants next, or null when no Heart or window is lit.</summary>
+        public static string ChainWantedAffinity
+        {
+            get
+            {
+                var heart = EffectiveHeart;
+                return heart == null ? null : Affinity.Next(heart);
+            }
+        }
+
+        /// <summary>How much the beast's Tempered Release is worth in this fight, as a summon order term.</summary>
+        public static int ReleaseScore(FamiliarAbility ability, out string why)
+        {
+            var settings = BeastMasterSettings.Instance;
+            why = "no release";
+            if (ability == null || !settings.UseTemperedRelease || !Spells.TemperedRelease.IsKnown())
+                return 0;
+
+            if (string.IsNullOrEmpty(ability.Kind))
+            {
+                why = ability.Name + " (unclassified)";
+                return ScoreDamage;
+            }
+
+            if (Globals.InParty && !settings.TemperedReleaseKnockbacksInParty && (ability.Has("Knockback") || ability.Has("DrawIn")))
+            {
+                why = ability.Name + " is a knockback in a party";
+                return 0;
+            }
+
+            var target = Core.Me.CurrentTarget;
+            switch (ability.Kind)
+            {
+                case AbilityKind.Damage:
+                    if (ability.Has("VulnerabilityUp") || ability.Has("ResistanceDown"))
+                    {
+                        why = ability.Name + " sets up the target";
+                        return ScoreDamage + ScoreSetUp;
+                    }
+                    why = ability.Name;
+                    return ability.Has("LowLevelOnly") && InCrucible ? ScoreSelfBuff : ScoreDamage;
+
+                case AbilityKind.Finisher:
+                    if (target != null && target.HasAura(Auras.PhysicalVulnerabilityUp, false, FinisherWindowMinMs))
+                    {
+                        why = ability.Name + " inside the vulnerability window";
+                        return ScoreFinisherInWindow;
+                    }
+                    if (target != null && target.CurrentHealthPercent <= settings.TemperedReleaseFinisherHealthPercent)
+                    {
+                        why = ability.Name + " on a target under the finisher line";
+                        return ScoreFinisherReady;
+                    }
+                    why = ability.Name + " waits for the target to drop";
+                    return ScoreFinisherWaiting;
+
+                case AbilityKind.Mitigation:
+                    if (Core.Me.CurrentHealthPercent <= settings.TemperedReleaseMitigationHealthPercent || MitigationWanted
+                        || FightLogic.EnemyIsCastingAoe() || FightLogic.EnemyIsCastingBigAoe())
+                    {
+                        why = ability.Name + " with damage coming in";
+                        return ScoreMitigationWanted;
+                    }
+                    why = ability.Name + " with nothing to mitigate";
+                    return 0;
+
+                case AbilityKind.PartyBuff:
+                    if (ability.Has("SelfDamage") && Core.Me.CurrentHealthPercent < settings.TemperedReleaseSelfDamageHealthPercent)
+                    {
+                        why = ability.Name + " would hurt you now";
+                        return 0;
+                    }
+                    why = ability.Name;
+                    return Globals.InParty ? ScorePartyBuff : ScoreSelfBuff;
+
+                case AbilityKind.FamiliarBuff:
+                    why = ability.Name;
+                    return ScoreSelfBuff;
+
+                case AbilityKind.CrowdControl:
+                    var near = FamiliarOut ? EnemiesNearFamiliar(settings.TemperedReleaseSleepRadius) : Core.Me.EnemiesNearby(settings.TemperedReleaseSleepRadius).Count();
+                    if (near >= settings.TemperedReleaseSleepMinEnemies)
+                    {
+                        why = ability.Name + " with " + near + " to put down";
+                        return ScoreCrowdControlWanted;
+                    }
+                    why = ability.Name + " with nothing to put down";
+                    return 0;
+
+                default:
+                    why = ability.Name;
+                    return ScoreDamage;
+            }
+        }
+
+        /// <summary>The horn's beast scored for this fight: its release, plus the chain fit of its Trick.</summary>
+        public static int HornScore(SpellData horn, out string why)
+        {
+            var familiar = FamiliarFor(SlotPet(HornSlot(horn)));
+            if (familiar == null)
+            {
+                why = "unknown beast";
+                return 0;
+            }
+
+            var score = ReleaseScore(familiar.TemperedRelease, out why);
+            var wanted = ChainWantedAffinity;
+            if (wanted != null && familiar.Trick?.Affinity == wanted)
+            {
+                score += ScoreChainFit;
+                why += ", " + wanted + " Trick continues the chain";
+            }
+            return score;
+        }
+
+        private static SpellData _lastScoredHorn;
+        private static string _lastScoredWhy;
+        private static System.DateTime _lastScoredAt = System.DateTime.MinValue;
+        private const int ScoreRelogSeconds = 20;
+
+        /// <summary>
+        /// The best ready horn other than the active one, in the caller's order for ties: highest score, then the
+        /// healthiest beast, then order. In the Crucible a beast at or under the swap line is skipped, as the swap rule
+        /// would refuse it, unless its release is worth bringing it out for and it is above half the line: it only
+        /// has to live the seconds to cast it (the Mantis at 31 % and its Eerie Soundwave, 2026-09-16). When every
+        /// ready beast is under the line, order decides, as before.
+        /// </summary>
+        public static SpellData BestReadyHorn(IEnumerable<SpellData> order)
+        {
+            var ordered = order.ToList();
+            var ready = ordered.Where(h => h != ActiveHorn && HornReady(h)).ToList();
+            if (ready.Count == 0)
+                return null;
+
+            var scores = new Dictionary<SpellData, int>();
+            var reasons = new Dictionary<SpellData, string>();
+            foreach (var h in ready)
+            {
+                scores[h] = HornScore(h, out var why);
+                reasons[h] = why;
+            }
+
+            var candidates = ready;
+            if (InCrucible)
+            {
+                var line = BeastMasterSettings.Instance.CrucibleSwapHealthPercent;
+                var fit = ready.Where(h => NextHealth(h) > line || (scores[h] >= ScoreWorthTheRisk && NextHealth(h) > line / 2)).ToList();
+                if (fit.Count > 0)
+                    candidates = fit;
+            }
+
+            var best = candidates
+                .OrderByDescending(h => scores[h])
+                .ThenByDescending(h => NextHealth(h))
+                .ThenBy(h => ordered.IndexOf(h))
+                .First();
+
+            var text = reasons[best];
+            if (best != _lastScoredHorn || text != _lastScoredWhy || (System.DateTime.Now - _lastScoredAt).TotalSeconds > ScoreRelogSeconds)
+            {
+                _lastScoredHorn = best;
+                _lastScoredWhy = text;
+                _lastScoredAt = System.DateTime.Now;
+                var others = ready.Where(h => h != best).Select(h => SlotPet(HornSlot(h)) + " " + scores[h]).ToList();
+                Logger.WriteInfo("[Beastmaster] Horn " + HornSlot(best) + " brings " + SlotPet(HornSlot(best)) + " (score " + scores[best] + ": " + text
+                    + (others.Count > 0 ? "; others " + string.Join(", ", others) : "") + ").");
+            }
+            return best;
         }
 
         // Beast HP persists across Crucible nodes, so a beast that left at the swap line comes back at the swap line
@@ -684,6 +887,9 @@ namespace Magitek.Utilities.Routines
                 WantedHorn = null;
             if (WantedHorn != null && WantedHorn != ActiveHorn && WantedHorn.IsKnownAndReady())
                 return WantedHorn;
+
+            if (BeastMasterSettings.Instance.UseBattlehornScoring)
+                return BestReadyHorn(HornsFromPreferred());
 
             var preferred = System.Math.Max(1, System.Math.Min(3, BeastMasterSettings.Instance.PreferredBattlehorn)) - 1;
             for (var i = 0; i < 3; i++)

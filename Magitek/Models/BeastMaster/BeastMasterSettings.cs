@@ -109,6 +109,12 @@ namespace Magitek.Models.BeastMaster
         [DefaultValue(true)]
         public bool UseBattlehornSwaps { get; set; }
 
+        // Which ready horn to blow: scored from what its beast brings to the fight (Tempered Release, chain fit,
+        // health). Off, slot order: the preferred horn first, then the horns after the active one.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBattlehornScoring { get; set; }
+
         #endregion
 
         #region Rotation

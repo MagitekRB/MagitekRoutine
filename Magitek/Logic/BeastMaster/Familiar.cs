@@ -375,6 +375,11 @@ namespace Magitek.Logic.BeastMaster
                     return BeastMasterRoutine.EnemiesNearFamiliar(settings.TemperedReleaseSleepRadius) >= settings.TemperedReleaseSleepMinEnemies ? Timing.Now : Timing.Later;
 
                 case AbilityKind.Finisher:
+                    // A finisher on a target that is dying anyway sends the beast home for nothing: Final Sting went
+                    // out on a Cavalier Piece at 408 of 46,602 HP (2026-09-16). One with Nature keeps for the next one.
+                    if (BeastMasterRoutine.CheckTTDIsEnemyDyingSoon())
+                        return Timing.Later;
+
                     var lowEnough = target.CurrentHealthPercent <= settings.TemperedReleaseFinisherHealthPercent;
                     if (BeastMasterRoutine.InCrucible)
                     {
