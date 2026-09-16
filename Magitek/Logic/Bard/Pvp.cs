@@ -204,6 +204,10 @@ namespace Magitek.Logic.Bard
                 if (!Core.Me.CurrentTarget.WithinSpellRange(spell.Range))
                     return false;
 
+                // Harmonic Arrow doesn't ignore Guard — four stacks into a Guarded target is 99% wasted
+                if (CommonPvp.GuardCheck(BardSettings.Instance, Core.Me.CurrentTarget))
+                    return false;
+
                 if (Core.Me.CurrentTarget.CurrentHealthPercent > BardSettings.Instance.Pvp_HarmonicArrowHealthPercent)
                     return false;
 
