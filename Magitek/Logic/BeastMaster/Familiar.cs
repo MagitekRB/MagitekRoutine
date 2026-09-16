@@ -494,6 +494,10 @@ namespace Magitek.Logic.BeastMaster
         private const float SwapGainPercent = 10f;
         private const double SwapGraceSeconds = 8;
         private static uint _swapHeldFor;
+        // The horn has a one-second cast, so a step or an animation lock refuses it for a pulse; a ready horn is retried
+        // this long before a critical beast leaves by Parting Blow instead.
+        private const double HornRetrySeconds = 2;
+        private static System.DateTime _hornRefusedSince = System.DateTime.MinValue;
 
         public static async Task<bool> PartingBlow()
         {
@@ -540,7 +544,10 @@ namespace Magitek.Logic.BeastMaster
                 catch { return false; }
 
                 if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                {
+                    _hornRefusedSince = System.DateTime.MinValue;
                     return false;
+                }
 
                 // A beast that is covering you stays, unless it is about to be lost anyway: the horn takes the Snarl
                 // with it. On the Third Board (2026-09-16) the covering Damselfly was swapped out at 26 % with the
@@ -584,14 +591,31 @@ namespace Magitek.Logic.BeastMaster
                         : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn for " + nextName + " (last seen at " + next.ToString("0") + " %).");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
+                    _hornRefusedSince = System.DateTime.MinValue;
                     return true;
                 }
 
-                // No horn ready: only a critical beast retreats into an empty slot, since staying would lose it.
+                if (horn != null)
+                {
+                    // A ready horn the client refused is retried, not given up on. On the Third Board (2026-09-16) the
+                    // covering Mantis at 22 % left by Parting Blow, cover and all, in the pulse the Wespe's horn was
+                    // refused, and the Wespe arrived six seconds later instead of at once with the Mantis's HP kept;
+                    // the covering Damselfly at 25 % went the same way four minutes later with the player at 15 %.
+                    // A beast above the critical line never leaves by the blow: the horn is the only swap for it.
+                    if (_hornRefusedSince == System.DateTime.MinValue)
+                        _hornRefusedSince = System.DateTime.Now;
+                    if (!critical || (System.DateTime.Now - _hornRefusedSince).TotalSeconds < HornRetrySeconds)
+                        return false;
+                }
+
+                // No horn ready, or none the client would take: only a critical beast retreats into an empty slot, since
+                // staying would lose it.
                 if (petHealth <= 0 || !await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow before it dies; no horn is ready.");
+                _hornRefusedSince = System.DateTime.MinValue;
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow before it dies; "
+                    + (horn == null ? "no horn is ready." : "the horn was refused for " + HornRetrySeconds.ToString("0") + " s."));
                 BeastMasterRoutine.NotePartingBlow();
                 return true;
             }
