@@ -2158,6 +2158,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Instinctual", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Optimized chain: the Trick keeps a live chain going instead of the 250 TP finisher taking the window (more damage; Universality only when no pair can continue).
+        /// </summary>
+        public static string BeastMaster_Content_Optimized_Chain {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Optimized_Chain", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Resummon before a pull for a fresh Tempered Release when an enemy is within.

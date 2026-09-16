@@ -73,6 +73,9 @@
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Trick}" IsChecked="{Binding BeastMasterSettings.UseTrick, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
                         <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Optimized_Chain}" IsChecked="{Binding BeastMasterSettings.OptimizedChain, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
+                        <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Parting_Blow}" IsChecked="{Binding BeastMasterSettings.UsePartingBlow, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
                         <StackPanel Margin="5">

@@ -5883,6 +5883,9 @@
   <data name="BeastMaster_Content_Trick" xml:space="preserve">
     <value>宠物TP足够时使用把戏（宠物的本能技能）</value>
   </data>
+  <data name="BeastMaster_Content_Optimized_Chain" xml:space="preserve">
+    <value>优化连锁：把戏优先延续进行中的连锁，而不是让250TP终结技占用窗口（伤害更高；仅在无法继续连锁时使用终结技）</value>
+  </data>
   <data name="BeastMaster_Content_Parting_Blow" xml:space="preserve">
     <value>临别一击（宠物的以太爆发，随后撤退）</value>
   </data>
