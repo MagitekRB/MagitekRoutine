@@ -648,6 +648,13 @@ namespace Magitek.Utilities.Routines
                 return;
             }
 
+            // A new run starts with fresh beasts. The duty empties the horn slots between runs and the player picks
+            // again, and the routine does not always pulse outside the duty in between: the second Third Board run of
+            // 2026-09-16 (16:51 local) still carried the Mantis at 27 % from the first and passed it over for a Wespe
+            // scored 1.
+            if (_lastSeenHealth.Count > 0 && PetManager.BeastmasterPetSlots.All(s => s == BeastmasterPet.None))
+                _lastSeenHealth.Clear();
+
             if (Familiar == null || FamiliarRetreating)
                 return;
 
