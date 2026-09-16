@@ -121,6 +121,11 @@ namespace Magitek.Logic.BeastMaster
 
             var myHealth = Core.Me.CurrentHealthPercent;
 
+            // Snarl recasts in 15 s and its Covered aura shows up a pulse or two after the cast; without this the pulse
+            // after a successful Snarl read "not covered" and logged a hold (Second Board, 2026-09-16).
+            if (Spells.Snarl.Cooldown > System.TimeSpan.Zero)
+                return false;
+
             if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
                 && !Core.Me.HasAura(Auras.Covered))
             {
