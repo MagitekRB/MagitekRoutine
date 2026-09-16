@@ -334,6 +334,9 @@ namespace Magitek.Logic.BeastMaster
         /// another horn ready. Knockbacks and pull-ins are never in a party unless asked for. A beast the bestiary
         /// does not classify is used at once, as before.
         /// </summary>
+        // A finisher waits for the piece to drop, but not past the last ten seconds of a physical vulnerability on it.
+        private const int FinisherVulnerabilityWindowMs = 10000;
+
         private static Timing TemperedReleaseTiming()
         {
             var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
@@ -372,7 +375,19 @@ namespace Magitek.Logic.BeastMaster
                     return BeastMasterRoutine.EnemiesNearFamiliar(settings.TemperedReleaseSleepRadius) >= settings.TemperedReleaseSleepMinEnemies ? Timing.Now : Timing.Later;
 
                 case AbilityKind.Finisher:
-                    if (target.CurrentHealthPercent > settings.TemperedReleaseFinisherHealthPercent)
+                    var lowEnough = target.CurrentHealthPercent <= settings.TemperedReleaseFinisherHealthPercent;
+                    if (BeastMasterRoutine.InCrucible)
+                    {
+                        // In a node the other horns are on their 90 s cooldowns from the swaps that brought this beast
+                        // (the Vilekin team, 2026-09-12: Damselfly, Mantis, then the Wespe), so waiting for one held
+                        // Final Sting for the whole fight. It goes at the threshold, or before a physical vulnerability the
+                        // team put on the piece (Eerie Soundwave, +10 % for 30 s) runs out. The only finisher in the
+                        // bestiary is piercing, so the window is read for every finisher until a magical one exists.
+                        var windowClosing = target.HasAura(Auras.PhysicalVulnerabilityUp) && !target.HasAura(Auras.PhysicalVulnerabilityUp, false, FinisherVulnerabilityWindowMs);
+                        return lowEnough || windowClosing ? Timing.Now : Timing.Later;
+                    }
+
+                    if (!lowEnough)
                         return Timing.Later;
                     return BeastMasterRoutine.AnotherHornReady
                         ? Timing.Now : Timing.Later;
