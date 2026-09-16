@@ -136,13 +136,24 @@ namespace Magitek.Logic.BeastMaster
                 // your current intake for the whole cover with room for its own hits, and there has to be an intake to
                 // cover. The one exception is the last resort: a player death ends the run, a beast death costs a slot.
                 var intake = BeastMasterRoutine.PlayerIntakePerSecond;
-                // No measured intake is not "nothing to cover": at 19 % with a full-health beast the cover is free
-                // insurance, and the lull that read as zero ended two hits later (Third Board, 2026-09-16).
+                // There has to be something to cover: a piece on you, or hits landing. A low reading alone is not it:
+                // at 19 % with every piece on the beast, the cover only handed the beast the taunt on top of the hits
+                // it already had, and three fresh beasts were emptied in 90 s on one node while nothing was aimed at
+                // you (zu node, Third Board, 2026-09-16). A lull with the piece still on you counts (the one that read
+                // zero intake at 19 % ended two hits later, the same board): Snarl is instant and recasts in 15 s, so
+                // waiting for the piece to turn costs one hit, not the beast.
+                var engaged = intake > 0 || Core.Me.BeingTargeted();
                 var needed = intake * CoverHorizonSeconds;
                 var lastResort = myHealth <= settings.CrucibleSnarlLastResortHealthPercent || BeastMasterRoutine.PlayerSecondsToDeath <= LastResortSeconds;
                 var canCarry = petHp > needed;
+                // A beast that goes home with its Tempered Release cannot hold a cover: the Wespe was Snarled the pulse
+                // it arrived, with Final Sting due to send it back, cover and all (ymir node, the same board, player at
+                // 30 % and Snarl then on its recast). The cover waits for a beast that stays, unless this is the last
+                // resort, when any cover is better than none and the finisher waits for it instead.
+                var leaves = BeastMasterRoutine.Familiar?.TemperedRelease?.Has("Retreats") == true;
+                var wanted = engaged && (lastResort || (canCarry && !leaves));
 
-                if ((canCarry || lastResort) && CastDutyAction(Spells.Snarl, enemy))
+                if (wanted && CastDutyAction(Spells.Snarl, enemy))
                 {
                     Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0")
                         + " % (you lose " + intake.ToString("0") + " HP/s, the cover needs " + needed.ToString("0") + ", the beast has " + petHp.ToString("0")
@@ -150,10 +161,14 @@ namespace Magitek.Logic.BeastMaster
                     return true;
                 }
 
-                if (_snarlHeldFor != pet.ObjectId)
+                // A refused cast (the piece still arriving, an animation lock) is retried next pulse and is not a hold:
+                // only the rule's own refusal is worth a line, once per beast, and only while there is something to cover.
+                if (!wanted && engaged && _snarlHeldFor != pet.ObjectId)
                 {
                     _snarlHeldFor = pet.ObjectId;
-                    Logger.WriteInfo("[Beastmaster] Snarl held: " + pet.EnglishName + " has " + petHp.ToString("0") + " HP and the cover would need "
+                    Logger.WriteInfo(leaves && canCarry
+                        ? "[Beastmaster] Snarl waits: " + pet.EnglishName + " leaves with its Tempered Release and cannot hold a cover (you at " + myHealth.ToString("0") + " %)."
+                        : "[Beastmaster] Snarl held: " + pet.EnglishName + " has " + petHp.ToString("0") + " HP and the cover would need "
                         + needed.ToString("0") + " (you lose " + intake.ToString("0") + " HP/s at " + myHealth.ToString("0") + " %).");
                 }
             }
