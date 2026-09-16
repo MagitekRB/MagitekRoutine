@@ -313,7 +313,8 @@
    "Bind",
    "Heavy"
   ],
-  "note": "Quelling Wave (Wavekin Borrow, instant) one-shots the lesser wisps."
+  "note": "Quelling Wave (Wavekin Borrow, instant) one-shots the lesser wisps: the node needs a Wavekin (user decision 2026-09-11).",
+  "requiredKin": "Wavekin"
  },
  {
   "encounter": 5,
@@ -344,7 +345,9 @@
   "vulnerableTo": [
    "Bind",
    "Heavy"
-  ]
+  ],
+  "note": "Quelling Wave (Wavekin Borrow, instant) one-shots the lesser wisps: the node needs a Wavekin (user decision 2026-09-11).",
+  "requiredKin": "Wavekin"
  },
  {
   "encounter": 6,
@@ -554,7 +557,8 @@
    }
   ],
   "board": 2,
-  "vulnerableTo": []
+  "vulnerableTo": [],
+  "note": "Fully resists Seedsower (user, 2026-09-11): a piece vulnerable to nothing takes no debuff."
  },
  {
   "encounter": 8,
@@ -658,7 +662,9 @@
     "target": "Highest Enmity",
     "interruptible": false,
     "damageType": "Water",
-    "shape": "Single Target"
+    "shape": "Single Target",
+    "basic": true,
+    "note": "Its primary attack (user, 2026-09-11): not an event to react to."
    },
    {
     "id": 48186,
@@ -2208,9 +2214,9 @@
     "id": 0,
     "name": "Rockslide",
     "castSeconds": 0,
-    "castType": null,
-    "range": null,
-    "effectRange": null,
+    "castType": 0,
+    "range": 0,
+    "effectRange": 0,
     "target": null,
     "interruptible": false,
     "damageType": "Earth",
@@ -2220,9 +2226,9 @@
     "id": 0,
     "name": "Might",
     "castSeconds": 0,
-    "castType": null,
-    "range": null,
-    "effectRange": null,
+    "castType": 0,
+    "range": 0,
+    "effectRange": 0,
     "target": "Self",
     "interruptible": false,
     "damageType": null,
