@@ -387,7 +387,15 @@ namespace Magitek.Logic.BeastMaster
                         // the Crucible the cover is a Snarl at the last resort, so the Sting waits until the cover has run
                         // out or the beast has been swapped: survival first (Third Board, 2026-09-16, player at 15 %).
                         if (ability.Has("Retreats") && Core.Me.HasAura(Auras.Covered))
-                            return Timing.Later;
+                        {
+                            // Unless the covering beast is about to be lost anyway: then the Sting is its exit, damage
+                            // and all, ahead of the horn that would otherwise swap it out for nothing.
+                            float coverHealth;
+                            try { coverHealth = Core.Me.Pet?.CurrentHealthPercent ?? 0f; }
+                            catch { coverHealth = 0f; }
+                            if (coverHealth > settings.CrucibleSwapHealthPercent / 2)
+                                return Timing.Later;
+                        }
 
                         var windowClosing = target.HasAura(Auras.PhysicalVulnerabilityUp) && !target.HasAura(Auras.PhysicalVulnerabilityUp, false, FinisherVulnerabilityWindowMs);
                         return lowEnough || windowClosing ? Timing.Now : Timing.Later;
