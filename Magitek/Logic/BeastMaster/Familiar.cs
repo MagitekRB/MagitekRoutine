@@ -146,11 +146,15 @@ namespace Magitek.Logic.BeastMaster
                 var needed = intake * CoverHorizonSeconds;
                 var lastResort = myHealth <= settings.CrucibleSnarlLastResortHealthPercent || BeastMasterRoutine.PlayerSecondsToDeath <= LastResortSeconds;
                 var canCarry = petHp > needed;
-                // A beast that goes home with its Tempered Release cannot hold a cover: the Wespe was Snarled the pulse
-                // it arrived, with Final Sting due to send it back, cover and all (ymir node, the same board, player at
-                // 30 % and Snarl then on its recast). The cover waits for a beast that stays, unless this is the last
-                // resort, when any cover is better than none and the finisher waits for it instead.
-                var leaves = BeastMasterRoutine.Familiar?.TemperedRelease?.Has("Retreats") == true;
+                // A beast about to go home with its Tempered Release cannot hold a cover: the Wespe was Snarled the
+                // pulse it arrived, with Final Sting due to send it back, cover and all (ymir node, the same board,
+                // player at 30 % and Snarl then on its recast). The cover waits for a beast that stays, unless this
+                // is the last resort, when any cover is better than none and the finisher waits for it instead. Only
+                // a Sting that is due counts: a Wespe whose finisher is waiting stays out like any other beast, and
+                // refusing it the cover left the player alone with the zu for the eight seconds that killed them
+                // (Third Board, 16:47 local, the same day).
+                var leaves = BeastMasterRoutine.Familiar?.TemperedRelease?.Has("Retreats") == true
+                    && Core.Me.HasAura(Auras.OneWithNature) && TemperedReleaseTiming() == Timing.Now;
                 var wanted = engaged && (lastResort || (canCarry && !leaves));
 
                 if (wanted && CastDutyAction(Spells.Snarl, enemy))
