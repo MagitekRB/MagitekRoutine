@@ -542,6 +542,12 @@ namespace Magitek.Logic.BeastMaster
                 if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
                     return false;
 
+                // A beast that is covering you stays, unless it is about to be lost anyway: the horn takes the Snarl
+                // with it. On the Third Board (2026-09-16) the covering Damselfly was swapped out at 26 % with the
+                // player at 19 %, the cover ended with it, and the player was dead two hits later.
+                if (Core.Me.HasAura(Auras.Covered) && petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent / 2)
+                    return false;
+
                 // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
                 // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
                 // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
