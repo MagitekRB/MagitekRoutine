@@ -59,9 +59,19 @@ namespace Magitek.Rotations
             if (SingleTarget.ForceLimitBreak())
                 return true;
 
-            if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
-            if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
-            if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+            // A mudra chain and Ten Chi Jin are both ended by any action that is not the next mudra, and the chain
+            // is built one mudra per pulse: a Shade Shift, Feint or Arm's Length landing between two mudras throws
+            // away the charge already spent, and one landing inside Ten Chi Jin forfeits the rest of a two-minute
+            // cooldown. The weave block below already waits for the chain to finish; these three reactions ran
+            // ahead of it and did not. They hold for the couple of GCDs a chain lasts, and the mechanic they
+            // answer is read again on the next pulse. The game's own Mudra status covers a chain the routine did
+            // not start.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Core.Me.HasAura(Auras.Mudra) && !Core.Me.HasMyAura(Auras.TenChiJin))
+            {
+                if (await CommonFightLogic.FightLogic_SelfShield(NinjaSettings.Instance.FightLogicShadeShift, Spells.ShadeShift, castTimeRemainingMs: 19000)) return true;
+                if (await CommonFightLogic.FightLogic_Debuff(NinjaSettings.Instance.FightLogicFeint, Spells.Feint, true, Auras.Feint)) return true;
+                if (await CommonFightLogic.FightLogic_Knockback(NinjaSettings.Instance.FightLogicKnockback, Spells.ArmsLength, true, aura: Auras.ArmsLength)) return true;
+            }
 
             if (await Ninjutsu.PrePullSuitonUseCheck()) return true;
 
