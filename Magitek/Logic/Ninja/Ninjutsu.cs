@@ -112,6 +112,11 @@ namespace Magitek.Logic.Ninja
             if (!NinjutsuEndMudra.ContainsKey(ninjutsu))
                 return false;
 
+            // The game has marked the chain in progress as spoiled: a ninjutsu now is a Rabbit Medium, and a mudra
+            // now is added to the spoiled chain. Weaponskills carry on until the status lapses.
+            if (NinjaRoutine.MudraChainBroken)
+                return false;
+
             if (NinjaRoutine.TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
             {
                 // Every step is recorded, so the callers' counts pick the step; hold each press until

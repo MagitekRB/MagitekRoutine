@@ -71,23 +71,43 @@ namespace Magitek.Utilities.Routines
         // up; longer than that, the client dropped the press.
         private const int MudraStatusLagMs = 700;
 
-        /// <summary>The mudras the game has counted, decoded from the Mudra or Ten Chi Jin status; null when neither is up.</summary>
+        // A chain the game has given up on reads 255 in the Mudra status, not a sequence: the routine pressed Chi and
+        // then a weaponskill (Windurst, 2026-09-17 18:11), the status went from 2 to 255, and the next ninjutsu press
+        // would have been a Rabbit Medium. Any value the encoding cannot produce (a digit past Jin, or more than three)
+        // is read the same way.
+        private const int MudraStatusBroken = 255;
+
+        /// <summary>True while the Mudra status says the chain in progress is spoiled; the next ninjutsu would be a Rabbit Medium.</summary>
+        public static bool MudraChainBroken { get; private set; }
+
+        /// <summary>
+        /// The mudras the game has counted, decoded from the Mudra or Ten Chi Jin status; null when neither is up or
+        /// the status reads as a broken chain.
+        /// </summary>
         public static List<SpellData> MudraStatusSequence()
         {
             var aura = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.TenChiJin && x.CasterId == Core.Me.ObjectId)
                 ?? Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.Mudra && x.CasterId == Core.Me.ObjectId);
+            MudraChainBroken = false;
             if (aura == null)
                 return null;
 
+            var value = (int)aura.Value;
+            if (value == MudraStatusBroken || value >= 64)
+            {
+                MudraChainBroken = true;
+                return null;
+            }
+
             var sequence = new List<SpellData>();
-            for (var value = (int)aura.Value; value > 0; value /= 4)
+            for (; value > 0; value /= 4)
             {
                 switch (value % 4)
                 {
                     case 1: sequence.Add(Spells.Ten); break;
                     case 2: sequence.Add(Spells.Chi); break;
                     case 3: sequence.Add(Spells.Jin); break;
-                    default: return null;
+                    default: MudraChainBroken = true; return null;
                 }
             }
             return sequence;
@@ -102,6 +122,17 @@ namespace Magitek.Utilities.Routines
         private static void ReconcileMudrasWithStatus()
         {
             var status = MudraStatusSequence();
+            if (MudraChainBroken)
+            {
+                if (UsedMudras.Count > 0 || ChainNinjutsu != null)
+                {
+                    Logger.WriteInfo("[Ninja] The game has given up on the chain (" + DescribeMudras(UsedMudras) + " were pressed); the routine lets it lapse rather than press a Rabbit Medium.");
+                    UsedMudras.Clear();
+                    ChainNinjutsu = null;
+                }
+                return;
+            }
+
             if (status == null)
                 return;
 
@@ -237,17 +268,13 @@ namespace Magitek.Utilities.Routines
 
             ReconcileMudrasWithStatus();
 
-            if (!Core.Me.InCombat || !Core.Me.HasTarget)
-                return;
-
-            if (!TenChiJin && Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell == Spells.TenChiJin)
-            {
-                TenChiJin = true;
-            }
             // Ten Chi Jin is over once its aura is gone - also when nothing was cast after it, because the
             // steps never went out and it expired. The history test alone never noticed that case: the
             // flag stayed latched and the next ordinary chain was built through the Ten Chi Jin branch.
-            // Whatever the steps recorded goes with it.
+            // Whatever the steps recorded goes with it. This runs out of combat as well: a Ten Chi Jin cut
+            // short by the target dying (one step in, Windurst 2026-09-17 18:11) left the flag set through
+            // the walk to the next pull, whose first press then went out as a Ten Chi Jin step and was
+            // abandoned a pulse later, and the game marked the chain broken.
             if (TenChiJin && !Core.Me.HasMyAura(Auras.TenChiJin) && Casting.SpellCastHistory.Count() > 0
                 && (Casting.SpellCastHistory.First().Spell != Spells.TenChiJin
                     || (DateTime.UtcNow - Casting.SpellCastHistory.First().TimeCastUtc).TotalMilliseconds > TenChiJinAuraGraceMs))
@@ -259,6 +286,14 @@ namespace Magitek.Utilities.Routines
 
             if (Core.Me.HasAura(Auras.TenChiJin))
                 TenChiJin = true;
+
+            if (!Core.Me.InCombat || !Core.Me.HasTarget)
+                return;
+
+            if (!TenChiJin && Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell == Spells.TenChiJin)
+            {
+                TenChiJin = true;
+            }
 
             AoeEnemies4Yards = Core.Me.EnemiesNearby(4).Count();
             AoeEnemies5Yards = Core.Me.EnemiesNearby(5).Count();
