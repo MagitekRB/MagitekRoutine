@@ -54,11 +54,22 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Bunshin.IsKnownAndReady())
                 return false;
 
-            if (Spells.Mug.Cooldown == new TimeSpan(0, 0, 0))
+            if (DefersToDokumori())
                 return false;
 
             return await Spells.Bunshin.Cast(Core.Me);
 
+        }
+
+        /// <summary>
+        /// A ready Dokumori goes before Bunshin, unless it is the one waiting for Kunai's Bane. Bhavacakra
+        /// reads this too: a Bunshin that is itself waiting must not have Ninki kept for it, or a ready
+        /// Dokumori (refused above 60 Ninki), Bunshin (behind the Dokumori) and Bhavacakra (keeping Bunshin
+        /// its 50) all wait on each other until the gauge fills.
+        /// </summary>
+        public static bool DefersToDokumori()
+        {
+            return Spells.Mug.Cooldown == new TimeSpan(0, 0, 0) && !Cooldown.DokumoriWaitingForKunaisBane();
         }
 
         public static async Task<bool> Meisui()

@@ -8882,6 +8882,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Ninja_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Dokumori waits up to.
+        /// </summary>
+        public static string Ninja_Text_Dokumori_Waits_Up_To {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Dokumori_Waits_Up_To", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Enemies Around.
@@ -8970,6 +8979,15 @@ namespace Magitek.Properties {
         public static string Ninja_Text_Seconds_Before_Trick_Attack {
             get {
                 return ResourceManager.GetString("Ninja_Text_Seconds_Before_Trick_Attack", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Suiton up to.
+        /// </summary>
+        public static string Ninja_Text_Suiton_Up_To {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Suiton_Up_To", resourceCulture);
             }
         }
         
