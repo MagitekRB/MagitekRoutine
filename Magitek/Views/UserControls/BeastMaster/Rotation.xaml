@@ -89,6 +89,9 @@
                         <StackPanel Margin="5">
                             <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Battlehorn_Swaps}" IsChecked="{Binding BeastMasterSettings.UseBattlehornSwaps, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         </StackPanel>
+                        <StackPanel Margin="5">
+                            <CheckBox Content="{x:Static properties:Resources.BeastMaster_Content_Battlehorn_Scoring}" IsChecked="{Binding BeastMasterSettings.UseBattlehornScoring, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </controls:SettingsBlock>

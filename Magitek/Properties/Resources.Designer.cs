@@ -2176,6 +2176,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Away_Reset", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Pick the next battlehorn by what its beast brings to the fight (Tempered Release, chain fit, health); off, slot order.
+        /// </summary>
+        public static string BeastMaster_Content_Battlehorn_Scoring {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Battlehorn_Scoring", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Swap familiars with the battlehorns mid-fight when another beast continues the chain.
