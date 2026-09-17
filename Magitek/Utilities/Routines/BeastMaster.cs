@@ -159,6 +159,7 @@ namespace Magitek.Utilities.Routines
             Axes[3] = Spells.SpinningAxe.Masked();
 
             Familiar = FamiliarOut ? CurrentFamiliar() : null;
+            TrackFamiliarHealth();
             TrackChainWindow();
             TrackTrickActed();
             TrackWaveringHeart();
@@ -608,8 +609,64 @@ namespace Magitek.Utilities.Routines
         /// <summary>A horn other than the familiar's own, off cooldown, with a beast in its slot.</summary>
         public static bool AnotherHornReady => Battlehorns.Any(h => h != ActiveHorn && HornReady(h));
 
-        /// <summary>That horn, or null.</summary>
-        public static SpellData AnotherReadyHorn => Battlehorns.FirstOrDefault(h => h != ActiveHorn && HornReady(h));
+        /// <summary>
+        /// That horn, or null. Slot order is the base (user, 2026-09-12): the horns after the active one, wrapping, so
+        /// horn 3 hands to horn 1. Health only skips a beast the swap rule would refuse anyway (at or under the swap
+        /// line, an unseen beast counting as full); when every ready beast is under it, order decides.
+        /// </summary>
+        public static SpellData AnotherReadyHorn
+        {
+            get
+            {
+                var ready = HornsAfterActive().Where(h => h != ActiveHorn && HornReady(h)).ToList();
+                return ready.FirstOrDefault(h => NextHealth(h) > BeastMasterSettings.Instance.CrucibleSwapHealthPercent) ?? ready.FirstOrDefault();
+            }
+        }
+
+        private static IEnumerable<SpellData> HornsAfterActive()
+        {
+            var start = System.Array.IndexOf(Battlehorns, ActiveHorn);
+            for (var i = 1; i <= Battlehorns.Length; i++)
+                yield return Battlehorns[(start + i) % Battlehorns.Length];
+        }
+
+        // Beast HP persists across Crucible nodes, so a beast that left at the swap line comes back at the swap line
+        // (Hydra: out at 55 %, summoned again a node later, swapped out two seconds after, 2026-09-13). Each beast is
+        // remembered at the HP it was last seen with while out; the horn choice and the swap rule read it.
+        private static readonly Dictionary<BeastmasterPet, float> _lastSeenHealth = new Dictionary<BeastmasterPet, float>();
+
+        /// <summary>The HP the beast was last seen with in this Crucible run; 100 when it has not been out yet.</summary>
+        public static float KnownHealth(BeastmasterPet pet) => _lastSeenHealth.TryGetValue(pet, out var health) ? health : 100f;
+
+        /// <summary>The HP of the beast the horn would bring; 100 when it has not been seen.</summary>
+        public static float NextHealth(SpellData horn) => horn == null ? 100f : KnownHealth(SlotPet(HornSlot(horn)));
+
+        private static void TrackFamiliarHealth()
+        {
+            if (!InCrucible)
+            {
+                if (_lastSeenHealth.Count > 0)
+                    _lastSeenHealth.Clear();
+                return;
+            }
+
+            // A new run starts with fresh beasts. The duty empties the horn slots between runs and the player picks
+            // again, and the routine does not always pulse outside the duty in between: the second Third Board run of
+            // 2026-09-16 (16:51 local) still carried the Mantis at 27 % from the first and passed it over for a Wespe
+            // scored 1.
+            if (_lastSeenHealth.Count > 0 && PetManager.BeastmasterPetSlots.All(s => s == BeastmasterPet.None))
+                _lastSeenHealth.Clear();
+
+            if (Familiar == null || FamiliarRetreating)
+                return;
+
+            float health;
+            try { health = Core.Me.Pet.CurrentHealthPercent; }
+            catch { return; }
+
+            if (health > 0)
+                _lastSeenHealth[(BeastmasterPet)(byte)Familiar.Id] = health;
+        }
         // Enemy buffs a dispel removes although the status sheet does not flag them dispellable: the Piscodemon
         // Piece's Damage Up (1225, from its Clear Mind, 15 s) went at the Quelling Wave that hit it seven seconds in
         // (Crucible, 2026-09-10 21:58). The sheet flag stays the first test; this list is the second.

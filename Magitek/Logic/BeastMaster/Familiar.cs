@@ -546,6 +546,18 @@ namespace Magitek.Logic.BeastMaster
         /// 90 s cooldown. So: under Vantage, and only when another horn can follow at once (unless the user says
         /// otherwise), so the fight never runs without a familiar.
         /// </summary>
+        // A Crucible swap has to buy something (user, 2026-09-12: a swap two seconds after a summon, into a beast no
+        // healthier, is a surprise mid-fight). The next beast must be above the swap line and clearly healthier than
+        // the one out, a beast just summoned gets a few seconds, and a beast with no replacement ready stays; only a
+        // critical beast (half the swap line) leaves regardless, since a dead beast is gone for the run.
+        private const float SwapGainPercent = 10f;
+        private const double SwapGraceSeconds = 8;
+        private static uint _swapHeldFor;
+        // The horn has a one-second cast, so a step or an animation lock refuses it for a pulse; a ready horn is retried
+        // this long before a critical beast leaves by Parting Blow instead.
+        private const double HornRetrySeconds = 2;
+        private static System.DateTime _hornRefusedSince = System.DateTime.MinValue;
+
         public static async Task<bool> PartingBlow()
         {
             if (!BeastMasterSettings.Instance.UsePartingBlow || !BeastMasterRoutine.FamiliarOut || !Spells.PartingBlow.IsKnown())
@@ -591,28 +603,78 @@ namespace Magitek.Logic.BeastMaster
                 catch { return false; }
 
                 if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                {
+                    _hornRefusedSince = System.DateTime.MinValue;
+                    return false;
+                }
+
+                // A beast that is covering you stays, unless it is about to be lost anyway: the horn takes the Snarl
+                // with it. On the Third Board (2026-09-16) the covering Damselfly was swapped out at 26 % with the
+                // player at 19 %, the cover ended with it, and the player was dead two hits later.
+                if (Core.Me.HasAura(Auras.Covered) && petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent / 2)
                     return false;
 
                 // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
                 // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
                 // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
+                var next = BeastMasterRoutine.NextHealth(horn);
+                var nextName = horn == null ? "nothing" : BeastMasterRoutine.SlotPet(BeastMasterRoutine.HornSlot(horn)).ToString();
+                var critical = petHealth <= BeastMasterSettings.Instance.CrucibleSwapHealthPercent / 2;
+
+                if (!critical)
+                {
+                    if (horn == null)
+                        return false;
+
+                    if (next <= BeastMasterSettings.Instance.CrucibleSwapHealthPercent || next < petHealth + SwapGainPercent)
+                    {
+                        if (_swapHeldFor != pet.ObjectId)
+                        {
+                            _swapHeldFor = pet.ObjectId;
+                            Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % stays; the next beast, " + nextName + ", was last seen at " + next.ToString("0") + " %.");
+                        }
+                        return false;
+                    }
+
+                    if (BeastMasterRoutine.FamiliarOutSeconds < SwapGraceSeconds)
+                        return false;
+                }
+
                 if (horn != null && await horn.Cast(Core.Me))
                 {
                     // A beast on its way out after a Parting Blow the routine did not cast reads 0 HP (2026-09-11: every
                     // "at 0 %" swap followed a hand-cast Parting Blow); the horn then brings the next beast, not a swap.
                     Logger.WriteInfo(petHealth <= 0
-                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings the next beast."
-                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings " + nextName + " (last seen at " + next.ToString("0") + " %)."
+                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn for " + nextName + " (last seen at " + next.ToString("0") + " %).");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
+                    _hornRefusedSince = System.DateTime.MinValue;
                     return true;
                 }
 
-                if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                if (horn != null)
+                {
+                    // A ready horn the client refused is retried, not given up on. On the Third Board (2026-09-16) the
+                    // covering Mantis at 22 % left by Parting Blow, cover and all, in the pulse the Wespe's horn was
+                    // refused, and the Wespe arrived six seconds later instead of at once with the Mantis's HP kept;
+                    // the covering Damselfly at 25 % went the same way four minutes later with the player at 15 %.
+                    // A beast above the critical line never leaves by the blow: the horn is the only swap for it.
+                    if (_hornRefusedSince == System.DateTime.MinValue)
+                        _hornRefusedSince = System.DateTime.Now;
+                    if (!critical || (System.DateTime.Now - _hornRefusedSince).TotalSeconds < HornRetrySeconds)
+                        return false;
+                }
+
+                // No horn ready, or none the client would take: only a critical beast retreats into an empty slot, since
+                // staying would lose it.
+                if (petHealth <= 0 || !await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
+                _hornRefusedSince = System.DateTime.MinValue;
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow before it dies; "
+                    + (horn == null ? "no horn is ready." : "the horn was refused for " + HornRetrySeconds.ToString("0") + " s."));
                 BeastMasterRoutine.NotePartingBlow();
                 return true;
             }
