@@ -757,6 +757,35 @@ namespace Magitek.Utilities.Routines
         }
 
         /// <summary>The horn's beast scored for this fight: its release, plus the chain fit of its Trick.</summary>
+        // The status effects a Tempered Release can apply, as the catalogue flags them.
+        private static readonly HashSet<string> StatusFlags = new HashSet<string>
+        {
+            "VulnerabilityUp", "ResistanceDown", "AccuracyDown", "Slow", "Heavy", "Bind", "Stun", "Sleep", "Paralysis",
+            "Petrify", "Freeze", "Poison", "Disease", "Doom", "Esuna", "Dispel"
+        };
+
+        /// <summary>
+        /// A beast whose release is a mitigation, a buff, crowd control or a status effect on the piece is utility, and
+        /// utility stays a horn candidate at any HP: the release goes out in the first seconds after the horn, before
+        /// the beast's own health matters, and the flow of the loadout is worth more than the beast's tank time. A
+        /// pure-damage release and the finisher are not utility. A low-level-only release does nothing to a piece.
+        /// </summary>
+        public static bool HornBringsUtility(SpellData horn)
+        {
+            var ability = FamiliarFor(SlotPet(HornSlot(horn)))?.TemperedRelease;
+            if (ability == null || string.IsNullOrEmpty(ability.Kind) || ability.Kind == AbilityKind.Finisher)
+                return false;
+
+            if (ability.Has("LowLevelOnly") && InCrucible)
+                return false;
+
+            if (ability.Kind == AbilityKind.Mitigation || ability.Kind == AbilityKind.PartyBuff
+                || ability.Kind == AbilityKind.FamiliarBuff || ability.Kind == AbilityKind.CrowdControl)
+                return true;
+
+            return ability.Flags != null && ability.Flags.Any(flag => StatusFlags.Contains(flag));
+        }
+
         public static int HornScore(SpellData horn, out string why)
         {
             var familiar = FamiliarFor(SlotPet(HornSlot(horn)));
@@ -807,7 +836,11 @@ namespace Magitek.Utilities.Routines
             if (InCrucible)
             {
                 var line = BeastMasterSettings.Instance.CrucibleSwapHealthPercent;
-                var fit = ready.Where(h => NextHealth(h) > line || (scores[h] >= ScoreWorthTheRisk && NextHealth(h) > line / 2)).ToList();
+                // Utility keeps its place whatever its HP: a mitigation or a status effect lands in the beast's first
+                // seconds out, and a low beast is swapped again after. A pure-damage release or the finisher only gets
+                // those seconds when the beast can also stay out. (The Mantis at 22 % was passed over for a Wespe scored
+                // 1 on the Third Board, 2026-09-16, and the Sting went into an unbuffed piece.)
+                var fit = ready.Where(h => NextHealth(h) > line || HornBringsUtility(h) || (scores[h] >= ScoreWorthTheRisk && NextHealth(h) > line / 2)).ToList();
                 if (fit.Count > 0)
                     candidates = fit;
             }
