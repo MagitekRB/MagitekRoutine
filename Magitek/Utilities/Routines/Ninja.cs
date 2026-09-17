@@ -62,6 +62,60 @@ namespace Magitek.Utilities.Routines
         // "no aura" means it is over.
         private const int TenChiJinAuraGraceMs = 2000;
 
+        // The game keeps the pressed sequence in the Mudra status value, and Ten Chi Jin keeps its steps in its own
+        // status the same way: base-4 digits, first press in the low digit, Ten 1, Chi 2, Jin 3 (sampled every pulse
+        // on a dummy, 2026-09-17: Chi, Ten, Jin reads 54; Ten, Jin reads 13; Ten Chi Jin reads 0, then 1, then 9).
+        // The status shows one or two pulses after the press and lingers a pulse after the chain resolves, so it
+        // cannot drive the chain (a press every 0.47 s would stall a pulse per step); it referees the record instead.
+        // A record longer than the status inside this many milliseconds of the last press is the status catching
+        // up; longer than that, the client dropped the press.
+        private const int MudraStatusLagMs = 700;
+
+        /// <summary>The mudras the game has counted, decoded from the Mudra or Ten Chi Jin status; null when neither is up.</summary>
+        public static List<SpellData> MudraStatusSequence()
+        {
+            var aura = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.TenChiJin && x.CasterId == Core.Me.ObjectId)
+                ?? Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.Mudra && x.CasterId == Core.Me.ObjectId);
+            if (aura == null)
+                return null;
+
+            var sequence = new List<SpellData>();
+            for (var value = (int)aura.Value; value > 0; value /= 4)
+            {
+                switch (value % 4)
+                {
+                    case 1: sequence.Add(Spells.Ten); break;
+                    case 2: sequence.Add(Spells.Chi); break;
+                    case 3: sequence.Add(Spells.Jin); break;
+                    default: return null;
+                }
+            }
+            return sequence;
+        }
+
+        private static string DescribeMudras(List<SpellData> mudras) => mudras.Count == 0 ? "nothing" : string.Join(", ", mudras.Select(m => m.Name));
+
+        // The status is the truth whenever it is up: a press the client dropped (about one in seven pressed inside an
+        // animation lock, 2026-09-06) left the record one mudra long and the chain ended in the wrong ninjutsu or a
+        // Rabbit Medium; a chain the routine did not start, or one it lost over a reload, had no record at all and the
+        // next press repeated a mudra the game already held.
+        private static void ReconcileMudrasWithStatus()
+        {
+            var status = MudraStatusSequence();
+            if (status == null)
+                return;
+
+            if (status.Count == UsedMudras.Count && status.Zip(UsedMudras, (a, b) => a.Id == b.Id).All(same => same))
+                return;
+
+            if (status.Count < UsedMudras.Count && MsSinceLastMudraPress < MudraStatusLagMs)
+                return;
+
+            Logger.WriteInfo("[Ninja] The game counts " + DescribeMudras(status) + " where the routine had " + DescribeMudras(UsedMudras) + "; the record follows the game.");
+            UsedMudras.Clear();
+            UsedMudras.AddRange(status);
+        }
+
 
         // True while the current pull started from a countdown, i.e. the pre-pull Suiton ramp ran and the
         // opener alignment (Dokumori on GCD 2, Kunai's Bane on GCD 4) applies. Every other pull is a
@@ -173,6 +227,8 @@ namespace Magitek.Utilities.Routines
                 UsedMudras.Clear();
                 ChainNinjutsu = null;
             }
+
+            ReconcileMudrasWithStatus();
 
             if (!Core.Me.InCombat || !Core.Me.HasTarget)
                 return;
