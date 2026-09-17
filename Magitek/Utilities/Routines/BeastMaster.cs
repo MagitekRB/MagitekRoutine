@@ -326,9 +326,14 @@ namespace Magitek.Utilities.Routines
         /// bar already holds 250: Rally has been spent, the 250 axe waits for the window the Trick opens, and nothing
         /// is lost. A Trick into a window Rally still had to spend into cost three Universalities (dummy, 2026-09-09).
         /// </summary>
-        // Full TP alone does not make a Trick a valid extension. Repeating the same familiar after its
-        // answering axe breaks the clockwise chain; leave that window for the opposite 250 TP finisher.
-        public static bool TrickTakesWindow => ChainWindowOpen && TrickContinuesChain && Gauge.TP >= TpCap;
+        // Two rotations share this rule. Default: full TP alone does not make a Trick a valid extension; repeating
+        // the same familiar after its answering axe leaves the window to the opposite 250 TP finisher (Universality),
+        // so the job's big buttons get pressed. Optimized: the Trick takes the window whenever the familiar has an
+        // affinity and the bar is full, the pair chains to counter 3 and the finisher lands at 3.00x. Measured on
+        // the dummy 2026-09-15 across a full three-beast cycle: the optimized path did 3.4 % more (3.2 % with one
+        // beast), and Universality still goes out whenever no pair can continue. The player picks.
+        public static bool TrickTakesWindow => ChainWindowOpen && Gauge.TP >= TpCap
+            && (BeastMasterSettings.Instance.OptimizedChain ? FamiliarAffinity != null : TrickContinuesChain);
 
         /// <summary>
         /// The familiar is owed the next link: the window after Rally is open with time left, it is not leaving, and it

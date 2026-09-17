@@ -89,6 +89,10 @@ namespace Magitek.Models.BeastMaster
         public bool UseTrick { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool OptimizedChain { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UsePartingBlow { get; set; }
 
