@@ -63,7 +63,7 @@ namespace Magitek.Utilities.Routines
         // when it waits on the weaponskill recast (Ten at 18:18:40.4, Goka Mekkyaku at 18:18:42.2, Windurst
         // 2026-09-17), and the status fading after it would then read as a chain the routine did not start.
         private static DateTime LastChainEndUtc = DateTime.MinValue;
-        public static bool ChainEndedRecently => (DateTime.UtcNow - LastChainEndUtc).TotalMilliseconds < MudraPressGraceMs;
+        public static bool ChainEndedRecently => (DateTime.UtcNow - LastChainEndUtc).TotalMilliseconds < MudraStatusLagMs;
 
         // How long after the Ten Chi Jin press its aura may still be missing from the aura list before
         // "no aura" means it is over.
@@ -146,7 +146,11 @@ namespace Magitek.Utilities.Routines
             if (status.Count == UsedMudras.Count && status.Zip(UsedMudras, (a, b) => a.Id == b.Id).All(same => same))
                 return;
 
-            if (status.Count < UsedMudras.Count && MsSinceLastMudraPress < MudraStatusLagMs)
+            // Inside the lag of a press or of a chain's end the status is still moving: a press is not yet in it, or
+            // the spent chain is still fading out of it. It settles within the lag; until then nothing is read from
+            // it. (Windurst 2026-09-17 19:14: the next chain's Chi pressed 116 ms after a Hyosho Ranryu, the status
+            // still reading the Hyosho's Ten, Jin, and the record was rewritten to it.)
+            if (MsSinceLastMudraPress < MudraStatusLagMs || ChainEndedRecently)
                 return;
 
             // The status outlives the chain by a pulse: right after the ninjutsu goes out the record is already empty

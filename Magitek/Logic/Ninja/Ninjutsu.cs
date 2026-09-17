@@ -130,6 +130,14 @@ namespace Magitek.Logic.Ninja
             // One chain, one owner. The owner is recorded once its first press has gone out, so a first
             // press that fails (no charge) leaves no ghost owner behind.
             var firstPress = NinjaRoutine.UsedMudras.Count == 0;
+
+            // The next chain waits for the last one to settle. A ninjutsu press the client dropped leaves the
+            // old mudras standing, and a new chain's first mudra pressed 116 ms after it was appended to them
+            // (Windurst, 2026-09-17 19:14: Ten, Jin, then Chi, then a three-mudra ninjutsu into one target).
+            // After the lag the status shows what really happened and the record follows it: the ninjutsu is
+            // pressed again, or the new chain starts clean.
+            if (firstPress && NinjaRoutine.ChainEndedRecently)
+                return false;
             if (!firstPress && NinjaRoutine.ChainNinjutsu != null && NinjaRoutine.ChainNinjutsu != ninjutsu)
                 return false;
 
