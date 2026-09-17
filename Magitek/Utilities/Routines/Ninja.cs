@@ -56,7 +56,14 @@ namespace Magitek.Utilities.Routines
         {
             UsedMudras.Clear();
             ChainNinjutsu = null;
+            LastChainEndUtc = DateTime.UtcNow;
         }
+
+        // When the last ninjutsu went out. The ninjutsu can follow its last mudra by more than the press grace
+        // when it waits on the weaponskill recast (Ten at 18:18:40.4, Goka Mekkyaku at 18:18:42.2, Windurst
+        // 2026-09-17), and the status fading after it would then read as a chain the routine did not start.
+        private static DateTime LastChainEndUtc = DateTime.MinValue;
+        public static bool ChainEndedRecently => (DateTime.UtcNow - LastChainEndUtc).TotalMilliseconds < MudraPressGraceMs;
 
         // How long after the Ten Chi Jin press its aura may still be missing from the aura list before
         // "no aura" means it is over.
@@ -146,7 +153,7 @@ namespace Magitek.Utilities.Routines
             // and the status still reads the whole sequence. That is the chain just spent, not one the routine did
             // not start (three false corrections in ten seconds on the dummy, 2026-09-17); a foreign chain has no
             // press of the routine's behind it.
-            if (UsedMudras.Count == 0 && MudraPressedRecently)
+            if (UsedMudras.Count == 0 && (MudraPressedRecently || ChainEndedRecently))
                 return;
 
             Logger.WriteInfo("[Ninja] The game counts " + DescribeMudras(status) + " where the routine had " + DescribeMudras(UsedMudras) + "; the record follows the game.");
