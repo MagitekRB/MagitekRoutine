@@ -172,7 +172,14 @@ namespace Magitek.Logic.Ninja
             }
 
             if (!await ninjutsu.Cast(target))
-                return false;
+            {
+                // The ninjutsu the record calls for is not the one the game is offering, most often because a mudra
+                // press was dropped and the game holds one fewer, so the button reads a lesser ninjutsu and this press
+                // is refused. A weaponskill now breaks the chain (Jin, Chi, Ten and then Death Blossom, Forked Tower
+                // 2026-09-17 23:11). Hold a pulse or two instead: the status reconcile rewrites the record and the
+                // missing mudra is pressed. Past the press grace the chain is given up as before.
+                return NinjaRoutine.MudraPressedRecently;
+            }
 
             // The chain is spent whatever the game made of it; the next one starts clean.
             NinjaRoutine.EndChain();
