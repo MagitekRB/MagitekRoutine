@@ -111,6 +111,13 @@ namespace Magitek.Utilities.Routines
             if (status.Count < UsedMudras.Count && MsSinceLastMudraPress < MudraStatusLagMs)
                 return;
 
+            // The status outlives the chain by a pulse: right after the ninjutsu goes out the record is already empty
+            // and the status still reads the whole sequence. That is the chain just spent, not one the routine did
+            // not start (three false corrections in ten seconds on the dummy, 2026-09-17); a foreign chain has no
+            // press of the routine's behind it.
+            if (UsedMudras.Count == 0 && MudraPressedRecently)
+                return;
+
             Logger.WriteInfo("[Ninja] The game counts " + DescribeMudras(status) + " where the routine had " + DescribeMudras(UsedMudras) + "; the record follows the game.");
             UsedMudras.Clear();
             UsedMudras.AddRange(status);
