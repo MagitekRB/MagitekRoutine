@@ -187,7 +187,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
-            if (!AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards <= 2)
+            if (!NinjaSettings.Instance.UseHuton || !AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards < NinjaSettings.Instance.HutonEnemies)
                 return false;
 
             // Decided only before the first mudra: a chain in progress is finished whatever the estimate
@@ -390,7 +390,7 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             // Goka Mekkyaku at two targets beats Hyosho since the 7.4 buff (850 x 1.3 on two vs 1300 x 1.3 on one).
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= NinjaSettings.Instance.GokaMekkyakuEnemies)
+            if (NinjaSettings.Instance.UseGokaMekkyaku && AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
             // Only before the first mudra; a started chain is finished (see Suiton).
@@ -413,7 +413,7 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.GokaMekkyakuEnemies)
+            if (!NinjaSettings.Instance.UseGokaMekkyaku || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
             // Only before the first mudra; a started chain is finished (see Suiton).
@@ -452,6 +452,25 @@ namespace Magitek.Logic.Ninja
 
         }
 
+        // In a pack the charges go out as Katon and Doton. One is kept for the Suiton that opens Kunai's Bane while
+        // Trick Attack is within 45 s and Shadow Walker is not already up; the rest is spent. Until now both charges
+        // were kept for those 45 s and Katon was refused outright for the 20 s after Dokumori at level 90 and above,
+        // which left zero Katon in two alliance raids and a pack of nine standing in Doton for 18 s with nothing to
+        // follow it (2026-09-17). Decided before the first mudra only; a chain in progress is finished.
+        private static bool HoldLastChargeForKunaisBane()
+        {
+            if (NinjaRoutine.UsedMudras.Count > 0)
+                return false;
+
+            if (Core.Me.HasMyAura(Auras.ShadowWalker))
+                return false;
+
+            if (Spells.TrickAttack.Cooldown > new TimeSpan(0, 0, 45))
+                return false;
+
+            return Spells.Chi.Charges < 1 + (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000);
+        }
+
         public static async Task<bool> Katon()
         {
 
@@ -463,18 +482,10 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
-            if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
-                && NinjaRoutine.UsedMudras.Count() == 0
-                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+            if (!NinjaSettings.Instance.UseKaton || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.KatonEnemies)
                 return false;
 
-            // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
-            // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
-            if (Core.Me.ClassLevel >= 90
-                && Spells.Mug.Cooldown >= new TimeSpan(0, 1, 40))
-                return false;
-
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (HoldLastChargeForKunaisBane())
                 return false;
 
             return await PrepareNinjutsu(Spells.Katon, Core.Me.CurrentTarget);
@@ -492,12 +503,10 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
-            if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
-                && NinjaRoutine.UsedMudras.Count() == 0
-                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+            if (!NinjaSettings.Instance.UseDoton || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.DotonEnemies)
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (HoldLastChargeForKunaisBane())
                 return false;
 
             if (MovementManager.IsMoving)

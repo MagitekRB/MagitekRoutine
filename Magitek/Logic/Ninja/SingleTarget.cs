@@ -97,7 +97,7 @@ namespace Magitek.Logic.Ninja
             if (ActionResourceManager.Ninja.NinkiGauge < 90 || (Spells.Mug.Cooldown > new TimeSpan(0, 0, 7) && ActionResourceManager.Ninja.NinkiGauge + 40 < 90))
                 return false;
 
-            if (AoeControl.Enabled && NinjaSettings.Instance.UseAoe && NinjaSettings.Instance.UseHellfrogMedium
+            if (AoeControl.Enabled && NinjaSettings.Instance.UseHellfrogMedium
                 && NinjaRoutine.AoeEnemies6Yards >= Aoe.NinkiAoeEnemies)
                 return false;
 

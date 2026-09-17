@@ -36,13 +36,44 @@ namespace Magitek.Models.Ninja
         [DefaultValue(true)]
         public bool UseThrowingDagger { get; set; }
 
+        // The routine-wide AoE switch decides whether any of these fire; each row below says when its own ability is
+        // worth it. The old job-level "Use AoE" duplicated the switch and the one count it carried gated only the
+        // weaponskill combo, while Katon, Doton and Huton ran on numbers nobody could see.
         [Setting]
         [DefaultValue(true)]
-        public bool UseAoe { get; set; }
+        public bool UseAoeCombo { get; set; }
 
         [Setting]
         [DefaultValue(4)]
         public int AoeEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseKaton { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int KatonEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDoton { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int DotonEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHuton { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int HutonEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseGokaMekkyaku { get; set; }
 
         [Setting]
         [DefaultValue(true)]

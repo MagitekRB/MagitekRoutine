@@ -28,7 +28,7 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled)
                 return false;
 
-            if (!NinjaSettings.Instance.UseAoe)
+            if (!NinjaSettings.Instance.UseAoeCombo)
                 return false;
 
             if (!Spells.DeathBlossom.IsKnown())
@@ -48,7 +48,7 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled)
                 return false;
 
-            if (!NinjaSettings.Instance.UseAoe)
+            if (!NinjaSettings.Instance.UseAoeCombo)
                 return false;
 
             if (!Spells.HakkeMujinsatsu.IsKnown())
@@ -69,9 +69,6 @@ namespace Magitek.Logic.Ninja
         public static async Task<bool> HellfrogMedium()
         {
             if (!AoeControl.Enabled)
-                return false;
-
-            if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
             if (!NinjaSettings.Instance.UseHellfrogMedium)
