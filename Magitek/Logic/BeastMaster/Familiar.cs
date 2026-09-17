@@ -93,6 +93,15 @@ namespace Magitek.Logic.BeastMaster
         /// it: the beast is low and still out, and you are healthy enough to hold the piece. Both are granted by the
         /// duty and never read as known, so they go through the action manager on a castable check alone.
         /// </summary>
+        // How much of your current intake the beast must be able to absorb before it is asked to cover you. The
+        // first version asked for the whole 45 s cover twice over: 5,000 to 13,000 HP against beasts of about 2,000,
+        // so the test never passed and Snarl only ever went out as a last resort - at 25 % and then at 8 %, and the
+        // player died on the Third Board (2026-09-16). Fifteen seconds of intake is what a Snarl has to buy: by then
+        // the node has moved on, the beast has been swapped, or the last resort has fired anyway.
+        private const float CoverHorizonSeconds = 15f;
+        private const float LastResortSeconds = 15f;
+        private static uint _snarlHeldFor;
+
         public static bool CrucibleEnmity()
         {
             var settings = BeastMasterSettings.Instance;
@@ -106,16 +115,66 @@ namespace Magitek.Logic.BeastMaster
 
             // The beast's object can vanish mid-read while it retreats; that is no reason to stop the rotation.
             float petHealth;
-            try { petHealth = pet.CurrentHealthPercent; }
+            float petHp;
+            try { petHealth = pet.CurrentHealthPercent; petHp = pet.CurrentHealth; }
             catch { return false; }
 
             var myHealth = Core.Me.CurrentHealthPercent;
 
+            // Snarl recasts in 15 s and its Covered aura shows up a pulse or two after the cast; without this the pulse
+            // after a successful Snarl read "not covered" and logged a hold (Second Board, 2026-09-16).
+            if (Spells.Snarl.Cooldown > System.TimeSpan.Zero)
+                return false;
+
             if (petHealth >= settings.CrucibleSnarlFamiliarHealthPercent && myHealth <= settings.CrucibleSnarlPlayerHealthPercent
-                && !Core.Me.HasAura(Auras.Covered) && CastDutyAction(Spells.Snarl, enemy))
+                && !Core.Me.HasAura(Auras.Covered))
             {
-                Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0") + " %.");
-                return true;
+                // The cover hands the beast every hit meant for you, from every piece on the node, for 45 s, on top of
+                // its own. Your HP does not come back between nodes, so once you were under the threshold every fresh
+                // beast was Snarled on arrival and emptied by the node (board 3, 2026-09-12: Apkallu 100 % to dead in
+                // 9 s under four Earth Shakers, Raptor and Chimera the same way). So the beast has to be able to carry
+                // your current intake for the whole cover with room for its own hits, and there has to be an intake to
+                // cover. The one exception is the last resort: a player death ends the run, a beast death costs a slot.
+                var intake = BeastMasterRoutine.PlayerIntakePerSecond;
+                // There has to be something to cover: a piece on you, or hits landing. A low reading alone is not it:
+                // at 19 % with every piece on the beast, the cover only handed the beast the taunt on top of the hits
+                // it already had, and three fresh beasts were emptied in 90 s on one node while nothing was aimed at
+                // you (zu node, Third Board, 2026-09-16). A lull with the piece still on you counts (the one that read
+                // zero intake at 19 % ended two hits later, the same board): Snarl is instant and recasts in 15 s, so
+                // waiting for the piece to turn costs one hit, not the beast.
+                var engaged = intake > 0 || Core.Me.BeingTargeted();
+                var needed = intake * CoverHorizonSeconds;
+                var lastResort = myHealth <= settings.CrucibleSnarlLastResortHealthPercent || BeastMasterRoutine.PlayerSecondsToDeath <= LastResortSeconds;
+                var canCarry = petHp > needed;
+                // A beast about to go home with its Tempered Release cannot hold a cover: the Wespe was Snarled the
+                // pulse it arrived, with Final Sting due to send it back, cover and all (ymir node, the same board,
+                // player at 30 % and Snarl then on its recast). The cover waits for a beast that stays, unless this
+                // is the last resort, when any cover is better than none and the finisher waits for it instead. Only
+                // a Sting that is due counts: a Wespe whose finisher is waiting stays out like any other beast, and
+                // refusing it the cover left the player alone with the zu for the eight seconds that killed them
+                // (Third Board, 16:47 local, the same day).
+                var leaves = BeastMasterRoutine.Familiar?.TemperedRelease?.Has("Retreats") == true
+                    && Core.Me.HasAura(Auras.OneWithNature) && TemperedReleaseTiming() == Timing.Now;
+                var wanted = engaged && (lastResort || (canCarry && !leaves));
+
+                if (wanted && CastDutyAction(Spells.Snarl, enemy))
+                {
+                    Logger.WriteInfo("[Beastmaster] Snarl: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % covers you at " + myHealth.ToString("0")
+                        + " % (you lose " + intake.ToString("0") + " HP/s, the cover needs " + needed.ToString("0") + ", the beast has " + petHp.ToString("0")
+                        + (lastResort && !canCarry ? "; last resort" : "") + ").");
+                    return true;
+                }
+
+                // A refused cast (the piece still arriving, an animation lock) is retried next pulse and is not a hold:
+                // only the rule's own refusal is worth a line, once per beast, and only while there is something to cover.
+                if (!wanted && engaged && _snarlHeldFor != pet.ObjectId)
+                {
+                    _snarlHeldFor = pet.ObjectId;
+                    Logger.WriteInfo(leaves && canCarry
+                        ? "[Beastmaster] Snarl waits: " + pet.EnglishName + " leaves with its Tempered Release and cannot hold a cover (you at " + myHealth.ToString("0") + " %)."
+                        : "[Beastmaster] Snarl held: " + pet.EnglishName + " has " + petHp.ToString("0") + " HP and the cover would need "
+                        + needed.ToString("0") + " (you lose " + intake.ToString("0") + " HP/s at " + myHealth.ToString("0") + " %).");
+                }
             }
 
             // A retreating or dead beast cannot be spared, and a beast at the swap threshold is leaving anyway.
@@ -334,6 +393,13 @@ namespace Magitek.Logic.BeastMaster
         /// another horn ready. Knockbacks and pull-ins are never in a party unless asked for. A beast the bestiary
         /// does not classify is used at once, as before.
         /// </summary>
+        // A finisher waits for the piece to drop, but not past the last ten seconds of a physical vulnerability on it.
+        private const int FinisherVulnerabilityWindowMs = 10000;
+        // The time-to-die estimate reads zero until the tracker has a few seconds on the target; under this many
+        // seconds left, a finisher is a beast sent home for nothing.
+        private const int FinisherEstimateWarmupSeconds = 4;
+        private const int FinisherWasteSeconds = 3;
+
         private static Timing TemperedReleaseTiming()
         {
             var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
@@ -372,7 +438,40 @@ namespace Magitek.Logic.BeastMaster
                     return BeastMasterRoutine.EnemiesNearFamiliar(settings.TemperedReleaseSleepRadius) >= settings.TemperedReleaseSleepMinEnemies ? Timing.Now : Timing.Later;
 
                 case AbilityKind.Finisher:
-                    if (target.CurrentHealthPercent > settings.TemperedReleaseFinisherHealthPercent)
+                    // A finisher on a target that is dying anyway sends the beast home for nothing: Final Sting went
+                    // out on a Cavalier Piece at 408 of 46,602 HP (2026-09-16). One with Nature keeps for the next one.
+                    // Read straight off the tracker: the shared check counts a fresh target's zero estimate as dying
+                    // and skips bosses, and a piece is one or the other for most of a node.
+                    if (target.TimeInCombat() >= FinisherEstimateWarmupSeconds && target.CombatTimeLeft() > 0 && target.CombatTimeLeft() < FinisherWasteSeconds)
+                        return Timing.Later;
+
+                    var lowEnough = target.CurrentHealthPercent <= settings.TemperedReleaseFinisherHealthPercent;
+                    if (BeastMasterRoutine.InCrucible)
+                    {
+                        // In a node the other horns are on their 90 s cooldowns from the swaps that brought this beast
+                        // (the Vilekin team, 2026-09-12: Damselfly, Mantis, then the Wespe), so waiting for one held
+                        // Final Sting for the whole fight. It goes at the threshold, or before a physical vulnerability the
+                        // team put on the piece (Eerie Soundwave, +10 % for 30 s) runs out. The only finisher in the
+                        // bestiary is piercing, so the window is read for every finisher until a magical one exists.
+                        // A finisher sends the beast home, and a beast that is covering you takes the cover with it. In
+                        // the Crucible the cover is a Snarl at the last resort, so the Sting waits until the cover has run
+                        // out or the beast has been swapped: survival first (Third Board, 2026-09-16, player at 15 %).
+                        if (ability.Has("Retreats") && Core.Me.HasAura(Auras.Covered))
+                        {
+                            // Unless the covering beast is about to be lost anyway: then the Sting is its exit, damage
+                            // and all, ahead of the horn that would otherwise swap it out for nothing.
+                            float coverHealth;
+                            try { coverHealth = Core.Me.Pet?.CurrentHealthPercent ?? 0f; }
+                            catch { coverHealth = 0f; }
+                            if (coverHealth > settings.CrucibleSwapHealthPercent / 2)
+                                return Timing.Later;
+                        }
+
+                        var windowClosing = target.HasAura(Auras.PhysicalVulnerabilityUp) && !target.HasAura(Auras.PhysicalVulnerabilityUp, false, FinisherVulnerabilityWindowMs);
+                        return lowEnough || windowClosing ? Timing.Now : Timing.Later;
+                    }
+
+                    if (!lowEnough)
                         return Timing.Later;
                     return BeastMasterRoutine.AnotherHornReady
                         ? Timing.Now : Timing.Later;
@@ -487,6 +586,18 @@ namespace Magitek.Logic.BeastMaster
         /// 90 s cooldown. So: under Vantage, and only when another horn can follow at once (unless the user says
         /// otherwise), so the fight never runs without a familiar.
         /// </summary>
+        // A Crucible swap has to buy something (user, 2026-09-12: a swap two seconds after a summon, into a beast no
+        // healthier, is a surprise mid-fight). The next beast must be above the swap line and clearly healthier than
+        // the one out, a beast just summoned gets a few seconds, and a beast with no replacement ready stays; only a
+        // critical beast (half the swap line) leaves regardless, since a dead beast is gone for the run.
+        private const float SwapGainPercent = 10f;
+        private const double SwapGraceSeconds = 8;
+        private static uint _swapHeldFor;
+        // The horn has a one-second cast, so a step or an animation lock refuses it for a pulse; a ready horn is retried
+        // this long before a critical beast leaves by Parting Blow instead.
+        private const double HornRetrySeconds = 2;
+        private static System.DateTime _hornRefusedSince = System.DateTime.MinValue;
+
         public static async Task<bool> PartingBlow()
         {
             if (!BeastMasterSettings.Instance.UsePartingBlow || !BeastMasterRoutine.FamiliarOut || !Spells.PartingBlow.IsKnown())
@@ -532,28 +643,78 @@ namespace Magitek.Logic.BeastMaster
                 catch { return false; }
 
                 if (petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent)
+                {
+                    _hornRefusedSince = System.DateTime.MinValue;
+                    return false;
+                }
+
+                // A beast that is covering you stays, unless it is about to be lost anyway: the horn takes the Snarl
+                // with it. On the Third Board (2026-09-16) the covering Damselfly was swapped out at 26 % with the
+                // player at 19 %, the cover ended with it, and the player was dead two hits later.
+                if (Core.Me.HasAura(Auras.Covered) && petHealth > BeastMasterSettings.Instance.CrucibleSwapHealthPercent / 2)
                     return false;
 
                 // A horn blown over the beast swaps it in a second with its HP intact. Parting Blow is the fallback:
                 // the beast keeps taking hits while it performs the blow and retreats, and at 38 % that was fatal
                 // (Behemoth, run 2, 2026-09-09), which is why the threshold sits where it does.
                 var horn = BeastMasterRoutine.AnotherReadyHorn;
+                var next = BeastMasterRoutine.NextHealth(horn);
+                var nextName = horn == null ? "nothing" : BeastMasterRoutine.SlotPet(BeastMasterRoutine.HornSlot(horn)).ToString();
+                var critical = petHealth <= BeastMasterSettings.Instance.CrucibleSwapHealthPercent / 2;
+
+                if (!critical)
+                {
+                    if (horn == null)
+                        return false;
+
+                    if (next <= BeastMasterSettings.Instance.CrucibleSwapHealthPercent || next < petHealth + SwapGainPercent)
+                    {
+                        if (_swapHeldFor != pet.ObjectId)
+                        {
+                            _swapHeldFor = pet.ObjectId;
+                            Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % stays; the next beast, " + nextName + ", was last seen at " + next.ToString("0") + " %.");
+                        }
+                        return false;
+                    }
+
+                    if (BeastMasterRoutine.FamiliarOutSeconds < SwapGraceSeconds)
+                        return false;
+                }
+
                 if (horn != null && await horn.Cast(Core.Me))
                 {
                     // A beast on its way out after a Parting Blow the routine did not cast reads 0 HP (2026-09-11: every
                     // "at 0 %" swap followed a hand-cast Parting Blow); the horn then brings the next beast, not a swap.
                     Logger.WriteInfo(petHealth <= 0
-                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings the next beast."
-                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn.");
+                        ? "[Beastmaster] Crucible: " + pet.EnglishName + " is already leaving; the horn brings " + nextName + " (last seen at " + next.ToString("0") + " %)."
+                        : "[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % is swapped out by the horn for " + nextName + " (last seen at " + next.ToString("0") + " %).");
                     BeastMasterRoutine.NoteHornCast(horn);
                     BeastMasterRoutine.NotePartingBlow();
+                    _hornRefusedSince = System.DateTime.MinValue;
                     return true;
                 }
 
-                if (!await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
+                if (horn != null)
+                {
+                    // A ready horn the client refused is retried, not given up on. On the Third Board (2026-09-16) the
+                    // covering Mantis at 22 % left by Parting Blow, cover and all, in the pulse the Wespe's horn was
+                    // refused, and the Wespe arrived six seconds later instead of at once with the Mantis's HP kept;
+                    // the covering Damselfly at 25 % went the same way four minutes later with the player at 15 %.
+                    // A beast above the critical line never leaves by the blow: the horn is the only swap for it.
+                    if (_hornRefusedSince == System.DateTime.MinValue)
+                        _hornRefusedSince = System.DateTime.Now;
+                    if (!critical || (System.DateTime.Now - _hornRefusedSince).TotalSeconds < HornRetrySeconds)
+                        return false;
+                }
+
+                // No horn ready, or none the client would take: only a critical beast retreats into an empty slot, since
+                // staying would lose it.
+                if (petHealth <= 0 || !await Spells.PartingBlow.Cast(Core.Me.CurrentTarget))
                     return false;
 
-                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow; the next horn brings a healthier beast.");
+                _hornRefusedSince = System.DateTime.MinValue;
+                Logger.WriteInfo("[Beastmaster] Crucible: " + pet.EnglishName + " at " + petHealth.ToString("0") + " % leaves by Parting Blow before it dies; "
+                    + (horn == null ? "no horn is ready." : "the horn was refused for " + HornRetrySeconds.ToString("0") + " s."));
                 BeastMasterRoutine.NotePartingBlow();
                 return true;
             }

@@ -2158,6 +2158,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Instinctual", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Optimized chain: the Trick keeps a live chain going instead of the 250 TP finisher taking the window (more damage; Universality only when no pair can continue).
+        /// </summary>
+        public static string BeastMaster_Content_Optimized_Chain {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Optimized_Chain", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Resummon before a pull for a fresh Tempered Release when an enemy is within.
@@ -2165,6 +2174,15 @@ namespace Magitek.Properties {
         public static string BeastMaster_Content_Away_Reset {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Away_Reset", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Pick the next battlehorn by what its beast brings to the fight (Tempered Release, chain fit, health); off, slot order.
+        /// </summary>
+        public static string BeastMaster_Content_Battlehorn_Scoring {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Battlehorn_Scoring", resourceCulture);
             }
         }
         
@@ -2399,6 +2417,15 @@ namespace Magitek.Properties {
         public static string BeastMaster_Content_Crucible_Snarl_Player {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl whatever it costs the beast when you are at or below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_LastResort {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_LastResort", resourceCulture);
             }
         }
         

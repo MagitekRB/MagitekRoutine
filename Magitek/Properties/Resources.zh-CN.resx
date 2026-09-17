@@ -5883,6 +5883,9 @@
   <data name="BeastMaster_Content_Trick" xml:space="preserve">
     <value>宠物TP足够时使用把戏（宠物的本能技能）</value>
   </data>
+  <data name="BeastMaster_Content_Optimized_Chain" xml:space="preserve">
+    <value>优化连锁：把戏优先延续进行中的连锁，而不是让250TP终结技占用窗口（伤害更高；仅在无法继续连锁时使用终结技）</value>
+  </data>
   <data name="BeastMaster_Content_Parting_Blow" xml:space="preserve">
     <value>临别一击（宠物的以太爆发，随后撤退）</value>
   </data>
@@ -5897,6 +5900,9 @@
   </data>
   <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
     <value>战斗中当其他魔兽能接续连击时，通过战角更换魔兽</value>
+  </data>
+  <data name="BeastMaster_Content_Battlehorn_Scoring" xml:space="preserve">
+    <value>根据魔兽对本场战斗的价值选择下一个战角（调驯解放、连击契合、生命值）；关闭则按槽位顺序</value>
   </data>
   <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
     <value>TP达到100时按内心罗盘使用本能斧技</value>
@@ -5972,6 +5978,9 @@
   </data>
   <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
     <value>% 且你的生命值低于</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Snarl_LastResort" xml:space="preserve">
+    <value>无论宠物代价如何，当你的生命值不高于以下值时使用咆哮</value>
   </data>
   <data name="BeastMaster_Content_Crucible_Reactions" xml:space="preserve">
     <value>在熔炉中应对棋子已收录的咏唱（打断、护皮、减伤调驯解放）</value>
