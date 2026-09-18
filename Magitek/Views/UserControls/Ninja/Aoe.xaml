@@ -23,39 +23,55 @@
             <controls:SettingsBlock Margin="0,5,0,0" Background="{DynamicResource ClassSelectorBackground}">
                 <StackPanel Margin="3">
                     <TextBlock Margin="5,5,5,0" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Aoe_Tab_Header}" TextWrapping="Wrap" />
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_AoeCombo}" IsChecked="{Binding NinjaSettings.UseAoeCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.AoeEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_You_One_Fewer_Under_Doton}" />
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Katon}" IsChecked="{Binding NinjaSettings.UseKaton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.KatonEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton}" />
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Doton}" IsChecked="{Binding NinjaSettings.UseDoton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.DotonEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target_Standing_Still}" />
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Huton}" IsChecked="{Binding NinjaSettings.UseHuton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.HutonEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_You}" />
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_GokaMekkyaku}" IsChecked="{Binding NinjaSettings.UseGokaMekkyaku, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.GokaMekkyakuEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target}" />
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_HellfrogMedium}" IsChecked="{Binding NinjaSettings.UseHellfrogMedium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                        <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.HellfrogMediumEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_One_More_Under_Meisui}" />
-                    </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_TenriJindo}" IsChecked="{Binding NinjaSettings.UseTenriJindo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
-                    </StackPanel>
+                    <!-- Three columns: the switch with its wrapped label, the count, the wrapped tail. Star widths let
+                         both text columns fold when the window is narrow instead of running off its edge. -->
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseAoeCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                            <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_AoeCombo}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <controls:Numeric Grid.Row="0" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.AoeEnemies, Mode=TwoWay}" />
+                        <TextBlock Grid.Row="0" Grid.Column="2" Margin="0,4" VerticalAlignment="Center" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_You_One_Fewer_Under_Doton}" TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseKaton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                            <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_Katon}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <controls:Numeric Grid.Row="1" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.KatonEnemies, Mode=TwoWay}" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Margin="0,4" VerticalAlignment="Center" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton}" TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseDoton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                            <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_Doton}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <controls:Numeric Grid.Row="2" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.DotonEnemies, Mode=TwoWay}" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Margin="0,4" VerticalAlignment="Center" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target_Standing_Still}" TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="3" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseHuton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                            <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_Huton}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <controls:Numeric Grid.Row="3" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.HutonEnemies, Mode=TwoWay}" />
+                        <TextBlock Grid.Row="3" Grid.Column="2" Margin="0,4" VerticalAlignment="Center" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_You}" TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="4" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseGokaMekkyaku, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                            <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_GokaMekkyaku}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <controls:Numeric Grid.Row="4" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.GokaMekkyakuEnemies, Mode=TwoWay}" />
+                        <TextBlock Grid.Row="4" Grid.Column="2" Margin="0,4" VerticalAlignment="Center" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target}" TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="5" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseHellfrogMedium, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                            <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_HellfrogMedium}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <controls:Numeric Grid.Row="5" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.HellfrogMediumEnemies, Mode=TwoWay}" />
+                        <TextBlock Grid.Row="5" Grid.Column="2" Margin="0,4" VerticalAlignment="Center" Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_One_More_Under_Meisui}" TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,4" Content="{x:Static properties:Resources.Ninja_Content_Use_TenriJindo}" IsChecked="{Binding NinjaSettings.UseTenriJindo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
+                    </Grid>
                 </StackPanel>
             </controls:SettingsBlock>
 
