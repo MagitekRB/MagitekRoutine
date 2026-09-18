@@ -112,6 +112,11 @@ namespace Magitek.Logic.Ninja
             if (!NinjutsuEndMudra.ContainsKey(ninjutsu))
                 return false;
 
+            // The game has marked the chain in progress as spoiled: a ninjutsu now is a Rabbit Medium, and a mudra
+            // now is added to the spoiled chain. Weaponskills carry on until the status lapses.
+            if (NinjaRoutine.MudraChainBroken)
+                return false;
+
             if (NinjaRoutine.TenChiJin || Core.Me.HasAura(Auras.TenChiJin))
             {
                 // Every step is recorded, so the callers' counts pick the step; hold each press until
@@ -125,6 +130,14 @@ namespace Magitek.Logic.Ninja
             // One chain, one owner. The owner is recorded once its first press has gone out, so a first
             // press that fails (no charge) leaves no ghost owner behind.
             var firstPress = NinjaRoutine.UsedMudras.Count == 0;
+
+            // The next chain waits for the last one to settle. A ninjutsu press the client dropped leaves the
+            // old mudras standing, and a new chain's first mudra pressed 116 ms after it was appended to them
+            // (Windurst, 2026-09-17 19:14: Ten, Jin, then Chi, then a three-mudra ninjutsu into one target).
+            // After the lag the status shows what really happened and the record follows it: the ninjutsu is
+            // pressed again, or the new chain starts clean.
+            if (firstPress && NinjaRoutine.ChainEndedRecently)
+                return false;
             if (!firstPress && NinjaRoutine.ChainNinjutsu != null && NinjaRoutine.ChainNinjutsu != ninjutsu)
                 return false;
 
@@ -159,7 +172,14 @@ namespace Magitek.Logic.Ninja
             }
 
             if (!await ninjutsu.Cast(target))
-                return false;
+            {
+                // The ninjutsu the record calls for is not the one the game is offering, most often because a mudra
+                // press was dropped and the game holds one fewer, so the button reads a lesser ninjutsu and this press
+                // is refused. A weaponskill now breaks the chain (Jin, Chi, Ten and then Death Blossom, Forked Tower
+                // 2026-09-17 23:11). Hold a pulse or two instead: the status reconcile rewrites the record and the
+                // missing mudra is pressed. Past the press grace the chain is given up as before.
+                return NinjaRoutine.MudraPressedRecently;
+            }
 
             // The chain is spent whatever the game made of it; the next one starts clean.
             NinjaRoutine.EndChain();
