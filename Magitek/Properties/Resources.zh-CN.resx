@@ -1887,6 +1887,9 @@
   <data name="Ninja_Text_Enemies_Within_5_Of_Target" xml:space="preserve">
     <value>名敌人在目标5米内</value>
   </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton" xml:space="preserve">
+    <value>名敌人在目标5米内（敌人站在土遁中时少一名）</value>
+  </data>
   <data name="Ninja_Content_Use_Doton" xml:space="preserve">
     <value>敌人数量达到以下值时使用土遁</value>
   </data>

@@ -31,7 +31,7 @@
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Katon}" IsChecked="{Binding NinjaSettings.UseKaton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />
                         <controls:Numeric MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.KatonEnemies, Mode=TwoWay}" />
-                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target}" />
+                        <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{x:Static properties:Resources.Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton}" />
                     </StackPanel>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox Content="{x:Static properties:Resources.Ninja_Content_Use_Doton}" IsChecked="{Binding NinjaSettings.UseDoton, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}" />

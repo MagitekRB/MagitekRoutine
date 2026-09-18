@@ -1881,6 +1881,9 @@
   <data name="Ninja_Text_Enemies_Within_5_Of_Target" xml:space="preserve">
     <value>enemies within 5 yalms of the target</value>
   </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton" xml:space="preserve">
+    <value>enemies within 5 yalms of the target (one fewer while they stand in Doton)</value>
+  </data>
   <data name="Ninja_Content_Use_Doton" xml:space="preserve">
     <value>Doton when there are</value>
   </data>

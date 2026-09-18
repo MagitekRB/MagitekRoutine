@@ -8938,6 +8938,15 @@ namespace Magitek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to enemies within 5 yalms of the target (one fewer while they stand in Doton).
+        /// </summary>
+        public static string Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to enemies within 5 yalms of you.
         /// </summary>
         public static string Ninja_Text_Enemies_Within_5_Of_You {

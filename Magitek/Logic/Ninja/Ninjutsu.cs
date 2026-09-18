@@ -487,7 +487,10 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
-            if (!NinjaSettings.Instance.UseKaton || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.KatonEnemies)
+            // Under Doton the count drops by one, never below two: Katon over Raiton from two targets while the
+            // patch is ticking on them (The Balance), three otherwise.
+            var katonEnemies = Core.Me.HasAura(Auras.Doton) ? Math.Max(2, NinjaSettings.Instance.KatonEnemies - 1) : NinjaSettings.Instance.KatonEnemies;
+            if (!NinjaSettings.Instance.UseKaton || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < katonEnemies)
                 return false;
 
             // Even at full charges: spent this close to the window the charge comes back inside it, and the
