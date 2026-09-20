@@ -168,7 +168,10 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Assassinate.IsKnownAndReady())
                 return false;
 
-            if (Spells.TrickAttack.Cooldown == new TimeSpan(0, 0, 0))
+            // Trick Attack goes first when it is ready. Inside a fight it needs Shadow Walker, and that is
+            // Suiton (level 45): synced below it Trick Attack is never pressed, its recast reads zero all
+            // fight, and waiting for it left Assassinate unused from level 40 to 44.
+            if (Spells.Suiton.IsKnown() && Spells.TrickAttack.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
             if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack && Spells.SpinningEdge.Cooldown.TotalMilliseconds < 800)
