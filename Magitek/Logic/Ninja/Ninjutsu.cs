@@ -467,6 +467,11 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count > 0)
                 return false;
 
+            // Synced below Suiton (level 45) there is no Suiton to keep a charge for, and Trick Attack's recast
+            // reads zero all fight, so the hold would never let go of the last charge.
+            if (!Spells.Suiton.IsKnown())
+                return false;
+
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
