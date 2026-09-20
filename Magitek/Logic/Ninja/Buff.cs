@@ -102,7 +102,12 @@ namespace Magitek.Logic.Ninja
             if (ActionManager.LastSpell != Spells.GustSlash)
                 return false;
 
-            if (Core.Me.CurrentTarget.IsBehind && ActionResourceManager.Ninja.Kazematoi == 0)
+            // Standing on the other finisher's spot: behind with Armor Crush next, or on the flank with
+            // Aeolian Edge next. Behind with Aeolian Edge next is already the right place.
+            if (SingleTarget.ArmorCrushIsNext)
+                return Core.Me.CurrentTarget.IsBehind && await Spells.TrueNorth.Cast(Core.Me);
+
+            if (Spells.AeolianEdge.IsKnown() && Core.Me.CurrentTarget.IsFlanking)
                 return await Spells.TrueNorth.Cast(Core.Me);
 
             return false;
