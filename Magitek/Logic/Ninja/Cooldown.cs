@@ -106,7 +106,18 @@ namespace Magitek.Logic.Ninja
         }
 
         // The estimate is whole seconds, so "at least N" means at least N.0 s.
-        private static bool Outlives(GameObject unit, int seconds) => EstimateUnknown(unit) || unit.CombatTimeLeft() >= seconds;
+        // A target above this much of its health is not dying inside a chain whatever the estimate says: the
+        // estimate read zero for forty seconds on a 21-million-health Ruin Hound at 99 % (its maximum health
+        // had jumped as players joined), and every true refusal in the same evening was below 18 %.
+        private const float DyingHealthPercent = 25f;
+
+        private static bool Outlives(GameObject unit, int seconds)
+        {
+            if (EstimateUnknown(unit) || unit.CombatTimeLeft() >= seconds)
+                return true;
+
+            return unit is Character character && character.CurrentHealthPercent > DyingHealthPercent;
+        }
 
         // Kassatsu is a weave and Kunai's Bane the other half of the pair; the Kassatsu ninjutsu they are
         // pressed for goes out on the next weaponskill slot, two mudras and a press later. A target that will
@@ -161,7 +172,10 @@ namespace Magitek.Logic.Ninja
                 return;
 
             LastRefusedTarget[spell] = unit.ObjectId;
-            Logger.WriteInfo($"[Ninja] {spell.LocalizedName} {what}: {unit.Name} is estimated to die in {unit.CombatTimeLeft()} s");
+            var info = Tracking.EnemyInfos.FirstOrDefault(r => r.Unit == unit);
+            var health = unit is Character character ? $"{character.CurrentHealthPercent:F1} % ({character.CurrentHealth:N0})" : "?";
+            var detail = info == null ? "untracked" : $"start {info.StartHealth:N0}, dps {info.CurrentDps:N0}, tracked {info.TimeInCombat:F1} s";
+            Logger.WriteInfo($"[Ninja] {spell.LocalizedName} {what}: {unit.Name} is estimated to die in {unit.CombatTimeLeft()} s at {health}; {detail}");
         }
 
         // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
