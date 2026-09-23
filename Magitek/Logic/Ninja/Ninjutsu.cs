@@ -397,6 +397,11 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
+            // Six chains in one day started on a target that died within a second of the first press: a
+            // charge each, gone. Under Kassatsu the Kassatsu itself.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.HyoshoRanryu, Core.Me.CurrentTarget, 2))
+                return false;
+
             return await PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
 
         }
@@ -418,6 +423,10 @@ namespace Magitek.Logic.Ninja
 
             // Only before the first mudra; a started chain is finished (see Suiton).
             if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
+                return false;
+
+            // As for Hyosho Ranryu.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.GokaMekkyaku, Core.Me.CurrentTarget, 2))
                 return false;
 
             return await PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);
@@ -448,6 +457,11 @@ namespace Magitek.Logic.Ninja
             if (Spells.TenChiJin.Cooldown >= new TimeSpan(0, 1, 10) && Core.Me.Auras.Where(x => x.Id == Auras.RaijuReady && x.Value == 1).Count() != 0)
                 return false;
 
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.Raiton, Core.Me.CurrentTarget, 2))
+                return false;
+
             return await PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
 
         }
@@ -475,6 +489,11 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+                return false;
+
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.Katon, Core.Me.CurrentTarget, 2))
                 return false;
 
             return await PrepareNinjutsu(Spells.Katon, Core.Me.CurrentTarget);
@@ -509,6 +528,12 @@ namespace Magitek.Logic.Ninja
             if (Combat.IsMoving(Core.Me.CurrentTarget))
                 return false;
 
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            // Doton is placed under the player; the target is the pack member it is placed for.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.Doton, Core.Me.CurrentTarget, 3))
+                return false;
+
             return await PrepareNinjutsu(Spells.Doton, Core.Me);
 
         }
@@ -523,6 +548,11 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (Spells.Raiton.IsKnown())
+                return false;
+
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.FumaShuriken, Core.Me.CurrentTarget, 1))
                 return false;
 
             return await PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);

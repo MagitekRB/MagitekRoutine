@@ -6,6 +6,7 @@ using Magitek.Models.Ninja;
 using Magitek.Models.OccultCrescent;
 using Magitek.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -75,6 +76,12 @@ namespace Magitek.Logic.Ninja
             if (!KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
+            // Whatever the Shadow Walker decision said. With Shadow Walker up the debuff is nearly free, but a
+            // Kunai's Bane on a target that dies before the Kassatsu ninjutsu is a sixty-second recast spent on
+            // a corpse: three times in one North Horn evening, twice with the Kassatsu alongside it.
+            if (!OutlivesBurstPair(Spells.TrickAttack, Core.Me.CurrentTarget))
+                return false;
+
             return await Spells.TrickAttack.Cast(Core.Me.CurrentTarget);
         }
 
@@ -96,6 +103,56 @@ namespace Magitek.Logic.Ninja
         public static bool CanTrickAttack(GameObject unit)
         {
             return EstimateUnknown(unit) || unit.CombatTimeLeft() >= NinjaSettings.Instance.DontTrickAttackIfEnemyDyingWithinSeconds;
+        }
+
+        // The estimate is whole seconds, so "at least N" means at least N.0 s.
+        private static bool Outlives(GameObject unit, int seconds) => EstimateUnknown(unit) || unit.CombatTimeLeft() >= seconds;
+
+        // Kassatsu is a weave and Kunai's Bane the other half of the pair; the Kassatsu ninjutsu they are
+        // pressed for goes out on the next weaponskill slot, two mudras and a press later. A target that will
+        // not stand that long gets neither: each is a sixty-second recast, and a Shadow Walker already spent
+        // is the smaller loss. The pair's own landing time, not the eight-second judgement call above.
+        private const int BurstPairSeconds = 4;
+
+        /// <summary>
+        /// The target will still be there for the Kassatsu ninjutsu the Kassatsu / Kunai's Bane pair is
+        /// pressed for. Refusals are logged once per target for the census.
+        /// </summary>
+        public static bool OutlivesBurstPair(SpellData spell, GameObject unit)
+        {
+            if (Outlives(unit, BurstPairSeconds))
+                return true;
+
+            LogRefused(spell, unit, "held");
+            return false;
+        }
+
+        /// <summary>
+        /// The target will still be there when the chain's ninjutsu goes out: a two-mudra chain is about a
+        /// second and a half of presses, a three-mudra one about two. The chain's own length, not a
+        /// preference. Refusals are logged once per target for the census.
+        /// </summary>
+        public static bool OutlivesChain(SpellData ninjutsu, GameObject unit, int mudras)
+        {
+            if (Outlives(unit, mudras))
+                return true;
+
+            LogRefused(ninjutsu, unit, "not started");
+            return false;
+        }
+
+        // One line per target and action: the census pairs each refusal with the target's death, and the
+        // pulses in between would only repeat it. Kept per action, because Kassatsu and Kunai's Bane, or
+        // Katon and Raiton, are refused on the same target in the same pulse.
+        private static readonly Dictionary<SpellData, uint> LastRefusedTarget = new Dictionary<SpellData, uint>();
+
+        private static void LogRefused(SpellData spell, GameObject unit, string what)
+        {
+            if (unit == null || (LastRefusedTarget.TryGetValue(spell, out var lastTarget) && lastTarget == unit.ObjectId))
+                return;
+
+            LastRefusedTarget[spell] = unit.ObjectId;
+            Logger.WriteInfo($"[Ninja] {spell.LocalizedName} {what}: {unit.Name} is estimated to die in {unit.CombatTimeLeft()} s");
         }
 
         // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
