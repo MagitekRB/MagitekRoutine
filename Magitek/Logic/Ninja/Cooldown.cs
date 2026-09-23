@@ -127,14 +127,23 @@ namespace Magitek.Logic.Ninja
             return false;
         }
 
+        // How far the chain's ninjutsu reaches: another enemy inside it is one the chain can finish on.
+        private const int NinjutsuRangeYalms = 20;
+
         /// <summary>
-        /// The target will still be there when the chain's ninjutsu goes out: a two-mudra chain is about a
-        /// second and a half of presses, a three-mudra one about two. The chain's own length, not a
-        /// preference. Refusals are logged once per target for the census.
+        /// The chain's ninjutsu will have something to land on: the target outlives the chain, or another
+        /// enemy in range does. A two-mudra chain is about a second and a half of presses, a three-mudra one
+        /// about two; the chain's own length, not a preference. A chain is finished on whatever is targeted
+        /// when its last mudra goes down, so in a pack the next enemy takes the ninjutsu (an alliance raid
+        /// pack of nine died in four seconds, every one of them refused in turn); the chain is lost only
+        /// when the dying target is the last one standing. Refusals are logged once per target for the census.
         /// </summary>
         public static bool OutlivesChain(SpellData ninjutsu, GameObject unit, int mudras)
         {
             if (Outlives(unit, mudras))
+                return true;
+
+            if (Combat.Enemies.Any(e => e.ObjectId != unit.ObjectId && e.WithinSpellRange(NinjutsuRangeYalms) && Outlives(e, mudras)))
                 return true;
 
             LogRefused(ninjutsu, unit, "not started");
