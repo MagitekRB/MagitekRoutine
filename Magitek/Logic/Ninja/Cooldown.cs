@@ -138,6 +138,23 @@ namespace Magitek.Logic.Ninja
             return false;
         }
 
+        /// <summary>
+        /// On the lead-in Kassatsu is popped while Trick Attack is still recharging, so the pair lands only
+        /// when that recharge ends: the target has to stand until then and through the pair's own landing
+        /// time. A flat four seconds let a Kassatsu go five seconds ahead of a Trick Attack on a Headsman
+        /// that died in five; the Kassatsu ninjutsu stayed held for a Kunai's Bane that never came and the
+        /// buff ran out. Refusals are logged once per target for the census.
+        /// </summary>
+        public static bool OutlivesLeadIn(SpellData spell, GameObject unit)
+        {
+            var leadInSeconds = (int)Math.Ceiling(Spells.TrickAttack.Cooldown.TotalSeconds);
+            if (Outlives(unit, leadInSeconds + BurstPairSeconds))
+                return true;
+
+            LogRefused(spell, unit, "held");
+            return false;
+        }
+
         // How far the chain's ninjutsu reaches: another enemy inside it is one the chain can finish on.
         private const int NinjutsuRangeYalms = 20;
 

@@ -46,6 +46,14 @@ namespace Magitek.Logic.Ninja
                 && (!Core.Me.HasMyAura(Auras.ShadowWalker) || Spells.TrickAttack.Cooldown.TotalMilliseconds > Cooldown.KassatsuLeadInMs))
                 return false;
 
+            // On the lead-in the pair lands when Trick Attack's recharge ends, not now, so the target has to
+            // stand until then as well. With Kunai's Bane already on the target, or not wanted at all, the
+            // Kassatsu ninjutsu goes at once and the pair check above is the whole question.
+            if (Cooldown.KunaisBaneWanted(target) && Core.Me.HasMyAura(Auras.ShadowWalker)
+                && !target.HasAura(Auras.KunaisBane, true) && !target.HasAura(Auras.TrickAttack, true)
+                && !Cooldown.OutlivesLeadIn(Spells.Kassatsu, target))
+                return false;
+
             return await Spells.Kassatsu.Cast(Core.Me);
 
         }
