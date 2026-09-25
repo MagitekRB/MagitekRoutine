@@ -89,6 +89,10 @@ namespace Magitek.Models.BeastMaster
         public bool UseTrick { get; set; }
 
         [Setting]
+        [DefaultValue(false)]
+        public bool OptimizedChain { get; set; }
+
+        [Setting]
         [DefaultValue(true)]
         public bool UsePartingBlow { get; set; }
 
@@ -108,6 +112,12 @@ namespace Magitek.Models.BeastMaster
         [Setting]
         [DefaultValue(true)]
         public bool UseBattlehornSwaps { get; set; }
+
+        // Which ready horn to blow: scored from what its beast brings to the fight (Tempered Release, chain fit,
+        // health). Off, slot order: the preferred horn first, then the horns after the active one.
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseBattlehornScoring { get; set; }
 
         #endregion
 
@@ -188,6 +198,11 @@ namespace Magitek.Models.BeastMaster
         [Setting]
         [DefaultValue(40f)]
         public float CrucibleSnarlPlayerHealthPercent { get; set; }
+
+        // Below this, Snarl goes out whatever it costs the beast: a player death ends the Crucible run.
+        [Setting]
+        [DefaultValue(25f)]
+        public float CrucibleSnarlLastResortHealthPercent { get; set; }
 
         [Setting]
         [DefaultValue(30f)]

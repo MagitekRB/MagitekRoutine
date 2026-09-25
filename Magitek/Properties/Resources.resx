@@ -5656,6 +5656,9 @@
   <data name="BeastMaster_Content_Trick" xml:space="preserve">
     <value>Trick (the familiar's instinctual skill) whenever its TP allows</value>
   </data>
+  <data name="BeastMaster_Content_Optimized_Chain" xml:space="preserve">
+    <value>Optimized chain: the Trick keeps a live chain going instead of the 250 TP finisher taking the window (more damage; Universality only when no pair can continue)</value>
+  </data>
   <data name="BeastMaster_Content_Parting_Blow" xml:space="preserve">
     <value>Parting Blow (the familiar's Aetheric Burst; it retreats)</value>
   </data>
@@ -5670,6 +5673,9 @@
   </data>
   <data name="BeastMaster_Content_Battlehorn_Swaps" xml:space="preserve">
     <value>Swap familiars with the battlehorns mid-fight when another beast continues the chain</value>
+  </data>
+  <data name="BeastMaster_Content_Battlehorn_Scoring" xml:space="preserve">
+    <value>Pick the next battlehorn by what its beast brings to the fight (Tempered Release, chain fit, health); off, slot order</value>
   </data>
   <data name="BeastMaster_Content_Instinctual" xml:space="preserve">
     <value>Instinctual axes at 100 TP, following the Inner Compass</value>
@@ -5745,6 +5751,9 @@
   </data>
   <data name="BeastMaster_Content_Crucible_Snarl_Player" xml:space="preserve">
     <value>% and you are below</value>
+  </data>
+  <data name="BeastMaster_Content_Crucible_Snarl_LastResort" xml:space="preserve">
+    <value>Snarl whatever it costs the beast when you are at or below</value>
   </data>
   <data name="BeastMaster_Content_Crucible_Reactions" xml:space="preserve">
     <value>In the Crucible, answer the pieces' catalogued casts (interrupt, skin, mitigating Tempered Release)</value>
