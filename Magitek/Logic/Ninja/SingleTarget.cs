@@ -112,7 +112,7 @@ namespace Magitek.Logic.Ninja
             if (ninki < 90 && !(dokumoriDue && ninki + 40 > 100))
                 return false;
 
-            if (AoeControl.Enabled && NinjaSettings.Instance.UseAoe && NinjaSettings.Instance.UseHellfrogMedium
+            if (AoeControl.Enabled && NinjaSettings.Instance.UseHellfrogMedium
                 && NinjaRoutine.AoeEnemies6Yards >= Aoe.NinkiAoeEnemies)
                 return false;
 

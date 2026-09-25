@@ -1777,7 +1777,7 @@
     <value>FightLogic Use Shade Shift</value>
   </data>
   <data name="Ninja_Text_Enemies_One_More_Under_Meisui" xml:space="preserve">
-    <value>Enemies (one more under Meisui)</value>
+    <value>enemies within 6 yalms of the target (one more under Meisui)</value>
   </data>
   <data name="Ninja_Text_Goka_Instead_Of_Hyosho_When_There_Are" xml:space="preserve">
     <value>Goka Mekkyaku instead of Hyosho Ranryu when there are</value>
@@ -1864,7 +1864,40 @@
   <value>but do Not Use If Enemy Is Dying Within</value>
   </data>
   <data name="Ninja_Content_Use_HellfrogMedium" xml:space="preserve">
-    <value>Hellfrog Medium</value>
+    <value>Hellfrog Medium or Deathfrog Medium instead of Bhavacakra or Zesho Meppo when there are</value>
+  </data>
+  <data name="Ninja_Text_Aoe_Tab_Header" xml:space="preserve">
+    <value>These fire only while the routine's AoE switch is on. Each count is the number of enemies that makes the ability worth more than its single-target alternative.</value>
+  </data>
+  <data name="Ninja_Content_Use_AoeCombo" xml:space="preserve">
+    <value>Death Blossom and Hakke Mujinsatsu instead of the single-target combo when there are</value>
+  </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_You_One_Fewer_Under_Doton" xml:space="preserve">
+    <value>enemies within 5 yalms of you (one fewer while standing in Doton)</value>
+  </data>
+  <data name="Ninja_Content_Use_Katon" xml:space="preserve">
+    <value>Katon instead of Raiton when there are</value>
+  </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_Target" xml:space="preserve">
+    <value>enemies within 5 yalms of the target</value>
+  </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton" xml:space="preserve">
+    <value>enemies within 5 yalms of the target (one fewer while they stand in Doton)</value>
+  </data>
+  <data name="Ninja_Content_Use_Doton" xml:space="preserve">
+    <value>Doton when there are</value>
+  </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_Target_Standing_Still" xml:space="preserve">
+    <value>enemies within 5 yalms of the target and nothing is moving</value>
+  </data>
+  <data name="Ninja_Content_Use_Huton" xml:space="preserve">
+    <value>Huton instead of Suiton for Shadow Walker when there are</value>
+  </data>
+  <data name="Ninja_Text_Enemies_Within_5_Of_You" xml:space="preserve">
+    <value>enemies within 5 yalms of you</value>
+  </data>
+  <data name="Ninja_Content_Use_GokaMekkyaku" xml:space="preserve">
+    <value>Goka Mekkyaku instead of Hyosho Ranryu when there are</value>
   </data>
   <data name="Ninja_Content_Use_PhantomKamaitachi" xml:space="preserve">
     <value>Phantom Kamaitachi</value>
