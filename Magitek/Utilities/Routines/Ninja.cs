@@ -56,11 +56,114 @@ namespace Magitek.Utilities.Routines
         {
             UsedMudras.Clear();
             ChainNinjutsu = null;
+            LastChainEndUtc = DateTime.UtcNow;
         }
+
+        // When the last ninjutsu went out. The ninjutsu can follow its last mudra by more than the press grace
+        // when it waits on the weaponskill recast (Ten at 18:18:40.4, Goka Mekkyaku at 18:18:42.2, Windurst
+        // 2026-09-17), and the status fading after it would then read as a chain the routine did not start.
+        private static DateTime LastChainEndUtc = DateTime.MinValue;
+        public static bool ChainEndedRecently => (DateTime.UtcNow - LastChainEndUtc).TotalMilliseconds < MudraStatusLagMs;
 
         // How long after the Ten Chi Jin press its aura may still be missing from the aura list before
         // "no aura" means it is over.
         private const int TenChiJinAuraGraceMs = 2000;
+
+        // The game keeps the pressed sequence in the Mudra status value, and Ten Chi Jin keeps its steps in its own
+        // status the same way: base-4 digits, first press in the low digit, Ten 1, Chi 2, Jin 3 (sampled every pulse
+        // on a dummy, 2026-09-17: Chi, Ten, Jin reads 54; Ten, Jin reads 13; Ten Chi Jin reads 0, then 1, then 9).
+        // The status shows one or two pulses after the press and lingers a pulse after the chain resolves, so it
+        // cannot drive the chain (a press every 0.47 s would stall a pulse per step); it referees the record instead.
+        // A record longer than the status inside this many milliseconds of the last press is the status catching
+        // up; longer than that, the client dropped the press.
+        private const int MudraStatusLagMs = 700;
+
+        // A chain the game has given up on reads 255 in the Mudra status, not a sequence: the routine pressed Chi and
+        // then a weaponskill (Windurst, 2026-09-17 18:11), the status went from 2 to 255, and the next ninjutsu press
+        // would have been a Rabbit Medium. Any value the encoding cannot produce (a digit past Jin, or more than three)
+        // is read the same way.
+        private const int MudraStatusBroken = 255;
+
+        /// <summary>True while the Mudra status says the chain in progress is spoiled; the next ninjutsu would be a Rabbit Medium.</summary>
+        public static bool MudraChainBroken { get; private set; }
+
+        /// <summary>
+        /// The mudras the game has counted, decoded from the Mudra or Ten Chi Jin status; null when neither is up or
+        /// the status reads as a broken chain.
+        /// </summary>
+        public static List<SpellData> MudraStatusSequence()
+        {
+            var aura = Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.TenChiJin && x.CasterId == Core.Me.ObjectId)
+                ?? Core.Me.Auras.FirstOrDefault(x => x.Id == Auras.Mudra && x.CasterId == Core.Me.ObjectId);
+            MudraChainBroken = false;
+            if (aura == null)
+                return null;
+
+            var value = (int)aura.Value;
+            if (value == MudraStatusBroken || value >= 64)
+            {
+                MudraChainBroken = true;
+                return null;
+            }
+
+            var sequence = new List<SpellData>();
+            for (; value > 0; value /= 4)
+            {
+                switch (value % 4)
+                {
+                    case 1: sequence.Add(Spells.Ten); break;
+                    case 2: sequence.Add(Spells.Chi); break;
+                    case 3: sequence.Add(Spells.Jin); break;
+                    default: MudraChainBroken = true; return null;
+                }
+            }
+            return sequence;
+        }
+
+        private static string DescribeMudras(List<SpellData> mudras) => mudras.Count == 0 ? "nothing" : string.Join(", ", mudras.Select(m => m.Name));
+
+        // The status is the truth whenever it is up: a press the client dropped (about one in seven pressed inside an
+        // animation lock, 2026-09-06) left the record one mudra long and the chain ended in the wrong ninjutsu or a
+        // Rabbit Medium; a chain the routine did not start, or one it lost over a reload, had no record at all and the
+        // next press repeated a mudra the game already held.
+        private static void ReconcileMudrasWithStatus()
+        {
+            var status = MudraStatusSequence();
+            if (MudraChainBroken)
+            {
+                if (UsedMudras.Count > 0 || ChainNinjutsu != null)
+                {
+                    Logger.WriteInfo("[Ninja] The game has given up on the chain (" + DescribeMudras(UsedMudras) + " were pressed); the routine lets it lapse rather than press a Rabbit Medium.");
+                    UsedMudras.Clear();
+                    ChainNinjutsu = null;
+                }
+                return;
+            }
+
+            if (status == null)
+                return;
+
+            if (status.Count == UsedMudras.Count && status.Zip(UsedMudras, (a, b) => a.Id == b.Id).All(same => same))
+                return;
+
+            // Inside the lag of a press or of a chain's end the status is still moving: a press is not yet in it, or
+            // the spent chain is still fading out of it. It settles within the lag; until then nothing is read from
+            // it. (Windurst 2026-09-17 19:14: the next chain's Chi pressed 116 ms after a Hyosho Ranryu, the status
+            // still reading the Hyosho's Ten, Jin, and the record was rewritten to it.)
+            if (MsSinceLastMudraPress < MudraStatusLagMs || ChainEndedRecently)
+                return;
+
+            // The status outlives the chain by a pulse: right after the ninjutsu goes out the record is already empty
+            // and the status still reads the whole sequence. That is the chain just spent, not one the routine did
+            // not start (three false corrections in ten seconds on the dummy, 2026-09-17); a foreign chain has no
+            // press of the routine's behind it.
+            if (UsedMudras.Count == 0 && (MudraPressedRecently || ChainEndedRecently))
+                return;
+
+            Logger.WriteInfo("[Ninja] The game counts " + DescribeMudras(status) + " where the routine had " + DescribeMudras(UsedMudras) + "; the record follows the game.");
+            UsedMudras.Clear();
+            UsedMudras.AddRange(status);
+        }
 
 
         // True while the current pull started from a countdown, i.e. the pre-pull Suiton ramp ran and the
@@ -174,17 +277,15 @@ namespace Magitek.Utilities.Routines
                 ChainNinjutsu = null;
             }
 
-            if (!Core.Me.InCombat || !Core.Me.HasTarget)
-                return;
+            ReconcileMudrasWithStatus();
 
-            if (!TenChiJin && Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell == Spells.TenChiJin)
-            {
-                TenChiJin = true;
-            }
             // Ten Chi Jin is over once its aura is gone - also when nothing was cast after it, because the
             // steps never went out and it expired. The history test alone never noticed that case: the
             // flag stayed latched and the next ordinary chain was built through the Ten Chi Jin branch.
-            // Whatever the steps recorded goes with it.
+            // Whatever the steps recorded goes with it. This runs out of combat as well: a Ten Chi Jin cut
+            // short by the target dying (one step in, Windurst 2026-09-17 18:11) left the flag set through
+            // the walk to the next pull, whose first press then went out as a Ten Chi Jin step and was
+            // abandoned a pulse later, and the game marked the chain broken.
             if (TenChiJin && !Core.Me.HasMyAura(Auras.TenChiJin) && Casting.SpellCastHistory.Count() > 0
                 && (Casting.SpellCastHistory.First().Spell != Spells.TenChiJin
                     || (DateTime.UtcNow - Casting.SpellCastHistory.First().TimeCastUtc).TotalMilliseconds > TenChiJinAuraGraceMs))
@@ -196,6 +297,14 @@ namespace Magitek.Utilities.Routines
 
             if (Core.Me.HasAura(Auras.TenChiJin))
                 TenChiJin = true;
+
+            if (!Core.Me.InCombat || !Core.Me.HasTarget)
+                return;
+
+            if (!TenChiJin && Casting.SpellCastHistory.Count() > 0 && Casting.SpellCastHistory.First().Spell == Spells.TenChiJin)
+            {
+                TenChiJin = true;
+            }
 
             AoeEnemies4Yards = Core.Me.EnemiesNearby(4).Count();
             AoeEnemies5Yards = Core.Me.EnemiesNearby(5).Count();
