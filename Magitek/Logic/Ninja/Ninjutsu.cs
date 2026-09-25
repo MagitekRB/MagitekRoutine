@@ -201,7 +201,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 15))
+            if (Spells.TrickAttack.Cooldown.TotalMilliseconds >= Cooldown.SuitonLeadInMs)
                 return false;
 
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
@@ -234,7 +234,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (Spells.TrickAttack.Cooldown >= new TimeSpan(0, 0, 15))
+            if (Spells.TrickAttack.Cooldown.TotalMilliseconds >= Cooldown.SuitonLeadInMs)
                 return false;
 
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
@@ -465,6 +465,11 @@ namespace Magitek.Logic.Ninja
                 && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
                 return false;
 
+            // Even at full charges: spent this close to the window the charge comes back inside it, and the
+            // window is one ninjutsu short. Waiting at cap for the few seconds until Suiton is the loop.
+            if (NinjaRoutine.UsedMudras.Count() == 0 && Cooldown.HoldMudraChargeForKunaisBane(Core.Me.CurrentTarget))
+                return false;
+
             if (Core.Me.Auras.Where(x => x.Id == Auras.RaijuReady && x.Value == 2).Count() != 0)
                 return false;
 
@@ -489,6 +494,11 @@ namespace Magitek.Logic.Ninja
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
                 && NinjaRoutine.UsedMudras.Count() == 0
                 && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+                return false;
+
+            // Even at full charges: spent this close to the window the charge comes back inside it, and the
+            // window is one ninjutsu short. Waiting at cap for the few seconds until Suiton is the loop.
+            if (NinjaRoutine.UsedMudras.Count() == 0 && Cooldown.HoldMudraChargeForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
             // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
@@ -518,6 +528,11 @@ namespace Magitek.Logic.Ninja
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
                 && NinjaRoutine.UsedMudras.Count() == 0
                 && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+                return false;
+
+            // Even at full charges: spent this close to the window the charge comes back inside it, and the
+            // window is one ninjutsu short. Waiting at cap for the few seconds until Suiton is the loop.
+            if (NinjaRoutine.UsedMudras.Count() == 0 && Cooldown.HoldMudraChargeForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)

@@ -40,6 +40,14 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.CountdownPull && Combat.CombatTime.ElapsedMilliseconds < Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds * NinjaRoutine.OpenerBurstAfterGCD - 770)
                 return false;
 
+            // Ready a few seconds ahead of Kunai's Bane, Dokumori waits for it. Pressed on cooldown it landed
+            // three to six seconds before the window every time: its debuff then ran out early, and Higi was up
+            // while the Ninki dump that keeps the gauge off the cap went out, which the game answers with a
+            // Zesho Meppo two seconds before Kunai's Bane and none inside it. A fresh pull has Kunai's Bane
+            // ready, so the opener is untouched; a Kunai's Bane that will not be pressed holds nothing.
+            if (DokumoriWaitingForKunaisBane())
+                return false;
+
             if (ActionResourceManager.Ninja.NinkiGauge + 40 > 100)
                 return false;
 
@@ -102,6 +110,30 @@ namespace Magitek.Logic.Ninja
         // the window; its buff lasts 15 s against Shadow Walker's 20 s. User setting, default five seconds.
         public static int KassatsuLeadInMs => NinjaSettings.Instance.KassatsuSecondsBeforeTrickAttack * 1000;
 
+        // Suiton's first mudra goes down this far ahead of Kunai's Bane. The charge it spends is back twenty
+        // seconds later, so the closer Suiton sits to the window the earlier inside it the second Raiton can go
+        // out; started fifteen seconds early it came back two seconds after the window closed. User setting,
+        // default ten seconds.
+        public static int SuitonLeadInMs => NinjaSettings.Instance.SuitonSecondsBeforeTrickAttack * 1000;
+
+        // Dokumori ready within this much of Kunai's Bane waits for it. User setting, default eight seconds.
+        public static int DokumoriHoldMs => NinjaSettings.Instance.DokumoriSecondsBeforeTrickAttack * 1000;
+
+        /// <summary>
+        /// Kunai's Bane is close enough that a ready Dokumori waits for it. Bunshin gives way to a ready
+        /// Dokumori, so it reads this too: giving way to a Dokumori that is itself waiting cost Bunshin the
+        /// same seconds every time the two lined up.
+        /// </summary>
+        public static bool DokumoriWaitingForKunaisBane()
+        {
+            return KunaisBaneWanted(Core.Me.CurrentTarget)
+                && Spells.TrickAttack.Cooldown.TotalMilliseconds > 0
+                && Spells.TrickAttack.Cooldown.TotalMilliseconds <= DokumoriHoldMs;
+        }
+
+        // Kunai's Bane recasts in 60 s and its debuff lasts 15 s: while the recast is above this, the window is open.
+        private const int KunaisBaneWindowOpenCooldownMs = 45000;
+
         // The Kassatsu ninjutsu stops waiting for Kunai's Bane once the buff has this little left.
         private const int KassatsuNinjutsuHoldFloorMs = 4000;
 
@@ -156,6 +188,33 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             return Spells.TrickAttack.Cooldown.TotalMilliseconds <= KassatsuLeadInMs;
+        }
+
+        /// <summary>
+        /// A mudra charge spent now would come back inside the coming Kunai's Bane window, or not in time for
+        /// the Suiton that opens it. Three ninjutsu a minute is one Suiton and two Raitons, and both Raitons
+        /// belong under Kunai's Bane; a charge dumped in the last half minute before the window is exactly the
+        /// one that goes missing there. Sitting at full charges for the few seconds until Suiton is the loop.
+        /// </summary>
+        public static bool HoldMudraChargeForKunaisBane(GameObject unit)
+        {
+            // Trick Attack is known from level 18, but inside a fight it needs Shadow Walker, and that is
+            // Suiton (level 45); Hide only works out of combat. Synced below 45 there is no window coming for
+            // the charge to be kept for, and holding it would leave Raiton unused for the whole fight (Fuma
+            // Shuriken gives way once Raiton is known).
+            if (!Spells.Suiton.IsKnown())
+                return false;
+
+            if (!KunaisBaneWanted(unit))
+                return false;
+
+            var cooldownMs = Spells.TrickAttack.Cooldown.TotalMilliseconds;
+
+            // Kunai's Bane just went out: the window is what the charges are for.
+            if (cooldownMs > KunaisBaneWindowOpenCooldownMs)
+                return false;
+
+            return cooldownMs <= SuitonLeadInMs + NinjaRoutine.MudraRechargeMs;
         }
 
         public static async Task<bool> Assassinate()
