@@ -40,6 +40,10 @@ namespace Magitek.Logic.Ninja
 
         }
 
+        // Which finisher follows Gust Slash. Kazematoi only ever comes from Armor Crush (level 54), so
+        // below that level the gauge reads zero all fight and says nothing: the finisher is Aeolian Edge.
+        public static bool ArmorCrushIsNext => Spells.ArmorCrush.IsKnown() && ActionResourceManager.Ninja.Kazematoi == 0;
+
         //Flank Modifier
         //should be used over aeolian edge if no true north or not in rear
         public static async Task<bool> ArmorCrush()
