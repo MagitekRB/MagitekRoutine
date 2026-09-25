@@ -309,6 +309,23 @@ namespace Magitek.Logic.BeastMaster
             if (borrow && (timing == Timing.Never || (BeastMasterSettings.Instance.PreferBorrow && !BeastMasterRoutine.AnyKinship)))
                 return await Spells.Borrow.Cast(Core.Me);
 
+            // A "later" that never comes: a mitigation while nobody is hurt, a sleep with nothing to sleep, a finisher
+            // on a healthy target. Outside the Crucible the beast leaves at the spacing interval whatever happens, and
+            // the next summon brings a fresh One with Nature, so an ability still held at the exit is simply lost.
+            // Worse, it holds the exit with it: every Tempered Release grants Lingering Vantage (all fifty tooltips),
+            // and Parting Blow waits for that Vantage while One with Nature is unspent, so the drake's Smoldering
+            // Scales kept it out for thirteen minutes on a dummy (2026-09-15) while the other two horns sat ready.
+            // The held ability goes a few seconds before the interval ends, so the exit finds its Vantage up.
+            if (timing == Timing.Later && HeldReleaseDue())
+            {
+                if (_heldReleaseLoggedFor != BeastMasterRoutine.FamiliarSince)
+                {
+                    _heldReleaseLoggedFor = BeastMasterRoutine.FamiliarSince;
+                    Logger.WriteInfo("[Beastmaster] Tempered Release was waiting for its moment; the beast leaves at the spacing interval, so it goes now for its Vantage.");
+                }
+                timing = Timing.Now;
+            }
+
             if (timing == Timing.Now)
                 return await Spells.TemperedRelease.Cast(TemperedReleaseOrderTarget());
 
@@ -316,6 +333,34 @@ namespace Magitek.Logic.BeastMaster
         }
 
         private enum Timing { Now, Later, Never }
+
+        // Cast time plus the pulse or two before the exit check reads the aura.
+        private const int HeldReleaseLeadSeconds = 5;
+        private static System.DateTime _heldReleaseLoggedFor = System.DateTime.MinValue;
+
+        /// <summary>
+        /// The spacing exit is close enough that a Tempered Release still waiting for its moment will not get one:
+        /// Parting Blow is on, the interval is set, the beast has been out for nearly all of it, and this is not the
+        /// Crucible, where beasts stay out on their own health and a held mitigation may yet be wanted. An ability
+        /// held back for safety rather than value (one that hurts us, while we are low) stays held. So does one
+        /// held for a replacement horn: the exit itself waits for another horn, and a finisher fired without one
+        /// (Final Sting sends the beast home by itself) would leave the fight without a familiar until a horn returns.
+        /// </summary>
+        private static bool HeldReleaseDue()
+        {
+            var settings = BeastMasterSettings.Instance;
+            if (!settings.UsePartingBlow || settings.PartingBlowSpacingSeconds <= 0 || BeastMasterRoutine.InCrucible)
+                return false;
+
+            if (!BeastMasterRoutine.AnotherHornReady)
+                return false;
+
+            var ability = BeastMasterRoutine.Familiar?.TemperedRelease;
+            if (ability != null && ability.Has("SelfDamage") && Core.Me.CurrentHealthPercent < settings.TemperedReleaseSelfDamageHealthPercent)
+                return false;
+
+            return BeastMasterRoutine.FamiliarOutSeconds >= settings.PartingBlowSpacingSeconds - HeldReleaseLeadSeconds;
+        }
 
         /// <summary>Who the Tempered Release order is placed on: the enemy for an aimed ability, ourselves otherwise.</summary>
         private static ff14bot.Objects.GameObject TemperedReleaseOrderTarget()
