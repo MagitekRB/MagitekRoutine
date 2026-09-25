@@ -195,7 +195,10 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
-            return await PrepareNinjutsu(Spells.Huton, Core.Me);
+            // Huton has been an attack on an enemy (20-yalm range, 5-yalm splash) since it stopped being a
+            // self buff. Pressed on the player the game refuses it, the mudras are left standing and the
+            // next weaponskill breaks the chain: a charge spent and no Shadow Walker, in every pack.
+            return await PrepareNinjutsu(Spells.Huton, Core.Me.CurrentTarget);
 
         }
 
