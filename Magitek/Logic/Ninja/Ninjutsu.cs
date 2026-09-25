@@ -509,6 +509,13 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Suiton.IsKnown())
                 return false;
 
+            // With Trick Attack switched off Suiton is never built, so there is nothing to keep the charge for.
+            // Only the setting is read: the per-target half of the Kunai's Bane check reads the time-to-die
+            // estimate, which reads zero for a pulse after a target swap, and in a pack that pulse would spend
+            // the charge being kept.
+            if (!NinjaSettings.Instance.UseTrickAttack)
+                return false;
+
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
