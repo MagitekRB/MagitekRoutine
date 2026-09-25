@@ -197,10 +197,8 @@ namespace Magitek.Logic.Ninja
                 return;
 
             LastRefusedTarget[spell] = unit.ObjectId;
-            var info = Tracking.EnemyInfos.FirstOrDefault(r => r.Unit == unit);
             var health = unit is Character character ? $"{character.CurrentHealthPercent:F1} % ({character.CurrentHealth:N0})" : "?";
-            var detail = info == null ? "untracked" : $"start {info.StartHealth:N0}, dps {info.CurrentDps:N0}, tracked {info.TimeInCombat:F1} s";
-            Logger.WriteInfo($"[Ninja] {spell.LocalizedName} {what}: {unit.Name} is estimated to die in {unit.CombatTimeLeft()} s at {health}; {detail}");
+            Logger.WriteInfo($"[Ninja] {spell.LocalizedName} {what}: {unit.Name} is estimated to die in {unit.CombatTimeLeft()} s at {health}");
         }
 
         // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
