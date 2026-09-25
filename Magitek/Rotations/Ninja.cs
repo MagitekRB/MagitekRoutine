@@ -174,13 +174,13 @@ namespace Magitek.Rotations
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(300,
                                           "Armor Crush: Side of Enemy", "/Magitek;component/Resources/Images/General/ArrowSidesHighlighted.png",
-                                          () => !NinjaSettings.Instance.HidePositionalMessage && SingleTarget.ArmorCrushIsNext && ActionManager.LastSpell == Spells.GustSlash)
+                                          () => !NinjaSettings.Instance.HidePositionalMessage && NinjaRoutine.ArmorCrushIsNext &&ActionManager.LastSpell == Spells.GustSlash)
                 );
 
             CombatMessageManager.RegisterMessageStrategy(
                 new CombatMessageStrategy(300,
                                           "Aeolian Edge: Back of Enemy", "/Magitek;component/Resources/Images/General/ArrowDownHighlighted.png",
-                                          () => !NinjaSettings.Instance.HidePositionalMessage && !SingleTarget.ArmorCrushIsNext && Spells.AeolianEdge.IsKnown() && ActionManager.LastSpell == Spells.GustSlash)
+                                          () => !NinjaSettings.Instance.HidePositionalMessage && !NinjaRoutine.ArmorCrushIsNext &&Spells.AeolianEdge.IsKnown() && ActionManager.LastSpell == Spells.GustSlash)
                 );
 
         }
