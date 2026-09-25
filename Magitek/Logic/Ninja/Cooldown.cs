@@ -300,6 +300,11 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Suiton.IsKnown())
                 return false;
 
+            // A Kassatsu ninjutsu spends no charge, and Suiton waits while Kassatsu is up: holding here kept the
+            // Kassatsu for a Suiton that could not come until it ran out (below 76, where Katon and Raiton take it).
+            if (Core.Me.HasAura(Auras.Kassatsu))
+                return false;
+
             if (!KunaisBaneWanted(unit))
                 return false;
 

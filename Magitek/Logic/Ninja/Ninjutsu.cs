@@ -469,9 +469,11 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
+            // Kept to full charges near the window, except under Kassatsu, whose ninjutsu spends no charge.
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
                 && NinjaRoutine.UsedMudras.Count() == 0
-                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45)
+                && !Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
             // Even at full charges: spent this close to the window the charge comes back inside it, and the
@@ -514,6 +516,10 @@ namespace Magitek.Logic.Ninja
             // estimate, which reads zero for a pulse after a target swap, and in a pack that pulse would spend
             // the charge being kept.
             if (!NinjaSettings.Instance.UseTrickAttack)
+                return false;
+
+            // A Kassatsu ninjutsu spends no charge (see Cooldown.HoldMudraChargeForKunaisBane).
+            if (Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
