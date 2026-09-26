@@ -70,10 +70,12 @@ namespace Magitek.Logic.Ninja
         {
             // From level 62 to 67 Hellfrog Medium is the only thing that spends Ninki (Bhavacakra is level
             // 68). Kept to packs there, the gauge sat at 100 on a single target and Mug, refused above 60
-            // Ninki, was never pressed again. Until Bhavacakra is known it is the single-target spender too.
+            // Ninki, was never pressed again. Until Bhavacakra is known it spends on a single target too, but only
+            // with AoE on: it is a circle around the target, and AoE off means no second enemy is ever hit, spenders
+            // included. With AoE off the gauge caps there, as it always has.
             var onlyNinkiSpender = !Spells.Bhavacakra.IsKnown();
 
-            if (!AoeControl.Enabled && !onlyNinkiSpender)
+            if (!AoeControl.Enabled)
                 return false;
 
             if (!NinjaSettings.Instance.UseHellfrogMedium)
