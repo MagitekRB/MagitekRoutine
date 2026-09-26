@@ -496,11 +496,11 @@ namespace Magitek.Logic.Ninja
 
         }
 
-        // In a pack the charges go out as Katon and Doton. One is kept for the Suiton that opens Kunai's Bane while
-        // Trick Attack is within 45 s and Shadow Walker is not already up; the rest is spent. Until now both charges
-        // were kept for those 45 s and Katon was refused outright for the 20 s after Dokumori at level 90 and above,
-        // which left zero Katon in two alliance raids and a pack of nine standing in Doton for 18 s with nothing to
-        // follow it (2026-09-17). Decided before the first mudra only; a chain in progress is finished.
+        // In a pack the charges go out as Katon and Doton, keeping one for the Suiton that opens Kunai's Bane while
+        // Trick Attack is within 45 s and Shadow Walker is not already up. Charges is the fractional count before
+        // the press, so the threshold sits a GCD's recharge below full: a ninjutsu pressed there leaves one charge.
+        // It is the threshold Katon always had; the checks above it let go when there is no Suiton to keep the
+        // charge for. Decided before the first mudra only; a chain in progress is finished.
         private static bool HoldLastChargeForKunaisBane()
         {
             if (NinjaRoutine.UsedMudras.Count > 0)
@@ -528,7 +528,7 @@ namespace Magitek.Logic.Ninja
             if (Spells.TrickAttack.Cooldown > new TimeSpan(0, 0, 45))
                 return false;
 
-            return Spells.Chi.Charges < 1 + (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000);
+            return Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000);
         }
 
         public static async Task<bool> Katon()
