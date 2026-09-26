@@ -1,5 +1,6 @@
 ﻿using ff14bot;
 using ff14bot.Enums;
+using ff14bot.Managers;
 using ff14bot.Objects;
 using Magitek.Extensions;
 using System;
@@ -182,6 +183,10 @@ namespace Magitek.Utilities.Routines
         {
             CountdownPullUntil = DateTime.Now.AddMilliseconds(CountdownPullLatchMs);
         }
+
+        // Which finisher follows Gust Slash. Kazematoi only ever comes from Armor Crush (level 54), so
+        // below that level the gauge reads zero all fight and says nothing: the finisher is Aeolian Edge.
+        public static bool ArmorCrushIsNext => Spells.ArmorCrush.IsKnown() && ActionResourceManager.Ninja.Kazematoi == 0;
 
         public static DateTime oGCD = DateTime.Now;
 

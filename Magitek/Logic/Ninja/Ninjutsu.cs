@@ -207,7 +207,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasMyAura(Auras.ShadowWalker))
                 return false;
 
-            if (!AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards <= 2)
+            if (!NinjaSettings.Instance.UseHuton || !AoeControl.Enabled || NinjaRoutine.AoeEnemies5Yards < NinjaSettings.Instance.HutonEnemies)
                 return false;
 
             // Decided only before the first mudra: a chain in progress is finished whatever the estimate
@@ -413,11 +413,16 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             // Goka Mekkyaku at two targets beats Hyosho since the 7.4 buff (850 x 1.3 on two vs 1300 x 1.3 on one).
-            if (AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= NinjaSettings.Instance.GokaMekkyakuEnemies)
+            if (NinjaSettings.Instance.UseGokaMekkyaku && AoeControl.Enabled && Core.Me.CurrentTarget.EnemiesNearby(5).Count() >= NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
             // Only before the first mudra; a started chain is finished (see Suiton).
             if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
+                return false;
+
+            // Six chains in one day started on a target that died within a second of the first press: a
+            // charge each, gone. Under Kassatsu the Kassatsu itself.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.HyoshoRanryu, Core.Me.CurrentTarget, 2))
                 return false;
 
             return await PrepareNinjutsu(Spells.HyoshoRanryu, Core.Me.CurrentTarget);
@@ -436,11 +441,15 @@ namespace Magitek.Logic.Ninja
             if (!Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.GokaMekkyakuEnemies)
+            if (!NinjaSettings.Instance.UseGokaMekkyaku || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.GokaMekkyakuEnemies)
                 return false;
 
             // Only before the first mudra; a started chain is finished (see Suiton).
             if (NinjaRoutine.UsedMudras.Count == 0 && Cooldown.HoldKassatsuNinjutsuForKunaisBane(Core.Me.CurrentTarget))
+                return false;
+
+            // As for Hyosho Ranryu.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.GokaMekkyaku, Core.Me.CurrentTarget, 2))
                 return false;
 
             return await PrepareNinjutsu(Spells.GokaMekkyaku, Core.Me.CurrentTarget);
@@ -460,9 +469,11 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
+            // Kept to full charges near the window, except under Kassatsu, whose ninjutsu spends no charge.
             if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
                 && NinjaRoutine.UsedMudras.Count() == 0
-                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45)
+                && !Core.Me.HasAura(Auras.Kassatsu))
                 return false;
 
             // Even at full charges: spent this close to the window the charge comes back inside it, and the
@@ -476,8 +487,48 @@ namespace Magitek.Logic.Ninja
             if (Spells.TenChiJin.Cooldown >= new TimeSpan(0, 1, 10) && Core.Me.Auras.Where(x => x.Id == Auras.RaijuReady && x.Value == 1).Count() != 0)
                 return false;
 
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.Raiton, Core.Me.CurrentTarget, 2))
+                return false;
+
             return await PrepareNinjutsu(Spells.Raiton, Core.Me.CurrentTarget);
 
+        }
+
+        // In a pack the charges go out as Katon and Doton, keeping one for the Suiton that opens Kunai's Bane while
+        // Trick Attack is within 45 s and Shadow Walker is not already up. Charges is the fractional count before
+        // the press, so the threshold sits a GCD's recharge below full: a ninjutsu pressed there leaves one charge.
+        // It is the threshold Katon always had; the checks above it let go when there is no Suiton to keep the
+        // charge for. Decided before the first mudra only; a chain in progress is finished.
+        private static bool HoldLastChargeForKunaisBane()
+        {
+            if (NinjaRoutine.UsedMudras.Count > 0)
+                return false;
+
+            // Synced below Suiton (level 45) there is no Suiton to keep a charge for, and Trick Attack's recast
+            // reads zero all fight, so the hold would never let go of the last charge.
+            if (!Spells.Suiton.IsKnown())
+                return false;
+
+            // With Trick Attack switched off Suiton is never built, so there is nothing to keep the charge for.
+            // Only the setting is read: the per-target half of the Kunai's Bane check reads the time-to-die
+            // estimate, which reads zero for a pulse after a target swap, and in a pack that pulse would spend
+            // the charge being kept.
+            if (!NinjaSettings.Instance.UseTrickAttack)
+                return false;
+
+            // A Kassatsu ninjutsu spends no charge (see Cooldown.HoldMudraChargeForKunaisBane).
+            if (Core.Me.HasAura(Auras.Kassatsu))
+                return false;
+
+            if (Core.Me.HasMyAura(Auras.ShadowWalker))
+                return false;
+
+            if (Spells.TrickAttack.Cooldown > new TimeSpan(0, 0, 45))
+                return false;
+
+            return Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000);
         }
 
         public static async Task<bool> Katon()
@@ -491,9 +542,10 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
-            if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
-                && NinjaRoutine.UsedMudras.Count() == 0
-                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+            // Under Doton the count drops by one, never below two: Katon over Raiton from two targets while the
+            // patch is ticking on them (The Balance), three otherwise.
+            var katonEnemies = Core.Me.HasAura(Auras.Doton) ? Math.Max(2, NinjaSettings.Instance.KatonEnemies - 1) : NinjaSettings.Instance.KatonEnemies;
+            if (!NinjaSettings.Instance.UseKaton || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < katonEnemies)
                 return false;
 
             // Even at full charges: spent this close to the window the charge comes back inside it, and the
@@ -501,13 +553,12 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count() == 0 && Cooldown.HoldMudraChargeForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
-            // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
-            // HARDCODED: Level 90+ rotation adjusts Katon usage based on Mug timing.
-            if (Core.Me.ClassLevel >= 90
-                && Spells.Mug.Cooldown >= new TimeSpan(0, 1, 40))
+            if (HoldLastChargeForKunaisBane())
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.Katon, Core.Me.CurrentTarget, 2))
                 return false;
 
             return await PrepareNinjutsu(Spells.Katon, Core.Me.CurrentTarget);
@@ -525,9 +576,7 @@ namespace Magitek.Logic.Ninja
             if (Core.Me.HasAura(Auras.TenChiJin) || Core.Me.HasAura(Auras.Kassatsu) && Spells.HyoshoRanryu.IsKnown())
                 return false;
 
-            if (Spells.Chi.Charges < Spells.Chi.MaxCharges - (Spells.SpinningEdge.AdjustedCooldown.TotalMilliseconds / 20000)
-                && NinjaRoutine.UsedMudras.Count() == 0
-                && Spells.TrickAttack.Cooldown <= new TimeSpan(0, 0, 45))
+            if (!NinjaSettings.Instance.UseDoton || !AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < NinjaSettings.Instance.DotonEnemies)
                 return false;
 
             // Even at full charges: spent this close to the window the charge comes back inside it, and the
@@ -535,7 +584,7 @@ namespace Magitek.Logic.Ninja
             if (NinjaRoutine.UsedMudras.Count() == 0 && Cooldown.HoldMudraChargeForKunaisBane(Core.Me.CurrentTarget))
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (HoldLastChargeForKunaisBane())
                 return false;
 
             if (MovementManager.IsMoving)
@@ -545,6 +594,12 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (Combat.IsMoving(Core.Me.CurrentTarget))
+                return false;
+
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            // Doton is placed under the player; the target is the pack member it is placed for.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.Doton, Core.Me.CurrentTarget, 3))
                 return false;
 
             return await PrepareNinjutsu(Spells.Doton, Core.Me);
@@ -561,6 +616,11 @@ namespace Magitek.Logic.Ninja
                 return false;
 
             if (Spells.Raiton.IsKnown())
+                return false;
+
+            // Decided only before the first mudra; a chain in progress is finished (see Suiton). Six chains in
+            // one day started on a target that died within a second of the first press: a charge each, gone.
+            if (NinjaRoutine.UsedMudras.Count == 0 && !Cooldown.OutlivesChain(Spells.FumaShuriken, Core.Me.CurrentTarget, 1))
                 return false;
 
             return await PrepareNinjutsu(Spells.FumaShuriken, Core.Me.CurrentTarget);
