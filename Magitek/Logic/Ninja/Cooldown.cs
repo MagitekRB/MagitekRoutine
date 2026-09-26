@@ -6,6 +6,7 @@ using Magitek.Models.Ninja;
 using Magitek.Models.OccultCrescent;
 using Magitek.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auras = Magitek.Utilities.Auras;
@@ -83,6 +84,12 @@ namespace Magitek.Logic.Ninja
             if (!KunaisBaneWanted(Core.Me.CurrentTarget))
                 return false;
 
+            // Whatever the Shadow Walker decision said. With Shadow Walker up the debuff is nearly free, but a
+            // Kunai's Bane on a target that dies before the Kassatsu ninjutsu is a sixty-second recast spent on
+            // a corpse: three times in one North Horn evening, twice with the Kassatsu alongside it.
+            if (!OutlivesBurstPair(Spells.TrickAttack, Core.Me.CurrentTarget))
+                return false;
+
             return await Spells.TrickAttack.Cast(Core.Me.CurrentTarget);
         }
 
@@ -104,6 +111,94 @@ namespace Magitek.Logic.Ninja
         public static bool CanTrickAttack(GameObject unit)
         {
             return EstimateUnknown(unit) || unit.CombatTimeLeft() >= NinjaSettings.Instance.DontTrickAttackIfEnemyDyingWithinSeconds;
+        }
+
+        // The estimate is whole seconds, so "at least N" means at least N.0 s.
+        // A target above this much of its health is not dying inside a chain whatever the estimate says: the
+        // estimate read zero for forty seconds on a 21-million-health Ruin Hound at 99 % (its maximum health
+        // had jumped as players joined), and every true refusal in the same evening was below 18 %.
+        private const float DyingHealthPercent = 25f;
+
+        private static bool Outlives(GameObject unit, int seconds)
+        {
+            if (EstimateUnknown(unit) || unit.CombatTimeLeft() >= seconds)
+                return true;
+
+            return unit is Character character && character.CurrentHealthPercent > DyingHealthPercent;
+        }
+
+        // Kassatsu is a weave and Kunai's Bane the other half of the pair; the Kassatsu ninjutsu they are
+        // pressed for goes out on the next weaponskill slot, two mudras and a press later. A target that will
+        // not stand that long gets neither: each is a sixty-second recast, and a Shadow Walker already spent
+        // is the smaller loss. The pair's own landing time, not the eight-second judgement call above.
+        private const int BurstPairSeconds = 4;
+
+        /// <summary>
+        /// The target will still be there for the Kassatsu ninjutsu the Kassatsu / Kunai's Bane pair is
+        /// pressed for. Refusals are logged once per target for the census.
+        /// </summary>
+        public static bool OutlivesBurstPair(SpellData spell, GameObject unit)
+        {
+            if (Outlives(unit, BurstPairSeconds))
+                return true;
+
+            LogRefused(spell, unit, "held");
+            return false;
+        }
+
+        /// <summary>
+        /// On the lead-in Kassatsu is popped while Trick Attack is still recharging, so the pair lands only
+        /// when that recharge ends: the target has to stand until then and through the pair's own landing
+        /// time. A flat four seconds let a Kassatsu go five seconds ahead of a Trick Attack on a Headsman
+        /// that died in five; the Kassatsu ninjutsu stayed held for a Kunai's Bane that never came and the
+        /// buff ran out. Refusals are logged once per target for the census.
+        /// </summary>
+        public static bool OutlivesLeadIn(SpellData spell, GameObject unit)
+        {
+            var leadInSeconds = (int)Math.Ceiling(Spells.TrickAttack.Cooldown.TotalSeconds);
+            if (Outlives(unit, leadInSeconds + BurstPairSeconds))
+                return true;
+
+            LogRefused(spell, unit, "held");
+            return false;
+        }
+
+        // How far the chain's ninjutsu reaches: another enemy inside it is one the chain can finish on.
+        private const int NinjutsuRangeYalms = 20;
+
+        /// <summary>
+        /// The chain's ninjutsu will have something to land on: the target outlives the chain, or another
+        /// enemy in range does. A two-mudra chain is about a second and a half of presses, a three-mudra one
+        /// about two; the chain's own length, not a preference. A chain is finished on whatever is targeted
+        /// when its last mudra goes down, so in a pack the next enemy takes the ninjutsu (an alliance raid
+        /// pack of nine died in four seconds, every one of them refused in turn); the chain is lost only
+        /// when the dying target is the last one standing. Refusals are logged once per target for the census.
+        /// </summary>
+        public static bool OutlivesChain(SpellData ninjutsu, GameObject unit, int mudras)
+        {
+            if (Outlives(unit, mudras))
+                return true;
+
+            if (Combat.Enemies.Any(e => e.ObjectId != unit.ObjectId && e.WithinSpellRange(NinjutsuRangeYalms) && Outlives(e, mudras)))
+                return true;
+
+            LogRefused(ninjutsu, unit, "not started");
+            return false;
+        }
+
+        // One line per target and action: the census pairs each refusal with the target's death, and the
+        // pulses in between would only repeat it. Kept per action, because Kassatsu and Kunai's Bane, or
+        // Katon and Raiton, are refused on the same target in the same pulse.
+        private static readonly Dictionary<SpellData, uint> LastRefusedTarget = new Dictionary<SpellData, uint>();
+
+        private static void LogRefused(SpellData spell, GameObject unit, string what)
+        {
+            if (unit == null || (LastRefusedTarget.TryGetValue(spell, out var lastTarget) && lastTarget == unit.ObjectId))
+                return;
+
+            LastRefusedTarget[spell] = unit.ObjectId;
+            var health = unit is Character character ? $"{character.CurrentHealthPercent:F1} % ({character.CurrentHealth:N0})" : "?";
+            Logger.WriteInfo($"[Ninja] {spell.LocalizedName} {what}: {unit.Name} is estimated to die in {unit.CombatTimeLeft()} s at {health}");
         }
 
         // Kassatsu is popped this far ahead of Kunai's Bane so the Kassatsu ninjutsu is the first GCD inside
@@ -205,6 +300,11 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Suiton.IsKnown())
                 return false;
 
+            // A Kassatsu ninjutsu spends no charge, and Suiton waits while Kassatsu is up: holding here kept the
+            // Kassatsu for a Suiton that could not come until it ran out (below 76, where Katon and Raiton take it).
+            if (Core.Me.HasAura(Auras.Kassatsu))
+                return false;
+
             if (!KunaisBaneWanted(unit))
                 return false;
 
@@ -227,7 +327,10 @@ namespace Magitek.Logic.Ninja
             if (!Spells.Assassinate.IsKnownAndReady())
                 return false;
 
-            if (Spells.TrickAttack.Cooldown == new TimeSpan(0, 0, 0))
+            // Trick Attack goes first when it is ready. Inside a fight it needs Shadow Walker, and that is
+            // Suiton (level 45): synced below it Trick Attack is never pressed, its recast reads zero all
+            // fight, and waiting for it left Assassinate unused from level 40 to 44.
+            if (Spells.Suiton.IsKnown() && Spells.TrickAttack.Cooldown == new TimeSpan(0, 0, 0))
                 return false;
 
             if (Casting.SpellCastHistory.FirstOrDefault()?.Spell == Spells.TrickAttack && Spells.SpinningEdge.Cooldown.TotalMilliseconds < 800)

@@ -36,6 +36,9 @@ namespace Magitek.Models.Ninja
         [DefaultValue(true)]
         public bool UseThrowingDagger { get; set; }
 
+        // The routine-wide AoE switch decides whether any of these fire; each row below says when its own ability is
+        // worth it. UseAoe is now the weaponskill combo's own switch (its label says so); the name is kept so a
+        // saved choice carries over.
         [Setting]
         [DefaultValue(true)]
         public bool UseAoe { get; set; }
@@ -43,6 +46,34 @@ namespace Magitek.Models.Ninja
         [Setting]
         [DefaultValue(4)]
         public int AoeEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseKaton { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int KatonEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseDoton { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        public int DotonEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseHuton { get; set; }
+
+        [Setting]
+        [DefaultValue(3)]
+        public int HutonEnemies { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        public bool UseGokaMekkyaku { get; set; }
 
         [Setting]
         [DefaultValue(true)]
