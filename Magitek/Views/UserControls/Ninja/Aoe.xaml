@@ -40,7 +40,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseAoeCombo, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
+                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="0,4,6,4" VerticalAlignment="Center" IsChecked="{Binding NinjaSettings.UseAoe, Mode=TwoWay}" Style="{DynamicResource CheckBoxFlat}">
                             <TextBlock Text="{x:Static properties:Resources.Ninja_Content_Use_AoeCombo}" TextWrapping="Wrap" />
                         </CheckBox>
                         <controls:Numeric Grid.Row="0" Grid.Column="1" Margin="0,4,6,4" VerticalAlignment="Center" MaxValue="100" MinValue="1" Value="{Binding NinjaSettings.AoeEnemies, Mode=TwoWay}" />

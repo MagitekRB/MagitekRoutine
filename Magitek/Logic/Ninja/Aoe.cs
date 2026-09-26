@@ -28,7 +28,7 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled)
                 return false;
 
-            if (!NinjaSettings.Instance.UseAoeCombo)
+            if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
             if (!Spells.DeathBlossom.IsKnown())
@@ -48,7 +48,7 @@ namespace Magitek.Logic.Ninja
             if (!AoeControl.Enabled)
                 return false;
 
-            if (!NinjaSettings.Instance.UseAoeCombo)
+            if (!NinjaSettings.Instance.UseAoe)
                 return false;
 
             if (!Spells.HakkeMujinsatsu.IsKnown())
