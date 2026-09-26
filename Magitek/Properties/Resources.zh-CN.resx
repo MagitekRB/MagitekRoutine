@@ -1783,7 +1783,7 @@
     <value>由战斗逻辑决定使用“残影”</value>
   </data>
   <data name="Ninja_Text_Enemies_One_More_Under_Meisui" xml:space="preserve">
-    <value>名敌人在目标6米内（水遁下多一名）</value>
+    <value>名敌人在目标6米内（命水状态下多一名）</value>
   </data>
   <data name="Ninja_Text_Goka_Instead_Of_Hyosho_When_There_Are" xml:space="preserve">
     <value>当有以下数量的敌人时，用劫火灭却之术代替冰晶乱流之术：</value>
@@ -1870,40 +1870,40 @@
     <value>但如果敌人在[xx]内即将死亡则不使用</value>
   </data>
     <data name="Ninja_Content_Use_HellfrogMedium" xml:space="preserve">
-    <value>敌人数量达到以下值时使用大蛙蛙/死蛙蛙代替六道轮回/残影五轮</value>
+    <value>敌人数量达到以下值时使用通灵之术·大虾蟆/通灵之术·虾蟆仙代替六道轮回/是生灭法</value>
   </data>
   <data name="Ninja_Text_Aoe_Tab_Header" xml:space="preserve">
     <value>以下仅在循环的AoE开关开启时生效。每个数值是使该技能比单体替代技能更划算的敌人数量。</value>
   </data>
   <data name="Ninja_Content_Use_AoeCombo" xml:space="preserve">
-    <value>敌人数量达到以下值时使用血雨/八卦无刃杀代替单体连击</value>
+    <value>敌人数量达到以下值时使用血雨飞花/八卦无刃杀代替单体连击</value>
   </data>
   <data name="Ninja_Text_Enemies_Within_5_Of_You_One_Fewer_Under_Doton" xml:space="preserve">
-    <value>名敌人在自身5米内（站在土遁中时少一名）</value>
+    <value>名敌人在自身5米内（站在土遁之术中时少一名）</value>
   </data>
   <data name="Ninja_Content_Use_Katon" xml:space="preserve">
-    <value>敌人数量达到以下值时使用火遁代替雷遁</value>
+    <value>敌人数量达到以下值时使用火遁之术代替雷遁之术</value>
   </data>
   <data name="Ninja_Text_Enemies_Within_5_Of_Target" xml:space="preserve">
     <value>名敌人在目标5米内</value>
   </data>
   <data name="Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton" xml:space="preserve">
-    <value>名敌人在目标5米内（敌人站在土遁中时少一名）</value>
+    <value>名敌人在目标5米内（敌人站在土遁之术中时少一名）</value>
   </data>
   <data name="Ninja_Content_Use_Doton" xml:space="preserve">
-    <value>敌人数量达到以下值时使用土遁</value>
+    <value>敌人数量达到以下值时使用土遁之术</value>
   </data>
   <data name="Ninja_Text_Enemies_Within_5_Of_Target_Standing_Still" xml:space="preserve">
     <value>名敌人在目标5米内且没有移动</value>
   </data>
   <data name="Ninja_Content_Use_Huton" xml:space="preserve">
-    <value>敌人数量达到以下值时使用风遁代替水遁获得残影</value>
+    <value>敌人数量达到以下值时使用风遁之术代替水遁之术获得忍隐</value>
   </data>
   <data name="Ninja_Text_Enemies_Within_5_Of_You" xml:space="preserve">
     <value>名敌人在自身5米内</value>
   </data>
   <data name="Ninja_Content_Use_GokaMekkyaku" xml:space="preserve">
-    <value>敌人数量达到以下值时使用劫火灭却代替冰晶乱流</value>
+    <value>敌人数量达到以下值时使用劫火灭却之术代替冰晶乱流之术</value>
   </data>
   <data name="Ninja_Content_Use_PhantomKamaitachi" xml:space="preserve">
     <value>残影镰鼬</value>
