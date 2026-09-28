@@ -381,16 +381,26 @@ namespace Magitek.Logic.Summoner
                 || Core.Me.SummonedPet() == SmnPets.Phoenix)
                 return false;
 
-            if ((SmnResources.ActivePet == SmnResources.ActivePetType.Garuda
-                || SmnResources.ActivePet == SmnResources.ActivePetType.Titan)
-                && SmnResources.ElementalAttunement > 0)
+            // Energy Drain and Energy Siphon re-grant Further Ruin without checking it, and a demi
+            // outranks Ruin IV: once the refresh or the buff's expiry is two GCDs away, a held Ruin IV
+            // goes out whatever is attuned rather than being lost.
+            var twoGcdMs = 2 * GlobalCooldown.AdjustedCooldownMs;
+            var furtherRuinAtRisk = Spells.EnergyDrain.Cooldown.TotalMilliseconds <= twoGcdMs
+                || !Core.Me.HasAura(Auras.FurtherRuin, true, (int)twoGcdMs);
+
+            // Titan's and Garuda's attunement spells are all instant, so there is no movement for
+            // Ruin IV to cover there: keep it for the Ifrit phase.
+            if (!furtherRuinAtRisk
+                && (AttunedGem == SmnResources.ActivePetType.Garuda
+                    || AttunedGem == SmnResources.ActivePetType.Titan))
                 return false;
 
             // While moving in an Ifrit phase, Ruby stacks are unspendable (Ruby Rite is a hardcast),
             // so Ruin IV is the guide-prescribed buffer at ANY stack count. The old attunement > 1
             // clause only ever had effect while moving — exactly when Ruin IV was the only castable
             // GCD — and stalled the whole routine at the start of an Ifrit phase.
-            if (SmnResources.ActivePet == SmnResources.ActivePetType.Ifrit
+            if (!furtherRuinAtRisk
+                && AttunedGem == SmnResources.ActivePetType.Ifrit
                 && !MovementManager.IsMoving)
                 return false;
 

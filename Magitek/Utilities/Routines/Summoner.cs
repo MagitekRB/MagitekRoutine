@@ -22,6 +22,12 @@ namespace Magitek.Utilities.Routines
         // RB hands it back unmasked - two Ruby stacks read 9, one reads 5 - so read stacks here.
         public static int AttunementStacks => ActionResourceManager.Summoner.ElementalAttunement >> 2;
 
+        // The gem attuned right now, from the same byte: 1 Ifrit, 2 Titan, 3 Garuda - the order of
+        // RB's ActivePetType. RB's own ActivePet reads the demi cycle (which demi is out or comes
+        // next), not the attuned gem.
+        public static ActionResourceManager.Summoner.ActivePetType AttunedGem =>
+            (ActionResourceManager.Summoner.ActivePetType)(ActionResourceManager.Summoner.ElementalAttunement & 3);
+
         /// <summary>
         /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
         /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
