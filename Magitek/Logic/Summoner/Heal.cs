@@ -204,12 +204,15 @@ namespace Magitek.Logic.Summoner
                 return false;
 
             // Expiry dump: the heal is free and the charge is about to vanish, so spend it
-            // regardless of anyone's health rather than let it expire unused. ExpiringWithin,
-            // not a negated HasAura(msLeft): the client reports a fresh aura's time left as its
-            // NEGATED full duration on the first sample (-30s for Refulgent Lux), which read as
-            // "under 4s left" and fired Lux the instant Solar Bahamut landed - 13/13 casts in the
-            // field, 0.1-1.3s after the summon. ExpiringWithin requires a non-negative reading.
-            if (Core.Me.HasAuraExpiringWithin(Auras.RefulgentLux, msRemaining: 4000))
+            // regardless of anyone's health rather than let it expire unused. Never on a fresh
+            // charge: for about a second after Solar Bahamut lands, the charge's time left reads
+            // wrong and can pass for one about to expire (13/13 field casts once came 0.1-1.3s
+            // after the summon). The charge lasts 30s from the summon, whose 60s recast (shortened
+            // by spell speed) then still has well over 50s to run, while in the charge's last 4s it
+            // has 34s or less. So the dump also waits until the recast is down to 45s, about when
+            // the demi leaves, which a fresh charge cannot reach whatever its time left reads.
+            if (Utilities.Routines.Summoner.DemiSummonCooldownMs <= 45000
+                && Core.Me.HasAuraExpiringWithin(Auras.RefulgentLux, msRemaining: 4000))
                 return await Spells.LuxSolaris.Cast(Core.Me);
 
             if (Globals.InParty)
