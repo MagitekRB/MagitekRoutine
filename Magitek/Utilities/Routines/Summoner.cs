@@ -197,6 +197,19 @@ namespace Magitek.Utilities.Routines
             }
         }
 
+        // Carbuncle, not the player, applies Radiant Aegis, so the shield shows up to about 0.9s
+        // after the press (field-measured over 23 presses). Until then both Radiant Aegis paths
+        // would read "no shield" and spend the second charge on top of the first, so a press in
+        // the last 2s counts as the shield being up: one already confirmed into the cast history,
+        // or one still waiting for that confirmation, which can come a pulse or two late.
+        public static bool RadiantAegisUpOrLanding =>
+            Core.Me.HasAura(Auras.RadiantAegis)
+            || Casting.SpellCastHistory.Any(s => s.Spell == Spells.RadiantAegis
+                                              && DateTime.UtcNow - s.TimeCastUtc < TimeSpan.FromMilliseconds(2000))
+            || (Casting.CastingSpell == Spells.RadiantAegis
+                && Casting.CastingTime.IsRunning
+                && Casting.CastingTime.ElapsedMilliseconds < 2000);
+
         public static bool NeedToInterruptCast()
         {
 

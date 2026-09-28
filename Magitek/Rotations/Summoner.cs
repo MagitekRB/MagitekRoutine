@@ -51,7 +51,10 @@ namespace Magitek.Rotations
             // against exactly the enemies (duel Villains, damage-type immunity) whose
             // mechanics most need answering.
             if (await MagicDps.FightLogic_Addle(SummonerSettings.Instance)) return true;
-            if (await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
+            // Not while a Radiant Aegis from the heal path is still on its way from Carbuncle:
+            // the aura check inside only sees the shield once it lands.
+            if (!Utilities.Routines.Summoner.RadiantAegisUpOrLanding
+                && await CommonFightLogic.FightLogic_SelfShield(SummonerSettings.Instance.FightLogicRadiantAegis, Spells.RadiantAegis, true, Auras.RadiantAegis)) return true;
             if (await CommonFightLogic.FightLogic_Knockback(SummonerSettings.Instance.FightLogicKnockback, Spells.Surecast, true, aura: Auras.Surecast)) return true;
 
             return false;

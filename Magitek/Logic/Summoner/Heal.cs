@@ -171,7 +171,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.RadiantAegis.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.RadiantAegis))
+            if (Utilities.Routines.Summoner.RadiantAegisUpOrLanding)
                 return false;
 
             if (Core.Me.CurrentHealthPercent >= SummonerSettings.Instance.RadiantAegisHPThreshold)
@@ -186,7 +186,10 @@ namespace Magitek.Logic.Summoner
             if (!Combat.Enemies.All(x => x.TargetCharacter == Core.Me && x.IsCasting))
                 return false;
 
-            return await Spells.RadiantAegis.CastAura(Core.Me, Auras.RadiantAegis);
+            // Cast, not CastAura: CastAura then waits up to 3s for the shield with the player as
+            // its caster, but Carbuncle is the caster, so every press here parked the whole
+            // rotation for the full 3s - 37.7s without a GCD in one dungeon run.
+            return await Spells.RadiantAegis.Cast(Core.Me);
         }
 
         public static async Task<bool> LuxSolaris()
