@@ -381,16 +381,32 @@ namespace Magitek.Logic.Summoner
                 || Core.Me.SummonedPet() == SmnPets.Phoenix)
                 return false;
 
-            // Energy Drain and Energy Siphon re-grant Further Ruin without checking it, and a demi
-            // outranks Ruin IV: once the refresh or the buff's expiry is two GCDs away, a held Ruin IV
-            // goes out whatever is attuned rather than being lost.
-            var twoGcdMs = 2 * GlobalCooldown.AdjustedCooldownMs;
-            var furtherRuinAtRisk = Spells.EnergyDrain.Cooldown.TotalMilliseconds <= twoGcdMs
-                || !Core.Me.HasAura(Auras.FurtherRuin, true, (int)twoGcdMs);
+            // A held Further Ruin is lost two ways: Energy Drain and Energy Siphon re-grant it without
+            // checking it (their 60s recast matches the buff's 60s, so refresh and expiry come
+            // together), and the next demi summon takes the first free GCD after an attunement and
+            // blocks Ruin IV for its 15s - carried through the demi, the refresh falls due around the
+            // next Ifrit phase's opening GCDs, which outrank Ruin IV. Either recast three GCDs away
+            // releases the hold; with two, the warning came after the last slot Ruin IV could win
+            // whenever the demi, Crimson Cyclone/Strike or a heal took them. Both are read from
+            // recasts, not from the buff, whose reading is wrong for about a second after each grant
+            // and broke the hold on the GCD right after Energy Drain.
+            var gcdMs = GlobalCooldown.AdjustedCooldownMs;
+            var refreshDue = Spells.EnergyDrain.Cooldown.TotalMilliseconds <= 3 * gcdMs;
+
+            // Only a demi the rotation will summon counts: with its toggle off the ready recast takes
+            // no slot, and below Summon Bahamut the trance keeps Carbuncle out, where Ruin IV still
+            // goes out ahead of the trance's spells.
+            var nextDemiEnabled = SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Phoenix)
+                ? SummonerSettings.Instance.SummonPhoenix
+                : SummonerSettings.Instance.SummonBahamut;
+            var demiCooldownMs = Spells.SummonBahamut.IsKnown() && nextDemiEnabled
+                ? DemiSummonCooldownMs
+                : double.MaxValue;
 
             // Titan's and Garuda's attunement spells are all instant, so there is no movement for
             // Ruin IV to cover there: keep it for the Ifrit phase.
-            if (!furtherRuinAtRisk
+            if (!refreshDue
+                && demiCooldownMs > 3 * gcdMs
                 && (AttunedGem == SmnResources.ActivePetType.Garuda
                     || AttunedGem == SmnResources.ActivePetType.Titan))
                 return false;
@@ -398,8 +414,14 @@ namespace Magitek.Logic.Summoner
             // While moving in an Ifrit phase, Ruby stacks are unspendable (Ruby Rite is a hardcast),
             // so Ruin IV is the guide-prescribed buffer at ANY stack count. The old attunement > 1
             // clause only ever had effect while moving — exactly when Ruin IV was the only castable
-            // GCD — and stalled the whole routine at the start of an Ifrit phase.
-            if (!furtherRuinAtRisk
+            // GCD — and stalled the whole routine at the start of an Ifrit phase. A due demi releases
+            // it only on the last Ruby stack: the rotation does not summon the demi until the
+            // attunement ends (the gem-timer gate in Pets.cs), so until then the hold keeps covering
+            // movement - if that gate changes, drop the last-stack condition. The lead there is two
+            // and a half GCDs, not three: when a filler GCD still comes before the demi, Ruin IV
+            // waits for it, so the last Ruby Rite keeps its movement cover.
+            if (!refreshDue
+                && !(AttunementStacks <= 1 && demiCooldownMs <= 2.5 * gcdMs)
                 && AttunedGem == SmnResources.ActivePetType.Ifrit
                 && !MovementManager.IsMoving)
                 return false;

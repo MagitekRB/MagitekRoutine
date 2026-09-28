@@ -132,13 +132,8 @@ namespace Magitek.Logic.Summoner
             // seconds of ready -> hold for it; no demi in sight (desynced, downtime recovery) ->
             // cast on cooldown, because staying aligned with the party's two-minute buffs outranks
             // our own placement. The gauge's summon timer is no demi signal: it also runs for 4-8s
-            // after every egi summon. The longest recast among the known summons is read, in case
-            // one of them is tracked apart from the one on the button.
-            var summonCooldownMs = new[] { Spells.SummonSolarBahamut, Spells.SummonBahamut, Spells.SummonPhoenix, Spells.DreadwyrmTrance, Spells.Aethercharge }
-                .Where(s => s.IsKnown())
-                .Select(s => s.Cooldown.TotalMilliseconds)
-                .DefaultIfEmpty(0)
-                .Max();
+            // after every egi summon.
+            var summonCooldownMs = DemiSummonCooldownMs;
 
             // Ready counts as imminent too — field-observed: with the summon at zero the
             // buff went out 3.8s before the demi. But a ready summon can also sit parked

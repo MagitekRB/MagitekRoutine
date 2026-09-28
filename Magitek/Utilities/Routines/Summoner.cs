@@ -86,6 +86,17 @@ namespace Magitek.Utilities.Routines
 
         private const int DemiImminentMs = 5000;
 
+        // Milliseconds until the next demi summon is off recast, 0 once it is ready. The demis,
+        // Dreadwyrm Trance and Aethercharge share one recast (60s, shortened by spell speed); the
+        // longest recast among the known summons is read, in case one of them is tracked apart from
+        // the one on the button.
+        public static double DemiSummonCooldownMs =>
+            new[] { Spells.SummonSolarBahamut, Spells.SummonBahamut, Spells.SummonPhoenix, Spells.DreadwyrmTrance, Spells.Aethercharge }
+                .Where(s => s.IsKnown())
+                .Select(s => s.Cooldown.TotalMilliseconds)
+                .DefaultIfEmpty(0)
+                .Max();
+
         /// <summary>
         /// Reports SMN burst windows to the state bus. Called every combat pulse via
         /// RoutineState.Pulse() — deliberately not from the SMN rotation, which can be
