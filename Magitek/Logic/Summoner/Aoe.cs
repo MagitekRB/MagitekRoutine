@@ -99,6 +99,13 @@ namespace Magitek.Logic.Summoner
             var targetNeedsHealing = Group.CastableAlliesWithin30
                 .FirstOrDefault(x => x.CurrentHealthPercent < SummonerSettings.Instance.RekindleHPThreshold);
 
+            // Solo the ally lists are empty (they are built from the party roster), so the search
+            // above never finds us: check our own health, as Physick and Lux Solaris do out of party.
+            if (targetNeedsHealing == null
+                && !Globals.InParty
+                && Core.Me.CurrentHealthPercent < SummonerSettings.Instance.RekindleHPThreshold)
+                targetNeedsHealing = Core.Me;
+
             if (targetNeedsHealing == null)
                 return false;
 
