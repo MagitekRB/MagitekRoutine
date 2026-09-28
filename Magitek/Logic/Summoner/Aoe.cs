@@ -124,7 +124,7 @@ namespace Magitek.Logic.Summoner
 
             // No attunement gate: the game's only precondition is Ifrit's Favor, and the
             // guides' buff-window sequence opens the phase with the dash before the Rites
-            // (Crimson Cyclone -> Crimson Strike -> Swiftcast -> Ruby Rite). Holding it
+            // (Crimson Cyclone -> Crimson Strike -> Ruby Rites). Holding it
             // behind spent Rubies was an invented ordering.
             var target = Combat.SmartAoeTarget(Spells.CrimsonCyclone, SummonerSettings.Instance.SmartAoe);
 

@@ -46,11 +46,14 @@ namespace Magitek.Logic.Summoner
                                                             u.InLineOfSight() &&
                                                             u.IsTargetable);
 
-                    // While moving, remaining stacks are no reason to hardcast: the 2.8s cast
-                    // cannot complete and the whole chain dead-ends until movement stops.
+                    // Standing still both Rites are hardcast: two hardcast Rites leave no weave slot
+                    // between them, so a Swiftcast there only delays the next Rite by its animation
+                    // lock and spends the charge kept for raises. While moving the 2.8s cast cannot
+                    // complete and the whole chain dead-ends until movement stops, so Swiftcast
+                    // rescues the last stack, and any stack with SwiftRubyRiteWhileMoving.
                     // Swiftcast-for-movement is the guides' second priority for the charge.
-                    var stacksForceHardcast = SmnResources.ElementalAttunement > 1
-                        && !(SummonerSettings.Instance.SwiftRubyRiteWhileMoving && ff14bot.Managers.MovementManager.IsMoving);
+                    var stacksForceHardcast = !ff14bot.Managers.MovementManager.IsMoving
+                        || (AttunementStacks > 1 && !SummonerSettings.Instance.SwiftRubyRiteWhileMoving);
 
                     if (anyDead || stacksForceHardcast ||
                         !SummonerSettings.Instance.SwiftRubyRite)

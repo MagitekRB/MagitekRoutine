@@ -17,6 +17,11 @@ namespace Magitek.Utilities.Routines
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Summoner, Spells.Ruin);
 
+        // The gauge byte RB returns as ElementalAttunement is packed on the current client: the
+        // attuned gem in bits 0-1, the stacks left in bits 2-7 (FFXIVClientStructs SummonerGauge).
+        // RB hands it back unmasked - two Ruby stacks read 9, one reads 5 - so read stacks here.
+        public static int AttunementStacks => ActionResourceManager.Summoner.ElementalAttunement >> 2;
+
         /// <summary>
         /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
         /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
