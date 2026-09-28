@@ -28,6 +28,11 @@ namespace Magitek.Utilities.Routines
         public static ActionResourceManager.Summoner.ActivePetType AttunedGem =>
             (ActionResourceManager.Summoner.ActivePetType)(ActionResourceManager.Summoner.ElementalAttunement & 3);
 
+        // What RB calls ActivePet is the demi cycle (FFXIVClientStructs AetherFlags bits 2-3: 0 Bahamut,
+        // 1 Phoenix, 2 and 3 the two Solar Bahamuts), advancing as each demi ends - so between demis it
+        // names the next one. RB's AvailablePets Phoenix flag reads a bit the game no longer sets.
+        public static bool PhoenixIsNext => (int)ActionResourceManager.Summoner.ActivePet == 1;
+
         /// <summary>
         /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
         /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
@@ -128,16 +133,12 @@ namespace Magitek.Utilities.Routines
             // Dreadwyrm Trance gates (TranceTimer > 0 with Carbuncle out): if
             // TranceTimer were the attunement timer it would read 0 during a
             // trance and those gates could never have fired.
-            // ASSUMPTIONS — per-field values were never sampled in combat, only
-            // the Max was ever logged: that TranceTimer stays 0 through gem
-            // phases and runs through 70+ demis both come from the mapping
-            // above. A wrong mapping fails toward a MISSED report (a defensive
-            // weaving during burst), never toward the false report this
-            // replaces, because the pet conjunct below blocks the gem half
-            // regardless: a gem phase keeps its egi out essentially phase-long
-            // (field-observed, with rare ~1s Carbuncle/None blips), and the pet
-            // id can lag a spawn by a pulse or two at any phase edge — again
-            // only ever dropping a report.
+            // MEASURED since (ACT gauge, 2026-09-27/28): TranceTimer runs 15000
+            // through every demi, and also reads 8000 at every egi summon and runs
+            // for the 6-8s the egi is out, reaching 0 as Carbuncle returns. The
+            // pet conjunct below keeps that egi stretch out of the report (the
+            // egi, not a demi, is out then), and the pet id can lag a spawn by a
+            // pulse or two at any phase edge — which only ever drops a report.
             // The no-demi-pet clause exists ONLY for Dreadwyrm Trance (58-69),
             // the one band where a trance is legitimately petless. At 70+ it is
             // disabled (!SummonBahamut known): in a full field-validation run

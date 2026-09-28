@@ -27,10 +27,10 @@ namespace Magitek.Logic.Summoner
             if (Spells.SummonBahamut.IsKnown())
                 return false;
 
-            if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
-                return false;
-
-            if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
+            // Like the demis: only the summon timer (a primal still out), never the gem attunement
+            // timer, and no pet check - the game refuses the press until Carbuncle is back. The
+            // trance re-grants all three gems; the guides take the lost leftover stacks over a late trance.
+            if (SmnResources.TranceTimer > 0)
                 return false;
 
             if (Combat.CombatTotalTimeLeft < 15)
@@ -136,8 +136,9 @@ namespace Magitek.Logic.Summoner
             var summonCooldownMs = DemiSummonCooldownMs;
 
             // Ready counts as imminent too — field-observed: with the summon at zero the
-            // buff went out 3.8s before the demi. But a ready summon can also sit parked
-            // behind leftover gem phases for tens of seconds, so the hold is BOUNDED:
+            // buff went out 3.8s before the demi. But a ready summon can also sit parked -
+            // behind an egi still on the field, a switched-off demi or the end-of-pull
+            // throttle - so the hold is BOUNDED:
             // after a few seconds of waiting, alignment with the party's two-minute
             // buffs wins and the cast goes out anyway.
             if (summonCooldownMs <= 5000)

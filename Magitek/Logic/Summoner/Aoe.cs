@@ -390,21 +390,23 @@ namespace Magitek.Logic.Summoner
 
             // A held Further Ruin is lost two ways: Energy Drain and Energy Siphon re-grant it without
             // checking it (their 60s recast matches the buff's 60s, so refresh and expiry come
-            // together), and the next demi summon takes the first free GCD after an attunement and
-            // blocks Ruin IV for its 15s - carried through the demi, the refresh falls due around the
-            // next Ifrit phase's opening GCDs, which outrank Ruin IV. Either recast three GCDs away
-            // releases the hold; with two, the warning came after the last slot Ruin IV could win
+            // together), and the next demi summon, pressed as soon as it is ready and the primal has
+            // left the field, blocks Ruin IV for its 15s - carried through the demi, the refresh falls
+            // due around the next Ifrit phase's opening GCDs, which outrank Ruin IV. Either recast three
+            // GCDs away releases the hold; with two, the warning came after the last slot Ruin IV could win
             // whenever the demi, Crimson Cyclone/Strike or a heal took them. Both are read from
             // recasts, not from the buff, whose reading is wrong for about a second after each grant
             // and broke the hold on the GCD right after Energy Drain.
             var gcdMs = GlobalCooldown.AdjustedCooldownMs;
             var refreshDue = Spells.EnergyDrain.Cooldown.TotalMilliseconds <= 3 * gcdMs;
 
-            // Only a demi the rotation will summon counts: with its toggle off the ready recast takes
+            // Only a demi the rotation can summon counts: with its toggle off the ready recast takes
             // no slot, and below Summon Bahamut the trance keeps Carbuncle out, where Ruin IV still
-            // goes out ahead of the trance's spells.
-            var nextDemiEnabled = SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Phoenix)
-                ? SummonerSettings.Instance.SummonPhoenix
+            // goes out ahead of the trance's spells. A demi held back by the end-of-pull throttle
+            // still counts, which only spends Further Ruin before the pull ends.
+            // On a Phoenix turn the Summon Bahamut button casts Phoenix too, so either toggle summons it.
+            var nextDemiEnabled = PhoenixIsNext
+                ? SummonerSettings.Instance.SummonPhoenix || SummonerSettings.Instance.SummonBahamut
                 : SummonerSettings.Instance.SummonBahamut;
             var demiCooldownMs = Spells.SummonBahamut.IsKnown() && nextDemiEnabled
                 ? DemiSummonCooldownMs
@@ -422,13 +424,10 @@ namespace Magitek.Logic.Summoner
             // so Ruin IV is the guide-prescribed buffer at ANY stack count. The old attunement > 1
             // clause only ever had effect while moving — exactly when Ruin IV was the only castable
             // GCD — and stalled the whole routine at the start of an Ifrit phase. A due demi releases
-            // it only on the last Ruby stack: the rotation does not summon the demi until the
-            // attunement ends (the gem-timer gate in Pets.cs), so until then the hold keeps covering
-            // movement - if that gate changes, drop the last-stack condition. The lead there is two
-            // and a half GCDs, not three: when a filler GCD still comes before the demi, Ruin IV
-            // waits for it, so the last Ruby Rite keeps its movement cover.
+            // it here too, at any stack count: the demi is summoned as soon as Ifrit has left the field,
+            // Rubies or not, and blocks Ruin IV for its 15s.
             if (!refreshDue
-                && !(AttunementStacks <= 1 && demiCooldownMs <= 2.5 * gcdMs)
+                && demiCooldownMs > 3 * gcdMs
                 && AttunedGem == SmnResources.ActivePetType.Ifrit
                 && !MovementManager.IsMoving)
                 return false;
