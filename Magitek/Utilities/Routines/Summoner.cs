@@ -21,8 +21,8 @@ namespace Magitek.Utilities.Routines
         /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
         /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
         /// hardcast-only state, or the GCD toggles switched off — every oGCD behind it is locked out
-        /// for the duration. Once the last action finished long enough ago that the GCD is clearly
-        /// stalled rather than rolling, let oGCDs fire anyway.
+        /// for the duration. Once a Combat() pass has tried every GCD with the GCD ready and cast none,
+        /// and the last action finished long enough ago, let oGCDs fire anyway.
         /// </summary>
         public static bool CanWeave()
         {
@@ -36,7 +36,37 @@ namespace Magitek.Utilities.Routines
             if (Spells.Ruin.Cooldown > System.TimeSpan.Zero || Core.Me.IsCasting)
                 return false;
 
+            // Ready is not stalled: after an instant GCD with nothing woven the age is already past
+            // 1750ms on the pulse the GCD comes back, and an oGCD ordered ahead of the GCDs in
+            // Combat() took that pulse and pushed a castable spell back by its animation lock.
+            // Only a Combat() pass that tried every GCD and cast none proves the stall.
+            if (!gcdStalledLastPass)
+                return false;
+
             return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
+        }
+
+        // Set by NoteGcdStall() at the end of a Combat() pass that cast nothing, and moved into
+        // gcdStalledLastPass when the next pass begins: the fallback above reads the previous pass's
+        // verdict at any tick rate, and a pass that casts or returns early leaves it shut.
+        private static bool gcdStallPending;
+        private static bool gcdStalledLastPass;
+
+        public static void BeginCombatPass()
+        {
+            gcdStalledLastPass = gcdStallPending;
+            gcdStallPending = false;
+        }
+
+        /// <summary>
+        /// Called at the end of Combat() once every GCD has declined. Counts only with the GCD ready
+        /// and the target inside spell range, so a rolling recast, or a target still being walked up
+        /// to, never opens the stall fallback.
+        /// </summary>
+        public static void NoteGcdStall()
+        {
+            if (Spells.Ruin.Cooldown <= TimeSpan.Zero && Core.Me.CurrentTarget.WithinSpellRange(Spells.Ruin.Range))
+                gcdStallPending = true;
         }
 
         // Stamps when Searing Light first found the demi summon ready-or-imminent and

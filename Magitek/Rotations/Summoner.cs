@@ -59,6 +59,10 @@ namespace Magitek.Rotations
 
         public static async Task<bool> Combat()
         {
+            // First, before any early return: the weave gate's stall fallback reads the verdict of
+            // the previous pass, so a pass that stops here clears it.
+            Utilities.Routines.Summoner.BeginCombatPass();
+
             // Every other job opens Combat() with this; Summoner instead hand-checked Magic
             // Resistance alone, which is only one of the ways a target can be immune to us.
             // ThoroughCanAttack covers that same status (942 is in
@@ -94,7 +98,12 @@ namespace Magitek.Rotations
             if (await SingleTarget.Fester()) return true;
             if (await Aoe.Ruin4()) return true;
             if (await Aoe.Outburst()) return true;
-            return await SingleTarget.Ruin();
+            if (await SingleTarget.Ruin()) return true;
+
+            // Every GCD above declined: tell the weave gate's stall fallback that the GCD is stuck
+            // (moving through a hardcast phase, Silence, GCDs switched off), not merely ready.
+            Utilities.Routines.Summoner.NoteGcdStall();
+            return false;
         }
 
         public static async Task<bool> PvP()
