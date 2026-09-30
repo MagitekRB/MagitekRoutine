@@ -2158,6 +2158,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("BeastMaster_Content_Instinctual", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Optimized chain: the Trick keeps a live chain going instead of the 250 TP finisher taking the window (more damage; Universality only when no pair can continue).
+        /// </summary>
+        public static string BeastMaster_Content_Optimized_Chain {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Optimized_Chain", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Resummon before a pull for a fresh Tempered Release when an enemy is within.
@@ -2165,6 +2174,15 @@ namespace Magitek.Properties {
         public static string BeastMaster_Content_Away_Reset {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Away_Reset", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Pick the next battlehorn by what its beast brings to the fight (Tempered Release, chain fit, health); off, slot order.
+        /// </summary>
+        public static string BeastMaster_Content_Battlehorn_Scoring {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Battlehorn_Scoring", resourceCulture);
             }
         }
         
@@ -2399,6 +2417,15 @@ namespace Magitek.Properties {
         public static string BeastMaster_Content_Crucible_Snarl_Player {
             get {
                 return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snarl whatever it costs the beast when you are at or below.
+        /// </summary>
+        public static string BeastMaster_Content_Crucible_Snarl_LastResort {
+            get {
+                return ResourceManager.GetString("BeastMaster_Content_Crucible_Snarl_LastResort", resourceCulture);
             }
         }
         
@@ -8715,6 +8742,15 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assassinate / Dream Within A Dream.
         /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Death Blossom and Hakke Mujinsatsu instead of the single-target combo when there are.
+        /// </summary>
+        public static string Ninja_Content_Use_AoeCombo {
+            get {
+                return ResourceManager.GetString("Ninja_Content_Use_AoeCombo", resourceCulture);
+            }
+        }
+
         public static string Ninja_Content_Use_Assassinate {
             get {
                 return ResourceManager.GetString("Ninja_Content_Use_Assassinate", resourceCulture);
@@ -8742,6 +8778,24 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hellfrog Medium.
         /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Doton when there are.
+        /// </summary>
+        public static string Ninja_Content_Use_Doton {
+            get {
+                return ResourceManager.GetString("Ninja_Content_Use_Doton", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Goka Mekkyaku instead of Hyosho Ranryu when there are.
+        /// </summary>
+        public static string Ninja_Content_Use_GokaMekkyaku {
+            get {
+                return ResourceManager.GetString("Ninja_Content_Use_GokaMekkyaku", resourceCulture);
+            }
+        }
+
         public static string Ninja_Content_Use_HellfrogMedium {
             get {
                 return ResourceManager.GetString("Ninja_Content_Use_HellfrogMedium", resourceCulture);
@@ -8751,6 +8805,15 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kassatsu.
         /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Huton instead of Suiton for Shadow Walker when there are.
+        /// </summary>
+        public static string Ninja_Content_Use_Huton {
+            get {
+                return ResourceManager.GetString("Ninja_Content_Use_Huton", resourceCulture);
+            }
+        }
+
         public static string Ninja_Content_Use_Kassatsu {
             get {
                 return ResourceManager.GetString("Ninja_Content_Use_Kassatsu", resourceCulture);
@@ -8760,6 +8823,15 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Meisui.
         /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Katon instead of Raiton when there are.
+        /// </summary>
+        public static string Ninja_Content_Use_Katon {
+            get {
+                return ResourceManager.GetString("Ninja_Content_Use_Katon", resourceCulture);
+            }
+        }
+
         public static string Ninja_Content_Use_Meisui {
             get {
                 return ResourceManager.GetString("Ninja_Content_Use_Meisui", resourceCulture);
@@ -8837,6 +8909,15 @@ namespace Magitek.Properties {
                 return ResourceManager.GetString("Ninja_Text_but_do_Not_Use_If_Enemy_Is_Dying_Within", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Dokumori waits up to.
+        /// </summary>
+        public static string Ninja_Text_Dokumori_Waits_Up_To {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Dokumori_Waits_Up_To", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Enemies Around.
@@ -8850,9 +8931,63 @@ namespace Magitek.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enemies (one more under Meisui).
         /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to These fire only while the routine's AoE switch is on.
+        /// </summary>
+        public static string Ninja_Text_Aoe_Tab_Header {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Aoe_Tab_Header", resourceCulture);
+            }
+        }
+
         public static string Ninja_Text_Enemies_One_More_Under_Meisui {
             get {
                 return ResourceManager.GetString("Ninja_Text_Enemies_One_More_Under_Meisui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enemies within 5 yalms of the target.
+        /// </summary>
+        public static string Ninja_Text_Enemies_Within_5_Of_Target {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_Within_5_Of_Target", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enemies within 5 yalms of the target and nothing is moving.
+        /// </summary>
+        public static string Ninja_Text_Enemies_Within_5_Of_Target_Standing_Still {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_Within_5_Of_Target_Standing_Still", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enemies within 5 yalms of the target (one fewer while they stand in Doton).
+        /// </summary>
+        public static string Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_Within_5_Of_Target_One_Fewer_Under_Doton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enemies within 5 yalms of you.
+        /// </summary>
+        public static string Ninja_Text_Enemies_Within_5_Of_You {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_Within_5_Of_You", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enemies within 5 yalms of you (one fewer while standing in Doton).
+        /// </summary>
+        public static string Ninja_Text_Enemies_Within_5_Of_You_One_Fewer_Under_Doton {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Enemies_Within_5_Of_You_One_Fewer_Under_Doton", resourceCulture);
             }
         }
         
@@ -8880,6 +9015,15 @@ namespace Magitek.Properties {
         public static string Ninja_Text_Seconds_Before_Trick_Attack {
             get {
                 return ResourceManager.GetString("Ninja_Text_Seconds_Before_Trick_Attack", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Suiton up to.
+        /// </summary>
+        public static string Ninja_Text_Suiton_Up_To {
+            get {
+                return ResourceManager.GetString("Ninja_Text_Suiton_Up_To", resourceCulture);
             }
         }
         

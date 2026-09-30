@@ -188,6 +188,7 @@ namespace Magitek.Utilities
             TrickAttack = 3254,
             KunaisBane = 3906,
             VulnerabilityUp = 638,
+            PhysicalVulnerabilityUp = 5180,
             FlourshingCascade = 1814,
             FlourishingFountain = 1815,
             FlourshingWindmill = 1816,
