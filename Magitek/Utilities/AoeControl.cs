@@ -19,24 +19,19 @@ namespace Magitek.Utilities
     {
         private static ushort _preparedTerritory;
 
-        /// <summary>Whether AoE rotation selection and area casts are currently allowed.</summary>
         public static bool Enabled
         {
             get => BaseSettings.Instance.EnableAoe && !RestrictedByBotbase;
             private set => BaseSettings.Instance.EnableAoe = value;
         }
 
-        /// <summary>Enables the saved AoE preference without overriding a botbase restriction.</summary>
         public static void Enable() => Enabled = true;
 
-        /// <summary>Disables the saved AoE preference.</summary>
         public static void Disable() => Enabled = false;
 
-        /// <summary>Toggles the saved preference, even while a botbase temporarily suppresses AoE.</summary>
+        // Toggle the saved preference, not the temporarily restricted value.
         public static void Toggle() => Enabled = !BaseSettings.Instance.EnableAoe;
 
-        /// <summary>Updates the saved AoE preference without changing botbase restrictions.</summary>
-        /// <param name="enabled">Whether the user permits AoE rotation selection.</param>
         public static void Set(bool enabled) => Enabled = enabled;
 
         private static bool RestrictedByBotbase => !WorldManager.InPvP

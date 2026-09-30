@@ -58,27 +58,21 @@ namespace Magitek
         }
 
         /// <summary>
-        /// Reports jobs whose PvE offensive actions honor an explicit AoE-disallowed
-        /// capability, including splash finishers and masked action replacements.
-        /// Uses the same AoE control as the routine's global toggle.
+        /// Reports whether a job's PvE casts honor the botbase's AoE restriction.
         /// </summary>
         /// <param name="job">The job the caller plans to use; no live game read occurs.</param>
         /// <returns>True for the 21 normal combat jobs covered by AoE control.</returns>
         /// <remarks>
-        /// Callers still own target order and must acquire CapabilityFlags.Aoe before
-        /// engaging protected enemies. Single-target healing/support remain available;
-        /// area actions, offensive summons and retaliation wait for lease release.
-        /// This cannot undo an effect cast before acquisition, and does not cover PvP
-        /// or actions issued outside this routine. Masked procs may wait for expiry.
+        /// Callers own target order and must disallow CapabilityFlags.Aoe before combat.
+        /// This covers Magitek casts, not existing effects, external actions or PvP.
         /// </remarks>
         public bool SupportsStrictAoeSuppression(ClassJobType job) => AoeControl.Supports(job);
 
         /// <summary>Prevents lasting damage effects before an ordered Variant pack is approached.</summary>
         /// <param name="territory">Variant territory to prepare, or zero to release preparation.</param>
         /// <remarks>
-        /// Call from the bot thread at profile entry, including recovery. Ordinary AoE
-        /// remains available until the encounter acquires its AoE capability lease.
-        /// Stop and routine shutdown release preparation without changing saved settings.
+        /// Call on the bot thread at entry/recovery. Ordinary AoE remains available;
+        /// stop and shutdown clear preparation without changing saved settings.
         /// </remarks>
         public void PrepareStrictAoeSuppression(ushort territory) => AoeControl.Prepare(territory);
 
