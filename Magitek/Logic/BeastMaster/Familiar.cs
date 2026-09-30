@@ -133,7 +133,8 @@ namespace Magitek.Logic.BeastMaster
         // Duty actions bypass the routine's known-spell gate: castable now is the only test the client offers.
         private static bool CastDutyAction(ff14bot.Objects.SpellData spell, ff14bot.Objects.GameObject target)
         {
-            if (!ActionManager.CanCast(spell, target))
+            // Duty actions bypass spell extensions but still obey the AoE switch.
+            if (!AoeControl.Allows(spell, target) || !ActionManager.CanCast(spell, target))
                 return false;
 
             if (!ActionManager.DoAction(spell, target))

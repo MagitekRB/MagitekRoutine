@@ -170,6 +170,10 @@ namespace Magitek.Extensions
 
         private static bool Check(SpellData spell, GameObject target)
         {
+            // Healing and single-target rotations can also reach damaging AoEs.
+            if (!AoeControl.Allows(spell, target))
+                return false;
+
             if (spell == null)
                 return false;
 
@@ -243,6 +247,10 @@ namespace Magitek.Extensions
 
         public static bool CanCast(this SpellData spell, GameObject target)
         {
+            // Let priority lists fall through when the AoE switch blocks an action.
+            if (!AoeControl.Allows(spell, target))
+                return false;
+
             if (spell == null)
                 return false;
 
@@ -259,6 +267,9 @@ namespace Magitek.Extensions
 
         public static bool CanCast(this SpellData spell)
         {
+            if (!AoeControl.Allows(spell, Core.Me))
+                return false;
+
             if (spell == null)
                 return false;
 
@@ -417,6 +428,10 @@ namespace Magitek.Extensions
         public static bool IsReady(this SpellData spell, int remainingTimeInMs = 0)
         {
             if (spell == null)
+                return false;
+
+            // Do not hold safe attacks waiting for an AoE finisher that cannot run.
+            if (!AoeControl.Allows(spell, Core.Me))
                 return false;
 
             if (spell.MaxCharges > 1)

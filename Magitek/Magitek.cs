@@ -57,6 +57,31 @@ namespace Magitek
             }
         }
 
+        /// <summary>
+        /// Reports jobs whose PvE offensive actions honor an explicit AoE-disallowed
+        /// capability, including splash finishers and masked action replacements.
+        /// Uses the same AoE control as the routine's global toggle.
+        /// </summary>
+        /// <param name="job">The job the caller plans to use; no live game read occurs.</param>
+        /// <returns>True for the 21 normal combat jobs covered by AoE control.</returns>
+        /// <remarks>
+        /// Callers still own target order and must acquire CapabilityFlags.Aoe before
+        /// engaging protected enemies. Single-target healing/support remain available;
+        /// area actions, offensive summons and retaliation wait for lease release.
+        /// This cannot undo an effect cast before acquisition, and does not cover PvP
+        /// or actions issued outside this routine. Masked procs may wait for expiry.
+        /// </remarks>
+        public bool SupportsStrictAoeSuppression(ClassJobType job) => AoeControl.Supports(job);
+
+        /// <summary>Prevents lasting damage effects before an ordered Variant pack is approached.</summary>
+        /// <param name="territory">Variant territory to prepare, or zero to release preparation.</param>
+        /// <remarks>
+        /// Call from the bot thread at profile entry, including recovery. Ordinary AoE
+        /// remains available until the encounter acquires its AoE capability lease.
+        /// Stop and routine shutdown release preparation without changing saved settings.
+        /// </remarks>
+        public void PrepareStrictAoeSuppression(ushort territory) => AoeControl.Prepare(territory);
+
         public override void Initialize()
         {
             Logger.WriteInfo($"Initializing Version: {LocalVersion} ...");
@@ -256,6 +281,7 @@ namespace Magitek
 
         public void OnStop(BotBase bot)
         {
+            AoeControl.Prepare(0);
             OverlayManager.StopMainOverlay();
             OverlayManager.StopCombatMessageOverlay();
             OverlayManager.StopPvpAggroCountOverlay(); // Stop PvP overlay when bot stops
@@ -434,6 +460,7 @@ namespace Magitek
 
         public override void ShutDown()
         {
+            AoeControl.Prepare(0);
             // Stop overlays FIRST to prevent WPF resource errors from unloaded assembly
             try
             {

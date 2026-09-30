@@ -22,6 +22,15 @@ namespace Magitek.Logic
 
         public static async Task<bool> SpellQueueMethod()
         {
+            // A blocked queue otherwise reports success forever. Abandon that
+            // sequence so the rotation can choose an allowed single-target action.
+            if (SpellQueue.Any() && !AoeControl.Allows(SpellQueue.Peek().Spell, ff14bot.Core.Me))
+            {
+                SpellQueueStop();
+                NeedToDequeueSuccessfulCast = false;
+                return false;
+            }
+
             if (!InSpellQueue)
             {
                 Logger.WriteInfo("Starting Spell Queue");

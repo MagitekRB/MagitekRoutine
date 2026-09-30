@@ -21,6 +21,10 @@ namespace Magitek.Gambits.Actions
 
         public override async Task<bool> Execute(ObservableCollection<IGambitCondition> conditions)
         {
+            // Custom pet commands use PetManager directly, bypassing spell checks.
+            if (!global::Magitek.Utilities.AoeControl.Enabled)
+                return false;
+
             if (Core.Me.Pet == null)
                 return false;
 
