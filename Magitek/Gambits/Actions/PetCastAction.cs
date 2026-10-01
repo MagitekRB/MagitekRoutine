@@ -21,8 +21,9 @@ namespace Magitek.Gambits.Actions
 
         public override async Task<bool> Execute(ObservableCollection<IGambitCondition> conditions)
         {
-            // Custom pet commands use PetManager directly, bypassing spell checks.
-            if (!global::Magitek.Utilities.AoeControl.Enabled)
+            // Direct pet commands must honor the PvE capability restriction without
+            // letting a saved rotation preference interfere with PvP or support pets.
+            if (global::Magitek.Utilities.AoeControl.RestrictedByBotbase)
                 return false;
 
             if (Core.Me.Pet == null)

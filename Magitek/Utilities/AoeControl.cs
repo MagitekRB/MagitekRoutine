@@ -8,12 +8,12 @@ using Magitek.Models.Account;
 namespace Magitek.Utilities
 {
     /// <summary>
-    /// Controls AoE rotation selection and casting using one shared permission check.
+    /// Controls AoE rotation selection and temporary botbase casting restrictions.
     /// </summary>
     /// <remarks>
-    /// Enable/Disable persist the user's preference. Botbase restrictions temporarily
-    /// override it without changing saved settings. Casting checks include masked
-    /// finishers and damaging heals, even when reached through a single-target rotation.
+    /// Enable/Disable persist the user's rotation preference. Strict casting checks
+    /// apply only to the PvE botbase capability restriction, leaving ordinary toggles
+    /// and PvP casting unchanged. Both paths share this control.
     /// </remarks>
     public static class AoeControl
     {
@@ -34,23 +34,27 @@ namespace Magitek.Utilities
 
         public static void Set(bool enabled) => Enabled = enabled;
 
-        private static bool RestrictedByBotbase => !WorldManager.InPvP
+        // Match Magitek's PvP dispatch, including the manually selected PvP routine.
+        // A saved PvE toggle must not disable casts where that toggle is unavailable.
+        private static bool InPvpMode => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine;
+
+        internal static bool RestrictedByBotbase => !InPvpMode
             && RoutineManager.IsAnyDisallowed(CapabilityFlags.Aoe);
 
         // Suppress lasting effects from route entry: an earlier summon or ground
         // effect cannot be recalled when the botbase later disables AoE for a pack.
         internal static void Prepare(ushort territory) => _preparedTerritory = territory;
 
-        private static bool Preparing => !WorldManager.InPvP && _preparedTerritory != 0
+        private static bool Preparing => !InPvpMode && _preparedTerritory != 0
             && DutyManager.InInstance && WorldManager.ZoneId == _preparedTerritory;
 
         // Called on the bot thread by readiness, casting and cast tracking. Keeping
-        // the rule here prevents individual rotations from bypassing the AoE switch.
+        // the rule here prevents individual rotations from bypassing the capability.
         internal static bool Allows(SpellData spell, GameObject target)
         {
-            var enabled = Enabled;
+            var restricted = RestrictedByBotbase;
             var preparing = Preparing;
-            if (enabled && !preparing)
+            if (!restricted && !preparing)
                 return true;
 
             if (spell == null || target == null || !target.IsValid)
@@ -63,7 +67,7 @@ namespace Magitek.Utilities
             if (HasPersistentDamage(spell.Id) || HasPersistentDamage(effective.Id))
                 return false;
 
-            if (enabled)
+            if (!restricted)
                 return true;
 
             // RB cast type 1 with zero radius/effect range describes one actor.
@@ -75,7 +79,7 @@ namespace Magitek.Utilities
 
             // An ordered-kill restriction also forbids multi-dotting another enemy.
             // The routine must never change the target selected by the botbase.
-            return !RestrictedByBotbase || !(target is BattleCharacter enemy && enemy.CanAttack)
+            return !(target is BattleCharacter enemy && enemy.CanAttack)
                 || target.ObjectId == Core.Me.CurrentTarget?.ObjectId;
         }
 
