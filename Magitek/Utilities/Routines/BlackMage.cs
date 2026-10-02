@@ -109,8 +109,11 @@ namespace Magitek.Utilities.Routines
         public static readonly uint MegaEther = 13638;
         public static readonly uint SuperEther = 23168;
 
-        // The AoE rotation's entry condition, shared so single-target logic can defer to it.
-        public static bool InAoeRotation => BlackMageSettings.Instance.UseAoe
+        // Keep single-target spells available when AoE control prohibits Flare Star.
+        internal static bool HoldForFlareStar => AstralSoulStacks == 6 && AoeControl.Enabled;
+
+        // Single-target logic must not defer to an AoE rotation disabled by the botbase.
+        public static bool InAoeRotation => AoeControl.Enabled && BlackMageSettings.Instance.UseAoe
             && Core.Me.CurrentTarget.EnemiesNearby(10).Count() >= BlackMageSettings.Instance.AoeEnemies;
     }
 }

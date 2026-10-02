@@ -10,6 +10,11 @@ namespace Magitek.Extensions
     {
         public static void PetCast(this PetSpellData spell, GameObject tar, [CallerMemberName] string name = "")
         {
+            // Pet commands lack the spell geometry used by AoeControl; do not
+            // let this direct dispatch bypass a temporary PvE capability restriction.
+            if (global::Magitek.Utilities.AoeControl.RestrictedByBotbase)
+                return;
+
             if (Core.Me.Pet == null)
                 return;
 

@@ -36,6 +36,7 @@ namespace Magitek.Logic.Roles
             if (!BaseSettings.Instance.ForceLimitBreak)
                 return false;
 
+            // Direct limit-break dispatch must honor the same AoE control as spells.
             //LB 3
             if (PartyManager.NumMembers == 8
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak3Spell)
@@ -43,7 +44,8 @@ namespace Magitek.Logic.Roles
             {
                 // Only clear the toggle when the action actually fired. Clearing it on a failed
                 // attempt silently discards a limit break the user explicitly asked for.
-                if (!ActionManager.DoActionLocation(limitBreak3Spell.Id, Core.Me.CurrentTarget.Location))
+                if (!AoeControl.Allows(limitBreak3Spell, Core.Me.CurrentTarget)
+                    || !ActionManager.DoActionLocation(limitBreak3Spell.Id, Core.Me.CurrentTarget.Location))
                     return false;
 
                 BaseSettings.Instance.ForceLimitBreak = false;
@@ -57,8 +59,8 @@ namespace Magitek.Logic.Roles
                 && !Casting.SpellCastHistory.Any(s => s.Spell == limitBreak2Spell)
                 && gcd.Cooldown.TotalMilliseconds < 500)
             {
-                if (!ActionManager.DoActionLocation(limitBreak2Spell.Id, Core.Me.CurrentTarget.Location)
-                    && !ActionManager.DoActionLocation(limitBreak1Spell.Id, Core.Me.CurrentTarget.Location))
+                if ((!AoeControl.Allows(limitBreak2Spell, Core.Me.CurrentTarget) || !ActionManager.DoActionLocation(limitBreak2Spell.Id, Core.Me.CurrentTarget.Location))
+                    && (!AoeControl.Allows(limitBreak1Spell, Core.Me.CurrentTarget) || !ActionManager.DoActionLocation(limitBreak1Spell.Id, Core.Me.CurrentTarget.Location)))
                     return false;
 
                 BaseSettings.Instance.ForceLimitBreak = false;

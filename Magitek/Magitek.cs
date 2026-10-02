@@ -57,6 +57,25 @@ namespace Magitek
             }
         }
 
+        /// <summary>
+        /// Reports whether a job's PvE casts honor the botbase's AoE restriction.
+        /// </summary>
+        /// <param name="job">The job the caller plans to use; no live game read occurs.</param>
+        /// <returns>True for the 21 normal combat jobs covered by AoE control.</returns>
+        /// <remarks>
+        /// Callers own target order and must disallow CapabilityFlags.Aoe before combat.
+        /// This covers Magitek casts, not existing effects, external actions or PvP.
+        /// </remarks>
+        public bool SupportsStrictAoeSuppression(ClassJobType job) => AoeControl.Supports(job);
+
+        /// <summary>Prevents lasting damage effects before an ordered Variant pack is approached.</summary>
+        /// <param name="territory">Variant territory to prepare, or zero to release preparation.</param>
+        /// <remarks>
+        /// Call on the bot thread at entry/recovery. Ordinary AoE remains available;
+        /// stop and shutdown clear preparation without changing saved settings.
+        /// </remarks>
+        public void PrepareStrictAoeSuppression(ushort territory) => AoeControl.Prepare(territory);
+
         public override void Initialize()
         {
             Logger.WriteInfo($"Initializing Version: {LocalVersion} ...");
@@ -256,6 +275,7 @@ namespace Magitek
 
         public void OnStop(BotBase bot)
         {
+            AoeControl.Prepare(0);
             OverlayManager.StopMainOverlay();
             OverlayManager.StopCombatMessageOverlay();
             OverlayManager.StopPvpAggroCountOverlay(); // Stop PvP overlay when bot stops
@@ -434,6 +454,7 @@ namespace Magitek
 
         public override void ShutDown()
         {
+            AoeControl.Prepare(0);
             // Stop overlays FIRST to prevent WPF resource errors from unloaded assembly
             try
             {

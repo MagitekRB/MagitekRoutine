@@ -31,8 +31,7 @@ namespace Magitek.Logic.BlackMage
             if (AstralStacks == 0 && UmbralStacks == 0)
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            if (BlackMageRoutine.HoldForFlareStar)
                 return false;
 
             // If we're moving in combat
@@ -71,8 +70,7 @@ namespace Magitek.Logic.BlackMage
             if (Casting.LastSpellWas(Spells.Despair))
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            if (BlackMageRoutine.HoldForFlareStar)
                 return false;
 
             if (UmbralStacks > 0)
@@ -105,8 +103,7 @@ namespace Magitek.Logic.BlackMage
             if (Spells.Fire4.IsKnown())
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            if (BlackMageRoutine.HoldForFlareStar)
                 return false;
 
             //only use in astral fire
@@ -169,8 +166,7 @@ namespace Magitek.Logic.BlackMage
                 && Core.Me.CurrentMana < 8400)
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            if (BlackMageRoutine.HoldForFlareStar)
                 return false;
 
             // Don't block the Fire III transition on Triplecast.
@@ -281,8 +277,7 @@ namespace Magitek.Logic.BlackMage
                 || Casting.LastSpellWas(Spells.ManaFont))
                 return false;
 
-            //If flarestar is ready, cast it
-            if (AstralSoulStacks == 6)
+            if (BlackMageRoutine.HoldForFlareStar)
                 return false;
 
             if (AstralStacks < 3 || UmbralStacks == 3)

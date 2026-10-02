@@ -32,6 +32,32 @@ internal class MagitekProxy : CombatRoutine
     public override ClassJobType[] Class => ActualRoutine?.Class ?? new[] { ClassJobType.Adventurer };
     public override CapabilityFlags SupportedCapabilities => ActualRoutine?.SupportedCapabilities ?? CapabilityFlags.None;
 
+    /// <summary>
+    /// Forwards the optional ordered-target safety promise through the hot-reload proxy.
+    /// Older or malformed inner routines must not accidentally advertise splash suppression.
+    /// </summary>
+    /// <param name="job">Job whose offensive area actions must obey an explicit AoE lease.</param>
+    /// <returns>True only when the current inner routine implements and accepts the exact contract.</returns>
+    public bool SupportsStrictAoeSuppression(ClassJobType job)
+    {
+        var routine = ActualRoutine;
+        if (routine == null)
+            return false;
+
+        try
+        {
+            var method = routine.GetType().GetMethod(nameof(SupportsStrictAoeSuppression),
+                BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(ClassJobType) }, null);
+            return method != null && method.ReturnType == typeof(bool) && !method.ContainsGenericParameters &&
+                method.Invoke(routine, new object[] { job }) is true;
+        }
+        catch
+        {
+            // An unavailable or incompatible implementation must not opt a route in.
+            return false;
+        }
+    }
+
     public override void Initialize()
     {
         ActualRoutine?.Initialize();

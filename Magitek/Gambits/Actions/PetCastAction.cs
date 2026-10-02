@@ -21,6 +21,11 @@ namespace Magitek.Gambits.Actions
 
         public override async Task<bool> Execute(ObservableCollection<IGambitCondition> conditions)
         {
+            // Direct pet commands must honor the PvE capability restriction without
+            // letting a saved rotation preference interfere with PvP or support pets.
+            if (global::Magitek.Utilities.AoeControl.RestrictedByBotbase)
+                return false;
+
             if (Core.Me.Pet == null)
                 return false;
 

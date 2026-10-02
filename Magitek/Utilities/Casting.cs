@@ -78,6 +78,14 @@ namespace Magitek.Utilities
             if (!CastingTime.IsRunning)
                 return false;
 
+            // AoE can be disabled during a cast. Cancel only a tracked routine
+            // cast; already-resolved effects cannot be recalled here.
+            if (!AoeControl.Allows(CastingSpell, SpellTarget))
+            {
+                await CancelCast("AoE control no longer permits this action");
+                return true;
+            }
+
             await GambitLogic.ToastGambits();
 
             #region Debug and Target Checks

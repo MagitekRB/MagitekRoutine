@@ -1,24 +1,27 @@
+using ff14bot;
+using ff14bot.Enums;
+using ff14bot.Managers;
+using ff14bot.Objects;
+using Magitek.Extensions;
 using Magitek.Models.Account;
 
 namespace Magitek.Utilities
 {
     /// <summary>
-    /// Global gate for AoE ability usage across every job.
-    /// When disabled, all AoE damage decision points fall through to their
-    /// single-target fallback. Per-job settings are left untouched, so
-    /// re-enabling restores prior behavior exactly.
-    ///
-    /// Backed by the persisted <see cref="BaseSettings.EnableAoe"/> setting, so
-    /// state survives restarts and stays in sync with the overlay checkbox.
-    /// Intended to also be driven programmatically by external/third-party code:
-    ///   Magitek.Utilities.AoeControl.Disable();
-    ///   Magitek.Utilities.AoeControl.Enable();
+    /// Controls AoE rotation selection and temporary botbase casting restrictions.
     /// </summary>
+    /// <remarks>
+    /// Enable/Disable persist the user's rotation preference. Strict casting checks
+    /// apply only to the PvE botbase capability restriction, leaving ordinary toggles
+    /// and PvP casting unchanged. Both paths share this control.
+    /// </remarks>
     public static class AoeControl
     {
+        private static ushort _preparedTerritory;
+
         public static bool Enabled
         {
-            get => BaseSettings.Instance.EnableAoe;
+            get => BaseSettings.Instance.EnableAoe && !RestrictedByBotbase;
             private set => BaseSettings.Instance.EnableAoe = value;
         }
 
@@ -26,8 +29,85 @@ namespace Magitek.Utilities
 
         public static void Disable() => Enabled = false;
 
-        public static void Toggle() => Enabled = !Enabled;
+        // Toggle the saved preference, not the temporarily restricted value.
+        public static void Toggle() => Enabled = !BaseSettings.Instance.EnableAoe;
 
         public static void Set(bool enabled) => Enabled = enabled;
+
+        // Match Magitek's PvP dispatch, including the manually selected PvP routine.
+        // A saved PvE toggle must not disable casts where that toggle is unavailable.
+        private static bool InPvpMode => WorldManager.InPvP || BaseSettings.Instance.ActivePvpCombatRoutine;
+
+        internal static bool RestrictedByBotbase => !InPvpMode
+            && RoutineManager.IsAnyDisallowed(CapabilityFlags.Aoe);
+
+        // Suppress lasting effects from route entry: an earlier summon or ground
+        // effect cannot be recalled when the botbase later disables AoE for a pack.
+        internal static void Prepare(ushort territory) => _preparedTerritory = territory;
+
+        private static bool Preparing => !InPvpMode && _preparedTerritory != 0
+            && DutyManager.InInstance && WorldManager.ZoneId == _preparedTerritory;
+
+        // Called on the bot thread by readiness, casting and cast tracking. Keeping
+        // the rule here prevents individual rotations from bypassing the capability.
+        internal static bool Allows(SpellData spell, GameObject target)
+        {
+            var restricted = RestrictedByBotbase;
+            var preparing = Preparing;
+            if (!restricted && !preparing)
+                return true;
+
+            if (spell == null || target == null || !target.IsValid)
+                return false;
+
+            var effective = spell.Masked();
+            if (effective == null)
+                return false;
+
+            if (HasPersistentDamage(spell.Id) || HasPersistentDamage(effective.Id))
+                return false;
+
+            if (!restricted)
+                return true;
+
+            // RB cast type 1 with zero radius/effect range describes one actor.
+            // Reject unknown geometry (including NaN) instead of letting a masked
+            // finisher through. This conservatively also suppresses area support.
+            if (spell.Id == 0 || effective.Id == 0 || effective.RawCastType != 1
+                || effective.Radius != 0 || effective.EffectRange != 0 || effective.GroundTarget)
+                return false;
+
+            // An ordered-kill restriction also forbids multi-dotting another enemy.
+            // The routine must never change the target selected by the botbase.
+            return !(target is BattleCharacter enemy && enemy.CanAttack)
+                || target.ObjectId == Core.Me.CurrentTarget?.ObjectId;
+        }
+
+        // Only advertise ordinary PvE jobs whose dispatch paths use this control.
+        // Limited-job autonomous familiars are outside that contract.
+        internal static bool Supports(ClassJobType job) => job is
+            ClassJobType.Paladin or ClassJobType.Warrior or ClassJobType.DarkKnight or ClassJobType.Gunbreaker
+            or ClassJobType.WhiteMage or ClassJobType.Scholar or ClassJobType.Astrologian or ClassJobType.Sage
+            or ClassJobType.Monk or ClassJobType.Dragoon or ClassJobType.Ninja or ClassJobType.Samurai
+            or ClassJobType.Reaper or ClassJobType.Viper or ClassJobType.Bard or ClassJobType.Machinist
+            or ClassJobType.Dancer or ClassJobType.BlackMage or ClassJobType.Summoner or ClassJobType.RedMage
+            or ClassJobType.Pictomancer;
+
+        // Spells.cs and Global action metadata captured 2026-09-30. These actions
+        // can keep dealing damage after the next cast is blocked; summon and
+        // retaliation buttons have single-actor geometry, so shape alone is unsafe.
+        private static bool HasPersistentDamage(uint id) => id is
+            44 or 36923 // Vengeance / Damnation: retaliation
+            or 16472 // Living Shadow
+            or 2864 or 16501 // Rook Autoturret / Automaton Queen
+            or 7427 or 25831 or 36992 // Bahamut / Phoenix / Solar Bahamut
+            or 25802 or 25803 or 25804 // Ruby / Topaz / Emerald summon buttons
+            or 25805 or 25806 or 25807 or 25838 or 25839 or 25840 // Egi upgrades
+            or 25800 or 3581 // Aethercharge / Trance can mask to a demi summon
+            or 3639 // Salted Earth
+            or 2270 // Doton
+            or 25837 // Slipstream
+            or 7439 or 8324 // Earthly Star / Stellar Detonation
+            or 7418; // Flamethrower
     }
 }
