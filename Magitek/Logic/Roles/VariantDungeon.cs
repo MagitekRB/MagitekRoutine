@@ -92,6 +92,12 @@ namespace Magitek.Logic.Roles
             if (!IsInVariantDungeon())
                 return false;
 
+            // A Ninja's mudra chain and Ten Chi Jin are broken by any other action, and a broken Kassatsu
+            // chain loses the Kassatsu too. These run before the job's rotation on every pulse, so wait out
+            // the chain: it lasts a second or two, and the Mudra status can never outlive six seconds.
+            if (Core.Me.HasAura(Auras.Mudra) || Core.Me.HasMyAura(Auras.TenChiJin))
+                return false;
+
             if (await VariantRaise()) return true;
             if (await VariantCure()) return true;
             if (await VariantRampart()) return true;
