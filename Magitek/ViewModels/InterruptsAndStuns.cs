@@ -5,6 +5,7 @@ using Magitek.Utilities;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using PropertyChanged;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -18,6 +19,7 @@ namespace Magitek.ViewModels
         public static InterruptsAndStuns Instance => _instance ?? (_instance = new InterruptsAndStuns());
 
         private readonly string _interruptsAndStunsFile = @"Settings/" + Core.Me.Name + "/Magitek/InterruptsAndStuns.json";
+        private readonly object _saveLock = new();
 
         public InterruptsAndStuns()
         {
@@ -68,10 +70,22 @@ namespace Magitek.ViewModels
 
         public void Save()
         {
-            var data = JsonConvert.SerializeObject(ActionList, Formatting.Indented);
-            var file = new FileInfo(_interruptsAndStunsFile);
-            file.Directory?.Create();
-            File.WriteAllText(_interruptsAndStunsFile, data);
+            // Same shape as Dispelling.Save: two saves can meet when a plugin pulses RebornBuddy on a second thread, and a
+            // failed write waits for the next save. The path carries the character name, so it stays out of the message.
+            lock (_saveLock)
+            {
+                try
+                {
+                    var data = JsonConvert.SerializeObject(ActionList, Formatting.Indented);
+                    var file = new FileInfo(_interruptsAndStunsFile);
+                    file.Directory?.Create();
+                    File.WriteAllText(_interruptsAndStunsFile, data);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error($"[Interrupts and Stuns] Not saved this time ({e.GetType().Name}); the next save will try again");
+                }
+            }
         }
 
         private void SaveAs()
