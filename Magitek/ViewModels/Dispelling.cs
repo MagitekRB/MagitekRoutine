@@ -6,6 +6,7 @@ using Magitek.Utilities.Collections;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using PropertyChanged;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ namespace Magitek.ViewModels
         public static Dispelling Instance => _instance ?? (_instance = new Dispelling());
 
         private readonly string _dispelsFile = @"Settings/" + Core.Me.Name + "/Magitek/Dispels.json";
+        private readonly object _saveLock = new();
 
         private Dispelling()
         {
@@ -67,10 +69,23 @@ namespace Magitek.ViewModels
 
         public void Save()
         {
-            var data = JsonConvert.SerializeObject(StatusList, Formatting.Indented);
-            var file = new FileInfo(_dispelsFile);
-            file.Directory?.Create();
-            File.WriteAllText(_dispelsFile, data);
+            // Pulse and ShutDown both save this file, and a plugin can run RebornBuddy's pulse on a second thread, so two
+            // saves can meet. A failed write is left for the next save instead of closing RebornBuddy. The message names
+            // only the exception type: the file path carries the character name.
+            lock (_saveLock)
+            {
+                try
+                {
+                    var data = JsonConvert.SerializeObject(StatusList, Formatting.Indented);
+                    var file = new FileInfo(_dispelsFile);
+                    file.Directory?.Create();
+                    File.WriteAllText(_dispelsFile, data);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error($"[Dispels] Not saved this time ({e.GetType().Name}); the next save will try again");
+                }
+            }
         }
 
         private void SaveAs()

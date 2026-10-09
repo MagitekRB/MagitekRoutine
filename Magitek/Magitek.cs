@@ -35,6 +35,7 @@ namespace Magitek
     {
         private static SettingsWindow _form;
         private DateTime _pulseLimiter, _saveFormTime;
+        private int _pulseRunning;
         private ClassJobType CurrentJob { get; set; }
         private ushort CurrentZone { get; set; }
 
@@ -335,6 +336,25 @@ namespace Magitek
         }
 
         public override void Pulse()
+        {
+            // A plugin can call RebornBuddy's pulse from its own thread while the bot thread is pulsing, which runs this
+            // method twice at once: both copies update the same enemy tracking records and both save the settings files.
+            // One pulse at a time; a call that arrives while another is running is skipped, as that pulse is already
+            // doing this frame's work.
+            if (System.Threading.Interlocked.CompareExchange(ref _pulseRunning, 1, 0) != 0)
+                return;
+
+            try
+            {
+                PulseOnce();
+            }
+            finally
+            {
+                System.Threading.Volatile.Write(ref _pulseRunning, 0);
+            }
+        }
+
+        private void PulseOnce()
         {
             // Early return if bot is shutting down to prevent accessing cached objects during cancellation
             if (!TreeRoot.IsRunning)
