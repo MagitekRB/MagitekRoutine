@@ -171,7 +171,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.RadiantAegis.IsKnownAndReady())
                 return false;
 
-            if (Core.Me.HasAura(Auras.RadiantAegis))
+            if (Utilities.Routines.Summoner.RadiantAegisUpOrLanding)
                 return false;
 
             if (Core.Me.CurrentHealthPercent >= SummonerSettings.Instance.RadiantAegisHPThreshold)
@@ -186,7 +186,10 @@ namespace Magitek.Logic.Summoner
             if (!Combat.Enemies.All(x => x.TargetCharacter == Core.Me && x.IsCasting))
                 return false;
 
-            return await Spells.RadiantAegis.CastAura(Core.Me, Auras.RadiantAegis);
+            // Cast, not CastAura: CastAura then waits up to 3s for the shield with the player as
+            // its caster, but Carbuncle is the caster, so every press here parked the whole
+            // rotation for the full 3s - 37.7s without a GCD in one dungeon run.
+            return await Spells.RadiantAegis.Cast(Core.Me);
         }
 
         public static async Task<bool> LuxSolaris()
@@ -200,6 +203,18 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.HasAura(Auras.RefulgentLux))
                 return false;
 
+            // Expiry dump: the heal is free and the charge is about to vanish, so spend it
+            // regardless of anyone's health rather than let it expire unused. Never on a fresh
+            // charge: for about a second after Solar Bahamut lands, the charge's time left reads
+            // wrong and can pass for one about to expire (13/13 field casts once came 0.1-1.3s
+            // after the summon). The charge lasts 30s from the summon, whose 60s recast (shortened
+            // by spell speed) then still has well over 50s to run, while in the charge's last 4s it
+            // has 34s or less. So the dump also waits until the recast is down to 45s, about when
+            // the demi leaves, which a fresh charge cannot reach whatever its time left reads.
+            if (Utilities.Routines.Summoner.DemiSummonCooldownMs <= 45000
+                && Core.Me.HasAuraExpiringWithin(Auras.RefulgentLux, msRemaining: 4000))
+                return await Spells.LuxSolaris.Cast(Core.Me);
+
             if (Globals.InParty)
             {
                 var needHealing = PartyManager.NumMembers > 4 ? 3 : 2;
@@ -209,7 +224,7 @@ namespace Magitek.Logic.Summoner
             }
             else
             {
-                if (Core.Me.CurrentHealthPercent <= SummonerSettings.Instance.LuxSolarisHpPercent)
+                if (Core.Me.CurrentHealthPercent > SummonerSettings.Instance.LuxSolarisHpPercent)
                     return false;
             }
 

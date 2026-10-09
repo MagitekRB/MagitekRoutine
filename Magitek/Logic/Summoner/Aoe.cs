@@ -49,7 +49,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Deathflare.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Deathflare, SummonerSettings.Instance.SmartAoe);
@@ -71,7 +71,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Sunflare.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Sunflare, SummonerSettings.Instance.SmartAoe);
@@ -93,11 +93,18 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Rekindle.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var targetNeedsHealing = Group.CastableAlliesWithin30
                 .FirstOrDefault(x => x.CurrentHealthPercent < SummonerSettings.Instance.RekindleHPThreshold);
+
+            // Solo the ally lists are empty (they are built from the party roster), so the search
+            // above never finds us: check our own health, as Physick and Lux Solaris do out of party.
+            if (targetNeedsHealing == null
+                && !Globals.InParty
+                && Core.Me.CurrentHealthPercent < SummonerSettings.Instance.RekindleHPThreshold)
+                targetNeedsHealing = Core.Me;
 
             if (targetNeedsHealing == null)
                 return false;
@@ -122,9 +129,10 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.HasAura(Auras.IfritsFavor))
                 return false;
 
-            if (SmnResources.ElementalAttunement > 1)
-                return false;
-
+            // No attunement gate: the game's only precondition is Ifrit's Favor, and the
+            // guides' buff-window sequence opens the phase with the dash before the Rites
+            // (Crimson Cyclone -> Crimson Strike -> Ruby Rites). Holding it
+            // behind spent Rubies was an invented ordering.
             var target = Combat.SmartAoeTarget(Spells.CrimsonCyclone, SummonerSettings.Instance.SmartAoe);
 
             if (target == null)
@@ -227,7 +235,7 @@ namespace Magitek.Logic.Summoner
             //if (ArcResources.TranceTimer + SmnResources.TranceTimer == 0)
             //    return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
@@ -249,7 +257,7 @@ namespace Magitek.Logic.Summoner
             if (!Spells.SearingFlash.IsKnownAndReady())
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             if (!Core.Me.HasAura(Auras.RubysGlimmer))
@@ -274,13 +282,19 @@ namespace Magitek.Logic.Summoner
             if (!Spells.Outburst.IsKnownAndReady())
                 return false;
 
-            if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+            if (!AoeControl.Enabled)
                 return false;
 
             BattleCharacter target;
 
+            // Brand of Purgatory and Umbral Flare hit an 8y circle while the rest of the family hits
+            // 5y — count the 3+ breakpoint (and score Smart AoE clusters) with the radius of the
+            // spell that will actually be cast, so an enemy standing 5-8y out still counts.
             if (Core.Me.SummonedPet() == SmnPets.Phoenix)
             {
+                if (Core.Me.CurrentTarget.EnemiesNearby(Spells.BrandofPurgatory.Radius).Count() < 3)
+                    return false;
+
                 target = Combat.SmartAoeTarget(Spells.BrandofPurgatory, SummonerSettings.Instance.SmartAoe);
 
                 if (target == null || Core.Me.CurrentTarget == null)
@@ -289,6 +303,22 @@ namespace Magitek.Logic.Summoner
                 return await Spells.BrandofPurgatory.Cast(target);
             }
 
+            if (Core.Me.SummonedPet() == SmnPets.SolarBahamut)
+            {
+                if (Core.Me.CurrentTarget.EnemiesNearby(Spells.UmbralFlare.Radius).Count() < 3)
+                    return false;
+
+                target = Combat.SmartAoeTarget(Spells.UmbralFlare, SummonerSettings.Instance.SmartAoe);
+
+                if (target == null || Core.Me.CurrentTarget == null)
+                    return false;
+
+                return await Spells.UmbralFlare.Cast(target);
+            }
+
+            if (Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
+                return false;
+
             target = Combat.SmartAoeTarget(Spells.PreciousBrilliance, SummonerSettings.Instance.SmartAoe);
 
             if (target == null || Core.Me.CurrentTarget == null)
@@ -296,9 +326,6 @@ namespace Magitek.Logic.Summoner
 
             if (Core.Me.SummonedPet() == SmnPets.Bahamut)
                 return await Spells.AstralFlare.Cast(target);
-
-            if (Core.Me.SummonedPet() == SmnPets.SolarBahamut)
-                return await Spells.UmbralFlare.Cast(target);
 
             if (Spells.AstralFlare.IsKnownAndReadyAndCastableAtTarget() && SmnResources.TranceTimer > 0 && Core.Me.SummonedPet() == SmnPets.Carbuncle) //It means we're in Dreadwyrm Trance
                 return await Spells.AstralFlare.Cast(target);
@@ -331,7 +358,7 @@ namespace Magitek.Logic.Summoner
             if (!AoeControl.Enabled || Core.Me.CurrentTarget.EnemiesNearby(5).Count() < 3)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Painflare, SummonerSettings.Instance.SmartAoe);
@@ -361,13 +388,48 @@ namespace Magitek.Logic.Summoner
                 || Core.Me.SummonedPet() == SmnPets.Phoenix)
                 return false;
 
-            if ((SmnResources.ActivePet == SmnResources.ActivePetType.Garuda
-                || SmnResources.ActivePet == SmnResources.ActivePetType.Titan)
-                && SmnResources.ElementalAttunement > 0)
+            // A held Further Ruin is lost two ways: Energy Drain and Energy Siphon re-grant it without
+            // checking it (their 60s recast matches the buff's 60s, so refresh and expiry come
+            // together), and the next demi summon, pressed as soon as it is ready and the primal has
+            // left the field, blocks Ruin IV for its 15s - carried through the demi, the refresh falls
+            // due around the next Ifrit phase's opening GCDs, which outrank Ruin IV. Either recast three
+            // GCDs away releases the hold; with two, the warning came after the last slot Ruin IV could win
+            // whenever the demi, Crimson Cyclone/Strike or a heal took them. Both are read from
+            // recasts, not from the buff, whose reading is wrong for about a second after each grant
+            // and broke the hold on the GCD right after Energy Drain.
+            var gcdMs = GlobalCooldown.AdjustedCooldownMs;
+            var refreshDue = Spells.EnergyDrain.Cooldown.TotalMilliseconds <= 3 * gcdMs;
+
+            // Only a demi the rotation can summon counts: with its toggle off the ready recast takes
+            // no slot, and below Summon Bahamut the trance keeps Carbuncle out, where Ruin IV still
+            // goes out ahead of the trance's spells. A demi held back by the end-of-pull throttle
+            // still counts, which only spends Further Ruin before the pull ends.
+            // On a Phoenix turn the Summon Bahamut button casts Phoenix too, so either toggle summons it.
+            var nextDemiEnabled = PhoenixIsNext
+                ? SummonerSettings.Instance.SummonPhoenix || SummonerSettings.Instance.SummonBahamut
+                : SummonerSettings.Instance.SummonBahamut;
+            var demiCooldownMs = Spells.SummonBahamut.IsKnown() && nextDemiEnabled
+                ? DemiSummonCooldownMs
+                : double.MaxValue;
+
+            // Titan's and Garuda's attunement spells are all instant, so there is no movement for
+            // Ruin IV to cover there: keep it for the Ifrit phase.
+            if (!refreshDue
+                && demiCooldownMs > 3 * gcdMs
+                && (AttunedGem == SmnResources.ActivePetType.Garuda
+                    || AttunedGem == SmnResources.ActivePetType.Titan))
                 return false;
 
-            if (SmnResources.ActivePet == SmnResources.ActivePetType.Ifrit
-                && (SmnResources.ElementalAttunement > 1 || !MovementManager.IsMoving))
+            // While moving in an Ifrit phase, Ruby stacks are unspendable (Ruby Rite is a hardcast),
+            // so Ruin IV is the guide-prescribed buffer at ANY stack count. The old attunement > 1
+            // clause only ever had effect while moving — exactly when Ruin IV was the only castable
+            // GCD — and stalled the whole routine at the start of an Ifrit phase. A due demi releases
+            // it here too, at any stack count: the demi is summoned as soon as Ifrit has left the field,
+            // Rubies or not, and blocks Ruin IV for its 15s.
+            if (!refreshDue
+                && demiCooldownMs > 3 * gcdMs
+                && AttunedGem == SmnResources.ActivePetType.Ifrit
+                && !MovementManager.IsMoving)
                 return false;
 
             var target = Combat.SmartAoeTarget(Spells.Ruin4, SummonerSettings.Instance.SmartAoe);

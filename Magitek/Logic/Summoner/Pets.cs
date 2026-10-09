@@ -50,16 +50,22 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
-            if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
+            // The game's only condition is Carbuncle on the field (tooltip: "Can only be executed
+            // while Carbuncle is summoned"). The summon timer runs while a demi or a primal is out
+            // and reaches 0 as Carbuncle returns (within 0.41s in 98 of 98 egi windows), so this
+            // waits out the primal; the gem attunement timer is deliberately NOT read. The game's
+            // own castability check refuses the press in the moment before Carbuncle is back, so no
+            // separate pet check is kept: RB's pet read has never been sampled mid-attunement, and
+            // a lag there would bring back the wait this removes.
+            if (SmnResources.TranceTimer > 0)
                 return false;
 
-            // No gem-flag guard here on purpose: the demi is never delayed for unspent
-            // primal gems. Both guides are explicit - "do not delay demi-primal" (The
-            // Balance downtime flowchart) and "you should skip the remainder of your
-            // primal(s)" (Icy Veins) - and the demi re-grants all three gems on summon,
-            // so nothing is lost. The old guard also read the per-gem toggles as
-            // always-on: one unticked gem summon left its flag permanently set and
-            // deadlocked the entire demi cycle for the rest of the session.
+            // The demi is never delayed for unspent primal gems. Both guides are explicit - "do
+            // not delay demi-primal" (The Balance downtime flowchart) and "you should skip the
+            // remainder of your primal(s)" (Icy Veins). Summoning it deletes the leftover
+            // attunement stacks and any unused Favor, and re-grants all three gems. The old
+            // gem-flag guard also read the per-gem toggles as always-on: one unticked gem summon
+            // left its flag permanently set and deadlocked the entire demi cycle.
 
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL
                 && !(SummonerSettings.Instance.SummonThrottleIgnoreBosses && Core.Me.CurrentTarget.IsBoss())
@@ -89,14 +95,13 @@ namespace Magitek.Logic.Summoner
             if (!Core.Me.InCombat)
                 return false;
 
-            if (SmnResources.AvailablePets.HasFlag(SmnResources.AvailablePetFlags.Phoenix))
-                return false;
+            // No Phoenix-turn guard: the game shows whichever demi is next on this button and casts
+            // it, and RB's AvailablePets Phoenix flag reads a bit the game no longer sets, so the old
+            // guard here never fired.
 
-            if ((SmnResources.PetTimer + SmnResources.TranceTimer) > 0)
-                return false;
-
-            // No gem-flag guard: see SummonPhoenix above - the demi outranks unspent gems.
-            if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
+            // The summon timer only, no pet check - see SummonPhoenix above: the demi outranks
+            // unspent gems, and the game refuses the press until Carbuncle is back.
+            if (SmnResources.TranceTimer > 0)
                 return false;
 
             if (SummonerSettings.Instance.ThrottleTranceSummonsWithTTL

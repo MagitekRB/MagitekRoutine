@@ -17,7 +17,90 @@ namespace Magitek.Utilities.Routines
 
         public static WeaveWindow GlobalCooldown = new WeaveWindow(ClassJobType.Summoner, Spells.Ruin);
 
+        // The gauge byte RB returns as ElementalAttunement is packed on the current client: the
+        // attuned gem in bits 0-1, the stacks left in bits 2-7 (FFXIVClientStructs SummonerGauge).
+        // RB hands it back unmasked - two Ruby stacks read 9, one reads 5 - so read stacks here.
+        public static int AttunementStacks => ActionResourceManager.Summoner.ElementalAttunement >> 2;
+
+        // The gem attuned right now, from the same byte: 1 Ifrit, 2 Titan, 3 Garuda - the order of
+        // RB's ActivePetType. RB's own ActivePet reads the demi cycle (which demi is out or comes
+        // next), not the attuned gem.
+        public static ActionResourceManager.Summoner.ActivePetType AttunedGem =>
+            (ActionResourceManager.Summoner.ActivePetType)(ActionResourceManager.Summoner.ElementalAttunement & 3);
+
+        // What RB calls ActivePet is the demi cycle (FFXIVClientStructs AetherFlags bits 2-3: 0 Bahamut,
+        // 1 Phoenix, 2 and 3 the two Solar Bahamuts), advancing as each demi ends - so between demis it
+        // names the next one. RB's AvailablePets Phoenix flag reads a bit the game no longer sets.
+        public static bool PhoenixIsNext => (int)ActionResourceManager.Summoner.ActivePet == 1;
+
+        /// <summary>
+        /// Weave gate with a stall fallback (the Sage pattern). Bare WeaveWindow.CanWeave() is false
+        /// whenever the GCD is ready, so when no GCD can be cast at all — forced movement in a
+        /// hardcast-only state, or the GCD toggles switched off — every oGCD behind it is locked out
+        /// for the duration. Once a Combat() pass has tried every GCD with the GCD ready and cast none,
+        /// and the last action finished long enough ago, let oGCDs fire anyway.
+        /// </summary>
+        public static bool CanWeave()
+        {
+            if (GlobalCooldown.CanWeave())
+                return true;
+
+            // Idle GCD only: the age check alone also comes true in the tail of every
+            // rolling recast (age passes 1750ms before a 2.5s GCD comes back), exactly
+            // where CanWeave refuses because an oGCD would clip the next GCD. The
+            // fallback exists for a rotation that has genuinely stopped casting.
+            if (Spells.Ruin.Cooldown > System.TimeSpan.Zero || Core.Me.IsCasting)
+                return false;
+
+            // Ready is not stalled: after an instant GCD with nothing woven the age is already past
+            // 1750ms on the pulse the GCD comes back, and an oGCD ordered ahead of the GCDs in
+            // Combat() took that pulse and pushed a castable spell back by its animation lock.
+            // Only a Combat() pass that tried every GCD and cast none proves the stall.
+            if (!gcdStalledLastPass)
+                return false;
+
+            return Casting.LastSpellTimeFinishAge.ElapsedMilliseconds > 1750 + Models.Account.BaseSettings.Instance.UserLatencyOffset;
+        }
+
+        // Set by NoteGcdStall() at the end of a Combat() pass that cast nothing, and moved into
+        // gcdStalledLastPass when the next pass begins: the fallback above reads the previous pass's
+        // verdict at any tick rate, and a pass that casts or returns early leaves it shut.
+        private static bool gcdStallPending;
+        private static bool gcdStalledLastPass;
+
+        public static void BeginCombatPass()
+        {
+            gcdStalledLastPass = gcdStallPending;
+            gcdStallPending = false;
+        }
+
+        /// <summary>
+        /// Called at the end of Combat() once every GCD has declined. Counts only with the GCD ready
+        /// and the target inside spell range, so a rolling recast, or a target still being walked up
+        /// to, never opens the stall fallback.
+        /// </summary>
+        public static void NoteGcdStall()
+        {
+            if (Spells.Ruin.Cooldown <= TimeSpan.Zero && Core.Me.CurrentTarget.WithinSpellRange(Spells.Ruin.Range))
+                gcdStallPending = true;
+        }
+
+        // Stamps when Searing Light first found the demi summon ready-or-imminent and
+        // began waiting for it; bounds the wait so gem phases cannot park the buff.
+        public static long SearingLightHoldStartTick;
+
         private const int DemiImminentMs = 5000;
+
+        // Milliseconds until the next demi summon is off recast, 0 once it is ready. The demis,
+        // Dreadwyrm Trance and Aethercharge share one recast (60s, shortened by spell speed); the
+        // longest recast among the known summons is read, in case one of them is tracked apart from
+        // the one on the button.
+        public static double DemiSummonCooldownMs =>
+            new[] { Spells.SummonSolarBahamut, Spells.SummonBahamut, Spells.SummonPhoenix, Spells.DreadwyrmTrance, Spells.Aethercharge }
+                .Where(s => s.IsKnown())
+                .Select(s => s.Cooldown.TotalMilliseconds)
+                .DefaultIfEmpty(0)
+                .Max();
 
         /// <summary>
         /// Reports SMN burst windows to the state bus. Called every combat pulse via
@@ -50,16 +133,12 @@ namespace Magitek.Utilities.Routines
             // Dreadwyrm Trance gates (TranceTimer > 0 with Carbuncle out): if
             // TranceTimer were the attunement timer it would read 0 during a
             // trance and those gates could never have fired.
-            // ASSUMPTIONS — per-field values were never sampled in combat, only
-            // the Max was ever logged: that TranceTimer stays 0 through gem
-            // phases and runs through 70+ demis both come from the mapping
-            // above. A wrong mapping fails toward a MISSED report (a defensive
-            // weaving during burst), never toward the false report this
-            // replaces, because the pet conjunct below blocks the gem half
-            // regardless: a gem phase keeps its egi out essentially phase-long
-            // (field-observed, with rare ~1s Carbuncle/None blips), and the pet
-            // id can lag a spawn by a pulse or two at any phase edge — again
-            // only ever dropping a report.
+            // MEASURED since (ACT gauge, 2026-09-27/28): TranceTimer runs 15000
+            // through every demi, and also reads 8000 at every egi summon and runs
+            // for the 6-8s the egi is out, reaching 0 as Carbuncle returns. The
+            // pet conjunct below keeps that egi stretch out of the report (the
+            // egi, not a demi, is out then), and the pet id can lag a spawn by a
+            // pulse or two at any phase edge — which only ever drops a report.
             // The no-demi-pet clause exists ONLY for Dreadwyrm Trance (58-69),
             // the one band where a trance is legitimately petless. At 70+ it is
             // disabled (!SummonBahamut known): in a full field-validation run
@@ -118,6 +197,19 @@ namespace Magitek.Utilities.Routines
                 }
             }
         }
+
+        // Carbuncle, not the player, applies Radiant Aegis, so the shield shows up to about 0.9s
+        // after the press (field-measured over 23 presses). Until then both Radiant Aegis paths
+        // would read "no shield" and spend the second charge on top of the first, so a press in
+        // the last 2s counts as the shield being up: one already confirmed into the cast history,
+        // or one still waiting for that confirmation, which can come a pulse or two late.
+        public static bool RadiantAegisUpOrLanding =>
+            Core.Me.HasAura(Auras.RadiantAegis)
+            || Casting.SpellCastHistory.Any(s => s.Spell == Spells.RadiantAegis
+                                              && DateTime.UtcNow - s.TimeCastUtc < TimeSpan.FromMilliseconds(2000))
+            || (Casting.CastingSpell == Spells.RadiantAegis
+                && Casting.CastingTime.IsRunning
+                && Casting.CastingTime.ElapsedMilliseconds < 2000);
 
         public static bool NeedToInterruptCast()
         {

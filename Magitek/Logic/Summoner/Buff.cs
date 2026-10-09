@@ -27,10 +27,10 @@ namespace Magitek.Logic.Summoner
             if (Spells.SummonBahamut.IsKnown())
                 return false;
 
-            if (SmnResources.PetTimer + SmnResources.TranceTimer > 0)
-                return false;
-
-            if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
+            // Like the demis: only the summon timer (a primal still out), never the gem attunement
+            // timer, and no pet check - the game refuses the press until Carbuncle is back. The
+            // trance re-grants all three gems; the guides take the lost leftover stacks over a late trance.
+            if (SmnResources.TranceTimer > 0)
                 return false;
 
             if (Combat.CombatTotalTimeLeft < 15)
@@ -53,7 +53,7 @@ namespace Magitek.Logic.Summoner
             if (Core.Me.CurrentManaPercent > SummonerSettings.Instance.LucidDreamingManaPercent)
                 return false;
 
-            if (!GlobalCooldown.CanWeave())
+            if (!CanWeave())
                 return false;
 
             return await Spells.LucidDreaming.Cast(Core.Me);
@@ -110,11 +110,46 @@ namespace Magitek.Logic.Summoner
                 return false;
 
             if (Spells.SearingLight.Cooldown != TimeSpan.Zero)
+            {
+                Utilities.Routines.Summoner.SearingLightHoldStartTick = 0;
                 return false;
+            }
 
             if (Core.Me.HasAura(Auras.SearingLight))
                 return false;
-                
+
+            // It is an oGCD: without a weave gate it fired the moment the 120s recast ended, clipping
+            // a ready GCD by an animation lock — worst at the aligned pulse where the next GCD is the
+            // demi summon itself. The stall-fallback gate still lets it fire if the GCD cannot roll.
+            if (!CanWeave())
+                return false;
+
+            // Align with the demi window: fired on plain cooldown, the 20s buff opens on the
+            // zero-potency summon GCD and expires one to two GCDs early at the tail — the guides
+            // weave it after the first demi GCD instead. The summon's own recast says where we are:
+            // the demis, Dreadwyrm Trance and Aethercharge share one recast (60s, shortened by
+            // spell speed), so inside any of them it has 40s or more left -> cast; within a few
+            // seconds of ready -> hold for it; no demi in sight (desynced, downtime recovery) ->
+            // cast on cooldown, because staying aligned with the party's two-minute buffs outranks
+            // our own placement. The gauge's summon timer is no demi signal: it also runs for 4-8s
+            // after every egi summon.
+            var summonCooldownMs = DemiSummonCooldownMs;
+
+            // Ready counts as imminent too — field-observed: with the summon at zero the
+            // buff went out 3.8s before the demi. But a ready summon can also sit parked -
+            // behind an egi still on the field, a switched-off demi or the end-of-pull
+            // throttle - so the hold is BOUNDED:
+            // after a few seconds of waiting, alignment with the party's two-minute
+            // buffs wins and the cast goes out anyway.
+            if (summonCooldownMs <= 5000)
+            {
+                if (Utilities.Routines.Summoner.SearingLightHoldStartTick == 0)
+                    Utilities.Routines.Summoner.SearingLightHoldStartTick = System.Environment.TickCount64;
+
+                if (System.Environment.TickCount64 - Utilities.Routines.Summoner.SearingLightHoldStartTick < 8000)
+                    return false;
+            }
+
             //In Shadowbringers, Searing Light was cast by your Carbuncle. In modern FFXIV, it is cast directly by the Summoner.
             //if (Core.Me.SummonedPet() != SmnPets.Carbuncle)
             //    return false;
